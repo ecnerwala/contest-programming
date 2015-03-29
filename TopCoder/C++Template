@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+
+typedef long long ll;
+
+typedef pair<int, int> pii;
+#define A first
+#define B second
+
+class $CLASSNAME$ {
+
+public:
+
+	$RETURNTYPE$ $METHODNAME$($METHODPARAMS$) {
+	}
+};
+
+// vim:ft=cpp
