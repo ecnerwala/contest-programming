@@ -1,0 +1,781 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>C language - cppreference.com</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.21.2">
+
+
+<link rel="shortcut icon" href="../../favicon.ico">
+
+
+
+<link rel="stylesheet" href="../../common/ext.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="../../common/site_modules.css">
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}#toc{display:none}.editsection{display:none}
+/* cache key: mwiki1-mwiki_en_:resourceloader:filter:minify-css:7:472787eddcf4605d11de8c7ef047234f */</style>
+
+<script src="../../common/startup_scripts.js"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"c/language","wgTitle":"c/language","wgCurRevisionId":73120,"wgArticleId":6037,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"c/language","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":0,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":0,"showtoolbar":1,"skin":"cppreference2","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"gadget-ColiruCompiler":1});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});;},{},{});
+/* cache key: mwiki1-mwiki_en_:resourceloader:filter:minify-js:7:ca03345b1e2c4d90a25d968753a73b92 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-c {line-height: normal;}
+.source-c li, .source-c pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for c
+ * CSS class: source-c, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.c.source-c  {font-family:monospace;}
+.c.source-c .imp {font-weight: bold; color: red;}
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;}
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.c.source-c .li2 {font-weight: bold; vertical-align:top;}
+.c.source-c .kw1 {color: #0000dd;}
+.c.source-c .kw2 {color: #0000ff;}
+.c.source-c .kw3 {color: #0000dd;}
+.c.source-c .kw4 {color: #0000ff;}
+.c.source-c .co1 {color: #909090;}
+.c.source-c .co2 {color: #339900;}
+.c.source-c .coMULTI {color: #ff0000; font-style: italic;}
+.c.source-c .es0 {color: #008000; font-weight: bold;}
+.c.source-c .es1 {color: #008000; font-weight: bold;}
+.c.source-c .es2 {color: #008000; font-weight: bold;}
+.c.source-c .es3 {color: #008000; font-weight: bold;}
+.c.source-c .es4 {color: #008000; font-weight: bold;}
+.c.source-c .es5 {color: #008000; font-weight: bold;}
+.c.source-c .br0 {color: #008000;}
+.c.source-c .sy0 {color: #008000;}
+.c.source-c .sy1 {color: #000080;}
+.c.source-c .sy2 {color: #000040;}
+.c.source-c .sy3 {color: #000040;}
+.c.source-c .sy4 {color: #008080;}
+.c.source-c .st0 {color: #008000;}
+.c.source-c .nu0 {color: #000080;}
+.c.source-c .nu6 {color:#000080;}
+.c.source-c .nu8 {color:#000080;}
+.c.source-c .nu12 {color:#000080;}
+.c.source-c .nu16 {color:#000080;}
+.c.source-c .nu17 {color:#000080;}
+.c.source-c .nu18 {color:#000080;}
+.c.source-c .nu19 {color:#000080;}
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;}
+.c.source-c span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/mwiki/skins/cppreference2/csshover.min.htc")}</style><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-c_language skin-cppreference2 action-view cpp-navbar">
+        <!-- header -->
+        
+        <!-- /header -->
+        <!-- content -->
+        <div id="cpp-content-base">
+            <div id="content">
+                <a id="top"></a>
+                <div id="mw-js-message" style="display:none;"></div>
+                                <!-- firstHeading -->
+                <h1 id="firstHeading" class="firstHeading">C language</h1>
+                <!-- /firstHeading -->
+                <!-- bodyContent -->
+                <div id="bodyContent">
+                                        <!-- tagline -->
+                    <div id="siteSub">From cppreference.com</div>
+                    <!-- /tagline -->
+                                        <!-- subtitle -->
+                    <div id="contentSub"><span class="subpages">&lt; <a href="../c.html" title="c">c</a></span></div>
+                    <!-- /subtitle -->
+                                                            <!-- bodycontent -->
+                    <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
+<div class="t-navbar" style="">
+<div class="t-navbar-sep"> </div>
+<div class="t-navbar-head">
+<a href="../c.html" title="c"> C</a><div class="t-navbar-menu"><div>
+<div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"> <strong class="selflink"> Language</strong> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="header.html" title="c/header"> Standard Library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="types.html" title="c/types"> Type support</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="memory.html" title="c/memory"> Dynamic memory management</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="error.html" title="c/error"> Error handling</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="program.html" title="c/program"> Program utilities</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="chrono.html" title="c/chrono"> Date and time utilities</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="string.html" title="c/string"> Strings library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="algorithm.html" title="c/algorithm"> Algorithms</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="numeric.html" title="c/numeric"> Numerics</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="io.html" title="c/io"> Input/output support</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="locale.html" title="c/locale"> Localization support</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="thread.html" title="c/thread"> Thread support</a> <span class="t-mark-rev t-since-c11">(C11)</span> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="atomic.html" title="c/atomic"> Atomic operations</a> <span class="t-mark-rev t-since-c11">(C11)</span> </td></tr>
+</table></div>
+<div></div>
+</div></div>
+</div>
+<div class="t-navbar-sep"> </div>
+<div class="t-navbar-head">
+<strong class="selflink"> C language</strong><div class="t-navbar-menu"><div>
+<div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv-h1"><td colspan="5"> General topics</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="preprocessor.html" title="c/preprocessor"> Preprocessor</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/comments (page does not exist)"> Comments</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="keyword.html" title="c/keyword"> Keywords</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/escape (page does not exist)"> Escape sequences</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/history.html" title="c/language/history"> History of C</a>
+</td></tr>
+<tr class="t-nv-h1"><td colspan="5"> Flow control</td></tr>
+<tr class="t-nv-h2"><td colspan="5"> Conditional execution statements</td></tr>
+<tr class="t-nv-col-table">
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/if.html" title="c/language/if"> <code>if</code> statement</a>
+</td></tr>
+</table></div></td>
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/switch.html" title="c/language/switch"> <code>switch</code> statement</a>
+</td></tr>
+</table></div></td>
+</tr>
+<tr class="t-nv-h2"><td colspan="5"> Iteration statements</td></tr>
+<tr class="t-nv-col-table">
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/for.html" title="c/language/for"> <code>for</code> loop</a>
+</td></tr>
+</table></div></td>
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/while.html" title="c/language/while"> <code>while</code> loop</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/do.html" title="c/language/do"> <code>do-while</code> loop</a>
+</td></tr>
+</table></div></td>
+</tr>
+<tr class="t-nv-h2"><td colspan="5"> Jump statements </td></tr>
+<tr class="t-nv-col-table">
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/continue.html" title="c/language/continue"> <code>continue</code> statement</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/break.html" title="c/language/break"> <code>break</code> statement</a>
+</td></tr>
+</table></div></td>
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/goto.html" title="c/language/goto"> <code>goto</code> statement</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/return.html" title="c/language/return"> <code>return</code> statement</a>
+</td></tr>
+</table></div></td>
+</tr>
+<tr class="t-nv-h1"><td colspan="5"> Functions</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/function (page does not exist)"> function declaration</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/inline (page does not exist)"> inline specifier</a>
+</td></tr>
+<tr class="t-nv-h1"><td colspan="5"> Types</td></tr>
+<tr class="t-nv-col-table">
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/types.html" title="c/language/types"> fundamental types</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/pointer (page does not exist)"> pointer types</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/struct.html" title="c/language/struct"> compound types</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/enum (page does not exist)"> enumeration types</a>
+</td></tr>
+</table></div></td>
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="language/union.html" title="c/language/union"> union types</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/function (page does not exist)"> function types</a>
+</td></tr>
+</table></div></td>
+</tr>
+<tr class="t-nv-h2"><td colspan="5"> Specifiers</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/cv.html" title="c/language/cv"> cv specifiers</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/storage_class_specifiers.html" title="c/language/storage class specifiers"> storage-class specifiers</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/alignas (page does not exist)"> alignas specifier</a> <span class="t-mark-rev t-since-c99">(C99)</span>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/function_specifiers.html" title="c/language/function specifiers"> function specifiers</a> <span class="t-mark-rev t-since-c99">(C99)</span>
+</td></tr>
+<tr class="t-nv-h2"><td colspan="5"> Literals</td></tr>
+<tr class="t-nv-col-table">
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/integer literal (page does not exist)"> integer literals</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/character literal (page does not exist)"> character literals</a>
+</td></tr> 
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/floating literal (page does not exist)"> floating-point literals</a>
+</td></tr>  
+</table></div></td>
+<td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/string literal (page does not exist)"> string literals</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/bool literal (page does not exist)"> boolean literals</a><span class="t-mark-rev t-since-c99">(C99)</span>
+</td></tr>
+</table></div></td>
+</tr>
+<tr class="t-nv-h1"><td colspan="5"> Expressions</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/eval_order.html" title="c/language/eval order"> order of evaluation</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/operators.html" title="c/language/operators"> operators</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/operator_precedence.html" title="c/language/operator precedence"> operator precedence</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/operator_alternative.html" title="c/language/operator alternative"> alternative operators</a>
+</td></tr>
+<tr class="t-nv-h1"><td colspan="5"> Utilities</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="language/typedef.html" title="c/language/typedef"> <code>typedef</code> declaration</a>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/attributes (page does not exist)"> attributes</a> <span class="t-mark-rev t-since-c99">(C99)</span>
+</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/implicit cast (page does not exist)"> casts</a>
+</td></tr>
+<tr class="t-nv-h1"><td colspan="5"> Miscellaneous </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/asm (page does not exist)"> Inline assembly</a>
+</td></tr>
+</table></div>
+<div></div>
+</div></div>
+</div>
+<div class="t-navbar-sep"> </div>
+</div>
+<p>This is a brief reference of available C constructs.
+</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="language.1.html%23General_topics"><span class="tocnumber">1</span> <span class="toctext">General topics</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="language.1.html%23Preprocessor"><span class="tocnumber">1.1</span> <span class="toctext">Preprocessor</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="language.1.html%23Comments"><span class="tocnumber">1.2</span> <span class="toctext">Comments</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="language.1.html%23Keywords"><span class="tocnumber">1.3</span> <span class="toctext">Keywords</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="language.1.html%23ASCII_chart"><span class="tocnumber">1.4</span> <span class="toctext">ASCII chart</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="language.1.html%23Escape_sequences"><span class="tocnumber">1.5</span> <span class="toctext">Escape sequences</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="language.1.html%23History_of_C"><span class="tocnumber">1.6</span> <span class="toctext">History of C</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="language.1.html%23Flow_control"><span class="tocnumber">2</span> <span class="toctext">Flow control</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="language.1.html%23Conditional_execution_statements"><span class="tocnumber">2.1</span> <span class="toctext">Conditional execution statements</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="language.1.html%23Iteration_statements"><span class="tocnumber">2.2</span> <span class="toctext">Iteration statements</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="language.1.html%23Jump_statements"><span class="tocnumber">2.3</span> <span class="toctext">Jump statements</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="language.1.html%23Functions"><span class="tocnumber">3</span> <span class="toctext">Functions</span></a></li>
+<li class="toclevel-1 tocsection-13">
+<a href="language.1.html%23Concepts"><span class="tocnumber">4</span> <span class="toctext">Concepts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="language.1.html%23Scopes_of_identifiers"><span class="tocnumber">4.1</span> <span class="toctext">Scopes of identifiers</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="language.1.html%23Linkages_of_identifiers"><span class="tocnumber">4.2</span> <span class="toctext">Linkages of identifiers</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="language.1.html%23Name_spaces_of_identifiers"><span class="tocnumber">4.3</span> <span class="toctext">Name spaces of identifiers</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="language.1.html%23Storage_durations_of_objects"><span class="tocnumber">4.4</span> <span class="toctext">Storage durations of objects</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="language.1.html%23Types"><span class="tocnumber">4.5</span> <span class="toctext">Types</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="language.1.html%23Representations_of_types"><span class="tocnumber">4.6</span> <span class="toctext">Representations of types</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="language.1.html%23Compatible_type_and_composite_type"><span class="tocnumber">4.7</span> <span class="toctext">Compatible type and composite type</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="language.1.html%23Alignment_of_objects"><span class="tocnumber">4.8</span> <span class="toctext">Alignment of objects</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22">
+<a href="language.1.html%23Conversions"><span class="tocnumber">5</span> <span class="toctext">Conversions</span></a>
+<ul>
+<li class="toclevel-2 tocsection-23"><a href="language.1.html%23Arithmetic_operands"><span class="tocnumber">5.1</span> <span class="toctext">Arithmetic operands</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="language.1.html%23Other_operands"><span class="tocnumber">5.2</span> <span class="toctext">Other operands</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-25">
+<a href="language.1.html%23Declarations"><span class="tocnumber">6</span> <span class="toctext">Declarations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-26"><a href="language.1.html%23Specifiers"><span class="tocnumber">6.1</span> <span class="toctext">Specifiers</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="language.1.html%23Type_Qualifiers"><span class="tocnumber">6.2</span> <span class="toctext">Type Qualifiers</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="language.1.html%23Initializers"><span class="tocnumber">6.3</span> <span class="toctext">Initializers</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="language.1.html%23Literals"><span class="tocnumber">6.4</span> <span class="toctext">Literals</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="language.1.html%23Expressions"><span class="tocnumber">6.5</span> <span class="toctext">Expressions</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="language.1.html%23Utilities"><span class="tocnumber">6.6</span> <span class="toctext">Utilities</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32"><a href="language.1.html%23Miscellaneous"><span class="tocnumber">7</span> <span class="toctext">Miscellaneous</span></a></li>
+<li class="toclevel-1 tocsection-33"><a href="language.1.html%23See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: General topics">edit</a>]</span> <span class="mw-headline" id="General_topics">General topics</span>
+</h3>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Preprocessor">edit</a>]</span> <span class="mw-headline" id="Preprocessor"><a href="../cpp/preprocessor.html" title="cpp/preprocessor"> Preprocessor</a></span>
+</h4>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Comments">edit</a>]</span> <span class="mw-headline" id="Comments"><a href="../cpp/comment.html" title="cpp/comment"> Comments</a></span>
+</h4>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Keywords">edit</a>]</span> <span class="mw-headline" id="Keywords"><a href="keyword.html" title="c/keyword"> Keywords</a></span>
+</h4>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: ASCII chart">edit</a>]</span> <span class="mw-headline" id="ASCII_chart"><a href="language/ascii.html" title="c/language/ascii"> ASCII chart</a></span>
+</h4>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Escape sequences">edit</a>]</span> <span class="mw-headline" id="Escape_sequences"><a href="../cpp/language/escape.html" title="cpp/language/escape"> Escape sequences</a></span>
+</h4>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: History of C">edit</a>]</span> <span class="mw-headline" id="History_of_C"><a href="language/history.html" title="c/language/history"> History of C</a></span>
+</h4>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Flow control">edit</a>]</span> <span class="mw-headline" id="Flow_control">Flow control</span>
+</h3>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Conditional execution statements">edit</a>]</span> <span class="mw-headline" id="Conditional_execution_statements">Conditional execution statements</span>
+</h4>
+<p>Different code paths are executed according to the value of given expression
+</p>
+<ul>
+<li> <a href="language/if.html" title="c/language/if">if</a> executes code conditionally
+</li>
+<li> <a href="language/switch.html" title="c/language/switch">switch</a> executes code according to the value of an integral argument
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Iteration statements">edit</a>]</span> <span class="mw-headline" id="Iteration_statements">Iteration statements</span>
+</h4>
+<p>The same code is executed several times
+</p>
+<ul>
+<li> <a href="language/for.html" title="c/language/for">for</a> executes loop 
+</li>
+<li> <a href="language/while.html" title="c/language/while">while</a> executes loop, checking condition before each iteration
+</li>
+<li> <a href="language/do.html" title="c/language/do">do-while</a> executes loop, checking condition after each iteration
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Jump statements">edit</a>]</span> <span class="mw-headline" id="Jump_statements">Jump statements</span>
+</h4>
+<p>Continue execution at a different location
+</p>
+<ul>
+<li> <a href="language/continue.html" title="c/language/continue">continue</a> skips the remaining part of the enclosing loop body
+</li>
+<li> <a href="language/break.html" title="c/language/break">break</a> terminates the enclosing loop
+</li>
+<li> <a href="language/goto.html" title="c/language/goto">goto</a> continues execution in another location
+</li>
+<li> <a href="language/return.html" title="c/language/return">return</a> terminates execution of the enclosing function
+</li>
+</ul>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Functions">edit</a>]</span> <span class="mw-headline" id="Functions">Functions</span>
+</h3>
+<p>The same code can be reused at different locations in the program
+</p>
+<ul>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/function (page does not exist)"> function declaration</a> declares a function
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/inline (page does not exist)"> inline specifier</a> hints the compiler to insert a function's body directly into the calling code
+</li>
+</ul>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Concepts">edit</a>]</span> <span class="mw-headline" id="Concepts">Concepts</span>
+</h3>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Scopes of identifiers">edit</a>]</span> <span class="mw-headline" id="Scopes_of_identifiers">Scopes of identifiers</span>
+</h4>
+<p><a href="language/scope.html" title="c/language/scope">Scope</a> determines the visibility of an identifier.
+</p>
+<ul>
+<li> <a href="language/function_scope.html" title="c/language/function scope">Function scope</a>
+</li>
+<li> <a href="language/file_scope.html" title="c/language/file scope">File scope</a>
+</li>
+<li> <a href="language/block_scope.html" title="c/language/block scope">Block scope</a>
+</li>
+<li> <a href="language/function_prototype_scope.html" title="c/language/function prototype scope">Function prototype scope</a>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Linkages of identifiers">edit</a>]</span> <span class="mw-headline" id="Linkages_of_identifiers">Linkages of identifiers</span>
+</h4>
+<p><a href="language/linkage.html" title="c/language/linkage">Linkage</a> determines the accessibility of an identifier.
+</p>
+<ul>
+<li> <a href="language/external_linkage.html" title="c/language/external linkage">External linkage</a>
+</li>
+<li> <a href="language/internal_linkage.html" title="c/language/internal linkage">Internal linkage</a>
+</li>
+<li> <a href="language/no_linkage.html" title="c/language/no linkage">No linkage</a>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Name spaces of identifiers">edit</a>]</span> <span class="mw-headline" id="Name_spaces_of_identifiers">Name spaces of identifiers</span>
+</h4>
+<p><a href="language/namespace.html" title="c/language/namespace">Name spaces</a> group identifiers around a particular purpose.
+</p>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Storage durations of objects">edit</a>]</span> <span class="mw-headline" id="Storage_durations_of_objects">Storage durations of objects</span>
+</h4>
+<p><a href="language/storage_duration.html" title="c/language/storage duration">Storage duration</a> determines the lifetime of an object.
+</p>
+<ul>
+<li> <a href="language/static_storage_duration.html" title="c/language/static storage duration">Static storage duration</a>
+</li>
+<li> <a href="language/thread_storage_duration.html" title="c/language/thread storage duration">Thread storage duration</a>
+</li>
+<li> <a href="language/automatic_storage_duration.html" title="c/language/automatic storage duration">Automatic storage duration</a>
+</li>
+<li> <a href="memory.html" title="c/memory">Allocated storage duration</a>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Types">edit</a>]</span> <span class="mw-headline" id="Types">Types</span>
+</h4>
+<p><a href="language/type.html" title="c/language/type">Type</a> determines the interpretation of a value.
+</p>
+<ul>
+<li> <a href="language/types.html" title="c/language/types"> basic types</a> define character, integer and floating point types
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/array (page does not exist)"> array type</a>, contiguously allocated nonempty set of objects with a particular member object type,
+</li>
+<li> <a href="language/struct.html" title="c/language/struct"> structure type</a>, a sequentially allocated nonempty set of member objects
+</li>
+<li> <a href="language/union.html" title="c/language/union"> union type</a> defines types that can hold data in several representations
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/function (page does not exist)"> function type</a> defines function call signatures, that is the types of arguments and the return type
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/pointer (page does not exist)"> pointer type</a>, holding a memory location
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/atomic (page does not exist)"> atomic type</a>, designated by the construct _Atomic
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/enum (page does not exist)"> enumeration type</a> defines types that are able to hold only one of the specified values
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Representations of types">edit</a>]</span> <span class="mw-headline" id="Representations_of_types">Representations of types</span>
+</h4>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Compatible type and composite type">edit</a>]</span> <span class="mw-headline" id="Compatible_type_and_composite_type">Compatible type and composite type</span>
+</h4>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Alignment of objects">edit</a>]</span> <span class="mw-headline" id="Alignment_of_objects">Alignment of objects</span>
+</h4>
+<p><a href="language/alignment.html" title="c/language/alignment">Data alignment</a> can affect performance.
+</p>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Conversions">edit</a>]</span> <span class="mw-headline" id="Conversions">Conversions</span>
+</h3>
+<p><a href="language/conversions.html" title="c/language/conversions">Conversions</a>, implicitly or explicitly, change the value of one data type into a value of another data type.
+</p>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Arithmetic operands">edit</a>]</span> <span class="mw-headline" id="Arithmetic_operands">Arithmetic operands</span>
+</h4>
+<ul>
+<li> <a href="language/integer_conversion_rank.html" title="c/language/integer conversion rank"> Integer conversion rank</a>
+</li>
+<li> <a href="language/boolean_type.html" title="c/language/boolean type"> Boolean type</a>
+</li>
+<li> <a href="language/signed_and_unsigned_integers.html" title="c/language/signed and unsigned integers"> Signed and unsigned integers</a>
+</li>
+<li> <a href="language/real_floating_and_integer.html" title="c/language/real floating and integer"> Real floating and integer</a>
+</li>
+<li> <a href="language/real_floating_types.html" title="c/language/real floating types"> Real floating types</a>
+</li>
+<li> <a href="language/complex_types.html" title="c/language/complex types"> Complex types</a>
+</li>
+<li> <a href="language/real_and_complex.html" title="c/language/real and complex"> Real and complex</a>
+</li>
+<li> <a href="language/usual_arithmetic_conversions.html" title="c/language/usual arithmetic conversions"> Usual arithmetic conversions</a>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Other operands">edit</a>]</span> <span class="mw-headline" id="Other_operands">Other operands</span>
+</h4>
+<ul>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/lvalues arrays and function designators (page does not exist)"> Lvalues, arrays, and function designators</a>
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/void (page does not exist)"> Void</a>
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/pointers (page does not exist)"> Pointers</a>
+</li>
+</ul>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Declarations">edit</a>]</span> <span class="mw-headline" id="Declarations">Declarations</span>
+</h3>
+<p>A declaration specifies the interpretation and attributes of a set of identifiers.
+</p>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Specifiers">edit</a>]</span> <span class="mw-headline" id="Specifiers">Specifiers</span>
+</h4>
+<ul>
+<li> <a href="language/storage_class_specifiers.html" title="c/language/storage class specifiers"> storage-class specifiers</a> specifies storage duration and linkage of a type
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/type specifiers (page does not exist)"> type specifiers</a> specifies the type of a declaration
+</li>
+<li> <a href="language/function_specifiers.html" title="c/language/function specifiers"> function specifiers</a> specifies how the compiler should handle a function <span class="t-mark-rev t-since-c99">(since C99)</span>
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/alignas (page does not exist)"> alignment specifier</a> specifies that the storage for the variable should be aligned by specific amount <span class="t-mark-rev t-since-c99">(since C99)</span>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Type Qualifiers">edit</a>]</span> <span class="mw-headline" id="Type_Qualifiers">Type Qualifiers</span>
+</h4>
+<ul>
+<li> <a href="language/cv.html" title="c/language/cv"> const type qualifier</a> specifies an object whose value cannot be changed
+</li>
+<li> <a href="language/cv.html" title="c/language/cv"> volatile type qualifier</a> specifies an object whose value can be change by ways outside the control of the compiler
+</li>
+<li> <a href="language/restrict.html" title="c/language/restrict"> restrict type qualifier</a>
+</li>
+<li> <a href="language/_Atomic.html" title="c/language/ Atomic"> _Atomic type qualifier</a>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Initializers">edit</a>]</span> <span class="mw-headline" id="Initializers">Initializers</span>
+</h4>
+<p>An <a href="language/initialization.html" title="c/language/initialization">initializer</a> specifies the initial value stored in an object.
+</p>
+<ul>
+<li> <a href="language/default_initialization.html" title="c/language/default initialization">default initialization</a>
+</li>
+<li> <a href="language/arithmetic_type_initialization.html" title="c/language/arithmetic type initialization">arithmetic-type initialization</a>
+</li>
+<li> <a href="language/pointer_type_initialization.html" title="c/language/pointer type initialization">pointer-type initialization</a>
+</li>
+<li> <a href="language/array_type_initialization.html" title="c/language/array type initialization">array-type initialization</a>
+</li>
+<li> <a href="language/struct_type_initialization.html" title="c/language/struct type initialization">struct-type initialization</a>
+</li>
+<li> <a href="language/union_type_initialization.html" title="c/language/union type initialization">union-type initialization</a>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Literals">edit</a>]</span> <span class="mw-headline" id="Literals">Literals</span>
+</h4>
+<p>Literals are the tokens of a C program that represent constant values, embedded in the source code.
+</p>
+<ul>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/integer literal (page does not exist)">integer literals</a> are decimal, octal, or hexadecimal numbers of integer type.
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/character literal (page does not exist)">character literals</a> are individual characters of type <span class="t-c"><span class="mw-geshi c source-c"><span class="kw4">char</span></span></span>, <span class="t-c"><span class="mw-geshi c source-c">char16_t</span></span>, <span class="t-c"><span class="mw-geshi c source-c">char32_t</span></span>, or <span class="t-c"><span class="mw-geshi c source-c"><span class="kw4">wchar_t</span></span></span>.
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/floating literal (page does not exist)">floating-point literals</a> are values of type <span class="t-c"><span class="mw-geshi c source-c"><span class="kw4">float</span></span></span>, <span class="t-c"><span class="mw-geshi c source-c"><span class="kw4">double</span></span></span>, or <span class="t-c"><span class="mw-geshi c source-c"><span class="kw4">long</span> <span class="kw4">double</span></span></span>
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/string literal (page does not exist)">string literals</a> are sequences of characters, which may be narrow, multibyte, or wide.
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/bool literal (page does not exist)">boolean literals</a> are values of type <span class="t-c"><span class="mw-geshi c source-c">bool</span></span>, that is <span class="t-c"><span class="mw-geshi c source-c"><span class="kw2">true</span></span></span> and <span class="t-c"><span class="mw-geshi c source-c"><span class="kw2">false</span></span></span> <span class="t-mark-rev t-since-c99">(since C99)</span>
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/user literal (page does not exist)">user-defined literals</a> are constant values of user-specified type <span class="t-mark-rev t-since-c99">(since C99)</span>
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Expressions">edit</a>]</span> <span class="mw-headline" id="Expressions">Expressions</span>
+</h4>
+<p>An expression is a sequence of operators and operands that specifies a computation. An expression can result in a value and can cause side effects.
+</p>
+<ul>
+<li> <a href="language/eval_order.html" title="c/language/eval order">order of evaluation</a> of arguments and subexpressions specifies the order in which intermediate results are obtained.
+</li>
+<li> <a href="language/operators.html" title="c/language/operators">operators</a> allow the use of syntax commonly found in mathematics
+</li>
+</ul>
+<table class="wikitable">
+
+<tr style="text-align:center">
+<th colspan="7"> Common operators
+</th>
+</tr>
+<tr style="text-align:center">
+<td> <a href="language/operator_assignment.html" title="c/language/operator assignment"> assignment</a>
+</td>
+<td> <a href="language/operator_incdec.html" title="c/language/operator incdec"> increment<br>decrement</a>
+</td>
+<td> <a href="language/operator_arithmetic.html" title="c/language/operator arithmetic"> arithmetic</a>
+</td>
+<td> <a href="language/operator_logical.html" title="c/language/operator logical"> logical</a>
+</td>
+<td> <a href="language/operator_comparison.html" title="c/language/operator comparison"> comparison</a>
+</td>
+<td> <a href="language/operator_member_access.html" title="c/language/operator member access"> member<br>access</a>
+</td>
+<td> <a href="language/operator_other.html" title="c/language/operator other"> other</a>
+</td>
+</tr>
+<tr style="text-align:center">
+<td>
+<p><span class="t-c"><span class="mw-geshi c source-c">a <span class="sy1">=</span> b<br>
+a <span class="sy2">+</span><span class="sy1">=</span> b<br>
+a <span class="sy2">-</span><span class="sy1">=</span> b<br>
+a <span class="sy2">*</span><span class="sy1">=</span> b<br>
+a <span class="sy2">/</span><span class="sy1">=</span> b<br>
+a <span class="sy2">%</span><span class="sy1">=</span> b<br>
+a <span class="sy3">&amp;</span><span class="sy1">=</span> b<br>
+a <span class="sy3">|</span><span class="sy1">=</span> b<br>
+a <span class="sy3">^</span><span class="sy1">=</span> b<br>
+a <span class="sy1">&lt;&lt;=</span> b<br>
+a <span class="sy1">&gt;&gt;=</span> b</span></span>
+</p>
+</td>
+<td>
+<p><span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">++</span>a<br>
+<span class="sy2">--</span>a<br>
+a<span class="sy2">++</span><br>
+a<span class="sy2">--</span></span></span>
+</p>
+</td>
+<td>
+<p><span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">+</span>a<br>
+<span class="sy2">-</span>a<br>
+a <span class="sy2">+</span> b<br>
+a <span class="sy2">-</span> b<br>
+a <span class="sy2">*</span> b<br>
+a <span class="sy2">/</span> b<br>
+a <span class="sy2">%</span> b<br>
+~a<br>
+a <span class="sy3">&amp;</span> b<br>
+a <span class="sy3">|</span> b<br>
+a <span class="sy3">^</span> b<br>
+a <span class="sy1">&lt;&lt;</span> b<br>
+a <span class="sy1">&gt;&gt;</span> b</span></span>
+</p>
+</td>
+<td>
+<p><span class="t-c"><span class="mw-geshi c source-c"><span class="sy3">!</span>a<br>
+a <span class="sy3">&amp;&amp;</span> b<br>
+a <span class="sy3">||</span> b</span></span>
+</p>
+</td>
+<td>
+<p><span class="t-c"><span class="mw-geshi c source-c">a <span class="sy1">==</span> b<br>
+a <span class="sy3">!</span><span class="sy1">=</span> b<br>
+a <span class="sy1">&lt;</span> b<br>
+a <span class="sy1">&gt;</span> b<br>
+a <span class="sy1">&lt;=</span> b<br>
+a <span class="sy1">&gt;=</span> b</span></span>
+</p>
+</td>
+<td>
+<p><span class="t-c"><span class="mw-geshi c source-c">a<span class="br0">[</span>b<span class="br0">]</span><br>
+<span class="sy2">*</span>a<br>
+<span class="sy3">&amp;</span>a<br>
+a<span class="sy2">-</span><span class="sy1">&gt;</span>b<br>
+a.<span class="me1">b</span></span></span>
+</p>
+</td>
+<td>
+<p><span class="t-c"><span class="mw-geshi c source-c">a<span class="br0">(</span>...<span class="br0">)</span><br>
+a, b<br>
+<span class="br0">(</span>type<span class="br0">)</span> a<br>
+<span class="sy4">?</span> <span class="sy4">:</span><br>
+<span class="kw4">sizeof</span><br>
+_Alignof</span></span> <span class="t-mark-rev t-since-c11">(since C11)</span>
+</p>
+</td>
+</tr>
+</table>
+<ul>
+<li> <a href="language/operator_precedence.html" title="c/language/operator precedence"> operator precedence</a> is the order in which operators are bound to their arguments
+</li>
+<li> <a href="language/operator_alternative.html" title="c/language/operator alternative"> alternative representations</a> exist for some of the operators
+</li>
+</ul>
+<h4>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Utilities">edit</a>]</span> <span class="mw-headline" id="Utilities">Utilities</span>
+</h4>
+<dl><dt> Types
+</dt></dl>
+<ul>
+<li> <a href="language/typedef.html" title="c/language/typedef"> typedef declaration</a> creates a synonym for a type
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/attributes (page does not exist)"> attributes</a> defines additional information about variable <span class="t-mark-rev t-since-c99">(since C99)</span>
+</li>
+</ul>
+<dl><dt> Casts
+</dt></dl>
+<ul><li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/implicit cast (page does not exist)"> standard conversions</a> implicit conversions from one type to another
+</li></ul>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: Miscellaneous">edit</a>]</span> <span class="mw-headline" id="Miscellaneous">Miscellaneous</span>
+</h3>
+<ul>
+<li> <a href="language/main_function.html" title="c/language/main function">main function</a>
+</li>
+<li> <a href="http%3A//en.cppreference.com/mwiki/index.php" class="new" title="c/language/asm (page does not exist)">Inline assembly</a>
+</li>
+</ul>
+<h3>
+<span class="editsection">[<a href="http%3A//en.cppreference.com/mwiki/index.php" title="Edit section: See also">edit</a>]</span> <span class="mw-headline" id="See_also">See also</span>
+</h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td colspan="2"> <div class="t-dsc-see">
+<span><a href="../cpp/language.1.html" title="cpp/language">C++ documentation</a></span> for <span class="t-dsc-see-tt"><span>C++ language constructs</span></span>
+</div>
+</td>
+</tr>
+
+</table>
+
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 2649/1000000
+Preprocessor generated node count: 5355/1000000
+Post‐expand include size: 56978/2097152 bytes
+Template argument size: 8436/2097152 bytes
+Highest expansion depth: 13/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key mwiki1-mwiki_en_:pcache:idhash:6037-0!*!0!!en!*!* and timestamp 20141116224047 -->
+</div>                    <!-- /bodycontent -->
+                                        <!-- printfooter -->
+                    <div class="printfooter">
+                    Retrieved from "<a href="http%3A//en.cppreference.com/mwiki/index.php">http://en.cppreference.com/mwiki/index.php?title=c/language&amp;oldid=73120</a>"                    </div>
+                    <!-- /printfooter -->
+                                                            <!-- catlinks -->
+                    <div id="catlinks" class="catlinks catlinks-allhidden"></div>                    <!-- /catlinks -->
+                                                            <div class="visualClear"></div>
+                    <!-- debughtml -->
+                                        <!-- /debughtml -->
+                </div>
+                <!-- /bodyContent -->
+            </div>
+        </div>
+        <!-- /content -->
+        <!-- footer -->
+        
+        <!-- /footer -->
+        <script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script src="../../common/skin_scripts.js"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest","mediawiki.hidpi","ext.gadget.ColiruCompiler"], null, true);
+}</script>
+<script src="../../common/site_scripts.js"></script>
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-2828341-1']);
+_gaq.push(['_setDomainName', 'cppreference.com']);
+_gaq.push(['_trackPageview']);
+</script><!-- Served in 1.377 secs. -->
+	</body>
+<!-- Cached 20141116224047 -->
+</html>
