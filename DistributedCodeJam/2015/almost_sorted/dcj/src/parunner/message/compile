@@ -1,0 +1,127 @@
+#!/bin/bash
+
+set -u
+
+ZEUS_DIR=$(realpath $(dirname $(which $0)))
+
+CFLAGS="${CFLAGS:-} -O2 -static -I${ZEUS_DIR}"
+CXXFLAGS="${CXXFLAGS:-} -O2 -static -std=gnu++0x -I${ZEUS_DIR}"
+CXX=${CXX:-g++}
+CC=${CC:-gcc}
+FPC=${FPC:-fpc}
+
+read -d '' USAGE <<EOF
+Uzycie: $0 [--debug] source_file [library_file]
+
+Przyklad:
+    $0 solution.cpp
+    
+    Opcja --debug uzywa debugowej wersji biblioteki message. Wersja ta
+    sprawdza, czy typy odbierane sa takie same jak typy wysylane (czy
+    przykladowo nie odebrano chara gdy wyslano inta) oraz czy funkcja
+    Receive jest poprawnie wywolywana.
+
+EOF
+
+if [ "$#" -eq 0 ]; then
+  echo "$USAGE"
+  exit 1
+fi
+
+MESSAGE=message_internal
+DEBUGPAS=
+
+if [ "$1" == "--debug" ]; then
+  MESSAGE=message_internal_debug
+  DEBUGPAS=-dmsg_debug
+  shift
+fi
+
+if [ "$#" -gt 2 -o "$#" -lt 1 ]; then
+  echo "$USAGE"
+  exit 1
+fi
+
+SOURCE="$1"
+LIBRARY_SOURCE="${2:-}"
+
+pushd "${ZEUS_DIR}" > /dev/null
+test -f zeus_local.o || "${CC}" -c -O2 -g zeus_local.c || exit 2
+test -f "${MESSAGE}.o" || "${CC}" -c -O2 -g "${MESSAGE}.c" || exit 2
+popd > /dev/null
+
+PASLIB=0
+NONPASLIB=0
+
+case "$LIBRARY_SOURCE" in
+  "")
+    LIBRARY_OBJ=
+    ;;
+  *.pas)
+    LIBRARY_OBJ=
+    PASLIB=1
+    ;;
+  *.cpp)
+    LIBRARY_OBJ="$(echo "${LIBRARY_SOURCE}" | sed 's/\.cpp$//').impl.o"
+    "${CXX}" -c ${CXXFLAGS} "$LIBRARY_SOURCE" -o "$LIBRARY_OBJ" || exit 2
+    NONPASLIB=1
+    ;;
+  *.c)
+    LIBRARY_OBJ="$(echo "${LIBRARY_SOURCE}" | sed 's/\.c$//').impl.o"
+    "${CC}" -c ${CFLAGS} "${LIBRARY_SOURCE}" -o "${LIBRARY_OBJ}" || exit 2
+    NONPASLIB=1
+    ;;
+  *)
+    echo "Nieznany jezyk biblioteczki ${LIBRARY_SOURCE}"
+    exit 1
+    ;;
+esac
+  
+
+case "${SOURCE}" in
+*.pas)
+  if [ "${NONPASLIB}" -eq 1 ]; then
+    echo "Biblioteczka winna byc napisana w tym samym jezyku co program"
+    exit 1
+  fi
+  BASENAME="$(echo "${SOURCE}" | sed 's/\.pas//')"
+  rm "${ZEUS_DIR}/message.ppu"
+  "${FPC}" ${DEBUGPAS} -Fu"${ZEUS_DIR}" -o"${BASENAME}.e" "${SOURCE}" || {
+    if [ "${PASLIB}" -eq 1 ]; then
+      echo "Upewnij sie, ze dodales wlasciwa dyrektywe uses dla biblioteczki"
+    fi
+    exit 2
+  }
+  ;;
+*.cpp)
+  if [ "${PASLIB}" -eq 1 ]; then
+    echo "Biblioteczka winna byc napisana w tym samym jezyku co program"
+    exit 1
+  fi
+  BASENAME="$(echo "$SOURCE" | sed 's/\.cpp//')"
+  "${CXX}" -c ${CXXFLAGS} "${SOURCE}" -o "${BASENAME}.o" || exit 2
+  if [ "${LIBRARY_OBJ}" == "" ]; then
+    "${CXX}" -I"${ZEUS_DIR}" "${ZEUS_DIR}/${MESSAGE}.o" "${ZEUS_DIR}/zeus_local.o" "${BASENAME}.o" -o "${BASENAME}.e" || exit 2
+  else
+    "${CXX}" -I"${ZEUS_DIR}" "${ZEUS_DIR}/${MESSAGE}.o" "${ZEUS_DIR}/zeus_local.o" "${BASENAME}.o" "${LIBRARY_OBJ}" -o "${BASENAME}.e" || exit 2
+  fi
+  ;;
+*.c)
+  if [ "${PASLIB}" -eq 1 ]; then
+    echo "Biblioteczka winna byc napisana w tym samym jezyku co program"
+    exit 1
+  fi
+  BASENAME="$(echo "${SOURCE}" | sed 's/\.c//')"
+  "${CC}" -c ${CFLAGS} "${SOURCE}" -o "${BASENAME}.o" || exit 2
+  if [ "$LIBRARY_OBJ" == "" ]; then
+    "${CXX}" -I"${ZEUS_DIR}" "${ZEUS_DIR}/${MESSAGE}.o" "${ZEUS_DIR}/zeus_local.o" "${BASENAME}.o" -o "${BASENAME}.e" || exit 2
+  else
+    "${CXX}" -I"${ZEUS_DIR}" "${ZEUS_DIR}/${MESSAGE}.o" "${ZEUS_DIR}/zeus_local.o" "${BASENAME}.o" "${LIBRARY_OBJ}" -o "${BASENAME}.e" || exit 2
+  fi
+  ;;
+*)
+  echo "Nieznany jezyk pliku zrodlowego ${SOURCE}"
+  exit 2
+esac
+  
+# vim:ts=2:sts=2:sw=2:et:

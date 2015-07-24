@@ -1,0 +1,74 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>There is an infinite grid of cells. Each cell is either black or white.<br></br>
+ <br></br>
+A <i>component</i> is a maximal 4-connected set of cells which are all the same color. (See the Notes for the definition of a 4-connected set.) Note that by this definition, each cell belongs to exactly one component.<br></br>
+<br></br>
+The entire grid is currently white, except for one square region of cells in the grid.<br></br>
+You are given a vector &lt;string&gt; <b>initial</b> that specifies the current colors of cells in this region.<br></br>
+You want to change the colors of some cells in this region.<br></br>
+You are given a vector &lt;string&gt; <b>target</b> that specifies the desired colors of cells in this region.<br></br>
+<br></br>
+Each character of <b>initial</b> and <b>target</b> represents a 10000 by 10000 square of cells, all of the same color.<br></br>
+If the squares of the region are numbered starting from (0, 0), then square (i, j) is initially white if and only if <b>initial</b>[i/10000][j/10000] (floored integer division) is the character '#'.<br></br>
+Black cells are represented by the character '.'.<br></br>
+The target state is specified in the same way.<br></br>
+<br></br>
+Additionally, the configurations of cells described by <b>initial</b> and <b>target</b> have a special property:<br></br>
+There are no cells of the same color which share a corner but belong to different components.<br></br>
+For example, the following grid is not valid because the symbol # in the middle represents a square of 10000 times 10000 white cells, and the topmost rightmost of these cells shares its upper right corner with another white cell that is not in the same component.<br></br>
+<br></br>
+<pre>
+#####
+#..##
+#.#.#
+#...#
+#####
+</pre>
+<br></br>
+You may change the grid in a sequence of moves.<br></br>
+In each move you may flip the color of any single cell.<br></br>
+Note that the flipped cell may even be located outside the region.<br></br>
+The move is only valid if the following conditions are all satisfied:<br></br>
+<ul>
+<li>The move does not change the number of white components.</li>
+<li>The move does not change the number of black components.</li>
+<li>The move does not violate the special property described above. (I.e., after the move, there must not be any cells of the same color which share a corner but belong to different components.)</li>
+</ul>
+After you finish your sequence of moves, all cells outside the region must be white again.<br></br>
+<br></br>
+If it is possible to transform <b>initial</b> into <b>target</b>, return "Possible".<br></br>
+Otherwise, return "Impossible".<br></br>
+(All quotes are for clarity only.)</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Balance</td></tr><tr><td>Method:</td><td>canTransform</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string canTransform(vector &lt;string&gt; initial, vector &lt;string&gt; target)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>A 4-connected set of cells is a set of cells which satisfies this property: for any pair of cells in the set, there is a path connecting the cells in which (a) all cells in the path are in the set, and (b) adjacent cells in the path share a side (sharing only a corner is not enough).</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>initial</b> and <b>target</b> will contain exactly N elements each.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>initial</b> and <b>target</b> will have a length of exactly N.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>initial</b> and <b>target</b> will be composed of the characters '#' and '.'.</td></tr><tr><td align="center" valign="top">-</td><td>The grids described by <b>initial</b> and <b>target</b> satisfy the property that there are no cells of the same colour which share a corner but are part of different components.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;#&quot;}</pre></td></tr><tr><td><pre>{&quot;.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..&quot;,
+ &quot;..&quot;}</pre></td></tr><tr><td><pre>{&quot;.#&quot;,
+ &quot;##&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Do not forget that there are white cells everywhere around the region.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...&quot;,
+ &quot;.#.&quot;,
+ &quot;...&quot;}</pre></td></tr><tr><td><pre>{&quot;###&quot;,
+ &quot;#.#&quot;,
+ &quot;###&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.#.#.......&quot;,
+ &quot;####.###...&quot;,
+ &quot;.....####..&quot;,
+ &quot;..##.#.##.#&quot;,
+ &quot;.##..#.##.#&quot;,
+ &quot;.#######...&quot;,
+ &quot;.#....###.#&quot;,
+ &quot;.##.#.#....&quot;,
+ &quot;..#...#...#&quot;,
+ &quot;..#####...#&quot;,
+ &quot;...........&quot;}</pre></td></tr><tr><td><pre>{&quot;...........&quot;,
+ &quot;.###....#..&quot;,
+ &quot;.#.#..#....&quot;,
+ &quot;.###.......&quot;,
+ &quot;.#####.....&quot;,
+ &quot;.#...#####.&quot;,
+ &quot;.#.#.....#.&quot;,
+ &quot;.#.#####.#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#########.&quot;,
+ &quot;...........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....&quot;,
+ &quot;.###.&quot;,
+ &quot;.....&quot;,
+ &quot;.###.&quot;,
+ &quot;.....&quot;}</pre></td></tr><tr><td><pre>{&quot;.....&quot;,
+ &quot;.#.#.&quot;,
+ &quot;.#.#.&quot;,
+ &quot;.#.#.&quot;,
+ &quot;.....&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,16 @@
+URL: https://github.com/robryk/parunner/archive/32a202bb14a55b39ed8031836c5fa9f776744594.zip
+Version: 32a202bb14a55b39ed8031836c5fa9f776744594
+License: BSD 3-clause
+License File: LICENSE
+
+Description:
+Utility that can run submissions to distributed programming contests ran on zeus
+(//recruiting/distributed/zeus) on a single machine.
+
+Local Modifications:
+Automated import rewriting by //third_party/golang/update.go.
+Copied COPYING to LICENSE.
+Merged incorrectly split go_binary rules in BUILD.
+Added cc_{library,binary} BUILD rules in zeus/BUILD.
+Added google_init_test.go to the directory and to go_test rules.
+Added data dependencies to go_test rules.

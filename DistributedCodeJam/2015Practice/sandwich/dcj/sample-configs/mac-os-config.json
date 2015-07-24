@@ -1,0 +1,27 @@
+{
+  "c-compiler": "gcc",
+  "c-compiler-flags": [
+    "-O2",
+    "-lm"
+  ],
+  "cpp-compiler": "g++",
+  "cpp-compiler-flags": [
+    "-O2",
+    "-std=gnu++0x",
+    "-lm"
+  ],
+  "java-compiler": "javac",
+  "java-compiler-classpath-arg": "-classpath",
+  "java-include-dirs": [
+    "/System//Library/Frameworks/JavaVM.framework/Versions/A/Headers"
+  ],
+  "java-native-library-linker": "cc",
+  "java-native-library-linker-options": [
+    "-framework",
+    "JavaVM",
+    "-bundle"
+  ],
+  "java-native-library-name": "libmessage.jnilib",
+  "java-wrapper-file-content": "#!/bin/bash\ncd {0}\n/usr/bin/java -Djava.library.path={1} -classpath {1} Wrapper\n",
+  "parunner-file": "parunner"
+}

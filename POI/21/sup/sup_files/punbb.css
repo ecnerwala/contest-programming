@@ -1,0 +1,30 @@
+/****************************************************************/
+/* 1. BACKGROUND AND TEXT COLOURS */
+/****************************************************************/
+
+/*bg*/ DIV.codebox, .pun BLOCKQUOTE, .pun SELECT, .pun TEXTAREA, .pun INPUT { background-color: white; }
+
+/*hrt11*/ DIV.box, DIV.blockpost DIV.box, #adminconsole FIELDSET TH, .rowodd, .roweven, DIV.postright, DIV.postfootright, DIV.blockpost LABEL {BACKGROUND-COLOR: #ededef; }
+/*hrt11*/ TR.iredirect DIV.icon, #adminconsole TD, #adminconsole TH {BORDER-COLOR: #ededef; }
+/*hrt11*/ TD.tcr { border-left-color: #ededef; }
+
+/*hrt12*/ TD.tc2, TD.tc3, TD.tcmod, #postpreview, #viewprofile DD, DIV.forminfo, DIV.postleft, DIV.postfootleft, .pun TH,
+          #adminconsole FIELDSET TD, DIV.blockmenu DIV.box, #adstats DD {BACKGROUND-COLOR: #cccfd4; }
+/*hrt12*/ .pun TD, .pun TH, .pun BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #cccfd4; }
+/*hrt12*/ TD.tc2, TD.tc3, DIV.postright, DIV.postfootright {BORDER-LEFT-COLOR: #cccfd4; }
+
+/*hrt11*/ TD.tc2, TD.tc3 { border-top-color: #ededef; }
+
+/*hrt11bl*/ DIV.icon {BORDER-COLOR: #c2c2c3; }
+
+/*hbf*/ DIV.blockpost H2, DIV.blockpost H2 A, DIV.blockpost H2 A:active, DIV.blockpost H2 A:visited, DIV.blockpost H2 A:hover, .pun H2, #brdmenu 
+  {BACKGROUND-COLOR: #5A5DAC; COLOR: #FFFFFF; font-weight: normal; }
+/*hbf*/ IV.inew, DIV.blockpost DIV.box, DIV.box {BORDER-COLOR: #5A5DAC; }
+/*hbf*/ .pun LEGEND {COLOR: #5a5dac; }
+/*hbf*/ .pun HR, .blocktable {BACKGROUND-COLOR: #5a5dac; COLOR: #5a5dac; }
+/*hbf*/ .pun DIV>FIELDSET {BORDER-COLOR: #5a5dac; }
+
+
+
+/* Highlighted text for various items - czyli nikt nie wie co to jest */
+.pun DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #333}

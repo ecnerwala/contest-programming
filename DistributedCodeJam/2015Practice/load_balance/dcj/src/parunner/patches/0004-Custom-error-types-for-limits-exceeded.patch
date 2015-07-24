@@ -1,0 +1,52 @@
+From 045611330af23d7a9c1e510a8e69f6fa52f6290b Mon Sep 17 00:00:00 2001
+From: Robert Obryk <robryk@google.com>
+Date: Wed, 6 May 2015 20:03:05 +0200
+Subject: [PATCH] Custom error types for limits exceeded
+
+---
+ comm.go | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git comm.go comm.go
+index c153cee..785bbc2 100644
+--- comm.go
++++ comm.go
+@@ -49,8 +49,19 @@ type Message struct {
+ 	Message  []byte
+ }
+ 
+-var ErrMessageCount = fmt.Errorf("przekroczony limit (%d) liczby wysłanych wiadomości", MessageCountLimit)
+-var ErrMessageSize = fmt.Errorf("przekroczony limit (%d bajtów) sumarycznego rozmiaru wysłanych wiadomości", MessageSizeLimit)
++type ErrMessageCount struct {
++}
++
++func (err ErrMessageCount) Error() string {
++	return fmt.Sprintf("przekroczony limit (%d) liczby wysłanych wiadomości", MessageCountLimit)
++}
++
++type ErrMessageSize struct {
++}
++
++func (err ErrMessageSize) Error() string {
++	return fmt.Sprintf("przekroczony limit (%d bajtów) sumarycznego rozmiaru wysłanych wiadomości", MessageSizeLimit)
++}
+ 
+ func writeMessage(w io.Writer, message *Message) error {
+ 	rr := recvResponse{
+@@ -175,11 +186,11 @@ func (i *Instance) communicate(r io.Reader, w io.Writer, reqCh chan<- *request,
+ 		if req.requestType == requestSend {
+ 			i.MessagesSent++
+ 			if i.MessagesSent > MessageCountLimit {
+-				return ErrMessageCount
++				return ErrMessageCount{}
+ 			}
+ 			i.MessageBytesSent += len(req.message)
+ 			if i.MessageBytesSent > MessageSizeLimit {
+-				return ErrMessageSize
++				return ErrMessageSize{}
+ 			}
+ 		}
+ 		currentTime := req.time
+-- 
+2.2.0.rc0.207.ga3a616c
+

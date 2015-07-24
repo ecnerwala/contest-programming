@@ -1,0 +1,185 @@
+/*
+
+regexp (/*k1./[#])...... => \1KOLOR
+k1 - teksty i border left
+k2 - teksty i border left ACTIVE
+k3 - background LEVEL>=2
+k4 - border left LEVEL>=2
+k5 - border left LEVEL>=2 ACTIVE
+
+CURRENT:
+/*k1./#......
+/*k2./#......
+/*k3./#......
+/*k4./#......
+/*k5./#......
+/*k6./#......
+
+*/
+
+body {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	font-family: Tahoma, Arial;
+	font-size: 13px;
+	color: #444;
+	background: white;
+}
+
+td {
+	font-family: Tahoma, Arial;
+	font-size: 13px;
+}
+
+#topbanner {
+	width: 100%;
+	height: 135px;
+	table-layout: fixed;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+#topbanner td {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	height: 135px;
+}
+
+#topbanner td.left {
+	background-image: url('head1.jpg');
+	width: 398px;
+}
+
+#topbanner td.middle_stretch {
+	background: url('headfill.gif');
+}
+
+#topbanner td.right {
+	background: url('head2.jpg');
+	width: 480px;
+}
+
+#main {
+	margin: 0 0 0 0;
+	padding: 0 8px 0 8px;
+	background: url('main_toprightcorner.gif');
+	background-position: top right;
+	background-repeat: no-repeat;
+}
+
+#main_ {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+#menus {
+	float: left;
+	margin: 0 20px 0 0;
+	padding: 0 0 0 0;
+	width: 187px;
+}
+
+#menus .menu_open {
+	background: url('menu_title_bg.gif');
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	width: 187px;
+	height: 21px;
+}
+
+#menus .menu_open p {
+	margin: 0;
+	padding: 3px 7px 3px 7px;
+	color: white;
+}
+
+#menus .menu_content {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	width: 187px;
+}
+
+#menus .menu_content a {
+	background: url('menubg.gif');
+	display: block;
+	margin: 1px 0 0 0;
+	padding: 2px 7px 2px 7px;
+	text-decoration: none;
+	color: /*k1*/#6E818D;
+}
+
+#menus .menu_content a:hover {
+	background: url('menu_title_bg.gif') !important;
+	cursor: pointer;
+	display: block;
+	color: white !important;
+}
+
+#menus .menu_content a.level1 { margin-left: 0; border-left: 5px solid /*k1*/#6E818D; }
+#menus .menu_content a.level2 { margin-left: 15px; border-left: 5px solid /*k4*/#DFDFE1; background: /*k3*/#EDEDEF }
+#menus .menu_content a.level3 { margin-left: 30px; border-left: 5px solid /*k4*/#DFDFE1; background: /*k3*/#EDEDEF }
+#menus .menu_content a.level4 { margin-left: 45px; border-left: 5px solid /*k4*/#DFDFE1; background: /*k3*/#EDEDEF }
+#menus .menu_content a.level5 { margin-left: 60px; border-left: 5px solid /*k4*/#DFDFE1; background: /*k3*/#EDEDEF }
+
+#menus .menu_content a.level1active { margin-left: 0; color: /*k2*/#354550; font-weight: bold; border-left: 5px solid /*k2*/#354550; }
+#menus .menu_content a.level2active { margin-left: 15px; color: /*k2*/#354550; font-weight: bold; border-left: 5px solid /*k5*/#C2C2C3; background: /*k3*/#EDEDEF }
+#menus .menu_content a.level3active { margin-left: 30px; color: /*k2*/#354550; font-weight: bold; border-left: 5px solid /*k5*/#C2C2C3; background: /*k3*/#EDEDEF }
+#menus .menu_content a.level4active { margin-left: 45px; color: /*k2*/#354550; font-weight: bold; border-left: 5px solid /*k5*/#C2C2C3; background: /*k3*/#EDEDEF }
+#menus .menu_content a.level5active { margin-left: 60px; color: /*k2*/#354550; font-weight: bold; border-left: 5px solid /*k5*/#C2C2C3; background: /*k3*/#EDEDEF }
+
+#menus .menu_close {
+	background: url('menu_title_bg.gif');
+	margin: 1px 0 0 0;
+	padding: 0 0 0 0;
+	width: 187px;
+	height: 21px;
+}
+
+#image_mainmenu {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	background: url('img_mainmenu.gif');
+	width: 110px;
+	height: 21px;
+}
+
+#image_menuclose {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	background: url('img_mainmenuclose.gif');
+	width: 30px;
+	height: 21px;
+}
+
+#body {
+	padding: 0 0 0 0;
+	margin: 0 20px 0 207px;
+	line-height: 140%;
+}
+
+.use_default_styles a { color: #0060c0; text-decoration: none; font-weight: bold }
+.use_default_styles a:hover { color: #000080; text-decoration: underline }
+.use_default_styles h1 { margin: 0 0 20px 0; padding-top: 20px; font-family: Trebuchet MS, Verdana, Tahoma, Arial; color: #333333; font-weight: bold; font-size: 30px }
+.use_default_styles h1.first { padding-top: 0; }
+.use_default_styles h1:first-child { padding-top: 0; }
+.use_default_styles em { color: #d00000; font-style: normal }
+.use_default_styles td.main p { margin: 15px 0 15px 0; text-indent: 0; text-align: justify }
+.use_default_styles input { padding-left: 2px; font-family: Arial; font-size: 13px; background: /*k3*/#EDEDEF; border: 1px solid /*k4*/#DFDFE1; border-left: 5px solid /*k4*/#DFDFE1; color: /*k2*/#354550; font-weight: bold }
+.use_default_styles textarea { font-family: Arial; font-size: 13px; padding: 2px; background: /*k3*/#EDEDEF; border: 1px solid /*k4*/#DFDFE1; border-left: 5px solid /*k4*/#DFDFE1; color: /*k2*/#354550; font-weight: bold }
+.use_default_styles select { font-family: Arial; background: /*k3*/#EDEDEF; color: /*k2*/#354550; font-weight: bold }
+.use_default_styles input.button { padding: 2px 5px 2px 5px; border: 1px solid /*k5*/#C2C2C3; font-family: Arial; background: /*k5*/#C2C2C3; color: /*k2*/#354550; font-weight: bold }
+.use_default_styles input.button:hover { border: 1px solid /*k2*/#354550 }
+
+
+
+/* Style u¿ywane przez SIO */
+#hbf { background-color: /*k6*/#5A5DAC; color: #ffffff; font-size: 13px; font-weight: normal; }
+.hrt11, .hrt1, .hrtok1 { background-color: #ededef; border-top: 1px solid white; }
+.hrt11 { border-left: 5px solid #c2c2c3; }
+.hrtok1 { background-color: #e3f7ea; }
+.hrt12, .hrt2, .hrtok2, .e_res_WA, .e_res_OK { background-color: #cccfd4; border-top: 1px solid white; }
+.hrt12, .e_res_WA { border-left: 5px solid #6e818d; }
+.hrtok2, .e_res_OK { background-color: #b0d0c2; }
+.coltok2 {color: #b0d0c2; }
+.e_res_OK { border-left: 5px solid #778a82; } 
+.e_res_OK, .e_res_WA { padding-left: 5px; }

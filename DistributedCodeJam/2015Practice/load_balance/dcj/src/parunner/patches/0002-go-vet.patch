@@ -1,0 +1,25 @@
+From 40cf238d611563b9d6af96f0fe950eabb6350874 Mon Sep 17 00:00:00 2001
+From: Robert Obryk <robryk@google.com>
+Date: Tue, 28 Apr 2015 00:29:37 +0200
+Subject: [PATCH] go vet
+
+---
+ instance_test.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git instance_test.go instance_test.go
+index edd0371..28a378f 100644
+--- instance_test.go
++++ instance_test.go
+@@ -158,7 +158,7 @@ func TestInstanceComm(t *testing.T) {
+ 			t.Errorf("test %s: wrong output; got=%q, want=%q", tc.name, got, want)
+ 		}
+ 		if rt := <-lastReqTime; instance.TimeRunning < rt {
+-			t.Errorf("test %s: instance's last request happened at %v, but instance used only %v CPU time total", rt, instance.TimeRunning)
++			t.Errorf("test %s: instance's last request happened at %v, but instance used only %v CPU time total", tc.name, rt, instance.TimeRunning)
+ 		}
+ 	}
+ 	testcases := []testcase{
+-- 
+2.2.0.rc0.207.ga3a616c
+
