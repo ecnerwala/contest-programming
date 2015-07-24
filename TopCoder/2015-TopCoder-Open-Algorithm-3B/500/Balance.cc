@@ -1,0 +1,106 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+typedef pair<int, int> pii;
+#define A first
+#define B second
+
+class Balance {
+
+public:
+
+	int mx[4] = {-1, 1, 0, 0}, my[4] = {0, 0, -1, 1};
+	static const int MAXN = 60;
+	int N;
+	int S[2][MAXN][MAXN];
+	int comp[2][MAXN][MAXN];
+
+	void flood(int t, int x, int y, int v) {
+		comp[t][x][y] = v;
+		for(int d = 0; d < 4; d++) {
+			int nx = x + mx[d], ny = y + my[d];
+			if(nx < 0 || nx >= N) continue;
+			if(ny < 0 || ny >= N) continue;
+			if(comp[t][nx][ny] == -1 && S[t][nx][ny] == S[t][x][y]) flood(t, nx, ny, v);
+		}
+	}
+
+	static const int MAXV = 1e3;
+	int V;
+
+	unordered_set<int> adj[MAXV];
+	map<vector<int>, int> mp;
+
+	int dfs(int cur, int prv = -1) {
+		vector<int> vals;
+		for(int nxt : adj[cur]) {
+			if(nxt == prv) continue;
+			vals.push_back(dfs(nxt, cur));
+		}
+		sort(vals.begin(), vals.end());
+		if(mp.count(vals)) {
+			return mp[vals];
+		} else {
+			int s = int(mp.size());
+			return mp[vals] = s;
+		}
+	}
+
+	string canTransform(vector <string> initial, vector <string> target) {
+		N = int(initial.size());
+		memset(S, 0, sizeof(S));
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < N; j++) {
+				S[0][i + 1][j + 1] = initial[i][j] == '.';
+				S[1][i + 1][j + 1] = target[i][j] == '.';
+			}
+		}
+		N += 2;
+
+		memset(comp, -1, sizeof(comp));
+
+		V = 0;
+		for(int t = 0; t < 2; t++) {
+			for(int i = 0; i < N; i++) {
+				for(int j = 0; j < N; j++) {
+					if(comp[t][i][j] == -1) {
+						flood(t, i, j, V++);
+					}
+				}
+			}
+		}
+
+		assert(V < MAXV);
+
+		for(int t = 0; t < 2; t++) {
+			for(int i = 0; i < N; i++) {
+				for(int j = 0; j < N; j++) {
+					if(j + 1 < N) {
+						int l = comp[t][i][j];
+						int r = comp[t][i][j + 1];
+						if(l == r) continue;
+						adj[l].insert(r);
+						adj[r].insert(l);
+					}
+					if(i + 1 < N) {
+						int l = comp[t][i][j];
+						int r = comp[t][i + 1][j];
+						if(l == r) continue;
+						adj[l].insert(r);
+						adj[r].insert(l);
+					}
+				}
+			}
+		}
+
+		if(dfs(comp[0][0][0]) == dfs(comp[1][0][0])) {
+			return "Possible";
+		} else {
+			return "Impossible";
+		}
+	}
+};
+
+// vim:ft=cpp

@@ -1,0 +1,27 @@
+{
+  "c-compiler": "gcc",
+  "c-compiler-flags": [
+    "-O2",
+    "-lm",
+    "-static"
+  ],
+  "cpp-compiler": "g++",
+  "cpp-compiler-flags": [
+    "-O2",
+    "-std=gnu++0x",
+    "-lm",
+    "-static"
+  ],
+  "java-compiler": "javac",
+  "java-compiler-classpath-arg": "-classpath",
+  "java-include-dirs": [
+    "/usr/lib/jvm/java-7-openjdk-amd64/include"
+  ],
+  "java-native-library-linker": "ld",
+  "java-native-library-linker-options": [
+    "-shared"
+  ],
+  "java-native-library-name": "libmessage.so",
+  "java-wrapper-file-content": "#!/bin/bash\ncd {0}\n/usr/bin/java -classpath {1} Wrapper\n",
+  "parunner-file": "parunner"
+}

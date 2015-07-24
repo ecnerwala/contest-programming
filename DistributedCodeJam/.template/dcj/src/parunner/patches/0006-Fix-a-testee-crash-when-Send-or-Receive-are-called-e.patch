@@ -1,0 +1,36 @@
+From 20bc419d7146c11ca9d058eccfcb6c1eacce7650 Mon Sep 17 00:00:00 2001
+From: Robert Obryk <robryk@google.com>
+Date: Thu, 28 May 2015 23:14:41 +0200
+Subject: [PATCH] Fix a testee crash when Send or Receive are called early.
+
+Send and receive in zeus_local.c didn't check if the library is
+initialized and thus failed due to an assert if that happened.
+
+TODO: Add a regression test.
+---
+ zeus/zeus_local.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git zeus/zeus_local.c zeus/zeus_local.c
+index 8b25897..314a1d0 100644
+--- zeus/zeus_local.c
++++ zeus/zeus_local.c
+@@ -114,6 +114,7 @@ static int CurrentTime() {
+ #endif
+ 
+ void ZEUS(Send)(ZEUS(NodeId) target, const char* message, int bytes) {
++	Init();
+ 	assert(target >= 0 && target < nof_nodes);
+ 	assert(bytes <= MAX_MESSAGE_SIZE);
+ 	int i;
+@@ -127,6 +128,7 @@ void ZEUS(Send)(ZEUS(NodeId) target, const char* message, int bytes) {
+ }
+ 
+ ZEUS(MessageInfo) ZEUS(Receive)(ZEUS(NodeId) source, char* buffer, int buffer_size) {
++	Init();
+ 	assert(source >= -1 && source < nof_nodes);
+ 	ZEUS(MessageInfo) mi;
+ 	int i;
+-- 
+2.2.0.rc0.207.ga3a616c
+
