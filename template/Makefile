@@ -4,7 +4,8 @@ DEBUGFLAGS = -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsan
 
 TARGET := $(notdir $(CURDIR))
 
-TESTS := $(sort $(patsubst %.in,%,$(wildcard *.in)))
+CASES := $(sort $(patsubst %.in,%,$(wildcard *.in)))
+TESTS := $(sort $(patsubst %.out,%,$(wildcard *.out)))
 
 all: $(TARGET)
 
@@ -20,11 +21,13 @@ run: $(TARGET)
 %.res: $(TARGET) %.in
 	time ./$(TARGET) < $*.in > $*.res
 
-test%: %.res
+__test_%: %.res %.out
 	diff $*.res $*.out
 
-test: $(patsubst %,test%,$(TESTS))
+runs: $(patsubst %,%.res,$(CASES))
 
-.PHONY: all clean run test
+test: $(patsubst %,__test_%,$(TESTS))
 
-.PRECIOUS: $(patsubst %,%.res,$(TESTS))
+.PHONY: all clean run test runs
+
+.PRECIOUS: $(patsubst %,%.res,$(CASES))
