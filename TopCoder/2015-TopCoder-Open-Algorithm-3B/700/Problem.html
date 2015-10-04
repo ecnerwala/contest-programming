@@ -1,0 +1,127 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Cat has decided to play a new pen-and-paper game on a grid.
+For the purpose of this game, a lucky number is any number in which each digit is either a 4 or a 7.
+</p>
+<br></br>
+<p>
+The game is played on a square grid.
+At the beginning of the game the player is presented with a partially filled grid:
+some of the cells contain the number 4, some contain the number 7, and all other cells are empty.
+The player must put either a 4 or a 7 into each of the empty cells.
+The player wins the game if she is able to fill in the empty cells in such a way that the sum of each row and also the sum of each column is a lucky number.
+</p>
+<br></br>
+<p>
+You are given a vector &lt;string&gt; <b>grid</b> representing the grid at the beginning of the game.
+Characters '4' and '7' represent filled cells, character '.' (period) represents an empty cell.
+</p>
+<br></br>
+<p>
+If the player cannot win the game, return -1.
+If she can win the game, find and return the smallest possible sum of the grid at the end of a won game.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>LuckyGrid</td></tr><tr><td>Method:</td><td>findMinimumSum</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int findMinimumSum(vector &lt;string&gt; grid)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>Let n be a number between 1 and 68, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>grid</b> will contain exactly <b>n</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of grid will contain exactly <b>n</b> characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of each element of <b>grid</b> will be '4', '7', or '.'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">There are two ways to play this game:
+Either we put a 4 into the empty cell, or we put a 7 into the empty cell.
+In both cases we win the game.
+The answer is 4, because 4 is less than 7.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;7&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;........&quot;,
+ &quot;........&quot;,
+ &quot;........&quot;,
+ &quot;........&quot;,
+ &quot;........&quot;,
+ &quot;........&quot;,
+ &quot;........&quot;,
+ &quot;........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 352</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.4.&quot;,
+ &quot;7.7&quot;,
+ &quot;4..&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">The sum of the leftmost column will be either 4+7+4 = 15 or 7+7+4 = 18.
+Neither of these numbers is lucky.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;774777..&quot;,
+ &quot;..4.....&quot;,
+ &quot;..7774..&quot;,
+ &quot;..7..7..&quot;,
+ &quot;..7..7..&quot;,
+ &quot;..7..74.&quot;,
+ &quot;..4..4..&quot;,
+ &quot;........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 355</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.44.....7..&quot;,
+ &quot;.44........&quot;,
+ &quot;...........&quot;,
+ &quot;...........&quot;,
+ &quot;.7.........&quot;,
+ &quot;...........&quot;,
+ &quot;...........&quot;,
+ &quot;...........&quot;,
+ &quot;...........&quot;,
+ &quot;...........&quot;,
+ &quot;...........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 490</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.4......7..&quot;,
+ &quot;...........&quot;,
+ &quot;.....7.....&quot;,
+ &quot;...........&quot;,
+ &quot;.7......7..&quot;,
+ &quot;...........&quot;,
+ &quot;.....4.....&quot;,
+ &quot;...........&quot;,
+ &quot;........4..&quot;,
+ &quot;...........&quot;,
+ &quot;...........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 814</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">7)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;.............477747774....77777.....477774........................&quot;,
+ &quot;.................4.......4.........4......4.......................&quot;,
+ &quot;.................4......4.........4........4......................&quot;,
+ &quot;.................7......7.........7........7......................&quot;,
+ &quot;.................4......4.........4........4......................&quot;,
+ &quot;.................4.......4.........4......4.......................&quot;,
+ &quot;.................7........77777.....777777........................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;, 
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;,
+ &quot;..................................................................&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 29304</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

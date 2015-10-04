@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+typedef pair<int, int> pii;
+#define A first
+#define B second
+
+class WalkingToSchool {
+
+	int N, M;
+	pii E[4000];
+
+	// 0 is forward, 1 is backward
+	vector<int> adj[2][4000];
+
+	bool vis[2][2][4000];
+	bool is_good[4000];
+
+	void dfs(int s, int d, int a) {
+		if(vis[s][d][a]) return;
+		vis[s][d][a] = true;
+		for(int b : adj[d][a]) {
+			dfs(s, d, b);
+		}
+	}
+
+	// true if all k-routes exist
+	bool go() {
+		dfs(0, 0, 0);
+		dfs(1, 1, 1);
+		dfs(1, 0, 0);
+		dfs(0, 1, 1);
+		for(int i = 0; i < N; i++) {
+			is_good[i] = vis[0][i] && vis[1][i];
+		}
+		if(!(vis[0][1] && vis[1][0])) return false;
+
+		for(int p = 1; p <= N; p++) {
+		}
+	}
+
+public:
+
+	string canWalkExactly(int n, vector <int> from, vector <int> to) {
+		N = n;
+		M = int(from.size());
+		for(int i = 0; i < M; i++) {
+			E[i] = pii(from[i], to[i]);
+			adj[0][from[i]].push_back(to[i]);
+			adj[1][to[i]].push_back(from[i]);
+		}
+		return go() ? "Freedom" : "Chores";
+	}
+};
+
+// vim:ft=cpp

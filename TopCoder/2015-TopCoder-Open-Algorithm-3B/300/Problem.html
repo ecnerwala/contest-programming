@@ -1,0 +1,44 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>Limak is a little bear who loves to play computer games.
+Today he is playing a game in which the goal is to capture all bases on the map.</p>
+<br></br>
+<p>There are N bases on the map.
+The bases are numbered 0 through N-1.
+For each i, base i is located at (<b>x</b>[i], <b>y</b>[i]).
+Initially, Limak only controls base 0.</p>
+<br></br>
+<p>Each base contains an electric cannon.
+The cannon in each base that is owned by Limak is being charged at the rate of 1 unit of energy per second.
+Charging happens continuously: for example, in 4.7 seconds the cannon gains 4.7 units of energy.</p>
+<br></br>
+<p>To capture an enemy base, Limak has to shoot it by a cannon from one of his bases.
+Shot takes no time but it consumes energy.
+Assume Limak wants to shoot base B using a cannon in his base A.
+Let D be the Euclidean distance between bases A and B.
+In order to shoot the cannon from base A to base B the cannon needs to have at least D units of energy.
+Exactly D units of energy are consumed by the shot.
+(I.e., at the moment of the shot the energy of the cannon in base A is decreased by D.)</p>
+<br></br>
+<p>At the beginning of the game the energy of the cannon in base 0 is 0.
+Whenever Limak captures another base, the energy of the cannon in that base is also 0, and the cannon begins to charge immediately after the capture.
+</p>
+<br></br>
+<p>Limak is able to fire the cannons at arbitrary, possibly non-integer times.
+He is able to fire multiple cannons at the same time.
+(Each of them pointed at a different enemy base.)
+Limak may capture the enemy bases in any order he likes.</p>
+<br></br>
+<p>Return the shortest time in which Limak can capture all the bases.</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BearCharges</td></tr><tr><td>Method:</td><td>minTime</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double minTime(vector &lt;int&gt; x, vector &lt;int&gt; y)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Your return value must have absolute or relative error smaller than 1e-9.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 10, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>x</b> will have exactly N elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>y</b> will have exactly N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>x</b> and <b>y</b> will be betweeen -10^9 and 10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>No two bases will be located at the same coordinates.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, 11, 12}</pre></td></tr><tr><td><pre>{0, 0, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2.414213562373095</pre></td></tr><tr><td><table><tr><td colspan="2">Wait for one unit of time and then fire the cannon in base 0 at base 1 to capture it. Wait for another sqrt(2) units of time and then fire the cannon in base 1 to capture base 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, -2}</pre></td></tr><tr><td><pre>{0, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.0</pre></td></tr><tr><td><table><tr><td colspan="2">One possible strategy: After 1 unit of time base 0 captures base 1, and after another 2 units of time base 0 captures base 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0,0,0,-1,1}</pre></td></tr><tr><td><pre>{1,0,-1,0,0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.0</pre></td></tr><tr><td><table><tr><td colspan="2">There are five bases.
+At the beginning Limak controls base 0 which is located at (0,1).
+After 1 second the cannon in base 0 has 1 unit of energy.
+At that point he can shoot the cannon to capture base 1, which is located at (0,0).
+After another sqrt(2) seconds the cannon in base 0 will have enough energy to shoot and capture base 4, which is located at (1,0).
+In the meantime the cannon in the newly captured base 1 is also being charged.
+One second after the capture of this base (i.e., 2 seconds after the game started) Limak can fire the cannon in base 1 to capture base 2.
+After another second he can fire the cannon in base 1 to capture base 3.
+At this moment, all the enemy bases have been captured.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-2,0,0,1,0}</pre></td></tr><tr><td><pre>{0,1,-1,0,0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4.23606797749979</pre></td></tr><tr><td><table><tr><td colspan="2">An optimal strategy:
+<ol>
+<li>At time 2, base 0 captures base 4.</li>
+<li>At time 3, base 4 captures base 1.</li>
+<li>At time 4, base 4 captures base 3.</li>
+<li>At time 2+sqrt(5), base 0 captures base 2 and the game is over.</li>
+</ol></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-500000000, -300000000, -100000000, 200000000, 300000000, 400000000, 600000000, 900000000, 950000000, 1000000000}</pre></td></tr><tr><td><pre>{0,0,0,0,0,0,0,0,0,0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1.5E9</pre></td></tr><tr><td><table><tr><td colspan="2">In this case, the optimal strategy is to use the cannon in base 0 to capture base 1, use that cannon to capture base 2, and so on.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
