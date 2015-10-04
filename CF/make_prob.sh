@@ -1,5 +1,6 @@
-for i in $*; do
-	mkdir $i
-	sed -e s/\\\$NAME\\\$/$i/g template.cpp > $i/$i.cpp
-	cp ./Makefile $i/Makefile
+for filepath in $*; do
+	mkdir -p $filepath
+	filename=$(basename "$filepath")
+	sed -e s/\\\$NAME\\\$/$filename/g template.cpp > $filepath/$filename.cpp
+	cp ./Makefile $filepath/Makefile
 done
