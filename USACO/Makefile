@@ -1,10 +1,11 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++0x -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wcast-qual -Wcast-align
+CXXFLAGS = -Wall -Wextra -pedantic -std=c++11 -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wcast-qual -Wcast-align
 DEBUGFLAGS = -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fstack-protector -lmcheck -D_FORTIFY_SOURCE=2
 
 TARGET := $(notdir $(CURDIR))
 
-TESTS := $(sort $(patsubst %.in,%,$(wildcard *.in)))
+CASES := $(sort $(patsubst %.in,%,$(wildcard *.in)))
+TESTS := $(sort $(patsubst %.out,%,$(wildcard *.out)))
 
 all: $(TARGET)
 
@@ -20,11 +21,12 @@ run: $(TARGET)
 %.res: $(TARGET) %.in
 	time ./$(TARGET) < $*.in > $*.res
 
-test%: %.res
+__test_%: %.res
 	diff $*.res $*.out
 
-test: $(patsubst %,test%,$(TESTS))
+cases: $(patsubst %, %.res, $(CASES))
+test: $(patsubst %, __test_%, $(TESTS))
 
 .PHONY: all clean run test
 
-.PRECIOUS: $(patsubst %,%.res,$(TESTS))
+.PRECIOUS: $(patsubst %,%.res,$(CASES))

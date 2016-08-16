@@ -1,0 +1,10 @@
+4k + 11 -> k, with 11
+4k + 10 -> k, with 11
+4k + 01 -> k, with 01
+4k + 00 -> k, with 01
+
+11 -> 10
+10 -> 10
+01 -> 01
+
+set all even places to 1 after first 2

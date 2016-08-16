@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- saved from url=(0168)https://polygon.codeforces.com/contest-statements.html?contestId=3760&action=previewAsHTML&language=english&fromWorkingCopies=true&ccid=295c8dbe2dbf06308f801c1855d802dc -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="ccid" content="295c8dbe2dbf06308f801c1855d802dc">
+    <meta http-equiv="expires" content="-1">
+    
+    <link rel="stylesheet" type="text/css" href="./Statements_files/problem-statement.css">
+    <title>Statements</title>
+<style>#cVim-link-container, .cVim-link-hint, #cVim-command-bar, #cVim-command-bar-mode, #cVim-command-bar-input, #cVim-command-bar-search-results, .cVim-completion-item, .cVim-completion-item .cVim-full, .cVim-completion-item .cVim-left, .cVim-completion-item .cVim-right, #cVim-hud, #cVim-status-bar {
+  font-family: Helvetica, Helvetica Neue, Neue, sans-serif, monospace, Arial;
+  font-size: 10pt !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+#cVim-link-container {
+  position: absolute;
+  pointer-events: none;
+  width: 100%; left: 0;
+  height: 100%; top: 0;
+  z-index: 2147483647;
+}
+
+.cVim-link-hint {
+  color: #302505 !important;
+  background-color: #ffd76e !important;
+  border-radius: 2px !important;
+  padding: 2px !important;
+  font-size: 8pt !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  border: 1px solid #ad810c;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  text-align: center !important;
+  box-shadow: 2px 2px 1px rgba(0,0,0,0.25) !important;
+  position: absolute !important;
+}
+
+.cVim-link-hint_match {
+  color: #777;
+  text-transform: uppercase !important;
+}
+
+#cVim-command-bar {
+  position: fixed !important;
+  z-index: 2147483646 !important;
+  background-color: #1b1d1e !important;
+  color: #bbb !important;
+  display: none;
+  box-sizing: content-box !important;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+  left: 0 !important;
+  width: 100% !important;
+  height: 20px !important;
+}
+
+#cVim-command-bar-mode {
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box !important;
+  padding-left: 2px !important;
+  height: 100% !important;
+  width: 10px !important;
+  padding-top: 2px !important;
+  color: #888 !important;
+}
+
+#cVim-command-bar-input {
+  background-color: #1b1d1e !important;
+  color: #bbb !important;
+  height: 100% !important;
+  right: 0 !important;
+  top: 0 !important;
+  width: calc(100% - 10px) !important;
+  position: absolute !important;
+}
+
+#cVim-command-bar-search-results {
+  position: fixed;
+  width: 100% !important;
+  overflow: hidden;
+  z-index: 2147483647 !important;
+  left: 0;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+  background-color: #1c1c1c;
+}
+
+.cVim-completion-item, .cVim-completion-item .cVim-full, .cVim-completion-item .cVim-left, .cVim-completion-item .cVim-right {
+  text-overflow: ellipsis;
+  padding: 1px;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.cVim-completion-item:nth-child(even) {
+  background-color: #1f1f1f;
+}
+
+.cVim-completion-item {
+  width: 100%; left: 0;
+  color: #bcbcbc;
+}
+
+.cVim-completion-item .cVim-left {
+  color: #fff;
+  width: 37%;
+}
+
+.cVim-completion-item .cVim-right {
+  font-style: italic;
+  color: #888;
+  width: 57%;
+}
+
+#cVim-hud {
+  background-color: rgba(28,28,28,0.9);
+  position: fixed !important;
+  transition: right 0.2s ease-out;
+  z-index: 24724289;
+}
+
+#cVim-hud span {
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  color: #8f8f8f;
+  font-size: 10pt;
+}
+
+#cVim-frames-outline {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 9999999999;
+  box-sizing: border-box;
+  border: 3px solid yellow;
+}
+</style></head>
+<body><span style="display:none;" class="ccid" data-value="295c8dbe2dbf06308f801c1855d802dc">&nbsp;</span>
+    <div class="problem-statement"><div class="header"><div class="title">C. Factory Repairs</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>64 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div class="legend"><p>A factory produces thimbles in bulk. Typically, it can produce up to <span class="tex-span"><i>A</i></span> thimbles a day. However, some of the machinery is defective, so it can currently only produce <span class="tex-span"><i>B</i></span> thimbles each day. The factory intends to choose a <span class="tex-span"><i>k</i></span>-day period to do maintenance and construction; it cannot produce any thimbles during this time, but will be restored to its full production of <span class="tex-span"><i>A</i></span> thimbles per day after the <span class="tex-span"><i>k</i></span> days are complete.</p><p>The factory wishes to fill as many orders as possible over the next <span class="tex-span"><i>n</i></span> days. Initially, no orders are pending. The factory receives updates of the form <span class="tex-span"><i>d</i><sub class="lower-index"><i>i</i></sub>, <i>a</i><sub class="lower-index"><i>i</i></sub></span>, indicating that <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> new orders have been placed for the <span class="tex-span"><i>d</i><sub class="lower-index"><i>i</i></sub></span>-th day. Each order requires a single thimble to be produced on precisely the specified day. The factory can begin maintenance on any of the next <span class="tex-span"><i>n</i></span> days; it can even choose to delay maintenance until after the <span class="tex-span"><i>n</i></span> days have passed. After each new order, find the maximum number of orders the factory can successfully fill if it chooses an optimal maintenance time.</p></div><p></p><p></p><div class="input-specification"><div class="section-title">Input</div><p></p><p>The first line contains five integers <span class="tex-span"><i>n</i></span>, <span class="tex-span"><i>k</i></span>, <span class="tex-span"><i>A</i></span>, <span class="tex-span"><i>B</i></span>, and <span class="tex-span"><i>q</i></span> (<span class="tex-span">1 ≤ <i>k</i> ≤ <i>n</i> ≤ 200 000</span>, <span class="tex-span">1 ≤ <i>B</i> &lt; <i>A</i> ≤ 10 000</span>, <span class="tex-span">1 ≤ <i>q</i> ≤ 200 000</span>) — the number of days, the length of the repair time, the production rates of the factory, and the number of updates, respectively.</p><p>Each of the next <span class="tex-span"><i>q</i></span> lines contains two integers <span class="tex-span"><i>d</i><sub class="lower-index"><i>i</i></sub></span>, <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">1 ≤ <i>d</i><sub class="lower-index"><i>i</i></sub> ≤ <i>n</i></span>, <span class="tex-span">1 ≤ <i>a</i><sub class="lower-index"><i>i</i></sub> ≤ 10 000</span>) — the day of the order, and the number of orders in the <span class="tex-span"><i>i</i></span>th update, respectively.</p></div><p></p><p></p><div class="output-specification"><div class="section-title">Output</div><p></p><p>Print <span class="tex-span"><i>q</i></span> lines, each containing a single integer — the maximum number of orders that the factory can fill over all <span class="tex-span"><i>n</i></span> days after the <span class="tex-span"><i>i</i></span>th update.</p></div></div><p></p><p>  </p><div class="problem-statement"><div class="header"><div class="title">D. Preorder Test</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>64 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div class="legend"><p>For his computer science class, Jacob builds a model tree with sticks and balls containing <span class="tex-span"><i>n</i></span> nodes in the shape of a rooted tree. Jacob has spent <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> minutes building the <span class="tex-span"><i>i</i></span>-th ball in the tree.</p><p>Jacob's teacher will evaluate his model and grade Jacob based on the effort he has put in. However, she does not have enough time to search his whole tree to determine this; Jacob knows that she will start from the root node and examine the first <span class="tex-span"><i>k</i></span> nodes in a preorder traversal of the tree. She will then assign Jacob a grade equal to the minimum <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> she finds among those <span class="tex-span"><i>k</i></span> nodes.</p><p>Though Jacob does not have enough time to rebuild his model, he can choose the root node. Further more, he can rearrange the children of each node in any order he likes. Help Jacob find the best grade he can get on this assignment.</p></div><p></p><p></p><div class="input-specification"><div class="section-title">Input</div><p></p><p>The first line of input contains two positive integers, <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>k</i></span> (<span class="tex-span">2 ≤ <i>n</i> ≤ 200 000</span>, <span class="tex-span">1 ≤ <i>k</i> ≤ <i>n</i></span>) — the number of balls in his tree and the number of balls the teacher will inspect. The ball labeled <span class="tex-span">1</span> is the root node.</p><p>The second line contains <span class="tex-span"><i>n</i></span> integers, <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">1 ≤ <i>a</i><sub class="lower-index"><i>i</i></sub> ≤ 1 000 000</span>), the time Jacob used to build the <span class="tex-span"><i>i</i></span>th ball.</p><p>The next <span class="tex-span"><i>n</i> - 1</span> lines of input each contain two integers <span class="tex-span"><i>u</i>, <i>v</i></span> (<span class="tex-span">1 ≤ <i>u</i>, <i>v</i> ≤ <i>n</i></span>, <span class="tex-span"><i>u</i> ≠ <i>v</i></span>) representing a connection in Jacob's tree.</p></div><p></p><p></p><div class="output-specification"><div class="section-title">Output</div><p></p><p>Print a single integer — the maximum grade Jacob can get by rearranging the tree.</p></div></div><p></p><p>  </p><div class="problem-statement"><div class="header"><div class="title">E. Orchestra</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>64 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div class="legend"><p>Paul is at the orchestra. The string section is arranged in an <span class="tex-span"><i>r</i> × <i>c</i></span> rectangular grid and is filled with violinists with the exception of <span class="tex-span"><i>n</i></span> violists. Paul really likes violas, so he would like to take a picture including at least <span class="tex-span"><i>k</i></span> of them. Paul can take a picture of any axis-parallel rectangle in the orchestra. Count the number of possible pictures that Paul can take.</p></div><p></p><p></p><div class="input-specification"><div class="section-title">Input</div><p></p><p>The first line of input contains four space-separated integers <span class="tex-span"><i>r</i></span>, <span class="tex-span"><i>c</i></span>, <span class="tex-span"><i>n</i></span>, <span class="tex-span"><i>k</i></span> (<span class="tex-span">1 ≤ <i>r</i>, <i>c</i>, <i>n</i> ≤ 3000</span>, <span class="tex-span">1 ≤ <i>k</i> ≤ <i>min</i>(<i>n</i>, 10)</span>) — the number of rows and columns of the string section, the total number of violas, and the number violas Paul would like in his photograph.</p><p>The next <span class="tex-span"><i>n</i></span> lines each contain two integers <span class="tex-span"><i>x</i><sub class="lower-index"><i>i</i></sub></span> and <span class="tex-span"><i>y</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">1 ≤ <i>x</i><sub class="lower-index"><i>i</i></sub> ≤ <i>r</i></span>, <span class="tex-span">1 ≤ <i>y</i><sub class="lower-index"><i>i</i></sub> ≤ <i>c</i></span>): the position of the <span class="tex-span"><i>i</i></span>th viola. It is guaranteed that no location appears more than once in the input.</p></div><p></p><p></p><div class="output-specification"><div class="section-title">Output</div><p></p><p>Print a single integer — the number of photographs Paul can take which include at least <span class="tex-span"><i>k</i></span> violas. </p></div></div><p></p><p>  </p><div class="problem-statement"><div class="header"><div class="title">F. Island Puzzle</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>64 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div class="legend"><p>A remote island chain contains <span class="tex-span"><i>n</i></span> islands, with some bridges between the islands. The current bridge network forms a tree. In other words, a total of <span class="tex-span"><i>n</i> - 1</span> bridges connect pairs of islands in a way that each island can reach every other island using the bridge network. The center of each island contains an identical pedestal, and all but one of the islands has a fragile, uniquely colored statue currently held on the pedestal. The remaining island holds only an empty pedestal.</p><p>The islanders want to rearrange the statues in a new order. To do this, they repeat the following process: First, they choose an island <span class="tex-font-style-bf">directly adjacent</span> to the island containing an empty pedestal. Then, they painstakingly carry the statue on this island across the adjoining bridge and place it on the empty pedestal.</p><p>However, this is often too difficult. The islanders would like to build additional bridges in order to make this possible. However, bridges must be built in a way that the resulting network is a cactus – in other words, no bridge in the final network may belong to more than one simple cycle. Find the minimum number of bridges necessary to allow the islanders to arrange the statues as desired.</p></div><p></p><p></p><div class="input-specification"><div class="section-title">Input</div><p></p><p>The first line contains a single integer <span class="tex-span"><i>n</i></span> (<span class="tex-span">2 ≤ <i>n</i> ≤ 200 000</span>) — the total number of islands.</p><p>The second line contains <span class="tex-span"><i>n</i></span> space-separated integers <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>a</i><sub class="lower-index"><i>i</i></sub> ≤ <i>n</i> - 1</span>) — the statue currently on the <span class="tex-span"><i>i</i></span>th island. If <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub> = 0</span>, then the island has no statue. You are guaranteed that the <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> are distinct.</p><p>The third line contains <span class="tex-span"><i>n</i></span> space-separated integers <span class="tex-span"><i>b</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>b</i><sub class="lower-index"><i>i</i></sub> ≤ <i>n</i> - 1</span>) — the desired statues of the <span class="tex-span"><i>i</i></span>th island. Once again, <span class="tex-span"><i>b</i><sub class="lower-index"><i>i</i></sub> = 0</span> indicates the island desires no statue. You are guaranteed that the <span class="tex-span"><i>b</i><sub class="lower-index"><i>i</i></sub></span> are distinct.</p><p>The next <span class="tex-span"><i>n</i> - 1</span> lines each contain two distinct space-separated integers <span class="tex-span"><i>u</i></span> and <span class="tex-span"><i>v</i></span> (<span class="tex-span">1 ≤ <i>u</i>, <i>v</i> ≤ <i>n</i></span>) — the endpoints of a bridge between islands <span class="tex-span"><i>u</i></span> and <span class="tex-span"><i>v</i></span>. Bridges are bidirectional, and it is guaranteed that no bridge is listed twice in the input.</p></div><p></p><p></p><div class="output-specification"><div class="section-title">Output</div><p></p><p>Print a single integer, the fewest number of additional bridges necessary to rearrange the statues. If the rearrangement can be done in the existing network, output <span class="tex-span">0</span>. If the rearrangement cannot be done no matter how the bridges are built, output <span class="tex-span"> - 1</span>.</p></div></div><p></p><p>  
+
+
+
+</p></body><div id="cVim-status-bar" style="top: 0px;"></div><iframe src="./Statements_files/cmdline_frame.html" id="cVim-command-frame"></iframe></html>

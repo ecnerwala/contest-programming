@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Dumb clicking - easy</title>
+</head>
+
+<body>
+  <div style="max-width:600px;margin: 10px auto;">
+    <div id="command" style="height: 10em">
+      <b>Level 1:</b> Click anywhere on the image. Then click on the <b>Next</b> button.
+    </div>
+    <img id="image" src="easy.png" width=600 height=400 onclick="process(event);return false;" ondragstart="return false">
+
+    <div style="text-align: center"><button onclick="next();" style="font-size:200%">Next</button></div>
+    <br/><br/>
+
+    Action log:<br/>
+    <textarea id="log" rows="10" cols="70"></textarea>
+  </div>
+  <script src="easy-data.js"></script>
+  <script src="easy.js"></script>
+</body>
+</html>
