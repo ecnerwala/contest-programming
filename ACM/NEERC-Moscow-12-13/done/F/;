@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int MAXN = 2e5;
+
+int N, K;
+
+int indeg[MAXN];
+vector<int> nxt[MAXN];
+
+double val[MAXN];
+int cap[MAXN];
+
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin >> N >> K;
+	for(int i = 0; i < N; i++) {
+		int P, A; cin >> P >> A;
+		cap[i] = P;
+		val[i] = A;
+	}
+	for(int i = 0; i < K; i++) {
+		int a, b; cin >> a >> b;
+		a--, b--;
+		indeg[b] ++;
+		nxt[a].push_back(b);
+	}
+
+	stack<int> q;
+	for(int i = 0; i < N; i++) {
+		if(indeg[i] == 0) q.push(i);
+	}
+
+	int X, Y, Z; cin >> X >> Y >> Z;
+
+	while(!q.empty()) {
+		int a = q.top(); q.pop();
+	}
+	return 0;
+}

@@ -1,0 +1,60 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Alice and Bob have a rectangular board divided into a grid with r rows and c columns.
+The grid is described by the vector &lt;string&gt; <b>s</b>.
+Each character of <b>s</b> represents one cell.
+There are four types of cells:
+<ul>
+<li>'E' denotes an exit. There may be arbitrarily many exits, possibly zero.</li>
+<li>'T' means the square contains a single token. There may be arbitrarily many tokens, possibly zero.</li>
+<li>'#' denotes an obstacle.</li>
+<li>'.' denotes an empty cell.</li>
+</ul>
+</p>
+
+<p>
+Alice and Bob will play a game on this board.
+The game is parameterized by the int <b>k</b>.
+Each token initially has the number <b>k</b> on it.
+The players will take alternating turns, starting with Alice.
+A player's turn consists of the following steps:
+<ol>
+<li>The player chooses a single token on the board and moves it one square up, down, left, or right. The token cannot go over the edge of the board and it cannot enter a cell with an obstacle. The token may be moved into a cell that already contains other token(s). During the game, arbitrarily many tokens may share the same cell.</li>
+<li>If this token is on an exit, it disappears from the board.</li>
+<li>Otherwise, subtract one from the number on the token. If the number on the token is zero, remove it from the board. (The numbers on other tokens do not change.)</li>
+</ol>
+</p>
+
+<p>
+The first player unable to make a move loses the game.
+</p>
+
+<p>
+You are given the vector &lt;string&gt; <b>s</b> and the int <b>k</b>
+Compute the winner of the game, assuming both Alice and Bob play optimally.
+Return the winner's name: either "Alice" or "Bob".
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BoardEscape</td></tr><tr><td>Method:</td><td>findWinner</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, int</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string findWinner(vector &lt;string&gt; s, int k)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>r,c will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>s</b> will contain exactly r elements, each consisting of c characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of each element of <b>s</b> will be one of 'T', 'E', '#', or '.'.</td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 1 and 1,000,000,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;TE&quot;}</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Alice&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Alice can move the token directly to the exit on her first move, making Bob unable to move.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;E#E&quot;,
+ &quot;#T#&quot;,
+ &quot;E#E&quot;}</pre></td></tr><tr><td><pre>1000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Bob&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Alice is unable to make the first move in this case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;T.T.T.&quot;,
+ &quot;.E.E.E&quot;}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Alice&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;TTE&quot;}</pre></td></tr><tr><td><pre>6</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Alice&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..........................&quot;,
+ &quot;......TTT..TTT..T...T.....&quot;,
+ &quot;.....T.....T..T.TT.TT.....&quot;,
+ &quot;......TTT..TTT..T.T.T.....&quot;,
+ &quot;.........T.T.T..T...T.....&quot;,
+ &quot;......TTT..T..T.T...T.....&quot;,
+ &quot;..........................&quot;,
+ &quot;...E#E#E#E#E#E#E#E#E#E#...&quot;,
+ &quot;..........................&quot;,
+ &quot;......TTT..TTT...TTT......&quot;,
+ &quot;.....T........T.T.........&quot;,
+ &quot;......TTT.....T..TTT......&quot;,
+ &quot;.....T...T...T..T...T.....&quot;,
+ &quot;......TTT....T...TTT......&quot;,
+ &quot;..........................&quot;,
+ &quot;...#E#E#E#E#E#E#E#E#E#E...&quot;,
+ &quot;..........................&quot;,
+ &quot;....TT...T...T..T.TTT.T...&quot;,
+ &quot;...T.....T...T..T.T...T...&quot;,
+ &quot;...T.TT..T...TTTT.TT..T...&quot;,
+ &quot;...T..T..T...T..T.T.......&quot;,
+ &quot;....TT...TTT.T..T.T...T...&quot;,
+ &quot;..........................&quot;}</pre></td></tr><tr><td><pre>987654321</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Bob&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

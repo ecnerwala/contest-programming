@@ -1,0 +1,93 @@
+# basic lands
+
+Plains;Plains;W;
+Island;Island;U;
+Swamp;Swamp;B;
+Mountain;Mountain;R
+Forest;Forest;G;
+
+# three-colored non-basic lands
+
+Arcane Sanctum;;W|U|B;
+Crumbling Necropolis;;U|B|R;
+Frontier Bivouac;;G|U|R;
+Jungle Shrine;;R|G|W;
+Mystic Monastery;;U|R|W;
+Nomad Outpost;;R|W|B;
+Opulent Palace;;B|G|U;
+Sandsteppe Citadel;;W|B|G;
+Savage Lands;;B|R|G;
+Seaside Citadel;;G|W|U;
+
+# dual lands with two basic land types
+
+Badlands;Swamp,Mountain;B|R;
+Bayou;Swamp,Forest;B|G;
+Plateau;Mountain,Plains;R|W;
+Savannah;Forest,Plains;G|W;
+Scrubland;Plains,Swamp;W|B;
+Taiga;Mountain,Forest;R|G;
+Tropical Island;Forest,Island;G|U;
+Tundra;Plains,Island;W|U;
+Underground Sea;Island,Swamp;U|B;
+Volcanic Island;Island,Mountain;U|R;
+
+# fetch lands
+
+Arid Mesa;;-fetchMountain|-fetchPlains;
+Bloodstained Mire;;-fetchSwamp|-fetchMountain;
+Flooded Strand;;-fetchPlains|-fetchIsland;
+Marsh Flats;;-fetchPlains|-fetchSwamp;
+Misty Rainforest;;-fetchForest|-fetchIsland;
+Polluted Delta;;-fetchIsland|-fetchSwamp;
+Scalding Tarn;;-fetchIsland|-fetchMountain;
+Verdant Catacombs;;-fetchSwamp|-fetchForest;
+Windswept Heath;;-fetchForest|-fetchPlains;
+Wooded Foothills;;-fetchMountain|-fetchForest;
+
+# shock lands
+
+Blood Crypt;Swamp,Mountain;B|R;--shock
+Breeding Pool;Forest,Island;G|U;--shock
+Godless Shrine;Plains,Swamp;W|B;--shock
+Hallowed Fountain;Plains,Island;W|U;--shock
+Overgrown Tomb;Swamp,Forest;B|G;--shock
+Sacred Foundry;Mountain,Plains;R|W;--shock
+Steam Vents;Island,Mountain;U|R;--shock
+Stomping Ground;Mountain,Forest;R|G;--shock
+Temple Garden;Forest,Plains;G|W;--shock
+Watery Grave;Island,Swamp;U|B;--shock
+
+# pain lands
+
+Adarkar Wastes;;C|-W|-U;
+Battlefield Forge;;C|-R|-W;
+Brushland;;C|-G|-W;
+Caves of Koilos;;C|-W|-B;
+Karplusan Forest;;C|-R|-G;
+Llanowar Wastes;;C|-B|-G;
+Shivan Reef;;C|-U|-R;
+Sulfurous Springs;;C|-B|-R;
+Underground River;;C|-U|-B;
+Yavimaya Coast;;C|-G|-U;
+
+# bounce lands
+
+Azorius Chancery;;WU;
+Boros Garrison;;RW;
+Dimir Aqueduct;;UB;
+Golgari Rot Farm;;BG;
+Gruul Turf;;RG;
+Izzet Boilerworks;;UR;
+Orzhov Basilica;;WB;
+Rakdos Carnarium;;BR;
+Selesnya Sanctuary;;GW;
+Simic Growth Chamber;;GU;
+
+# the five special lands
+
+City of Brass;;-W|-U|-R|-B|-G;
+Gemstone Mine;;W|U|R|B|G;
+Urza's Mine;;C;tron CC
+Urza's Power Plant;;C;tron CC
+Urza's Tower;;C;tron CCC
