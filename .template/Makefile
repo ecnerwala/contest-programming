@@ -26,8 +26,10 @@ __test_%: %.res %.out
 
 runs: $(patsubst %,%.res,$(CASES))
 
+solve: runs
+
 test: $(patsubst %,__test_%,$(TESTS))
 
-.PHONY: all clean run test __test_% runs
+.PHONY: all clean run test __test_% runs solve
 
 .PRECIOUS: %.res
