@@ -1,0 +1,4 @@
+TIME LIMIT UPDATE
+
+The time limit of Simurgh has been decreased to 2 seconds.
+
