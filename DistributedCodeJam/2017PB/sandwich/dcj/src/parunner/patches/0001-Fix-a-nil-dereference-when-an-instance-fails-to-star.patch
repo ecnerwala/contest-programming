@@ -1,0 +1,48 @@
+From 9a3a25a8aec5dde88a322f0905f3c3a56d3ad1d5 Mon Sep 17 00:00:00 2001
+From: Robert Obryk <robryk@google.com>
+Date: Tue, 28 Apr 2015 00:04:36 +0200
+Subject: [PATCH] Fix a nil dereference when an instance fails to start.
+
+---
+ instances.go      | 2 +-
+ instances_test.go | 8 ++++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git instances.go instances.go
+index ea19ff8..f782a79 100644
+--- instances.go
++++ instances.go
+@@ -43,11 +43,11 @@ func RunInstances(cmds []*exec.Cmd, commLog io.Writer) ([]*Instance, error) {
+ 			ResponseChan:   make(chan *response, 1),
+ 		}
+ 		if err := is[i].Start(); err != nil {
+-			is[i] = nil
+ 			select {
+ 			case results <- InstanceError{i, err}:
+ 			default:
+ 			}
++			close(is[i].RequestChan)
+ 			continue
+ 		}
+ 		defer is[i].Kill()
+diff --git instances_test.go instances_test.go
+index a00f7ef..5c13709 100644
+--- instances_test.go
++++ instances_test.go
+@@ -76,5 +76,13 @@ func TestInstances(t *testing.T) {
+ 	}
+ }
+ 
++func TestInstancesStartError(t *testing.T) {
++	cmds := []*exec.Cmd{exec.Command("/does/not/exist")}
++	_, err := RunInstances(cmds, ioutil.Discard)
++	if err == nil {
++		t.Errorf("expected an error when trying to run a nonexistent binary")
++	}
++}
++
+ // TODO: check what happens when we send/recv message to/from an instance that doesn't exist
+ // TODO: check what happens when an instance claims that its CPU time goes backward
+-- 
+2.2.0.rc0.207.ga3a616c
+
