@@ -1,0 +1,84 @@
+From 9306327ecb86f6c6037c7fb8eecd10a5b82d2c39 Mon Sep 17 00:00:00 2001
+From: Robert Obryk <robryk@google.com>
+Date: Wed, 6 May 2015 20:23:54 +0200
+Subject: [PATCH] Hack: allow message limits to be set on cmdline
+
+---
+ comm.go | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git comm.go comm.go
+index 785bbc2..2d532fb 100644
+--- comm.go
++++ comm.go
+@@ -2,6 +2,7 @@ package main
+ 
+ import (
+ 	"encoding/binary"
++	"flag"
+ 	"fmt"
+ 	"io"
+ 	"time"
+@@ -39,8 +40,9 @@ type sendHeader struct {
+ 	// Message []byte
+ }
+ 
+-const MessageCountLimit = 1000
+-const MessageSizeLimit = 8 * 1024 * 1024
++// TODO(robryk): Move this to instance-creation-time options
++var messageCountLimit = flag.Int("message_count_limit", 1000, "Limit for the number of messages sent per instance")
++var messageSizeLimit = flag.Int("message_size_limit", 8*1024*1024, "Limit for the total size of messages sent by an instance, in bytes")
+ 
+ type Message struct {
+ 	Source   int
+@@ -49,18 +51,22 @@ type Message struct {
+ 	Message  []byte
+ }
+ 
++// ErrMessageCount is returned when an instance exceeds the per-instance message count limit.
++// It is usually encapsulated in an InstanceError that specifies the instance ID.
+ type ErrMessageCount struct {
+ }
+ 
+ func (err ErrMessageCount) Error() string {
+-	return fmt.Sprintf("przekroczony limit (%d) liczby wysłanych wiadomości", MessageCountLimit)
++	return fmt.Sprintf("przekroczony limit (%d) liczby wysłanych wiadomości", *messageCountLimit)
+ }
+ 
++// ErrMessageSize is returned when an instance exceeds the per-instance total messages size limit.
++// It is usually encapsulated in an InstanceError that specifies the instance ID.
+ type ErrMessageSize struct {
+ }
+ 
+ func (err ErrMessageSize) Error() string {
+-	return fmt.Sprintf("przekroczony limit (%d bajtów) sumarycznego rozmiaru wysłanych wiadomości", MessageSizeLimit)
++	return fmt.Sprintf("przekroczony limit (%d bajtów) sumarycznego rozmiaru wysłanych wiadomości", *messageSizeLimit)
+ }
+ 
+ func writeMessage(w io.Writer, message *Message) error {
+@@ -135,7 +141,7 @@ func readRequest(r io.Reader) (*request, error) {
+ 		if err := binary.Read(r, binary.LittleEndian, &sh); err != nil {
+ 			return nil, err
+ 		}
+-		if sh.Length < 0 || sh.Length > MessageSizeLimit {
++		if sh.Length < 0 || int(sh.Length) > *messageSizeLimit {
+ 			return nil, fmt.Errorf("invalid size of a message to be sent: %d", sh.Length)
+ 		}
+ 		if sh.TargetID < 0 || sh.TargetID >= MaxInstances {
+@@ -185,11 +191,11 @@ func (i *Instance) communicate(r io.Reader, w io.Writer, reqCh chan<- *request,
+ 		req.time += i.TimeBlocked
+ 		if req.requestType == requestSend {
+ 			i.MessagesSent++
+-			if i.MessagesSent > MessageCountLimit {
++			if i.MessagesSent > *messageCountLimit {
+ 				return ErrMessageCount{}
+ 			}
+ 			i.MessageBytesSent += len(req.message)
+-			if i.MessageBytesSent > MessageSizeLimit {
++			if i.MessageBytesSent > *messageSizeLimit {
+ 				return ErrMessageSize{}
+ 			}
+ 		}
+-- 
+2.2.0.rc0.207.ga3a616c
+
