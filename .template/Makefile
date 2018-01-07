@@ -3,6 +3,7 @@ CXXFLAGS = -Wall -Wextra -pedantic -std=c++11 -O2 -Wshadow -Wformat=2 -Wfloat-eq
 DEBUGFLAGS = -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fstack-protector -lmcheck -D_FORTIFY_SOURCE=2
 
 TARGET := $PROBLEM_NAME
+EXECUTE := ./$(TARGET)
 
 CASES := $(sort $(basename $(wildcard *.in)))
 TESTS := $(sort $(basename $(wildcard *.out)))
@@ -16,10 +17,10 @@ clean:
 	$(LINK.cpp) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 run: $(TARGET)
-	time ./$(TARGET)
+	time $(EXECUTE)
 
 %.res: $(TARGET) %.in
-	time ./$(TARGET) < $*.in > $*.res
+	time $(EXECUTE) < $*.in > $*.res
 
 __test_%: %.res %.out
 	diff $*.res $*.out
