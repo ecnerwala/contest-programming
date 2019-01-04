@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class FindThePerfectTriangle {
+
+	const vector<int> BAD;
+public:
+
+	int rt(int v) {
+		assert(v > 0);
+		int r = int(sqrt(v));
+		if (r * r == v) return r;
+		r++;
+		if (r * r == v) return r;
+		return 0;
+	}
+
+	int sq(int a) {
+		return a * a;
+	}
+
+	vector <int> constructTriangle(int area, int perimeter) {
+		area *= 2;
+		vector<pair<pair<int, int>, int>> pts;
+		for (int i = 0; i <= 3000; i++) {
+			for (int j = 0; j <= 3000; j++) {
+				if (i == 0 && j == 0) continue;
+				int v = rt(i * i + j * j);
+				if (!v) continue;
+				pts.emplace_back(pair<int, int> (i, j), v);
+			}
+		}
+		for (const auto& p : pts) {
+			for (const auto& q : pts) {
+				if (perimeter > p.second + q.second
+						&& p.first.first * q.first.second - p.first.second * q.first.first == area
+						&& sq(perimeter - p.second - q.second) == sq(p.first.first - q.first.first) + sq(p.first.second - q.first.second)) {
+					return vector<int>{0, 0, p.first.first, p.first.second, q.first.first, q.first.second};
+				}
+			}
+		}
+		return BAD;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::FindThePerfectTriangle;
+
+// vim:ft=cpp

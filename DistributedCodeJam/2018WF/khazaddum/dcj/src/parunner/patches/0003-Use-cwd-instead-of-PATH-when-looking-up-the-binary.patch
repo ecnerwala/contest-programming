@@ -1,0 +1,54 @@
+From 5b52c40f67b2ff06cd893df278e2d3c3e8751797 Mon Sep 17 00:00:00 2001
+From: Robert Obryk <robryk@google.com>
+Date: Wed, 6 May 2015 19:57:27 +0200
+Subject: [PATCH] Use cwd instead of $PATH when looking up the binary.
+
+This causes parunner blah to actually run ./blah instead of erroring
+out.
+---
+ main.go | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git main.go main.go
+index 74419d7..3fb6b2b 100644
+--- main.go
++++ main.go
+@@ -63,18 +63,25 @@ func main() {
+ 	log.SetFlags(log.Lmicroseconds | log.Lshortfile)
+ 	flag.Usage = Usage
+ 	flag.Parse()
++
+ 	if flag.NArg() != 1 {
+ 		fmt.Fprintf(os.Stderr, "Nie podałeś programu do uruchomienia\n")
+ 		flag.Usage()
+ 		os.Exit(1)
+ 	}
+-	binaryPath = flag.Arg(0)
++	var err error
++	binaryPath, err = filepath.Abs(flag.Arg(0))
++	if err != nil {
++		fmt.Fprintf(os.Stderr, "Cannot find absolute path of the binary: %v\n", err)
++		os.Exit(1)
++	}
+ 
+ 	if *nInstances < 1 || *nInstances > MaxInstances {
+ 		fmt.Fprintf(os.Stderr, "Liczba instancji powinna być z zakresu [1,%d], a podałeś %d\n", MaxInstances, *nInstances)
+ 		flag.Usage()
+ 		os.Exit(1)
+ 	}
++
+ 	var writeStdout func(int, io.Reader) error
+ 	contestStdout := &ContestStdout{Output: os.Stdout}
+ 	switch *stdoutHandling {
+@@ -122,7 +129,7 @@ func main() {
+ 	var wg sync.WaitGroup
+ 	closeAfterWait := []io.Closer{}
+ 	for i := range progs {
+-		cmd := exec.Command(flag.Arg(0))
++		cmd := exec.Command(binaryPath)
+ 		w, err := cmd.StdinPipe()
+ 		if err != nil {
+ 			log.Fatal(err)
+-- 
+2.2.0.rc0.207.ga3a616c
+

@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+const int MAXN = 60;
+const int MAXV = 10020;
+const int V = 10010;
+
+bool dpv[MAXV];
+
+bool anyv[MAXV];
+
+class Alchemy {
+
+
+public:
+
+	string leadToGold(vector <int> leadOutput, vector <int> goldOutput, ll goal) {
+		vector<pair<int, int>> leadGolds;
+		vector<int> golds;
+		assert(leadOutput.size() == goldOutput.size());
+		for (size_t i = 0; i < leadOutput.size(); i++) {
+			int l = leadOutput[i];
+			int g = goldOutput[i];
+			if (l == 0) {
+				golds.emplace_back(g);
+			} else {
+				leadGolds.emplace_back(l-1, g);
+			}
+		}
+		for (int i = 0; i <= V; i++) dpv[i] = false;
+		dpv[0] = true;
+		for (int t = 0; t <= 100; t++) {
+			for (int i = V; i > 0; i--) {
+			}
+		}
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::Alchemy;
+
+// vim:ft=cpp

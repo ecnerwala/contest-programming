@@ -1,0 +1,26 @@
+{
+  "id": 677318,
+  "task": {
+    "short": "pro",
+    "long": "Protocols"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "pro.cpp",
+  "submission_time": "2015-07-05 01:06:21",
+  "report_time": "2015-07-05 01:15:42",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: pro.out.s: No such file or directory\npro.e:9: warning: converting to 'int' from 'double'\npro.e: In function 'num operator+(num, num)':\npro.e:27: error: call of overloaded 'pow(double, ld)' is ambiguous\n/usr/include/bits/mathcalls.h:154: note: candidates are: double pow(double, double)\n/root/gcc-objdir/i686-pc-linux-gnu/libstdc++-v3/include/cmath:361: note:                 long double std::pow(long double, int)\n/root/gcc-objdir/i686-pc-linux-gnu/libstdc++-v3/include/cmath:357: note:                 float std::pow(float, int)\n/root/gcc-objdir/i686-pc-linux-gnu/libstdc++-v3/include/cmath:353: note:                 double std::pow(double, int)\n/root/gcc-objdir/i686-pc-linux-gnu/libstdc++-v3/include/cmath:349: note:                 long double std::pow(long double, long double)\n/root/gcc-objdir/i686-pc-linux-gnu/libstdc++-v3/include/cmath:345: note:                 float std::pow(float, float)\npro.e:29: error: call of overloaded 'pow(double, ld&)' is ambiguous\n/usr/include/bits/mathc",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "9th Polish Olympiad in Informatics, Stage II - day 2",
+    "start_time": "2015-07-05 00:30:32",
+    "points": 200
+  }
+}

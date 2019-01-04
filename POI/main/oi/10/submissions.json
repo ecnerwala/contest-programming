@@ -1,0 +1,212 @@
+[
+  {
+    "id": 678732,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a004:50",
+    "task": "Mastermind II",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678736,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a005:18",
+    "task": "Trinomial",
+    "result": "Runtime error",
+    "points": 66
+  },
+  {
+    "id": 678738,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a005:21",
+    "task": "Trinomial",
+    "result": "OK",
+    "points": 97
+  },
+  {
+    "id": 678741,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a005:26",
+    "task": "Trinomial",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678753,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a006:57",
+    "task": "Tiles",
+    "result": "Time limit exceeded",
+    "points": 83
+  },
+  {
+    "id": 678758,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a007:06",
+    "task": "Connections",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 678759,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a007:07",
+    "task": "Connections",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678778,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a008:18",
+    "task": "Tiles",
+    "result": "Time limit exceeded",
+    "points": 56
+  },
+  {
+    "id": 678925,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a022:34",
+    "task": "Chocolate",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678932,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a022:53",
+    "task": "Smugglers",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678941,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a023:09",
+    "task": "Sequences without Stammers",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 678942,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a023:25",
+    "task": "Printed-Circuit Boards",
+    "result": "Wrong answer",
+    "points": 40
+  },
+  {
+    "id": 678945,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a023:40",
+    "task": "Printed-Circuit Boards",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678951,
+    "submission_time": "11-07-15\u00a0\u00a0\u00a023:54",
+    "task": "Monkeys",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678956,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:10",
+    "task": "Shuffle",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 678957,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:11",
+    "task": "Shuffle",
+    "result": "Runtime error",
+    "points": 70
+  },
+  {
+    "id": 678958,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:12",
+    "task": "Shuffle",
+    "result": "Runtime error",
+    "points": 90
+  },
+  {
+    "id": 678962,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:17",
+    "task": "Shuffle",
+    "result": "Runtime error",
+    "points": 80
+  },
+  {
+    "id": 678965,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:19",
+    "task": "Shuffle",
+    "result": "Runtime error",
+    "points": 90
+  },
+  {
+    "id": 678970,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:32",
+    "task": "Sequences without Stammers",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 678972,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:33",
+    "task": "Sequences without Stammers",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 678973,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:34",
+    "task": "Sequences without Stammers",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 678974,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:34",
+    "task": "Sequences without Stammers",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 678975,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a000:37",
+    "task": "Sequences without Stammers",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 678980,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a001:00",
+    "task": "Shuffle",
+    "result": "Runtime error",
+    "points": 80
+  },
+  {
+    "id": 678981,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a001:04",
+    "task": "Shuffle",
+    "result": "Runtime error",
+    "points": 90
+  },
+  {
+    "id": 678984,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a001:34",
+    "task": "Shuffle",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678985,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a001:44",
+    "task": "Sequences without Stammers",
+    "result": "Wrong answer",
+    "points": 5
+  },
+  {
+    "id": 678986,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a001:44",
+    "task": "Sequences without Stammers",
+    "result": "Wrong answer",
+    "points": 85
+  },
+  {
+    "id": 678987,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a001:47",
+    "task": "Sequences without Stammers",
+    "result": "OK",
+    "points": 100
+  }
+]

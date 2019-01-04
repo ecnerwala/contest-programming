@@ -1,0 +1,318 @@
+{
+  "id": 655402,
+  "task": {
+    "short": "hot",
+    "long": "Hotels"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "hot.cpp",
+  "submission_time": "2015-03-16 21:17:42",
+  "report_time": "2015-03-16 21:18:35",
+  "result": "Time limit exceeded",
+  "status": "OK",
+  "points": {
+    "received": 59,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "21st Polish Olympiad in Informatics, Stage I",
+    "start_time": "2015-03-16 21:18:35",
+    "points": 300
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1e",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "OK",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "OK",
+          "time": {
+            "used": "0.08s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "time": {
+            "used": "0.09s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "OK",
+          "time": {
+            "used": "0.18s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "OK",
+          "time": {
+            "used": "0.18s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "OK",
+          "time": {
+            "used": "0.81s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "OK",
+          "time": {
+            "used": "0.75s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 4,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "OK",
+          "time": {
+            "used": "1.23s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "OK",
+          "time": {
+            "used": "1.17s",
+            "limit": "1.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 4,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "OK",
+          "time": {
+            "used": "3.30s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "OK",
+          "time": {
+            "used": "2.88s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 1,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "OK",
+          "time": {
+            "used": "7.44s",
+            "limit": "20.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "OK",
+          "time": {
+            "used": "7.24s",
+            "limit": "15.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

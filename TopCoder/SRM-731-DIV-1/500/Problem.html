@@ -1,0 +1,26 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Hero has an infinite complete binary tree rooted at the vertex r.
+That is, the tree contains r, its two children, four grandchildren, and so on.
+Initially, all vertices in this tree are white.
+
+Hero is going to color <b>k</b> vertices of its tree red.
+He will choose each of those vertices at random.
+More precisely, he will repeat the following procedure <b>k</b> times:
+
+<ol>
+<li>Place a token onto the root vertex r.</li>
+<li>While the token is on a red vertex, choose one of its two children at random with equal probability and move the token onto the chosen child.</li>
+<li>When the token is on a white vertex for the first time, color that vertex red and remove the token.</li>
+</ol>
+
+If there are <b>k</b> red vertices in the tree, there are exactly <b>k</b>*(<b>k</b>-1)/2 simple paths such that both endpoints of the path are red.
+Hero is interested in the total length of all these paths.
+Calculate the expected value of that total length.
+
+Let M = 10^9 + 7.
+It can be shown that the exact value of the answer can be written as a reduced fraction P/Q such that Q and M are relatively prime.
+Let Q^(-1) be the multiplicative inverse of Q, modulo M.
+Compute and return the value (P*Q^(-1)) modulo M.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RndSubTree</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int k)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 1 and 2000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">With only one red vertex there are no paths, so their total length is always zero.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">The two red vertices will always be the root vertex r and one of its children. The only path with both endpoints red will always have length 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">Regardless of the random choices, the three red vertices will always form a path. (The root vertex r may be an endpoint of this path, or it can be in its middle.) The three random paths will have lengths 1, 1, and 2, for a total of 4.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 875000016</pre></td></tr><tr><td><table><tr><td colspan="2">With probability 7/8 the sum of path lengths is 10 and with probability 1/8 the sum of path lengths is 9. Thus, the expected value of the sum of path lengths is (7/8)*10 + (1/8)*9 = 79/8.
+<br></br>
+The multiplicative inverse of 8 modulo M = 10^9 + 7 is 125,000,001, because (125000001*8) mod M = 1.
+
+Thus, the value you should return is (79 * 125000001) mod M = 875000016.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 531250023</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

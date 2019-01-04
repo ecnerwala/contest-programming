@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+All graphs in this problem are undirected simple graphs. (I.e., each pair of vertices is connected by at most one edge, and there are no loops.)
+</p>
+<p>Let G=(V,E) be a graph. We call a graph H=(V',E') a <i>subgraph</i> of a graph G if the following conditions hold:
+<ul>
+<li>V' is a nonempty subset of V</li>
+<li>E' is a subset of E</li>
+<li>for each edge in E', both its endpoints are in V'</li>
+</ul>
+In other words, a subgraph can be constructed by first removing some vertices (possibly none, but not all of them) together with all their edges, and then removing some of the remaining edges (possibly none or all of them).
+</p> 
+
+<p>
+The <i>mindegree</i> of a graph is the minimum of the degrees of its vertices.
+</p>
+
+<p>
+A graph is <i>locally <b>k</b>-dense</i> if it contains a subgraph with mindegree <b>k</b>.
+</p>
+
+<p>
+You are given an int <b>n</b>, a long long <b>m</b>, and an int <b>k</b>.
+Consider all graphs on <b>n</b> vertices with exactly <b>m</b> edges.
+Determine whether all, some, or none of these graphs are locally <b>k</b>-dense.
+Return "ALL", "SOME", or "NONE", respectively.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MinDegreeSubgraph</td></tr><tr><td>Method:</td><td>exists</td></tr><tr><td>Parameters:</td><td>int, long long, int</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string exists(int n, long long m, int k)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Given the constraints of the problem, there always exists at least one graph with <b>n</b> vertices and <b>m</b> edges.</td></tr><tr><td align="center" valign="top">-</td><td>Given a graph, the <i>degree</i> of a vertex is the number of edges incident with this vertex.</td></tr><tr><td align="center" valign="top">-</td><td>The return value "SOME" means that there exists a graph with the desired property and also a graph without the desired property.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 10<sup>9</sup>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>m</b> will be between 0 and <b>n</b>(<b>n</b>-1)/2, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 0 and 10<sup>9</sup>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;ALL&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Up to isomorphism, there is only one graph on 3 vertices and 3 edges: the triangle. It does have a subgraph with mindegree 2: itself. (Note that each graph is its own subgraph.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;SOME&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Two of the graphs with 4 vertices and 3 edges are trees.
+Obviously, a tree cannot be locally 2-dense, because each subgraph of a tree is a forest, and each forest contains a vertex of degree at most 1.
+</p>
+
+<p>
+Another graph with 4 vertices and 3 edges is a graph that consists of a triangle and an isolated vertex.
+This graph is locally 2-dense because it contains a subgraph with mindegree 2: the triangle.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;ALL&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There are many graphs with 6 vertices and 10 edges. No matter which one of them we choose, it will always contain some subgraph with mindegree exactly 3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>15</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;ALL&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There is only one such graph: the complete graph K<sub>6</sub>. It contains many mindegree-4 subgraphs. 
+For instance, we can construct such a subgraph by removing any one vertex, and we can also construct a different mindegree-4 subgraph by removing any one edge.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>17</pre></td></tr><tr><td><pre>53</pre></td></tr><tr><td><pre>11</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;NONE&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

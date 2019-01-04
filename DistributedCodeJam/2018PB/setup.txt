@@ -1,0 +1,34 @@
+xmodmap -e "remove Lock = Caps_Lock" -e "keysym Caps_Lock = Escape"
+
+sudo echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install git
+sudo apt-get install -y neovim
+sudo pip3 install neovim
+
+sudo apt-get install stow
+git clone --recursive https://github.com/ecnerwala/dotfiles
+cd ~/dotfiles
+stow x
+stow zsh
+
+# Install fonts from https://github.com/powerline/fonts
+git clone https://github.com/powerline/fonts
+
+sudo apt-get install rxvt-unicode-256color
+xrdb ~/.Xresources
+
+# Install pari/gp?
+sudo apt-get install pari-gp
+
+# TO COPY:
+# dotfiles
+# programming/make_prob.sh
+# programming/.template/
+# programming/DistributedCodeJam/
+# Dropbox/ACM\ Materials/
+# programming/cppreference.com/
+# programming/ProjectEuler/ (maybe)
+# programming/USACO/ (maybe)
+# programming/CodeJam/ (maybe)
+# programming/POI/ (maybe)

@@ -1,0 +1,471 @@
+[
+  {
+    "id": 508391,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a005:19",
+    "task": "Lollipop",
+    "result": "Security violation",
+    "points": 0
+  },
+  {
+    "id": 508392,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a005:22",
+    "task": "Lollipop",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 508393,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a005:29",
+    "task": "Lollipop",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 508394,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a005:41",
+    "task": "Lollipop",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 508395,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a005:47",
+    "task": "Lollipop",
+    "result": "Wrong answer",
+    "points": 8
+  },
+  {
+    "id": 508396,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a005:58",
+    "task": "Lollipop",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 508397,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a006:18",
+    "task": "Garbage",
+    "result": "Runtime error",
+    "points": 20
+  },
+  {
+    "id": 508398,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a006:21",
+    "task": "Garbage",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 508399,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a006:24",
+    "task": "Garbage",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 508400,
+    "submission_time": "21-11-13\u00a0\u00a0\u00a007:13",
+    "task": "Garbage",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 509062,
+    "submission_time": "22-11-13\u00a0\u00a0\u00a005:25",
+    "task": "Conspiracy",
+    "result": "Security violation",
+    "points": 0
+  },
+  {
+    "id": 509063,
+    "submission_time": "22-11-13\u00a0\u00a0\u00a005:26",
+    "task": "Conspiracy",
+    "result": "Runtime error",
+    "points": 40
+  },
+  {
+    "id": 509064,
+    "submission_time": "22-11-13\u00a0\u00a0\u00a006:08",
+    "task": "Conspiracy",
+    "result": "Time limit exceeded",
+    "points": 50
+  },
+  {
+    "id": 509065,
+    "submission_time": "22-11-13\u00a0\u00a0\u00a006:15",
+    "task": "Conspiracy",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 509066,
+    "submission_time": "22-11-13\u00a0\u00a0\u00a006:16",
+    "task": "Conspiracy",
+    "result": "Time limit exceeded",
+    "points": 50
+  },
+  {
+    "id": 510101,
+    "submission_time": "24-11-13\u00a0\u00a0\u00a007:24",
+    "task": "Temperature",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 510173,
+    "submission_time": "24-11-13\u00a0\u00a0\u00a015:20",
+    "task": "Difference",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 510625,
+    "submission_time": "25-11-13\u00a0\u00a0\u00a003:50",
+    "task": "Shift",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 510637,
+    "submission_time": "25-11-13\u00a0\u00a0\u00a005:14",
+    "task": "Sticks",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 510638,
+    "submission_time": "25-11-13\u00a0\u00a0\u00a005:55",
+    "task": "Sticks",
+    "result": "Runtime error",
+    "points": 68
+  },
+  {
+    "id": 510646,
+    "submission_time": "25-11-13\u00a0\u00a0\u00a006:59",
+    "task": "Sticks",
+    "result": "Runtime error",
+    "points": 44
+  },
+  {
+    "id": 510830,
+    "submission_time": "25-11-13\u00a0\u00a0\u00a016:11",
+    "task": "Sticks",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 510831,
+    "submission_time": "25-11-13\u00a0\u00a0\u00a016:13",
+    "task": "Sticks",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 511033,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a003:05",
+    "task": "Strongbox",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 511040,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a003:58",
+    "task": "Dynamite",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 511057,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a005:27",
+    "task": "Inspection",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 511058,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a005:32",
+    "task": "Inspection",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 511063,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a006:38",
+    "task": "Lightning Conductor",
+    "result": "Time limit exceeded",
+    "points": 52
+  },
+  {
+    "id": 511217,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a016:45",
+    "task": "Party",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 511238,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a017:38",
+    "task": "Lightning Conductor",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 511401,
+    "submission_time": "26-11-13\u00a0\u00a0\u00a022:04",
+    "task": "Lightning Conductor",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 511786,
+    "submission_time": "27-11-13\u00a0\u00a0\u00a017:39",
+    "task": "Meteors",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 511815,
+    "submission_time": "27-11-13\u00a0\u00a0\u00a018:02",
+    "task": "Meteors",
+    "result": "Runtime error",
+    "points": 70
+  },
+  {
+    "id": 511846,
+    "submission_time": "27-11-13\u00a0\u00a0\u00a018:47",
+    "task": "Meteors",
+    "result": "OK",
+    "points": 84
+  },
+  {
+    "id": 511854,
+    "submission_time": "27-11-13\u00a0\u00a0\u00a018:56",
+    "task": "Meteors",
+    "result": "OK",
+    "points": 85
+  },
+  {
+    "id": 511861,
+    "submission_time": "27-11-13\u00a0\u00a0\u00a019:15",
+    "task": "Meteors",
+    "result": "OK",
+    "points": 80
+  },
+  {
+    "id": 511871,
+    "submission_time": "27-11-13\u00a0\u00a0\u00a019:39",
+    "task": "Meteors",
+    "result": "OK",
+    "points": 82
+  },
+  {
+    "id": 511875,
+    "submission_time": "27-11-13\u00a0\u00a0\u00a019:44",
+    "task": "Meteors",
+    "result": "OK",
+    "points": 82
+  },
+  {
+    "id": 512836,
+    "submission_time": "29-11-13\u00a0\u00a0\u00a016:37",
+    "task": "Conspiracy",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 513550,
+    "submission_time": "01-12-13\u00a0\u00a0\u00a004:06",
+    "task": "Meteors",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 513565,
+    "submission_time": "01-12-13\u00a0\u00a0\u00a006:04",
+    "task": "Tree Rotations",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 513568,
+    "submission_time": "01-12-13\u00a0\u00a0\u00a006:12",
+    "task": "Conspiracy",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 513569,
+    "submission_time": "01-12-13\u00a0\u00a0\u00a006:29",
+    "task": "Conspiracy",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 515892,
+    "submission_time": "07-12-13\u00a0\u00a0\u00a002:37",
+    "task": "Tree Rotations 2",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 520145,
+    "submission_time": "18-12-13\u00a0\u00a0\u00a022:04",
+    "task": "Periodicity",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 520148,
+    "submission_time": "18-12-13\u00a0\u00a0\u00a022:06",
+    "task": "Periodicity",
+    "result": "Time limit exceeded",
+    "points": 70
+  },
+  {
+    "id": 520151,
+    "submission_time": "18-12-13\u00a0\u00a0\u00a022:33",
+    "task": "Periodicity",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 520190,
+    "submission_time": "19-12-13\u00a0\u00a0\u00a005:05",
+    "task": "Programming Contest",
+    "result": "Time limit exceeded",
+    "points": 56
+  },
+  {
+    "id": 520191,
+    "submission_time": "19-12-13\u00a0\u00a0\u00a005:07",
+    "task": "Programming Contest",
+    "result": "Time limit exceeded",
+    "points": 57
+  },
+  {
+    "id": 520192,
+    "submission_time": "19-12-13\u00a0\u00a0\u00a005:10",
+    "task": "Programming Contest",
+    "result": "OK",
+    "points": 98
+  },
+  {
+    "id": 520193,
+    "submission_time": "19-12-13\u00a0\u00a0\u00a005:21",
+    "task": "Programming Contest",
+    "result": "OK",
+    "points": 97
+  },
+  {
+    "id": 520194,
+    "submission_time": "19-12-13\u00a0\u00a0\u00a005:24",
+    "task": "Programming Contest",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 520862,
+    "submission_time": "21-12-13\u00a0\u00a0\u00a021:18",
+    "task": "Plot",
+    "result": "Runtime error",
+    "points": 21
+  },
+  {
+    "id": 520875,
+    "submission_time": "21-12-13\u00a0\u00a0\u00a022:13",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 49
+  },
+  {
+    "id": 531165,
+    "submission_time": "21-01-14\u00a0\u00a0\u00a007:28",
+    "task": "Plot",
+    "result": "Wrong answer",
+    "points": 76
+  },
+  {
+    "id": 531415,
+    "submission_time": "22-01-14\u00a0\u00a0\u00a004:30",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 531495,
+    "submission_time": "22-01-14\u00a0\u00a0\u00a017:04",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 51
+  },
+  {
+    "id": 531554,
+    "submission_time": "22-01-14\u00a0\u00a0\u00a018:39",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 80
+  },
+  {
+    "id": 531566,
+    "submission_time": "22-01-14\u00a0\u00a0\u00a019:07",
+    "task": "Plot",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 531571,
+    "submission_time": "22-01-14\u00a0\u00a0\u00a019:09",
+    "task": "Plot",
+    "result": "Wrong answer",
+    "points": 75
+  },
+  {
+    "id": 531639,
+    "submission_time": "22-01-14\u00a0\u00a0\u00a020:46",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 40
+  },
+  {
+    "id": 765159,
+    "submission_time": "01-09-16\u00a0\u00a0\u00a004:37",
+    "task": "Plot",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 765160,
+    "submission_time": "01-09-16\u00a0\u00a0\u00a004:39",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 37
+  },
+  {
+    "id": 765166,
+    "submission_time": "01-09-16\u00a0\u00a0\u00a005:06",
+    "task": "Plot",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 765171,
+    "submission_time": "01-09-16\u00a0\u00a0\u00a006:38",
+    "task": "Plot",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 765172,
+    "submission_time": "01-09-16\u00a0\u00a0\u00a006:38",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 64
+  },
+  {
+    "id": 765173,
+    "submission_time": "01-09-16\u00a0\u00a0\u00a006:39",
+    "task": "Plot",
+    "result": "Time limit exceeded",
+    "points": 60
+  }
+]

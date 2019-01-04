@@ -1,0 +1,254 @@
+[
+  {
+    "id": 597205,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a006:36",
+    "task": "Tour de Byteotia",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 597206,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a006:37",
+    "task": "Tour de Byteotia",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 597209,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a006:44",
+    "task": "Tour de Byteotia",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 597213,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a007:09",
+    "task": "Vouchers",
+    "result": "Wrong answer",
+    "points": 60
+  },
+  {
+    "id": 597215,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a007:10",
+    "task": "Vouchers",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 597216,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a007:13",
+    "task": "Vouchers",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 597221,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a007:47",
+    "task": "Cloakroom",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 597222,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a007:50",
+    "task": "Cloakroom",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 597449,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a016:15",
+    "task": "Letters",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 597571,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a019:12",
+    "task": "Rendezvous",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 597580,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a019:21",
+    "task": "Rendezvous",
+    "result": "Time limit exceeded",
+    "points": 40
+  },
+  {
+    "id": 597588,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a019:33",
+    "task": "Rendezvous",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 597688,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a023:14",
+    "task": "Salaries",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 597689,
+    "submission_time": "24-09-14\u00a0\u00a0\u00a023:14",
+    "task": "Salaries",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 597715,
+    "submission_time": "25-09-14\u00a0\u00a0\u00a001:25",
+    "task": "Minimalist Security",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 599925,
+    "submission_time": "30-09-14\u00a0\u00a0\u00a006:17",
+    "task": "Minimalist Security",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 600247,
+    "submission_time": "30-09-14\u00a0\u00a0\u00a017:13",
+    "task": "Bidding",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 600251,
+    "submission_time": "30-09-14\u00a0\u00a0\u00a017:14",
+    "task": "Bidding",
+    "result": "Time limit exceeded",
+    "points": 88
+  },
+  {
+    "id": 600530,
+    "submission_time": "30-09-14\u00a0\u00a0\u00a019:26",
+    "task": "Bidding",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 600806,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a008:09",
+    "task": "A Horrible Poem",
+    "result": "OK",
+    "points": 92
+  },
+  {
+    "id": 600807,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a008:16",
+    "task": "A Horrible Poem",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601031,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a017:18",
+    "task": "Warehouse Store",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601045,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a017:54",
+    "task": "Distance",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 601047,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a018:00",
+    "task": "Distance",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 601049,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a018:14",
+    "task": "Distance",
+    "result": "Time limit exceeded",
+    "points": 58
+  },
+  {
+    "id": 601053,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a018:23",
+    "task": "Distance",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601058,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a018:49",
+    "task": "Squarks",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 601059,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a018:50",
+    "task": "Squarks",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 601060,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a018:51",
+    "task": "Squarks",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601098,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a019:32",
+    "task": "Well",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601268,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a023:39",
+    "task": "Festival",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 601269,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a023:43",
+    "task": "Festival",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601272,
+    "submission_time": "01-10-14\u00a0\u00a0\u00a023:53",
+    "task": "Fibonacci Representation",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601669,
+    "submission_time": "02-10-14\u00a0\u00a0\u00a019:41",
+    "task": "Prefixuffix",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 601670,
+    "submission_time": "02-10-14\u00a0\u00a0\u00a019:43",
+    "task": "Prefixuffix",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601793,
+    "submission_time": "02-10-14\u00a0\u00a0\u00a023:05",
+    "task": "Leveling Ground",
+    "result": "OK",
+    "points": 100
+  }
+]

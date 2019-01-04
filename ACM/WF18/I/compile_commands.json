@@ -1,0 +1,25 @@
+[
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-Wall",
+            "-Wextra",
+            "-pedantic",
+            "-std=c++11",
+            "-O2",
+            "-Wshadow",
+            "-Wformat=2",
+            "-Wfloat-equal",
+            "-Wconversion",
+            "-Wlogical-op",
+            "-Wcast-qual",
+            "-Wcast-align",
+            "-o",
+            "I",
+            "I.cpp"
+        ],
+        "directory": "/home/andrew/Dropbox/programming/ACM/WF18/I",
+        "file": "I.cpp"
+    }
+]

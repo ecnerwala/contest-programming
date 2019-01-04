@@ -1,0 +1,56 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>
+<p>
+A simple graph is an undirected graph in which each edge connects two different vertices and each pair of vertices is connected by at most one edge.
+In other words, there are no self-loops and no multiple edges.
+</p>
+<br></br>
+
+<p>
+A 2-regular graph is a simple graph such that the degree of each vertex is 2.
+</p>
+<br></br>
+
+<p>
+You are given the int <b>n</b> and two vector &lt;int&gt;s <b>x</b> and <b>y</b>.
+These variables describe a simple graph G on <b>n</b> vertices, labeled 0 through <b>n</b>-1.
+For each valid i, the graph G contains an edge that connects the vertices <b>x</b>[i] and <b>y</b>[i].
+It is guaranteed that each vertex in G has degree 2 or less.
+</p>
+<br></br>
+
+<p>
+You want to change G into a 2-regular graph by adding some edges.
+Determine whether this can be done, and if yes, find the lexicographically smallest way of doing so.
+A more precise definition of the task follows.
+</p>
+<br></br>
+
+<p>
+An <i>encoding</i> of a set of k edges is any vector &lt;int&gt; E of length 2k such that the set of edges is equal to the set { (E[0], E[1]), (E[2], E[3]), ... }.
+For example, suppose you have the edges (1,7) and (2,5).
+Then {1,7,5,2} and {2,5,1,7} are two of the valid encodings.
+On the other hand, {1,2,5,7} is not a valid encoding.
+</p>
+<br></br>
+
+<p>
+If changing G into a 2-regular graph is impossible, return the vector &lt;int&gt; {-1}, i.e., an array that contains only one integer, -1.
+Otherwise, find and return the lexicographically smallest encoding of a set of edges that should be added to G in order to make it 2-regular.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MakingRegularGraph</td></tr><tr><td>Method:</td><td>addEdges</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; addEdges(int n, vector &lt;int&gt; x, vector &lt;int&gt; y)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Given two different vector &lt;int&gt;s S and T with the same number of elements, the lexicographically smaller one is the one that has a smaller element at the first index at which they differ.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 1,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>x</b> will contain between 0 and <b>n</b>-1 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>y</b> will contain the same number of elements as <b>x</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>x</b> will be between 0 and <b>n</b>-2, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>y</b> will be between 1 and <b>n</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>x</b>[i] &lt; <b>y</b>[i] will hold for all i (i.e., no self-loops).</td></tr><tr><td align="center" valign="top">-</td><td>In a graph described by <b>n</b>, <b>x</b>, and <b>y</b>, every vertex will have degree 2 or less (For every integer v between 0 and <b>n</b>-1, v appears at most twice in <b>x</b> and <b>y</b> combined).</td></tr><tr><td align="center" valign="top">-</td><td>In a graph described by <b>n</b>, <b>x</b>, and <b>y</b>, there will be at most one edge between a pair of vertices (two equalities (<b>x</b>[i] = <b>x</b>[j] and <b>y</b>[i] = <b>y</b>[j]) will hold only when i = j).</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>{0,2}</pre></td></tr><tr><td><pre>{2,3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 1, 4, 3, 5, 4, 5 }</pre></td></tr><tr><td><table><tr><td colspan="2">There are many ways to turn this G into a 2-regular graph. For example, you may:
+<ul>
+<li>add the edges (3, 4), (4, 5), (5, 1), (1, 0) to obtain one large cycle of length 6</li>
+<li>add the edges (3, 5), (5, 4), (4, 1), (1, 0) to obtain another cycle of length 6</li>
+<li>add the edges (0, 3), (1, 4), (4, 5), (1, 5) to obtain two cycles of length 3 each</li>
+<li>...</li>
+</ul>
+
+Each of these options has multiple encodings.
+The return value shown above is the lexicographically smallest out of all encodings of all options.
+It corresponds to the second set of edges listed above.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{1,2,1}</pre></td></tr><tr><td><pre>{2,3,3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1 }</pre></td></tr><tr><td><table><tr><td colspan="2">The given graph contains a cycle of length 3 and an isolated vertex.
+Unfortunately, we cannot turn this into a 2-reguglar graph.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 0, 2, 1, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2"><b>x</b> and <b>y</b> can be empty, meaning there are no edges present.
+In this example, there is a unique set of edges we can add in order to create a 2-regular graph: (0, 1), (0, 2), and (1, 2).
+However, there exist many different ways to describe these three edges. 
+For instance, both {0, 1, 2, 0, 2, 1} and {0, 1, 0, 2, 1, 2} describe the same set of edges.
+Recall that you must return the one that comes lexicographically first. 
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>{4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 1, 2, 2, 3, 3, 4 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{2}</pre></td></tr><tr><td><pre>{3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 0, 2, 1, 4, 3, 4 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

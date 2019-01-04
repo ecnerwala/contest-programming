@@ -1,0 +1,324 @@
+{
+  "id": 552269,
+  "task": {
+    "short": "klo",
+    "long": "Building Blocks"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "klo.cpp",
+  "submission_time": "2014-03-22 04:07:52",
+  "report_time": "2014-03-22 04:08:09",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 37,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "14th Polish Olympiad in Informatics, Stage III - day 2",
+    "start_time": "2014-03-20 05:40:30",
+    "points": 300
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 0 nieoptymalny (mo\u017ce by\u0107 9).",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 0 nieoptymalny (mo\u017ce by\u0107 3).",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 9,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 0 nieoptymalny (mo\u017ce by\u0107 43).",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 1 nieoptymalny (mo\u017ce by\u0107 12).",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 405 nieoptymalny (mo\u017ce by\u0107 2430).",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 1 nieoptymalny (mo\u017ce by\u0107 87).",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 0 nieoptymalny (mo\u017ce by\u0107 218).",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 9,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 370 nieoptymalny (mo\u017ce by\u0107 2206).",
+          "time": {
+            "used": "0.06s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Wrong answer",
+          "footnote": "Linia 2: Wynik 20 nieoptymalny (mo\u017ce by\u0107 486).",
+          "time": {
+            "used": "0.06s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "OK",
+          "time": {
+            "used": "0.05s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "OK",
+          "time": {
+            "used": "0.05s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "OK",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 9,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11",
+          "status": "OK",
+          "time": {
+            "used": "0.07s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    }
+  ]
+}

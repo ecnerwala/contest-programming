@@ -1,0 +1,74 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You just designed a single-player game called the Flipping Game.
+</p>
+<br></br>
+<p>
+The game is played on a rectangular board that is divided into <b>n</b> rows by <b>m</b> columns. <br></br>
+The game is played using square tiles. <br></br>
+The tiles have the same size as the unit square cells on the board. <br></br>
+Each tile has one side white and the other side black.
+</p>
+<br></br>
+<p>
+You are given <b>n</b>, <b>m</b>, and a vector &lt;string&gt; <b>X</b> that represents the initial state of the board. <br></br>
+More precisely, the character <b>X</b>[r][c] represents the cell in row r, column c of the board: <br></br>
+'w' means that this cell contains a tile that is white (i.e., white on top, black on bottom), 'b' is a black tile, and 'e' is an empty cell without a tile.
+</p>
+<br></br>
+<p>
+The game is played in turns. <br></br>
+Each turn looks as follows: <br></br>
+Choose any tile T, note its color C, and flip the tile T to show the opposite color. <br></br>
+Then, the flip cascades: whenever you flip some tile X and there is a tile Y adjacent to X such that the color of Y is also C, you have to flip Y as well. <br></br>
+Two tiles are considered adjacent if they share a side. <br></br>
+The turn ends when the cascade ends and there are no more tiles you have to flip.
+</p>
+<br></br>
+<p>
+You win the game when all tiles on the board show the same color. <br></br>
+Determine and return the smallest number of turns needed to win the game. <br></br>
+Note that it is always possible to win the game.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TileFlippingGame</td></tr><tr><td>Method:</td><td>HowManyMoves</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int HowManyMoves(int n, int m, vector &lt;string&gt; X)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 2 and 20, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>m</b> will be between 2 and 20, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>X</b> will contain exactly <b>n</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>X</b> will contain exactly <b>m</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of each element of <b>X</b> will be one of 'e', 'b', and 'w'.</td></tr><tr><td align="center" valign="top">-</td><td>If we concatenate all elements of <b>X</b>, it will contain at least one 'e', at least one 'b', and at least one 'w'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{&quot;bbb&quot;,&quot;eee&quot;,&quot;www&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Regardless of which tile you choose to flip, the game ends after the first turn.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{&quot;bwe&quot;,&quot;wbw&quot;,&quot;ewb&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">First, flip the black tile at the center of the board to white.
+Then flip any of the five white tiles to turn all seven tiles to black side up.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{&quot;beww&quot;,&quot;beww&quot;,&quot;beww&quot;,&quot;wewe&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>8</pre></td></tr><tr><td><pre>{&quot;ewewbbbb&quot;,&quot;bwebewww&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>{&quot;bwebw&quot;,&quot;wbebb&quot;,&quot;eeeee&quot;,&quot;bbebb&quot;,&quot;bbebb&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">Initially the board looks as follows:<br></br>
+
+<pre>
+bwebw
+wbebb
+eeeee
+bbebb
+bbebb
+</pre>
+
+There are three white tiles. 
+One optimal solution is to flip these three tiles from white to black (one tile per turn).
+There are also other optimal solutions.
+For example, you can start by flipping the top left tile from black to white.
+<br></br>
+The best way to make all the tiles white requires five flips, which is stricty worse.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>{&quot;bwbbbbb&quot;,&quot;bwbwwwb&quot;,&quot;bwbwewb&quot;,&quot;bwbbbwb&quot;,&quot;bwwwwwb&quot;,&quot;bbbbbbb&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Initially, the game board looks like the following:
+<pre>
+bwbbbbb
+bwbwwwb
+bwbwewb
+bwbbbwb
+bwwwwwb
+bbbbbbb
+</pre>
+As soon as we flip any tile (whether black or white), the game ends.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>{&quot;bwbbbbb&quot;,&quot;bwbwwwb&quot;,&quot;eeeeeee&quot;,&quot;bwbbbwb&quot;,&quot;bwwwwwb&quot;,&quot;bbbbbbb&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">The game board looks similar to the one in Example 5, except row 3 is now completely empty (the entire row's tiles are missing).
+<pre>
+bwbbbbb
+bwbwwwb
+eeeeeee
+bwbbbwb
+bwwwwwb
+bbbbbbb
+</pre>
+
+In two turns, we can turn the first two rows of tiles to either black or white side up.
+<br></br>
+For the bottom three rows, in one turn we can flip one of the white tiles to have all of them black side up.
+<br></br>
+Overall in three turns we can flip all tiles to their black side up.
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

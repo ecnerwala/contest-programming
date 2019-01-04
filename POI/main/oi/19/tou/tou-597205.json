@@ -1,0 +1,26 @@
+{
+  "id": 597205,
+  "task": {
+    "short": "tou",
+    "long": "Tour de Byteotia"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "tou.cpp",
+  "submission_time": "2014-09-24 06:36:17",
+  "report_time": "2014-09-24 06:36:21",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: tou.out.s: No such file or directory\ntou.e:4: warning: converting to 'int' from 'double'\ntou.e:5: warning: converting to 'int' from 'double'\ntou.e: In function 'int main()':\ntou.e:36: error: '>>' should be '> >' within a nested template argument list\ntou.e:47: error: a function-definition is not allowed here before ':' token\ntou.e:51: error: expected primary-expression before 'return'\ntou.e:51: error: expected `;' before 'return'\ntou.e:51: error: expected primary-expression before 'return'\ntou.e:51: error: expected `)' before 'return'",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "19th Polish Olympiad in Informatics, Stage II - day 0",
+    "start_time": "2014-09-24 06:36:21",
+    "points": 100
+  }
+}

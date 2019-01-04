@@ -1,0 +1,26 @@
+{
+  "id": 578474,
+  "task": {
+    "short": "pos",
+    "long": "The Search"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "pos.cpp",
+  "submission_time": "2014-07-28 03:24:57",
+  "report_time": "2014-07-28 03:25:01",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\npos.e:5:24: error: bits/stdc++.h: No such file or directory\npos.e:11: error: expected initializer before '<' token\npos.e:12: error: expected initializer before '<' token\npos.e:18: error: expected constructor, destructor, or type conversion before '<' token\npos.e: In function 'll choose(ll, ll)':\npos.e:22: error: 'swap' was not declared in this scope\npos.e:24: error: 'pii' was not declared in this scope\npos.e:24: error: expected `;' before 'cur'\npos.e:25: error: 'mapCh' was not declared in this scope\npos.e:25: error: 'cur' was not declared in this scope\npos.e:26: error: 'mapCh' was not declared in this scope\npos.e:26: error: 'cur' was not declared in this scope\npos.e: At global scope:\npos.e:33: error: 'pii' has not been declared\npos.e:33: error: 'pii' has not been declared\npos.e: In member function 'bool depth_comp::operator()(int, int)':\npos.e:34: error: request for member 'first' in 'r', which is of non-class type 'int'\npos.e:34: error: request for member 'second' in 'r', which is of",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage III - day 2",
+    "start_time": "2014-07-28 03:25:01",
+    "points": 100
+  }
+}

@@ -1,0 +1,71 @@
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int MAXN = 2e3;
+
+int N;
+int H[MAXN][MAXN];
+
+bool vis[MAXN][MAXN];
+
+bool isGood(int v) {
+	return v >= 0 && v < N;
+}
+
+bool dfsMax(int x, int y) {
+	if(vis[x][y]) return true;
+	vis[x][y] = true;
+	bool good = true;
+	for(int i = -1; i <= 1; i++) {
+		for(int j = -1; j <= 1; j++) {
+			if(i || j) {
+				if(isGood(x + i) && isGood(y + j)) {
+					if(H[x + i][y + j] > H[x][y]) good = false;
+					else if(H[x + i][y + j] == H[x][y]) {
+						if(!dfsMax(x + i, y + j)) good = false;
+					} else {
+						// do nothing
+					}
+				}
+			}
+		}
+	}
+	return good;
+}
+
+int goMax() {
+	int res = 0;
+	memset(vis, 0, sizeof(vis));
+	for(int i = 0; i < N; i++) {
+		for(int j = 0; j < N; j++) {
+			if(!vis[i][j]) {
+				if(dfsMax(i, j)) res++;
+			}
+		}
+	}
+	return res;
+}
+
+int goMin() {
+	for(int i = 0; i < N; i++) {
+		for(int j = 0; j < N; j++) {
+			H[i][j] *= -1;
+		}
+	}
+	return goMax();
+}
+	
+
+int main() {
+	ios_base::sync_with_stdio(0);
+
+	cin >> N;
+	for(int i = 0; i < N; i++) {
+		for(int j = 0; j < N; j++) cin >> H[i][j];
+	}
+
+	cout << goMax() << ' ';
+	cout << goMin() << '\n';
+}

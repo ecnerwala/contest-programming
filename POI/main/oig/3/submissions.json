@@ -1,0 +1,128 @@
+[
+  {
+    "id": 838066,
+    "submission_time": "05-07-17\u00a0\u00a0\u00a000:45",
+    "task": "Klasy",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839054,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a006:36",
+    "task": "Naszyjniki",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839058,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a006:57",
+    "task": "Run Bajtocja",
+    "result": "Time limit exceeded",
+    "points": 44
+  },
+  {
+    "id": 839059,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a007:01",
+    "task": "Run Bajtocja",
+    "result": "Time limit exceeded",
+    "points": 63
+  },
+  {
+    "id": 839061,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a007:06",
+    "task": "Run Bajtocja",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839064,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a007:41",
+    "task": "Statystyki",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839068,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a007:48",
+    "task": "Szyfr",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839168,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a019:06",
+    "task": "Palindroliczby",
+    "result": "Runtime error",
+    "points": 60
+  },
+  {
+    "id": 839170,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a019:08",
+    "task": "Palindroliczby",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839175,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a019:23",
+    "task": "Domek",
+    "result": "Wrong answer",
+    "points": 100
+  },
+  {
+    "id": 839188,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a022:10",
+    "task": "Kalendarze",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839190,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a022:23",
+    "task": "Domek",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839196,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a022:27",
+    "task": "Poczt\u00f3wka",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839200,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a022:41",
+    "task": "Mur",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 839201,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a022:52",
+    "task": "Mur",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839202,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a023:05",
+    "task": "Aquapark",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839208,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a023:38",
+    "task": "Klocki",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839209,
+    "submission_time": "11-07-17\u00a0\u00a0\u00a023:43",
+    "task": "Ta\u015bma",
+    "result": "OK",
+    "points": 100
+  }
+]

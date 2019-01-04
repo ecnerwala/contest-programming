@@ -1,0 +1,282 @@
+{
+  "id": 841083,
+  "task": {
+    "short": "prz",
+    "long": "Algorithm Speedup"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "prz.cpp",
+  "submission_time": "2017-07-24 10:54:52",
+  "report_time": "2017-07-24 10:57:07",
+  "result": "OK",
+  "status": "OK",
+  "points": {
+    "received": 91,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-05-10 08:01:17",
+    "points": 400
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "OK",
+          "time": {
+            "used": "0.11s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "OK",
+          "time": {
+            "used": "0.33s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "OK",
+          "time": {
+            "used": "0.70s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 6,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.09s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "OK",
+          "time": {
+            "used": "0.73s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 5,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.11s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "OK",
+          "time": {
+            "used": "12.38s",
+            "limit": "80.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "OK",
+          "time": {
+            "used": "15.18s",
+            "limit": "120.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "OK",
+          "time": {
+            "used": "15.86s",
+            "limit": "140.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "OK",
+          "time": {
+            "used": "19.54s",
+            "limit": "180.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9",
+          "status": "OK",
+          "time": {
+            "used": "22.75s",
+            "limit": "240.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10",
+          "status": "OK",
+          "time": {
+            "used": "28.13s",
+            "limit": "240.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    }
+  ]
+}

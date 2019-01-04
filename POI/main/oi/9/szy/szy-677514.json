@@ -1,0 +1,220 @@
+{
+  "id": 677514,
+  "task": {
+    "short": "szy",
+    "long": "Cipher"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "szy.cpp",
+  "submission_time": "2015-07-06 00:48:40",
+  "report_time": "2015-07-06 01:01:15",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 40,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "9th Polish Olympiad in Informatics, Stage III - day 2",
+    "start_time": "2015-07-06 00:01:10",
+    "points": 296
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '10101011010100000000000000000010000', but expected '1010101101010000000000000000",
+          "time": {
+            "used": "0.08s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '10100000000000001000000000000000000', but expected '1101111111111111011111111111",
+          "time": {
+            "used": "0.06s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '0100000000001000000000000000000000000', but expected '01000000000010000000000000",
+          "time": {
+            "used": "0.13s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1100100001101010100101101000100000000000', but expected '11001000011010101001011",
+          "time": {
+            "used": "0.52s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1000100010001001100100011001000000000000', but expected '10001000100010011001000",
+          "time": {
+            "used": "0.46s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1011101000111000000000111100001000000000', but expected '10111010001110000000001",
+          "time": {
+            "used": "0.44s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

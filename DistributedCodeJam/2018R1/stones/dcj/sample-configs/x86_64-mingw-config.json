@@ -1,0 +1,16 @@
+{
+  "c-compiler": "gcc",
+  "c-compiler-flags": [
+    "-O2",
+    "-lm",
+    "-static"
+  ],
+  "cpp-compiler": "g++",
+  "cpp-compiler-flags": [
+    "-O2",
+    "-std=gnu++0x",
+    "-lm",
+    "-static"
+  ],
+  "parunner-file": "parunner.exe"
+}

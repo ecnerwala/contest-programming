@@ -1,0 +1,26 @@
+{
+  "id": 586392,
+  "task": {
+    "short": "gas",
+    "long": "Fire Extinguishers"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "gas.cpp",
+  "submission_time": "2014-08-26 06:22:29",
+  "report_time": "2014-08-26 06:22:32",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: gas.out.s: No such file or directory\ngas.e:5: warning: converting to 'int' from 'double'\ngas.e: In function 'void dfs(int, int)':\ngas.e:18: error: conversion from '__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >' to non-scalar type 'std::vector<int, std::allocator<int> >' requested\ngas.e:18: error: no match for 'operator!=' in 'it != adj[a].std::vector<_Tp, _Alloc>::end [with _Tp = int, _Alloc = std::allocator<int>]()'\ngas.e:18: error: no 'operator++(int)' declared for postfix '++', trying prefix operator instead\ngas.e:18: error: no match for 'operator++' in '++it'\ngas.e:19: error: no match for 'operator*' in '*it'",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-05-10 08:01:17",
+    "points": 400
+  }
+}

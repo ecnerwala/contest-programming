@@ -26,12 +26,15 @@ int shortest_path(int st, int en) {
 		if (cur == en) break;
 		vis[cur] = true;
 		for (int nxt = 0; nxt < N; nxt++) {
-			if (vis[nxt]) continue;
+			//if (vis[nxt]) continue;
 			dist[nxt] = min(dist[nxt], dist[cur] + adj[cur][nxt]);
 		}
 	}
 	return dist[en];
 }
+
+const int MAXM = 1.1e4;
+char res[2 * MAXM + 1];
 
 int main() {
 	scanf("%d %d %d", &N, &K, &M);
@@ -52,15 +55,24 @@ int main() {
 		a--, b--;
 		assert(adj[a][b] == adj[b][a]);
 		int p = adj[a][b];
-		adj[a][b] = adj[b][a] = w;
-		int nd = shortest_path(0, N-1);
+		int nd = d;
+		if (w < p) {
+			if (abs(dist[a] - dist[b]) > w && min(dist[a], dist[b]) + w < d) {
+				adj[a][b] = adj[b][a] = w;
+				nd = shortest_path(0, N-1);
+			}
+		}
 		if (nd < d) {
-			printf("1\n");
+			res[2*i] = '1';
+			adj[a][b] = adj[b][a] = w;
 			d = nd;
 		} else {
-			printf("0\n");
+			res[2*i] = '0';
 			adj[a][b] = adj[b][a] = p;
 		}
+		res[2*i+1] = '\n';
 	}
+	res[2*M] = 0;
+	printf("%s", res);
 	return 0;
 }

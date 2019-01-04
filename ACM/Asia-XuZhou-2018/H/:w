@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int MAXN = 3e5;
+int N;
+int K;
+pair<pair<int, int>, int> P[MAXN];
+int ans[MAXN];
+
+int main() {
+	ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+	int T; cin >> T;
+	while (T--) {
+		cin >> N >> K;
+		for (int i = 0; i < N; i++) {
+			cin >> P[i].first.first >> P[i].first.second;
+			P[i].second = i;
+		}
+		sort(P, P + N);
+		int cur = -1;
+		priority_queue<int, vector<int>, greater<int>> pq;
+		for (int i = 0; i < N; i++) {
+			pq.push(-1);
+		}
+		for (int i = 0; i < N; i++) {
+			int l = P[i].first.first;
+		}
+	}
+
+	return 0;
+}

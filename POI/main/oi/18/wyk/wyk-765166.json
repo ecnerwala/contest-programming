@@ -1,0 +1,26 @@
+{
+  "id": 765166,
+  "task": {
+    "short": "wyk",
+    "long": "Plot"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "wyk.cpp",
+  "submission_time": "2016-09-01 05:06:47",
+  "report_time": "2016-09-01 05:31:24",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: wyk.out.s: No such file or directory\nwyk.e:31: error: integer constant is too large for 'long' type\nwyk.e:20: warning: converting to 'int' from 'double'",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "18th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2013-11-21 05:20:15",
+    "points": 460
+  }
+}

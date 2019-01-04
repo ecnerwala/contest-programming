@@ -1,0 +1,60 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>
+This problem has a non-standard time limit: 8 seconds.
+</i></p>
+
+<p>
+We work in a depot in which various packages are stored.
+Currently, the depot is empty.
+We know a precise schedule in which the packages will arrive to the depot.
+The schedule is given in the vector &lt;string&gt; <b>arrivals</b>.
+Each element of <b>arrivals</b> has the form "D I M S" and specifies that on each of the days numbered D, D+I, D+2*I, ..., D+(M-1)*I one package of size S will be delivered to the depot.
+</p>
+
+<p>
+We are expecting exactly one transport ship.
+The transport ship will arrive at the end of some day and it will have some capacity, but we do not know either.
+In order to be prepared for various alternatives, we need you to write a program that will answer many queries.
+</p>
+
+<p>
+Formally, let Q(D,S) be the following query: "Suppose that the ship arrives at the end of day D and that it can carry packages with total size S. Will we be able to fill the ship perfectly?"
+In other words, Q(D,S) is true if and only if there is a subset of packages that have been delivered during days 1 through D (inclusive) such that the sum of their sizes is exactly S.
+</p>
+
+<p>
+The queries you should answer are given in the vector &lt;string&gt; <b>queries</b>.
+Each element of queries is a string of the form either "D S" or "D S A<sub>1</sub> B<sub>1</sub> A<sub>2</sub> B<sub>2</sub> N".
+The first form corresponds to a single query Q(D,S).
+The second form corresponds to N queries: for each i = 0,1,...,N-1 we ask the query Q(D<sub>i</sub>,S<sub>i</sub>), where D<sub>i</sub> = ((D + i*A<sub>1</sub> - 1) mod B<sub>1</sub> + 1) and S<sub>i</sub> = ((S + i*A<sub>2</sub> - 1) mod B<sub>2</sub> + 1).
+</p>
+
+<p>
+Return the total number of queries with a positive answer. (If you were asked multiple queries with the same parameters, you should still count each of them as a separate query.)
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Depot</td></tr><tr><td>Method:</td><td>countPositive</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countPositive(vector &lt;string&gt; arrivals, vector &lt;string&gt; queries)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>8.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>arrivals</b> will contain between 1 and 20 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>arrivals</b> will be of form "D I M S", where D, I, M, and S are integers.</td></tr><tr><td align="center" valign="top">-</td><td><b>queries</b> will contain between 1 and 20 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>queries</b> will be of form "D S" or "D S A<sub>1</sub> B<sub>1</sub> A<sub>2</sub> B<sub>2</sub> N", where D, S, A<sub>1</sub>, B<sub>1</sub>, A<sub>2</sub>, B<sub>2</sub>, and N are integers.</td></tr><tr><td align="center" valign="top">-</td><td>The integers D, I, M, A<sub>1</sub>, and B<sub>1</sub> in <b>arrivals</b> and <b>queries</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The integers S, A<sub>2</sub>, B<sub>2</sub>, and N in <b>arrivals</b> and <b>queries</b> will be between 1 and 300,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All integers will be specified without leading zeros.</td></tr><tr><td align="center" valign="top">-</td><td>Consecutive integers in a string will always be separated by a single space. There will be no other spaces anywhere.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;3 2 4 2&quot;, &quot;4 3 2 3&quot;}</pre></td></tr><tr><td><pre>{&quot;3 1&quot;, &quot;3 2&quot;, &quot;3 4&quot;, &quot;4 2&quot;, &quot;5 3&quot;, &quot;5 5&quot;, &quot;7 6&quot;, &quot;9 1&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The image shows arrivals of four packages of size 2 (denoted by letters A)
+and two packages of size 3 (denoted by letters B):
+</p>
+
+<pre>
+                              B
+              A   B   A       A       A
+    ---------------------------------------------&gt;
+      1   2   3   4   5   6   7   8   9         days
+</pre>
+
+<p>
+On day 3 we have only one package of size 2, thus answers to queries "3 1", "3 2", and "3 4" are negative, positive, and negative, respectively.
+On day 4 we could use package of size 2 which have arrived day before, so query "4 2" is positive.
+On day 5 we could use single package of size 3 or combine packages of size 2 and 3, thus both queries "5 3" and "5 5" are positive.
+On day 7 we could use a set of three packages of size 2 or two packages of size 3 to get total sum of 6, thus "7 6" is also positive.
+We don't have packages of size 1, thus "9 1" is negative.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;3 2 4 2&quot;, &quot;4 3 2 3&quot;}</pre></td></tr><tr><td><pre>{&quot;3 4 2 10 1 6 4&quot;, &quot;5 3 8 9 8 9 3&quot;, &quot;3 2&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+This is exactly the same set of queries as in test #0.
+The first compressed entry specifies queries "3 4", "5 5", "7 6", and "9 1".
+The second compressed entry specifies "5 3", "4 2", and "3 1".
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;1 1 1 3&quot;}</pre></td></tr><tr><td><pre>{&quot;1 1 1 5 1 5 100&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 20</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We have exactly one package of size 3 (obtained on day 1).
+There are queries "1 1", "2 2", "3 3", "4 4", and "5 5" repeated 20 times.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;1 1 20000 1&quot;}</pre></td></tr><tr><td><pre>{&quot;1 10000 2 20000 10000 10000 10000&quot;, &quot;2 10000 2 20000 10000 10000 10000&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10001</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;1 147 1 1&quot;}</pre></td></tr><tr><td><pre>{&quot;107 107 107 2 107 2 10&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2"><p>A single package of size 1 arrives on day 1. There are five queries of the form "1 1" (which have a positive answer) and five queries of the form "2 2" (negative).</p>
+
+<p>Note that when a query is compressed the values D, S, and A<sub>j</sub> may be bigger than the corresponding B<sub>j</sub>. Make sure you compute the D<sub>i</sub> and S<sub>i</sub> correctly.</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

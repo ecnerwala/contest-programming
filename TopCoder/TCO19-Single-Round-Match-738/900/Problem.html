@@ -1,0 +1,29 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are going to drive a car for exactly <b>total_time</b> seconds along a long straight road segment.
+Your goal is to travel exactly <b>distance</b> meters in those <b>total_time</b> seconds.
+</p>
+<p>
+At the beginning of the drive the car is stationary (i.e., its speed is 0 meters per second).
+</p>
+<p>
+At each integer timestamp you can speed up your car.
+(This includes the beginning of your trip.)
+More precisely, at any such moment you can choose any positive integer X and increment your car's speed by X m/s.
+Doing so instantly consumes X*X units of fuel.
+You can speed up as many times as you like, and you can choose different values of X at different moments if you want.
+</p>
+<p>
+Find and return the minimum total amount of fuel needed.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>DriveTheCarHard</td></tr><tr><td>Method:</td><td>findMinimumFuel</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int findMinimumFuel(int total_time, int distance)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>There is always a solution.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>total_time</b> will be between 1 and 30000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>distance</b> will be between 1 and 30000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">An optimal solution: increment the speed of your car by 1 m/s at each of the timestamps 0, 1, 2, and 3.
+Thus:
+<ul>
+<li>During the first second of your trip the car will travel at 1 m/s.</li>
+<li>During the second second of your trip the car will travel at 2 m/s.</li>
+<li>During the third second of your trip the car will travel at 3 m/s.</li>
+<li>During the fourth second of your trip the car will travel at 4 m/s.</li>
+</ul>
+The total distance traveled in those four seconds will be 1+2+3+4 = 10 m.
+Each speed-up will require 1*1 = 1 units of fuel for a total of 1+1+1+1 = 4 units.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>33</pre></td></tr></table></td></tr><tr><td><pre>Returns: 21</pre></td></tr><tr><td><table><tr><td colspan="2">If you are driving for five seconds, there are five moments at which you can raise the speed of your car.
+In this test case you should increment your car's speed by 3, 3, 1, 1, and 1 m/s, respectively.
+Doing so will consume 3*3 + 3*3 + 1*1 + 1*1 + 1*1 = 21 units of fuel.
+The car will travel 3 + 6 + 7 + 8 + 9 = 33 meters.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>30000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 900000000</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>228</pre></td></tr><tr><td><pre>29595</pre></td></tr></table></td></tr><tr><td><pre>Returns: 242</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

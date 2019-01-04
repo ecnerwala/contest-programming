@@ -1,0 +1,156 @@
+[
+  {
+    "id": 837667,
+    "submission_time": "02-07-17\u00a0\u00a0\u00a023:26",
+    "task": "Zaj\u0105c",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 837675,
+    "submission_time": "02-07-17\u00a0\u00a0\u00a023:28",
+    "task": "Zaj\u0105c",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 837678,
+    "submission_time": "02-07-17\u00a0\u00a0\u00a023:32",
+    "task": "Kupiec",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 837682,
+    "submission_time": "02-07-17\u00a0\u00a0\u00a023:38",
+    "task": "Poci\u0105g",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 837688,
+    "submission_time": "02-07-17\u00a0\u00a0\u00a023:45",
+    "task": "Warsztaty",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 837697,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a000:17",
+    "task": "Chochlik",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 837702,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a000:21",
+    "task": "Kwadrat magiczny",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 837704,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a000:24",
+    "task": "Kwadrat magiczny",
+    "result": "Wrong answer",
+    "points": 30
+  },
+  {
+    "id": 837710,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a000:32",
+    "task": "Kosmiczny po\u015bcig",
+    "result": "Runtime error",
+    "points": 80
+  },
+  {
+    "id": 837714,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a000:34",
+    "task": "Kosmiczny po\u015bcig",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 837724,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a000:46",
+    "task": "Waga",
+    "result": "Time limit exceeded",
+    "points": 92
+  },
+  {
+    "id": 837737,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a001:19",
+    "task": "Kwadrat magiczny",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 837739,
+    "submission_time": "03-07-17\u00a0\u00a0\u00a001:25",
+    "task": "Waga",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 838335,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a007:45",
+    "task": "Porachunki",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 838336,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a007:52",
+    "task": "Program",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 838337,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a007:55",
+    "task": "Ukryte liczby",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 838338,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a007:57",
+    "task": "Program",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 838342,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a008:35",
+    "task": "W\u0105\u017c",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 838343,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a008:42",
+    "task": "W\u0105\u017c",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 838351,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a008:54",
+    "task": "Wie\u017cyczki",
+    "result": "Wrong answer",
+    "points": 60
+  },
+  {
+    "id": 838352,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a008:58",
+    "task": "Wie\u017cyczki",
+    "result": "Wrong answer",
+    "points": 60
+  },
+  {
+    "id": 838353,
+    "submission_time": "06-07-17\u00a0\u00a0\u00a009:00",
+    "task": "Wie\u017cyczki",
+    "result": "OK",
+    "points": 100
+  }
+]

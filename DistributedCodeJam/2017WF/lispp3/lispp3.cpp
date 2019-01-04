@@ -22,79 +22,110 @@ template <typename T> T split(T n, T i, T tot) {
 const int MAXNODES = 120;
 int levels[MAXNODES];
 int bottoms[MAXNODES];
+int bottom_plus[MAXNODES];
 
-const int MAXD = MAXN / 100;
-int has_plus[MAXD]; // location of the plus
-bool is_mine[MAXD];
-int needs[MAXD]; // location of the next plus if it exists
+int res = N;
 
-int go_seg(int st, int en) {
-	int lvl = levels[ID];
-	int base_level = bottoms[ID];
-	memset(has_plus, 0, sizeof(has_plus));
-	memset(is_mine, 0, sizeof(is_mine));
-	memset(needs, 0, sizeof(needs));
-	for (int i = st; i < en; i++) {
-		assert(lvl >= base_level);
-		char c = GetCharacter(i);
+struct paren_stack {
+	static const int MAXD = MAXN / 100;
+	int min_level, max_level, cur_level;
+	struct level_data {
+		bool is_mine;
+		bool has_plus;
+	} data[MAXD];
+	// (mi, ma]
+	void init(int mi, int ma, int cur) {
+		min_level = mi;
+		max_level = ma;
+		cur_level = cur;
+		memset(data, 0, sizeof(data));
+		assert((max_level - min_level) < MAXD);
+	}
+	void set_down(int nxt_level) {
+		assert(nxt_level <= cur_level);
+		cur_level = nxt_level;
+	}
+	void set_up(int nxt_level) {
+		assert(nxt_level >= cur_level);
+		for (int i = max(cur_level+1, min_level); i <= min(nxt_level, max_level); i++) {
+			data[i].is_mine = false;
+			data[i].has_plus = false;
+		}
+		cur_level = nxt_level;
+	}
+	// return true if good
+	bool process_character(int i) {
+		char c = GetCharacter(i), p = (i > 0 ? GetCharacter(i-1) : '(');
+		if (i > 0 && c != '(' && p == '+') {
+			return false;
+		}
 		if (c == '(') {
-			lvl++;
-			has_plus[lvl - base_level] = false;
-			is_mine[lvl - base_level] = true;
+			cur_level++;
+			if (min_level < cur_level && cur_level <= max_level) {
+				data[cur_level - min_level].is_mine = true;
+				data[cur_level - min_level].has_plus = false;
+			}
+			return true;
 		} else if (c == ')') {
-			if (lvl == 0) return i;
+			if (cur_level == 0) return false;
 			assert(i);
-			if (GetCharacter(i-1) == '(') {
-				// we're good, doesn't matter
-			} else {
-				// we must have a plus
-				if (is_mine[lvl - base_level]) {
-					if (!has_plus[lvl - base_level]) {
-						return i;
-					}
-				} else {
-					needs[lvl - base_level] = has_plus[lvl - base_level];
-					if (has_plus[lvl - base_level]) {
-						needs[lvl - base_level] = has_plus[lvl - base_level];
-					} else {
-						assert(i);
-						needs[lvl - base_level] = -i;
+			if (min_level < cur_level && cur_level <= max_level) {
+				if (data[cur_level - min_level].is_mine) {
+					if (!(p == '(' || data[cur_level - min_level].has_plus)) {
+						return false;
 					}
 				}
+				data[cur_level - min_level].is_mine = false;
+				data[cur_level - min_level].has_plus = false;
 			}
-			lvl--;
+			cur_level --;
+			return true;
 		} else if (c == '+') {
-			if (i == 0 || GetCharacter(i-1) != ')') {
-				return i;
+			if (p != ')') return false;
+			if (cur_level == 0) return false;
+			if (min_level < cur_level && cur_level <= max_level) {
+				if (data[cur_level - min_level].is_mine) {
+					if (data[cur_level - min_level].has_plus) {
+						return false;
+					}
+					data[cur_level - min_level].has_plus = true;
+				}
 			}
-			if (lvl == 0) return i;
-			assert(i);
-			// check the plus
-			if (has_plus[lvl - base_level]) {
-				return i;
-			}
-			has_plus[lvl - base_level] = i;
-			if (i == N-1 || GetCharacter(i+1) != '(') {
-				return i+1;
-			}
+			return true;
 		} else assert(false);
+		return false;
 	}
-	return N;
-}
+} stk;
 
-int main() {
+void phase0() {
+	assert(N);
+	if (GetCharacter(0) != '(') {
+		// Some edge cases, make sure the first character's good.
+		// This way we can safely assume that all failure points are non-zero (positive).
+		if (ID == 0) cout << 0 << '\n';
+		exit(0);
+	}
 	int st = split(N, ID, NODES), en = split(N, ID+1, NODES);
 	int my_level = 0;
-	int my_min_level = 0;
+	int my_bottom = 0;
+	int my_plus = 0;
 	for (int i = st; i < en; i++) {
 		char c = GetCharacter(i);
 		if (c == '(') my_level ++;
 		if (c == ')') my_level --;
-		my_min_level = min(my_min_level, my_level);
+		if (c == '+' && my_bottom == my_level) {
+			assert(i);
+			if (my_plus == 0) my_plus = i;
+		}
+		if (my_level < my_bottom) {
+			my_bottom = my_level;
+			my_plus = false;
+		}
 	}
 	for (int i = 0; i < NODES; i++) {
 		PutInt(i, my_level);
-		PutInt(i, my_min_level);
+		PutInt(i, my_bottom);
+		PutInt(i, my_plus);
 		Send(i);
 	}
 	levels[0] = 0;
@@ -102,79 +133,107 @@ int main() {
 		Receive(i);
 		levels[i+1] = levels[i] + GetInt(i);
 		bottoms[i] = levels[i] + GetInt(i);
+		bottom_plus[i] = GetInt(i);
 	}
-	int res = go_seg(st, en);
-	vector<int> plusses;
+}
+
+void go_range(int ind) {
+	int st = split(N, ind, NODES), en = split(N, ind+1, NODES);
+	int min_level = bottoms[ind];
+	int max_level = min_level + (en - st) + 1;
+	int start_level = levels[ind];
+	stk.init(min_level, max_level, start_level);
+	for (int i = st; i < en; i++) {
+		if (!stk.process_character(i)) {
+			res = min(res, i);
+			return;
+		}
+	}
+}
+
+void phase1() {
+	go_range(ID);
+}
+
+int num_jobs = 0;
+void go_range2(int ind1, int ind2) {
+	assert(ind1 < ind2);
+	int min_level = max(bottoms[ind1], bottoms[ind2]);
+	int max_level = min(levels[ind1+1], levels[ind2]);
+	for (int i = ind1+1; i <= ind2-1; i++) {
+		max_level = min(max_level, bottoms[i]);
+	}
+	if (min_level >= max_level) return;
+	assert(min_level < max_level);
+	if (num_jobs++ % NODES != ID) {
+		// give it to someone else
+		return;
+	}
+	int start_level = levels[ind1];
+	stk.init(min_level, max_level, start_level);
 	{
-		for (int oid = ID+1; oid < NODES; oid++) {
-			for (int i = levels[ID+1]; i >= bottoms[ID+1] && i >= bottoms[ID]; i--) {
+		int st = split(N, ind1, NODES), en = split(N, ind1+1, NODES);
+		for (int i = st; i < en; i++) {
+			if (!stk.process_character(i)) {
+				res = min(res, i);
+				return;
 			}
-			for (int i = bottoms[ID]; i <= levels[ID+1])
-				if (has_plus[i - bottoms[ID]]) {
-				}
-			Send(oid);
 		}
 	}
-	for (int oid = ID-1; oid >= 0; oid--) {
-		// receive from the previous
-		Receive(oid);
-		int nres = GetInt(oid);
-		res = min(res, nres);
-		if (nres == N) {
-			int sz = GetInt(oid);
-			for (int i = 0; i < sz; i++)  {
-				int v = GetInt(oid);
-				if (v < bottoms[ID]) {
-					plusses.push_back(v);
-				} else {
-					assert(v <= levels[ID]);
-					if (v == bottoms[ID]) {
-						assert(!is_mine[v-bottoms[ID]]);
-						if (has_plus[v-bottoms[ID]]) {
-							res = min(res, has_plus[v-bottoms[ID]]);
-						} else {
-							has_plus[v-bottoms[ID]] = 1;
-						}
-					} else {
-						if (needs[v-bottoms[ID]] > 0) {
-							res = min(res, needs[v-bottoms[ID]]);
-						} else if (needs[v - bottoms[ID]] == 0) {
-						} else if (needs[v - bottoms[ID]] < 0) {
-							needs[v - bottoms[ID]] = 0;
-						}
-					}
+	stk.set_down(max_level);
+	for (int i = ind1+1; i <= ind2-1; i++) {
+		if (bottoms[i] == max_level) {
+			if (bottom_plus[i]) {
+				if (!stk.process_character(bottom_plus[i])) {
+					res = min(res, bottom_plus[i]);
+					return;
 				}
 			}
 		}
 	}
-	assert(needs[0] == 0);
-	for (int i = bottoms[ID]; i <= levels[ID]; i++) {
-		if (needs[i-bottoms[ID]] < 0) {
-			res = min(res, -needs[i - bottoms[ID]]);
-		}
-	}
-	if (ID < NODES - 1) {
-		PutInt(ID+1, res);
-		if (res == N) {
-			for (int i = bottoms[ID]; i <= levels[ID+1]; i++) {
-				if (has_plus[i - bottoms[ID]]) {
-					plusses.push_back(i);
-				}
-			}
-			PutInt(ID+1, int(plusses.size()));
-			for (int i : plusses) {
-				PutInt(ID+1, i);
+	stk.set_up(levels[ind2]);
+	{
+		int st = split(N, ind1, NODES), en = split(N, ind1+1, NODES);
+		for (int i = st; i < en; i++) {
+			if (!stk.process_character(i)) {
+				res = min(res, i);
+				return;
 			}
 		}
-		Send(ID+1);
 	}
-	if (ID == NODES-1) {
-		assert(res <= N);
+}
+
+void phase2() {
+	for (int i = 0; i < NODES; i++) {
+		for (int j = i+1; j < NODES; j++) {
+		}
+	}
+}
+
+void phase_print() {
+	assert(res <= N);
+	assert(res >= 0);
+	if (ID) {
+		PutInt(0, res);
+		Send(0);
+	} else {
+		for (int i = 1; i < NODES; i++) {
+			Receive(i);
+			int nres = GetInt(i);
+			res = min(res, nres);
+		}
 		assert(res >= 0);
 		if (res == N && levels[NODES] == 0) {
 			res = -1;
 		}
 		cout << res << '\n';
 	}
+}
+
+int main() {
+	phase0();
+	phase1();
+	phase2();
+	phase_print();
 	return 0;
 }

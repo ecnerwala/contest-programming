@@ -1,0 +1,26 @@
+{
+  "id": 678758,
+  "task": {
+    "short": "pol",
+    "long": "Connections"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "pol.cpp",
+  "submission_time": "2015-07-11 07:06:52",
+  "report_time": "2015-07-11 07:06:55",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: pol.out.s: No such file or directory\npol.e: In function 'int main()':\npol.e:31: error: 'pq' was not declared in this scope\npol.e:31: error: '>>' should be '> >' within a nested template argument list\npol.e:31: error: redeclaration of 'std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >, std::greater<std::pair<int, int> > > pq'\npol.e:31: error: '<typeprefixerror>pq' previously declared here",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "10th Polish Olympiad in Informatics, Stage II - day 2",
+    "start_time": "2015-07-11 06:57:49",
+    "points": 156
+  }
+}

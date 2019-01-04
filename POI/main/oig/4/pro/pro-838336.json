@@ -1,0 +1,532 @@
+{
+  "id": 838336,
+  "task": {
+    "short": "pro",
+    "long": "Program"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "pro.cpp",
+  "submission_time": "2017-07-06 07:52:11",
+  "report_time": "2017-07-06 07:52:48",
+  "result": "Wrong answer",
+  "status": "Example test case: wrong answer",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "4th Junior Polish Olympiad in Informatics, Etap I",
+    "start_time": "2017-07-06 07:46:18",
+    "points": 500
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '4'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "0a",
+      "cases": [
+        {
+          "name": "0a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '20'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1e",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '7'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '4'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2d",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '62'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '1'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '47'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4d",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '500000'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '7984'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '43418'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '109'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7d",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '5742'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '11076'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected '254410'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Wrong answer",
+          "footnote": "wczytano EOF, but expected 'NIE'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

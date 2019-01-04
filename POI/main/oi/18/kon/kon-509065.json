@@ -1,0 +1,26 @@
+{
+  "id": 509065,
+  "task": {
+    "short": "kon",
+    "long": "Conspiracy"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "kon.cpp",
+  "submission_time": "2013-11-22 06:15:06",
+  "report_time": "2013-11-22 06:15:10",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: kon.out.s: No such file or directory\nkon.e: In function 'void greedy()':\nkon.e:102: error: return-statement with a value, in function returning 'void'",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "18th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2013-11-21 05:20:15",
+    "points": 460
+  }
+}

@@ -1,0 +1,240 @@
+[
+  {
+    "id": 554742,
+    "submission_time": "30-03-14\u00a0\u00a0\u00a005:47",
+    "task": "Guilds",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 554743,
+    "submission_time": "30-03-14\u00a0\u00a0\u00a005:50",
+    "task": "Guilds",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 554744,
+    "submission_time": "30-03-14\u00a0\u00a0\u00a005:59",
+    "task": "Railway",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 563529,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a002:57",
+    "task": "Sheep",
+    "result": "Time limit exceeded",
+    "points": 70
+  },
+  {
+    "id": 563530,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a003:10",
+    "task": "Sheep",
+    "result": "Wrong answer",
+    "points": 50
+  },
+  {
+    "id": 563531,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a003:12",
+    "task": "Sheep",
+    "result": "Wrong answer",
+    "points": 50
+  },
+  {
+    "id": 563534,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a005:20",
+    "task": "Sheep",
+    "result": "OK",
+    "points": 78
+  },
+  {
+    "id": 563536,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a005:48",
+    "task": "Teleportation",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563537,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a005:57",
+    "task": "Intelligence Test",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563538,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a006:07",
+    "task": "The Minima Game",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563539,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a006:44",
+    "task": "Frog",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563547,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a009:18",
+    "task": "Sheep",
+    "result": "OK",
+    "points": 84
+  },
+  {
+    "id": 563640,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a017:41",
+    "task": "Sheep",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563651,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a018:37",
+    "task": "Pilots",
+    "result": "Time limit exceeded",
+    "points": 72
+  },
+  {
+    "id": 563652,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a018:43",
+    "task": "Pilots",
+    "result": "Time limit exceeded",
+    "points": 72
+  },
+  {
+    "id": 563653,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a018:50",
+    "task": "Pilots",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563661,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a020:09",
+    "task": "Blocks",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563683,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a021:42",
+    "task": "Beads",
+    "result": "Wrong answer",
+    "points": 91
+  },
+  {
+    "id": 563687,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a021:57",
+    "task": "Beads",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563698,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a022:49",
+    "task": "Hamsters",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563702,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a023:16",
+    "task": "Antisymmetry",
+    "result": "Time limit exceeded",
+    "points": 14
+  },
+  {
+    "id": 563705,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a023:35",
+    "task": "Antisymmetry",
+    "result": "Time limit exceeded",
+    "points": 44
+  },
+  {
+    "id": 563707,
+    "submission_time": "11-05-14\u00a0\u00a0\u00a023:56",
+    "task": "Antisymmetry",
+    "result": "OK",
+    "points": 79
+  },
+  {
+    "id": 563710,
+    "submission_time": "12-05-14\u00a0\u00a0\u00a000:00",
+    "task": "Antisymmetry",
+    "result": "Wrong answer",
+    "points": 92
+  },
+  {
+    "id": 563837,
+    "submission_time": "12-05-14\u00a0\u00a0\u00a017:51",
+    "task": "Antisymmetry",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 564428,
+    "submission_time": "15-05-14\u00a0\u00a0\u00a018:31",
+    "task": "Bridges",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 564434,
+    "submission_time": "15-05-14\u00a0\u00a0\u00a018:43",
+    "task": "Bridges",
+    "result": "Wrong answer",
+    "points": 50
+  },
+  {
+    "id": 564459,
+    "submission_time": "15-05-14\u00a0\u00a0\u00a020:39",
+    "task": "Bridges",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 564495,
+    "submission_time": "16-05-14\u00a0\u00a0\u00a002:52",
+    "task": "Divine Divisor",
+    "result": "OK",
+    "points": 50
+  },
+  {
+    "id": 564496,
+    "submission_time": "16-05-14\u00a0\u00a0\u00a002:57",
+    "task": "Divine Divisor",
+    "result": "OK",
+    "points": 92
+  },
+  {
+    "id": 564497,
+    "submission_time": "16-05-14\u00a0\u00a0\u00a003:03",
+    "task": "Divine Divisor",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 564691,
+    "submission_time": "16-05-14\u00a0\u00a0\u00a020:34",
+    "task": "Ones",
+    "result": "Security violation",
+    "points": 0
+  },
+  {
+    "id": 564693,
+    "submission_time": "16-05-14\u00a0\u00a0\u00a020:42",
+    "task": "Ones",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 631183,
+    "submission_time": "24-12-14\u00a0\u00a0\u00a008:02",
+    "task": "Pilots",
+    "result": "OK",
+    "points": 100
+  }
+]

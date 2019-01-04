@@ -8,24 +8,31 @@ int P[MAXN];
 int dp[MAXN];
 
 int main() {
-	scanf("%d", &N);
-	P[0] = -1;
-	for (int i = 1; i < N; i++) {
-		scanf("%d", &P[i]);
-		P[i] --;
+	ios_base::sync_with_stdio(0);
+	string S;
+	getline(cin, S);
+	for (string::iterator it = S.begin(); it != S.end(); it++) {
+		N =	10 * N + (*it - '0');
+	}
+	getline(cin, S);
+	S += ' ';
+	for (int i = 2, j = 0; i <= N; i++) {
+		while (S[j] != ' ') {
+			P[i] = 10 * P[i] + (S[j] - '0');
+			j++;
+		}
+		j++;
 	}
 	int res = 0;
-	for (int i = N-1; i >= 0; i--) {
+	for (int i = N; i > 0; i--) {
 		if (dp[i] == 0) {
-			dp[i] += 1;
+			dp[i] ++;
 		} else {
-			dp[i] -= 1;
+			dp[i] --;
 			res++;
 		}
 
-		int p = P[i];
-		if (p == -1) continue;
-		dp[p] += dp[i];
+		dp[P[i]] += dp[i];
 	}
 
 	printf("%d\n", res);

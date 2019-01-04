@@ -1,0 +1,675 @@
+{
+  "id": 601669,
+  "task": {
+    "short": "pre",
+    "long": "Prefixuffix"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "pre.cpp",
+  "submission_time": "2014-10-02 19:41:45",
+  "report_time": "2014-10-02 19:42:10",
+  "result": "Runtime error",
+  "status": "Example test case: runtime error",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "19th Polish Olympiad in Informatics, Stage III - day 2",
+    "start_time": "2014-09-25 01:25:38",
+    "points": 300
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1e",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1f",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Runtime error",
+          "footnote": "memory limit exceeded\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2e",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3e",
+          "status": "Runtime error",
+          "footnote": "memory limit exceeded\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4e",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5d",
+          "status": "Runtime error",
+          "footnote": "memory limit exceeded\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5e",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "Runtime error",
+          "footnote": "memory limit exceeded\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "6d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "6e",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "7d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "7e",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "8d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "8e",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "9e",
+          "status": "Runtime error",
+          "footnote": "memory limit exceeded\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Runtime error",
+          "footnote": "memory limit exceeded\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "10d",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "10e",
+          "status": "Runtime error",
+          "footnote": "runtime error 127\n exit code: 127",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "10f",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

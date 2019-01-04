@@ -1,0 +1,567 @@
+{
+  "id": 551785,
+  "task": {
+    "short": "ska",
+    "long": "Rock Garden"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "ska.cpp",
+  "submission_time": "2014-03-20 17:04:13",
+  "report_time": "2014-03-20 17:05:16",
+  "result": "OK",
+  "status": "OK",
+  "points": {
+    "received": 94,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "14th Polish Olympiad in Informatics, Stage II - day 1",
+    "start_time": "2014-03-20 16:48:55",
+    "points": 200
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 10 i koszcie 200",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 30 i koszcie 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 312 i koszcie 161",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 2 i koszcie 0",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3616 i koszcie 4866",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3568 i koszcie 6287",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3600 i koszcie 4480",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3688 i koszcie 5512",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 12 i koszcie 2",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 38832 i koszcie 24174",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 39220 i koszcie 13806",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 38640 i koszcie 28583",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 39592 i koszcie 5922",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 40 i koszcie 3",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 394960 i koszcie 60072",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 396384 i koszcie 50976",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 394832 i koszcie 61919",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 391840 i koszcie 98978",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 44 i koszcie 6",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3973240 i koszcie 126831",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3974652 i koszcie 120922",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3966632 i koszcie 150482",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3965748 i koszcie 158100",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "5ocen",
+      "cases": [
+        {
+          "name": "5ocen",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3999996 i koszcie 0",
+          "time": {
+            "used": "1.37s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3980968 i koszcie 549688",
+          "time": {
+            "used": "0.09s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3994432 i koszcie 146436",
+          "time": {
+            "used": "0.10s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3974848 i koszcie 732404",
+          "time": {
+            "used": "0.10s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3977888 i koszcie 670332",
+          "time": {
+            "used": "0.10s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1995639776 i koszcie 1264222",
+          "time": {
+            "used": "0.55s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1997720416 i koszcie 684168",
+          "time": {
+            "used": "0.55s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1995063964 i koszcie 1396964",
+          "time": {
+            "used": "0.55s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "7d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1995630936 i koszcie 1282302",
+          "time": {
+            "used": "0.52s",
+            "limit": "1.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1998446314 i koszcie 900982",
+          "time": {
+            "used": "1.05s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1997720422 i koszcie 1334252",
+          "time": {
+            "used": "1.02s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1997949522 i koszcie 1144995",
+          "time": {
+            "used": "1.11s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "8d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 1996625520 i koszcie 1900668",
+          "time": {
+            "used": "1.07s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3997445922 i koszcie 1207333",
+          "time": {
+            "used": "1.88s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3998233066 i koszcie 956413",
+          "time": {
+            "used": "1.90s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3995482752 i koszcie 2307904",
+          "time": {
+            "used": "1.92s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3996949338 i koszcie 1431416",
+          "time": {
+            "used": "1.90s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 7,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3997561348 i koszcie 1303785",
+          "time": {
+            "used": "1.94s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3996982138 i koszcie 1446885",
+          "time": {
+            "used": "1.92s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3996219764 i koszcie 1889789",
+          "time": {
+            "used": "1.85s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "10d",
+          "status": "OK",
+          "footnote": "prawidlowe rozwiazanie o obwodzie 3995676636 i koszcie 2150486",
+          "time": {
+            "used": "1.78s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 7,
+        "maximum": 10
+      }
+    }
+  ]
+}

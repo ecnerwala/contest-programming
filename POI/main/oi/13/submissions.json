@@ -1,0 +1,415 @@
+[
+  {
+    "id": 564991,
+    "submission_time": "17-05-14\u00a0\u00a0\u00a023:57",
+    "task": "The Disks",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 564992,
+    "submission_time": "18-05-14\u00a0\u00a0\u00a000:09",
+    "task": "Periods of Words",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 565085,
+    "submission_time": "18-05-14\u00a0\u00a0\u00a017:41",
+    "task": "The Invasion",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 565086,
+    "submission_time": "18-05-14\u00a0\u00a0\u00a017:42",
+    "task": "Professor Szu",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 565087,
+    "submission_time": "18-05-14\u00a0\u00a0\u00a017:42",
+    "task": "Tetris 3D",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 566014,
+    "submission_time": "21-05-14\u00a0\u00a0\u00a019:19",
+    "task": "Professor Szu",
+    "result": "Runtime error",
+    "points": 30
+  },
+  {
+    "id": 566015,
+    "submission_time": "21-05-14\u00a0\u00a0\u00a019:29",
+    "task": "Professor Szu",
+    "result": "Runtime error",
+    "points": 30
+  },
+  {
+    "id": 566016,
+    "submission_time": "21-05-14\u00a0\u00a0\u00a019:31",
+    "task": "Professor Szu",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 566019,
+    "submission_time": "21-05-14\u00a0\u00a0\u00a019:36",
+    "task": "Tetris 3D",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 579189,
+    "submission_time": "01-08-14\u00a0\u00a0\u00a007:53",
+    "task": "Palindromes",
+    "result": "Wrong answer",
+    "points": 19
+  },
+  {
+    "id": 579202,
+    "submission_time": "01-08-14\u00a0\u00a0\u00a009:09",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 579205,
+    "submission_time": "01-08-14\u00a0\u00a0\u00a009:19",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 579208,
+    "submission_time": "01-08-14\u00a0\u00a0\u00a009:26",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 95
+  },
+  {
+    "id": 579282,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a004:11",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 579294,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a007:56",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 579295,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a007:58",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 579296,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a008:49",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 90
+  },
+  {
+    "id": 579298,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a009:36",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 98
+  },
+  {
+    "id": 579299,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a009:56",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579300,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a009:58",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579301,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a010:07",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579302,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a010:12",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579307,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a010:36",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579309,
+    "submission_time": "02-08-14\u00a0\u00a0\u00a010:41",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579491,
+    "submission_time": "03-08-14\u00a0\u00a0\u00a023:28",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579493,
+    "submission_time": "03-08-14\u00a0\u00a0\u00a023:30",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 579494,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:04",
+    "task": "The Postman",
+    "result": "Wrong answer",
+    "points": 7
+  },
+  {
+    "id": 579498,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:10",
+    "task": "The Postman",
+    "result": "Wrong answer",
+    "points": 7
+  },
+  {
+    "id": 579499,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:14",
+    "task": "The Postman",
+    "result": "Wrong answer",
+    "points": 93
+  },
+  {
+    "id": 579501,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:21",
+    "task": "Palindromes",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 579502,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:21",
+    "task": "The Postman",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 579503,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:22",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579504,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:23",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579505,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:30",
+    "task": "Palindromes",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 579506,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:34",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 579508,
+    "submission_time": "04-08-14\u00a0\u00a0\u00a000:52",
+    "task": "Palindromes",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677958,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a004:34",
+    "task": "Warehouse",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 677968,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a004:51",
+    "task": "Warehouse",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 677970,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a004:57",
+    "task": "Warehouse",
+    "result": "Runtime error",
+    "points": 66
+  },
+  {
+    "id": 677972,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a004:58",
+    "task": "Warehouse",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677989,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a007:27",
+    "task": "Subway",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677990,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a007:32",
+    "task": "Subway",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677992,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a007:37",
+    "task": "Subway",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677993,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a008:29",
+    "task": "Teddies",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678011,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a009:41",
+    "task": "Aesthetic Text",
+    "result": "Wrong answer",
+    "points": 37
+  },
+  {
+    "id": 678012,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a009:48",
+    "task": "Aesthetic Text",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678205,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a019:48",
+    "task": "Sophie",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678207,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a020:24",
+    "task": "Ploughing",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678221,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a021:35",
+    "task": "Crystals",
+    "result": "Wrong answer",
+    "points": 25
+  },
+  {
+    "id": 678223,
+    "submission_time": "08-07-15\u00a0\u00a0\u00a021:42",
+    "task": "Crystals",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678275,
+    "submission_time": "09-07-15\u00a0\u00a0\u00a006:54",
+    "task": "Tetris 3D",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 678287,
+    "submission_time": "09-07-15\u00a0\u00a0\u00a007:46",
+    "task": "Tetris 3D",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678288,
+    "submission_time": "09-07-15\u00a0\u00a0\u00a007:51",
+    "task": "Tetris 3D",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 764713,
+    "submission_time": "27-08-16\u00a0\u00a0\u00a000:40",
+    "task": "Dancing in Circles",
+    "result": "OK",
+    "points": 92
+  },
+  {
+    "id": 764714,
+    "submission_time": "27-08-16\u00a0\u00a0\u00a000:59",
+    "task": "Dancing in Circles",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 765071,
+    "submission_time": "30-08-16\u00a0\u00a0\u00a007:05",
+    "task": "Frogs",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 765072,
+    "submission_time": "30-08-16\u00a0\u00a0\u00a020:52",
+    "task": "Schools",
+    "result": "Runtime error",
+    "points": 87
+  },
+  {
+    "id": 765073,
+    "submission_time": "30-08-16\u00a0\u00a0\u00a020:53",
+    "task": "Schools",
+    "result": "Runtime error",
+    "points": 87
+  },
+  {
+    "id": 765074,
+    "submission_time": "30-08-16\u00a0\u00a0\u00a020:54",
+    "task": "Schools",
+    "result": "OK",
+    "points": 100
+  }
+]

@@ -1,0 +1,312 @@
+{
+  "id": 563310,
+  "task": {
+    "short": "slo",
+    "long": "Elephants"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "slo.cpp",
+  "submission_time": "2014-05-10 08:00:41",
+  "report_time": "2014-05-10 08:01:18",
+  "result": "Runtime error",
+  "status": "Example test case: time limit exceeded",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-05-10 08:01:17",
+    "points": 400
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '1534'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '23445'",
+          "time": {
+            "used": "0.13s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '24000'",
+          "time": {
+            "used": "0.70s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "6.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "6.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 11\n exit code: 2816",
+          "time": {
+            "used": "0.80s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 11\n exit code: 2816",
+          "time": {
+            "used": "1.69s",
+            "limit": "6.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "6.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 11\n exit code: 2816",
+          "time": {
+            "used": "0.94s",
+            "limit": "6.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

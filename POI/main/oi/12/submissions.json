@@ -1,0 +1,44 @@
+[
+  {
+    "id": 552919,
+    "submission_time": "24-03-14\u00a0\u00a0\u00a006:28",
+    "task": "Points",
+    "result": "Wrong answer",
+    "points": 70
+  },
+  {
+    "id": 762391,
+    "submission_time": "09-08-16\u00a0\u00a0\u00a010:02",
+    "task": "Points",
+    "result": "Runtime error",
+    "points": 10
+  },
+  {
+    "id": 762392,
+    "submission_time": "09-08-16\u00a0\u00a0\u00a010:13",
+    "task": "Points",
+    "result": "Runtime error",
+    "points": 10
+  },
+  {
+    "id": 762393,
+    "submission_time": "09-08-16\u00a0\u00a0\u00a010:17",
+    "task": "Points",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 762394,
+    "submission_time": "09-08-16\u00a0\u00a0\u00a010:21",
+    "task": "Points",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 762397,
+    "submission_time": "09-08-16\u00a0\u00a0\u00a010:32",
+    "task": "Points",
+    "result": "OK",
+    "points": 100
+  }
+]

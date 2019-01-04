@@ -1,0 +1,289 @@
+[
+  {
+    "id": 553126,
+    "submission_time": "24-03-14\u00a0\u00a0\u00a019:08",
+    "task": "Toll",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553129,
+    "submission_time": "24-03-14\u00a0\u00a0\u00a019:12",
+    "task": "Postering",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553374,
+    "submission_time": "25-03-14\u00a0\u00a0\u00a016:04",
+    "task": "Building blocks",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553421,
+    "submission_time": "25-03-14\u00a0\u00a0\u00a019:02",
+    "task": "Blockade",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553512,
+    "submission_time": "25-03-14\u00a0\u00a0\u00a023:43",
+    "task": "Triangles",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553517,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a000:58",
+    "task": "Station",
+    "result": "Wrong answer",
+    "points": 70
+  },
+  {
+    "id": 553518,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a001:05",
+    "task": "Station",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553524,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a002:48",
+    "task": "Subdivision of Kingdom",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553529,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a005:51",
+    "task": "Permutation",
+    "result": "Time limit exceeded",
+    "points": 72
+  },
+  {
+    "id": 553530,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a005:58",
+    "task": "Permutation",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553668,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a014:42",
+    "task": "Plot purchase",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 553670,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a014:44",
+    "task": "Plot purchase",
+    "result": "Time limit exceeded",
+    "points": 38
+  },
+  {
+    "id": 553690,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a015:44",
+    "task": "Plot purchase",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 553695,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a016:04",
+    "task": "Plot purchase",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553702,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a016:43",
+    "task": "Lights",
+    "result": "OK",
+    "points": 98
+  },
+  {
+    "id": 553707,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a017:02",
+    "task": "Lights",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553711,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a017:47",
+    "task": "Mafia",
+    "result": "Wrong answer",
+    "points": 8
+  },
+  {
+    "id": 553713,
+    "submission_time": "26-03-14\u00a0\u00a0\u00a017:51",
+    "task": "Mafia",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 553992,
+    "submission_time": "27-03-14\u00a0\u00a0\u00a020:30",
+    "task": "BBB",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 554273,
+    "submission_time": "28-03-14\u00a0\u00a0\u00a021:08",
+    "task": "Trains",
+    "result": "Time limit exceeded",
+    "points": 20
+  },
+  {
+    "id": 558664,
+    "submission_time": "17-04-14\u00a0\u00a0\u00a007:53",
+    "task": "Trains",
+    "result": "Time limit exceeded",
+    "points": 84
+  },
+  {
+    "id": 558665,
+    "submission_time": "17-04-14\u00a0\u00a0\u00a008:23",
+    "task": "Trains",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 558669,
+    "submission_time": "17-04-14\u00a0\u00a0\u00a008:58",
+    "task": "Mirror trap",
+    "result": "Wrong answer",
+    "points": 100
+  },
+  {
+    "id": 764902,
+    "submission_time": "28-08-16\u00a0\u00a0\u00a001:00",
+    "task": "Robinson",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 764904,
+    "submission_time": "28-08-16\u00a0\u00a0\u00a001:03",
+    "task": "Robinson",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 764913,
+    "submission_time": "28-08-16\u00a0\u00a0\u00a007:57",
+    "task": "Robinson",
+    "result": "Time limit exceeded",
+    "points": 67
+  },
+  {
+    "id": 764914,
+    "submission_time": "28-08-16\u00a0\u00a0\u00a008:34",
+    "task": "Robinson",
+    "result": "Time limit exceeded",
+    "points": 95
+  },
+  {
+    "id": 764915,
+    "submission_time": "28-08-16\u00a0\u00a0\u00a008:50",
+    "task": "Robinson",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 764916,
+    "submission_time": "28-08-16\u00a0\u00a0\u00a008:53",
+    "task": "Robinson",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 764917,
+    "submission_time": "28-08-16\u00a0\u00a0\u00a009:01",
+    "task": "Robinson",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 765020,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a002:32",
+    "task": "The Great Escape",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 765021,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a003:24",
+    "task": "The Great Escape",
+    "result": "Time limit exceeded",
+    "points": 54
+  },
+  {
+    "id": 765022,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a003:28",
+    "task": "The Great Escape",
+    "result": "Time limit exceeded",
+    "points": 65
+  },
+  {
+    "id": 765023,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a003:33",
+    "task": "The Great Escape",
+    "result": "Time limit exceeded",
+    "points": 69
+  },
+  {
+    "id": 765024,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a003:42",
+    "task": "The Great Escape",
+    "result": "Time limit exceeded",
+    "points": 70
+  },
+  {
+    "id": 765025,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a004:05",
+    "task": "The Great Escape",
+    "result": "Runtime error",
+    "points": 63
+  },
+  {
+    "id": 765066,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a019:53",
+    "task": "The Great Escape",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 765067,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a020:11",
+    "task": "The Great Escape",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 765068,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a020:14",
+    "task": "The Great Escape",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 765069,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a020:51",
+    "task": "The Great Escape",
+    "result": "Runtime error",
+    "points": 94
+  },
+  {
+    "id": 765070,
+    "submission_time": "29-08-16\u00a0\u00a0\u00a020:53",
+    "task": "The Great Escape",
+    "result": "OK",
+    "points": 100
+  }
+]

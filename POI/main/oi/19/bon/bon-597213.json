@@ -1,0 +1,473 @@
+{
+  "id": 597213,
+  "task": {
+    "short": "bon",
+    "long": "Vouchers"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "bon.cpp",
+  "submission_time": "2014-09-24 07:09:25",
+  "report_time": "2014-09-24 07:09:57",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 60,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "19th Polish Olympiad in Informatics, Stage II - day 1",
+    "start_time": "2014-09-24 07:09:57",
+    "points": 200
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "OK",
+          "time": {
+            "used": "0.09s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "time": {
+            "used": "0.09s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.68s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "OK",
+          "time": {
+            "used": "0.18s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "OK",
+          "time": {
+            "used": "0.18s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "OK",
+          "time": {
+            "used": "0.09s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "OK",
+          "time": {
+            "used": "0.27s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "OK",
+          "time": {
+            "used": "0.21s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Wrong answer",
+          "footnote": "line 83244: read '-2147189995', but expected '2147777301'",
+          "time": {
+            "used": "0.74s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Wrong answer",
+          "footnote": "line 85840: read '-2147469606', but expected '2147497690'",
+          "time": {
+            "used": "0.46s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "Wrong answer",
+          "footnote": "line 108967: read '-2147465251', but expected '2147502045'",
+          "time": {
+            "used": "0.25s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "7d",
+          "status": "Wrong answer",
+          "footnote": "line 163953: read '-2146203500', but expected '2148763796'",
+          "time": {
+            "used": "0.43s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Wrong answer",
+          "footnote": "line 58354: read '-2147213860', but expected '2147753436'",
+          "time": {
+            "used": "0.89s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Wrong answer",
+          "footnote": "line 122410: read '-2147428238', but expected '2147539058'",
+          "time": {
+            "used": "0.56s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "Wrong answer",
+          "footnote": "line 56261: read '-2147359456', but expected '2147607840'",
+          "time": {
+            "used": "0.64s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "8d",
+          "status": "Wrong answer",
+          "footnote": "line 313430: read '-2147051063', but expected '2147916233'",
+          "time": {
+            "used": "0.58s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Wrong answer",
+          "footnote": "line 24437: read '-2147060903', but expected '2147906393'",
+          "time": {
+            "used": "1.47s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Wrong answer",
+          "footnote": "line 2: read '-1163040224', but expected '11721861664'",
+          "time": {
+            "used": "1.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Wrong answer",
+          "footnote": "line 29529: read '-2147036808', but expected '2147930488'",
+          "time": {
+            "used": "0.71s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "Wrong answer",
+          "footnote": "line 242818: read '-2146687336', but expected '2148279960'",
+          "time": {
+            "used": "0.72s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Wrong answer",
+          "footnote": "line 24202: read '-2147455023', but expected '2147512273'",
+          "time": {
+            "used": "1.63s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "OK",
+          "time": {
+            "used": "0.80s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Wrong answer",
+          "footnote": "line 86: read '-2107059492', but expected '2187907804'",
+          "time": {
+            "used": "0.57s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "10d",
+          "status": "Wrong answer",
+          "footnote": "line 578: read '-2127622795', but expected '2167344501'",
+          "time": {
+            "used": "0.66s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

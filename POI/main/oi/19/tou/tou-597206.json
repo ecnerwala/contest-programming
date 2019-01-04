@@ -1,0 +1,443 @@
+{
+  "id": 597206,
+  "task": {
+    "short": "tou",
+    "long": "Tour de Byteotia"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "tou.cpp",
+  "submission_time": "2014-09-24 06:37:18",
+  "report_time": "2014-09-24 06:38:14",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "19th Polish Olympiad in Informatics, Stage II - day 0",
+    "start_time": "2014-09-24 06:36:21",
+    "points": 100
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 1, optymalnie: 5.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 0, optymalnie: 1.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 13, optymalnie: 14.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 25, optymalnie: 28.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 125, optymalnie: 133.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 20, optymalnie: 27.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 29, optymalnie: 43.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 30, optymalnie: 56.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 233, optymalnie: 333.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 33, optymalnie: 213.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.87s",
+            "limit": "10.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 2923, optymalnie: 4294.",
+          "time": {
+            "used": "0.01s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 14076, optymalnie: 14749.",
+          "time": {
+            "used": "0.07s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 276829, optymalnie: 277056.",
+          "time": {
+            "used": "0.39s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 133591, optymalnie: 142256.",
+          "time": {
+            "used": "0.80s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 29179, optymalnie: 33831.",
+          "time": {
+            "used": "0.39s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 2920, optymalnie: 6705.",
+          "time": {
+            "used": "0.40s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 117695, optymalnie: 138466.",
+          "time": {
+            "used": "1.06s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 620638, optymalnie: 799837.",
+          "time": {
+            "used": "2.07s",
+            "limit": "15.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 94283, optymalnie: 166667.",
+          "time": {
+            "used": "0.74s",
+            "limit": "15.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 624879, optymalnie: 750000.",
+          "time": {
+            "used": "1.73s",
+            "limit": "15.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 604617, optymalnie: 685209.",
+          "time": {
+            "used": "2.67s",
+            "limit": "15.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 527067, optymalnie: 999998.",
+          "time": {
+            "used": "2.19s",
+            "limit": "15.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 382448, optymalnie: 444444.",
+          "time": {
+            "used": "1.40s",
+            "limit": "15.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 98843, optymalnie: 350224.",
+          "time": {
+            "used": "1.58s",
+            "limit": "15.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Wrong answer",
+          "footnote": "Zablokowano niepoprawn\u00c4\u0085 liczb\u00c4\u0099 dr\u0102\u0142g: 49845, optymalnie: 71510.",
+          "time": {
+            "used": "2.31s",
+            "limit": "15.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

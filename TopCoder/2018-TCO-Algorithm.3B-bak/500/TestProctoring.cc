@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace {
+const int MAXN = 20;
+
+double dp[1 << MAXN][MAXN];
+double tmp[MAXN+20][2]; // poly in dp[m][0]
+}
+
+class TestProctoring {
+
+	int N;
+
+public:
+
+	double expectedTime(vector <int> p, vector <int> q) {
+		if (false) {
+			while (p.size() < 20) {
+				p.push_back(1);
+				q.push_back(1);
+			}
+		}
+		N = int(p.size());
+		for (int i = 0; i < N; i++) dp[0][i] = 0;
+
+		for (int m = 1; m < (1 << N); m++) {
+			double p_loop = 1;
+			for (int i = 0; i < N; i++) {
+				if (m & (1 << i)) {
+					p_loop *= q[i] - p[i];
+					p_loop /= q[i];
+				}
+			}
+			tmp[N][0] = 1;
+			tmp[N][1] = 1;
+			for (int i = N-1; i >= 0; i--) {
+				if (m & (1 << i)) {
+					double pi = double(p[i]) / q[i];
+					tmp[i][1] = tmp[i+1][1] * (1-pi);
+					tmp[i][0] = tmp[i+1][0] * (1-pi);
+					tmp[i][0] += dp[m ^ (1 << i)][i] * pi;
+				} else {
+					tmp[i][0] = tmp[i+1][0];
+					tmp[i][1] = tmp[i+1][1];
+				}
+			}
+			assert(tmp[0][1] < 1);
+			double v = tmp[0][0] / (1-tmp[0][1]);
+			for (int i = 0; i < N; i++) {
+				dp[m][i] = tmp[i][1] * v + tmp[i][0];
+			}
+		}
+		return dp[(1 << N)-1][0] + 1;
+	}
+};
+
+// vim:ft=cpp

@@ -1,0 +1,51 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Consider the set of integers between 1 and <b>n</b>, inclusive, and two positive integers <b>c</b> and <b>k</b>.
+You want to build an ordered list of <b>k</b> pairs 
+(x<sub>1</sub>, y<sub>1</sub>),
+(x<sub>2</sub>, y<sub>2</sub>),
+...
+(x<sub><b>k</b></sub>, y<sub><b>k</b></sub>)
+such that the following conditions are met.
+<ol>
+<li> 1 &le; x<sub>i</sub> &lt; y<sub>i</sub> &le; <b>n</b> for all i between 1 and <b>k</b>, inclusive.</li>
+<li> y<sub>i</sub> &lt; x<sub>i+1</sub> for all i between 1 and <b>k</b>-1, inclusive.</li>
+<li> (x<sub>i+1</sub> + y<sub>i+1</sub>) - (x<sub>i</sub> + y<sub>i</sub>) = <b>c</b> for all i between 1 and <b>k-1</b>, inclusive.</li>
+</ol>
+If a list of pairs satisfies all of the above conditions, the list is said to be <i>stable</i>.
+For any fixed <b>n</b>, <b>c</b>, and <b>k</b>, a stable list of <b>k</b> pairs is said to be <i>maximal</i>
+if its sum of elements (the sum of all 2<b>k</b> integers it contains) is the largest among all stable lists 
+of <b>k</b> pairs.
+</p>
+<br></br>
+
+<p>
+For instance, consider <b>n</b>=5, <b>c</b>=4, and <b>k</b>=2.
+There are two stable lists of pairs: one is [(1, 2), (3, 4)] and the other is [(2, 3), (4, 5)].
+The latter is the only maximal stable list of pairs in this example as its sum is (2+3+4+5) = 14.
+</p>
+<br></br>
+
+<p>
+Given <b>n</b>, <b>c</b>, and <b>k</b>, find one maximal stable list of pairs, 
+and return a vector &lt;int&gt; that describes the list.
+Specifically, if 
+(x<sub>1</sub>, y<sub>1</sub>),
+(x<sub>2</sub>, y<sub>2</sub>),
+...,
+(x<sub><b>k</b></sub>, y<sub><b>k</b></sub>)
+is your maximal stable list of pairs, you must return 
+{
+x<sub>1</sub>, y<sub>1</sub>,
+x<sub>2</sub>, y<sub>2</sub>,
+...,
+x<sub><b>k</b></sub>, y<sub><b>k</b></sub>
+}.
+</p>
+
+<p>
+If there are many maximal stable lists of pairs, you may return any one of them. 
+If no stable list of pairs with the desired properties exists, you must return an empty vector &lt;int&gt;.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>StablePairsDiv1</td></tr><tr><td>Method:</td><td>findMaxStablePairs</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; findMaxStablePairs(int n, int c, int k)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>c</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 1 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 3, 4, 5 }</pre></td></tr><tr><td><table><tr><td colspan="2">This example was described in the problem statement.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 2, 3, 4 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">When <b>n</b>=1, regardless of <b>c</b> and <b>k</b>, there is no way to build a pair. 
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2">With <b>k</b>=1 we are looking for stable lists that only contain a single pair of numbers. There are three stable lists: [(1, 2)], [(1, 3)], and [(2, 3)]. Obviously, the last one is the only maximal one in this case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>6</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 5, 6, 7, 9, 10 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {4, 5, 6, 10, 11, 12 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

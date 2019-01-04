@@ -1,0 +1,558 @@
+{
+  "id": 578476,
+  "task": {
+    "short": "pos",
+    "long": "The Search"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "pos.cpp",
+  "submission_time": "2014-07-28 03:40:21",
+  "report_time": "2014-07-28 03:40:38",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage III - day 2",
+    "start_time": "2014-07-28 03:25:01",
+    "points": 100
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "footnote": "Bajtkowi udalo sie zgadnac i wydal 3 bajtalarow.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 24247. Po zadaniu tego pytania - 24318.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 24247. Po zadaniu tego pytania - 24318.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "footnote": "Koszt: 16980.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "OK",
+          "footnote": "Koszt: 0.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "footnote": "Bajtkowi udalo sie zgadnac i wydal 8 bajtalarow.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 26543. Po zadaniu tego pytania - 27150.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "footnote": "Bajtkowi udalo sie zgadnac i wydal 9 bajtalarow.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 91940. Po zadaniu tego pytania - 92800.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "footnote": "Koszt: 93660.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 91940. Po zadaniu tego pytania - 92800.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "footnote": "Bajtkowi udalo sie zgadnac i wydal 70000 bajtalarow.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 76952. Po zadaniu tego pytania - 77470.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "footnote": "Bajtkowi udalo sie zgadnac i wydal 10 bajtalarow.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 111660. Po zadaniu tego pytania - 112368.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 111660. Po zadaniu tego pytania - 112368.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 111660. Po zadaniu tego pytania - 112368.",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "5ocen",
+      "cases": [
+        {
+          "name": "5ocen",
+          "status": "OK",
+          "footnote": "Bajtkowi udalo sie zgadnac i wydal 3000 bajtalarow.",
+          "time": {
+            "used": "0.00s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 197080. Po zadaniu tego pytania - 197210.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 19719. Po zadaniu tego pytania - 19728.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 19728. Po zadaniu tego pytania - 19866.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 19590. Po zadaniu tego pytania - 19737.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 213902. Po zadaniu tego pytania - 214427.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 227744. Po zadaniu tego pytania - 227844.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 93864. Po zadaniu tego pytania - 94248.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 93864. Po zadaniu tego pytania - 94248.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 93864. Po zadaniu tego pytania - 94248.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 78624. Po zadaniu tego pytania - 78876.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "11b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 78624. Po zadaniu tego pytania - 78876.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "11c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 78624. Po zadaniu tego pytania - 78876.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 168774. Po zadaniu tego pytania - 169068.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "12b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 168774. Po zadaniu tego pytania - 169068.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "12c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 168774. Po zadaniu tego pytania - 169068.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 93648. Po zadaniu tego pytania - 94045.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "13b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 93648. Po zadaniu tego pytania - 93805.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "13c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 93251. Po zadaniu tego pytania - 94128.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "14",
+      "cases": [
+        {
+          "name": "14a",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 78876. Po zadaniu tego pytania - 79044.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "14b",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 79044. Po zadaniu tego pytania - 79128.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "14c",
+          "status": "Wrong answer",
+          "footnote": "Mozliwy pesymistyczny koszt: 78876. Po zadaniu tego pytania - 79044.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    }
+  ]
+}

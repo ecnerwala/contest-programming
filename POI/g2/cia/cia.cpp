@@ -3,7 +3,7 @@ using namespace std;
 
 typedef long long ll;
 
-ll A[int(4e6)];
+ll A[int(3e6)];
 
 ll go(ll N) {
 	assert(N >= 1);

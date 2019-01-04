@@ -1,0 +1,26 @@
+{
+  "id": 578478,
+  "task": {
+    "short": "wys",
+    "long": "Isles in a Triangular Grid"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "wys.cpp",
+  "submission_time": "2014-07-28 08:06:47",
+  "report_time": "2014-07-28 08:06:52",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: wys.out.s: No such file or directory\nwys.e: In function 'void append(std::vector<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, const std::string&)':\nwys.e:62: error: 'struct std::string' has no member named 'back'\nwys.e:62: error: 'struct std::string' has no member named 'back'",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage II - day 0",
+    "start_time": "2014-07-28 08:06:52",
+    "points": 100
+  }
+}

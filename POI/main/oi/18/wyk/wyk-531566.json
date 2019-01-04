@@ -1,0 +1,499 @@
+{
+  "id": 531566,
+  "task": {
+    "short": "wyk",
+    "long": "Plot"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "wyk.cpp",
+  "submission_time": "2014-01-22 19:07:07",
+  "report_time": "2014-01-22 19:07:50",
+  "result": "Wrong answer",
+  "status": "Example test case: wrong answer",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "18th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2013-11-21 05:20:15",
+    "points": 460
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.37s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.05s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.35s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "1.87s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "1.77s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "1.07s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "28.41s",
+            "limit": "40.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.17s",
+            "limit": "40.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.32s",
+            "limit": "100.00s"
+          }
+        },
+        {
+          "name": "11b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "1.06s",
+            "limit": "120.00s"
+          }
+        },
+        {
+          "name": "11c",
+          "status": "OK",
+          "time": {
+            "used": "0.86s",
+            "limit": "100.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12a",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.41s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "12b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.40s",
+            "limit": "220.00s"
+          }
+        },
+        {
+          "name": "12c",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.43s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "12d",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.31s",
+            "limit": "200.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13a",
+          "status": "OK",
+          "time": {
+            "used": "0.84s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "13b",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "5.33s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "13c",
+          "status": "Wrong answer",
+          "footnote": "Nieprawidlowa wartosc r",
+          "time": {
+            "used": "0.96s",
+            "limit": "200.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    }
+  ]
+}

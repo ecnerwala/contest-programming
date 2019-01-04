@@ -1,0 +1,423 @@
+{
+  "id": 551928,
+  "task": {
+    "short": "atr",
+    "long": "Tourist Attractions"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "atr.cpp",
+  "submission_time": "2014-03-21 03:09:00",
+  "report_time": "2014-03-21 03:09:23",
+  "result": "Runtime error",
+  "status": "Example test case: runtime error",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "14th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-03-19 20:20:52",
+    "points": 500
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "30.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "21.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "8.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "21.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "10.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 9
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11a",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "8.00s"
+          }
+        },
+        {
+          "name": "11b",
+          "status": "Runtime error",
+          "footnote": "out of memory, probably static variables are too large\n exit code: 1",
+          "time": {
+            "used": "0.00s",
+            "limit": "21.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

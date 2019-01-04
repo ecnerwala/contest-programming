@@ -1,0 +1,8 @@
+SUBMIT SMALLS EARLY
+
+Check for overflow
+Use L instead of N to avoid "N vs NODES"
+Check for memory limits
+Make sure the generator is correct
+Use good style: careful about inline breaks
+Evaluation order of GetInt is important; put them on separate lines

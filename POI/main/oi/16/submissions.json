@@ -1,0 +1,380 @@
+[
+  {
+    "id": 563115,
+    "submission_time": "09-05-14\u00a0\u00a0\u00a003:56",
+    "task": "Architects",
+    "result": "Time limit exceeded",
+    "points": 20
+  },
+  {
+    "id": 563293,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a004:06",
+    "task": "Architects",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 563294,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a004:09",
+    "task": "Architects",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563296,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a004:46",
+    "task": "Hexer",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563297,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a005:08",
+    "task": "Ticket Inspector",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 563298,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a005:13",
+    "task": "Ticket Inspector",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563305,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a007:22",
+    "task": "Arrays",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 563308,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a007:47",
+    "task": "Arrays",
+    "result": "Time limit exceeded",
+    "points": 63
+  },
+  {
+    "id": 563309,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a007:51",
+    "task": "Arrays",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 563310,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a008:00",
+    "task": "Elephants",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 563311,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a008:01",
+    "task": "Elephants",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 563312,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a008:04",
+    "task": "Elephants",
+    "result": "Wrong answer",
+    "points": 60
+  },
+  {
+    "id": 563313,
+    "submission_time": "10-05-14\u00a0\u00a0\u00a008:05",
+    "task": "Elephants",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 578468,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a002:25",
+    "task": "Ice Skates",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 578469,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a002:27",
+    "task": "Ice Skates",
+    "result": "OK",
+    "points": 91
+  },
+  {
+    "id": 578471,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a002:33",
+    "task": "Ice Skates",
+    "result": "OK",
+    "points": 94
+  },
+  {
+    "id": 578473,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a002:37",
+    "task": "Ice Skates",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 578474,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a003:24",
+    "task": "The Search",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 578475,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a003:26",
+    "task": "The Search",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 578476,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a003:40",
+    "task": "The Search",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 578477,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a003:43",
+    "task": "The Search",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 578478,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a008:06",
+    "task": "Isles in a Triangular Grid",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 578479,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a008:09",
+    "task": "Isles in a Triangular Grid",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 578480,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a008:12",
+    "task": "Isles in a Triangular Grid",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 578581,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a022:51",
+    "task": "The Walk of Bytie-boy",
+    "result": "Wrong answer",
+    "points": 10
+  },
+  {
+    "id": 578583,
+    "submission_time": "28-07-14\u00a0\u00a0\u00a022:59",
+    "task": "The Walk of Bytie-boy",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 578595,
+    "submission_time": "29-07-14\u00a0\u00a0\u00a004:07",
+    "task": "Island",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 578596,
+    "submission_time": "29-07-14\u00a0\u00a0\u00a004:10",
+    "task": "Island",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 578918,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a013:26",
+    "task": "Words",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 578919,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a013:28",
+    "task": "Words",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 578963,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a018:03",
+    "task": "Words",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 578964,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a018:17",
+    "task": "Words",
+    "result": "Wrong answer",
+    "points": 30
+  },
+  {
+    "id": 578983,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a019:27",
+    "task": "Words",
+    "result": "Wrong answer",
+    "points": 70
+  },
+  {
+    "id": 578984,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a019:37",
+    "task": "Words",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 578985,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a019:38",
+    "task": "Words 2",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 578987,
+    "submission_time": "30-07-14\u00a0\u00a0\u00a020:02",
+    "task": "Words 2",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 579009,
+    "submission_time": "31-07-14\u00a0\u00a0\u00a000:09",
+    "task": "Words 2",
+    "result": "Wrong answer",
+    "points": 10
+  },
+  {
+    "id": 579020,
+    "submission_time": "31-07-14\u00a0\u00a0\u00a004:08",
+    "task": "Words 2",
+    "result": "Wrong answer",
+    "points": 69
+  },
+  {
+    "id": 579021,
+    "submission_time": "31-07-14\u00a0\u00a0\u00a004:15",
+    "task": "Words 2",
+    "result": "OK",
+    "points": 90
+  },
+  {
+    "id": 579023,
+    "submission_time": "31-07-14\u00a0\u00a0\u00a006:31",
+    "task": "Words 2",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 579024,
+    "submission_time": "31-07-14\u00a0\u00a0\u00a006:32",
+    "task": "Words 2",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 579026,
+    "submission_time": "31-07-14\u00a0\u00a0\u00a006:49",
+    "task": "Words 2",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 579185,
+    "submission_time": "01-08-14\u00a0\u00a0\u00a002:51",
+    "task": "Pebbles",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 579186,
+    "submission_time": "01-08-14\u00a0\u00a0\u00a002:55",
+    "task": "Pebbles",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 586391,
+    "submission_time": "26-08-14\u00a0\u00a0\u00a006:21",
+    "task": "Fire Extinguishers",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 586392,
+    "submission_time": "26-08-14\u00a0\u00a0\u00a006:22",
+    "task": "Fire Extinguishers",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 586393,
+    "submission_time": "26-08-14\u00a0\u00a0\u00a006:23",
+    "task": "Fire Extinguishers",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 586394,
+    "submission_time": "26-08-14\u00a0\u00a0\u00a006:38",
+    "task": "Fire Extinguishers",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 765530,
+    "submission_time": "03-09-16\u00a0\u00a0\u00a003:22",
+    "task": "Algorithm Speedup",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 765531,
+    "submission_time": "03-09-16\u00a0\u00a0\u00a003:37",
+    "task": "Algorithm Speedup",
+    "result": "Runtime error",
+    "points": 50
+  },
+  {
+    "id": 841079,
+    "submission_time": "24-07-17\u00a0\u00a0\u00a008:06",
+    "task": "Fire Extinguishers",
+    "result": "Wrong answer",
+    "points": 40
+  },
+  {
+    "id": 841080,
+    "submission_time": "24-07-17\u00a0\u00a0\u00a008:07",
+    "task": "Fire Extinguishers",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 841083,
+    "submission_time": "24-07-17\u00a0\u00a0\u00a010:54",
+    "task": "Algorithm Speedup",
+    "result": "OK",
+    "points": 91
+  },
+  {
+    "id": 841084,
+    "submission_time": "24-07-17\u00a0\u00a0\u00a010:58",
+    "task": "Algorithm Speedup",
+    "result": "OK",
+    "points": 100
+  }
+]

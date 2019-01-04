@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class CubesOnATable {
+
+	const vector<int> BAD{};
+
+	vector<int> stack(int x, int y, int k) {
+		assert(k >= 1);
+		vector<int> res;
+		for (int i = 0; i < k; i++) {
+			res.push_back(x);
+			res.push_back(y);
+			res.push_back(i);
+		}
+		return res;
+	}
+
+public:
+
+	vector <int> placeCubes(int surface) {
+		if (surface < 5) {
+			return BAD;
+		}
+		if (surface % 4 == 1) {
+			assert(surface >= 5);
+			return stack(0, 0, (surface - 1) / 4);
+		} else if (surface % 4 == 2) {
+			if (surface == 6) {
+				return BAD;
+			}
+			assert(surface >= 10);
+			vector<int> res = stack(0, 0, (surface - 5 - 1) / 4);
+			res.push_back(9);
+			res.push_back(9);
+			res.push_back(0);
+			return res;
+		} else if (surface % 4 == 3) {
+			if (surface == 7) {
+				return BAD;
+			}
+			assert(surface >= 11);
+			// 11 is 3 in a row
+			vector<int> res = stack(0, 0, (surface - 6 - 1) / 4);
+			res.push_back(0);
+			res.push_back(1);
+			res.push_back(0);
+
+			res.push_back(0);
+			res.push_back(2);
+			res.push_back(0);
+
+			return res;
+		} else if (surface % 4 == 0) {
+			assert(surface >= 8);
+			vector<int> res = stack(0, 0, (surface - 3 - 1) / 4);
+			res.push_back(0);
+			res.push_back(1);
+			res.push_back(0);
+
+			return res;
+		} else {
+			assert(false);
+			return BAD;
+		}
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::CubesOnATable;
+
+// vim:ft=cpp

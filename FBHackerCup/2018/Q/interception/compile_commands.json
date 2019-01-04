@@ -1,0 +1,25 @@
+[
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-Wall",
+            "-Wextra",
+            "-pedantic",
+            "-std=c++11",
+            "-O2",
+            "-Wshadow",
+            "-Wformat=2",
+            "-Wfloat-equal",
+            "-Wconversion",
+            "-Wlogical-op",
+            "-Wcast-qual",
+            "-Wcast-align",
+            "-o",
+            "interception",
+            "interception.cpp"
+        ],
+        "directory": "/home/andrew/Dropbox/programming/HackerCup/Q/interception",
+        "file": "interception.cpp"
+    }
+]

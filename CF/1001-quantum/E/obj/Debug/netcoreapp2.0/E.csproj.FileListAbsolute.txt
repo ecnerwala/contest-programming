@@ -1,0 +1,11 @@
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/obj/Debug/netcoreapp2.0/E.csprojAssemblyReference.cache
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/obj/Debug/netcoreapp2.0/E.csproj.CoreCompileInputs.cache
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/bin/Debug/netcoreapp2.0/E.deps.json
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/bin/Debug/netcoreapp2.0/E.runtimeconfig.json
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/bin/Debug/netcoreapp2.0/E.runtimeconfig.dev.json
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/bin/Debug/netcoreapp2.0/E.dll
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/bin/Debug/netcoreapp2.0/E.pdb
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/obj/Debug/netcoreapp2.0/E.AssemblyInfoInputs.cache
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/obj/Debug/netcoreapp2.0/E.AssemblyInfo.cs
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/obj/Debug/netcoreapp2.0/E.dll
+/home/andrew/Dropbox/programming/CF/1001-quantum/E/obj/Debug/netcoreapp2.0/E.pdb

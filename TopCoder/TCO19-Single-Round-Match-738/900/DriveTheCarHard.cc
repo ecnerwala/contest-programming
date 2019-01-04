@@ -1,0 +1,97 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+using ll = long long;
+
+const int MAXT = 40000;
+const int MAXD = 40000;
+int dp[2][MAXD];
+
+class DriveTheCarHard {
+
+public:
+
+	int findMinimumFuel(int total_time, int distance) {
+		assert(total_time > 0);
+		assert(distance > 0);
+		if (total_time == 1) {
+			return distance * distance;
+		}
+		if (total_time == 2) {
+			int res = distance * distance;
+			for (int a = 0; a * 2 <= distance; a++) {
+				int b = distance - 2 * a;
+				res = min(res, a * a + b * b);
+			}
+			return res;
+		}
+		assert(total_time >= 3);
+		if (distance <= total_time) {
+			return 1;
+		}
+		{
+			int t3 = (total_time / 3);
+			int ds = distance;
+			int res = 0;
+			for (int i = total_time; ds > 0 && i > t3; i--) {
+				res++;
+				ds -= i;
+			}
+			if (ds <= 0) {
+				return res;
+			}
+		}
+		// we now know that t <= 300, so we'll do the dp
+		for (int d = 0; d <= distance; d++) {
+			dp[1][d] = d * d;
+		}
+		for (int t = 2; t <= total_time; t++) {
+			for (int md = 0; md < t; md++) {
+				deque<pair<ll, ll>> pts;
+				for (int d = md, i = 0; d <= distance; i++, d += t) {
+					// insert yourself
+					ll v = dp[!(t&1)][d] + i * i; // old cost
+					pair<ll, ll> cur(v, -2 * i);
+					while (pts.size() >= 2) {
+						pair<ll, ll> prv = pts.back(); pts.pop_back();
+						ll da = prv.first - pts.back().first;
+						ll db = pts.back().second - prv.second;
+						assert(da > 0);
+						assert(db > 0);
+						ll x = (da + db - 1) / db; // ceil of da / db
+						if (prv.first + x * prv.second >= cur.first + x * cur.second) {
+							// drop prv
+							continue;
+						} else {
+							pts.push_back(prv);
+							break;
+						}
+					}
+					pts.push_back(cur);
+					assert(!pts.empty());
+
+					while (pts.size() >= 2) {
+						pair<ll, ll> a = pts.front(); pts.pop_front();
+						if (pts.front().first + i * pts.front().second <= a.first + i * a.second) {
+							// drop a
+							continue;
+						} else {
+							pts.push_front(a);
+							break;
+						}
+					}
+
+					dp[t&1][d] = int(pts.front().first + pts.front().second * i + i * i);
+				}
+			}
+		}
+		return dp[total_time&1][distance];
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::DriveTheCarHard;
+
+// vim:ft=cpp

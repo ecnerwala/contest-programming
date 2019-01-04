@@ -1,0 +1,26 @@
+{
+  "id": 765159,
+  "task": {
+    "short": "wyk",
+    "long": "Plot"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "wyk.cpp",
+  "submission_time": "2016-09-01 04:37:16",
+  "report_time": "2016-09-01 04:38:02",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: wyk.out.s: No such file or directory\nwyk.e:2:24: error: bits/stdc++.h: No such file or directory\nwyk.e:2:24: error: one or more PCH files were found, but they were invalid\nwyk.e:2:24: error: use -Winvalid-pch for more information\nwyk.e:11: error: expected initializer before '<' token\nwyk.e:15: error: expected initializer before '<' token\nwyk.e:17: warning: converting to 'int' from 'double'\nwyk.e:19: error: 'pt' does not name a type\nwyk.e:24: error: 'pt' does not name a type\nwyk.e: In function 'int get_rand()':\nwyk.e:27: error: 'rand' was not declared in this scope\nwyk.e: At global scope:\nwyk.e:37: error: 'in_circ' declared as an 'inline' variable\nwyk.e:37: error: 'circ' was not declared in this scope\nwyk.e:37: error: 'pt' was not declared in this scope\nwyk.e:37: error: initializer expression list treated as compound expression\nwyk.e:37: error: expected ',' or ';' before '{' token\nwyk.e:39: error: 'circ' does not name a type\nwyk.e:43: error: 'circ' does not name a type\nwyk.e:47:",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "18th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2013-11-21 05:20:15",
+    "points": 460
+  }
+}

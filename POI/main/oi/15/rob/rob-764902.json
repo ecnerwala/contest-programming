@@ -1,0 +1,26 @@
+{
+  "id": 764902,
+  "task": {
+    "short": "rob",
+    "long": "Robinson"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "rob.cpp",
+  "submission_time": "2016-08-28 01:00:41",
+  "report_time": "2016-08-28 01:00:43",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: rob.out.s: No such file or directory\nrob.e:4: warning: converting to 'int' from 'double'\nrob.e:12: warning: converting to 'int' from 'double'\nrob.e: In function 'int main()':\nrob.e:127: error: 'class std::queue<std::pair<int, int>, std::deque<std::pair<int, int>, std::allocator<std::pair<int, int> > > >' has no member named 'emplace'\nrob.e:131: error: 'class std::queue<std::pair<int, int>, std::deque<std::pair<int, int>, std::allocator<std::pair<int, int> > > >' has no member named 'emplace'\nrob.e:135: error: 'class std::queue<std::pair<int, int>, std::deque<std::pair<int, int>, std::allocator<std::pair<int, int> > > >' has no member named 'emplace'\nrob.e:139: error: 'class std::queue<std::pair<int, int>, std::deque<std::pair<int, int>, std::allocator<std::pair<int, int> > > >' has no member named 'emplace'",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "15th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-03-24 19:08:28",
+    "points": 500
+  }
+}

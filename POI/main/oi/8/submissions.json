@@ -1,0 +1,121 @@
+[
+  {
+    "id": 678998,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a003:43",
+    "task": "Peaceful Comission",
+    "result": "Runtime error",
+    "points": 40
+  },
+  {
+    "id": 679000,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a003:45",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 60
+  },
+  {
+    "id": 679001,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a003:49",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 60
+  },
+  {
+    "id": 679004,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a004:06",
+    "task": "Weaker Goldbach",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 679008,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a004:27",
+    "task": "Travel",
+    "result": "Wrong answer",
+    "points": 60
+  },
+  {
+    "id": 679009,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a004:34",
+    "task": "Travel",
+    "result": "Wrong answer",
+    "points": 60
+  },
+  {
+    "id": 679013,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a004:53",
+    "task": "Ants and the Ladybug",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 679022,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a005:32",
+    "task": "City Tour",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 679029,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a005:51",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 60
+  },
+  {
+    "id": 679031,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a005:52",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 60
+  },
+  {
+    "id": 679034,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a005:54",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 60
+  },
+  {
+    "id": 679037,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a005:55",
+    "task": "Travel",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 679042,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a006:02",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 60
+  },
+  {
+    "id": 679167,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a023:08",
+    "task": "City Tour",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 679169,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a023:10",
+    "task": "City Tour",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 679173,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a023:20",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 10
+  },
+  {
+    "id": 679174,
+    "submission_time": "12-07-15\u00a0\u00a0\u00a023:21",
+    "task": "Peaceful Comission",
+    "result": "Time limit exceeded",
+    "points": 80
+  }
+]

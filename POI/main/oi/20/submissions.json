@@ -1,0 +1,240 @@
+[
+  {
+    "id": 601835,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a004:14",
+    "task": "Price List",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 601836,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a004:25",
+    "task": "Taxis",
+    "result": "Wrong answer",
+    "points": 20
+  },
+  {
+    "id": 601837,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a004:36",
+    "task": "Taxis",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601840,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a005:15",
+    "task": "Triumphal arch",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601841,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a005:42",
+    "task": "Tales of seafaring",
+    "result": "Wrong answer",
+    "points": 60
+  },
+  {
+    "id": 601842,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a005:46",
+    "task": "Tales of seafaring",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601849,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a006:53",
+    "task": "Watering can",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601850,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a007:19",
+    "task": "Take-out",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 601851,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a007:22",
+    "task": "Take-out",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601856,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a007:33",
+    "task": "Colorful Chain",
+    "result": "Runtime error",
+    "points": 86
+  },
+  {
+    "id": 601858,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a007:35",
+    "task": "Colorful Chain",
+    "result": "OK",
+    "points": 89
+  },
+  {
+    "id": 601860,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a007:39",
+    "task": "Colorful Chain",
+    "result": "Time limit exceeded",
+    "points": 90
+  },
+  {
+    "id": 601863,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a007:44",
+    "task": "Colorful Chain",
+    "result": "OK",
+    "points": 92
+  },
+  {
+    "id": 601867,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a007:47",
+    "task": "Colorful Chain",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 601890,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a008:33",
+    "task": "Where is the one?",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 602187,
+    "submission_time": "03-10-14\u00a0\u00a0\u00a022:23",
+    "task": "Inspector",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 603027,
+    "submission_time": "06-10-14\u00a0\u00a0\u00a001:39",
+    "task": "Multidrink",
+    "result": "Runtime error",
+    "points": 4
+  },
+  {
+    "id": 603028,
+    "submission_time": "06-10-14\u00a0\u00a0\u00a001:49",
+    "task": "Multidrink",
+    "result": "Wrong answer",
+    "points": 24
+  },
+  {
+    "id": 603029,
+    "submission_time": "06-10-14\u00a0\u00a0\u00a001:55",
+    "task": "Multidrink",
+    "result": "Wrong answer",
+    "points": 96
+  },
+  {
+    "id": 603030,
+    "submission_time": "06-10-14\u00a0\u00a0\u00a001:58",
+    "task": "Multidrink",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 603328,
+    "submission_time": "07-10-14\u00a0\u00a0\u00a004:53",
+    "task": "Polarization",
+    "result": "Runtime error",
+    "points": 74
+  },
+  {
+    "id": 603329,
+    "submission_time": "07-10-14\u00a0\u00a0\u00a004:55",
+    "task": "Polarization",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 603330,
+    "submission_time": "07-10-14\u00a0\u00a0\u00a004:58",
+    "task": "Polarization",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 603331,
+    "submission_time": "07-10-14\u00a0\u00a0\u00a005:10",
+    "task": "Polarization",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 603332,
+    "submission_time": "07-10-14\u00a0\u00a0\u00a005:56",
+    "task": "Laser",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 662491,
+    "submission_time": "14-04-15\u00a0\u00a0\u00a007:35",
+    "task": "Tower Defense game",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 662630,
+    "submission_time": "14-04-15\u00a0\u00a0\u00a018:10",
+    "task": "Price List",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 662852,
+    "submission_time": "16-04-15\u00a0\u00a0\u00a004:48",
+    "task": "Bytecomputer",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 662853,
+    "submission_time": "16-04-15\u00a0\u00a0\u00a004:53",
+    "task": "Bytecomputer",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 673737,
+    "submission_time": "11-06-15\u00a0\u00a0\u00a019:01",
+    "task": "Laser",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 674518,
+    "submission_time": "17-06-15\u00a0\u00a0\u00a008:22",
+    "task": "Maze",
+    "result": "OK",
+    "points": 110
+  },
+  {
+    "id": 674521,
+    "submission_time": "17-06-15\u00a0\u00a0\u00a008:28",
+    "task": "Maze",
+    "result": "Time limit exceeded",
+    "points": 1
+  },
+  {
+    "id": 674522,
+    "submission_time": "17-06-15\u00a0\u00a0\u00a008:30",
+    "task": "Maze",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 678701,
+    "submission_time": "10-07-15\u00a0\u00a0\u00a020:22",
+    "task": "Laser",
+    "result": "Runtime error",
+    "points": 0
+  }
+]

@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Hero is the coach of a team of his friends who play a strategic team game.
+
+<br></br>
+In the game there are <b>n</b> strategies a team can play.
+Each of Hero's players can only play some subset of those strategies well.
+For each player the subset of strategies they can play well is different from the others.
+<br></br>
+A set of strategies can be encoded into an <b>n</b>-bit number: 
+If we number the strategies 0 through <b>n</b>-1, the code of a set of strategies will be the number that has, in base 2, ones on positions that correspond to the strategies in the set.
+
+<br></br>
+For example, the set {0,3,4} is encoded as the number 11001 in base 2.
+(Bits 0, 3, and 4 are ones and the remaining bits of this number are zeros.)
+The value of this number in base 10 is 2^4 + 2^3 + 2^0 = 25.
+
+<br></br>
+You are given the int <b>n</b> and the vector &lt;int&gt; <b>friends</b>.
+Each element of <b>friends</b> encodes the set of strategies one of the players on Hero's team can play well.
+
+<br></br>
+Finally, you are given an int <b>k</b>.
+Hero needs to choose exactly <b>k</b> of his players to form a squad that will take part in the next match.
+
+<br></br>
+The strength of a squad is calculated as follows:
+For each strategy, compute the square of the number of players on the squad that play that strategy well.
+The strength of the squad is the sum of all those squares.
+
+<br></br>
+Compute and return the largest possible strength of a <b>k</b>-player squad.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SquadConstructor2</td></tr><tr><td>Method:</td><td>teamget</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int teamget(int n, int k, vector &lt;int&gt; friends)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 3 and 8, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 2 and 8, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>friends</b> will contain between k and 2^n elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>friends</b> will be between 0 and 2^n-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All elements in <b>friends</b> will be distinct.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{0,1,2,3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8</pre></td></tr><tr><td><table><tr><td colspan="2">As there are only four players and Hero needs a four-player squad, he has to select all four players.
+Two of them can play strategy 0 well, two of them can play strategy 1 well, and nobody can play strategy 2 well.
+Thus, the total strength of this squad is 2^2 + 2^2 + 0^2 = 8.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{0,1,2,3,5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 14</pre></td></tr><tr><td><table><tr><td colspan="2">Select everyone except for the player who cannot play any strategy well.
+This produces a squad with the strength 3^2 + 2^2 + 1^2 = 14.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{0,1,2,3,7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 19</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{3,4,7,8,9,10,11,15,16,17,18,19,20,21,23,26,27,28,29,33,35,37,41,42,43,45,47,48,49,53,54,55,56,57,58,60,61,62,64,66,67,68,72,74,75,78,80,81,82,83,87,89,90,91,93,94,95,98,99,100,101,103,105,108,111,112,113,115,118,119,121,122,123,125,127,128,129,130,131,137,143,144,147,148,151,152,155,156,160,163,167,169,171,172,173,178,179,180,182,186,188,190,192,193,194,195,196,198,199,204,207,208,212,213,215,217,219,220,221,225,228,231,233,237,240,243,244,245,246,247,249,251,252,254}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 100</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>{0,1,2,3,5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 14</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

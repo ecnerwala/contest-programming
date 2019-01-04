@@ -1,0 +1,37 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Two positive integers are called coprime if their greatest common divisor is 1.
+For example, 12 and 35 are coprime but 18 and 33 are not, as they are both divisible by 3.
+<br></br>
+<br></br>
+You are given a vector &lt;string&gt; <b>coprime</b> with n elements.
+Each element of <b>coprime</b> is a string of n characters, and each of those is either 'Y' or 'N'.
+<br></br>
+<br></br>
+Bear Limak is looking for a sequence of n positive integers.
+The sequence must be increasing and the integers have to be consecutive.
+In other words, if we denote the elements x[0], x[1], ..., x[n-1], we should have x[i+1] = x[i] + 1 for all valid i.
+<br></br>
+<br></br>
+Additionally, Limak's sequence must match <b>coprime</b> in the following way:
+for each valid i and j, <b>coprime</b>[i][j] = 'Y' if and only if x[i] and x[j] are coprime.
+<br></br>
+<br></br>
+Please return "Possible" if such a sequence exists and "Impossible" if there is no such sequence.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CoprimeMatrix</td></tr><tr><td>Method:</td><td>isPossible</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string isPossible(vector &lt;string&gt; coprime)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>n will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>coprime</b> will contain exactly n elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>coprime</b> will contian exactly n characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>coprime</b> will be 'Y' or 'N'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;NYNYN&quot;,
+ &quot;YNYYN&quot;,
+ &quot;NYNYN&quot;,
+ &quot;YYYNY&quot;,
+ &quot;NNNYN&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">It is possible, for example, if x = {2,3,4,5,6} then we have:
+<pre>
+  2 3 4 5 6
+2 N Y N Y N
+3 Y N Y Y N
+4 N Y N Y N
+5 Y Y Y N Y
+6 N N N Y N
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;NY&quot;,
+ &quot;NN&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">It is impossible: coprime[0][1] and coprime[1][0] should be equal.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;NYYYYN&quot;,
+ &quot;YNYNNN&quot;,
+ &quot;YYNYYY&quot;,
+ &quot;YNYNYN&quot;,
+ &quot;YNYYNY&quot;,
+ &quot;NNYNYN&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;NN&quot;,
+ &quot;NN&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

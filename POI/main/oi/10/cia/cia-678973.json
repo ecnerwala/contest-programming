@@ -1,0 +1,400 @@
+{
+  "id": 678973,
+  "task": {
+    "short": "cia",
+    "long": "Sequences without Stammers"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "cia.cpp",
+  "submission_time": "2015-07-12 00:34:26",
+  "report_time": "2015-07-12 00:34:41",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 20,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "10th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2015-07-11 22:34:41",
+    "points": 400
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 5,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 5,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 5,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 5,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "14",
+      "cases": [
+        {
+          "name": "14",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "15",
+      "cases": [
+        {
+          "name": "15",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "16",
+      "cases": [
+        {
+          "name": "16",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "17",
+      "cases": [
+        {
+          "name": "17",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "18",
+      "cases": [
+        {
+          "name": "18",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.02s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "19",
+      "cases": [
+        {
+          "name": "19",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.04s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "20",
+      "cases": [
+        {
+          "name": "20",
+          "status": "Wrong answer",
+          "footnote": "Z\u0142a zadeklarowana liczba liter w minimalnym ci\u0105gu bez zaj\u0105kni\u0119\u0107",
+          "time": {
+            "used": "0.05s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    }
+  ]
+}

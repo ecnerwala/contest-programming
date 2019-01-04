@@ -1,0 +1,732 @@
+{
+  "id": 603027,
+  "task": {
+    "short": "mul",
+    "long": "Multidrink"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "mul.cpp",
+  "submission_time": "2014-10-06 01:39:18",
+  "report_time": "2014-10-06 01:39:58",
+  "result": "Runtime error",
+  "status": "OK",
+  "points": {
+    "received": 4,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "20th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-10-03 04:15:11",
+    "points": 400
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "0a",
+      "cases": [
+        {
+          "name": "0a",
+          "status": "OK",
+          "time": {
+            "used": "0.05s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 4,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "OK",
+          "time": {
+            "used": "0.07s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "1e",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 5, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 4, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.08s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "2d",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 4, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "2e",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 4, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "3d",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "3e",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 4, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "3f",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 5, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 7, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 8, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "4d",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "4e",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 4, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.07s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "4f",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 5, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.08s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.07s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 5, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.04s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "5d",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "5e",
+          "status": "OK",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "5f",
+          "status": "OK",
+          "time": {
+            "used": "0.07s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.02s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.07s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.07s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "6d",
+          "status": "OK",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "6e",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "6f",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 3, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 29, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.05s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 27, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.08s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 34, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 33, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.08s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 51, position: 1): Found path is not correct.",
+          "time": {
+            "used": "0.07s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 101, position: 1): Found path is not correct.",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 497, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "14",
+      "cases": [
+        {
+          "name": "14",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 5001, position: 1): Found path is not correct.",
+          "time": {
+            "used": "0.08s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 4
+      }
+    },
+    {
+      "name": "15",
+      "cases": [
+        {
+          "name": "15a",
+          "status": "OK",
+          "time": {
+            "used": "0.09s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "15b",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 51, position: 1): Found path is not correct.",
+          "time": {
+            "used": "0.06s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "16",
+      "cases": [
+        {
+          "name": "16",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 99995, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.36s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "17",
+      "cases": [
+        {
+          "name": "17",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 100001, position: 1): Found path is not correct.",
+          "time": {
+            "used": "0.23s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "18",
+      "cases": [
+        {
+          "name": "18a",
+          "status": "OK",
+          "time": {
+            "used": "0.30s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "18b",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 46, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.04s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "19",
+      "cases": [
+        {
+          "name": "19",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 499608, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "1.47s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "20",
+      "cases": [
+        {
+          "name": "20",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 500001, position: 1): Found path is not correct.",
+          "time": {
+            "used": "1.35s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "21",
+      "cases": [
+        {
+          "name": "21a",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 499996, position: 2): Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "1.64s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "21b",
+          "status": "Wrong answer",
+          "footnote": "ERROR(line: 500001, position: 1): Found path is not correct.",
+          "time": {
+            "used": "1.39s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "22",
+      "cases": [
+        {
+          "name": "22a",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 11\n exit code: 2816",
+          "time": {
+            "used": "1.18s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "22b",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 11\n exit code: 2816",
+          "time": {
+            "used": "0.97s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    }
+  ]
+}

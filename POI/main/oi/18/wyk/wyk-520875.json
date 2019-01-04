@@ -1,0 +1,471 @@
+{
+  "id": 520875,
+  "task": {
+    "short": "wyk",
+    "long": "Plot"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "wyk.cpp",
+  "submission_time": "2013-12-21 22:13:59",
+  "report_time": "2013-12-21 22:20:31",
+  "result": "Time limit exceeded",
+  "status": "OK",
+  "points": {
+    "received": 49,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "18th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2013-11-21 05:20:15",
+    "points": 460
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 7,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 7,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 7,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "OK",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 7,
+        "maximum": 7
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.69s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "OK",
+          "time": {
+            "used": "0.26s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "OK",
+          "time": {
+            "used": "0.56s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "OK",
+          "time": {
+            "used": "0.28s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 7,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Wrong answer",
+          "footnote": "Stopien podobienstwa wypisanego wykresu jest nieprawidlowy",
+          "time": {
+            "used": "0.54s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "OK",
+          "time": {
+            "used": "0.93s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "OK",
+          "time": {
+            "used": "0.82s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 1,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "40.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "40.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11a",
+          "status": "OK",
+          "time": {
+            "used": "77.55s",
+            "limit": "100.00s"
+          }
+        },
+        {
+          "name": "11b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "120.00s"
+          }
+        },
+        {
+          "name": "11c",
+          "status": "OK",
+          "time": {
+            "used": "1.16s",
+            "limit": "100.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12a",
+          "status": "OK",
+          "time": {
+            "used": "161.13s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "12b",
+          "status": "OK",
+          "time": {
+            "used": "161.04s",
+            "limit": "220.00s"
+          }
+        },
+        {
+          "name": "12c",
+          "status": "Wrong answer",
+          "footnote": "Stopien podobienstwa wypisanego wykresu jest nieprawidlowy",
+          "time": {
+            "used": "73.82s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "12d",
+          "status": "OK",
+          "time": {
+            "used": "102.08s",
+            "limit": "200.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13a",
+          "status": "OK",
+          "time": {
+            "used": "1.00s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "13b",
+          "status": "OK",
+          "time": {
+            "used": "27.45s",
+            "limit": "200.00s"
+          }
+        },
+        {
+          "name": "13c",
+          "status": "OK",
+          "time": {
+            "used": "131.60s",
+            "limit": "200.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 5,
+        "maximum": 8
+      }
+    }
+  ]
+}

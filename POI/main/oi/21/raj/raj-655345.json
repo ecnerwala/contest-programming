@@ -1,0 +1,397 @@
+{
+  "id": 655345,
+  "task": {
+    "short": "raj",
+    "long": "Rally"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "raj.cpp",
+  "submission_time": "2015-03-16 18:32:31",
+  "report_time": "2015-03-16 18:33:23",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 11,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "21st Polish Olympiad in Informatics, Stage II - day 2",
+    "start_time": "2015-03-16 18:30:29",
+    "points": 141
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 1, a oczekiwano 0.",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 6, a oczekiwano 5.",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 9, a oczekiwano 8.",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 2, a oczekiwano 1.",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 5, a oczekiwano 4.",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Dlugosc najdluzszej trasy nie zgadza sie z dlugoscia podana przez zawodnika. Podano 51, a",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 2, a oczekiwano 1.",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 300, a oczekiwano 299.",
+          "time": {
+            "used": "0.10s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 2, a oczekiwano 1.",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 333333, a oczekiwano 333332.",
+          "time": {
+            "used": "1.03s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 21, a oczekiwano 20.",
+          "time": {
+            "used": "0.08s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 667, a oczekiwano 666.",
+          "time": {
+            "used": "0.07s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 7499, a oczekiwano 7498.",
+          "time": {
+            "used": "0.27s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Dlugosc najdluzszej trasy nie zgadza sie z dlugoscia podana przez zawodnika. Podano 1316,",
+          "time": {
+            "used": "0.32s",
+            "limit": "1.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "OK",
+          "time": {
+            "used": "0.32s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "OK",
+          "time": {
+            "used": "0.20s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "OK",
+          "time": {
+            "used": "0.20s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 11,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "OK",
+          "time": {
+            "used": "0.07s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Dlugosc najdluzszej trasy nie zgadza sie z dlugoscia podana przez zawodnika. Podano 1339,",
+          "time": {
+            "used": "0.34s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Dlugosc najdluzszej trasy nie zgadza sie z dlugoscia podana przez zawodnika. Podano 2562,",
+          "time": {
+            "used": "0.39s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "OK",
+          "time": {
+            "used": "2.39s",
+            "limit": "9.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 137500, a oczekiwano 137499.",
+          "time": {
+            "used": "0.76s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Dlugosc najdluzszej trasy nie zgadza sie z dlugoscia podana przez zawodnika. Podano 502, a",
+          "time": {
+            "used": "0.81s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 1: Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "0.23s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "OK",
+          "time": {
+            "used": "0.40s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 1: Liczba calkowita spoza zakresu",
+          "time": {
+            "used": "3.83s",
+            "limit": "14.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "Wrong answer",
+          "footnote": "Wiersz 2: Bledna dlugosc trasy. Podano 667, a oczekiwano 666.",
+          "time": {
+            "used": "3.39s",
+            "limit": "15.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 12
+      }
+    }
+  ]
+}

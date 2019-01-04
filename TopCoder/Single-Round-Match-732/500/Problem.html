@@ -1,0 +1,62 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Alice and Maya play the Brownie Game.
+The game is played on a tray that holds a collection of brownies
+Each brownie is a rectangle with integer dimensions.
+All brownies are aligned with the coordinate axes and have a fixed orientation (i.e., they cannot be rotated).
+</p>
+<br></br>
+<p>
+During the game the girls will cut the brownies.
+For the cut a girl always has to choose a single brownie and cut it to obtain two new valid brownies: the new dimensions of each of the two pieces must again be positive integers.
+Additionally, Alice can only make vertical cuts (parallel to the y axis) and Maya can only make horizontal cuts.
+In other words, suppose we have a brownie with r rows and c columns ("an r*c brownie" for short).
+Alice can cut it into an r*c1 brownie and an r*c2 brownie such that c1+c2 = c, while Maya can cut the r*c brownie into an r1*c brownie and an r2*c brownie such that r1+r2 = r.
+</p>
+<br></br>
+<p>
+For example, given a single 2*4 brownie Alice has three ways to make a cut.
+One of those ways is to cut it into a 2*1 brownie and a 2*3 brownie.
+In the same situation Maya only has one possibility: she has to cut this brownie into two 1*4 brownies.
+Given a single 47*1 brownie, Alice has no valid ways to make a cut.
+</p>
+<br></br>
+<p>
+Alice and Maya take alternating turns.
+The game ends when the current player cannot make any valid cut.
+In other words, Alice loses if it's her turn and each brownie only has one column, while Maya loses when it's her turn and each brownie only has one row.
+</p>
+<br></br>
+<p>
+Maya really wants to win the game, so she brought a large supply of 2*1 brownies and she plans to add some of them to the tray before they start playing the game.
+Clearly, if Maya adds enough 2*1 brownies she will win the game, as Maya is the only one who can cut the 2*1 brownies and Alice will sooner or later run out of moves.
+However, adding too many brownies increases the risk that Alice will notice it.
+Therefore Maya wants to add as few of the 2*1 brownies as possible.
+</p>
+<br></br>
+<p>
+You are given the int <b>n</b> and the vector &lt;int&gt;s <b>r</b> and <b>c</b> with <b>n</b> elements each.
+Currently there are <b>n</b> brownies on the tray: for each valid i, there is an <b>r</b>[i]*<b>c</b>[i] brownie.
+</p>
+<br></br>
+<p>
+Consider two scenarios.
+In both of them both Alice and Maya play the game optimally.
+In the first scenario Alice makes the first cut, while in the second scenario Maya is the one to start cutting.
+For each scenario, determine the smallest number of 2*1 brownies Maya should add to the tray before they start the game.
+Return a vector &lt;int&gt; containing those two numbers.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BrownieGame</td></tr><tr><td>Method:</td><td>HowToCheat</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; HowToCheat(int n, vector &lt;int&gt; r, vector &lt;int&gt; c)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>r</b> will contain exactly <b>n</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>r</b> will be between 2 and 1,000,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>c</b> will contain exactly <b>n</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>c</b> will be between 2 and 1,000,000,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{2}</pre></td></tr><tr><td><pre>{2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">The tray contains a single 2*2 brownie.
+<br></br>
+In the first scenario Alice has to cut the brownie into two 2*1 brownies, then Maya can cut any one of those into two 1*1 brownies, and then Alice loses the game because she has no valid moves left. As Maya already wins this scenario, she doesn't have to add any 2*1 brownies.
+<br></br>
+
+In the second scenario Maya would lose the game in the same manner. However, if she adds one extra 2*1 brownie to the tray before the start of the game, she will already have a winning strategy. One such strategy starts with cutting the 2*1 brownie and essentially leaving Alice in the situation from the first scenario.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{2,2}</pre></td></tr><tr><td><pre>{2,2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">Now the tray contains two 2*2 brownies.
+<br></br>
+Suppose we are in the first scenario and suppose that Maya did not add any 2*1 brownies.
+Alice must cut one of the two 2*2 brownies, producing a tray with three brownies: 2*1, 2*1, and 2*2.
+Maya can cut one of the two 2*1 brownies and eventually win the game with ease.
+<br></br>
+In the second scenario Alice could use the symmetric strategy to win the game, so Maya needs to add at least one 2*1 brownie before the game starts.
+It can be shown that adding one 2*1 brownie is enough.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{2}</pre></td></tr><tr><td><pre>{4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2">If Alice starts first, her best strategy is to cut it to two 2x2 brownies -- and she wins. If Maya brings one extra 2x1 brownie, Maya can win no matter how Alice begins her turn.
+
+If Maya starts first, she needs to bring two extra 2x1 brownies to ensure a win.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{91}</pre></td></tr><tr><td><pre>{5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{87,36}</pre></td></tr><tr><td><pre>{100,23}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

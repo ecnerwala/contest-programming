@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+typedef long long ll;
+const ll MOD = ll(1e9) + 7;
+
+const int MAXN = 1020;
+int binom[MAXN][MAXN];
+ll dp[MAXN];
+
+class SumPyramid {
+
+public:
+
+	int countPyramids(int levels, int top) {
+		assert(levels >= 1);
+		levels--;
+		assert(levels >= 0);
+		binom[0][0] = 1;
+		for (int i = 0; i <= levels; i++) {
+			binom[i][0] = binom[i][i] = 1;
+			for (int j = 1; j < i; j++) {
+				binom[i][j] = binom[i-1][j-1] + binom[i-1][j];
+				if (binom[i][j] > top) {
+					binom[i][j] = top + 1;
+				}
+			}
+		}
+		memset(dp, 0, sizeof(dp));
+		dp[0] = 1;
+		for (int i = 0; i <= levels; i++) {
+			if (binom[levels][i] > top) continue;
+			int v = binom[levels][i];
+			for (int j = v; j <= top; j++) {
+				dp[j] += dp[j-v];
+				dp[j] %= MOD;
+			}
+		}
+		return int((dp[top] % MOD + MOD) % MOD);
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::SumPyramid;
+
+// vim:ft=cpp

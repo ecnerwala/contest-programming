@@ -1,0 +1,135 @@
+[
+  {
+    "id": 838071,
+    "submission_time": "05-07-17\u00a0\u00a0\u00a001:12",
+    "task": "Autobus",
+    "result": "Wrong answer",
+    "points": 27
+  },
+  {
+    "id": 838072,
+    "submission_time": "05-07-17\u00a0\u00a0\u00a001:13",
+    "task": "Autobus",
+    "result": "OK",
+    "points": 76
+  },
+  {
+    "id": 838073,
+    "submission_time": "05-07-17\u00a0\u00a0\u00a001:16",
+    "task": "Autobus",
+    "result": "Time limit exceeded",
+    "points": 90
+  },
+  {
+    "id": 838075,
+    "submission_time": "05-07-17\u00a0\u00a0\u00a001:18",
+    "task": "Autobus",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839335,
+    "submission_time": "12-07-17\u00a0\u00a0\u00a018:28",
+    "task": "Hurtownia",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839336,
+    "submission_time": "12-07-17\u00a0\u00a0\u00a018:37",
+    "task": "Magazyny",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839342,
+    "submission_time": "12-07-17\u00a0\u00a0\u00a018:51",
+    "task": "Reakcje chemiczne",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839439,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a009:56",
+    "task": "Zdj\u0119cia",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 839440,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a009:59",
+    "task": "Zdj\u0119cia",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 839441,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a010:00",
+    "task": "Zdj\u0119cia",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839452,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a010:42",
+    "task": "Lista",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839453,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a010:46",
+    "task": "Minimalna liczba",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839454,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a010:58",
+    "task": "\u017babka Bajtozja",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839455,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a011:04",
+    "task": "Statki kosmiczne",
+    "result": "Wrong answer",
+    "points": 40
+  },
+  {
+    "id": 839456,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a011:06",
+    "task": "Statki kosmiczne",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839457,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a011:20",
+    "task": "Ostatnie cyfry",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839459,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a011:30",
+    "task": "Centrala telefoniczna",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839463,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a011:38",
+    "task": "\u017bo\u0142nierze",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 839575,
+    "submission_time": "13-07-17\u00a0\u00a0\u00a018:50",
+    "task": "Ci\u0105g",
+    "result": "OK",
+    "points": 100
+  }
+]

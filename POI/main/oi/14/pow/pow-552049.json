@@ -1,0 +1,945 @@
+{
+  "id": 552049,
+  "task": {
+    "short": "pow",
+    "long": "The Flood"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "pow.cpp",
+  "submission_time": "2014-03-21 15:13:21",
+  "report_time": "2014-03-21 15:14:28",
+  "result": "OK",
+  "status": "OK",
+  "points": {
+    "received": 95,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "14th Polish Olympiad in Informatics, Stage II - day 1",
+    "start_time": "2014-03-20 16:48:55",
+    "points": 200
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "01",
+      "cases": [
+        {
+          "name": "01",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "02",
+      "cases": [
+        {
+          "name": "02",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "03",
+      "cases": [
+        {
+          "name": "03",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "04",
+      "cases": [
+        {
+          "name": "04",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "05",
+      "cases": [
+        {
+          "name": "05",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "06",
+      "cases": [
+        {
+          "name": "06",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "07",
+      "cases": [
+        {
+          "name": "07",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "08",
+      "cases": [
+        {
+          "name": "08",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "09",
+      "cases": [
+        {
+          "name": "09",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5ocen",
+      "cases": [
+        {
+          "name": "5ocen",
+          "status": "OK",
+          "time": {
+            "used": "2.59s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "14",
+      "cases": [
+        {
+          "name": "14",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "15",
+      "cases": [
+        {
+          "name": "15",
+          "status": "OK",
+          "time": {
+            "used": "0.13s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "16",
+      "cases": [
+        {
+          "name": "16",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "17",
+      "cases": [
+        {
+          "name": "17",
+          "status": "OK",
+          "time": {
+            "used": "0.07s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "18",
+      "cases": [
+        {
+          "name": "18",
+          "status": "OK",
+          "time": {
+            "used": "1.28s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "19",
+      "cases": [
+        {
+          "name": "19",
+          "status": "OK",
+          "time": {
+            "used": "1.16s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "20",
+      "cases": [
+        {
+          "name": "20",
+          "status": "OK",
+          "time": {
+            "used": "1.37s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 2
+      }
+    },
+    {
+      "name": "21",
+      "cases": [
+        {
+          "name": "21",
+          "status": "OK",
+          "time": {
+            "used": "1.45s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "22",
+      "cases": [
+        {
+          "name": "22",
+          "status": "OK",
+          "time": {
+            "used": "1.53s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "23",
+      "cases": [
+        {
+          "name": "23",
+          "status": "OK",
+          "time": {
+            "used": "1.47s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "24",
+      "cases": [
+        {
+          "name": "24a",
+          "status": "OK",
+          "time": {
+            "used": "0.48s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "24b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "25",
+      "cases": [
+        {
+          "name": "25a",
+          "status": "OK",
+          "time": {
+            "used": "0.72s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "25b",
+          "status": "OK",
+          "time": {
+            "used": "0.08s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "26",
+      "cases": [
+        {
+          "name": "26a",
+          "status": "OK",
+          "time": {
+            "used": "1.32s",
+            "limit": "2.50s"
+          }
+        },
+        {
+          "name": "26b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "27",
+      "cases": [
+        {
+          "name": "27a",
+          "status": "OK",
+          "time": {
+            "used": "1.67s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "27b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "28",
+      "cases": [
+        {
+          "name": "28a",
+          "status": "OK",
+          "time": {
+            "used": "1.17s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "28b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "29",
+      "cases": [
+        {
+          "name": "29a",
+          "status": "OK",
+          "time": {
+            "used": "1.23s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "29b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "30",
+      "cases": [
+        {
+          "name": "30a",
+          "status": "OK",
+          "time": {
+            "used": "1.41s",
+            "limit": "2.50s"
+          }
+        },
+        {
+          "name": "30b",
+          "status": "OK",
+          "time": {
+            "used": "0.16s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "31",
+      "cases": [
+        {
+          "name": "31a",
+          "status": "OK",
+          "time": {
+            "used": "0.60s",
+            "limit": "1.50s"
+          }
+        },
+        {
+          "name": "31b",
+          "status": "OK",
+          "time": {
+            "used": "1.14s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "32",
+      "cases": [
+        {
+          "name": "32a",
+          "status": "OK",
+          "time": {
+            "used": "1.09s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "32b",
+          "status": "OK",
+          "time": {
+            "used": "1.98s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "33",
+      "cases": [
+        {
+          "name": "33a",
+          "status": "OK",
+          "time": {
+            "used": "1.43s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "33b",
+          "status": "OK",
+          "time": {
+            "used": "1.22s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "34",
+      "cases": [
+        {
+          "name": "34a",
+          "status": "OK",
+          "time": {
+            "used": "1.80s",
+            "limit": "3.50s"
+          }
+        },
+        {
+          "name": "34b",
+          "status": "OK",
+          "time": {
+            "used": "1.00s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "35",
+      "cases": [
+        {
+          "name": "35a",
+          "status": "OK",
+          "time": {
+            "used": "1.11s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "35b",
+          "status": "OK",
+          "time": {
+            "used": "1.43s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "36",
+      "cases": [
+        {
+          "name": "36a",
+          "status": "OK",
+          "time": {
+            "used": "1.21s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "36b",
+          "status": "OK",
+          "time": {
+            "used": "1.82s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "37",
+      "cases": [
+        {
+          "name": "37a",
+          "status": "OK",
+          "time": {
+            "used": "1.40s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "37b",
+          "status": "OK",
+          "time": {
+            "used": "1.73s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 2,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "38",
+      "cases": [
+        {
+          "name": "38a",
+          "status": "OK",
+          "time": {
+            "used": "1.43s",
+            "limit": "2.50s"
+          }
+        },
+        {
+          "name": "38b",
+          "status": "OK",
+          "time": {
+            "used": "1.27s",
+            "limit": "3.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "39",
+      "cases": [
+        {
+          "name": "39a",
+          "status": "OK",
+          "time": {
+            "used": "1.43s",
+            "limit": "2.50s"
+          }
+        },
+        {
+          "name": "39b",
+          "status": "OK",
+          "time": {
+            "used": "1.55s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    },
+    {
+      "name": "40",
+      "cases": [
+        {
+          "name": "40a",
+          "status": "OK",
+          "time": {
+            "used": "1.97s",
+            "limit": "4.00s"
+          }
+        },
+        {
+          "name": "40b",
+          "status": "OK",
+          "time": {
+            "used": "1.48s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 3,
+        "maximum": 3
+      }
+    }
+  ]
+}

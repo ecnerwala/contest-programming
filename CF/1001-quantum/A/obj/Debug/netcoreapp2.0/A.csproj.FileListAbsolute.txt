@@ -1,0 +1,4 @@
+/home/andrew/Dropbox/programming/CF/1001-quantum/A/obj/Debug/netcoreapp2.0/A.csprojAssemblyReference.cache
+/home/andrew/Dropbox/programming/CF/1001-quantum/A/obj/Debug/netcoreapp2.0/A.csproj.CoreCompileInputs.cache
+/home/andrew/Dropbox/programming/CF/1001-quantum/A/obj/Debug/netcoreapp2.0/A.AssemblyInfoInputs.cache
+/home/andrew/Dropbox/programming/CF/1001-quantum/A/obj/Debug/netcoreapp2.0/A.AssemblyInfo.cs

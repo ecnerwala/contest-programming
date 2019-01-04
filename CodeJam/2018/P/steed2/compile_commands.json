@@ -1,0 +1,25 @@
+[
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-Wall",
+            "-Wextra",
+            "-pedantic",
+            "-std=c++11",
+            "-O2",
+            "-Wshadow",
+            "-Wformat=2",
+            "-Wfloat-equal",
+            "-Wconversion",
+            "-Wlogical-op",
+            "-Wcast-qual",
+            "-Wcast-align",
+            "-o",
+            "steed2",
+            "steed2.cpp"
+        ],
+        "directory": "/home/andrew/Dropbox/programming/CodeJam/2018/P/steed2",
+        "file": "steed2.cpp"
+    }
+]

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ubuntor - Plaid Adventure — Play</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta name="author" content="ubuntor">
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="stylesheet" href="interpreter/glkote.css" type="text/css">
+<link rel="stylesheet" href="interpreter/dialog.css" type="text/css">
+<script src="interpreter/jquery-1.11.2.min.js" type="text/javascript"></script>
+<script src="interpreter/glkote.min.js" type="text/javascript"></script>
+<script src="interpreter/quixe.min.js" type="text/javascript"></script>
+
+<script src="interpreter/resourcemap.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+game_options = {
+image_info_map: 'StaticImageInfo',  // image data is here, not in blorb
+use_query_story: false,
+set_page_title: false,
+inspacing: 0,     // gap between windows
+outspacing: 0     // gap between windows and edge of gameport
+};
+</script>
+
+<script src="interpreter/Plaid Adventure.gblorb.js" type="text/javascript"></script>
+  
+ </head>
+<body class="play">
+<div class="container">
+<div class="coverimage"><span><a href="Cover.jpg"><img src="Small Cover.jpg" border="1"></a></span></div>
+<div class="links">
+<div class="smalltitle">Plaid Adventure</div>
+<ul>
+<li><a href="index.html">Home page</a></li>
+</ul>
+</div>
+
+<div id="gameport">
+<div id="windowport">
+<noscript><hr>
+<p>You'll need to turn on Javascript in your web browser to play this game.</p>
+<hr></noscript>
+</div>
+<div id="loadingpane">
+<img src="interpreter/waiting.gif" alt="LOADING"><br>
+<em>&nbsp;&nbsp;&nbsp;Loading...</em>
+</div>
+<div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
+</div>
+
+</div>
+<div class="interpretercredit"><a href="http://eblong.com/zarf/glulx/quixe/">Quixe for Inform 7 (v. 2.1.2)</a></div>
+</body>
+</html>
+

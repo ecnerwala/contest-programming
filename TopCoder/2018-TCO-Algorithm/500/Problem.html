@@ -1,0 +1,49 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There are <b>people</b> gangsters in Gangsterville, and that small town definitely isn't big enough for all of them.
+Therefore they decided to organize a shootout.
+May only the best survive!
+</p>
+
+<p>
+The gangsters arranged themselves in a circle.
+For simplicity we'll number them from 1 to <b>people</b> along the circle.
+Each gangster is pointing his gun at the next gangster in the circle.
+(I.e., for each valid i gangster number i is aiming at gangster number i+1, and the last gangster is aiming at gangster 1.)
+</p>
+
+<p>
+In order to make the gunfight more spectator-friendly, the gangsters have decided that they will shoot sequentially.
+Before the gunfight they will choose one of the <b>people</b>! possible orders uniformly at random.
+Then, they will shoot their guns in the chosen order.
+(Obviously, gangsters who have already been shot do nothing when it's their turn.)
+Each gangster always hits their target.
+</p>
+
+<p>
+Calculate the number of orderings for which the number of gangsters who will survive is exactly <b>alive</b>.
+Return the answer modulo 10^9+7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Gangsters</td></tr><tr><td>Method:</td><td>countOrderings</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countOrderings(int people, int alive)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>people</b> will be between 3 and 150, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>alive</b> will be between 0 and <b>people</b>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We have four gangsters numbered 1, 2, 3, and 4 along the circle.
+There are 4! = 24 possible orders in which they will shoot.
+First consider the six permutations in which gangster 1 shoots first:
+</p>
+
+<pre>
+     1 2 3 4        1 2 4 3
+     1 3 2 4        1 3 4 2
+     1 4 2 3        1 4 3 2
+</pre>
+
+<p>
+In each of these six settings gangster 1 will shoot gangster 2.
+As gangster 2 will not shoot, gangster 3 is guaranteed to survive.
+In three of these six setting gangster 3 will shoot before gangster 4.
+In these three scenarios the survivors will be gangsters 1 and 3.
+In the other three scenarios gangster 3 will be the only survivor.
+</p>
+
+<p>
+We can then make similar reasoning for the remaining cases.
+In total there are 12 orderings with exactly two survivors (and another 12 with just one survivor).
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">There are six possible shooting orders for three gangsters.
+For all of them only one gangster will remain alive.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">It is not possible that no one survives.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>9</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 203616</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

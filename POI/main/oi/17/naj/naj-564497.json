@@ -1,0 +1,495 @@
+{
+  "id": 564497,
+  "task": {
+    "short": "naj",
+    "long": "Divine Divisor"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "naj.cpp",
+  "submission_time": "2014-05-16 03:03:12",
+  "report_time": "2014-05-16 03:03:37",
+  "result": "OK",
+  "status": "OK",
+  "points": {
+    "received": 100,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "17th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-03-30 05:47:46",
+    "points": 400
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.14s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "0a",
+      "cases": [
+        {
+          "name": "0a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.13s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.15s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.13s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 6,
+        "maximum": 6
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.16s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.93s",
+            "limit": "12.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 6,
+        "maximum": 6
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.14s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.87s",
+            "limit": "12.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.99s",
+            "limit": "4.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 6,
+        "maximum": 6
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.13s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.98s",
+            "limit": "7.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 6,
+        "maximum": 6
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.00s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.60s",
+            "limit": "40.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 6,
+        "maximum": 6
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.59s",
+            "limit": "22.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 6,
+        "maximum": 6
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.62s",
+            "limit": "20.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.29s",
+            "limit": "24.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.61s",
+            "limit": "10.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.01s",
+            "limit": "10.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "0.62s",
+            "limit": "18.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.58s",
+            "limit": "38.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.00s",
+            "limit": "8.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.44s",
+            "limit": "11.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.86s",
+            "limit": "44.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.65s",
+            "limit": "50.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.62s",
+            "limit": "35.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.87s",
+            "limit": "42.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.60s",
+            "limit": "30.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.63s",
+            "limit": "30.00s"
+          }
+        },
+        {
+          "name": "12b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.60s",
+            "limit": "30.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.64s",
+            "limit": "30.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    },
+    {
+      "name": "14",
+      "cases": [
+        {
+          "name": "14a",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.60s",
+            "limit": "45.00s"
+          }
+        },
+        {
+          "name": "14b",
+          "status": "OK",
+          "footnote": "Krotnosc k poprawna, liczba D poprawna",
+          "time": {
+            "used": "1.60s",
+            "limit": "40.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 8,
+        "maximum": 8
+      }
+    }
+  ]
+}

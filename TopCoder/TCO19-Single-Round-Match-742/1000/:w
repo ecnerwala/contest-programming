@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+const int MAXN = 22;
+const int MAXS = 5.1e5;
+
+ll arrivalS[MAXN];
+pair<ll, ll> days[MAXN];
+bool dp[MAXS];
+
+class Depot {
+
+public:
+
+	int countPositive(vector <string> arrival_strings, vector <string> query_strings) {
+		for (const string& line : arrival_strings) {
+			istringstream str(line);
+			ll D, I, M, S; str >> D >> I >> M >> S;
+			M = min(M, MAXS / S + 1); // we don't care after we hit MAXS / S, cause after that it's too big
+		}
+		vector<pair<ll, ll>> queries;
+		for (const string& line : query_strings) {
+			istringstream str(line);
+			ll D, S; str >> D >> S;
+			ll A1, B1, A2, B2, N;
+			if (str >> A1) {
+				str >> B1 >> A2 >> B2 >> N;
+				for (ll i = 0; i < N; i++) {
+					D--, D %= B1, D++;
+					S--, S %= B2, S++;
+					queries.emplace_back(D, S);
+					D += A1;
+					S += A2;
+				}
+			} else {
+				queries.emplace_back(D, S);
+			}
+		}
+		int res = 0;
+		return res;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::Depot;
+
+// vim:ft=cpp

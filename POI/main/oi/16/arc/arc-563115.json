@@ -1,0 +1,459 @@
+{
+  "id": 563115,
+  "task": {
+    "short": "arc",
+    "long": "Architects"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "arc.cpp",
+  "submission_time": "2014-05-09 03:56:40",
+  "report_time": "2014-05-09 03:57:53",
+  "result": "Time limit exceeded",
+  "status": "OK",
+  "points": {
+    "received": 20,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage II - day 2",
+    "start_time": "2014-05-09 03:57:53",
+    "points": 200
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "OK",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "OK",
+          "time": {
+            "used": "0.34s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "5ocen",
+      "cases": [
+        {
+          "name": "5ocen",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "10.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

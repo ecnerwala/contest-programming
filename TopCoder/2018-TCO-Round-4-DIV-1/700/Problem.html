@@ -1,0 +1,34 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>This problem has a non-standard time limit: 4 seconds.</i>
+</p>
+
+<p>
+You are given the string <b>polyline</b>: the description of a polyline in the plane.
+Each segment of the polyline is parallel to one of the coordinate axes.
+This polyline divides the plane into some finite connected regions.
+Your task is simple: find the area of each such region.
+</p>
+
+<p>
+To keep the input small (and constructing challenges easier), the polyline is given as a simple program for a robot that moves and draws the polyline along its path. The program has the following syntax:
+</p>
+
+<pre>
+program ::= "" | command | command+program
+command ::= instruction | cycle
+instruction ::= "F" | "L" | "R" | "["+program+"]"
+cycle ::= number+instruction
+</pre>
+
+<p>
+Additional specifications:
+</p>
+
+<ul>
+<li>The instructions "F", "L", and "R" mean "move 1 unit forward", "turn 90 degrees left", and "turn 90 degrees right", respectively.</li>
+<li>A cycle means that the given instruction should be executed the given number of times in a row; "number" must be a positive integer between 2 and 10^6, inclusive.</li>
+</ul>
+
+<p>
+Let A be the sequence of the areas of all finite regions of the plane, sorted in non-decreasing order. If A has at most 200 elements, return A. Otherwise, return the first 100 elements of A followed by the last 100 elements of A.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PolylineAreas</td></tr><tr><td>Method:</td><td>findAreas</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Method signature:</td><td>vector&lt;long long&gt; findAreas(string polyline)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>4.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The polyline may cross and overlap itself arbitrarily.</td></tr><tr><td align="center" valign="top">-</td><td>The output must always be sorted in non-decreasing order.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>polyline</b> will be a valid program.</td></tr><tr><td align="center" valign="top">-</td><td><b>polyline</b> will contain between 1 and 2000 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>When executing the program in <b>polyline</b> the robot will make at most 250,000 moves and/or turns.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;FRFLF&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">A squiggly line. This line forms no finite regions in the plane, the entire infinite plane is still connected.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;4[100FR]&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: {10000 }</pre></td></tr><tr><td><table><tr><td colspan="2">This line is the boundary of a 100x100 square.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;2[2[100FR]]&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: {10000 }</pre></td></tr><tr><td><table><tr><td colspan="2">The same square. Note that cycles may be nested.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;47[100FR]&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: {10000 }</pre></td></tr><tr><td><table><tr><td colspan="2">Still the same square (but now the robot goes around its boundary multiple times).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;1000000[]&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">A valid empty program with a long cycle that does nothing.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;4[6FR]FR6FL2FL6FR3FRFR6FL2FL6F&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 2, 2, 3, 3, 4, 6, 6, 9 }</pre></td></tr><tr><td><table><tr><td colspan="2">A more complicated polyline that draws a 6x6 square subdivided into nine regions of various sizes.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;4[6FR]FR6FL2FL6FR3FRFR6FL2FL4F&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 2, 2, 3, 3, 4, 6, 15 }</pre></td></tr><tr><td><table><tr><td colspan="2">The same polyline, only the last segment is shorter. Thus, there are now only eight finite regions instead of nine.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">7)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;3FRFRFLFLFRFR3FRFRFLFLFRF&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: {7 }</pre></td></tr><tr><td><table><tr><td colspan="2">A closed path around a region shaped like the letter H.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

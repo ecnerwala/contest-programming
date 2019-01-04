@@ -1,0 +1,26 @@
+{
+  "id": 655344,
+  "task": {
+    "short": "raj",
+    "long": "Rally"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "raj.cpp",
+  "submission_time": "2015-03-16 18:30:27",
+  "report_time": "2015-03-16 18:30:29",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: raj.out.s: No such file or directory\nraj.e:4: warning: converting to 'int' from 'double'\nraj.e:5: warning: converting to 'int' from 'double'\nraj.e: In function 'void toposort()':\nraj.e:33: error: a function-definition is not allowed here before ':' token\nraj.e:40: error: expected primary-expression before '}' token\nraj.e:40: error: expected `;' before '}' token\nraj.e:40: error: expected primary-expression before '}' token\nraj.e:40: error: expected `)' before '}' token\nraj.e:40: error: expected primary-expression before '}' token\nraj.e:40: error: expected `;' before '}' token\nraj.e: In function 'void longestpath(int*)':\nraj.e:67: error: a function-definition is not allowed here before ':' token\nraj.e:70: error: expected primary-expression before '}' token\nraj.e:70: error: expected `;' before '}' token\nraj.e:70: error: expected primary-expression before '}' token\nraj.e:70: error: expected `)' before '}' token\nraj.e:70: error: expected primary-expression before '}' token\nraj.e:70:",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "21st Polish Olympiad in Informatics, Stage II - day 2",
+    "start_time": "2015-03-16 18:30:29",
+    "points": 141
+  }
+}

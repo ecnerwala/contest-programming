@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class ResistorFactory {
+private:
+	using ll = long long;
+
+	vector<ll> values;
+	vector<int> result;
+	int series(int a, int b) {
+		result.push_back(a);
+		result.push_back(b);
+		result.push_back(0);
+		int res = int(values.size());
+		values.push_back(values[a] + values[b]);
+		return res;
+	}
+	int parallel(int a, int b) {
+		result.push_back(a);
+		result.push_back(b);
+		result.push_back(1);
+		int res = int(values.size());
+		ll va = values[a], vb = values[b];
+		ll g = __gcd(va, vb);
+		va /= g, vb /= g;
+		assert(double(va) * double(vb) <= 1e18);
+		assert(g % (va + vb) == 0);
+		ll v = g / (va + vb) * va * vb;
+		values.push_back(v);
+		return res;
+	}
+public:
+
+	vector <int> construct(long long nanoOhms) {
+		result.clear();
+		values.clear();
+		values.push_back(ll(1e9));
+		int cur = 0;
+		for (int i = 0; i < 9; i++) {
+			int cur2 = parallel(cur, cur);
+			int cur4 = parallel(cur2, cur2);
+			int cur5 = parallel(cur, cur4);
+			cur = cur5;
+		}
+		for (int i = 0; i < 9; i++) {
+			cur = parallel(cur, cur);
+		}
+		assert(cur == int(values.size()) - 1);
+		assert(values[cur] == 1);
+		int res = -1;
+		ll target = nanoOhms;
+		while (true) {
+			if (nanoOhms & 1) {
+				if (res == -1) {
+					res = cur;
+				} else {
+					res = series(res, cur);
+				}
+				nanoOhms --;
+				if (nanoOhms == 0) {
+					break;
+				}
+			}
+			assert(nanoOhms);
+			nanoOhms /= 2;
+			cur = series(cur, cur);
+		}
+		assert(res == int(values.size()) - 1);
+		//cerr << values.back() << '\n';
+
+		return result;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::ResistorFactory;
+
+// vim:ft=cpp

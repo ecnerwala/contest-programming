@@ -1,0 +1,534 @@
+{
+  "id": 579023,
+  "task": {
+    "short": "fib",
+    "long": "Words 2"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "fib.cpp",
+  "submission_time": "2014-07-31 06:31:40",
+  "report_time": "2014-07-31 06:35:36",
+  "result": "Time limit exceeded",
+  "status": "OK",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage III - day 1",
+    "start_time": "2014-05-10 07:23:13",
+    "points": 400
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "0a",
+      "cases": [
+        {
+          "name": "0a",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "0b",
+      "cases": [
+        {
+          "name": "0b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '22'",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '62'",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "OK",
+          "time": {
+            "used": "0.43s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '5'",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "2d",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '103'",
+          "time": {
+            "used": "0.30s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "3d",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '15'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '1003'",
+          "time": {
+            "used": "0.96s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "time": {
+            "used": "0.50s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '9'",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6d",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '8'",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '7'",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read 'NIE', but expected '1000000001'",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "10d",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

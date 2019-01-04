@@ -1,0 +1,26 @@
+{
+  "id": 586391,
+  "task": {
+    "short": "gas",
+    "long": "Fire Extinguishers"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "gas.cpp",
+  "submission_time": "2014-08-26 06:21:37",
+  "report_time": "2014-08-26 06:21:41",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: gas.out.s: No such file or directory\ngas.e:5: warning: converting to 'int' from 'double'\ngas.e: In function 'void dfs(int, int)':\ngas.e:18: error: a function-definition is not allowed here before ':' token\ngas.e:22: error: expected primary-expression before 'for'\ngas.e:22: error: expected `;' before 'for'\ngas.e:22: error: expected primary-expression before 'for'\ngas.e:22: error: expected `)' before 'for'",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "16th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-05-10 08:01:17",
+    "points": 400
+  }
+}

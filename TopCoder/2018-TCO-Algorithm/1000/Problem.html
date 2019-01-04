@@ -1,0 +1,30 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A <i>palindrome</i> is a string that is identical to its reverse.
+For example, "a", "cac", "abba" are all palindromes.
+</p>
+
+<p>
+A <i>subsequence</i> of a string S is any string obtained from S by erasing some
+(possibly all or none) of the letters in S.
+For example, the strings "", "cb", "abbc" are all subsequences of the string "abcbac", but "cab" and "bbb" are not.
+</p>
+
+<p>
+You are given two strings <b>A</b> and <b>B</b> consisting of lowercase English letters.
+Find the number of distinct non-empty strings S such that S is a subsequence of both <b>A</b> and <b>B</b>
+and S is a palindrome.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CommonPalindromicSubsequences</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>string, string</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long count(string A, string B)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> and <b>B</b> will contain between 1 and 60 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>A</b> and <b>B</b> will be a lowercase English letter ('a'-'z').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;abcbac&quot;</pre></td></tr><tr><td><pre>&quot;cacbbda&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+There are ten non-empty palindromic subsequences that are common to "abcbac" and "cacbbda".
+These are: "a", "b", "c", "aa", "bb", "cc", "aba", "aca", "cac", and "abba".
+</p>
+
+<p>
+Notes:
+</p>
+
+<ul>
+<li>"abcba" is a palindromic subsequence of "abcbac", but it is not a subsequence of "cacbbda", thus it is not counted.</li>
+<li>"acba" is a common subsequence of both strings, but it is not a palindrome, thus it is not counted either.</li>
+<li>Even though there are multiple ways to produce the substring "a" from each of the two given strings, it is only counted once.</li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;a&quot;</pre></td></tr><tr><td><pre>&quot;a&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Smallest possible example. Note that the input strings can be equal.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;bc&quot;</pre></td></tr><tr><td><pre>&quot;adea&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The are no common letters in the strings.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;abcdefghhgfedcba&quot;</pre></td></tr><tr><td><pre>&quot;badcfehgghefcdab&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 160</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

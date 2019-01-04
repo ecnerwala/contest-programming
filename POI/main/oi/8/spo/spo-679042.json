@@ -1,0 +1,222 @@
+{
+  "id": 679042,
+  "task": {
+    "short": "spo",
+    "long": "Peaceful Comission"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "spo.cpp",
+  "submission_time": "2015-07-12 06:02:00",
+  "report_time": "2015-07-12 06:02:12",
+  "result": "Time limit exceeded",
+  "status": "OK",
+  "points": {
+    "received": 60,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "8th Polish Olympiad in Informatics, Stage II - day 1",
+    "start_time": "2015-07-12 03:43:54",
+    "points": 80
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.02s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "Wrong answer",
+          "footnote": "udzielono odpowiedzi NIE, a rozwiazanie istnieje",
+          "time": {
+            "used": "0.04s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.25s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.25s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Wrong answer",
+          "footnote": "udzielono odpowiedzi NIE, a rozwiazanie istnieje",
+          "time": {
+            "used": "0.02s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "0.25s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "OK",
+          "time": {
+            "used": "0.03s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 10,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "OK",
+          "time": {
+            "used": "0.07s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 20,
+        "maximum": 20
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "0.25s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "OK",
+          "time": {
+            "used": "0.04s",
+            "limit": "0.25s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "OK",
+          "time": {
+            "used": "0.04s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 20
+      }
+    }
+  ]
+}

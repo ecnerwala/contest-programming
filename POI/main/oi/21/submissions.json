@@ -1,0 +1,177 @@
+[
+  {
+    "id": 655229,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a000:15",
+    "task": "Criminals",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 655344,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a018:30",
+    "task": "Rally",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 655345,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a018:32",
+    "task": "Rally",
+    "result": "Wrong answer",
+    "points": 11
+  },
+  {
+    "id": 655347,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a018:37",
+    "task": "Rally",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 655367,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a019:50",
+    "task": "FarmCraft",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 655370,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a019:56",
+    "task": "FarmCraft",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 655386,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a020:17",
+    "task": "Ant colony",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 655395,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a020:42",
+    "task": "Ant colony",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 655402,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a021:17",
+    "task": "Hotels",
+    "result": "Time limit exceeded",
+    "points": 59
+  },
+  {
+    "id": 655403,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a021:25",
+    "task": "Hotels",
+    "result": "OK",
+    "points": 96
+  },
+  {
+    "id": 655404,
+    "submission_time": "16-03-15\u00a0\u00a0\u00a021:28",
+    "task": "Hotels",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 655774,
+    "submission_time": "18-03-15\u00a0\u00a0\u00a021:51",
+    "task": "Couriers",
+    "result": "Time limit exceeded",
+    "points": 45
+  },
+  {
+    "id": 655777,
+    "submission_time": "18-03-15\u00a0\u00a0\u00a022:03",
+    "task": "Couriers",
+    "result": "Time limit exceeded",
+    "points": 37
+  },
+  {
+    "id": 655779,
+    "submission_time": "18-03-15\u00a0\u00a0\u00a022:16",
+    "task": "Couriers",
+    "result": "Time limit exceeded",
+    "points": 48
+  },
+  {
+    "id": 655808,
+    "submission_time": "19-03-15\u00a0\u00a0\u00a002:51",
+    "task": "Freight",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 655810,
+    "submission_time": "19-03-15\u00a0\u00a0\u00a003:56",
+    "task": "Couriers",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 656170,
+    "submission_time": "20-03-15\u00a0\u00a0\u00a016:29",
+    "task": "Solar panels",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 658789,
+    "submission_time": "29-03-15\u00a0\u00a0\u00a008:29",
+    "task": "Salad bar",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 659111,
+    "submission_time": "30-03-15\u00a0\u00a0\u00a018:52",
+    "task": "Cards",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 660721,
+    "submission_time": "05-04-15\u00a0\u00a0\u00a023:09",
+    "task": "Around the world",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 660723,
+    "submission_time": "05-04-15\u00a0\u00a0\u00a023:12",
+    "task": "Around the world",
+    "result": "Runtime error",
+    "points": 78
+  },
+  {
+    "id": 660730,
+    "submission_time": "05-04-15\u00a0\u00a0\u00a023:27",
+    "task": "Around the world",
+    "result": "OK",
+    "points": 89
+  },
+  {
+    "id": 660738,
+    "submission_time": "06-04-15\u00a0\u00a0\u00a000:15",
+    "task": "Around the world",
+    "result": "Time limit exceeded",
+    "points": 0
+  },
+  {
+    "id": 660740,
+    "submission_time": "06-04-15\u00a0\u00a0\u00a000:21",
+    "task": "Around the world",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 674622,
+    "submission_time": "17-06-15\u00a0\u00a0\u00a020:07",
+    "task": "Little Bird",
+    "result": "Time limit exceeded",
+    "points": 41
+  }
+]

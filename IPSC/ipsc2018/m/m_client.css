@@ -1,0 +1,33 @@
+#m-root {
+  white-space: pre-line;
+  min-height: 70em;
+}
+
+#m-root, #m-root input {
+  font-family: "DejaVu Sans Mono", "Monaco", "Lucida Console", monospace;
+}
+
+.m-error {
+  color: red;
+}
+
+.m-marker {
+  margin-left: 2em;
+}
+
+#m-root form {
+  border: solid #999 1px;
+  padding: 1em;
+}
+
+.m-result {
+  position: absolute;
+  z-index: 1;
+  padding: 1em;
+  border-radius: 1em;
+  background: #fcf8e3;
+}
+
+.m-var {
+  font-size: 1.2em;
+}

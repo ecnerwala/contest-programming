@@ -1,0 +1,12 @@
+-x
+c++
+-Wall
+-Wcast-align
+-Wcast-qual
+-Wconversion
+-Wextra
+-Wfloat-equal
+-Wformat=2
+-Wlogical-op
+-Wshadow
+-std=c++11

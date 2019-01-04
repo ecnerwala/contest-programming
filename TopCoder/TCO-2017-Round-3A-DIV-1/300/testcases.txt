@@ -1,0 +1,19 @@
+"Possible"
+{"NYNYN",
+ "YNYYN",
+ "NYNYN",
+ "YYYNY",
+ "NNNYN"}
+"Impossible"
+{"NY",
+ "NN"}
+"Possible"
+{"NYYYYN",
+ "YNYNNN",
+ "YYNYYY",
+ "YNYNYN",
+ "YNYYNY",
+ "NNYNYN"}
+"Impossible"
+{"NN",
+ "NN"}

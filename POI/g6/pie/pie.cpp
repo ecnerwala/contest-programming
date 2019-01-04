@@ -21,26 +21,38 @@ int main() {
 		for(int i = 0; i < R; i++) {
 			cin >> S[i];
 		}
-		for(int dx = -R; dx < N; dx++) {
-			for(int dy = -C; dy < M; dy++) {
-				bool good = true;
-				for(int i = 0; i < R; i++) {
-					for(int j = 0; j < C; j++) {
+		int minX = R;
+		int maxX = -1;
+		int minY = C;
+		int maxY = -1;
+		for (int i = 0; i < R; i++) {
+			for (int j = 0; j < C; j++) {
+				if (S[i][j] == '.') continue;
+				minX = min(minX, i);
+				maxX = max(maxX, i);
+				minY = min(minY, j);
+				maxY = max(maxY, j);
+			}
+		}
+		if (maxX == -1) continue;
+
+		for(int dx = -minX; dx < N - maxX; dx++) {
+			for(int dy = -minY; dy < M - maxY; dy++) {
+				for(int i = minX; i <= maxX; i++) {
+					for(int j = minY; j <= maxY; j++) {
 						if(S[i][j] == '.') continue;
-						if(!(0 <= dx + i && dx + i < N)) good = false;
-						else if(!(0 <= dy + i && dy + j < M)) good = false;
-						else if(F[dx + i][dy + j] == '.') good = false;
+						if(F[dx + i][dy + j] == '.') {
+							goto notgood;
+						}
 					}
 				}
-				if(!good) continue;
-				for(int i = 0; i < R; i++) {
-					if(!(0 <= dx + i && dx + i < N)) continue;
-					for(int j = 0; j < C; j++) {
-						if(!(0 <= dy + i && dy + j < M)) continue;
+				for(int i = minX; i <= maxX; i++) {
+					for(int j = minY; j <= maxY; j++) {
 						if(S[i][j] == '.') continue;
 						F[dx + i][dy + j] = 'x';
 					}
 				}
+notgood:;
 			}
 		}
 	}

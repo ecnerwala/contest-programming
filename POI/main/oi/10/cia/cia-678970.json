@@ -1,0 +1,26 @@
+{
+  "id": 678970,
+  "task": {
+    "short": "cia",
+    "long": "Sequences without Stammers"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "cia.cpp",
+  "submission_time": "2015-07-12 00:32:57",
+  "report_time": "2015-07-12 00:33:00",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\ngrep: cia.out.s: No such file or directory\ncia.e:4: warning: converting to 'int' from 'double'\ncia.e:7: error: invalid function declaration\ncia.e: In function 'int main()':\ncia.e:25: error: 'perm' was not declared in this scope",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "10th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2015-07-11 22:34:41",
+    "points": 400
+  }
+}

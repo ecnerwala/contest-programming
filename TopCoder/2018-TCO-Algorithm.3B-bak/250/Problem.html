@@ -1,0 +1,27 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There once was an infinite plane called Xanadu. The plane was divided into a grid of unit square cells. The entire plane was white, with one exception: a black square. More precisely, for some unknown positive integer N there was an N times N square that consisted of N^2 black cells.
+</p>
+<p>
+Your friend recently showed you a rectangle. She claims that she cut it out of the Xanadu plane, and that she was cutting along grid lines while doing so. Verify her story.
+</p>
+<p>
+You are given the vector &lt;string&gt; <b>cutout</b> that represents a rectangular bitmap. The character '.' represents a white cell and the character '#' represents a black cell.
+</p>
+<p>
+If the bitmap can represent a part of the Xanadu plane, return the smallest N that is consistent with <b>cutout</b>. Otherwise, return zero.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SquareCutout</td></tr><tr><td>Method:</td><td>verify</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int verify(vector &lt;string&gt; cutout)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>cutout</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>cutout</b> will contain between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>cutout</b> will contain the same number of elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of each element of <b>cutout</b> will be either '.' or '#'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....&quot;,
+ &quot;..##.&quot;,
+ &quot;..##.&quot;,
+ &quot;.....&quot;,
+ &quot;.....&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">This is very clearly a cutout that contains the entire square. The length of its side is 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...&quot;,
+ &quot;...&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">It is possible that this is a cutout made from Xanadu. The square was simply somewhere else. The smallest size it can have is 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....&quot;,
+ &quot;.###.&quot;,
+ &quot;.#.#.&quot;,
+ &quot;.###.&quot;,
+ &quot;.....&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This cutout is definitely not from Xanadu. The square must be filled completely.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..####&quot;,
+ &quot;..####&quot;,
+ &quot;......&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">We may see the bottom left corner of a square. The square is at least 4x4. It may be even bigger, but 4 is the smallest size that matches what we see.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..#..&quot;,
+ &quot;.###.&quot;,
+ &quot;#####&quot;,
+ &quot;.###.&quot;,
+ &quot;..#..&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This is not a square. This is also not a part of any larger square.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

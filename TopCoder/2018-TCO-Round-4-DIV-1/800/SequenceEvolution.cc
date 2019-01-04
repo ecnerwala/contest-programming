@@ -1,0 +1,255 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+typedef long long ll;
+const int MOD = ll(1e9) + 7;
+
+struct num {
+	int v;
+	num() : v(0) {}
+	num(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	explicit operator int () const { return v; }
+	num& operator += (const num &o) {
+		v += o.v;
+		if (v >= MOD) v -= MOD;
+		return *this;
+	}
+	num& operator -= (const num &o) {
+		v -= o.v;
+		if (v < 0) v += MOD;
+		return *this;
+	}
+	num& operator *= (const num &o) {
+		v = int(ll(v) * ll(o.v) % ll(MOD));
+		return *this;
+	}
+	num operator - () const {
+		num res;
+		res.v = (v == 0) ? 0 : (MOD - v);
+		return res;
+	}
+	// num& operator /= (const num &o) { assert(false); }
+};
+num operator + (const num &a, const num &b) { return num(a) += b; }
+num operator - (const num &a, const num &b) { return num(a) -= b; }
+num operator * (const num &a, const num &b) { return num(a) *= b; }
+//num operator / (const num &a, const num &b) { return num(a) /= b; }
+std::ostream& operator << (std::ostream& out, const num &n) { return out << int(n); }
+
+struct mat;
+mat operator * (const mat &a, const mat &b);
+
+struct mat {
+	static const int SZ = 4;
+	num v[SZ][SZ];
+	mat() : v{} {}
+	// diagonal matrix
+	mat(num n) { for (int i = 0; i < SZ; i++) v[i][i] = n; }
+	mat& operator += (const mat &o) {
+		for (int i = 0; i < SZ; i++) {
+			for (int j = 0; j < SZ; j++) {
+				v[i][j] += o.v[i][j];
+			}
+		}
+		return *this;
+	}
+	mat& operator -= (const mat &o) {
+		for (int i = 0; i < SZ; i++) {
+			for (int j = 0; j < SZ; j++) {
+				v[i][j] -= o.v[i][j];
+			}
+		}
+		return *this;
+	}
+	mat& operator *= (const mat &o) {
+		*this = (*this * o);
+		return *this;
+	}
+	mat operator - () const {
+		mat res;
+		for (int i = 0; i < SZ; i++) {
+			for (int j = 0; j < SZ; j++) {
+				res.v[i][j] = -v[i][j];
+			}
+		}
+		return res;
+	}
+};
+
+mat operator + (const mat &a, const mat &b) { return mat(a) += b; }
+mat operator - (const mat &a, const mat &b) { return mat(a) -= b; }
+mat operator * (const mat &a, const mat &b) {
+	mat res(0);
+	for (int i = 0; i < mat::SZ; i++) {
+		for (int j = 0; j < mat::SZ; j++) {
+			for (int k = 0; k < mat::SZ; k++) {
+				res.v[i][j] += a.v[i][k] * b.v[k][j];
+			}
+		}
+	}
+	return res;
+}
+
+mat pow(mat a, ll b) {
+	assert(b >= 0);
+	mat res(1);
+	while (b) {
+		if (b & 1) res *= a;
+		a *= a;
+		b /= 2;
+	}
+	return res;
+}
+
+class SequenceEvolution {
+
+	ll n;
+	mat trans;
+	mat coeffs;
+	num pref(ll a) {
+		assert(a >= 0);
+		assert(a <= n);
+		mat m = pow(trans, a);
+		m *= coeffs;
+		return m.v[3][0];
+	}
+
+	num sum(ll st, ll len) {
+		if (len == n) {
+			return pref(n);
+		}
+
+		st %= n;
+		if (st < 0) st += n;
+		ll en = st + len;
+		if (en > n) {
+			assert(int(pref(0)) == 0);
+			return pref(n) - pref(st) + pref(en - n);
+		}
+		return pref(en) - pref(st);
+	}
+
+
+public:
+	vector <int> findEndpoints(ll n_, int a0, int a1, int c1, int c2, int add, ll b, ll s) {
+		n = n_;
+		trans = mat();
+		trans.v[0][1] = 1;
+		trans.v[1][0] = num(c2);
+		trans.v[1][1] = num(c1);
+		trans.v[1][2] = num(add);
+		trans.v[2][2] = 1;
+		trans.v[3][0] = 1;
+		trans.v[3][3] = 1;
+
+		coeffs = mat();
+		coeffs.v[0][0] = a0;
+		coeffs.v[1][0] = a1;
+		coeffs.v[2][0] = 1;
+		coeffs.v[3][0] = 0;
+
+		assert(b >= 1);
+		assert(n >= 2);
+		if (b == 1) {
+			// we just cycle
+			ll l = s % n;
+			ll r = (s + n-1) % n;
+			num x = pref(l+1) - pref(l);
+			num y = pref(r+1) - pref(r);
+			return vector<int>{int(x), int(y)};
+		}
+		assert(b >= 2);
+
+		if (s >= (n + b-2) / (b-1)) {
+			num tot = pref(n);
+			return vector<int>{int(tot), int(tot)};
+		}
+		assert(n - s * (b-1) >= 1);
+
+		queue<pair<ll, ll>> vals;
+		vals.emplace(1, n);
+		ll st = 0;
+		ll rem = b;
+		ll curl = 0;
+
+		ll s_old = s;
+		while (true) {
+			if (vals.front().second == 0) {
+				vals.pop();
+				continue;
+			}
+
+			ll tot_n = curl;
+			ll tot_s = (b - rem);
+			//cerr << s << ' ' << s_old << '\n';
+			for (int z = int(vals.size()); z > 0; z--) {
+				//cerr << vals.front().first << ' ' << vals.front().second << '\n';
+				assert(vals.front().second > 0);
+				tot_n += vals.front().first * vals.front().second;
+				tot_s += vals.front().second;
+				vals.push(vals.front());
+				vals.pop();
+			}
+			//cerr << '\n';
+			assert(tot_n == n);
+			assert(tot_s == n - (s_old - s)*(b-1));
+
+			ll &l = vals.front().first;
+			ll &c = vals.front().second;
+			if (s == 0) {
+				break;
+			}
+			assert(rem > 0);
+			if (rem < b) {
+				// patch up the current one and bump rem
+				ll cnt = min(rem, c);
+				c -= cnt;
+				rem -= cnt;
+				curl += l * cnt;
+				if (rem == 0) {
+					vals.emplace(curl, 1);
+					st += curl;
+					st %= n;
+					s--;
+					rem = b;
+					curl = 0;
+				}
+				continue;
+			}
+			assert(curl == 0);
+			assert(rem == b);
+			if (c >= b) {
+				ll cnt = min(s, c / b);
+				c -= cnt * b;
+				vals.emplace(l * b, cnt);
+				st += cnt * l * b;
+				st %= n;
+				s -= cnt;
+				continue;
+			}
+			assert(c < b);
+			assert(c < rem);
+			rem -= c;
+			curl += l * c;
+			vals.pop();
+			continue;
+		}
+		assert(s == 0);
+		assert(rem == b);
+		while (vals.front().second == 0) {
+			vals.pop();
+		}
+		num x = sum(st, vals.front().first);
+		num y = sum(st-vals.back().first, vals.back().first);
+
+		return vector<int>{int(x), int(y)};
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::SequenceEvolution;
+
+// vim:ft=cpp

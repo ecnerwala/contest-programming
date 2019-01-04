@@ -1,0 +1,55 @@
+#ip 1
+0: addi 1 16 1 # jump to line 17
+
+1: seti 1 1 5 # r[5] = 1
+2: seti 1 4 2 # r[2] = 1
+3: mulr 5 2 3 # r[3] = r[5] * r[2]
+4: eqrr 3 4 3 # r[3] = (r[5] * r[2] == r[4])
+5: addr 3 1 1 # if r[5] * r[2] == r[4], jump to line 7
+6: addi 1 1 1 # else jump to line 8
+7: addr 5 0 0 # r[0] += r[5]
+8: addi 2 1 2 # r[2] ++
+9: gtrr 2 4 3 # r[3] = (r[2] > r[4])
+10: addr 1 3 1 # if (r[2] > r[4]), jump to line 12
+11: seti 2 7 1 # else jump to line 3
+12: addi 5 1 5 # r[5] ++
+13: gtrr 5 4 3 # r[3] = (r[5] > r[4])
+14: addr 3 1 1 # if (r[5] > r[4]), jump to line 16
+15: seti 1 8 1 # jump to line 2
+16: mulr 1 1 1 # HALT (ip = r[1] * r[1] + 1 = 257)
+
+# r[5] = 1
+# r[2] = 1
+# loop:
+#   if r[5] * r[2] == r[4]: r[0] += r[5]
+#   r[2] ++
+#   if r[2] > r[4]: break
+# r[5] ++
+# if r[5] > r[4]: break
+
+# in essence, r[0] += factors of r[4]
+
+17: addi 4 2 4 # r[4] += 2
+18: mulr 4 4 4 # r[4] *= r[4]
+19: mulr 1 4 4 # r[4] *= 19
+20: muli 4 11 4 # r[4] *= 11
+21: addi 3 1 3 # r[3] += 1
+22: mulr 3 1 3 # r[3] *= 22
+23: addi 3 3 3 # r[3] += 3
+24: addr 4 3 4 # r[4] += r[3]
+# r[4] = 861
+25: addr 1 0 1 # if r[0], jump to line 27
+26: seti 0 3 1 # jump line 1
+27: setr 1 1 3 # r[3] = 27
+28: mulr 3 1 3 # r[3] *= 28
+29: addr 1 3 3 # r[3] += 29
+30: mulr 1 3 3 # r[3] *= 30
+31: muli 3 14 3 # r[3] *= 14
+32: mulr 3 1 3 # r[3] *= 32
+33: addr 4 3 4 # r[4] += r[3]
+# r[4] = 10551261
+34: seti 0 9 0 # r[0] = 0
+35: seti 0 4 1 # jump to line 1
+
+# 861 = 3 * 7 * 41 => r[0] = 4 * 8 * 42 = 1344
+# 10551261 = 3 * 7 * 502441 => r[0] = 4 * 8 * 502442 = 16078144

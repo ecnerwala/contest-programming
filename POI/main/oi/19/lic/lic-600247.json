@@ -1,0 +1,26 @@
+{
+  "id": 600247,
+  "task": {
+    "short": "lic",
+    "long": "Bidding"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "lic.cpp",
+  "submission_time": "2014-09-30 17:13:18",
+  "report_time": "2014-09-30 17:13:22",
+  "result": "Compile error",
+  "status": "Compile error",
+  "comment": "Kompilacja rozwi\u0105zania zako\u0144czy\u0142a si\u0119 pora\u017ck\u0105\nlic.e:3:24: error: bits/stdc++.h: No such file or directory\nlic.e:6: error: expected initializer before '<' token\nlic.e:12: error: 'pii' does not name a type\nlic.e:16: error: 'pii' does not name a type\nlic.e:20: error: 'pii' does not name a type\nlic.e:24: error: 'pii' does not name a type\nlic.e:33: error: expected constructor, destructor, or type conversion before '<' token\nlic.e:34: error: 'pii' was not declared in this scope\nlic.e:34: error: expected ',' or ';' before '{' token\nlic.e: In function 'int main()':\nlic.e:55: error: 'pii' was not declared in this scope\nlic.e:55: error: expected `;' before 'st'\nlic.e:56: error: 'st' was not declared in this scope\nlic.e:57: error: 'getmove' cannot be used as a function\nlic.e:58: error: 'assert' was not declared in this scope\nlic.e:60: error: 'makemove' was not declared in this scope",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "19th Polish Olympiad in Informatics, Stage III - day 1",
+    "start_time": "2014-09-24 23:14:12",
+    "points": 300
+  }
+}

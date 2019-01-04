@@ -1,0 +1,59 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have just inherited a resistor factory. The factory is fully robotized but the automated production lines lack programming. Currently the only thing they know how to manufacture is "product zero": a 1 Ohm resistor.
+</p>
+<p>
+After some research you have discovered that you can define new products by combining previously defined products.
+As you don't want to risk anything too complicated, you opted to only use the two simplest ways to combine resistors: either in series or in parallel.
+</p>
+<p>
+Two resistors in series look as follows:
+</p>
+<pre>
+   +----+   +----+
+---| R1 |---| R2 |---
+   +----+   +----+
+</pre>
+<p>
+If the two components used have resistance R1 and R2, the resistance of the entire product is R = R1 + R2.
+</p>
+<p>
+Two resistors in parallel look as follows:
+</p>
+<pre>
+      +----+  
+   +--| R1 |--+
+   |  +----+  |
+ --+          +--
+   |  +----+  |
+   +--| R2 |--+
+      +----+  
+</pre>
+<p>
+If the two components used have resistance R1 and R2, the resistance R of the entire product satisfies the equation 1/R = 1/R1 + 1/R2.
+</p>
+<p>
+You just got insider information that the new "whyPhone" will require an awful number of resistors whose resistance is (<b>nanoOhms</b> * 10<sup>-9</sup>) Ohms.
+Of course, this being real hardware, there is some tolerance, so any resistors whose resistance is reasonably close to the desired value will be OK.
+Now only one thing stands between you and profit: you need to program the assembly line to produce such resistors.
+</p>
+<p>
+Formally, the program is an ordered sequence of zero or more commands.
+The commands are numbered 1, 2, 3, and so on.
+Command i defines product i.
+Each triple has the form (p1,p2,op) where p1 and p2 are the numbers of two already defined products (i.e., p1 and p2 must be between 0 and i-1, inclusive) and op is either 0 (meaning that the products p1 and p2 should be put in series) or 1 (meaning in parallel).
+</p>
+<p>
+Return a vector &lt;int&gt; that is the concatenation of all commands in your program.
+You may return any valid program with at most 1000 commands.
+If you return an empty program, the final product is defined to be product zero.
+Otherwise, the final product is the product defined by the last command in your program.
+Your program will be accepted if the resistance of the final product is close enough to the required resistance.
+More precisely, the resistance of your final product (expressed as a real number in Ohms) must have an absolute or a relative error at most 1e-9.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ResistorFactory</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>long long</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; construct(long long nanoOhms)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>nanoOhms</b> will be between 1 and 10^18, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3000000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0, 0, 1, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We want a resistor whose resistance is exactly 3 Ohms. This is easy: just take three 1 Ohm resistors in series. 
+</p>
+<p>
+More precisely, we first define that product 1 consists of two products 0 in series, and then we say that product 2 is a product 0 and a product 1 in series.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1200000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0, 1, 0, 0, 1, 2, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">This time we want a resistor with resistance 1.2 Ohms.
+Again, this is easy to achieve precisely.
+One possibility is to take a 2 Ohm and a 3 Ohm resistor and connect them in parallel.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1428571428</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0, 0, 1, 0, 1, 2, 0, 3, 1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">The resistor we want this time should have 1.428571428 Ohms. Instead of producing it precisely, we will produce a resistor with resistance 10/7 Ohms. As 10/7 = 1.4285714285714285714..., we are well within the required tolerance.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12000000001</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0, 0, 1, 0, 2, 2, 0, 3, 3, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>333333333</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 1, 0, 1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

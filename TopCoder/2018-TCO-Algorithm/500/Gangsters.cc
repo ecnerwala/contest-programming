@@ -1,0 +1,126 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+int minv(int a, int m) {
+    a %= m;
+    assert(a);
+    return a == 1 ? 1 : int(m - ll(minv(m, a)) * ll(m) / a);
+}
+
+
+template <int MOD> struct modnum {
+    static_assert(MOD > 0, "MOD must be positive");
+private:
+    int v;
+
+public:
+
+    modnum() : v(0) {}
+    modnum(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+    explicit operator int() const { return v; }
+
+    modnum inv() const {
+        modnum res;
+        res.v = minv(v, MOD);
+        return res;
+    }
+    modnum neg() const {
+        modnum res;
+        res.v = v ? MOD-v : 0;
+        return res;
+    }
+    modnum operator- () const {
+        return neg();
+    }
+    modnum operator+ () const {
+        return modnum(*this);
+    }
+
+    modnum& operator += (const modnum& o) {
+        v += o.v;
+        if (v >= MOD) v -= MOD;
+        return *this;
+    }
+    modnum& operator -= (const modnum& o) {
+        v -= o.v;
+        if (v < 0) v += MOD;
+        return *this;
+    }
+    modnum& operator *= (const modnum& o) {
+        v = int(ll(v) * ll(o.v) % MOD);
+        return *this;
+    }
+    modnum& operator /= (const modnum& o) {
+        return *this *= o.inv();
+    }
+
+    friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
+    friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
+    friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
+    friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
+    friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
+    friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
+
+    friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
+};
+
+using num = modnum<int(1e9) + 7>;
+
+const int MAXP = 160;
+int P;
+num binom[MAXP][MAXP];
+num dp[MAXP][MAXP];
+
+class Gangsters {
+
+    void precomp() {
+        for (int i = 0; i <= P; i++) {
+            binom[i][0] = binom[i][i] = 1;
+            for (int j = 1; j < i; j++) {
+                binom[i][j] = binom[i-1][j-1] + binom[i-1][j];
+            }
+        }
+    }
+
+    void go() {
+        precomp();
+        dp[1][1] = 1;
+        for (int i = 2; i <= P; i++) {
+            // compute this dp
+            // first the last guy can shoot
+            // one possibility, just copy it up
+            dp[i][(i+1)/2] = 0;
+            for (int a = 1; a <= (i-1+1) / 2; a++) {
+                dp[i][a] = dp[i-1][a];
+            }
+            // other possibility: l + r = i-1
+            for (int l = 1, r = i-2; r > 0; l++, r--) {
+                assert(i >= 3);
+                num fac = num(i-2) * binom[i-3][l-1];
+                for (int al = 1; al <= (l+1)/2; al++) {
+                    for (int ar = 1; ar <= (r+1)/2; ar++) {
+                        dp[i][al+ar] += dp[l][al] * dp[r][ar] * fac;
+                    }
+                }
+            }
+        }
+    }
+
+public:
+
+    int countOrderings(int people, int alive) {
+        P = people-1;
+        go();
+        return int(dp[people-1][alive] * num(people) * num(people-1));
+    }
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::Gangsters;
+
+// vim:ft=cpp

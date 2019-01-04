@@ -1,0 +1,224 @@
+{
+  "id": 677631,
+  "task": {
+    "short": "nar",
+    "long": "Skiers"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "nar.cpp",
+  "submission_time": "2015-07-06 09:21:38",
+  "report_time": "2015-07-06 09:31:02",
+  "result": "Runtime error",
+  "status": "OK",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "9th Polish Olympiad in Informatics, Stage III - day 1",
+    "start_time": "2015-07-06 04:30:54",
+    "points": 200
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 6\n exit code: 1536",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '2', but expected '12'",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 6\n exit code: 1536",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 6\n exit code: 1536",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '3', but expected '50'",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1', but expected '175'",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '5', but expected '763'",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '5', but expected '1781'",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1', but expected '516'",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10",
+          "status": "Runtime error",
+          "footnote": "process exited due to signal 6\n exit code: 1536",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.25s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

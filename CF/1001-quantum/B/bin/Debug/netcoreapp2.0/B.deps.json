@@ -1,0 +1,102 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.0",
+    "signature": "e0f0fd466ceb817b0108088ca889f11355119168"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.0": {
+      "B/1.0.0": {
+        "dependencies": {
+          "Microsoft.Quantum.Canon": "0.2.1806.2802-preview",
+          "Microsoft.Quantum.Development.Kit": "0.2.1806.2802-preview"
+        },
+        "runtime": {
+          "B.dll": {}
+        }
+      },
+      "Microsoft.Quantum.Canon/0.2.1806.2802-preview": {
+        "dependencies": {
+          "Microsoft.Quantum.Development.Kit": "0.2.1806.2802-preview"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Quantum.Canon.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Microsoft.Quantum.Development.Kit/0.2.1806.2802-preview": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Quantum.MetaData.dll": {
+            "assemblyVersion": "0.2.1806.2802",
+            "fileVersion": "0.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Quantum.Primitives.dll": {
+            "assemblyVersion": "0.2.1806.2802",
+            "fileVersion": "0.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Quantum.Simulation.Common.dll": {
+            "assemblyVersion": "0.2.1806.2802",
+            "fileVersion": "0.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Quantum.Simulation.Core.dll": {
+            "assemblyVersion": "0.2.1806.2802",
+            "fileVersion": "0.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Quantum.Simulation.QCTraceSimulatorRuntime.dll": {
+            "assemblyVersion": "0.2.1806.2802",
+            "fileVersion": "0.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Quantum.Simulation.Simulators.dll": {
+            "assemblyVersion": "0.2.1806.2802",
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/Microsoft.Quantum.Simulator.Runtime.dll": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/Microsoft.Quantum.Simulator.Runtime.dll": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/Microsoft.Quantum.Simulator.Runtime.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/vcomp140.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "B/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Quantum.Canon/0.2.1806.2802-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PF3mKR/61lGONF5Re0k7w9qmrR98AUFMHvKy+U0YNnbMsKFb9aurBesjGeq9FDgmHJkIL00blNuplst+ueNiRQ==",
+      "path": "microsoft.quantum.canon/0.2.1806.2802-preview",
+      "hashPath": "microsoft.quantum.canon.0.2.1806.2802-preview.nupkg.sha512"
+    },
+    "Microsoft.Quantum.Development.Kit/0.2.1806.2802-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kQFp6od+8aUYWKV33n1H/HMJP78mM26rHZ9po0EHtEUVL4/D8hVWLdIBYAj3npis/b95Z9u/qx+QJjVS/o0R6A==",
+      "path": "microsoft.quantum.development.kit/0.2.1806.2802-preview",
+      "hashPath": "microsoft.quantum.development.kit.0.2.1806.2802-preview.nupkg.sha512"
+    }
+  }
+}

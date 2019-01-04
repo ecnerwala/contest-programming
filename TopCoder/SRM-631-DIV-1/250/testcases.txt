@@ -1,0 +1,21 @@
+1
+{"WB",
+ "BB"}
+1
+{"WB",
+ "WW"}
+2
+{"WB",
+ "WB"}
+2
+{"WBBW",
+ "WBWB",
+ "WWBB",
+ "BWWW"}
+1
+{"WBBWBB",
+ "BBWBBW",
+ "WWBWBW",
+ "BWWBBB",
+ "WBWBBW",
+ "WWWBWB"}

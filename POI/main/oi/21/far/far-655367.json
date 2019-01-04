@@ -1,0 +1,699 @@
+{
+  "id": 655367,
+  "task": {
+    "short": "far",
+    "long": "FarmCraft"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "far.cpp",
+  "submission_time": "2015-03-16 19:50:58",
+  "report_time": "2015-03-16 19:52:36",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "21st Polish Olympiad in Informatics, Stage III - day 0",
+    "start_time": "2015-03-16 19:52:36",
+    "points": 100
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1022', but expected '1017'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '34', but expected '30'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '7', but expected '9'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '89', but expected '54'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "1f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '4536', but expected '4529'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "OK",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1028', but expected '1022'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '76', but expected '65'",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '20', but expected '25'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '103', but expected '67'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "2f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '14536', but expected '14529'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '900000173', but expected '900000126'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '75651', but expected '53733'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '624671', but expected '523200'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '22868', but expected '11489'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '583929', but expected '530720'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '342760', but expected '326919'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "3g",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1034', but expected '1035'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '43118', but expected '31087'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '178554', but expected '128087'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '74637', but expected '66569'",
+          "time": {
+            "used": "0.03s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '18717507', but expected '12123731'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '107766', but expected '55336'",
+          "time": {
+            "used": "0.02s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "4f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '4627279', but expected '3172059'",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '30844', but expected '40024'",
+          "time": {
+            "used": "0.06s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '14520588', but expected '12840154'",
+          "time": {
+            "used": "0.18s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '46075133', but expected '44362201'",
+          "time": {
+            "used": "0.46s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '216172', but expected '210256'",
+          "time": {
+            "used": "0.22s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '9184204', but expected '5513448'",
+          "time": {
+            "used": "0.14s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '62159022', but expected '57905230'",
+          "time": {
+            "used": "0.07s",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "5g",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '15385679', but expected '10009987'",
+          "time": {
+            "used": "0.15s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '2922385', but expected '2263231'",
+          "time": {
+            "used": "0.52s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '17023517', but expected '12911679'",
+          "time": {
+            "used": "0.51s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '5161074', but expected '4458837'",
+          "time": {
+            "used": "0.48s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '2652460', but expected '1729768'",
+          "time": {
+            "used": "0.44s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '79618184', but expected '56106212'",
+          "time": {
+            "used": "0.46s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '178654236', but expected '148557730'",
+          "time": {
+            "used": "0.49s",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "6g",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '19903706', but expected '10293890'",
+          "time": {
+            "used": "0.41s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '3308649', but expected '2400198'",
+          "time": {
+            "used": "0.78s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '17903436', but expected '12929311'",
+          "time": {
+            "used": "0.76s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "7c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '5718699', but expected '4465446'",
+          "time": {
+            "used": "0.74s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "7d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '2699716', but expected '1929282'",
+          "time": {
+            "used": "0.66s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "7e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '73499176', but expected '56288754'",
+          "time": {
+            "used": "0.76s",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "7f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '44614988', but expected '42150696'",
+          "time": {
+            "used": "0.61s",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '2970762', but expected '2619060'",
+          "time": {
+            "used": "1.01s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '24505520', but expected '18009437'",
+          "time": {
+            "used": "0.97s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "8c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '9598925', but expected '7730603'",
+          "time": {
+            "used": "1.04s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "8d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '3873193', but expected '2430095'",
+          "time": {
+            "used": "0.86s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "8e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '85593763', but expected '56291994'",
+          "time": {
+            "used": "0.98s",
+            "limit": "5.00s"
+          }
+        },
+        {
+          "name": "8f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '45419188', but expected '42151067'",
+          "time": {
+            "used": "0.80s",
+            "limit": "5.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '2000902095', but expected '1000999998'",
+          "time": {
+            "used": "1.26s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '18479268', but expected '17515991'",
+          "time": {
+            "used": "1.28s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '902097', but expected '999999'",
+          "time": {
+            "used": "1.19s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '119229383', but expected '80904513'",
+          "time": {
+            "used": "1.08s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "9e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '2000862177', but expected '1000989998'",
+          "time": {
+            "used": "1.26s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "9f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '3332873', but expected '2181773'",
+          "time": {
+            "used": "0.99s",
+            "limit": "6.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10a",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '183385408', but expected '101554440'",
+          "time": {
+            "used": "1.02s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "10b",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '152826029', but expected '115319195'",
+          "time": {
+            "used": "1.31s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "10c",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '902097', but expected '999999'",
+          "time": {
+            "used": "1.21s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "10d",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1025977183', but expected '999997990'",
+          "time": {
+            "used": "1.08s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "10e",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '1723307049', but expected '1000735181'",
+          "time": {
+            "used": "1.21s",
+            "limit": "6.00s"
+          }
+        },
+        {
+          "name": "10f",
+          "status": "Wrong answer",
+          "footnote": "line 1: read '790884755', but expected '599999380'",
+          "time": {
+            "used": "1.01s",
+            "limit": "6.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 10
+      }
+    }
+  ]
+}

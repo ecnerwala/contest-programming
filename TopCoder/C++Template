@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+namespace ecnerwala {
+
 class $CLASSNAME$ {
 
 public:
@@ -8,5 +10,9 @@ public:
 	$RETURNTYPE$ $METHODNAME$($METHODPARAMS$) {
 	}
 };
+
+}  // namespace ecnerwala
+
+using ecnerwala::$CLASSNAME$;
 
 // vim:ft=cpp

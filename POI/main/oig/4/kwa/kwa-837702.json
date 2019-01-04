@@ -1,0 +1,494 @@
+{
+  "id": 837702,
+  "task": {
+    "short": "kwa",
+    "long": "Kwadrat magiczny"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "kwa.cpp",
+  "submission_time": "2017-07-03 00:21:22",
+  "report_time": "2017-07-03 00:22:16",
+  "result": "Wrong answer",
+  "status": "OK",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "4th Junior Polish Olympiad in Informatics, Etap III",
+    "start_time": "2017-07-03 00:22:16",
+    "points": 300
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "OK",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1",
+          "status": "Wrong answer",
+          "footnote": "W lini 2 przy 6: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "1ocen",
+      "cases": [
+        {
+          "name": "1ocen",
+          "status": "Wrong answer",
+          "footnote": "W lini 4 przy 30: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2",
+          "status": "Wrong answer",
+          "footnote": "W lini 1 przy 13: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "2ocen",
+      "cases": [
+        {
+          "name": "2ocen",
+          "status": "Wrong answer",
+          "footnote": "W lini 12 przy 188: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3",
+          "status": "Wrong answer",
+          "footnote": "W lini 3 przy 33: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.00s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "3ocen",
+      "cases": [
+        {
+          "name": "3ocen",
+          "status": "Wrong answer",
+          "footnote": "W lini 13 przy 20: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4",
+          "status": "Wrong answer",
+          "footnote": "W lini 20 przy 426: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.01s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "4ocen",
+      "cases": [
+        {
+          "name": "4ocen",
+          "status": "Wrong answer",
+          "footnote": "W lini 21 przy 636: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.06s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5",
+          "status": "Wrong answer",
+          "footnote": "W lini 37 przy 1085: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "5ocen",
+      "cases": [
+        {
+          "name": "5ocen",
+          "status": "Wrong answer",
+          "footnote": "W lini 2 przy 1232: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.23s",
+            "limit": "10.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6",
+          "status": "Wrong answer",
+          "footnote": "W lini 36 przy 425: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.04s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7",
+          "status": "Wrong answer",
+          "footnote": "W lini 198 przy 469: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.25s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8",
+          "status": "Wrong answer",
+          "footnote": "W lini 33 przy 137: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.25s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9",
+          "status": "Wrong answer",
+          "footnote": "W lini 28 przy 2962: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.26s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "10",
+      "cases": [
+        {
+          "name": "10",
+          "status": "Wrong answer",
+          "footnote": "W lini 43 przy 2936: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.26s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "11",
+      "cases": [
+        {
+          "name": "11",
+          "status": "Wrong answer",
+          "footnote": "W lini 244 przy 751: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.50s",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "12",
+      "cases": [
+        {
+          "name": "12",
+          "status": "Wrong answer",
+          "footnote": "W lini 34 przy 1729: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.53s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "13",
+      "cases": [
+        {
+          "name": "13",
+          "status": "Wrong answer",
+          "footnote": "W lini 252 przy 966: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.83s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "14",
+      "cases": [
+        {
+          "name": "14",
+          "status": "Wrong answer",
+          "footnote": "W lini 21 przy 845: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.91s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "15",
+      "cases": [
+        {
+          "name": "15",
+          "status": "Wrong answer",
+          "footnote": "W lini 93 przy 1007: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.95s",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "16",
+      "cases": [
+        {
+          "name": "16",
+          "status": "Wrong answer",
+          "footnote": "W lini 252 przy 112: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "0.91s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "17",
+      "cases": [
+        {
+          "name": "17",
+          "status": "Wrong answer",
+          "footnote": "W lini 106 przy 5584: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "1.20s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "18",
+      "cases": [
+        {
+          "name": "18",
+          "status": "Wrong answer",
+          "footnote": "W lini 32 przy 7577: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "1.17s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "19",
+      "cases": [
+        {
+          "name": "19",
+          "status": "Wrong answer",
+          "footnote": "W lini 165 przy 2917: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "1.18s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    },
+    {
+      "name": "20",
+      "cases": [
+        {
+          "name": "20",
+          "status": "Wrong answer",
+          "footnote": "W lini 113 przy 3158: Liczby nie moga sie powtarzac.",
+          "time": {
+            "used": "1.16s",
+            "limit": "2.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 5
+      }
+    }
+  ]
+}

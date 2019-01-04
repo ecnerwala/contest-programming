@@ -1,0 +1,313 @@
+{
+  "id": 601850,
+  "task": {
+    "short": "usu",
+    "long": "Take-out"
+  },
+  "user": {
+    "handle": "ecnerwal",
+    "name": "Andrew He"
+  },
+  "filename": "usu.cpp",
+  "submission_time": "2014-10-03 07:19:46",
+  "report_time": "2014-10-03 07:22:10",
+  "result": "Time limit exceeded",
+  "status": "Example test case: wrong answer",
+  "points": {
+    "received": 0,
+    "maximum": 100
+  },
+  "contest": {
+    "name": "20th Polish Olympiad in Informatics, Stage I",
+    "start_time": "2014-10-03 04:15:11",
+    "points": 400
+  },
+  "tests": [
+    {
+      "name": "0",
+      "cases": [
+        {
+          "name": "0",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "name": "1",
+      "cases": [
+        {
+          "name": "1a",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        },
+        {
+          "name": "1b",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        },
+        {
+          "name": "1c",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        },
+        {
+          "name": "1d",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "2",
+      "cases": [
+        {
+          "name": "2a",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        },
+        {
+          "name": "2b",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "3",
+      "cases": [
+        {
+          "name": "3a",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.00s",
+            "limit": "0.50s"
+          }
+        },
+        {
+          "name": "3b",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.01s",
+            "limit": "0.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "4",
+      "cases": [
+        {
+          "name": "4a",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.02s",
+            "limit": "0.50s"
+          }
+        },
+        {
+          "name": "4b",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.04s",
+            "limit": "0.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "5",
+      "cases": [
+        {
+          "name": "5a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "0.50s"
+          }
+        },
+        {
+          "name": "5b",
+          "status": "Wrong answer",
+          "footnote": "Linia 1: Brak liczby",
+          "time": {
+            "used": "0.35s",
+            "limit": "0.50s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "6",
+      "cases": [
+        {
+          "name": "6a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "0.70s"
+          }
+        },
+        {
+          "name": "6b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "0.70s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "7",
+      "cases": [
+        {
+          "name": "7a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        },
+        {
+          "name": "7b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "1.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "8",
+      "cases": [
+        {
+          "name": "8a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        },
+        {
+          "name": "8b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "2.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 11
+      }
+    },
+    {
+      "name": "9",
+      "cases": [
+        {
+          "name": "9a",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "9b",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "9c",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "3.00s"
+          }
+        },
+        {
+          "name": "9d",
+          "status": "Time limit exceeded",
+          "time": {
+            "used": "--",
+            "limit": "3.00s"
+          }
+        }
+      ],
+      "points": {
+        "received": 0,
+        "maximum": 12
+      }
+    }
+  ]
+}

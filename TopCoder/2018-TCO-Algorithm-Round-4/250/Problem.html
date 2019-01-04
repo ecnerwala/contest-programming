@@ -1,0 +1,43 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A sum pyramid is a two-dimensional arrangement of numbers into a pyramid-like shape in which each number (except for the numbers in the bottom row) is the sum of the two numbers that are diagonally below its place.
+Here's an example of a sum pyramid:
+</p>
+
+<pre>
+      25
+   12   13
+ 7    5    8
+</pre>
+
+<p>
+Note that 12 = 7+5, 13 = 5+8, and 25 = 12+13.
+</p>
+
+<p>
+Each row of the sum pyramid is called a level. The sum pyramid shown above has three levels. Note that the number of elements in the bottom row is equal to the number of levels.
+</p>
+
+<p>
+You are given the ints <b>levels</b> and <b>top</b>. Consider all sum pyramids with the following properties:
+</p>
+
+<ul>
+<li>All numbers in the pyramid are nonnegative integers.</li>
+<li>The pyramid has <b>levels</b> levels.</li>
+<li>The number on the top of the pyramid is <b>top</b>.</li>
+</ul>
+
+<p>
+Compute and return the number of such pyramids, modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SumPyramid</td></tr><tr><td>Method:</td><td>countPyramids</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countPyramids(int levels, int top)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>levels</b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>top</b> will be between 0 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">In this case the only valid pyramid is just the single number 47.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 11</pre></td></tr><tr><td><table><tr><td colspan="2">Three of the eleven valid pyramids:
+
+<pre>
+  10       10        10
+10  0     4  6      1  9
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">The four pyramids look as follows:
+
+<pre>
+  2       2       2       2
+ 2 0     1 1     1 1     0 2
+2 0 0   1 0 1   0 1 0   0 0 2
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 18</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

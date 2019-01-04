@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class TreesAndBrackets {
+
+	bool recurse(string::iterator& t1, string::iterator& t2) {
+		assert(*t1 == '(');
+		assert(*t2 == '(');
+		t1 ++;
+		t2 ++;
+		while (*t2 != ')') {
+			if (*t1 == ')') {
+				t1 ++;
+				return false;
+			}
+		}
+	}
+
+	bool go(string t1, string t2) {
+	}
+
+public:
+
+	string check(string t1, string t2) {
+		return go(t1, t2) ? "Possible" : "Impossible";
+	}
+};
+
+// vim:ft=cpp

@@ -1,0 +1,289 @@
+[
+  {
+    "id": 551549,
+    "submission_time": "19-03-14\u00a0\u00a0\u00a018:55",
+    "task": "Ridges and Valleys",
+    "result": "Runtime error",
+    "points": 80
+  },
+  {
+    "id": 551554,
+    "submission_time": "19-03-14\u00a0\u00a0\u00a018:59",
+    "task": "Ridges and Valleys",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551613,
+    "submission_time": "19-03-14\u00a0\u00a0\u00a020:20",
+    "task": "Offices",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 551700,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a002:20",
+    "task": "Offices",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551707,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a005:12",
+    "task": "Tetris Attack",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551708,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a005:40",
+    "task": "Building Blocks",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 551709,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a005:56",
+    "task": "Megalopolis",
+    "result": "Runtime error",
+    "points": 35
+  },
+  {
+    "id": 551710,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a005:58",
+    "task": "Megalopolis",
+    "result": "OK",
+    "points": 99
+  },
+  {
+    "id": 551711,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a006:05",
+    "task": "Megalopolis",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551778,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a016:47",
+    "task": "Rock Garden",
+    "result": "Wrong answer",
+    "points": 80
+  },
+  {
+    "id": 551779,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a016:56",
+    "task": "Rock Garden",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 551782,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a016:58",
+    "task": "Rock Garden",
+    "result": "OK",
+    "points": 94
+  },
+  {
+    "id": 551784,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a017:01",
+    "task": "Rock Garden",
+    "result": "OK",
+    "points": 94
+  },
+  {
+    "id": 551785,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a017:04",
+    "task": "Rock Garden",
+    "result": "OK",
+    "points": 94
+  },
+  {
+    "id": 551790,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a017:09",
+    "task": "Rock Garden",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551830,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a018:47",
+    "task": "Gas Pipelines",
+    "result": "Runtime error",
+    "points": 80
+  },
+  {
+    "id": 551834,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a019:13",
+    "task": "Gas Pipelines",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551842,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a020:17",
+    "task": "Weights",
+    "result": "Wrong answer",
+    "points": 50
+  },
+  {
+    "id": 551843,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a020:18",
+    "task": "Weights",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551864,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a021:13",
+    "task": "Quaternary Balance",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 551865,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a021:15",
+    "task": "Quaternary Balance",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 551867,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a021:19",
+    "task": "Quaternary Balance",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551912,
+    "submission_time": "20-03-14\u00a0\u00a0\u00a023:43",
+    "task": "Building Blocks",
+    "result": "Time limit exceeded",
+    "points": 45
+  },
+  {
+    "id": 551928,
+    "submission_time": "21-03-14\u00a0\u00a0\u00a003:09",
+    "task": "Tourist Attractions",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 551930,
+    "submission_time": "21-03-14\u00a0\u00a0\u00a004:41",
+    "task": "Building Blocks",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 551931,
+    "submission_time": "21-03-14\u00a0\u00a0\u00a005:36",
+    "task": "Tourist Attractions",
+    "result": "Wrong answer",
+    "points": 91
+  },
+  {
+    "id": 551932,
+    "submission_time": "21-03-14\u00a0\u00a0\u00a005:39",
+    "task": "Tourist Attractions",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 551933,
+    "submission_time": "21-03-14\u00a0\u00a0\u00a006:21",
+    "task": "Queries",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 552049,
+    "submission_time": "21-03-14\u00a0\u00a0\u00a015:13",
+    "task": "The Flood",
+    "result": "OK",
+    "points": 95
+  },
+  {
+    "id": 552055,
+    "submission_time": "21-03-14\u00a0\u00a0\u00a015:29",
+    "task": "The Flood",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 552269,
+    "submission_time": "22-03-14\u00a0\u00a0\u00a004:07",
+    "task": "Building Blocks",
+    "result": "Wrong answer",
+    "points": 37
+  },
+  {
+    "id": 552270,
+    "submission_time": "22-03-14\u00a0\u00a0\u00a004:10",
+    "task": "Building Blocks",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 552272,
+    "submission_time": "22-03-14\u00a0\u00a0\u00a004:35",
+    "task": "Driving Exam",
+    "result": "Wrong answer",
+    "points": 0
+  },
+  {
+    "id": 552276,
+    "submission_time": "22-03-14\u00a0\u00a0\u00a004:40",
+    "task": "Driving Exam",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 552278,
+    "submission_time": "22-03-14\u00a0\u00a0\u00a004:48",
+    "task": "Driving Exam",
+    "result": "Wrong answer",
+    "points": 100
+  },
+  {
+    "id": 552280,
+    "submission_time": "22-03-14\u00a0\u00a0\u00a004:56",
+    "task": "Driving Exam",
+    "result": "Wrong answer",
+    "points": 100
+  },
+  {
+    "id": 552282,
+    "submission_time": "22-03-14\u00a0\u00a0\u00a005:00",
+    "task": "Driving Exam",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 552806,
+    "submission_time": "23-03-14\u00a0\u00a0\u00a017:14",
+    "task": "Axes of Symmetry",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 587213,
+    "submission_time": "27-08-14\u00a0\u00a0\u00a023:49",
+    "task": "Railway",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 587248,
+    "submission_time": "28-08-14\u00a0\u00a0\u00a008:39",
+    "task": "Railway",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 765116,
+    "submission_time": "31-08-16\u00a0\u00a0\u00a019:17",
+    "task": "Trees",
+    "result": "OK",
+    "points": 100
+  }
+]

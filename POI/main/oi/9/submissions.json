@@ -1,0 +1,345 @@
+[
+  {
+    "id": 677283,
+    "submission_time": "04-07-15\u00a0\u00a0\u00a023:37",
+    "task": "Insulator",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677292,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a000:06",
+    "task": "Counting-Out Rhyme",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677294,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a000:16",
+    "task": "Ski Resort",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 677301,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a000:33",
+    "task": "Ski Resort",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 677303,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a000:36",
+    "task": "Protocols",
+    "result": "Runtime error",
+    "points": 45
+  },
+  {
+    "id": 677311,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a000:52",
+    "task": "Parcel",
+    "result": "Time limit exceeded",
+    "points": 25
+  },
+  {
+    "id": 677312,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a000:54",
+    "task": "Ski Resort",
+    "result": "Runtime error",
+    "points": 43
+  },
+  {
+    "id": 677318,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a001:06",
+    "task": "Protocols",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 677321,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a001:15",
+    "task": "Ski Resort",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677322,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a001:17",
+    "task": "Protocols",
+    "result": "Runtime error",
+    "points": 45
+  },
+  {
+    "id": 677326,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a001:25",
+    "task": "Minuses",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677329,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a001:32",
+    "task": "Protocols",
+    "result": "Wrong answer",
+    "points": 61
+  },
+  {
+    "id": 677343,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a001:50",
+    "task": "Protocols",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677486,
+    "submission_time": "05-07-15\u00a0\u00a0\u00a023:45",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 76
+  },
+  {
+    "id": 677498,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a000:09",
+    "task": "Railways",
+    "result": "Runtime error",
+    "points": 41
+  },
+  {
+    "id": 677501,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a000:22",
+    "task": "Cipher",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 677504,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a000:24",
+    "task": "Railways",
+    "result": "OK",
+    "points": 98
+  },
+  {
+    "id": 677511,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a000:43",
+    "task": "Byteasar the Travelling Salesman",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677512,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a000:47",
+    "task": "Railways",
+    "result": "Compile error",
+    "points": 0
+  },
+  {
+    "id": 677514,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a000:48",
+    "task": "Cipher",
+    "result": "Wrong answer",
+    "points": 40
+  },
+  {
+    "id": 677515,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a000:56",
+    "task": "Island",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677518,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a001:02",
+    "task": "Railways",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677520,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a001:13",
+    "task": "Castle",
+    "result": "Wrong answer",
+    "points": 40
+  },
+  {
+    "id": 677523,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a001:22",
+    "task": "Castle",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677524,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a001:23",
+    "task": "Cipher",
+    "result": "Wrong answer",
+    "points": 40
+  },
+  {
+    "id": 677535,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a001:38",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 93
+  },
+  {
+    "id": 677540,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a001:42",
+    "task": "Cipher",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677547,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a002:00",
+    "task": "Brackets",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677548,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a002:00",
+    "task": "Brackets",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677552,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a002:09",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 6
+  },
+  {
+    "id": 677559,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a002:28",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 93
+  },
+  {
+    "id": 677571,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a002:51",
+    "task": "Superknight",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 677577,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a002:57",
+    "task": "Superknight",
+    "result": "Wrong answer",
+    "points": 90
+  },
+  {
+    "id": 677584,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a003:16",
+    "task": "Superknight",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677589,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a003:47",
+    "task": "Parcel",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677590,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a004:29",
+    "task": "Balance",
+    "result": "Runtime error",
+    "points": 39
+  },
+  {
+    "id": 677594,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a005:04",
+    "task": "Balance",
+    "result": "Runtime error",
+    "points": 18
+  },
+  {
+    "id": 677622,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a008:39",
+    "task": "Balance",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 677631,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a009:21",
+    "task": "Skiers",
+    "result": "Runtime error",
+    "points": 0
+  },
+  {
+    "id": 677706,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a019:39",
+    "task": "Skiers",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677709,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a019:49",
+    "task": "Balance",
+    "result": "Time limit exceeded",
+    "points": 23
+  },
+  {
+    "id": 677712,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a020:18",
+    "task": "Balance",
+    "result": "OK",
+    "points": 100
+  },
+  {
+    "id": 677724,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a023:15",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 19
+  },
+  {
+    "id": 677725,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a023:38",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 72
+  },
+  {
+    "id": 677726,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a023:45",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 96
+  },
+  {
+    "id": 677727,
+    "submission_time": "06-07-15\u00a0\u00a0\u00a023:52",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 96
+  },
+  {
+    "id": 677731,
+    "submission_time": "07-07-15\u00a0\u00a0\u00a000:02",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 96
+  },
+  {
+    "id": 765121,
+    "submission_time": "31-08-16\u00a0\u00a0\u00a019:39",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 60
+  },
+  {
+    "id": 765122,
+    "submission_time": "31-08-16\u00a0\u00a0\u00a019:42",
+    "task": "B-Smooth Numbers",
+    "result": "Time limit exceeded",
+    "points": 96
+  }
+]

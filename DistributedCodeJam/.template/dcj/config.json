@@ -9,6 +9,7 @@
   "cpp-compiler-flags": [
     "-O2",
     "-std=gnu++0x",
+    "-pthread",
     "-lm",
     "-static",
     "-Wall",
@@ -19,8 +20,14 @@
     "-Wfloat-equal",
     "-Wconversion",
     "-Wlogical-op",
+    "-Wshift-overflow=2",
+    "-Wduplicated-cond",
     "-Wcast-qual",
-    "-Wcast-align"
+    "-Wcast-align",
+    "-D_GLIBCXX_DEBUG",
+    "-D_GLIBCXX_DEBUG_PEDANTIC",
+    "-D_FORTIFY_SOURCE=2",
+    "-fstack-protector"
   ],
   "java-compiler": "javac",
   "java-compiler-classpath-arg": "-classpath",
