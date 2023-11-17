@@ -187,7 +187,7 @@ class UnionFind {
 private:
 	std::vector<int> parent;
 	std::vector<int> rank;
-	std::vector<int> diff; // Store the difference to the parent
+	std::vector<long long> diff; // Store the difference to the parent using long long to prevent overflow
 
 public:
 	UnionFind(int size) : parent(size), rank(size, 0), diff(size, 0) {
@@ -205,7 +205,7 @@ public:
 		return parent[x];
 	}
 
-	bool unite(int x, int y, int d) {
+	bool unite(int x, int y, long long d) { // Use long long for d to prevent overflow
 		int xRoot = find(x);
 		int yRoot = find(y);
 		d += diff[x] - diff[y]; // Adjust d with the current differences
@@ -232,7 +232,7 @@ public:
 		return find(x) == find(y);
 	}
 
-	int getDiff(int x) {
+	long long getDiff(int x) { // Return type changed to long long to prevent overflow
 		find(x); // Ensure path compression has occurred
 		return diff[x]; // Return the difference to the parent
 	}
@@ -249,7 +249,7 @@ int main() {
 	std::cin >> N >> Q;
 	std::vector<Query> queries(Q);
 	for (int i = 0; i < Q; ++i) {
-		std::cin >> queries[i].a >> queries[i].b >> queries[i].d;
+		std::cin >> queries[i].a >> queries[i].b >> queries[i].d; // Ensure d is read into a long long type if Query struct is updated
 		queries[i].a--; // Make a 0-indexed
 		queries[i].b--; // Make b 0-indexed
 	}
@@ -260,7 +260,7 @@ int main() {
 	for (int i = 0; i < Q; ++i) {
 		int a = queries[i].a;
 		int b = queries[i].b;
-		int d = queries[i].d;
+		long long d = queries[i].d; // Use long long for d to prevent overflow
 
 		if (!uf.same(a, b)) {
 			uf.unite(a, b, d);
