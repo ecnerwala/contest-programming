@@ -187,9 +187,10 @@ class UnionFind {
 private:
 	std::vector<int> parent;
 	std::vector<int> rank;
+	std::vector<int> diff; // Store the difference to the parent
 
 public:
-	UnionFind(int size) : parent(size), rank(size, 0) {
+	UnionFind(int size) : parent(size), rank(size, 0), diff(size, 0) {
 		for (int i = 0; i < size; ++i) {
 			parent[i] = i;
 		}
@@ -197,50 +198,87 @@ public:
 
 	int find(int x) {
 		if (parent[x] != x) {
+			int original_parent = parent[x];
 			parent[x] = find(parent[x]); // Path compression
+			diff[x] += diff[original_parent]; // Update the difference
 		}
 		return parent[x];
 	}
 
-	void unite(int x, int y) {
+	bool unite(int x, int y, int d) {
 		int xRoot = find(x);
 		int yRoot = find(y);
+		d += diff[x] - diff[y]; // Adjust d with the current differences
 
-		if (xRoot == yRoot) return;
+		if (xRoot == yRoot) {
+			return d == 0; // Return true if the difference is equal to the existing one
+		}
 
 		// Union by rank
 		if (rank[xRoot] < rank[yRoot]) {
 			parent[xRoot] = yRoot;
-		} else if (rank[xRoot] > rank[yRoot]) {
-			parent[yRoot] = xRoot;
+			diff[xRoot] = -d; // Store the difference
 		} else {
+			if (rank[xRoot] == rank[yRoot]) {
+				rank[xRoot]++;
+			}
 			parent[yRoot] = xRoot;
-			rank[xRoot]++;
+			diff[yRoot] = d; // Store the difference
 		}
+		return true; // Return true as the union was successful and the difference is stored
 	}
 
 	bool same(int x, int y) {
 		return find(x) == find(y);
 	}
+
+	int getDiff(int x) {
+		find(x); // Ensure path compression has occurred
+		return diff[x]; // Return the difference to the parent
+	}
 };
 
 struct Query {
-    int a, b, d;
+	int a, b, d;
 };
 
 int main() {
-	ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
+	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	int N, Q;
 	std::cin >> N >> Q;
 	std::vector<Query> queries(Q);
 	for (int i = 0; i < Q; ++i) {
-		cin >> queries[i].a >> queries[i].b >> queries[i].d;
+		std::cin >> queries[i].a >> queries[i].b >> queries[i].d;
 		queries[i].a--; // Make a 0-indexed
 		queries[i].b--; // Make b 0-indexed
 	}
 
-	// Rest of the code to process the queries will go here
+	UnionFind uf(N);
+	std::vector<int> result;
+
+	for (int i = 0; i < Q; ++i) {
+		int a = queries[i].a;
+		int b = queries[i].b;
+		int d = queries[i].d;
+
+		if (!uf.same(a, b)) {
+			uf.unite(a, b, d);
+			result.push_back(i + 1); // Queries are 1-indexed in the problem statement
+		} else {
+			// Check if the difference is the same as the existing one
+			if (uf.getDiff(b) - uf.getDiff(a) == d) {
+				result.push_back(i + 1);
+			}
+		}
+	}
+
+	// Output the result
+	for (int i = 0; i < result.size(); ++i) {
+		if (i > 0) std::cout << " ";
+		std::cout << result[i];
+	}
+	std::cout << "\n";
 
 	return 0;
 }
