@@ -274,7 +274,7 @@ int main() {
 	}
 
 	// Output the result
-	for (int i = 0; i < result.size(); ++i) {
+	for (std::vector<int>::size_type i = 0; i < result.size(); ++i) {
 		if (i > 0) std::cout << " ";
 		std::cout << result[i];
 	}
