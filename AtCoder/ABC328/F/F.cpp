@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <vector>
 
 /*
  F - Good Set Query /
@@ -184,43 +185,43 @@ Source Code
 
 class UnionFind {
 private:
-    vector<int> parent;
-    vector<int> rank;
+	std::vector<int> parent;
+	std::vector<int> rank;
 
 public:
-    UnionFind(int size) : parent(size), rank(size, 0) {
-        for (int i = 0; i < size; ++i) {
-            parent[i] = i;
-        }
-    }
+	UnionFind(int size) : parent(size), rank(size, 0) {
+		for (int i = 0; i < size; ++i) {
+			parent[i] = i;
+		}
+	}
 
-    int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]); // Path compression
-        }
-        return parent[x];
-    }
+	int find(int x) {
+		if (parent[x] != x) {
+			parent[x] = find(parent[x]); // Path compression
+		}
+		return parent[x];
+	}
 
-    void unite(int x, int y) {
-        int xRoot = find(x);
-        int yRoot = find(y);
+	void unite(int x, int y) {
+		int xRoot = find(x);
+		int yRoot = find(y);
 
-        if (xRoot == yRoot) return;
+		if (xRoot == yRoot) return;
 
-        // Union by rank
-        if (rank[xRoot] < rank[yRoot]) {
-            parent[xRoot] = yRoot;
-        } else if (rank[xRoot] > rank[yRoot]) {
-            parent[yRoot] = xRoot;
-        } else {
-            parent[yRoot] = xRoot;
-            rank[xRoot]++;
-        }
-    }
+		// Union by rank
+		if (rank[xRoot] < rank[yRoot]) {
+			parent[xRoot] = yRoot;
+		} else if (rank[xRoot] > rank[yRoot]) {
+			parent[yRoot] = xRoot;
+		} else {
+			parent[yRoot] = xRoot;
+			rank[xRoot]++;
+		}
+	}
 
-    bool same(int x, int y) {
-        return find(x) == find(y);
-    }
+	bool same(int x, int y) {
+		return find(x) == find(y);
+	}
 };
 
 struct Query {
@@ -228,12 +229,11 @@ struct Query {
 };
 
 int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	int N, Q;
-	cin >> N >> Q;
-	vector<Query> queries(Q);
+	std::cin >> N >> Q;
+	std::vector<Query> queries(Q);
 	for (int i = 0; i < Q; ++i) {
 		cin >> queries[i].a >> queries[i].b >> queries[i].d;
 		queries[i].a--; // Make a 0-indexed
