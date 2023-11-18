@@ -13,7 +13,26 @@ int main() {
 	std::sort(pts.begin(), pts.end());
 
 	auto solve = [&]() -> bool {
-		std::vector<int> par(K+1, -1);
+		if (N == 1 || M == 1) return true;
+		if (M > 2 * K + 1) {
+			return false;
+		}
+		std::vector<std::pair<int, std::array<int, 2>>> empties;
+		empties.reserve(M + K);
+		for (int y = 0, i = 0; y < M; y++) {
+			int x = 0;
+			while (i < K && pts[i].first == y) {
+				assert(x <= pts[i].second[0]);
+				if (x < pts[i].second[0]) {
+					empties.push_back({y, {x, pts[i].second[0]}});
+				}
+				x = pts[i].second[1];
+			}
+			assert(x <= N);
+			if (x < N) empties.push_back({y, {x, N}});
+		}
+
+		std::vector<int> par(int(empties.size()), -1);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
 				if (par[par[a]] >= 0) par[a] = par[par[a]];
@@ -30,23 +49,7 @@ int main() {
 			return true;
 		};
 
-		// outside boundary
-		for (int i = 0; i < K; i++) {
-			if (pts[i].first == 0 || pts[i].first == M-1 || pts[i].second[0] == 0 || pts[i].second[1] == N) {
-				merge(i, K);
-			}
-		}
-
-		for (int i = 0; i+1 < K; i++) {
-			assert(pts[i].first <= pts[i+1].first);
-			if (pts[i].first < pts[i+1].first) continue;
-			assert(pts[i].second[1] <= pts[i+1].second[0]);
-			if (pts[i+1].second[0] - pts[i].second[1] == 0) {
-				merge(i, i+1);
-			}
-		}
-
-		for (int i = 0, j = 0; j < K; ) {
+		for (int i = 0, j = 0; j < int(empties.size()); ) {
 			if (pts[j].first <= pts[i].first) {
 				j++;
 				continue;
@@ -56,78 +59,14 @@ int main() {
 				continue;
 			}
 			assert(pts[j].first - pts[i].first == 1);
-			if (std::max(pts[i].second[0], pts[j].second[0]) <= std::min(pts[i].second[1], pts[j].second[1])) {
-				merge(i, j);
-			}
-			if (pts[i].second[1] <= pts[j].second[1]) {
-				i++;
-			} else {
-				j++;
+			int overlap = -(std::max(pts[i].second[0], pts[j].second[0]) - std::min(pts[i].second[1], pts[j].second[1]));
+			if (overlap >= 2) return false;
+			else if (overlap == 1) {
+				if (!merge(i, j)) return false;
 			}
 		}
 
-		auto get_comp = [&](int y, int x) -> int {
-			if (y < 0 || y >= M || x < 0 || x >= N) return get_par(K);
-
-			auto it = std::lower_bound(pts.begin(), pts.end(), std::pair<int, std::array<int, 2>>{y, {x+1, x+1}});
-			if (it == pts.begin()) return -1;
-			--it;
-			if (it->first == y && it->second[0] <= x && x < it->second[1]) {
-				return get_par(int(it - pts.begin()));
-			} else {
-				return -1;
-			}
-		};
-		auto get_comp_2 = [&](int y0, int x0, int y1, int x1) -> int {
-			int r0 = get_comp(y0, x0);
-			int r1 = get_comp(y1, x1);
-			if (r0 == -1) return r1;
-			if (r1 == -1) return r0;
-			assert(r0 == r1);
-			return r0;
-		};
-
-		auto test_vert = [&](int y0, int x0) -> bool {
-			if (get_comp_2(y0, x0, y0, x0+1) != -1) return false;
-			int a = get_comp_2(y0-1, x0, y0-1, x0+1);
-			int b = get_comp_2(y0+1, x0, y0+1, x0+1);
-			if (a == b && a != -1) {
-				cerr << "bad vert " << y0 << ' ' << x0 << '\n';
-				return true;
-			}
-			return false;
-		};
-		auto test_horiz = [&](int y0, int x0) -> bool {
-			if (get_comp_2(y0, x0, y0+1, x0) != -1) return false;
-			int a = get_comp_2(y0, x0-1, y0+1, x0-1);
-			int b = get_comp_2(y0, x0+1, y0+1, x0+1);
-			if (a == b && a != -1) {
-				cerr << "bad horiz " << y0 << ' ' << x0 << '\n';
-				return true;
-			}
-			return false;
-		};
-
-		for (int i = 0; i < K; i++) {
-			if (test_vert(pts[i].first, pts[i].second[1])) return true;
-			if (test_vert(pts[i].first-1, std::max(0, pts[i].second[0]-1))) return true;
-			if (test_vert(pts[i].first+1, std::max(0, pts[i].second[0]-1))) return true;
-			if (test_horiz(pts[i].first-1, pts[i].second[0]-1)) return true;
-			if (test_horiz(pts[i].first-1, pts[i].second[1])) return true;
-			if (test_horiz(pts[i].first, pts[i].second[0]-1)) return true;
-			if (test_horiz(pts[i].first, pts[i].second[1])) return true;
-		}
-
-		if (N == 1 || M == 1) {
-			int64_t num_filled = 0;
-			for (int i = 0; i < K; i++) {
-				num_filled += pts[i].second[1] - pts[i].second[0];
-			}
-			int64_t num_empty = int64_t(N) * int64_t(M) - num_filled;
-			if (num_empty >= 2) return true;
-		}
-
-		return false;
+		return true;
 	};
 
 	cout << (solve() ? "YES" : "NO") << '\n';
