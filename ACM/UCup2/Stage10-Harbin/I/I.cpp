@@ -838,8 +838,8 @@ int main() {
 		for (int i = 0; i <= N; i++) {
 			subset_incomplete[m][i] *= fact[i];
 		}
-		//cerr << "msk " << m << '\n';
-		//for (int i = 0; i <= N; i++) { cerr << subset_incomplete[m][i] << ' '; } cerr << '\n';
+		cerr << "msk " << m << '\n';
+		for (int i = 0; i <= N; i++) { cerr << subset_incomplete[m][i] << ' '; } cerr << '\n';
 	}
 
 	int msk_st = 0;
@@ -851,17 +851,17 @@ int main() {
 	int tot_B = sum_B.back();
 	num ans = 0;
 	for (int i = 0; i < tot_B; i++) {
-		//cerr << "step " << i << '\n';
+		cerr << "step " << i << '\n';
 		std::fill(ndp.begin(), ndp.end(), 0);
 		for (int msk = 0; msk < (1 << M); msk++) {
 			if (dp[msk] == 0) continue;
-			//cerr << "msk " << msk << ' ' << dp[msk] * 24 << '/' << 24 << '\n';
+			cerr << "msk " << msk << ' ' << dp[msk] * 24 << '/' << 24 << '\n';
 			ans += dp[msk] * num(tot_A - i) / num(sum_A[msk] - (i - (tot_B - sum_B[msk])));
 			int num_used = i - (tot_B - sum_B[msk]);
-			//cerr << "  num used " << num_used << '\n';
+			cerr << "  num used " << num_used << '\n';
 			// now, work out the probablities
 			num tot_w = subset_incomplete[msk][num_used] * num(sum_A[msk] - num_used);
-			//cerr << "  tot_w " << tot_w << '\n';
+			cerr << "  tot_w " << tot_w << '\n';
 			assert(tot_w != 0);
 			num leftover_w = tot_w;
 			for (int a = 0; a < M; a++) {
@@ -870,7 +870,7 @@ int main() {
 					num cur_w = subset_incomplete[msk - (1 << a)][num_used - (B[a] - 1)];
 					cur_w *= fact[num_used] * ifact[num_used - (B[a] - 1)] * ifact[B[a] - 1];
 					cur_w *= fact[A[a]] * ifact[A[a] - B[a]];
-					//cerr << "  a " << a << ' ' << "cur_w " << cur_w << '\n';
+					cerr << "  a " << a << ' ' << "cur_w " << cur_w << '\n';
 					leftover_w -= cur_w;
 					ndp[msk - (1 << a)] += cur_w / tot_w;
 				}
