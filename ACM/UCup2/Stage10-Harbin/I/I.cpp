@@ -872,6 +872,7 @@ int main() {
 					ndp[msk - (1 << a)] += cur_w / tot_w;
 				}
 			}
+			assert(leftover_w == subset_incomplete[msk][num_used + 1]);
 			ndp[msk] += leftover_w / tot_w;
 		}
 		std::swap(dp, ndp);
