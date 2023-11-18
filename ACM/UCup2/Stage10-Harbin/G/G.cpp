@@ -60,7 +60,7 @@ int main() {
 			}
 			assert(empties[j].first - empties[i].first == 1);
 			int overlap = -(std::max(empties[i].second[0], empties[j].second[0]) - std::min(empties[i].second[1], empties[j].second[1]));
-			cerr << i << ' ' << j << ' ' << overlap << '\n';
+			//cerr << i << ' ' << j << ' ' << overlap << '\n';
 			if (overlap >= 2) return false;
 			else if (overlap == 1) {
 				if (!merge(i, j)) return false;
