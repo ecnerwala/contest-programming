@@ -854,7 +854,7 @@ int main() {
 		std::fill(ndp.begin(), ndp.end(), 0);
 		for (int msk = 0; msk < (1 << M); msk++) {
 			if (dp[msk] == 0) continue;
-			ans += dp[msk] * num(tot_A - i) / num(sum_B[msk] - (i - (tot_A - sum_A[msk])));
+			ans += dp[msk] * num(tot_A - i) / num(sum_A[msk] - (i - (tot_B - sum_B[msk])));
 		}
 		std::swap(dp, ndp);
 	}
