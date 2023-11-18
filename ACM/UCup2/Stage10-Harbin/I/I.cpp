@@ -851,9 +851,11 @@ int main() {
 	int tot_B = sum_B.back();
 	num ans = 0;
 	for (int i = 0; i < tot_B; i++) {
+		cerr << "step " << i << '\n';
 		std::fill(ndp.begin(), ndp.end(), 0);
 		for (int msk = 0; msk < (1 << M); msk++) {
 			if (dp[msk] == 0) continue;
+			cerr << "msk " << msk << ' ' << dp[msk] << '\n';
 			ans += dp[msk] * num(tot_A - i) / num(sum_A[msk] - (i - (tot_B - sum_B[msk])));
 			int num_used = i - (tot_B - sum_B[msk]);
 			// now, work out the probablities
