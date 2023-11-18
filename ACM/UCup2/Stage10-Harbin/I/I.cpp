@@ -173,7 +173,7 @@ int main() {
 		for (int msk = 0; msk < (1 << M); msk++) {
 			// ways for exactly all of msk to be in the first i
 			if (dp[msk] != 0) {
-				cerr << "msk " << msk << '\n';
+				cerr << "msk " << msk << ' ' << dp[msk] * fact[i] << '\n';
 				assert(tot_A - i - (sum_A[msk] - sum_B[msk]) > 0);
 				ans += dp[msk] * inv_den * num(tot_A - i) / num(tot_A - i - (sum_A[msk] - sum_B[msk]));
 			}
