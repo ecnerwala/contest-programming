@@ -858,6 +858,7 @@ int main() {
 			int num_used = i - (tot_B - sum_B[msk]);
 			// now, work out the probablities
 			num tot_w = subset_incomplete[msk][num_used] * num(sum_A[msk] - num_used);
+			assert(tot_w != 0);
 			num leftover_w = tot_w;
 			for (int a = 0; a < M; a++) {
 				if (!(msk & (1 << a))) continue;
