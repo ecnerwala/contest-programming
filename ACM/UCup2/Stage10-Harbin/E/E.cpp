@@ -49,29 +49,32 @@ int main() {
 		return res;
 	};
 
-	int N; cin >> N;
-	int64_t base_val = 0;
-	std::vector<op_t> pref; pref.reserve(N);
-	std::vector<op_t> suff; suff.reserve(N);
-	for (int i = 0; i < N; i++) {
-		int a, b, c; cin >> a >> b >> c;
-		if (a >= b) {
-			suff.push_back(op_t{a - b, c, b, i});
-			base_val += b;
-		} else {
-			pref.push_back(op_t{b - a, c, a, i});
-			base_val += a;
+	int T; cin >> T;
+	while (T--) {
+		int N; cin >> N;
+		int64_t base_val = 0;
+		std::vector<op_t> pref; pref.reserve(N);
+		std::vector<op_t> suff; suff.reserve(N);
+		for (int i = 0; i < N; i++) {
+			int a, b, c; cin >> a >> b >> c;
+			if (a >= b) {
+				suff.push_back(op_t{a - b, c, b, i});
+				base_val += b;
+			} else {
+				pref.push_back(op_t{b - a, c, a, i});
+				base_val += a;
+			}
 		}
-	}
 
-	auto ans0 = solve(pref, base_val);
-	auto ans1 = solve(suff, base_val);
+		auto ans0 = solve(pref, base_val);
+		auto ans1 = solve(suff, base_val);
 
-	std::vector<int> ans; ans.reserve(N);
-	ans.insert(ans.end(), ans0.begin(), ans0.end());
-	ans.insert(ans.end(), ans1.rbegin(), ans1.rend());
-	for (int i = 0; i < N; i++) {
-		cout << ans[i]+1 << " \n"[i+1==N];
+		std::vector<int> ans; ans.reserve(N);
+		ans.insert(ans.end(), ans0.begin(), ans0.end());
+		ans.insert(ans.end(), ans1.rbegin(), ans1.rend());
+		for (int i = 0; i < N; i++) {
+			cout << ans[i]+1 << " \n"[i+1==N];
+		}
 	}
 
 	return 0;
