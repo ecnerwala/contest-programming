@@ -858,6 +858,7 @@ int main() {
 			cerr << "msk " << msk << ' ' << dp[msk] * 24 << '/' << 24 << '\n';
 			ans += dp[msk] * num(tot_A - i) / num(sum_A[msk] - (i - (tot_B - sum_B[msk])));
 			int num_used = i - (tot_B - sum_B[msk]);
+			cerr << "  num used " << num_used << '\n';
 			// now, work out the probablities
 			num tot_w = subset_incomplete[msk][num_used] * num(sum_A[msk] - num_used);
 			assert(tot_w != 0);
