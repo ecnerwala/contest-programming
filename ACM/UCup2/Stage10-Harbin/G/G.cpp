@@ -21,7 +21,7 @@ int main() {
 		empties.reserve(M + K);
 		for (int y = 0, i = 0; y < M; y++) {
 			int x = 0;
-			while (i < K && pts[i].first == y) {
+			for (; i < K && pts[i].first == y; i++) {
 				assert(x <= pts[i].second[0]);
 				if (x < pts[i].second[0]) {
 					empties.push_back({y, {x, pts[i].second[0]}});
