@@ -872,12 +872,12 @@ int main() {
 					cur_w *= fact[A[a]] * ifact[A[a] - B[a]];
 					cerr << "  a " << a << ' ' << "nmsk " << msk - (1 << a) << ' ' << "cur_w " << cur_w << '\n';
 					leftover_w -= cur_w;
-					ndp[msk - (1 << a)] += cur_w / tot_w;
+					ndp[msk - (1 << a)] += dp[msk] * cur_w / tot_w;
 				}
 			}
 			assert(leftover_w == subset_incomplete[msk][num_used + 1]);
 			cerr << "  nothing " << "nmsk " << msk << ' ' << leftover_w << '\n';
-			ndp[msk] += leftover_w / tot_w;
+			ndp[msk] += dp[msk] * leftover_w / tot_w;
 		}
 		std::swap(dp, ndp);
 	}
