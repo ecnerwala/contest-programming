@@ -861,6 +861,7 @@ int main() {
 			cerr << "  num used " << num_used << '\n';
 			// now, work out the probablities
 			num tot_w = subset_incomplete[msk][num_used] * num(sum_A[msk] - num_used);
+			cerr << "  tot_w " << tot_w << '\n';
 			assert(tot_w != 0);
 			num leftover_w = tot_w;
 			for (int a = 0; a < M; a++) {
@@ -869,6 +870,7 @@ int main() {
 					num cur_w = subset_incomplete[msk - (1 << a)][num_used - (B[a] - 1)];
 					cur_w *= (A[a] - B[a] + 1);
 					cur_w *= fact[num_used] * ifact[num_used - (B[a] - 1)] * ifact[B[a] - 1];
+					cerr << "  a " << a << ' ' << "cur_w " << cur_w << '\n';
 					leftover_w -= cur_w;
 					ndp[msk - (1 << a)] += cur_w / tot_w;
 				}
