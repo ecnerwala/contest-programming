@@ -838,14 +838,27 @@ int main() {
 		for (int i = 0; i <= N; i++) {
 			subset_incomplete[m][i] *= fact[i];
 		}
-		cerr << "msk " << m << '\n';
-		for (int i = 0; i <= N; i++) { cerr << subset_incomplete[m][i] << ' '; } cerr << '\n';
+		//cerr << "msk " << m << '\n';
+		//for (int i = 0; i <= N; i++) { cerr << subset_incomplete[m][i] << ' '; } cerr << '\n';
 	}
+
 	int msk_st = 0;
 	for (int i = 0; i < M; i++) if (B[i] > 0) msk_st |= (1 << i);
-
+	std::vector<num> dp(1 << M);
+	dp[msk_st] = 1;
+	std::vector<num> ndp(1 << M);
 	int tot_A = sum_A.back();
 	int tot_B = sum_B.back();
+	num ans = 0;
+	for (int i = 0; i < tot_B; i++) {
+		std::fill(ndp.begin(), ndp.end(), 0);
+		for (int msk = 0; msk < (1 << M); msk++) {
+			if (dp[msk] == 0) continue;
+			ans += dp[msk] * num(tot_A - i) / num(sum_B[msk] - (i - (tot_A - sum_A[msk])));
+		}
+		std::swap(dp, ndp);
+	}
+
 	std::vector<num> dp(1 << M);
 	num ans = 0;
 	for (int i = 0; i < tot_B; i++) {
