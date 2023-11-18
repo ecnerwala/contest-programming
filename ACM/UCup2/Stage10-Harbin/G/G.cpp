@@ -104,10 +104,10 @@ int main() {
 			if (test_vert(pts[i].first, pts[i].second[1])) return true;
 			if (test_vert(pts[i].first-1, std::max(0, pts[i].second[0]-1))) return true;
 			if (test_vert(pts[i].first+1, std::max(0, pts[i].second[0]-1))) return true;
+			if (test_horiz(pts[i].first-1, pts[i].second[0]-1)) return true;
+			if (test_horiz(pts[i].first-1, pts[i].second[1])) return true;
 			if (test_horiz(pts[i].first, pts[i].second[0]-1)) return true;
 			if (test_horiz(pts[i].first, pts[i].second[1])) return true;
-			if (test_horiz(pts[i].first+1, pts[i].second[0]-1)) return true;
-			if (test_horiz(pts[i].first+1, pts[i].second[1])) return true;
 		}
 
 		if (N == 1 || M == 1) {
