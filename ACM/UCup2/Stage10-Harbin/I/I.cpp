@@ -855,44 +855,25 @@ int main() {
 		for (int msk = 0; msk < (1 << M); msk++) {
 			if (dp[msk] == 0) continue;
 			ans += dp[msk] * num(tot_A - i) / num(sum_A[msk] - (i - (tot_B - sum_B[msk])));
+			int num_used = i - (tot_B - sum_B[msk]);
+			// now, work out the probablities
+			num tot_w = subset_incomplete[msk][num_used] * num(sum_A[msk] - num_used);
+			num leftover_w = tot_w;
+			for (int a = 0; a < M; a++) {
+				if (!(msk & (1 << a))) continue;
+				if (B[a] - 1 <= num_used) {
+					num cur_w = subset_incomplete[msk - (1 << a)][num_used - (B[a] - 1)];
+					cur_w *= (A[a] - B[a] + 1);
+					cur_w *= fact[num_used] * ifact[num_used - (B[a] - 1)] * ifact[B[a] - 1];
+					leftover_w -= cur_w;
+					ndp[msk - (1 << a)] += cur_w / tot_w;
+				}
+			}
+			ndp[msk] += leftover_w / tot_w;
 		}
 		std::swap(dp, ndp);
 	}
 	cout << ans << '\n';
-
-	/*
-	std::vector<num> dp(1 << M);
-	num ans = 0;
-	for (int i = 0; i < tot_B; i++) {
-		cerr << "step " << i << '\n';
-		for (int msk = 0; msk < (1 << M); msk++) {
-			// ways for all of msk to be in the first i
-			if (sum_B[msk] > i) {
-				dp[msk] = 0;
-			} else {
-				// prob is fact[sum_B[msk]] * fact[tot_B - sum_B[msk]] * choose(i, sum_B[msk]) / fact[tot_B]
-				dp[msk] = fact[tot_B - sum_B[msk]] * ifact[i - sum_B[msk]];
-			}
-		}
-		for (int b = 0; b < M; b++) {
-			for (int msk = 0; msk < (1 << M); msk++) {
-				if (msk & (1 << b)) continue;
-				dp[msk] -= dp[msk + (1 << b)];
-			}
-		}
-		num inv_den = fact[i] * ifact[tot_B];
-		assert(std::accumulate(dp.begin(), dp.end(), num(0)) * inv_den == 1);
-		for (int msk = 0; msk < (1 << M); msk++) {
-			// ways for exactly all of msk to be in the first i
-			if (dp[msk] != 0) {
-			}
-				cerr << "msk " << msk << ' ' << dp[msk] << '/' << inv(inv_den) << ' ' << (tot_A - i) << '/' << (tot_A - i - (sum_A[msk] - sum_B[msk])) << '\n';
-				assert(tot_A - i - (sum_A[msk] - sum_B[msk]) > 0);
-				ans += dp[msk] * inv_den * num(tot_A - i) / num(tot_A - i - (sum_A[msk] - sum_B[msk]));
-		}
-	}
-	cout << ans << '\n';
-	*/
 
 	return 0;
 }
