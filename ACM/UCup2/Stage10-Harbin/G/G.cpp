@@ -91,13 +91,21 @@ int main() {
 			if (get_comp_2(y0, x0, y0, x0+1) != -1) return false;
 			int a = get_comp_2(y0-1, x0, y0-1, x0+1);
 			int b = get_comp_2(y0+1, x0, y0+1, x0+1);
-			return a == b && a != -1;
+			if (a == b && a != -1) {
+				cerr << "bad vert " << y0 << ' ' << x0 << '\n';
+				return true;
+			}
+			return false;
 		};
 		auto test_horiz = [&](int y0, int x0) -> bool {
 			if (get_comp_2(y0, x0, y0+1, x0) != -1) return false;
 			int a = get_comp_2(y0, x0-1, y0+1, x0-1);
 			int b = get_comp_2(y0, x0+1, y0+1, x0+1);
-			return a == b && a != -1;
+			if (a == b && a != -1) {
+				cerr << "bad horiz " << y0 << ' ' << x0 << '\n';
+				return true;
+			}
+			return false;
 		};
 
 		for (int i = 0; i < K; i++) {
