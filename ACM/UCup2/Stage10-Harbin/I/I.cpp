@@ -147,8 +147,10 @@ int main() {
 		}
 	}
 
+	int tot_A = sum_A.back();
 	int tot_B = sum_B.back();
 	std::vector<num> dp(1 << M);
+	num ans = 0;
 	for (int i = 0; i < tot_B; i++) {
 		for (int msk = 0; msk < (1 << M); msk++) {
 			// ways for all of msk to be in the first i
@@ -165,8 +167,14 @@ int main() {
 				dp[msk] -= dp[msk + (1 << b)];
 			}
 		}
-		assert(std::accumulate(dp.begin(), dp.end(), num(0)) == fact[tot_B] / fact[i]);
+		num inv_den = fact[i] * ifact[tot_B];
+		assert(std::accumulate(dp.begin(), dp.end(), num(0)) * inv_den == 1);
+		for (int msk = 0; msk < (1 << M); msk++) {
+			// ways for exactly all of msk to be in the first i
+			ans += dp[msk] * inv_den * (tot_A - i) / num(tot_A - i - (sum_A[msk] - sum_B[msk]));
+		}
 	}
+	cout << ans << '\n';
 
 	return 0;
 }
