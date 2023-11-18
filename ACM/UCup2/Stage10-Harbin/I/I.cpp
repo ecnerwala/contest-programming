@@ -856,8 +856,8 @@ int main() {
 		for (int msk = 0; msk < (1 << M); msk++) {
 			if (dp[msk] == 0) continue;
 			int num_used = i - (tot_B - sum_B[msk]);
-			cerr << "msk " << msk << ' ' << dp[msk] * 24 << '/' << 24 << ' ' << num(tot_A - i) << '/' << num(sum_A[msk] - num_used)'\n';
-			ans += dp[msk] * num(tot_A - i) / num(sum_A[msk] - (i - (tot_B - sum_B[msk])));
+			cerr << "msk " << msk << ' ' << dp[msk] * 24 << '/' << 24 << ' ' << num(tot_A - i) << '/' << num(sum_A[msk] - num_used) << '\n';
+			ans += dp[msk] * num(tot_A - i) / num(sum_A[msk] - num_used);
 			cerr << "  num used " << num_used << '\n';
 			// now, work out the probablities
 			num tot_w = subset_incomplete[msk][num_used] * num(sum_A[msk] - num_used);
