@@ -152,6 +152,7 @@ int main() {
 	std::vector<num> dp(1 << M);
 	num ans = 0;
 	for (int i = 0; i < tot_B; i++) {
+		cerr << "step " << i << '\n';
 		for (int msk = 0; msk < (1 << M); msk++) {
 			// ways for all of msk to be in the first i
 			if (sum_B[msk] > i) {
@@ -172,6 +173,7 @@ int main() {
 		for (int msk = 0; msk < (1 << M); msk++) {
 			// ways for exactly all of msk to be in the first i
 			if (dp[msk] != 0) {
+				cerr << "msk " << msk << '\n';
 				assert(tot_A - i - (sum_A[msk] - sum_B[msk]) > 0);
 				ans += dp[msk] * inv_den * num(tot_A - i) / num(tot_A - i - (sum_A[msk] - sum_B[msk]));
 			}
