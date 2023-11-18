@@ -864,6 +864,7 @@ int main() {
 			//cerr << "  tot_w " << tot_w << '\n';
 			assert(tot_w != 0);
 			num leftover_w = tot_w;
+			num base = dp[msk] / tot_w;
 			for (int a = 0; a < M; a++) {
 				if (!(msk & (1 << a))) continue;
 				if (B[a] - 1 <= num_used) {
@@ -872,12 +873,12 @@ int main() {
 					cur_w *= fact[A[a]] * ifact[A[a] - B[a]];
 					//cerr << "  a " << a << ' ' << "nmsk " << msk - (1 << a) << ' ' << "cur_w " << cur_w << '\n';
 					leftover_w -= cur_w;
-					ndp[msk - (1 << a)] += dp[msk] * cur_w / tot_w;
+					ndp[msk - (1 << a)] += cur_w * base;
 				}
 			}
 			assert(leftover_w == subset_incomplete[msk][num_used + 1]);
 			//cerr << "  nothing " << "nmsk " << msk << ' ' << leftover_w << '\n';
-			ndp[msk] += dp[msk] * leftover_w / tot_w;
+			ndp[msk] += leftover_w * base;
 		}
 		std::swap(dp, ndp);
 	}
