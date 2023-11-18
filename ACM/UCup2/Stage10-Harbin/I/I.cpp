@@ -870,8 +870,8 @@ int main() {
 					num cur_w = subset_incomplete[msk - (1 << a)][num_used - (B[a] - 1)];
 					cur_w *= (A[a] - B[a] + 1);
 					cur_w *= fact[num_used] * ifact[num_used - (B[a] - 1)] * ifact[B[a] - 1];
-					cur_w /= fact[sum_A[msk] - A[a]] * ifact[sum_A[msk] - A[a] - (num_used - (B[a] - 1))];
-					cur_w *= fact[sum_A[msk]] * ifact[sum_A[msk] - num_used];
+					//cur_w /= fact[sum_A[msk] - A[a]] * ifact[sum_A[msk] - A[a] - (num_used - (B[a] - 1))];
+					//cur_w *= fact[sum_A[msk]] * ifact[sum_A[msk] - num_used];
 					cerr << "  a " << a << ' ' << "cur_w " << cur_w << '\n';
 					leftover_w -= cur_w;
 					ndp[msk - (1 << a)] += cur_w / tot_w;
