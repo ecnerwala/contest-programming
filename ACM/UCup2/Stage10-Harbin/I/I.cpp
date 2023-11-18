@@ -838,8 +838,8 @@ int main() {
 		for (int i = 0; i <= N; i++) {
 			subset_incomplete[m][i] *= fact[i];
 		}
-		//cerr << "msk " << m << '\n';
-		//for (int i = 0; i <= N; i++) { cerr << subset_incomplete[m][i] << ' '; } cerr << '\n';
+		cerr << "msk " << m << '\n';
+		for (int i = 0; i <= N; i++) { cerr << subset_incomplete[m][i] << ' '; } cerr << '\n';
 	}
 
 	int msk_st = 0;
