@@ -155,17 +155,17 @@ int main() {
 			if (sum_B[msk] > i) {
 				dp[msk] = 0;
 			} else {
-				// ways fact[sum_B[msk]] * fact[tot_B - sum_B[msk]] * choose(i, sum_B[msk])
-				dp[msk] = fact[tot_B - sum_B[msk]] * fact[i] * ifact[i - sum_B[msk]];
+				// prob is fact[sum_B[msk]] * fact[tot_B - sum_B[msk]] * choose(i, sum_B[msk]) / fact[tot_B]
+				dp[msk] = fact[tot_B - sum_B[msk]] * ifact[i - sum_B[msk]];
 			}
 		}
-		for (int i = 0; i < M; i++) {
+		for (int b = 0; b < M; b++) {
 			for (int msk = 0; msk < (1 << M); msk++) {
-				if (msk & (1 << i)) continue;
-				dp[msk] -= dp[msk + (1 << i)];
+				if (msk & (1 << b)) continue;
+				dp[msk] -= dp[msk + (1 << b)];
 			}
 		}
-		cerr << std::accumulate(dp.begin(), dp.end(), num(0)) << ' ' << fact[tot_B] << '\n';
+		assert(std::accumulate(dp.begin(), dp.end(), num(0)) == fact[tot_B] / fact[i]);
 	}
 
 	return 0;
