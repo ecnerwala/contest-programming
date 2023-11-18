@@ -816,19 +816,19 @@ int main() {
 	assert(N <= S);
 	using fft = ecnerwala::fft::fft<num>;
 	fft::init(S);
-	std::vector<std::array<num, S>> incomplete_ways(M);
+	std::array<num, S> incomplete_ways;
 	std::vector<std::array<num, S>> subset_incomplete(1<<M);
 	subset_incomplete[0].fill(inv(num(S)));
 	for (int i = 0; i < M; i++) {
-		incomplete_ways[i].fill(0);
+		incomplete_ways.fill(0);
 		for (int c = 0; c < B[i]; c++) {
-			incomplete_ways[i][c] = fact[A[i]] * ifact[A[i] - c] * ifact[c];
+			incomplete_ways[c] = fact[A[i]] * ifact[A[i] - c] * ifact[c];
 		}
-		fft::go(incomplete_ways[i].begin(), S);
+		fft::go(incomplete_ways.begin(), S);
 
 		for (int m = 0; m < (1 << i); m++) {
 			for (int c = 0; c < S; c++) {
-				subset_incomplete[(1<<i)+m][c] = incomplete_ways[i][c] * subset_incomplete[m][c];
+				subset_incomplete[(1<<i)+m][c] = incomplete_ways[c] * subset_incomplete[m][c];
 			}
 		}
 	}
