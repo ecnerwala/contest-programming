@@ -65,6 +65,8 @@ int main() {
 			else if (overlap == 1) {
 				if (!merge(i, j)) return false;
 			}
+			if (empties[i].second[1] <= empties[j].second[1]) i++;
+			else j++;
 		}
 
 		return true;
