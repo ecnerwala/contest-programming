@@ -858,7 +858,9 @@ int main() {
 		}
 		std::swap(dp, ndp);
 	}
+	cout << ans << '\n';
 
+	/*
 	std::vector<num> dp(1 << M);
 	num ans = 0;
 	for (int i = 0; i < tot_B; i++) {
@@ -890,6 +892,7 @@ int main() {
 		}
 	}
 	cout << ans << '\n';
+	*/
 
 	return 0;
 }
