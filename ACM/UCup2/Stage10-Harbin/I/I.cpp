@@ -841,6 +841,8 @@ int main() {
 		cerr << "msk " << m << '\n';
 		for (int i = 0; i <= N; i++) { cerr << subset_incomplete[m][i] << ' '; } cerr << '\n';
 	}
+	int msk_st = 0;
+	for (int i = 0; i < M; i++) if (B[i] > 0) msk_st |= (1 << i);
 
 	int tot_A = sum_A.back();
 	int tot_B = sum_B.back();
