@@ -198,6 +198,7 @@ int main() {
 			T_fail[i+1] = T_next[i].insert(T[i], i+1);
 			T_next[i+1] = T_next[T_fail[i+1]];
 		}
+		T_next[M].insert(-1, M+1);
 		//cerr << "T_fail" << ' '; for (int v : T_fail) { cerr << v << ' '; } cerr << '\n';
 		//for (auto a : T_next) { for (auto [x, y] : a.vec) { cerr << x << "->" << y << ' '; } cerr << '\n'; }
 
