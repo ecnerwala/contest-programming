@@ -239,13 +239,6 @@ int main() {
 					self(ch_it->second);
 					ch_it++;
 				}
-				if (match_dist[i] == M) {
-					// we should also mark ourself, it's like a $ sign edge
-					int p = *(stk.end()-1-M);
-					assert(lcp_len[p] == -1);
-					lcp_len[p] = M;
-				}
-
 				assert(stk.back() == i);
 				stk.pop_back();
 			})(0);
