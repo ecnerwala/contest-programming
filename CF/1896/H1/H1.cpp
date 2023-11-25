@@ -849,17 +849,23 @@ int main() {
 			for (int i = 0; i < (1 << cur_idx); i++) {
 				ndp_mismatch[i] = ecnerwala::fft::fft_multiply(dp[i], dp[i + (1 << cur_idx)]);
 				for (int a = 0; a <= V; a++) {
-					num v = dp[i][a] *= dp[i + (1 << cur_idx)][a];
-					ndp_mismatch[i][2*a] -= v;
+					dp[i][a] *= dp[i + (1 << cur_idx)][a];
 				}
 			}
-			dp.resize((1 << cur_idx));
+			dp.resize(1 << cur_idx);
 			self(std::move(ndp_mismatch), cur_idx, cur_msk);
 			self(std::move(dp), cur_idx, cur_msk | (1 << cur_idx));
 		})(st_dp, K, 0);
 
 		for (int i = 0; i < L; i++) {
 			cerr << i << ' ' << ways[z][i] << '\n';
+		}
+
+		for (int k = 0; k < K; k++) {
+			for (int i = 0; i < L; i++) {
+				if (i & (1 << k)) continue;
+				ways[z][i] -= ways[z][i + (1 << k)];
+			}
 		}
 
 		// Now we just or convolve the two
