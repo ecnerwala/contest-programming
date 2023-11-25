@@ -102,6 +102,7 @@ int main() {
 				cin >> t;
 			}
 		}
+		cerr << "Running case " << N << ' ' << M << '\n';
 
 		std::vector<int> jmp = P;
 		std::vector<std::array<int, 2>> suff_value(N);
