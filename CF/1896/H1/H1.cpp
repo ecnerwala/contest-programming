@@ -862,8 +862,7 @@ int main() {
 		for (int k = 0; k < K; k++) {
 			for (int i = 0; i < L; i++) {
 				if (i & (1 << k)) continue;
-				ways[z][i] -= ways[z][i + (1 << k)];
-				ways[z][i + (1 << k)] += ways[z][i];
+				ways[z][i] -= std::exchange(ways[z][i + (1 << k)], ways[z][i]);
 			}
 		}
 	}
