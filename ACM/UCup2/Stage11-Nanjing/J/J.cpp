@@ -298,7 +298,7 @@ int main() {
 		std::vector<int> depth(N);
 		for (int i = 1; i < N; i++) depth[i] = depth[P[i]] + 1;
 
-		int64_t cur_ans = std::accumulate(depth.begin(), depth.end(), int64_t(0));
+		int64_t cur_ans = std::accumulate(depth.begin()+1, depth.end(), int64_t(0));
 		std::vector<int> w(N, 1);
 		w[0] = 0;
 
@@ -328,7 +328,7 @@ int main() {
 
 			{
 				int n_depth_0 = depth[v0] - m;
-				cur_ans += int64_t(w[0]) * (n_depth_0 - depth[0]);
+				cur_ans += int64_t(w[0]) * int64_t(n_depth_0 - depth[0]);
 				depth[0] = n_depth_0;
 			}
 			for (auto [src, dest] : evts[m-1]) {
@@ -340,9 +340,9 @@ int main() {
 				cur_ans -= int64_t(w[src]) * int64_t(depth[src] - depth[dest]);
 			}
 
-			int64_t slo_ans = 0;
+			int64_t slo_ans = int64_t(N-1) * m;
 			for (int i = 0; i < N; i++) {
-				slo_ans += int64_t(depth[i] + m) * w[i];
+				slo_ans += int64_t(depth[i]) * w[i];
 			}
 			cerr << slo_ans << ' ' << cur_ans << '\n';
 			//assert(slo_ans == cur_ans);
