@@ -367,9 +367,9 @@ int main() {
 				cur_ans += int64_t(w[0]) * int64_t(n_depth_0 - depth[0]);
 				depth[0] = n_depth_0;
 			}
-			cerr << "d0 " << depth[0] << '\n';
+			//cerr << "d0 " << depth[0] << '\n';
 			for (auto [src, dest] : evts[m-1]) {
-				cerr << "move " << src << ' ' << dest << '\n';
+				//cerr << "move " << src << ' ' << dest << '\n';
 				//assert(w[dest] > 0 && w[src] > 0);
 				assert(depth[src] > depth[dest]);
 				cur_ans += int64_t(w[src]) * int64_t(depth[dest] - depth[src]);
@@ -377,13 +377,16 @@ int main() {
 				w[src] = 0;
 			}
 
+			/*
 			int64_t slo_ans = int64_t(N-1) * m;
 			for (int i = 0; i < N; i++) {
 				slo_ans += int64_t(depth[i]) * w[i];
 			}
-			cerr << slo_ans << ' ' << cur_ans << '\n';
+			//cerr << slo_ans << ' ' << cur_ans << '\n';
 			assert(slo_ans == cur_ans);
-			//assert(cur_ans >= 0);
+			*/
+
+			assert(cur_ans >= 0);
 			answers[m] = cur_ans;
 		}
 		for (int m = 1; m <= M; m++) {
