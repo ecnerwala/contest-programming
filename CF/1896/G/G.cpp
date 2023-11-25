@@ -103,7 +103,7 @@ int main() {
 		}
 
 		cout << '!';
-		for (int v : ans) { cout << ' ' << v; }
+		for (int v : ans) { cout << ' ' << v+1; }
 		cout << '\n' << flush;
 
 		if (TESTING) {
