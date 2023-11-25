@@ -320,7 +320,7 @@ int main() {
 			assert(cur_left < s && s < cur_left + sum_seg[a]);
 			assert(sum_seg[a] == 2);
 			int i = layout.get_leaf_index(a);
-			return is_2({i, N}) && is_2({0, N-i});
+			return !(is_2({i, N}) && is_2({0, N-i}));
 		};
 
 		for (int q = 0; q < Q; q++) {
