@@ -191,7 +191,7 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			int prv = match_dist[P[i]];
 			match_dist[i] = T_next[prv][C[i]];
-			cerr << i << ' ' << match_dist[i] << '\n';
+			cerr << i << ' ' << C[i] << ' ' << match_dist[i] << '\n';
 		}
 	}
 
