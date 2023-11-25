@@ -118,6 +118,9 @@ int main() {
 			jmp = std::move(n_jmp);
 			suff_value = std::move(n_suff_value);
 		}
+		for (auto [i, d] : suffs) {
+			cerr << i << ' ' << d << '\n';
+		}
 	}
 
 	return 0;
