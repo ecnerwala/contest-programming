@@ -814,7 +814,8 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int K; cin >> K;
-	const int L = (1 << (K+1));
+	K++;
+	const int L = 1 << K;
 	std::array<std::string, 2> S; cin >> S[0] >> S[1];
 
 	using num = modnum<998244353>;
@@ -833,15 +834,42 @@ int main() {
 			} else assert(false);
 		}
 
-		std::y_combinator([&](auto self, const std::vector<std::vector<num>>& dp, int cur_idx, int cur_msk) -> void {
+		ways[z].resize(1 << K);
+
+		std::y_combinator([&](auto self, std::vector<std::vector<num>> dp, int cur_idx, int cur_msk) -> void {
 			assert(int(dp.size()) == (1 << cur_idx));
 			int V = int(dp[0].size()) - 1;
 			if (cur_idx == 0) {
-				ways[z][cur_msk] = dp[0][V];
+				ways[z][cur_msk] = dp[0][V / 2];
 				return;
 			}
-		})(st_dp, K + 1, 0);
+			cur_idx--;
+			std::vector<std::vector<num>> ndp_mismatch(1 << cur_idx);
+			for (int i = 0; i < (1 << cur_idx); i++) {
+				ndp_mismatch[i] = ecnerwala::fft::fft_multiply(dp[i], dp[i + (1 << cur_idx)]);
+				for (int a = 0; a <= V; a++) {
+					num v = dp[i][a] *= dp[i + (1 << cur_idx)][a];
+					ndp_mismatch[i][2*a] -= v;
+				}
+			}
+			dp.resize((1 << cur_idx));
+			self(std::move(ndp_mismatch), cur_idx, cur_msk);
+			self(std::move(dp), cur_idx, cur_msk | (1 << cur_idx));
+		})(st_dp, K, 0);
+
+		// Now we just or convolve the two
+		for (int k = 0; k < K; k++) {
+			for (int i = 0; i < L; i++) {
+				if (i & (1 << k)) continue;
+				ways[z][i + (1 << k)] += ways[z][i];
+			}
+		}
 	}
+	num ans = 0;
+	for (int i = 0; i < L; i++) {
+		ans += ways[0][i] * ways[1][i] * (((__builtin_popcount(i) ^ K) & 1) ? -1 : 1);
+	}
+	cout << ans << '\n';
 
 	return 0;
 }
