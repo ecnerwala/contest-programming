@@ -1,5 +1,27 @@
 #include <bits/stdc++.h>
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
 template <typename K, typename V, V default_value> struct sorted_vector_map {
 	std::vector<std::pair<K, V>> vec;
 	auto begin() {
@@ -179,12 +201,47 @@ int main() {
 		//cerr << "T_fail" << ' '; for (int v : T_fail) { cerr << v << ' '; } cerr << '\n';
 		//for (auto a : T_next) { for (auto [x, y] : a.vec) { cerr << x << "->" << y << ' '; } cerr << '\n'; }
 
-		std::vector<int> match_dist(N);
-		match_dist[0] = 0;
+		std::vector<std::vector<std::pair<int, int>>> ch(N);
 		for (int i = 1; i < N; i++) {
-			int prv = match_dist[P[i]];
-			match_dist[i] = T_next[prv][C[i]];
-			//cerr << i << ' ' << C[i] << ' ' << match_dist[i] << '\n';
+			ch[P[i]].push_back({C[i], i});
+		}
+		std::vector<int> match_dist(N);
+		std::vector<int> lcp_len(N, -1);
+		match_dist[0] = 0;
+		{
+			std::vector<int> stk; stk.reserve(N);
+			std::y_combinator([&](auto self, int i) -> void {
+				stk.push_back(i);
+				std::sort(ch[i].begin(), ch[i].end());
+				auto ch_it = ch[i].begin();
+				for (auto [c, j] : T_next[match_dist[i]].vec) {
+					while (ch_it != ch[i].end() && ch_it->first < c) {
+						match_dist[ch_it->second] = 0;
+						self(ch_it->second);
+						ch_it++;
+					}
+					if (ch_it != ch[i].end() && ch_it->first == c) {
+						match_dist[ch_it->second] = j;
+						self(ch_it->second);
+						ch_it++;
+						continue;
+					} else {
+						for (int a = j; a > 0; a = T_fail[a]) {
+							int p = *(stk.end()-1-(a-1));
+							assert(lcp_len[p] == -1);
+							lcp_len[p] = a-1;
+						}
+					}
+				}
+				if (match_dist[i] == M) {
+					// we should also mark ourself, it's like a $ sign edge
+					int p = *(stk.end()-1-M);
+					assert(lcp_len[p] == -1);
+					lcp_len[p] = M;
+				}
+				assert(stk.back() == i);
+				stk.pop_back();
+			})(0);
 		}
 	}
 
