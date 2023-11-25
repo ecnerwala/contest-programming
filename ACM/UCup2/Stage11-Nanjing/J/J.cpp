@@ -235,7 +235,7 @@ int main() {
 		for (int i = 0; i < M; i++) {
 			// returns the old value
 			T_next[i].insert(T[i], i+1);
-			T_fail[i+1] = T_next[T_fail[i]][T[i]];
+			T_fail[i+1] = T_fail[i] == -1 ? 0 : T_next[T_fail[i]][T[i]];
 			T_next[i+1] = T_next[T_fail[i+1]];
 		}
 		cerr << "T_fail" << ' '; for (int v : T_fail) { cerr << v << ' '; } cerr << '\n';
