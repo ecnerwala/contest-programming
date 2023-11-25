@@ -263,13 +263,10 @@ template <typename num> struct fft_multiplier {
 		int s = sza + szb - 1;
 		int n = nextPow2(s);
 		bool did_cut = false;
-		num v_final;
 		if (sza > 1 && szb > 1 && n == 2 * (s - 1)) {
 			did_cut = true;
-			// we have a wraparound we can complute explicitly
+			// we have exactly 1 wraparound, so let's just handle it explicitly to save a factor of 2
 			n /= 2;
-			assert(n == s - 1);
-			v_final = ia[sza-1] * ib[szb-1];
 		}
 		fft<num>::init(n);
 		// add 1 in case did_cut
@@ -279,6 +276,7 @@ template <typename num> struct fft_multiplier {
 		fill(fa.begin()+sza, fa.begin()+n, num(0));
 		copy(ib, ib+szb, fb.begin());
 		fill(fb.begin()+szb, fb.begin()+n, num(0));
+		num v_init = fa[0] * fb[0];
 		fft<num>::go(fa.begin(), n);
 		fft<num>::go(fb.begin(), n);
 		num d = inv(num(n));
@@ -286,8 +284,7 @@ template <typename num> struct fft_multiplier {
 		reverse(fa.begin()+1, fa.begin()+n);
 		fft<num>::go(fa.begin(), n);
 		if (did_cut) {
-			*fa.begin() -= v_final;
-			fa[s-1] = v_final;
+			fa[s] = std::exchange(*fa.begin(), v_init) - v_init;
 		}
 		copy(fa.begin(), fa.begin()+s, io);
 	}
