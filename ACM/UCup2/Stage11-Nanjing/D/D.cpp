@@ -97,6 +97,7 @@ int main() {
 			} else assert(false);
 
 			int p = P[i];
+			if (p == -1) break;
 			if (cur_data[p].num_pos == 0 && cur_data[p].num_neg == 0 && cur_data[p].others.empty()) {
 				assert(cur_data[p].base_val == 0);
 				assert(cur_data[p].min_val == 0);
