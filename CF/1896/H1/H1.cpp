@@ -262,8 +262,17 @@ template <typename num> struct fft_multiplier {
 		if (sza == 0 || szb == 0) return;
 		int s = sza + szb - 1;
 		int n = nextPow2(s);
+		bool did_cut = false;
+		num v_final;
+		if (sza > 1 && szb > 1 && n == 2 * (s - 1)) {
+			did_cut = true;
+			// we have a wraparound we can complute explicitly
+			n /= 2;
+			assert(n == s - 1);
+			v_final = ia[sza-1] * ib[szb-1];
+		}
 		fft<num>::init(n);
-		if (sz(fa) < n) fa.resize(n);
+		if (sz(fa) < n) fa.resize(n + did_cut);
 		if (sz(fb) < n) fb.resize(n);
 		copy(ia, ia+sza, fa.begin());
 		fill(fa.begin()+sza, fa.begin()+n, num(0));
@@ -275,6 +284,10 @@ template <typename num> struct fft_multiplier {
 		for (int i = 0; i < n; i++) fa[i] = fa[i] * fb[i] * d;
 		reverse(fa.begin()+1, fa.begin()+n);
 		fft<num>::go(fa.begin(), n);
+		if (did_cut) {
+			*fa.begin() -= v_final;
+			fa[s-1] = v_final;
+		}
 		copy(fa.begin(), fa.begin()+s, io);
 	}
 
@@ -421,7 +434,7 @@ struct multiply_inverser {
 
 template <class multiplier, typename T> vector<T> multiply(const vector<T>& a, const vector<T>& b) {
 	if (sz(a) == 0 || sz(b) == 0) return {};
-	vector<T> r(max(0, sz(a) + sz(b) - 1));
+	vector<T> r(sz(a) + sz(b) - 1);
 	multiplier::multiply(begin(a), sz(a), begin(b), sz(b), begin(r));
 	return r;
 }
@@ -862,7 +875,8 @@ int main() {
 		for (int k = 0; k < K; k++) {
 			for (int i = 0; i < L; i++) {
 				if (i & (1 << k)) continue;
-				ways[z][i] -= std::exchange(ways[z][i + (1 << k)], ways[z][i]);
+				ways[z][i] -= ways[z][i + (1 << k)];
+				ways[z][i + (1 << k)] += ways[z][i];
 			}
 		}
 	}
