@@ -227,7 +227,7 @@ int main() {
 			}
 		}
 
-		//cerr << "T" << ' '; for (int v : T) { cerr << v << ' '; } cerr << '\n';
+		cerr << "T" << ' '; for (int v : T) { cerr << v << ' '; } cerr << '\n';
 		std::vector<int> T_fail(M+1);
 		// includes all links to > 0
 		std::vector<sorted_vector_map<int, int, 0>> T_next(M+1);
@@ -237,8 +237,8 @@ int main() {
 			T_fail[i+1] = T_next[i].insert(T[i], i+1);
 			T_next[i+1] = T_next[T_fail[i+1]];
 		}
-		//cerr << "T_fail" << ' '; for (int v : T_fail) { cerr << v << ' '; } cerr << '\n';
-		//for (auto a : T_next) { for (auto [x, y] : a.vec) { cerr << x << "->" << y << ' '; } cerr << '\n'; }
+		cerr << "T_fail" << ' '; for (int v : T_fail) { cerr << v << ' '; } cerr << '\n';
+		for (auto a : T_next) { for (auto [x, y] : a.vec) { cerr << x << "->" << y << ' '; } cerr << '\n'; }
 
 		std::vector<std::vector<std::pair<int, int>>> ch(N);
 		for (int i = 1; i < N; i++) {
