@@ -105,6 +105,14 @@ int main() {
 				int idx = query(groups[i]);
 				std::swap(groups[i][0], groups[i][idx]);
 			}
+
+			for (int j = 0; j < N; j++) {
+				if (j == i) continue;
+				if (groups[j].empty()) {
+					groups[j].push_back(groups[i].back());
+					groups[i].pop_back();
+				}
+			}
 		}
 
 		cout << '!';
