@@ -247,12 +247,8 @@ int main() {
 				stk.pop_back();
 			})(0);
 		}
-		for (int i = 0; i < N; i++) {
-			cerr << i << ' ' << match_dist[i] << '\n';
-		}
-		for (int i = 0; i < N; i++) {
-			cerr << i << ' ' << lcp_len[i] << '\n';
-		}
+		//for (int i = 0; i < N; i++) { cerr << i << ' ' << match_dist[i] << '\n'; }
+		//for (int i = 0; i < N; i++) { cerr << i << ' ' << lcp_len[i] << '\n'; }
 		for (int i = 0; i < N; i++) {
 			assert(lcp_len[i] != -1);
 		}
@@ -335,8 +331,8 @@ int main() {
 				//cerr << "move " << src << ' ' << dest << '\n';
 				//assert(w[dest] > 0 && w[src] > 0);
 				assert(depth[src] > depth[dest]);
-				w[dest] += w[src];
 				cur_ans += int64_t(w[src]) * int64_t(depth[dest] - depth[src]);
+				w[dest] += w[src];
 				w[src] = 0;
 			}
 
