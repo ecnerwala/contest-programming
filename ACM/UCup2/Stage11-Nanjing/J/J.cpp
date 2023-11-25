@@ -118,8 +118,23 @@ int main() {
 			jmp = std::move(n_jmp);
 			suff_value = std::move(n_suff_value);
 		}
+		std::vector<int> failure(N);
+		std::vector<int> stk; stk.reserve(N);
 		for (auto [i, d] : suffs) {
 			cerr << i << ' ' << d << '\n';
+			if (d == 0) {
+				if (i == 0) {
+					assert(stk.empty());
+					failure[i] = -1;
+				} else {
+					assert(!stk.empty());
+					failure[i] = stk.back();
+				}
+				stk.push_back(i);
+			} else if (d == 1) {
+				assert(stk.back() == i);
+				stk.pop_back();
+			} else assert(false);
 		}
 	}
 
