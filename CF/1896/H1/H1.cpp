@@ -822,7 +822,7 @@ int main() {
 	std::array<std::vector<num>, 2> ways;
 
 	for (int z = 0; z < 2; z++) {
-		cerr << "z = " << z << '\n';
+		//cerr << "z = " << z << '\n';
 		std::vector<std::vector<num>> st_dp(L, std::vector<num>(2, num(0)));
 		for (int i = 0; i < L; i++) {
 			if (S[z][i] == '0') {
