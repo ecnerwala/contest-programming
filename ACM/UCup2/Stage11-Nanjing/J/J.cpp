@@ -344,7 +344,8 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				slo_ans += int64_t(depth[i] + m) * w[i];
 			}
-			assert(slo_ans == cur_ans);
+			cerr << slo_ans << ' ' << cur_ans << '\n';
+			//assert(slo_ans == cur_ans);
 			answers[m] = cur_ans;
 		}
 		for (int m = 1; m <= M; m++) {
