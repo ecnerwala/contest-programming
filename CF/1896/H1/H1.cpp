@@ -822,6 +822,7 @@ int main() {
 	std::array<std::vector<num>, 2> ways;
 
 	for (int z = 0; z < 2; z++) {
+		cerr << "z = " << z << '\n';
 		std::vector<std::vector<num>> st_dp(L, std::vector<num>(2, num(0)));
 		for (int i = 0; i < L; i++) {
 			if (S[z][i] == '0') {
@@ -856,6 +857,10 @@ int main() {
 			self(std::move(ndp_mismatch), cur_idx, cur_msk);
 			self(std::move(dp), cur_idx, cur_msk | (1 << cur_idx));
 		})(st_dp, K, 0);
+
+		for (int i = 0; i < L; i++) {
+			cerr << i << ' ' << ways[z][i] << '\n';
+		}
 
 		// Now we just or convolve the two
 		for (int k = 0; k < K; k++) {
