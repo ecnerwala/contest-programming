@@ -306,7 +306,7 @@ int main() {
 
 		std::vector<int64_t> answers(M+1);
 		for (int m = 1; m <= M; m++) {
-			cerr << "m = " << m << '\n';
+			//cerr << "m = " << m << '\n';
 			// add the character itself
 			cur_ans += N-1;
 
@@ -332,19 +332,21 @@ int main() {
 				depth[0] = n_depth_0;
 			}
 			for (auto [src, dest] : evts[m-1]) {
-				cerr << "move " << src << ' ' << dest << '\n';
+				//cerr << "move " << src << ' ' << dest << '\n';
 				//assert(w[dest] > 0 && w[src] > 0);
-				w[dest] += w[src];
-				w[src] = 0;
 				assert(depth[src] > depth[dest]);
+				w[dest] += w[src];
 				cur_ans += int64_t(w[src]) * int64_t(depth[dest] - depth[src]);
+				w[src] = 0;
 			}
 
+			/*
 			int64_t slo_ans = int64_t(N-1) * m;
 			for (int i = 0; i < N; i++) {
 				slo_ans += int64_t(depth[i]) * w[i];
 			}
 			cerr << slo_ans << ' ' << cur_ans << '\n';
+			*/
 			//assert(slo_ans == cur_ans);
 			answers[m] = cur_ans;
 		}
