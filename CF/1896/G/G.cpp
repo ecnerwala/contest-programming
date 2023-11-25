@@ -4,12 +4,12 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	std::mt19937_64 mt(48);
 
 	int T;
 	if (TESTING) {
-		T = 100;
+		T = 1000;
 	} else {
 		cin >> T;
 	}
@@ -73,12 +73,7 @@ int main() {
 			groups[i].erase(groups[i].begin());
 			if (t + 1 == N * N - N + 1) break;
 			int tgt = (groups[i].size() <= 1) ? 1 : N;
-			cerr << groups[i].size() << ' ';
-			for (int j = 0; j < N; j++) {
-				if (j == i) continue;
-				cerr << groups[j].size() << ' ';
-			}
-			cerr << '\n';
+			//cerr << groups[i].size() << ' '; for (int j = 0; j < N; j++) { if (j == i) continue; cerr << groups[j].size() << ' '; } cerr << '\n';
 			for (int j = 0; j < N; j++) {
 				if (j == i) continue;
 				while (int(groups[i].size()) < tgt && groups[j].size() > 2) {
