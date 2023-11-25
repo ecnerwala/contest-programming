@@ -198,7 +198,6 @@ int main() {
 			T_fail[i+1] = T_next[i].insert(T[i], i+1);
 			T_next[i+1] = T_next[T_fail[i+1]];
 		}
-		T_next[M].insert(-1, M+1);
 		//cerr << "T_fail" << ' '; for (int v : T_fail) { cerr << v << ' '; } cerr << '\n';
 		//for (auto a : T_next) { for (auto [x, y] : a.vec) { cerr << x << "->" << y << ' '; } cerr << '\n'; }
 
@@ -238,6 +237,11 @@ int main() {
 					match_dist[ch_it->second] = 0;
 					self(ch_it->second);
 					ch_it++;
+				}
+				if (match_dist[i] == M) {
+					int p = *(stk.end()-1-M);
+					assert(lcp_len[p] == -1);
+					lcp_len[p] = M;
 				}
 				assert(stk.back() == i);
 				stk.pop_back();
