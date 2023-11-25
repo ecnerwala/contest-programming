@@ -170,7 +170,7 @@ int main() {
 		// includes all links to > 0
 		std::vector<sorted_vector_map<int, int, 0>> T_next(M+1);
 		T_fail[0] = -1;
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i < M; i++) {
 			// returns the old value
 			T_fail[i+1] = T_next[i].insert(T[i], i+1);
 			T_next[i+1] = T_next[T_fail[i+1]];
