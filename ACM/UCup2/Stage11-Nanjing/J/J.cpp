@@ -340,6 +340,11 @@ int main() {
 				cur_ans -= int64_t(w[src]) * int64_t(depth[src] - depth[dest]);
 			}
 
+			int64_t slo_ans = 0;
+			for (int i = 0; i < N; i++) {
+				slo_ans += int64_t(depth[i] + m) * w[i];
+			}
+			assert(slo_ans == cur_ans);
 			answers[m] = cur_ans;
 		}
 		for (int m = 1; m <= M; m++) {
