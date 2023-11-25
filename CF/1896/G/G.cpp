@@ -85,7 +85,7 @@ int main() {
 					}
 					for (int j = 0; j < N; j++) {
 						if (j == i) continue;
-						if (int(groups[i].size()) < tgt) {
+						if (int(groups[i].size()) < tgt && groups[j].size() > 1) {
 							groups[i].push_back(groups[j].back());
 							groups[j].pop_back();
 						}
