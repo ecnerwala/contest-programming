@@ -166,6 +166,9 @@ int main() {
 			}
 		}
 
+		cerr << "T" << ' ';
+		for (int v : T) cerr << v << ' ';
+		cerr << '\n';
 		std::vector<int> T_fail(M+1);
 		// includes all links to > 0
 		std::vector<sorted_vector_map<int, int, 0>> T_next(M+1);
@@ -175,6 +178,9 @@ int main() {
 			T_fail[i+1] = T_next[i].insert(T[i], i+1);
 			T_next[i+1] = T_next[T_fail[i+1]];
 		}
+		cerr << "T_fail" << ' ';
+		for (int v : T_fail) cerr << v << ' ';
+		cerr << '\n';
 
 		std::vector<int> match_dist(N);
 		match_dist[0] = 0;
