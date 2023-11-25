@@ -337,7 +337,7 @@ int main() {
 				w[dest] += w[src];
 				w[src] = 0;
 				assert(depth[src] > depth[dest]);
-				cur_ans -= int64_t(w[src]) * int64_t(depth[src] - depth[dest]);
+				cur_ans += int64_t(w[src]) * int64_t(depth[dest] - depth[src]);
 			}
 
 			int64_t slo_ans = int64_t(N-1) * m;
