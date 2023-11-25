@@ -65,7 +65,7 @@ int main() {
 		cin >> N_CASES;
 	}
 	while (N_CASES--) {
-		cerr << "Start case" << '\n';
+		//cerr << "Start case" << '\n';
 		int N, M;
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(1, 10)(mt);
