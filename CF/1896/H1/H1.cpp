@@ -284,7 +284,7 @@ template <typename num> struct fft_multiplier {
 		reverse(fa.begin()+1, fa.begin()+n);
 		fft<num>::go(fa.begin(), n);
 		if (did_cut) {
-			fa[s] = std::exchange(*fa.begin(), v_init) - v_init;
+			fa[s-1] = std::exchange(fa[0], v_init) - v_init;
 		}
 		copy(fa.begin(), fa.begin()+s, io);
 	}
