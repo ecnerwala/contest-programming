@@ -286,8 +286,8 @@ int main() {
 				stk.pop_back();
 			})(0);
 		}
-		//for (int i = 0; i < N; i++) { cerr << i << ' ' << match_dist[i] << '\n'; }
-		//for (int i = 0; i < N; i++) { cerr << i << ' ' << lcp_len[i] << '\n'; }
+		for (int i = 0; i < N; i++) { cerr << i << ' ' << match_dist[i] << '\n'; }
+		for (int i = 0; i < N; i++) { cerr << i << ' ' << lcp_len[i] << '\n'; }
 		for (int i = 0; i < N; i++) {
 			assert(lcp_len[i] != -1);
 		}
