@@ -1,5 +1,34 @@
 #include <bits/stdc++.h>
 
+template <typename K, typename V, V default_value> struct sorted_vector_map {
+	std::vector<std::pair<K, V>> vec;
+	auto begin() {
+		return vec.begin();
+	}
+	auto end() {
+		return vec.end();
+	}
+	auto find(K k) {
+		auto it = std::lower_bound(vec.begin(), vec.end(), k, [&](auto a, auto b) { return a.first < b; });
+		if (it != vec.end() && it->first == k) return it;
+		return vec.end();
+	}
+	V operator [](K k) {
+		auto it = find(k);
+		if (it == vec.end()) return default_value;
+		else return it->second;
+	}
+	bool insert(K k, V v) {
+		auto it = std::lower_bound(vec.begin(), vec.end(), k, [&](auto a, auto b) { return a.first < b; });
+		if (it != vec.end() && it->first == k) {
+			return std::exchange(it->second, v);
+		} else {
+			vec.insert(it, {k, v});
+			return default_value;
+		}
+	}
+};
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -54,15 +83,14 @@ int main() {
 				}
 			}
 		}
-
 		while ([&]() -> bool {
 			for (int i = 0; i < N; i++) {
 				if (jmp[i] != -1) return true;
 			}
 			return false;
 		}()) {
-			std::vector<int> cnt(cur_V);
 			std::vector<std::array<int, 2>> par_suff_value(N);
+			std::vector<int> cnt(cur_V);
 			for (auto [i, d] : suffs) {
 				par_suff_value[i][d] = suff_value[(jmp[i] == -1) ? 0 : jmp[i]][d];
 				cnt[par_suff_value[i][d]]++;
@@ -119,22 +147,41 @@ int main() {
 			suff_value = std::move(n_suff_value);
 		}
 		std::vector<int> failure(N);
-		std::vector<int> stk; stk.reserve(N);
-		for (auto [i, d] : suffs) {
-			cerr << i << ' ' << d << '\n';
-			if (d == 0) {
-				if (i == 0) {
-					assert(stk.empty());
-					failure[i] = -1;
-				} else {
-					assert(!stk.empty());
-					failure[i] = stk.back();
-				}
-				stk.push_back(i);
-			} else if (d == 1) {
-				assert(stk.back() == i);
-				stk.pop_back();
-			} else assert(false);
+		{
+			std::vector<int> stk; stk.reserve(N);
+			for (auto [i, d] : suffs) {
+				if (d == 0) {
+					if (i == 0) {
+						assert(stk.empty());
+						failure[i] = -1;
+					} else {
+						assert(!stk.empty());
+						failure[i] = stk.back();
+					}
+					stk.push_back(i);
+				} else if (d == 1) {
+					assert(stk.back() == i);
+					stk.pop_back();
+				} else assert(false);
+			}
+		}
+
+		std::vector<int> T_fail(M+1);
+		// includes all links to > 0
+		std::vector<sorted_vector_map<int, int, 0>> T_next(M+1);
+		T_fail[0] = -1;
+		for (int i = 0; i < N; i++) {
+			// returns the old value
+			T_fail[i+1] = T_next[i].insert(T[i], i+1);
+			T_next[i+1] = T_next[T_fail[i+1]];
+		}
+
+		std::vector<int> match_dist(N);
+		match_dist[0] = 0;
+		for (int i = 1; i < N; i++) {
+			int prv = match_dist[P[i]];
+			match_dist[i] = T_next[prv][C[i]];
+			cerr << i << ' ' << match_dist[i] << '\n';
 		}
 	}
 
