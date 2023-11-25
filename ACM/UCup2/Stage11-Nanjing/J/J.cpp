@@ -384,7 +384,7 @@ int main() {
 			cerr << slo_ans << ' ' << cur_ans << '\n';
 			*/
 			//assert(slo_ans == cur_ans);
-			assert(cur_ans >= 0);
+			//assert(cur_ans >= 0);
 			answers[m] = cur_ans;
 		}
 		for (int m = 1; m <= M; m++) {
