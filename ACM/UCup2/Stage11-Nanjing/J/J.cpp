@@ -256,6 +256,87 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			assert(lcp_len[i] != -1);
 		}
+
+		std::vector<std::vector<int>> failure_ch(N);
+		for (int i = 1; i < N; i++) {
+			failure_ch[failure[i]].push_back(i);
+		}
+		std::vector<std::vector<std::array<int, 2>>> evts(M+1);
+		{
+			std::vector<std::pair<int, int>> stk(N+1);
+			int stk_size = 0;
+			std::y_combinator([&](auto self, int cur) -> void {
+				int mi = 0;
+				int ma = stk_size;
+				while (ma - mi > 1) {
+					int md = mi + (ma - mi) / 2;
+					if (lcp_len[cur] >= stk[md].first) {
+						ma = md;
+					} else {
+						mi = md;
+					}
+				}
+				auto old_path = stk[ma];
+				stk[ma] = {lcp_len[cur], cur};
+				int old_stk_size = stk_size;
+				stk_size = ma + 1;
+
+				if (cur != 0) {
+					assert(stk[mi].second == 0 || stk[mi].first > lcp_len[cur]);
+					evts[lcp_len[cur]].push_back({cur, stk[mi].second});
+				}
+
+				for (int nxt : failure_ch[cur]) {
+					self(nxt);
+				}
+
+				stk[ma] = old_path;
+				stk_size = old_stk_size;
+			})(0);
+		}
+
+		std::vector<int> depth(N);
+		for (int i = 1; i < N; i++) depth[i] = depth[P[i]] + 1;
+
+		int64_t cur_ans = std::accumulate(depth.begin(), depth.end(), int64_t(0));
+		std::vector<int> w(N, 1);
+		w[0] = 0;
+
+		int v0 = 0;
+
+		for (int m = 1; m <= M; m++) {
+			// add the character itself
+			cur_ans += N-1;
+
+			// add the character m
+			// first, adjust the "depth" of 0
+			while (true) {
+				if (v0 == -1) {
+					v0 = 0;
+					break;
+				}
+				auto it = std::lower_bound(ch[v0].begin(), ch[v0].end(), T[m-1], [&](auto a, auto b) { return a.first < b; });
+				if (it != ch[v0].end() && it->first == T[m-1]) {
+					v0 = it->second;
+					break;
+				} else {
+					v0 = failure[v0];
+				}
+			}
+
+			{
+				int n_depth_0 = depth[v0] - m;
+				cur_ans += int64_t(w[0]) * (n_depth_0 - depth[0]);
+				depth[0] = n_depth_0;
+			}
+			for (auto [src, dest] : evts[m-1]) {
+				assert(w[dest] > 0 && w[src] > 0);
+				w[dest] += w[src];
+				w[src] = 0;
+				assert(depth[src] > depth[dest]);
+				cur_ans -= int64_t(w[src]) * int64_t(depth[src] - depth[dest]);
+			}
+		}
 	}
 
 	return 0;
