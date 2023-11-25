@@ -272,8 +272,9 @@ template <typename num> struct fft_multiplier {
 			v_final = ia[sza-1] * ib[szb-1];
 		}
 		fft<num>::init(n);
-		if (sz(fa) < n + did_cut) fa.resize(n + did_cut);
-		if (sz(fb) < n) fb.resize(n);
+		// add 1 in case did_cut
+		if (sz(fa) < n+1) fa.resize(n+1);
+		if (sz(fb) < n+1) fb.resize(n+1);
 		copy(ia, ia+sza, fa.begin());
 		fill(fa.begin()+sza, fa.begin()+n, num(0));
 		copy(ib, ib+szb, fb.begin());
