@@ -51,7 +51,7 @@ int main() {
 		auto pair_val = [&](auto it, auto jt) -> int64_t {
 			return (jt->second.second - it->second.second) * std::min(it->second.first, jt->second.first);
 		};
-		auto iter_val = [&](auto mp, auto it) -> int64_t {
+		auto iter_val = [&](auto& mp, auto it) -> int64_t {
 			int64_t ans = 0;
 			if (it != mp.begin()) ans += pair_val(std::prev(it), it);
 			if (std::next(it) != mp.end()) ans += pair_val(it, std::next(it));
