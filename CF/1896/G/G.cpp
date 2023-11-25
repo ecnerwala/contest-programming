@@ -74,40 +74,42 @@ int main() {
 			groups[i].erase(groups[i].begin());
 			if (t + 1 == N * N - N + 1) break;
 			int tgt = (groups[i].size() <= 1) ? 1 : N;
-			cerr << groups[i].size() << ' '; for (int j = 0; j < N; j++) { if (j == i) continue; cerr << groups[j].size() << ' '; } cerr << '\n';
+			if (tgt == 1) {
+				if (groups[i].empty()) {
+					for (int j = 0; j < N; j++) {
+						if (j == i) continue;
+						if (int(groups[i].size()) < tgt && groups[j].size() > 2) {
+							groups[i].push_back(groups[j].back());
+							groups[j].pop_back();
+						}
+					}
+					for (int j = 0; j < N; j++) {
+						if (j == i) continue;
+						if (int(groups[i].size()) < tgt) {
+							groups[i].push_back(groups[j].back());
+							groups[j].pop_back();
+						}
+					}
+				}
+			}
+			//cerr << groups[i].size() << ' '; for (int j = 0; j < N; j++) { if (j == i) continue; cerr << groups[j].size() << ' '; } cerr << '\n';
+			std::vector<int> src; src.reserve(N);
 			for (int j = 0; j < N; j++) {
 				if (j == i) continue;
-				while (int(groups[i].size()) < tgt && groups[j].size() > 2) {
+				if (int(groups[i].size()) < tgt) {
 					groups[i].push_back(groups[j].back());
 					groups[j].pop_back();
+					src.push_back(j);
 				}
 			}
-			for (int j = 0; j < N; j++) {
-				if (j == i) continue;
-				if (int(groups[i].size()) < tgt && groups[j].size() == 2) {
-					groups[i].push_back(groups[j].back());
-					groups[j].pop_back();
-				}
-			}
-			for (int j = 0; j < N; j++) {
-				if (j == i) continue;
-				if (int(groups[i].size()) < tgt && groups[j].size() == 1) {
-					groups[i].push_back(groups[j].back());
-					groups[j].pop_back();
-				}
-			}
-
-			if (tgt > 1) {
-				int idx = query(groups[i]);
-				std::swap(groups[i][0], groups[i][idx]);
-			}
-
-			for (int j = 0; j < N; j++) {
-				if (j == i) continue;
-				if (groups[j].empty()) {
-					groups[j].push_back(groups[i].back());
-					groups[i].pop_back();
-				}
+			assert(int(groups[i].size()) == tgt);
+			int idx = query(groups[i]);
+			std::swap(groups[i][0], groups[i][idx]);
+			while (!src.empty()) {
+				int j = src.back();
+				src.pop_back();
+				groups[j].push_back(groups[i].back());
+				groups[i].pop_back();
 			}
 		}
 
