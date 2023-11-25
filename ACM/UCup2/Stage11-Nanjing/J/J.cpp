@@ -55,26 +55,52 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int N_CASES; cin >> N_CASES;
+	constexpr bool TESTING = false;
+	std::mt19937 mt(48);
+
+	int N_CASES;
+	if (TESTING) {
+		N_CASES = 100;
+	} else {
+		cin >> N_CASES;
+	}
 	while (N_CASES--) {
-		int N, M; cin >> N >> M;
+		int N, M;
+		if (TESTING) {
+			N = std::uniform_int_distribution<int>(1, 10)(mt);
+			M = std::uniform_int_distribution<int>(1, 10)(mt);
+		} else {
+			cin >> N >> M;
+		}
 		// P are in dfs order
 		const int V = N+2; // 0, 1..N, N+1
 		N++;
 		std::vector<int> P(N);
 		P[0] = -1;
 		for (int i = 1; i < N; i++) {
-			cin >> P[i];
+			if (TESTING) {
+				P[i] = std::uniform_int_distribution<int>(0, i-1)(mt);
+			} else {
+				cin >> P[i];
+			}
 		}
 		std::vector<int> C(N);
 		C[0] = 0;
 		for (int i = 1; i < N; i++) {
-			cin >> C[i];
+			if (TESTING) {
+				C[i] = std::uniform_int_distribution<int>(1, V-2)(mt);
+			} else {
+				cin >> C[i];
+			}
 		}
 
 		std::vector<int> T(M);
 		for (auto& t : T) {
-			 cin >> t;
+			if (TESTING) {
+				t = std::uniform_int_distribution<int>(1, V-2)(mt);
+			} else {
+				cin >> t;
+			}
 		}
 
 		std::vector<int> jmp = P;
