@@ -841,7 +841,7 @@ int main() {
 			assert(int(dp.size()) == (1 << cur_idx));
 			int V = int(dp[0].size()) - 1;
 			if (cur_idx == 0) {
-				ways[z][cur_msk] = dp[0][V / 2];
+				ways[z][cur_msk] = V == 1 ? 0 : dp[0][V / 2];
 				return;
 			}
 			cur_idx--;
