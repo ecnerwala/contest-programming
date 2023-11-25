@@ -100,10 +100,6 @@ int main() {
 					groups[j].pop_back();
 				}
 			}
-			if (tgt > 1) {
-				int idx = query(groups[i]);
-				std::swap(groups[i][0], groups[i][idx]);
-			}
 		}
 
 		cout << '!';
