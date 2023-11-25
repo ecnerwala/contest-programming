@@ -58,7 +58,7 @@ int main() {
 		std::vector<std::vector<int>> groups(N, std::vector<int>(N));
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				groups[i].push_back(i * N + j);
+				groups[i][j] = i * N + j;
 			}
 			int idx = query(groups[i]);
 			std::swap(groups[i][0], groups[i][idx]);
