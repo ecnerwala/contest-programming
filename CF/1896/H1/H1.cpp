@@ -262,16 +262,17 @@ template <typename num> struct fft_multiplier {
 		if (sza == 0 || szb == 0) return;
 		int s = sza + szb - 1;
 		int n = nextPow2(s);
+		if (sz(fa) < n) fa.resize(n);
+		if (sz(fb) < n) fb.resize(n);
+		fft<num>::init(n);
+
 		bool did_cut = false;
 		if (sza > 1 && szb > 1 && n == 2 * (s - 1)) {
-			did_cut = true;
 			// we have exactly 1 wraparound, so let's just handle it explicitly to save a factor of 2
+			did_cut = true;
 			n /= 2;
 		}
-		fft<num>::init(n);
 		// add 1 in case did_cut
-		if (sz(fa) < n+1) fa.resize(n+1);
-		if (sz(fb) < n+1) fb.resize(n+1);
 		copy(ia, ia+sza, fa.begin());
 		fill(fa.begin()+sza, fa.begin()+n, num(0));
 		copy(ib, ib+szb, fb.begin());
