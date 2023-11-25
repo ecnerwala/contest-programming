@@ -60,7 +60,7 @@ int main() {
 
 	int N_CASES;
 	if (TESTING) {
-		N_CASES = 100;
+		N_CASES = 1000;
 	} else {
 		cin >> N_CASES;
 	}
@@ -106,7 +106,9 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			seen.insert({P[i], C[i]});
 		}
-		if (int(seen.size()) < N-1) continue;
+		if (int(seen.size()) != N-1) {
+			continue;
+		}
 		cerr << "Running case " << N << ' ' << M << '\n';
 
 		std::vector<int> jmp = P;
