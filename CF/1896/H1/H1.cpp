@@ -868,6 +868,10 @@ int main() {
 			}
 		}
 
+		for (int i = 0; i < L; i++) {
+			cerr << i << ' ' << ways[z][i] << '\n';
+		}
+
 		// Now we just or convolve the two
 		for (int k = 0; k < K; k++) {
 			for (int i = 0; i < L; i++) {
