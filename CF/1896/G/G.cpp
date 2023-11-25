@@ -4,7 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::mt19937_64 mt(48);
 
 	int T;
@@ -91,6 +91,7 @@ int main() {
 						}
 					}
 				}
+				continue;
 			}
 			//cerr << groups[i].size() << ' '; for (int j = 0; j < N; j++) { if (j == i) continue; cerr << groups[j].size() << ' '; } cerr << '\n';
 			std::vector<int> src; src.reserve(N);
