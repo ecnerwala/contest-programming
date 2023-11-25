@@ -243,6 +243,10 @@ int main() {
 				stk.pop_back();
 			})(0);
 		}
+		for (int i = 0; i < N; i++) {
+			cerr << i << ' ' << lcp_len[i] << '\n';
+			assert(lcp_len[i] != -1);
+		}
 	}
 
 	return 0;
