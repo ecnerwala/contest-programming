@@ -857,25 +857,11 @@ int main() {
 			self(std::move(dp), cur_idx, cur_msk | (1 << cur_idx));
 		})(st_dp, K, 0);
 
-		for (int i = 0; i < L; i++) {
-			cerr << i << ' ' << ways[z][i] << '\n';
-		}
-
-		for (int k = 0; k < K; k++) {
-			for (int i = 0; i < L; i++) {
-				if (i & (1 << k)) continue;
-				ways[z][i] -= ways[z][i + (1 << k)];
-			}
-		}
-
-		for (int i = 0; i < L; i++) {
-			cerr << i << ' ' << ways[z][i] << '\n';
-		}
-
 		// Now we just or convolve the two
 		for (int k = 0; k < K; k++) {
 			for (int i = 0; i < L; i++) {
 				if (i & (1 << k)) continue;
+				ways[z][i] -= ways[z][i + (1 << k)];
 				ways[z][i + (1 << k)] += ways[z][i];
 			}
 		}
