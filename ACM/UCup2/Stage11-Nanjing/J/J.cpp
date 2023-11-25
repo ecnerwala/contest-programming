@@ -181,6 +181,10 @@ int main() {
 		cerr << "T_fail" << ' ';
 		for (int v : T_fail) cerr << v << ' ';
 		cerr << '\n';
+		for (auto a : T_next) {
+			for (auto [x, y] : a.vec) cerr << x << "->" << y << ' ';
+			cerr << '\n';
+		}
 
 		std::vector<int> match_dist(N);
 		match_dist[0] = 0;
