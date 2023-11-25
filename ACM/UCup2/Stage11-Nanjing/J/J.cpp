@@ -205,7 +205,7 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			ch[P[i]].push_back({C[i], i});
 		}
-		std::vector<int> match_dist(N);
+		std::vector<int> match_dist(N, -1);
 		std::vector<int> lcp_len(N, -1);
 		match_dist[0] = 0;
 		{
@@ -244,7 +244,12 @@ int main() {
 			})(0);
 		}
 		for (int i = 0; i < N; i++) {
+			cerr << i << ' ' << match_dist[i] << '\n';
+		}
+		for (int i = 0; i < N; i++) {
 			cerr << i << ' ' << lcp_len[i] << '\n';
+		}
+		for (int i = 0; i < N; i++) {
 			assert(lcp_len[i] != -1);
 		}
 	}
