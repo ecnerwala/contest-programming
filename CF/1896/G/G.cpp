@@ -9,7 +9,7 @@ int main() {
 
 	int T;
 	if (TESTING) {
-		T = 1000;
+		T = 100000;
 	} else {
 		cin >> T;
 	}
