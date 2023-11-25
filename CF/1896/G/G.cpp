@@ -45,6 +45,7 @@ int main() {
 						res = v[i];
 					}
 				}
+				cerr << res+1 << '\n';
 			} else {
 				cin >> res; res--;
 			}
