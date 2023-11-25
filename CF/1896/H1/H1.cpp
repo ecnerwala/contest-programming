@@ -823,6 +823,7 @@ int main() {
 
 	for (int z = 0; z < 2; z++) {
 		//cerr << "z = " << z << '\n';
+		assert(int(S[z].size()) == L);
 		std::vector<std::vector<num>> st_dp(L, std::vector<num>(2, num(0)));
 		for (int i = 0; i < L; i++) {
 			if (S[z][i] == '0') {
