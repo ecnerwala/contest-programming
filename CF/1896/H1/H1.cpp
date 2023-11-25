@@ -276,6 +276,7 @@ template <typename num> struct fft_multiplier {
 		fill(fa.begin()+sza, fa.begin()+n, num(0));
 		copy(ib, ib+szb, fb.begin());
 		fill(fb.begin()+szb, fb.begin()+n, num(0));
+		// used if did_cut
 		num v_init = fa[0] * fb[0];
 		fft<num>::go(fa.begin(), n);
 		fft<num>::go(fb.begin(), n);
