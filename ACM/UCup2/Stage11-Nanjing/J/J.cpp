@@ -363,7 +363,7 @@ int main() {
 			}
 
 			{
-				int n_depth_0 = depth[v0] - m;
+				int n_depth_0 = (v0 == 0 ? 0 : depth[v0]) - m;
 				cur_ans += int64_t(w[0]) * int64_t(n_depth_0 - depth[0]);
 				depth[0] = n_depth_0;
 			}
