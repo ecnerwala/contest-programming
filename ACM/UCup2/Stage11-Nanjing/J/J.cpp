@@ -65,10 +65,12 @@ int main() {
 		cin >> N_CASES;
 	}
 	while (N_CASES--) {
+		cerr << "Start case" << '\n';
 		int N, M;
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(1, 10)(mt);
 			M = std::uniform_int_distribution<int>(1, 10)(mt);
+			cerr << N << ' ' << M << '\n';
 		} else {
 			cin >> N >> M;
 		}
@@ -80,6 +82,7 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			if (TESTING) {
 				P[i] = std::uniform_int_distribution<int>(0, i-1)(mt);
+				cerr << P[i] << " \n"[i+1==N];
 			} else {
 				cin >> P[i];
 			}
@@ -89,17 +92,19 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			if (TESTING) {
 				C[i] = std::uniform_int_distribution<int>(1, V-2)(mt);
+				cerr << C[i] << " \n"[i+1==N];
 			} else {
 				cin >> C[i];
 			}
 		}
 
 		std::vector<int> T(M);
-		for (auto& t : T) {
+		for (int m = 0; m < M; m++) {
 			if (TESTING) {
-				t = std::uniform_int_distribution<int>(1, V-2)(mt);
+				T[m] = std::uniform_int_distribution<int>(1, V-2)(mt);
+				cerr << T[m] << " \n"[m+1==M];
 			} else {
-				cin >> t;
+				cin >> T[m];
 			}
 		}
 		std::set<std::pair<int, int>> seen;
@@ -107,9 +112,9 @@ int main() {
 			seen.insert({P[i], C[i]});
 		}
 		if (int(seen.size()) != N-1) {
+			cerr << "Skipping" << '\n';
 			continue;
 		}
-		cerr << "Running case " << N << ' ' << M << '\n';
 
 		std::vector<int> jmp = P;
 		std::vector<std::array<int, 2>> suff_value(N);
