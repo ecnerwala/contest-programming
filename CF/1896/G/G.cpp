@@ -83,13 +83,6 @@ int main() {
 							groups[j].pop_back();
 						}
 					}
-					for (int j = 0; j < N; j++) {
-						if (j == i) continue;
-						if (int(groups[i].size()) < tgt && groups[j].size() > 1) {
-							groups[i].push_back(groups[j].back());
-							groups[j].pop_back();
-						}
-					}
 				}
 				continue;
 			}
