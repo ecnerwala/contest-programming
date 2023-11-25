@@ -41,7 +41,7 @@ int main() {
 	}
 
 	int64_t ans = 0;
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i <= N; i++) {
 		ans = std::max(ans, pref_val[i] + suff_val[i]);
 	}
 	cout << ans << '\n';
