@@ -102,6 +102,11 @@ int main() {
 				cin >> t;
 			}
 		}
+		std::set<std::pair<int, int>> seen;
+		for (int i = 1; i < N; i++) {
+			seen.insert({P[i], C[i]});
+		}
+		if (int(seen.size()) < N-1) continue;
 		cerr << "Running case " << N << ' ' << M << '\n';
 
 		std::vector<int> jmp = P;
