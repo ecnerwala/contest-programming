@@ -4,9 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int i = 1; i <= 100; i++) {
-		if (i / 2 + i / 3 + i / 5 + i / 7 < i) cerr << i << '\n';
-	}
+	//for (int i = 1; i <= 100; i++) { if (i / 2 + i / 3 + i / 5 + i / 7 < i) cerr << i << '\n'; }
 	const int64_t MAXV = int64_t(1.1e15);
 	std::vector<int64_t> inds; inds.reserve(10);
 	for (int64_t a = 1; a <= MAXV; a *= 2) {
@@ -14,7 +12,7 @@ int main() {
 			for (int64_t c = 1; a * b * c <= MAXV; c *= 5) {
 				for (int64_t d = 1; a * b * c * d <= MAXV; d *= 7) {
 					int64_t v = a * b * c * d;
-					cerr << v << '\n';
+					//cerr << v << '\n';
 					inds.push_back(a * b * c * d);
 				}
 			}
