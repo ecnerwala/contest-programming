@@ -24,6 +24,7 @@ int main() {
 				cnt = 0;
 				sum = 0;
 			}
+			cerr << xs[i].first << ' ' << xs[i].second << '\n';
 			ans += 2 * (cnt * int64_t(xs[i].second) - sum);
 			cnt++;
 			sum += xs[i].second;
