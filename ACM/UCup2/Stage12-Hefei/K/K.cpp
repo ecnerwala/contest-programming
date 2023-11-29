@@ -142,6 +142,9 @@ int main() {
 		update(a);
 		return {a, best};
 	});
+	auto dump_treap = std::y_combinator([&](auto self, int i, int64_t lz = 0) -> void {
+		cerr << i << ' ' << nodes[i].own_left + lz << ' ' << nodes[i].own_right + lz << '\n';
+	});
 
 	for (int i = 0; i < N; i++) {
 		nodes[weights[i].second].k = i;
@@ -166,6 +169,10 @@ int main() {
 			v += merge_v;
 			cur_tree = new_tree;
 		}
+		cerr << "solve " << cur << '\n';
+		cerr << "value " << v << '\n';
+		dump_treap(cur_tree);
+		cerr << '\n';
 		return {v, cur_tree};
 	})(0, -1).first;
 	cout << ans << '\n';
