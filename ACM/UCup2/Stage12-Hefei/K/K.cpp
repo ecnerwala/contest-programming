@@ -164,15 +164,17 @@ int main() {
 	auto ans = std::y_combinator([&](auto self, int cur, int prv) -> std::pair<int64_t, int> {
 		int64_t v = 0;
 		int cur_tree = cur;
+		int64_t best_merge = 0;
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
 			auto [nv, nxt_tree] = self(nxt, cur);
 			v += nv;
 			auto [new_tree, merge_v] = treap_union(cur_tree, nxt_tree);
-			apply_lazy(new_tree, -merge_v);
-			v += merge_v;
 			cur_tree = new_tree;
+			setmax(best_merge, merge_v);
 		}
+		apply_lazy(cur_tree, -best_merge);
+		v += best_merge;
 		//cerr << "solve " << cur << '\n';
 		//cerr << "value " << v << '\n';
 		//dump_treap(cur_tree); cerr << '\n';
