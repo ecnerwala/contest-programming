@@ -182,10 +182,10 @@ int main() {
 					assert(dp[nxt] == 0);
 					assert(prob == 0);
 				} else {
-					cerr << cur << ' ' << nxt << ' ' << w << '\n';
-					cerr << dp[nxt] << '\n';
+					//cerr << cur << ' ' << nxt << ' ' << w << '\n';
+					//cerr << dp[nxt] << '\n';
 					dp[nxt] = path_val[lca] * (1 - (1 - dp[nxt] / path_val[lca]) * (1 - w / path_val[lca]));
-					cerr << dp[nxt] << '\n';
+					//cerr << dp[nxt] << '\n';
 				}
 			} else {
 				self(nxt, w);
