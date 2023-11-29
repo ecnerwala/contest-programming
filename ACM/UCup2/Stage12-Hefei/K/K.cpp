@@ -144,9 +144,9 @@ int main() {
 	});
 	auto dump_treap = std::y_combinator([&](auto self, int i, int64_t lz = 0) -> void {
 		if (i == -1) return;
-		self(nodes[i].c[0]);
+		self(nodes[i].c[0], lz + nodes[i].lazy);
 		cerr << i << ' ' << nodes[i].own_left + lz << ' ' << nodes[i].own_right + lz << '\n';
-		self(nodes[i].c[1]);
+		self(nodes[i].c[1], lz + nodes[i].lazy);
 	});
 
 	for (int i = 0; i < N; i++) {
