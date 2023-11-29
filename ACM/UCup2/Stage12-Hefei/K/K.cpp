@@ -167,7 +167,7 @@ int main() {
 			cur_tree = new_tree;
 		}
 		return {v, cur_tree};
-	})(0).first;
+	})(0, -1).first;
 	cout << ans << '\n';
 
 	return 0;
