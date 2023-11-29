@@ -48,11 +48,13 @@ int main() {
 		G_sat[i] = F_sat[j2] + F_sat[j3] + F_sat[j4] + F_sat[j5];
 		if (F_sat[i] > MAXV) F_sat[i] = MAXV;
 		if (F_sat[i] < inds[i]) {
+			assert(inds[i] <= 5);
 			F[i] = inds[i] % M;
 			F_sat[i] = inds[i];
 		}
 		if (G_sat[i] > MAXV) G_sat[i] = MAXV;
 		if (G_sat[i] < inds[i]) {
+			assert(inds[i] <= 5);
 			G[i] = inds[i] % M;
 			G_sat[i] = inds[i];
 		}
