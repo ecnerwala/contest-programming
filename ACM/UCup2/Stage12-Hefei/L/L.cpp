@@ -189,6 +189,7 @@ int main() {
 				}
 			} else {
 				self(nxt, w);
+				par[nxt] = cur;
 			}
 		}
 	})(0, 1);
