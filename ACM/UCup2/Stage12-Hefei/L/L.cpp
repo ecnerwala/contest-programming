@@ -166,36 +166,45 @@ int main() {
 		return a;
 	};
 	std::vector<bool> vis(N);
-	std::vector<num> dp(N, 0);
-	std::vector<num> path_val(N);
+	std::vector<std::vector<std::pair<int, num>>> to_merge(N);
+	std::vector<std::vector<int>> ops(N);
 	std::y_combinator([&](auto self, int cur, num prob) -> void {
 		assert(!vis[cur]);
 		vis[cur] = true;
-		path_val[cur] = prob;
-		dp[cur] = prob;
+		to_merge[cur].push_back({cur, prob});
 		for (auto [nxt, w] : adj[cur]) {
 			w *= prob;
 			if (vis[nxt]) {
-				int lca = get_par(nxt);
-				// update dp[nxt]
-				if (path_val[lca] == 0) {
-					assert(dp[nxt] == 0);
-					assert(prob == 0);
-				} else {
-					//cerr << cur << ' ' << nxt << ' ' << w << '\n';
-					//cerr << dp[nxt] << '\n';
-					dp[nxt] = path_val[lca] * (1 - (1 - dp[nxt] / path_val[lca]) * (1 - w / path_val[lca]));
-					//cerr << dp[nxt] << '\n';
-				}
+				int lca = get_par(to_merge[nxt].back().first);
+				to_merge[nxt].push_back({cur, w});
+				ops[lca].push_back(nxt);
 			} else {
 				self(nxt, w);
 				par[nxt] = cur;
 			}
 		}
+		for (int nxt : ops[cur]) {
+			assert(to_merge[nxt].size() >= 2);
+			auto [u, w] = to_merge[nxt].back();
+			to_merge[nxt].pop_back();
+			auto [v, x] = to_merge[nxt].back();
+			to_merge[nxt].pop_back();
+			assert(get_par(u) == cur);
+			assert(get_par(v) == cur);
+			num np;
+			if (prob == 0) {
+				assert(w == 0 && x == 0);
+				np = 0;
+			} else {
+				np = prob * (1 - (1 - w / prob) * (1 - x / prob));
+			}
+			to_merge[nxt].push_back({cur, np});
+		}
 	})(0, 1);
 
 	for (int i = 0; i < N; i++) {
-		cout << dp[i] << '\n';
+		assert(to_merge[i].size() == 1);
+		cout << to_merge[i].back().second << '\n';
 	}
 	return 0;
 }
