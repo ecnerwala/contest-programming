@@ -5,8 +5,8 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N, M; cin >> N >> M;
-	std::vector<std::pair<int, int>> xs(N*M);
-	std::vector<std::pair<int, int>> ys(N*M);
+	std::vector<std::pair<int, int>> xs; xs.reserve(N*M);
+	std::vector<std::pair<int, int>> ys; ys.reserve(N*M);
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			int c; cin >> c;
@@ -24,7 +24,7 @@ int main() {
 				cnt = 0;
 				sum = 0;
 			}
-			cerr << xs[i].first << ' ' << xs[i].second << '\n';
+			//cerr << xs[i].first << ' ' << xs[i].second << '\n';
 			ans += 2 * (cnt * int64_t(xs[i].second) - sum);
 			cnt++;
 			sum += xs[i].second;
