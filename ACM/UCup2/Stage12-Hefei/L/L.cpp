@@ -182,6 +182,7 @@ int main() {
 					assert(dp[nxt] == 0);
 					assert(prob == 0);
 				} else {
+					cerr << cur << ' ' << nxt << ' ' << w << '\n';
 					dp[nxt] = path_val[lca] * (1 - (1 - dp[nxt] / path_val[lca]) * (1 - w / path_val[lca]));
 				}
 			} else {
