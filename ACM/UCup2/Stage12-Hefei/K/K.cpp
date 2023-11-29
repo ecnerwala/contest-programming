@@ -167,6 +167,7 @@ int main() {
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
 			auto [nv, nxt_tree] = self(nxt, cur);
+			v += nv;
 			auto [new_tree, merge_v] = treap_union(cur_tree, nxt_tree);
 			apply_lazy(new_tree, -merge_v);
 			v += merge_v;
