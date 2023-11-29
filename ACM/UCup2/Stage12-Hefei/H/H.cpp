@@ -21,15 +21,49 @@ int main() {
 		}
 	}
 	inds.push_back(0);
-	cerr << inds.size() << '\n';
 	std::sort(inds.begin(), inds.end());
-
-	std::vector<int> F(inds.size()), G(inds.size());
 
 	int64_t F0, G0, T, M; cin >> F0 >> G0 >> T >> M;
 	std::vector<int64_t> queries(T);
 	for (auto& q : queries) cin >> q;
 
+	std::vector<int64_t> F(inds.size()), G(inds.size());
+	std::vector<int64_t> F_sat(inds.size()), G_sat(inds.size());
+	F[0] = F0 % M;
+	F_sat[0] = F0;
+	G[0] = G0 % M;
+	G_sat[0] = G0;
+	for (int i = 1, j2 = 0, j3 = 0, j4 = 0, j5 = 0, j7 = 0; i < int(inds.size()); i++) {
+		while (inds[j2+1] <= inds[i] / 2) j2++;
+		while (inds[j3+1] <= inds[i] / 3) j3++;
+		while (inds[j4+1] <= inds[i] / 4) j4++;
+		while (inds[j5+1] <= inds[i] / 5) j5++;
+		while (inds[j7+1] <= inds[i] / 7) j7++;
+		assert(j2 < i);
+		assert(j3 < i);
+		assert(j4 < i);
+		assert(j5 < i);
+		assert(j7 < i);
+		F[i] = (G[j2] + G[j3] + G[j5] + G[j7]) % M;
+		G[i] = (F[j2] + F[j3] + F[j4] + F[j5]) % M;
+		F_sat[i] = G_sat[j2] + G_sat[j3] + G_sat[j5] + G_sat[j7];
+		G_sat[i] = F_sat[j2] + F_sat[j3] + F_sat[j4] + F_sat[j5];
+		if (F_sat[i] > MAXV) F_sat[i] = MAXV;
+		if (F_sat[i] < inds[i]) {
+			F[i] = inds[i] % M;
+			F_sat[i] = inds[i];
+		}
+		if (G_sat[i] > MAXV) G_sat[i] = MAXV;
+		if (G_sat[i] < inds[i]) {
+			G[i] = inds[i] % M;
+			G_sat[i] = inds[i];
+		}
+	}
+
+	for (auto q : queries) {
+		int a = int(std::upper_bound(inds.begin(), inds.end(), q) - inds.begin()) - 1;
+		cout << F[a] << ' ' << G[a] << '\n';
+	}
 
 	return 0;
 }
