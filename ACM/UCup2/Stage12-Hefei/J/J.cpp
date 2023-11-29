@@ -35,6 +35,8 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		for (auto [j, w] : adj[i]) {
 			int v = std::max(dist[0][i], dist[1][j]);
+			assert(dist[0][i] != -1);
+			assert(dist[1][j] != -1);
 			if (v <= w) {
 				cerr << i << ' ' << j << ' ' << w << ' ' << v << '\n';
 				ans = std::min<int64_t>(ans, int64_t(v) + int64_t(w));
