@@ -23,7 +23,7 @@ int main() {
 			auto [d, cur] = pq.top(); pq.pop();
 			if (d != dist[z][cur]) continue;
 			for (auto [nxt, w] : adj[cur]) {
-				int cnd = std::min(d, w);
+				int cnd = std::max(d, w);
 				if (dist[z][nxt] == -1 || cnd < dist[z][nxt]) {
 					pq.push({dist[z][nxt] = cnd, nxt});
 				}
