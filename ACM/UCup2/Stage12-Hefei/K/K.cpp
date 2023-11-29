@@ -173,10 +173,9 @@ int main() {
 			v += merge_v;
 			cur_tree = new_tree;
 		}
-		cerr << "solve " << cur << '\n';
-		cerr << "value " << v << '\n';
-		dump_treap(cur_tree);
-		cerr << '\n';
+		//cerr << "solve " << cur << '\n';
+		//cerr << "value " << v << '\n';
+		//dump_treap(cur_tree); cerr << '\n';
 		return {v, cur_tree};
 	})(0, -1).first;
 	cout << ans << '\n';
