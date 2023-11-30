@@ -76,15 +76,13 @@ int main() {
 			cin >> u >> v; u--, v--;
 		}
 
-		kactl::TwoSat base_prob(N);
-		for (auto [u, v] : edges) {
-			base_prob.either(u, v);
-		}
-
 		auto is_good = [&](int k) -> bool {
 			assert(k >= 2);
 			// no 2 within k
-			kactl::TwoSat cur = base_prob;
+			kactl::TwoSat cur(N);
+			for (auto [u, v] : edges) {
+				cur.either(u, v);
+			}
 			std::vector<int> pref(N);
 			std::vector<int> suff(N);
 			std::iota(pref.begin(), pref.end(), 0);
@@ -99,7 +97,7 @@ int main() {
 				}
 			}
 			for (int i = 0; i + k-1 < N; i++) {
-				cur.either(~pref[i], ~suff[i+(k-1)]);
+				cur.either(~suff[i], ~pref[i+(k-1)]);
 			}
 			return cur.solve();
 		};
