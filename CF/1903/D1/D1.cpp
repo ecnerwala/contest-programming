@@ -15,7 +15,7 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		cin >> queries[q].first; queries[q].second = q;
 	}
-	std::sort(queries.begin(), queries.end());
+	//std::sort(queries.begin(), queries.end());
 	
 	auto solve_query = [&](int64_t k) -> int64_t {
 		int64_t cur_ans = 0;
