@@ -23,7 +23,7 @@ int main() {
 		 cin >> a;
 	}
 	
-	std::vector<std::vector<std::pair<int, int64_t>>> cnts;
+	std::vector<std::vector<std::pair<int, int64_t>>> cnts(20);
 	for (int b = 0; b < 20; b++) {
 		int l = 20 - 1 - b;
 		cnts[b].resize(1 << (20 - 1 - b));
