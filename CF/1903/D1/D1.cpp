@@ -23,6 +23,7 @@ int main() {
 			int64_t tgt = cur_ans | (int64_t(1) << b);
 			int64_t ops_left = k;
 			for (int i = 0; i < N; i++) {
+				if ((tgt & ~A[i]) == 0) continue;
 				int64_t first_mismatch = 63 - __builtin_clzll(tgt & ~A[i]);
 				int64_t new_A = (A[i] & -(int64_t(1) << (first_mismatch + 1))) | tgt;
 				ops_left -= new_A - A[i];
