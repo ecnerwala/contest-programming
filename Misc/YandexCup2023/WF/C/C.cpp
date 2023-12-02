@@ -327,8 +327,8 @@ int main() {
 				num denom = inv(num(nxt_empty));
 				for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
 					for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
-						for (int a0 = 0; a0 < 2; a0++) {
-							for (int a1 = 0; a1 < 2; a1++) {
+						for (int a0 = cur_v0_has ? 0 : 1; a0 < 2; a0++) {
+							for (int a1 = cur_v1_has ? 0 : 1; a1 < 2; a1++) {
 								//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
 								num ways = dp[{v0, v1, a0, a1}];
 								//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
