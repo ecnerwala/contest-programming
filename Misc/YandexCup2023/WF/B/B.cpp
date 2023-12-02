@@ -4,6 +4,7 @@ using bs = std::bitset<1 << 18>;
 
 std::vector<bs> base_terms;
 int N;
+std::string S;
 
 bs parse_or(std::string::iterator& it);
 bs parse_term(std::string::iterator& it) {
@@ -27,6 +28,7 @@ bs parse_not(std::string::iterator& it) {
 	else return parse_term(it);
 }
 bs parse_and(std::string::iterator& it) {
+	std::cerr << "parse_and " << std::string(it, S.end()) << '\n';
 	auto lhs = parse_not(it);
 	while (true) {
 		if (*it == ')' || *it == '|') {
@@ -54,7 +56,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	cin >> N;
-	std::string S; cin >> S;
+	cin >> S;
 	S += ')';
 	base_terms.resize(N);
 	for (int i = 0; i < N; i++) {
