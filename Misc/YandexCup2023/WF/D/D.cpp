@@ -361,7 +361,7 @@ int main() {
 		assert(cur_bound - lo <= N);
 		ans[0]++;
 		ans[cur_bound - lo]--;
-		if (lo == 0) assert(cur_bound == 0);
+		if (lo == 0 || lo == V-1) assert(cur_bound == lo);
 	}
 	for (int i = 0; i < N; i++) {
 		ans[i+1] += ans[i];
