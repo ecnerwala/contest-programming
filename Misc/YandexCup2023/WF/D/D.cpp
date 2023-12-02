@@ -341,7 +341,9 @@ int main() {
 			hi = layout.get_leaf_index(a);
 		}
 		// lo..hi is bad
+		cerr << lo << ' ' << hi << '\n';
 		cur_bound = std::min(cur_bound, hi);
+		cerr << lo << ' ' << cur_bound << '\n';
 	}
 	return 0;
 }
