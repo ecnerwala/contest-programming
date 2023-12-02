@@ -330,15 +330,19 @@ int main() {
 									ways *= denom;
 									for (int v_new = 0; v_new <= cur_empty; v_new++) {
 										num nways = ways;
-										int nv0 = v0 + (v0 >= v_new);
-										int nv1 = v1 + (v1 >= v_new);
+										int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
+										int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
 										int na0 = a0;
 										int na1 = a1;
 										int a_new = 0;
 										if (j == 0) {
-											if (v_new < nv0) {
-												na0 = 1;
-											} else {
+											if (cur_v0_has) {
+												if (v_new < nv0) {
+													na0 = 1;
+												} else {
+													a_new = 1;
+												}
+											} else if (i > 0) {
 												a_new = 1;
 											}
 
@@ -346,14 +350,23 @@ int main() {
 											if (na0 == 0) nways *= inv_2;
 											na0 = a_new;
 										} else {
-											if (v_new < nv0) {
-												na0 = 1;
+											if (cur_v0_has) {
+												if (v_new < nv0) {
+													na0 = 1;
+												} else {
+													a_new = 1;
+												}
 											} else {
+												// above always exists
 												a_new = 1;
 											}
-											if (v_new < nv1) {
-												na1 = 1;
-											} else {
+											if (cur_v1_has) {
+												if (v_new < nv1) {
+													na1 = 1;
+												} else {
+													a_new = 1;
+												}
+											} else if (i > 0) {
 												a_new = 1;
 											}
 
