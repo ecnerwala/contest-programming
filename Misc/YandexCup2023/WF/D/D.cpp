@@ -334,6 +334,7 @@ int main() {
 		int hi;
 		if (seg[1].mi == 0) {
 			hi = V;
+			assert(cur_bound <= hi);
 		} else {
 			seg_tree::point a(1);
 			int64_t lhs = 0;
@@ -355,7 +356,7 @@ int main() {
 		assert(hi >= lo);
 		// lo..hi is bad
 		cur_bound = std::min(cur_bound, hi);
-		cerr << lo << ' ' << cur_bound - lo << '\n';
+		//cerr << lo << ' ' << cur_bound - lo << '\n';
 		assert(cur_bound >= lo);
 		assert(cur_bound - lo <= N);
 		ans[0]++;
