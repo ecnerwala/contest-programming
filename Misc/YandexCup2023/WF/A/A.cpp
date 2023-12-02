@@ -297,103 +297,124 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int N; cin >> N;
-	std::vector<int> A(N);
-	for (auto& a : A) {
-		 cin >> a;
-	}
-	int Q; cin >> Q;
-	struct query_t {
-		int l, r, q;
-	};
-	std::vector<query_t> queries(Q);
-	for (int q = 0; q < Q; q++) {
-		auto& [l, r, idx] = queries[q];
-		cin >> l >> r; l--, r--;
-		idx = q;
-	}
-
-	std::vector<std::pair<int64_t, std::array<int, 2>>> all_intervals;
-	all_intervals.reserve(N * 64);
-
-	std::vector<std::pair<int64_t, int>> vals;
-	vals.reserve(61);
-	for (int i = 0; i < N; i++) {
-		for (auto& [v, j] : vals) {
-			v &= A[i];
+	constexpr bool TESTING = true;
+	std::mt19937 mt(48);
+	for (int CASE = 0; CASE < (TESTING ? 1000 : 1); CASE++) {
+		cerr << "Case " << CASE << '\n';
+		int N;
+		if (TESTING) {
+			N = std::uniform_int_distribution<int>(1, 10)(mt);
+		} else {
+			cin >> N;
 		}
-		vals.push_back({A[i], i});
-		int L = 0;
-		for (int z = 0; z < int(vals.size()); z++) {
-			if (L == 0 || vals[z].first != vals[L-1].first) {
-				vals[L++] = vals[z];
+		std::vector<int> A(N);
+		for (auto& a : A) {
+			if (TESTING) {
+				a = std::uniform_int_distribution<int>(0, 1 << 10)(mt);
 			} else {
-				vals[L-1] = vals[z];
+				cin >> a;
 			}
 		}
-		vals.resize(L);
-		for (auto [v, j] : vals) {
-			all_intervals.push_back({v, {i, j}});
-		}
-	}
-
-	std::sort(all_intervals.begin(), all_intervals.end());
-	auto it = all_intervals.begin();
-
-	std::sort(queries.begin(), queries.end(), [&](auto a, auto b) { return a.r < b.r; });
-	seg_tree::in_order_layout layout(Q);
-	std::vector<int> seg(2*Q);
-	for (int i = 0; i < Q; i++) {
-		seg[layout.get_point(i)] = queries[i].l;
-	}
-	auto update_node = [&](seg_tree::point a) {
-		seg[a] = std::max(seg[a.c(0)], seg[a.c(1)]);
-	};
-	for (seg_tree::point a(Q-1); a > 0; a--) update_node(a);
-
-	std::vector<int> num_r_lt(N+1);
-	for (int q = 0; q < Q; q++) {
-		num_r_lt[queries[q].r+1] ++;
-	}
-	for (int i = 0; i < N; i++) {
-		num_r_lt[i+1] += num_r_lt[i];
-	}
-
-	std::vector<int> ans(Q, -1);
-
-	for (int v = 0; seg[1] > -1; v++) {
-		auto process_bounds = [&](int l, int r) -> void {
-			// kill everything which is > l and < r
-			auto rng = layout.get_range(0, num_r_lt[r]);
-			rng.for_each(std::y_combinator([&](auto self, seg_tree::point a) -> void {
-				if (seg[a] <= l) return;
-				//assert(seg[a] > l);
-				if (a >= layout.N) {
-					int i = layout.get_leaf_index(a);
-					assert(ans[queries[i].q] == -1);
-					ans[queries[i].q] = v;
-					seg[a] = -1;
-				} else {
-					self(a.c(0));
-					self(a.c(1));
-					update_node(a);
-				}
-			}));
-			rng.for_parents_up(update_node);
+		int Q; cin >> Q;
+		struct query_t {
+			int l, r, q;
 		};
-		int prv_l = -1;
-		for (; it != all_intervals.end() && it->first == v; ++it) {
-			auto [r, l] = it->second;
-			assert(l <= r);
-			process_bounds(prv_l, r);
-			prv_l = l;
+		std::vector<query_t> queries(Q);
+		for (int q = 0; q < Q; q++) {
+			auto& [l, r, idx] = queries[q];
+			if (TESTING) {
+				l = std::uniform_int_distribution<int>(0, N - 1)(mt);
+				r = std::uniform_int_distribution<int>(0, N - 1)(mt);
+				if (l > r) std::swap(l, r);
+			} else {
+				cin >> l >> r; l--, r--;
+			}
+			idx = q;
 		}
-		process_bounds(prv_l, N);
-	}
 
-	for (int q = 0; q < Q; q++) {
-		assert(ans[q] != -1);
-		cout << ans[q] << '\n';
+		std::vector<std::pair<int64_t, std::array<int, 2>>> all_intervals;
+		all_intervals.reserve(N * 64);
+
+		std::vector<std::pair<int64_t, int>> vals;
+		vals.reserve(61);
+		for (int i = 0; i < N; i++) {
+			for (auto& [v, j] : vals) {
+				v &= A[i];
+			}
+			vals.push_back({A[i], i});
+			int L = 0;
+			for (int z = 0; z < int(vals.size()); z++) {
+				if (L == 0 || vals[z].first != vals[L-1].first) {
+					vals[L++] = vals[z];
+				} else {
+					vals[L-1] = vals[z];
+				}
+			}
+			vals.resize(L);
+			for (auto [v, j] : vals) {
+				all_intervals.push_back({v, {i, j}});
+			}
+		}
+
+		std::sort(all_intervals.begin(), all_intervals.end());
+		auto it = all_intervals.begin();
+
+		std::sort(queries.begin(), queries.end(), [&](auto a, auto b) { return a.r < b.r; });
+		seg_tree::in_order_layout layout(Q);
+		std::vector<int> seg(2*Q);
+		for (int i = 0; i < Q; i++) {
+			seg[layout.get_point(i)] = queries[i].l;
+		}
+		auto update_node = [&](seg_tree::point a) {
+			seg[a] = std::max(seg[a.c(0)], seg[a.c(1)]);
+		};
+		for (seg_tree::point a(Q-1); a > 0; a--) update_node(a);
+
+		std::vector<int> num_r_lt(N+1);
+		for (int q = 0; q < Q; q++) {
+			num_r_lt[queries[q].r+1] ++;
+		}
+		for (int i = 0; i < N; i++) {
+			num_r_lt[i+1] += num_r_lt[i];
+		}
+
+		std::vector<int64_t> ans(Q, -1);
+
+		for (int64_t v = 0; seg[1] > -1; v++) {
+			auto process_bounds = [&](int l, int r) -> void {
+				// kill everything which is > l and < r
+				auto rng = layout.get_range(0, num_r_lt[r]);
+				rng.for_each(std::y_combinator([&](auto self, seg_tree::point a) -> void {
+					if (seg[a] <= l) return;
+					//assert(seg[a] > l);
+					if (a >= layout.N) {
+						int i = layout.get_leaf_index(a);
+						assert(ans[queries[i].q] == -1);
+
+						ans[queries[i].q] = v;
+						seg[a] = -1;
+					} else {
+						self(a.c(0));
+						self(a.c(1));
+						update_node(a);
+					}
+				}));
+				rng.for_parents_up(update_node);
+			};
+			int prv_l = -1;
+			for (; it != all_intervals.end() && it->first == v; ++it) {
+				auto [r, l] = it->second;
+				assert(l <= r);
+				process_bounds(prv_l, r);
+				prv_l = l;
+			}
+			process_bounds(prv_l, N);
+		}
+
+		for (int q = 0; q < Q; q++) {
+			assert(ans[q] != -1);
+			cout << ans[q] << '\n';
+		}
 	}
 
 	return 0;
