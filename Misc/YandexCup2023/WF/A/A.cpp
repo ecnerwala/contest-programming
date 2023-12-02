@@ -300,7 +300,9 @@ int main() {
 	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
 	for (int CASE = 0; CASE < (TESTING ? 1000 : 1); CASE++) {
-		cerr << "Case " << CASE << '\n';
+		if (TESTING) {
+			cerr << "Case " << CASE << '\n';
+		}
 		int N;
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(1, 10)(mt);
