@@ -314,6 +314,7 @@ int main() {
 	int cur_v1_has = false;
 	dp[{0, 0, 1, 1}] = num(1);
 	num inv_2 = inv(num(2));
+	std::vector<num> buf; buf.reserve(5 * N);
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < 2; j++) {
 			char c = (j ? R0 : R1)[i];
@@ -331,25 +332,35 @@ int main() {
 							for (int a1 = 0; a1 < 2; a1++) {
 								for (int v1 = 0; v1 < cur_empty; v1++) {
 										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
+									buf.clear();
+									buf.push_back(0);
+									for (int v0 = 0; v0 < cur_empty; v0++) {
+										buf.push_back(buf.back() + dp[{v0, v1, a0, a1}] * denom);
+									}
+
 									for (int v_new = 0; v_new <= cur_empty; v_new++) {
 										int nv1 = v1 + (v1 >= v_new);
 										int na1 = a1;
-										for (int v0 = 0; v0 < cur_empty; v0++) {
-											num ways = dp[{v0, v1, a0, a1}];
-											//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
-											if (ways == 0) continue;
-											ways *= denom;
-											num nways = ways;
-											int nv0 = v0 + (v0 >= v_new);
+										// v0 small
+										{
+											num nways = buf[v_new] - buf[0];
 											int na0 = a0;
 											int a_new = 0;
-											if (v_new <= v0) {
-												na0 = 1;
-											} else {
-												a_new = 1;
-											}
+											a_new = 1;
 
-											nv0 = v_new;
+											int nv0 = v_new;
+											if (na0 == 0) nways *= inv_2;
+											na0 = a_new;
+											ndp[{nv0, nv1, na0, na1}] += nways;
+										}
+										// v0 big
+										{
+											num nways = buf.back() - buf[v_new];
+											int na0 = a0;
+											int a_new = 0;
+											na0 = 1;
+
+											int nv0 = v_new;
 											if (na0 == 0) nways *= inv_2;
 											na0 = a_new;
 											ndp[{nv0, nv1, na0, na1}] += nways;
