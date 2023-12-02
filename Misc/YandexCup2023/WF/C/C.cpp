@@ -287,7 +287,7 @@ int main() {
 	int N; cin >> N;
 	std::string R0, R1; cin >> R0 >> R1;
 
-	num tot_ans = 0;
+	num num_parities = 0;
 	for (int tgt_z = 0; tgt_z < 2; tgt_z++) {
 		bool bad = false;
 		int num_empty = 0;
@@ -305,127 +305,129 @@ int main() {
 			}
 		}
 		if (bad) continue;
-		//cerr << "solving " << tgt_z << '\n';
-		tensor<num, 4> dp({1, 1, 2, 2}); // 0 means maybe local min, 1 means def not local min
-		int cur_empty = 0;
-		int cur_v0_has = false;
-		int cur_v1_has = false;
-		dp[{0, 0, 1, 1}] = num(1);
-		num inv_2 = inv(num(2));
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < 2; j++) {
-				char c = (j ? R0 : R1)[i];
-				//cerr << "step " << i << ' ' << j << ' ' << c << '\n';
-				//cerr << " cur_empty " << cur_empty << ' ' << cur_v0_has << ' ' << cur_v1_has << '\n';
-				int nxt_empty = cur_empty + (c == '.');
-				int nxt_v0_has = (j == 0) ? (c == '.') : cur_v0_has;
-				int nxt_v1_has = (j == 1) ? (c == '.') : cur_v1_has;
-				tensor<num, 4> ndp({nxt_v0_has ? nxt_empty : 1, nxt_v1_has ? nxt_empty : 1, 2, 2});
-				if (c == '.') {
-					num denom = inv(num(nxt_empty));
-					for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
-						for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
-							for (int a0 = 0; a0 < 2; a0++) {
-								for (int a1 = 0; a1 < 2; a1++) {
-									//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
-									num ways = dp[{v0, v1, a0, a1}];
-									//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
-									if (ways == 0) continue;
-									ways *= denom;
-									for (int v_new = 0; v_new <= cur_empty; v_new++) {
-										num nways = ways;
-										int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
-										int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
-										int na0 = a0;
-										int na1 = a1;
-										int a_new = 0;
-										if (j == 0) {
-											if (cur_v0_has) {
-												if (v_new < nv0) {
-													na0 = 1;
-												} else {
-													a_new = 1;
-												}
-											} else if (i > 0) {
-												a_new = 1;
-											}
-
-											nv0 = v_new;
-											if (na0 == 0) nways *= inv_2;
-											na0 = a_new;
-										} else {
-											if (cur_v0_has) {
-												if (v_new < nv0) {
-													na0 = 1;
-												} else {
-													a_new = 1;
-												}
-											} else {
-												// above always exists
-												a_new = 1;
-											}
-											if (cur_v1_has) {
-												if (v_new < nv1) {
-													na1 = 1;
-												} else {
-													a_new = 1;
-												}
-											} else if (i > 0) {
-												a_new = 1;
-											}
-
-											nv1 = v_new;
-											if (na1 == 0) nways *= inv_2;
-											na1 = a_new;
-										}
-										ndp[{nv0, nv1, na0, na1}] += nways;
-									}
-								}
-							}
-						}
-					}
-				} else {
-					for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
-						for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
-							for (int a0 = 0; a0 < 2; a0++) {
-								for (int a1 = 0; a1 < 2; a1++) {
-									num ways = dp[{v0, v1, a0, a1}];
-									if (ways == 0) continue;
-									int nv0 = v0;
-									int nv1 = v1;
+		num_parities++;
+	}
+	num tot_ans = 0;
+	tensor<num, 4> dp({1, 1, 2, 2}); // 0 means maybe local min, 1 means def not local min
+	int cur_empty = 0;
+	int cur_v0_has = false;
+	int cur_v1_has = false;
+	dp[{0, 0, 1, 1}] = num(1);
+	num inv_2 = inv(num(2));
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < 2; j++) {
+			char c = (j ? R0 : R1)[i];
+			//cerr << "step " << i << ' ' << j << ' ' << c << '\n';
+			//cerr << " cur_empty " << cur_empty << ' ' << cur_v0_has << ' ' << cur_v1_has << '\n';
+			int nxt_empty = cur_empty + (c == '.');
+			int nxt_v0_has = (j == 0) ? (c == '.') : cur_v0_has;
+			int nxt_v1_has = (j == 1) ? (c == '.') : cur_v1_has;
+			tensor<num, 4> ndp({nxt_v0_has ? nxt_empty : 1, nxt_v1_has ? nxt_empty : 1, 2, 2});
+			if (c == '.') {
+				num denom = inv(num(nxt_empty));
+				for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
+					for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
+						for (int a0 = 0; a0 < 2; a0++) {
+							for (int a1 = 0; a1 < 2; a1++) {
+								//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
+								num ways = dp[{v0, v1, a0, a1}];
+								//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
+								if (ways == 0) continue;
+								ways *= denom;
+								for (int v_new = 0; v_new <= cur_empty; v_new++) {
+									num nways = ways;
+									int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
+									int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
 									int na0 = a0;
 									int na1 = a1;
+									int a_new = 0;
 									if (j == 0) {
-										nv0 = 0;
-										na0 = 1;
+										if (cur_v0_has) {
+											if (v_new < nv0) {
+												na0 = 1;
+											} else {
+												a_new = 1;
+											}
+										} else if (i > 0) {
+											a_new = 1;
+										}
+
+										nv0 = v_new;
+										if (na0 == 0) nways *= inv_2;
+										na0 = a_new;
 									} else {
-										// we set na0 to 1 for free
-										na0 = 1;
-										nv1 = 0;
-										na1 = 1;
+										if (cur_v0_has) {
+											if (v_new < nv0) {
+												na0 = 1;
+											} else {
+												a_new = 1;
+											}
+										} else {
+											// above always exists
+											a_new = 1;
+										}
+										if (cur_v1_has) {
+											if (v_new < nv1) {
+												na1 = 1;
+											} else {
+												a_new = 1;
+											}
+										} else if (i > 0) {
+											a_new = 1;
+										}
+
+										nv1 = v_new;
+										if (na1 == 0) nways *= inv_2;
+										na1 = a_new;
 									}
-									ndp[{nv0, nv1, na0, na1}] += ways;
+									ndp[{nv0, nv1, na0, na1}] += nways;
 								}
 							}
 						}
 					}
 				}
-				cur_empty = nxt_empty;
-				dp = std::move(ndp);
-				cur_v0_has = nxt_v0_has;
-				cur_v1_has = nxt_v1_has;
-			}
-		}
-		for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
-			for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
-				for (int a0 = 0; a0 < 2; a0++) {
-					for (int a1 = 0; a1 < 2; a1++) {
-						tot_ans += dp[{v0, v1, a0, a1}] * (a0 == 0 ? inv_2 : 1) * (a1 == 0 ? inv_2 : 1);
+			} else {
+				for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
+					for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
+						for (int a0 = 0; a0 < 2; a0++) {
+							for (int a1 = 0; a1 < 2; a1++) {
+								num ways = dp[{v0, v1, a0, a1}];
+								if (ways == 0) continue;
+								int nv0 = v0;
+								int nv1 = v1;
+								int na0 = a0;
+								int na1 = a1;
+								if (j == 0) {
+									nv0 = 0;
+									na0 = 1;
+								} else {
+									// we set na0 to 1 for free
+									na0 = 1;
+									nv1 = 0;
+									na1 = 1;
+								}
+								ndp[{nv0, nv1, na0, na1}] += ways;
+							}
+						}
 					}
+				}
+			}
+			cur_empty = nxt_empty;
+			dp = std::move(ndp);
+			cur_v0_has = nxt_v0_has;
+			cur_v1_has = nxt_v1_has;
+		}
+	}
+	for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
+		for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
+			for (int a0 = 0; a0 < 2; a0++) {
+				for (int a1 = 0; a1 < 2; a1++) {
+					tot_ans += dp[{v0, v1, a0, a1}] * (a0 == 0 ? inv_2 : 1) * (a1 == 0 ? inv_2 : 1);
 				}
 			}
 		}
 	}
+	tot_ans *= num_parities;
 
 	cout << tot_ans << '\n';
 
