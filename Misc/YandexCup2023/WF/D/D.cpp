@@ -345,15 +345,15 @@ int main() {
 		cur_bound = std::min(cur_bound, hi);
 		cerr << lo << ' ' << cur_bound - lo - 1<< '\n';
 		assert(cur_bound >= lo);
-		assert(cur_bound - 1 - lo <= N);
+		assert(cur_bound - lo <= N);
 		ans[0]++;
 		ans[cur_bound - lo]--;
 	}
 	for (int i = 0; i <= N; i++) {
 		ans[i+1] += ans[i];
 	}
-	assert(ans[N+1] == 0);
-	for (int i = 1; i <= N; i++) {
+	assert(ans[N] == 0);
+	for (int i = 0; i < N; i++) {
 		cout << ans[i] << '\n';
 	}
 	return 0;
