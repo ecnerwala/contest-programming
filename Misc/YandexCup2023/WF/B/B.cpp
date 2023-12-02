@@ -91,9 +91,9 @@ int main() {
 	}
 	std::vector<int> goods;
 	goods.reserve(1 << N);
-	for (int i = 0; i < N; i++) {
-		if (values[i]) {
-			goods.push_back(i);
+	for (int m = 0; m < (1 << N); m++) {
+		if (values[m]) {
+			goods.push_back(m);
 		}
 	}
 
