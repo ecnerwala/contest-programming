@@ -81,6 +81,13 @@ int main() {
 		bs ones = base_terms[i];
 		ones &= values;
 		values = (zeros & (ones >> (1 << i))) | (ones | (zeros << (1 << i)));
+	for (int m = 0; m < (1 << N); m++) {
+		for (int i = N-1; i >= 0; i--) {
+			cerr << ((m >> i) & 1);
+		}
+		cerr << ' ' << values[m] << '\n';
+	}
+	cerr << '\n';
 	}
 	std::vector<int> goods;
 	goods.reserve(1 << N);
