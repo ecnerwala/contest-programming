@@ -315,6 +315,8 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < 2; j++) {
 				char c = (j ? R0 : R1)[i];
+				cerr << "step " << i << ' ' << j << ' ' << c << '\n';
+				cerr << " cur_empty " << cur_empty << ' ' << cur_v0_has << ' ' << cur_v1_has << '\n';
 				int nxt_empty = cur_empty + (c == '.');
 				int nxt_v0_has = (j == 0) ? (c == '.') : cur_v0_has;
 				int nxt_v1_has = (j == 1) ? (c == '.') : cur_v1_has;
