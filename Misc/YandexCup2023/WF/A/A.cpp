@@ -367,8 +367,10 @@ int main() {
 			auto rng = layout.get_range(0, num_r_lt[r]);
 			rng.for_each(std::y_combinator([&](auto self, seg_tree::point a) -> void {
 				if (seg[a] <= l) return;
+				//assert(seg[a] > l);
 				if (a >= layout.N) {
 					int i = layout.get_leaf_index(a);
+					assert(ans[queries[i].q] == -1);
 					ans[queries[i].q] = v;
 					seg[a] = -1;
 				} else {
@@ -390,6 +392,7 @@ int main() {
 	}
 
 	for (int q = 0; q < Q; q++) {
+		assert(ans[q] != -1);
 		cout << ans[q] << '\n';
 	}
 
