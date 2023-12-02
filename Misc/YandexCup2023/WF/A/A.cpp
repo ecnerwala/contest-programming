@@ -297,7 +297,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
 	for (int CASE = 0; CASE < (TESTING ? 1000 : 1); CASE++) {
 		cerr << "Case " << CASE << '\n';
@@ -307,10 +307,10 @@ int main() {
 		} else {
 			cin >> N;
 		}
-		std::vector<int> A(N);
+		std::vector<int64_t> A(N);
 		for (auto& a : A) {
 			if (TESTING) {
-				a = std::uniform_int_distribution<int>(0, 1 << 10)(mt);
+				a = std::uniform_int_distribution<int64_t>(0, 1 << 10)(mt);
 			} else {
 				cin >> a;
 			}
