@@ -30,6 +30,7 @@ bs parse_not(std::string::iterator& it) {
 bs parse_and(std::string::iterator& it) {
 	std::cerr << "parse_and " << std::string(it, S.end()) << '\n';
 	auto lhs = parse_not(it);
+	std::cerr << "parse_and " << std::string(it, S.end()) << '\n';
 	while (true) {
 		if (*it == ')' || *it == '|') {
 			return lhs;
