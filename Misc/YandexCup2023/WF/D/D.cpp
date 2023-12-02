@@ -350,7 +350,7 @@ int main() {
 		ans[0]++;
 		ans[cur_bound - lo]--;
 	}
-	for (int i = 0; i <= N; i++) {
+	for (int i = 0; i < N; i++) {
 		ans[i+1] += ans[i];
 	}
 	assert(ans[N] == 0);
