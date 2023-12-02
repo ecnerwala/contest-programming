@@ -373,16 +373,16 @@ int main() {
 						for (int a0 = 0; a0 < 2; a0++) {
 							for (int a1 = 0; a1 < 2; a1++) {
 								for (int v0 = 0; v0 < cur_empty; v0++) {
+									buf.clear();
+									buf.push_back(0);
 									for (int v1 = 0; v1 < cur_empty; v1++) {
-										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
-										num ways = dp[{v0, v1, a0, a1}];
-										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
-										if (ways == 0) continue;
-										ways *= denom;
-										for (int v_new = 0; v_new <= cur_empty; v_new++) {
-											num nways = ways;
+										buf.push_back(buf.back() + dp[{v0, v1, a0, a1}] * denom);
+									}
+									for (int v_new = 0; v_new <= cur_empty; v_new++) {
+										// v1 small
+										{
+											num nways = buf[v_new] - buf[0];
 											int nv0 = v0 + (v0 >= v_new);
-											int nv1 = v1 + (v1 >= v_new);
 											int na0 = a0;
 											int na1 = a1;
 											int a_new = 0;
@@ -393,12 +393,28 @@ int main() {
 												a_new = 1;
 											}
 
-											if (v_new <= v1) {
-												na1 = 1;
+											a_new = 1;
+											int nv1 = v_new;
+											if (na1 == 0) nways *= inv_2;
+											na1 = a_new;
+											ndp[{nv0, nv1, na0, na1}] += nways;
+										}
+										// v1 big
+										{
+											num nways = buf.back() - buf[v_new];
+											int nv0 = v0 + (v0 >= v_new);
+											int na0 = a0;
+											int na1 = a1;
+											int a_new = 0;
+
+											if (v_new <= v0) {
+												na0 = 1;
 											} else {
 												a_new = 1;
 											}
-											nv1 = v_new;
+
+											na1 = 1;
+											int nv1 = v_new;
 											if (na1 == 0) nways *= inv_2;
 											na1 = a_new;
 											ndp[{nv0, nv1, na0, na1}] += nways;
