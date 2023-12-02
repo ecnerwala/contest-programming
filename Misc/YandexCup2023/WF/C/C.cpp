@@ -323,8 +323,8 @@ int main() {
 				tensor<num, 4> ndp({nxt_v0_has ? nxt_empty : 1, nxt_v1_has ? nxt_empty : 1, 2, 2});
 				if (c == '.') {
 					num denom = inv(num(nxt_empty));
-					for (int v0 = 0; v0 < cur_v0_has ? cur_empty : 1; v0++) {
-						for (int v1 = 0; v1 < cur_v1_has ? cur_empty : 1; v1++) {
+					for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
+						for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
 							for (int a0 = 0; a0 < 2; a0++) {
 								for (int a1 = 0; a1 < 2; a1++) {
 									cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
@@ -385,8 +385,8 @@ int main() {
 						}
 					}
 				} else {
-					for (int v0 = 0; v0 < cur_v0_has ? cur_empty : 1; v0++) {
-						for (int v1 = 0; v1 < cur_v1_has ? cur_empty : 1; v1++) {
+					for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
+						for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
 							for (int a0 = 0; a0 < 2; a0++) {
 								for (int a1 = 0; a1 < 2; a1++) {
 									num ways = dp[{v0, v1, a0, a1}];
@@ -416,8 +416,8 @@ int main() {
 				cur_v1_has = nxt_v1_has;
 			}
 		}
-		for (int v0 = 0; v0 < cur_v0_has ? cur_empty : 1; v0++) {
-			for (int v1 = 0; v1 < cur_v1_has ? cur_empty : 1; v1++) {
+		for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
+			for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
 				for (int a0 = 0; a0 < 2; a0++) {
 					for (int a1 = 0; a1 < 2; a1++) {
 						tot_ans += dp[{v0, v1, a0, a1}] * (a0 == 0 ? inv_2 : 1) * (a1 == 0 ? inv_2 : 1);
