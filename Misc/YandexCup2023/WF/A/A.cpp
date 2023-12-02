@@ -315,7 +315,13 @@ int main() {
 				cin >> a;
 			}
 		}
-		int Q; cin >> Q;
+		int Q;
+		if (TESTING) {
+			Q = std::uniform_int_distribution<int>(1, 10)(mt);
+		} else {
+			cin >> Q;
+		}
+
 		struct query_t {
 			int l, r, q;
 		};
