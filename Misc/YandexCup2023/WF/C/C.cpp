@@ -305,7 +305,7 @@ int main() {
 			}
 		}
 		if (bad) continue;
-		cerr << "solving " << tgt_z << '\n';
+		//cerr << "solving " << tgt_z << '\n';
 		tensor<num, 4> dp({1, 1, 2, 2}); // 0 means maybe local min, 1 means def not local min
 		int cur_empty = 0;
 		int cur_v0_has = false;
@@ -315,8 +315,8 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < 2; j++) {
 				char c = (j ? R0 : R1)[i];
-				cerr << "step " << i << ' ' << j << ' ' << c << '\n';
-				cerr << " cur_empty " << cur_empty << ' ' << cur_v0_has << ' ' << cur_v1_has << '\n';
+				//cerr << "step " << i << ' ' << j << ' ' << c << '\n';
+				//cerr << " cur_empty " << cur_empty << ' ' << cur_v0_has << ' ' << cur_v1_has << '\n';
 				int nxt_empty = cur_empty + (c == '.');
 				int nxt_v0_has = (j == 0) ? (c == '.') : cur_v0_has;
 				int nxt_v1_has = (j == 1) ? (c == '.') : cur_v1_has;
@@ -327,9 +327,9 @@ int main() {
 						for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
 							for (int a0 = 0; a0 < 2; a0++) {
 								for (int a1 = 0; a1 < 2; a1++) {
-									cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
+									//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
 									num ways = dp[{v0, v1, a0, a1}];
-									cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
+									//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
 									if (ways == 0) continue;
 									ways *= denom;
 									for (int v_new = 0; v_new <= cur_empty; v_new++) {
