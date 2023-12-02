@@ -68,6 +68,12 @@ int main() {
 
 	auto it = S.begin();
 	bs values = parse_or(it);
+	for (int m = 0; m < (1 << N); m++) {
+		for (int i = N-1; i >= 0; i--) {
+			cerr << ((m >> i) & 1);
+		}
+		cerr << ' ' << values[m] << '\n';
+	}
 	assert(it + 1 == S.end());
 	for (int i = 0; i < N; i++) {
 		bs zeros = base_terms[i] >> (1 << i);
