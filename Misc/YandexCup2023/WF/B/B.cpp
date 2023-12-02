@@ -59,7 +59,7 @@ int main() {
 	base_terms.resize(N);
 	for (int i = 0; i < N; i++) {
 		for (int msk = 0; msk < (1 << N); msk++) {
-			base_terms[msk] = (msk >> i) & 1;
+			base_terms[i][msk] = (msk >> i) & 1;
 		}
 	}
 
