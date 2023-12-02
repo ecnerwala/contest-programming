@@ -323,7 +323,7 @@ int main() {
 		assert(seg[1].mi <= 0);
 		int hi;
 		if (seg[1].mi == 0) {
-			assert(false);
+			hi = V;
 		} else {
 			seg_tree::point a(1);
 			int64_t lhs = 0;
