@@ -290,6 +290,7 @@ int main() {
 		max_en = std::max(max_en, en);
 	}
 	const int V = int(max_en + 2);
+	assert(max_en <= int(3e5));
 	std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.en > b.en; });
 	auto it = intervals.begin();
 	seg_tree::in_order_layout layout(V);
@@ -303,7 +304,7 @@ int main() {
 		seg[a].mi = std::min(seg[a.c(0)].mi, seg[a.c(0)].tot + seg[a.c(1)].mi);
 	};
 	int cur_bound = V;
-	std::vector<int> ans(N+2);
+	std::vector<int> ans(N+1);
 	for (int lo = V-1; lo >= 0; lo--) {
 		for (; it != intervals.end() && it->en == lo; ++it) {
 			// +1 at it->st;
@@ -343,7 +344,7 @@ int main() {
 		}
 		// lo..hi is bad
 		cur_bound = std::min(cur_bound, hi);
-		cerr << lo << ' ' << cur_bound - lo - 1<< '\n';
+		//cerr << lo << ' ' << cur_bound - lo - 1<< '\n';
 		assert(cur_bound >= lo);
 		assert(cur_bound - lo <= N);
 		ans[0]++;
