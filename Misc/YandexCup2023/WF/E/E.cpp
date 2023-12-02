@@ -53,6 +53,8 @@ int main() {
 				cout << 1+A[0] << ' ' << 1+!A[0] << '\n';
 				cout << 1+!A[1] << ' ' << 1+A[1] << '\n';
 				continue;
+			} else {
+				cout << -1 << '\n';
 			}
 		}
 	}
