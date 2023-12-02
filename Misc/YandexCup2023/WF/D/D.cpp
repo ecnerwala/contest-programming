@@ -295,8 +295,29 @@ int main() {
 			// loop
 		}
 	}
-	const int V = int(max_en + N + 2);
+	const int V = int(int(5e5));
+	// first filter intervals down to some matching
 	std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.en > b.en; });
+	std::vector<bool> skip_inter(N);
+
+	{
+		auto it = intervals.begin();
+		std::priority_queue<std::pair<int, int>> pq;
+		for (int lo = V-1; lo >= 0; lo--) {
+			for (; it != intervals.end() && it->en >= lo; ++it) {
+				pq.push({it->st, it - intervals.begin()});
+			}
+			while (!pq.empty()) {
+				if (pq.top().first > lo) {
+					skip_inter[pq.top().second] = true;
+					pq.pop();
+				} else {
+					pq.pop();
+					break;
+				}
+			}
+		}
+	}
 	auto it = intervals.begin();
 	seg_tree::in_order_layout layout(V);
 	struct seg_t {
@@ -309,21 +330,25 @@ int main() {
 		seg[a].tot = seg[a.c(0)].tot + seg[a.c(1)].tot;
 		seg[a].mi = std::min(seg[a.c(0)].mi, seg[a.c(0)].tot + seg[a.c(1)].mi);
 	};
+	// we pick some intervals, then we must waste at least # intervals - size of union
 	int cur_bound = V;
 	std::vector<int64_t> ans(N+1);
+	// bad if # of things covering each - # things covering each pair - # pts < 0
+	// all intervals that cover the left endpoint must cover the next one too
 	for (int lo = V-1; lo >= 0; lo--) {
 		for (; it != intervals.end() && it->en >= lo; ++it) {
+			if (skip_inter[it - intervals.begin()]) continue;
 			assert(it->en == lo);
 			// +1 at it->st;
 			assert(1 <= it->st && it->st <= lo);
-			auto a = layout.get_point(int(it->st));
+			seg_tree::point a = layout.get_point(int(it->st));
 			seg[a].tot++;
 			seg[a].mi = std::min<int64_t>(0, seg[a].tot);
 			a.for_parents_up(update_node);
 		}
 		// -1 at lo
 		{
-			auto a = layout.get_point(lo);
+			seg_tree::point a = layout.get_point(lo);
 			seg[a].tot--;
 			seg[a].mi = std::min<int64_t>(0, seg[a].tot);
 			a.for_parents_up(update_node);
