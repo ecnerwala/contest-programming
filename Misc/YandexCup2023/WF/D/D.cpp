@@ -289,8 +289,8 @@ int main() {
 	for (auto [st, en] : intervals) {
 		max_en = std::max(max_en, en);
 	}
-	const int V = int(max_en + 2);
 	assert(max_en <= int(3e5));
+	const int V = int(max_en + N + 2);
 	std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.en > b.en; });
 	auto it = intervals.begin();
 	seg_tree::in_order_layout layout(V);
