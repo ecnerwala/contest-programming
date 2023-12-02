@@ -343,7 +343,7 @@ int main() {
 											int na0 = a0;
 											int na1 = a1;
 											int a_new = 0;
-											if (v_new < nv0) {
+											if (v_new <= v0) {
 												na0 = 1;
 											} else {
 												a_new = 1;
@@ -358,8 +358,7 @@ int main() {
 								}
 							}
 						}
-					}
-					if (j == 1) {
+					} else {
 						for (int a0 = 0; a0 < 2; a0++) {
 							for (int a1 = 0; a1 < 2; a1++) {
 								for (int v0 = 0; v0 < cur_empty; v0++) {
@@ -377,13 +376,13 @@ int main() {
 											int na1 = a1;
 											int a_new = 0;
 
-											if (v_new < nv0) {
+											if (v_new <= v0) {
 												na0 = 1;
 											} else {
 												a_new = 1;
 											}
 
-											if (v_new < nv1) {
+											if (v_new <= v1) {
 												na1 = 1;
 											} else {
 												a_new = 1;
