@@ -35,7 +35,7 @@ int main() {
 	}
 
 	// just peel off leaves
-	assert(K == N);
+	//assert(K == N);
 	assert(N >= 2);
 	std::vector<bool> vis(N);
 	std::vector<std::vector<int>> ch(N);
@@ -46,6 +46,7 @@ int main() {
 			if (vis[nxt]) continue;
 			bool has = self(nxt);
 			if (has) {
+				assert(ch[nxt].empty());
 				ch[cur].push_back(nxt);
 			}
 		}
