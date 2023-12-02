@@ -355,7 +355,7 @@ int main() {
 		assert(hi >= lo);
 		// lo..hi is bad
 		cur_bound = std::min(cur_bound, hi);
-		//cerr << lo << ' ' << cur_bound - lo - 1<< '\n';
+		cerr << lo << ' ' << cur_bound - lo << '\n';
 		assert(cur_bound >= lo);
 		assert(cur_bound - lo <= N);
 		ans[0]++;
