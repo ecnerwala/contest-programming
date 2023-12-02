@@ -15,7 +15,7 @@ bs parse_term(std::string::iterator& it) {
 		++it;
 		return res;
 	} else if ('a' <= *it && *it <= 'z') {
-		return base_terms[N - 1 - (*it - 'a')];
+		return base_terms[N - 1 - (*(it++) - 'a')];
 	} else assert(false);
 }
 bs parse_not(std::string::iterator& it) {
