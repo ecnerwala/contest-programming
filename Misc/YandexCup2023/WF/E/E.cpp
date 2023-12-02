@@ -30,6 +30,7 @@ int main() {
 						if (c >= N) c -= N;
 						if (c & 1) c += N;
 						c /= 2;
+						assert((i+j-2*c) % N == 0);
 						cout << A[c/2]+1 << " \n"[j+1==N];
 					}
 				}
