@@ -303,6 +303,7 @@ int main() {
 		int64_t tot = 0;
 		int64_t mi = 0;
 	};
+	// no need to initialize
 	std::vector<seg_t> seg(2*V);
 	auto update_node = [&](seg_tree::point a) -> void {
 		seg[a].tot = seg[a.c(0)].tot + seg[a.c(1)].tot;
@@ -348,6 +349,7 @@ int main() {
 			}
 			assert(lhs + seg[a].mi < 0);
 			assert(lhs + seg[a].mi == -1);
+			assert(lhs == 0);
 			hi = layout.get_leaf_index(a);
 		}
 		assert(hi >= lo);
