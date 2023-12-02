@@ -308,7 +308,7 @@ int main() {
 		seg[a].mi = std::min(seg[a.c(0)].mi, seg[a.c(0)].tot + seg[a.c(1)].mi);
 	};
 	int cur_bound = V;
-	std::vector<int> ans(N+1);
+	std::vector<int64_t> ans(N+1);
 	for (int lo = V-1; lo >= 0; lo--) {
 		for (; it != intervals.end() && it->en >= lo; ++it) {
 			assert(it->en == lo);
