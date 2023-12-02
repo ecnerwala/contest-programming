@@ -289,7 +289,11 @@ int main() {
 	for (auto [st, en] : intervals) {
 		max_en = std::max(max_en, en);
 	}
-	assert(max_en <= int(3e5));
+	if (max_en >= int(3e5)) {
+		while (true) {
+			// loop
+		}
+	}
 	const int V = int(max_en + N + 2);
 	std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.en > b.en; });
 	auto it = intervals.begin();
@@ -306,7 +310,8 @@ int main() {
 	int cur_bound = V;
 	std::vector<int> ans(N+1);
 	for (int lo = V-1; lo >= 0; lo--) {
-		for (; it != intervals.end() && it->en == lo; ++it) {
+		for (; it != intervals.end() && it->en >= lo; ++it) {
+			assert(it->en == lo);
 			// +1 at it->st;
 			auto a = layout.get_point(int(it->st));
 			seg[a].tot++;
@@ -342,6 +347,7 @@ int main() {
 			assert(lhs + seg[a].mi < 0);
 			hi = layout.get_leaf_index(a);
 		}
+		assert(hi >= lo);
 		// lo..hi is bad
 		cur_bound = std::min(cur_bound, hi);
 		//cerr << lo << ' ' << cur_bound - lo - 1<< '\n';
@@ -349,6 +355,7 @@ int main() {
 		assert(cur_bound - lo <= N);
 		ans[0]++;
 		ans[cur_bound - lo]--;
+		if (lo == 0) assert(cur_bound == 0);
 	}
 	for (int i = 0; i < N; i++) {
 		ans[i+1] += ans[i];
