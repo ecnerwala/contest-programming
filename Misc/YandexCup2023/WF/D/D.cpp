@@ -284,6 +284,7 @@ int main() {
 	std::vector<inter_t> intervals(N);
 	for (auto& [st, en] : intervals) {
 		cin >> st >> en;
+		assert(st <= en);
 	}
 	int64_t max_en = 0;
 	for (auto [st, en] : intervals) {
@@ -313,6 +314,7 @@ int main() {
 		for (; it != intervals.end() && it->en >= lo; ++it) {
 			assert(it->en == lo);
 			// +1 at it->st;
+			assert(1 <= it->st && it->st <= lo);
 			auto a = layout.get_point(int(it->st));
 			seg[a].tot++;
 			seg[a].mi = std::min<int64_t>(0, seg[a].tot);
@@ -345,6 +347,7 @@ int main() {
 				}
 			}
 			assert(lhs + seg[a].mi < 0);
+			assert(lhs + seg[a].mi == -1);
 			hi = layout.get_leaf_index(a);
 		}
 		assert(hi >= lo);
