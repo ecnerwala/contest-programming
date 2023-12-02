@@ -329,19 +329,19 @@ int main() {
 					if (j == 0) {
 						for (int a0 = 0; a0 < 2; a0++) {
 							for (int a1 = 0; a1 < 2; a1++) {
-								for (int v0 = 0; v0 < cur_empty; v0++) {
-									for (int v1 = 0; v1 < cur_empty; v1++) {
+								for (int v1 = 0; v1 < cur_empty; v1++) {
 										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
-										num ways = dp[{v0, v1, a0, a1}];
-										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
-										if (ways == 0) continue;
-										ways *= denom;
-										for (int v_new = 0; v_new <= cur_empty; v_new++) {
+									for (int v_new = 0; v_new <= cur_empty; v_new++) {
+										int nv1 = v1 + (v1 >= v_new);
+										int na1 = a1;
+										for (int v0 = 0; v0 < cur_empty; v0++) {
+											num ways = dp[{v0, v1, a0, a1}];
+											//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
+											if (ways == 0) continue;
+											ways *= denom;
 											num nways = ways;
-											int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
-											int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
+											int nv0 = v0 + (v0 >= v_new);
 											int na0 = a0;
-											int na1 = a1;
 											int a_new = 0;
 											if (v_new <= v0) {
 												na0 = 1;
@@ -370,8 +370,8 @@ int main() {
 										ways *= denom;
 										for (int v_new = 0; v_new <= cur_empty; v_new++) {
 											num nways = ways;
-											int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
-											int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
+											int nv0 = v0 + (v0 >= v_new);
+											int nv1 = v1 + (v1 >= v_new);
 											int na0 = a0;
 											int na1 = a1;
 											int a_new = 0;
