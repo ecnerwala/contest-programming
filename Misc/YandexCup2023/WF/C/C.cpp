@@ -325,62 +325,137 @@ int main() {
 			tensor<num, 4> ndp({nxt_v0_has ? nxt_empty : 1, nxt_v1_has ? nxt_empty : 1, 2, 2});
 			if (c == '.') {
 				num denom = inv(num(nxt_empty));
-				for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
-					for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
-						for (int a0 = cur_v0_has ? 0 : 1; a0 < 2; a0++) {
-							for (int a1 = cur_v1_has ? 0 : 1; a1 < 2; a1++) {
-								//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
-								num ways = dp[{v0, v1, a0, a1}];
-								//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
-								if (ways == 0) continue;
-								ways *= denom;
-								for (int v_new = 0; v_new <= cur_empty; v_new++) {
-									num nways = ways;
-									int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
-									int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
-									int na0 = a0;
-									int na1 = a1;
-									int a_new = 0;
-									if (j == 0) {
-										if (cur_v0_has) {
+				if (cur_v0_has && cur_v1_has) {
+					if (j == 0) {
+						for (int a0 = 0; a0 < 2; a0++) {
+							for (int a1 = 0; a1 < 2; a1++) {
+								for (int v0 = 0; v0 < cur_empty; v0++) {
+									for (int v1 = 0; v1 < cur_empty; v1++) {
+										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
+										num ways = dp[{v0, v1, a0, a1}];
+										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
+										if (ways == 0) continue;
+										ways *= denom;
+										for (int v_new = 0; v_new <= cur_empty; v_new++) {
+											num nways = ways;
+											int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
+											int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
+											int na0 = a0;
+											int na1 = a1;
+											int a_new = 0;
 											if (v_new < nv0) {
 												na0 = 1;
 											} else {
 												a_new = 1;
 											}
-										} else if (i > 0) {
-											a_new = 1;
-										}
 
-										nv0 = v_new;
-										if (na0 == 0) nways *= inv_2;
-										na0 = a_new;
-									} else {
-										if (cur_v0_has) {
+											nv0 = v_new;
+											if (na0 == 0) nways *= inv_2;
+											na0 = a_new;
+											ndp[{nv0, nv1, na0, na1}] += nways;
+										}
+									}
+								}
+							}
+						}
+					}
+					if (j == 1) {
+						for (int a0 = 0; a0 < 2; a0++) {
+							for (int a1 = 0; a1 < 2; a1++) {
+								for (int v0 = 0; v0 < cur_empty; v0++) {
+									for (int v1 = 0; v1 < cur_empty; v1++) {
+										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
+										num ways = dp[{v0, v1, a0, a1}];
+										//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
+										if (ways == 0) continue;
+										ways *= denom;
+										for (int v_new = 0; v_new <= cur_empty; v_new++) {
+											num nways = ways;
+											int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
+											int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
+											int na0 = a0;
+											int na1 = a1;
+											int a_new = 0;
+
 											if (v_new < nv0) {
 												na0 = 1;
 											} else {
 												a_new = 1;
 											}
-										} else {
-											// above always exists
-											a_new = 1;
-										}
-										if (cur_v1_has) {
+
 											if (v_new < nv1) {
 												na1 = 1;
 											} else {
 												a_new = 1;
 											}
-										} else if (i > 0) {
-											a_new = 1;
+											nv1 = v_new;
+											if (na1 == 0) nways *= inv_2;
+											na1 = a_new;
+											ndp[{nv0, nv1, na0, na1}] += nways;
 										}
-
-										nv1 = v_new;
-										if (na1 == 0) nways *= inv_2;
-										na1 = a_new;
 									}
-									ndp[{nv0, nv1, na0, na1}] += nways;
+								}
+							}
+						}
+					}
+				} else {
+					for (int v0 = 0; v0 < (cur_v0_has ? cur_empty : 1); v0++) {
+						for (int v1 = 0; v1 < (cur_v1_has ? cur_empty : 1); v1++) {
+							for (int a0 = cur_v0_has ? 0 : 1; a0 < 2; a0++) {
+								for (int a1 = cur_v1_has ? 0 : 1; a1 < 2; a1++) {
+									//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << '\n';
+									num ways = dp[{v0, v1, a0, a1}];
+									//cerr << "  " << v0 << ' ' << v1 << ' ' << a0 << ' ' << a1 << ' ' << ways << '\n';
+									if (ways == 0) continue;
+									ways *= denom;
+									for (int v_new = 0; v_new <= cur_empty; v_new++) {
+										num nways = ways;
+										int nv0 = cur_v0_has ? v0 + (v0 >= v_new) : 0;
+										int nv1 = cur_v1_has ? v1 + (v1 >= v_new) : 0;
+										int na0 = a0;
+										int na1 = a1;
+										int a_new = 0;
+										if (j == 0) {
+											if (cur_v0_has) {
+												if (v_new < nv0) {
+													na0 = 1;
+												} else {
+													a_new = 1;
+												}
+											} else if (i > 0) {
+												a_new = 1;
+											}
+
+											nv0 = v_new;
+											if (na0 == 0) nways *= inv_2;
+											na0 = a_new;
+										} else {
+											if (cur_v0_has) {
+												if (v_new < nv0) {
+													na0 = 1;
+												} else {
+													a_new = 1;
+												}
+											} else {
+												// above always exists
+												a_new = 1;
+											}
+											if (cur_v1_has) {
+												if (v_new < nv1) {
+													na1 = 1;
+												} else {
+													a_new = 1;
+												}
+											} else if (i > 0) {
+												a_new = 1;
+											}
+
+											nv1 = v_new;
+											if (na1 == 0) nways *= inv_2;
+											na1 = a_new;
+										}
+										ndp[{nv0, nv1, na0, na1}] += nways;
+									}
 								}
 							}
 						}
