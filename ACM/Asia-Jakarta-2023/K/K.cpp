@@ -169,10 +169,10 @@ int main() {
 	num ans = 0;
 
 	for (int m = 0; m < (1 << L); m++) {
-		cerr << "m = " << m << '\n';
+		//cerr << "m = " << m << '\n';
 		int cnt_odd = 0;
 		int cnt_even = 0;
-		for (int i = 0; i <= L; i++) { cerr << sub_freq[m][i] << ' '; } cerr << '\n';
+		//for (int i = 0; i <= L; i++) { cerr << sub_freq[m][i] << ' '; } cerr << '\n';
 		for (int i = L; i >= 0; i--) {
 			for (int j = i+1; j <= L; j++) {
 				sub_freq[m][i] -= sub_freq[m][j] * choose[j][i];
@@ -180,7 +180,7 @@ int main() {
 			if ((__builtin_popcount(m) ^ i) & 1) cnt_odd += sub_freq[m][i];
 			else cnt_even += sub_freq[m][i];
 		}
-		for (int i = 0; i <= L; i++) { cerr << sub_freq[m][i] << ' '; } cerr << '\n';
+		//for (int i = 0; i <= L; i++) { cerr << sub_freq[m][i] << ' '; } cerr << '\n';
 		assert(cnt_odd + cnt_even == tot_freq);
 		ans += pow(num(3), cnt_even) * pow(num(-1), cnt_odd);
 		// odd gives -1, even gives 3
