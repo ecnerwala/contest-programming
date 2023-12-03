@@ -215,7 +215,9 @@ int main() {
 					pt_t y_dir = z == 0 ? b_hi : a_hi;
 					assert(cross3(x, x_dir, y) >= 0);
 					assert(cross3(x, x_dir, y_dir) >= 0);
-					if (cross3(x, x_dir, y) > cross3(x, x_dir, y_dir)) {
+					assert(cross3(x, y_dir, y) >= 0);
+					assert(cross3(x_dir, y_dir, y) >= 0);
+					if (cross3(x, x_dir, y) > cross3(x, x_dir, y_dir) && cross3(x, y_dir, y) > cross3(x_dir, y_dir, y)) {
 						// they can intersect
 						float_pt_t inter = float_pt_t(y) + float_pt_t(y_dir - y) * double(cross3(x, x_dir, y)) / double(cross3(x, x_dir, y) - cross3(x, x_dir, y_dir));
 						double cnd = (float_pt_t(x) - inter).dist() + (float_pt_t(y) - inter).dist();
