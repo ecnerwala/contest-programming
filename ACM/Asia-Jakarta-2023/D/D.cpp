@@ -159,7 +159,7 @@ int main() {
 
 	using float_pt_t = Point<double>;
 
-	auto solve = [&](pt_t a, pt_t b) -> double {
+	auto solve = [&](pt_t a, pt_t b) -> std::optional<double> {
 		auto [a_lo, a_hi] = get_tangents(a);
 		auto [b_lo, b_hi] = get_tangents(b);
 
@@ -170,7 +170,7 @@ int main() {
 		assert(a_between == b_between);
 		if (a_between == 1) {
 			// then we need to try the two angles
-			double ans = 1e99;
+			std::optional<double> ans;
 			for (int z = 0; z < 2; z++) {
 				// time to compute some ray-ray intersection
 				pt_t x = z == 0 ? a : b;
@@ -182,7 +182,8 @@ int main() {
 				if (cross3(x, x_dir, y) > cross3(x, x_dir, y_dir)) {
 					// they can intersect
 					float_pt_t inter = float_pt_t(y) + float_pt_t(y_dir - y) * double(cross3(x, x_dir, y)) / double(cross3(x, x_dir, y) - cross3(x, x_dir, y_dir));
-					ans = std::min(ans, (float_pt_t(x) - inter).dist() + (float_pt_t(y) - inter).dist());
+					double cnd = (float_pt_t(x) - inter).dist() + (float_pt_t(y) - inter).dist();
+					if (!ans || cnd < *ans) ans = cnd;
 				}
 			}
 			return ans;
@@ -194,7 +195,12 @@ int main() {
 	int Q; cin >> Q;
 	for (int q = 0; q < Q; q++) {
 		pt_t a, b; cin >> a >> b;
-		cout << fixed << setprecision(12) << solve(a, b) << '\n';
+		auto res = solve(a, b);
+		if (res) {
+			cout << fixed << setprecision(12) << *res << '\n';
+		} else {
+			cout << -1 << '\n';
+		}
 	}
 
 	return 0;
