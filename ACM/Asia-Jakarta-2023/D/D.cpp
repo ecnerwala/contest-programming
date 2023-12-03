@@ -157,15 +157,40 @@ int main() {
 		return res;
 	};
 
-	int Q; cin >> Q;
-	for (int q = 0; q < Q; q++) {
-		pt_t a, b; cin >> a >> b;
+	auto solve = [&](pt_t a, pt_t b) -> double {
 		auto [a_lo, a_hi] = get_tangents(a);
 		auto [b_lo, b_hi] = get_tangents(b);
 
 		assert(cross(a_lo - a, a_hi - a) >= 0);
-		if (angle_between(a_lo - a, a_hi - a, b - a)) {
+		assert(cross(b_lo - b, b_hi - b) >= 0);
+		int a_between = angle_between(a_lo - a, a_hi - a, b - a);
+		int b_between = angle_between(b_lo - b, b_hi - b, a - b);
+		assert(a_between == b_between);
+		if (a_between == 1) {
+			// then we need to try the two angles
+			double ans = 1e99;
+			for (int z = 0; z < 2; z++) {
+				// time to compute some ray-ray intersection
+				pt_t x = z == 0 ? a : b;
+				pt_t x_dir = z == 0 ? a_lo : b_lo;
+				pt_t y = z == 0 ? b : a;
+				pt_t y_dir = z == 0 ? b_hi : a_hi;
+				assert(cross3(x, x_dir, y) >= 0);
+				assert(cross3(x, x_dir, y_dir) >= 0);
+				if (cross3(x, x_dir, y) > cross3(x, x_dir, y_dir)) {
+					// they can intersect
+				}
+			}
+			return ans;
+		} else {
+			return (a-b).dist();
 		}
+	};
+
+	int Q; cin >> Q;
+	for (int q = 0; q < Q; q++) {
+		pt_t a, b; cin >> a >> b;
+		cout << fixed << setprecision(12) << solve(a, b) << '\n';
 	}
 
 	return 0;
