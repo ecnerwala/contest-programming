@@ -202,6 +202,8 @@ int main() {
 			assert(cross(b_lo - b, b_hi - b) >= 0);
 			int a_between = angle_between(a_lo - a, a_hi - a, b - a);
 			int b_between = angle_between(b_lo - b, b_hi - b, a - b);
+			cerr << "a_between = " << a_between << '\n';
+			cerr << "b_between = " << b_between << '\n';
 			assert(a_between == b_between);
 			if (a_between == 1) {
 				// then we need to try the two angles
