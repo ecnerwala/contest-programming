@@ -182,7 +182,7 @@ int main() {
 		}
 		//for (int i = 0; i <= L; i++) { cerr << sub_freq[m][i] << ' '; } cerr << '\n';
 		assert(cnt_odd + cnt_even == tot_freq);
-		cerr << cnt_even << ' ' << cnt_odd << '\n';
+		//cerr << cnt_even << ' ' << cnt_odd << '\n';
 		ans += pow(num(3), cnt_even) * pow(num(-1), cnt_odd);
 		// odd gives -1, even gives 3
 	}
