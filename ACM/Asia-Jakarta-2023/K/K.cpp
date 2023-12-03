@@ -151,8 +151,9 @@ int main() {
 		}
 	}
 
-	std::vector<std::array<uint32_t, L>> sub_freq(L+1);
+	std::vector<std::array<uint32_t, L>> sub_freq(1 << L);
 	for (int m = 0; m < (1 << L); m++) {
+		sub_freq[m].fill(0);
 		sub_freq[m][__builtin_popcount(m)] = super_freq[m];
 	}
 	for (int i = 0; i < L; i++) {
