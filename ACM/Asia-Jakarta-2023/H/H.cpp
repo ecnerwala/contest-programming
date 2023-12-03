@@ -363,11 +363,13 @@ int main() {
 			dp.resize(l+1, num(0));
 			std::reverse(dp.begin(), dp.end());
 			for (int i = l; i > 0; i--) dp[i-1] += dp[i];
+			for (int i = 0; i <= l; i++) dp[i] *= ifact[i];
 		}
 		{
 			int l = cnt_A[z];
 			dp.resize(l+1, num(0));
 			std::reverse(dp.begin(), dp.end());
+			for (int i = 0; i <= l; i++) dp[i] *= ifact[i];
 		}
 	}
 	cout << dp.back() << '\n';
