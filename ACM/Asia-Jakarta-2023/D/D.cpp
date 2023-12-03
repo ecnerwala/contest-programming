@@ -117,6 +117,7 @@ int main() {
 			}
 			std::sort(pts.begin(), pts.end(), [&](auto a, auto b) { return std::pair<int64_t, int64_t>(a) < std::pair<int64_t, int64_t>(b); });
 			pts.erase(std::unique(pts.begin(), pts.end(), [&](auto a, auto b) { return std::pair<int64_t, int64_t>(a) < std::pair<int64_t, int64_t>(b); }), pts.end());
+			cerr << pts.size() << '\n';
 			if (pts.size() < 3) continue;
 			std::vector<pt_t> lower; lower.reserve(N);
 			std::vector<pt_t> upper; upper.reserve(N);
