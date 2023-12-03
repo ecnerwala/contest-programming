@@ -13,7 +13,7 @@ int main() {
 		tot += a;
 		mx = std::max(mx, a);
 	}
-	cout << std::min(tot / 3, N - mx) << '\n';
+	cout << std::min(tot / 3, tot - mx) << '\n';
 
 	return 0;
 }
