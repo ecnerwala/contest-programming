@@ -172,7 +172,7 @@ int main() {
 		int cnt_odd = 0;
 		int cnt_even = 0;
 		for (int i = L; i >= 0; i--) {
-			for (int j = i+1; j < L; j++) {
+			for (int j = i+1; j <= L; j++) {
 				sub_freq[m][i] -= sub_freq[m][j] * choose[j][i];
 			}
 			if ((__builtin_popcount(m) ^ i) & 1) cnt_odd += sub_freq[m][i];
