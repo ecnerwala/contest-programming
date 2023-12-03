@@ -318,7 +318,7 @@ int main() {
 	std::vector<int64_t> ans(Q);
 	for (int i = 0; i < N; i++) {
 		for (auto [m, x] : events[i]) {
-			seg_tree::point a = layout.get_point(i);
+			seg_tree::point a = layout.get_point(m);
 			seg[a] = {x, x, x, x};
 			a.for_parents_up(update_node);
 		}
