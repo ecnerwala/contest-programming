@@ -98,7 +98,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
 	for (int case_num = 0; case_num < (TESTING ? 1000 : 1); case_num++) {
 		using pt_t = Point<int64_t>;
@@ -136,9 +136,9 @@ int main() {
 			for (auto& p : pts) cin >> p;
 		}
 
-		cerr << "Case #" << case_num << " " << "N = " << N << '\n';
-		for (auto p : pts) {
-			cerr << p.x << ' ' << p.y << '\n';
+		if (TESTING) {
+			cerr << "Case #" << case_num << " " << "N = " << N << '\n';
+			for (auto p : pts) { cerr << p.x << ' ' << p.y << '\n'; }
 		}
 
 		big_pt_t centroid = big_pt_t(pts[0] + pts[1] + pts[2]);
@@ -202,8 +202,8 @@ int main() {
 			assert(cross(b_lo - b, b_hi - b) >= 0);
 			int a_between = angle_between(a_lo - a, a_hi - a, b - a);
 			int b_between = angle_between(b_lo - b, b_hi - b, a - b);
-			cerr << "a_between = " << a_between << '\n';
-			cerr << "b_between = " << b_between << '\n';
+			//cerr << "a_between = " << a_between << '\n';
+			//cerr << "b_between = " << b_between << '\n';
 			if (a_between == 1 && b_between == 1) {
 				// then we need to try the two angles
 				std::optional<double> ans;
