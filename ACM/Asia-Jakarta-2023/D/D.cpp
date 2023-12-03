@@ -110,16 +110,33 @@ int main() {
 	auto cmp = [&](auto a, auto b) {
 		return angle_less(big_pt_t{1, 0}, big_pt_t(a) * 3 - centroid, big_pt_t(b) * 3 - centroid);
 	};
-	for (int i = 0; i < N; i++) {
-		if (!cmp(pts[i], pts[(i+1)%N])) {
+	for (int i = 0; i+1 < N; i++) {
+		if (!cmp(pts[i], pts[i+1])) {
 			std::rotate(pts.begin(), pts.begin() + ((i+1)%N), pts.end());
 			break;
 		}
 	}
-	for (int i = 0; i+1 < N; i++) {
-		assert(cmp(pts[i], pts[i+1]));
-	}
+	for (int i = 0; i+1 < N; i++) { assert(cmp(pts[i], pts[i+1])); }
 	assert(!cmp(pts[N-1], pts[0]));
+
+	auto get_tangents = [&](pt_t p) -> std::array<pt_t, 2> {
+		// returns whether p is outside
+		auto is_outside = [&](int i) -> bool {
+			return cross3(pts[i], pts[(i+1)%N], p) <= 0;
+		};
+		auto it = int(std::lower_bound(pts.begin(), pts.end(), 0, [&](pt_t a, int) -> bool {
+			return angle_less(big_pt_t{1, 0}, big_pt_t(a) * 3 - centroid, big_pt_t(p) * 3 - centroid);
+		}) - pts.begin());
+		if (it == 0) it = N;
+		it--;
+		assert(is_outside(it));
+		auto jt = int(std::lower_bound(pts.begin(), pts.end(), 0, [&](pt_t a, int) -> bool {
+			return angle_less(big_pt_t{1, 0}, big_pt_t(a) * 3 - centroid, centroid - big_pt_t(p) * 3);
+		}) - pts.begin());
+		if (jt == 0) jt = N;
+		jt--;
+		assert(!is_outside(jt));
+	};
 
 	return 0;
 }
