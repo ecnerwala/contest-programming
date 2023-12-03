@@ -122,7 +122,7 @@ int main() {
 	auto get_tangents = [&](pt_t p) -> std::array<pt_t, 2> {
 		// returns whether p is outside
 		auto is_outside = [&](int i) -> bool {
-			return cross3(pts[i], pts[(i+1)%N], p) <= 0;
+			return cross3(pts[i%N], pts[(i+1)%N], p) <= 0;
 		};
 		auto it = int(std::lower_bound(pts.begin(), pts.end(), 0, [&](pt_t a, int) -> bool {
 			return angle_less(big_pt_t{1, 0}, big_pt_t(a) * 3 - centroid, big_pt_t(p) * 3 - centroid);
@@ -136,14 +136,30 @@ int main() {
 		if (jt == 0) jt = N;
 		jt--;
 		assert(!is_outside(jt));
-		return {};
+
+		// we go jt -> it -> jt
+		std::array<pt_t, 2> res;
+		for (int z = 0; z < 2; z++) {
+			int lo = (z == 0 ? jt : it);
+			int hi = (z == 0 ? it : jt);
+			if (hi < lo) hi += N;
+			assert(is_outside(lo) == z);
+			assert(is_outside(hi) == !z);
+			while (hi - lo > 1) {
+				int md = lo + (hi - lo) / 2;
+				if (is_outside(md) == z) lo = md;
+				else hi = md;
+			}
+			res[z] = pts[hi%N];
+		}
+		return res;
 	};
 
 	int Q; cin >> Q;
 	for (int q = 0; q < Q; q++) {
 		pt_t a, b; cin >> a >> b;
-		get_tangents(a);
-		get_tangents(b);
+		auto [a_lo, a_hi] = get_tangents(a);
+		auto [b_lo, b_hi] = get_tangents(b);
 	}
 
 	return 0;
