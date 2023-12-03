@@ -108,7 +108,7 @@ int main() {
 
 	big_pt_t centroid = big_pt_t(pts[0] + pts[1] + pts[2]);
 	auto big_cmp = angle_cmp_center(centroid, big_pt_t{1, 0});
-	auto cmp = [&](auto a, auto b) { return big_cmp(big_pt_t(a), big_pt_t(b)); };
+	auto cmp = [&](auto a, auto b) { return big_cmp(big_pt_t(a) * 3, big_pt_t(b) * 3); };
 	for (int i = 0; i < N; i++) {
 		if (!cmp(pts[i], pts[(i+1)%N])) {
 			std::rotate(pts.begin(), pts.begin() + ((i+1)%N), pts.end());
