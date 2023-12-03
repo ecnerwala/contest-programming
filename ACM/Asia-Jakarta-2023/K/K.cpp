@@ -159,7 +159,7 @@ int main() {
 	for (int i = 0; i < L; i++) {
 		for (int m = 0; m < (1 << L); m++) {
 			if (m & (1 << i)) continue;
-			for (int j = 0; j < L; j++) {
+			for (int j = 0; j <= L; j++) {
 				sub_freq[m + (1 << i)][j] += sub_freq[m][j];
 			}
 		}
