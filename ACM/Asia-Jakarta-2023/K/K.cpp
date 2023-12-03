@@ -171,7 +171,7 @@ int main() {
 	for (int m = 0; m < (1 << L); m++) {
 		int cnt_odd = 0;
 		int cnt_even = 0;
-		for (int i = L-1; i >= 0; i--) {
+		for (int i = L; i >= 0; i--) {
 			for (int j = i+1; j < L; j++) {
 				sub_freq[m][i] -= sub_freq[m][j] * choose[j][i];
 			}
