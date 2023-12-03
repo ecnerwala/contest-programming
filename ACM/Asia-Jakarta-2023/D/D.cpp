@@ -136,7 +136,15 @@ int main() {
 		if (jt == 0) jt = N;
 		jt--;
 		assert(!is_outside(jt));
+		return {};
 	};
+
+	int Q; cin >> Q;
+	for (int q = 0; q < Q; q++) {
+		pt_t a, b; cin >> a >> b;
+		get_tangents(a);
+		get_tangents(b);
+	}
 
 	return 0;
 }
