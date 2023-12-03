@@ -213,8 +213,8 @@ int main() {
 					pt_t x_dir = z == 0 ? a_lo : b_lo;
 					pt_t y = z == 0 ? b : a;
 					pt_t y_dir = z == 0 ? b_hi : a_hi;
-					//assert(cross3(x, x_dir, y) >= 0);
-					//assert(cross3(x, x_dir, y_dir) >= 0);
+					assert(cross3(x, x_dir, y) >= 0);
+					assert(cross3(x, x_dir, y_dir) >= 0);
 					if (cross3(x, x_dir, y) > cross3(x, x_dir, y_dir)) {
 						// they can intersect
 						float_pt_t inter = float_pt_t(y) + float_pt_t(y_dir - y) * double(cross3(x, x_dir, y)) / double(cross3(x, x_dir, y) - cross3(x, x_dir, y_dir));
