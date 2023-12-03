@@ -98,7 +98,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
 	for (int case_num = 0; case_num < (TESTING ? 1000 : 1); case_num++) {
 		using pt_t = Point<int64_t>;
