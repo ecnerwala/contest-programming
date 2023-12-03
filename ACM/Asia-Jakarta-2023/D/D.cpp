@@ -98,7 +98,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	std::mt19937 mt(48);
 	for (int case_num = 0; case_num < (TESTING ? 1000 : 1); case_num++) {
 		using pt_t = Point<int64_t>;
@@ -108,7 +108,8 @@ int main() {
 		std::vector<pt_t> pts;
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(3, 100)(mt);
-			int X = int(pow(10, std::uniform_int_distribution<int>(1, 9)(mt)));
+			//int X = int(pow(10, std::uniform_int_distribution<int>(1, 9)(mt)));
+			int X = 5;
 			pts.resize(N);
 			for (auto& p : pts) {
 				p.x = std::uniform_int_distribution<int>(-X, X)(mt);
@@ -232,7 +233,8 @@ int main() {
 
 		auto gen_pt = [&]() {
 			while (true) {
-				int X = int(pow(10, std::uniform_int_distribution<int>(1, 9)(mt)));
+				//int X = int(pow(10, std::uniform_int_distribution<int>(1, 9)(mt)));
+				int X = 6;
 				pt_t p(
 					std::uniform_int_distribution<int>(-X, X)(mt),
 					std::uniform_int_distribution<int>(-X, X)(mt)
