@@ -204,8 +204,7 @@ int main() {
 			int b_between = angle_between(b_lo - b, b_hi - b, a - b);
 			cerr << "a_between = " << a_between << '\n';
 			cerr << "b_between = " << b_between << '\n';
-			assert(a_between == b_between);
-			if (a_between == 1) {
+			if (a_between == 1 && b_between == 1) {
 				// then we need to try the two angles
 				std::optional<double> ans;
 				for (int z = 0; z < 2; z++) {
