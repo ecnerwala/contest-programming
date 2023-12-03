@@ -249,6 +249,9 @@ int main() {
 			for (int q = 0; q < Q; q++) {
 				pt_t a = gen_pt();
 				pt_t b = gen_pt();
+				cerr << "query" << '\n';
+				cerr << a.x << ' ' << a.y << '\n';
+				cerr << b.x << ' ' << b.y << '\n';
 				auto res = solve(a, b);
 			}
 		} else {
