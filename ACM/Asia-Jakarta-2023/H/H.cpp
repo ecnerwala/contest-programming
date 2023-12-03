@@ -370,7 +370,7 @@ int main() {
 			std::reverse(dp.begin(), dp.end());
 		}
 	}
-	cout << dp[0] << '\n';
+	cout << dp.back() << '\n';
 
 	return 0;
 }
