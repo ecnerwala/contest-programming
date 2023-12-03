@@ -116,7 +116,7 @@ int main() {
 		}
 	}
 	for (int i = 0; i+1 < N; i++) {
-		assert(cmp(pts[i], pts[i]));
+		assert(cmp(pts[i], pts[i+1]));
 	}
 	assert(!cmp(pts[N-1], pts[0]));
 
