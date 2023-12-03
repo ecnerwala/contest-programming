@@ -160,6 +160,10 @@ int main() {
 		pt_t a, b; cin >> a >> b;
 		auto [a_lo, a_hi] = get_tangents(a);
 		auto [b_lo, b_hi] = get_tangents(b);
+
+		assert(cross3(a_lo, a, a_hi) >= 0);
+		if (angle_between(a_lo - a, a_hi - a, b - a)) {
+		}
 	}
 
 	return 0;
