@@ -196,6 +196,7 @@ int main() {
 		using float_pt_t = Point<double>;
 
 		auto solve = [&](pt_t a, pt_t b) -> std::optional<double> {
+			if (a == b) return 0.;
 			auto [a_lo, a_hi] = get_tangents(a);
 			auto [b_lo, b_hi] = get_tangents(b);
 
