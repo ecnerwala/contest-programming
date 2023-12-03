@@ -116,7 +116,7 @@ int main() {
 				p.y = std::uniform_int_distribution<int>(-X, X)(mt);
 			}
 			std::sort(pts.begin(), pts.end(), [&](auto a, auto b) { return std::pair<int64_t, int64_t>(a) < std::pair<int64_t, int64_t>(b); });
-			pts.erase(std::unique(pts.begin(), pts.end(), [&](auto a, auto b) { return std::pair<int64_t, int64_t>(a) < std::pair<int64_t, int64_t>(b); }), pts.end());
+			pts.erase(std::unique(pts.begin(), pts.end()), pts.end());
 			cerr << pts.size() << '\n';
 			if (pts.size() < 3) continue;
 			std::vector<pt_t> lower; lower.reserve(N);
