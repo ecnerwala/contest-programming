@@ -324,7 +324,7 @@ int main() {
 		}
 		for (auto [s, t, q] : queries[i]) {
 			auto rng = layout.get_range(s, t);
-			const int64_t INF = -1e18;
+			const int64_t INF = 1e18;
 			seg_t res{-INF, -INF, -INF, -INF};
 			rng.for_each_l_to_r([&](auto a) {
 				res = merge(res, seg[a]);
