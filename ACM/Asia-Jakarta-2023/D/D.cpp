@@ -152,6 +152,8 @@ int main() {
 			}
 			res[z] = pts[hi%N];
 		}
+		// whoops
+		std::swap(res[0], res[1]);
 		return res;
 	};
 
@@ -161,7 +163,7 @@ int main() {
 		auto [a_lo, a_hi] = get_tangents(a);
 		auto [b_lo, b_hi] = get_tangents(b);
 
-		assert(cross3(a_lo, a, a_hi) >= 0);
+		assert(cross(a_lo - a, a_hi - a) >= 0);
 		if (angle_between(a_lo - a, a_hi - a, b - a)) {
 		}
 	}
