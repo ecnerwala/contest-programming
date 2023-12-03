@@ -157,6 +157,8 @@ int main() {
 		return res;
 	};
 
+	using float_pt_t = Point<double>;
+
 	auto solve = [&](pt_t a, pt_t b) -> double {
 		auto [a_lo, a_hi] = get_tangents(a);
 		auto [b_lo, b_hi] = get_tangents(b);
@@ -179,6 +181,8 @@ int main() {
 				assert(cross3(x, x_dir, y_dir) >= 0);
 				if (cross3(x, x_dir, y) > cross3(x, x_dir, y_dir)) {
 					// they can intersect
+					float_pt_t inter = float_pt_t(y) + float_pt_t(y_dir - y) * double(cross3(x, x_dir, y)) / double(cross3(x, x_dir, y) - cross3(x, x_dir, y_dir));
+					ans = std::min(ans, (float_pt_t(x) - inter).dist() + (float_pt_t(y) - inter).dist());
 				}
 			}
 			return ans;
