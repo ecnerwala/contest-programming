@@ -134,11 +134,11 @@ int main() {
 		freq[a]++;
 	}
 
-	std::vector<int> super_freq(1 << L);
+	std::vector<int> super_freq = freq;
 	for (int i = 0; i < L; i++) {
 		for (int m = 0; m < (1 << L); m++) {
 			if (m & (1 << i)) continue;
-			super_freq[m] += super_freq[m | (1 << i)];
+			super_freq[m] += super_freq[m + (1 << i)];
 		}
 	}
 
