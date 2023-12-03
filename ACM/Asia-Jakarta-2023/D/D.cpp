@@ -108,6 +108,7 @@ int main() {
 		std::vector<pt_t> pts;
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(3, 100)(mt);
+			cerr << N << '\n';
 			int X = int(pow(10, std::uniform_int_distribution<int>(1, 9)(mt)));
 			pts.resize(N);
 			for (auto& p : pts) {
