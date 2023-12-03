@@ -122,9 +122,9 @@ int main() {
 			std::vector<pt_t> lower; lower.reserve(N);
 			std::vector<pt_t> upper; upper.reserve(N);
 			for (auto p : pts) {
-				while (!lower.empty() && cross3(lower.end()[-2], lower.end()[-1], p) <= 0) lower.pop_back();
+				while (lower.size() >= 2 && cross3(lower.end()[-2], lower.end()[-1], p) <= 0) lower.pop_back();
 				lower.push_back(p);
-				while (!upper.empty() && cross3(upper.end()[-2], upper.end()[-1], p) >= 0) upper.pop_back();
+				while (upper.size() >= 2 && cross3(upper.end()[-2], upper.end()[-1], p) >= 0) upper.pop_back();
 				upper.push_back(p);
 			}
 			lower.insert(lower.end(), upper.rbegin()+1, upper.rend()-1);
