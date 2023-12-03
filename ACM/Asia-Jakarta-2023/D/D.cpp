@@ -108,7 +108,6 @@ int main() {
 		std::vector<pt_t> pts;
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(3, 100)(mt);
-			cerr << N << '\n';
 			int X = int(pow(10, std::uniform_int_distribution<int>(1, 9)(mt)));
 			pts.resize(N);
 			for (auto& p : pts) {
@@ -117,7 +116,6 @@ int main() {
 			}
 			std::sort(pts.begin(), pts.end(), [&](auto a, auto b) { return std::pair<int64_t, int64_t>(a) < std::pair<int64_t, int64_t>(b); });
 			pts.erase(std::unique(pts.begin(), pts.end()), pts.end());
-			cerr << pts.size() << '\n';
 			if (pts.size() < 3) continue;
 			std::vector<pt_t> lower; lower.reserve(N);
 			std::vector<pt_t> upper; upper.reserve(N);
@@ -139,6 +137,9 @@ int main() {
 		}
 
 		cerr << "Case #" << case_num << " " << "N = " << N << '\n';
+		for (auto p : pts) {
+			cerr << p.x << ' ' << p.y << '\n';
+		}
 
 		big_pt_t centroid = big_pt_t(pts[0] + pts[1] + pts[2]);
 		auto cmp = [&](auto a, auto b) {
