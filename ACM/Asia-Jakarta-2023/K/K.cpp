@@ -185,6 +185,7 @@ int main() {
 		ans += pow(num(3), cnt_even) * pow(num(-1), cnt_odd);
 		// odd gives -1, even gives 3
 	}
+	ans /= num(1 << L);
 	cout << ans << '\n';
 
 	return 0;
