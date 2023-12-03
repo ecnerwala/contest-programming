@@ -372,7 +372,7 @@ int main() {
 			for (int i = 0; i <= l; i++) dp[i] *= ifact[i];
 		}
 	}
-	cout << dp.back() << '\n';
+	cout << dp[0] << '\n';
 
 	return 0;
 }
