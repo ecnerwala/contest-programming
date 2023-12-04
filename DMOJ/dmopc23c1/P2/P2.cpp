@@ -182,7 +182,7 @@ tensor<bool, 2> solve(int N) {
 				put_square(j + 1, b + 2);
 				put_square(b + 2, j + 1);
 			}
-		} else if (N % 10 >= 3) {
+		} else {
 			for (int j = 0; j < N; j += 6) {
 				put_square(j + 2, b + 1);
 				put_square(b + 1, j + 2);
