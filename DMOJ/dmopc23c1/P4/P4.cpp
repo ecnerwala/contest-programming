@@ -60,6 +60,7 @@ int main() {
 					nres[a+b] = std::max(nres[a+b], res[a] + ch[b]);
 				}
 			}
+			res = nres;
 		}
 		ans = std::max(ans, res[2]);
 		return res;
