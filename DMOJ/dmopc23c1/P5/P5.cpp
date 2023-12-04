@@ -39,7 +39,7 @@ int main() {
 		for (int i = lo; i < hi; i++) {
 			// if we moved towards 0, then we're adding locs[i].first
 			// otherwise we're subtracting locs[i].first
-			if (locs[i].second >= N) {
+			if (locs[i].second >= N/2) {
 				cur_sum ++;
 				// if (initial_sum + cur_sum <= 0) ans += locs[i].first
 				// if (initial_sum <= -cur_sum) ans += locs[i].first;
