@@ -172,16 +172,20 @@ tensor<bool, 2> solve(int N) {
 				put_square(i+2, j+7);
 				put_square(i+6, j+1);
 				put_square(i+7, j+6);
-			} else {
-				int di = N - i;
-				int dj = N - j;
-				assert(di < 8 || dj < 8);
-				// just put extra things
-				for (int a = 0; a < di; a += 4) {
-					for (int b = 0; b < dj; b += 6) {
-						put_square(i + a + 1, j + b + 2);
-					}
-				}
+			}
+		}
+	}
+	if (N % 10 > 0 && N % 10 < 7) {
+		int b = N/10 * 10;
+		if (N % 10 >= 5) {
+			for (int j = 0; j < N; j += 4) {
+				put_square(j + 1, b + 2);
+				put_square(b + 2, j + 1);
+			}
+		} else if (N % 10 >= 3) {
+			for (int j = 0; j < N; j += 6) {
+				put_square(j + 2, b + 1);
+				put_square(b + 1, j + 2);
 			}
 		}
 	}
