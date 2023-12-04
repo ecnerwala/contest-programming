@@ -54,7 +54,9 @@ int main() {
 				block_vals[k][len - cur_sum] += 2 * locs[i].first;
 			}
 		}
-		for (int z = 0; z < 2*len; z++) block_vals[k][z+1] += block_vals[z][k];
+		for (int z = 0; z < 2*len; z++) {
+			block_vals[k][z+1] += block_vals[k][z];
+		}
 		block_sum[k] = cur_sum;
 	};
 	for (int k = 0; k < K; k++) {
