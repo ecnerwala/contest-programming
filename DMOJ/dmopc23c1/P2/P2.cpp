@@ -156,29 +156,22 @@ tensor<bool, 2> solve(int N) {
 	assert(N >= 8);
 	tensor<bool, 2> res({N, N});
 
+	auto put_square = [&](int i0, int j0) -> void {
+		i0 = std::min(i0, N-2);
+		j0 = std::min(j0, N-2);
+		res[{i0 + 0, j0 + 0}] = true;
+		res[{i0 + 1, j0 + 0}] = true;
+		res[{i0 + 0, j0 + 1}] = true;
+		res[{i0 + 1, j0 + 1}] = true;
+	};
+
 	for (int i = 0; i < N; i += 10) {
 		for (int j = 0; j < N; j += 10) {
-			if (i+9 <= N && j+9 <= N) {
-				res[{i + 1, j + 2}] = true;
-				res[{i + 2, j + 2}] = true;
-				res[{i + 1, j + 3}] = true;
-				res[{i + 2, j + 3}] = true;
-
-				res[{i + 2, j + 7}] = true;
-				res[{i + 3, j + 7}] = true;
-				res[{i + 2, j + 8}] = true;
-				res[{i + 3, j + 8}] = true;
-
-				res[{i + 6, j + 1}] = true;
-				res[{i + 7, j + 2}] = true;
-				res[{i + 6, j + 1}] = true;
-				res[{i + 7, j + 2}] = true;
-
-				res[{i + 7, j + 6}] = true;
-				res[{i + 8, j + 7}] = true;
-				res[{i + 7, j + 6}] = true;
-				res[{i + 8, j + 7}] = true;
-			} else {
+			if (i+8 <= N && j+8 <= N) {
+				put_square(i+1, j+2);
+				put_square(i+2, j+7);
+				put_square(i+6, j+1);
+				put_square(i+7, j+6);
 			}
 		}
 	}
