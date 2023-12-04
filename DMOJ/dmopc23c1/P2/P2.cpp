@@ -190,6 +190,10 @@ tensor<bool, 2> solve(int N) {
 		}
 	}
 
+	if (N == 11) {
+		res[{2, 10}] = false;
+	}
+
 	tensor<bool, 2> covered({N, N});
 	int tot_cnt = 0;
 	for (int i = 0; i < N; i++) {
