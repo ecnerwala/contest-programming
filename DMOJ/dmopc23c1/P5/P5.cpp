@@ -57,6 +57,9 @@ int main() {
 		for (int z = 0; z < 2*len; z++) {
 			block_vals[k][z+1] += block_vals[k][z];
 		}
+		for (int i = lo; i < hi; i++) {
+			cerr << locs[i].first << ' ' << locs[i].second << '\n';
+		}
 		for (int z = 0; z <= 2*len; z++) { cerr << block_vals[k][z] << ' '; } cerr << '\n';
 		block_sum[k] = cur_sum;
 	};
