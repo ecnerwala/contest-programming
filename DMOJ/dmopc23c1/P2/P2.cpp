@@ -179,7 +179,7 @@ tensor<bool, 2> solve(int N) {
 				// just put extra things
 				for (int a = 0; a < di; a += 4) {
 					for (int b = 0; b < dj; b += 6) {
-						put_square(i + a + 1, j + b + 2);
+						//put_square(i + a + 1, j + b + 2);
 					}
 				}
 			}
