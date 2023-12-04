@@ -206,7 +206,6 @@ tensor<bool, 2> solve(int N) {
 	}
 	int max_cnt = N * (N+3) / 5;
 	std::cerr << "N = " << N << ' ' << max_cnt << ' ' << tot_cnt << '\n';
-	assert(tot_cnt <= max_cnt);
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			std::cerr << res[{i, j}] << " \n"[j+1==N];
@@ -217,6 +216,7 @@ tensor<bool, 2> solve(int N) {
 			std::cerr << covered[{i, j}] << " \n"[j+1==N];
 		}
 	}
+	assert(tot_cnt <= max_cnt);
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			assert((covered[{i, j}]));
