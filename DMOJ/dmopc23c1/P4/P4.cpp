@@ -63,7 +63,7 @@ int main() {
 		}
 		ans = std::max(ans, res[2]);
 		return res;
-	});
+	})(0, -1);
 	cout << ans << '\n';
 
 	return 0;
