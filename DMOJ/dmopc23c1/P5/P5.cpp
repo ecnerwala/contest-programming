@@ -31,7 +31,7 @@ int main() {
 		assert(0 <= k && k < K);
 		int lo = k * B;
 		int hi = std::min(N, (k+1) * B);
-		int len = std::min(lo, hi);
+		int len = hi - lo;
 		// from -len to len
 		block_vals[k].assign(2 * len + 1, int64_t(0));
 
@@ -67,7 +67,7 @@ int main() {
 		for (int k = 0; k < K; k++) {
 			int lo = k * B;
 			int hi = std::min(N, (k+1) * B);
-			int len = std::min(lo, hi);
+			int len = hi - lo;
 			ans += block_vals[k][std::min(std::max(cur_sum, -len), len) + len];
 			cur_sum += block_sum[k];
 		}
