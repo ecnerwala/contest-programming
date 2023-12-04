@@ -156,15 +156,30 @@ tensor<bool, 2> solve(int N) {
 	assert(N >= 8);
 	tensor<bool, 2> res({N, N});
 
-	for (int i = 0; i < N; i += 4) {
-		for (int j = 0; j < N; j += 6) {
-			int x = i+1, y = j+2;
-			y = std::min(y, N-2);
-			x = std::min(x, N-2);
-			res[{x + 0, y + 0}] = true;
-			res[{x + 1, y + 0}] = true;
-			res[{x + 0, y + 1}] = true;
-			res[{x + 1, y + 1}] = true;
+	for (int i = 0; i < N; i += 10) {
+		for (int j = 0; j < N; j += 10) {
+			if (i+9 <= N && j+9 <= N) {
+				res[{i + 1, j + 2}] = true;
+				res[{i + 2, j + 2}] = true;
+				res[{i + 1, j + 3}] = true;
+				res[{i + 2, j + 3}] = true;
+
+				res[{i + 2, j + 7}] = true;
+				res[{i + 3, j + 7}] = true;
+				res[{i + 2, j + 8}] = true;
+				res[{i + 3, j + 8}] = true;
+
+				res[{i + 6, j + 1}] = true;
+				res[{i + 7, j + 2}] = true;
+				res[{i + 6, j + 1}] = true;
+				res[{i + 7, j + 2}] = true;
+
+				res[{i + 7, j + 6}] = true;
+				res[{i + 8, j + 7}] = true;
+				res[{i + 7, j + 6}] = true;
+				res[{i + 8, j + 7}] = true;
+			} else {
+			}
 		}
 	}
 
