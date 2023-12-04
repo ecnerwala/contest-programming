@@ -21,7 +21,7 @@ int main() {
 		inv_loc[locs[i].second] = i;
 	}
 
-	const int B = 500;
+	const int B = 2;
 	//assert(B % 2 == 0);
 
 	int K = int(N+B-1) / B;
@@ -57,10 +57,6 @@ int main() {
 		for (int z = 0; z < 2*len; z++) {
 			block_vals[k][z+1] += block_vals[k][z];
 		}
-		for (int i = lo; i < hi; i++) {
-			cerr << locs[i].first << ' ' << locs[i].second << '\n';
-		}
-		for (int z = 0; z <= 2*len; z++) { cerr << block_vals[k][z] << ' '; } cerr << '\n';
 		block_sum[k] = cur_sum;
 	};
 	for (int k = 0; k < K; k++) {
