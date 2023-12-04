@@ -172,6 +172,16 @@ tensor<bool, 2> solve(int N) {
 				put_square(i+2, j+7);
 				put_square(i+6, j+1);
 				put_square(i+7, j+6);
+			} else {
+				int di = N - i;
+				int dj = N - j;
+				assert(di < 8 || dj < 8);
+				// just put extra things
+				for (int a = 0; a < di; a += 4) {
+					for (int b = 0; b < dj; b += 6) {
+						put_square(i + a + 1, j + b + 2);
+					}
+				}
 			}
 		}
 	}
