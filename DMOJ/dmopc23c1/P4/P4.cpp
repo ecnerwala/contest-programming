@@ -37,7 +37,7 @@ int main() {
 	const int64_t INF = 1e18;
 	int64_t ans = 0;
 	std::y_combinator([&](auto self, int cur, int prv) -> std::array<int64_t, 3> {
-		std::array<int64_t, 3> res{0, -INF, 0};
+		std::array<int64_t, 3> res{0, 0, 0};
 		for (auto [nxt, c] : adj[cur]) {
 			if (nxt == prv) continue;
 			auto ch = self(nxt, cur);
@@ -62,7 +62,6 @@ int main() {
 			}
 			res = nres;
 		}
-		cerr << cur << ' ' << prv << ' ' << res[0] << ' ' << res[1] << ' ' << res[2] << '\n';
 		ans = std::max(ans, res[2]);
 		return res;
 	})(0, -1);
