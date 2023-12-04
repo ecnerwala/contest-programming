@@ -78,7 +78,7 @@ int main() {
 
 	cout << get_ans() << '\n';
 	for (int q = 0; q < Q; q++) {
-		int u, v; cin >> u >> v; u--, v--; v += N;
+		int u, v; cin >> u >> v; u--, v--; v += N/2;
 		int a = inv_loc[u], b = inv_loc[v];
 		std::swap(locs[a].second, locs[b].second);
 		std::swap(inv_loc[u], inv_loc[v]);
