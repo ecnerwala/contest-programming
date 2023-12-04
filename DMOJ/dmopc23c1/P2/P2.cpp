@@ -167,7 +167,7 @@ tensor<bool, 2> solve(int N) {
 
 	for (int i = 0; i < N; i += 10) {
 		for (int j = 0; j < N; j += 10) {
-			if (i+8 <= N && j+8 <= N) {
+			if (i+7 <= N && j+7 <= N) {
 				put_square(i+1, j+2);
 				put_square(i+2, j+7);
 				put_square(i+6, j+1);
