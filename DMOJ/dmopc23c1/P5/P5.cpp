@@ -6,7 +6,7 @@ int main() {
 
 	int N, Q; cin >> N >> Q;
 
-	std::vector<std::pair<int, int>> locs; locs.reserve(2*N);
+	std::vector<std::pair<int, int>> locs(2*N);
 	for (int i = 0; i < 2*N; i++) {
 		cin >> locs[i].first;
 		locs[i].second = i;
