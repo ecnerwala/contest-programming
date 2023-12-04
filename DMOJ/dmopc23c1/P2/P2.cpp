@@ -176,10 +176,27 @@ tensor<bool, 2> solve(int N) {
 		}
 	}
 
+	tensor<bool, 2> covered({N, N});
 	int tot_cnt = 0;
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			tot_cnt += res[{i, j}];
+			if (res[{i, j}]) {
+				covered[{i, j}] = true;
+				for (int mx : {1, 2}) {
+					int my = 3 - mx;
+					for (int x : {i - mx, i + mx}) {
+						for (int y : {i - my, i + my}) {
+							if (0 <= x && x < N && 0 <= y && y < N) covered[{x, y}] = true;
+						}
+					}
+				}
+			}
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			assert((covered[{i, j}]));
 		}
 	}
 	int max_cnt = N * (N+3) / 5;
