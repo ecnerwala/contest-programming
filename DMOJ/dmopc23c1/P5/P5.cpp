@@ -47,6 +47,7 @@ int main() {
 				block_vals[k][len - cur_sum + 1] -= 2 * locs[i].first;
 			} else {
 				cur_sum --;
+				assert(-len <= cur_sum && cur_sum < len);
 				// if (initial_sum + cur_sum >= 0) ans += locs[i].first
 				// if (initial_sum >= -cur_sum) ans += locs[i].first
 				block_vals[k][0] -= locs[i].first;
