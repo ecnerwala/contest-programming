@@ -25,7 +25,6 @@ int main() {
 	assert(B % 2 == 0);
 
 	int K = int(N+B-1) / B;
-	int64_t cur_ans = 0;
 	std::vector<int> block_sum(N);
 	std::vector<std::vector<int64_t>> block_vals(K);
 	auto recompute_block = [&](int k) -> void {
