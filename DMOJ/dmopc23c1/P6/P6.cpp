@@ -160,7 +160,7 @@ int main() {
 		ecnerwala::level_ancestor la(par);
 
 		std::vector<int> corp_root(M);
-		std::vector<std::vector<int>> vert_roots(M);
+		std::vector<std::vector<int>> vert_roots(N);
 		for (int m = 0; m < M; m++) {
 			int v = corp_verts[m][0];
 			for (int u : corp_verts[m]) {
