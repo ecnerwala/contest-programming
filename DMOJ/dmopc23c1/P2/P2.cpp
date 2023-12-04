@@ -186,7 +186,7 @@ tensor<bool, 2> solve(int N) {
 				for (int mx : {1, 2}) {
 					int my = 3 - mx;
 					for (int x : {i - mx, i + mx}) {
-						for (int y : {i - my, i + my}) {
+						for (int y : {j - my, j + my}) {
 							if (0 <= x && x < N && 0 <= y && y < N) covered[{x, y}] = true;
 						}
 					}
