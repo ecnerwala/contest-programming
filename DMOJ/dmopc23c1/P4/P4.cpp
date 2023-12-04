@@ -62,6 +62,7 @@ int main() {
 			}
 			res = nres;
 		}
+		cerr << cur << ' ' << prv << ' ' << res[0] << ' ' << res[1] << ' ' << res[2] << '\n';
 		ans = std::max(ans, res[2]);
 		return res;
 	})(0, -1);
