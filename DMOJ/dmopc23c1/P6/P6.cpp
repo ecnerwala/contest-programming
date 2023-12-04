@@ -170,6 +170,8 @@ int main() {
 			vert_roots[v].push_back(m);
 		}
 
+		std::vector<int> corp_par(M, -1);
+
 		std::y_combinator([&](auto self, int cur, int prv) -> std::set<std::pair<int, int>> {
 			std::set<std::pair<int, int>> res;
 			for (int m : vert_corps[cur]) {
@@ -182,6 +184,16 @@ int main() {
 				res.insert(ch.begin(), ch.end());
 				ch = {};
 			}
+			std::reverse(vert_roots[cur].begin(), vert_roots[cur].end());
+			for (int m : vert_roots[cur]) {
+				// biggest guys downwards
+				bool did_erase = bool(res.erase({depth[corp_root[m]], m}));
+				assert(did_erase);
+				if (!res.empty()) {
+					corp_par[m] = res.rbegin()->second;
+				}
+			}
+			return res;
 		})(0, -1);
 	}
 
