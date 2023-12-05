@@ -229,11 +229,13 @@ std::optional<tensor<int, 2>> solve(std::vector<int> A) {
 					res[{i, j}] = A[i];
 				} else {
 					int x = circ_idx[i], y = circ_idx[j];
-					int v = slope_value[((x == N-1 ? y : x) + (y == N-1 ? x : y))%N];
+					int v = slope_value[((x == N-1 ? y : x) + (y == N-1 ? x : y)) % (N-1)];
 					std::cerr << i << ' ' << j << ' '<< v << '\n';
 					assert((v == A[i]) == (v == A[j]));
 					if (v == A[i] && v == A[j]) {
 						res[{i, j}] = slope_value[N-1];
+					} else {
+						res[{i, j}] = v;
 					}
 				}
 			}
