@@ -198,6 +198,7 @@ std::optional<tensor<int, 2>> solve(std::vector<int> A) {
 		}
 		for (int z = 1; z < int(values.size()); z++) {
 			int our_slope = (nxt_idx + nxt_idx - (int(locs[values[z]].size()) - 1)) % (N-1);
+			std::cerr << "setting " << values[z] << ' ' << our_slope << '\n';
 			slope_value[our_slope] = values[z];
 			for (int a : locs[values[z]]) {
 				circ_idx[a] = nxt_idx--;
