@@ -212,6 +212,17 @@ std::optional<tensor<int, 2>> solve(std::vector<int> A) {
 		}
 		assert(non_values.empty());
 
+		std::cerr << "solve " << N << '\n';
+		for (int i = 0; i < N; i++) {
+			std::cerr << A[i] << " \n"[i+1==N];
+		}
+		for (int i = 0; i < N; i++) {
+			std::cerr << i << ' ' << circ_idx[i] << " \n"[i+1==N];
+		}
+		for (int i = 0; i < N; i++) {
+			std::cerr << i << ' ' << slope_value[i] << " \n"[i+1==N];
+		}
+
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (j == i) {
