@@ -212,17 +212,6 @@ std::optional<tensor<int, 2>> solve(std::vector<int> A) {
 		}
 		assert(non_values.empty());
 
-		std::cerr << "solve " << N << '\n';
-		for (int i = 0; i < N; i++) {
-			std::cerr << A[i] << " \n"[i+1==N];
-		}
-		for (int i = 0; i < N; i++) {
-			std::cerr << i << ' ' << circ_idx[i] << '\n';
-		}
-		for (int i = 0; i < N; i++) {
-			std::cerr << i << ' ' << slope_value[i] << '\n';
-		}
-
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (j == i) {
@@ -230,7 +219,6 @@ std::optional<tensor<int, 2>> solve(std::vector<int> A) {
 				} else {
 					int x = circ_idx[i], y = circ_idx[j];
 					int v = slope_value[((x == N-1 ? y : x) + (y == N-1 ? x : y)) % (N-1)];
-					std::cerr << i << ' ' << j << ' '<< v << '\n';
 					assert((v == A[i]) == (v == A[j]));
 					if (v == A[i] && v == A[j]) {
 						res[{i, j}] = slope_value[N-1];
