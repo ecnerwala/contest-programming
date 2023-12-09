@@ -274,8 +274,8 @@ struct circular_layout {
 
 struct prng_t {
 	int x, y, z;
-	friend std::istream& operator >> (std::istream& in, prng_t& p) {
-		return in >> p.x >> p.y >> p.z;
+	friend std::istream& operator >> (std::istream& in, prng_t& a) {
+		return in >> a.x >> a.y >> a.z;
 	}
 	int p = 0;
 	int step() {
