@@ -353,6 +353,7 @@ int main() {
 				if (first_val[nimber[i]] == -1) first_val[nimber[i]] = i;
 				ans += first_val[nimber[i]];
 			}
+			cerr << "run " << i << ' ' << i-B[i] << '-' << i-A[i] << ' ' << C[i] << '(' << nimber[C[i]] << ')' << '\n';
 			cerr << "nimber " << i << ' ' << nimber[i] << ' ' << first_val[nimber[i]] << '\n';
 			seg[S + nimber[i]].push_back(seg_t{i, i, 0});
 			for (int a = (S + nimber[i])/2; a >= 1; a /= 2) {
