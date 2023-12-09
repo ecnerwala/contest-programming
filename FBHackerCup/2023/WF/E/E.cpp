@@ -333,24 +333,24 @@ int main() {
 				int c = nimber[C[i]];
 
 				int a = 1;
-				int idx = t_hi;
+				int sz = t_hi;
 				for (int b = L-1; b >= 0; b--) {
-					assert(idx == -1 || seg[a][idx].v < t_lo);
-					std::array<int, 2> n_idx;
-					n_idx[0] = idx == -1 ? -1 : seg[a][idx].l_sz - 1;
-					n_idx[1] = idx - n_idx[0] - 1;
+					assert(sz == 0 || seg[a][sz-1].v < t_lo);
+					std::array<int, 2> n_sz;
+					n_sz[0] = sz ? seg[a][sz-1].l_sz : 0;
+					n_sz[1] = sz - n_sz[0];
 					int d = ((c >> b) & 1);
-					if (n_idx[d] == -1 || seg[2*a+d][n_idx[d]].v < t_lo) {
+					if (n_sz[d] == 0 || seg[2*a+d][n_sz[d]-1].v < t_lo) {
 						// go left
-						idx = n_idx[d];
+						sz = n_sz[d];
 						a = 2*a+d;
 					} else {
 						// go right
 						nimber[i] += (1 << b);
-						idx = n_idx[!d];
+						sz = n_sz[!d];
 						a = 2*a+!d;
 					}
-					assert(idx == -1 || seg[a][idx].v < t_lo);
+					assert(sz == 0 || seg[a][sz-1].v < t_lo);
 				}
 			}
 			// insert the guy
