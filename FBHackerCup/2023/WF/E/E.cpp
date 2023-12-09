@@ -314,6 +314,7 @@ int main() {
 		// empty means v = -1
 		std::vector<std::vector<seg_t>> seg(2*S);
 
+		int64_t ans = 0;
 		std::vector<int> nimber(N+1);
 		std::vector<int> first_val(N+1, -1);
 		for (int i = 0; i <= N; i++) {
@@ -346,6 +347,8 @@ int main() {
 			}
 			// insert the guy
 			assert(nimber[i] < S);
+			if (first_val[nimber[i]] == -1) first_val[nimber[i]] = i;
+			ans += first_val[nimber[i]];
 			seg[S + nimber[i]].push_back(seg_t{i, i, 0});
 			for (int a = (S + nimber[i])/2; a >= 1; a /= 2) {
 				seg[a].push_back(seg_t{
@@ -359,7 +362,7 @@ int main() {
 			}
 		}
 
-		cout << "Case #" << case_num << ": ";
+		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
 
 	return 0;
