@@ -303,6 +303,8 @@ int main() {
 			assert(0 <= C[i] && C[i] < i);
 		}
 
+		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
+
 		int S = seg_tree::next_pow_2(N+1);
 		int L = seg_tree::log_2(S);
 		struct seg_t {
