@@ -316,7 +316,7 @@ int main() {
 		int L = seg_tree::log_2(S);
 		struct seg_t {
 			int v;
-			int l_sz;
+			int l_idx;
 		};
 
 		// empty means v = -1
@@ -337,7 +337,7 @@ int main() {
 				for (int b = L-1; b >= 0; b--) {
 					assert(idx == -1 || seg[a][idx].v < t_lo);
 					std::array<int, 2> n_idx;
-					n_idx[0] = idx == -1 ? -1 : seg[a][idx].l_sz - 1;
+					n_idx[0] = idx == -1 ? -1 : seg[a][idx].l_idx;
 					n_idx[1] = idx - n_idx[0] - 1;
 					int d = ((c >> b) & 1);
 					if (n_idx[d] == -1 || seg[2*a+d][n_idx[d]].v < t_lo) {
@@ -361,14 +361,14 @@ int main() {
 			}
 			//cerr << "run " << i << ' ' << i-B[i] << '-' << i-A[i] << ' ' << C[i] << '(' << nimber[C[i]] << ')' << '\n';
 			//cerr << "nimber " << i << ' ' << nimber[i] << ' ' << first_val[nimber[i]] << '\n';
-			seg[S + nimber[i]].push_back(seg_t{i, 0});
+			seg[S + nimber[i]].push_back(seg_t{i, -1});
 			for (int a = (S + nimber[i])/2; a >= 1; a /= 2) {
 				seg[a].push_back(seg_t{
 					std::min(
 						seg[2*a].empty() ? -1 : seg[2*a].back().v,
 						seg[2*a+1].empty() ? -1 : seg[2*a+1].back().v
 					),
-					int(seg[2*a].size())
+					int(seg[2*a].size()) - 1
 				});
 			}
 		}
