@@ -303,9 +303,9 @@ int main() {
 			assert(0 <= C[i] && C[i] < i);
 		}
 
+		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		/*
 		cerr << '\n';
-		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		for (int i = 1; i <= N; i++) {
 			cerr << i << ' ' << A[i] << ' ' << B[i] << ' ' << C[i] << '\n';
 		}
