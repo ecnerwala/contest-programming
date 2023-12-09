@@ -303,12 +303,14 @@ int main() {
 			assert(0 <= C[i] && C[i] < i);
 		}
 
+		/*
 		cerr << '\n';
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		for (int i = 1; i <= N; i++) {
 			cerr << i << ' ' << A[i] << ' ' << B[i] << ' ' << C[i] << '\n';
 		}
 		cerr << '\n';
+		*/
 
 		int S = seg_tree::next_pow_2(N+1);
 		int L = seg_tree::log_2(S);
@@ -358,8 +360,8 @@ int main() {
 				if (first_val[nimber[i]] == -1) first_val[nimber[i]] = i;
 				ans += first_val[nimber[i]];
 			}
-			cerr << "run " << i << ' ' << i-B[i] << '-' << i-A[i] << ' ' << C[i] << '(' << nimber[C[i]] << ')' << '\n';
-			cerr << "nimber " << i << ' ' << nimber[i] << ' ' << first_val[nimber[i]] << '\n';
+			//cerr << "run " << i << ' ' << i-B[i] << '-' << i-A[i] << ' ' << C[i] << '(' << nimber[C[i]] << ')' << '\n';
+			//cerr << "nimber " << i << ' ' << nimber[i] << ' ' << first_val[nimber[i]] << '\n';
 			seg[S + nimber[i]].push_back(seg_t{i, i, 0});
 			for (int a = (S + nimber[i])/2; a >= 1; a /= 2) {
 				seg[a].push_back(seg_t{
