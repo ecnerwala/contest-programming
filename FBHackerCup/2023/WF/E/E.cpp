@@ -333,7 +333,7 @@ int main() {
 				int c = nimber[C[i]];
 
 				int a = 1;
-				int sz = t_hi;
+				int sz = t_hi + 1;
 				for (int b = L-1; b >= 0; b--) {
 					assert(sz == 0 || seg[a][sz-1].v < t_lo);
 					std::array<int, 2> n_sz;
