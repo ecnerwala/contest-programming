@@ -8,7 +8,7 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
 		int N, M; cin >> N >> M;
-		cerr << "Case #" << case_num << ": " << "N = " << N << "M = " << M << '\n';
+		cerr << "Case #" << case_num << ": " << "N = " << N << ' ' << "M = " << M << '\n';
 
 		std::vector<int64_t> P(N);
 		for (auto& p : P) cin >> p;
