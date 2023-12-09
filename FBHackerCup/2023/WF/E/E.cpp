@@ -348,8 +348,10 @@ int main() {
 			// insert the guy
 			cerr << "nimber " << i << ' ' << nimber[i] << '\n';
 			assert(nimber[i] < S);
-			if (first_val[nimber[i]] == -1) first_val[nimber[i]] = i;
-			ans += first_val[nimber[i]];
+			if (i > 0) {
+				if (first_val[nimber[i]] == -1) first_val[nimber[i]] = i;
+				ans += first_val[nimber[i]];
+			}
 			seg[S + nimber[i]].push_back(seg_t{i, i, 0});
 			for (int a = (S + nimber[i])/2; a >= 1; a /= 2) {
 				seg[a].push_back(seg_t{
