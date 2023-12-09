@@ -303,7 +303,12 @@ int main() {
 			assert(0 <= C[i] && C[i] < i);
 		}
 
+		cerr << '\n';
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
+		for (int i = 0; i < N; i++) {
+			cerr << i << ' ' << A[i] << ' ' << B[i] << ' ' << C[i] << '\n';
+		}
+		cerr << '\n';
 
 		int S = seg_tree::next_pow_2(N+1);
 		int L = seg_tree::log_2(S);
