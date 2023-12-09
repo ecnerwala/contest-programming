@@ -315,7 +315,6 @@ int main() {
 		int S = seg_tree::next_pow_2(N+1);
 		int L = seg_tree::log_2(S);
 		struct seg_t {
-			int t;
 			int v;
 			int l_sz;
 		};
@@ -362,10 +361,9 @@ int main() {
 			}
 			//cerr << "run " << i << ' ' << i-B[i] << '-' << i-A[i] << ' ' << C[i] << '(' << nimber[C[i]] << ')' << '\n';
 			//cerr << "nimber " << i << ' ' << nimber[i] << ' ' << first_val[nimber[i]] << '\n';
-			seg[S + nimber[i]].push_back(seg_t{i, i, 0});
+			seg[S + nimber[i]].push_back(seg_t{i, 0});
 			for (int a = (S + nimber[i])/2; a >= 1; a /= 2) {
 				seg[a].push_back(seg_t{
-					i,
 					std::min(
 						seg[2*a].empty() ? -1 : seg[2*a].back().v,
 						seg[2*a+1].empty() ? -1 : seg[2*a+1].back().v
