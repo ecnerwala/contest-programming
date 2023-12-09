@@ -346,6 +346,7 @@ int main() {
 				}
 			}
 			// insert the guy
+			cerr << "nimber " << i << ' ' << nimber[i] << '\n';
 			assert(nimber[i] < S);
 			if (first_val[nimber[i]] == -1) first_val[nimber[i]] = i;
 			ans += first_val[nimber[i]];
