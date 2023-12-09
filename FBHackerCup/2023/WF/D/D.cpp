@@ -21,7 +21,7 @@ int main() {
 
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
-			ans += std::max(0, A[i] - pref_val[i] - suff_val[i]);
+			ans += std::max(0, A[i] - pref_val[i] - suff_val[i+1]);
 		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
