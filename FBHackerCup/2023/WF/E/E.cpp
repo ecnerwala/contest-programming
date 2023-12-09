@@ -305,7 +305,7 @@ int main() {
 
 		cerr << '\n';
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
-		for (int i = 0; i < N; i++) {
+		for (int i = 1; i <= N; i++) {
 			cerr << i << ' ' << A[i] << ' ' << B[i] << ' ' << C[i] << '\n';
 		}
 		cerr << '\n';
