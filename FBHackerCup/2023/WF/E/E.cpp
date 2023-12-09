@@ -277,7 +277,7 @@ struct prng_t {
 	friend std::istream& operator >> (std::istream& in, prng_t& p) {
 		return in >> p.x >> p.y >> p.z;
 	}
-	int p;
+	int p = 0;
 	int step() {
 		return p = int((int64_t(p) * int64_t(x) + y) % z);
 	}
