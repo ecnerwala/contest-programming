@@ -162,5 +162,10 @@ int main() {
 		cerr << a << ' ' << b << ' ' << c << '\n';
 	}
 
+	double ans = 0;
+
+	ans *= M_PI;
+	cout << fixed << setprecision(20) << ans << '\n';
+
 	return 0;
 }
