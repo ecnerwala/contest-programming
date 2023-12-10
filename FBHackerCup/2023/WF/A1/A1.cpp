@@ -170,6 +170,7 @@ int main() {
 					if ((d & 1) && p)  {
 						a = b;
 					} else if ((d & 1) && !p) {
+						continue;
 						a --;
 						if (a < 0) continue;
 					} else if (!(d & 1) && p) {
