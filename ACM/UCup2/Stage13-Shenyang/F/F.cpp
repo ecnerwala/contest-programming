@@ -520,7 +520,7 @@ int main() {
 			std::uniform_int_distribution(2, mnum2::MOD-1)(mt)
 		);
 	};
-	const int MAX_GAP = 500;
+	const int MAX_GAP = 0;
 	{
 		cerr << "CASE gap > " << MAX_GAP << endl;
 		const pnum BASE = random_pnum();
