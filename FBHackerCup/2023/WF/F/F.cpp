@@ -254,8 +254,6 @@ int main() {
 							*root_v[0] = n_root_v[0];
 							*root_v[1] = n_root_v[1];
 						}
-						for (int k = 0; k <= K; k++) {
-						}
 						cycs[cur].clear();
 					} else {
 						assert(lv == -1);
