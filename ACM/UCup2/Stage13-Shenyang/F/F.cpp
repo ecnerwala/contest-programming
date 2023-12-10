@@ -630,11 +630,13 @@ int main() {
 			if (r == -1) {
 				// update l to v
 				pnum delta = v - std::exchange(A[l], v);
-				vals[v] += delta * mod_vals[l % gap];
+				vals[l] += delta * mod_vals[l % gap];
 				bucket_sums[l / K] += delta * mod_vals[l % gap];
 			} else {
 				assert(l < r);
 				if (v != gap) continue;
+				cerr << "query " << l << ' ' << r << '\n';
+				for (int i = l; i < r; i++) { cerr << A[i] << ' '; } cerr << '\n';
 				// query l to r
 				int dists = std::min(l % K, K - l % K) + std::min({r % K, K - r % K, N - r});
 				pnum sum = 0;
