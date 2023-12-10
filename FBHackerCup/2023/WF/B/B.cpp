@@ -171,31 +171,37 @@ int main() {
 
 		cerr << "Case #" << case_num << ": " << R << ' ' << C << endl;
 
-		auto vert_good = [&](int i, int j) -> bool {
-			return (0 <= i && i + 2 < R && 0 <= j && j < C) && G[{i, j}] == G[{i+1, j}] && G[{i, j}] == G[{i+2, j}];
-		};
-		auto horz_good = [&](int i, int j) -> bool {
-			return (0 <= i && i < R && 0 <= j && j + 2 < C) && G[{i, j}] == G[{i, j+1}] && G[{i, j}] == G[{i, j+2}];
-		};
 		const int INF = 1e9;
-		std::vector<int> best_row(R, -INF);
-		std::vector<int> best_col(C, -INF);
-		auto check_points = [&](std::vector<std::array<int, 2>> pts) {
-			std::vector<std::tuple<bool, int, int>> lines;
-			lines.reserve(6*pts.size());
-			for (auto [x, y] : pts) {
-				lines.push_back({false, x-2, y});
-				lines.push_back({false, x-1, y});
-				lines.push_back({false, x-0, y});
-				lines.push_back({true, x, y-2});
-				lines.push_back({true, x, y-1});
-				lines.push_back({true, x, y-0});
-			}
-			std::sort(lines.begin(), lines.end());
-			lines.resize(std::unique(lines.begin(), lines.end()) - lines.begin());
+		std::vector<int> best_row(R+C, -INF);
+		std::vector<int> best_col(R+C, -INF);
+		tensor<int, 3> last_vis({R, C, 2}, 0);
+		int cur_id = 0;
+		auto check_points = [&](std::initializer_list<std::array<int, 2>> pts) {
+			cur_id++;
 			int res = 0;
-			for (auto [b, x, y] : lines) {
-				res += b ? horz_good(x, y) : vert_good(x, y);
+			for (auto [x, y] : pts) {
+				auto check_vert = [&](int i, int j) {
+					if (0 <= i && i + 2 < R && 0 <= j && j < C) {
+						if (last_vis[{i, j, 0}] < cur_id) {
+							last_vis[{i, j, 0}] += cur_id;
+							res += G[{i, j}] == G[{i+1, j}] && G[{i, j}] == G[{i+2, j}];
+						}
+					}
+				};
+				auto check_horiz = [&](int i, int j) {
+					if (0 <= i && i < R && 0 <= j && j + 2 < C) {
+						if (last_vis[{i, j, 1}] < cur_id) {
+							last_vis[{i, j, 1}] += cur_id;
+							res += G[{i, j}] == G[{i, j+1}] && G[{i, j}] == G[{i, j+2}];
+						}
+					}
+				};
+				check_vert(x-2, y);
+				check_vert(x-1, y);
+				check_vert(x-0, y);
+				check_horiz(x, y-2);
+				check_horiz(x, y-1);
+				check_horiz(x, y-0);
 			}
 			return res;
 		};
@@ -251,21 +257,15 @@ int main() {
 			}
 		}
 
-		{
+		auto check_gap = [&](const std::vector<int>& bests, int g) {
 			int cur_best = -INF;
-			for (int i = 4; i < R; i++) {
-				setmax(cur_best, best_row[i-4]);
+			for (int i = g; i < int(bests.size()); i++) {
+				setmax(cur_best, best_row[i-g]);
 				setmax(ans, cur_best + best_row[i]);
 			}
-		}
-
-		{
-			int cur_best = -INF;
-			for (int j = 4; j < C; j++) {
-				setmax(cur_best, best_col[j-4]);
-				setmax(ans, cur_best + best_col[j]);
-			}
-		}
+		};
+		check_gap(best_row, 4);
+		check_gap(best_col, 4);
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
