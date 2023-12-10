@@ -205,14 +205,24 @@ int main() {
 
 	double tot_area = 2 * (R_HI.x - R_LO.x) * 2 * (R_HI.y - R_LO.y);
 
-	auto get_area_val = [&](const std::vector<kactl::P>& region, pt_t p) -> double {
+	auto get_area_val = [&](std::vector<kactl::P> region, pt_t p) -> double {
 		// take the integral over the region of int p.norm - 2 * (p dot v) dv
 		double res = 0;
-		for (int i = 0; i < int(region.size()); i++) {
-			pt_t a = region[i];
-			pt_t b = region[(i+1) % int(region.size())];
+		for (int z = 0; z < 2; z++) {
+			for (int i = 0; i < int(region.size()); i++) {
+				pt_t a = region[i];
+				pt_t b = region[(i+1) % int(region.size())];
+				res += (p.x * p.x) * (a.y + b.y) / 2 * (b.x - a.x);
+				// integral of x * ((a.y * b.x - b.y * a.x + (b.y - a.y) * x) / (b.x - a.x))
+				// integral of x * (a.y * b.x - b.y * a.x) / (b.x - a.x) + integral of x^2 * (b.y - a.y) / (b.x - a.x)
+				double int_x = (a.y * b.x - b.y * a.x) * (b.x - a.x) / 2 + (b.x - a.x) * (b.x - a.x) / 3 * (b.y - a.y);
+				res -= 2 * p.x * int_x;
+			}
+			std::reverse(region.begin(), region.end());
+			std::swap(p.x, p.y);
+			for (auto& a : region) { std::swap(a.x, a.y); }
 		}
-		return res;
+		return -res;
 	};
 
 	double ans = 0;
