@@ -162,9 +162,14 @@ int main() {
 	std::vector<std::array<int, 3>> q; q.reserve((X+1) * (Y+1) * 2);
 	dist[{X, Y, 0}] = 0;
 	q.push_back({X, Y, 0});
+	int ans = -1;
 	for (int z = 0; z < int(q.size()); z++) {
 		auto st = q[z];
 		int d = dist[st];
+		if (st[0] == 0) {
+			ans = d;
+			break;
+		}
 		int side = st[2];
 		int a = side ? X - st[0] : st[0];
 		int b = side ? Y - st[1] : st[1];
@@ -180,7 +185,7 @@ int main() {
 			}
 		}
 	}
-	cout << dist[{0, 0, 1}] << '\n';
+	cout << ans << '\n';
 
 	return 0;
 }
