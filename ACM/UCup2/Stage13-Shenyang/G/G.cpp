@@ -225,6 +225,7 @@ int main() {
 				res -= 2 * p.x * int_x;
 			}
 			cerr << "area = " << -area << '\n';
+			cerr << -area * p.x * p.x << '\n';
 			std::reverse(region.begin(), region.end());
 			std::swap(p.x, p.y);
 			for (auto& a : region) { std::swap(a.x, a.y); }
