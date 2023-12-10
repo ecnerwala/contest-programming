@@ -96,7 +96,7 @@ int main() {
 				int c = nimber[C[i]];
 
 				int a = roots_seg[t_hi+1];
-				for (int b = L-1; b >= 0; b--) {
+				for (int b = L-1; a != 0 && b >= 0; b--) {
 					assert(seg[a].v < t_lo);
 					int d = ((c >> b) & 1);
 					if (seg[seg[a].c[d]].v < t_lo) {
