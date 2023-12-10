@@ -269,6 +269,11 @@ int main() {
 			} else if (prv != -1) {
 				cycs[prv].push_back(cur);
 			}
+			cerr << "dfs " << cur << ' ' << prv << ' ' << lv << '\n';
+			for (int k = 0; k <= K; k++) {
+				cerr << dp[{cur, k, 0}] << ' ' << dp[{cur, k, 1}] << '\n';
+			}
+			cerr << '\n';
 			return lv;
 		})(0, -1);
 
