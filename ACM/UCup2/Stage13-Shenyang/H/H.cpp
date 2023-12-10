@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+using std::cerr;
 
 int solve(int N, std::vector<std::array<int, 2>> edges, int K) {
 	const int ORIG_N = N;
@@ -37,6 +38,9 @@ int solve(int N, std::vector<std::array<int, 2>> edges, int K) {
 				}
 			}
 			if (all_cyc) {
+				std::cerr << "Running cycs" << '\n';
+				cerr << "N = " << N << '\n';
+				for (auto [u, v] : edges) cerr << u << ' ' << v << '\n';
 				std::vector<int> path_lens;
 				path_lens.reserve(N);
 				int cyc_len = N;
