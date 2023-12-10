@@ -614,7 +614,7 @@ int main() {
 		}
 
 		// fast update, slow query
-		const int K = 1;
+		const int K = 500;
 		std::vector<pnum> A(N);
 		std::vector<pnum> vals(N);
 		std::vector<pnum> bucket_sums((N + K - 1) / K);
@@ -634,9 +634,9 @@ int main() {
 			} else {
 				assert(l < r);
 				if (v != gap) continue;
-				cerr << "query " << q << ' ' << l << ' ' << r << '\n';
-				for (int i = l; i < r; i++) { cerr << A[i] << ' '; } cerr << '\n';
-				for (int i = l; i < r; i++) { cerr << vals[i] << ' '; } cerr << '\n';
+				//cerr << "query " << q << ' ' << l << ' ' << r << '\n';
+				//for (int i = l; i < r; i++) { cerr << A[i] << ' '; } cerr << '\n';
+				//for (int i = l; i < r; i++) { cerr << vals[i] << ' '; } cerr << '\n';
 				// query l to r
 				int dists = std::min(l % K, K - l % K) + std::min({r % K, K - r % K, N - r});
 				pnum sum = 0;
