@@ -248,23 +248,6 @@ int main() {
 		for (int i = 0; i < int(P_extra.size()); i++) {
 			pt_id[P_extra[i]] = i;
 		}
-		auto triangulation = kactl::delaunay::triangulate(P_extra);
-		assert(int(triangulation.size()) % 3 == 0);
-		std::vector<std::vector<int>> neighbors(N+4);
-		for (int z = 0; z < int(triangulation.size()); z += 3) {
-			int a = pt_id[triangulation[z+0]];
-			int b = pt_id[triangulation[z+1]];
-			int c = pt_id[triangulation[z+2]];
-			cerr << a << ' ' << b << ' ' << c << '\n';
-			neighbors[a].push_back(b);
-			neighbors[a].push_back(c);
-
-			neighbors[b].push_back(c);
-			neighbors[b].push_back(a);
-
-			neighbors[c].push_back(a);
-			neighbors[c].push_back(b);
-		}
 	}
 
 	ans /= tot_area;
