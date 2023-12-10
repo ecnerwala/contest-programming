@@ -100,10 +100,10 @@ int main() {
 					assert(seg[a].v < t_lo);
 					int d = ((c >> b) & 1);
 					if (seg[seg[a].c[d]].v < t_lo) {
-						a = 2*a + d;
+						a = seg[a].c[d];
 					} else {
 						nimber[i] += (1 << b);
-						a = 2*a + !d;
+						a = seg[a].c[!d];
 					}
 					assert(seg[a].v < t_lo);
 				}
