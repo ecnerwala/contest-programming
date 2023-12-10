@@ -546,8 +546,8 @@ int main() {
 
 		const int K = 500;
 		std::vector<pnum> bucket_prefs((N + K - 1) / K + 1);
-		std::vector<pnum> prefs(N);
-		for (int i = 0; i < N; i++) {
+		std::vector<pnum> prefs(N+1);
+		for (int i = 0; i <= N; i++) {
 			prefs[i] = (i % K == 0) ? 0 : (prefs[i-1] + A[i-1] * pow_base[i-1]);
 		}
 		for (int i = 0; i < N; i++) {
