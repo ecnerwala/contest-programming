@@ -220,7 +220,7 @@ int main() {
 								for (int k = 0; k <= K; k++) {
 									dp2[{k, 0}] = dp2[{k, 1}] = INF;
 								}
-								dp2[{root_val, 1}] = dp2[{root_val, 0}] = 0;
+								dp2[{root_val, 1}] = 0;
 								for (int z = 0; z < int(cycs[cur].size()); z++) {
 									for (int k = 0; k <= K; k++) {
 										auto v = dp[cycs[cur][z]][k];
