@@ -176,7 +176,7 @@ int main() {
 		int b = side ? Y - st[1] : st[1];
 		for (int ba = 0; ba <= a; ba++) {
 			for (int bb = 0; bb <= b && ba + bb <= P; bb++) {
-				if ((a - ba) > 0 && (a - ba) + Q < (b - bb)) break;
+				if ((a - ba) > 0 && (a - ba) + Q < (b - bb)) continue;
 				std::array<int, 3> nst = {side ? st[0] + ba : st[0] - ba, side ? st[1] + bb : st[1] - bb, !side};
 				cerr << st[0] << ' ' << st[1] << ' ' << st[2] << " -> " << nst[0] << ' ' << nst[1] << ' ' << nst[2] << '\n';
 				if (dist[nst] == -1) {
