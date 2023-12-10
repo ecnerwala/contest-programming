@@ -505,8 +505,7 @@ int main() {
 			queries[q] = {p, -1, v};
 		} else if (op == 'Q') {
 			int l, r, s, t; cin >> l >> r >> s >> t; l--, s--;
-			int len = B_query(s, t, r - l);
-			int gap = (r - l) / len;
+			int gap = B_query(s, t, r - l);
 			queries[q] = {l, r, gap};
 		} else assert(false);
 	}
