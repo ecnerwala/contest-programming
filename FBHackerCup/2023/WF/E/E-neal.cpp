@@ -56,7 +56,7 @@ struct segment {
 struct persistent_basic_seg_tree {
     struct node {
         segment seg;
-        int left = -1, right = -1;
+        std::array<int, 2> ch{-1, -1};
     };
 
     int tree_n = 0;
@@ -85,13 +85,12 @@ struct persistent_basic_seg_tree {
         tree.assign(2 * tree_n, {});
 
         for (int i = 1; i < tree_n; i++) {
-            tree[i].left = 2 * i;
-            tree[i].right = 2 * i + 1;
+            tree[i].ch = {2 * i + 0, 2 * i + 1};
         }
     }
 
-    int left(int position) const { return tree[position].left; }
-    int right(int position) const { return tree[position].right; }
+    int left(int position) const { return tree[position].ch[0]; }
+    int right(int position) const { return tree[position].ch[1]; }
     segment& seg(int position) { return tree[position].seg; }
     const segment& seg(int position) const { return tree[position].seg; }
 
@@ -137,8 +136,8 @@ struct persistent_basic_seg_tree {
 
     // Directly assigning `tree[position].left = make_copy(left(position))` results in segmentation faults, because the
     // address for `tree[position]` can be computed before calling `make_copy`, which may reallocate `tree`.
-    void set_left(int position, int result) { tree[position].left = result; }
-    void set_right(int position, int result) { tree[position].right = result; }
+    void set_left(int position, int result) { tree[position].ch[0] = result; }
+    void set_right(int position, int result) { tree[position].ch[1] = result; }
 
     template<typename T_range_op>
     int _update_tree(int position, int start, int end, int index, T_range_op &&range_op) {
@@ -281,10 +280,6 @@ void run_case(int test_case) {
     tree.build(initial);
     vector<int> roots(N + 1, 1);
 
-    auto range_works = [&](int value_low, int value_high, int low, int high) -> bool {
-        return tree.query(roots[high], value_low, value_high).minimum >= low;
-    };
-
     for (int k = 1; k <= N; k++) {
         int add = SG[C[k]];
         int low = k - B[k], high = k - A[k];
@@ -292,10 +287,9 @@ void run_case(int test_case) {
 
         int cur = roots[high];
         for (int bit = BITS - 1; bit >= 0; bit--) {
-            int need = ans ^ (add & -(1 << bit));
             int d = (add >> bit) & 1;
-            int c_d = d ? tree.tree[cur].right : tree.tree[cur].left;
-            int c_nd = !d ? tree.tree[cur].right : tree.tree[cur].left;
+            int c_d = tree.tree[cur].ch[d];
+            int c_nd = tree.tree[cur].ch[!d];
             if (tree.seg(c_d).minimum < low) {
                 cur = c_d;
             } else {
