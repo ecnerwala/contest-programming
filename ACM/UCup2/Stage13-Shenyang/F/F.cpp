@@ -547,7 +547,7 @@ int main() {
 			A[i] = A_orig[i];
 		}
 
-		const int K = 1;
+		const int K = 2;
 		std::vector<pnum> bucket_prefs((N + K - 1) / K + 1);
 		std::vector<pnum> prefs(N+1);
 		for (int i = 0; i <= N; i++) {
