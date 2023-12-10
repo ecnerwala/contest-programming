@@ -520,7 +520,7 @@ int main() {
 			std::uniform_int_distribution(2, mnum2::MOD-1)(mt)
 		);
 	};
-	const int MAX_GAP = 0;
+	const int MAX_GAP = 500;
 	{
 		cerr << "CASE gap > " << MAX_GAP << endl;
 		const pnum BASE = random_pnum();
@@ -614,7 +614,7 @@ int main() {
 		}
 
 		// fast update, slow query
-		const int K = 500;
+		const int K = 2;
 		std::vector<pnum> A(N);
 		std::vector<pnum> vals(N);
 		std::vector<pnum> bucket_sums((N + K - 1) / K);
