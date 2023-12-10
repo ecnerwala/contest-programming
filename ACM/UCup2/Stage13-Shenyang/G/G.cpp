@@ -206,6 +206,8 @@ int main() {
 	double tot_area = 2 * (R_HI.x - R_LO.x) * 2 * (R_HI.y - R_LO.y);
 
 	auto get_area_val = [&](std::vector<kactl::P> region, pt_t p) -> double {
+		cerr << "Querying area " << p << '\n';
+		for (auto a : region) { cerr << a << ' '; } cerr << '\n';
 		// take the integral over the region of int p.norm - 2 * (p dot v) dv
 		double res = 0;
 		for (int z = 0; z < 2; z++) {
