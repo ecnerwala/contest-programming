@@ -273,6 +273,7 @@ int main() {
 		}
 	}
 
+	cerr << "ans " << ans << '\n';
 	ans /= tot_area;
 	ans *= M_PI;
 	cout << fixed << setprecision(18) << ans << '\n';
