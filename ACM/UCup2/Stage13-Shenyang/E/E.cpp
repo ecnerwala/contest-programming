@@ -170,6 +170,7 @@ int main() {
 			ans = d;
 			break;
 		}
+		cerr << st[0] << ' ' << st[1] << ' ' << st[2] << " @ " << d << '\n';
 		int side = st[2];
 		int a = side ? X - st[0] : st[0];
 		int b = side ? Y - st[1] : st[1];
