@@ -185,14 +185,14 @@ int main() {
 
 		int N, M, K; cin >> N >> M >> K;
 		cerr << "Case #" << case_num << ": " << N << ' ' << M << ' ' << K << '\n';
+		std::vector<int> C(N);
+		for (auto& c : C) cin >> c;
 		std::vector<std::vector<int>> adj(N);
 		for (int e = 0; e < M; e++) {
 			int u, v; cin >> u >> v; u--, v--;
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
-		std::vector<int> C(N);
-		for (auto& c : C) cin >> c;
 
 		std::vector<std::vector<int>> cycs(N);
 		std::vector<int> depth(N);
