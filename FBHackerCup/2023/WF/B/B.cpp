@@ -172,8 +172,8 @@ int main() {
 		cerr << "Case #" << case_num << ": " << R << ' ' << C << endl;
 
 		const int INF = 1e9;
-		std::vector<int> best_row(R+C, -INF);
-		std::vector<int> best_col(R+C, -INF);
+		std::vector<int> best_sum(R+C, -INF);
+		std::vector<int> best_dif(R+C, -INF);
 		tensor<int, 3> last_vis({R, C, 2}, 0);
 		int cur_id = 0;
 		auto check_points = [&](std::initializer_list<std::array<int, 2>> pts) {
@@ -211,11 +211,14 @@ int main() {
 				if (i+1 < R) {
 					std::swap(G[{i, j}], G[{i+1, j}]);
 					int cnt = check_points({{i, j}, {i+1, j}});
-					setmax(best_row[i], cnt);
-					setmax(best_col[j], cnt);
+					setmax(best_sum[i+j], cnt);
+					setmax(best_dif[i-j+C], cnt);
 
 					for (int ni = i-3; ni <= i+3; ni++) {
 						for (int nj = j-3; nj <= j+3; nj++) {
+							if (std::abs(ni - i) + std::abs(nj - j) > 4) {
+								continue;
+							}
 							if (0 <= ni && ni+1 < R && 0 <= nj && nj < C) {
 								std::swap(G[{ni, nj}], G[{ni+1, nj}]);
 								setmax(ans, check_points({{i, j}, {i+1, j}, {ni, nj}, {ni+1, nj}}));
@@ -234,11 +237,14 @@ int main() {
 				if (j+1 < C) {
 					std::swap(G[{i, j}], G[{i, j+1}]);
 					int cnt = check_points({{i, j}, {i, j+1}});
-					setmax(best_row[i], cnt);
-					setmax(best_col[j], cnt);
+					setmax(best_sum[i+j], cnt);
+					setmax(best_dif[i-j+C], cnt);
 
 					for (int ni = i-3; ni <= i+3; ni++) {
 						for (int nj = j-3; nj <= j+3; nj++) {
+							if (std::abs(ni - i) + std::abs(nj - j) > 4) {
+								continue;
+							}
 							if (0 <= ni && ni+1 < R && 0 <= nj && nj < C) {
 								std::swap(G[{ni, nj}], G[{ni+1, nj}]);
 								setmax(ans, check_points({{i, j}, {i, j+1}, {ni, nj}, {ni+1, nj}}));
@@ -260,12 +266,12 @@ int main() {
 		auto check_gap = [&](const std::vector<int>& bests, int g) {
 			int cur_best = -INF;
 			for (int i = g; i < int(bests.size()); i++) {
-				setmax(cur_best, best_row[i-g]);
-				setmax(ans, cur_best + best_row[i]);
+				setmax(cur_best, bests[i-g]);
+				setmax(ans, cur_best + bests[i]);
 			}
 		};
-		check_gap(best_row, 4);
-		check_gap(best_col, 4);
+		check_gap(best_sum, 4);
+		check_gap(best_dif, 4);
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
