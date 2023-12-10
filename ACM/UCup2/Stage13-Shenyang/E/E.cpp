@@ -172,6 +172,7 @@ int main() {
 			for (int bb = 0; bb <= b && ba + bb <= P; bb++) {
 				if ((a - ba) + Q < (b - bb)) break;
 				std::array<int, 3> nst = {side ? st[0] + ba : st[0] - ba, side ? st[1] + bb : st[1] - bb, !side};
+				cerr << st[0] << ' ' << st[1] << ' ' << st[2] << " -> " << nst[0] << ' ' << nst[1] << ' ' << nst[2] << '\n';
 				if (dist[nst] == -1) {
 					dist[nst] = d+1;
 					q.push_back(nst);
