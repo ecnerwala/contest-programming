@@ -608,7 +608,7 @@ int main() {
 			pnum cur_sum = 0;
 			for (int i = 0; i < gap-1; i++) {
 				auto v = random_pnum();
-				mod_vals[i] = cur_sum;
+				mod_vals[i] = v;
 				cur_sum += v;
 			}
 			mod_vals[gap-1] = -cur_sum;
