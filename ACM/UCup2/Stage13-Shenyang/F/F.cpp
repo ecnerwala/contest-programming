@@ -610,19 +610,19 @@ int main() {
 
 		// fast update, slow query
 		const int K = 500;
-		std::vector<pnum> A(N);
+		std::vector<pnum> vals(N);
 		std::vector<pnum> bucket_sums((N + K - 1) / K);
 		for (int i = 0; i < N; i++) {
-			A[i] = A_orig[i];
-			bucket_sums[i/K] += A[i] * mod_vals[i % gap];
+			vals[i] = A_orig[i] * mod_vals[i % gap];
+			bucket_sums[i/K] += vals[i];
 		}
 
 		for (int q = 0; q < Q; q++) {
 			auto [l, r, v] = queries[q];
 			if (r == -1) {
 				// update l to v
-				pnum delta = v - std::exchange(A[l], v);
-				bucket_sums[l / K] += delta * mod_vals[l % gap];
+				pnum val = v * mod_vals[l % gap];
+				bucket_sums[l / K] += val - std::exchange(vals[l], val);
 			} else {
 				assert(l < r);
 				if (v != gap) continue;
@@ -630,24 +630,24 @@ int main() {
 				int dists = std::min(l % K, K - l % K) + std::min({r % K, K - r % K, N - r});
 				pnum sum = 0;
 				if (r - l <= dists) {
-					sum = std::accumulate(A.begin() + l, A.begin() + r, pnum(0));
+					sum = std::accumulate(vals.begin() + l, vals.begin() + r, pnum(0));
 				} else {
 					if (r % K <= std::min(K - r % K, N - r)) {
 						// move downwards
-						sum += std::accumulate(A.begin() + r - r % K, A.begin() + r, pnum(0));
+						sum += std::accumulate(vals.begin() + r - r % K, vals.begin() + r, pnum(0));
 						r -= r % K;
 						r /= K;
 					} else {
-						sum -= std::accumulate(A.begin() + r, A.begin() + std::min(N, r + (K - r % K)), pnum(0));
+						sum -= std::accumulate(vals.begin() + r, vals.begin() + std::min(N, r + (K - r % K)), pnum(0));
 						r += K - r % K;
 						r /= K;
 					}
 					if (l % K <= K - l % K) {
-						sum -= std::accumulate(A.begin() + l - l % K, A.begin() + l, pnum(0));
+						sum -= std::accumulate(vals.begin() + l - l % K, vals.begin() + l, pnum(0));
 						l -= l % K;
 						l /= K;
 					} else {
-						sum += std::accumulate(A.begin() + l, A.begin() + l + (K - l % K), pnum(0));
+						sum += std::accumulate(vals.begin() + l, vals.begin() + l + (K - l % K), pnum(0));
 						l += K - l % K;
 						l /= K;
 					}
