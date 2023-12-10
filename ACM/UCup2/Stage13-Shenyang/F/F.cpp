@@ -616,10 +616,12 @@ int main() {
 
 		// fast update, slow query
 		const int K = 500;
+		std::vector<pnum> A(N);
 		std::vector<pnum> vals(N);
 		std::vector<pnum> bucket_sums((N + K - 1) / K);
 		for (int i = 0; i < N; i++) {
-			vals[i] = A_orig[i] * mod_vals[i % gap];
+			A[i] = A_orig[i];
+			vals[i] = A[i] * mod_vals[i % gap];
 			bucket_sums[i/K] += vals[i];
 		}
 
@@ -627,8 +629,9 @@ int main() {
 			auto [l, r, v] = queries[q];
 			if (r == -1) {
 				// update l to v
-				pnum val = v * mod_vals[l % gap];
-				bucket_sums[l / K] += val - std::exchange(vals[l], val);
+				pnum delta = v - std::exchange(A[l], v);
+				vals[v] += delta * mod_vals[l % gap];
+				bucket_sums[l / K] += delta * mod_vals[l % gap];
 			} else {
 				assert(l < r);
 				if (v != gap) continue;
