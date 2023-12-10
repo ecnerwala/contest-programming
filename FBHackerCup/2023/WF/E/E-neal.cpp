@@ -290,11 +290,18 @@ void run_case(int test_case) {
         int low = k - B[k], high = k - A[k];
         int ans = 0;
 
+        int cur = roots[high];
         for (int bit = BITS - 1; bit >= 0; bit--) {
             int need = ans ^ (add & -(1 << bit));
-
-            if (range_works(need, need + (1 << bit), low, high))
+            int d = (add >> bit) & 1;
+            int c_d = d ? tree.tree[cur].right : tree.tree[cur].left;
+            int c_nd = !d ? tree.tree[cur].right : tree.tree[cur].left;
+            if (tree.seg(c_d).minimum < low) {
+                cur = c_d;
+            } else {
                 ans |= 1 << bit;
+                cur = c_nd;
+            }
         }
 
         SG[k] = ans;
