@@ -195,7 +195,7 @@ int main() {
 		}
 
 		std::vector<std::vector<int>> cycs(N);
-		std::vector<int> depth(N);
+		std::vector<int> depth(N, -1);
 		// 0 means no parent, 1 means parent
 		const int64_t INF = 1e18;
 		tensor<int64_t, 3> dp({N, K+1, 2}, 0);
