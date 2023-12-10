@@ -255,8 +255,8 @@ int main() {
 			close_planes.push_back({mid - perp, mid + perp});
 			far_planes.push_back({mid + perp, mid - perp});
 		}
-		ans += get_area_val(kactl::halfPlaneIntersection(far_planes), P[i]);
-		ans -= get_area_val(kactl::halfPlaneIntersection(close_planes), P[i]);
+		ans += get_area_val(kactl::halfPlaneIntersection(far_planes), P[i] * 2) / 4;
+		ans -= get_area_val(kactl::halfPlaneIntersection(close_planes), P[i] * 2) / 4;
 	}
 
 	if constexpr (false) {
