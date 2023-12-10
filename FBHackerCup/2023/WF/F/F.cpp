@@ -174,7 +174,7 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
-template <typename T> void setmax(T& a, T b) { if (b > a) a = b; }
+template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
 
 int main() {
 	using namespace std;
@@ -228,7 +228,7 @@ int main() {
 										for (int ch_val = std::max(0, k-1); ch_val <= std::min(K, k+1); ch_val++) {
 											for (int a = 0; a < 2; a++) {
 												for (int b = (k < ch_val) ? 0 : 1; b < 2; b++) {
-													setmax(nv[a || (ch_val < k)], (*v[a]) + dp2[{ch_val, b}]);
+													setmin(nv[a || (ch_val < k)], (*v[a]) + dp2[{ch_val, b}]);
 												}
 											}
 										}
@@ -246,7 +246,7 @@ int main() {
 								for (int ch_val = std::max(0, root_val-1); ch_val <= std::min(K, root_val+1); ch_val++) {
 									for (int a = 0; a < 2; a++) {
 										for (int b = (root_val < ch_val) ? 0 : 1; b < 2; b++) {
-											setmax(n_root_v[a || (ch_val < root_val) || (leaf_val < root_val)], (*root_v[a]) + dp2[{ch_val, b}]);
+											setmin(n_root_v[a || (ch_val < root_val) || (leaf_val < root_val)], (*root_v[a]) + dp2[{ch_val, b}]);
 										}
 									}
 								}
@@ -272,7 +272,10 @@ int main() {
 			return lv;
 		})(0, -1);
 
-		int64_t ans;
+		int64_t ans = INF;
+		for (int k = 0; k <= K; k++) {
+			setmin(ans, dp[{0, k, 1}]);
+		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n' << flush;
 	}
