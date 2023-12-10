@@ -162,7 +162,7 @@ int main() {
 	q[0].push_back({0, 0});
 	std::vector<int> min_dist(10001, -1);
 	min_dist[0] = 0;
-	for (int d = 1; d <= 60; d++) {
+	for (int d = 1; d < 60; d++) {
 		for (int pd = std::max(d-2, 0); pd < d; pd++) {
 			for (auto st : q[pd]) {
 				for (int p = 0; p < 2; p++) {
