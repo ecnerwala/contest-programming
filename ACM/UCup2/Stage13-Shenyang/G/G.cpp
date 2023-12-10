@@ -40,6 +40,7 @@ struct Point {
 		return os << "(" << p.x << "," << p.y << ")"; }
 };
 
+namespace delaunay {
 typedef Point<ll> P;
 typedef struct Quad* Q;
 typedef __int128_t lll; // (can be ll if coords are < 2e4)
@@ -128,6 +129,58 @@ vector<P> triangulate(vector<P> pts) {
 	while (qi < sz(q)) if (!(e = q[qi++])->mark) ADD;
 	return pts;
 }
+}
+
+template<class P>
+int sideOf(P s, P e, P p) { return sgn(s.cross(e, p)); }
+
+template<class P>
+int sideOf(const P& s, const P& e, const P& p, double eps) {
+	auto a = (e-s).cross(p-s);
+	double l = (e-s).dist()*eps;
+	return (a > l) - (a < -l);
+}
+
+template<class P>
+pair<int, P> lineInter(P s1, P e1, P s2, P e2) {
+	auto d = (e1 - s1).cross(e2 - s2);
+	if (d == 0) // if parallel
+		return {-(s1.cross(e1, s2) == 0), P(0, 0)};
+	auto p = s2.cross(e1, e2), q = s2.cross(e2, s1);
+	return {1, (s1 * p + e1 * q) / d};
+}
+
+typedef Point<double> P;
+typedef array<P, 2> Line;
+#define sp(a) a[0], a[1]
+#define ang(a) (a[1] - a[0]).angle()
+
+int angDiff(Line a, Line b) { return sgn(ang(a) - ang(b)); }
+bool cmp(Line a, Line b) {
+	int s = angDiff(a, b);
+	return (s ? s : sideOf(sp(a), b[0])) < 0;
+}
+vector<P> halfPlaneIntersection(vector<Line> vs) {
+	const double EPS = sqrt(2) * 1e-8;
+	sort(all(vs), cmp);
+	vector<Line> deq(sz(vs) + 5);
+	vector<P> ans(sz(vs) + 5);
+	deq[0] = vs[0];
+	int ah = 0, at = 0, n = sz(vs);
+	rep(i,1,n+1) {
+		if (i == n) vs.push_back(deq[ah]);
+		if (angDiff(vs[i], vs[i - 1]) == 0) continue;
+		while (ah<at && sideOf(sp(vs[i]), ans[at-1], EPS) < 0)
+			at--;
+		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah],EPS)<0)
+			ah++;
+		auto res = lineInter(sp(vs[i]), sp(deq[at]));
+		if (res.first != 1) continue;
+		ans[at++] = res.second, deq[at] = vs[i];
+	}
+	if (at - ah <= 2) return {};
+	return {ans.begin() + ah, ans.begin() + at};
+}
 
 }
 
@@ -142,28 +195,75 @@ int main() {
 	std::vector<pt_t> P(N);
 	for (auto& p : P) cin >> p.x >> p.y;
 
-	std::vector<pt_t> P_extra; P_extra.reserve(N+4);
-	P_extra.insert(P_extra.end(), P.begin(), P.end());
-	P_extra.push_back(pt_t{-int(4e4), -int(4e4)});
-	P_extra.push_back(pt_t{-int(4e4), +int(4e4)});
-	P_extra.push_back(pt_t{+int(4e4), -int(4e4)});
-	P_extra.push_back(pt_t{+int(4e4), +int(4e4)});
+	pt_t A0 = R_LO, A1 = pt_t(R_HI.x, R_LO.y), A2 = R_HI, A3 = pt_t(R_LO.x, R_HI.y);
+	std::vector<kactl::Line> rect_planes({
+		{A0 * 2, A1 * 2},
+		{A1 * 2, A2 * 2},
+		{A2 * 2, A3 * 2},
+		{A3 * 2, A0 * 2},
+	});
 
-	std::map<pt_t, int> pt_id;
-	for (int i = 0; i < int(P_extra.size()); i++) {
-		pt_id[P_extra[i]] = i;
-	}
-	auto triangulation = kactl::triangulate(P);
-	assert(int(triangulation.size()) % 3 == 0);
-	for (int z = 0; z < int(triangulation.size()); z += 3) {
-		int a = pt_id[triangulation[z+0]];
-		int b = pt_id[triangulation[z+1]];
-		int c = pt_id[triangulation[z+2]];
-		cerr << a << ' ' << b << ' ' << c << '\n';
-	}
+	double tot_area = 2 * (R_HI.x - R_LO.x) * 2 * (R_HI.y - R_LO.y);
+
+	auto get_area_val = [&](const std::vector<kactl::P>& region, pt_t p) -> double {
+		// take the integral over the region of int p.norm - 2 * (p dot v) dv
+		for (int i = 0; i < int(region.size()); i++) {
+		}
+	};
 
 	double ans = 0;
+	for (int i = 0; i < N; i++) {
+		std::vector<kactl::Line> close_planes;
+		close_planes.reserve(N+4);
+		close_planes.insert(close_planes.end(), rect_planes.begin(), rect_planes.end());
 
+		std::vector<kactl::Line> far_planes;
+		far_planes.reserve(N+4);
+		far_planes.insert(far_planes.end(), rect_planes.begin(), rect_planes.end());
+
+		for (int j = 0; j < N; j++) {
+			if (i == j) continue;
+			pt_t mid = P[i] + P[j];
+			pt_t perp = (P[j] - P[i]).perp();
+			close_planes.push_back({mid - perp, mid + perp});
+			far_planes.push_back({mid + perp, mid - perp});
+		}
+		ans += get_area_val(kactl::halfPlaneIntersection(far_planes), P[i]);
+		ans -= get_area_val(kactl::halfPlaneIntersection(close_planes), P[i]);
+	}
+
+	if constexpr (false) {
+		std::vector<pt_t> P_extra; P_extra.reserve(N+4);
+		P_extra.insert(P_extra.end(), P.begin(), P.end());
+		P_extra.push_back(pt_t{-int(4e4), -int(4e4)});
+		P_extra.push_back(pt_t{-int(4e4), +int(4e4)});
+		P_extra.push_back(pt_t{+int(4e4), -int(4e4)});
+		P_extra.push_back(pt_t{+int(4e4), +int(4e4)});
+
+		std::map<pt_t, int> pt_id;
+		for (int i = 0; i < int(P_extra.size()); i++) {
+			pt_id[P_extra[i]] = i;
+		}
+		auto triangulation = kactl::delaunay::triangulate(P_extra);
+		assert(int(triangulation.size()) % 3 == 0);
+		std::vector<std::vector<int>> neighbors(N+4);
+		for (int z = 0; z < int(triangulation.size()); z += 3) {
+			int a = pt_id[triangulation[z+0]];
+			int b = pt_id[triangulation[z+1]];
+			int c = pt_id[triangulation[z+2]];
+			cerr << a << ' ' << b << ' ' << c << '\n';
+			neighbors[a].push_back(b);
+			neighbors[a].push_back(c);
+
+			neighbors[b].push_back(c);
+			neighbors[b].push_back(a);
+
+			neighbors[c].push_back(a);
+			neighbors[c].push_back(b);
+		}
+	}
+
+	ans /= tot_area;
 	ans *= M_PI;
 	cout << fixed << setprecision(18) << ans << '\n';
 
