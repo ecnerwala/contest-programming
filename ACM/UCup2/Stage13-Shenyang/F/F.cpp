@@ -595,7 +595,13 @@ int main() {
 		}
 	}
 
+	std::vector<bool> has_gap(MAX_GAP+1);
+	for (int q = 0; q < Q; q++) {
+		auto [l, r, v] = queries[q];
+		if (r != -1 && v <= MAX_GAP) has_gap[v] = true;
+	}
 	for (int gap = 1; gap <= MAX_GAP; gap++) {
+		if (!has_gap[gap]) continue;
 		cerr << "CASE gap = " << gap << '\n';
 		std::vector<pnum> mod_vals(gap);
 		{
