@@ -520,7 +520,7 @@ int main() {
 			std::uniform_int_distribution(2, mnum2::MOD-1)(mt)
 		);
 	};
-	const int MAX_GAP = 500;
+	const int MAX_GAP = 0;
 	{
 		cerr << "CASE gap > " << MAX_GAP << endl;
 		const pnum BASE = random_pnum();
@@ -570,6 +570,9 @@ int main() {
 					bucket_prefs[i] += delta;
 				}
 			} else {
+				cerr << "query " << q << ' ' << l << ' ' << r << ' ' << v << '\n';
+				for (int i = l; i < r; i++) { cerr << A[i] << ' '; } cerr << '\n';
+
 				assert(l < r);
 				int gap = v;
 				if (gap <= MAX_GAP) continue;
@@ -585,6 +588,7 @@ int main() {
 					pnum cur_val = nxt_pref - cur_pref;
 					cur_pref = nxt_pref;
 
+					cerr << i << ' ' << cur_val * ipow_base[i] << '\n';
 					tot_sum += cur_val * ipow_base[i];
 					tgt_sum += pnum(A[i]);
 				}
