@@ -204,6 +204,7 @@ int main() {
 	});
 
 	double tot_area = 2 * (R_HI.x - R_LO.x) * 2 * (R_HI.y - R_LO.y);
+	cerr << "Tot area = " << tot_area << '\n';
 
 	auto get_area_val = [&](std::vector<kactl::P> region, pt_t p) -> double {
 		cerr << "Querying area " << p << '\n';
