@@ -614,7 +614,7 @@ int main() {
 		}
 
 		// fast update, slow query
-		const int K = 2;
+		const int K = 1;
 		std::vector<pnum> A(N);
 		std::vector<pnum> vals(N);
 		std::vector<pnum> bucket_sums((N + K - 1) / K);
