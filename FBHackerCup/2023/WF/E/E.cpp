@@ -88,6 +88,7 @@ int main() {
 		int64_t ans = 0;
 		std::vector<int> nimber(N+1);
 		std::vector<int> first_val(N+1, -1);
+		std::vector<int> stk(L+1);
 		for (int i = 0; i <= N; i++) {
 			if (i == 0) {
 				nimber[i] = 0;
@@ -96,7 +97,7 @@ int main() {
 				int c = nimber[C[i]];
 
 				int a = roots_seg[t_hi+1];
-				for (int b = L-1; a != 0 && b >= 0; b--) {
+				for (int b = L-1; b >= 0; b--) {
 					assert(seg[a].v < t_lo);
 					int d = ((c >> b) & 1);
 					if (seg[seg[a].c[d]].v < t_lo) {
@@ -115,7 +116,6 @@ int main() {
 				ans += first_val[nimber[i]];
 			}
 			roots_seg[i+1] = roots_seg[i];
-			std::vector<int> stk(L+1);
 			stk[L] = roots_seg[i];
 			for (int b = L-1; b >= 0; b--) {
 				stk[b] = seg[stk[b+1]].c[(nimber[i] >> b) & 1];
