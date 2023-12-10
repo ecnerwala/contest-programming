@@ -1,5 +1,27 @@
 #include<bits/stdc++.h>
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
 // Floor of log_2(a); index of highest 1-bit
 inline int log_2(int a) {
 	return a ? (8 * sizeof(a)) - 1 - __builtin_clz(a) : -1;
@@ -53,12 +75,15 @@ int main() {
 		int S = next_pow_2(N+1);
 		int L = log_2(S);
 		struct seg_t {
+			std::array<int, 2> c;
 			int v;
-			int l_sz;
 		};
 
-		// empty means v = -1
-		std::vector<std::vector<seg_t>> seg(2*S);
+		std::vector<seg_t> seg; seg.reserve(1 + (N+1) * (L+1));
+		seg.push_back({{0, 0}, -1});
+
+		std::vector<int> roots_seg(N+2, -1);
+		roots_seg[0] = 0;
 
 		int64_t ans = 0;
 		std::vector<int> nimber(N+1);
@@ -70,25 +95,17 @@ int main() {
 				int t_lo = i - B[i], t_hi = i - A[i];
 				int c = nimber[C[i]];
 
-				int a = 1;
-				int sz = t_hi + 1;
+				int a = roots_seg[t_hi+1];
 				for (int b = L-1; b >= 0; b--) {
-					assert(sz == 0 || seg[a][sz-1].v < t_lo);
-					std::array<int, 2> n_sz;
-					n_sz[0] = sz ? seg[a][sz-1].l_sz : 0;
-					n_sz[1] = sz - n_sz[0];
+					assert(seg[a].v < t_lo);
 					int d = ((c >> b) & 1);
-					if (n_sz[d] == 0 || seg[2*a+d][n_sz[d]-1].v < t_lo) {
-						// go left
-						sz = n_sz[d];
-						a = 2*a+d;
+					if (seg[seg[a].c[d]].v < t_lo) {
+						a = seg[a].c[d];
 					} else {
-						// go right
 						nimber[i] += (1 << b);
-						sz = n_sz[!d];
-						a = 2*a+!d;
+						a = seg[a].c[!d];
 					}
-					assert(sz == 0 || seg[a][sz-1].v < t_lo);
+					assert(seg[a].v < t_lo);
 				}
 			}
 			// insert the guy
@@ -97,18 +114,24 @@ int main() {
 				if (first_val[nimber[i]] == -1) first_val[nimber[i]] = i;
 				ans += first_val[nimber[i]];
 			}
+			roots_seg[i+1] = roots_seg[i];
+			std::vector<int> stk(L+1);
+			stk[L] = roots_seg[i];
+			for (int b = L-1; b >= 0; b--) {
+				stk[b] = seg[stk[b+1]].c[(nimber[i] >> b) & 1];
+			}
+			seg.push_back({{0, 0}, i});
+			stk[0] = int(seg.size()) - 1;
+			for (int b = 0; b < L; b++) {
+				seg_t s = seg[stk[b+1]];
+				s.c[(nimber[i] >> b) & 1] = stk[b];
+				s.v = std::min(seg[s.c[0]].v, seg[s.c[1]].v);
+				seg.push_back(s);
+				stk[b+1] = int(seg.size()) - 1;
+			}
+			roots_seg[i+1] = stk[L];
 			//cerr << "run " << i << ' ' << i-B[i] << '-' << i-A[i] << ' ' << C[i] << '(' << nimber[C[i]] << ')' << '\n';
 			//cerr << "nimber " << i << ' ' << nimber[i] << ' ' << first_val[nimber[i]] << '\n';
-			seg[S + nimber[i]].push_back(seg_t{i, 0});
-			for (int a = (S + nimber[i])/2; a >= 1; a /= 2) {
-				seg[a].push_back(seg_t{
-					std::min(
-						seg[2*a].empty() ? -1 : seg[2*a].back().v,
-						seg[2*a+1].empty() ? -1 : seg[2*a+1].back().v
-					),
-					int(seg[2*a].size())
-				});
-			}
 		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
