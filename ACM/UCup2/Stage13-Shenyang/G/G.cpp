@@ -207,8 +207,12 @@ int main() {
 
 	auto get_area_val = [&](const std::vector<kactl::P>& region, pt_t p) -> double {
 		// take the integral over the region of int p.norm - 2 * (p dot v) dv
+		double res = 0;
 		for (int i = 0; i < int(region.size()); i++) {
+			pt_t a = region[i];
+			pt_t b = region[(i+1) % int(region.size())];
 		}
+		return res;
 	};
 
 	double ans = 0;
