@@ -210,10 +210,11 @@ int main() {
 		cerr << "Querying area " << p << '\n';
 		for (auto a : region) { cerr << a << ' '; } cerr << '\n';
 		// take the integral over the region of int p.norm - 2 * (p dot v) dv
-		double res = 0;
+		double tot_res = 0;
 		for (int z = 0; z < 2; z++) {
 			cerr << "z = " << z << '\n';
 			double area = 0;
+			double res = 0;
 			for (int i = 0; i < int(region.size()); i++) {
 				pt_t a = region[i];
 				pt_t b = region[(i+1) % int(region.size())];
@@ -226,13 +227,15 @@ int main() {
 			}
 			cerr << "area = " << -area << '\n';
 			cerr << -area * p.x * p.x << '\n';
+			cerr << "res = " << -res << '\n';
 			std::reverse(region.begin(), region.end());
 			std::swap(p.x, p.y);
 			for (auto& a : region) { std::swap(a.x, a.y); }
+			tot_res += res;
 		}
-		cerr << "res = " << -res << '\n';
+		cerr << "tot_res = " << -tot_res << '\n';
 		cerr << '\n';
-		return -res;
+		return -tot_res;
 	};
 
 	double ans = 0;
