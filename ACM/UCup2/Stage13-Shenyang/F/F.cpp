@@ -612,14 +612,15 @@ int main() {
 		std::vector<pnum> bucket_sums((N + K - 1) / K);
 		for (int i = 0; i < N; i++) {
 			A[i] = A_orig[i];
-			bucket_sums[i/K] += A[i];
+			bucket_sums[i/K] += A[i] * mod_vals[i % gap];
 		}
 
 		for (int q = 0; q < Q; q++) {
 			auto [l, r, v] = queries[q];
 			if (r == -1) {
 				// update l to v
-				bucket_sums[l / K] += v - std::exchange(A[l], v);
+				pnum delta = v - std::exchange(A[l], v);
+				bucket_sums[l / K] += delta * mod_vals[l % gap];
 			} else {
 				assert(l < r);
 				if (v != gap) continue;
