@@ -635,7 +635,7 @@ int main() {
 			} else {
 				assert(l < r);
 				if (v != gap) continue;
-				cerr << "query " << l << ' ' << r << '\n';
+				cerr << "query " << q << ' ' << l << ' ' << r << '\n';
 				for (int i = l; i < r; i++) { cerr << A[i] << ' '; } cerr << '\n';
 				// query l to r
 				int dists = std::min(l % K, K - l % K) + std::min({r % K, K - r % K, N - r});
