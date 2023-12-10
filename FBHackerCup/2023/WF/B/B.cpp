@@ -183,7 +183,7 @@ int main() {
 				auto check_vert = [&](int i, int j) {
 					if (0 <= i && i + 2 < R && 0 <= j && j < C) {
 						if (last_vis[{i, j, 0}] < cur_id) {
-							last_vis[{i, j, 0}] += cur_id;
+							last_vis[{i, j, 0}] = cur_id;
 							res += G[{i, j}] == G[{i+1, j}] && G[{i, j}] == G[{i+2, j}];
 						}
 					}
@@ -191,7 +191,7 @@ int main() {
 				auto check_horiz = [&](int i, int j) {
 					if (0 <= i && i < R && 0 <= j && j + 2 < C) {
 						if (last_vis[{i, j, 1}] < cur_id) {
-							last_vis[{i, j, 1}] += cur_id;
+							last_vis[{i, j, 1}] = cur_id;
 							res += G[{i, j}] == G[{i, j+1}] && G[{i, j}] == G[{i, j+2}];
 						}
 					}
