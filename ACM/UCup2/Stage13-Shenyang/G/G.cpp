@@ -204,15 +204,15 @@ int main() {
 	});
 
 	double tot_area = 2 * (R_HI.x - R_LO.x) * 2 * (R_HI.y - R_LO.y);
-	cerr << "Tot area = " << tot_area << '\n';
+	//cerr << "Tot area = " << tot_area << '\n';
 
 	auto get_area_val = [&](std::vector<kactl::P> region, pt_t p) -> double {
-		cerr << "Querying area " << p << '\n';
-		for (auto a : region) { cerr << a << ' '; } cerr << '\n';
+		//cerr << "Querying area " << p << '\n';
+		//for (auto a : region) { cerr << a << ' '; } cerr << '\n';
 		// take the integral over the region of int p.norm - 2 * (p dot v) dv
 		double tot_res = 0;
 		for (int z = 0; z < 2; z++) {
-			cerr << "z = " << z << '\n';
+			//cerr << "z = " << z << '\n';
 			double area = 0;
 			double res = 0;
 			for (int i = 0; i < int(region.size()); i++) {
@@ -225,16 +225,16 @@ int main() {
 				double int_x = (a.y * b.x - b.y * a.x) * (b.x + a.x) / 2 + (a.x * a.x + a.x * b.x + b.x * b.x) / 3 * (b.y - a.y);
 				res -= 2 * p.x * int_x;
 			}
-			cerr << "area = " << -area << '\n';
-			cerr << -area * p.x * p.x << '\n';
-			cerr << "res = " << -res << '\n';
+			//cerr << "area = " << -area << '\n';
+			//cerr << -area * p.x * p.x << '\n';
+			//cerr << "res = " << -res << '\n';
 			std::reverse(region.begin(), region.end());
 			std::swap(p.x, p.y);
 			for (auto& a : region) { std::swap(a.x, a.y); }
 			tot_res += res;
 		}
-		cerr << "tot_res = " << -tot_res << '\n';
-		cerr << '\n';
+		//cerr << "tot_res = " << -tot_res << '\n';
+		//cerr << '\n';
 		return -tot_res;
 	};
 
@@ -273,7 +273,7 @@ int main() {
 		}
 	}
 
-	cerr << "ans " << ans << '\n';
+	//cerr << "ans " << ans << '\n';
 	ans /= tot_area;
 	ans *= M_PI;
 	cout << fixed << setprecision(18) << ans << '\n';
