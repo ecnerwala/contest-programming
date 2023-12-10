@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-using std::cerr;
+//using std::cerr;
 
 int solve(int N, std::vector<std::array<int, 2>> edges, int K) {
 	const int ORIG_N = N;
@@ -38,9 +38,9 @@ int solve(int N, std::vector<std::array<int, 2>> edges, int K) {
 				}
 			}
 			if (all_cyc) {
-				std::cerr << "Running cycs" << '\n';
-				cerr << "N = " << N << '\n';
-				for (auto [u, v] : edges) cerr << u << ' ' << v << '\n';
+				//cerr << "Running cycs" << '\n';
+				//cerr << "N = " << N << '\n';
+				//for (auto [u, v] : edges) cerr << u << ' ' << v << '\n';
 				std::vector<int> path_lens;
 				path_lens.reserve(N);
 				int cyc_len = N;
@@ -48,7 +48,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges, int K) {
 				for (int i = 0; i < N; i++) {
 					if (vis[i]) continue;
 					if (adj[i].size() < 2) {
-						cerr << "starting at " << i << '\n';
+						//cerr << "starting at " << i << '\n';
 						int cur = i;
 						int prv_e = -1;
 						int cnt = 0;
