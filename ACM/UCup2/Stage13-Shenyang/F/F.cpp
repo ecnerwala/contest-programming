@@ -648,22 +648,20 @@ int main() {
 						// move downwards
 						sum += std::accumulate(vals.begin() + r - r % K, vals.begin() + r, pnum(0));
 						r -= r % K;
-						r /= K;
 					} else {
 						sum -= std::accumulate(vals.begin() + r, vals.begin() + std::min(N, r + (K - r % K)), pnum(0));
 						r += K - r % K;
-						r /= K;
 					}
 					if (l % K <= K - l % K) {
 						sum -= std::accumulate(vals.begin() + l - l % K, vals.begin() + l, pnum(0));
 						l -= l % K;
-						l /= K;
 					} else {
 						sum += std::accumulate(vals.begin() + l, vals.begin() + l + (K - l % K), pnum(0));
 						l += K - l % K;
-						l /= K;
 					}
 					assert(l <= r);
+					assert(l % K == 0 && r % K == 0);
+					l /= K, r /= K;
 					sum = std::accumulate(bucket_sums.begin() + l, bucket_sums.begin() + r, sum);
 				}
 				cerr << sum << '\n';
