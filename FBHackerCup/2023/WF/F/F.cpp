@@ -205,13 +205,15 @@ int main() {
 			depth[cur] = (prv == -1 ? 0 : depth[prv] + 1);
 			int lv = -1;
 			for (int k = 0; k <= K; k++) {
-				dp[{cur, k, 1}] += C[k];
+				dp[{cur, k, 0}] = 0;
+				dp[{cur, k, 1}] = C[cur];
 			}
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				if (depth[nxt] == -1) {
 					int nlv = self(nxt, cur);
 					if (nlv == -1 || nlv == cur) {
+						cerr << "processing cycle " << '\n';
 						// bridge edge or top of the cycle
 						for (int root_val = 0; root_val <= K; root_val++) {
 							auto root_v = dp[cur][root_val];
