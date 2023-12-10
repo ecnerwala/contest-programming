@@ -543,6 +543,9 @@ int main() {
 
 		// slow update, fast query
 		std::vector<pnum> A(N);
+		for (int i = 0; i < N; i++) {
+			A[i] = A_orig[i];
+		}
 
 		const int K = 500;
 		std::vector<pnum> bucket_prefs((N + K - 1) / K + 1);
