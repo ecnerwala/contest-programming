@@ -520,9 +520,9 @@ int main() {
 			std::uniform_int_distribution(2, mnum2::MOD-1)(mt)
 		);
 	};
-	const int MAX_GAP = 0;
+	const int MAX_GAP = 500;
 	{
-		cerr << "CASE gap > " << MAX_GAP << endl;
+		//cerr << "CASE gap > " << MAX_GAP << endl;
 		const pnum BASE = random_pnum();
 		std::vector<pnum> pow_base(N+1);
 		pow_base[0] = 1;
@@ -547,7 +547,7 @@ int main() {
 			A[i] = A_orig[i];
 		}
 
-		const int K = 2;
+		const int K = 500;
 		std::vector<pnum> bucket_prefs((N + K - 1) / K + 1);
 		std::vector<pnum> prefs(N+1);
 		for (int i = 0; i <= N; i++) {
@@ -573,8 +573,8 @@ int main() {
 					bucket_prefs[i] += delta;
 				}
 			} else {
-				cerr << "query " << q << ' ' << l << ' ' << r << ' ' << v << '\n';
-				for (int i = l; i < r; i++) { cerr << A[i] << ' '; } cerr << '\n';
+				//cerr << "query " << q << ' ' << l << ' ' << r << ' ' << v << '\n';
+				//for (int i = l; i < r; i++) { cerr << A[i] << ' '; } cerr << '\n';
 
 				assert(l < r);
 				int gap = v;
@@ -591,7 +591,7 @@ int main() {
 					pnum cur_val = nxt_pref - cur_pref;
 					cur_pref = nxt_pref;
 
-					cerr << i << ' ' << cur_val * ipow_base[i] << '\n';
+					//cerr << i << ' ' << cur_val * ipow_base[i] << '\n';
 					tot_sum += cur_val * ipow_base[i];
 					tgt_sum += pnum(A[i]);
 				}
@@ -608,7 +608,7 @@ int main() {
 	}
 	for (int gap = 1; gap <= MAX_GAP; gap++) {
 		if (!has_gap[gap]) continue;
-		cerr << "CASE gap = " << gap << '\n';
+		//cerr << "CASE gap = " << gap << '\n';
 		std::vector<pnum> mod_vals(gap);
 		{
 			pnum cur_sum = 0;
