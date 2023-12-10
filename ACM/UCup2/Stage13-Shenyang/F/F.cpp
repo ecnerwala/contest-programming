@@ -563,7 +563,7 @@ int main() {
 				// update l to v
 				pnum delta = (v - std::exchange(A[l], v)) * pow_base[l];
 
-				for (int i = l+1; i < (l / K + 1) * K; i++) {
+				for (int i = l+1; i < std::min(N, (l / K + 1) * K); i++) {
 					prefs[i] += delta;
 				}
 				for (int i = (l / K) + 1; i < int(bucket_prefs.size()); i++) {
