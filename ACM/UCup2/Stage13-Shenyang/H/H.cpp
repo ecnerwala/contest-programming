@@ -72,7 +72,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges, int K) {
 					}
 				}
 				// we want edges after K - z more ops
-				assert(nxt_edges == N - int(path_lens.size()));
+				assert(int(edges.size()) == N - int(path_lens.size()));
 				int my_ans = 0;
 				for (auto l : path_lens) {
 					my_ans += std::max(0, l - 1 - (K - z));
