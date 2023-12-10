@@ -48,6 +48,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges, int K) {
 						int prv_e = -1;
 						int cnt = 0;
 						while (true) {
+							vis[cur] = true;
 							cnt++;
 
 							assert(int(adj[cur].size()) <= 2);
