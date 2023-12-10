@@ -222,7 +222,7 @@ int main() {
 				area += (a.y + b.y) / 2 * (b.x - a.x);
 				// integral of x * ((a.y * b.x - b.y * a.x + (b.y - a.y) * x) / (b.x - a.x))
 				// integral of x * (a.y * b.x - b.y * a.x) / (b.x - a.x) + integral of x^2 * (b.y - a.y) / (b.x - a.x)
-				double int_x = (a.y * b.x - b.y * a.x) * (b.x - a.x) / 2 + (b.x - a.x) * (b.x - a.x) / 3 * (b.y - a.y);
+				double int_x = (a.y * b.x - b.y * a.x) * (b.x + a.x) / 2 + (a.x * a.x + a.x * b.x + b.x * b.x) / 3 * (b.y - a.y);
 				res -= 2 * p.x * int_x;
 			}
 			cerr << "area = " << -area << '\n';
