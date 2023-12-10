@@ -175,7 +175,7 @@ int main() {
 					} else if (!(d & 1) && p) {
 						b += a;
 						b = std::min(b, 10001);
-					} else if (!(d & 1) && !b) {
+					} else if (!(d & 1) && !p) {
 						a ++;
 						if (a >= 10010) continue;
 					} else assert(false);
