@@ -523,6 +523,7 @@ int main() {
 	};
 	const int MAX_GAP = 500;
 	{
+		cerr << "CASE gap > " << MAX_GAP << endl;
 		const pnum BASE = random_pnum();
 		std::vector<pnum> pow_base(N+1);
 		pow_base[0] = 1;
@@ -595,6 +596,7 @@ int main() {
 	}
 
 	for (int gap = 1; gap <= MAX_GAP; gap++) {
+		cerr << "CASE gap = " << gap << '\n';
 		std::vector<pnum> mod_vals(gap);
 		{
 			pnum cur_sum = 0;
@@ -652,6 +654,7 @@ int main() {
 					assert(l <= r);
 					sum = std::accumulate(bucket_sums.begin() + l, bucket_sums.begin() + r, sum);
 				}
+				cerr << sum << '\n';
 				ans[q] = (sum == 0);
 			}
 		}
