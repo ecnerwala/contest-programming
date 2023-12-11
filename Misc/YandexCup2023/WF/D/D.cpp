@@ -61,11 +61,11 @@ int main() {
 			//   if hi == en[i] + cur_cnt, then we lose one
 			// Option (a) takes precedence, so use a strict comparison here.
 			if (j == N || (i < j && en[i] + cur_cnt < st[j])) {
-				int64_t nxt_hi = en[i] + cur_cnt;
+				int64_t nxt_hi = en[i] - i;
 				ans[cur_cnt] += nxt_hi - std::exchange(cur_hi, nxt_hi);
 				i ++;
 			} else {
-				int64_t nxt_hi = st[j];
+				int64_t nxt_hi = st[j] + j;
 				ans[cur_cnt] += nxt_hi - std::exchange(cur_hi, nxt_hi);
 				j ++;
 			}
