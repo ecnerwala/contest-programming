@@ -375,7 +375,7 @@ int main() {
 	// all intervals that cover the left endpoint must cover the next one too
 	for (int lo = V-1; lo >= 0; lo--) {
 		for (; it != intervals.end() && it->en >= lo; ++it) {
-			if (skip_inter[it - intervals.begin()]) continue;
+			//if (skip_inter[it - intervals.begin()]) continue;
 			assert(it->en == lo);
 			// +1 at it->st;
 			assert(1 <= it->st && it->st <= lo);
