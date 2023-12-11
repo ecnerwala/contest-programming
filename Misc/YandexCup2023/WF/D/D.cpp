@@ -327,6 +327,8 @@ int main() {
 			std::reverse(en_matching.begin(), en_matching.end());
 			std::swap(st_matching, en_matching);
 		}
+		std::reverse(st_matching.begin(), st_matching.end());
+		std::reverse(en_matching.begin(), en_matching.end());
 		assert(st_matching.size() == en_matching.size());
 		N = int(en_matching.size());
 		intervals.resize(N);
