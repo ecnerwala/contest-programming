@@ -51,8 +51,9 @@ int main() {
 				for (const auto& r : g) cout << r << '\n';
 				cout << flush;
 				if (TESTING) {
-					int code = g == TESTING_ANS;
+					int code = (g == TESTING_ANS) ? 0 : 1;
 					cout << code << '\n';
+					assert(code == 0);
 				} else {
 					int code; cin >> code;
 					if (code != 0) exit(0);
