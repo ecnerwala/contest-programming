@@ -55,7 +55,7 @@ int main() {
 
 			std::vector<std::string> Q0(N, std::string(N, '0'));
 			for (int i = 1; i < N; i++) {
-				Q0[i][0] = Q0[i][1] = '1';
+				Q0[i][0] = Q0[i][i] = '1';
 			}
 			auto R0 = query(Q0);
 			if (R0[0][0] == '0') {
