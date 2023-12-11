@@ -355,6 +355,18 @@ int main() {
 			cur_cnt ++;
 			first_inter --;
 		}
+		/*
+		if (first_inter > 0 && lo == intervals[first_inter-1].en) {
+			first_inter--;
+			cur_cnt++;
+			continue;
+		} else if (cur_cnt > 0 && intervals[first_inter + cur_cnt - 1].st == lo + cur_cnt) {
+			cur_cnt --;
+		} else {
+			ans[cur_cnt] ++;
+			lo--;
+		}
+		*/
 	}
 
 	for (int i = Q; i >= 1; i--) {
