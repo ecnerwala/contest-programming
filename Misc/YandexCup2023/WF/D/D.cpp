@@ -73,8 +73,8 @@ int main() {
 		while (i < N) {
 			int cur_cnt = j - i;
 			cerr << cur_hi << ' ' << i << ' ' << j << ' ' << cur_cnt << '\n';
-			if (j == N || (i < j && intervals[i].en - cur_cnt < intervals[j].st)) {
-				int64_t nxt_hi = intervals[i].en - cur_cnt;
+			if (j == N || (i < j && intervals[i].en + cur_cnt < intervals[j].st)) {
+				int64_t nxt_hi = intervals[i].en + cur_cnt;
 				ans[cur_cnt] += nxt_hi - std::exchange(cur_hi, nxt_hi);
 				i ++;
 			} else {
