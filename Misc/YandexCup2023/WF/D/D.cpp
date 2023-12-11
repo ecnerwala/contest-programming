@@ -321,6 +321,9 @@ int main() {
 			for (auto& v : st_matching) {
 				v = -v;
 			}
+			for (auto& v : en_matching) {
+				v = -v;
+			}
 			std::swap(st_matching, en_matching);
 		}
 		assert(st_matching.size() == en_matching.size());
@@ -334,7 +337,6 @@ int main() {
 	std::vector<int> ans(N+1);
 	int first_inter = N;
 	int cur_cnt = 0;
-	int64_t cur_x = intervals.back().en + 1;
 	for (int64_t lo = intervals.back().en; true; lo--) {
 		if (first_inter > 0 && lo == intervals[first_inter-1].en) {
 			first_inter--;
