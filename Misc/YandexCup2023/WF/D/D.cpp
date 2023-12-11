@@ -320,9 +320,11 @@ int main() {
 			for (auto& v : st_matching) {
 				v = -v;
 			}
+			std::reverse(st_matching.begin(), st_matching.end());
 			for (auto& v : en_matching) {
 				v = -v;
 			}
+			std::reverse(en_matching.begin(), en_matching.end());
 			std::swap(st_matching, en_matching);
 		}
 		assert(st_matching.size() == en_matching.size());
