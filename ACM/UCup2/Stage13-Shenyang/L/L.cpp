@@ -118,6 +118,7 @@ int main() {
 				}
 			}
 			for (int b = 0; (1 << b) < N; b++) {
+				cerr << "b = " << b << '\n';
 				std::vector<std::string> Q(N, std::string(N, '0'));
 				for (int i = 0; i < N; i++) {
 					if (R0[i][i] == '0') {
