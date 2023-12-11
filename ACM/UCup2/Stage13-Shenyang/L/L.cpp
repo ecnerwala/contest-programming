@@ -4,7 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 
 	int T; cin >> T;
 	while (T--) {
