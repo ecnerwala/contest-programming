@@ -286,38 +286,75 @@ int main() {
 		cin >> st >> en;
 		assert(st <= en);
 	}
-	int64_t max_en = 0;
-	for (auto [st, en] : intervals) {
-		max_en = std::max(max_en, en);
-	}
-	if (max_en >= int(3e5)) {
-		while (true) {
-			// loop
-		}
-	}
-	const int V = int(int(5e5));
-	// first filter intervals down to some matching
-	std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.en > b.en; });
-	std::vector<bool> skip_inter(N);
 
+	// first filter intervals down to some matching
 	{
-		auto it = intervals.begin();
-		std::priority_queue<std::pair<int, int>> pq;
-		for (int lo = V-1; lo >= 0; lo--) {
-			for (; it != intervals.end() && it->en >= lo; ++it) {
-				pq.push({it->st, it - intervals.begin()});
-			}
-			while (!pq.empty()) {
-				if (pq.top().first > lo) {
-					skip_inter[pq.top().second] = true;
+		std::vector<int64_t> en_matching; en_matching.reserve(N);
+		std::vector<int64_t> st_matching; st_matching.reserve(N);
+
+		for (int z = 0; z < 2; z++) {
+			std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.en > b.en; });
+			auto it = intervals.begin();
+			std::priority_queue<std::pair<int, int>> pq;
+			for (int64_t lo = it->en; !pq.empty() || it != intervals.end(); lo--) {
+				if (pq.empty()) {
+					// jump ahead
+					assert(it != intervals.end());
+					assert(it->en <= lo);
+					lo = it->en;
+				}
+				for (; it != intervals.end() && it->en >= lo; ++it) {
+					pq.push({it->st, it - intervals.begin()});
+				}
+				while (!pq.empty() && pq.top().first > lo) {
 					pq.pop();
-				} else {
+				}
+				if (!pq.empty()) {
+					en_matching.push_back(lo);
 					pq.pop();
-					break;
 				}
 			}
+			for (auto& a : intervals) {
+				std::swap(a.st, a.en);
+				a = {-a.en, -a.st};
+			}
+			for (auto& v : st_matching) {
+				v = -v;
+			}
+			std::swap(st_matching, en_matching);
+		}
+		assert(st_matching.size() == en_matching.size());
+		N = int(en_matching.size());
+		intervals.resize(N);
+		for (int i = 0; i < N; i++) {
+			intervals[i] = {st_matching[i], en_matching[i]};
 		}
 	}
+
+	std::vector<int> ans(N+1);
+	int first_inter = N;
+	int cur_cnt = 0;
+	int64_t cur_x = intervals.back().en + 1;
+	for (int64_t lo = intervals.back().en; true; lo--) {
+		if (first_inter > 0 && lo == intervals[first_inter-1].en) {
+			first_inter--;
+			cur_cnt++;
+		}
+		while (cur_cnt > 0 && intervals[first_inter + cur_cnt - 1].st == lo + cur_cnt) {
+			cur_cnt --;
+		}
+		ans[cur_cnt] ++;
+		if (first_inter == 0 && cur_cnt == 0) break;
+	}
+
+	for (int i = N; i >= 1; i--) {
+		ans[i-1] += ans[i];
+	}
+	for (int i = 1; i <= N; i++) {
+		cout << ans[i] << '\n';
+	}
+
+	if constexpr (false) {
 	auto it = intervals.begin();
 	seg_tree::in_order_layout layout(V);
 	struct seg_t {
@@ -394,6 +431,7 @@ int main() {
 	assert(ans[N] == 0);
 	for (int i = 0; i < N; i++) {
 		cout << ans[i] << '\n';
+	}
 	}
 	return 0;
 }
