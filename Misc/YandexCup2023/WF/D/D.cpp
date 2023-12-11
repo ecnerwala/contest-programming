@@ -287,6 +287,8 @@ int main() {
 		assert(st <= en);
 	}
 
+	const int Q = N;
+
 	// first filter intervals down to some matching
 	{
 		std::vector<int64_t> en_matching; en_matching.reserve(N);
@@ -336,7 +338,7 @@ int main() {
 		}
 	}
 
-	std::vector<int> ans(N+1);
+	std::vector<int> ans(Q+1);
 	int first_inter = N;
 	int cur_cnt = 0;
 	for (int64_t lo = intervals.back().en; true; lo--) {
@@ -351,10 +353,10 @@ int main() {
 		if (first_inter == 0 && cur_cnt == 0) break;
 	}
 
-	for (int i = N; i >= 1; i--) {
+	for (int i = Q; i >= 1; i--) {
 		ans[i-1] += ans[i];
 	}
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i <= Q; i++) {
 		cout << ans[i] << '\n';
 	}
 
