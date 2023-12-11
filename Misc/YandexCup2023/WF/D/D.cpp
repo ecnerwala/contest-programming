@@ -27,10 +27,10 @@ int main() {
 		for (int64_t v = 0; !pq.empty() || it != intervals.end(); v++) {
 			if (pq.empty()) {
 				assert(it != intervals.end());
-				assert(it->st <= v);
+				assert(it->st >= v);
 				v = it->st;
 			}
-			for (; it != intervals.end() && it->st <= v; ++it) {
+			for (; it != intervals.end() && it->st == v; ++it) {
 				pq.push(it->en);
 			}
 			while (!pq.empty() && pq.top() < v) {
