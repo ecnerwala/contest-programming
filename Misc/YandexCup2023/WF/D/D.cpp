@@ -17,62 +17,47 @@ int main() {
 
 	const int Q = N;
 
-	// first filter intervals down to some matching
+	// First, filter the intervals down
+	std::vector<int64_t> st; st.reserve(N);
+	std::vector<int64_t> en; en.reserve(N);
 	{
-		std::vector<int64_t> en_matching; en_matching.reserve(N);
-		std::vector<int64_t> st_matching; st_matching.reserve(N);
-
-		for (int z = 0; z < 2; z++) {
-			std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.en > b.en; });
-			auto it = intervals.begin();
-			std::priority_queue<std::pair<int64_t, int>> pq;
-			for (int64_t lo = it->en; !pq.empty() || it != intervals.end(); lo--) {
-				if (pq.empty()) {
-					// jump ahead
-					assert(it != intervals.end());
-					assert(it->en <= lo);
-					lo = it->en;
-				}
-				for (; it != intervals.end() && it->en >= lo; ++it) {
-					pq.push({it->st, it - intervals.begin()});
-				}
-				while (!pq.empty() && pq.top().first > lo) {
-					pq.pop();
-				}
-				if (!pq.empty()) {
-					en_matching.push_back(lo);
-					pq.pop();
-				}
+		std::sort(intervals.begin(), intervals.end(), [](auto a, auto b) { return a.st < b.st; });
+		std::priority_queue<int64_t, std::vector<int64_t>, std::greater<int64_t>> pq;
+		auto it = intervals.begin();
+		for (int64_t v = 0; !pq.empty() || it != intervals.end(); v++) {
+			if (pq.empty()) {
+				assert(it != intervals.end());
+				assert(it->st <= v);
+				v = it->st;
 			}
-
-			for (auto& a : intervals) a = {-a.en, -a.st};
-
-			for (auto& v : st_matching) v = -v;
-			std::reverse(st_matching.begin(), st_matching.end());
-
-			for (auto& v : en_matching) v = -v;
-			std::reverse(en_matching.begin(), en_matching.end());
-
-			std::swap(st_matching, en_matching);
+			for (; it != intervals.end() && it->st <= v; ++it) {
+				pq.push(it->en);
+			}
+			while (!pq.empty() && pq.top() < v) {
+				pq.pop();
+			}
+			if (!pq.empty()) {
+				st.push_back(v);
+				en.push_back(pq.top());
+				pq.pop();
+			}
 		}
-		std::reverse(st_matching.begin(), st_matching.end());
-		std::reverse(en_matching.begin(), en_matching.end());
-		assert(st_matching.size() == en_matching.size());
-		N = int(en_matching.size());
-		intervals.resize(N);
-		for (int i = 0; i < N; i++) {
-			intervals[i] = {st_matching[i], en_matching[i]};
-			//cerr << st_matching[i] << ' ' << en_matching[i] << '\n';
+		std::sort(en.begin(), en.end());
+		for (int i = int(en.size()) - 1; i >= 1; i--) {
+			en[i-1] = std::min(en[i-1], en[i] - 1);
 		}
 	}
 
 	std::vector<int64_t> ans(Q+1);
 	{
-		int i = 0, j = 0;
 		int64_t cur_hi = 0;
+		int i = 0, j = 0;
 		while (i < N) {
 			int cur_cnt = j - i;
-			cerr << cur_hi << ' ' << i << ' ' << j << ' ' << cur_cnt << '\n';
+			// There are 2 possible events:
+			//   if hi == intervals[j].st, then we get an extra
+			//   if hi == intervals[i].en + cur_cnt, then we lose one
+			// Option (a) takes precedence, so use a strict comparison here.
 			if (j == N || (i < j && intervals[i].en + cur_cnt < intervals[j].st)) {
 				int64_t nxt_hi = intervals[i].en + cur_cnt;
 				ans[cur_cnt] += nxt_hi - std::exchange(cur_hi, nxt_hi);
