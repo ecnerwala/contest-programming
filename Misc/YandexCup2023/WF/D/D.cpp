@@ -314,17 +314,15 @@ int main() {
 					pq.pop();
 				}
 			}
-			for (auto& a : intervals) {
-				a = {-a.en, -a.st};
-			}
-			for (auto& v : st_matching) {
-				v = -v;
-			}
+
+			for (auto& a : intervals) a = {-a.en, -a.st};
+
+			for (auto& v : st_matching) v = -v;
 			std::reverse(st_matching.begin(), st_matching.end());
-			for (auto& v : en_matching) {
-				v = -v;
-			}
+
+			for (auto& v : en_matching) v = -v;
 			std::reverse(en_matching.begin(), en_matching.end());
+
 			std::swap(st_matching, en_matching);
 		}
 		std::reverse(st_matching.begin(), st_matching.end());
