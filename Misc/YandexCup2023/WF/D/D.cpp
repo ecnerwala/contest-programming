@@ -47,6 +47,7 @@ int main() {
 			en[i-1] = std::min(en[i-1], en[i] - 1);
 		}
 		assert(int(st.size()) == int(en.size()));
+		N = int(st.size());
 	}
 
 	std::vector<int64_t> ans(Q+1);
