@@ -46,6 +46,7 @@ int main() {
 		for (int i = int(en.size()) - 1; i >= 1; i--) {
 			en[i-1] = std::min(en[i-1], en[i] - 1);
 		}
+		assert(int(st.size()) == int(en.size()));
 	}
 
 	std::vector<int64_t> ans(Q+1);
@@ -55,15 +56,15 @@ int main() {
 		while (i < N) {
 			int cur_cnt = j - i;
 			// There are 2 possible events:
-			//   if hi == intervals[j].st, then we get an extra
-			//   if hi == intervals[i].en + cur_cnt, then we lose one
+			//   if hi == st[j], then we get an extra
+			//   if hi == en[i] + cur_cnt, then we lose one
 			// Option (a) takes precedence, so use a strict comparison here.
-			if (j == N || (i < j && intervals[i].en + cur_cnt < intervals[j].st)) {
-				int64_t nxt_hi = intervals[i].en + cur_cnt;
+			if (j == N || (i < j && en[i] + cur_cnt < st[j])) {
+				int64_t nxt_hi = en[i] + cur_cnt;
 				ans[cur_cnt] += nxt_hi - std::exchange(cur_hi, nxt_hi);
 				i ++;
 			} else {
-				int64_t nxt_hi = intervals[j].st;
+				int64_t nxt_hi = st[j];
 				ans[cur_cnt] += nxt_hi - std::exchange(cur_hi, nxt_hi);
 				j ++;
 			}
