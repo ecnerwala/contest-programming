@@ -356,6 +356,7 @@ int main() {
 
 	if constexpr (false) {
 	auto it = intervals.begin();
+	int V = int(1e5);
 	seg_tree::in_order_layout layout(V);
 	struct seg_t {
 		int64_t tot = 0;
