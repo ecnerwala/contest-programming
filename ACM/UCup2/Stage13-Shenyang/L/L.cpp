@@ -160,10 +160,10 @@ int main() {
 							if (R0[i][j] == '1') {
 								v = j;
 							} else {
-								v = -1;
+								v = 0;
 							}
-							if (resp[i] == -2) resp[i] = v;
-							assert(resp[i] == v);
+							if (resp[i] == -2) resp[i] = v-1;
+							assert(resp[i] == v-1);
 						}
 					}
 				}
