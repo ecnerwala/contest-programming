@@ -341,16 +341,20 @@ int main() {
 	std::vector<int> ans(Q+1);
 	int first_inter = N;
 	int cur_cnt = 0;
-	for (int64_t lo = intervals.back().en; true; lo--) {
-		if (first_inter > 0 && lo == intervals[first_inter-1].en) {
-			first_inter--;
-			cur_cnt++;
-		}
-		while (cur_cnt > 0 && intervals[first_inter + cur_cnt - 1].st == lo + cur_cnt) {
+	int64_t cur_lo = intervals.back().en + 1;
+	while (!(first_inter == 0 && cur_cnt == 0)) {
+		if (first_inter == 0 || (cur_cnt > 0 && intervals[first_inter + cur_cnt - 1].st - cur_cnt < intervals[first_inter - 1].en)) {
+			int64_t nxt_lo = intervals[first_inter + cur_cnt - 1].st - cur_cnt;
+			ans[cur_cnt] += cur_lo - nxt_lo;
+			cur_lo = nxt_lo;
 			cur_cnt --;
+		} else {
+			int64_t nxt_lo = intervals[first_inter - 1].en;
+			ans[cur_cnt] += cur_lo - nxt_lo;
+			cur_lo = nxt_lo;
+			cur_cnt ++;
+			first_inter --;
 		}
-		ans[cur_cnt] ++;
-		if (first_inter == 0 && cur_cnt == 0) break;
 	}
 
 	for (int i = Q; i >= 1; i--) {
@@ -360,85 +364,5 @@ int main() {
 		cout << ans[i] << '\n';
 	}
 
-	if constexpr (false) {
-	auto it = intervals.begin();
-	int V = int(1e5);
-	seg_tree::in_order_layout layout(V);
-	struct seg_t {
-		int64_t tot = 0;
-		int64_t mi = 0;
-	};
-	// no need to initialize
-	std::vector<seg_t> seg(2*V);
-	auto update_node = [&](seg_tree::point a) -> void {
-		seg[a].tot = seg[a.c(0)].tot + seg[a.c(1)].tot;
-		seg[a].mi = std::min(seg[a.c(0)].mi, seg[a.c(0)].tot + seg[a.c(1)].mi);
-	};
-	// we pick some intervals, then we must waste at least # intervals - size of union
-	int cur_bound = V;
-	std::vector<int64_t> ans(N+1);
-	// bad if # of things covering each - # things covering each pair - # pts < 0
-	// all intervals that cover the left endpoint must cover the next one too
-	for (int lo = V-1; lo >= 0; lo--) {
-		for (; it != intervals.end() && it->en >= lo; ++it) {
-			//if (skip_inter[it - intervals.begin()]) continue;
-			assert(it->en == lo);
-			// +1 at it->st;
-			assert(1 <= it->st && it->st <= lo);
-			seg_tree::point a = layout.get_point(int(it->st));
-			seg[a].tot++;
-			seg[a].mi = std::min<int64_t>(0, seg[a].tot);
-			a.for_parents_up(update_node);
-		}
-		// -1 at lo
-		{
-			seg_tree::point a = layout.get_point(lo);
-			seg[a].tot--;
-			seg[a].mi = std::min<int64_t>(0, seg[a].tot);
-			a.for_parents_up(update_node);
-		}
-
-		// find the first point with negative sum
-		assert(seg[1].mi <= 0);
-		int hi;
-		if (seg[1].mi == 0) {
-			hi = V;
-			assert(cur_bound <= hi);
-		} else {
-			seg_tree::point a(1);
-			int64_t lhs = 0;
-			while (a < layout.N) {
-				assert(lhs + seg[a].mi < 0);
-				if (lhs + seg[a.c(0)].mi < 0) {
-					a = a.c(0);
-				} else {
-					lhs += seg[a.c(0)].tot;
-					assert(lhs + seg[a.c(1)].mi < 0);
-					a = a.c(1);
-				}
-			}
-			assert(lhs + seg[a].mi < 0);
-			assert(lhs + seg[a].mi == -1);
-			assert(lhs == 0);
-			hi = layout.get_leaf_index(a);
-		}
-		assert(hi >= lo);
-		// lo..hi is bad
-		cur_bound = std::min(cur_bound, hi);
-		//cerr << lo << ' ' << cur_bound - lo << '\n';
-		assert(cur_bound >= lo);
-		assert(cur_bound - lo <= N);
-		ans[0]++;
-		ans[cur_bound - lo]--;
-		if (lo == 0 || lo == V-1) assert(cur_bound == lo);
-	}
-	for (int i = 0; i < N; i++) {
-		ans[i+1] += ans[i];
-	}
-	assert(ans[N] == 0);
-	for (int i = 0; i < N; i++) {
-		cout << ans[i] << '\n';
-	}
-	}
 	return 0;
 }
