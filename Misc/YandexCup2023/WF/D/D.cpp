@@ -330,6 +330,7 @@ int main() {
 		intervals.resize(N);
 		for (int i = 0; i < N; i++) {
 			intervals[i] = {st_matching[i], en_matching[i]};
+			cerr << st_matching[i] << ' ' << en_matching[i] << '\n';
 		}
 	}
 
