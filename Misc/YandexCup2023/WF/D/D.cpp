@@ -343,7 +343,7 @@ int main() {
 	int cur_cnt = 0;
 	int64_t cur_lo = intervals.back().en + 1;
 	while (!(first_inter == 0 && cur_cnt == 0)) {
-		if (first_inter == 0 || (cur_cnt > 0 && intervals[first_inter + cur_cnt - 1].st - cur_cnt < intervals[first_inter - 1].en)) {
+		if (first_inter == 0 || (cur_cnt > 0 && intervals[first_inter + cur_cnt - 1].st - cur_cnt > intervals[first_inter - 1].en)) {
 			int64_t nxt_lo = intervals[first_inter + cur_cnt - 1].st - cur_cnt;
 			ans[cur_cnt] += cur_lo - nxt_lo;
 			cur_lo = nxt_lo;
