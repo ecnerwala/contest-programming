@@ -4,29 +4,59 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	constexpr bool TESTING = false;
+
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		std::vector<std::string> TESTING_ANS(N);
+		if (TESTING) {
+			for (int i = 0; i < N; i++) {
+				cin >> TESTING_ANS[i];
+			}
+		}
 		[&]() -> void {
 			auto query = [&](const std::vector<std::string>& g) -> std::vector<std::string> {
 				cout << '?' << '\n';
 				for (const auto& r : g) cout << r << '\n';
 				cout << flush;
-				int code; cin >> code;
-				if (code != 0) exit(0);
-				std::vector<std::string> resp(N);
-				for (int i = 0; i < N; i++) {
-					cin >> resp[i];
-					assert(int(resp[i].size()) == N);
+				if (TESTING) {
+					std::vector<std::string> resp(N, std::string(N, '0'));
+					for (int i = 0; i < N; i++) {
+						for (int j = 0; j < N; j++) {
+							for (int k = 0; k < N; k++) {
+								if (g[i][k] == g[i][j] && TESTING_ANS[i][k] == '1') resp[i][j] = '1';
+								if (g[k][j] == g[i][j] && TESTING_ANS[k][j] == '1') resp[i][j] = '1';
+							}
+						}
+					}
+					cout << 0 << '\n';
+					for (int i = 0; i < N; i++) {
+						cout << resp[i] << '\n';
+					}
+					return resp;
+				} else {
+					int code; cin >> code;
+					if (code != 0) exit(0);
+					std::vector<std::string> resp(N);
+					for (int i = 0; i < N; i++) {
+						cin >> resp[i];
+						assert(int(resp[i].size()) == N);
+					}
+					return resp;
 				}
-				return resp;
 			};
 			auto answer = [&](const std::vector<std::string>& g) -> void {
 				cout << '!' << '\n';
 				for (const auto& r : g) cout << r << '\n';
 				cout << flush;
-				int code; cin >> code;
-				if (code != 0) exit(0);
+				if (TESTING) {
+					int code = g == TESTING_ANS;
+					cout << code << '\n';
+				} else {
+					int code; cin >> code;
+					if (code != 0) exit(0);
+				}
 			};
 
 			auto solve_empty_row = [&](int r_empty) -> void {
