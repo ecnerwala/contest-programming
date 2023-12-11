@@ -157,7 +157,7 @@ int main() {
 						int j = (i == 0 ? 1 : i);
 						if (Q[i][j] == '1') {
 							int v;
-							if (R0[i][j] == '1') {
+							if (R[i][j] == '1') {
 								v = j;
 							} else {
 								v = 0;
