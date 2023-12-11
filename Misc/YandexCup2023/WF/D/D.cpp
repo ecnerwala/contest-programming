@@ -338,7 +338,7 @@ int main() {
 		}
 	}
 
-	std::vector<int> ans(Q+1);
+	std::vector<int64_t> ans(Q+1);
 	int first_inter = N;
 	int cur_cnt = 0;
 	int64_t cur_lo = intervals.back().en + 1;
