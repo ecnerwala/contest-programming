@@ -315,7 +315,6 @@ int main() {
 				}
 			}
 			for (auto& a : intervals) {
-				std::swap(a.st, a.en);
 				a = {-a.en, -a.st};
 			}
 			for (auto& v : st_matching) {
