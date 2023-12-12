@@ -130,14 +130,50 @@ int main() {
 
 	constexpr bool TESTING = true;
 
-	int T; cin >> T;
+	std::mt19937 mt(48);
+
+	int T;
+	if (TESTING) {
+		T = 100;
+	} else {
+		cin >> T;
+	}
 	while (T--) {
-		int N; cin >> N;
-		std::vector<std::string> TESTING_ANS(N);
+		int N;
 		if (TESTING) {
-			for (int i = 0; i < N; i++) {
-				cin >> TESTING_ANS[i];
+			N = std::uniform_int_distribution<int>(3, 10)(mt);
+		} else {
+			cin >> N;
+		}
+		std::vector<std::string> TESTING_ANS;
+		if (TESTING) {
+			TESTING_ANS = std::vector<std::string>(N, std::string(N, '0'));
+			while (true) {
+				double p = std::uniform_real_distribution<double>(0, 1)(mt);
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < N; j++) {
+						TESTING_ANS[i][j] = std::bernoulli_distribution(p)(mt) ? '1' : '0';
+					}
+				}
+				bool good = true;
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < N; j++) {
+						bool found = false;
+						for (int k = 0; k < N; k++) {
+							if (TESTING_ANS[i][k] == '1' || TESTING_ANS[k][j] == '1') {
+								found = true;
+								break;
+							}
+						}
+						if (!found) good = false;
+					}
+				}
+				if (good) break;
 			}
+			cout << "N = " << N << '\n';
+			cout << "ANSWER" << '\n';
+			for (const auto& r : TESTING_ANS) cout <<r << '\n';
+			cout << flush;
 		}
 		assert(N >= 3);
 		const int max_queries = 2 + ceil_log_2(N);
