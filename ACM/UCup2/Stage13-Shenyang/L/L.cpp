@@ -219,7 +219,17 @@ int main() {
 			for (const auto& r : g) cout << r << '\n';
 			cout << flush;
 			if (TESTING) {
-				int code = (g == TESTING_ANS) ? 0 : 1;
+				int num_found = 0;
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < N; j++) {
+						if (g[i][j] == '1') {
+							assert(TESTING_ANS[i][j] == '1');
+							num_found++;
+						}
+					}
+				}
+				assert(num_found >= N);
+				int code = 0;
 				cout << code << '\n';
 				assert(code == 0);
 			} else {
