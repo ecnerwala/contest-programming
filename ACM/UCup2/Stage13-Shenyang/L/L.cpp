@@ -62,7 +62,7 @@ int main() {
 		}
 		auto R1 = query(Q1);
 		for (int i = 1; i < N; i++) {
-			if (R0[i][i] == '0' && R1[i][i] == '0') {
+			if (R0[i][i] == '0' && R1[i][0] == '0') {
 				return solve_empty_row(i);
 			}
 		}
