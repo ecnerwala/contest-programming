@@ -188,7 +188,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		cerr << i << ' ' << dist[i] << '\n';
 		auto [a, b] = A[i];
-		for (int v = 0; v < 2; v++) {
+		for (int v = 0; v <= 2; v++) {
 			starts.push_back({(a - b * int64_t(dist[i] + 1 - v)), {i, v}});
 		}
 	}
