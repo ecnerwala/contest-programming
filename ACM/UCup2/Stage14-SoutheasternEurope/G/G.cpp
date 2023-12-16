@@ -193,32 +193,48 @@ int main() {
 	}
 	std::sort(starts.begin(), starts.end(), [&](auto a, auto b) { return a.first > b.first; });
 	const int64_t INF = 1e18;
-	tensor<int64_t, 2> ans({N, 3}, -INF);
-	std::vector<std::array<int, 2>> q; q.reserve(3*N);
+	struct vis_twice {
+		int64_t m1 = -INF;
+		int v1 = -1;
+		int64_t m2 = -INF;
+	};
+	tensor<vis_twice, 2> ans({N, 3});
+	std::vector<std::array<int, 2>> q; q.reserve(6*N);
 	for (auto [v, st_pos] : starts) {
 		q.clear();
-		if (ans[st_pos] == -INF) {
-			ans[st_pos] = v;
-			q.push_back(st_pos);
-		}
+		auto check_pos = [&](int cur, int d) -> void {
+			auto& vt = ans[{cur, d}];
+			if (vt.m1 == -INF) {
+				vt.m1 = v;
+				vt.v1 = st_pos[0];
+				q.push_back({cur, d});
+			} else if (vt.m2 == -INF && st_pos[0] != vt.v1) {
+				vt.m2 = v;
+				q.push_back({cur, d});
+			}
+		};
+		check_pos(st_pos[0], st_pos[1]);
 		for (int z = 0; z < int(q.size()); z++) {
 			auto [cur, d] = q[z];
 			assert((ans[{cur, d}] == v));
 			for (int nxt : adj[cur]) {
 				int nd = d + (1 + dist[nxt] - dist[cur]);
 				if (nd > 2) continue;
-				if (ans[{nxt, nd}] == -INF) {
-					ans[{nxt, nd}] = v;
-					q.push_back({nxt, nd});
-				}
+				check_pos(nxt, nd);
 			}
 		}
 	}
 
 	for (int i = 0; i < N; i++) {
 		if (dist[i] == 1) {
-			assert((ans[{i, 2}] != -INF));
-			cout << ans[{i, 2}] << '\n';
+			auto& vt = ans[{i, 2}];
+			assert(vt.m1 != -INF);
+			assert(vt.m2 != -INF);
+			if (vt.v1 != i) {
+				cout << vt.m1 << '\n';
+			} else {
+				cout << vt.m2 << '\n';
+			}
 		}
 	}
 
