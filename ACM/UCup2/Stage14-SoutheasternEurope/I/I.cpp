@@ -32,8 +32,8 @@ int main() {
 
 	// Keep up to K strings
 	std::vector<std::vector<multiset_t>> base_multisets(N+5);
-	for (int m = 0; m < 1024; m++) {
-		if (m == 0) {
+	for (int m = 1; m < 1024; m++) {
+		if (m == 1) {
 			for (int i = 1; i < 10; i++) {
 				multiset_t a;
 				a.freq[0] = hall_cnt[m] + 1;
