@@ -194,15 +194,10 @@ int main() {
 	int B = int(alive_inds.size());
 	std::sort(alive_inds.begin(), alive_inds.end(), [&](auto a, auto b) { return a.second < b.second; });
 	std::vector<int64_t> implies_msks(B);
-	cerr << "B = " << B << '\n';
-	for (int i = 0; i < B; i++) {
-		cerr << i << ' ' << (int64_t(1) << alive_inds[i].first) << ' ' << alive_inds[i].second << '\n';
-	}
 	for (int i = 0; i < B; i++) {
 		for (int j = i+1; j < B; j++) {
 			assert((has_1_0[{alive_inds[j].first, alive_inds[i].first}]));
 			if (!has_1_0[{alive_inds[i].first, alive_inds[j].first}]) {
-				cerr << i << "->" << j << '\n';
 				implies_msks[i] |= int64_t(1) << j;
 			}
 		}
@@ -218,7 +213,6 @@ int main() {
 	std::vector<int64_t> dp(1 << (B - L));
 	for (int m = 0; m < (1 << L); m++) {
 		// if there's something we need but don't have, we're screwed already
-		cerr << "good " << m << ' ' << l_msks[m] << '\n';
 		if (l_msks[m] & ((1 << L) - 1) & ~m) {
 			continue;
 		}
