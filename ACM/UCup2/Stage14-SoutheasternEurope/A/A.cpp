@@ -218,10 +218,10 @@ int main() {
 	std::vector<int64_t> dp(1 << (B - L));
 	for (int m = 0; m < (1 << L); m++) {
 		// if there's something we need but don't have, we're screwed already
+		cerr << "good " << m << ' ' << l_msks[m] << '\n';
 		if (l_msks[m] & ~m) {
 			continue;
 		}
-		cerr << "good " << m << ' ' << l_msks[m] << '\n';
 		dp[l_msks[m] >> L]++;
 	}
 	for (int i = L; i < B; i++) {
