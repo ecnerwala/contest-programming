@@ -133,8 +133,11 @@ int main() {
 		while (!best_strings.empty() && K > 0) {
 			auto s = *best_strings.begin();
 			best_strings.erase(best_strings.begin());
-			cout << s << '\n';
 			K--;
+			cout << s << " \n"[K==0];
+			if (std::next_permutation(s.begin(), s.end())) {
+				best_strings.insert(s);
+			}
 		}
 	}
 
