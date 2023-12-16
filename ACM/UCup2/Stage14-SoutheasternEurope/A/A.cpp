@@ -219,7 +219,7 @@ int main() {
 	for (int m = 0; m < (1 << L); m++) {
 		// if there's something we need but don't have, we're screwed already
 		cerr << "good " << m << ' ' << l_msks[m] << '\n';
-		if (l_msks[m] & ~m) {
+		if (l_msks[m] & ((1 << L) - 1) & ~m) {
 			continue;
 		}
 		dp[l_msks[m] >> L]++;
