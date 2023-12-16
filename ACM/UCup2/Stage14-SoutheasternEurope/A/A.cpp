@@ -196,6 +196,9 @@ int main() {
 	std::vector<int64_t> implies_msks(B);
 	cerr << "B = " << B << '\n';
 	for (int i = 0; i < B; i++) {
+		cerr << i << ' ' << alive_inds[i].first << ' ' << alive_inds[i].second << '\n';
+	}
+	for (int i = 0; i < B; i++) {
 		for (int j = i+1; j < B; j++) {
 			assert((has_1_0[{alive_inds[j].first, alive_inds[i].first}]));
 			if (!has_1_0[{alive_inds[i].first, alive_inds[j].first}]) {
