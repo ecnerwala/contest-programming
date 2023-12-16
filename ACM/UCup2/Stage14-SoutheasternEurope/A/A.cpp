@@ -221,7 +221,7 @@ int main() {
 		if (l_msks[m] & ~m) {
 			continue;
 		}
-		cerr << "good " << m << '\n';
+		cerr << "good " << m << ' ' << l_msks[m] << '\n';
 		dp[l_msks[m] >> L]++;
 	}
 	for (int i = L; i < B; i++) {
