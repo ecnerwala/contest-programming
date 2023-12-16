@@ -196,6 +196,7 @@ int main() {
 	tensor<int64_t, 2> ans({N, 3}, -INF);
 	std::vector<std::array<int, 2>> q; q.reserve(3*N);
 	for (auto [v, st_pos] : starts) {
+		cerr << "starting at " << v << ' ' << st_pos[0] << ' ' << st_pos[1] << '\n';
 		q.clear();
 		if (ans[st_pos] == -INF) {
 			ans[st_pos] = v;
