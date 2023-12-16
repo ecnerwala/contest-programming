@@ -9,7 +9,7 @@ int main() {
 	std::vector<int> A(N);
 	for (auto& a : A) cin >> a;
 
-	std::vector<std::array<int64_t, 2>> cnt_inv(L, std::array<int, 2>({0, 0}));
+	std::vector<std::array<int64_t, 2>> cnt_inv(L, std::array<int64_t, 2>({0, 0}));
 
 	std::vector<int> trie(2*N);
 
