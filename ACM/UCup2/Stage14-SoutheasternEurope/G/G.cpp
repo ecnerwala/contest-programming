@@ -216,7 +216,6 @@ int main() {
 		check_pos(st_pos[0], st_pos[1]);
 		for (int z = 0; z < int(q.size()); z++) {
 			auto [cur, d] = q[z];
-			assert((ans[{cur, d}] == v));
 			for (int nxt : adj[cur]) {
 				int nd = d + (1 + dist[nxt] - dist[cur]);
 				if (nd > 2) continue;
