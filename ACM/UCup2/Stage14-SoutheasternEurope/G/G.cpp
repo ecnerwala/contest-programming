@@ -186,7 +186,6 @@ int main() {
 
 	std::vector<std::pair<int64_t, std::array<int, 2>>> starts; starts.reserve(N * 3);
 	for (int i = 0; i < N; i++) {
-		cerr << i << ' ' << dist[i] << '\n';
 		auto [a, b] = A[i];
 		for (int v = 0; v <= 2; v++) {
 			starts.push_back({(a - b * int64_t(dist[i] + 1 - v)), {i, v}});
@@ -197,7 +196,6 @@ int main() {
 	tensor<int64_t, 2> ans({N, 3}, -INF);
 	std::vector<std::array<int, 2>> q; q.reserve(3*N);
 	for (auto [v, st_pos] : starts) {
-		cerr << "starting at " << v << ' ' << st_pos[0] << ' ' << st_pos[1] << '\n';
 		q.clear();
 		if (ans[st_pos] == -INF) {
 			ans[st_pos] = v;
