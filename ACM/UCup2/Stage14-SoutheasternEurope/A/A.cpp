@@ -194,10 +194,12 @@ int main() {
 	int B = int(alive_inds.size());
 	std::sort(alive_inds.begin(), alive_inds.end(), [&](auto a, auto b) { return a.second < b.second; });
 	std::vector<int64_t> implies_msks(B);
+	cerr << "B = " << B << '\n';
 	for (int i = 0; i < B; i++) {
 		for (int j = i+1; j < B; j++) {
 			assert((has_1_0[{alive_inds[j].first, alive_inds[i].first}]));
 			if (!has_1_0[{alive_inds[i].first, alive_inds[j].first}]) {
+				cerr << i << "->" << j << '\n';
 				implies_msks[i] |= int64_t(1) << j;
 			}
 		}
