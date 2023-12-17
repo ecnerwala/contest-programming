@@ -506,6 +506,7 @@ int main() {
 		for (int j = 1; j < i; j++) {
 			num_connected[i] -= choose(i-1, j-1) * num_connected[j] * pow_2[(i-j) * (i-j-1) / 2];
 		}
+		cerr << i << ' ' << num_connected[i] << '\n';
 	}
 
 	// ways to have k things all labelled with a chosen root
@@ -525,6 +526,8 @@ int main() {
 		for (int s = 1; s < i; s += 2) {
 			rooted_cyc_ways[i] += num(i) * (s == 1 ? fact[s] : fact[s] / num(2)) * pow_rooted_cyc_ways[{s, i-1}];
 		}
+		cerr << i << ' ' << "rooted_conn_ways" << ' ' << rooted_conn_ways[i] << '\n';
+		cerr << i << ' ' << "rooted_cyc_ways" << ' ' << rooted_cyc_ways[i] << '\n';
 
 		// now, update pow_rooted_cyc_ways
 		for (int s = 1; s <= i; s++) {
