@@ -540,7 +540,7 @@ int main() {
 	}
 	num ans = 0;
 	for (int i = 1; i <= N; i++) {
-		ans += rooted_cyc_ways[i] / num(i) * rooted_conn_ways[N+1-i] / num(N+1-i);
+		ans += choose(N-1, i-1) * rooted_cyc_ways[i] / num(i) * rooted_conn_ways[N+1-i] / num(N+1-i);
 	}
 	cout << ans << '\n';
 
