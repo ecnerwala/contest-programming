@@ -153,6 +153,5 @@ int main() {
 	// Pick any rooted ordered tree of M+N nodes with N-1 leaves
 	cout << choose(M+N, N-1) * choose(M+N-2, M+N-(N-1)-1) / num(M+N) << '\n';
 
-
 	return 0;
 }
