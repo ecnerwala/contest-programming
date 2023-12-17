@@ -298,9 +298,9 @@ int main() {
 						// We can put any number of P's
 						dp[{i+1, j, 0}] += dp[{i, j, z}];
 					}
-					//if (j < N) {
+					if (j < N) {
 						dp[{i, j+1, 1}] += dp[{i, j, z}];
-					//}
+					}
 				}
 			}
 		}
