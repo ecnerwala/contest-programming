@@ -287,6 +287,7 @@ int main() {
 	for (int i = 0; i <= N; i++) {
 		for (int j = 0; j <= N; j++) {
 			for (int z = 0; z < 2; z++) {
+				cerr << i << ' ' << j << ' ' << z << ' ' << dp[{i, j, z}] << '\n';
 				if (i == N && j == N) {
 					ans += dp[{i, j, z}];
 				} else {
