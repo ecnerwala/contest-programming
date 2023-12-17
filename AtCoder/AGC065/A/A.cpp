@@ -23,6 +23,7 @@ int main() {
 
 	int num_unmatched = 0;
 	for (auto [a, cnt] : freq) {
+		cerr << a << ' ' << cnt << '\n';
 		num_unmatched = std::max(num_unmatched, cnt);
 	}
 
