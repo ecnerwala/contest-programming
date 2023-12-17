@@ -134,6 +134,10 @@ int main() {
 		exit(0);
 	}
 	int M = int(M_big);
+	if (M == 0) {
+		cout << 1 << '\n';
+		exit(0);
+	}
 
 	using num = modnum<int(1e9)+7>;
 	const int V = 2*M+N + 10;
@@ -149,9 +153,18 @@ int main() {
 		return fact[n] * ifact[r] * ifact[n-r];
 	};
 
+	auto ways_with_parallel = [&](int m) -> num {
+		return fact[m+N-1] * ifact[M+1] * ifact[N-1] * choose(m+N-2, M+N-(N-1)-1);
+	};
+
 	// The dual graph is an ordered tree with M+1 interior nodes and N leaves (pick a leaf to root by)
 	// Pick any rooted ordered tree of M+N nodes with N-1 leaves
-	cout << choose(M+N, N-1) * choose(M+N-2, M+N-(N-1)-1) / num(M+N) << '\n';
+	// However, this allows parallel edges. Let's explicitly subtract those off
+	num ans = ways_with_parallel(M);
+	for (int m = 1; m < M; m++) {
+		ans -= ways_with_parallel(m) * choose(M-1, m-1);
+	}
+	cout << ans << '\n';
 
 	return 0;
 }
