@@ -154,7 +154,7 @@ int main() {
 	};
 
 	auto ways_with_parallel = [&](int m) -> num {
-		return fact[m+N-1] * ifact[m+1] * ifact[N-1] * choose(m+N-2, m);
+		return fact[m+N-1] * ifact[m+1] * ifact[N-1] * fact[m+N-2] * ifact[m] * ifact[N-2];
 	};
 
 	// The dual graph is an ordered tree with M+1 interior nodes and N leaves (pick a leaf to root by)
