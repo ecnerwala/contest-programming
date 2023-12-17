@@ -295,9 +295,12 @@ int main() {
 				} else {
 					if (i < N && (z == 0 || P[i] < j-1)) {
 						// We can put any number of P's
+						cerr << " incr " << i+1 << ' ' << j << ' ' << 0 << '\n';
 						dp[{i+1, j, 0}] += dp[{i, j, z}];
 					}
-					dp[{i, j+1, 1}] += dp[{i, j, z}];
+					if (j < N) {
+						dp[{i, j+1, 1}] += dp[{i, j, z}];
+					}
 				}
 			}
 		}
