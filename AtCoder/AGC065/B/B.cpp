@@ -147,7 +147,11 @@ protected:
 
 public:
 	T& operator[] (std::array<int, NDIMS> idx) const {
+#ifdef _GLIBCXX_DEBUG
+		return data[flatten_index_checked(idx)];
+#else
 		return data[flatten_index(idx)];
+#endif
 	}
 	T& at(std::array<int, NDIMS> idx) const {
 		return data[flatten_index_checked(idx)];
@@ -294,9 +298,9 @@ int main() {
 						// We can put any number of P's
 						dp[{i+1, j, 0}] += dp[{i, j, z}];
 					}
-					if (j < N) {
+					//if (j < N) {
 						dp[{i, j+1, 1}] += dp[{i, j, z}];
-					}
+					//}
 				}
 			}
 		}
