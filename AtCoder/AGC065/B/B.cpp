@@ -281,7 +281,7 @@ int main() {
 	// We need ways of interleaving the blue and red up to permuting things which can't see each other
 	// P big and Q small can't see each other, so we'll just enforce they're in a canonical order
 	// Just push all P values as early as possible, which means they must be beginning -> P or Q big -> P smaller
-	tensor<num, 3> dp({N+1, N+1, 2});
+	tensor<num, 3> dp({N+1, N+1, 2}, 0);
 	dp[{0, 0, 0}] = 1;
 	num ans = 0;
 	for (int i = 0; i <= N; i++) {
@@ -306,3 +306,31 @@ int main() {
 
 	return 0;
 }
+
+// P1 P2 P3 Q1 Q2 Q3
+// Q1 Q2 Q3
+// P1 Q2 Q3
+// P1 P2 Q3
+// P1 P2 P3
+//
+// P1 Q1 Q2 Q3 P2 P3
+// Q1 Q2 Q3
+// P1 Q2 Q3
+// P1 Q3 P2
+// P1 P2 P3
+//
+// Q1 Q2 P1 P2 P3 Q3
+// Q1 Q2 Q3
+// Q2 P1 Q3
+// P1 P2 Q3
+//
+// Q1 Q2 P1 Q3 P2 P3
+// Q1 Q2 Q3
+// Q2 P1 Q3
+// P1 Q3 P2
+//
+// Q1 Q2 Q3 P1 P2 P3
+// Q1 Q2 Q3
+// Q2 Q3 P1
+// Q3 P1 P2
+// P1 P2 P3
