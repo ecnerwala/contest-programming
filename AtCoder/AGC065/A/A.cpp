@@ -23,7 +23,6 @@ int main() {
 
 	int num_unmatched = 0;
 	for (auto [a, cnt] : freq) {
-		cerr << a << ' ' << cnt << '\n';
 		num_unmatched = std::max(num_unmatched, cnt);
 	}
 
@@ -35,6 +34,9 @@ int main() {
 		for (auto [a, cnt] : freq) {
 			if (cnt == num_unmatched) {
 				if (first_max == K) first_max = a;
+				if (last_max != -1) {
+					best_gap = std::min(best_gap, last_max + K - a);
+				}
 				last_max = a;
 			}
 		}
