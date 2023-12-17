@@ -524,7 +524,7 @@ int main() {
 			rooted_conn_ways[i] += num(i) * num_connected[s+1] * pow_rooted_cyc_ways[{s, i-1}];
 		}
 		for (int s = 1; s < i; s += 2) {
-			rooted_cyc_ways[i] += num(i) * (s == 1 ? fact[s] : fact[s] / num(2)) * pow_rooted_cyc_ways[{s, i-1}];
+			rooted_cyc_ways[i] += num(i) * (s == 1 ? fact[s] : fact[s] / num(2)) * pow_rooted_conn_ways[{s, i-1}];
 		}
 		cerr << i << ' ' << "rooted_conn_ways" << ' ' << rooted_conn_ways[i] << '\n';
 		cerr << i << ' ' << "rooted_cyc_ways" << ' ' << rooted_cyc_ways[i] << '\n';
