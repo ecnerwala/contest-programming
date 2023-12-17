@@ -144,17 +144,14 @@ int main() {
 	ifact[V] = inv(fact[V]);
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
+	auto choose = [&](int n, int r) {
+		assert(0 <= r && r <= n);
+		return fact[n] * ifact[r] * ifact[n-r];
+	};
+
 	// The dual graph is an ordered tree with M+1 interior nodes and N leaves (pick a leaf to root by)
-	// Pick any rooted tree of M+1 nodes
-	// Then order the leaves, there are 2*M+1 slots for N-1 leaves
-	num ordered_trees = 0;
-	for (int k = 1; k <= M; k++) {
-		ordered_trees += ifact[k] * ifact[k-1] * ifact[M-k] * ifact[M+1-k];
-	}
-	ordered_trees *= fact[M];
-	cerr << "ordered_trees " << ordered_trees << '\n';
-	num ans = ordered_trees * fact[2*M+(N-1)] * ifact[2*M] * ifact[N-1];
-	cout << ans << '\n';
+	// Pick any rooted ordered tree of M+N nodes with N-1 leaves
+	cout << choose(M+N, N-1) * choose(M+N-1, M+N-(N-1)-1) / num(M+N) << '\n';
 
 	return 0;
 }
