@@ -137,10 +137,10 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 	const int V = 2*M+N + 10;
-	std::vector<num> fact(V);
+	std::vector<num> fact(V+1);
 	fact[0] = 1;
 	for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
-	std::vector<num> ifact(V);
+	std::vector<num> ifact(V+1);
 	ifact[V] = inv(fact[V]);
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
