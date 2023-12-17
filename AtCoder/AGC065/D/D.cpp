@@ -151,7 +151,8 @@ int main() {
 
 	// The dual graph is an ordered tree with M+1 interior nodes and N leaves (pick a leaf to root by)
 	// Pick any rooted ordered tree of M+N nodes with N-1 leaves
-	cout << choose(M+N, N-1) * choose(M+N-1, M+N-(N-1)-1) / num(M+N) << '\n';
+	cout << choose(M+N, N-1) * choose(M+N-2, M+N-(N-1)-1) / num(M+N) << '\n';
+
 
 	return 0;
 }
