@@ -147,8 +147,8 @@ protected:
 
 public:
 	T& operator[] (std::array<int, NDIMS> idx) const {
-#ifdef _GLIBCXX_DEBUG
 		return data[flatten_index_checked(idx)];
+#ifdef _GLIBCXX_DEBUG
 #else
 		return data[flatten_index(idx)];
 #endif
@@ -158,6 +158,7 @@ public:
 	}
 
 	template <int D = NDIMS>
+
 	typename std::enable_if<(0 < D), tensor_view<T, NDIMS-1>>::type operator[] (int idx) const {
 		std::array<int, NDIMS-1> nshape; std::copy(shape.begin()+1, shape.end(), nshape.begin());
 		std::array<int, NDIMS-1> nstrides; std::copy(strides.begin()+1, strides.end(), nstrides.begin());
@@ -298,9 +299,7 @@ int main() {
 						// We can put any number of P's
 						dp[{i+1, j, 0}] += dp[{i, j, z}];
 					}
-					if (j < N) {
-						dp[{i, j+1, 1}] += dp[{i, j, z}];
-					}
+					dp[{i, j + 1, 1}] += dp[{i, j, z}];
 				}
 			}
 		}
