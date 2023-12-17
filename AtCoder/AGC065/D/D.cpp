@@ -162,9 +162,10 @@ int main() {
 	// The dual graph is an ordered tree with M+1 interior nodes and N leaves (pick a leaf to root by)
 	// Pick any rooted ordered tree of M+N nodes with N-1 leaves
 	// However, this allows parallel edges. Let's explicitly subtract those off
-	num ans = ways_with_parallel(M);
-	for (int m = 1; m < M; m++) {
-		ans -= ways_with_parallel(m) * choose(M-1, m-1);
+	// We have EGF[actual] * EGF[1] = EGF[ways_with_parallel]
+	num ans = 0;
+	for (int m = 1; m <= M; m++) {
+		ans += ways_with_parallel(m) * choose(M-1, m-1) * (((M - m) & 1) ? -1 : 1);
 	}
 	cout << ans << '\n';
 
