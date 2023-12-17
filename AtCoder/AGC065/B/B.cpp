@@ -289,7 +289,6 @@ int main() {
 			for (int z = 0; z < 2; z++) {
 				if (i == N && j == N) {
 					ans += dp[{i, j, z}];
-					exit(0);
 				} else {
 					if (i < N && (z == 0 || P[i] < j-1)) {
 						// We can put any number of P's
