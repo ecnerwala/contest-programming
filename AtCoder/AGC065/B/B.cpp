@@ -287,15 +287,11 @@ int main() {
 	for (int i = 0; i <= N; i++) {
 		for (int j = 0; j <= N; j++) {
 			for (int z = 0; z < 2; z++) {
-				if (dp[{i, j, z}] != 0) {
-					cerr << i << ' ' << j << ' ' << z << ' ' << dp[{i, j, z}] << '\n';
-				}
 				if (i == N && j == N) {
 					ans += dp[{i, j, z}];
 				} else {
 					if (i < N && (z == 0 || P[i] < j-1)) {
 						// We can put any number of P's
-						cerr << " incr " << i+1 << ' ' << j << ' ' << 0 << '\n';
 						dp[{i+1, j, 0}] += dp[{i, j, z}];
 					}
 					if (j < N) {
