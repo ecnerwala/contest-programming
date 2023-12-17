@@ -3,8 +3,6 @@
 bool solve(std::vector<int> A) {
 	int N = int(A.size());
 	assert(N >= 1);
-	int num_odd = 0;
-	int num_one = 0;
 	std::vector<int> evens; evens.reserve(N);
 	std::vector<int> odds; odds.reserve(N);
 	for (int a : A) {
