@@ -41,10 +41,10 @@ int main() {
 		int nxt_side;
 	};
 
-	std::vector<evt_state> evts; evts.reserve(N*N);
+	std::vector<evt_state> evts_queue(N+1);
 	std::array<int, 2> pref_cnt{0, 0};
-	for (int t_idx = 0, e_idx = 0; t_idx < int(trains.size()) || e_idx < int(evts.size()); ) {
-		if (t_idx < int(trains.size()) && (e_idx == int(evts.size()) || trains[t_idx].first <= evts[e_idx].t)) {
+	for (int t_idx = 0, e_idx = 0, e_hi = 0; t_idx < int(trains.size()) || e_idx != e_hi; ) {
+		if (t_idx < int(trains.size()) && (e_idx == e_hi || trains[t_idx].first <= evts_queue[e_idx].t)) {
 			auto [t, s] = trains[t_idx++];
 			// For each state in waiting[!s], we just stay in the same state
 			pref_cnt[s]++;
@@ -57,10 +57,12 @@ int main() {
 				evt_val = std::min(evt_val, v + (pref_cnt[!s] - b_cnt) * (t + T));
 			}
 			if (evt_val != INF) {
-				evts.push_back({t + T, evt_val, pref_cnt, !s});
+				evts_queue[e_hi++] = {t + T, evt_val, pref_cnt, !s};
+				if (e_hi == int(evts_queue.size())) e_hi = 0;
 			}
 		} else {
-			auto [t, evt_val, old_pref_cnt, s] = evts[e_idx++];
+			auto [t, evt_val, old_pref_cnt, s] = evts_queue[e_idx++];
+			if (e_idx == int(evts_queue.size())) e_idx = 0;
 			// Send everything in between
 			int num_new = pref_cnt[s] - old_pref_cnt[s];
 			evt_val += num_new * t;
@@ -71,7 +73,8 @@ int main() {
 				ans = std::min(ans, evt_val);
 			} else {
 				// Now, we can either add a new event or we can just wait for the same color as s
-				evts.push_back({t + T, evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T), pref_cnt, !s});
+				evts_queue[e_hi++] = {t + T, evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T), pref_cnt, !s};
+				if (e_hi == int(evts_queue.size())) e_hi = 0;
 				setmin(waiting[s][old_pref_cnt[!s]], evt_val);
 			}
 		}
