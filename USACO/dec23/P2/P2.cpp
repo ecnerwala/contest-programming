@@ -5,7 +5,8 @@ template <int MOD> struct modnum {
 	modnum() : v(0) {}
 	modnum(int64_t _v) : v((int(_v % MOD) + MOD) % MOD) {}
 	explicit operator int() const { return v; }
-	friend modnum operator + (modnum a, modnum b) { a.v -= MOD - b.v; a.v = (a.v < 0 ? a.v + MOD : a.v); }
+	modnum& operator += (modnum o) { v -= MOD - o.v; v = (v < 0 ? v + MOD : v); return *this; }
+	friend modnum operator + (modnum a, modnum b) { return modnum(a) += b; }
 	friend modnum operator * (modnum a, modnum b) { return modnum(int64_t(a.v) * int64_t(b.v)); }
 };
 
