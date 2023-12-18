@@ -62,11 +62,11 @@ int main() {
 			}
 		} else {
 			auto [t, evt_val, old_pref_cnt, s] = evts[e_idx++];
-			cerr << "processing evt " << t << ' ' << s << ' ' << evt_val << '\n';
 			// Send everything in between
 			int num_new = pref_cnt[s] - old_pref_cnt[s];
 			evt_val += num_new * t;
 			old_pref_cnt[s] = pref_cnt[s];
+			cerr << "processing evt " << t << ' ' << s << ' ' << evt_val << ' ' << pref_cnt[!s] - old_pref_cnt[!s] << '\n';
 
 			if (old_pref_cnt[s] + old_pref_cnt[!s] == N) {
 				// sent everything, we're done
