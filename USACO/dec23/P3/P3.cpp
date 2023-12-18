@@ -46,7 +46,6 @@ int main() {
 	for (int t_idx = 0, e_idx = 0; t_idx < int(trains.size()) || e_idx < int(evts.size()); ) {
 		if (t_idx < int(trains.size()) && (e_idx == int(evts.size()) || trains[t_idx].first <= evts[e_idx].t)) {
 			auto [t, s] = trains[t_idx++];
-			cerr << "t = " << t << ' ' << "s = " << s << ' ' << "train" << '\n';
 			// For each state in waiting[!s], we just stay in the same state
 			pref_cnt[s]++;
 			// For each state in waiting[s], we send ourself.
@@ -58,7 +57,6 @@ int main() {
 				evt_val = std::min(evt_val, v + (pref_cnt[!s] - b_cnt) * (t + T));
 			}
 			if (evt_val != INF) {
-				cerr << "  " << "adding event " << t+T << ' ' << evt_val << ' ' << !s << '\n';
 				evts.push_back({t + T, evt_val, pref_cnt, !s});
 			}
 		} else {
@@ -67,16 +65,13 @@ int main() {
 			int num_new = pref_cnt[s] - old_pref_cnt[s];
 			evt_val += num_new * t;
 			old_pref_cnt[s] = pref_cnt[s];
-			cerr << "t = " << t << ' ' << "s = " << s << ' ' << "event" << ' ' << evt_val << ' ' << pref_cnt[!s] - old_pref_cnt[!s] << '\n';
 
 			if (old_pref_cnt[s] + old_pref_cnt[!s] == N) {
 				// sent everything, we're done
 				ans = std::min(ans, evt_val);
 			} else {
 				// Now, we can either add a new event or we can just wait for the same color as s
-				cerr << "  " << "adding event " << t+T << ' ' << evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T) << ' ' << !s << '\n';
 				evts.push_back({t + T, evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T), pref_cnt, !s});
-				cerr << "  " << "adding waiting " << s << ' ' << old_pref_cnt[!s] << ' ' << evt_val << '\n';
 				setmin(waiting[s][old_pref_cnt[!s]], evt_val);
 			}
 		}
