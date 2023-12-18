@@ -76,6 +76,7 @@ int main() {
 				// Now, we can either add a new event or we can just wait for the same color as s
 				cerr << "  " << "adding event " << t+T << ' ' << evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T) << ' ' << !s << '\n';
 				evts.push_back({t + T, evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T), pref_cnt, !s});
+				cerr << "  " << "adding waiting " << s << ' ' << old_pref_cnt[!s] << ' ' << evt_val << '\n';
 				setmin(waiting[s][old_pref_cnt[!s]], evt_val);
 			}
 		}
