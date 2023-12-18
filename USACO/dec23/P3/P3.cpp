@@ -58,6 +58,7 @@ int main() {
 				evt_val = std::min(evt_val, v + b_cnt * (t + T));
 			}
 			if (evt_val != INF) {
+				cerr << "  " << "adding event " << t+T << ' ' << evt_val << ' ' << !s << '\n';
 				evts.push_back({t + T, evt_val, pref_cnt, !s});
 			}
 		} else {
@@ -73,6 +74,7 @@ int main() {
 				ans = std::min(ans, evt_val);
 			} else {
 				// Now, we can either add a new event or we can just wait for the same color as s
+				cerr << "  " << "adding event " << t+T << ' ' << evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T) << ' ' << !s << '\n';
 				evts.push_back({t + T, evt_val + (pref_cnt[!s] - old_pref_cnt[!s]) * (t + T), pref_cnt, !s});
 				setmin(waiting[s][old_pref_cnt[!s]], evt_val);
 			}
