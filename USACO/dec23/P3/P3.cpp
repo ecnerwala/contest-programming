@@ -14,7 +14,7 @@ int main() {
 	int N; int64_t T; cin >> N >> T;
 	std::vector<std::pair<int64_t, bool>> trains(N);
 	for (auto& [t, s] : trains) {
-		char c; cin >> t >> c;
+		char c; cin >> c >> t;
 		assert(c == 'A' || c == 'B');
 		s = (c - 'A');
 	}
