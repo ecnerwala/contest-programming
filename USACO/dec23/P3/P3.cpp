@@ -55,8 +55,7 @@ int main() {
 			for (int b_cnt = 0; b_cnt <= N; b_cnt++) {
 				if (waiting[s][b_cnt] == INF) continue;
 				int64_t v = waiting[s][b_cnt] += t;
-				cerr << "  got waiting " << b_cnt << ' ' << v << '\n';
-				evt_val = std::min(evt_val, v + b_cnt * (t + T));
+				evt_val = std::min(evt_val, v + (pref_cnt[!s] - b_cnt) * (t + T));
 			}
 			if (evt_val != INF) {
 				cerr << "  " << "adding event " << t+T << ' ' << evt_val << ' ' << !s << '\n';
