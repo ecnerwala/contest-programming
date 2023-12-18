@@ -48,12 +48,12 @@ int main() {
 			auto [t, s] = trains[t_idx++];
 			// For each state in waiting[!s], we just stay in the same state
 			pref_cnt[s]++;
-			// For each state in waiting[s], we send ourself. We could stay in waiting[s], but that's actually a noop change.
+			// For each state in waiting[s], we send ourself.
 			// Otherwise, we could switch to evt.
 			int64_t evt_val = INF;
 			for (int b_cnt = 0; b_cnt <= N; b_cnt++) {
-				int64_t v = waiting[s][b_cnt];
-				if (v == INF) continue;
+				if (waiting[s][b_cnt] == INF) continue;
+				int64_t v = waiting[s][b_cnt] += t;
 				evt_val = std::min(evt_val, v + b_cnt * (t + T));
 			}
 			if (evt_val != INF) {
