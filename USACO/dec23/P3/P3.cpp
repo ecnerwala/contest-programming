@@ -46,6 +46,7 @@ int main() {
 	for (int t_idx = 0, e_idx = 0; t_idx < int(trains.size()) || e_idx < int(evts.size()); ) {
 		if (t_idx < int(trains.size()) && (e_idx == int(evts.size()) || trains[t_idx].first <= evts[e_idx].t)) {
 			auto [t, s] = trains[t_idx++];
+			cerr << "processing train " << t << ' ' << s << '\n';
 			// For each state in waiting[!s], we just stay in the same state
 			pref_cnt[s]++;
 			// For each state in waiting[s], we send ourself.
@@ -61,6 +62,7 @@ int main() {
 			}
 		} else {
 			auto [t, evt_val, old_pref_cnt, s] = evts[e_idx++];
+			cerr << "processing evt " << t << ' ' << s << ' ' << evt_val << '\n';
 			// Send everything in between
 			int num_new = pref_cnt[s] - old_pref_cnt[s];
 			evt_val += num_new * t;
