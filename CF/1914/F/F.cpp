@@ -14,7 +14,7 @@ int main() {
 
 		std::vector<int> q; q.reserve(N);
 		for (int i = 0; i < N; i++) if (!in_deg[i]) q.push_back(i);
-		std::vector<int> bound(N, 0);
+		std::vector<int> bound(N, -1);
 		std::vector<int> sz(N, 1);
 		for (int z = 0; z < N; z++) {
 			int cur = q[z];
