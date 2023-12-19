@@ -18,13 +18,12 @@ int main() {
 		std::vector<int> sz(N, 1);
 		for (int z = 0; z < N; z++) {
 			int cur = q[z];
-			int p = P[cur];
-			cerr << cur << ' ' << p << '\n';
 			bound[cur] = std::max(bound[cur] + 1, 1 + (sz[cur] - 1 + 1) / 2);
+			int p = P[cur];
 			if (p != -1) {
-			bound[p] = std::max(bound[p], bound[cur]);
-			sz[p] += sz[cur];
-			if (!--in_deg[p]) q.push_back(p);
+				bound[p] = std::max(bound[p], bound[cur]);
+				sz[p] += sz[cur];
+				if (!--in_deg[p]) q.push_back(p);
 			}
 		}
 		cout << N - bound[0] << '\n';
