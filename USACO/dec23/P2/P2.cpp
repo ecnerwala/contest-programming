@@ -3,8 +3,10 @@
 const int MOD = int(1e9)+7;
 struct lin_fn {
 	int m, x;
-	// compose in the standard math order, a(b(x))
-	friend lin_fn operator * (lin_fn a, lin_fn b) { return {int(int64_t(a.m) * int64_t(b.m) % MOD), int((int64_t(a.m) * int64_t(b.x) + a.x) % MOD)}; }
+	// compose in the left to right application order
+	friend lin_fn operator * (lin_fn a, lin_fn b) {
+		return {int(int64_t(a.m) * int64_t(b.m) % MOD), int((int64_t(a.x) * int64_t(b.m) + b.x) % MOD)};
+	}
 };
 
 int main() {
@@ -20,10 +22,10 @@ int main() {
 		lin_fn res{1, 0};
 		while (par[a] >= 0) {
 			if (par[par[a]] >= 0) {
-				ops[a] = ops[par[a]] * ops[a];
+				ops[a] = ops[a] * ops[par[a]];
 				par[a] = par[par[a]];
 			}
-			res = ops[a] * res;
+			res = res * ops[a];
 			a = par[a];
 		}
 		return {a, res};
