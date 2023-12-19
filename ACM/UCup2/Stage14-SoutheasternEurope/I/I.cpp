@@ -27,11 +27,14 @@ int main() {
 		}
 		hall_cnt[1024-1-msk]++;
 	}
-	for (int i = 0; i < 10; i++) {
+	for (int d = 0; d < 10; d++) {
 		for (int a = 0; a < 1024; a++) {
-			if (a & (1 << i)) continue;
-			hall_cnt[a] += hall_cnt[a | (1 << i)];
+			if (a & (1 << d)) continue;
+			hall_cnt[a] += hall_cnt[a + (1 << d)];
 		}
+	}
+	for (int a = 0; a < 1024; a++) {
+		hall_cnt[a] = N - hall_cnt[a];
 	}
 
 	// Keep up to K strings
