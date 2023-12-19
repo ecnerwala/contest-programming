@@ -28,11 +28,11 @@ int main() {
 				stk.back().sz += sz;
 				stk.back().free += free;
 				if (!stk.back().free) {
-					stk.pop_back();
-					if (stk.empty()) {
+					if (stk.size() == 1) {
 						cnt++;
-						ways = int(int64_t(ways) * sz) % MOD;
+						ways = int(int64_t(ways) * stk.back().sz) % MOD;
 					}
+					stk.pop_back();
 				}
 			}
 		}
