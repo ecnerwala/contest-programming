@@ -10,20 +10,15 @@ int main() {
 		const int MOD = 998244353;
 		int cnt = 0, ways = 1;
 
-		struct stk_t {
-			int loc;
-			int sz;
-			int free;
-		};
+		struct stk_t { int loc, sz, free; };
 		std::vector<stk_t> stk; stk.reserve(N);
 		std::vector<int> last_loc(N, -1);
 		for (int i = 0; i < 2*N; i++) {
 			int c; cin >> c; c--;
-			if (last_loc[c] == -1) {
-				last_loc[c] = i;
+			int j = std::exchange(last_loc[c], i);
+			if (j == -1) {
 				stk.push_back({i, 1, 1});
 			} else {
-				int j = last_loc[c];
 				int sz = 1, free = -1;
 				while (true) {
 					sz += stk.back().sz;
