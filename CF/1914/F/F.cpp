@@ -8,6 +8,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		std::vector<int> P(N);
+		P[0] = -1;
 		std::vector<int> in_deg(N);
 		for (int i = 1; i < N; i++) { cin >> P[i]; P[i]--; in_deg[P[i]]++; }
 
@@ -20,9 +21,11 @@ int main() {
 			int p = P[cur];
 			cerr << cur << ' ' << p << '\n';
 			bound[cur] = std::max(bound[cur] + 1, 1 + (sz[cur] - 1 + 1) / 2);
+			if (p != -1) {
 			bound[p] = std::max(bound[p], bound[cur]);
 			sz[p] += sz[cur];
 			if (!--in_deg[p]) q.push_back(p);
+			}
 		}
 		cout << N - bound[0] << '\n';
 	}
