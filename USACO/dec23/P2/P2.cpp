@@ -39,9 +39,9 @@ int main() {
 		if (pa == pb) continue;
 		int e = V++;
 		lin_fn e_op{10, edge_id+1};
-		ops[pa] = b_op * e_op;
+		ops[pa] = e_op * b_op;
 		par[pa] = e;
-		ops[pb] = a_op * e_op;
+		ops[pb] = e_op * a_op;
 		par[pb] = e;
 	}
 	for (int i = 0; i < N; i++) {
