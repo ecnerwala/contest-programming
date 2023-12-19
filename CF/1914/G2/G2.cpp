@@ -20,21 +20,19 @@ int main() {
 				stk.push_back({i, 1, 1});
 			} else {
 				int sz = 1, free = -1;
-				while (true) {
+				while (stk.back().loc > j) {
 					sz += stk.back().sz;
 					free += stk.back().free;
-					if (stk.back().loc <= j) break;
-					else stk.pop_back();
+					stk.pop_back();
 				}
-				if (free == 0) {
+				stk.back().sz += sz;
+				stk.back().free += free;
+				if (!stk.back().free) {
 					stk.pop_back();
 					if (stk.empty()) {
 						cnt++;
 						ways = int(int64_t(ways) * sz) % MOD;
 					}
-				} else {
-					stk.back().sz = sz;
-					stk.back().free = free;
 				}
 			}
 		}
