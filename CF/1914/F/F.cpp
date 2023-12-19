@@ -18,10 +18,10 @@ int main() {
 		std::vector<int> sz(N, 1);
 		for (int z = 0; z < N; z++) {
 			int cur = q[z];
-			bound[cur] = std::max(bound[cur] + 1, 1 + (sz[cur] - 1 + 1) / 2);
+			bound[cur] = std::max(bound[cur], 1 + (sz[cur] - 1 + 1) / 2);
 			int p = P[cur];
 			if (p != -1) {
-				bound[p] = std::max(bound[p], bound[cur]);
+				bound[p] = std::max(bound[p], bound[cur] + 1);
 				sz[p] += sz[cur];
 				if (!--in_deg[p]) q.push_back(p);
 			}
