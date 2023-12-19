@@ -20,9 +20,11 @@ int main() {
 			bound[cur] = std::max(bound[cur], 1 + (sz[cur] - 1 + 1) / 2);
 
 			int p = P[cur];
-			bound[p] = std::max(bound[p], bound[cur] + 1);
-			sz[p] += sz[cur];
-			if (!--in_deg[p]) q.push_back(p);
+			if (p != -1) {
+				bound[p] = std::max(bound[p], bound[cur] + 1);
+				sz[p] += sz[cur];
+				if (!--in_deg[p]) q.push_back(p);
+			}
 		}
 		cout << N - bound[0] << '\n';
 	}
