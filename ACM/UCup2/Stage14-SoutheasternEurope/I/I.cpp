@@ -25,8 +25,12 @@ int main() {
 			int d; cin >> d;
 			msk |= (1 << d);
 		}
+		hall_cnt[1024-1-msk]++;
+	}
+	for (int i = 0; i < 10; i++) {
 		for (int a = 0; a < 1024; a++) {
-			hall_cnt[a] += bool(a & msk);
+			if (a & (1 << i)) continue;
+			hall_cnt[a] += hall_cnt[a | (1 << i)];
 		}
 	}
 
