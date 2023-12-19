@@ -18,6 +18,7 @@ int main() {
 		for (int z = 0; z < N; z++) {
 			int cur = q[z];
 			int p = P[cur];
+			cerr << cur << ' ' << p << '\n';
 			bound[cur] = std::max(bound[cur] + 1, 1 + (sz[cur] - 1 + 1) / 2);
 			bound[p] = std::max(bound[p], bound[cur]);
 			sz[p] += sz[cur];
