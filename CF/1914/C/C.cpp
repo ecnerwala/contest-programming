@@ -12,12 +12,14 @@ int main() {
 		int64_t pref_a = 0;
 		int64_t ans = 0;
 		for (auto& a : A) {
-			pref_a += a;
-			K--;
-
 			int b; cin >> b;
-			best_b = std::max(best_b, b);
-			if (K >= 0) ans = std::max(ans, pref_a + int64_t(K) * best_b);
+			if (K >= 0) {
+				pref_a += a;
+				K--;
+
+				best_b = std::max(best_b, b);
+				ans = std::max(ans, pref_a + int64_t(K) * best_b);
+			}
 		}
 		cout << ans << '\n';
 	}
