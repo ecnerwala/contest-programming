@@ -8,7 +8,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		const int MOD = 998244353;
-		int cnt = 0, ways = 1;
+		int cnt = 0; int64_t ways = 1;
 
 		struct stk_t { int loc, sz, free; };
 		std::vector<stk_t> stk; stk.reserve(N);
@@ -30,7 +30,8 @@ int main() {
 				if (!stk.back().free) {
 					if (stk.size() == 1) {
 						cnt++;
-						ways = int(int64_t(ways) * stk.back().sz) % MOD;
+						ways *= stk.back().sz;
+						ways %= MOD;
 					}
 					stk.pop_back();
 				}
