@@ -25,12 +25,13 @@ int main() {
 					free += stk.back().free;
 					stk.pop_back();
 				}
-				int s = stk.back().sz += sz;
-				if (!(stk.back().free += free)) {
+				sz = stk.back().sz += sz;
+				free = stk.back().free += free;
+				if (!free) {
 					stk.pop_back();
 					if (stk.empty()) {
 						cnt++;
-						ways *= s;
+						ways *= sz;
 						ways %= MOD;
 					}
 				}
