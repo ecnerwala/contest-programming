@@ -31,8 +31,7 @@ int main() {
 					stk.pop_back();
 					if (stk.empty()) {
 						cnt++;
-						ways *= sz;
-						ways %= MOD;
+						ways = ways * sz % MOD;
 					}
 				}
 			}
