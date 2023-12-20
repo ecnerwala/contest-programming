@@ -13,9 +13,9 @@ int main() {
 		int64_t ans = 0;
 		for (auto& a : A) {
 			int b; cin >> b;
+			pref_a += a;
 			K--;
 			if (K >= 0) {
-				pref_a += a;
 
 				best_b = std::max(best_b, b);
 				ans = std::max(ans, pref_a + int64_t(K) * best_b);
