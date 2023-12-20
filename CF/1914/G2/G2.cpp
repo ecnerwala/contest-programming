@@ -25,15 +25,14 @@ int main() {
 					free += stk.back().free;
 					stk.pop_back();
 				}
-				stk.back().sz += sz;
-				stk.back().free += free;
-				if (!stk.back().free) {
-					if (stk.size() == 1) {
+				int s = stk.back().sz += sz;
+				if (!(stk.back().free += free)) {
+					stk.pop_back();
+					if (stk.empty()) {
 						cnt++;
-						ways *= stk.back().sz;
+						ways *= s;
 						ways %= MOD;
 					}
-					stk.pop_back();
 				}
 			}
 		}
