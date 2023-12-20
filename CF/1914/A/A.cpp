@@ -10,7 +10,7 @@ int main() {
 		std::array<int, 26> cnt{};
 		int ans = 0;
 		while (N--) {
-			char c; cin >> c; c -= 'a';
+			char c; cin >> c; c -= 'A';
 			ans += cnt[c]++ == c;
 		}
 		cout << ans << '\n';
