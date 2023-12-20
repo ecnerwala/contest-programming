@@ -7,7 +7,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		std::array<int, 26> cnt;
+		std::array<int, 26> cnt{};
 		int ans = 0;
 		while (N--) {
 			char c; cin >> c; c -= 'A';
