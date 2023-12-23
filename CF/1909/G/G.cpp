@@ -251,13 +251,14 @@ int main() {
 	// pick multiple of g and factor of L
 	int64_t ans = 0;
 	cerr << g << '\n';
-	for (int a = g; a <= L; a += g) {
+	for (int a = g; a <= N; a += g) {
 		if (L % a) continue;
 		cerr << "doing " << a << '\n';
 		// Now pick any two vectors which are equal mod a
 		// Starting points range from 0..N-a inclusive
 		int loops = (N-a+1) / a;
 		int extra = (N-a+1) % a;
+		cerr << loops << ' ' << extra << '\n';
 		ans += int64_t(loops) * int64_t(loops - 1) / 2 * a + int64_t(extra) * loops;
 	}
 	cout << ans << '\n';
