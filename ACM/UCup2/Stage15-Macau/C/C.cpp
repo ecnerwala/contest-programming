@@ -523,6 +523,7 @@ int main() {
 		for (int i = N-1; i >= 0; i--) {
 			alive.insert(i);
 			edge_nodes[i].own_len = 0;
+			cerr << "par " << i << ' ' << i+1 << ' ' << edge_nodes[i].own_len << '\n';
 			link_root(&edge_nodes[i], &vert_nodes[i+1], &vert_nodes[i]);
 		}
 
@@ -537,6 +538,7 @@ int main() {
 				cut(&edge_nodes[v]);
 				assert(edge_nodes[v].own_len == 0);
 				edge_nodes[v].own_len = 1;
+				cerr << "par " << v << ' ' << std::min(v + K, N) << ' ' << edge_nodes[v].own_len << '\n';
 				link_root(&edge_nodes[v], &vert_nodes[std::min(v + K, N)], &vert_nodes[v]);
 			}
 			vert_nodes[0].expose();
