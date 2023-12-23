@@ -169,9 +169,11 @@ int main() {
 				w *= pow(num(i), b - u);
 				res += w;
 			}
+			cerr << "solving " << i << ' ' << a << ' ' << j << ' ' << b << " = " << res << '\n';
 			return res;
 		};
 
+		cerr << "Starting case" << '\n';
 		for (int i = 0; i < N; i++) {
 			cin >> A[i];
 		}
