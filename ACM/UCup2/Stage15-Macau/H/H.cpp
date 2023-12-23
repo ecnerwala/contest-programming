@@ -826,14 +826,14 @@ int main() {
 
 	std::vector<std::vector<num>> ways(N);
 	for (int i = 0; i < N; i++) {
-		ways[i] = std::vector<num>(ifact.begin(), ifact.begin() + depth[i] + 1);
+		ways[i] = std::vector<num>(ifact.begin(), ifact.begin() + depth[i] + 2);
 	}
 	for (int i = N-1; i >= 0; i--) {
 		ways[i].erase(ways[i].begin());
 		if (i) {
 			int p = P[i];
 			ways[p] = ecnerwala::fft::fft_multiply(ways[i], ways[p]);
-			ways[p].resize(depth[p]+1);
+			ways[p].resize(depth[p]+2);
 		}
 	}
 	cout << ways[0][0] * fact[N] << '\n';
