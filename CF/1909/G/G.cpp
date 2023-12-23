@@ -256,10 +256,7 @@ int main() {
 		cerr << "doing " << a << '\n';
 		// Now pick any two vectors which are equal mod a
 		// Starting points range from 0..N-a inclusive
-		int loops = (N-a+1) / a;
-		int extra = (N-a+1) % a;
-		cerr << loops << ' ' << extra << '\n';
-		ans += int64_t(loops) * int64_t(loops - 1) / 2 * a + int64_t(extra) * loops;
+		ans += (N-a+1);
 	}
 	cout << ans << '\n';
 
