@@ -253,6 +253,7 @@ int main() {
 	cerr << g << '\n';
 	for (int a = g; a <= L; a += g) {
 		if (L % a) continue;
+		cerr << "doing " << a << '\n';
 		// Now pick any two vectors which are equal mod a
 		// Starting points range from 0..N-a inclusive
 		int loops = (N-a+1) / a;
