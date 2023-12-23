@@ -12,7 +12,7 @@ int main() {
 
 		// If you press all buttons, the squares will be lit
 		if (N >= 20) {
-			cout << "N" << '\n';
+			cout << N << '\n';
 			for (int i = 1; i <= N; i++) {
 				cout << i << " \n"[i==N];
 			}
