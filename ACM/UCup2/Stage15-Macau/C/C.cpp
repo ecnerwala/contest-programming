@@ -543,6 +543,7 @@ int main() {
 			}
 			vert_nodes[0].expose();
 			assert(vert_nodes[0].p && !vert_nodes[0].p->p);
+			cerr << vert_nodes[0].p->path_len << '\n';
 			cout << vert_nodes[0].p->path_len << " \n"[z+1==N];
 		}
 	}
