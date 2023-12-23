@@ -847,7 +847,7 @@ int main() {
 				res += ifact[y] * ifact[y] * sum_xz[b - y];
 			}
 			res *= (fact[j-i] * fact[i]) * (fact[j-i] * fact[i]);
-			cerr << "solving " << i << ' ' << a << ' ' << j << ' ' << b << " = " << res << '\n';
+			cerr << "solving " << i << "->" << j << ' ' << b << " = " << res << '\n';
 			return res;
 		};
 
