@@ -133,12 +133,13 @@ int main() {
 		std::vector<int> A(N);
 
 		using num = modnum<998244353>;
-		std::vector<num> fact(N+1);
+		const int V = 2*N;
+		std::vector<num> fact(V+1);
 		fact[0] = 1;
-		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(N+1);
-		ifact[N] = inv(fact[N]);
-		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(V+1);
+		ifact[V] = inv(fact[V]);
+		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		auto choose = [&](int n, int r) -> num {
 			assert(0 <= r && r <= n);
