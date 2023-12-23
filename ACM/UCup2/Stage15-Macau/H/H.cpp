@@ -829,10 +829,12 @@ int main() {
 		ways[i] = std::vector<num>(ifact.begin(), ifact.begin() + depth[i] + 1);
 	}
 	for (int i = N-1; i >= 0; i--) {
-		int p = P[i];
 		ways[i].erase(ways[i].begin());
-		ways[p] = ecnerwala::fft::fft_multiply(ways[i], ways[p]);
-		ways[p].resize(depth[p]+1);
+		if (i) {
+			int p = P[i];
+			ways[p] = ecnerwala::fft::fft_multiply(ways[i], ways[p]);
+			ways[p].resize(depth[p]+1);
+		}
 	}
 	cout << ways[0][0] * fact[N] << '\n';
 
