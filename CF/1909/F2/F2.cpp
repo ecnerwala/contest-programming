@@ -822,6 +822,7 @@ int main() {
 			// Pick b new points from a j x j square forbidding any points in the i x i square
 			// We can take O(j - i) runtime if we want
 
+			if (b < 0) return 0;
 			if (b > 2 * (j-i)) return 0;
 
 			// Pick number of things in the square
