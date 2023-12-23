@@ -250,10 +250,8 @@ int main() {
 	assert(L % g == 0);
 	// pick multiple of g and factor of L
 	int64_t ans = 0;
-	cerr << g << '\n';
 	for (int a = g; a <= N; a += g) {
 		if (L % a) continue;
-		cerr << "doing " << a << '\n';
 		// Now pick any two vectors which are equal mod a
 		// Starting points range from 0..N-a inclusive
 		ans += (N-a+1);
