@@ -516,6 +516,7 @@ int main() {
 		std::vector<my_top_tree_node> vert_nodes(N+1);
 		for (int i = 0; i <= N; i++) {
 			vert_nodes[i].is_path = vert_nodes[i].is_vert = true;
+			vert_nodes[i].update();
 		}
 		std::vector<my_top_tree_node> edge_nodes(N);
 		std::set<int> alive;
@@ -534,6 +535,7 @@ int main() {
 				int v = *std::prev(it);
 				alive.erase(std::prev(it));
 				cut(&edge_nodes[v]);
+				assert(edge_nodes[v].own_len == 0);
 				edge_nodes[v].own_len = 1;
 				link_root(&edge_nodes[v], &vert_nodes[std::min(v + K, N)], &vert_nodes[v]);
 			}
