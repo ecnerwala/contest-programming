@@ -846,14 +846,6 @@ int main() {
 			return res;
 		};
 
-		for (int i = 0; i <= N; i++) {
-			for (int j = i+1; j <= N; j++) {
-				for (int b = -N; b <= N; b++) {
-					cerr << get_ways(i, 0, j, b) << '\n';
-				}
-			}
-		}
-
 		//cerr << "Starting case" << '\n';
 		for (int i = 0; i < N; i++) {
 			cin >> A[i];
