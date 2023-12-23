@@ -832,10 +832,9 @@ int main() {
 			// Pick number of things in the square
 			num res = 0;
 			// Sum over x + y + z == b
-			// of (i choose x) * (i choose z) * (j-i multichoose x, y) * (j-i multichoose y, z)
-			// (i choose x) * (j-i)! / x! / y! / (j-i - b + z)!
-			// (i choose z) * (j-i)! / x! / y! / (j-i - b + x)!
-			// (i choose x) * (j-i)! / x! / (j-i - b + x)!
+			// of (i choose x) * (i choose z) * (j-i multichoose x, y) * (j-i multichoose y, z) * y! * x! * z!
+			// (i choose x) * (j-i)! / y! / (j-i - b + z)!
+			// (i choose z) * (j-i)! / (j-i - b + x)!
 			std::vector<num> x_coeff(j-i + 1);
 			for (int x = 0; x <= j-i && x <= i; x++) {
 				if (j - i - b + x >= 0) {
@@ -844,7 +843,7 @@ int main() {
 			}
 			auto sum_xz = ecnerwala::fft::fft_square<num>(x_coeff);
 			for (int y = 0; y <= b && y <= j-i; y++) {
-				res += ifact[y] * ifact[y] * sum_xz[b - y];
+				res += ifact[y] * sum_xz[b - y];
 			}
 			res *= (fact[j-i] * fact[i]) * (fact[j-i] * fact[i]);
 			cerr << "solving " << i << "->" << j << ' ' << b << " = " << res << '\n';
