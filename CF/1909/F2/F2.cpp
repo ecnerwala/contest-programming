@@ -139,7 +139,7 @@ int main() {
 		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
 		std::vector<num> ifact(V+1);
 		ifact[V] = inv(fact[V]);
-		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		auto choose = [&](int n, int r) -> num {
 			assert(0 <= r && r <= n);
@@ -159,7 +159,7 @@ int main() {
 			if (b > 2 * (j-i)) return 0;
 
 			// Pick number of things in the square
-			num res = 1;
+			num res = 0;
 			for (int u = 0; u <= j-i && u <= b; u++) {
 				if (b > 2 * (j-i) - u) continue;
 				num w = fact[j-i] * ifact[j-i-u];
