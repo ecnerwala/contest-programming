@@ -846,11 +846,11 @@ int main() {
 				res += ifact[y] * sum_xz[b - y];
 			}
 			res *= (fact[j-i] * fact[i]) * (fact[j-i] * fact[i]);
-			cerr << "solving " << i << "->" << j << ' ' << b << " = " << res << '\n';
+			//cerr << "solving " << i << "->" << j << ' ' << b << " = " << res << '\n';
 			return res;
 		};
 
-		cerr << "Starting case" << '\n';
+		//cerr << "Starting case" << '\n';
 		for (int i = 0; i < N; i++) {
 			cin >> A[i];
 		}
