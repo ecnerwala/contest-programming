@@ -809,7 +809,7 @@ int main() {
 	P[0] = -1;
 	for (int i = 1; i < N; i++) { cin >> P[i]; P[i]--; }
 
-	using num = modnum<998244335>;
+	using num = modnum<998244353>;
 
 	std::vector<int> depth(N);
 	depth[0] = 0;
