@@ -64,6 +64,16 @@ int main() {
 					}
 				}
 			}
+			return -1;
+		};
+		auto ans = solve();
+		if (ans == -1) {
+			cout << -1 << '\n';
+		} else {
+			cout << __builtin_popcount(ans) << '\n';
+			for (int v = ans; v > 0; v &= (v-1)) {
+				cout << __builtin_ctz(v) << " \n"[(v & (v-1)) == 0];
+			}
 		}
 	}
 
