@@ -254,9 +254,9 @@ int main() {
 	for (int a = g; a <= L; a += g) {
 		if (L % a) continue;
 		// Now pick any two vectors which are equal mod a
-		// Starting points range from 0..N inclusive
-		int loops = (N+1) / a;
-		int extra = (N+1) % a;
+		// Starting points range from 0..N-a inclusive
+		int loops = (N-a+1) / a;
+		int extra = (N-a+1) % a;
 		ans += int64_t(loops) * int64_t(loops - 1) / 2 * a + int64_t(extra) * loops;
 	}
 	cout << ans << '\n';
