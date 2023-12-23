@@ -160,8 +160,7 @@ int main() {
 
 			// Pick number of things in the square
 			num res = 0;
-			for (int u = 0; u <= j-i && u <= b; u++) {
-				if (b > 2 * (j-i) - u) continue;
+			for (int u = 0; u <= j-i && u <= b && u <= 2*(j-i)-b; u++) {
 				num w = fact[j-i] * ifact[j-i-u];
 				w *= w;
 				w *= ifact[u];
