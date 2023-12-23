@@ -139,7 +139,7 @@ int main() {
 		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
 		std::vector<num> ifact(V+1);
 		ifact[V] = inv(fact[V]);
-		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		auto choose = [&](int n, int r) -> num {
 			assert(0 <= r && r <= n);
