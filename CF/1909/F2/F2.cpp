@@ -164,6 +164,7 @@ int main() {
 				num w = fact[j-i] * ifact[j-i-u];
 				w *= w;
 				w *= ifact[u];
+				cerr << "u = " << u << ' ' << "w = " << w << '\n';
 				w *= choose(2*(j-i)-2*u, b - u);
 				w *= pow(num(i), b - u);
 				cerr << "u = " << u << ' ' << "w = " << w << '\n';
