@@ -837,7 +837,7 @@ int main() {
 					x_coeff[x] = ifact[i-x] * ifact[x] * ifact[j - i - b + x];
 				}
 			}
-			auto sum_xz = ecnerwala::fft::fft_square<num>(x_coeff);
+			auto sum_xz = ecnerwala::fft::fft_multiply<num>(x_coeff, x_coeff);
 			for (int y = 0; y <= b && y <= j-i; y++) {
 				res += ifact[y] * sum_xz[b - y];
 			}
