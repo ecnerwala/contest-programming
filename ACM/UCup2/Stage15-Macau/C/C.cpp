@@ -532,8 +532,10 @@ int main() {
 			int a = A[z];
 			// everything <= a should be killed
 			auto it = alive.upper_bound(a);
-			while (it != alive.begin()) {
+			while (true) {
+				if (it == alive.begin()) break;
 				int v = *std::prev(it);
+				if (v+K <= a) break;
 				alive.erase(std::prev(it));
 				cut(&edge_nodes[v]);
 				assert(edge_nodes[v].own_len == 0);
