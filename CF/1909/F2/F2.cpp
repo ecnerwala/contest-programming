@@ -812,11 +812,6 @@ int main() {
 		ifact[V] = inv(fact[V]);
 		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-		auto choose = [&](int n, int r) -> num {
-			assert(0 <= r && r <= n);
-			return fact[n] * ifact[r] * ifact[n-r];
-		};
-
 		auto get_ways = [&](int i, int a, int j, int b) -> num {
 			// The old points just get shoved to the beginning
 			b -= a;
