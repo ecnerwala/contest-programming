@@ -153,7 +153,6 @@ int main() {
 
 			if (b < 0) return 0;
 			if (b > 2 * (j-i)) return 0;
-			if (b > j) return 0;
 
 			num res = 0;
 			// PIE over number of things in the square.
@@ -162,7 +161,7 @@ int main() {
 			// = (i choose x)^2 * x! * (j-x choose b-x)^2 * (b-x)!
 			for (int x = 0; x <= b && x <= i; x++) {
 				auto sq = [](num a) -> num { return a * a; };
-				res += sq(fact[i] * ifact[i-x]) * ifact[x] * sq(fact[j-x] * ifact[j-b]) * ifact[b-x];
+				res += sq(fact[i] * ifact[i-x]) * ifact[x] * sq(fact[j-x] * ifact[j-b]) * ifact[b-x] * ((x & 1) ? -1 : 1);
 			}
 			return res;
 		};
