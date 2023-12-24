@@ -173,6 +173,9 @@ int main() {
 		}
 		if (A[N-1] == -1) {
 			A[N-1] = N;
+		} else if (A[N-1] != N) {
+			cout << 0 << '\n';
+			continue;
 		}
 		num ans = 1;
 		int prv_sz = 0;
@@ -185,10 +188,7 @@ int main() {
 				prv_a = cur_a;
 			}
 		}
-		assert(prv_sz == N);
-		if (prv_a != N) {
-			ans = 0;
-		}
+		assert(prv_sz == N && prv_a == N);
 		cout << ans << '\n';
 	}
 
