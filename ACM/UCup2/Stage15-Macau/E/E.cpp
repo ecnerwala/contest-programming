@@ -15,22 +15,20 @@ int main() {
 		std::vector<int> inv_B(N);
 		for (int i = 0; i < N; i++) inv_B[B[i]] = i;
 		// earliest guy in b
-		std::vector<std::pair<int, int>> stk; stk.reserve(N);
+		std::vector<int> stk; stk.reserve(N);
 		for (auto a : A) {
-			while (!stk.empty() && stk.back().first < a) {
-				auto r = stk.back().second;
+			while (!stk.empty() && stk.back() < a) {
 				stk.pop_back();
-				if (!stk.empty()) stk.back().second = std::min(stk.back().second, r);
 			}
 			if (!stk.empty()) {
-				if (stk.back().second < inv_B[a]) {
-					edges.push_back({B[stk.back().second], a});
+				if (inv_B[stk.back()] < inv_B[a]) {
+					edges.push_back({stk.back(), a});
 				} else {
 					cout << "No" << '\n';
 					exit(0);
 				}
 			}
-			stk.push_back({a, inv_B[a]});
+			stk.push_back(a);
 		}
 		std::swap(A, B);
 		for (auto& a : A) { a = N-1-a;}
@@ -38,6 +36,7 @@ int main() {
 		for (auto& [u, v] : edges) { u = N-1-u, v = N-1-v; }
 	}
 	cout << "Yes" << '\n';
+	cout << edges.size() << '\n';
 	for (auto [u, v] : edges) {
 		cout << u+1 << ' ' << v+1 << '\n';
 	}
