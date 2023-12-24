@@ -160,7 +160,7 @@ int main() {
 			// 1 / b! * (b choose x) * (-1)^{x} * (i choose x)^2 * x!^2 * (j-x choose b-x)^2 * (b-x)!^2
 			// = (i choose x)^2 * x! * (j-x choose b-x)^2 * (b-x)!
 			for (int x = 0; x <= b && x <= i; x++) {
-				auto sq = [](num a) -> num { return a * a; };
+				auto sq = [](num v) -> num { return v * v; };
 				res += sq(fact[i] * ifact[i-x]) * ifact[x] * sq(fact[j-x] * ifact[j-b]) * ifact[b-x] * ((x & 1) ? -1 : 1);
 			}
 			return res;
