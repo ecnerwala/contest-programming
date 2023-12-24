@@ -159,10 +159,11 @@ int main() {
 			// If we fix x of them inside the square, we have
 			// 1 / b! * (b choose x) * (-1)^{x} * (i choose x)^2 * x!^2 * (j-x choose b-x)^2 * (b-x)!^2
 			// = (i choose x)^2 * x! * (j-x choose b-x)^2 * (b-x)!
+			auto sq = [](num v) -> num { return v * v; };
 			for (int x = 0; x <= b && x <= i; x++) {
-				auto sq = [](num v) -> num { return v * v; };
-				res += sq(fact[i] * ifact[i-x]) * ifact[x] * sq(fact[j-x] * ifact[j-b]) * ifact[b-x] * ((x & 1) ? -1 : 1);
+				res += sq(fact[j-x] * ifact[i-x]) * ifact[x] * ifact[b-x] * ((x & 1) ? -1 : 1);
 			}
+			res *= sq(fact[i] * ifact[j-b]);
 			return res;
 		};
 
