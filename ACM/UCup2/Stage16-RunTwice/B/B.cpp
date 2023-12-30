@@ -16,7 +16,7 @@ int main() {
 		} else {
 			A.push_back(N);
 		}
-		cout << A.size() << '\n';
+		cout << N << ' ' << A.size() << '\n';
 		for (int i = 0; i < int(A.size()); i++) {
 			cout << A[i] << " \n"[i+1==int(A.size())];
 		}
