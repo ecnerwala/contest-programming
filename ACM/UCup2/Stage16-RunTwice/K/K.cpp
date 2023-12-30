@@ -246,31 +246,75 @@ obj_t bracket_to_obj(std::pair<std::string, int> a) {
 	} else assert(false);
 }
 
-std::vector<int64_t> catalan;
-int64_t bracket_to_number(std::string s) {
+std::vector<std::vector<uint64_t>> ways_finish;
+uint64_t bracket_to_number(std::string s) {
 	int L = int(s.size());
+	int v = 0;
+	uint64_t ans = 0;
+	for (char c : s) {
+		// open is before close
+		if (c == '(') {
+			L--;
+			v++;
+		} else {
+			if (v+1 <= L-1) {
+				ans += ways_finish[L-1][v+1];
+			}
+			L--;
+			v--;
+		}
+	}
+	return ans;
 }
-int64_t number_to_bracket(std::string s) {
+
+std::string number_to_bracket(int L, uint64_t ans) {
+	L *= 2;
+	int v = 0;
+	std::string s; s.reserve(L);
+	while (L > 0) {
+		uint64_t num_open = 0;
+		if (v+1 <= L-1) num_open = ways_finish[L-1][v+1];
+		if (ans >= num_open) {
+			ans -= num_open;
+			s += ')';
+			L--;
+			v--;
+		} else {
+			s += '(';
+			L--;
+			v++;
+		}
+	}
+	return s;
 }
 
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	int L, T; cin >> L >> T;
-	catalan.resize(35+1);
-	catalan[0] = 1;
-	for (int i = 1; i <= 35; i++) {
-		for (int a = 0; a < i; a++) {
-			catalan[i] += catalan[a] * catalan[i-a-1];
+	ways_finish.resize(35 * 2 + 1);
+	for (int i = 0; i <= 35 * 2; i++) {
+		ways_finish[i].resize(i+1);
+		if (i == 0) {
+			ways_finish[i][i] = 1;
+			continue;
+		}
+		for (int j = 0; j <= i; j++) {
+			if (j-1 >= 0) ways_finish[i][j] += ways_finish[i-1][j-1];
+			if (j+1 <= i-1) ways_finish[i][j] += ways_finish[i-1][j+1];
 		}
 	}
+	int L, T; cin >> L >> T;
+	assert(L <= 35);
 
 	while (T--) {
 		auto o = read_obj(L);
 
-		print_obj(cerr, o);
+		//print_obj(cerr, o);
 		auto v = obj_to_bracket(o);
 		cerr << v.first << ' ' << v.second << '\n';
+		auto v2 = number_to_bracket(L, bracket_to_number(v.first));
+		cerr << v2 << '\n';
+		assert(v2 == v.first);
 		auto b = bracket_to_obj(v);
 		print_obj(cerr, b);
 		assert(o == b);
