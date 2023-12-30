@@ -146,7 +146,6 @@ int main() {
 
 	num res = ans[0] = 1;
 	num denom = 1;
-	num v = 1;
 	for (int j = 1; j <= K; j++) {
 		auto sq = [](num x) { return x * x; };
 		res *= pow_P[j-1];
