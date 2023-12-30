@@ -810,7 +810,17 @@ int main() {
 	num res = 1;
 	for (int j = 1; j <= K; j++) {
 		auto sq = [](num x) { return x * x; };
-		res *= pow(P, j-1) * sq(pow(P, N-j+1) - 1) * inv(pow(P, j) - 1);
+		if (res != 0) {
+			num v = pow(P, j-1);
+			res *= v;
+			res *= sq(pow(P, N-j+1) - 1);
+			v *= P;
+			if (v == 1) {
+				res = 0;
+			} else {
+				res *= inv(v - 1);
+			}
+		}
 		cout << ' ' << res;
 	}
 	cout << '\n';
