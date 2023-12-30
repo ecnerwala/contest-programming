@@ -146,7 +146,7 @@ std::string perm_to_bracket(perm_t res) {
 			nxt_val++;
 		}
 	}
-	assert(nxt_val == L);
+	assert(nxt_val == L+1);
 	return s;
 }
 
