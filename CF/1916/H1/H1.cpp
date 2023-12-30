@@ -808,10 +808,10 @@ int main() {
 
 	cout << 1;
 	num res = 1;
+	num v = 1;
 	for (int j = 1; j <= K; j++) {
 		auto sq = [](num x) { return x * x; };
 		if (res != 0) {
-			num v = pow(P, j-1);
 			res *= v;
 			res *= sq(pow(P, N-j+1) - 1);
 			v *= P;
