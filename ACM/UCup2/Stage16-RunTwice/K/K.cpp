@@ -321,6 +321,7 @@ int main() {
 		cerr << '\n';
 
 	}
+	cerr << ways_finish[70][0] * 3 << '\n';
 
 	return 0;
 }
