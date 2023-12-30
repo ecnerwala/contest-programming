@@ -257,8 +257,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 	int L, T; cin >> L >> T;
-	catalan.reserve(35+1);
-	catalan.push_back(1);
+	catalan.resize(35+1);
+	catalan[0] = 1;
 	for (int i = 1; i <= 35; i++) {
 		for (int a = 0; a < i; a++) {
 			catalan[i] += catalan[a] * catalan[i-a-1];
