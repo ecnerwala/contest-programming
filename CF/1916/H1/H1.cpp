@@ -811,8 +811,9 @@ int main() {
 	for (int j = 1; j <= K; j++) {
 		auto sq = [](num x) { return x * x; };
 		res *= pow(P, j-1) * sq(pow(P, N-j+1) - 1) * inv(pow(P, j) - 1);
-		cout << res << " \n"[j==K];
+		cout << ' ' << res;
 	}
+	cout << '\n';
 
 	return 0;
 }
