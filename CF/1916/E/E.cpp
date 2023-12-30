@@ -382,7 +382,6 @@ int main() {
 			int cur_best = 1;
 			for (int nxt : ch[cur]) {
 				int cnd = query_range(st[nxt], en[nxt]);
-				cerr << cur << ' ' << nxt << ' ' << cnd << '\n';
 				ans = std::max(ans, int64_t(cur_best) * int64_t(cnd));
 				cur_best = std::max(cur_best, cnd);
 			}
