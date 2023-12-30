@@ -221,7 +221,7 @@ int main() {
 				std::vector<int64_t> all_facs; all_facs.push_back(1);
 				for (int z = 0; z < int(pfacs.size()); ) {
 					int cnt = 0;
-					int64_t p = pfacs[z];
+					auto p = pfacs[z];
 					while (z < int(pfacs.size()) && pfacs[z] == p) {
 						cnt++;
 						z++;
