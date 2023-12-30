@@ -138,8 +138,9 @@ int main() {
 		auto o = read_obj(L);
 		auto s = poly_to_bracket(std::get<poly_t>(o));
 		cerr << s << '\n';
-		auto b = bracket_to_poly(s);
-		assert(o == obj_t(b));
+		auto b = obj_t(bracket_to_poly(s));
+		print_obj(b);
+		assert(o == b);
 	}
 
 	return 0;
