@@ -321,7 +321,7 @@ int main() {
 			int nxt_idx = 0;
 			std::vector<int> prv_occ(N, -1);
 			std::y_combinator([&](auto self, int cur) -> void {
-				int p = std::exchange(prv_occ[cur], cur);
+				int p = std::exchange(prv_occ[A[cur]], cur);
 				if (p != -1) {
 					deletes[p].push_back(cur);
 				}
@@ -331,7 +331,7 @@ int main() {
 					self(nxt);
 				}
 				en[cur] = nxt_idx;
-				prv_occ[cur] = p;
+				prv_occ[A[cur]] = p;
 			})(0);
 		}
 
@@ -382,6 +382,7 @@ int main() {
 			int cur_best = 1;
 			for (int nxt : ch[cur]) {
 				int cnd = query_range(st[nxt], en[nxt]);
+				cerr << cur << ' ' << nxt << ' ' << cnd << '\n';
 				ans = std::max(ans, int64_t(cur_best) * int64_t(cnd));
 				cur_best = std::max(cur_best, cnd);
 			}
