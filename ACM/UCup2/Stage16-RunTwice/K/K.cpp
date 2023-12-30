@@ -253,10 +253,6 @@ int64_t bracket_to_number(std::string s) {
 int64_t number_to_bracket(std::string s) {
 }
 
-std::pair<std::string, int> biject_brackets(std::pair<std::string, int> s) {
-	a.second = (a.second + (parity(a.first) ? 1 : 2)) % 3;
-}
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
