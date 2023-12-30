@@ -12,29 +12,29 @@ using tria_t = std::vector<std::array<int, 3>>;
 
 using obj_t = std::variant<poly_t, perm_t, tria_t>;
 
-void print_poly(const poly_t& v) {
-	cout << "poly" << '\n';
-	cout << int(v.size()) << ' ' << int(v[0].size()) << '\n';
-	for (auto& r : v) cout << r << '\n';
+void print_poly(std::ostream& os, const poly_t& v) {
+	os << "poly" << '\n';
+	os << int(v.size()) << ' ' << int(v[0].size()) << '\n';
+	for (auto& r : v) os << r << '\n';
 }
-void print_perm(const perm_t& v) {
-	cout << "perm" << '\n';
+void print_perm(std::ostream& os, const perm_t& v) {
+	os << "perm" << '\n';
 	for (int i = 0; i < int(v.size()); i++) {
-		cout << v[i] << " \n"[i+1==int(v.size())];
+		os << v[i] << " \n"[i+1==int(v.size())];
 	}
 }
-void print_tria(const tria_t& v) {
-	cout << "triang" << '\n';
-	for (auto& r : v) cout << r[0] << ' ' << r[1] << ' ' << r[2] << '\n';
+void print_tria(std::ostream& os, const tria_t& v) {
+	os << "triang" << '\n';
+	for (auto& r : v) os << r[0] << ' ' << r[1] << ' ' << r[2] << '\n';
 }
 
-void print_obj(const obj_t& v) {
+void print_obj(std::ostream& os, const obj_t& v) {
 	if (std::holds_alternative<poly_t>(v)) {
-		print_poly(std::get<poly_t>(v));
+		print_poly(os, std::get<poly_t>(v));
 	} else if (std::holds_alternative<perm_t>(v)) {
-		print_perm(std::get<perm_t>(v));
+		print_perm(os, std::get<perm_t>(v));
 	} else if (std::holds_alternative<tria_t>(v)) {
-		print_tria(std::get<tria_t>(v));
+		print_tria(os, std::get<tria_t>(v));
 	} else assert(false);
 }
 
@@ -129,6 +129,78 @@ std::string poly_to_bracket(poly_t res) {
 	return s;
 }
 
+std::string perm_to_bracket(perm_t res) {
+	int L = int(res.size());
+	std::string s;
+	int nxt_val = 1;
+	for (int i = 0; i < int(res.size()); i++) {
+		if (res[i] < nxt_val) {
+			s += ')';
+		} else {
+			while (res[i] > nxt_val) {
+				s += '(';
+				nxt_val++;
+			}
+			s += '(';
+			s += ')';
+			nxt_val++;
+		}
+	}
+	assert(nxt_val == L);
+	return s;
+}
+
+perm_t bracket_to_perm(std::string s) {
+	int L = int(s.size()) / 2;
+	std::vector<int> q; q.reserve(L);
+	perm_t res; res.reserve(L);
+	int nxt_val = 1;
+	int idx = 0;
+	for (char c : s) {
+		if (c == '(') {
+			q.push_back(nxt_val);
+			nxt_val++;
+		} else if (c == ')') {
+			assert(idx < int(q.size()));
+			if (q.back() == nxt_val - 1) {
+				res.push_back(q.back());
+				q.pop_back();
+			} else {
+				res.push_back(q[idx]);
+				idx++;
+			}
+		} else assert(false);
+	}
+	return res;
+}
+
+std::string tria_to_bracket(tria_t res) {
+}
+
+tria_t bracket_to_tria(std::string s) {
+}
+
+std::pair<std::string, int> obj_to_bracket(obj_t v) {
+	if (std::holds_alternative<poly_t>(v)) {
+		return {poly_to_bracket(std::get<poly_t>(v)), 0};
+	} else if (std::holds_alternative<perm_t>(v)) {
+		return {perm_to_bracket(std::get<perm_t>(v)), 1};
+	} else if (std::holds_alternative<tria_t>(v)) {
+		return {tria_to_bracket(std::get<tria_t>(v)), 2};
+	} else assert(false);
+}
+
+obj_t bracket_to_obj(std::pair<std::string, int> a) {
+	auto [s, t] = a;
+	if (t == 0) {
+		return obj_t(bracket_to_poly(s));
+	} else if (t == 1) {
+		return obj_t(bracket_to_perm(s));
+	} else if (t == 2) {
+		return obj_t(bracket_to_tria(s));
+	} else assert(false);
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -136,11 +208,15 @@ int main() {
 
 	while (T--) {
 		auto o = read_obj(L);
-		auto s = poly_to_bracket(std::get<poly_t>(o));
-		cerr << s << '\n';
-		auto b = obj_t(bracket_to_poly(s));
-		print_obj(b);
+
+		print_obj(cerr, o);
+		auto v = obj_to_bracket(o);
+		cerr << v.first << ' ' << v.second << '\n';
+		auto b = bracket_to_obj(v);
+		print_obj(cerr, b);
 		assert(o == b);
+		cerr << '\n';
+
 	}
 
 	return 0;
