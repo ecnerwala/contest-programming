@@ -148,10 +148,9 @@ int main() {
 	num v = 1;
 	for (int j = 1; j <= K; j++) {
 		auto sq = [](num x) { return x * x; };
-		res *= v;
+		res *= pow_P[j-1];
 		res *= sq(v_hi * pow_P[K-j] - 1);
-		v *= P;
-		res *= inv(v - 1);
+		res *= inv(pow_P[j] - 1);
 		ans[j] = res;
 	}
 
