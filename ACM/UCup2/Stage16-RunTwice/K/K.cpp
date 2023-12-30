@@ -175,9 +175,55 @@ perm_t bracket_to_perm(std::string s) {
 }
 
 std::string tria_to_bracket(tria_t res) {
+	int L = int(res.size());
+	// We have an L+2-gon, let's break it at 0..L+2
+	// Then, for each triangle, we keep only its first edge
+	std::vector<int> cnt_open(L+1), cnt_close(L+1);
+	for (auto [a, b, c] : res) {
+		cnt_open[a-1]++;
+		cnt_close[b-1]++;
+	}
+	std::string s;
+	for (int i = 0; i < L+1; i++) {
+		for (int z = 0; z < cnt_close[i]; z++) s += ')';
+		for (int z = 0; z < cnt_open[i]; z++) s += '(';
+	}
+	return s;
 }
 
 tria_t bracket_to_tria(std::string s) {
+	int L = int(s.size()) / 2;
+	tria_t res; res.reserve(L);
+	tria_t stk; stk.reserve(L);
+	int idx = 0;
+	int cur_vert = 1;
+	for (char c : s) {
+		if (c == '(') {
+			stk.push_back({cur_vert, -1, -1});
+		} else if (c == ')') {
+			// we need to close some guys
+			cur_vert++;
+			while (true) {
+				if (stk.back()[1] == -1) {
+					stk.back()[1] = cur_vert;
+					break;
+				} else {
+					stk.back()[2] = cur_vert;
+					res.push_back(stk.back());
+					stk.pop_back();
+				}
+			}
+		} else assert(false);
+	}
+	cur_vert++;
+	while (!stk.empty()) {
+		stk.back()[2] = cur_vert;
+		res.push_back(stk.back());
+		stk.pop_back();
+	}
+	assert(int(res.size()) == L);
+	std::sort(res.begin(), res.end());
+	return res;
 }
 
 std::pair<std::string, int> obj_to_bracket(obj_t v) {
