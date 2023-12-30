@@ -321,15 +321,14 @@ int main() {
 	while (T--) {
 		auto o = read_obj(L);
 
-		//print_obj(cerr, o);
 		auto v = obj_to_number(L, o);
+		if (v >= m) v -= m;
+		else v += m;
 		auto b = number_to_obj(L, v);
-		print_obj(cerr, b);
-		assert(o == b);
-		cerr << '\n';
+		print_obj(cout, b);
 
 	}
-	cerr << ways_finish[70][0] * 3 << '\n';
+	//cerr << ways_finish[70][0] * 3 << '\n';
 
 	return 0;
 }
