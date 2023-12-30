@@ -298,6 +298,15 @@ obj_t number_to_obj(int L, uint64_t ans) {
 	return bracket_to_obj({s, ans / ways_finish[2*L][0]});
 }
 
+obj_t biject(int L, obj_t o) {
+	uint64_t m = ways_finish[2*L][0] / 2 * 3;
+
+	auto v = obj_to_number(L, o);
+	if (v >= m) v -= m;
+	else v += m;
+	return number_to_obj(L, v);
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -316,17 +325,11 @@ int main() {
 	int L, T; cin >> L >> T;
 	assert(L <= 35);
 
-	uint64_t m = ways_finish[2*L][0] / 2 * 3;
-
 	while (T--) {
-		auto o = read_obj(L);
-
-		auto v = obj_to_number(L, o);
-		if (v >= m) v -= m;
-		else v += m;
-		auto b = number_to_obj(L, v);
-		print_obj(cout, b);
-
+		obj_t o = read_obj(L);
+		obj_t r = biject(L, o);
+		print_obj(cout, r);
+		assert(biject(L, r) == o);
 	}
 	//cerr << ways_finish[70][0] * 3 << '\n';
 
