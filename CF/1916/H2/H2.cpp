@@ -144,18 +144,15 @@ int main() {
 
 	num v_hi = pow(P, N+1-K);
 
-	num res = 1;
+	num res = ans[0] = 1;
 	num v = 1;
 	for (int j = 1; j <= K; j++) {
 		auto sq = [](num x) { return x * x; };
 		res *= v;
 		res *= sq(v_hi * pow_P[K-j] - 1);
 		v *= P;
-		if (v == 1) {
-			res = 0;
-		} else {
-			res *= inv(v - 1);
-		}
+		res *= inv(v - 1);
+		ans[j] = res;
 	}
 
 	for (int i = 0; i < int(ans.size()); i++) {
