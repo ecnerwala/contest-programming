@@ -806,13 +806,12 @@ int main() {
 	using num = modnum<998244353>;
 	int64_t N; num P; int K; cin >> N >> P >> K;
 
-	for (int r = 0; r <= K; r++) {
-		num res = 1;
-		for (int j = 1; j <= r; j++) {
-			auto sq = [](num x) { return x * x; };
-			res *= pow(P, j-1) * sq(pow(P, N-j+1) - 1) * inv(pow(P, j) - 1);
-		}
-		cout << res << " \n"[r==K];
+	cout << 1;
+	num res = 1;
+	for (int j = 1; j <= K; j++) {
+		auto sq = [](num x) { return x * x; };
+		res *= pow(P, j-1) * sq(pow(P, N-j+1) - 1) * inv(pow(P, j) - 1);
+		cout << res << " \n"[j==K];
 	}
 
 	return 0;
