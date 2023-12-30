@@ -145,13 +145,14 @@ int main() {
 	num v_hi = pow(P, N+1-K);
 
 	num res = ans[0] = 1;
+	num denom = 1;
 	num v = 1;
 	for (int j = 1; j <= K; j++) {
 		auto sq = [](num x) { return x * x; };
 		res *= pow_P[j-1];
 		res *= sq(v_hi * pow_P[K-j] - 1);
-		res *= inv(pow_P[j] - 1);
-		ans[j] = res;
+		denom *= pow_P[j] - 1;
+		ans[j] = res / denom;
 	}
 
 	for (int i = 0; i < int(ans.size()); i++) {
