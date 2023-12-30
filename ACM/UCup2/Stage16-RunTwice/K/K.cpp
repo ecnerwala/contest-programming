@@ -288,6 +288,16 @@ std::string number_to_bracket(int L, uint64_t ans) {
 	return s;
 }
 
+uint64_t obj_to_number(int L, obj_t v) {
+	auto [s, t] = obj_to_bracket(v);
+	return bracket_to_number(s) + ways_finish[2*L][0] * t;
+}
+
+obj_t number_to_obj(int L, uint64_t ans) {
+	auto s = number_to_bracket(L, ans % ways_finish[2*L][0]);
+	return bracket_to_obj({s, ans / ways_finish[2*L][0]});
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -306,16 +316,14 @@ int main() {
 	int L, T; cin >> L >> T;
 	assert(L <= 35);
 
+	uint64_t m = ways_finish[2*L][0] / 2 * 3;
+
 	while (T--) {
 		auto o = read_obj(L);
 
 		//print_obj(cerr, o);
-		auto v = obj_to_bracket(o);
-		cerr << v.first << ' ' << v.second << '\n';
-		auto v2 = number_to_bracket(L, bracket_to_number(v.first));
-		cerr << v2 << '\n';
-		assert(v2 == v.first);
-		auto b = bracket_to_obj(v);
+		auto v = obj_to_number(L, o);
+		auto b = number_to_obj(L, v);
 		print_obj(cerr, b);
 		assert(o == b);
 		cerr << '\n';
