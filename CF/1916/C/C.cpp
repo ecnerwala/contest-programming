@@ -19,6 +19,7 @@ int main() {
 			cur_even += !(A[i-1] & 1);
 
 			int64_t ans = cur_sum - (cur_odd / 3) - (cur_odd % 3 == 1);
+			if (i == 1) ans = cur_sum;
 			cout << ans << " \n"[i==N];
 		}
 	}
