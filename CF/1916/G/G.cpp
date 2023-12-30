@@ -232,8 +232,6 @@ int main() {
 						all_facs.push_back(all_facs[a] * p);
 					}
 				}
-				// TODO: we could mergesort as we go
-				std::sort(all_facs.begin(), all_facs.end());
 
 				for (auto k : all_facs) {
 					int v = 1;
