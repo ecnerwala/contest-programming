@@ -28,7 +28,7 @@ std::string bits_to_string(std::vector<bool> V) {
 }
 
 std::vector<int> Alisa(std::string S, std::vector<int> V) {
-	assert(int(V.size()) == 10000);
+	//assert(int(V.size()) == 10000);
 	auto B = string_to_bits(S);
 	int L = int(V.size()) / int(B.size());
 	int cur = 0;
