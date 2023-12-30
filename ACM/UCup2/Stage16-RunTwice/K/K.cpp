@@ -195,7 +195,6 @@ tria_t bracket_to_tria(std::string s) {
 	int L = int(s.size()) / 2;
 	tria_t res; res.reserve(L);
 	tria_t stk; stk.reserve(L);
-	int idx = 0;
 	int cur_vert = 1;
 	for (char c : s) {
 		if (c == '(') {
@@ -247,10 +246,28 @@ obj_t bracket_to_obj(std::pair<std::string, int> a) {
 	} else assert(false);
 }
 
+std::vector<int64_t> catalan;
+int64_t bracket_to_number(std::string s) {
+	int L = int(s.size());
+}
+int64_t number_to_bracket(std::string s) {
+}
+
+std::pair<std::string, int> biject_brackets(std::pair<std::string, int> s) {
+	a.second = (a.second + (parity(a.first) ? 1 : 2)) % 3;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 	int L, T; cin >> L >> T;
+	catalan.reserve(35+1);
+	catalan.push_back(1);
+	for (int i = 1; i <= 35; i++) {
+		for (int a = 0; a < i; a++) {
+			catalan[i] += catalan[a] * catalan[i-a-1];
+		}
+	}
 
 	while (T--) {
 		auto o = read_obj(L);
