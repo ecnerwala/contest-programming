@@ -210,11 +210,11 @@ int main() {
 		}
 		int64_t ans = 0;
 		std::vector<hash_map<int64_t, int>> dp(N);
-		std::y_combinator([&](auto self, int cur, int prv, int d) -> void {
+		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			for (auto [nxt, w] : adj[cur]) {
 				if (nxt == prv) continue;
 
-				self(nxt, cur, d+1);
+				self(nxt, cur);
 
 				auto pfacs = kactl::factor(w);
 				std::sort(pfacs.begin(), pfacs.end());
@@ -243,7 +243,7 @@ int main() {
 					ans = std::max(ans, k * (u + v));
 					u = std::max(u, v);
 				}
-				dp[nxt].clear();
+				dp[nxt] = {};
 			}
 		})(0, -1, 0);
 
