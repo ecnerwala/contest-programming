@@ -152,7 +152,12 @@ int main() {
 		res *= pow_P[j-1];
 		res *= sq(v_hi * pow_P[K-j] - 1);
 		denom *= pow_P[j] - 1;
-		ans[j] = res / denom;
+		ans[j] = res;
+	}
+	denom = inv(denom);
+	for (int j = K; j > 0; j--) {
+		ans[j] *= denom;
+		denom *= pow_P[j] - 1;
 	}
 
 	for (int i = 0; i < int(ans.size()); i++) {
