@@ -131,7 +131,6 @@ int main() {
 
 	std::vector<num> ans(K+1);
 
-	if (N < K) K = int(N);
 	std::vector<num> pow_P(K+1);
 	pow_P[0] = 1;
 	for (int i = 1; i <= K; i++) {
@@ -162,7 +161,6 @@ int main() {
 	for (int i = 0; i < int(ans.size()); i++) {
 		cout << ans[i] << " \n"[i+1==int(ans.size())];
 	}
-
 
 	return 0;
 }
