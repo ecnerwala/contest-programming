@@ -16,10 +16,11 @@ int main() {
 		} else {
 			A.push_back(N);
 		}
-		cout << A.size() << 'n';
+		cout << A.size() << '\n';
 		for (int i = 0; i < int(A.size()); i++) {
 			cout << A[i] << " \n"[i+1==int(A.size())];
 		}
+		if (A.empty()) cout << '\n';
 	}
 
 	return 0;
