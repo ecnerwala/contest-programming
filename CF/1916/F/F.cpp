@@ -78,7 +78,7 @@ int main() {
 					d = edge_dir[lowval[cur]];
 				}
 				edge_dir[cur] = d;
-				auto v = self(nxt, d);
+				auto v = self(nxt);
 				if (!d) {
 					std::swap(res, v);
 				}
@@ -86,7 +86,7 @@ int main() {
 				res[1] = v[1];
 			}
 			return res;
-		})(0, true);
+		})(0);
 		int cur = lst[0];
 		for (int l : {N1, N2}) {
 			for (int i = 0; i < l; i++) {
