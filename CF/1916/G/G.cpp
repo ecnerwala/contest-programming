@@ -78,6 +78,7 @@ int main() {
 		});
 		compute_sz(0, -1);
 		std::y_combinator([&](auto self_centroid, int rt) -> void {
+			cerr << "dfs " << rt << '\n';
 			assert(alive[rt]);
 			int tot_sz = sz[rt];
 			while (true) {
@@ -94,6 +95,7 @@ int main() {
 				prv = rt;
 				rt = nxt;
 			}
+			cerr << "set rt to " << rt << '\n';
 			compute_sz(rt, -1);
 
 			// Now, solve everything here
