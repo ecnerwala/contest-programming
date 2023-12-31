@@ -42,7 +42,6 @@ int main() {
 		std::vector<int> depth(N, -1);
 		std::vector<std::vector<int>> ch(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
-			cerr << "dfs 1 " << cur << ' ' << prv << '\n';
 			depth[cur] = prv != -1 ? depth[prv] + 1 : 0;
 			lowval[cur] = depth[cur];
 			low_ch[cur] = -1;
@@ -69,7 +68,6 @@ int main() {
 		std::vector<bool> edge_dir(N, false);
 		std::vector<int> lst_nxt(N, -1);
 		auto lst = std::y_combinator([&](auto self, int cur, bool cur_dir) -> std::array<int, 2> {
-			cerr << "dfs 2 " << cur << ' ' << cur_dir << '\n';
 			std::array<int, 2> res{cur, cur};
 			for (int nxt : ch[cur]) {
 				bool d;
@@ -85,24 +83,15 @@ int main() {
 				if (!d) {
 					std::swap(res, v);
 				}
-				cerr << "joining " << res[0] << '-' << res[1] << " with " << v[0] << '-' << v[1] << '\n';
 				lst_nxt[res[1]] = v[0];
 				res[1] = v[1];
 			}
 			return res;
 		})(0, true);
-		std::vector<int> ans;
-		ans.reserve(N);
 		int cur = lst[0];
 		for (int i = 0; i < N; i++) {
-			ans.push_back(cur);
+			cout << cur << " \n"[(i+1==N1) || (i+1 == N1+N2)];
 			cur = lst_nxt[cur];
-		}
-		for (int i = 0; i < N1; i++) {
-			cout << ans[i]+1 << " \n"[i+1==N1];
-		}
-		for (int i = 0; i < N2; i++) {
-			cout << ans[N1+i]+1 << " \n"[i+1==N2];
 		}
 	}
 
