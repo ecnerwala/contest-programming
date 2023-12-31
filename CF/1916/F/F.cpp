@@ -49,8 +49,12 @@ int main() {
 				if (depth[nxt] == -1) {
 					ch[cur].push_back(nxt);
 					self(nxt, cur);
+					if (lowval[nxt] > lowval[cur]) {
+						assert(N == 2);
+						// Just make it a double bridge
+						lowval[nxt] = depth[cur];
+					}
 					lowval[cur] = std::min(lowval[cur], lowval[nxt]);
-					assert(lowval[nxt] <= depth[cur]);
 				} else if (depth[nxt] < depth[cur]) {
 					lowval[cur] = std::min(lowval[cur], depth[nxt]);
 				} else {
@@ -58,6 +62,7 @@ int main() {
 				}
 			}
 		})(0, -1);
+
 		// true is after, false is before
 		std::vector<bool> edge_dir(N, false);
 		std::vector<int> lst_nxt(N, -1);
@@ -66,7 +71,6 @@ int main() {
 			for (int nxt : ch[cur]) {
 				// If lowval == depth, we get to pick the direction.
 				// We could extend this further down a single path if we wanted
-				//assert(lowval[nxt] <= depth[cur]);
 				bool d = lowval[nxt] == depth[cur] ? true : !edge_dir[lowval[nxt]];
 				edge_dir[depth[cur]] = d;
 
