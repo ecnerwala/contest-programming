@@ -49,7 +49,7 @@ int main() {
 				if (depth[nxt] == -1) {
 					ch[cur].push_back(nxt);
 					self(nxt, cur);
-					if (lowval[nxt] > lowval[cur]) {
+					if (lowval[nxt] > depth[cur]) {
 						assert(N == 2);
 						// Just make it a double bridge
 						lowval[nxt] = depth[cur];
