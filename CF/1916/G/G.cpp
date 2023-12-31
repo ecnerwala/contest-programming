@@ -105,7 +105,9 @@ int main() {
 				std::vector<hash_map<int64_t, int>> dp; dp.reserve(adj[rt].size());
 				for (auto [ch, ch_w] : adj[rt]) {
 					if (!alive[ch]) continue;
-					hash_map<int64_t, int> ch_best_depth;
+					int ch_idx = int(dp.size());
+					dp.emplace_back();
+					auto& ch_best_depth = dp.back();
 					std::y_combinator([&](auto self, int cur, int prv, int d, int64_t cur_w) -> void {
 						setmax(ch_best_depth[cur_w], d);
 						setmax(ans, cur_w * d);
@@ -114,7 +116,6 @@ int main() {
 							self(nxt, cur, d+1, std::gcd(nxt_w, cur_w));
 						}
 					})(ch, rt, 1, ch_w);
-					int ch_idx = int(dp.size());
 					for (auto [w, d] : ch_best_depth) {
 						std::pair<int, int> v(d, ch_idx + 1);
 						auto& [a, b] = best_depth[w];
@@ -123,8 +124,6 @@ int main() {
 							if (b.first > a.first) std::swap(a, b);
 						}
 					}
-					dp.emplace_back();
-					dp.back().swap(ch_best_depth);
 				}
 				for (int ch_idx = 0; ch_idx < int(dp.size()); ch_idx++) {
 					const auto& ch_best_depth = dp[ch_idx];
