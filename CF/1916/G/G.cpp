@@ -86,8 +86,8 @@ int main() {
 					int nxt = -1;
 					for (auto [ch, _] : adj[rt]) {
 						if (ch == prv) continue;
+						if (!alive[ch]) continue;
 						if (2 * sz[ch] > tot_sz) {
-							assert(alive[ch]);
 							nxt = ch;
 							break;
 						}
@@ -113,6 +113,7 @@ int main() {
 							setmax(ans, cur_w * d);
 							for (auto [nxt, nxt_w] : adj[cur]) {
 								if (nxt == prv) continue;
+								if (!alive[nxt]) continue;
 								self(nxt, cur, d+1, std::gcd(nxt_w, cur_w));
 							}
 						})(ch, rt, 1, ch_w);
