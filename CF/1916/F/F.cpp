@@ -83,6 +83,7 @@ int main() {
 				if (!d) {
 					std::swap(res, v);
 				}
+				cerr << "joining " << res[0] << '-' << res[1] << " with " << v[0] << '-' << v[1] << '\n';
 				lst_nxt[res[1]] = v[0];
 				res[1] = v[1];
 			}
