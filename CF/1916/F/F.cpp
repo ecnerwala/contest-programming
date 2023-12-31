@@ -48,13 +48,9 @@ int main() {
 				if (depth[nxt] == -1) {
 					ch[cur].push_back(nxt);
 					self(nxt, cur);
-					if (lowval[nxt] < lowval[cur]) {
-						lowval[cur] = lowval[nxt];
-					}
+					lowval[cur] = std::min(lowval[cur], lowval[nxt]);
 				} else if (depth[nxt] < depth[cur]) {
-					if (depth[nxt] < lowval[cur]) {
-						lowval[cur] = depth[nxt];
-					}
+					lowval[cur] = std::min(lowval[cur], depth[nxt]);
 				} else {
 					// down edge
 				}
