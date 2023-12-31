@@ -54,6 +54,7 @@ int main() {
 						// Just make it a double bridge
 						lowval[nxt] = depth[cur];
 					}
+					assert(lowval[nxt] <= depth[cur]);
 					lowval[cur] = std::min(lowval[cur], lowval[nxt]);
 				} else if (depth[nxt] < depth[cur]) {
 					lowval[cur] = std::min(lowval[cur], depth[nxt]);
@@ -71,6 +72,7 @@ int main() {
 			for (int nxt : ch[cur]) {
 				// If lowval == depth, we get to pick the direction.
 				// We could extend this further down a single path if we wanted
+				assert(lowval[nxt] <= depth[cur]);
 				bool d = lowval[nxt] == depth[cur] ? true : !edge_dir[lowval[nxt]];
 				edge_dir[depth[cur]] = d;
 
