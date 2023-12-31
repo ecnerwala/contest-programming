@@ -41,7 +41,6 @@ int main() {
 		std::vector<int> low_ch(N);
 		std::vector<int> depth(N);
 		std::vector<std::vector<int>> ch(N);
-		std::vector<std::vector<int>> ears; ears.reserve(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			depth[cur] = prv != -1 ? depth[prv] + 1 : 0;
 			lowval[cur] = depth[cur];
@@ -64,27 +63,38 @@ int main() {
 					// down edge
 				}
 			}
-			if (prv != -1) {
-				assert(lowval[cur] < depth[cur]);
-				assert(low_ch[cur] != -1);
-			}
-			if (prv == 0) {
-				low_ch[cur] = -1;
-			}
-			if (prv != -1) {
-				for (int nxt : ch[cur]) {
-					if (nxt == low_ch[cur]) continue;
-					ears.push_back({});
-					ears.back().push_back(cur);
-					for (int a = nxt; true; a = low_ch[a]) {
-						ears.back().push_back(a);
-						if (depth[a] < depth[cur]) break;
-					}
-					assert(ears.back().front() != ears.back().back());
-				}
-			}
 		})(0, -1);
-		std::vector<std::vector<int>> ear_ids(N);
+		// true is after, false is before
+		std::vector<bool> edge_dir(N, false);
+		std::vector<int> lst_nxt(N, -1);
+		auto lst = std::y_combinator([&](auto self, int cur, bool cur_dir) -> std::array<int, 2> {
+			std::array<int, 2> res{cur, cur};
+			for (int nxt : ch[cur]) {
+				bool d;
+				if (nxt == low_ch[cur]) {
+					d = cur_dir;
+				} else {
+					int a = low_ch[nxt];
+					while (depth[a] > depth[cur]) a = low_ch[a];
+					d = !edge_dir[a];
+				}
+				edge_dir[cur] = d;
+				auto v = self(nxt, d);
+				if (!d) {
+					std::swap(res, v);
+				}
+				lst_nxt[res[1]] = v[0];
+				res[1] = v[1];
+			}
+			return res;
+		})(0, true);
+		std::vector<int> ans;
+		ans.reserve(N);
+		int cur = lst[0];
+		for (int i = 0; i < N; i++) {
+			ans.push_back(cur);
+			cur = lst_nxt[cur];
+		}
 	}
 
 	return 0;
