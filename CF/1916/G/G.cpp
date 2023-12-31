@@ -76,7 +76,7 @@ int main() {
 			}
 			return sz[cur] = res;
 		});
-		compute_sz(0);
+		compute_sz(0, -1);
 		std::y_combinator([&](auto self, int rt) -> void {
 			assert(alive[rt]);
 			int tot_sz = sz[rt];
@@ -94,7 +94,7 @@ int main() {
 				prv = rt;
 				rt = nxt;
 			}
-			compute_sz(rt);
+			compute_sz(rt, -1);
 
 			// Now, solve everything here
 			hash_map<int64_t, std::array<std::pair<int, int>, 2>> best_depth;
