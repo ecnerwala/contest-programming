@@ -87,6 +87,7 @@ int main() {
 				for (auto [ch, _] : adj[rt]) {
 					if (ch == prv) continue;
 					if (sz[ch] > 2 * tot_sz) {
+						assert(alive[nxt]);
 						nxt = ch;
 						break;
 					}
