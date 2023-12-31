@@ -39,7 +39,7 @@ int main() {
 		}
 		std::vector<int> lowval(N);
 		std::vector<int> low_ch(N);
-		std::vector<int> depth(N);
+		std::vector<int> depth(N, -1);
 		std::vector<std::vector<int>> ch(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			cerr << "dfs 1 " << cur << ' ' << prv << '\n';
