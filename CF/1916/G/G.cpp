@@ -77,7 +77,7 @@ int main() {
 			return sz[cur] = res;
 		});
 		compute_sz(0, -1);
-		std::y_combinator([&](auto self, int rt) -> void {
+		std::y_combinator([&](auto self_centroid, int rt) -> void {
 			assert(alive[rt]);
 			int tot_sz = sz[rt];
 			while (true) {
@@ -139,7 +139,7 @@ int main() {
 
 			alive[rt] = false;
 			for (auto [ch, _] : adj[rt]) {
-				if (alive[ch]) self(ch);
+				if (alive[ch]) self_centroid(ch);
 			}
 			alive[rt] = true;
 		})(0);
