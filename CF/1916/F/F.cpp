@@ -63,9 +63,9 @@ int main() {
 		auto lst = std::y_combinator([&](auto self, int cur) -> std::array<int, 2> {
 			std::array<int, 2> res{cur, cur};
 			for (int nxt : ch[cur]) {
-				// if lowval[nxt] == cur, this is the top of a bcc, so we get lots of freedom
+				// if lowval[nxt] == 0, this is a top ear of the bcc, so we can do whatever
 				assert(lowval[nxt] <= depth[cur]);
-				bool d = lowval[nxt] == depth[cur] ? true : !edge_dir[lowval[nxt]];
+				bool d = lowval[nxt] == 0 ? true : !edge_dir[lowval[nxt]];
 				edge_dir[depth[cur]] = d;
 
 				auto ch_res = self(nxt);
