@@ -66,7 +66,7 @@ int main() {
 				// If cur == 0, we get to pick the direction.
 				// Actually we can extend this case to any single path from 0 as long as lowval == 0 still
 				assert(lowval[nxt] <= depth[cur]);
-				bool d = cur == 0 ? true : !edge_dir[lowval[nxt]];
+				bool d = lowval[nxt] == depth[cur] ? true : !edge_dir[lowval[nxt]];
 				edge_dir[depth[cur]] = d;
 
 				auto ch_res = self(nxt);
