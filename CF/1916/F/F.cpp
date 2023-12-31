@@ -43,6 +43,7 @@ int main() {
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			depth[cur] = prv != -1 ? depth[prv] + 1 : 0;
 			lowval[cur] = depth[cur];
+			ch[cur].reserve(adj[cur].size());
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				if (depth[nxt] == -1) {
