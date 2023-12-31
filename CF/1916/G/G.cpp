@@ -102,20 +102,23 @@ int main() {
 			{
 				// Now, solve everything here
 				hash_map<int64_t, std::array<std::pair<int, int>, 2>> best_depth;
-				std::vector<hash_map<int64_t, int>> dp; dp.reserve(adj[rt].size());
+				std::vector<std::vector<std::pair<int64_t, int>>> dp; dp.reserve(adj[rt].size());
 				for (auto [ch, ch_w] : adj[rt]) {
 					if (!alive[ch]) continue;
 					int ch_idx = int(dp.size());
-					dp.emplace_back();
+					{
+						hash_map<int64_t, int> mp;
+						std::y_combinator([&](auto self, int cur, int prv, int d, int64_t cur_w) -> void {
+							setmax(mp[cur_w], d);
+							setmax(ans, cur_w * d);
+							for (auto [nxt, nxt_w] : adj[cur]) {
+								if (nxt == prv) continue;
+								self(nxt, cur, d+1, std::gcd(nxt_w, cur_w));
+							}
+						})(ch, rt, 1, ch_w);
+						dp.emplace_back(mp.begin(), mp.end());
+					}
 					auto& ch_best_depth = dp.back();
-					std::y_combinator([&](auto self, int cur, int prv, int d, int64_t cur_w) -> void {
-						setmax(ch_best_depth[cur_w], d);
-						setmax(ans, cur_w * d);
-						for (auto [nxt, nxt_w] : adj[cur]) {
-							if (nxt == prv) continue;
-							self(nxt, cur, d+1, std::gcd(nxt_w, cur_w));
-						}
-					})(ch, rt, 1, ch_w);
 					for (auto [w, d] : ch_best_depth) {
 						std::pair<int, int> v(d, ch_idx + 1);
 						auto& [a, b] = best_depth[w];
