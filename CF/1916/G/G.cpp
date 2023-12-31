@@ -111,18 +111,19 @@ int main() {
 					std::y_combinator([&](auto self, int cur, int prv, int d, int64_t cur_w) -> void {
 						setmax(ch_best_depth[cur_w], d);
 						setmax(ans, cur_w * d);
-						{
-							auto& [a, b] = best_depth[cur_w];
-							if (d > b.first) {
-								b = {d, ch_idx + 1};
-								if (b.first > a.first) std::swap(a, b);
-							}
-						}
 						for (auto [nxt, nxt_w] : adj[cur]) {
 							if (nxt == prv) continue;
 							self(nxt, cur, d+1, std::gcd(nxt_w, cur_w));
 						}
 					})(ch, rt, 1, ch_w);
+					for (auto [w, d] : ch_best_depth) {
+						std::pair<int, int> v(d, ch_idx + 1);
+						auto& [a, b] = best_depth[w];
+						if (v.first > b.first) {
+							b = v;
+							if (b.first > a.first) std::swap(a, b);
+						}
+					}
 				}
 				for (int ch_idx = 0; ch_idx < int(dp.size()); ch_idx++) {
 					const auto& ch_best_depth = dp[ch_idx];
