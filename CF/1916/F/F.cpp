@@ -63,9 +63,10 @@ int main() {
 		auto lst = std::y_combinator([&](auto self, int cur) -> std::array<int, 2> {
 			std::array<int, 2> res{cur, cur};
 			for (int nxt : ch[cur]) {
-				// if lowval[nxt] == 0, this is a top ear of the bcc, so we can do whatever
+				// If cur == 0, we get to pick the direction.
+				// Actually we can extend this case to any single path from 0 as long as lowval == 0 still
 				assert(lowval[nxt] <= depth[cur]);
-				bool d = lowval[nxt] == 0 ? true : !edge_dir[lowval[nxt]];
+				bool d = cur == 0 ? true : !edge_dir[lowval[nxt]];
 				edge_dir[depth[cur]] = d;
 
 				auto ch_res = self(nxt);
