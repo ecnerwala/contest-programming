@@ -89,13 +89,11 @@ int main() {
 			return res;
 		})(0, true);
 		int cur = lst[0];
-		for (int i = 0; i < N1; i++) {
-			cout << cur+1 << " \n"[i+1==N1];
-			cur = lst_nxt[cur];
-		}
-		for (int i = 0; i < N2; i++) {
-			cout << cur+1 << " \n"[i+1==N2];
-			cur = lst_nxt[cur];
+		for (int l : {N1, N2}) {
+			for (int i = 0; i < l; i++) {
+				cout << cur+1 << " \n"[i+1==l];
+				cur = lst_nxt[cur];
+			}
 		}
 	}
 
