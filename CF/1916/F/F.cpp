@@ -38,13 +38,11 @@ int main() {
 			adj[v].push_back(u);
 		}
 		std::vector<int> lowval(N);
-		std::vector<int> low_ch(N);
 		std::vector<int> depth(N, -1);
 		std::vector<std::vector<int>> ch(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			depth[cur] = prv != -1 ? depth[prv] + 1 : 0;
 			lowval[cur] = depth[cur];
-			low_ch[cur] = -1;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				if (depth[nxt] == -1) {
@@ -52,12 +50,10 @@ int main() {
 					self(nxt, cur);
 					if (lowval[nxt] < lowval[cur]) {
 						lowval[cur] = lowval[nxt];
-						low_ch[cur] = nxt;
 					}
 				} else if (depth[nxt] < depth[cur]) {
 					if (depth[nxt] < lowval[cur]) {
 						lowval[cur] = depth[nxt];
-						low_ch[cur] = nxt;
 					}
 				} else {
 					// down edge
