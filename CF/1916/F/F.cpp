@@ -33,7 +33,7 @@ int main() {
 		std::vector<std::array<int, 2>> edges(M);
 		std::vector<std::vector<int>> adj(N);
 		for (auto& [u, v] : edges) {
-			cin >> u >> v;
+			cin >> u >> v; u--, v--;
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
