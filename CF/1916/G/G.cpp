@@ -99,42 +99,44 @@ int main() {
 			}
 			compute_sz(rt, -1);
 
-			// Now, solve everything here
-			hash_map<int64_t, std::array<std::pair<int, int>, 2>> best_depth;
-			std::vector<hash_map<int64_t, int>> dp; dp.reserve(adj[rt].size());
-			for (auto [ch, ch_w] : adj[rt]) {
-				if (!alive[ch]) continue;
-				hash_map<int64_t, int> ch_best_depth;
-				std::y_combinator([&](auto self, int cur, int prv, int d, int64_t cur_w) -> void {
-					setmax(ch_best_depth[cur_w], d);
-					setmax(ans, cur_w * d);
-					for (auto [nxt, nxt_w] : adj[cur]) {
-						if (nxt == prv) continue;
-						self(nxt, cur, d+1, std::gcd(nxt_w, cur_w));
+			{
+				// Now, solve everything here
+				hash_map<int64_t, std::array<std::pair<int, int>, 2>> best_depth;
+				std::vector<hash_map<int64_t, int>> dp; dp.reserve(adj[rt].size());
+				for (auto [ch, ch_w] : adj[rt]) {
+					if (!alive[ch]) continue;
+					hash_map<int64_t, int> ch_best_depth;
+					std::y_combinator([&](auto self, int cur, int prv, int d, int64_t cur_w) -> void {
+						setmax(ch_best_depth[cur_w], d);
+						setmax(ans, cur_w * d);
+						for (auto [nxt, nxt_w] : adj[cur]) {
+							if (nxt == prv) continue;
+							self(nxt, cur, d+1, std::gcd(nxt_w, cur_w));
+						}
+					})(ch, rt, 1, ch_w);
+					int ch_idx = int(dp.size());
+					for (auto [w, d] : ch_best_depth) {
+						std::pair<int, int> v(d, ch_idx + 1);
+						auto& [a, b] = best_depth[w];
+						if (v.first > b.first) {
+							b = v;
+							if (b.first > a.first) std::swap(a, b);
+						}
 					}
-				})(ch, rt, 1, ch_w);
-				int ch_idx = int(dp.size());
-				for (auto [w, d] : ch_best_depth) {
-					std::pair<int, int> v(d, ch_idx + 1);
-					auto& [a, b] = best_depth[w];
-					if (v.first > b.first) {
-						b = v;
-						if (b.first > a.first) std::swap(a, b);
-					}
+					dp.emplace_back();
+					dp.back().swap(ch_best_depth);
 				}
-				dp.emplace_back();
-				dp.back().swap(ch_best_depth);
-			}
-			for (int ch_idx = 0; ch_idx < int(dp.size()); ch_idx++) {
-				const auto& ch_best_depth = dp[ch_idx];
-				for (auto [w, d] : ch_best_depth) {
-					if (w * d * 2 <= ans) continue;
-					for (int k = 1; k <= d; k++) {
-						auto it = best_depth.find(k * w);
-						if (it != best_depth.end()) {
-							int z = 0;
-							if (it->second[z].second == ch_idx + 1) z++;
-							setmax(ans, (d + it->second[z].first) * w);
+				for (int ch_idx = 0; ch_idx < int(dp.size()); ch_idx++) {
+					const auto& ch_best_depth = dp[ch_idx];
+					for (auto [w, d] : ch_best_depth) {
+						if (w * d * 2 <= ans) continue;
+						for (int k = 1; k <= d; k++) {
+							auto it = best_depth.find(k * w);
+							if (it != best_depth.end()) {
+								int z = 0;
+								if (it->second[z].second == ch_idx + 1) z++;
+								setmax(ans, (d + it->second[z].first) * w);
+							}
 						}
 					}
 				}
