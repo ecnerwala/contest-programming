@@ -64,10 +64,12 @@ int main() {
 				// if lowval[nxt] == cur, we get lots of freedom
 				bool d = lowval[nxt] == cur ? true : edge_dir[lowval[nxt]];
 				edge_dir[cur] = d;
-				auto v = self(nxt);
 
-				if (!d) std::swap(res, v);
-				lst_nxt[std::exchange(res[1], v[1])] = v[0];
+				auto ch = self(nxt);
+
+				// Join res and ch
+				if (!d) std::swap(res, ch);
+				lst_nxt[std::exchange(res[1], ch[1])] = ch[0];
 			}
 			return res;
 		})(0);
