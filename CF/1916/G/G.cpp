@@ -81,20 +81,22 @@ int main() {
 			cerr << "dfs " << rt << '\n';
 			assert(alive[rt]);
 			int tot_sz = sz[rt];
-			while (true) {
+			{
 				int prv = -1;
-				int nxt = -1;
-				for (auto [ch, _] : adj[rt]) {
-					if (ch == prv) continue;
-					if (sz[ch] > 2 * tot_sz) {
-						assert(alive[ch]);
-						nxt = ch;
-						break;
+				while (true) {
+					int nxt = -1;
+					for (auto [ch, _] : adj[rt]) {
+						if (ch == prv) continue;
+						if (sz[ch] > 2 * tot_sz) {
+							assert(alive[ch]);
+							nxt = ch;
+							break;
+						}
 					}
+					if (nxt == -1) break;
+					prv = rt;
+					rt = nxt;
 				}
-				if (nxt == -1) break;
-				prv = rt;
-				rt = nxt;
 			}
 			cerr << "set rt to " << rt << '\n';
 			compute_sz(rt, -1);
