@@ -53,6 +53,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		cerr << "N = " << N << '\n';
 		std::vector<std::vector<std::pair<int, int64_t>>> adj(N);
 		for (int e = 0; e < N-1; e++) {
 			int u, v; int64_t w; cin >> u >> v >> w; u--, v--;
