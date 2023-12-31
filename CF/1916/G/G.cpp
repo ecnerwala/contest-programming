@@ -144,10 +144,12 @@ int main() {
 			}
 
 			alive[rt] = false;
+			sz[rt] = 0;
 			for (auto [ch, _] : adj[rt]) {
 				if (alive[ch]) self_centroid(ch);
 			}
 			alive[rt] = true;
+			sz[rt] = tot_sz;
 		})(0);
 
 		cout << ans << '\n';
