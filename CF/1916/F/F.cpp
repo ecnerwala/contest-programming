@@ -95,6 +95,12 @@ int main() {
 			ans.push_back(cur);
 			cur = lst_nxt[cur];
 		}
+		for (int i = 0; i < N1; i++) {
+			cout << ans[i]+1 << " \n"[i+1==N1];
+		}
+		for (int i = 0; i < N2; i++) {
+			cout << ans[N1+i]+1 << " \n"[i+1==N2];
+		}
 	}
 
 	return 0;
