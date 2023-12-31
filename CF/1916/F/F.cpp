@@ -67,10 +67,16 @@ int main() {
 		// true is after, false is before
 		std::vector<bool> edge_dir(N, false);
 		std::vector<int> lst_nxt(N, -1);
-		auto lst = std::y_combinator([&](auto self, int cur, bool cur_dir) -> std::array<int, 2> {
+		auto lst = std::y_combinator([&](auto self, int cur) -> std::array<int, 2> {
 			std::array<int, 2> res{cur, cur};
 			for (int nxt : ch[cur]) {
-				bool d = edge_dir[lowval[cur]];
+				bool d;
+				if (cur == 0) {
+					assert(lowval[cur] == 0);
+					d = true;
+				} else {
+					d = edge_dir[lowval[cur]];
+				}
 				edge_dir[cur] = d;
 				auto v = self(nxt, d);
 				if (!d) {
