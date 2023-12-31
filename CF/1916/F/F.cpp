@@ -39,14 +39,12 @@ int main() {
 		}
 		std::vector<int> lowval(N);
 		std::vector<int> depth(N, -1);
-		std::vector<std::vector<int>> ch(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			depth[cur] = prv != -1 ? depth[prv] + 1 : 0;
 			lowval[cur] = depth[cur];
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				if (depth[nxt] == -1) {
-					ch[cur].push_back(nxt);
 					self(nxt, cur);
 					lowval[cur] = std::min(lowval[cur], lowval[nxt]);
 				} else if (depth[nxt] < depth[cur]) {
@@ -61,7 +59,8 @@ int main() {
 		std::vector<int> lst_nxt(N, -1);
 		auto lst = std::y_combinator([&](auto self, int cur) -> std::array<int, 2> {
 			std::array<int, 2> res{cur, cur};
-			for (int nxt : ch[cur]) {
+			for (int nxt : adj[cur]) {
+				if (depth[nxt] <= depth[cur]) continue;
 				bool d = lowval[nxt] == cur ? true : edge_dir[lowval[nxt]];
 				edge_dir[cur] = d;
 				auto v = self(nxt);
