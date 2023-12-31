@@ -64,6 +64,7 @@ int main() {
 			std::array<int, 2> res{cur, cur};
 			for (int nxt : ch[cur]) {
 				// if lowval[nxt] == cur, we get lots of freedom
+				assert(lowval[nxt] <= depth[cur]);
 				bool d = lowval[nxt] == depth[cur] ? true : !edge_dir[lowval[nxt]];
 				edge_dir[depth[cur]] = d;
 
