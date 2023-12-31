@@ -62,7 +62,7 @@ int main() {
 		auto lst = std::y_combinator([&](auto self, int cur) -> std::array<int, 2> {
 			std::array<int, 2> res{cur, cur};
 			for (int nxt : ch[cur]) {
-				bool d = edge_dir[lowval[cur]];
+				bool d = edge_dir[lowval[nxt]];
 				edge_dir[cur] = d;
 				auto v = self(nxt);
 				if (!d) {
