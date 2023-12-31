@@ -67,11 +67,11 @@ int main() {
 				bool d = lowval[nxt] == cur ? true : edge_dir[lowval[nxt]];
 				edge_dir[cur] = d;
 
-				auto ch = self(nxt);
+				auto ch_res = self(nxt);
 
 				// Join res and ch
-				if (!d) std::swap(res, ch);
-				lst_nxt[std::exchange(res[1], ch[1])] = ch[0];
+				if (!d) std::swap(res, ch_res);
+				lst_nxt[std::exchange(res[1], ch_res[1])] = ch_res[0];
 			}
 			return res;
 		})(0);
