@@ -53,7 +53,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		cerr << "N = " << N << '\n';
 		std::vector<std::vector<std::pair<int, int64_t>>> adj(N);
 		for (int e = 0; e < N-1; e++) {
 			int u, v; int64_t w; cin >> u >> v >> w; u--, v--;
@@ -79,7 +78,6 @@ int main() {
 		});
 		compute_sz(0, -1);
 		std::y_combinator([&](auto self_centroid, int rt) -> void {
-			cerr << "dfs " << rt << '\n';
 			assert(alive[rt]);
 			int tot_sz = sz[rt];
 			{
@@ -99,7 +97,6 @@ int main() {
 					rt = nxt;
 				}
 			}
-			cerr << "set rt to " << rt << '\n';
 			compute_sz(rt, -1);
 
 			// Now, solve everything here
