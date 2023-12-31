@@ -70,14 +70,7 @@ int main() {
 		auto lst = std::y_combinator([&](auto self, int cur, bool cur_dir) -> std::array<int, 2> {
 			std::array<int, 2> res{cur, cur};
 			for (int nxt : ch[cur]) {
-				bool d;
-				if (nxt == low_ch[cur]) {
-					d = cur_dir;
-				} else {
-					int a = low_ch[nxt];
-					while (depth[a] > depth[cur]) a = low_ch[a];
-					d = !edge_dir[a];
-				}
+				bool d = edge_dir[lowval[cur]];
 				edge_dir[cur] = d;
 				auto v = self(nxt, d);
 				if (!d) {
