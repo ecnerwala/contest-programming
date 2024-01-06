@@ -450,7 +450,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 		if (a >= layout.N) {
 			int i = layout.get_leaf_index(a);
 			if (A[i] <= 1) {
-				cerr << "adding " << res[i] << ' ' << i+1 << '\n';
+				cerr << "adding " << res[i] << " to " << i+1 << '\n';
 				res[i+1] += res[i];
 			}
 			return;
@@ -493,7 +493,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 						std::cerr << "decr " << max_l << ' ' << num_cover[max_l] << ' ' << cur_tot << '\n';
 						max_l++;
 					}
-					std::cerr << "adding " << cur_tot << ' ' << i+1 << '\n';
+					std::cerr << "adding " << cur_tot << " to " << i+1 << '\n';
 					res[i+1] += cur_tot;
 				}
 
