@@ -283,12 +283,16 @@ int main() {
 
 	std::vector<int> A(N);
 	std::vector<int> B(N);
-	std::vector<int64_t> C(N-1);
+	std::vector<int64_t> C(N);
 	for (auto& a : A) cin >> a;
 	for (auto& a : B) cin >> a;
-	for (auto& a : C) cin >> a;
+	for (int i = 0; i < N-1; i++) {
+		cin >> C[i];
+	}
 
 	const int64_t INF = 1e18;
+
+	C[N-1] = INF;
 
 	seg_tree::in_order_layout layout(N);
 	struct seg_t {
@@ -316,7 +320,7 @@ int main() {
 			r.initial_flow = 0;
 			r.initial_keep = 0;
 			r.max_keep = B[i];
-			r.max_flow = (i == N-1 ? INF : C[i]);
+			r.max_flow = C[i];
 		}
 
 		s.initial_keep = l.initial_keep + r.initial_keep;
