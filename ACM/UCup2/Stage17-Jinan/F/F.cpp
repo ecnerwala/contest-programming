@@ -467,7 +467,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 				num cur_tot = 0;
 				for (int i = m-1; i >= l; i--) {
 					v = std::max(v, A[i]);
-					int min_r = std::min(std::max(i + l, m), r);
+					int min_r = std::min(std::max(i + v, m), r);
 					evts[min_r].push_back(i);
 					num_cover[i] = 1;
 				}
