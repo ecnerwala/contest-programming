@@ -48,9 +48,7 @@ int main() {
 				}
 			}
 		}
-		if (good) {
-			assert(cnt_0 > 0);
-		}
+		if (cnt_0 != 1) good = false;
 		cout << (good ? "YES" : "NO") << '\n';
 	}
 
