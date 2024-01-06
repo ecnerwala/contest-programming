@@ -450,6 +450,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 		if (a >= layout.N) {
 			int i = layout.get_leaf_index(a);
 			if (A[i] <= 1) {
+				cerr << "adding " << res[i] << ' ' << i+1 << '\n';
 				res[i+1] += res[i];
 			}
 			return;
