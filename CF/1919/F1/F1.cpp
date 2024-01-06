@@ -344,7 +344,7 @@ int main() {
 		s.max_keep = l.max_keep + std::min(l.max_flow, r.max_keep);
 		s.max_flow = std::min(r.max_flow, l.max_flow - std::min(l.max_flow, r.max_keep));
 
-		cerr << "node " << a << ' ' << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ": " << s.initial_keep << ' ' << s.initial_flow << ' ' << s.max_keep << ' ' << s.max_flow << '\n';
+		//cerr << "node " << a << ' ' << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ": " << s.initial_keep << ' ' << s.initial_flow << ' ' << s.max_keep << ' ' << s.max_flow << '\n';
 	};
 
 	for (seg_tree::point a(2*layout.N - 1); a > 0; a--) update_node(a);
