@@ -138,7 +138,7 @@ int main() {
 		}
 		int LO = std::min(0, P_sorted[0]);
 		int HI = std::max(0, P_sorted[N-1]);
-		cerr << "Case " << "N = " << N << ' ' << LO << ' ' << HI << '\n';
+		//cerr << "Case " << "N = " << N << ' ' << LO << ' ' << HI << '\n';
 		{
 			bool good = true;
 			for (int i = LO; i <= HI; i++) {
@@ -167,7 +167,7 @@ int main() {
 		std::vector<int> l_edges(2*N+1);
 		num ans = 0;
 		for (int en = LO; en <= HI; en++) {
-			cerr << "trying " << en << '\n';
+			//cerr << "trying " << en << '\n';
 			int st = 0;
 			bool good = true;
 			for (int i = LO; i <= HI; i++) {
@@ -206,7 +206,7 @@ int main() {
 			for (int i = LO; i <= HI; i++) {
 				r *= fact[freq[i+N]-1];
 			}
-			cerr << "en " << en << ' ' << r << '\n';
+			//cerr << "en " << en << ' ' << r << '\n';
 			ans += r;
 		}
 		cout << ans << '\n';
