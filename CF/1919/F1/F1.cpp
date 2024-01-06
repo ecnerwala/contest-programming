@@ -309,7 +309,7 @@ int main() {
 			// We'll make l the source
 			l.initial_flow = A[i];
 			l.initial_keep = 0;
-			l.max_keep = INF;
+			l.max_keep = 0;
 			l.max_flow = INF;
 
 			// r is the gate
