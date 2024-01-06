@@ -474,10 +474,10 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 				for (int i = m; i < r; i++) {
 					std::cerr << "checking " << i << '\n';
 					for (int j : evts[i]) {
-						std::cerr << "decr " << j << '\n';
 						assert(num_cover[j] > 0);
 						num_cover[j]--;
 						if (num_cover[j] == 0) cur_tot += res[j];
+						std::cerr << "decr " << j << ' ' << num_cover[j] << ' ' << cur_tot << '\n';
 					}
 					v = std::max(v, A[i]);
 					int nxt_max_l = std::min(std::max(i+1-v, l), m);
