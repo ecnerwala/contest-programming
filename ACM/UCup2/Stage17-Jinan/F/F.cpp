@@ -493,7 +493,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 						if (num_cover[max_l] == 0) cur_tot += res[max_l];
 						max_l++;
 					}
-					std::cerr << "adding " << cur_tot << ' ' << res[i+1] << '\n';
+					std::cerr << "adding " << cur_tot << ' ' << i+1 << '\n';
 					res[i+1] += cur_tot;
 				}
 
