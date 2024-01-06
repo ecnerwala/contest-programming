@@ -479,6 +479,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 						num_cover[max_l]++;
 					}
 					while (max_l < nxt_max_l) {
+						assert(num_cover[max_l] > 0);
 						num_cover[max_l]--;
 						if (num_cover[max_l] == 0) cur_tot += res[max_l];
 						max_l++;
