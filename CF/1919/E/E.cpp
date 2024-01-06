@@ -202,7 +202,7 @@ int main() {
 				r *= ifact[r_edges[i+N]];
 			}
 			for (int i = LO; i <= HI; i++) {
-				r *= fact[freq[i]-1];
+				r *= fact[freq[i+N]-1];
 			}
 			cerr << "en " << en << ' ' << r << '\n';
 			ans += r;
