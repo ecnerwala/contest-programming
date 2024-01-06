@@ -483,15 +483,15 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 					int nxt_max_l = std::min(std::max(i+1-v, l), m);
 					while (max_l > nxt_max_l) {
 						max_l--;
-						std::cerr << "incr " << max_l << '\n';
 						if (num_cover[max_l] == 0) cur_tot -= res[max_l];
 						num_cover[max_l]++;
+						std::cerr << "incr " << max_l << ' ' << num_cover[max_l] << ' ' << cur_tot << '\n';
 					}
 					while (max_l < nxt_max_l) {
 						assert(num_cover[max_l] > 0);
-						std::cerr << "decr " << max_l << '\n';
 						num_cover[max_l]--;
 						if (num_cover[max_l] == 0) cur_tot += res[max_l];
+						std::cerr << "decr " << max_l << ' ' << num_cover[max_l] << ' ' << cur_tot << '\n';
 						max_l++;
 					}
 					std::cerr << "adding " << cur_tot << ' ' << i+1 << '\n';
