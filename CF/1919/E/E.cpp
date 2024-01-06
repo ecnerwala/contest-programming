@@ -167,6 +167,7 @@ int main() {
 		std::vector<int> l_edges(2*N+1);
 		num ans = 0;
 		for (int en = LO; en <= HI; en++) {
+			cerr << "trying " << en << '\n';
 			int st = 0;
 			bool good = true;
 			for (int i = LO; i <= HI; i++) {
