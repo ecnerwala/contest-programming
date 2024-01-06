@@ -430,7 +430,10 @@ std::vector<num> f_pref_slow(const std::vector<int>& A) {
 		int v = 0;
 		for (int j = i-1; j >= 0; j--) {
 			v = std::max(v, A[j]);
-			if (i-j >= v) res[i] += res[j];
+			if (i-j >= v) {
+				cerr << "adding " << res[j] << " from " << j << " to " << i << '\n';
+				res[i] += res[j];
+			}
 		}
 	}
 	for (int i = 0; i <= N; i++) { std::cerr << res[i] << ' '; } std::cerr << '\n';
