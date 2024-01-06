@@ -455,6 +455,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 			{
 				auto [l, r] = layout.get_node_bounds(a);
 				int m = layout.get_node_split(a);
+				std::cerr << "process " << l << '-' << m << '-' << r << '\n';
 				int v = 0;
 				num cur_tot = 0;
 				for (int i = m-1; i >= l; i--) {
@@ -467,7 +468,9 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 				int max_l = m;
 				v = 0;
 				for (int i = m; i < r; i++) {
+					std::cerr << "checking " << i << '\n';
 					for (int j : evts[i]) {
+						std::cerr << "decr " << j << '\n';
 						assert(num_cover[j] > 0);
 						num_cover[j]--;
 						if (num_cover[j] == 0) cur_tot += res[j];
@@ -476,11 +479,13 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 					int nxt_max_l = std::min(std::max(i+1-v, l), m);
 					while (max_l > nxt_max_l) {
 						max_l--;
+						std::cerr << "incr " << max_l << '\n';
 						if (num_cover[max_l] == 0) cur_tot -= res[max_l];
 						num_cover[max_l]++;
 					}
 					while (max_l < nxt_max_l) {
 						assert(num_cover[max_l] > 0);
+						std::cerr << "decr " << max_l << '\n';
 						num_cover[max_l]--;
 						if (num_cover[max_l] == 0) cur_tot += res[max_l];
 						max_l++;
