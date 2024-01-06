@@ -482,7 +482,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 						std::cerr << "decr " << j << ' ' << num_cover[j] << ' ' << cur_tot << '\n';
 					}
 					v = std::max(v, A[i]);
-					int nxt_max_l = std::min(std::max(i+1-v, l), m);
+					int nxt_max_l = std::min(std::max(i-v, l), m);
 					cerr << nxt_max_l << ' ' << max_l << '\n';
 					while (max_l > nxt_max_l) {
 						max_l--;
