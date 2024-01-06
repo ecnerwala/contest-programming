@@ -465,7 +465,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 				num cur_tot = 0;
 				for (int i = m-1; i >= l; i--) {
 					v = std::max(v, A[i]);
-					int min_r = std::min(std::max(i + v - 1, m), r);
+					int min_r = std::min(std::max(i + (v-1), m), r);
 					evts[min_r].push_back(i);
 					num_cover[i] = 1;
 				}
@@ -478,7 +478,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 						if (num_cover[j] == 0) cur_tot += res[j];
 					}
 					v = std::max(v, A[i]);
-					int nxt_max_l = std::min(std::max(i+2-v, l), m);
+					int nxt_max_l = std::min(std::max(i+1 - (v-1), l), m);
 					while (max_l > nxt_max_l) {
 						max_l--;
 						if (num_cover[max_l] == 0) cur_tot -= res[max_l];
@@ -494,6 +494,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 				}
 
 				// clear out the memory
+				for (int i = l; i < m; i++) num_cover[i] = 0;
 				for (int i = m; i <= r; i++) evts[i] = {};
 			}
 			self(a.c(1));
@@ -513,6 +514,21 @@ std::vector<num> solve(std::vector<int> A) {
 
 	seg_tree::in_order_layout layout(N);
 	std::vector<num> res(N, pref_ways[N]);
+
+	struct row_state {
+		int l_cover;
+		int r_cover;
+		int l_val;
+		int r_val;
+		int last_r;
+	};
+	std::vector<row_state> row_states(N);
+	std::vector<std::vector<int>> l_evts(N+1);
+
+	// inclusive prefix sums
+	std::vector<num> suff_ways_sums = suff_ways;
+	for (int i = 0; i < N; i++) suff_ways_sums[i+1] += suff_ways_sums[i];
+
 	for (seg_tree::point a(1); a < layout.N * 2; a++) {
 		if (a >= layout.N) {
 			int i = layout.get_leaf_index(a);
@@ -520,6 +536,106 @@ std::vector<num> solve(std::vector<int> A) {
 				res[i] += pref_ways[i] * suff_ways[i+1];
 			}
 		} else {
+			auto [l, r] = layout.get_node_bounds(a);
+			int m = layout.get_node_split(a);
+			// Now we store the 2 max
+			{
+				int v0 = 0, v1 = 0;
+				int idx_0 = -1;
+				for (int i = m-1; i >= l; i--) {
+					if (A[i] > v0) {
+						idx_0 = i;
+						v1 = v0;
+						v0 = A[i];
+					} else if (A[i] > v1) {
+						v1 = A[i];
+					}
+					int min_r_0 = std::min(std::max(i + (v0-1), m), r);
+					int min_r_1 = std::min(std::max(i + (v1-1), m), r);
+					l_evts[min_r_0].push_back(i);
+					l_evts[min_r_1].push_back(i);
+					row_states[i] = row_state{
+						2, 0, idx_0, -1, m,
+					};
+				}
+			}
+			{
+				int v0 = 0, v1 = 0;
+				int max_l_0 = m;
+				int max_l_1 = m;
+				int idx_0 = -1;
+				int cur_r = m;
+				auto update_state = [&](int j) -> void {
+					if (row_states[j].last_r == cur_r) return;
+					num w = suff_ways_sums[cur_r] - suff_ways_sums[row_states[j].last_r];
+					w *= pref_ways[j];
+					row_states[j].last_r = cur_r;
+					if (row_states[j].l_cover + row_states[j].r_cover == 1) {
+						if (row_states[j].l_cover == 1) {
+							res[row_states[j].l_val] += w;
+						} else if (row_states[j].r_cover == 1) {
+							res[row_states[j].r_val] += w;
+						} else assert(false);
+					}
+				};
+				for (int i = m; i < r; i++) {
+					for (int j : l_evts[i]) {
+						update_state(j);
+						assert(row_states[j].l_cover > 0);
+						row_states[j].l_cover--;
+					}
+					int prv_idx_0 = idx_0;
+					if (A[i] > v0) {
+						idx_0 = i;
+						v1 = v0;
+						v0 = A[i];
+					} else if (A[i] > v1) {
+						v1 = A[i];
+					}
+					int nxt_max_l_0 = std::min(std::max(i+1 - (v0-1), l), m);
+					int nxt_max_l_1 = std::min(std::max(i+1 - (v1-1), l), m);
+					// There are 3 intervals that we need to take care of
+					// become 0, at < nxt_max_l_0
+					for (int j = max_l_0; j < nxt_max_l_0; j++) {
+						update_state(j);
+						row_states[j].r_cover = 0;
+					}
+					// become 2, at >= nxt_max_l_1
+					for (int j = nxt_max_l_1; j < max_l_1; j++) {
+						update_state(j);
+						row_states[j].r_cover = 2;
+					}
+					// become 1, between nxt_max_l_0 and nxt_max_l_1
+					if (prv_idx_0 != idx_0) {
+						// update them all too
+						for (int j = nxt_max_l_0; j < nxt_max_l_1; j++) {
+							update_state(j);
+							row_states[j].r_cover = 1;
+							row_states[j].r_val = idx_0;
+						}
+					} else {
+						for (int j = nxt_max_l_0; j < std::min(max_l_0, nxt_max_l_1); j++) {
+							update_state(j);
+							row_states[j].r_cover = 1;
+							row_states[j].r_val = idx_0;
+						}
+						for (int j = std::max(nxt_max_l_0, max_l_1); j < nxt_max_l_1; j++) {
+							update_state(j);
+							row_states[j].r_cover = 1;
+							row_states[j].r_val = idx_0;
+						}
+					}
+					max_l_0 = nxt_max_l_0;
+					max_l_1 = nxt_max_l_1;
+					cur_r++;
+				}
+				for (int i = l; i < m; i++) {
+					update_state(i);
+				}
+			}
+
+			// clear out the memory
+			for (int i = m; i <= r; i++) l_evts[i] = {};
 		}
 	}
 
