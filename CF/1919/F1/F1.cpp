@@ -283,7 +283,7 @@ int main() {
 
 	std::vector<int> A(N);
 	std::vector<int> B(N);
-	std::vector<int64_t> C(N);
+	std::vector<int64_t> C(N-1);
 	for (auto& a : A) cin >> a;
 	for (auto& a : B) cin >> a;
 	for (auto& a : C) cin >> a;
@@ -316,7 +316,7 @@ int main() {
 			r.initial_flow = 0;
 			r.initial_keep = 0;
 			r.max_keep = B[i];
-			r.max_flow = C[i];
+			r.max_flow = (i == N-1 ? INF : C[i]);
 		}
 
 		s.initial_keep = l.initial_keep + r.initial_keep;
