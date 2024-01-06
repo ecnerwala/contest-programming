@@ -15,13 +15,12 @@ int main() {
 		for (auto a : A) {
 			if (a <= v0) {
 				v0 = a;
-				res++;
 			} else if (a <= v1) {
 				v1 = a;
-				res++;
 			} else {
 				v0 = v1;
 				v1 = a;
+				res++;
 			}
 		}
 		cout << res << '\n';
