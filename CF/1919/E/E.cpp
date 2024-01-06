@@ -138,6 +138,7 @@ int main() {
 		}
 		int LO = std::min(0, P_sorted[0]);
 		int HI = std::max(0, P_sorted[N-1]);
+		cerr << "Case " << "N = " << N << ' ' << LO << ' ' << HI << '\n';
 		{
 			bool good = true;
 			for (int i = LO; i <= HI; i++) {
