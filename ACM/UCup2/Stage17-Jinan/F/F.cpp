@@ -431,12 +431,12 @@ std::vector<num> f_pref_slow(const std::vector<int>& A) {
 		for (int j = i-1; j >= 0; j--) {
 			v = std::max(v, A[j]);
 			if (i-j >= v) {
-				cerr << "adding " << res[j] << " from " << j << " to " << i << '\n';
+				//cerr << "adding " << res[j] << " from " << j << " to " << i << '\n';
 				res[i] += res[j];
 			}
 		}
 	}
-	for (int i = 0; i <= N; i++) { std::cerr << res[i] << ' '; } std::cerr << '\n';
+	//for (int i = 0; i <= N; i++) { std::cerr << res[i] << ' '; } std::cerr << '\n';
 	return res;
 }
 
@@ -453,7 +453,6 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 		if (a >= layout.N) {
 			int i = layout.get_leaf_index(a);
 			if (A[i] <= 1) {
-				cerr << "adding " << res[i] << " to " << i+1 << '\n';
 				res[i+1] += res[i];
 			}
 			return;
@@ -462,44 +461,35 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 			{
 				auto [l, r] = layout.get_node_bounds(a);
 				int m = layout.get_node_split(a);
-				cerr << '\n';
-				std::cerr << "process " << l << '-' << m << '-' << r << '\n';
 				int v = 0;
 				num cur_tot = 0;
 				for (int i = m-1; i >= l; i--) {
 					v = std::max(v, A[i]);
 					int min_r = std::min(std::max(i + v - 1, m), r);
 					evts[min_r].push_back(i);
-					cerr << "event " << i << " " << min_r << '\n';
 					num_cover[i] = 1;
 				}
 				int max_l = m;
 				v = 0;
 				for (int i = m; i < r; i++) {
-					std::cerr << "checking " << i << '\n';
 					for (int j : evts[i]) {
 						assert(num_cover[j] > 0);
 						num_cover[j]--;
 						if (num_cover[j] == 0) cur_tot += res[j];
-						std::cerr << "decr " << j << ' ' << num_cover[j] << ' ' << cur_tot << '\n';
 					}
 					v = std::max(v, A[i]);
 					int nxt_max_l = std::min(std::max(i+2-v, l), m);
-					cerr << v << ' ' << nxt_max_l << ' ' << max_l << '\n';
 					while (max_l > nxt_max_l) {
 						max_l--;
 						if (num_cover[max_l] == 0) cur_tot -= res[max_l];
 						num_cover[max_l]++;
-						std::cerr << "incr " << max_l << ' ' << num_cover[max_l] << ' ' << cur_tot << '\n';
 					}
 					while (max_l < nxt_max_l) {
 						assert(num_cover[max_l] > 0);
 						num_cover[max_l]--;
 						if (num_cover[max_l] == 0) cur_tot += res[max_l];
-						std::cerr << "decr " << max_l << ' ' << num_cover[max_l] << ' ' << cur_tot << '\n';
 						max_l++;
 					}
-					std::cerr << "adding " << cur_tot << " to " << i+1 << '\n';
 					res[i+1] += cur_tot;
 				}
 
@@ -509,8 +499,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 			self(a.c(1));
 		}
 	})(seg_tree::point(1));
-	for (int i = 0; i <= N; i++) { std::cerr << res[i] << ' '; } std::cerr << '\n';
-	assert(res == f_pref_slow(A));
+	//assert(res == f_pref_slow(A));
 	return res;
 }
 
