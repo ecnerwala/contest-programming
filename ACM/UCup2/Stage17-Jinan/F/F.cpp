@@ -431,6 +431,7 @@ std::vector<num> f_pref_slow(const std::vector<int>& A) {
 			if (i-j >= v) res[i] += res[j];
 		}
 	}
+	for (int i = 0; i <= N; i++) { std::cerr << res[i] << ' '; } std::cerr << '\n';
 	return res;
 }
 
@@ -499,6 +500,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 			self(a.c(1));
 		}
 	})(seg_tree::point(1));
+	for (int i = 0; i <= N; i++) { std::cerr << res[i] << ' '; } std::cerr << '\n';
 	assert(res == f_pref_slow(A));
 	return res;
 }
