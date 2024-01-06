@@ -179,8 +179,8 @@ int main() {
 				if (i == HI) {
 					if (nxt_out_edges != 0 || nxt_in_edges != 0) {
 						good = false;
-						break;
 					}
+					break;
 				}
 				if (nxt_out_edges < 0 || nxt_in_edges < 0 || nxt_out_edges + nxt_in_edges == 0) {
 					good = false;
