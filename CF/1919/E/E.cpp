@@ -172,8 +172,8 @@ int main() {
 				int cur_in_deg = ((i == LO) ? 0 : r_edges[i-1+N]) + (i == st);
 				int cur_out_deg = ((i == LO) ? 0 : l_edges[i-1+N]) + (i == en);
 
-				int nxt_out_edges = freq[i] - cur_out_deg;
-				int nxt_in_edges = freq[i] - cur_in_deg;
+				int nxt_out_edges = freq[i+N] - cur_out_deg;
+				int nxt_in_edges = freq[i+N] - cur_in_deg;
 				if (i == HI) {
 					if (nxt_out_edges != 0 || nxt_in_edges != 0) {
 						good = false;
