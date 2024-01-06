@@ -462,6 +462,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 			{
 				auto [l, r] = layout.get_node_bounds(a);
 				int m = layout.get_node_split(a);
+				cerr << '\n';
 				std::cerr << "process " << l << '-' << m << '-' << r << '\n';
 				int v = 0;
 				num cur_tot = 0;
@@ -469,6 +470,7 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 					v = std::max(v, A[i]);
 					int min_r = std::min(std::max(i + v, m), r);
 					evts[min_r].push_back(i);
+					cerr << "event " << i << " " << min_r << '\n';
 					num_cover[i] = 1;
 				}
 				int max_l = m;
