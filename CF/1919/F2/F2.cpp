@@ -286,9 +286,13 @@ int main() {
 	std::vector<int64_t> C(N);
 	for (auto& a : A) cin >> a;
 	for (auto& a : B) cin >> a;
-	for (auto& a : C) cin >> a;
+	for (int i = 0; i < N-1; i++) {
+		cin >> C[i];
+	}
 
 	const int64_t INF = 1e18;
+
+	C[N-1] = INF;
 
 	seg_tree::in_order_layout layout(N);
 	struct seg_t {
@@ -309,7 +313,7 @@ int main() {
 			// We'll make l the source
 			l.initial_flow = A[i];
 			l.initial_keep = 0;
-			l.max_keep = INF;
+			l.max_keep = 0;
 			l.max_flow = INF;
 
 			// r is the gate
@@ -339,6 +343,8 @@ int main() {
 		// Now, any additional flow must pass through l and then r
 		s.max_keep = l.max_keep + std::min(l.max_flow, r.max_keep);
 		s.max_flow = std::min(r.max_flow, l.max_flow - std::min(l.max_flow, r.max_keep));
+
+		//cerr << "node " << a << ' ' << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ": " << s.initial_keep << ' ' << s.initial_flow << ' ' << s.max_keep << ' ' << s.max_flow << '\n';
 	};
 
 	for (seg_tree::point a(2*layout.N - 1); a > 0; a--) update_node(a);
