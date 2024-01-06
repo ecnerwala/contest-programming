@@ -482,8 +482,8 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 						std::cerr << "decr " << j << ' ' << num_cover[j] << ' ' << cur_tot << '\n';
 					}
 					v = std::max(v, A[i]);
-					int nxt_max_l = std::min(std::max(i-v, l), m);
-					cerr << nxt_max_l << ' ' << max_l << '\n';
+					int nxt_max_l = std::min(std::max(i+2-v, l), m);
+					cerr << v << ' ' << nxt_max_l << ' ' << max_l << '\n';
 					while (max_l > nxt_max_l) {
 						max_l--;
 						if (num_cover[max_l] == 0) cur_tot -= res[max_l];
