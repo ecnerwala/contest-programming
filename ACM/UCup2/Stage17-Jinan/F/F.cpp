@@ -456,13 +456,14 @@ std::vector<num> f_pref(const std::vector<int>& A) {
 				auto [l, r] = layout.get_node_bounds(a);
 				int m = layout.get_node_split(a);
 				int v = 0;
+				num cur_tot = 0;
 				for (int i = m-1; i >= l; i--) {
 					v = std::max(v, A[i]);
 					int min_r = std::min(std::max(i + l, m), r);
 					evts[min_r].push_back(v);
 					num_cover[i] = 1;
+					cur_tot += res[i];
 				}
-				num cur_tot = 0;
 				int max_l = m;
 				v = 0;
 				for (int i = m; i < r; i++) {
