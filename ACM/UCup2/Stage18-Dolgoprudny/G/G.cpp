@@ -839,6 +839,7 @@ int main() {
 				cur_poly[z] = cur_poly[2*z + (C & 1)];
 			}
 			cur_poly.resize(l);
+			C >>= 1;
 		}
 		cerr << "post doubling" << '\n';
 		for (auto v : cur_poly) { cerr << v << ' '; } cerr << '\n';
