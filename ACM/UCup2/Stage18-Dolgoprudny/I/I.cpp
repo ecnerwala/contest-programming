@@ -48,7 +48,7 @@ int main() {
 			adj_pass[u].push_back(v);
 		} else if (t == 2) {
 			adj_pass[u].push_back(v);
-			adj_no_pass[v].push_back(u);
+			adj_no_pass[u].push_back(v);
 		} else assert(false);
 	}
 
