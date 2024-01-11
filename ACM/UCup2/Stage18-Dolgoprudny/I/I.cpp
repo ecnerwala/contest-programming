@@ -71,6 +71,7 @@ int main() {
 		if (vis[i]) {
 			for (int j : adj_no_pass[i]) {
 				if (kactl::comp[j] != kactl::comp[i]) {
+					cerr << i << ' ' << j << '\n';
 					can_lose = true;
 				}
 			}
