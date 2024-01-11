@@ -840,6 +840,8 @@ int main() {
 			}
 			cur_poly.resize(l);
 		}
+		cerr << "post doubling" << '\n';
+		for (auto v : cur_poly) { cerr << v << ' '; } cerr << '\n';
 
 		// Now, take inclusive prefix sums starting at 0
 		to_choose();
@@ -847,6 +849,9 @@ int main() {
 		cur_poly.push_back(num(0));
 		from_choose();
 		cur_poly.erase(cur_poly.begin());
+
+		cerr << "post summing" << '\n';
+		for (auto v : cur_poly) { cerr << v << ' '; } cerr << '\n';
 	}
 	if (C == 0) {
 		std::cout << 0 << '\n';
