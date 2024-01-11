@@ -831,7 +831,6 @@ int main() {
 	for (int i = 1; i < N; i++) {
 		// First, double and maybe shift the polynomial
 		int l = int(cur_poly.size());
-		assert(l == i);
 		{
 			double_vals();
 			for (int z = 0; z < l; z++) {
