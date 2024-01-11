@@ -65,8 +65,11 @@ int main() {
 		}
 	}
 
-	kactl::scc(adj_no_pass, [&](const std::vector<int>& comp) {});
+	kactl::scc(adj_no_pass, [&](const std::vector<int>&) {});
 	bool can_lose = false;
+	for (int i = 0; i < N; i++) {
+		cerr << i << ' ' << kactl::comp[i] << '\n';
+	}
 	for (int i = 0; i < N; i++) {
 		if (vis[i]) {
 			for (int j : adj_no_pass[i]) {
