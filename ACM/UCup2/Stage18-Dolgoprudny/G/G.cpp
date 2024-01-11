@@ -854,6 +854,7 @@ int main() {
 		num ans = 0;
 		num cur_c = 1;
 		for (int i = 0; i < int(cur_poly.size()); i++) {
+			cerr << "weight " << i << ' ' << cur_poly[i] << '\n';
 			ans += cur_c * cur_poly[i];
 			cur_c *= C-1-i;
 			cur_c /= num(i+1);
