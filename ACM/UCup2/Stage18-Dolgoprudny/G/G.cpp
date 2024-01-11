@@ -809,15 +809,17 @@ int main() {
 	// constant polynomial
 	std::vector<num> cur_poly({num(1), num(2)});
 	auto to_choose = [&]() -> void {
-		for (int i = 0; i < N; i++) {
-			for (int j = N-1; j > i; j--) {
+		int l = int(cur_poly.size());
+		for (int i = 0; i < l; i++) {
+			for (int j = l-1; j > i; j--) {
 				cur_poly[j] -= cur_poly[j-1];
 			}
 		}
 	};
 	auto from_choose = [&]() -> void {
-		for (int i = N-1; i >= 0; i--) {
-			for (int j = i+1; j < N; j++) {
+		int l = int(cur_poly.size());
+		for (int i = l-1; i >= 0; i--) {
+			for (int j = i+1; j < l; j++) {
 				cur_poly[j] += cur_poly[j-1];
 			}
 		}
