@@ -807,7 +807,7 @@ int main() {
 	using num = modnum<998244353>;
 	// store the polynomial as a vector of values
 	// constant polynomial
-	std::vector<num> cur_poly({num(1)});
+	std::vector<num> cur_poly({num(1), num(2)});
 	auto to_choose = [&]() -> void {
 		for (int i = 0; i < N; i++) {
 			for (int j = N-1; j > i; j--) {
