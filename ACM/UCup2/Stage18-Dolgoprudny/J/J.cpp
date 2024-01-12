@@ -28,7 +28,7 @@ struct tree_solver {
 	std::vector<int> par;
 	std::vector<bool> is_leaf;
 
-	int t = 1;
+	int t = 0;
 	std::vector<int> last_alive_time;
 	std::vector<bool> last_alive_val;
 	std::vector<int> leaf_alive_time;
@@ -120,7 +120,7 @@ struct tree_solver {
 	void do_unmark(int a) {
 		t++;
 		assert(parity[a] == cur_parity);
-		if (is_alive(a)) return;
+		if (!is_alive(a)) return;
 		last_alive_time[a] = t;
 		last_alive_val[a] = false;
 		assert(!is_alive(a));
@@ -176,7 +176,7 @@ struct tree_solver {
 		std::cerr << "maybe marking " << a << '\n';
 		t++;
 		assert(parity[a] == cur_parity);
-		if (!is_alive(a)) return;
+		if (is_alive(a)) return;
 		std::cerr << "marking " << a << '\n';
 		last_alive_time[a] = t;
 		last_alive_val[a] = true;
