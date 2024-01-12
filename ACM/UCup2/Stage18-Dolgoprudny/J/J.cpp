@@ -68,9 +68,9 @@ struct tree_solver {
 		alive_ch = std::vector<std::set<int>>(N);
 		dead_ch = std::vector<std::set<int>>(N);
 		last_alive_time = std::vector<int>(N, -1);
-		last_alive_val = std::vector<bool>(N);
+		last_alive_val = std::vector<bool>(N, false);
 		leaf_alive_time = std::vector<int>(N, -1);
-		leaf_alive_val = std::vector<bool>(N);
+		leaf_alive_val = std::vector<bool>(N, false);
 		isolated_ch = std::vector<std::set<int>>(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			parity[cur] = (prv == -1) ? 0 : !parity[prv];
@@ -173,6 +173,7 @@ struct tree_solver {
 	}
 
 	void do_mark(int a) {
+		std::cerr << "maybe marking " << a << '\n';
 		t++;
 		assert(parity[a] == cur_parity);
 		if (!is_alive(a)) return;
