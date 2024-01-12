@@ -125,6 +125,10 @@ struct tree_solver {
 
 	void do_unmark(int a) {
 		std::cerr << "maybe unmarking " << a << '\n';
+		std::cerr << last_alive_time[a] << ' ' << last_alive_val[a] << '\n';
+		if (is_leaf[a]) {
+			std::cerr << leaf_alive_time[par[a]] << ' ' << leaf_alive_val[par[a]] << '\n';
+		}
 		t++;
 		assert(parity[a] == cur_parity);
 		if (!is_alive(a)) return;
