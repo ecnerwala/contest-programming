@@ -286,16 +286,19 @@ int main() {
 		if (op == 0) {
 			// unmark
 			int v; cin >> v; v--;
-			std::cerr << solvers[0].parity[v] << '\n';
+			std::cerr << "parity " << solvers[0].parity[v] << '\n';
 			solvers[solvers[0].parity[v]].do_unmark(v);
 		} else if (op == 1) {
 			int v; cin >> v; v--;
-			std::cerr << solvers[0].parity[v] << '\n';
+			std::cerr << "parity " << solvers[0].parity[v] << '\n';
 			solvers[solvers[0].parity[v]].do_mark(v);
 		} else if (op == 2) {
+			std::cerr << "parity " << 0 << '\n';
 			solvers[0].do_flip();
+			std::cerr << "parity " << 1 << '\n';
 			solvers[1].do_flip();
 			std::swap(solvers[0], solvers[1]);
+			std::cerr << "flip_parity" << '\n';
 		} else assert(false);
 
 		int ans = solvers[0].alive_cnt[0] + solvers[1].alive_cnt[1];
