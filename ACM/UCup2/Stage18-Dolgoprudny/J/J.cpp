@@ -212,6 +212,7 @@ struct tree_solver {
 		for (int a : to_ch_mark) {
 			assert(is_alive(a));
 			assert(dead_leaves[a] + int(dead_ch[a].size()) > 0);
+			assert(!is_leaf[a]);
 
 			leaf_alive_time[a] = t;
 			leaf_alive_val[a] = true;
