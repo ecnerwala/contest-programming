@@ -176,6 +176,7 @@ struct tree_solver {
 		t++;
 		assert(parity[a] == cur_parity);
 		if (!is_alive(a)) return;
+		std::cerr << "marking " << a << '\n';
 		last_alive_time[a] = t;
 		last_alive_val[a] = true;
 		assert(is_alive(a));
