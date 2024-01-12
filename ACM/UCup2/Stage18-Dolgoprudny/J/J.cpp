@@ -209,9 +209,9 @@ struct tree_solver {
 		t++;
 		cur_parity ^= 1;
 		std::set<int> nxt_check;
-		for (int a : to_mark) {
-			assert(!is_alive(a));
-			assert(alive_leaves[a] + int(alive_ch[a].size()) > 0);
+		for (int a : to_ch_mark) {
+			assert(is_alive(a));
+			assert(dead_leaves[a] + int(dead_ch[a].size()) > 0);
 
 			leaf_alive_time[a] = t;
 			leaf_alive_val[a] = true;
@@ -232,9 +232,9 @@ struct tree_solver {
 			nxt_check.insert(a);
 		}
 
-		for (int a : to_ch_mark) {
+		for (int a : to_mark) {
 			assert(!is_leaf[a]);
-			assert(dead_leaves[a] + int(dead_ch[a].size()) > 0);
+			assert(alive_leaves[a] + int(alive_ch[a].size()) > 0);
 			if (is_alive(a)) continue;
 			last_alive_time[a] = t;
 			last_alive_val[a] = true;
