@@ -280,6 +280,8 @@ int main() {
 	assert(solvers[0].parity == solvers[1].parity);
 
 	for (int q = 0; q < Q; q++) {
+		assert(solvers[0].cur_parity == 0);
+		assert(solvers[1].cur_parity == 1);
 		int op; cin >> op;
 		if (op == 0) {
 			// unmark
