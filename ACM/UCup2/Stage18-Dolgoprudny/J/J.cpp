@@ -97,36 +97,38 @@ struct tree_solver {
 			return;
 		}
 		if (is_alive(a) && (dead_leaves[a] + int(dead_ch[a].size()) > 0)) {
-			std::cerr << " +to_ch_mark" << a << '\n';
+			std::cerr << " +to_ch_mark " << a << '\n';
 			to_ch_mark.insert(a);
 		} else {
-			std::cerr << " -to_ch_mark" << a << '\n';
+			std::cerr << " -to_ch_mark " << a << '\n';
 			to_ch_mark.erase(a);
 		}
 		if (!is_alive(a) && (alive_leaves[a] + int(alive_ch[a].size()) > 0)) {
-			std::cerr << " +to_mark" << a << '\n';
+			std::cerr << " +to_mark " << a << '\n';
 			to_mark.insert(a);
 		} else {
-			std::cerr << " -to_mark" << a << '\n';
+			std::cerr << " -to_mark " << a << '\n';
 			to_mark.erase(a);
 		}
 		if (is_alive(a) && (alive_leaves[a] + int(alive_ch[a].size()) == 0)) {
 			if (par[a] != -1) {
-				std::cerr << " +isolated_ch" << a << '\n';
+				std::cerr << " +isolated_ch " << a << '\n';
 				isolated_ch[par[a]].insert(a);
 			}
 		} else {
 			if (par[a] != -1) {
-				std::cerr << " -isolated_ch" << a << '\n';
+				std::cerr << " -isolated_ch " << a << '\n';
 				isolated_ch[par[a]].erase(a);
 			}
 		}
 	}
 
 	void do_unmark(int a) {
+		std::cerr << "maybe unmarking " << a << '\n';
 		t++;
 		assert(parity[a] == cur_parity);
 		if (!is_alive(a)) return;
+		std::cerr << "unmarking " << a << '\n';
 		last_alive_time[a] = t;
 		last_alive_val[a] = false;
 		assert(!is_alive(a));
@@ -203,6 +205,7 @@ struct tree_solver {
 	}
 
 	void do_flip() {
+		std::cerr << "do_flip" << '\n';
 		t++;
 		cur_parity ^= 1;
 		std::set<int> nxt_check;
