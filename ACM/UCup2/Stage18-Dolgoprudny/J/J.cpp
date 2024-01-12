@@ -284,10 +284,10 @@ int main() {
 		if (op == 0) {
 			// unmark
 			int v; cin >> v; v--;
-			solvers[solvers[0].parity[v]].do_unmark(v);
+			solvers[solvers[0].parity[v] ^ solvers[0].cur_parity].do_unmark(v);
 		} else if (op == 1) {
 			int v; cin >> v; v--;
-			solvers[solvers[0].parity[v]].do_mark(v);
+			solvers[solvers[0].parity[v] ^ solvers[0].cur_parity].do_mark(v);
 		} else if (op == 2) {
 			solvers[0].do_flip();
 			solvers[1].do_flip();
