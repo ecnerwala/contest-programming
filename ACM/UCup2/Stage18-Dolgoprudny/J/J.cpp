@@ -51,7 +51,7 @@ struct tree_solver {
 		if (is_leaf[a]) {
 			int p = par[a];
 			assert(p != -1);
-			return leaf_alive_time[p] <= last_alive_time[a] ? leaf_alive_val[p] : last_alive_val[a];
+			return leaf_alive_time[p] > last_alive_time[a] ? leaf_alive_val[p] : last_alive_val[a];
 		} else {
 			return last_alive_val[a];
 		}
