@@ -71,6 +71,7 @@ struct tree_solver {
 		last_alive_val = std::vector<bool>(N);
 		leaf_alive_time = std::vector<int>(N, -1);
 		leaf_alive_val = std::vector<bool>(N);
+		isolated_ch = std::vector<std::set<int>>(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			parity[cur] = (prv == -1) ? 0 : !parity[prv];
 			par[cur] = prv;
