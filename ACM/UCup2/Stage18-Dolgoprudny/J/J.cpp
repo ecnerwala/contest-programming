@@ -74,7 +74,6 @@ struct tree_solver {
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
 			parity[cur] = (prv == -1) ? 0 : !parity[prv];
 			par[cur] = prv;
-			int z = 0;
 			is_leaf[cur] = true;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
@@ -254,7 +253,7 @@ int main() {
 
 	std::vector<std::vector<int>> adj(N);
 	for (int e = 0; e < N-1; e++) {
-		int u, v; cin >> u >> v;
+		int u, v; cin >> u >> v; u--, v--;
 		adj[u].push_back(v);
 		adj[v].push_back(u);
 	}
