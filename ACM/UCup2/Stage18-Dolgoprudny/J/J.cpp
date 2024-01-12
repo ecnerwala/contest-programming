@@ -180,8 +180,10 @@ struct tree_solver {
 
 	void do_mark(int a) {
 		t++;
+		std::cerr << "maybe marking " << a << '\n';
 		assert(parity[a] == cur_parity);
 		if (is_alive(a)) return;
+		std::cerr << "marking " << a << '\n';
 		last_alive_time[a] = t;
 		last_alive_val[a] = true;
 		assert(is_alive(a));
