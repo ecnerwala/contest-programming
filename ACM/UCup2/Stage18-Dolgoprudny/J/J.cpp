@@ -210,6 +210,7 @@ struct tree_solver {
 		cur_parity ^= 1;
 		std::set<int> nxt_check;
 		for (int a : to_ch_mark) {
+			std::cerr << "marking children of " << a << '\n';
 			assert(is_alive(a));
 			assert(dead_leaves[a] + int(dead_ch[a].size()) > 0);
 			assert(!is_leaf[a]);
@@ -234,6 +235,7 @@ struct tree_solver {
 		}
 
 		for (int a : to_mark) {
+			std::cerr << "marking " << a << " from children" << '\n';
 			assert(!is_leaf[a]);
 			assert(alive_leaves[a] + int(alive_ch[a].size()) > 0);
 			if (is_alive(a)) continue;
