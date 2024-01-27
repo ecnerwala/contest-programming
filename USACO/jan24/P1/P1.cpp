@@ -68,6 +68,7 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 			depth[cur] = (prv == -1) ? 0 : depth[prv] + 1;
 			low_val[cur] = depth[cur];
 			stk.push_back(cur);
+			subchains[cur].reserve(adj[cur].size());
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				if (depth[nxt] == -1) {
@@ -75,7 +76,9 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 					self(self, nxt, cur);
 					if (low_val[nxt] >= depth[cur]) {
 						subchains[cur].push_back(int(chains.size()));
-						chains.emplace_back(stk.begin() + idx_cur, stk.end());
+						chains.emplace_back();
+						chains.back().reserve(int(stk.size()) - idx_cur);
+						chains.back().insert(chains.back().end(), stk.begin() + idx_cur, stk.end());
 						stk.resize(idx_cur);
 						//cerr << "chain " << int(chains.size())-1 << ": "; cerr << cur << ' '; for (int v : chains.back()) { cerr << v << ' '; } cerr << '\n';
 					} else {
