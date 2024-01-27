@@ -168,6 +168,8 @@ int main() {
 					cerr << "merging " << f1 << ' ' << f2 << '\n';
 					ans -= merge(f1, f2);
 				}
+			} else {
+				assert(a != N && b != N);
 			}
 		}
 		cout << ans << '\n';
