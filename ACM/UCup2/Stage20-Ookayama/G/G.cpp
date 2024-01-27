@@ -143,7 +143,7 @@ int main() {
 		int k = (i+1) / 2;
 		int s = (i & 1) ? -1 : +1;
 		int v = k * (3 * k + s) / 2;
-		cerr << v << '\n';
+		cerr << ((k & 1) ? -1 : +1) << ' ' << v << '\n';
 		if (v > M) break;
 		ans += coeff(M - v) * ((k & 1) ? -1 : 1);
 	}
