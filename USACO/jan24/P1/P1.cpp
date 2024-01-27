@@ -51,18 +51,15 @@ int main() {
 			adj[v].push_back(u);
 		}
 
+		std::vector<num> fact(N+1);
+		fact[0] = num(1);
+		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(N+1);
+		ifact[N] = inv(fact[N]);
 		std::vector<num> invs(N+1);
-		{
-			num f = num(1);
-			for (int i = 1; i <= N; i++) {
-				invs[i] = f;
-				f *= num(i);
-			}
-			f = inv(f);
-			for (int i = N; i >= 1; i--) {
-				invs[i] *= f;
-				f *= num(i);
-			}
+		for (int i = N; i >= 1; i--) {
+			ifact[i-1] = ifact[i] * num(i);
+			invs[i] = ifact[i] * fact[i-1];
 		}
 
 		std::vector<std::vector<int>> subchains(N);
@@ -138,8 +135,19 @@ int main() {
 					vert_escape[v] = num(0);
 				} else {
 					// we have some number of chains,
-					int num_edges = 1 + 2 * (int(subchain_escape.size()) - 1) + num_bridge;
+					int cycs = int(subchain_escape.size()) - 1;
+					int num_edges = 1 + 2 * (cycs - 1) + num_bridge;
 					assert(num_edges + 1 == int(adj[v].size()));
+					num val = num(0);
+					num w = num(1);
+					for (int num_cycs = 0; num_cycs <= cycs; num_cycs++) {
+						w *= invs[num_edges - num_cycs * 2];
+						if (num_cycs) {
+							w *= num(2 * num_cycs);
+						}
+						val += w * subchain_escape[num_cycs];
+					}
+					vert_escape[v] = val;
 				}
 			};
 			dfs(dfs, 0, false);
