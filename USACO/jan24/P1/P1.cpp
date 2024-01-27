@@ -165,7 +165,7 @@ int main() {
 						bool is_bridge = int(chains[c].size()) == 1;
 						int bridges = num_bridge[v];
 						int cycs = int(subchain_escape[v].size()) - 1;
-						int num_edges = 1 + 2 * cycs + bridges;
+						int num_edges = has_out[v] + 2 * cycs + bridges;
 
 						if (!is_bridge) {
 							// all the other chain
