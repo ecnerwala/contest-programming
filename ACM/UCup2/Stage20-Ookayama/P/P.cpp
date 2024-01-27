@@ -822,20 +822,39 @@ int main() {
 		cerr << i << ' ' << connected_graphs[i] << endl;
 	}
 	std::vector<std::vector<num>> group_ways(N+1, std::vector<num>(N+1, 0));
+	std::vector<std::vector<num>> group_ways_2(N+1, std::vector<num>(N+1, 0));
 	group_ways[0][0] = 1;
+	group_ways_2[0][0] = 1;
 	ps bcc_ways(N+1);
 	for (int i = 1; i <= N; i++) {
 		num v = connected_graphs[i];
 		for (int k = 2; k <= i; k++) {
 			for (int c = 1; c <= i; c++) {
 				group_ways[k][i] += group_ways[k-1][i-c] * bcc_ways[c] * fact[i-1] / fact[c-1] / fact[i-c] * num(c);
+				group_ways_2[k][i] += group_ways_2[k-1][i-c] * bcc_ways[c] * fact[i-1] / fact[c-1] / fact[i-c] * num(c) * num(c);
 			}
 			v -= group_ways[k][i] * pow(num(i), k-2);
 		}
 		bcc_ways[i] = v;
 		group_ways[1][i] = v * num(i);
+		group_ways_2[1][i] = v * num(i) * num(i);
 		cerr << i << ' ' << v << '\n';
 	}
+
+	std::vector<num> A(N);
+	for (auto& a : A) cin >> a;
+	std::vector<num> prod_i(N+1);
+	for (auto a : A) {
+		for (int i = N; i > 0; i--) prod_i[i] += prod_i[i-1] * a;
+	}
+	num ans = 0;
+	for (int k = 1; k <= N; k++) {
+		num v = group_ways_2[k][N] * pow(num(N), k-1) / num(N);
+		v /= (fact[N] / fact[k] / fact[N-k]);
+		cerr << k << ' ' << v << '\n';
+		ans += prod_i[k] * v;
+	}
+	cout << ans << '\n';
 
 	return 0;
 }
