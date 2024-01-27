@@ -832,7 +832,8 @@ int main() {
 			}
 			v -= group_ways[k][i] * pow(num(i), k-2);
 		}
-		group_ways[1][i] = bcc_ways[i] = v;
+		bcc_ways[i] = v;
+		group_ways[1][i] = v * num(i);
 		cerr << i << ' ' << v << '\n';
 	}
 
