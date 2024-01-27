@@ -1,5 +1,12 @@
 #include <bits/stdc++.h>
 
+void wssert(bool b) {
+	if (!b) {
+		std::cout << "GARBAGE" << '\n';
+		exit(0);
+	}
+}
+
 int mod_inv_in_range(int a, int m) {
 	return a == 1 ? 1 : m - int(int64_t(mod_inv_in_range(m % a, a)) * m / a);
 }
@@ -72,7 +79,7 @@ int main() {
 			auto dfs = [&](auto self, int cur, int prv) -> void {
 				//cerr << "dfs " << cur << ' ' << prv << '\n';
 				par[cur] = prv;
-				assert(depth[cur] == -1);
+				wssert(depth[cur] == -1);
 				depth[cur] = (prv == -1) ? 0 : depth[prv] + 1;
 				low_val[cur] = depth[cur];
 				stk.push_back(cur);
@@ -87,11 +94,11 @@ int main() {
 							stk.resize(idx_cur);
 							//cerr << "chain " << int(chains.size())-1 << ": "; cerr << cur << ' '; for (int v : chains.back()) { cerr << v << ' '; } cerr << '\n';
 						} else {
-							assert(low_val[cur] == depth[cur]);
+							wssert(low_val[cur] == depth[cur]);
 							low_val[cur] = low_val[nxt];
 						}
 					} else if (depth[nxt] < depth[cur]) {
-						assert(low_val[cur] == depth[cur]);
+						wssert(low_val[cur] == depth[cur]);
 						low_val[cur] = depth[nxt];
 					} else {
 						// do nothing
@@ -99,7 +106,7 @@ int main() {
 				}
 			};
 			dfs(dfs, 0, -1);
-			assert(int(stk.size()) == 1);
+			wssert(int(stk.size()) == 1);
 		}
 		int C = int(chains.size());
 
@@ -137,7 +144,7 @@ int main() {
 					// we have some number of chains,
 					int cycs = int(subchain_escape[v].size()) - 1;
 					int num_edges = 1 + 2 * cycs + num_bridge[v];
-					assert(num_edges + 1 == int(adj[v].size()));
+					wssert(num_edges + 1 == int(adj[v].size()));
 					num val = num(0);
 					num w = num(1);
 					for (int num_cycs = 0; num_cycs <= cycs; num_cycs++) {
