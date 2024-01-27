@@ -180,7 +180,9 @@ int main() {
 			}
 		}
 		for (int i = 0; i < F; i++) {
-			if (par[i] < 0) cerr << i << ' ' << par[i] << '\n';
+			if (is_good[i]) {
+				if (par[i] < 0) cerr << i << ' ' << par[i] << '\n';
+			}
 		}
 		cout << ans << '\n';
 	}
