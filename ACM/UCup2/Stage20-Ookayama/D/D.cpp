@@ -130,18 +130,16 @@ int main() {
 		int F = int(faces.size());
 		std::vector<bool> is_good(F);
 		std::vector<std::pair<std::array<int, 2>, int>> half_edges; half_edges.reserve(3*F);
-		int ans = 0;
 		for (int f = 0; f < F; f++) {
 			auto [q, a, b, c] = faces[f];
 			// Now, check if the face is outside
-			is_good[f] = (q.dot(points[a]) < q.dist());
-			cerr << "face " << f << ' ' << a << '-' << b << '-' << c << ' ' << q.dot(points[a]) << ' ' << q.dist() << ' ' << (is_good[f] ? "good" : "bad") << '\n';
-			ans += is_good[f];
+			//is_good[f] = (q.dot(points[a]) < q.dist());
+			//cerr << "face " << f << ' ' << a << '-' << b << '-' << c << ' ' << q.dot(points[a]) << ' ' << q.dist() << ' ' << (is_good[f] ? "good" : "bad") << '\n';
+			//ans += is_good[f];
 			half_edges.push_back({{std::min(a, b), std::max(a, b)}, f});
 			half_edges.push_back({{std::min(b, c), std::max(b, c)}, f});
 			half_edges.push_back({{std::min(c, a), std::max(c, a)}, f});
 		}
-		cerr << "initial ans " << ans << '\n';
 		std::vector<int> par(F, -1);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
@@ -158,6 +156,7 @@ int main() {
 			par[b] = a;
 			return true;
 		};
+		int num_merges = 0;
 		std::sort(half_edges.begin(), half_edges.end());
 		assert(int(half_edges.size()) % 2 == 0);
 		for (int i = 0; i < int(half_edges.size()); i += 2) {
@@ -165,25 +164,22 @@ int main() {
 			auto [a, b] = half_edges[i].first;
 			int f1 = half_edges[i].second;
 			int f2 = half_edges[i+1].second;
-			if (is_good[f1] && is_good[f2]) {
-				cerr << "adjacent " << f1 << ' ' << f2 << ' ' << points[a].cross(points[b]).dist() << ' ' << (points[a] - points[b]).dist() << '\n';
-			}
-			if (points[a].cross(points[b]).dist2() < (points[a] - points[b]).dist2()) {
-				assert(is_good[f1]);
-				assert(is_good[f2]);
-				if (is_good[f1] && is_good[f2]) {
-					cerr << "merging " << f1 << ' ' << f2 << '\n';
-					ans -= merge(f1, f2);
-				}
-			} else {
-				assert(a != N && b != N);
+			if (a == N || b == N || ((points[a] - points[b]).dot(points[b]) < 0 && (points[b] - points[a]).dot(points[a]) < 0 && points[a].cross(points[b]).dist2() < (points[a] - points[b]).dist2())) {
+				is_good[f1] = true;
+				is_good[f2] = true;
+				cerr << "merging " << f1 << ' ' << f2 << '\n';
+				num_merges += merge(f1, f2);
 			}
 		}
-		for (int i = 0; i < F; i++) {
-			if (is_good[i]) {
-				if (par[i] < 0) cerr << i << ' ' << par[i] << '\n';
+		int num_verts = 0;
+		for (int f = 0; f < F; f++) {
+			if (!is_good[f]) {
+				auto [q, a, b, c] = faces[f];
+				// check if this guy is a singleton
 			}
+			num_verts += is_good[f];
 		}
+		int ans = num_verts - num_merges;
 		cout << ans << '\n';
 	}
 
