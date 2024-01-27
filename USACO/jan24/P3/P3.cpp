@@ -109,6 +109,7 @@ int main() {
 				}
 			}
 
+			cerr << "value " << seg[1].val << '\n';
 			if (x & 1) ans_2d -= seg[1].val;
 			else ans_2d += seg[1].val;
 
