@@ -247,6 +247,23 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	std::mt19937 mt(48);
+	{
+		for (int z = 0; z < 100; z++) {
+			cerr << "TEST " << z << '\n';
+			int N = std::uniform_int_distribution<int>(2, 10)(mt);
+			std::vector<num> P(N);
+			for (auto& p : P) p = num(std::uniform_int_distribution<int>(0, 5)(mt));
+			std::vector<std::vector<int>> adj(N);
+			for (int i = 1; i < N; i++) {
+				int j = std::uniform_int_distribution<int>(0, i-1)(mt);
+				adj[j].push_back(i);
+				adj[i].push_back(j);
+			}
+			solve(N, std::move(P), std::move(adj));
+		}
+	}
+
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
