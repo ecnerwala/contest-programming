@@ -55,9 +55,9 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			ans -= pow_2[N - freq[i]];
 		}
-		cerr << "ans 1d " << z << ' ' << ans << '\n';
 		ans -= num(2) * pow_2[N];
 		ans += num(1);
+		cerr << "ans 1d " << z << ' ' << ans << '\n';
 		tot_ans += ans;
 	}
 
@@ -117,6 +117,8 @@ int main() {
 			}
 		}
 
+		ans_2d -= num(2) * pow_2[N];
+		ans_2d += num(1);
 		cerr << "ans 2d " << ans_2d << '\n';
 		tot_ans -= ans_2d;
 	}
