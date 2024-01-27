@@ -91,7 +91,8 @@ void glue(face *F1, face *F2, edge* &e1, edge* &e2) {
 };
 
 // modify this to your liking
-const ftype EPS = 1e-9;
+//const ftype EPS = 1e-9;
+const ftype EPS = 1e-11;
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
@@ -112,7 +113,7 @@ void prepare(vector<pt3> &p) {
             break;
         }
     }
-    assert(sz(ve) == 4);
+    wssert(sz(ve) == 4);
     vector<pt3> ve2;
     for(int i : ve) ve2.push_back(p[i]);
     reverse(all(ve));
@@ -121,6 +122,7 @@ void prepare(vector<pt3> &p) {
 }
 
 vector<face*> hull3(vector<pt3> &p) {
+	assert(sz(p) >= 4);
     int n = sz(p);
     prepare(p);
     vector<face*> f, new_face(n, NULL);
@@ -213,7 +215,7 @@ struct PR {
 struct F { P3 q; int a, b, c; };
 
 vector<F> hull3d(const vector<P3>& A) {
-	assert(sz(A) >= 4);
+	wssert(sz(A) >= 4);
 	vector<vector<PR>> E(sz(A), vector<PR>(sz(A), {-1, -1}));
 #define E(x,y) E[f.x][f.y]
 	vector<F> FS;
@@ -270,7 +272,7 @@ int main() {
 		for (auto& p : points) {
 			double x, y, z; cin >> x >> y >> z;
 
-			// rotate randomly
+			// preterb randomly
 			double l = std::sqrt(x * x + y * y + z * z);
 			x += dist(mt) * l; y += dist(mt) * l; z += dist(mt) * l;
 
@@ -323,9 +325,9 @@ int main() {
 		};
 		int num_merges = 0;
 		std::sort(half_edges.begin(), half_edges.end());
-		assert(int(half_edges.size()) % 2 == 0);
+		wssert(int(half_edges.size()) % 2 == 0);
 		for (int i = 0; i < int(half_edges.size()); i += 2) {
-			assert(half_edges[i].first == half_edges[i+1].first);
+			wssert(half_edges[i].first == half_edges[i+1].first);
 			auto [a, b] = half_edges[i].first;
 			int f1 = half_edges[i].second;
 			int f2 = half_edges[i+1].second;
