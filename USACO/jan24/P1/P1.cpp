@@ -259,12 +259,14 @@ int main() {
 			std::vector<num> P(N);
 			for (auto& p : P) p = num(std::uniform_int_distribution<int>(0, 5)(mt));
 			std::vector<std::vector<int>> adj(N);
+			/*
 			for (int i = 1; i < N; i++) {
 				int j = std::uniform_int_distribution<int>(0, i-1)(mt);
 				adj[j].push_back(i);
 				adj[i].push_back(j);
 			}
 			solve(N, std::move(P), std::move(adj));
+			*/
 		}
 	}
 
