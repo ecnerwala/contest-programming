@@ -79,6 +79,7 @@ int main() {
 		for (int i = 0; i <= 2*N; i++) {
 			seg[S+i].val = (i & 1) ? num(num::MOD-1) : num(1);
 		}
+		for (int i = S-1; i > 0; i--) update_node(i);
 		auto apply_node = [&](int a, num v) {
 			seg[a].lazy *= v;
 			seg[a].val *= v;
