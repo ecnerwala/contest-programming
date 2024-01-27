@@ -89,8 +89,8 @@ int main() {
 				if (a & 1) apply_node(a++, v);
 				if (b & 1) apply_node(--b, v);
 			}
-			for (int a = S+l; a; a >>= 1) update_node(a);
-			for (int a = S+r-1; a; a >>= 1) update_node(a);
+			for (int a = (S+l)/2; a; a >>= 1) update_node(a);
+			for (int a = (S+r-1)/2; a; a >>= 1) update_node(a);
 		};
 
 		for (int i = 0; i < N; i++) {
