@@ -138,6 +138,7 @@ int main() {
 			half_edges.push_back({{std::min(b, c), std::max(b, c)}, f});
 			half_edges.push_back({{std::min(c, a), std::max(c, a)}, f});
 		}
+		cerr << "initial ans " << ans << '\n';
 		std::vector<int> par(F, -1);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
