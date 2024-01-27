@@ -79,6 +79,7 @@ int main() {
 			// pick a split uniformly at random
 			num p = rect_read(i, j) * invs[l-1];
 			while (k_mid <= i || (k_mid <= j-1 && pref[j] - pref[k_mid] >= pref[k_mid] - pref[i])) k_mid++;
+			cerr << i << ' ' << j << ' ' << k_mid << '\n';
 			assert(i+1 <= k_mid && k_mid <= j);
 			rect_incr(i+1, j, k_mid-1, j, p);
 			rect_incr(i, k_mid, i, j-1, p);
