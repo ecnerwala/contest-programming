@@ -60,13 +60,9 @@ int main() {
 	}
 
 	const num inv2 = num((num::MOD + 1) / 2);
-	{
+	for (int z = 0; z < 2; z++) {
 		// Now do the 2d part
 		num ans_2d = num(0);
-		std::vector<std::vector<int>> by_x(N);
-		for (int i = 0; i < N; i++) {
-			by_x[P[i][0]].push_back(P[i][1]);
-		}
 
 		struct seg_t {
 			num val = num(0);
@@ -94,8 +90,12 @@ int main() {
 			for (int a = (S+r-1)/2; a; a >>= 1) update_node(a);
 		};
 
+		std::vector<std::vector<int>> by_x(N);
 		for (int i = 0; i < N; i++) {
-			update_range(0, 2*P[i][1]+1, num(2));
+			auto [x, y] = P[i];
+			if (z) y = N-1-y;
+			by_x[x].push_back(y);
+			update_range(0, 2*y+1, num(2));
 		}
 
 		for (int x = 0; x <= 2*N; x++) {
