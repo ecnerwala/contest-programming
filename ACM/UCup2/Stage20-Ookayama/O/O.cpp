@@ -308,7 +308,7 @@ int main() {
 		int i = by_x[x];
 		cerr << "processing " << i << ' ' << pts[i][0] << ' ' << pts[i][1] << '\n';
 		if (i >= N) {
-			auto it = live_ys.lower_bound(i);
+			auto it = live_ys.lower_bound(pts[i][1]);
 			if (it == live_ys.begin()) {
 				cout << "No" << '\n';
 				exit(0);
