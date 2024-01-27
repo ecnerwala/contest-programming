@@ -14,7 +14,7 @@ template<class T> struct Point3D {
 	typedef Point3D P;
 	typedef const P& R;
 	T x, y, z;
-	explicit Point3D(T x=0, T y=0, T z=0) : x(x), y(y), z(z) {}
+	explicit Point3D(T x_=0, T y_=0, T z_=0) : x(x_), y(y_), z(z_) {}
 	bool operator<(R p) const {
 		return tie(x, y, z) < tie(p.x, p.y, p.z); }
 	bool operator==(R p) const {
