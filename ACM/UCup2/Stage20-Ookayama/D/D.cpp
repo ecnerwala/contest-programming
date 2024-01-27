@@ -104,6 +104,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, R; cin >> N >> R;
+		cerr << "start case" << N << " " << R << endl;
 		using pt_t = kactl::P3;
 		std::vector<pt_t> points; points.reserve(N+1); points.resize(N);
 		std::uniform_real_distribution<double> dist(-1e-8, 1e-8);
