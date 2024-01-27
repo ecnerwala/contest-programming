@@ -73,11 +73,16 @@ int main() {
 	auto rect_read = [&](int x, int y) -> num {
 		return dp[coords(x, y)] - dp[coords(x-1, y)] - dp[coords(x, y-1)] + dp[coords(x-1, y-1)];
 	};
-	for (int l = N; l > 1; l--) {
+	for (int l = N; l >= 1; l--) {
 		int k_mid = 0;
 		for (int i = 0, j = l; j <= N; i++, j++) {
 			// pick a split uniformly at random
-			num p = rect_read(i, j) * invs[l-1];
+			num p = rect_read(i, j);
+			if (l == 1) {
+				cout << p.v << '\n';
+				continue;
+			}
+			p *= invs[l-1];
 			while (k_mid <= i || (k_mid <= j-1 && pref[j] - pref[k_mid] >= pref[k_mid] - pref[i])) k_mid++;
 			cerr << i << ' ' << j << ' ' << k_mid << '\n';
 			assert(i+1 <= k_mid && k_mid <= j);
@@ -85,10 +90,6 @@ int main() {
 			rect_incr(i, k_mid, i, j-1, p);
 		}
 	}
-	for (int i = 0; i < N; i++) {
-		cout << rect_read(i, i+1).v << '\n';
-	}
-
 	return 0;
 }
 
