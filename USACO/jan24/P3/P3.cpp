@@ -37,7 +37,7 @@ int main() {
 
 	int N; cin >> N;
 	std::vector<std::array<int, 2>> P(N);
-	for (auto [x, y] : P) { cin >> x >> y; x--, y--; }
+	for (auto& [x, y] : P) { cin >> x >> y; x--, y--; }
 
 	using num = modnum<int(1e9)+7>;
 
