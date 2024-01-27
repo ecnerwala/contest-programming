@@ -270,8 +270,9 @@ int main() {
 		for (auto& p : points) {
 			double x, y, z; cin >> x >> y >> z;
 
-			// preterb randomly
-			x += dist(mt); y += dist(mt); z += dist(mt);
+			// rotate randomly
+			double l = std::sqrt(x * x + y * y + z * z);
+			x += dist(mt) * l; y += dist(mt) * l; z += dist(mt) * l;
 
 			double a = std::sqrt(x * x + y * y + z * z - R * R);
 			x /= a; y /= a; z /= a;
