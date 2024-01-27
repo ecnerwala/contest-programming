@@ -106,13 +106,14 @@ int main() {
 		std::vector<bool> has_out(N);
 		std::vector<num> vert_escape(N);
 		std::vector<num> chain_escape(C);
+		std::vector<std::vector<num>> subchain_escape(N);
+		std::vector<int> num_bridge(N);
 		{
 			auto dfs = [&](auto self, int v, bool cur_has_out) -> void {
 				has_out[v] = cur_has_out;
-				std::vector<num> subchain_escape; subchain_escape.reserve(subchains.size() + 1);
-				subchain_escape.push_back(num(1));
+				subchain_escape[v].reserve(subchains.size() + 1);
+				subchain_escape[v].push_back(num(1));
 
-				int num_bridge = 0;
 				for (int c : subchains[v]) {
 					bool is_bridge = int(chains[c].size()) == 1;
 					chain_escape[c] = num(1);
@@ -121,14 +122,12 @@ int main() {
 						chain_escape[c] *= vert_escape[u];
 					}
 					cerr << "chain " << c << " " << chain_escape[c] << '\n';
-					if (cur_has_out) {
-						if (is_bridge) {
-							num_bridge++;
-						} else {
-							subchain_escape.push_back(chain_escape[c]);
-							for (int z = int(subchain_escape.size()) - 1; z > 0; z--) {
-								subchain_escape[z] += subchain_escape[z-1] * chain_escape[c];
-							}
+					if (is_bridge) {
+						num_bridge[v]++;
+					} else {
+						subchain_escape[v].push_back(num(0));
+						for (int z = int(subchain_escape[v].size()) - 1; z > 0; z--) {
+							subchain_escape[v][z] += subchain_escape[v][z-1] * chain_escape[c];
 						}
 					}
 				}
@@ -136,8 +135,8 @@ int main() {
 					vert_escape[v] = num(0);
 				} else {
 					// we have some number of chains,
-					int cycs = int(subchain_escape.size()) - 1;
-					int num_edges = 1 + 2 * cycs + num_bridge;
+					int cycs = int(subchain_escape[v].size()) - 1;
+					int num_edges = 1 + 2 * cycs + num_bridge[v];
 					assert(num_edges + 1 == int(adj[v].size()));
 					num val = num(0);
 					num w = num(1);
@@ -147,13 +146,62 @@ int main() {
 						if (num_cycs) {
 							w *= num(2 * num_cycs);
 						}
-						val += w * subchain_escape[num_cycs];
+						val += w * subchain_escape[v][num_cycs];
 					}
 					vert_escape[v] = val;
 					cerr << "vert " << v << ' ' << vert_escape[v] << '\n';
 				}
 			};
 			dfs(dfs, 0, false);
+		}
+
+		{
+			auto dfs = [&](auto self, int v, num p_reach_v) -> void {
+				for (int c : subchains[v]) {
+					num p_reach_c = num(0);
+
+					{
+						bool is_bridge = int(chains[c].size()) == 1;
+						int bridges = num_bridge[v];
+						int cycs = int(subchain_escape[v].size()) - 1;
+						int num_edges = 1 + 2 * cycs + bridges;
+
+						if (!is_bridge) {
+							// all the other chain
+							for (int z = 1; z < int(subchain_escape[v].size()); z++) {
+								subchain_escape[v][z] += subchain_escape[v][z-1] * chain_escape[c];
+							}
+							subchain_escape[v].pop_back();
+							cycs--;
+						} else {
+							bridges--;
+						}
+
+						num w = num(1);
+						for (int num_cycs = 0; num_cycs <= cycs; num_cycs++) {
+							w *= invs[num_edges - num_cycs * 2];
+							w *= num(1) - P[v];
+							if (num_cycs) {
+								w *= num(2 * num_cycs);
+							}
+							p_reach_c += w * subchain_escape[v][num_cycs];
+						}
+
+						// restore
+						if (!is_bridge) {
+							subchain_escape[v].push_back(num(0));
+							for (int z = int(subchain_escape[v].size()) - 1; z > 0; z--) {
+								subchain_escape[v][z] += subchain_escape[v][z-1] * chain_escape[c];
+							}
+						} else {
+							p_reach_c *= invs[2];
+						}
+					}
+
+					cerr << c << ' ' << p_reach_c << '\n';
+				}
+			};
+			dfs(dfs, 0, num(1));
 		}
 	}
 
