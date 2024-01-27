@@ -157,6 +157,7 @@ int main() {
 
 		{
 			auto dfs = [&](auto self, int v, num p_reach_v) -> void {
+				cerr << "reach v " << v << ' ' << p_reach_v << '\n';
 				for (int c : subchains[v]) {
 					num p_reach_c = num(0);
 
@@ -198,7 +199,7 @@ int main() {
 						}
 					}
 
-					cerr << c << ' ' << p_reach_c << '\n';
+					cerr << "reach c " << c << ' ' << p_reach_c << '\n';
 					// go from the front and the back
 					std::vector<num> p_reach_u(chains[c].size());
 					{
