@@ -61,7 +61,7 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 		std::vector<int> low_val(N, -1);
 		std::vector<int> par(N, -1);
 		std::vector<int> stk; stk.reserve(N);
-		auto dfs = [&](auto self, int cur, int prv) -> void {
+		auto dfs = [&](auto&& self, int cur, int prv) -> void {
 			//cerr << "dfs " << cur << ' ' << prv << '\n';
 			par[cur] = prv;
 			wssert(depth[cur] == -1);
@@ -104,7 +104,7 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 	std::vector<std::vector<num>> subchain_escape(N);
 	std::vector<int> num_bridge(N);
 	{
-		auto dfs = [&](auto self, int v, bool cur_has_out) -> void {
+		auto dfs = [&](auto&& self, int v, bool cur_has_out) -> void {
 			has_out[v] = cur_has_out;
 			subchain_escape[v].reserve(subchains.size() + 1);
 			subchain_escape[v].push_back(num(1));
@@ -152,7 +152,7 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 
 	std::vector<num> ans(N);
 	{
-		auto dfs = [&](auto self, int v, num p_reach_v) -> void {
+		auto dfs = [&](auto&& self, int v, num p_reach_v) -> void {
 			//cerr << "reach v " << v << ' ' << p_reach_v << '\n';
 			// what's the chance we get stuck here
 			{
@@ -264,9 +264,7 @@ int main() {
 				adj[j].push_back(i);
 				adj[i].push_back(j);
 			}
-			/*
 			solve(N, std::move(P), std::move(adj));
-			*/
 		}
 	}
 
