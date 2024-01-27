@@ -253,7 +253,7 @@ int main() {
 	std::mt19937 mt(48);
 	{
 		for (int z = 0; z < 10; z++) {
-			int N = std::uniform_int_distribution<int>(2, 1e4)(mt);
+			int N = std::uniform_int_distribution<int>(2, 10)(mt);
 			cerr << "TEST " << z << ' ' << N << '\n';
 			std::vector<num> P(N);
 			for (auto& p : P) p = num(std::uniform_int_distribution<int>(0, 5)(mt));
