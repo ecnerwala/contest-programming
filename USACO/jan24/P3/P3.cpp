@@ -115,7 +115,7 @@ int main() {
 
 			if (x & 1) {
 				for (int y : by_x[x / 2]) {
-					update_range(2*y+1, 2*N+1, inv2);
+					update_range(2*y+1, 2*N+1, num(2));
 				}
 			}
 		}
