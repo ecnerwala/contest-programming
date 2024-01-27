@@ -62,6 +62,8 @@ int main() {
 	};
 	// inclusive
 	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) {
+		assert(xlo - 1 <= xhi);
+		assert(ylo - 1 <= yhi);
 		dp[coords(xlo-1, ylo-1)] += v;
 		dp[coords(xhi, yhi)] += v;
 		dp[coords(xlo-1, yhi)] -= v;
