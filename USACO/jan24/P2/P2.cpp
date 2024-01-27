@@ -63,14 +63,15 @@ int main() {
 	// inclusive
 	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) {
 		cerr << "incr " << xlo << ' ' << ylo << ' ' << xhi << ' ' << yhi << ' ' << v.v << '\n';
-		assert(xlo - 1 <= xhi);
-		assert(ylo - 1 <= yhi);
-		if (xlo == xhi + 1) return;
-		if (ylo == yhi + 1) return;
-		dp[coords(xlo-1, ylo-1)] += v;
+		xlo--, ylo--;
+		assert(xlo <= xhi);
+		assert(ylo <= yhi);
+		if (xlo == xhi) return;
+		if (ylo == yhi) return;
+		dp[coords(xlo, ylo)] += v;
 		dp[coords(xhi, yhi)] += v;
-		dp[coords(xlo-1, yhi)] -= v;
-		dp[coords(xhi, ylo-1)] -= v;
+		dp[coords(xlo, yhi)] -= v;
+		dp[coords(xhi, ylo)] -= v;
 	};
 	rect_incr(0, N, 0, N, num(1));
 	for (int l = N; l >= 1; l--) {
