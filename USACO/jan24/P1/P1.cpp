@@ -98,7 +98,6 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 	}
 	int C = int(chains.size());
 
-	return P;
 	std::vector<bool> has_out(N);
 	std::vector<num> vert_escape(N);
 	std::vector<num> chain_escape(C);
@@ -150,6 +149,7 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 		};
 		dfs(dfs, 0, false);
 	}
+	return P;
 
 	std::vector<num> ans(N);
 	{
