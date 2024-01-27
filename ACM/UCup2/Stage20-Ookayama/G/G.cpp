@@ -147,6 +147,7 @@ int main() {
 		if (v > M) break;
 		ans += coeff(M - v) * ((k & 1) ? -1 : 1);
 	}
+	ans *= ifact[N];
 	cout << ans << '\n';
 
 	return 0;
