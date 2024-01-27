@@ -590,7 +590,7 @@ int main() {
 			ans += std::min(n_depth, good_depth) - std::min(depth, good_depth);
 		}
 		return res;
-	})(st.root);
+	})(st.root, 0);
 	cout << ans << '\n';
 
 	return 0;
