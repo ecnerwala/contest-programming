@@ -54,11 +54,11 @@ int main() {
 		}
 	}
 
-	std::vector<num> dp((N+1) * (N+1));
+	std::vector<num> dp((N+2) * (N+2));
 	auto coords = [&](int x, int y) -> int {
-		assert(-1 <= x && x < N);
-		assert(0 <= y && y <= N);
-		return (N+1) * (x+1) + y;
+		assert(-1 <= x && x <= N);
+		assert(0 <= y && y <= N+1);
+		return (N+2) * (x+1) + y;
 	};
 	// inclusive
 	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) {
