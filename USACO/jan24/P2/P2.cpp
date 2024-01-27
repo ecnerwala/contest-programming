@@ -77,7 +77,7 @@ int main() {
 		int k_mid = 0;
 		for (int i = 0, j = l; j <= N; i++, j++) {
 			// pick a split uniformly at random
-			num p = rect_read(i, j);
+			num p = dp[coords(i, j)] += dp[coords(i+1, j)] + dp[coords(i, j+1)] - dp[coords(i+1, j+1)];
 			if (l == 1) {
 				cout << p.v << '\n';
 				continue;
