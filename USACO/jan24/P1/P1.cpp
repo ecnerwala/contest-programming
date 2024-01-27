@@ -58,13 +58,14 @@ int main() {
 			adj[v].push_back(u);
 		}
 
-		std::vector<num> fact(N+1);
+		const int V = 3*N + 10;
+		std::vector<num> fact(V+1);
 		fact[0] = num(1);
-		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(N+1);
-		ifact[N] = inv(fact[N]);
-		std::vector<num> invs(N+1);
-		for (int i = N; i >= 1; i--) {
+		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(V+1);
+		ifact[V] = inv(fact[V]);
+		std::vector<num> invs(V+1);
+		for (int i = V; i >= 1; i--) {
 			ifact[i-1] = ifact[i] * num(i);
 			invs[i] = ifact[i] * fact[i-1];
 		}
