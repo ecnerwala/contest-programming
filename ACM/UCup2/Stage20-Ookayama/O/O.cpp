@@ -331,6 +331,7 @@ int main() {
 	seg_tree::in_order_layout layout(2*N);
 	std::vector<int> seg(2*layout.N, -1);
 	for (int x = 0; x < N; x++) {
+		cerr << x << '-' << horz_match[x] << ' ' << vert_bounds[x][0] << ' ' << vert_bounds[x][1] << '\n';
 		int px = horz_match[x];
 		if (px != -1) {
 			assert(vert_bounds[x] == vert_bounds[px]);
