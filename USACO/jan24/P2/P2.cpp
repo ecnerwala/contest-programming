@@ -10,9 +10,9 @@ template <int MOD_> struct modnum {
 	modnum() : v(0) {}
 	explicit modnum(int64_t a) : v(int(a % MOD)) { if (v < 0) v += MOD; }
 	explicit operator int() const { return v; }
-	modnum& operator += (modnum& o) { v -= MOD - o.v; v = (v < 0) ? v + MOD : v; return *this; }
+	modnum& operator += (modnum o) { v -= MOD - o.v; v = (v < 0) ? v + MOD : v; return *this; }
 	friend modnum operator + (modnum a, modnum b) { return a += b; }
-	modnum& operator -= (modnum& o) { v -= o.v; v = (v < 0) ? v + MOD : v; return *this; }
+	modnum& operator -= (modnum o) { v -= o.v; v = (v < 0) ? v + MOD : v; return *this; }
 	friend modnum operator - (modnum a, modnum b) { return a -= b; }
 
 	modnum& operator *= (modnum o) {
