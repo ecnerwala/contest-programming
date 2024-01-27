@@ -810,11 +810,14 @@ int main() {
 	std::vector<num> fact(N+1);
 	fact[0] = 1;
 	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(N+1);
+	ifact[N] = inv(fact[N]);
+	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	ps num_graphs(N+1);
 	for (int i = 0; i <= N; i++) {
 		num_graphs[i] = pow(num(2), i * (i-1) / 2);
-		num_graphs[i] /= fact[i];
+		num_graphs[i] *= ifact[i];
 	}
 	ps connected_graphs = poly_log(num_graphs);
 	for (int i = 0; i <= N; i++) {
@@ -828,12 +831,16 @@ int main() {
 	ps bcc_ways(N+1);
 	for (int i = 1; i <= N; i++) {
 		num v = connected_graphs[i];
+		num cur_pow_i = 1;
 		for (int k = 2; k <= i; k++) {
 			for (int c = 1; c <= i; c++) {
-				group_ways[k][i] += group_ways[k-1][i-c] * bcc_ways[c] * fact[i-1] / fact[c-1] / fact[i-c] * num(c);
-				group_ways_2[k][i] += group_ways_2[k-1][i-c] * bcc_ways[c] * fact[i-1] / fact[c-1] / fact[i-c] * num(c) * num(c);
+				num w = fact[i-1] * ifact[c-1] * ifact[i-c] * bcc_ways[c] * num(c);
+				group_ways[k][i] += group_ways[k-1][i-c] * w;
+				w *= num(c);
+				group_ways_2[k][i] += group_ways_2[k-1][i-c] * w;
 			}
-			v -= group_ways[k][i] * pow(num(i), k-2);
+			v -= group_ways[k][i] * cur_pow_i;
+			cur_pow_i *= num(i);
 		}
 		bcc_ways[i] = v;
 		group_ways[1][i] = v * num(i);
@@ -849,9 +856,11 @@ int main() {
 		for (int i = N; i > 0; i--) prod_i[i] += prod_i[i-1] * a;
 	}
 	num ans = 0;
+	num cur_pow_N = inv(num(N));
 	for (int k = 1; k <= N; k++) {
-		num v = group_ways_2[k][N] * pow(num(N), k-1) / num(N);
-		v /= (fact[N] / fact[k] / fact[N-k]);
+		num v = group_ways_2[k][N] * cur_pow_N;
+		cur_pow_N *= num(N);
+		v *= ifact[N] * fact[k] * fact[N-k];
 		//cerr << k << ' ' << v << '\n';
 		ans += prod_i[k] * v;
 	}
