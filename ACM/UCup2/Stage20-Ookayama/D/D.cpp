@@ -121,7 +121,7 @@ int main() {
 		}
 		points.push_back(pt_t(0, 0, 0));
 		for (int i = 0; i <= N; i++) {
-			cerr << i << ' ' << points[i].x << ' ' << points[i].y << ' ' << points[i].z << '\n';
+			cerr << i << ' ' << points[i].x << ' ' << points[i].y << ' ' << points[i].z << "  " << points[i].dist() << '\n';
 		}
 		auto faces = kactl::hull3d(points);
 		int F = int(faces.size());
