@@ -136,7 +136,7 @@ int main() {
 				} else {
 					// we have some number of chains,
 					int cycs = int(subchain_escape.size()) - 1;
-					int num_edges = 1 + 2 * (cycs - 1) + num_bridge;
+					int num_edges = 1 + 2 * cycs + num_bridge;
 					assert(num_edges + 1 == int(adj[v].size()));
 					num val = num(0);
 					num w = num(1);
