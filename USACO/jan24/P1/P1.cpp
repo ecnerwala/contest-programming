@@ -98,7 +98,7 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 	}
 	int C = int(chains.size());
 
-	return {};
+	return P;
 	std::vector<bool> has_out(N);
 	std::vector<num> vert_escape(N);
 	std::vector<num> chain_escape(C);
