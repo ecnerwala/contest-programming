@@ -160,9 +160,11 @@ int main() {
 			auto [a, b] = half_edges[i].first;
 			int f1 = half_edges[i].second;
 			int f2 = half_edges[i+1].second;
-			if (is_good[f1] && is_good[f2]) {
-				cerr << "adjacent " << f1 << ' ' << f2 << ' ' << points[a].cross(points[b]).dist() << ' ' << (points[a] - points[b]).dist() << '\n';
-				if (points[a].cross(points[b]).dist2() < (points[a] - points[b]).dist2()) {
+			cerr << "adjacent " << f1 << ' ' << f2 << ' ' << points[a].cross(points[b]).dist() << ' ' << (points[a] - points[b]).dist() << '\n';
+			if (points[a].cross(points[b]).dist2() < (points[a] - points[b]).dist2()) {
+				assert(is_good[f1]);
+				assert(is_good[f2]);
+				if (is_good[f1] && is_good[f2]) {
 					cerr << "merging " << f1 << ' ' << f2 << '\n';
 					ans -= merge(f1, f2);
 				}
