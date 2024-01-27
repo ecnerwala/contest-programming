@@ -63,6 +63,83 @@ int main() {
 				f *= num(i);
 			}
 		}
+
+		std::vector<std::vector<int>> subchains(N);
+		std::vector<std::vector<int>> chains; chains.reserve(N);
+		{
+			std::vector<int> depth(N, -1);
+			std::vector<int> low_val(N, -1);
+			std::vector<int> par(N, -1);
+			std::vector<int> stk; stk.reserve(N);
+			auto dfs = [&](auto self, int cur, int prv) -> void {
+				par[cur] = prv;
+				assert(depth[cur] == -1);
+				depth[cur] = (prv == -1) ? 0 : depth[prv] + 1;
+				low_val[cur] = depth[cur];
+				stk.push_back(cur);
+				for (int nxt : adj[cur]) {
+					if (nxt == prv) continue;
+					if (depth[nxt] == -1) {
+						self(self, nxt, cur);
+						if (low_val[nxt] >= depth[cur]) {
+							subchains[cur].push_back(int(chains.size()));
+							chains.emplace_back(stk.end() - (depth[nxt] - depth[cur]), stk.end());
+							stk.resize(int(stk.size()) - (depth[nxt] - depth[cur]));
+						} else {
+							assert(low_val[cur] == depth[cur]);
+							low_val[cur] = low_val[nxt];
+						}
+					} else if (depth[nxt] < depth[cur]) {
+						assert(low_val[cur] == depth[cur]);
+						low_val[cur] = depth[nxt];
+					} else {
+						// do nothing
+					}
+				}
+			};
+			dfs(dfs, 0, -1);
+			assert(int(stk.size()) == 1);
+		}
+		int C = int(chains.size());
+
+		std::vector<bool> has_out(N);
+		std::vector<num> vert_escape(N);
+		std::vector<num> chain_escape(C);
+		{
+			auto dfs = [&](auto self, int v, bool cur_has_out) -> void {
+				has_out[v] = cur_has_out;
+				std::vector<num> subchain_escape; subchain_escape.reserve(subchains.size() + 1);
+				subchain_escape.push_back(num(1));
+
+				int num_bridge = 0;
+				for (int c : subchains[v]) {
+					bool is_bridge = int(chains[c].size()) == 1;
+					chain_escape[c] = num(1);
+					for (int u : chains[c]) {
+						self(self, u, !is_bridge);
+						chain_escape[c] *= vert_escape[u];
+					}
+					if (cur_has_out) {
+						if (is_bridge) {
+							num_bridge++;
+						} else {
+							subchain_escape.push_back(chain_escape[c]);
+							for (int z = int(subchain_escape.size()) - 1; z > 0; z--) {
+								subchain_escape[z] += subchain_escape[z-1] * chain_escape[c];
+							}
+						}
+					}
+				}
+				if (!cur_has_out) {
+					vert_escape[v] = num(0);
+				} else {
+					// we have some number of chains,
+					int num_edges = 1 + 2 * (int(subchain_escape.size()) - 1) + num_bridge;
+					assert(num_edges + 1 == int(adj[v].size()));
+				}
+			};
+			dfs(dfs, 0, false);
+		}
 	}
 
 	return 0;
