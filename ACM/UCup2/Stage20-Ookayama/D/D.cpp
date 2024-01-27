@@ -179,6 +179,9 @@ int main() {
 				assert(a != N && b != N);
 			}
 		}
+		for (int i = 0; i < F; i++) {
+			if (par[i] < 0) cerr << i << ' ' << par[i] << '\n';
+		}
 		cout << ans << '\n';
 	}
 
