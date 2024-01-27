@@ -46,7 +46,7 @@ int main() {
 		std::vector<std::vector<int>> adj(N);
 		for (int e = 0; e < M; e++) {
 			int u, v; cin >> u >> v; u--, v--;
-			cerr << "edge " << u << ' ' << v << '\n';
+			//cerr << "edge " << u << ' ' << v << '\n';
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
@@ -180,7 +180,7 @@ int main() {
 						}
 					}
 					ans[v] = p_stay;
-					cerr << "stay " << v << ' ' << ans[v] << '\n';
+					//cerr << "stay " << v << ' ' << ans[v] << '\n';
 				}
 				for (int c : subchains[v]) {
 					num p_reach_c = num(0);
@@ -223,7 +223,7 @@ int main() {
 						}
 					}
 
-					cerr << "reach c " << c << ' ' << p_reach_c << '\n';
+					//cerr << "reach c " << c << ' ' << p_reach_c << '\n';
 					// go from the front and the back
 					std::vector<num> p_reach_u(chains[c].size());
 					{
