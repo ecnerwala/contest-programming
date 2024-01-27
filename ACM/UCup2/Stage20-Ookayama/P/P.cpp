@@ -825,10 +825,15 @@ int main() {
 	group_ways[0][0] = 1;
 	ps bcc_ways(N+1);
 	for (int i = 1; i <= N; i++) {
-		{
-			num v = connected_graphs[i];
-			bcc_ways[i] = v;
+		num v = connected_graphs[i];
+		for (int k = 2; k <= i; k++) {
+			for (int c = 1; c < i; c++) {
+				group_ways[k][i] += group_ways[k-1][i-c] * bcc_ways[c] * fact[i-1] / fact[c-1] / fact[i-c];
+			}
+			v -= group_ways[k][i] * pow(num(i), k-2);
 		}
+		group_ways[1][i] = bcc_ways[i] = v;
+		cerr << i << ' ' << v << '\n';
 	}
 
 	return 0;
