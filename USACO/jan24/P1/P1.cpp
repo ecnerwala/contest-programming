@@ -73,7 +73,7 @@ int main() {
 			std::vector<int> par(N, -1);
 			std::vector<int> stk; stk.reserve(N);
 			auto dfs = [&](auto self, int cur, int prv) -> void {
-				cerr << "dfs " << cur << ' ' << prv << '\n';
+				//cerr << "dfs " << cur << ' ' << prv << '\n';
 				par[cur] = prv;
 				assert(depth[cur] == -1);
 				depth[cur] = (prv == -1) ? 0 : depth[prv] + 1;
@@ -88,10 +88,7 @@ int main() {
 							subchains[cur].push_back(int(chains.size()));
 							chains.emplace_back(stk.begin() + idx_cur, stk.end());
 							stk.resize(idx_cur);
-							cerr << "chain " << int(chains.size())-1 << ": ";
-							cerr << cur << ' ';
-							for (int v : chains.back()) cerr << v << ' ';
-							cerr << '\n';
+							cerr << "chain " << int(chains.size())-1 << ": "; cerr << cur << ' '; for (int v : chains.back()) { cerr << v << ' '; } cerr << '\n';
 						} else {
 							assert(low_val[cur] == depth[cur]);
 							low_val[cur] = low_val[nxt];
@@ -103,7 +100,6 @@ int main() {
 						// do nothing
 					}
 				}
-				cerr << "lowval " << cur << ' ' << low_val[cur] << '\n';
 			};
 			dfs(dfs, 0, -1);
 			assert(int(stk.size()) == 1);
