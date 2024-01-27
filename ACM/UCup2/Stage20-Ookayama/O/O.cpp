@@ -306,7 +306,7 @@ int main() {
 	std::set<int> live_ys;
 	for (int x = 0; x < 2*N; x++) {
 		int i = by_x[x];
-		cerr << "processing " << i << ' ' << pts[i][0] << ' ' << pts[i][1] << '\n';
+		//cerr << "processing " << i << ' ' << pts[i][0] << ' ' << pts[i][1] << '\n';
 		if (i >= N) {
 			auto it = live_ys.lower_bound(pts[i][1]);
 			if (it == live_ys.begin()) {
@@ -317,7 +317,7 @@ int main() {
 			int j = by_y[*it];
 			live_ys.erase(it);
 			ans[j] = i;
-			cerr << "match with " << j << ' ' << pts[j][0] << ' ' << pts[j][1] << '\n';
+			//cerr << "match with " << j << ' ' << pts[j][0] << ' ' << pts[j][1] << '\n';
 
 			// Now check the condition
 			int px = pts[j][0];
