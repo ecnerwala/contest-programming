@@ -99,6 +99,7 @@ int main() {
 						// do nothing
 					}
 				}
+				cerr << "lowval " << cur << ' ' << low_val[cur] << '\n';
 			};
 			dfs(dfs, 0, -1);
 			assert(int(stk.size()) == 1);
