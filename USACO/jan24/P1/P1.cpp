@@ -155,9 +155,33 @@ int main() {
 			dfs(dfs, 0, false);
 		}
 
+		std::vector<num> ans(N);
 		{
 			auto dfs = [&](auto self, int v, num p_reach_v) -> void {
 				cerr << "reach v " << v << ' ' << p_reach_v << '\n';
+				// what's the chance we get stuck here
+				{
+					int bridges = num_bridge[v];
+					int cycs = int(subchain_escape[v].size()) - 1;
+					int num_edges = has_out[v] + 2 * cycs + bridges;
+
+					num p_stay = num(0);
+					num w = p_reach_v;
+					for (int num_cycs = 0; num_cycs <= cycs; num_cycs++) {
+						if (num_cycs) {
+							w *= num(2 * num_cycs);
+							w *= invs[num_edges - (num_cycs - 1) * 2];
+							w *= num(1) - P[v];
+						}
+						if (num_cycs * 2 != num_edges) {
+							p_stay += w * subchain_escape[v][num_cycs] * P[v];
+						} else {
+							p_stay += w * subchain_escape[v][num_cycs];
+						}
+					}
+					ans[v] = p_stay;
+					cerr << "stay " << v << ' ' << ans[v] << '\n';
+				}
 				for (int c : subchains[v]) {
 					num p_reach_c = num(0);
 
@@ -222,6 +246,10 @@ int main() {
 				}
 			};
 			dfs(dfs, 0, num(1));
+		}
+
+		for (int i = 0; i < N; i++) {
+			cout << ans[i] << " \n"[i+1==N];
 		}
 	}
 
