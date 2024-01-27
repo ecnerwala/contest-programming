@@ -90,7 +90,7 @@ int main() {
 	S += ')';
 	idx = 0;
 	auto [a, b, eps] = parse_expr();
-	cout << a << ' ' << b << '\n';
+	cout << a << ' ' << (b + eps) << '\n';
 
 	return 0;
 }
