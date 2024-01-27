@@ -828,7 +828,7 @@ int main() {
 		num v = connected_graphs[i];
 		for (int k = 2; k <= i; k++) {
 			for (int c = 1; c < i; c++) {
-				group_ways[k][i] += group_ways[k-1][i-c] * bcc_ways[c] * fact[i-1] / fact[c-1] / fact[i-c];
+				group_ways[k][i] += group_ways[k-1][i-c] * bcc_ways[c] * fact[i-1] / fact[c-1] / fact[i-c] * num(c);
 			}
 			v -= group_ways[k][i] * pow(num(i), k-2);
 		}
