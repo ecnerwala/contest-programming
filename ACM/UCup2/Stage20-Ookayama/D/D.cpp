@@ -132,7 +132,7 @@ int main() {
 			auto [q, a, b, c] = faces[f];
 			// Now, check if the face is outside
 			cerr << "face " << f << ' ' << a << '-' << b << '-' << c << ' ' << q.dot(points[a]) << ' ' << q.dist() << '\n';
-			is_good[f] = (abs(points[a].cross(points[b]).dot(points[c])) < (points[a] - points[b]).cross(points[b] - points[c]).dist());
+			is_good[f] = (q.dot(points[a]) < q.dist());
 			ans += is_good[f];
 			half_edges.push_back({{std::min(a, b), std::max(a, b)}, f});
 			half_edges.push_back({{std::min(b, c), std::max(b, c)}, f});
