@@ -55,7 +55,6 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			ans -= pow_2[N - freq[i]];
 		}
-		// 4 - 2 + 4 - 2 + 4 = 8
 		//cerr << "ans 1d " << z << ' ' << ans << '\n';
 		tot_ans += ans;
 	}
