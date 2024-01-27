@@ -73,7 +73,7 @@ int main() {
 			std::vector<int> par(N, -1);
 			std::vector<int> stk; stk.reserve(N);
 			auto dfs = [&](auto self, int cur, int prv) -> void {
-				//cerr << "dfs " << cur << ' ' << prv << '\n';
+				cerr << "dfs " << cur << ' ' << prv << '\n';
 				par[cur] = prv;
 				assert(depth[cur] == -1);
 				depth[cur] = (prv == -1) ? 0 : depth[prv] + 1;
@@ -104,7 +104,7 @@ int main() {
 						// do nothing
 					}
 				}
-				//cerr << "lowval " << cur << ' ' << low_val[cur] << '\n';
+				cerr << "lowval " << cur << ' ' << low_val[cur] << '\n';
 			};
 			dfs(dfs, 0, -1);
 			assert(int(stk.size()) == 1);
