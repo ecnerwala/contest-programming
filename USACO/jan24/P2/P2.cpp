@@ -61,7 +61,7 @@ int main() {
 		return (N+1) * (x+1) + y;
 	};
 	// inclusive
-	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) -> int {
+	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) {
 		dp[coords(xlo-1, ylo-1)] += v;
 		dp[coords(xhi, yhi)] += v;
 		dp[coords(xlo-1, yhi)] -= v;
