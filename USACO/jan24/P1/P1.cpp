@@ -46,6 +46,7 @@ int main() {
 		std::vector<std::vector<int>> adj(N);
 		for (int e = 0; e < M; e++) {
 			int u, v; cin >> u >> v; u--, v--;
+			cerr << "edge " << u << ' ' << v << '\n';
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
