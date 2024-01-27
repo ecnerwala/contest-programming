@@ -149,6 +149,7 @@ int main() {
 						val += w * subchain_escape[num_cycs];
 					}
 					vert_escape[v] = val;
+					cerr << v << ' ' << vert_escape[v] << '\n';
 				}
 			};
 			dfs(dfs, 0, false);
