@@ -135,7 +135,8 @@ int main() {
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	auto coeff = [&](int a) -> num {
-		return fact[a + (N-1)] * ifact[a] * ifact[N-1];
+		//return fact[a + (N-1)] * ifact[a] * ifact[N-1];
+		return fact[a + N] * ifact[a] * ifact[N];
 	};
 
 	num ans = 0;
