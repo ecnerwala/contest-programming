@@ -121,7 +121,7 @@ int main() {
 		tot_ans -= ans_2d;
 	}
 
-	tot_ans -= num(1);
+	tot_ans *= num(2);
 	cout << tot_ans << '\n';
 
 	return 0;
