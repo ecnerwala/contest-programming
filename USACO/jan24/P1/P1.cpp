@@ -121,7 +121,7 @@ int main() {
 						self(self, u, !is_bridge);
 						chain_escape[c] *= vert_escape[u];
 					}
-					cerr << "chain " << c << " " << chain_escape[c] << '\n';
+					//cerr << "chain " << c << " " << chain_escape[c] << '\n';
 					if (is_bridge) {
 						num_bridge[v]++;
 					} else {
@@ -149,7 +149,7 @@ int main() {
 						val += w * subchain_escape[v][num_cycs];
 					}
 					vert_escape[v] = val;
-					cerr << "vert " << v << ' ' << vert_escape[v] << '\n';
+					//cerr << "vert " << v << ' ' << vert_escape[v] << '\n';
 				}
 			};
 			dfs(dfs, 0, false);
@@ -158,7 +158,7 @@ int main() {
 		std::vector<num> ans(N);
 		{
 			auto dfs = [&](auto self, int v, num p_reach_v) -> void {
-				cerr << "reach v " << v << ' ' << p_reach_v << '\n';
+				//cerr << "reach v " << v << ' ' << p_reach_v << '\n';
 				// what's the chance we get stuck here
 				{
 					int bridges = num_bridge[v];
