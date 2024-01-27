@@ -78,6 +78,7 @@ int main() {
 				assert(depth[cur] == -1);
 				depth[cur] = (prv == -1) ? 0 : depth[prv] + 1;
 				low_val[cur] = depth[cur];
+				int idx_cur = int(stk.size());
 				stk.push_back(cur);
 				for (int nxt : adj[cur]) {
 					if (nxt == prv) continue;
@@ -85,8 +86,8 @@ int main() {
 						self(self, nxt, cur);
 						if (low_val[nxt] >= depth[cur]) {
 							subchains[cur].push_back(int(chains.size()));
-							chains.emplace_back(stk.end() - (depth[nxt] - depth[cur]), stk.end());
-							stk.resize(int(stk.size()) - (depth[nxt] - depth[cur]));
+							chains.emplace_back(stk.begin() + idx_cur + 1, stk.end());
+							stk.resize(idx_cur + 1);
 							assert(stk.back() == cur);
 						} else {
 							assert(low_val[cur] == depth[cur]);
