@@ -170,7 +170,7 @@ int main() {
 						if (!is_bridge) {
 							// all the other chain
 							for (int z = 1; z < int(subchain_escape[v].size()); z++) {
-								subchain_escape[v][z] += subchain_escape[v][z-1] * chain_escape[c];
+								subchain_escape[v][z] -= subchain_escape[v][z-1] * chain_escape[c];
 							}
 							subchain_escape[v].pop_back();
 							cycs--;
