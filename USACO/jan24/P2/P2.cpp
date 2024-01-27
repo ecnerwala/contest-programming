@@ -62,6 +62,7 @@ int main() {
 	};
 	// inclusive
 	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) {
+		cerr << "incr " << xlo << ' ' << ylo << ' ' << xhi << ' ' << yhi << ' ' << v << '\n';
 		assert(xlo - 1 <= xhi);
 		assert(ylo - 1 <= yhi);
 		if (xlo == xhi + 1) return;
