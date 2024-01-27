@@ -299,8 +299,8 @@ int main() {
 		pts[by_y[v] = std::get<3>(ys[v])][1] = v;
 	}
 
-	seg_tree::in_order_layout layout(2*N);
-	std::vector<int> seg(2*layout.N, -1);
+	std::vector<std::array<int, 2>> vert_bounds(2*N);
+	std::vector<int> horz_match(2*N, -1);
 
 	std::vector<int> ans(N);
 	std::set<int> live_ys;
@@ -321,20 +321,31 @@ int main() {
 
 			// Now check the condition
 			int px = pts[j][0];
-			for (auto y : { pts[j][1], pts[i][1] }) {
+			vert_bounds[px] = vert_bounds[x] = {pts[j][1], pts[i][1]};
+			horz_match[x] = px;
+		} else {
+			live_ys.insert(pts[i][1]);
+		}
+	}
+
+	seg_tree::in_order_layout layout(2*N);
+	std::vector<int> seg(2*layout.N, -1);
+	for (int x = 0; x < N; x++) {
+		int px = horz_match[x];
+		if (px != -1) {
+			assert(vert_bounds[x] == vert_bounds[px]);
+			for (auto y : vert_bounds[x]) {
 				layout.get_point(y).for_each([&](seg_tree::point a) {
-					if (seg[a] >= px) {
+					if (seg[a] > px) {
 						cout << "No" << '\n';
 						exit(0);
 					}
 				});
 			}
-			layout.get_range(pts[j][1], pts[i][1]).for_each([&](seg_tree::point a) {
-				seg[a] = x;
-			});
-		} else {
-			live_ys.insert(pts[i][1]);
 		}
+		layout.get_range(vert_bounds[x]).for_each([&](seg_tree::point a) {
+			seg[a] = x;
+		});
 	}
 
 	cout << "Yes" << '\n';
