@@ -124,7 +124,6 @@ int main() {
 	using num = modnum<998244353>;
 
 	int N, M; cin >> N >> M;
-	M -= 1;
 	assert(N >= M);
 	const int V = N+M+1;
 	std::vector<num> fact(V+1);
