@@ -120,6 +120,7 @@ int main() {
 						self(self, u, !is_bridge);
 						chain_escape[c] *= vert_escape[u];
 					}
+					cerr << "chain " << c << " " << chain_escape[c] << '\n';
 					if (cur_has_out) {
 						if (is_bridge) {
 							num_bridge++;
@@ -149,7 +150,7 @@ int main() {
 						val += w * subchain_escape[num_cycs];
 					}
 					vert_escape[v] = val;
-					cerr << v << ' ' << vert_escape[v] << '\n';
+					cerr << "vert " << v << ' ' << vert_escape[v] << '\n';
 				}
 			};
 			dfs(dfs, 0, false);
