@@ -819,7 +819,7 @@ int main() {
 	ps connected_graphs = poly_log(num_graphs);
 	for (int i = 0; i <= N; i++) {
 		connected_graphs[i] *= fact[i];
-		cerr << i << ' ' << connected_graphs[i] << endl;
+		//cerr << i << ' ' << connected_graphs[i] << endl;
 	}
 	std::vector<std::vector<num>> group_ways(N+1, std::vector<num>(N+1, 0));
 	std::vector<std::vector<num>> group_ways_2(N+1, std::vector<num>(N+1, 0));
@@ -838,7 +838,7 @@ int main() {
 		bcc_ways[i] = v;
 		group_ways[1][i] = v * num(i);
 		group_ways_2[1][i] = v * num(i) * num(i);
-		cerr << i << ' ' << v << '\n';
+		//cerr << i << ' ' << v << '\n';
 	}
 
 	std::vector<num> A(N);
@@ -852,7 +852,7 @@ int main() {
 	for (int k = 1; k <= N; k++) {
 		num v = group_ways_2[k][N] * pow(num(N), k-1) / num(N);
 		v /= (fact[N] / fact[k] / fact[N-k]);
-		cerr << k << ' ' << v << '\n';
+		//cerr << k << ' ' << v << '\n';
 		ans += prod_i[k] * v;
 	}
 	cout << ans << '\n';
