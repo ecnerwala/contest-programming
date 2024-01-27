@@ -62,7 +62,7 @@ int main() {
 	};
 	// inclusive
 	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) {
-		cerr << "incr " << xlo << ' ' << ylo << ' ' << xhi << ' ' << yhi << ' ' << v << '\n';
+		cerr << "incr " << xlo << ' ' << ylo << ' ' << xhi << ' ' << yhi << ' ' << v.v << '\n';
 		assert(xlo - 1 <= xhi);
 		assert(ylo - 1 <= yhi);
 		if (xlo == xhi + 1) return;
@@ -78,6 +78,7 @@ int main() {
 		for (int i = 0, j = l; j <= N; i++, j++) {
 			// pick a split uniformly at random
 			num p = dp[coords(i, j)] += dp[coords(i+1, j)] + dp[coords(i, j+1)] - dp[coords(i+1, j+1)];
+			cerr << "p " << i << ' ' << j << ' ' << p.v << '\n';
 			if (l == 1) {
 				cout << p.v << '\n';
 				continue;
