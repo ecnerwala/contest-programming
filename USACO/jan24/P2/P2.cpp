@@ -70,9 +70,6 @@ int main() {
 		dp[coords(xhi, ylo-1)] -= v;
 	};
 	rect_incr(0, N, 0, N, num(1));
-	auto rect_read = [&](int x, int y) -> num {
-		return dp[coords(x, y)] - dp[coords(x-1, y)] - dp[coords(x, y-1)] + dp[coords(x-1, y-1)];
-	};
 	for (int l = N; l >= 1; l--) {
 		int k_mid = 0;
 		for (int i = 0, j = l; j <= N; i++, j++) {
