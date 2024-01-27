@@ -269,17 +269,6 @@ int main() {
 		for (auto& p : int_points) {
 			cin >> p.x >> p.y >> p.z;
 		}
-		bool has_diff = false;
-		for (int i = 1; i < N; i++) {
-			if (int_points[i].cross(int_points[0]) != kactl::Point3D<int>()) {
-				has_diff = true;
-				break;
-			}
-		}
-		if (!has_diff) {
-			cout << 1 << '\n';
-			exit(0);
-		}
 		//cerr << "CASE " << N << " " << R << endl;
 		using pt_t = kactl::P3;
 		std::vector<pt_t> points; points.reserve(N+1); points.resize(N);
@@ -303,6 +292,17 @@ int main() {
 		for (int i = 0; i <= N; i++) {
 			//cerr << "{" << points[i].x << ", " << points[i].y << ", " << points[i].z << "},\n";
 			//cerr << i << ' ' << points[i].x << ' ' << points[i].y << ' ' << points[i].z << "  " << points[i].dist() << '\n';
+		}
+		bool has_diff = false;
+		for (int i = 1; i < N; i++) {
+			if (int_points[i].cross(int_points[0]) != kactl::Point3D<int>()) {
+				has_diff = true;
+				break;
+			}
+		}
+		if (!has_diff) {
+			cout << 1 << '\n';
+			exit(0);
 		}
 		if (N <= 2) {
 			cout << 1 << '\n';
