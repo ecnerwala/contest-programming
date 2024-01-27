@@ -100,6 +100,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	cerr << fixed << setprecision(10);
+
 	std::mt19937_64 mt(48);
 	int T; cin >> T;
 	while (T--) {
@@ -121,7 +123,8 @@ int main() {
 		}
 		points.push_back(pt_t(0, 0, 0));
 		for (int i = 0; i <= N; i++) {
-			cerr << i << ' ' << points[i].x << ' ' << points[i].y << ' ' << points[i].z << "  " << points[i].dist() << '\n';
+			cerr << "{" << points[i].x << ", " << points[i].y << ", " << points[i].z << "},\n";
+			//cerr << i << ' ' << points[i].x << ' ' << points[i].y << ' ' << points[i].z << "  " << points[i].dist() << '\n';
 		}
 		auto faces = kactl::hull3d(points);
 		int F = int(faces.size());
