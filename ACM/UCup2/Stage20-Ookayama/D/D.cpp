@@ -107,7 +107,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, R; cin >> N >> R;
-		cerr << "CASE " << N << " " << R << endl;
+		//cerr << "CASE " << N << " " << R << endl;
 		using pt_t = kactl::P3;
 		std::vector<pt_t> points; points.reserve(N+1); points.resize(N);
 		std::uniform_real_distribution<double> dist(-1e-8, 1e-8);
@@ -124,7 +124,7 @@ int main() {
 		}
 		points.push_back(pt_t(0, 0, 0));
 		for (int i = 0; i <= N; i++) {
-			cerr << "{" << points[i].x << ", " << points[i].y << ", " << points[i].z << "},\n";
+			//cerr << "{" << points[i].x << ", " << points[i].y << ", " << points[i].z << "},\n";
 			//cerr << i << ' ' << points[i].x << ' ' << points[i].y << ' ' << points[i].z << "  " << points[i].dist() << '\n';
 		}
 		auto faces = kactl::hull3d(points);
@@ -168,7 +168,7 @@ int main() {
 			if (a == N || b == N || ((points[a] - points[b]).dot(points[b]) < 0 && (points[b] - points[a]).dot(points[a]) < 0 && points[a].cross(points[b]).dist2() < (points[a] - points[b]).dist2())) {
 				is_good[f1] = true;
 				is_good[f2] = true;
-				cerr << "merging " << f1 << ' ' << f2 << '\n';
+				//cerr << "merging " << f1 << ' ' << f2 << '\n';
 				num_merges += merge(f1, f2);
 			}
 		}
