@@ -58,7 +58,7 @@ int main() {
 		// 4 - 2 + 4 - 2 + 4 = 8
 		ans -= num(2) * pow_2[N];
 		ans += num(1);
-		cerr << "ans 1d " << z << ' ' << ans << '\n';
+		//cerr << "ans 1d " << z << ' ' << ans << '\n';
 		tot_ans += ans;
 	}
 
@@ -109,7 +109,7 @@ int main() {
 				}
 			}
 
-			cerr << "value " << seg[1].val << '\n';
+			//cerr << "value " << seg[1].val << '\n';
 			if (x & 1) ans_2d -= seg[1].val;
 			else ans_2d += seg[1].val;
 
@@ -122,7 +122,7 @@ int main() {
 
 		ans_2d -= num(2) * pow_2[N];
 		ans_2d += num(1);
-		cerr << "ans 2d " << ans_2d << '\n';
+		//cerr << "ans 2d " << ans_2d << '\n';
 		tot_ans -= ans_2d;
 	}
 
