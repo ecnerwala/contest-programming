@@ -55,22 +55,35 @@ int main() {
 	}
 
 	std::vector<num> dp((N+1) * (N+1));
-	dp[(N+1) * 0 + N] = num(1);
+	auto coords = [&](int x, int y) -> int {
+		assert(-1 <= x && x < N);
+		assert(0 <= y && y <= N);
+		return (N+1) * (x+1) + y;
+	};
+	// inclusive
+	auto rect_incr = [&](int xlo, int ylo, int xhi, int yhi, num v) -> int {
+		dp[coords(xlo-1, ylo-1)] += v;
+		dp[coords(xhi, yhi)] += v;
+		dp[coords(xlo-1, yhi)] -= v;
+		dp[coords(xhi, ylo-1)] -= v;
+	};
+	rect_incr(0, N, 0, N, num(1));
+	auto rect_read = [&](int x, int y) -> num {
+		return dp[coords(x, y)] - dp[coords(x-1, y)] - dp[coords(x, y-1)] + dp[coords(x-1, y-1)];
+	};
 	for (int l = N; l > 1; l--) {
+		int k_mid = 0;
 		for (int i = 0, j = l; j <= N; i++, j++) {
 			// pick a split uniformly at random
-			num p = dp[(N+1) * i + j] * invs[l-1];
-			for (int k = i+1; k <= j-1; k++) {
-				if (pref[j] - pref[k] >= pref[k] - pref[i]) {
-					dp[(N+1) * k + j] += p;
-				} else {
-					dp[(N+1) * i + k] += p;
-				}
-			}
+			num p = rect_read(i, j) * invs[l-1];
+			while (k_mid <= i || (k_mid <= j-1 && pref[j] - pref[k_mid] < pref[k_mid] - pref[i])) k_mid++;
+			assert(i+1 <= k_mid && k_mid <= j);
+			rect_incr(i, i+1, i, k_mid-1, p);
+			rect_incr(k_mid, j, j-1, j, p);
 		}
 	}
 	for (int i = 0; i < N; i++) {
-		cout << dp[(N+1) * i + (i+1)].v << '\n';
+		cout << rect_read(i, i+1).v << '\n';
 	}
 
 	return 0;
