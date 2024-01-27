@@ -53,9 +53,11 @@ int main() {
 		for (int i = 0; i < N; i++) freq[P[i][z]]++;
 		num ans = num(N+1) * pow_2[N];
 		for (int i = 0; i < N; i++) {
+			cerr << freq[i] << '\n';
 			ans -= pow_2[N - freq[i]];
 		}
-		cerr << "ans 2d " << z << ' ' << ans << '\n';
+		cerr << "ans 1d " << z << ' ' << ans << '\n';
+		// 4 - 2 + 4 - 2 + 4 = 8
 		ans -= num(2) * pow_2[N];
 		ans += num(1);
 		cerr << "ans 1d " << z << ' ' << ans << '\n';
