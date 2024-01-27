@@ -271,24 +271,29 @@ int main() {
 		}
 		//cerr << "CASE " << N << " " << R << endl;
 		using pt_t = kactl::P3;
-		std::vector<pt_t> points; points.reserve(N+1); points.resize(N);
+		std::vector<pt_t> points; points.reserve(N+6); points.resize(N);
 		std::uniform_real_distribution<double> dist(-1e-7, 1e-7);
 		for (int i = 0; i < N; i++) {
 			double x = int_points[i].x;
 			double y = int_points[i].y;
 			double z = int_points[i].z;
 
+			double a = std::sqrt(x * x + y * y + z * z - R * R);
+			x /= a; y /= a; z /= a;
+
 			// preterb randomly
 			//double l = std::sqrt(x * x + y * y + z * z);
 			double l = 1;
 			x += dist(mt) * l; y += dist(mt) * l; z += dist(mt) * l;
 
-			double a = std::sqrt(x * x + y * y + z * z - R * R);
-			x /= a; y /= a; z /= a;
-
 			points[i] = pt_t(x, y, z);
 		}
-		points.push_back(pt_t(0, 0, 0));
+		points.push_back(pt_t(+0.5, 0, 0));
+		points.push_back(pt_t(-0.5, 0, 0));
+		points.push_back(pt_t(0, +0.5, 0));
+		points.push_back(pt_t(0, -0.5, 0));
+		points.push_back(pt_t(0, 0, +0.5));
+		points.push_back(pt_t(0, 0, -0.5));
 		for (int i = 0; i <= N; i++) {
 			//cerr << "{" << points[i].x << ", " << points[i].y << ", " << points[i].z << "},\n";
 			//cerr << i << ' ' << points[i].x << ' ' << points[i].y << ' ' << points[i].z << "  " << points[i].dist() << '\n';
@@ -297,12 +302,11 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			if (int_points[i].cross(int_points[0]) != kactl::Point3D<int>()) {
 				has_diff = true;
-				break;
 			}
 		}
 		if (!has_diff) {
 			cout << 1 << '\n';
-			exit(0);
+			continue;
 		}
 		if (N <= 2) {
 			cout << 1 << '\n';
