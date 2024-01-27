@@ -85,6 +85,7 @@ int main() {
 							subchains[cur].push_back(int(chains.size()));
 							chains.emplace_back(stk.end() - (depth[nxt] - depth[cur]), stk.end());
 							stk.resize(int(stk.size()) - (depth[nxt] - depth[cur]));
+							assert(stk.back() == cur);
 						} else {
 							assert(low_val[cur] == depth[cur]);
 							low_val[cur] = low_val[nxt];
