@@ -130,9 +130,9 @@ int main() {
 			cerr << "face " << a << ' ' << b << ' ' << c << ' ' << q.dot(points[a]) << ' ' << q.dist2() << '\n';
 			is_good[f] = (q.dot(points[a]) < q.dist2());
 			ans += is_good[f];
-			half_edges.push_back({{a, b}, f});
-			half_edges.push_back({{b, c}, f});
-			half_edges.push_back({{c, a}, f});
+			half_edges.push_back({{std::min(a, b), std::max(a, b)}, f});
+			half_edges.push_back({{std::min(b, c), std::max(b, c)}, f});
+			half_edges.push_back({{std::min(c, a), std::max(c, a)}, f});
 		}
 		std::vector<int> par(F, -1);
 		auto get_par = [&](int a) -> int {
