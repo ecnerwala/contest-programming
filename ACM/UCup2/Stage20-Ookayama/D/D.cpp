@@ -27,6 +27,7 @@ template<class T> struct Point3D {
 	P cross(R p) const {
 		return P(y*p.z - z*p.y, z*p.x - x*p.z, x*p.y - y*p.x);
 	}
+	friend P cross3(P a, P b, P c) { return (b-a).cross(c-a); }
 	T dist2() const { return x*x + y*y + z*z; }
 	double dist() const { return sqrt((double)dist2()); }
 	//Azimuthal angle (longitude) to x-axis in interval [-pi, pi]
@@ -176,6 +177,9 @@ int main() {
 			if (!is_good[f]) {
 				auto [q, a, b, c] = faces[f];
 				// check if this guy is a singleton
+				if (q.dot(points[a]) < q.dist() && q.dot(cross3(points[a], points[b], pt_t())) >= 0 && q.dot(cross3(points[b], points[c], pt_t())) >= 0 && q.dot(cross3(points[c], points[a], pt_t())) >= 0) {
+					is_good[f] = true;
+				}
 			}
 			num_verts += is_good[f];
 		}
