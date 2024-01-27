@@ -844,6 +844,7 @@ int main() {
 	std::vector<num> A(N);
 	for (auto& a : A) cin >> a;
 	std::vector<num> prod_i(N+1);
+	prod_i[0] = 1;
 	for (auto a : A) {
 		for (int i = N; i > 0; i--) prod_i[i] += prod_i[i-1] * a;
 	}
