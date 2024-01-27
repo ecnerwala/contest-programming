@@ -177,7 +177,7 @@ int main() {
 							bridges--;
 						}
 
-						num w = num(1);
+						num w = p_reach_v;
 						for (int num_cycs = 0; num_cycs <= cycs; num_cycs++) {
 							w *= invs[num_edges - num_cycs * 2];
 							w *= num(1) - P[v];
@@ -199,6 +199,25 @@ int main() {
 					}
 
 					cerr << c << ' ' << p_reach_c << '\n';
+					// go from the front and the back
+					std::vector<num> p_reach_u(chains[c].size());
+					{
+						num w = p_reach_c;
+						for (int i = 0; i < int(chains[c].size()); i++) {
+							p_reach_u[i] += w;
+							w *= vert_escape[chains[c][i]];
+						}
+					}
+					{
+						num w = p_reach_c;
+						for (int i = int(chains[c].size()) - 1; i >= 0; i--) {
+							p_reach_u[i] += w;
+							w *= vert_escape[chains[c][i]];
+						}
+					}
+					for (int i = 0; i < int(chains[c].size()); i++) {
+						self(self, chains[c][i], p_reach_u[i]);
+					}
 				}
 			};
 			dfs(dfs, 0, num(1));
