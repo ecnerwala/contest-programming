@@ -113,7 +113,7 @@ void prepare(vector<pt3> &p) {
             break;
         }
     }
-    wssert(sz(ve) == 4);
+    assert(sz(ve) == 4);
     vector<pt3> ve2;
     for(int i : ve) ve2.push_back(p[i]);
     reverse(all(ve));
@@ -215,7 +215,7 @@ struct PR {
 struct F { P3 q; int a, b, c; };
 
 vector<F> hull3d(const vector<P3>& A) {
-	wssert(sz(A) >= 4);
+	assert(sz(A) >= 4);
 	vector<vector<PR>> E(sz(A), vector<PR>(sz(A), {-1, -1}));
 #define E(x,y) E[f.x][f.y]
 	vector<F> FS;
@@ -265,21 +265,39 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, R; cin >> N >> R;
+		std::vector<kactl::Point3D<int>> int_points(N);
+		for (auto& p : int_points) {
+			cin >> p.x >> p.y >> p.z;
+		}
+		bool has_diff = false;
+		for (int i = 1; i < N; i++) {
+			if (int_points[i].cross(int_points[0]) != kactl::Point3D<int>()) {
+				has_diff = true;
+				break;
+			}
+		}
+		if (!has_diff) {
+			cout << 1 << '\n';
+			exit(0);
+		}
 		//cerr << "CASE " << N << " " << R << endl;
 		using pt_t = kactl::P3;
 		std::vector<pt_t> points; points.reserve(N+1); points.resize(N);
 		std::uniform_real_distribution<double> dist(-1e-7, 1e-7);
-		for (auto& p : points) {
-			double x, y, z; cin >> x >> y >> z;
+		for (int i = 0; i < N; i++) {
+			double x = int_points[i].x;
+			double y = int_points[i].y;
+			double z = int_points[i].z;
 
 			// preterb randomly
-			double l = std::sqrt(x * x + y * y + z * z);
+			//double l = std::sqrt(x * x + y * y + z * z);
+			double l = 1;
 			x += dist(mt) * l; y += dist(mt) * l; z += dist(mt) * l;
 
 			double a = std::sqrt(x * x + y * y + z * z - R * R);
 			x /= a; y /= a; z /= a;
 
-			p = pt_t(x, y, z);
+			points[i] = pt_t(x, y, z);
 		}
 		points.push_back(pt_t(0, 0, 0));
 		for (int i = 0; i <= N; i++) {
