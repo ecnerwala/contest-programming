@@ -68,17 +68,17 @@ int main() {
 		assert(ylo <= yhi);
 		if (xlo == xhi) return;
 		if (ylo == yhi) return;
-		dp[coords(xlo, ylo)] += v;
-		dp[coords(xhi, yhi)] += v;
-		dp[coords(xlo, yhi)] -= v;
-		dp[coords(xhi, ylo)] -= v;
+		dp[coords(xlo, ylo)] -= v;
+		dp[coords(xhi, yhi)] -= v;
+		dp[coords(xlo, yhi)] += v;
+		dp[coords(xhi, ylo)] += v;
 	};
 	rect_incr(0, N, 0, N, num(1));
 	for (int l = N; l >= 1; l--) {
 		int k_mid = 0;
 		for (int i = 0, j = l; j <= N; i++, j++) {
 			// pick a split uniformly at random
-			num p = dp[coords(i, j)] += dp[coords(i+1, j)] + dp[coords(i, j+1)] - dp[coords(i+1, j+1)];
+			num p = dp[coords(i, j)] += dp[coords(i-1, j)] + dp[coords(i, j+1)] - dp[coords(i-1, j+1)];
 			cerr << "p " << i << ' ' << j << ' ' << p.v << '\n';
 			if (l == 1) {
 				cout << p.v << '\n';
