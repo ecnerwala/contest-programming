@@ -18,8 +18,7 @@ template<class T> struct Point3D {
 	typedef Point3D P;
 	typedef const P& R;
 	T x, y, z;
-	int idx;
-	explicit Point3D(T x_=0, T y_=0, T z_=0, int idx_ = -1) : x(x_), y(y_), z(z_), idx(idx_) {}
+	explicit Point3D(T x_=0, T y_=0, T z_=0) : x(x_), y(y_), z(z_) {}
 	bool operator<(R p) const {
 		return tie(x, y, z) < tie(p.x, p.y, p.z); }
 	bool operator==(R p) const {
@@ -288,12 +287,15 @@ int main() {
 			cout << 1 << '\n';
 			continue;
 		}
-		auto faces = kactl::hull3d(points);
+		auto faces = kactl::hull3(points);
 		int F = int(faces.size());
 		std::vector<bool> is_good(F);
 		std::vector<std::pair<std::array<int, 2>, int>> half_edges; half_edges.reserve(3*F);
 		for (int f = 0; f < F; f++) {
-			auto [q, a, b, c] = faces[f];
+			//auto [q, a, b, c] = faces[f];
+			int a = faces[f]->a;
+			int b = faces[f]->b;
+			int c = faces[f]->c;
 			// Now, check if the face is outside
 			//is_good[f] = (q.dot(points[a]) < q.dist());
 			//cerr << "face " << f << ' ' << a << '-' << b << '-' << c << ' ' << q.dot(points[a]) << ' ' << q.dist() << ' ' << (is_good[f] ? "good" : "bad") << '\n';
@@ -326,7 +328,7 @@ int main() {
 			auto [a, b] = half_edges[i].first;
 			int f1 = half_edges[i].second;
 			int f2 = half_edges[i+1].second;
-			if (a == N || b == N || ((points[a] - points[b]).dot(points[b]) < 0 && (points[b] - points[a]).dot(points[a]) < 0 && points[a].cross(points[b]).dist2() < (points[a] - points[b]).dist2())) {
+			if (points[a].dist2() < 1 || points[b].dist2() < 1 || ((points[a] - points[b]).dot(points[b]) < 0 && (points[b] - points[a]).dot(points[a]) < 0 && points[a].cross(points[b]).dist2() < (points[a] - points[b]).dist2())) {
 				is_good[f1] = true;
 				is_good[f2] = true;
 				//cerr << "merging " << f1 << ' ' << f2 << '\n';
@@ -336,7 +338,10 @@ int main() {
 		int num_verts = 0;
 		for (int f = 0; f < F; f++) {
 			if (!is_good[f]) {
-				auto [q, a, b, c] = faces[f];
+				int a = faces[f]->a;
+				int b = faces[f]->b;
+				int c = faces[f]->c;
+				auto q = cross3(points[a], points[b], points[c]);
 				// check if this guy is a singleton
 				if (q.dot(points[a]) < q.dist() && q.dot(cross3(points[a], points[b], pt_t())) >= 0 && q.dot(cross3(points[b], points[c], pt_t())) >= 0 && q.dot(cross3(points[c], points[a], pt_t())) >= 0) {
 					is_good[f] = true;
