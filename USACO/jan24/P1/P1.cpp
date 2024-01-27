@@ -88,8 +88,8 @@ int main() {
 							subchains[cur].push_back(int(chains.size()));
 							chains.emplace_back(stk.begin() + idx_cur + 1, stk.end());
 							cerr << "chain " << int(chains.size())-1 << ": ";
-							cerr << cur << ' ';
-							for (int v : chains.back()) cerr << v << ' ';
+							cerr << cur+1 << ' ';
+							for (int v : chains.back()) cerr << v+1 << ' ';
 							cerr << '\n';
 							stk.resize(idx_cur + 1);
 							assert(stk.back() == cur);
