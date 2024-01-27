@@ -106,7 +106,7 @@ std::vector<num> solve(int N, std::vector<num> P, std::vector<std::vector<int>> 
 	{
 		auto dfs = [&](auto&& self, int v, bool cur_has_out) -> void {
 			has_out[v] = cur_has_out;
-			subchain_escape[v].reserve(subchains.size() + 1);
+			subchain_escape[v].reserve(subchains[v].size() + 1);
 			subchain_escape[v].push_back(num(1));
 
 			for (int c : subchains[v]) {
