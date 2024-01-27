@@ -306,31 +306,36 @@ int main() {
 	std::set<int> live_ys;
 	for (int x = 0; x < 2*N; x++) {
 		int i = by_x[x];
-		auto it = live_ys.lower_bound(i);
-		if (it == live_ys.begin()) {
-			cout << "No" << '\n';
-			exit(0);
-		}
-		--it;
-		int j = by_y[*it];
-		live_ys.erase(it);
-		ans[j] = i;
+		if (i >= N) {
+			auto it = live_ys.lower_bound(i);
+			if (it == live_ys.begin()) {
+				cout << "No" << '\n';
+				exit(0);
+			}
+			--it;
+			int j = by_y[*it];
+			live_ys.erase(it);
+			ans[j] = i;
 
-		// Now check the condition
-		int px = pts[j][0];
-		for (auto y : { pts[j][1], pts[i][1] }) {
-			layout.get_point(y).for_each([&](seg_tree::point a) {
-				if (seg[a] >= px) {
-					cout << "No" << '\n';
-					exit(0);
-				}
+			// Now check the condition
+			int px = pts[j][0];
+			for (auto y : { pts[j][1], pts[i][1] }) {
+				layout.get_point(y).for_each([&](seg_tree::point a) {
+					if (seg[a] >= px) {
+						cout << "No" << '\n';
+						exit(0);
+					}
+				});
+			}
+			layout.get_range(pts[j][1], pts[i][1]).for_each([&](seg_tree::point a) {
+				seg[a] = x;
 			});
+		} else {
+			live_ys.insert(pts[i][1]);
 		}
-		layout.get_range(pts[j][1], pts[i][1]).for_each([&](seg_tree::point a) {
-			seg[a] = x;
-		});
 	}
 
+	cout << "Yes" << '\n';
 	for (int i = 0; i < N; i++) {
 		cout << (ans[i] - N) + 1 << '\n';
 	}
