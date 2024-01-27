@@ -827,8 +827,8 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		{
 			num v = connected_graphs[i];
+			bcc_ways[i] = v;
 		}
-		bcc_ways[i]
 	}
 
 	return 0;
