@@ -155,6 +155,7 @@ int main() {
 			return true;
 		};
 		std::sort(half_edges.begin(), half_edges.end());
+		assert(int(half_edges.size()) % 2 == 0);
 		for (int i = 0; i < int(half_edges.size()); i += 2) {
 			assert(half_edges[i].first == half_edges[i+1].first);
 			auto [a, b] = half_edges[i].first;
