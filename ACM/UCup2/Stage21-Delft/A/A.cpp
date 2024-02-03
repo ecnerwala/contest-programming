@@ -999,7 +999,7 @@ int main() {
 			}
 		}
 		for (int i = 0; i <= L; i ++) {
-			(st == 0 ? st_0 : st_1)[i] = dp[{i, 0}];
+			(st == 0 ? st_0 : st_1)[i] = dp[{4*i, 0}];
 		}
 	}
 	num ans = (st_0 * poly_pow(st_1, M))[L];
