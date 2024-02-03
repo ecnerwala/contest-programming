@@ -965,7 +965,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		S[i] = char((((S[i] - 'A') - i) & 3) + 'A');
 	}
-	cerr << S << '\n';
+	//cerr << S << '\n';
 
 	std::vector<char> stk; stk.reserve(N);
 	for (char c : S) {
