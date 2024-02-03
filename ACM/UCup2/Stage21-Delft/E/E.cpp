@@ -167,8 +167,11 @@ int main() {
 		}
 	}
 	num ans = 0;
-	for (int i = M; i <= N; i++) {
-		ans += pattern_cnts[i] * num(N + 1 - i) * pow(num(K), N - i);
+	num vK = K;
+	num pK = 1;
+	for (int i = N; i >= M; i--) {
+		ans += pattern_cnts[i] * num(N + 1 - i) * pK;
+		pK *= vK;
 	}
 	cout << ans << '\n';
 
