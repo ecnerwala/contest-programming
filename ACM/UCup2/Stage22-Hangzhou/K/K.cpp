@@ -350,6 +350,21 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		int l, r; cin >> l >> r; l ^= last_ans, r ^= last_ans; l--;
 		assert(0 <= l && l < r && r <= N);
+		int v = 0;
+		seg_tree::point a(1);
+		seg_node* p = roots[l];
+		while (true) {
+			v += p->v;
+			if (a >= layout.N) break;
+			if (r < layout.get_node_split(a)) {
+				a = a.c(0);
+				p = p->ch[0];
+			} else {
+				a = a.c(1);
+				p = p->ch[1];
+			}
+		}
+		cout << v << '\n';
 	}
 
 	return 0;
