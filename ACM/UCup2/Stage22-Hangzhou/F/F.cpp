@@ -92,6 +92,7 @@ int main() {
 			if (nxt_rt == -1) break;
 			rt = nxt_rt;
 		}
+		cerr << "actual centroid " << rt << '\n';
 		dfs_sz(rt, -1);
 
 		// Now, just sort the points
