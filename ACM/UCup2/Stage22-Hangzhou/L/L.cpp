@@ -99,7 +99,7 @@ public:
 };
 
 struct angle_comparator {
-	template <typename T> bool operator () (const Point<T> a, const Point<T> b) {
+	template <typename T> bool operator () (const Point<T>& a, const Point<T>& b) {
 		return angle_less(Point<T>(1, 0), a, b);
 	}
 };
