@@ -77,6 +77,7 @@ int main() {
 	std::vector<std::pair<int64_t, best_two>> bests; bests.reserve(N+1);
 
 	std::y_combinator([&](auto dfs_centroid, int rt) -> void {
+		cerr << "centroid " << rt << '\n';
 		assert(!dead[rt]);
 		int tot_sz = sz[rt];
 		while (true) {
