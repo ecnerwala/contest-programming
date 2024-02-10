@@ -334,8 +334,9 @@ int main() {
 					res->v += vl;
 					return res;
 				} else if (j <= lo) {
-					assert(vr == 0);
-					return r;
+					auto res = new seg_node(*r);
+					res->v += vr;
+					return res;
 				} else {
 					return new seg_node{{
 						self(a.c(0), l->ch[0], vl + l->v, r->ch[0], vr + r->v),
