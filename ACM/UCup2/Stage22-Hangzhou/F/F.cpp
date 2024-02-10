@@ -77,7 +77,7 @@ int main() {
 	std::vector<std::pair<int64_t, best_two>> bests; bests.reserve(N+1);
 
 	std::y_combinator([&](auto dfs_centroid, int rt) -> void {
-		cerr << "centroid " << rt << '\n';
+		//cerr << "centroid " << rt << '\n';
 		assert(!dead[rt]);
 		int tot_sz = sz[rt];
 		while (true) {
@@ -88,14 +88,14 @@ int main() {
 					break;
 				}
 			}
-			cerr << "walking " << rt << " " << nxt_rt << '\n';
+			//cerr << "walking " << rt << " " << nxt_rt << '\n';
 			if (nxt_rt == -1) break;
 			rt = nxt_rt;
 		}
-		cerr << "actual centroid " << rt << '\n';
+		//cerr << "actual centroid " << rt << '\n';
 		dfs_sz(rt, -1);
 
-		cerr << "generating pts" << '\n';
+		//cerr << "generating pts" << '\n';
 		// Now, just sort the points
 		pts.clear();
 		pts.push_back({0, W[rt], rt});
@@ -109,7 +109,7 @@ int main() {
 				}
 			})(ch, rt, l_ch);
 		}
-		cerr << "generated pts" << '\n';
+		//cerr << "generated pts" << '\n';
 		std::sort(pts.begin(), pts.end(), std::greater<>());
 		bests.clear();
 		bests.push_back({int64_t(1e18), {global_mex, -1, global_mex}});
@@ -127,7 +127,7 @@ int main() {
 			bests.push_back({d, b});
 		}
 		auto solve_pt = [&](int cur, int64_t cur_depth, int ch) {
-			cerr << "solve pt" << cur << '\n';
+			//cerr << "solve pt" << cur << '\n';
 			for (auto [q, k] : queries[cur]) {
 				int mi = 0;
 				int ma = int(bests.size());
