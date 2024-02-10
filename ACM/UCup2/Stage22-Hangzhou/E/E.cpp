@@ -27,7 +27,7 @@ int main() {
 			std::priority_queue<container_t> pq;
 			for (int i = N-1; i >= 0; i--) {
 				while (!pq.empty() && pq.top().L >= strings[i].L) {
-					auto v = std::move(pq.top()); pq.pop();
+					auto v = pq.top(); pq.pop();
 					int k = v.L / strings[i].L;
 					v.L -= k * strings[i].L;
 					v.f -= k * strings[i].f;
@@ -45,7 +45,7 @@ int main() {
 			int idx = strings[0].L;
 			container_t cur = strings[0];
 			while (!pq.empty()) {
-				auto nxt = std::move(pq.top()); pq.pop();
+				auto nxt = pq.top(); pq.pop();
 				assert(nxt.L <= cur.L);
 				freq_t diff = (cur.f - nxt.f);
 				if (diff.min() < 0) {
