@@ -100,6 +100,7 @@ int main() {
 		pts.clear();
 		pts.push_back({0, W[rt], rt});
 		for (auto [ch, l_ch] : adj[rt]) {
+			if (dead[ch]) continue;
 			std::y_combinator([&](auto self, int cur, int prv, int64_t cur_depth) -> void {
 				pts.push_back({cur_depth, W[cur], ch});
 				for (auto [nxt, l] : adj[cur]) {
@@ -147,6 +148,7 @@ int main() {
 
 		solve_pt(rt, 0, rt);
 		for (auto [ch, l_ch] : adj[rt]) {
+			if (dead[ch]) continue;
 			std::y_combinator([&](auto self, int cur, int prv, int64_t cur_depth) -> void {
 				solve_pt(cur, cur_depth, ch);
 				for (auto [nxt, l] : adj[cur]) {
