@@ -69,6 +69,10 @@ public:
 		return std::tie(a.x, a.y) < std::tie(b.x, b.y);
 	}
 
+	friend bool operator < (const Point& a, const Point& b) {
+		return lex_less(a, b);
+	}
+
 	friend bool same_dir(const Point& a, const Point& b) { return cross(a,b) == 0 && dot(a,b) > 0; }
 
 	// check if 180 <= s..t < 360
@@ -91,6 +95,12 @@ public:
 	friend int angle_between(const Point& s, const Point& t, const Point& p) {
 		if (same_dir(p, s) || same_dir(p, t)) return 0;
 		return angle_less(s, p, t) ? 1 : -1;
+	}
+};
+
+struct angle_cmp {
+	template <typename T> bool operator () (const Point<T> a, const Point<T> b) {
+		return angle_less(Point<T>(1, 0), a, b);
 	}
 };
 
@@ -143,12 +153,117 @@ int main() {
 
 		std::vector<bool> in_set(N);
 
-		auto try_insert = [&](int i) -> bool {
-			// TODO
+		std::vector<std::set<std::pair<pt_t, int>>> line_segments(L);
+		std::vector<pt_t> line_dir(L);
+		std::vector<std::array<pt_t, 2>> line_ends(L);
+		std::map<pt_t, int, angle_cmp> alive_lines;
+
+		auto update_line_ends = [&](int l) -> void {
+			line_ends[l] = {line_segments[l].begin()->first, line_segments[l].rbegin()->first};
+			if (line_dir[l] < pt_t{0, 0}) {
+				std::swap(line_ends[l][0], line_ends[l][1]);
+			}
 		};
 
 		auto remove_in_set = [&](int i) -> void {
-			// TODO
+			int l = seg_line_id[i];
+			for (int z = 0; z < 2; z++) {
+				int num_erased = int(line_segments[l].erase({segs[i][z], i}));
+				assert(num_erased == 1);
+			}
+			if (line_segments[l].empty()) {
+				int num_erased = int(alive_lines.erase(line_dir[l]));
+				assert(num_erased == 1);
+			} else {
+				update_line_ends(l);
+			}
+		};
+
+		auto check_pts = [&](int l1, int l2) -> bool {
+			int64_t c0 = cross3(line_ends[l1][0], line_ends[l1][1], line_ends[l2][0]);
+			if (c0 < 0) return false;
+			int64_t c1 = cross3(line_ends[l1][0], line_ends[l1][1], line_ends[l2][1]);
+			if (c1 < 0) return false;
+			int64_t c2 = cross3(line_ends[l2][0], line_ends[l2][1], line_ends[l1][0]);
+			if (c2 < 0) return false;
+			int64_t c3 = cross3(line_ends[l2][0], line_ends[l2][1], line_ends[l1][1]);
+			if (c3 < 0) return false;
+			return true;
+		};
+
+		auto cyc_prev = [&](auto it) {
+			return std::prev(it == alive_lines.begin() ? alive_lines.end() : it);
+		};
+		auto cyc_next = [&](auto it) {
+			++it;
+			if (it == alive_lines.end()) it = alive_lines.begin();
+			return it;
+		};
+
+		auto try_insert = [&](int i) -> bool {
+			int l = seg_line_id[i];
+			if (line_segments[l].empty()) line_dir[l] = lines[l].first;
+			for (int z = 0; z < 2; z++) {
+				auto [_, did_insert] = line_segments[l].insert({segs[i][z], i});
+				assert(did_insert);
+			}
+			update_line_ends(l);
+
+			if (!line_segments[l].empty()) {
+				assert(!alive_lines.empty());
+				// we just need to extend
+				if (alive_lines.size() >= 2) {
+					auto it = alive_lines.find(line_dir[l]);
+					assert(it != alive_lines.end() && it->second == l);
+					auto pt = cyc_prev(it);
+					auto nt = cyc_next(it);
+					if (!(check_pts(it->second, nt->second) && check_pts(pt->second, it->second))) {
+						remove_in_set(i);
+						return false;
+					}
+				}
+				return true;
+			} else {
+				if (alive_lines.empty()) {
+					alive_lines.insert({line_dir[l], l});
+					return true;
+				}
+				{
+					int l2 = alive_lines.begin()->second;
+					int64_t c0 = cross3(line_ends[l][0], line_ends[l][1], line_ends[l2][0]);
+					int64_t c1 = cross3(line_ends[l][0], line_ends[l][1], line_ends[l2][1]);
+					assert(c0 || c1);
+					if (c0 < 0 || c1 < 0) {
+						line_dir[l] = -line_dir[l];
+						std::swap(line_ends[l][0], line_ends[l][1]);
+					}
+					if (alive_lines.size() == 1) {
+						// We might have to flip the guy already in there
+						int64_t c2 = cross3(line_ends[l2][0], line_ends[l2][1], line_ends[l][0]);
+						int64_t c3 = cross3(line_ends[l2][0], line_ends[l2][1], line_ends[l][1]);
+						assert(c2 || c3);
+						if (c2 < 0 || c3 < 0) {
+							line_dir[l2] = -line_dir[l2];
+							std::swap(line_ends[l2][0], line_ends[l2][1]);
+							alive_lines.clear();
+							alive_lines.insert({line_dir[l2], l2});
+						}
+					}
+				}
+				if (alive_lines.find(line_dir[l]) != alive_lines.end()) {
+					line_segments[l].clear();
+					return false;
+				}
+
+				auto [it, did_insert] = alive_lines.insert({line_dir[l], l});
+				assert(did_insert);
+				auto pt = cyc_prev(it);
+				auto nt = cyc_next(it);
+				if (!(check_pts(it->second, nt->second) && check_pts(pt->second, it->second))) {
+					remove_in_set(i);
+					return false;
+				}
+			}
 		};
 
 		std::vector<bool> alive(N);
@@ -157,8 +272,12 @@ int main() {
 		auto reconcile = [&]() -> void {
 			while (!to_insert.empty()) {
 				int i = to_insert.back();
-				if (alive[i])
+				if (!alive[i]) {
+					to_insert.pop_back();
+					continue;
+				}
 				if (try_insert(i)) {
+					in_set[i] = true;
 					to_insert.pop_back();
 				} else {
 					break;
@@ -170,7 +289,7 @@ int main() {
 			assert(!alive[i]);
 			alive[i] = true;
 			if (try_insert(i)) {
-				// nothing to do
+				in_set[i] = true;
 			} else {
 				to_insert.push_back(i);
 			}
@@ -181,6 +300,7 @@ int main() {
 			alive[i] = false;
 			if (in_set[i]) {
 				remove_in_set(i);
+				in_set[i] = false;
 				reconcile();
 			}
 		};
