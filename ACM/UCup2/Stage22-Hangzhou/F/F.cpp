@@ -108,7 +108,7 @@ int main() {
 		}
 		std::sort(pts.begin(), pts.end(), std::greater<>());
 		bests.clear();
-		bests.push_back({1e18, {global_mex, -1, global_mex}});
+		bests.push_back({int64_t(1e18), {global_mex, -1, global_mex}});
 		for (auto [d, w, ch] : pts) {
 			auto b = bests.back().second;
 			if (w < b.min_val) {
