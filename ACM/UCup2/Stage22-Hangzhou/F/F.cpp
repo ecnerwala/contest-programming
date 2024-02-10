@@ -131,7 +131,7 @@ int main() {
 			for (auto [q, k] : queries[cur]) {
 				int mi = 0;
 				int ma = int(bests.size());
-				while (ma - mi > 0) {
+				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					if (cur_depth + bests[md].first > k) {
 						mi = md;
