@@ -337,7 +337,10 @@ int main() {
 					assert(vr == 0);
 					return r;
 				} else {
-					return new seg_node({self(a.c(0), l->ch[0], vl + l->v, r->ch[0], vr + r->v), self(a.c(1), l->ch[1], vl + l->v, r->ch[1], vr + r->v)}, 0);
+					return new seg_node({
+						self(a.c(0), l->ch[0], vl + l->v, r->ch[0], vr + r->v),
+						self(a.c(1), l->ch[1], vl + l->v, r->ch[1], vr + r->v)
+					}, 0);
 				}
 			})(seg_tree::point(1), roots[i+1], 1, roots[j], 0);
 		}
