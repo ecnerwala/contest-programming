@@ -366,6 +366,7 @@ int main() {
 			}
 		}
 		cout << v << '\n';
+		last_ans = v;
 	}
 
 	return 0;
