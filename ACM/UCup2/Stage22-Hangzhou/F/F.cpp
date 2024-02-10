@@ -88,6 +88,7 @@ int main() {
 					break;
 				}
 			}
+			cerr << "walking " << rt << " " << nxt_rt << '\n';
 			if (nxt_rt == -1) break;
 			rt = nxt_rt;
 		}
