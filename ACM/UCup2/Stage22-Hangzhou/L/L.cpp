@@ -98,7 +98,7 @@ public:
 	}
 };
 
-struct angle_cmp {
+struct angle_comparator {
 	template <typename T> bool operator () (const Point<T> a, const Point<T> b) {
 		return angle_less(Point<T>(1, 0), a, b);
 	}
@@ -156,7 +156,7 @@ int main() {
 		std::vector<std::set<std::pair<pt_t, int>>> line_segments(L);
 		std::vector<pt_t> line_dir(L);
 		std::vector<std::array<pt_t, 2>> line_ends(L);
-		std::map<pt_t, int, angle_cmp> alive_lines;
+		std::map<pt_t, int, angle_comparator> alive_lines;
 
 		auto update_line_ends = [&](int l) -> void {
 			line_ends[l] = {line_segments[l].begin()->first, line_segments[l].rbegin()->first};
