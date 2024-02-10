@@ -327,7 +327,7 @@ int main() {
 			roots[i] = new seg_node(*roots[i+1]);
 			roots[i]->v ++;
 		} else {
-			roots[i] = std::y_combinator([&](auto self, seg_tree::point a, int vl, seg_node* l, int vr, seg_node* r) -> seg_node* {
+			roots[i] = std::y_combinator([&](auto self, seg_tree::point a, seg_node* l, int vl, seg_node* r, int vr) -> seg_node* {
 				auto [lo, hi] = layout.get_node_bounds(a);
 				if (hi <= j) {
 					auto res = new seg_node(*l);
