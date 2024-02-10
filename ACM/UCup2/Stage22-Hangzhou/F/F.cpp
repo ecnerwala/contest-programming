@@ -95,6 +95,7 @@ int main() {
 		cerr << "actual centroid " << rt << '\n';
 		dfs_sz(rt, -1);
 
+		cerr << "generating pts" << '\n';
 		// Now, just sort the points
 		pts.clear();
 		pts.push_back({0, W[rt], rt});
@@ -108,6 +109,7 @@ int main() {
 				}
 			})(ch, rt, l_ch);
 		}
+		cerr << "generated pts" << '\n';
 		std::sort(pts.begin(), pts.end(), std::greater<>());
 		bests.clear();
 		bests.push_back({int64_t(1e18), {global_mex, -1, global_mex}});
@@ -125,6 +127,7 @@ int main() {
 			bests.push_back({d, b});
 		}
 		auto solve_pt = [&](int cur, int64_t cur_depth, int ch) {
+			cerr << "solve pt" << cur << '\n';
 			for (auto [q, k] : queries[cur]) {
 				int mi = 0;
 				int ma = int(bests.size());
