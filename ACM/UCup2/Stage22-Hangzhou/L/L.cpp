@@ -289,7 +289,7 @@ int main() {
 		};
 
 		auto insert = [&](int i) -> void {
-			cerr << "Insert " << i << '\n';
+			//cerr << "Insert " << i << '\n';
 			assert(!alive[i]);
 			alive[i] = true;
 			if (try_insert(i)) {
@@ -300,13 +300,17 @@ int main() {
 		};
 
 		auto remove = [&](int i) -> void {
-			cerr << "Remove " << i << '\n';
+			//cerr << "Remove " << i << '\n';
 			assert(alive[i]);
 			alive[i] = false;
 			if (in_set[i]) {
 				remove_in_set(i);
 				in_set[i] = false;
 				reconcile();
+			} else {
+				while (!to_insert.empty() && !alive[to_insert.back()]) {
+					to_insert.pop_back();
+				}
 			}
 		};
 
