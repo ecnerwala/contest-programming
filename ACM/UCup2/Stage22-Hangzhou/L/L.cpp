@@ -209,7 +209,7 @@ int main() {
 			}
 			update_line_ends(l);
 
-			if (!line_segments[l].empty()) {
+			if (line_segments[l].size() > 2) {
 				assert(!alive_lines.empty());
 				// we just need to extend
 				if (alive_lines.size() >= 2) {
