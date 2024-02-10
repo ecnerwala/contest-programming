@@ -312,7 +312,7 @@ int main() {
 	std::vector<seg_node*> roots(N+1);
 	roots[N] = std::y_combinator([&](auto self, seg_tree::point a) -> seg_node* {
 		if (a >= layout.N) {
-			return new seg_node{{nullptr, nullptr}, layout.get_point(a) - N};
+			return new seg_node{{nullptr, nullptr}, layout.get_leaf_index(a) - N};
 		} else {
 			return new seg_node{{self(a.c(0)), self(a.c(1))}, 0};
 		}
