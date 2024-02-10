@@ -289,6 +289,7 @@ int main() {
 		};
 
 		auto insert = [&](int i) -> void {
+			cerr << "Insert " << i << '\n';
 			assert(!alive[i]);
 			alive[i] = true;
 			if (try_insert(i)) {
@@ -299,6 +300,7 @@ int main() {
 		};
 
 		auto remove = [&](int i) -> void {
+			cerr << "Remove " << i << '\n';
 			assert(alive[i]);
 			alive[i] = false;
 			if (in_set[i]) {
