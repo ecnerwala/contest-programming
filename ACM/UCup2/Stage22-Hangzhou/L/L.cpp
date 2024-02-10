@@ -263,6 +263,8 @@ int main() {
 					remove_in_set(i);
 					return false;
 				}
+
+				return true;
 			}
 		};
 
