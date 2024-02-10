@@ -211,10 +211,11 @@ int main() {
 
 			if (line_segments[l].size() > 2) {
 				assert(!alive_lines.empty());
+
+				auto it = alive_lines.find(line_dir[l]);
+				assert(it != alive_lines.end() && it->second == l);
 				// we just need to extend
 				if (alive_lines.size() >= 2) {
-					auto it = alive_lines.find(line_dir[l]);
-					assert(it != alive_lines.end() && it->second == l);
 					auto pt = cyc_prev(it);
 					auto nt = cyc_next(it);
 					if (!(check_pts(it->second, nt->second) && check_pts(pt->second, it->second))) {
