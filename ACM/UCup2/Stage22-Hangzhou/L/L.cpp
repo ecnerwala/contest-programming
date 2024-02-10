@@ -113,7 +113,7 @@ int main() {
 		int Q; cin >> Q;
 		using pt_t = Point<int64_t>;
 		std::vector<std::array<pt_t, 2>> segs; segs.reserve(Q);
-		std::vector<int> ops(Q);
+		std::vector<int> ops; ops.reserve(Q);
 		for (int i = 0; i < Q; i++) {
 			char op; cin >> op;
 			if (op == '+') {
