@@ -301,6 +301,7 @@ std::vector<int64_t> solve(int M, int64_t L, std::vector<std::array<int, 2>> rou
 		int v = *std::min_element(num_edges.begin(), num_edges.end());
 		for (auto& a : num_edges) a -= v;
 	}
+	assert(*std::min_element(num_edges.begin(), num_edges.end()) == 0);
 
 	{ // First, find the baseline
 		std::vector<int> par(N, -1);
