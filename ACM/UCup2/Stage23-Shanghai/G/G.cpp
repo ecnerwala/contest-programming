@@ -401,7 +401,7 @@ std::optional<std::vector<std::array<int, 2>>> solve(int N, tensor<int, 2> A) {
 				std::array<int, 2> prv = solve_3_group(goods.back())[1];
 				goods.pop_back();
 				for (auto i : buf_2) {
-					auto [lo, hi] = solve_3_group(buf_2[i]);
+					auto [lo, hi] = solve_3_group(i);
 					edges.push_back({prv[0], lo[0]});
 					edges.push_back({prv[1], lo[1]});
 					prv = hi;
