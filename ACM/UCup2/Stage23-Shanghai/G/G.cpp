@@ -475,7 +475,7 @@ void run_tests() {
 		int N = std::uniform_int_distribution(1, 10)(mt);
 		double p = std::uniform_real_distribution<double>(0, 5)(mt) / N;
 		p = std::min(p, 1.);
-		std::cerr << "Test" << N << ' ' << p << '\n';
+		std::cerr << "Test " << N << ' ' << p << '\n';
 		std::vector<std::array<int, 2>> edges;
 		for (int i = 0; i < N; i++) {
 			for (int j = i+1; j < N; j++) {
@@ -496,6 +496,14 @@ void run_tests() {
 		if (!valid) {
 			std::cerr << "Skipping" << '\n';
 			continue;
+		}
+
+		std::cerr << N << '\n';
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				std::cerr << A_orig[{i, j}] << ' ';
+			}
+			std::cerr << '\n';
 		}
 		auto new_edges = solve(N, A_orig);
 		if (!new_edges) {
