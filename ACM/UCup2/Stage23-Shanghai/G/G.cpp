@@ -294,7 +294,6 @@ int main() {
 						return true;
 					}
 				}
-				assert(false);
 			};
 
 			auto solve_1_group = [&](int st) -> bool {
