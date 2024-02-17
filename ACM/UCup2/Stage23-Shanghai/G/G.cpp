@@ -167,7 +167,6 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				cin >> A[{i, j}];
-				if (i == j) A[{i, j}] = 3;
 			}
 		}
 
@@ -176,6 +175,10 @@ int main() {
 			// First, ensure that the groups which are >= 3, >= 2, and >= 1 are all cliques
 			std::vector<std::vector<int>> group_ids(4);
 			group_ids[0] = std::vector<int>(N, 0);
+			for (int i = 0; i < N; i++) {
+				if (A[{i, i}] != 0) return false;
+				A[{i, i}] = 3;
+			}
 			for (int min_d = 1; min_d <= 3; min_d++) {
 				std::vector<int> group_id(N);
 				for (int i = 0; i < N; i++) {
