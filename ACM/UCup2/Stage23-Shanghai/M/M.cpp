@@ -290,7 +290,7 @@ int main() {
 		int M; int64_t L;
 		if (TESTING) {
 			M = std::uniform_int_distribution<int>(1, 20)(mt);
-			L = std::uniform_int_distribution<int>(2, 1e9)(mt);
+			L = std::uniform_int_distribution<int>(2, 20)(mt);
 			cerr << "M = " << M << ", L = " << L << '\n';
 		} else {
 			cin >> M >> L;
