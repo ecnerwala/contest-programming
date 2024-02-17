@@ -279,13 +279,36 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
+	constexpr bool TESTING = false;
+	std::mt19937_64 mt(48);
+
+	int T;
+	if (TESTING) T = 1000;
+	else cin >> T;
 	while (T--) {
-		int M; int64_t L; cin >> M >> L;
+		cerr << "Start test" << '\n';
+		int M; int64_t L;
+		if (TESTING) {
+			M = std::uniform_int_distribution<int>(1, 20)(mt);
+			L = std::uniform_int_distribution<int>(2, 1e9)(mt);
+			cerr << "M = " << M << ", L = " << L << '\n';
+		} else {
+			cin >> M >> L;
+		}
 		std::vector<std::array<int, 2>> routes(M);
-		std::vector<int64_t> coords; coords.reserve(2*M);
 		for (auto& [s, t] : routes) {
-			cin >> s >> t;
+			if (TESTING) {
+				s = std::uniform_int_distribution<int>(0, L-1)(mt);
+				t = std::uniform_int_distribution<int>(0, L-1)(mt);
+				if (t == s) t = (s+1)%L;
+				assert(s != t);
+				cerr << s << ' ' << t << '\n';
+			} else {
+				cin >> s >> t;
+			}
+		}
+		std::vector<int64_t> coords; coords.reserve(2*M);
+		for (auto [s, t] : routes) {
 			coords.push_back(s);
 			coords.push_back(t);
 		}
@@ -349,6 +372,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			ans += num_edges[i] * ((i == 0) ? (L + coords[0] - coords[N-1]) : (coords[i] - coords[i-1]));
 		}
+		assert(ans % L == 0);
 
 		std::vector<int> par(N, -1);
 		auto get_par = [&](int a) -> int {
@@ -421,9 +445,21 @@ int main() {
 			}
 		}
 
-		int Q; cin >> Q;
+		int Q;
+		if (TESTING) {
+			Q = 100;
+			cerr << "Q = " << Q << '\n';
+		} else {
+			cin >> Q;
+		}
 		for (int q = 0; q < Q; q++) {
-			int64_t x; cin >> x;
+			int64_t x;
+			if (TESTING) {
+				x = std::uniform_int_distribution<int64_t>(0, L-1)(mt);
+				cerr << x << '\n';
+			} else {
+				cin >> x;
+			}
 			auto it = std::lower_bound(coords.begin(), coords.end(), x);
 			if (it == coords.end()) {
 				x -= L;
@@ -433,6 +469,10 @@ int main() {
 			// find the first thing we have to increment
 			int64_t y = seg[layout.get_point(i)];
 			assert(y >= x);
+			assert(y >= coords[i]);
+			if (num_edges[i] == -1) assert(y == coords[i] + L);
+			else assert(y < coords[i] + L);
+
 			int64_t real_ans = ans + (y - x);
 			cout << real_ans << '\n';
 		}
