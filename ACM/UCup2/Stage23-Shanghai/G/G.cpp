@@ -285,6 +285,7 @@ int main() {
 						edges.pop_back();
 						edges.push_back({u, a});
 						edges.push_back({v, a});
+						return true;
 					} else {
 						for (int z = 0; z < int(goods.size()); z++) {
 							solve_3_group(goods[z]);
