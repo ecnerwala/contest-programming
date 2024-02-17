@@ -441,7 +441,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	std::mt19937_64 mt(48);
 
 	int T;
@@ -450,7 +450,7 @@ int main() {
 	while (T--) {
 		int M; int64_t L;
 		if (TESTING) {
-			cerr << "Start test" << '\n';
+			cerr << "Start test" << ' ' << T << '\n';
 			M = std::uniform_int_distribution<int>(1, 200)(mt);
 			L = std::uniform_int_distribution<int>(2, 200)(mt);
 			//cerr << "M = " << M << ", L = " << L << '\n';
