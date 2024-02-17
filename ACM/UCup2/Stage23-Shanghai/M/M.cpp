@@ -502,7 +502,9 @@ int main() {
 			assert(answers == answers_rotated);
 		}
 
-		for (auto& v : answers) cout << v << '\n';
+		if (!TESTING) {
+			for (auto& v : answers) cout << v << '\n';
+		}
 	}
 
 	return 0;
