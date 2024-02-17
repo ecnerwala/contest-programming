@@ -440,16 +440,16 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	std::mt19937_64 mt(48);
 
 	int T;
 	if (TESTING) T = 1000;
 	else cin >> T;
 	while (T--) {
-		cerr << "Start test" << '\n';
 		int M; int64_t L;
 		if (TESTING) {
+			cerr << "Start test" << '\n';
 			M = std::uniform_int_distribution<int>(1, 20)(mt);
 			L = std::uniform_int_distribution<int>(2, 20)(mt);
 			cerr << "M = " << M << ", L = " << L << '\n';
@@ -487,6 +487,21 @@ int main() {
 		}
 
 		auto answers = solve(M, L, routes, queries);
+		if (TESTING) {
+			auto shift = std::uniform_int_distribution<int>(1, L-1)(mt);
+			auto routes_rotated = routes;
+			for (auto& [s, t] : routes_rotated) {
+				s = (s + shift) % L;
+				t = (t + shift) % L;
+			}
+			auto queries_rotated = queries;
+			for (auto& x : queries_rotated) {
+				x = (x + shift) % L;
+			}
+			auto answers_rotated = solve(M, L, routes_rotated, queries_rotated);
+			assert(answers == answers_rotated);
+		}
+
 		for (auto& v : answers) cout << v << '\n';
 	}
 
