@@ -474,6 +474,7 @@ void run_tests() {
 	for (int z = 0; z < 100; z++) {
 		int N = std::uniform_int_distribution(1, 10)(mt);
 		double p = std::uniform_real_distribution<double>(0, 5)(mt) / N;
+		p = std::min(p, 1.);
 		std::cerr << "Test" << N << ' ' << p << '\n';
 		std::vector<std::array<int, 2>> edges;
 		for (int i = 0; i < N; i++) {
