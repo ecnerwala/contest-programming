@@ -376,7 +376,6 @@ int main() {
 				num_comps -= merge(i, (i+N-1) % N);
 			}
 		}
-		assert(num_comps > 1);
 
 		seg_tree::in_order_layout layout(N);
 		std::vector<int64_t> seg(2*N, -L);
