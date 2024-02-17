@@ -570,7 +570,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	run_tests();
+	//run_tests();
 
 	int T; cin >> T;
 	while (T--) {
