@@ -444,15 +444,15 @@ int main() {
 	std::mt19937_64 mt(48);
 
 	int T;
-	if (TESTING) T = 1000;
+	if (TESTING) T = 10000;
 	else cin >> T;
 	while (T--) {
 		int M; int64_t L;
 		if (TESTING) {
 			cerr << "Start test" << '\n';
-			M = std::uniform_int_distribution<int>(1, 20)(mt);
-			L = std::uniform_int_distribution<int>(2, 20)(mt);
-			cerr << "M = " << M << ", L = " << L << '\n';
+			M = std::uniform_int_distribution<int>(1, 200)(mt);
+			L = std::uniform_int_distribution<int>(2, 200)(mt);
+			//cerr << "M = " << M << ", L = " << L << '\n';
 		} else {
 			cin >> M >> L;
 		}
@@ -463,7 +463,7 @@ int main() {
 				t = std::uniform_int_distribution<int>(0, L-1)(mt);
 				if (t == s) t = (s+1)%L;
 				assert(s != t);
-				cerr << s << ' ' << t << '\n';
+				//cerr << s << ' ' << t << '\n';
 			} else {
 				cin >> s >> t;
 			}
@@ -472,7 +472,7 @@ int main() {
 		int Q;
 		if (TESTING) {
 			Q = 100;
-			cerr << "Q = " << Q << '\n';
+			//cerr << "Q = " << Q << '\n';
 		} else {
 			cin >> Q;
 		}
@@ -480,7 +480,7 @@ int main() {
 		for (auto& x : queries) {
 			if (TESTING) {
 				x = std::uniform_int_distribution<int64_t>(0, L-1)(mt);
-				cerr << x << '\n';
+				//cerr << x << '\n';
 			} else {
 				cin >> x;
 			}
