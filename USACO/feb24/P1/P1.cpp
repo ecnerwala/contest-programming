@@ -33,8 +33,8 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::mt19937 mt(48);
-	for (int T = 0; T < 100; T++) {
-		cerr << "starting test" << '\n';
+	for (int T = 0; T < 1; T++) {
+		//cerr << "starting test" << '\n';
 		using num = modnum<int(1e9)+7>;
 
 		auto pow_3 = [&](int64_t a) -> num {
@@ -131,56 +131,58 @@ int main() {
 			}
 		};
 
-		//int Q; cin >> Q;
-		int Q = 100;
-		std::vector<std::pair<int, int64_t>> pts; pts.reserve(Q);
+		int Q; cin >> Q;
+		//int Q = 100;
+		std::vector<std::pair<int, int64_t>> pts; // pts.reserve(Q);
 		for (int q = 0; q < Q; q++) {
-			//int k; int64_t v; cin >> k >> v;
-			int k = std::uniform_int_distribution<int>(1, 100)(mt);
-			int64_t v = std::uniform_int_distribution<int64_t>(1, 100)(mt);
-			cerr << k << ' ' << v << '\n';
+			int k; int64_t v; cin >> k >> v;
+			//int k = std::uniform_int_distribution<int>(1, 100)(mt);
+			//int64_t v = std::uniform_int_distribution<int64_t>(1, 100)(mt);
+			//cerr << k << ' ' << v << '\n';
 			do_insert(k, v);
-			pts.push_back({k, v});
-			{
-				std::sort(pts.begin(), pts.end());
-				std::vector<std::pair<int, int64_t>> hull; hull.reserve(pts.size() + 1);
-				hull.push_back({0, 0});
-				for (auto [x, y] : pts) {
-					assert(x > 0);
-					assert(x >= hull.back().first);
-					while (true) {
-						if (hull.back().first == x) {
-							assert(hull.back().second <= y);
-							hull.pop_back();
-							continue;
+			if (false) {
+				pts.push_back({k, v});
+				{
+					std::sort(pts.begin(), pts.end());
+					std::vector<std::pair<int, int64_t>> hull; hull.reserve(pts.size() + 1);
+					hull.push_back({0, 0});
+					for (auto [x, y] : pts) {
+						assert(x > 0);
+						assert(x >= hull.back().first);
+						while (true) {
+							if (hull.back().first == x) {
+								assert(hull.back().second <= y);
+								hull.pop_back();
+								continue;
+							}
+							std::pair<int, int64_t> cur(x, y);
+							if (hull.size() >= 2 && is_bad(hull.end() - 2, hull.end() - 1, &cur)) {
+								hull.pop_back();
+								continue;
+							}
+							break;
 						}
-						std::pair<int, int64_t> cur(x, y);
-						if (hull.size() >= 2 && is_bad(hull.end() - 2, hull.end() - 1, &cur)) {
-							hull.pop_back();
-							continue;
-						}
-						break;
+						hull.push_back({x, y});
 					}
-					hull.push_back({x, y});
+					std::vector<std::pair<int, int64_t>> hull2(mp.begin(), mp.end());
+					//assert(hull.size() <= hull2.size());
+					for (auto [k, v] : hull) { cerr << k << ',' << v << ' '; } cerr << '\n';
+					for (auto [k, v] : hull2) { cerr << k << ',' << v << ' '; } cerr << '\n';
+					assert(hull == hull2);
 				}
-				std::vector<std::pair<int, int64_t>> hull2(mp.begin(), mp.end());
-				//assert(hull.size() <= hull2.size());
-				for (auto [k, v] : hull) { cerr << k << ',' << v << ' '; } cerr << '\n';
-				for (auto [k, v] : hull2) { cerr << k << ',' << v << ' '; } cerr << '\n';
-				assert(hull == hull2);
-			}
-			{
-				num actual_cost = num(0);
-				for (auto it = mp.begin(); std::next(it) != mp.end(); ++it) {
-					actual_cost += get_cost(it, std::next(it));
-				}
-				assert(int(actual_cost) == int(tot_cost));
+				{
+					num actual_cost = num(0);
+					for (auto it = mp.begin(); std::next(it) != mp.end(); ++it) {
+						actual_cost += get_cost(it, std::next(it));
+					}
+					assert(int(actual_cost) == int(tot_cost));
 
-				for (auto it = mp.begin(); std::next(std::next(it)) != mp.end(); ++it) {
-					assert(!is_bad(it, std::next(it), std::next(std::next(it))));
+					for (auto it = mp.begin(); std::next(std::next(it)) != mp.end(); ++it) {
+						assert(!is_bad(it, std::next(it), std::next(std::next(it))));
+					}
 				}
 			}
-			//cout << tot_cost << '\n';
+			cout << tot_cost << '\n';
 		}
 	}
 
