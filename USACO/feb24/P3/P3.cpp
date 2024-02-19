@@ -94,5 +94,41 @@ int main() {
 		}
 	}
 
+	for (int q = 0; q < Q; q++) {
+		int loc; int64_t cur_time; int64_t rem_time;
+		cin >> loc >> cur_time >> rem_time; loc--;
+		while (rem_time > 0) {
+			int T_cur = T[loc];
+			int v = pref[loc] + int(cur_time & int64_t(T_cur - 1));
+			{
+				auto [nxt_loc, jump_time] = bigger_jump[v];
+				if (nxt_loc != -1 && jump_time <= rem_time) {
+					loc = nxt_loc;
+					cur_time += jump_time;
+					rem_time -= jump_time;
+					continue;
+				}
+			}
+			for (int b = 19; b >= 0; b--) {
+				auto [nxt_loc, jump_time] = same_jump[v][b];
+				if (nxt_loc != -1 && jump_time <= rem_time) {
+					assert(T[nxt_loc] == T_cur);
+					loc = nxt_loc;
+					cur_time += jump_time;
+					rem_time -= jump_time;
+					v = pref[loc] + int(cur_time & int64_t(T_cur - 1));
+					continue;
+				}
+			}
+			if (rem_time > 0) {
+				loc = edges[v];
+				cur_time++;
+				rem_time--;
+			}
+		}
+		assert(rem_time == 0);
+		cout << loc << '\n';
+	}
+
 	return 0;
 }
