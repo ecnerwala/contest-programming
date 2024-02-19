@@ -56,10 +56,10 @@ int solve(std::vector<int> A, std::vector<int> input_inds) {
 	assert(K >= 0);
 	const int INF_COST = INF * (K+2);
 
-	cerr << "K = " << K << '\n';
-	for (auto [w, a, b] : intervals) cerr << w << ' ' << a << ' ' << b << '\n';
-	cerr << "N = " << N << '\n';
-	for (auto v : pool) cerr << v << '\n';
+	//cerr << "K = " << K << '\n';
+	//for (auto [w, a, b] : intervals) cerr << w << ' ' << a << ' ' << b << '\n';
+	//cerr << "N = " << N << '\n';
+	//for (auto v : pool) cerr << v << '\n';
 
 	std::vector<int> subset_len(1 << K);
 	subset_len[0] = 0;
@@ -117,7 +117,7 @@ int solve(std::vector<int> A, std::vector<int> input_inds) {
 	}
 
 	int best_val = dp_final[(1 << K) - 1];
-	cerr << "best value" << best_val << '\n';
+	//cerr << "best value " << best_val << '\n';
 
 	int actual_ans = orig_sum - INF - (interval_diffs / 2) + best_val;
 	return actual_ans;
