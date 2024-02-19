@@ -149,7 +149,7 @@ int main() {
 					assert(x >= hull.back().first);
 					while (true) {
 						if (hull.back().first == x) {
-							assert(hull.back().second < y);
+							assert(hull.back().second <= y);
 							hull.pop_back();
 							continue;
 						}
