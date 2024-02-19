@@ -5,7 +5,7 @@ template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
 int solve(std::vector<int> A, std::vector<int> input_inds) {
 	using std::cerr;
 	int N = int(A.size());
-	const int INF = 1.1e6;
+	const int INF = 1 + *std::max_element(A.begin(), A.end());
 
 	int K = int(input_inds.size());
 	std::vector<std::pair<int, int>> locs(K+2);
