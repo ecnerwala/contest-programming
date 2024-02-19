@@ -33,6 +33,7 @@ int main() {
 		while (z_hi < L && by_time[z_hi].first == T_cur) {
 			z_hi++;
 		}
+		cerr << T_cur << ' ' << z_lo << '-' << z_hi << '\n';
 
 		for (int z = z_lo; z < z_hi; z++) {
 			int loc = by_time[z].second;
