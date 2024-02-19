@@ -1,48 +1,72 @@
 #include <bits/stdc++.h>
 
+template <int MOD_> struct modnum {
+	static const int MOD = MOD_;
+	int v;
+	modnum() : v(0) {}
+	explicit modnum(int v_) : v(v_ % MOD) {
+		if (v < 0) v += MOD;
+	}
+	explicit operator int() const { return v; }
+	modnum& operator *= (modnum o) {
+		v = int(int64_t(v) * int64_t(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator += (modnum o) {
+		v -= MOD - o.v;
+		v += (v < 0) ? MOD : 0;
+		return *this;
+	}
+	modnum& operator -= (modnum o) {
+		v -= o.v;
+		v += (v < 0) ? MOD : 0;
+		return *this;
+	}
+	friend modnum operator + (modnum a, modnum b) { return a += b; }
+	friend modnum operator - (modnum a, modnum b) { return a -= b; }
+	friend modnum operator * (modnum a, modnum b) { return a *= b; }
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	const int MOD = int(1e9)+7;
-	auto day_cost = [&](int64_t a) -> int {
+	using num = modnum<int(1e9)+7>;
+
+	auto pow_3 = [&](int64_t a) -> num {
 		assert(a >= 0);
-		if (a == 0) return 0;
-		a--;
-		int r = 1;
-		int v = 3;
+		num r = num(1);
+		num v = num(3);
 		while (a) {
-			if (a & 1) r = int(int64_t(r) * int64_t(v) % MOD);
+			if (a & 1) r *= v;
 			a >>= 1;
-			v = int(int64_t(v) * int64_t(v) % MOD);
+			v *= v;
 		}
 		return r;
 	};
 
-	int tot_cost = 0;
+	num tot_cost = num(0);
 	std::map<int, int64_t> mp;
-	auto get_cost = [&](auto a, auto b) -> int {
+	auto get_cost = [&](auto a, auto b) -> num {
 		int t = b->first - a->first;
 		assert(t > 0);
 		int64_t v = b->second - a->second;
-		if (v < 0) return 0;
+		if (v < 0) return num(0);
 		assert(v >= 0);
 
 		int64_t a_lo = v / t;
 		int num_extra = int(v % t);
 		if (a_lo == 0) {
-			return num_extra % MOD;
+			return num(num_extra);
 		} else {
-			return int(int64_t(day_cost(a_lo)) * int64_t(t + 2 * num_extra) % MOD);
+			return pow_3(a_lo - 1) * num(t + 2 * num_extra);
 		}
 	};
 	auto add_cost = [&](auto a, auto b) {
 		tot_cost += get_cost(a, b);
-		tot_cost -= (tot_cost >= MOD) ? MOD : 0;
 	};
 	auto sub_cost = [&](auto a, auto b) {
 		tot_cost -= get_cost(a, b);
-		tot_cost += (tot_cost < 0) ? MOD : 0;
 	};
 
 	mp.insert({0, 0});
