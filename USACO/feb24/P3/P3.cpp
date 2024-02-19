@@ -127,7 +127,7 @@ int main() {
 			}
 		}
 		assert(rem_time == 0);
-		cout << loc << '\n';
+		cout << loc+1 << '\n';
 	}
 
 	return 0;
