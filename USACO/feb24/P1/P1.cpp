@@ -82,14 +82,12 @@ int main() {
 		return x1 * y2 >= x2 * y1;
 	};
 
-	int Q; cin >> Q;
-	for (int q = 0; q < Q; q++) {
-		int k; int64_t v; cin >> k >> v;
+	auto do_insert = [&](int k, int64_t v) -> void {
 		{
 			auto it = mp.find(k);
 			if (it != mp.end()) {
 				if (it->first >= v) {
-					goto done;
+					return;
 				}
 				// Otherwise just erase the existing one
 				assert(it != mp.begin());
@@ -109,7 +107,7 @@ int main() {
 			if (std::next(it) != mp.end()) {
 				if (is_bad(std::prev(it), it, std::next(it))) {
 					mp.erase(it);
-					goto done;
+					return;
 				}
 				sub_cost(std::prev(it), std::next(it));
 			}
@@ -128,6 +126,37 @@ int main() {
 				add_cost(it, std::next(it));
 			}
 		}
+	};
+
+	int Q; cin >> Q;
+	std::vector<std::pair<int, int64_t>> pts; pts.reserve(Q);
+	for (int q = 0; q < Q; q++) {
+		int k; int64_t v; cin >> k >> v;
+		do_insert(k, v);
+		pts.push_back({k, v});
+		{
+			std::sort(pts.begin(), pts.end());
+			std::vector<std::pair<int, int64_t>> hull; hull.reserve(pts.size() + 1);
+			hull.push_back({0, 0});
+			for (auto [x, y] : pts) {
+				assert(x > 0);
+				while (true) {
+					if (hull.back().first == x) {
+						assert(hull.back().second < y);
+						hull.pop_back();
+						continue;
+					}
+					if (hull.size() >= 2 && (hull.end()[-1].first - hull.end()[-2].first) * (y - hull.end()[-1].second) >= (x - hull.end()[-1].first) * (hull.end()[-1].second - hull.end()[-2].second)) {
+						hull.pop_back();
+						continue;
+					}
+					break;
+				}
+				hull.push_back({x, y});
+			}
+			std::vector<std::pair<int, int64_t>> hull2(mp.begin(), mp.end());
+			assert(hull == hull2);
+		}
 		{
 			num actual_cost = num(0);
 			for (auto it = mp.begin(); std::next(it) != mp.end(); ++it) {
@@ -139,7 +168,6 @@ int main() {
 				assert(!is_bad(it, std::next(it), std::next(std::next(it))));
 			}
 		}
-done:
 		cout << tot_cost << '\n';
 	}
 
