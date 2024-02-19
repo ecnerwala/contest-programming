@@ -138,6 +138,7 @@ int main() {
 			//int k; int64_t v; cin >> k >> v;
 			int k = std::uniform_int_distribution<int>(1, 100)(mt);
 			int64_t v = std::uniform_int_distribution<int64_t>(1, 100)(mt);
+			cerr << k << ' ' << v << '\n';
 			do_insert(k, v);
 			pts.push_back({k, v});
 			{
@@ -163,7 +164,7 @@ int main() {
 					hull.push_back({x, y});
 				}
 				std::vector<std::pair<int, int64_t>> hull2(mp.begin(), mp.end());
-				assert(hull.size() <= hull2.size());
+				//assert(hull.size() <= hull2.size());
 				assert(hull == hull2);
 			}
 			{
