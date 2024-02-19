@@ -165,6 +165,8 @@ int main() {
 				}
 				std::vector<std::pair<int, int64_t>> hull2(mp.begin(), mp.end());
 				//assert(hull.size() <= hull2.size());
+				for (auto [k, v] : hull) { cerr << k << ',' << v << ' '; } cerr << '\n';
+				for (auto [k, v] : hull2) { cerr << k << ',' << v << ' '; } cerr << '\n';
 				assert(hull == hull2);
 			}
 			{
