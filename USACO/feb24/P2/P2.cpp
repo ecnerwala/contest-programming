@@ -2,22 +2,15 @@
 
 template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-
-	int N, K;
-	cin >> N >> K;
-	std::vector<int> A(N);
-	for (auto& a : A) {
-		cin >> a;
-	}
+int solve(std::vector<int> A, std::vector<int> input_inds) {
+	int N = int(A.size());
 	const int INF = 1.1e6;
 
+	int K = int(input_inds.size());
 	std::vector<std::pair<int, int>> locs(K+2);
 	locs[0] = {-1, INF};
 	for (int i = 1; i <= K; i++) {
-		int x; cin >> x; x--;
+		int x = input_inds[i-1];
 		locs[i] = {x, A[x]};
 	}
 	locs[K+1] = {N, INF};
@@ -116,9 +109,7 @@ int main() {
 	int best_val = dp_exact[0][(1 << K) - 1];
 
 	int actual_ans = orig_sum - INF - (interval_diffs / 2) + best_val;
-	cout << actual_ans << '\n';
-
-	return 0;
+	return actual_ans;
 }
 
 // Actual answer
@@ -128,3 +119,22 @@ int main() {
 // = (sum of all givens) - INF + sum(1/2 interval_differences)
 // = (sum of all givens) - INF + sum((interval max - interval min) - 1/2 interval |left - right|)
 // = (sum of all givens) - INF + sum(interval max - interval min) - 1/2 interval |left - right|
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, K;
+	cin >> N >> K;
+	std::vector<int> A(N);
+	for (auto& a : A) {
+		cin >> a;
+	}
+	std::vector<int> X(K);
+	for (auto& x : X) {
+		cin >> x;
+	}
+	cout << solve(A, X) << '\n';
+
+	return 0;
+}
