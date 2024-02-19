@@ -26,8 +26,8 @@ int main() {
 		int dest_loc;
 		int64_t time;
 	};
-	std::vector<std::array<jump_t, 20>> same_jump(L);
-	std::vector<jump_t> bigger_jump(L, {-1, -1});
+	std::vector<std::array<jump_t, 20>> same_jump(V);
+	std::vector<jump_t> bigger_jump(V, {-1, -1});
 
 	for (int T_cur = 1, z_lo = 0, z_hi = 0; z_lo < L; z_lo = z_hi, T_cur *= 2) {
 		while (z_hi < L && by_time[z_hi].first == T_cur) {
