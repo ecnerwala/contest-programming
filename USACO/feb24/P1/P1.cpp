@@ -25,7 +25,8 @@ template <int MOD_> struct modnum {
 	friend modnum operator + (modnum a, modnum b) { return a += b; }
 	friend modnum operator - (modnum a, modnum b) { return a -= b; }
 	friend modnum operator * (modnum a, modnum b) { return a *= b; }
-}
+	friend std::ostream& operator << (std::ostream& o, modnum n) { return o << int(n); }
+};
 
 int main() {
 	using namespace std;
