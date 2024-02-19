@@ -131,8 +131,8 @@ int slow(std::vector<int> A, std::vector<int> inds) {
 		for (auto x : inds) { if (B[x] != A[x]) good = false; }
 		if (good) {
 			int cnd = 0;
-			for (int i = 0; i+1 < int(A.size()); i++) {
-				cnd += std::max(A[i], A[i+1]);
+			for (int i = 0; i+1 < int(B.size()); i++) {
+				cnd += std::max(B[i], B[i+1]);
 			}
 			res = std::min(res, cnd);
 		}
