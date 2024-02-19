@@ -156,7 +156,7 @@ int main() {
 				hull.push_back({x, y});
 			}
 			std::vector<std::pair<int, int64_t>> hull2(mp.begin(), mp.end());
-			assert(hull.size() >= hull2.size());
+			assert(hull.size() <= hull2.size());
 			//assert(hull == hull2);
 		}
 		{
