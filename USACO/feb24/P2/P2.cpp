@@ -44,7 +44,7 @@ int main() {
 	};
 	std::vector<interval_t> intervals; intervals.reserve(K);
 	for (int k = 0; k < K; k++) {
-		int w = locs[k+1].first - locs[k].first;
+		int w = locs[k+1].first - locs[k].first - 1;
 		int a = locs[k].second, b = locs[k+1].second;
 		if (a > b) std::swap(a, b);
 		assert(a <= b);
