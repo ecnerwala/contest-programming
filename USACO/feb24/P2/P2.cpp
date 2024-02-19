@@ -132,7 +132,7 @@ int main() {
 	}
 	std::vector<int> X(K);
 	for (auto& x : X) {
-		cin >> x;
+		cin >> x; x--;
 	}
 	cout << solve(A, X) << '\n';
 
