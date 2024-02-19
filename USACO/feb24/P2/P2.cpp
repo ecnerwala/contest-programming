@@ -45,6 +45,7 @@ int main() {
 	std::vector<interval_t> intervals; intervals.reserve(K);
 	for (int k = 0; k < K; k++) {
 		int w = locs[k+1].first - locs[k].first - 1;
+		assert(w >= 0);
 		int a = locs[k].second, b = locs[k+1].second;
 		if (a > b) std::swap(a, b);
 		assert(a <= b);
@@ -102,6 +103,7 @@ int main() {
 				setmin(dp_right[r+1][msk], dp_right[r][msk]);
 				int comp_msk = (1 << K) - 1 - msk;
 				for (int n_msk = comp_msk; n_msk != 0; n_msk = (n_msk - 1) & comp_msk) {
+					assert(!(msk & n_msk));
 					if (dp_exact[r][n_msk] >= INF_COST) continue;
 					if (r + subset_len[n_msk] > N) continue;
 
