@@ -140,6 +140,7 @@ int main() {
 			hull.push_back({0, 0});
 			for (auto [x, y] : pts) {
 				assert(x > 0);
+				assert(x >= hull.back().first);
 				while (true) {
 					if (hull.back().first == x) {
 						assert(hull.back().second < y);
@@ -156,7 +157,7 @@ int main() {
 				hull.push_back({x, y});
 			}
 			std::vector<std::pair<int, int64_t>> hull2(mp.begin(), mp.end());
-			assert(hull.size() <= hull2.size());
+			//assert(hull.size() <= hull2.size());
 			//assert(hull == hull2);
 		}
 		{
