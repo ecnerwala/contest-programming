@@ -89,7 +89,7 @@ int main() {
 			{
 				auto it = mp.find(k);
 				if (it != mp.end()) {
-					if (it->first >= v) {
+					if (it->second >= v) {
 						return;
 					}
 					// Otherwise just erase the existing one
