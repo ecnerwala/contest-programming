@@ -107,7 +107,16 @@ int solve(std::vector<int> A, std::vector<int> input_inds) {
 		}
 	}
 
-	int best_val = dp_exact[0][(1 << K) - 1];
+	std::vector<int> dp_final(1 << K, INF_COST);
+	dp_final[0] = 0;
+	for (int msk = 0; msk < (1 << K); msk++) {
+		int comp_msk = (1 << K) - 1 - msk;
+		for (int n_msk = comp_msk; n_msk != 0; n_msk = (n_msk - 1) & comp_msk) {
+			setmin(dp_final[msk + n_msk], dp_final[msk] + dp_exact[subset_len[msk]][n_msk]);
+		}
+	}
+
+	int best_val = dp_final[(1 << K) - 1];
 	cerr << "best value" << best_val << '\n';
 
 	int actual_ans = orig_sum - INF - (interval_diffs / 2) + best_val;
