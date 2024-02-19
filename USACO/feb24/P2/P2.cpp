@@ -61,12 +61,10 @@ int main() {
 	assert(K >= 0);
 	const int INF_COST = INF * (K+2);
 
-	cerr << "K = " << K << '\n';
-	for (auto& [w, a, b] : intervals) {
-		cerr << w << ' ' << a << ' ' << b << '\n';
-	}
-	cerr << "N = " << N << '\n';
-	for (auto& v : pool) cerr << v << '\n';
+	//cerr << "K = " << K << '\n';
+	//for (auto [w, a, b] : intervals) cerr << w << ' ' << a << ' ' << b << '\n';
+	//cerr << "N = " << N << '\n';
+	//for (auto v : pool) cerr << v << '\n';
 
 	std::vector<int> subset_len(1 << K);
 	subset_len[0] = 0;
