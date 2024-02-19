@@ -120,9 +120,54 @@ int solve(std::vector<int> A, std::vector<int> input_inds) {
 // = (sum of all givens) - INF + sum((interval max - interval min) - 1/2 interval |left - right|)
 // = (sum of all givens) - INF + sum(interval max - interval min) - 1/2 interval |left - right|
 
+int slow(std::vector<int> A, std::vector<int> inds) {
+	int res = 1e9;
+	std::vector<int> B = A;
+	std::sort(B.begin(), B.end());
+	do {
+		bool good = true;
+		for (auto x : inds) { if (B[x] != A[x]) good = false; }
+		if (good) {
+			int cnd = 0;
+			for (int i = 0; i+1 < int(A.size()); i++) {
+				cnd += std::max(A[i], A[i+1]);
+			}
+			res = std::min(res, cnd);
+		}
+	} while (std::next_permutation(B.begin(), B.end()));
+	return res;
+}
+
+void test() {
+	using std::cerr;
+	std::mt19937 rng(48);
+	for (int T = 0; T < 1000; T++) {
+		int N = std::uniform_int_distribution<int>(1, 6)(rng);
+		cerr << "Running test " << T << " N = " << N << '\n';
+		std::vector<int> A(N);
+		for (auto& a : A) {
+			a = std::uniform_int_distribution<int>(0, 20)(rng);
+		}
+		std::vector<int> X;
+		for (int i = 0; i < N; i++) {
+			if (rng() & 1) X.push_back(i);
+		}
+		auto mine = solve(A, X);
+		auto slo = slow(A, X);
+		if (mine != slo) {
+			for (auto a : A) { cerr << a << ' '; } cerr << '\n';
+			for (auto a : X) { cerr << a << ' '; } cerr << '\n';
+			cerr << slo << " != " << mine << '\n';
+			assert(false);
+		}
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	test();
 
 	int N, K;
 	cin >> N >> K;
