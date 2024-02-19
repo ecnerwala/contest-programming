@@ -54,9 +54,11 @@ int main() {
 					} else if (T[cur_loc] == T_cur) {
 						same_jump[v][0] = {cur_loc, cur_time};
 						bigger_jump[v] = {-1, -1};
+						break;
 					} else if (T[cur_loc] > T_cur) {
 						same_jump[v][0] = {-1, -1};
 						bigger_jump[v] = {cur_loc, cur_time};
+						break;
 					} else assert(false);
 				}
 			}
