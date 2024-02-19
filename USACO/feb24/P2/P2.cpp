@@ -3,6 +3,7 @@
 template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
 
 int solve(std::vector<int> A, std::vector<int> input_inds) {
+	using std::cerr;
 	int N = int(A.size());
 	const int INF = 1.1e6;
 
@@ -55,10 +56,10 @@ int solve(std::vector<int> A, std::vector<int> input_inds) {
 	assert(K >= 0);
 	const int INF_COST = INF * (K+2);
 
-	//cerr << "K = " << K << '\n';
-	//for (auto [w, a, b] : intervals) cerr << w << ' ' << a << ' ' << b << '\n';
-	//cerr << "N = " << N << '\n';
-	//for (auto v : pool) cerr << v << '\n';
+	cerr << "K = " << K << '\n';
+	for (auto [w, a, b] : intervals) cerr << w << ' ' << a << ' ' << b << '\n';
+	cerr << "N = " << N << '\n';
+	for (auto v : pool) cerr << v << '\n';
 
 	std::vector<int> subset_len(1 << K);
 	subset_len[0] = 0;
