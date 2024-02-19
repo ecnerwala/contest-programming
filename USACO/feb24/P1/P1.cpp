@@ -62,17 +62,19 @@ int main() {
 		int k; int64_t v; cin >> k >> v;
 		{
 			auto it = mp.find(k);
-			if (it != mp.end() && it->first >= v) {
-				goto done;
+			if (it != mp.end()) {
+				if (it->first >= v) {
+					goto done;
+				}
+				// Otherwise just erase the existing one
+				assert(it != mp.begin());
+				sub_cost(std::prev(it), it);
+				if (std::next(it) != mp.end()) {
+					sub_cost(it, std::next(it));
+					add_cost(std::prev(it), std::next(it));
+				}
+				mp.erase(it);
 			}
-			// Otherwise just erase the existing one
-			assert(it != mp.begin());
-			sub_cost(std::prev(it), it);
-			if (std::next(it) != mp.end()) {
-				sub_cost(it, std::next(it));
-				add_cost(std::prev(it), std::next(it));
-			}
-			mp.erase(it);
 		}
 
 		{
