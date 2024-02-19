@@ -128,6 +128,17 @@ int main() {
 				add_cost(it, std::next(it));
 			}
 		}
+		{
+			num actual_cost = num(0);
+			for (auto it = mp.begin(); std::next(it) != mp.end(); ++it) {
+				actual_cost += get_cost(it, std::next(it));
+			}
+			assert(int(actual_cost) == int(tot_cost));
+
+			for (auto it = mp.begin(); std::next(std::next(it)) != mp.end(); ++it) {
+				assert(!is_bad(it, std::next(it), std::next(std::next(it))));
+			}
+		}
 done:
 		cout << tot_cost << '\n';
 	}
