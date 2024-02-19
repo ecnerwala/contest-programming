@@ -12,7 +12,7 @@ int main() {
 	for (auto& a : A) {
 		cin >> a;
 	}
-	const int INF = (*std::max_element(A.begin(), A.end())) + 1;
+	const int INF = 1.1e6;
 
 	std::vector<std::pair<int, int>> locs(K+2);
 	locs[0] = {-1, INF};
