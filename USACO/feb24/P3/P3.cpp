@@ -98,6 +98,7 @@ int main() {
 		int loc; int64_t cur_time; int64_t rem_time;
 		cin >> loc >> cur_time >> rem_time; loc--;
 		while (rem_time > 0) {
+			cerr << "at " << loc << " at " << cur_time << " rem " << rem_time << '\n';
 			int T_cur = T[loc];
 			int v = pref[loc] + int(cur_time & int64_t(T_cur - 1));
 			{
