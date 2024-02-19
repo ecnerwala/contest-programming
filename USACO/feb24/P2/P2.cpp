@@ -108,6 +108,7 @@ int solve(std::vector<int> A, std::vector<int> input_inds) {
 	}
 
 	int best_val = dp_exact[0][(1 << K) - 1];
+	cerr << "best value" << best_val << '\n';
 
 	int actual_ans = orig_sum - INF - (interval_diffs / 2) + best_val;
 	return actual_ans;
