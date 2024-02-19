@@ -22,11 +22,14 @@ int main() {
 	}
 	std::sort(by_time.begin(), by_time.end());
 
+	const int64_t INF_TIME = 2e18;
+
 	struct jump_t {
 		int dest_loc;
 		int64_t time;
 	};
-	std::vector<std::array<jump_t, 20>> same_jump(V);
+	const int BITS = 61;
+	std::vector<std::array<jump_t, BITS>> same_jump(V);
 	std::vector<jump_t> bigger_jump(V, {-1, -1});
 
 	for (int T_cur = 1, z_lo = 0, z_hi = 0; z_lo < L; z_lo = z_hi, T_cur *= 2) {
@@ -51,6 +54,7 @@ int main() {
 						assert(T[nxt_loc] > T[cur_loc]);
 						cur_loc = nxt_loc;
 						cur_time += jump_time;
+						cur_time = std::min(cur_time, INF_TIME);
 					} else if (T[cur_loc] == T_cur) {
 						same_jump[v][0] = {cur_loc, cur_time};
 						bigger_jump[v] = {-1, -1};
@@ -64,7 +68,7 @@ int main() {
 			}
 		}
 
-		for (int b = 1; b < 20; b++) {
+		for (int b = 1; b < BITS; b++) {
 			for (int z = z_lo; z < z_hi; z++) {
 				int loc = by_time[z].second;
 				for (int v = pref[loc]; v < pref[loc+1]; v++) {
@@ -78,7 +82,7 @@ int main() {
 					{
 						auto [nxt_loc, jump_time] = same_jump[nxt_v][b-1];
 						if (nxt_loc != -1) {
-							same_jump[v][b] = {nxt_loc, jump_time + cur_time};
+							same_jump[v][b] = {nxt_loc, std::min(jump_time + cur_time, INF_TIME)};
 						} else {
 							same_jump[v][b] = {-1, -1};
 						}
@@ -86,7 +90,7 @@ int main() {
 					{
 						auto [nxt_loc, jump_time] = bigger_jump[nxt_v];
 						if (nxt_loc != -1) {
-							bigger_jump[v] = {nxt_loc, jump_time + cur_time};
+							bigger_jump[v] = {nxt_loc, std::min(jump_time + cur_time, INF_TIME)};
 						}
 					}
 				}
@@ -110,7 +114,7 @@ int main() {
 					continue;
 				}
 			}
-			for (int b = 19; b >= 0; b--) {
+			for (int b = BITS - 1; b >= 0; b--) {
 				auto [nxt_loc, jump_time] = same_jump[v][b];
 				if (nxt_loc != -1 && jump_time <= rem_time) {
 					assert(T[nxt_loc] == T_cur);
