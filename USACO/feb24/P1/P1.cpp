@@ -146,7 +146,8 @@ int main() {
 						hull.pop_back();
 						continue;
 					}
-					if (hull.size() >= 2 && (hull.end()[-1].first - hull.end()[-2].first) * (y - hull.end()[-1].second) >= (x - hull.end()[-1].first) * (hull.end()[-1].second - hull.end()[-2].second)) {
+					std::pair<int, int64_t> cur(x, y);
+					if (hull.size() >= 2 && is_bad(hull.end() - 2, hull.end() - 1, &cur)) {
 						hull.pop_back();
 						continue;
 					}
