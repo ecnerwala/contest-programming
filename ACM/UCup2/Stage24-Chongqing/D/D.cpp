@@ -496,27 +496,27 @@ int main() {
 		if (r - l == 1) {
 			// Leaf, trivial case
 			res.split_ways = num(1);
-			cerr << cur << ' ' << l << '-' << r << '\n';
+			//cerr << cur << ' ' << l << '-' << r << '\n';
 		} else {
 			auto l_val = self(ch[cur][0]);
 			auto r_val = self(ch[cur][1]);
 			int m = vert_split[cur];
 
-			cerr << '\n';
-			cerr << '\n';
+			//cerr << '\n';
+			//cerr << '\n';
 
-			cerr << "Node " << cur << ' ' << l << '-' << m << '-' << r << '\n';
-			cerr << '\n';
+			//cerr << "Node " << cur << ' ' << l << '-' << m << '-' << r << '\n';
+			//cerr << '\n';
 
-			cerr << "l_val.connected_ways" << ' ' << l_val.connected_ways << '\n';
-			cerr << "l_val.need_ways" << ' ' << l_val.need_ways << '\n';
-			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
-			cerr << '\n';
+			//cerr << "l_val.connected_ways" << ' ' << l_val.connected_ways << '\n';
+			//cerr << "l_val.need_ways" << ' ' << l_val.need_ways << '\n';
+			//cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			//cerr << '\n';
 
-			cerr << "r_val.connected_ways" << ' ' << r_val.connected_ways << '\n';
-			cerr << "r_val.need_ways" << ' ' << r_val.need_ways << '\n';
-			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
-			cerr << '\n';
+			//cerr << "r_val.connected_ways" << ' ' << r_val.connected_ways << '\n';
+			//cerr << "r_val.need_ways" << ' ' << r_val.need_ways << '\n';
+			//cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+			//cerr << '\n';
 
 			std::sort(lqueries[cur].begin(), lqueries[cur].end());
 			for (int q : lqueries[cur]) {
@@ -531,15 +531,15 @@ int main() {
 				r_val.split_ways = concat(t, r_val.split_ways, num(0));
 			}
 
-			cerr << "l_val.connected_ways" << ' ' << l_val.connected_ways << '\n';
-			cerr << "l_val.need_ways" << ' ' << l_val.need_ways << '\n';
-			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
-			cerr << '\n';
+			//cerr << "l_val.connected_ways" << ' ' << l_val.connected_ways << '\n';
+			//cerr << "l_val.need_ways" << ' ' << l_val.need_ways << '\n';
+			//cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			//cerr << '\n';
 
-			cerr << "r_val.connected_ways" << ' ' << r_val.connected_ways << '\n';
-			cerr << "r_val.need_ways" << ' ' << r_val.need_ways << '\n';
-			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
-			cerr << '\n';
+			//cerr << "r_val.connected_ways" << ' ' << r_val.connected_ways << '\n';
+			//cerr << "r_val.need_ways" << ' ' << r_val.need_ways << '\n';
+			//cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+			//cerr << '\n';
 
 			// Easy cases
 			res.connected_ways = l_val.connected_ways * r_val.connected_ways;
@@ -564,10 +564,10 @@ int main() {
 				return query_rmq[p.q] == cur;
 			});
 
-			cerr << "l_pts" << ' '; for (auto& [a, b, c] : l_pts) { cerr << '{' << a << ',' << b << ',' << c << '}' << ' '; } cerr << '\n';
-			cerr << "r_pts" << ' '; for (auto& [a, b, c] : r_pts) { cerr << '{' << a << ',' << b << ',' << c << '}' << ' '; } cerr << '\n';
-			cerr << "l_split_ways" << ' '; for (auto& a : l_split_ways) { cerr << a << ' '; } cerr << '\n';
-			cerr << "r_split_ways" << ' '; for (auto& a : r_split_ways) { cerr << a << ' '; } cerr << '\n';
+			//cerr << "l_pts" << ' '; for (auto& [a, b, c] : l_pts) { cerr << '{' << a << ',' << b << ',' << c << '}' << ' '; } cerr << '\n';
+			//cerr << "r_pts" << ' '; for (auto& [a, b, c] : r_pts) { cerr << '{' << a << ',' << b << ',' << c << '}' << ' '; } cerr << '\n';
+			//cerr << "l_split_ways" << ' '; for (auto& a : l_split_ways) { cerr << a << ' '; } cerr << '\n';
+			//cerr << "r_split_ways" << ' '; for (auto& a : r_split_ways) { cerr << a << ' '; } cerr << '\n';
 
 			// If they're both split, then we need to include most middle things
 			num mid_split_ways = 0;
@@ -603,8 +603,8 @@ int main() {
 				}
 			}
 
-			cerr << "mid_split_ways" << ' ' << mid_split_ways << '\n';
-			cerr << "mid_need_ways" << ' ' << mid_need_ways << '\n';
+			//cerr << "mid_split_ways" << ' ' << mid_split_ways << '\n';
+			//cerr << "mid_need_ways" << ' ' << mid_need_ways << '\n';
 
 			res.need_ways += mid_need_ways;
 
@@ -612,8 +612,8 @@ int main() {
 			l_val.split_ways = apply_lazy(l_val.split_ways, r_val.connected_ways);
 			r_val.split_ways = apply_lazy(r_val.split_ways, l_val.connected_ways);
 
-			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
-			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+			//cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			//cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
 
 			// Everything that breaks at least one query becomes a need
 			if (!rmq_queries[cur].empty()) {
@@ -634,8 +634,8 @@ int main() {
 				}
 			}
 
-			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
-			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+			//cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			//cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
 
 			// Now, remove things
 			for (auto l_pt : l_pts) {
@@ -649,23 +649,23 @@ int main() {
 				delete md;
 			}
 
-			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
-			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+			//cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			//cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
 
 			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
 
-			cerr << "connected ways" << ' ' << res.connected_ways << '\n';
-			cerr << "need ways" << ' ' << res.need_ways << '\n';
-			cerr << "split ways" << ' '; dump(res.split_ways);
+			//cerr << "connected ways" << ' ' << res.connected_ways << '\n';
+			//cerr << "need ways" << ' ' << res.need_ways << '\n';
+			//cerr << "split ways" << ' '; dump(res.split_ways);
 
 		}
 		if (0 <= l && r <= N) {
 			// double the ways
 			res.connected_ways += res.connected_ways + res.need_ways + get_tot(res.split_ways);
 		}
-		cerr << "connected ways" << ' ' << res.connected_ways << '\n';
-		cerr << "need ways" << ' ' << res.need_ways << '\n';
-		cerr << "split ways" << ' '; dump(res.split_ways);
+		//cerr << "connected ways" << ' ' << res.connected_ways << '\n';
+		//cerr << "need ways" << ' ' << res.need_ways << '\n';
+		//cerr << "split ways" << ' '; dump(res.split_ways);
 
 		return res;
 	})(0);
