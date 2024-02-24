@@ -596,6 +596,9 @@ int main() {
 				}
 			}
 
+			cerr << "mid_split_ways" << ' ' << mid_split_ways << '\n';
+			cerr << "mid_need_ways" << ' ' << mid_need_ways << '\n';
+
 			res.need_ways += mid_need_ways;
 
 			// Now we handle split / connected and connected / split
