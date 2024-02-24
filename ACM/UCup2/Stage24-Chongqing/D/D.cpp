@@ -562,6 +562,11 @@ int main() {
 				return query_rmq[p.q] == cur;
 			});
 
+			cerr << "l_pts" << ' '; for (auto& [a, b, c] : l_pts) { cerr << '{' << a << ',' << b << ',' << c << '}' << ' '; } cerr << '\n';
+			cerr << "r_pts" << ' '; for (auto& [a, b, c] : r_pts) { cerr << '{' << a << ',' << b << ',' << c << '}' << ' '; } cerr << '\n';
+			cerr << "l_split_ways" << ' '; for (auto& a : l_split_ways) { cerr << a << ' '; } cerr << '\n';
+			cerr << "r_split_ways" << ' '; for (auto& a : r_split_ways) { cerr << a << ' '; } cerr << '\n';
+
 			// If they're both split, then we need to include most middle things
 			num mid_split_ways = 0;
 			num mid_need_ways = 0;
