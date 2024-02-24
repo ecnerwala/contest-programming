@@ -287,9 +287,18 @@ using ptr_t = std::variant<num, treap_node*>;
 
 std::mt19937 mt;
 
+struct treap_key_t {
+	int loc;
+	bool dir;
+	int q;
+	friend bool operator < (treap_key_t a, treap_key_t b) {
+		return std::tie(a.loc, a.dir, a.q) < std::tie(b.loc, b.dir, b.q);
+	}
+};
+
 struct treap_node {
 	std::mt19937::result_type pri = mt();
-	std::pair<int, int> key;
+	treap_key_t key;
 	std::array<ptr_t, 2> ch = {num(0), num(0)};
 	num lazy = 1;
 	num tot = 0;
