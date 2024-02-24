@@ -348,6 +348,7 @@ ptr_t concat(ptr_t a, ptr_t b, num mid_val) {
 		return r;
 	}
 }
+
 std::tuple<ptr_t, treap_node*, ptr_t> split_at(ptr_t p, treap_key_t key) {
 	assert(p.index() == 1);
 	treap_node* t = std::get<treap_node*>(p);
@@ -367,6 +368,26 @@ std::tuple<ptr_t, treap_node*, ptr_t> split_at(ptr_t p, treap_key_t key) {
 		std::tie(t->ch[1], b, c) = split_at(t->ch[1], key);
 		update(t);
 		return {t, b, c};
+	} else assert(false);
+}
+
+ptr_t remove(ptr_t p, treap_key_t key) {
+	assert(p.index() == 1);
+	treap_node* t = std::get<treap_node*>(p);
+	push_down(t);
+	if (key == t->key) {
+		ptr_t a = t->ch[0], c = t->ch[1];
+		t->ch[0] = t->ch[1] = num(0);
+		delete t;
+		return concat(a, c, num(0));
+	} else if (key < t->key) {
+		t->ch[0] = remove(t->ch[0], key);
+		update(t);
+		return t;
+	} else if (key > t->key) {
+		t->ch[1] = remove(t->ch[1], key);
+		update(t);
+		return t;
 	} else assert(false);
 }
 
@@ -620,10 +641,25 @@ int main() {
 				{
 					auto l_pt = l_pts.back();
 					// TODO: could do without splitting, but whatever
-					auto [lo, md, hi] = split_at(l_val.split_ways, l_pt);
-					res.need_ways += get_tot(hi);
-					hi = apply_lazy(hi, num(0));
-					l_val.split_ways = concat(concat(lo, md, num(0)), hi, num(0));
+					ptr_t p = l_val.split_ways;
+					while (true) {
+						assert(p.index() == 1);
+						treap_node* t = std::get<treap_node*>(p);
+						push_down(t);
+						if (l_pt > t->key) {
+							p = t->ch[1];
+							continue;
+						} else {
+							// right side multiplies by 0
+							res.need_ways += get_tot(t->ch[1]);
+							t->ch[1] = apply_lazy(t->ch[1], num(0));
+							if (l_pt == t->key) {
+								break;
+							} else {
+								p = t->ch[0];
+							}
+						}
+					}
 				}
 				{
 					auto r_pt = r_pts.back();
@@ -639,14 +675,10 @@ int main() {
 
 			// Now, remove things
 			for (auto l_pt : l_pts) {
-				auto [lo, md, hi] = split_at(l_val.split_ways, l_pt);
-				l_val.split_ways = concat(lo, hi, num(0));
-				delete md;
+				l_val.split_ways = remove(l_val.split_ways, l_pt);
 			}
 			for (auto r_pt : r_pts) {
-				auto [lo, md, hi] = split_at(r_val.split_ways, r_pt);
-				r_val.split_ways = concat(lo, hi, num(0));
-				delete md;
+				r_val.split_ways = remove(r_val.split_ways, r_pt);
 			}
 
 			//cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
