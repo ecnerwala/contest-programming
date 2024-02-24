@@ -291,7 +291,7 @@ struct treap_key_t {
 	int loc;
 	bool dir;
 	int q;
-	friend bool operator <=> (treap_key_t a, treap_key_t b) = default;
+	friend std::strong_ordering operator <=> (treap_key_t a, treap_key_t b) = default;
 	friend bool operator == (treap_key_t a, treap_key_t b) = default;
 };
 
@@ -407,7 +407,7 @@ void dump_rec(ptr_t p) {
 		auto t = std::get<treap_node*>(p);
 		push_down(t);
 		dump_rec(std::get<treap_node*>(p)->ch[0]);
-		std::cerr << t->key.first << ',' << t->key.second << ' ';
+		std::cerr << t->key.loc << ',' << t->key.dir << ',' << t->key.q << ' ';
 		dump_rec(std::get<treap_node*>(p)->ch[1]);
 	}
 }
@@ -510,13 +510,13 @@ int main() {
 			std::sort(lqueries[cur].begin(), lqueries[cur].end());
 			for (int q : lqueries[cur]) {
 				treap_node* t = new treap_node;
-				t->key = {m, q};
+				t->key = {m, 0, q};
 				l_val.split_ways = concat(l_val.split_ways, t, num(0));
 			}
 			std::sort(rqueries[cur].begin(), rqueries[cur].end(), std::greater<>());
 			for (int q : rqueries[cur]) {
 				treap_node* t = new treap_node;
-				t->key = {m, q};
+				t->key = {m, 1, q};
 				r_val.split_ways = concat(t, r_val.split_ways, num(0));
 			}
 
@@ -524,23 +524,23 @@ int main() {
 			res.connected_ways = l_val.connected_ways * r_val.connected_ways;
 			res.need_ways = l_val.need_ways * r_val.connected_ways + l_val.connected_ways * r_val.need_ways;
 
-			std::vector<std::pair<int, int>> l_pts; l_pts.reserve(rmq_queries[cur].size());
-			std::vector<std::pair<int, int>> r_pts; r_pts.reserve(rmq_queries[cur].size());
+			std::vector<treap_key_t> l_pts; l_pts.reserve(rmq_queries[cur].size());
+			std::vector<treap_key_t> r_pts; r_pts.reserve(rmq_queries[cur].size());
 			for (auto q : rmq_queries[cur]) {
 				auto [ql, qr] = queries[q];
-				l_pts.push_back({ql, q});
-				r_pts.push_back({qr, q});
+				l_pts.push_back({ql, 0, q});
+				r_pts.push_back({qr, 1, q});
 			}
 			std::sort(l_pts.begin(), l_pts.end(), std::greater<>());
 			std::sort(r_pts.begin(), r_pts.end());
 
 			std::vector<num> l_split_ways; l_split_ways.reserve(rmq_queries[cur].size() + 1);
-			get_suffix(l_split_ways, l_val.split_ways, [&](std::pair<int, int> p) -> bool {
-				return query_rmq[p.second] == cur;
+			get_suffix(l_split_ways, l_val.split_ways, [&](treap_key_t p) -> bool {
+				return query_rmq[p.q] == cur;
 			});
 			std::vector<num> r_split_ways; r_split_ways.reserve(rmq_queries[cur].size() + 1);
-			get_prefix(r_split_ways, r_val.split_ways, [&](std::pair<int, int> p) -> bool {
-				return query_rmq[p.second] == cur;
+			get_prefix(r_split_ways, r_val.split_ways, [&](treap_key_t p) -> bool {
+				return query_rmq[p.q] == cur;
 			});
 
 			// If they're both split, then we need to include most middle things
@@ -554,13 +554,13 @@ int main() {
 				for (int z = 0; z < int(l_split_ways.size()) && z < int(r_split_ways.size()); z++) {
 					if (z) {
 						{
-							int lq = l_pts[z-1].second;
+							int lq = l_pts[z-1].q;
 							assert(query_rmq[lq] == cur);
 							l_idx = queries[lq][0];
 							r_need = std::max(r_need, queries[lq][1]);
 						}
 						{
-							int rq = r_pts[z-1].second;
+							int rq = r_pts[z-1].q;
 							assert(query_rmq[rq] == cur);
 							r_idx = queries[rq][1];
 							l_need = std::min(l_need, queries[rq][0]);
