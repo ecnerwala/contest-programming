@@ -612,6 +612,9 @@ int main() {
 			l_val.split_ways = apply_lazy(l_val.split_ways, r_val.connected_ways);
 			r_val.split_ways = apply_lazy(r_val.split_ways, l_val.connected_ways);
 
+			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+
 			// Everything that breaks at least one query becomes a need
 			if (!rmq_queries[cur].empty()) {
 				{
@@ -631,6 +634,9 @@ int main() {
 				}
 			}
 
+			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+
 			// Now, remove things
 			for (auto l_pt : l_pts) {
 				auto [lo, md, hi] = split_at(l_val.split_ways, l_pt);
@@ -642,6 +648,10 @@ int main() {
 				r_val.split_ways = concat(lo, hi, num(0));
 				delete md;
 			}
+
+			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+
 			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
 
 			cerr << "connected ways" << ' ' << res.connected_ways << '\n';
