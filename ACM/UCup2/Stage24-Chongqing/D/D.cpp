@@ -340,7 +340,7 @@ ptr_t concat(ptr_t a, ptr_t b, num mid_val) {
 		return r;
 	}
 }
-std::tuple<ptr_t, ptr_t, ptr_t> split_at(ptr_t p, std::pair<int, int> key) {
+std::tuple<ptr_t, treap_node*, ptr_t> split_at(ptr_t p, std::pair<int, int> key) {
 	assert(p.index() == 1);
 	treap_node* t = std::get<treap_node*>(p);
 	push_down(t);
@@ -350,12 +350,12 @@ std::tuple<ptr_t, ptr_t, ptr_t> split_at(ptr_t p, std::pair<int, int> key) {
 		update(t);
 		return {a, t, c};
 	} else if (key < t->key) {
-		ptr_t a, b;
+		ptr_t a; treap_node* b;
 		std::tie(a, b, t->ch[0]) = split_at(t->ch[0], key);
 		update(t);
 		return {a, b, t};
 	} else if (key > t->key) {
-		ptr_t b, c;
+		treap_node* b; ptr_t c;
 		std::tie(t->ch[1], b, c) = split_at(t->ch[1], key);
 		update(t);
 		return {t, b, c};
@@ -575,10 +575,12 @@ int main() {
 			for (auto l_pt : l_pts) {
 				auto [lo, md, hi] = split_at(l_val.split_ways, l_pt);
 				l_val.split_ways = concat(lo, hi, num(0));
+				delete md;
 			}
 			for (auto r_pt : r_pts) {
 				auto [lo, md, hi] = split_at(r_val.split_ways, r_pt);
 				r_val.split_ways = concat(lo, hi, num(0));
+				delete md;
 			}
 
 			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
