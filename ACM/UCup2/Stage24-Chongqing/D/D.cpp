@@ -501,12 +501,21 @@ int main() {
 			int m = vert_split[cur];
 
 			cerr << '\n';
+			cerr << '\n';
 
 			cerr << "Node " << cur << ' ' << l << '-' << m << '-' << r << '\n';
-			cerr << "l_val.split_ways" << '\n';
-			dump(l_val.split_ways);
-			cerr << "r_val.split_ways" << '\n';
-			dump(r_val.split_ways);
+			cerr << '\n';
+
+			cerr << "l_val.connected_ways" << ' ' << l_val.connected_ways << '\n';
+			cerr << "l_val.need_ways" << ' ' << l_val.need_ways << '\n';
+			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			cerr << '\n';
+
+			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+			cerr << "r_val.connected_ways" << ' ' << r_val.connected_ways << '\n';
+			cerr << "r_val.need_ways" << ' ' << r_val.need_ways << '\n';
+			cerr << '\n';
+
 			std::sort(lqueries[cur].begin(), lqueries[cur].end());
 			for (int q : lqueries[cur]) {
 				treap_node* t = new treap_node;
@@ -614,8 +623,10 @@ int main() {
 				delete md;
 			}
 			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
-			cerr << "split ways" << '\n';
-			dump(res.split_ways);
+
+			cerr << "connected ways" << ' ' << res.connected_ways << '\n';
+			cerr << "need ways" << ' ' << res.need_ways << '\n';
+			cerr << "split ways" << ' '; dump(res.split_ways);
 
 		}
 		if (0 <= l && r <= N) {
