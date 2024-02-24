@@ -529,6 +529,16 @@ int main() {
 				r_val.split_ways = concat(t, r_val.split_ways, num(0));
 			}
 
+			cerr << "l_val.connected_ways" << ' ' << l_val.connected_ways << '\n';
+			cerr << "l_val.need_ways" << ' ' << l_val.need_ways << '\n';
+			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
+			cerr << '\n';
+
+			cerr << "r_val.connected_ways" << ' ' << r_val.connected_ways << '\n';
+			cerr << "r_val.need_ways" << ' ' << r_val.need_ways << '\n';
+			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
+			cerr << '\n';
+
 			// Easy cases
 			res.connected_ways = l_val.connected_ways * r_val.connected_ways;
 			res.need_ways = l_val.need_ways * r_val.connected_ways + l_val.connected_ways * r_val.need_ways;
