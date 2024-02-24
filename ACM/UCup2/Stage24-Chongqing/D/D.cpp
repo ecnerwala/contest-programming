@@ -622,14 +622,14 @@ int main() {
 					// TODO: could do without splitting, but whatever
 					auto [lo, md, hi] = split_at(l_val.split_ways, l_pt);
 					res.need_ways += get_tot(hi);
-					apply_lazy(hi, num(0));
+					hi = apply_lazy(hi, num(0));
 					l_val.split_ways = concat(concat(lo, md, num(0)), hi, num(0));
 				}
 				{
 					auto r_pt = r_pts.back();
 					auto [lo, md, hi] = split_at(r_val.split_ways, r_pt);
 					res.need_ways += get_tot(lo);
-					apply_lazy(lo, num(0));
+					lo = apply_lazy(lo, num(0));
 					r_val.split_ways = concat(concat(lo, md, num(0)), hi, num(0));
 				}
 			}
