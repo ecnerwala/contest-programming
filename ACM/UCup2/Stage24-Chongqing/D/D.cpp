@@ -511,9 +511,9 @@ int main() {
 			cerr << "l_val.split_ways" << ' '; dump(l_val.split_ways);
 			cerr << '\n';
 
-			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
 			cerr << "r_val.connected_ways" << ' ' << r_val.connected_ways << '\n';
 			cerr << "r_val.need_ways" << ' ' << r_val.need_ways << '\n';
+			cerr << "r_val.split_ways" << ' '; dump(r_val.split_ways);
 			cerr << '\n';
 
 			std::sort(lqueries[cur].begin(), lqueries[cur].end());
