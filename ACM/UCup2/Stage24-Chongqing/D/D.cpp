@@ -306,16 +306,14 @@ ptr_t concat(ptr_t a, ptr_t b, num mid_val) {
 	if (a.index() == 1 && (b.index() == 0 || std::get<treap_node*>(a)->pri < std::get<treap_node*>(b)->pri)) {
 		treap_node *r = std::get<treap_node*>(a);
 		push_down(r);
-		r->tot += get_tot(b) + mid_val; // eagerly update
 		r->ch[1] = concat(r->ch[1], b, mid_val);
-		//update(r);
+		update(r);
 		return r;
 	} else {
 		treap_node *r = std::get<treap_node*>(b);
 		push_down(r);
-		r->tot += get_tot(a) + mid_val; // eagerly update
 		r->ch[0] = concat(a, r->ch[0], mid_val);
-		//update(r);
+		update(r);
 		return r;
 	}
 }
