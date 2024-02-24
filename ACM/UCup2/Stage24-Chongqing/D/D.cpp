@@ -392,6 +392,22 @@ void get_prefix(std::vector<num>& v, ptr_t p, T&& cond) {
 	}
 }
 
+void dump_rec(ptr_t p) {
+	if (p.index() == 0) {
+		std::cerr << std::get<num>(p) << ' ';
+	} else {
+		auto t = std::get<treap_node*>(p);
+		push_down(t);
+		dump_rec(std::get<treap_node*>(p)->ch[0]);
+		std::cerr << t->key.first << ',' << t->key.second << ' ';
+		dump_rec(std::get<treap_node*>(p)->ch[1]);
+	}
+}
+void dump(ptr_t p) {
+	dump_rec(p);
+	std::cerr << '\n';
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -465,17 +481,17 @@ int main() {
 	};
 
 	auto root_res = std::y_combinator([&](auto self, int cur) -> dp_t {
-		//cerr << cur << '\n';
 		auto [l, r] = vert_bounds[cur];
 		dp_t res;
 		if (r - l == 1) {
 			// Leaf, trivial case
 			res.split_ways = num(1);
+			cerr << cur << ' ' << l << '-' << r << '\n';
 		} else {
-			//cerr << "  " << l << ' ' << r << ' ' << ch[cur][0] << ' ' << ch[cur][1] << '\n';
 			auto l_val = self(ch[cur][0]);
 			auto r_val = self(ch[cur][1]);
 			int m = vert_split[cur];
+			cerr << cur << ' ' << l << '-' << m << '-' << r << '\n';
 			std::sort(lqueries[cur].begin(), lqueries[cur].end());
 			for (int q : lqueries[cur]) {
 				treap_node* t = new treap_node;
@@ -582,6 +598,8 @@ int main() {
 				r_val.split_ways = concat(lo, hi, num(0));
 				delete md;
 			}
+			cerr << "split ways" << '\n';
+			dump(res.split_ways);
 
 			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
 		}
