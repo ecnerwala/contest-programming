@@ -329,11 +329,11 @@ ptr_t remove(ptr_t p, treap_key_t key) {
 		return concat(a, c, num(0));
 	} else if (key < t->key) {
 		t->ch[0] = remove(t->ch[0], key);
-		//update(t); // noop
+		update(t); // noop
 		return t;
 	} else if (key > t->key) {
 		t->ch[1] = remove(t->ch[1], key);
-		//update(t); // noop
+		update(t); // noop
 		return t;
 	} else assert(false);
 }
