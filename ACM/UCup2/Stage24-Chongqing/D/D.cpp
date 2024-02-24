@@ -491,7 +491,14 @@ int main() {
 			auto l_val = self(ch[cur][0]);
 			auto r_val = self(ch[cur][1]);
 			int m = vert_split[cur];
-			cerr << cur << ' ' << l << '-' << m << '-' << r << '\n';
+
+			cerr << '\n';
+
+			cerr << "Node " << cur << ' ' << l << '-' << m << '-' << r << '\n';
+			cerr << "l_val.split_ways" << '\n';
+			dump(l_val.split_ways);
+			cerr << "r_val.split_ways" << '\n';
+			dump(r_val.split_ways);
 			std::sort(lqueries[cur].begin(), lqueries[cur].end());
 			for (int q : lqueries[cur]) {
 				treap_node* t = new treap_node;
