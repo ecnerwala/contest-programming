@@ -294,6 +294,9 @@ struct treap_key_t {
 	friend bool operator < (treap_key_t a, treap_key_t b) {
 		return std::tie(a.loc, a.dir, a.q) < std::tie(b.loc, b.dir, b.q);
 	}
+	friend bool operator == (treap_key_t a, treap_key_t b) {
+		return std::tie(a.loc, a.dir, a.q) == std::tie(b.loc, b.dir, b.q);
+	}
 };
 
 struct treap_node {
@@ -349,7 +352,7 @@ ptr_t concat(ptr_t a, ptr_t b, num mid_val) {
 		return r;
 	}
 }
-std::tuple<ptr_t, treap_node*, ptr_t> split_at(ptr_t p, std::pair<int, int> key) {
+std::tuple<ptr_t, treap_node*, ptr_t> split_at(ptr_t p, treap_key_t key) {
 	assert(p.index() == 1);
 	treap_node* t = std::get<treap_node*>(p);
 	push_down(t);
