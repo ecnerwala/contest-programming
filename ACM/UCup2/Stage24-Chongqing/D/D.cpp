@@ -371,32 +371,34 @@ std::tuple<ptr_t, treap_node*, ptr_t> split_at(ptr_t p, treap_key_t key) {
 }
 
 template <typename T>
-void get_suffix(std::vector<num>& v, ptr_t p, T&& cond) {
+bool get_suffix(std::vector<num>& v, ptr_t p, T&& cond) {
 	if (p.index() == 0) {
 		v.push_back(std::get<num>(p));
+		return true;
 	} else {
 		treap_node* t = std::get<treap_node*>(p);
 		push_down(t);
-		get_suffix(v, t->ch[1], cond);
+		if (!get_suffix(v, t->ch[1], cond)) return false;
 		if (!cond(std::get<treap_node*>(p)->key)) {
-			return;
+			return false;
 		}
-		get_suffix(v, t->ch[0], cond);
+		return get_suffix(v, t->ch[0], cond);
 	}
 }
 
 template <typename T>
-void get_prefix(std::vector<num>& v, ptr_t p, T&& cond) {
+bool get_prefix(std::vector<num>& v, ptr_t p, T&& cond) {
 	if (p.index() == 0) {
 		v.push_back(std::get<num>(p));
+		return true;
 	} else {
 		treap_node* t = std::get<treap_node*>(p);
 		push_down(t);
-		get_prefix(v, t->ch[0], cond);
+		if (!get_prefix(v, t->ch[0], cond)) return false;
 		if (!cond(std::get<treap_node*>(p)->key)) {
-			return;
+			return false;
 		}
-		get_prefix(v, t->ch[1], cond);
+		return get_prefix(v, t->ch[1], cond);
 	}
 }
 
