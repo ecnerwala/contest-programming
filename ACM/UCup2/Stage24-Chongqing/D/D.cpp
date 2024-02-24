@@ -349,28 +349,6 @@ ptr_t concat(ptr_t a, ptr_t b, num mid_val) {
 	}
 }
 
-std::tuple<ptr_t, treap_node*, ptr_t> split_at(ptr_t p, treap_key_t key) {
-	assert(p.index() == 1);
-	treap_node* t = std::get<treap_node*>(p);
-	push_down(t);
-	if (key == t->key) {
-		ptr_t a = t->ch[0], c = t->ch[1];
-		t->ch[0] = t->ch[1] = num(0);
-		update(t);
-		return {a, t, c};
-	} else if (key < t->key) {
-		ptr_t a; treap_node* b;
-		std::tie(a, b, t->ch[0]) = split_at(t->ch[0], key);
-		update(t);
-		return {a, b, t};
-	} else if (key > t->key) {
-		treap_node* b; ptr_t c;
-		std::tie(t->ch[1], b, c) = split_at(t->ch[1], key);
-		update(t);
-		return {t, b, c};
-	} else assert(false);
-}
-
 ptr_t remove(ptr_t p, treap_key_t key) {
 	assert(p.index() == 1);
 	treap_node* t = std::get<treap_node*>(p);
