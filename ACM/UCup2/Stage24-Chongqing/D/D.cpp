@@ -407,7 +407,7 @@ void dump_rec(ptr_t p) {
 		auto t = std::get<treap_node*>(p);
 		push_down(t);
 		dump_rec(std::get<treap_node*>(p)->ch[0]);
-		std::cerr << t->key.loc << ',' << t->key.dir << ',' << t->key.q << ' ';
+		std::cerr << '{' << t->key.loc << ',' << t->key.dir << ',' << t->key.q << '}' << ' ';
 		dump_rec(std::get<treap_node*>(p)->ch[1]);
 	}
 }
