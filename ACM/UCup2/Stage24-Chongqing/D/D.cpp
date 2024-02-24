@@ -378,14 +378,13 @@ int main() {
 
 			// TODO: Lazy pushdown
 			res.split_ways = concat(l_val.split_ways * r_val.connected_ways, mid_split_ways, l_val.connected_ways * r_val.split_ways);
-			res.tot_split_ways = l_val.tot_split_ways * r_val.connected_ways + l_val.connected_ways * r_val.tot_split_ways + mid_split_ways;
 
 			res.need_ways += mid_need_ways;
 
 		}
 		if (0 <= l && r <= N) {
 			// double the ways
-			res.connected_ways += res.connected_ways + res.need_ways + res.tot_split_ways;
+			res.connected_ways += res.connected_ways + res.need_ways + res.split_ways.tot;
 		}
 		return res;
 	});
