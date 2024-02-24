@@ -598,10 +598,10 @@ int main() {
 				r_val.split_ways = concat(lo, hi, num(0));
 				delete md;
 			}
+			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
 			cerr << "split ways" << '\n';
 			dump(res.split_ways);
 
-			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
 		}
 		if (0 <= l && r <= N) {
 			// double the ways
