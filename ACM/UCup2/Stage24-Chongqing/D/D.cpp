@@ -291,12 +291,8 @@ struct treap_key_t {
 	int loc;
 	bool dir;
 	int q;
-	friend bool operator < (treap_key_t a, treap_key_t b) {
-		return std::tie(a.loc, a.dir, a.q) < std::tie(b.loc, b.dir, b.q);
-	}
-	friend bool operator == (treap_key_t a, treap_key_t b) {
-		return std::tie(a.loc, a.dir, a.q) == std::tie(b.loc, b.dir, b.q);
-	}
+	friend bool operator <=> (treap_key_t a, treap_key_t b) = default;
+	friend bool operator == (treap_key_t a, treap_key_t b) = default;
 };
 
 struct treap_node {
