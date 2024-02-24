@@ -465,17 +465,17 @@ int main() {
 	};
 
 	auto root_res = std::y_combinator([&](auto self, int cur) -> dp_t {
-		cerr << cur << '\n';
+		//cerr << cur << '\n';
 		auto [l, r] = vert_bounds[cur];
 		dp_t res;
 		if (r - l == 1) {
 			// Leaf, trivial case
 			res.split_ways = num(1);
 		} else {
-			cerr << "  " << l << ' ' << r << ' ' << ch[cur][0] << ' ' << ch[cur][1] << '\n';
+			//cerr << "  " << l << ' ' << r << ' ' << ch[cur][0] << ' ' << ch[cur][1] << '\n';
 			auto l_val = self(ch[cur][0]);
 			auto r_val = self(ch[cur][1]);
-			int m = split_node[cur];
+			int m = vert_split[cur];
 			std::sort(lqueries[cur].begin(), lqueries[cur].end());
 			for (int q : lqueries[cur]) {
 				treap_node* t = new treap_node;
