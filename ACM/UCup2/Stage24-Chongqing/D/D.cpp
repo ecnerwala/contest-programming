@@ -663,10 +663,25 @@ int main() {
 				}
 				{
 					auto r_pt = r_pts.back();
-					auto [lo, md, hi] = split_at(r_val.split_ways, r_pt);
-					res.need_ways += get_tot(lo);
-					lo = apply_lazy(lo, num(0));
-					r_val.split_ways = concat(concat(lo, md, num(0)), hi, num(0));
+					ptr_t p = r_val.split_ways;
+					while (true) {
+						assert(p.index() == 1);
+						treap_node* t = std::get<treap_node*>(p);
+						push_down(t);
+						if (r_pt < t->key) {
+							p = t->ch[0];
+							continue;
+						} else {
+							// left side multiplies by 0
+							res.need_ways += get_tot(t->ch[0]);
+							t->ch[0] = apply_lazy(t->ch[0], num(0));
+							if (r_pt == t->key) {
+								break;
+							} else {
+								p = t->ch[1];
+							}
+						}
+					}
 				}
 			}
 
