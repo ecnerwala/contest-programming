@@ -633,6 +633,10 @@ int main() {
 			// double the ways
 			res.connected_ways += res.connected_ways + res.need_ways + get_tot(res.split_ways);
 		}
+		cerr << "connected ways" << ' ' << res.connected_ways << '\n';
+		cerr << "need ways" << ' ' << res.need_ways << '\n';
+		cerr << "split ways" << ' '; dump(res.split_ways);
+
 		return res;
 	})(0);
 
