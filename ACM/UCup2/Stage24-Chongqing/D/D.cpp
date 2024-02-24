@@ -250,37 +250,6 @@ template <typename T> T pow(T a, long long b) {
 
 using num = modnum<998244353>;
 
-struct split_ways_t {
-	num tot;
-	num lazy;
-	// We store pairs of {pt, query}: ways_after, starting with {-1, -1}: ...
-	std::map<std::pair<int, int>, num> ways;
-
-	void set_single() {
-		lazy = 1;
-		tot = 1;
-		ways = {{{-1, -1}, num(1)}};
-	}
-
-	void insert_last(std::pair<int, int> p) {
-		auto [it, did_insert] = ways.insert({p, num(0)});
-		assert(did_insert);
-	}
-	void insert_first(std::pair<int, int> p) {
-		auto [it, did_insert] = ways.insert({p, num(0)});
-		assert(it != ways.begin());
-		std::swap(it->second, std::prev(it)->second);
-	}
-
-	void remove(std::pair<int, int> p) {
-		auto it = ways.find(p);
-		assert(it != ways.end());
-		assert(it != ways.begin());
-		std::prev(it)->second += it->second;
-		ways.erase(it);
-	}
-};
-
 struct treap_node;
 
 using ptr_t = std::variant<num, treap_node*>;
