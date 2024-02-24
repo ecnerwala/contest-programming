@@ -106,7 +106,6 @@ template <typename T> using RangeMaxQuery = RangeMinQuery<T, std::greater<T>>;
 
 namespace std {
 
-template<class Fun>
 class y_combinator_result {
 	Fun fun_;
 public:
