@@ -1,5 +1,109 @@
 #include <bits/stdc++.h>
 
+template <typename T, class Compare = std::less<T>> class RangeMinQuery : private Compare {
+	static const int BUCKET_SIZE = 32;
+	static const int BUCKET_SIZE_LOG = 5;
+	static_assert(BUCKET_SIZE == (1 << BUCKET_SIZE_LOG), "BUCKET_SIZE should be a power of 2");
+	static const int CACHE_LINE_ALIGNMENT = 64;
+	int n = 0;
+	std::vector<T> data;
+	std::vector<T> pref_data;
+	std::vector<T> suff_data;
+	std::vector<T> sparse_table;
+	std::vector<uint32_t> range_mask;
+
+private:
+	int num_buckets() const {
+		return n >> BUCKET_SIZE_LOG;
+	}
+	int num_levels() const {
+		return num_buckets() ? 32 - __builtin_clz(num_buckets()) : 0;
+	}
+	int sparse_table_size() const {
+		return num_buckets() * num_levels();
+	}
+private:
+	const T& min(const T& a, const T& b) const {
+		return Compare::operator()(a, b) ? a : b;
+	}
+	void setmin(T& a, const T& b) const {
+		if (Compare::operator()(b, a)) a = b;
+	}
+
+	template <typename Vec> static int get_size(const Vec& v) { using std::size; return int(size(v)); }
+
+public:
+	RangeMinQuery() {}
+	template <typename Vec> explicit RangeMinQuery(const Vec& data_, const Compare& comp_ = Compare())
+		: Compare(comp_)
+		, n(get_size(data_))
+		, data(n)
+		, pref_data(n)
+		, suff_data(n)
+		, sparse_table(sparse_table_size())
+		, range_mask(n)
+	{
+		for (int i = 0; i < n; i++) data[i] = data_[i];
+		for (int i = 0; i < n; i++) {
+			if (i & (BUCKET_SIZE-1)) {
+				uint32_t m = range_mask[i-1];
+				while (m && !Compare::operator()(data[(i | (BUCKET_SIZE-1)) - __builtin_clz(m)], data[i])) {
+					m -= uint32_t(1) << (BUCKET_SIZE - 1 - __builtin_clz(m));
+				}
+				m |= uint32_t(1) << (i & (BUCKET_SIZE - 1));
+				range_mask[i] = m;
+			} else {
+				range_mask[i] = 1;
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			pref_data[i] = data[i];
+			if (i & (BUCKET_SIZE-1)) {
+				setmin(pref_data[i], pref_data[i-1]);
+			}
+		}
+		for (int i = n-1; i >= 0; i--) {
+			suff_data[i] = data[i];
+			if (i+1 < n && ((i+1) & (BUCKET_SIZE-1))) {
+				setmin(suff_data[i], suff_data[i+1]);
+			}
+		}
+		for (int i = 0; i < num_buckets(); i++) {
+			sparse_table[i] = data[i * BUCKET_SIZE];
+			for (int v = 1; v < BUCKET_SIZE; v++) {
+				setmin(sparse_table[i], data[i * BUCKET_SIZE + v]);
+			}
+		}
+		for (int l = 0; l+1 < num_levels(); l++) {
+			for (int i = 0; i + (1 << (l+1)) <= num_buckets(); i++) {
+				sparse_table[(l+1) * num_buckets() + i] = min(sparse_table[l * num_buckets() + i], sparse_table[l * num_buckets() + i + (1 << l)]);
+			}
+		}
+	}
+
+	T query(int l, int r) const {
+		assert(l <= r);
+		int bucket_l = (l >> BUCKET_SIZE_LOG);
+		int bucket_r = (r >> BUCKET_SIZE_LOG);
+		if (bucket_l == bucket_r) {
+			uint32_t msk = range_mask[r] & ~((uint32_t(1) << (l & (BUCKET_SIZE-1))) - 1);
+			int ind = (l & ~(BUCKET_SIZE-1)) + __builtin_ctz(msk);
+			return data[ind];
+		} else {
+			T ans = min(suff_data[l], pref_data[r]);
+			bucket_l++;
+			if (bucket_l < bucket_r) {
+				int level = (32 - __builtin_clz(bucket_r - bucket_l)) - 1;
+				setmin(ans, sparse_table[level * num_buckets() + bucket_l]);
+				setmin(ans, sparse_table[level * num_buckets() + bucket_r - (1 << level)]);
+			}
+			return ans;
+		}
+	}
+};
+
+template <typename T> using RangeMaxQuery = RangeMinQuery<T, std::greater<T>>;
+
 namespace std {
 
 template<class Fun>
@@ -146,7 +250,28 @@ template <typename T> T pow(T a, long long b) {
 
 using num = modnum<998244353>;
 
-// Need
+struct split_ways_t {
+	num tot;
+	num lazy;
+	// We store pairs of {pt, query}: ways_after, starting with {-1, -1}: ...
+	std::map<std::pair<int, int>, num> ways;
+
+	void set_single() {
+		lazy = 1;
+		tot = 1;
+		ways = {{{-1, -1}, num(1)}};
+	}
+
+	void insert_last(std::pair<int, int> p) {
+		auto [it, did_insert] = ways.insert({p, num(0)});
+		assert(did_insert);
+	}
+	void insert_first(std::pair<int, int> p) {
+		auto [it, did_insert] = ways.insert({p, num(0)});
+		assert(it != ways.begin());
+		std::swap(it->second, std::prev(it)->second);
+	}
+};
 
 int main() {
 	using namespace std;
@@ -158,17 +283,10 @@ int main() {
 	std::vector<std::array<int, 2>> queries(Q);
 	for (auto& [l, r] : queries) cin >> l >> r;
 
-	std::vector<std::vector<int>> lqueries(N+1);
-	std::vector<std::vector<int>> rqueries(N+1);
-	for (int q = 0; q < Q; q++) {
-		auto [l, r] = queries[q];
-		lqueries[l].push_back(q);
-		rqueries[r].push_back(q);
-	}
-
 	const int V = 2 * (N+2) - 1;
-	std::vector<int> leaf_node(N+1, -1);
-	std::vector<std::array<int, 2>> bounds(V);
+	std::vector<int> split_node(N+1, -1);
+	std::vector<std::array<int, 2>> vert_bounds(V);
+	std::vector<int> vert_split(V);
 	std::vector<std::array<int, 2>> ch(V);
 	std::vector<int> path_vert; path_vert.reserve(V-1);
 	{
@@ -176,10 +294,11 @@ int main() {
 		auto Xit = X.begin();
 		std::y_combinator([&](auto self, int l, int r) -> void {
 			int cur = idx++;
-			bounds[cur] = {l, r};
+			vert_bounds[cur] = {l, r};
 			if (r - l == 1) {
 				// we're just a leaf
 				ch[cur] = {-1, -1};
+				vert_split[cur] = -1;
 			} else {
 				int m;
 				if (l == -1 && r == N+1) {
@@ -190,7 +309,8 @@ int main() {
 					m = *Xit;
 					++Xit;
 				}
-				leaf_node[m] = cur;
+				vert_split[cur] = m;
+				split_node[m] = cur;
 				path_vert.push_back(cur);
 				ch[cur][0] = idx; self(l, m);
 				path_vert.push_back(cur);
@@ -198,17 +318,77 @@ int main() {
 			}
 		})(-1, N+1);
 		assert(idx == V);
-		for (int i = 0; i <= N; i++) assert(leaf_node[i] != -1);
+		for (int i = 0; i <= N; i++) assert(split_node[i] != -1);
 		assert(int(path_vert.size()) == V-1);
 	}
 
+	RangeMinQuery<int> rmq(path_vert);
+
+	std::vector<std::vector<int>> lqueries(V);
+	std::vector<std::vector<int>> rqueries(V);
+	std::vector<int> query_rmq(Q);
+	std::vector<std::vector<int>> rmq_queries(V);
+	for (int q = 0; q < Q; q++) {
+		auto [l, r] = queries[q];
+		int lv = split_node[l];
+		int rv = split_node[r];
+		assert(lv != rv);
+		lqueries[lv].push_back(q);
+		rqueries[rv].push_back(q);
+		query_rmq[q] = rmq.query(std::min(lv, rv), std::max(lv, rv) - 1);
+		rmq_queries[query_rmq[q]].push_back(q);
+	}
 
 	struct dp_t {
 		num connected_ways = 0;
 		num need_ways = 0;
-		// Placeholder data stucture
-		std::map<int, num> split_ways;
+		split_ways_t split_ways;
 	};
+
+	std::y_combinator([&](auto self, int cur) -> dp_t {
+		auto [l, r] = vert_bounds[cur];
+		dp_t res;
+		if (r - l == 1) {
+			// Leaf, trivial case
+			res.split_ways.set_single();
+		} else {
+			auto l_val = self(ch[cur][0]);
+			auto r_val = self(ch[cur][1]);
+			int m = split_node[cur];
+			for (int q : lqueries[cur]) {
+				l_val.split_ways.insert_last({m, q});
+			}
+			for (int q : rqueries[cur]) {
+				r_val.split_ways.insert_first({m, q});
+			}
+
+			res.connected_ways = l_val.connected_ways * r_val.connected_ways;
+			res.need_ways = l_val.need_ways * r_val.connected_ways + l_val.connected_ways * r_val.need_ways;
+
+			// If they're both split, then we need to include most middle things
+			num mid_split_ways = 0;
+			num mid_need_ways = 0;
+			auto l_it = l_val.rbegin();
+			auto r_it = r_val.begin();
+			for (int z = 0; z <= std::min(l_val.split_ways.size(), r_val.split_ways.size()); z++) {
+			}
+
+			for (auto q : rmq_queries[cur]) {
+			}
+
+			// TODO: Lazy pushdown
+			res.split_ways = concat(l_val.split_ways * r_val.connected_ways, mid_split_ways, l_val.connected_ways * r_val.split_ways);
+			res.tot_split_ways = l_val.tot_split_ways * r_val.connected_ways + l_val.connected_ways * r_val.tot_split_ways + mid_split_ways;
+
+			res.need_ways += mid_need_ways;
+
+		}
+		if (0 <= l && r <= N) {
+			// double the ways
+			res.connected_ways += res.connected_ways + res.need_ways + res.tot_split_ways;
+		}
+		return res;
+	});
 
 	return 0;
 }
