@@ -271,7 +271,126 @@ struct split_ways_t {
 		assert(it != ways.begin());
 		std::swap(it->second, std::prev(it)->second);
 	}
+
+	void remove(std::pair<int, int> p) {
+		auto it = ways.find(p);
+		assert(it != ways.end());
+		assert(it != ways.begin());
+		std::prev(it)->second += it->second;
+		ways.erase(it);
+	}
 };
+
+struct treap_node;
+
+using ptr_t = std::variant<num, treap_node*>;
+
+std::mt19937 mt;
+
+struct treap_node {
+	std::mt19937::result_type pri = mt();
+	std::pair<int, int> key;
+	std::array<ptr_t, 2> ch = {num(0), num(0)};
+	num lazy = 1;
+	num tot = 0;
+};
+
+num get_tot(ptr_t p) {
+	if (p.index() == 0) {
+		return std::get<num>(p);
+	} else {
+		return std::get<treap_node*>(p)->tot;
+	}
+}
+ptr_t apply_lazy(ptr_t p, num v) {
+	if (p.index() == 0) {
+		return std::get<num>(p) * v;
+	} else {
+		auto& node = std::get<treap_node*>(p);
+		node->tot *= v;
+		node->lazy *= v;
+		return p;
+	}
+}
+void update(treap_node* t) {
+	t->tot = get_tot(t->ch[0]) + get_tot(t->ch[1]);
+}
+void push_down(treap_node* t) {
+	if (t->lazy != num(1)) {
+		t->ch[0] = apply_lazy(t->ch[0], t->lazy);
+		t->ch[1] = apply_lazy(t->ch[1], t->lazy);
+		t->lazy = 1;
+	}
+}
+ptr_t concat(ptr_t a, ptr_t b, num mid_val) {
+	if (a.index() == 0 && b.index() == 0) {
+		return num(std::get<num>(a) + std::get<num>(b) + mid_val);
+	}
+	if (a.index() == 1 && (b.index() == 0 || std::get<treap_node*>(a)->pri < std::get<treap_node*>(b)->pri)) {
+		treap_node *r = std::get<treap_node*>(a);
+		push_down(r);
+		r->ch[1] = concat(r->ch[1], b, mid_val);
+		update(r);
+		return r;
+	} else {
+		treap_node *r = std::get<treap_node*>(b);
+		push_down(r);
+		r->ch[0] = concat(a, r->ch[0], mid_val);
+		update(r);
+		return r;
+	}
+}
+std::tuple<ptr_t, ptr_t, ptr_t> split_at(ptr_t p, std::pair<int, int> key) {
+	assert(p.index() == 1);
+	treap_node* t = std::get<treap_node*>(p);
+	push_down(t);
+	if (key == t->key) {
+		ptr_t a = t->ch[0], c = t->ch[1];
+		t->ch[0] = t->ch[1] = num(0);
+		update(t);
+		return {a, t, c};
+	} else if (key < t->key) {
+		ptr_t a, b;
+		std::tie(a, b, t->ch[0]) = split_at(t->ch[0], key);
+		update(t);
+		return {a, b, t};
+	} else if (key > t->key) {
+		ptr_t b, c;
+		std::tie(t->ch[1], b, c) = split_at(t->ch[1], key);
+		update(t);
+		return {t, b, c};
+	} else assert(false);
+}
+
+template <typename T>
+void get_suffix(std::vector<num>& v, ptr_t p, T&& cond) {
+	if (p.index() == 0) {
+		v.push_back(std::get<num>(p));
+	} else {
+		treap_node* t = std::get<treap_node*>(p);
+		push_down(t);
+		get_suffix(v, t->ch[1], cond);
+		if (!cond(std::get<treap_node*>(p)->key)) {
+			return;
+		}
+		get_suffix(v, t->ch[0], cond);
+	}
+}
+
+template <typename T>
+void get_prefix(std::vector<num>& v, ptr_t p, T&& cond) {
+	if (p.index() == 0) {
+		v.push_back(std::get<num>(p));
+	} else {
+		treap_node* t = std::get<treap_node*>(p);
+		push_down(t);
+		get_prefix(v, t->ch[0], cond);
+		if (!cond(std::get<treap_node*>(p)->key)) {
+			return;
+		}
+		get_prefix(v, t->ch[1], cond);
+	}
+}
 
 int main() {
 	using namespace std;
@@ -342,52 +461,134 @@ int main() {
 	struct dp_t {
 		num connected_ways = 0;
 		num need_ways = 0;
-		split_ways_t split_ways;
+		ptr_t split_ways;
 	};
 
-	std::y_combinator([&](auto self, int cur) -> dp_t {
+	auto root_res = std::y_combinator([&](auto self, int cur) -> dp_t {
 		auto [l, r] = vert_bounds[cur];
 		dp_t res;
 		if (r - l == 1) {
 			// Leaf, trivial case
-			res.split_ways.set_single();
+			res.split_ways = num(1);
 		} else {
 			auto l_val = self(ch[cur][0]);
 			auto r_val = self(ch[cur][1]);
 			int m = split_node[cur];
+			std::sort(lqueries[cur].begin(), lqueries[cur].end());
 			for (int q : lqueries[cur]) {
-				l_val.split_ways.insert_last({m, q});
+				treap_node* t = new treap_node;
+				t->key = {m, q};
+				l_val.split_ways = concat(l_val.split_ways, t, num(0));
 			}
+			std::sort(rqueries[cur].begin(), rqueries[cur].end(), std::greater<>());
 			for (int q : rqueries[cur]) {
-				r_val.split_ways.insert_first({m, q});
+				treap_node* t = new treap_node;
+				t->key = {m, q};
+				r_val.split_ways = concat(t, r_val.split_ways, num(0));
 			}
 
+			// Easy cases
 			res.connected_ways = l_val.connected_ways * r_val.connected_ways;
 			res.need_ways = l_val.need_ways * r_val.connected_ways + l_val.connected_ways * r_val.need_ways;
+
+			std::vector<std::pair<int, int>> l_pts; l_pts.reserve(rmq_queries[cur].size());
+			std::vector<std::pair<int, int>> r_pts; r_pts.reserve(rmq_queries[cur].size());
+			for (auto q : rmq_queries[cur]) {
+				auto [ql, qr] = queries[q];
+				l_pts.push_back({ql, q});
+				r_pts.push_back({qr, q});
+			}
+			std::sort(l_pts.begin(), l_pts.end(), std::greater<>());
+			std::sort(r_pts.begin(), r_pts.end());
+
+			std::vector<num> l_split_ways; l_split_ways.reserve(rmq_queries[cur].size() + 1);
+			get_suffix(l_split_ways, l_val.split_ways, [&](std::pair<int, int> p) -> bool {
+				return query_rmq[p.second] == cur;
+			});
+			std::vector<num> r_split_ways; r_split_ways.reserve(rmq_queries[cur].size() + 1);
+			get_prefix(r_split_ways, r_val.split_ways, [&](std::pair<int, int> p) -> bool {
+				return query_rmq[p.second] == cur;
+			});
 
 			// If they're both split, then we need to include most middle things
 			num mid_split_ways = 0;
 			num mid_need_ways = 0;
-			auto l_it = l_val.rbegin();
-			auto r_it = r_val.begin();
-			for (int z = 0; z <= std::min(l_val.split_ways.size(), r_val.split_ways.size()); z++) {
+			{
+				int l_idx = m;
+				int r_idx = m;
+				int l_need = m;
+				int r_need = m;
+				for (int z = 0; z < int(l_split_ways.size()) && z < int(r_split_ways.size()); z++) {
+					if (z) {
+						{
+							int lq = l_pts[z-1].second;
+							assert(query_rmq[lq] == cur);
+							l_idx = queries[lq][0];
+							r_need = std::max(r_need, queries[lq][1]);
+						}
+						{
+							int rq = r_pts[z-1].second;
+							assert(query_rmq[rq] == cur);
+							r_idx = queries[rq][1];
+							l_need = std::min(l_need, queries[rq][0]);
+						}
+					}
+					if (l_split_ways[z] == 0 || r_split_ways[z] == 0) continue;
+					if (l_need < l_idx || r_need > r_idx) continue;
+					num cur_ways = l_split_ways[z] * r_split_ways[z];
+					if (z == int(rmq_queries[cur].size())) {
+						mid_split_ways += cur_ways;
+					} else {
+						mid_need_ways += cur_ways;
+					}
+				}
 			}
-
-			for (auto q : rmq_queries[cur]) {
-			}
-
-			// TODO: Lazy pushdown
-			res.split_ways = concat(l_val.split_ways * r_val.connected_ways, mid_split_ways, l_val.connected_ways * r_val.split_ways);
 
 			res.need_ways += mid_need_ways;
 
+			// Now we handle split / connected and connected / split
+			l_val.split_ways = apply_lazy(l_val.split_ways, r_val.connected_ways);
+			r_val.split_ways = apply_lazy(r_val.split_ways, l_val.connected_ways);
+
+			// Everything that breaks at least one query becomes a need
+			if (!rmq_queries[cur].empty()) {
+				{
+					auto l_pt = l_pts.back();
+					// TODO: could do without splitting, but whatever
+					auto [lo, md, hi] = split_at(l_val.split_ways, l_pt);
+					res.need_ways += get_tot(hi);
+					apply_lazy(hi, num(0));
+					l_val.split_ways = concat(concat(lo, md, num(0)), hi, num(0));
+				}
+				{
+					auto r_pt = r_pts.back();
+					auto [lo, md, hi] = split_at(r_val.split_ways, r_pt);
+					res.need_ways += get_tot(lo);
+					apply_lazy(lo, num(0));
+					r_val.split_ways = concat(concat(lo, md, num(0)), hi, num(0));
+				}
+			}
+
+			// Now, remove things
+			for (auto l_pt : l_pts) {
+				auto [lo, md, hi] = split_at(l_val.split_ways, l_pt);
+				l_val.split_ways = concat(lo, hi, num(0));
+			}
+			for (auto r_pt : r_pts) {
+				auto [lo, md, hi] = split_at(r_val.split_ways, r_pt);
+				r_val.split_ways = concat(lo, hi, num(0));
+			}
+
+			res.split_ways = concat(l_val.split_ways, r_val.split_ways, mid_split_ways);
 		}
 		if (0 <= l && r <= N) {
 			// double the ways
-			res.connected_ways += res.connected_ways + res.need_ways + res.split_ways.tot;
+			res.connected_ways += res.connected_ways + res.need_ways + get_tot(res.split_ways);
 		}
 		return res;
-	});
+	})(0);
+
+	cout << get_tot(root_res.split_ways) << '\n';
 
 	return 0;
 }
