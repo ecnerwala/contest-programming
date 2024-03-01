@@ -643,7 +643,6 @@ int main() {
 					bool bad = false;
 					layout.get_range(0, x).for_each_r_to_l([&](auto a) -> void {
 						if (bad) return;
-						cerr << "check point " << a << ' ' << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << len_seg[a] << ' ' << cnt_seg[a] << '\n';
 						if (len_seg[a] >= need_len) {
 							cnt += cnt_seg[a];
 							return;
@@ -651,7 +650,7 @@ int main() {
 							while (a < layout.N) {
 								assert(len_seg[a] < need_len);
 								if (len_seg[a.c(1)] >= need_len) {
-									cnt += len_seg[a.c(1)];
+									cnt += cnt_seg[a.c(1)];
 									a = a.c(0);
 								} else {
 									a = a.c(1);
@@ -674,7 +673,7 @@ int main() {
 						} else {
 							while (a < layout.N) {
 								if (len_seg[a.c(0)] >= need_len) {
-									cnt += len_seg[a.c(0)];
+									cnt += cnt_seg[a.c(0)];
 									a = a.c(1);
 								} else {
 									a = a.c(0);
