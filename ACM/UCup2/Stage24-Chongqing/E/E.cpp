@@ -676,7 +676,7 @@ int main() {
 						}
 					});
 				}
-				cerr << "set f[" << i << "] at " << j << " up to " << cnt - f[j] << '\n';
+				cerr << "set f[" << i << "] at " << j << " with cnt=" << cnt << " up to " << cnt - f[j] << '\n';
 				f[i] = std::max(f[i], cnt - f[j]);
 			}
 			if (f[i] <= f[j]) {
