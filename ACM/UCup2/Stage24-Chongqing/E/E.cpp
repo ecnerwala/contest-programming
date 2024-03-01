@@ -612,7 +612,9 @@ int main() {
 	for (int i = 0; i < 2*N+1; i++) {
 		seg_tree::point a = layout.get_point(i);
 		len_seg[a] = (i & 1) ? sa.lcp[i/2] : (N - sa.sa[i/2]);
+		cerr << len_seg[a] << ' ';
 	}
+	cerr << '\n';
 	for (seg_tree::point a(layout.N-1); a; a--) {
 		len_seg[a] = std::min(len_seg[a.c(0)], len_seg[a.c(1)]);
 	}
