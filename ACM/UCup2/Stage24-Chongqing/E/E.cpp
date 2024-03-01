@@ -656,10 +656,12 @@ int main() {
 								}
 							}
 							assert(len_seg[a] < need_len);
+							cerr << "left bad at " << layout.get_leaf_index(a) << '\n';
 							bad = true;
 						}
 					});
 				}
+				cerr << "first half cnt = " << cnt << '\n';
 				{
 					bool bad = false;
 					layout.get_range(x+1, layout.N).for_each_l_to_r([&](auto a) -> void {
@@ -677,6 +679,7 @@ int main() {
 								}
 							}
 							assert(len_seg[a] < need_len);
+							cerr << "right bad at " << layout.get_leaf_index(a) << '\n';
 							bad = true;
 						}
 					});
