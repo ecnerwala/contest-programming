@@ -643,7 +643,7 @@ int main() {
 					bool bad = false;
 					layout.get_range(0, x).for_each_r_to_l([&](auto a) -> void {
 						if (bad) return;
-						cerr << "check point " << a << ' ' << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << '\n';
+						cerr << "check point " << a << ' ' << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << len_seg[a] << ' ' << cnt_seg[a] << '\n';
 						if (len_seg[a] >= need_len) {
 							cnt += cnt_seg[a];
 							return;
