@@ -612,9 +612,7 @@ int main() {
 	for (int i = 0; i < 2*N+1; i++) {
 		seg_tree::point a = layout.get_point(i);
 		len_seg[a] = (i & 1) ? sa.lcp[i/2] : (N - sa.sa[i/2]);
-		cerr << len_seg[a] << ' ';
 	}
-	cerr << '\n';
 	for (seg_tree::point a(layout.N-1); a; a--) {
 		len_seg[a] = std::min(len_seg[a.c(0)], len_seg[a.c(1)]);
 	}
@@ -637,8 +635,6 @@ int main() {
 			{
 				int need_len = j - i;
 				int cnt = 1;
-				cerr << "query cnt " << i << ' ' << j << '\n';
-				cerr << "x = " << x << '\n';
 				{
 					bool bad = false;
 					layout.get_range(0, x).for_each_r_to_l([&](auto a) -> void {
@@ -657,12 +653,10 @@ int main() {
 								}
 							}
 							assert(len_seg[a] < need_len);
-							cerr << "left bad at " << layout.get_leaf_index(a) << '\n';
 							bad = true;
 						}
 					});
 				}
-				cerr << "first half cnt = " << cnt << '\n';
 				{
 					bool bad = false;
 					layout.get_range(x+1, layout.N).for_each_l_to_r([&](auto a) -> void {
@@ -680,12 +674,10 @@ int main() {
 								}
 							}
 							assert(len_seg[a] < need_len);
-							cerr << "right bad at " << layout.get_leaf_index(a) << '\n';
 							bad = true;
 						}
 					});
 				}
-				cerr << "set f[" << i << "] at " << j << " with cnt=" << cnt << " up to " << cnt - f[j] << '\n';
 				f[i] = std::max(f[i], cnt - f[j]);
 			}
 			if (f[i] <= f[j]) {
