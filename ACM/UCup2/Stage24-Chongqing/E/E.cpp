@@ -643,6 +643,7 @@ int main() {
 					bool bad = false;
 					layout.get_range(0, x).for_each_r_to_l([&](auto a) -> void {
 						if (bad) return;
+						cerr << "check point " << a << '\n';
 						if (len_seg[a] >= need_len) {
 							cnt += cnt_seg[a];
 							return;
