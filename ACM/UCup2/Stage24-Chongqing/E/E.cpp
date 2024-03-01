@@ -648,6 +648,7 @@ int main() {
 							return;
 						} else {
 							while (a < layout.N) {
+								assert(len_seg[a] < need_len);
 								if (len_seg[a.c(1)] >= need_len) {
 									cnt += len_seg[a.c(1)];
 									a = a.c(0);
