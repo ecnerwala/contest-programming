@@ -627,6 +627,7 @@ int main() {
 	stk.push_back(N);
 	for (int i = N-1; i >= 0; i--) {
 		int x = 2 * sa.rank[i];
+		assert(len_seg[layout.get_point(x)] == N-i);
 		layout.get_point(x).for_each([&](auto a) -> void { cnt_seg[a]++; });
 
 		while (true) {
