@@ -634,25 +634,25 @@ int main() {
 			int j = stk.back();
 			// update f
 			{
-				int l = j - i;
+				int max_len = j - i;
 				int cnt = 1;
 				{
 					bool bad = false;
 					layout.get_range(0, x).for_each_r_to_l([&](auto a) -> void {
 						if (bad) return;
-						if (len_seg[a] >= l) {
+						if (len_seg[a] >= max_len) {
 							cnt += cnt_seg[a];
 							return;
 						} else {
 							while (a < layout.N) {
-								if (len_seg[a.c(1)] >= l) {
+								if (len_seg[a.c(1)] >= max_len) {
 									cnt += len_seg[a.c(1)];
 									a = a.c(0);
 								} else {
 									a = a.c(1);
 								}
 							}
-							assert(len_seg[a] < l);
+							assert(len_seg[a] < max_len);
 							bad = true;
 						}
 					});
@@ -661,19 +661,19 @@ int main() {
 					bool bad = false;
 					layout.get_range(x+1, layout.N).for_each_l_to_r([&](auto a) -> void {
 						if (bad) return;
-						if (len_seg[a] >= l) {
+						if (len_seg[a] >= max_len) {
 							cnt += cnt_seg[a];
 							return;
 						} else {
 							while (a < layout.N) {
-								if (len_seg[a.c(0)] >= l) {
+								if (len_seg[a.c(0)] >= max_len) {
 									cnt += len_seg[a.c(0)];
 									a = a.c(1);
 								} else {
 									a = a.c(0);
 								}
 							}
-							assert(len_seg[a] < l);
+							assert(len_seg[a] < max_len);
 							bad = true;
 						}
 					});
