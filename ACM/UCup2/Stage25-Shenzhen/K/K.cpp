@@ -595,7 +595,7 @@ int main() {
 			seg[z][a].own_str = str_t{1, A[z][i]};
 			seg[z][a].own_max = A[z][i];
 		}
-		seg[0][1].own_str == seg[1][1].own_str;
+		cout << (seg[0][1].own_str == seg[1][1].own_str ? "YES" : "NO") << '\n';
 	}
 
 	return 0;
