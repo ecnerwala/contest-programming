@@ -291,7 +291,7 @@ int main() {
 		for (int z = 0; z < num_terms; z++) {
 			int s, o; uint64_t a; cin >> s >> o >> a;
 			for (int i = 0; i < 64; i++) {
-				int a_bit = int((a >> i) & 1);
+				int a_bit = int((a >> ((i+s)%64)) & 1);
 				// o == 1 means AND, so a_bit == 1 is passthrough
 				if (a_bit == o) {
 					cerr << i << "->" << (i+s) % 64 << '\n';
