@@ -484,6 +484,14 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
+using mnum = modnum<998244353>;
+using pnum = pairnum<mnum, mnum>;
+struct str_t {
+	int len = 0;
+	pnum hsh = 0;
+	friend bool operator == (str_t a, str_t b) = default;
+};
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -499,8 +507,6 @@ int main() {
 	const int L = std::max(N[0], N[1]);
 
 	std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
-	using mnum = modnum<998244353>;
-	using pnum = pairnum<mnum, mnum>;
 	const pnum BASE(mt(), mt());
 
 	std::vector<pnum> pow_base(L+1);
@@ -517,17 +523,8 @@ int main() {
 		assert(pow_base[i] == ipow_base[i]);
 	}
 
-	struct str_t {
-		int len = 0;
-		pnum hsh = 0;
-	};
-
 	auto concat = [&](str_t a, str_t b) {
 		return str_t({a.len + b.len, a.hsh * pow_base[b.len] + b.hsh});
-	};
-	auto remove_prefix = [&](str_t a, str_t b) {
-		assert(a.len <= b.len);
-		return str_t({b.len - a.len, b.hsh - a.hsh * pow_base[b.len]});
 	};
 
 	struct seg_node {
@@ -587,6 +584,18 @@ int main() {
 		for (seg_tree::point a(layout[z].N - 1); a > 0; a--) {
 			update_node(z, a);
 		}
+	}
+
+	int Q; cin >> Q;
+	for (int q = 0; q < Q; q++) {
+		{
+			int z, i, v; cin >> z >> i >> v; z--, i--;
+			A[z][i] = v;
+			auto a = layout[z].get_point(i);
+			seg[z][a].own_str = str_t{1, A[z][i]};
+			seg[z][a].own_max = A[z][i];
+		}
+		seg[0][1].own_str == seg[1][1].own_str;
 	}
 
 	return 0;
