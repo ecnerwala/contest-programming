@@ -594,6 +594,7 @@ int main() {
 			auto a = layout[z].get_point(i);
 			seg[z][a].own_str = str_t{1, A[z][i]};
 			seg[z][a].own_max = A[z][i];
+			a.for_parents_up([&](auto p) { update_node(z, p); });
 		}
 		cout << (seg[0][1].own_str == seg[1][1].own_str ? "YES" : "NO") << '\n';
 	}
