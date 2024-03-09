@@ -294,11 +294,11 @@ int main() {
 				int a_bit = int((a >> i) & 1);
 				// o == 1 means AND, so a_bit == 1 is passthrough
 				if (a_bit == o) {
-					cerr << i << "->" << (i+s) % 64;
+					cerr << i << "->" << (i+s) % 64 << '\n';
 					r[i] ^= uint64_t(1) << ((i+s) % 64);
 				} else if (a_bit == 1) {
 					assert(o == 0);
-					cerr << 64 << "->" << (i+s) % 64;
+					cerr << 64 << "->" << (i+s) % 64 << '\n';
 					r[64] ^= uint64_t(1) << ((i+s) % 64);
 				}
 			}
