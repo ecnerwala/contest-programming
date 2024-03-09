@@ -520,7 +520,7 @@ int main() {
 		ipow_base[i] = ipow_base[i+1] * BASE;
 	}
 	for (int i = 0; i <= L; i++) {
-		assert(pow_base[i] == ipow_base[i]);
+		assert(pow_base[i] * ipow_base[i] == pnum(1));
 	}
 
 	auto concat = [&](str_t a, str_t b) {
