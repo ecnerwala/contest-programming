@@ -518,8 +518,8 @@ int main() {
 	}
 
 	struct str_t {
-		int len;
-		pnum hsh;
+		int len = 0;
+		pnum hsh = 0;
 	};
 
 	auto concat = [&](str_t a, str_t b) {
@@ -533,13 +533,60 @@ int main() {
 	struct seg_node {
 		str_t own_str;
 		int own_max;
-		// own_str == concat(c[0].own_str, remove_prefix(right_cut, c[1].own_str))
-		str_t right_cut;
+		// own_str == concat(left_val, c[1].own_str)
+		str_t left_val;
 	};
 	std::array<seg_tree::in_order_layout, 2> layout{N[0], N[1]};
 	std::array<std::vector<seg_node>, 2> seg;
+
+	// Query the pareto which is >= val
+	auto query_bigger = std::y_combinator([&](auto self, int z, seg_tree::point a, int val) -> str_t {
+		if (seg[z][a].own_max < val) return str_t{0, 0};
+		if (a >= layout[z].N) {
+			return seg[z][a].own_str;
+		}
+		if (seg[z][a.c(1)].own_max >= val) {
+			return concat(seg[z][a].left_val, self(z, a.c(1), val));
+		} else {
+			return self(z, a.c(0), val);
+		}
+	});
+
+	// Query the prefix of the pareto of length l
+	auto query_prefix = std::y_combinator([&](auto self, int z, seg_tree::point a, int val, int len) -> str_t {
+		if (len == 0) return str_t{0, 0};
+		if (seg[z][a].own_max < val) return str_t{0, 0};
+		if (a >= layout[z].N) {
+			return seg[z][a].own_str;
+		}
+		if (seg[z][a.c(1)].own_max >= val) {
+			if (len <= seg[z][a].left_val.len) {
+				return self(z, a.c(0), seg[z][a.c(1)].own_max, len);
+			} else {
+				return concat(seg[z][a].left_val, self(z, a.c(1), val, len - seg[z][a].left_val.len));
+			}
+		} else {
+			return self(z, a.c(0), seg[z][a.c(1)].own_max, len);
+		}
+	});
+
+	auto update_node = [&](int z, seg_tree::point a) -> void {
+		assert(a < layout[z].N);
+		seg[z][a].own_max = std::max(seg[z][a.c(0)].own_max, seg[z][a.c(1)].own_max);
+		seg[z][a].left_val = query_bigger(z, a.c(0), seg[z][a.c(1)].own_max);
+		seg[z][a].own_str = concat(seg[z][a].left_val, seg[z][a.c(1)].own_str);
+	};
+
 	for (int z = 0; z < 2; z++) {
 		seg[z] = std::vector<seg_node>(2 * layout[z].N);
+		for (int i = 0; i < N[z]; i++) {
+			auto a = layout[z].get_point(i);
+			seg[z][a].own_str = str_t{1, A[z][i]};
+			seg[z][a].own_max = A[z][i];
+		}
+		for (seg_tree::point a(layout[z].N - 1); a > 0; a--) {
+			update_node(z, a);
+		}
 	}
 
 	return 0;
