@@ -825,6 +825,7 @@ int main() {
 	prod[0] += 1;
 	assert(prod[0] == 0);
 	ps sum_prod = prod;
+	for (int i = 0; i <= N; i++) { cerr << prod[i] << ' '; } cerr << '\n';
 
 	for (int num_terms = 1; num_terms <= N; num_terms *= 2) {
 		num multiplier = pow(inv(num(2)), num_terms);
