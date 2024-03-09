@@ -817,7 +817,7 @@ int main() {
 	ps prod(N+1);
 	{
 		num pow_neg_inv_2 = 1;
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i <= N; i++) {
 			prod[i] = -pow_neg_inv_2 * ifact[i];
 			pow_neg_inv_2 *= -inv(num(2));
 		}
