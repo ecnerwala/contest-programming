@@ -824,7 +824,10 @@ int main() {
 	}
 	prod[0] += 1;
 	assert(prod[0] == 0);
-	ps sum_prod = prod;
+	ps sum_prod(N+1);
+	for (int i = 0; i <= N; i++) {
+		sum_prod[i] = ifact[i];
+	}
 
 	for (int num_terms = 1; num_terms <= N; num_terms *= 2) {
 		num multiplier = pow(inv(num(2)), num_terms);
@@ -842,11 +845,9 @@ int main() {
 		prod = prod * nprod;
 	}
 
-	num ans = 0;
-	for (int i = 0; i <= N; i++) {
-		ans += ifact[N-i] * sum_prod[i];
-	}
+	num ans = sum_prod[N];
 	ans *= fact[N];
+	ans --; // Empty doesn't count
 	cout << ans << '\n';
 
 	return 0;
