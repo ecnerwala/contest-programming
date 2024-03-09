@@ -48,7 +48,7 @@ int main() {
 		}
 		self(m, r, A[m].first);
 		self(l, m, val);
-	})(0, N, A[0]);
+	})(0, N, A[0].first);
 	cout << ops.size() << '\n';
 	for (auto [x, y] : ops) {
 		cout << x << ' ' << y << '\n';
