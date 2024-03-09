@@ -284,6 +284,7 @@ int main() {
 	int N, Q, C; cin >> N >> Q >> C;
 
 	auto read_mat = [&]() -> mat_t {
+		cerr << "read matrix" << '\n';
 		mat_t r; r.fill(0);
 		int num_terms = 0;
 		cin >> num_terms;
@@ -293,9 +294,11 @@ int main() {
 				int a_bit = int((a >> i) & 1);
 				// o == 1 means AND, so a_bit == 1 is passthrough
 				if (a_bit == o) {
+					cerr << i << "->" << (i+s) % 64;
 					r[i] ^= uint64_t(1) << ((i+s) % 64);
 				} else if (a_bit == 1) {
 					assert(o == 0);
+					cerr << 64 << "->" << (i+s) % 64;
 					r[64] ^= uint64_t(1) << ((i+s) % 64);
 				}
 			}
