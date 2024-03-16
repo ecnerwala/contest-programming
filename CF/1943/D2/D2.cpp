@@ -474,28 +474,27 @@ int main() {
 		struct my_tag{};
 		using num = dynamic_modnum<my_tag>;
 		int N, K; cin >> N >> K >> num::MOD_READER();
-		// if a >= b, we just accumulate it all into dp_bigger[b]
+		// if a > b, we just accumulate it all into dp_bigger[b]
 		std::vector<num> dp_bigger(K+1);
-		tensor<num, 2> dp({K+1, K+1});
+		// if a <= b, they're all equal to dp_smaller[a], except in the first iteration
+		std::vector<num> dp_smaller(K+1);
 		std::vector<num> ndp_bigger(K+1);
-		tensor<num, 2> ndp({K+1, K+1});
-		dp[{0, 0}] = 1;
+		std::vector<num> ndp_smaller(K+1);
 		for (int i = 0; i < N+2; i++) {
 			std::fill(ndp_bigger.begin(), ndp_bigger.end(), num(0));
 			for (int b = 0; b <= K; b++) {
 				num v = dp_bigger[b];
 				for (int c = 0; c <= b; c++) {
 					assert(b-c <= b);
-					v += dp[{b-c, b}];
+					v += (i == 0 && b-c == 0 && b == 0 ? num(1) : dp_smaller[b-c]);
 					assert(b >= c);
 					if (b > c) ndp_bigger[c] += v;
 				}
-				for (int c = b; c <= K; c++) {
-					ndp[{b, c}] = v;
-				}
+				// ndp is the same for all b
+				ndp_smaller[b] = v;
 			}
-			std::swap(dp, ndp);
 			std::swap(dp_bigger, ndp_bigger);
+			std::swap(dp_smaller, ndp_smaller);
 		}
 		cout << dp[{0, 0}] << '\n';
 	}
