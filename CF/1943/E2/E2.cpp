@@ -29,6 +29,7 @@ int main() {
 		auto bob_wins = [&](int L) -> bool {
 			buf.assign(freq.begin(), freq.begin() + L);
 			std::sort(buf.begin(), buf.end());
+			if (buf[0] == 0) return true;
 			// alice moves first
 			buf[0] = 0;
 			for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
