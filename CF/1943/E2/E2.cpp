@@ -51,24 +51,28 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 	*/
 
 	// alice moves first
-	std::vector<int64_t> pref_buf(L+1);
-	for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
+	//std::vector<int64_t> pref_buf(L+1);
+	//for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
 
 	int day = 0;
 	int64_t tot_fill = 0;
 	int64_t height = 0;
 	int64_t pref_height = 0;
+	int64_t pref_buf = 0;
 	for (int i = 1; i < L; i++) {
+		pref_buf += buf[i];
+		pref_buf -= buf[i-day];
 		// While we can fill the day, keep going
 		while (i > day && buf[i - day] >= height) {
 			pref_height += height;
+			pref_buf += buf[i - day];
 			day++;
 			tot_fill += height + K;
 			height = tot_fill / day;
 		}
 		//assert(buf[i + 1 - day] >= height[day - 1]);
 		// Now, we have to take buf[i + 1 - day] .. buf[i] using height[0] .. height[day - 1] + (K * (i+1))
-		int64_t need = pref_buf[i+1] - pref_buf[i+1-day];
+		int64_t need = pref_buf;
 		int64_t have = int64_t(K) * i + pref_height;
 		if (have >= need) {
 			return i;
