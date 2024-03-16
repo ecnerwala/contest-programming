@@ -33,26 +33,8 @@ int bob_wins_slow(int K, const std::vector<int>& buf) {
 
 int bob_wins_fast(int K, const std::vector<int>& buf) {
 	int L = int(buf.size());
-	if (buf[0] == 0) return 0;
-
-	/*
-	std::vector<int64_t> tot_fill(L+1);
-	std::vector<int64_t> height(L+1);
-	tot_fill[0] = 0;
-	height[0] = 0;
-	for (int c = 1; c <= L; c++) {
-		tot_fill[c] = tot_fill[c-1] + height[c-1] + K;
-		height[c] = tot_fill[c] / c;
-	}
-	std::vector<int64_t> pref_height(L+2);
-	for (int i = 0; i <= L; i++) {
-		pref_height[i+1] = pref_height[i] + height[i];
-	}
-	*/
-
 	// alice moves first
-	//std::vector<int64_t> pref_buf(L+1);
-	//for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
+	if (buf[0] == 0) return 0;
 
 	int day = 0;
 	int64_t tot_fill = 0;
@@ -60,7 +42,7 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 	int64_t surplus = 0;
 	for (int i = 1; i < L; i++) {
 		surplus += buf[i];
-		surplus -= buf[i-day];
+		surplus -= buf[i - day];
 		// While we can fill the day, keep going
 		while (i > day && buf[i - day] >= height) {
 			surplus += buf[i - day] - height;
@@ -68,9 +50,10 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 			tot_fill += height + K;
 			height = tot_fill / day;
 		}
+		surplus -= K;
 		//assert(buf[i + 1 - day] >= height[day - 1]);
 		// Now, we have to take buf[i + 1 - day] .. buf[i] using height[0] .. height[day - 1] + (K * (i+1))
-		if (surplus <= int64_t(K) * i) {
+		if (surplus <= 0) {
 			return i;
 		}
 	}
