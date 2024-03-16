@@ -486,13 +486,17 @@ int main() {
 				dp_smaller_pref[v+1] = dp_smaller_pref[v] + dp_smaller[v];
 			}
 			std::fill(ndp_bigger.begin(), ndp_bigger.end(), num(0));
+			num val = 0;
 			for (int c = K; c >= 0; c--) {
-				num val = 0;
-				for (int b = c+1; b <= K; b++) {
-					val += dp_bigger[b] + dp_smaller_pref[b+1];
-				}
-				for (int a = 1; a <= K-c; a++) {
-					val -= dp_smaller_pref[a];
+				if (c < K) {
+					{
+						int b = c+1;
+						val += dp_bigger[b] + dp_smaller_pref[b+1];
+					}
+					{
+						int a = K-c;
+						val -= dp_smaller_pref[a];
+					}
 				}
 				ndp_bigger[c] = val;
 			}
