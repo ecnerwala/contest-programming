@@ -474,7 +474,7 @@ int main() {
 		struct my_tag{};
 		using num = dynamic_modnum<my_tag>;
 		int N, K; cin >> N >> K >> num::MOD_READER();
-		// if a > b, we just accumulate it all into dp_bigger[b]
+		// if a >= b, we just accumulate it all into dp_bigger[b]
 		std::vector<num> dp_bigger(K+1);
 		tensor<num, 2> dp({K+1, K+1});
 		std::vector<num> ndp_bigger(K+1);
@@ -484,15 +484,13 @@ int main() {
 			std::fill(ndp_bigger.begin(), ndp_bigger.end(), num(0));
 			for (int b = 0; b <= K; b++) {
 				num v = dp_bigger[b];
-				for (int c = 0; c <= b; c++) {
+				for (int c = 0; c < b; c++) {
 					assert(b-c <= b);
 					v += dp[{b-c, b}];
 					assert(b >= c);
 					if (b > c) ndp_bigger[c] += v;
-					else if (b == c) ndp[{b, c}] = v;
-					else assert(false);
 				}
-				for (int c = b+1; c <= K; c++) {
+				for (int c = b; c <= K; c++) {
 					ndp[{b, c}] = v;
 				}
 			}
