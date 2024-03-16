@@ -28,7 +28,7 @@ int bob_wins_slow(int K, const std::vector<int>& buf) {
 		}
 		if (tmp[i] == 0) return i;
 	}
-	return L;
+	return -1;
 }
 
 int bob_wins_fast(int K, const std::vector<int>& buf) {
@@ -51,6 +51,7 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 	// alice moves first
 	std::vector<int64_t> pref_buf(L+1);
 	for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
+
 	int day = 0;
 	for (int i = 1; i < L; i++) {
 		// While we can fill the day, keep going
@@ -65,7 +66,7 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 			return i;
 		}
 	}
-	return L;
+	return -1;
 }
 
 int main() {
@@ -84,7 +85,7 @@ int main() {
 		auto check = [&](int L) -> bool {
 			buf.assign(freq.begin(), freq.begin() + L);
 			std::sort(buf.begin(), buf.end());
-			return bob_wins_fast(K, buf) < L;
+			return bob_wins_fast(K, buf) != -1;
 		};
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
