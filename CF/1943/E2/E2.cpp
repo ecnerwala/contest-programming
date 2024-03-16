@@ -72,7 +72,7 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 void test() {
 	using std::cerr;
 	std::mt19937 mt(48);
-	for (int z = 0; z <= 100000000; z++) {
+	for (int z = 0; z <= 100000; z++) {
 		std::cerr << "Doing test " << z << '\n';
 		int K = std::uniform_int_distribution<int>(1, 10)(mt);
 		int L = std::uniform_int_distribution<int>(1, 10)(mt);
@@ -89,7 +89,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	int T; cin >> T;
 	while (T--) {
