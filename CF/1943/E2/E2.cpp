@@ -80,6 +80,7 @@ void test() {
 		for (int i = 0; i < L; i++) {
 			buf[i] = std::uniform_int_distribution<int>(1, 10)(mt);
 		}
+		std::sort(buf.begin(), buf.end());
 		assert(bob_wins_fast(K, buf) == bob_wins_slow(K, buf));
 	}
 }
