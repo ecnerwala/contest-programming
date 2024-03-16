@@ -480,10 +480,10 @@ int main() {
 		std::vector<num> dp_smaller(K+1);
 		std::vector<num> ndp_bigger(K+1);
 		std::vector<num> ndp_smaller(K+1);
-		std::vector<int> dp_smaller_pref(K+2);
+		std::vector<num> dp_smaller_pref(K+2);
 		for (int i = 0; i < N+2; i++) {
-			for (int i = 0; i <= K; i++) {
-				dp_smaller_pref[i+1] = dp_smaller_pref[i] + dp_smaller[i];
+			for (int v = 0; v <= K; v++) {
+				dp_smaller_pref[v+1] = dp_smaller_pref[v] + dp_smaller[v];
 			}
 			std::fill(ndp_bigger.begin(), ndp_bigger.end(), num(0));
 			for (int c = 0; c <= K; c++) {
