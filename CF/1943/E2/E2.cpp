@@ -79,21 +79,8 @@ int main() {
 		for (auto& f : freq) cin >> f;
 		int mi = 0;
 		int ma = M+2;
-		std::vector<int64_t> tot_fill(M+3);
-		std::vector<int64_t> height(M+3);
-		tot_fill[0] = 0;
-		height[0] = 0;
-		for (int c = 1; c <= M+2; c++) {
-			tot_fill[c] = tot_fill[c-1] + height[c-1] + K;
-			height[c] = tot_fill[c] / c;
-		}
-		std::vector<int64_t> pref_height(M+4);
-		for (int i = 0; i <= M+2; i++) {
-			pref_height[i+1] = pref_height[i] + height[i];
-		}
 
 		std::vector<int> buf; buf.reserve(M+1);
-		std::vector<int64_t> pref_buf(M+2);
 		auto check = [&](int L) -> bool {
 			buf.assign(freq.begin(), freq.begin() + L);
 			std::sort(buf.begin(), buf.end());
