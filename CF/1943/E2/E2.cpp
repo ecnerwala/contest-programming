@@ -60,6 +60,7 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 		}
 		assert(buf[i + 1 - day] >= height[day - 1]);
 		// Now, we have to take buf[i + 1 - day] .. buf[i] using height[0] .. height[day - 1] + (K * (i+1))
+		assert(i-day >= 0);
 		int64_t need = pref_buf[i+1] - pref_buf[i-day];
 		int64_t have = int64_t(K) * i + pref_height[day];
 		if (have >= need) {
