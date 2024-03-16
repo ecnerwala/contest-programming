@@ -47,6 +47,7 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 	for (int i = 0; i <= L; i++) {
 		pref_height[i+1] = pref_height[i] + height[i];
 	}
+
 	// alice moves first
 	std::vector<int64_t> pref_buf(L+1);
 	for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
