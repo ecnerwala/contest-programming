@@ -380,12 +380,8 @@ public:
 		MOD_ = mod;
 		BARRETT_M = (uint64_t(-1) / MOD);
 	}
-	static uint32_t barrett_reduce_partial(uint64_t a) {
-		return uint32_t(a - uint64_t((__uint128_t(BARRETT_M) * a) >> 64) * MOD);
-	}
 	static int barrett_reduce(uint64_t a) {
-		int32_t res = int32_t(barrett_reduce_partial(a) - MOD);
-		return (res < 0) ? res + MOD : res;
+		return int(a % MOD);
 	}
 
 	struct mod_reader {
