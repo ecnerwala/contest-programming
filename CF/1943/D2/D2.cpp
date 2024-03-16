@@ -496,7 +496,7 @@ int main() {
 			std::swap(dp_bigger, ndp_bigger);
 			std::swap(dp_smaller, ndp_smaller);
 		}
-		cout << dp[{0, 0}] << '\n';
+		cout << dp_smaller[0] << '\n';
 	}
 
 	return 0;
