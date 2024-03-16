@@ -33,8 +33,6 @@ int main() {
 			// alice moves first
 			buf[0] = 0;
 			for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
-			cerr << "solve " << L << '\n';
-			for (auto& c : buf) { cerr << c << ' '; } cerr << '\n';
 			int day = 0;
 			for (int i = 1; i < L; i++) {
 				// While we can fill the day, keep going
@@ -42,7 +40,6 @@ int main() {
 					assert(day != i);
 					day++;
 				}
-				cerr << "kill " << i << ' ' << "day " << day << '\n';
 				assert(buf[i + 1 - day] >= height[day - 1]);
 				// Now, we have to take buf[i + 1 - day] .. buf[i] using height[0] .. height[day - 1] + (K * (i+1))
 				int64_t need = pref_buf[i+1] - pref_buf[i-day];
