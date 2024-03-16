@@ -1,5 +1,36 @@
 #include <bits/stdc++.h>
 
+int bob_wins_slow(int K, const std::vector<int>& buf) {
+	int L = int(buf.size());
+	for (int i = 0; i < L; i++) {
+		std::vector<int> tmp(buf.begin(), buf.begin() + i + 1);
+		for (int t = 0; t < i; t++) {
+			// Alice takes her move
+			tmp[t] = 0;
+			{
+				// Now bob takes his
+				int cur_K = K;
+				// the suffix of length c must all be equal
+				for (int c = 1; tmp[i] > 0 && c <= i; c++) {
+					if (cur_K / c >= tmp[i] - tmp[i-c]) {
+						cur_K -= c * (tmp[i] - tmp[i-c]);
+						for (int a = 0; a < c; a++) {
+							tmp[i-a] = tmp[i-c];
+						}
+					} else {
+						for (int a = 0; a < c; a++) {
+							tmp[i-(c-1)+a] -= cur_K / c + (a < (cur_K % c));
+						}
+						cur_K = 0;
+					}
+				}
+			}
+		}
+		if (tmp[i] == 0) return i;
+	}
+	return L;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -26,10 +57,10 @@ int main() {
 
 		std::vector<int> buf; buf.reserve(M+1);
 		std::vector<int64_t> pref_buf(M+2);
-		auto bob_wins = [&](int L) -> bool {
+		auto bob_wins_fast = [&](int L) -> int {
 			buf.assign(freq.begin(), freq.begin() + L);
 			std::sort(buf.begin(), buf.end());
-			if (buf[0] == 0) return true;
+			if (buf[0] == 0) return 0;
 			// alice moves first
 			buf[0] = 0;
 			for (int i = 0; i < L; i++) pref_buf[i+1] = pref_buf[i] + buf[i];
@@ -45,14 +76,14 @@ int main() {
 				int64_t need = pref_buf[i+1] - pref_buf[i-day];
 				int64_t have = int64_t(K) * i + pref_height[day];
 				if (have >= need) {
-					return true;
+					return i;
 				}
 			}
-			return false;
+			return L;
 		};
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
-			if (bob_wins(md)) {
+			if (bob_wins_fast(md) == md) {
 				ma = md;
 			} else {
 				mi = md;
