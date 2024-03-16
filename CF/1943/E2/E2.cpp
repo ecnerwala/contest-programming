@@ -72,13 +72,13 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 void test() {
 	using std::cerr;
 	std::mt19937 mt(48);
-	for (int z = 0; z <= 10000; z++) {
+	for (int z = 0; z <= 100000000; z++) {
 		std::cerr << "Doing test " << z << '\n';
 		int K = std::uniform_int_distribution<int>(1, 10)(mt);
 		int L = std::uniform_int_distribution<int>(1, 10)(mt);
 		std::vector<int> buf(L);
 		for (int i = 0; i < L; i++) {
-			buf[i] = std::uniform_int_distribution<int>(1, 10)(mt);
+			buf[i] = std::uniform_int_distribution<int>(1, 5)(mt);
 		}
 		std::sort(buf.begin(), buf.end());
 		assert(bob_wins_fast(K, buf) == bob_wins_slow(K, buf));
