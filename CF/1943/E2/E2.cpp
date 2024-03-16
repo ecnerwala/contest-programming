@@ -85,8 +85,8 @@ int main() {
 		auto check = [&](int L) -> bool {
 			buf.assign(freq.begin(), freq.begin() + L);
 			std::sort(buf.begin(), buf.end());
-			return bob_wins_slow(K, buf) != -1;
 			return bob_wins_fast(K, buf) != -1;
+			return bob_wins_slow(K, buf) != -1;
 		};
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
