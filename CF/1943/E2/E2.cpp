@@ -69,6 +69,21 @@ int bob_wins_fast(int K, const std::vector<int>& buf) {
 	return -1;
 }
 
+void test() {
+	using std::cerr;
+	std::mt19937 mt(48);
+	for (int z = 0; z <= 10000; z++) {
+		std::cerr << "Doing test " << z << '\n';
+		int K = std::uniform_int_distribution<int>(1, 10)(mt);
+		int L = std::uniform_int_distribution<int>(1, 10)(mt);
+		std::vector<int> buf(L);
+		for (int i = 0; i < L; i++) {
+			buf[i] = std::uniform_int_distribution<int>(1, 10)(mt);
+		}
+		assert(bob_wins_fast(K, buf) == bob_wins_slow(K, buf));
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -86,7 +101,7 @@ int main() {
 			buf.assign(freq.begin(), freq.begin() + L);
 			std::sort(buf.begin(), buf.end());
 			return bob_wins_fast(K, buf) != -1;
-			return bob_wins_slow(K, buf) != -1;
+			//return bob_wins_slow(K, buf) != -1;
 		};
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
