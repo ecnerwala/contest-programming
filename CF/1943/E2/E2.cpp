@@ -78,7 +78,7 @@ void test() {
 		int L = std::uniform_int_distribution<int>(1, 10)(mt);
 		std::vector<int> buf(L);
 		for (int i = 0; i < L; i++) {
-			buf[i] = std::uniform_int_distribution<int>(1, 5)(mt);
+			buf[i] = std::uniform_int_distribution<int>(0, 5)(mt);
 		}
 		std::sort(buf.begin(), buf.end());
 		assert(bob_wins_fast(K, buf) == bob_wins_slow(K, buf));
@@ -89,7 +89,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	//test();
+	test();
 
 	int T; cin >> T;
 	while (T--) {
