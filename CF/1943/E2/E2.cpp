@@ -37,6 +37,7 @@ int main() {
 					assert(day != i);
 					day++;
 				}
+				assert(buf[i + 1 - day] >= height[day - 1]);
 				// Now, we have to take buf[i + 1 - day] .. buf[i] using height[0] .. height[day - 1] + (K * (i+1))
 				int64_t need = pref_buf[i+1] - pref_buf[i-day];
 				int64_t have = int64_t(K) * (i+1) + pref_height[day];
