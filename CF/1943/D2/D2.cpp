@@ -485,9 +485,7 @@ int main() {
 			for (int b = 0; b <= K; b++) {
 				num v = dp_bigger[b];
 				for (int c = 0; c < b; c++) {
-					assert(b-c <= b);
-					v += (i == 0 && b-c == 0 && b == 0 ? num(1) : dp_smaller[b-c]);
-					assert(b >= c);
+					v += dp_smaller[b-c];
 					ndp_bigger[c] += v;
 				}
 			}
