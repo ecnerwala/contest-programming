@@ -482,10 +482,12 @@ int main() {
 		std::vector<num> ndp_smaller(K+1);
 		for (int i = 0; i < N+2; i++) {
 			std::fill(ndp_bigger.begin(), ndp_bigger.end(), num(0));
-			for (int b = 0; b <= K; b++) {
-				num v = dp_bigger[b];
-				for (int c = 0; c < b; c++) {
-					v += dp_smaller[b-c];
+			for (int c = 0; c <= K; c++) {
+				for (int b = c+1; b <= K; b++) {
+					num v = dp_bigger[b];
+					for (int k = 0; k <= c; k++) {
+						v += dp_smaller[b-k];
+					}
 					ndp_bigger[c] += v;
 				}
 			}
