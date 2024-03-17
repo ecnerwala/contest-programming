@@ -161,39 +161,43 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::mt19937 mt(48);
-	int N = 10;
-	std::vector<int> X(N);
-	for (auto& x : X) x = std::uniform_int_distribution<int>(0, 10)(mt);
-	std::vector<int> Y(N);
-	for (auto& y : Y) y = std::uniform_int_distribution<int>(0, 10)(mt);
-	tensor<int, 2> F({N, N});
-	for (int i = 0; i < N; i++) {
-		int best_x = X[i];
-		int best_xy = X[i] + Y[i];
-		for (int j = i; j < N; j++) {
-			best_x = std::min(best_x, X[j]);
-			best_xy = std::min(best_xy, best_x + Y[j]);
-			F[{i, j}] = best_xy;
-		}
-	}
-	for (auto x : X) { cerr << x << ' '; } cerr << '\n';
-	for (auto y : Y) { cerr << y << ' '; } cerr << '\n';
-	cerr << '\n';
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			cerr << F[{i, j}] << ' ';
-		}
-		cerr << '\n';
-	}
-	cerr << '\n';
-	for (int i = 0; i < N; i++) {
-		for (int j = i+2; j < N; j++) {
-			int d = F[{i, j}] - F[{i+1, j}] - F[{i, j-1}] + F[{i+1, j-1}];
-			assert(d >= 0);
-			if (d > 0) {
-				cerr << i << ' ' << j << ' ' << d << '\n';
+	for (int z = 0; z < 2; z++) {
+		int N = 10;
+		std::vector<int> X(N);
+		for (auto& x : X) x = std::uniform_int_distribution<int>(0, 10)(mt);
+		std::vector<int> Y(N);
+		for (auto& y : Y) y = std::uniform_int_distribution<int>(0, 10)(mt);
+		tensor<int, 2> F({N, N});
+		for (int i = 0; i < N; i++) {
+			int best_x = X[i];
+			int best_xy = X[i] + Y[i];
+			for (int j = i; j < N; j++) {
+				best_x = std::min(best_x, X[j]);
+				best_xy = std::min(best_xy, best_x + Y[j]);
+				F[{i, j}] = best_xy;
 			}
 		}
+		for (auto x : X) { cerr << x << ' '; } cerr << '\n';
+		for (auto y : Y) { cerr << y << ' '; } cerr << '\n';
+		cerr << '\n';
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cerr << F[{i, j}] << ' ';
+			}
+			cerr << '\n';
+		}
+		cerr << '\n';
+		for (int i = 0; i < N; i++) {
+			for (int j = i+2; j < N; j++) {
+				int d = F[{i, j}] - F[{i+1, j}] - F[{i, j-1}] + F[{i+1, j-1}];
+				assert(d >= 0);
+				if (d > 0) {
+					cerr << i << ' ' << j << ' ' << d << '\n';
+				}
+			}
+		}
+		cerr << '\n';
+		cerr << '\n';
 	}
 
 	return 0;
