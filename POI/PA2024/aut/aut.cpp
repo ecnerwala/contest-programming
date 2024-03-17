@@ -185,7 +185,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		for (int j = i+2; j < N; j++) {
 			int d = F[{i, j}] - F[{i+1, j}] - F[{i, j+1}] + F[{i+1, j+1}];
-			assert(d >= 0);
+			assert(d <= 0);
 			if (d > 0) {
 				cerr << i << ' ' << j << ' ' << d << '\n';
 			}
