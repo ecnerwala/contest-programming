@@ -176,12 +176,16 @@ int main() {
 			F[{i, j}] = best_xy;
 		}
 	}
+	for (auto x : X) { cerr << x << ' '; } cerr << '\n';
+	for (auto y : Y) { cerr << y << ' '; } cerr << '\n';
+	cerr << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cerr << F[{i, j}] << ' ';
 		}
 		cerr << '\n';
 	}
+	cerr << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = i+2; j < N; j++) {
 			int d = F[{i, j}] - F[{i+1, j}] - F[{i, j-1}] + F[{i+1, j-1}];
