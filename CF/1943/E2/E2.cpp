@@ -7,15 +7,22 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int M; int K; cin >> M >> K;
-		std::vector<int> freq(M+1);
-		for (auto& f : freq) cin >> f;
+		std::vector<std::pair<int, int>> freq(M+1);
+		for (int i = 0; i <= M; i++) {
+			cin >> freq[i].first;
+			freq[i].second = i;
+		}
 		int mi = 0;
 		int ma = M+2;
 
+		std::sort(freq.begin(), freq.end());
+
 		std::vector<int> buf; buf.reserve(M+1);
 		auto check = [&](int L) -> bool {
-			buf.assign(freq.begin(), freq.begin() + L);
-			std::sort(buf.begin(), buf.end());
+			buf.clear();
+			for (auto [f, i] : freq) {
+				if (i < L) buf.push_back(f);
+			}
 
 			if (buf[0] == 0) return true;
 
@@ -27,7 +34,7 @@ int main() {
 				surplus += buf[i];
 				surplus -= buf[i - day];
 				// While we can fill the day, keep going
-				if (i > day && buf[i - day] >= height) {
+				if (buf[i - day] >= height) {
 					surplus += buf[i - day] - height;
 					day++;
 					tot_fill += height + K;
@@ -53,5 +60,3 @@ int main() {
 
 	return 0;
 }
-
-// Alice always just takes the lowest remaining frequency
