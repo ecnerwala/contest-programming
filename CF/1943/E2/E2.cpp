@@ -12,9 +12,6 @@ int main() {
 			cin >> freq[i].first;
 			freq[i].second = i;
 		}
-		int mi = 0;
-		int ma = M+2;
-
 		std::sort(freq.begin(), freq.end());
 
 		std::vector<int> buf; buf.reserve(M+1);
@@ -47,6 +44,9 @@ int main() {
 			}
 			return false;
 		};
+
+		int mi = 0;
+		int ma = M+2;
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if (check(md)) {
