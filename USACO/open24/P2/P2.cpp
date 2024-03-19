@@ -9,10 +9,10 @@ int main() {
 	auto pneg1 = [](int a) -> int { return (a & 1) ? -1 : 1; };
 
 	std::mt19937 mt(48);
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 
-	for (int z = 0; z < 100; z++) {
-		cerr << "case " << z << '\n';
+	for (int CASE_NUM = 0; CASE_NUM < (TESTING ? 100 : 1); CASE_NUM++) {
+		cerr << "case " << CASE_NUM << '\n';
 
 	int N;
 	if (TESTING) {
@@ -46,7 +46,7 @@ int main() {
 	};
 
 	auto find_bad = [&](int l, int r, int x) -> std::pair<int, int> {
-		cerr << "find_bad " << l << ' ' << r << ' ' << x << '\n';
+		//cerr << "find_bad " << l << ' ' << r << ' ' << x << '\n';
 		{
 			int nl = int(std::upper_bound(pref_sum.begin() + l + 1, pref_sum.begin() + r, pref_sum[l] + int64_t(std::abs(x))) - pref_sum.begin());
 			assert(l < nl);
@@ -85,7 +85,7 @@ int main() {
 		for (int x = A[i] + 1; x < A[i-1]; x += 2) {
 			st_pt[x / 2] = i;
 			auto [j, nx] = find_bad(i, N, x);
-			cerr << "jump " << x << '@' << i << ' ' << nx << '@' << j << '\n';
+			//cerr << "jump " << x << '@' << i << ' ' << nx << '@' << j << '\n';
 			if (j == N) {
 				// self-loop
 				jump_t small = {x/2, false};
@@ -109,24 +109,23 @@ int main() {
 	}
 
 	auto solve = [&](int l, int r, int x) -> int {
-		cerr << "query " << l << ' ' << r << ' ' << x << '\n';
+		//cerr << "query " << l << ' ' << r << ' ' << x << '\n';
 		assert(l < r);
 		{
 			auto [nl, nx] = find_bad(l, r, x);
 			l = nl;
 			x = nx;
 		}
-		cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
+		//cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
 		if (l == r) return x;
 		// Now we do the jump stuff
 		while (true) {
-			cerr << "at " << l << ' ' << r << ' ' << x << '\n';
+			//cerr << "at " << l << ' ' << r << ' ' << x << '\n';
 			assert(l < r);
 			assert(l > 0 && std::abs(x) < A[l-1]);
 			assert(std::abs(x) > A[l]);
 			assert(st_pt[std::abs(x) / 2] == l);
 			auto [small, big_len, big] = big_jumps[std::abs(x) / 2];
-			cerr << "small " << small.dest << ' ' << small.flip << ' ' << big_len << ' ' << big.dest << ' ' << big.flip << ' ' << st_pt[small.dest] << '\n';
 			if (big_len == 0 || st_pt[small.dest] >= r) {
 				auto [nl, nx] = find_bad(l, r, x);
 				assert(nl == r);
