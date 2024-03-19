@@ -58,6 +58,7 @@ int main() {
 				int nx = apply_alternating(i+1, j, x - A[i]);
 				jump_t small{std::abs(nx) / 2, x < 0};
 				big_jumps[x / 2].small = small;
+				cerr << "jump " << x << '@' << i << ' ' << nx << '@' << j << '\n';
 				if (big_jumps[small.dest].big_len == big_jumps[big_jumps[small.dest].big.dest].big_len) {
 					jump_t big = big_jumps[big_jumps[small.dest].big.dest].big;
 					big.flip ^= big_jumps[small.dest].big.flip;
