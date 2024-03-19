@@ -59,8 +59,7 @@ int main() {
 			int mi = l - 1, ma = r;
 			while (ma - mi > 1) {
 				int md = (mi + ma) / 2;
-				int64_t pre = apply_alternating(l, md, x);
-				if (std::abs(pre) > A[md]) {
+				if (signum(apply_alternating(l, md, x)) == signum(apply_alternating(l, md+1, x))) {
 					ma = md;
 				} else {
 					mi = md;
