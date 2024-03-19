@@ -84,7 +84,7 @@ int main() {
 		for (int x = A[i] + 1; x < A[i-1]; x += 2) {
 			st_pt[x / 2] = i;
 			auto [j, nx] = find_bad(i, N, x);
-			//cerr << "jump " << x << '@' << i << ' ' << nx << '@' << j << '\n';
+			cerr << "jump " << x << '@' << i << ' ' << nx << '@' << j << '\n';
 			if (j == N) {
 				// self-loop
 				jump_t small = {x/2, false};
@@ -148,9 +148,9 @@ int main() {
 			r++;
 			int x = std::uniform_int_distribution<int>(0, 30)(mt);
 			x *= 2; x--;
-			//cerr << l << ' ' << r << ' ' << x << '\n';
+			cerr << l << ' ' << r << ' ' << x << '\n';
 			int res = solve(l, r, x);
-			//cerr << res << '\n';
+			cerr << res << '\n';
 		}
 	} else {
 		int Q; cin >> Q;
