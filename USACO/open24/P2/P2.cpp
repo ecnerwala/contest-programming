@@ -77,6 +77,7 @@ int main() {
 		pref_sum[i+1] = pref_sum[i] + A[i];
 	}
 	auto solve = [&](int l, int r, int x) -> int {
+		cerr << "query " << l << ' ' << r << ' ' << x << '\n';
 		assert(l < r);
 		{
 			int nl = int(std::upper_bound(pref_sum.begin() + l + 1, pref_sum.begin() + r, pref_sum[l] + int64_t(std::abs(x))) - pref_sum.begin());
