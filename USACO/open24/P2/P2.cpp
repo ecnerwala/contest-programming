@@ -120,9 +120,9 @@ int main() {
 	while (Q--) {
 		int l, r; int x; cin >> l >> r >> x; l--;
 		x *= 2;
-		x++;
+		x--;
 		int res = solve(l, r, x);
-		cout << (res - 1) / 2 << '\n';
+		cout << (res + 1) / 2 << '\n';
 	}
 
 	return 0;
