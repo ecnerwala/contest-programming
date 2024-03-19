@@ -12,7 +12,7 @@ int main() {
 	std::vector<int> A(N);
 	for (auto& a : A) { cin >> a; a *= 2; }
 
-	std::vector<int> suff_effect(N+2);
+	std::vector<int> suff_effect(N+1);
 	for (int i = N-1; i >= 0; i--) {
 		suff_effect[i] = A[i] - suff_effect[i+1];
 	}
