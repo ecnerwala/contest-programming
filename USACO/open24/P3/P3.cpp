@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
 
+template <typename T> void setmin(T& a, T b) {
+	if (b < a) a = b;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -15,8 +19,8 @@ int main() {
 	const int64_t INF = 6 * int64_t(L);
 
 	int64_t ans = INF;
-	std::vector<int64_t> dp(R << R, INF);
-	dp[1 * R + 0] = 0;
+	std::vector<int64_t> dp(R << (R-1), INF);
+	dp[1/2 * R + 0] = 0;
 	for (int m = 1; m < (1 << R); m += 2) {
 		for (int i = 0; i < R; i++) {
 			if (!(m & (1 << i))) continue;
@@ -31,9 +35,8 @@ int main() {
 				int64_t npos = it == A.end() ? (L + *A.begin()) : *it;
 				t0 += npos - pos;
 			}
-			cerr << m << ' ' << i << ' ' << t0 << '\n';
 			if (m == (1 << R) - 1) {
-				ans = std::min(ans, t0);
+				setmin(ans, t0);
 				continue;
 			}
 			for (int j = 0; j < R; j++) {
@@ -43,11 +46,11 @@ int main() {
 				// Then, we can either go forwards for (j-i+R)%R * (L/R) / (K-1) or backwards for (i-j+R)%R * (L/R) / (K+1)
 				int delta_t = ceil_div((i-j+R)%R * (L / R), K+1);
 				if (K > 1) {
-					delta_t = std::min(delta_t, ceil_div((j-i+R)%R * (L / R), K-1));
+					setmin(delta_t, ceil_div((j-i+R)%R * (L / R), K-1));
 				}
 				int64_t t = t0 + delta_t;
 				int nm = m | (1 << j);
-				dp[nm * R + j] = std::min(dp[nm * R + j], t);
+				setmin(dp[nm / 2 * R + j], t);
 			}
 		}
 	}
