@@ -94,11 +94,23 @@ int main() {
 			x = apply_alternating(l, first_bad, x);
 			l = first_bad;
 		}
-		assert(l < r);
-		assert(l > 0 && std::abs(x) < A[l-1]);
-		assert(std::abs(x) > A[l]);
-		assert(st_pt[std::abs(x) / 2] == l);
 		// Now we do the jump stuff
+		while (true) {
+			assert(l < r);
+			assert(l > 0 && std::abs(x) < A[l-1]);
+			assert(std::abs(x) > A[l]);
+			assert(st_pt[std::abs(x) / 2] == l);
+			auto [small, _, big] = big_jumps[std::abs(x) / 2];
+			if (st_pt[big.dest] < r) {
+				x = signum(x) * pneg1(big.flip) * (big.dest * 2 + 1);
+				l = st_pt[big.dest];
+			} else if (st_pt[small.dest] < r) {
+				x = signum(x) * pneg1(small.flip) * (small.dest * 2 + 1);
+				l = st_pt[small.dest];
+			} else {
+				return apply_alternating(l + 1, r, x - signum(x) * A[l]);
+			}
+		}
 	};
 
 	int Q; cin >> Q;
