@@ -82,7 +82,7 @@ int main() {
 			int nl = int(std::upper_bound(pref_sum.begin() + l + 1, pref_sum.begin() + r, pref_sum[l] + int64_t(std::abs(x))) - pref_sum.begin());
 			assert(l < nl);
 			assert(nl <= r);
-			x -= signum(x) * (pref_sum[nl] - pref_sum[l]);
+			x -= signum(x) * int(pref_sum[nl] - pref_sum[l]);
 			l = nl;
 		}
 		assert(l > 0 && std::abs(x) < A[l-1]);
