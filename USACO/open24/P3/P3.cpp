@@ -24,7 +24,7 @@ int main() {
 	for (int m = 1; m < (1 << R); m += 2) {
 		for (int i = 0; i < R; i++) {
 			if (!(m & (1 << i))) continue;
-			int64_t t0 = dp[m * R + i];
+			int64_t t0 = dp[m / 2 * R + i];
 			if (t0 == INF) continue;
 			if (i == 0) {
 				assert(m == 1);
