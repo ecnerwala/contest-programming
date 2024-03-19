@@ -122,6 +122,7 @@ int main() {
 		x *= 2;
 		x--;
 		int res = solve(l, r, x);
+		cerr << "result " << res << '\n';
 		cout << (res + 1) / 2 << '\n';
 	}
 
