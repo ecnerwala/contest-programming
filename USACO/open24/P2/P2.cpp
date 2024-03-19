@@ -9,7 +9,7 @@ int main() {
 	auto pneg1 = [](int a) -> int { return (a & 1) ? -1 : 1; };
 
 	std::mt19937 mt(48);
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 
 	int N;
 	if (TESTING) {
