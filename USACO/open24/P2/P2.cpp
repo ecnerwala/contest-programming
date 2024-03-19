@@ -109,7 +109,7 @@ int main() {
 	}
 
 	auto solve = [&](int l, int r, int x) -> int {
-		//cerr << "query " << l << ' ' << r << ' ' << x << '\n';
+		cerr << "query " << l << ' ' << r << ' ' << x << '\n';
 		assert(l < r);
 		{
 			auto [nl, nx] = find_bad(l, r, x);
