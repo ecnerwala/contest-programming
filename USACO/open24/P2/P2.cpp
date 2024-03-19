@@ -70,7 +70,7 @@ int main() {
 	};
 
 	const int V = A[0] / 2;
-	std::vector<int> st_pt(V);
+	std::vector<int> st_pt(V, N);
 	struct jump_t {
 		int dest;
 		bool flip;
