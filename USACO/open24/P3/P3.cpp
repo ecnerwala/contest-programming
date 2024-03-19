@@ -4,9 +4,9 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int L, R, N, K; cin >> L >> R >> N >> K;
+	int L, R, N_pts, K; cin >> L >> R >> N_pts >> K;
 	assert(L % R == 0);
-	std::vector<int> A(N);
+	std::vector<int> A(N_pts);
 	for (auto& a : A) cin >> a;
 	std::sort(A.begin(), A.end());
 
