@@ -11,6 +11,8 @@ int main() {
 	std::mt19937 mt(48);
 	constexpr bool TESTING = true;
 
+	for (int z = 0; z < 100; z++) {
+
 	int N;
 	if (TESTING) {
 		N = std::uniform_int_distribution(1, 10)(mt);
@@ -141,9 +143,9 @@ int main() {
 			r++;
 			int x = std::uniform_int_distribution<int>(0, 30)(mt);
 			x *= 2; x--;
-			cerr << l << ' ' << r << ' ' << x << '\n';
+			//cerr << l << ' ' << r << ' ' << x << '\n';
 			int res = solve(l, r, x);
-			cerr << res << '\n';
+			//cerr << res << '\n';
 		}
 	} else {
 		int Q; cin >> Q;
@@ -155,6 +157,7 @@ int main() {
 			//cerr << "result " << res << '\n';
 			cout << (res + 1) / 2 << '\n';
 		}
+	}
 	}
 
 	return 0;
