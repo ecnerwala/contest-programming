@@ -54,7 +54,7 @@ int main() {
 			x -= signum(x) * int(pref_sum[nl] - pref_sum[l]);
 			l = nl;
 		}
-		cerr << "intermediate " << l << ' ' << r << ' ' << x << '\n';
+		//cerr << "intermediate " << l << ' ' << r << ' ' << x << '\n';
 		{
 			int mi = l - 1, ma = r;
 			while (ma - mi > 1) {
@@ -116,11 +116,11 @@ int main() {
 			l = nl;
 			x = nx;
 		}
-		//cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
+		cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
 		if (l == r) return x;
 		// Now we do the jump stuff
 		while (true) {
-			//cerr << "at " << l << ' ' << r << ' ' << x << '\n';
+			cerr << "at " << l << ' ' << r << ' ' << x << '\n';
 			assert(l < r);
 			assert(l > 0 && std::abs(x) < A[l-1]);
 			assert(std::abs(x) > A[l]);
