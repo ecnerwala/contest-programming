@@ -12,6 +12,7 @@ int main() {
 	constexpr bool TESTING = true;
 
 	for (int z = 0; z < 100; z++) {
+		cerr << "case " << z << '\n';
 
 	int N;
 	if (TESTING) {
