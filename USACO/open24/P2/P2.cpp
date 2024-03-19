@@ -46,6 +46,7 @@ int main() {
 	};
 
 	auto find_bad = [&](int l, int r, int x) -> std::pair<int, int> {
+		cerr << "find_bad " << l << ' ' << r << ' ' << x << '\n';
 		{
 			int nl = int(std::upper_bound(pref_sum.begin() + l + 1, pref_sum.begin() + r, pref_sum[l] + int64_t(std::abs(x))) - pref_sum.begin());
 			assert(l < nl);
@@ -53,6 +54,7 @@ int main() {
 			x -= signum(x) * int(pref_sum[nl] - pref_sum[l]);
 			l = nl;
 		}
+		cerr << "intermediate " << l << ' ' << r << ' ' << x << '\n';
 		{
 			int mi = l - 1, ma = r;
 			while (ma - mi > 1) {
