@@ -15,12 +15,12 @@ int main() {
 	const int64_t INF = 6 * int64_t(L);
 
 	int64_t ans = INF;
-	std::vector<int64_t> dp(N << N, INF);
-	dp[1 * N + 0] = 0;
-	for (int m = 1; m < (1 << N); m += 2) {
-		for (int i = 0; i < N; i++) {
+	std::vector<int64_t> dp(R << R, INF);
+	dp[1 * R + 0] = 0;
+	for (int m = 1; m < (1 << R); m += 2) {
+		for (int i = 0; i < R; i++) {
 			if (!(m & (1 << i))) continue;
-			int64_t t0 = dp[m * N + i];
+			int64_t t0 = dp[m * R + i];
 			if (t0 == INF) continue;
 			if (i == 0) {
 				assert(m == 1);
@@ -32,11 +32,11 @@ int main() {
 				t0 += npos - pos;
 			}
 			cerr << m << ' ' << i << ' ' << t0 << '\n';
-			if (m == (1 << N) - 1) {
+			if (m == (1 << R) - 1) {
 				ans = std::min(ans, t0);
 				continue;
 			}
-			for (int j = 0; j < N; j++) {
+			for (int j = 0; j < R; j++) {
 				if (m & (1 << j)) continue;
 
 				auto ceil_div = [](int a, int b) -> int { return (a + b - 1) / b; };
@@ -47,7 +47,7 @@ int main() {
 				}
 				int64_t t = t0 + delta_t;
 				int nm = m | (1 << j);
-				dp[nm * N + j] = std::min(dp[nm * N + j], t);
+				dp[nm * R + j] = std::min(dp[nm * R + j], t);
 			}
 		}
 	}
