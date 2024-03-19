@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-template <typename T> void setmin(T& a, T b) {
+template <typename T, typename U> void setmin(T& a, U b) {
 	if (b < a) a = b;
 }
 
@@ -16,10 +16,10 @@ int main() {
 
 	// We walk K units in 1 time, while robots walk 1 unit in 1 time
 
-	const int64_t INF = 2 * L + 1;
+	const int INF = 2 * L + 1;
 
-	int64_t ans = INF;
-	std::vector<int64_t> dp(R << (R-1), INF);
+	int ans = INF;
+	std::vector<int> dp(R << (R-1), INF);
 	dp[1/2 * R + 0] = 0;
 	for (int m = 1; m < (1 << R); m += 2) {
 		for (int i = 0; i < R; i++) {
