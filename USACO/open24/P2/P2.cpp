@@ -64,7 +64,7 @@ int main() {
 		for (int x = A[i] + 1; x < A[i-1]; x += 2) {
 			st_pt[x / 2] = i;
 			auto [j, nx] = find_bad(i, N, x);
-			cerr << "jump " << x << '@' << i << ' ' << nx << '@' << j << '\n';
+			//cerr << "jump " << x << '@' << i << ' ' << nx << '@' << j << '\n';
 			if (j == N) {
 				// self-loop
 				jump_t small = {x/2, false};
@@ -88,18 +88,18 @@ int main() {
 	}
 
 	auto solve = [&](int l, int r, int x) -> int {
-		cerr << "query " << l << ' ' << r << ' ' << x << '\n';
+		//cerr << "query " << l << ' ' << r << ' ' << x << '\n';
 		assert(l < r);
 		{
 			auto [nl, nx] = find_bad(l, r, x);
 			l = nl;
 			x = nx;
 		}
-		cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
+		//cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
 		if (l == r) return x;
 		// Now we do the jump stuff
 		while (true) {
-			cerr << "at " << l << ' ' << r << ' ' << x << '\n';
+			//cerr << "at " << l << ' ' << r << ' ' << x << '\n';
 			assert(l < r);
 			assert(l > 0 && std::abs(x) < A[l-1]);
 			assert(std::abs(x) > A[l]);
@@ -126,7 +126,7 @@ int main() {
 		x *= 2;
 		x--;
 		int res = solve(l, r, x);
-		cerr << "result " << res << '\n';
+		//cerr << "result " << res << '\n';
 		cout << (res + 1) / 2 << '\n';
 	}
 
