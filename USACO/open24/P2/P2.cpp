@@ -17,12 +17,17 @@ int main() {
 	int N;
 	if (TESTING) {
 		N = std::uniform_int_distribution(1, 10)(mt);
+		cerr << N << '\n';
 	} else {
 		cin >> N;
 	}
 	std::vector<int> A(N);
 	if (TESTING) {
-		for (auto& a : A) { a = std::uniform_int_distribution(0, 10)(mt); a *= 2; }
+		for (auto& a : A) {
+			a = std::uniform_int_distribution(0, 10)(mt); a *= 2;
+			cerr << a << ' ';
+		}
+		cerr << '\n';
 		std::sort(A.begin(), A.end(), std::greater<>());
 	} else {
 		for (auto& a : A) { cin >> a; a *= 2; }
