@@ -96,6 +96,7 @@ int main() {
 		}
 		// Now we do the jump stuff
 		while (true) {
+			cerr << "at " << l << ' ' << r << ' ' << x << '\n';
 			assert(l < r);
 			assert(l > 0 && std::abs(x) < A[l-1]);
 			assert(std::abs(x) > A[l]);
