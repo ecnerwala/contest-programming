@@ -148,9 +148,9 @@ int main() {
 			r++;
 			int x = std::uniform_int_distribution<int>(0, 30)(mt);
 			x *= 2; x--;
-			cerr << l << ' ' << r << ' ' << x << '\n';
+			//cerr << l << ' ' << r << ' ' << x << '\n';
 			int res = solve(l, r, x);
-			cerr << res << '\n';
+			//cerr << res << '\n';
 		}
 	} else {
 		int Q; cin >> Q;
