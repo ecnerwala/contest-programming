@@ -91,21 +91,12 @@ int main() {
 		cerr << "query " << l << ' ' << r << ' ' << x << '\n';
 		assert(l < r);
 		{
-			int nl = int(std::upper_bound(pref_sum.begin() + l + 1, pref_sum.begin() + r, pref_sum[l] + int64_t(std::abs(x))) - pref_sum.begin());
-			assert(l < nl);
-			assert(nl <= r);
-			x -= signum(x) * int(pref_sum[nl] - pref_sum[l]);
+			auto [nl, nx] = find_bad(l, r, x);
 			l = nl;
+			x = nx;
 		}
 		cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
-		{
-			int first_bad = find_path(l, x);
-			if (first_bad >= r) {
-				return apply_alternating(l, r, x);
-			}
-			x = apply_alternating(l, first_bad, x);
-			l = first_bad;
-		}
+		if (l == r) return x;
 		// Now we do the jump stuff
 		while (true) {
 			cerr << "at " << l << ' ' << r << ' ' << x << '\n';
