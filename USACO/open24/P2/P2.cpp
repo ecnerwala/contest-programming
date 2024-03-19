@@ -104,17 +104,18 @@ int main() {
 			assert(l > 0 && std::abs(x) < A[l-1]);
 			assert(std::abs(x) > A[l]);
 			assert(st_pt[std::abs(x) / 2] == l);
-			auto [small, _, big] = big_jumps[std::abs(x) / 2];
-			if (st_pt[big.dest] < r) {
-				x = signum(x) * pneg1(big.flip) * (big.dest * 2 + 1);
-				l = st_pt[big.dest];
-			} else if (st_pt[small.dest] < r) {
-				x = signum(x) * pneg1(small.flip) * (small.dest * 2 + 1);
-				l = st_pt[small.dest];
-			} else {
+			auto [small, big_len, big] = big_jumps[std::abs(x) / 2];
+			if (big_len == 0 || r >= st_pt[small.dest]) {
 				auto [nl, nx] = find_bad(l, r, x);
 				assert(nl == r);
 				return nx;
+			} else if (st_pt[big.dest] < r) {
+				x = signum(x) * pneg1(big.flip) * (big.dest * 2 + 1);
+				l = st_pt[big.dest];
+			} else {
+				assert(st_pt[small.dest] < r);
+				x = signum(x) * pneg1(small.flip) * (small.dest * 2 + 1);
+				l = st_pt[small.dest];
 			}
 		}
 	};
