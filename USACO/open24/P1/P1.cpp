@@ -94,6 +94,7 @@ int main() {
 			})(cur);
 		}
 	}
+	cout << ans << '\n';
 
 	return 0;
 }
