@@ -16,23 +16,23 @@ int main() {
 
 	// We walk K units in 1 time, while robots walk 1 unit in 1 time
 
-	const int INF = 2 * L + 1;
+	const int64_t INF = 2 * L + 1;
 
-	int ans = INF;
-	std::vector<int> dp(R << (R-1), INF);
+	int64_t ans = INF;
+	std::vector<int64_t> dp(R << (R-1), INF);
 	dp[1/2 * R + 0] = 0;
 	for (int m = 1; m < (1 << R); m += 2) {
 		for (int i = 0; i < R; i++) {
 			if (!(m & (1 << i))) continue;
-			int t0 = dp[m / 2 * R + i];
+			int64_t t0 = dp[m / 2 * R + i];
 			if (t0 == INF) continue;
 			if (i == 0) {
 				assert(m == 1);
 				assert(t0 == 0);
 			} else {
-				int pos = (t0 + i * (L / R)) % L;
+				int64_t pos = (t0 + i * (L / R)) % L;
 				auto it = std::lower_bound(A.begin(), A.end(), pos);
-				int npos = it == A.end() ? (L + *A.begin()) : *it;
+				int64_t npos = it == A.end() ? (L + *A.begin()) : *it;
 				t0 += npos - pos;
 			}
 			if (m == (1 << R) - 1) {
@@ -48,7 +48,7 @@ int main() {
 				if (K > 1) {
 					setmin(delta_t, ceil_div((j-i+R)%R * (L / R), K-1));
 				}
-				int t = t0 + delta_t;
+				int64_t t = t0 + delta_t;
 				int nm = m | (1 << j);
 				setmin(dp[nm / 2 * R + j], t);
 			}
