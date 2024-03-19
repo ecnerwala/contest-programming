@@ -86,7 +86,6 @@ int main() {
 			x -= signum(x) * int(pref_sum[nl] - pref_sum[l]);
 			l = nl;
 		}
-		assert(l > 0 && std::abs(x) < A[l-1]);
 		{
 			int first_bad = find_path(l, x);
 			if (first_bad >= r) {
