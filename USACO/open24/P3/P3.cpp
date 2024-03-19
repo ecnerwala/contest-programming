@@ -30,9 +30,9 @@ int main() {
 				assert(m == 1);
 				assert(t0 == 0);
 			} else {
-				int64_t pos = (t0 + i * (L / R)) % L;
+				int pos = int((t0 + i * (L / R)) % L);
 				auto it = std::lower_bound(A.begin(), A.end(), pos);
-				int64_t npos = it == A.end() ? (L + *A.begin()) : *it;
+				int npos = it == A.end() ? (L + *A.begin()) : *it;
 				t0 += npos - pos;
 			}
 			if (m == (1 << R) - 1) {
