@@ -112,7 +112,9 @@ int main() {
 				x = signum(x) * pneg1(small.flip) * (small.dest * 2 + 1);
 				l = st_pt[small.dest];
 			} else {
-				return apply_alternating(l + 1, r, x - signum(x) * A[l]);
+				auto [nl, nx] = find_bad(l, r, x);
+				assert(nl == r);
+				return nx;
 			}
 		}
 	};
