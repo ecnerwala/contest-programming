@@ -8,9 +8,22 @@ int main() {
 
 	auto pneg1 = [](int a) -> int { return (a & 1) ? -1 : 1; };
 
-	int N; cin >> N;
+	std::mt19937 mt(48);
+	constexpr bool TESTING = false;
+
+	int N;
+	if (TESTING) {
+		N = std::uniform_int_distribution(1, 10)(mt);
+	} else {
+		cin >> N;
+	}
 	std::vector<int> A(N);
-	for (auto& a : A) { cin >> a; a *= 2; }
+	if (TESTING) {
+		for (auto& a : A) { a = std::uniform_int_distribution(0, 10)(mt); a *= 2; }
+		std::sort(A.begin(), A.end(), std::greater<>());
+	} else {
+		for (auto& a : A) { cin >> a; a *= 2; }
+	}
 
 	std::vector<int64_t> pref_sum(N+1);
 	for (int i = 0; i < N; i++) {
@@ -120,14 +133,28 @@ int main() {
 		}
 	};
 
-	int Q; cin >> Q;
-	while (Q--) {
-		int l, r; int x; cin >> l >> r >> x; l--;
-		x *= 2;
-		x--;
-		int res = solve(l, r, x);
-		//cerr << "result " << res << '\n';
-		cout << (res + 1) / 2 << '\n';
+	if (TESTING) {
+		for (int q = 0; q < 100; q++) {
+			int l = std::uniform_int_distribution<int>(0, N-1)(mt);
+			int r = std::uniform_int_distribution<int>(0, N-1)(mt);
+			if (l > r) std::swap(l, r);
+			r++;
+			int x = std::uniform_int_distribution<int>(0, 30)(mt);
+			x *= 2; x--;
+			cerr << l << ' ' << r << ' ' << x << '\n';
+			int res = solve(l, r, x);
+			cerr << res << '\n';
+		}
+	} else {
+		int Q; cin >> Q;
+		while (Q--) {
+			int l, r; int x; cin >> l >> r >> x; l--;
+			x *= 2;
+			x--;
+			int res = solve(l, r, x);
+			//cerr << "result " << res << '\n';
+			cout << (res + 1) / 2 << '\n';
+		}
 	}
 
 	return 0;
