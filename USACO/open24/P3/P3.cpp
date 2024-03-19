@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 template <typename T, typename U> void setmin(T& a, U b) {
-	if (b < a) a = b;
+	if (b < a) a = T(b);
 }
 
 int main() {
