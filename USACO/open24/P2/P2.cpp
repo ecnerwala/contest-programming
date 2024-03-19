@@ -25,10 +25,9 @@ int main() {
 	if (TESTING) {
 		for (auto& a : A) {
 			a = std::uniform_int_distribution(0, 10)(mt); a *= 2;
-			cerr << a << ' ';
 		}
-		cerr << '\n';
 		std::sort(A.begin(), A.end(), std::greater<>());
+		for (auto a : A) { cerr << (a/2) << ' '; } cerr << '\n';
 	} else {
 		for (auto& a : A) { cin >> a; a *= 2; }
 	}
