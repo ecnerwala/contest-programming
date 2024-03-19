@@ -127,7 +127,7 @@ int main() {
 			assert(st_pt[std::abs(x) / 2] == l);
 			auto [small, big_len, big] = big_jumps[std::abs(x) / 2];
 			cerr << "small " << small.dest << ' ' << small.flip << ' ' << big_len << ' ' << big.dest << ' ' << big.flip << ' ' << st_pt[small.dest] << '\n';
-			if (big_len == 0 || r >= st_pt[small.dest]) {
+			if (big_len == 0 || st_pt[small.dest] >= r) {
 				auto [nl, nx] = find_bad(l, r, x);
 				assert(nl == r);
 				return nx;
