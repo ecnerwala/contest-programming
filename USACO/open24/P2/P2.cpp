@@ -91,7 +91,7 @@ int main() {
 				jump_t small = {x/2, false};
 				big_jumps[x / 2] = {small, 0, small};
 			} else {
-				jump_t small{std::abs(nx) / 2, x < 0};
+				jump_t small{std::abs(nx) / 2, nx < 0};
 				assert(st_pt[small.dest] == j);
 				big_jumps[x / 2].small = small;
 				if (big_jumps[small.dest].big_len == big_jumps[big_jumps[small.dest].big.dest].big_len) {
