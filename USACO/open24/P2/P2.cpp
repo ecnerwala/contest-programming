@@ -87,6 +87,7 @@ int main() {
 			x -= signum(x) * int(pref_sum[nl] - pref_sum[l]);
 			l = nl;
 		}
+		cerr << "initial " << l << ' ' << r << ' ' << x << '\n';
 		{
 			int first_bad = find_path(l, x);
 			if (first_bad >= r) {
