@@ -31,6 +31,7 @@ int main() {
 				int64_t npos = it == A.end() ? (L + *A.begin()) : *it;
 				t0 += npos - pos;
 			}
+			cerr << m << ' ' << i << ' ' << t0 << '\n';
 			if (m == (1 << N) - 1) {
 				ans = std::min(ans, t0);
 				continue;
