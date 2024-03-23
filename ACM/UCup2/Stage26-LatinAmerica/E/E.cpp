@@ -39,6 +39,7 @@ int main() {
 				}
 			}
 		}
+		q.clear();
 	}
 	cout << ans << '\n';
 
