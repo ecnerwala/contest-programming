@@ -51,7 +51,7 @@ int main() {
 			}
 			cur++;
 			if (cur == N) {
-				assert(i >= N);
+				assert(i+1 >= N);
 				loop_pos = ((N-1-(i%N)) + (N-1)) % N;
 				break;
 			}
