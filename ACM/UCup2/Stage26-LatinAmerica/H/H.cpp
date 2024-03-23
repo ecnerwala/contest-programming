@@ -78,7 +78,7 @@ int main() {
 	op_t pref{0, +1};
 	cnt[pref.v][pref.s == +1] ++;
 	int64_t ans = 0;
-	for (int i = 0; i < N; i++) {
+	for (int q = 0; q < K; q++) {
 		char op; cin >> op;
 		op_t cur;
 		if (op == 'I') {
