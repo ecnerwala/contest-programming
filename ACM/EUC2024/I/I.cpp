@@ -20,8 +20,16 @@ int main() {
 		if (ans[st] != '\0') continue;
 		ans[st] = 'G';
 		q.push_back(st);
+		bool is_bipartite = true;
+		int s_cnt = 0;
+		int g_cnt = 0;
 		for (int z = 0; z < int(q.size()); z++) {
 			int cur = q[z];
+			if (ans[cur] == 'G') {
+				g_cnt++;
+			} else {
+				s_cnt++;
+			}
 			for (int nxt = 0; nxt < N; nxt++) {
 				if (nxt == cur) continue;
 				if (sq(A[cur][0] - A[nxt][0]) + sq(A[cur][1] - A[nxt][1]) == sq(A[cur][2] + A[nxt][2])) {
@@ -30,15 +38,17 @@ int main() {
 						ans[nxt] = ans[cur] ^ 'G' ^ 'S';
 						q.push_back(nxt);
 					} else if (ans[nxt] == ans[cur]) {
-						cout << "NO" << '\n';
-						exit(0);
+						is_bipartite = false;
 					}
 				}
 			}
 		}
+		if (is_bipartite && s_cnt != g_cnt) {
+			cout << "YES" << '\n';
+		}
 		q.clear();
 	}
-	cout << "YES" << '\n';
+	cout << "NO" << '\n';
 
 	return 0;
 }
