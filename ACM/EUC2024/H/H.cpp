@@ -37,7 +37,7 @@ int main() {
 					if (vy == 0) {
 						if (cell_it != cells.end() && cell_it->at(0) == x) {
 							int cell_y = cell_it->at(1);
-							if (col_it != col.end() && col_it->first <= cell_y) {
+							if (col_it != col.end() && col_it->first.first <= cell_y) {
 								y = col_it->first.first;
 							} else {
 								y = cell_y;
