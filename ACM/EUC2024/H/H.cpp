@@ -11,7 +11,7 @@ int main() {
 		std::vector<std::array<int, 2>> cells(N);
 		for (auto& [x, y] : cells) cin >> x >> y;
 		*/
-		int N = 200;
+		int N = 200000;
 		std::vector<std::array<int, 2>> cells(N);
 		for (int i = 0; i < N/2; i++) cells[i] = {0, i};
 		for (int i = N/2; i < N; i++) cells[i] = {1+i-(N/2), 0};
