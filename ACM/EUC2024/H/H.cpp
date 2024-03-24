@@ -55,11 +55,11 @@ int main() {
 					cerr << x << ' ' << y << ' ' << vy << '\n';
 
 					if (vy >= 4) return false;
-					if (vy - 1 > 0) {
-						ncol.push_back({y, vy - 1});
+					if (vy > 0) {
+						vy--;
 					}
 					if (vy > 0) {
-						vy --;
+						ncol.push_back({y, vy});
 					}
 				}
 				std::swap(col, ncol);
