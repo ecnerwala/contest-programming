@@ -45,6 +45,7 @@ int main() {
 		}
 		if (is_bipartite && s_cnt != g_cnt) {
 			cout << "YES" << '\n';
+			exit(0);
 		}
 		q.clear();
 	}
