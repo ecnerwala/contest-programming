@@ -62,7 +62,7 @@ int main() {
 							} else {
 								++col_it;
 							}
-							cerr << x << ' ' << y << ' ' << yhi << ' ' << vy+1 << '\n';
+							cerr << x << ' ' << y << '-' << yhi << ' ' << vy+1 << '\n';
 							if (vy > 0) {
 								if (vy == 1) {
 									if (vy == 1 && !ncol.empty() && ncol.back().second == 1 && ncol.back().first.second == y) {
