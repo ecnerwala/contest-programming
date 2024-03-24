@@ -72,6 +72,7 @@ int main() {
 									}
 								} else {
 									assert(vy >= 2);
+									if (vy >= 3) return false;
 									if (yhi - y >= 3) {
 										return false;
 									}
