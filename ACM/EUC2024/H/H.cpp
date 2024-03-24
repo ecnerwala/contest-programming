@@ -15,7 +15,7 @@ int main() {
 		for (int i = 0; i < N/2; i++) cells[i] = {0, i};
 		for (int i = N/2; i < N; i++) cells[i] = {1+i-(N/2), 0};
 		*/
-		//cerr << "Start case " << N << '\n';
+		cerr << "Start case " << N << '\n';
 		auto solve = [&]() -> bool {
 			std::sort(cells.begin(), cells.end());
 			auto cell_it = cells.begin();
