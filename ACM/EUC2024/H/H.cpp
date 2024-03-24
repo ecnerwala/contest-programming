@@ -162,7 +162,7 @@ int main() {
 							//cerr << x << ' ' << y << '-' << yhi << ' ' << vy+1 << '\n';
 							if (vy > 0) {
 								if (vy == 1) {
-									if (vy == 1 && !ncol.empty() && ncol.back().second == 1 && ncol.back().first.second == y) {
+									if (vy == 1 && !ncol.empty() && ncol.back().second == vy && ncol.back().first.second == y) {
 										ncol.back().first.second = yhi;
 									} else {
 										ncol.push_back({{y, yhi}, vy});
@@ -194,7 +194,7 @@ int main() {
 						vy--;
 					}
 					if (vy > 0) {
-						if (vy == 1 && !ncol.empty() && ncol.back().second == 1 && ncol.back().first.second == y) {
+						if (vy == 1 && !ncol.empty() && ncol.back().second == vy && ncol.back().first.second == y) {
 							ncol.back().first.second = y+1;
 						} else {
 							ncol.push_back({{y, y+1}, vy});
