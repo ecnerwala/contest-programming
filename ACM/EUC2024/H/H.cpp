@@ -34,8 +34,10 @@ int main() {
 							col_y = col_it->first;
 						}
 						if (cell_y && (!col_y || *cell_y < *col_y)) {
+							assert(*cell_y >= y);
 							y = *cell_y;
 						} else if (col_y) {
+							assert(*col_y >= y);
 							y = *col_y;
 						} else {
 							break;
@@ -49,6 +51,7 @@ int main() {
 						vy += col_it->second;
 						++col_it;
 					}
+					cerr << x << ' ' << y << ' ' << vy << '\n';
 
 					if (vy >= 4) return false;
 					if (vy - 1 > 0) {
