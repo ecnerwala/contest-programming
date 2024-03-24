@@ -67,6 +67,7 @@ int main() {
 									}
 								}
 							}
+							return false;
 						})(std::array<int, 2>{r, c}, std::array<int, 2>{r, c})) return true;
 					}
 				}
