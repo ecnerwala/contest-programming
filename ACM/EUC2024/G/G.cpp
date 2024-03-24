@@ -79,10 +79,43 @@ int main() {
 			adj[cur].pop_back();
 			self(nxt);
 			if (e == -1) {
-				assert((!ans.empty() && ans.back() == std::pair<int, int>(1, 0)));
+				assert(cur == 0 && nxt != 0);
+				assert((!ans.empty() && ans.back() == std::pair<int, int>(1, nxt)));
+				ans.pop_back();
+			} else {
+				ans.push_back({0, e});
+				if (nxt != 0) {
+					// drop off
+					ans.push_back({2, nxt});
+				}
+				if (cur != 0) {
+					ans.push_back({1, cur});
+				}
 			}
 		}
 	})(0);
+
+	cerr << ans.size() << '\n';
+	for (auto [op, v] : ans) {
+		if (op == 0) {
+			cerr << "DRIVE" << ' ' << v+1 << '\n';
+		} else if (op == 1) {
+			cerr << "PICKUP" << ' ' << "-CM"[v] << '\n';
+		} else if (op == 2) {
+			cerr << "DROPOFF" << ' ' << "-CM"[v] << '\n';
+		} else assert(false);
+	}
+
+	cout << ans.size() << '\n';
+	for (auto [op, v] : ans) {
+		if (op == 0) {
+			cout << "DRIVE" << ' ' << v+1 << '\n';
+		} else if (op == 1) {
+			cout << "PICKUP" << '\n';
+		} else if (op == 2) {
+			cout << "DROPOFF" << '\n';
+		} else assert(false);
+	}
 
 	return 0;
 }
