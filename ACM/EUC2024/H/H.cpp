@@ -15,7 +15,7 @@ int main() {
 		for (int i = 0; i < N/2; i++) cells[i] = {0, i};
 		for (int i = N/2; i < N; i++) cells[i] = {1+i-(N/2), 0};
 		*/
-		cerr << "Start case " << N << '\n';
+		//cerr << "Start case " << N << '\n';
 		auto solve = [&]() -> bool {
 			std::sort(cells.begin(), cells.end());
 			auto cell_it = cells.begin();
@@ -62,7 +62,7 @@ int main() {
 							} else {
 								++col_it;
 							}
-							cerr << x << ' ' << y << '-' << yhi << ' ' << vy+1 << '\n';
+							//cerr << x << ' ' << y << '-' << yhi << ' ' << vy+1 << '\n';
 							if (vy > 0) {
 								if (vy == 1) {
 									if (vy == 1 && !ncol.empty() && ncol.back().second == 1 && ncol.back().first.second == y) {
@@ -88,7 +88,7 @@ int main() {
 							++col_it;
 						}
 					}
-					cerr << x << ' ' << y << ' ' << vy << '\n';
+					//cerr << x << ' ' << y << ' ' << vy << '\n';
 
 					assert(vy > 0);
 					if (vy >= 4) return false;
