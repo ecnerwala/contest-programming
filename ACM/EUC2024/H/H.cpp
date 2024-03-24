@@ -58,6 +58,7 @@ int main() {
 						vy --;
 					}
 				}
+				std::swap(col, ncol);
 			}
 			return true;
 		};
