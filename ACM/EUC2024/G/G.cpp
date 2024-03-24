@@ -95,6 +95,7 @@ int main() {
 		}
 	})(0);
 
+	/*
 	cerr << ans.size() << '\n';
 	for (auto [op, v] : ans) {
 		if (op == 0) {
@@ -105,6 +106,7 @@ int main() {
 			cerr << "DROPOFF" << ' ' << "-CM"[v] << '\n';
 		} else assert(false);
 	}
+	*/
 
 	cout << ans.size() << '\n';
 	for (auto [op, v] : ans) {
