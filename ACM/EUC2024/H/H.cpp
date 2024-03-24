@@ -27,20 +27,15 @@ int main() {
 				int vy = 0;
 				for (int y = 0; true; y++) {
 					if (vy == 0) {
-						std::optional<int> cell_y;
 						if (cell_it != cells.end() && cell_it->at(0) == x) {
-							cell_y = cell_it->at(1);
-						}
-						std::optional<int> col_y;
-						if (col_it != col.end()) {
-							col_y = col_it->first;
-						}
-						if (cell_y && (!col_y || *cell_y < *col_y)) {
-							assert(*cell_y >= y);
-							y = *cell_y;
-						} else if (col_y) {
-							assert(*col_y >= y);
-							y = *col_y;
+							int cell_y = cell_it->at(1);
+							if (col_it != col.end() && col_it->first <= cell_y) {
+								y = col_it->first;
+							} else {
+								y = cell_y;
+							}
+						} else if (col_it != col.end()) {
+							y = col_it->first;
 						} else {
 							break;
 						}
