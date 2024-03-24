@@ -11,11 +11,11 @@ int main() {
 		std::vector<std::array<int, 2>> cells(N);
 		for (auto& [x, y] : cells) cin >> x >> y;
 		*/
-		int N = 30000;
+		int N = 300;
 		std::vector<std::array<int, 2>> cells(N);
 		for (int i = 0; i < N/3; i++) cells[i] = {1, 2*i};
 		for (int i = N/3; i < N; i++) cells[i] = {0, i - (N/3)};
-		//cerr << "Start case " << N << '\n';
+		cerr << "Start case " << N << '\n';
 		auto solve = [&]() -> bool {
 			std::sort(cells.begin(), cells.end());
 			auto cell_it = cells.begin();
@@ -54,7 +54,7 @@ int main() {
 						vy += col_it->second;
 						++col_it;
 					}
-					//cerr << x << ' ' << y << ' ' << vy << '\n';
+					cerr << x << ' ' << y << ' ' << vy << '\n';
 
 					assert(vy > 0);
 					if (vy >= 4) return false;
