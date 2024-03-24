@@ -9,6 +9,7 @@ int main() {
 		int N; cin >> N;
 		std::vector<std::array<int, 2>> cells(N);
 		for (auto& [x, y] : cells) cin >> x >> y;
+		cerr << "Start case " << N << '\n';
 		auto solve = [&]() -> bool {
 			std::sort(cells.begin(), cells.end());
 			auto cell_it = cells.begin();
