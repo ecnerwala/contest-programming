@@ -50,6 +50,7 @@ int main() {
 					}
 					//cerr << x << ' ' << y << ' ' << vy << '\n';
 
+					assert(vy > 0);
 					if (vy >= 4) return false;
 					if (vy > 0) {
 						vy--;
