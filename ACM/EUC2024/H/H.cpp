@@ -16,13 +16,14 @@ int main() {
 
 			std::vector<std::pair<int, int>> col;
 			col.push_back({0, 1});
+			std::vector<std::pair<int, int>> ncol;
 			for (int x = 0; true; x++) {
 				if (col.empty()) {
 					if (cell_it == cells.end()) break;
 					x = cell_it->at(0);
 				}
 				auto col_it = col.begin();
-				std::vector<std::pair<int, int>> ncol;
+				ncol.clear();
 				int vy = 0;
 				for (int y = 0; true; y++) {
 					if (vy == 0) {
