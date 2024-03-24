@@ -87,7 +87,7 @@ int main() {
 							++col_it;
 						}
 					}
-					cerr << x << ' ' << y << ' ' << vy << '\n';
+					//cerr << x << ' ' << y << ' ' << vy << '\n';
 
 					assert(vy > 0);
 					if (vy >= 4) return false;
