@@ -15,7 +15,7 @@ int main() {
 
 	auto sq = [&](int64_t a) -> int64_t {
 		return a * a;
-	}
+	};
 	for (int st = 0; st < N; st++) {
 		if (ans[st] != '\0') continue;
 		ans[st] = 'G';
