@@ -58,7 +58,7 @@ int main() {
 							int yhi = col_it->first.second;
 							if (cell_it != cells.end() && cell_it->at(0) == x && cell_it->at(1) < yhi) {
 								yhi = cell_it->at(1);
-								col_it->first.second = yhi;
+								col_it->first.first = yhi;
 							} else {
 								++col_it;
 							}
