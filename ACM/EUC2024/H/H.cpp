@@ -57,7 +57,7 @@ int main() {
 					if (vy - 1 > 0) {
 						ncol.push_back({y, vy});
 					}
-					if (vy > 1) {
+					if (vy > 0) {
 						vy --;
 					}
 				}
