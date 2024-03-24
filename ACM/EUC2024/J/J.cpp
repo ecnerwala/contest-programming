@@ -141,6 +141,7 @@ int main() {
 				if (cur_G[cur[0]][cur[1]] == '*') {
 					// delete it
 					cur_G[cur[0]][cur[1]] = '.';
+					ops.push_back(cur);
 					break;
 				} else if (cur_G[cur[0]][cur[1]] == 'A') {
 					// skipped
