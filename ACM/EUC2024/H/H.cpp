@@ -62,6 +62,7 @@ int main() {
 							} else {
 								++col_it;
 							}
+							assert(yhi > y);
 							//cerr << x << ' ' << y << '-' << yhi << ' ' << vy+1 << '\n';
 							if (vy > 0) {
 								if (vy == 1) {
