@@ -552,6 +552,7 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 			std::array<int64_t, 8> own_val; own_val.fill(INF); own_val[0] = 0;
 			for (int z = 0; z < 2; z++) {
 				if (c[z]) {
+					assert(!c[z]->is_path);
 					own_val = sum_array(own_val, c[z]->values[0]);
 				}
 			}
