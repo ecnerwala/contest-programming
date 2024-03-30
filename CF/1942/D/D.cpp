@@ -112,16 +112,16 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
-		std::vector<std::vector<std::pair<int, int64_t>>> adj(N+1);
+		std::vector<std::vector<std::pair<int, int64_t>>> adj(N+2);
 		const int64_t W = int64_t(1e6);
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i <= N; i++) {
 			adj[i].push_back({i+1, W});
 			for (int j = i+1; j <= N; j++) {
 				int w; cin >> w;
-				adj[i].push_back({j, W*(j-i) - w});
+				adj[i].push_back({j+1, W*(j+1-i) - w});
 			}
 		}
-		auto res = kth_shortest_paths<int64_t>(N+1, adj, 0, N, K);
+		auto res = kth_shortest_paths<int64_t>(N+2, adj, 0, N+1, K);
 		for (int k = 0; k < K; k++) {
 			cout << W*N - res[k] << " \n"[k+1==K];
 		}
