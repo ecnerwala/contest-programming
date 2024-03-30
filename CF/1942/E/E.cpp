@@ -137,10 +137,10 @@ int main() {
 			return fact[n] * ifact[r] * ifact[n - r];
 		};
 
-		num ans = 0;
 		L -= 2 * N;
-		for (int i = 1; i <= L; i += 2) {
-			ans += choose(i + N - 1, N - 1) * choose((L-i) + N, N);
+		num ans = choose(L + 2 * N, 2 * N);
+		for (int i = 0; i <= L; i += 2) {
+			ans -= choose(i/2 + N - 1, N - 1) * choose((L-i) + N, N);
 		}
 		// J is left or N is left
 		ans *= 2;
