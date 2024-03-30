@@ -622,7 +622,7 @@ int main() {
 		cerr << "Start case " << "N = " << N << ' ' << "Q = " << Q << '\n';
 		std::vector<int> par(N);
 		par[0] = -1;
-		for (int i = 1; i < N; i++) cin >> par[i];
+		for (int i = 1; i < N; i++) { cin >> par[i]; par[i]--; }
 		std::vector<int> B(N);
 		for (auto& b : B) cin >> b;
 
