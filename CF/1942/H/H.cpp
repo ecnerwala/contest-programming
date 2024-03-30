@@ -641,6 +641,7 @@ int main() {
 			auto e = &nodes[N+i-1];
 
 			link_root(e, &nodes[par[i]], &nodes[i]);
+			nodes[i].expose();
 		}
 		for (int v = 0; v < N; v++) {
 			cerr << "Node " << v << '\n';
