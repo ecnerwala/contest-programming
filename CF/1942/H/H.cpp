@@ -611,6 +611,7 @@ int main() {
 	while (T--) {
 		// We're computing the min (cut - b_i - h_i), and if it's 0 then it's doable
 		int N, Q; cin >> N >> Q;
+		cerr << "Start case " << "N = " << N << ' ' << "Q = " << Q << '\n';
 		std::vector<int> par(N);
 		par[0] = -1;
 		for (int i = 1; i < N; i++) cin >> par[i];
@@ -634,6 +635,7 @@ int main() {
 		}
 		for (int q = 0; q < Q; q++) {
 			int t, v, delta; cin >> t >> v >> delta; v--;
+			cerr << "op " << t << ' ' << v << ' ' << delta << '\n';
 			nodes[v].expose();
 			if (t == 1) {
 				nodes[v].own_g += delta;
