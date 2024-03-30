@@ -642,6 +642,7 @@ int main() {
 			} else assert(false);
 			auto rt = nodes[v].update_all();
 			int64_t res = *std::min_element(rt->values[0].begin(), rt->values[0].end());
+			cerr << "res " << res << '\n';
 			assert(res <= 0);
 			if (res < 0) {
 				cout << "NO" << '\n';
