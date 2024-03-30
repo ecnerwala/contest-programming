@@ -142,6 +142,7 @@ int main() {
 		for (int i = 1; i <= L; i += 2) {
 			ans += choose(i + N - 1, N - 1) * choose((L-i) + N, N);
 		}
+		// J is left or N is left
 		ans *= 2;
 		cout << ans << '\n';
 	}
