@@ -647,6 +647,14 @@ int main() {
 			}
 			cerr << '\n';
 		}
+		for (int v = 0; v < N; v++) {
+			cerr << "Node " << v << '\n';
+			nodes[v].expose();
+			for (int i = 0; i < 8; i++) {
+				cerr << nodes[v].values[0][i] << ' ';
+			}
+			cerr << '\n';
+		}
 		for (int q = 0; q < Q; q++) {
 			int t, v, delta; cin >> t >> v >> delta; v--;
 			cerr << "op " << t << ' ' << v << ' ' << delta << '\n';
