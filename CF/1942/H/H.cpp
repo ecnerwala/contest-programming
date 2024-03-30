@@ -569,7 +569,7 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 						// then g-right, and might as well keep hleft
 						setmin(values[i][(j & HLEFT) | GRIGHT], cnd_val[j] - own_b - ((j & HLEFT) ? 0 : own_h) + own_g);
 						if ((i == 0 || i == GRIGHT) && j == GRIGHT) {
-							std::cerr << "vert " << this-base_ptr << ' ' << own_b << ' ' << i << ' ' << j << ' ' << cnd_val[j] << ' ' << values[i][j] << '\n';
+							//std::cerr << "vert " << this-base_ptr << ' ' << own_b << ' ' << i << ' ' << j << ' ' << cnd_val[j] << ' ' << values[i][j] << '\n';
 						}
 					}
 					{
@@ -619,7 +619,7 @@ int main() {
 	while (T--) {
 		// We're computing the min (cut - b_i - h_i), and if it's 0 then it's doable
 		int N, Q; cin >> N >> Q;
-		cerr << "Start case " << "N = " << N << ' ' << "Q = " << Q << '\n';
+		//cerr << "Start case " << "N = " << N << ' ' << "Q = " << Q << '\n';
 		std::vector<int> par(N);
 		par[0] = -1;
 		for (int i = 1; i < N; i++) { cin >> par[i]; par[i]--; }
@@ -642,35 +642,10 @@ int main() {
 
 			link_root(e, &nodes[par[i]], &nodes[i]);
 			nodes[i].expose();
-			{
-				int v = i;
-				cerr << "Node " << v << '\n';
-				nodes[v].expose();
-				for (int z = 0; z < 8; z++) {
-					cerr << nodes[v].values[0][z] << ' ';
-				}
-				cerr << '\n';
-			}
-		}
-		for (int v = 0; v < N; v++) {
-			cerr << "Node " << v << '\n';
-			nodes[v].expose();
-			for (int i = 0; i < 8; i++) {
-				cerr << nodes[v].values[0][i] << ' ';
-			}
-			cerr << '\n';
-		}
-		for (int v = 0; v < N; v++) {
-			cerr << "Node " << v << '\n';
-			nodes[v].expose();
-			for (int i = 0; i < 8; i++) {
-				cerr << nodes[v].values[0][i] << ' ';
-			}
-			cerr << '\n';
 		}
 		for (int q = 0; q < Q; q++) {
 			int t, v, delta; cin >> t >> v >> delta; v--;
-			cerr << "op " << t << ' ' << v << ' ' << delta << '\n';
+			//cerr << "op " << t << ' ' << v << ' ' << delta << '\n';
 			nodes[v].expose();
 			if (t == 1) {
 				nodes[v].own_g += delta;
@@ -679,7 +654,7 @@ int main() {
 			} else assert(false);
 			auto rt = nodes[v].update_all();
 			int64_t res = *std::min_element(rt->values[0].begin(), rt->values[0].end());
-			cerr << "res " << res << '\n';
+			//cerr << "res " << res << '\n';
 			assert(res <= 0);
 			if (res < 0) {
 				cout << "NO" << '\n';
