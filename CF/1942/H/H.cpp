@@ -566,7 +566,7 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 					if (!(j & GLEFT)) {
 						// then g-right, and might as well keep hleft
 						if (i == 0 && j == 0) {
-							std::cerr << "vert " << this-base_ptr << ' ' << i << ' ' << j << ' ' << cnd_val[j] << ' ' << own_b << ' ' << own_g << '\n';
+							//std::cerr << "vert " << this-base_ptr << ' ' << i << ' ' << j << ' ' << cnd_val[j] << ' ' << own_b << ' ' << own_g << '\n';
 						}
 						setmin(values[i][(j & HLEFT) | GRIGHT], cnd_val[j] - own_b - ((j & HLEFT) ? 0 : own_h) + own_g);
 					}
@@ -638,6 +638,13 @@ int main() {
 			auto e = &nodes[N+i-1];
 
 			link_root(e, &nodes[par[i]], &nodes[i]);
+		}
+		{
+			auto n = nodes[0].expose();
+			for (int i = 0; i < 8; i++) {
+				cerr << n->values[0][i] << ' ';
+			}
+			cerr << '\n';
 		}
 		for (int q = 0; q < Q; q++) {
 			int t, v, delta; cin >> t >> v >> delta; v--;
