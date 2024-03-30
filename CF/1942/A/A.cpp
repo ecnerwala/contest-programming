@@ -4,5 +4,17 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	int T; cin >> T;
+	while (T--) {
+		int N, K; cin >> N >> K;
+		if (K == 1) {
+			for (int i = 0; i < N; i++) cout << i+1 << " \n"[i+1==N];
+		} else if (K == N) {
+			for (int i = 0; i < N; i++) cout << 1 << " \n"[i+1==N];
+		} else {
+			cout << -1 << '\n';
+		}
+	}
+
 	return 0;
 }
