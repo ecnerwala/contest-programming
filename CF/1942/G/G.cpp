@@ -158,6 +158,7 @@ int main() {
 			assert(tot_paths == 0);
 		}
 		ans += tot_paths;
+		ans /= choose(A + 5 + C, C);
 		cout << ans << '\n';
 	}
 
