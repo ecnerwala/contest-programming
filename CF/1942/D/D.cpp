@@ -123,7 +123,7 @@ int main() {
 		}
 		auto res = kth_shortest_paths<int64_t>(N+2, adj, 0, N+1, K);
 		for (int k = 0; k < K; k++) {
-			cout << W*N - res[k] << " \n"[k+1==K];
+			cout << W*(N+1) - res[k] << " \n"[k+1==K];
 		}
 	}
 
