@@ -13,7 +13,6 @@ int main() {
 			assert(a != 0);
 			if (a > 0) {
 				cur_mex += a;
-				a = -a;
 			}
 			int p = cur_mex - a;
 			cout << p << " \n"[i+1==N];
