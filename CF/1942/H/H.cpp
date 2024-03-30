@@ -639,10 +639,11 @@ int main() {
 
 			link_root(e, &nodes[par[i]], &nodes[i]);
 		}
-		{
-			nodes[0].expose();
+		for (int v = 0; v < N; v++) {
+			cerr << "Node " << v << '\n';
+			nodes[v].expose();
 			for (int i = 0; i < 8; i++) {
-				cerr << nodes[0].values[0][i] << ' ';
+				cerr << nodes[v].values[0][i] << ' ';
 			}
 			cerr << '\n';
 		}
