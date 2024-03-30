@@ -566,6 +566,7 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 
 				values[i].fill(INF);
 				for (int j = 0; j < 8; j++) {
+					if (cnd_val[j] == INF) continue;
 					// o-right
 					if (!(j & GLEFT)) {
 						// then g-right, and might as well keep hleft
@@ -594,7 +595,9 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 				for (int j = 0; j < 8; j++) {
 					int64_t v = INF;
 					for (int k = 0; k < 8; k++) {
-						setmin(v, c[1]->values[i][k] + c[0]->values[k][j]);
+						if (c[1]->values[i][k] != INF && c[0]->values[k][j] != INF) {
+							setmin(v, c[1]->values[i][k] + c[0]->values[k][j]);
+						}
 					}
 					values[i][j] = v;
 				}
