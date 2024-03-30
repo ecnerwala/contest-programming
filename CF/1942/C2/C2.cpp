@@ -25,22 +25,12 @@ int main() {
 					Y -= g/2;
 					num_pts += g;
 				} else {
-					num_pts += Y*2;
-					Y = 0;
+					break;
 				}
 			}
 		}
-		for (auto g : gaps) {
-			if (!(g&1)) {
-				if (Y >= g/2) {
-					Y -= g/2;
-					num_pts += g;
-				} else {
-					num_pts += Y*2;
-					Y = 0;
-				}
-			}
-		}
+		num_pts *= Y*2;
+		num_pts = std::min(num_pts, N);
 
 		cout << num_pts - 2 << '\n';
 	}
