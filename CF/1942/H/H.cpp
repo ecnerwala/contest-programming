@@ -568,7 +568,7 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 					if (!(j & GLEFT)) {
 						// then g-right, and might as well keep hleft
 						setmin(values[i][(j & HLEFT) | GRIGHT], cnd_val[j] - own_b - ((j & HLEFT) ? 0 : own_h) + own_g);
-						if (j == GRIGHT) {
+						if ((i == 0 || i == GRIGHT) && j == GRIGHT) {
 							std::cerr << "vert " << this-base_ptr << ' ' << own_b << ' ' << i << ' ' << j << ' ' << cnd_val[j] << ' ' << values[i][j] << '\n';
 						}
 					}
