@@ -141,23 +141,24 @@ int main() {
 		num ans = 0;
 		// Let's casework on the first time we hit 0
 		num tot_paths = choose(A + 5 + C, C);
-		cerr << "A = " << A << " C = " << C << '\n';
-		cerr << tot_paths << '\n';
+		//cerr << "A = " << A << " C = " << C << '\n';
+		//cerr << tot_paths << '\n';
 		for (int i = 0; i <= std::min(A, C); i++) {
 			// we hit 0 after drawing i+5 -1's and i +1's
 			num die_paths = choose(i+4 + i, i) - (i > 0 ? choose(i+4 + i, i-1) : 0);
 			die_paths *= choose((A-i) + (C-i), C-i);
-			cerr << i << ' ' << die_paths << '\n';
+			//cerr << i << ' ' << die_paths << '\n';
 			tot_paths -= die_paths;
 			ans += die_paths * choose(i+5, 5);
 		}
 
+		ans /= choose(A+5, 5);
+
 		if (A >= C) {
 			assert(tot_paths == 0);
-		} else {
 		}
-
-		ans /= choose(A+5, 5);
+		ans += tot_paths;
+		cout << ans << '\n';
 	}
 
 	return 0;
