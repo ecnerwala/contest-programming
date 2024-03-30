@@ -321,6 +321,8 @@ int main() {
 		int64_t out1;
 		int64_t thresh2;
 		int64_t out2;
+		int64_t thresh3;
+		int64_t out3;
 		// We have [0, thresh1) gives out1 and [thresh1, thresh2) gives out2
 	};
 	seg_tree::in_order_layout layout(N);
@@ -330,6 +332,8 @@ int main() {
 			return seg[a].out1;
 		} else if (cur < seg[a].thresh2) {
 			return seg[a].out2;
+		} else if (cur < seg[a].thresh3) {
+			return seg[a].out3;
 		} else if (a >= layout.N) {
 			return floor_sqrt(A[layout.get_leaf_index(a)] + cur);
 		} else {
@@ -338,6 +342,8 @@ int main() {
 				return seg[a].out1;
 			} else if (vl == seg[a.c(0)].out2) {
 				return seg[a].out2;
+			} else if (vl == seg[a.c(0)].out3) {
+				return seg[a].out3;
 			} else {
 				return self(a.c(1), vl);
 			}
@@ -352,6 +358,8 @@ int main() {
 			seg[a].thresh1 = sq(v+1) - own_A;
 			seg[a].out2 = v+1;
 			seg[a].thresh2 = sq(v+2) - own_A;
+			seg[a].out3 = v+2;
+			seg[a].thresh3 = sq(v+3) - own_A;
 			return;
 		} else {
 			seg[a].thresh1 = seg[a.c(0)].thresh1;
@@ -361,6 +369,11 @@ int main() {
 				seg[a].out2 = seg[a].out1;
 			} else {
 				seg[a].out2 = query_node(a.c(1), seg[a.c(0)].out2);
+			}
+			if (seg[a.c(0)].out3 == seg[a.c(0)].out2) {
+				seg[a].out3 = seg[a].out2;
+			} else {
+				seg[a].out3 = query_node(a.c(1), seg[a.c(0)].out3);
 			}
 		}
 	};
