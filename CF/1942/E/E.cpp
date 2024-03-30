@@ -142,7 +142,6 @@ int main() {
 		for (int i = 1; i <= L; i += 2) {
 			ans += choose(i + N - 1, N - 1) * choose((L-i) + N, N);
 		}
-		ans *= 2;
 		cout << ans << '\n';
 	}
 
