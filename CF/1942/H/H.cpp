@@ -507,6 +507,8 @@ std::array<int64_t, 8> sum_array(std::array<int64_t, 8> a, std::array<int64_t, 8
 	return res;
 }
 
+struct sample_top_tree_node;
+sample_top_tree_node* base_ptr = nullptr;
 
 struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 	//bool lazy_flip_path = false;
@@ -563,6 +565,9 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 					// o-right
 					if (!(j & GLEFT)) {
 						// then g-right, and might as well keep hleft
+						if (i == 0 && j == 0) {
+							std::cerr << "vert " << this-base_ptr << ' ' << i << ' ' << j << ' ' << cnd_val[j] << ' ' << own_b << ' ' << own_g << '\n';
+						}
 						setmin(values[i][(j & HLEFT) | GRIGHT], cnd_val[j] - own_b - ((j & HLEFT) ? 0 : own_h) + own_g);
 					}
 					{
@@ -619,6 +624,7 @@ int main() {
 		for (auto& b : B) cin >> b;
 
 		std::vector<sample_top_tree_node> nodes(2*N-1);
+		base_ptr = nodes.data();
 		for (int i = 0; i < N; i++) {
 			nodes[i].is_path = nodes[i].is_vert = true;
 
