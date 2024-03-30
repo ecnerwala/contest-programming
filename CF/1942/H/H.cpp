@@ -607,7 +607,49 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	// We're computing the min (cut - b_i - h_i), and if it's 0 then it's doable
+	int T; cin >> T;
+	while (T--) {
+		// We're computing the min (cut - b_i - h_i), and if it's 0 then it's doable
+		int N, Q; cin >> N >> Q;
+		std::vector<int> par(N);
+		par[0] = -1;
+		for (int i = 1; i < N; i++) cin >> par[i];
+		std::vector<int> B(N);
+		for (auto& b : B) cin >> b;
+
+		std::vector<sample_top_tree_node> nodes(2*N-1);
+		for (int i = 0; i < N; i++) {
+			nodes[i].is_path = nodes[i].is_vert = true;
+
+			nodes[i].own_b = B[i];
+			nodes[i].own_g = 0;
+			nodes[i].own_h = 0;
+
+			nodes[i].update();
+		}
+		for (int i = N-1; i >= 1; i--) {
+			auto e = &nodes[N+i-1];
+
+			link_root(e, &nodes[par[i]], &nodes[i]);
+		}
+		for (int q = 0; q < Q; q++) {
+			int t, v, delta; cin >> t >> v >> delta; v--;
+			nodes[v].expose();
+			if (t == 1) {
+				nodes[v].own_g += delta;
+			} else if (t == 2) {
+				nodes[v].own_h += delta;
+			} else assert(false);
+			auto rt = nodes[v].update_all();
+			int64_t res = *std::min_element(rt->values[0].begin(), rt->values[0].end());
+			assert(res <= 0);
+			if (res < 0) {
+				cout << "NO" << '\n';
+			} else {
+				cout << "YES" << '\n';
+			}
+		}
+	}
 
 	return 0;
 }
