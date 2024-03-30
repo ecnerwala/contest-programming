@@ -418,6 +418,7 @@ public:
 		assert(!e->c[0] && !e->c[1] && !e->c[2]);
 		v1->expose();
 		v2->expose();
+		assert(!v2->p);
 
 		while (v1->p) v1 = v1->p;
 		while (v2->p) v2 = v2->p;
