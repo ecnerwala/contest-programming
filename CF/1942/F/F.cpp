@@ -339,7 +339,7 @@ int main() {
 			} else if (vl == seg[a.c(0)].out2) {
 				return seg[a].out2;
 			} else {
-				return self(a.c(1), cur);
+				return self(a.c(1), vl);
 			}
 		}
 	});
