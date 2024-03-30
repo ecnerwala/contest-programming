@@ -640,9 +640,9 @@ int main() {
 			link_root(e, &nodes[par[i]], &nodes[i]);
 		}
 		{
-			auto n = nodes[0].expose();
+			nodes[0].expose();
 			for (int i = 0; i < 8; i++) {
-				cerr << n->values[0][i] << ' ';
+				cerr << nodes[0].values[0][i] << ' ';
 			}
 			cerr << '\n';
 		}
