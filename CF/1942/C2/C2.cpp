@@ -11,22 +11,21 @@ int main() {
 		for (auto& p : pts) { cin >> p; p--; }
 		std::sort(pts.begin(), pts.end());
 
-		std::vector<int> gaps(X);
+		std::vector<int> gaps; gaps.reserve(X);
 		for (int i = 0; i < X; i++) {
-			gaps[i] = (i+1==X ? N+pts[0] : pts[i+1]) - pts[i] - 1;
+			int g = (i+1==X ? N+pts[0] : pts[i+1]) - pts[i] - 1;
+			if (g & 1) gaps.push_back(g);
 		}
 
 		std::sort(gaps.begin(), gaps.end());
 
 		int num_pts = X;
 		for (auto g : gaps) {
-			if (g & 1) {
-				if (Y >= g/2) {
-					Y -= g/2;
-					num_pts += g;
-				} else {
-					break;
-				}
+			if (Y >= g/2) {
+				Y -= g/2;
+				num_pts += g;
+			} else {
+				break;
 			}
 		}
 		num_pts += Y*2;
