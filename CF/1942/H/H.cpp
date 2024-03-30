@@ -509,7 +509,7 @@ std::array<int64_t, 8> sum_array(std::array<int64_t, 8> a, std::array<int64_t, 8
 }
 
 struct sample_top_tree_node;
-sample_top_tree_node* base_ptr = nullptr;
+//sample_top_tree_node* base_ptr = nullptr;
 
 struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 	//bool lazy_flip_path = false;
@@ -627,7 +627,7 @@ int main() {
 		for (auto& b : B) cin >> b;
 
 		std::vector<sample_top_tree_node> nodes(2*N-1);
-		base_ptr = nodes.data();
+		//base_ptr = nodes.data();
 		for (int i = 0; i < N; i++) {
 			nodes[i].is_path = nodes[i].is_vert = true;
 
