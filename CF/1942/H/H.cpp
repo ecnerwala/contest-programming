@@ -549,7 +549,7 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 	// when accessing grandchildren information.
 	void update() {
 		if (is_vert) {
-			std::array<int64_t, 8> own_val; own_val.fill(0);
+			std::array<int64_t, 8> own_val; own_val.fill(INF); own_val[0] = 0;
 			for (int z = 0; z < 2; z++) {
 				if (c[z]) {
 					own_val = sum_array(own_val, c[z]->values[0]);
@@ -565,10 +565,10 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 					// o-right
 					if (!(j & GLEFT)) {
 						// then g-right, and might as well keep hleft
-						if (i == 0 && j == 0) {
-							//std::cerr << "vert " << this-base_ptr << ' ' << i << ' ' << j << ' ' << cnd_val[j] << ' ' << own_b << ' ' << own_g << '\n';
-						}
 						setmin(values[i][(j & HLEFT) | GRIGHT], cnd_val[j] - own_b - ((j & HLEFT) ? 0 : own_h) + own_g);
+						if (i == 0 && j == GRIGHT) {
+							std::cerr << "vert " << this-base_ptr << ' ' << own_b << ' ' << values[i][j] << '\n';
+						}
 					}
 					{
 						// o-left implies hleft
