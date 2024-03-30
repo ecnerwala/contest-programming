@@ -315,6 +315,7 @@ int main() {
 
 	int N, Q; cin >> N >> Q;
 	std::vector<int64_t> A(N);
+	for (auto& a : A) cin >> a;
 	struct seg_node {
 		int64_t thresh1;
 		int64_t out1;
