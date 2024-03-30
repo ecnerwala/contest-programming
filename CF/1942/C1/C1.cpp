@@ -13,8 +13,7 @@ int main() {
 
 		std::vector<int> gaps(X);
 		for (int i = 0; i < X; i++) {
-			gaps[i] = (i+1==X ? N+pts[0] : pts[i+1]) - pts[i];
-			cerr << "gap " << gaps[i] << '\n';
+			gaps[i] = (i+1==X ? N+pts[0] : pts[i+1]) - pts[i] - 1;
 		}
 		std::sort(gaps.begin(), gaps.end());
 		int num_pts = X;
