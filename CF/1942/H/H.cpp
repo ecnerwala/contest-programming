@@ -501,7 +501,9 @@ const int64_t INF = 1e18;
 std::array<int64_t, 8> sum_array(std::array<int64_t, 8> a, std::array<int64_t, 8> b) {
 	std::array<int64_t, 8> res; res.fill(INF);
 	for (int i = 0; i < 8; i++) {
+		if (a[i] == INF) continue;
 		for (int j = 0; j < 8; j++) {
+			if (b[j] == INF) continue;
 			setmin(res[i|j], a[i] + b[j]);
 		}
 	}
