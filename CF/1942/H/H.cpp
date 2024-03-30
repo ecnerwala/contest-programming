@@ -642,6 +642,15 @@ int main() {
 
 			link_root(e, &nodes[par[i]], &nodes[i]);
 			nodes[i].expose();
+			{
+				int v = i;
+				cerr << "Node " << v << '\n';
+				nodes[v].expose();
+				for (int z = 0; z < 8; z++) {
+					cerr << nodes[v].values[0][z] << ' ';
+				}
+				cerr << '\n';
+			}
 		}
 		for (int v = 0; v < N; v++) {
 			cerr << "Node " << v << '\n';
