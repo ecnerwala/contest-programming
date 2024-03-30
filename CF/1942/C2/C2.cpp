@@ -29,7 +29,7 @@ int main() {
 				}
 			}
 		}
-		num_pts *= Y*2;
+		num_pts += Y*2;
 		num_pts = std::min(num_pts, N);
 
 		cout << num_pts - 2 << '\n';
