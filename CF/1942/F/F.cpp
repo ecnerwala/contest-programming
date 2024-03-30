@@ -369,7 +369,7 @@ int main() {
 	}
 
 	for (int q = 0; q < Q; q++) {
-		int k, x; cin >> k >> x; k--;
+		int k; int64_t x; cin >> k >> x; k--;
 		A[k] = x;
 		auto a = layout.get_point(k);
 		update_node(a);
