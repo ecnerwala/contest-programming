@@ -146,9 +146,10 @@ int main() {
 		for (int i = 0; i <= std::min(A, C); i++) {
 			// we hit 0 after drawing i+5 -1's and i +1's
 			num die_paths = choose(i+4 + i, i) - (i > 0 ? choose(i+4 + i, i-1) : 0);
+			die_paths *= choose((A-i) + (C-i), C-i);
 			cerr << i << ' ' << die_paths << '\n';
 			tot_paths -= die_paths;
-			ans += die_paths * choose(i+5, 5) * choose((A - i) + (C - i), C - i);
+			ans += die_paths * choose(i+5, 5);
 		}
 
 		if (A >= C) {
