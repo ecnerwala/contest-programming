@@ -181,6 +181,7 @@ std::string solve(std::string S) {
 			return ans;
 		}
 	}
+	assert(false);
 }
 
 int main() {
