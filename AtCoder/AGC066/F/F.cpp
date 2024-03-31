@@ -178,6 +178,7 @@ std::string solve(std::string S) {
 					} else assert(false);
 				}
 			}
+			break;
 		}
 	}
 	return ans;
