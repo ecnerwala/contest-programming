@@ -24,8 +24,9 @@ int main() {
 		}
 
 		for (int i = 0; i < N; i++) {
-			cerr << X[i] << '\n';
+			cerr << X[i] << ' ';
 		}
+		cerr << '\n';
 
 		std::vector<int64_t> alternating_Xs(N+2);
 		for (int i = 0; i < N; i++) {
