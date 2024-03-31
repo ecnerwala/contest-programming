@@ -23,6 +23,10 @@ int main() {
 			X[i] += X[i-1];
 		}
 
+		for (int i = 0; i < N; i++) {
+			cerr << X[i] << '\n';
+		}
+
 		std::vector<int64_t> alternating_Xs(N+2);
 		for (int i = 0; i < N; i++) {
 			alternating_Xs[i+2] = alternating_Xs[i] + X[i];
