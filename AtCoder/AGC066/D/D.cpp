@@ -46,7 +46,7 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				last_val[balance_A[i]] = i;
 				if (S[i] == 'A') {
-					jumps[l++][0] = last_val[balance_A[i+1]] - 1;
+					jumps[l++][0] = last_val[balance_A[i+1]];
 				}
 			}
 			assert(l == L);
@@ -57,7 +57,7 @@ int main() {
 			for (int i = N-1; i >= 0; i--) {
 				last_val[balance_A[i+1]] = i+1;
 				if (S[i] == 'A') {
-					jumps[l++][0] = last_val[balance_A[i+1]] - 1;
+					jumps[--l][0] = last_val[balance_A[i]] - 1;
 				}
 			}
 			assert(l == L);
