@@ -81,10 +81,13 @@ int main() {
 					assert(S[j1] == 'B');
 					int left_As = (i - j0 - 1) / 2;
 					int right_As = (j1 - i - 1) / 2;
-					int64_t cost = 0;
-					cost += (alternating_Xs[j1 + 1] - alternating_Xs[i]) - (pref_A_Xs[l+right_As] - pref_A_Xs[l]);
-					cost += (pref_A_Xs[l] - pref_A_Xs[l - left_As]) - (alternating_Xs[i] - alternating_Xs[j0+1]);
-					cerr << l << ' ' << i << ' ' << j0 << ' ' << j1 << ' ' << cost << '\n';
+					int64_t right_tgt = alternating_Xs[j1 + 1] - alternating_Xs[i];
+					int64_t right_src = pref_A_Xs[l+right_As] - pref_A_Xs[l];
+					int64_t left_src = pref_A_Xs[l] - pref_A_Xs[l - left_As];
+					int64_t left_tgt = alternating_Xs[i] - alternating_Xs[j0+1];
+					int64_t cost = (left_src - left_tgt) + (right_tgt - right_src);
+
+					cerr << l << ' ' << i << ' ' << j0 << ' ' << j1 << ' ' << cost << ' ' << left_tgt << "<-" << left_src << ' ' << right_src << "->" << right_tgt << '\n';
 					setmin(dp[j1], dp[j0] + cost);
 				}
 				l++;
