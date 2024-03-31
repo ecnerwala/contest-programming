@@ -2,7 +2,7 @@
 
 std::string solve(std::string S) {
 	using std::cerr;
-	cerr << "Running case" << S << '\n';
+	cerr << "Running case " << S << '\n';
 	int N = int(S.size());
 	assert(N > 0);
 	if (N <= 2) {
