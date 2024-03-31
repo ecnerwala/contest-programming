@@ -418,7 +418,6 @@ public:
 		assert(!e->c[0] && !e->c[1] && !e->c[2]);
 		v1->expose();
 		v2->expose();
-		assert(!v2->p);
 
 		while (v1->p) v1 = v1->p;
 		while (v2->p) v2 = v2->p;
@@ -435,6 +434,29 @@ public:
 		e->update();
 
 		return true;
+	}
+
+	// Link v2 as a child of v1 with edge e, v2 must be the root
+	friend void link_direct(top_tree_node* e, top_tree_node* v1, top_tree_node* v2) {
+		assert(e && v1 && v2);
+		assert(!e->c[0] && !e->c[1] && !e->c[2]);
+		v1->expose();
+		v2->expose();
+
+		while (v1->p) v1 = v1->p;
+		assert(!v2->p);
+
+		assert(v1 != v2);
+
+		assert(!v1->p);
+		assert(!v2->p);
+
+		e->is_path = true, e->is_vert = false;
+		e->c[0] = v1;
+		v1->p = e;
+		e->c[1] = v2;
+		v2->p = e;
+		e->update();
 	}
 
 	// Cuts the edge e
@@ -645,7 +667,7 @@ int main() {
 		for (int i = N-1; i >= 1; i--) {
 			auto e = &nodes[N+i-1];
 
-			link_root(e, &nodes[par[i]], &nodes[i]);
+			link_direct(e, &nodes[par[i]], &nodes[i]);
 			nodes[i].expose();
 		}
 		for (int q = 0; q < Q; q++) {
