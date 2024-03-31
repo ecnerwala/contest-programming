@@ -55,10 +55,14 @@ std::string solve(std::string S) {
 	}
 	for (auto v : stk) { cerr << v << ' '; } cerr << '\n';
 	for (auto v : min_pos) { cerr << v << ' '; } cerr << '\n';
-	for (char c : pref) cerr << c << '\n';
+	for (char c : pref) { cerr << c; } cerr << '\n';
 	assert(min_pos.back() >= 1);
 	auto can_do_with_tgt = [&](std::array<char, 3> tgt_pref, int last_pos) -> bool {
 		// Apply some number of things to the
+		cerr << "check ";
+		for (char c : tgt_pref) { cerr << c; }
+		cerr << " ";
+		cerr << last_pos << '\n';
 		if (tgt_pref == pref) {
 			return last_pos < min_pos.back();
 		} else if (tgt_pref[0] == pref[0]) {
