@@ -77,12 +77,14 @@ int main() {
 				assert(As[l] == i);
 				auto [j0, j1] = jumps[l];
 				if (j0 >= 0 && j1 < N) {
-				if (jumps[i][0] >= 0 && jumps[i][1] < N) {
+					assert(S[j0] == 'B');
+					assert(S[j1] == 'B');
 					int left_As = (i - j0 - 1) / 2;
 					int right_As = (j1 - i - 1) / 2;
 					int64_t cost = 0;
 					cost += (alternating_Xs[j1 + 1] - alternating_Xs[i]) - (pref_A_Xs[l+right_As] - pref_A_Xs[l]);
 					cost += (pref_A_Xs[l] - pref_A_Xs[l - left_As]) - (alternating_Xs[i] - alternating_Xs[j0+1]);
+					setmin(dp[j1], dp[j0] + cost);
 				}
 				l++;
 			}
