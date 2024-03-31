@@ -20,17 +20,16 @@ std::string solve(std::string S) {
 		if (S[i-1] == S[i+1]) {
 			// this guy is bad
 			int v = i % 3;
-			if (stk.empty()) {
+			if (stk.empty() && (v == 0 || v == 2)) {
 				if (v == 0) {
 					std::swap(pref[1], pref[2]);
-				} else if (v == 1) {
-					stk.push_back(v);
 				} else if (v == 2) {
 					std::swap(pref[0], pref[1]);
 				} else assert(false);
+			} else if (!stk.empty() && v == stk.back()) {
+				stk.pop_back();
 			} else {
-				if (v == stk.back()) stk.pop_back();
-				else stk.push_back(v);
+				stk.push_back(v);
 			}
 		}
 	}
