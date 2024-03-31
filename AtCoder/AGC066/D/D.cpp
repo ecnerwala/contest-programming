@@ -36,7 +36,7 @@ int main() {
 		std::vector<int> balance_A(N+1);
 		balance_A[0] = N;
 		std::vector<int> As; As.reserve(N);
-		std::vector<int64_t> pref_A_Xs; pref_A_Xs.reserve(N+1);
+		std::vector<int64_t> pref_A_Xs; pref_A_Xs.reserve(N+1); pref_A_Xs.push_back(0);
 		for (int i = 0; i < N; i++) {
 			if (S[i] == 'A') {
 				As.push_back(i);
