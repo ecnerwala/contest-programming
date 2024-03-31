@@ -102,7 +102,7 @@ int T; cin >> T; while (T--) {
 
 	if (N == 1) {
 		cout << 1 << '\n';
-		exit(0);
+		continue;
 	}
 
 	assert(N >= 2);
