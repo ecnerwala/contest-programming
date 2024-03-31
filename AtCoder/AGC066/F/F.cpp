@@ -57,46 +57,49 @@ std::string solve(std::string S) {
 	for (auto v : min_pos) { cerr << v << ' '; } cerr << '\n';
 	for (char c : pref) { cerr << c; } cerr << '\n';
 	assert(min_pos.back() >= 1);
-	auto can_do_with_tgt = [&](std::array<char, 3> tgt_pref, int last_pos) -> bool {
+	auto step_back_tgt = [&](std::array<char, 3> tgt_pref, int src) -> int {
 		// Apply some number of things to the
-		cerr << "check ";
-		for (char c : tgt_pref) { cerr << c; }
-		cerr << " ";
-		cerr << last_pos << '\n';
 		if (tgt_pref == pref) {
-			return last_pos < min_pos.back();
+			return src;
 		} else if (tgt_pref[0] == pref[0]) {
 			// Must do a 0
-			return last_pos < step_back(0, min_pos.back());
+			return step_back(0, src);
 		} else if (tgt_pref[2] == pref[2]) {
 			// Must do a 2
-			return last_pos < step_back(2, min_pos.back());
+			return step_back(2, src);
 		} else if (tgt_pref[1] == pref[1]) {
 			// Must do 020 or 202
-			return (
-				last_pos < step_back(2, step_back(0, step_back(2, min_pos.back())))
-				||
-				last_pos < step_back(0, step_back(2, step_back(0, min_pos.back())))
+			return std::max(
+				step_back(2, step_back(0, step_back(2, src))),
+				step_back(0, step_back(2, step_back(0, src)))
 			);
 		} else if (tgt_pref[0] == pref[1]) {
 			// Must do 02
-			return last_pos < step_back(0, step_back(2, min_pos.back()));
+			return step_back(0, step_back(2, src));
 		} else if (tgt_pref[1] == pref[0]) {
 			// Must do 20
-			return last_pos < step_back(2, step_back(0, min_pos.back()));
+			return step_back(2, step_back(0, src));
 		} else assert(false);
 	};
+	std::array<char, 3> tgt_pref;
+	std::vector<int> common_stk;
+	std::vector<int> new_stk;
 	std::string ans(N, '?');
 	for (char c0 = 'A'; c0 <= 'C'; c0++) {
 		for (char c1 = 'A'; c1 <= 'C'; c1++) {
 			if (c0 == c1) continue;
-			std::array<char, 3> tgt_pref{c0, c1, char('A' ^ 'B' ^ 'C' ^ c0 ^ c1)};
+			tgt_pref = {c0, c1, char('A' ^ 'B' ^ 'C' ^ c0 ^ c1)};
 			cerr << c0 << ' ' << c1 << '\n';
-			if (!can_do_with_tgt(tgt_pref, 0)) continue;
+			if (!(0 < step_back_tgt(tgt_pref, min_pos.back()))) continue;
 			ans[0] = c0;
 			ans[1] = c1;
 
-			bool has_tgt = true;
+			min_pos.push_back(step_back_tgt(tgt_pref, min_pos.back()));
+			// just push something?
+			if (tgt_pref == pref) {
+				common_stk.push_back(-1);
+				min_pos.pop_back();
+			}
 
 			for (int i = 1; i+1 < N; i++) {
 				assert(min_pos.back() >= i);
@@ -105,57 +108,80 @@ std::string solve(std::string S) {
 				auto try_do_same = [&]() -> bool {
 					// same means push a 0
 					int a = i % 3;
-					std::array<char, 3> tmp_tgt_pref = tgt_pref;
-					bool tmp_has_tgt = has_tgt;
-					if (tmp_has_tgt) {
-						if (a == 1) {
-							if (tmp_tgt_pref != pref) {
-								return false;
-							}
-							tmp_has_tgt = false;
-						} else if (a == 0) {
-							std::swap(tmp_tgt_pref[1], tmp_tgt_pref[2]);
-							if (can_do_with_tgt(tmp_tgt_pref, i)) {
-								tgt_pref = tmp_tgt_pref;
-								return true;
-							} else {
-								return false;
-							}
-						} else if (a == 2) {
-							std::swap(tmp_tgt_pref[0], tmp_tgt_pref[1]);
-							if (can_do_with_tgt(tmp_tgt_pref, i)) {
-								tgt_pref = tmp_tgt_pref;
-								return true;
-							} else {
-								return false;
-							}
-						} else assert(false);
-					}
-					if (!stk.empty() && a == stk.back()) {
-						if (min_pos.back() >= i) {
-							has_tgt = tmp_has_tgt;
-							min_pos.pop_back();
-							stk.pop_back();
-							return true;
-						}
-						return false;
-					} else {
-						if (step_back(a, min_pos.back()) > i) {
-							has_tgt = tmp_has_tgt;
-							if (step_back(a, min_pos.back()) == N-1) {
-								// don't need to push
-							} else {
+					assert(int(common_stk.size()) <= int(new_stk.size()) + 1);
+					if (!new_stk.empty() && a == new_stk.back()) {
+						if (int(common_stk.size()) == int(new_stk.size()) + 1) {
+							assert(common_stk.back() == new_stk.back());
+							// Everything on our side is common
+							if (i < step_back(a, min_pos.back())) {
+								common_stk.pop_back();
+								new_stk.pop_back();
 								stk.push_back(a);
 								min_pos.push_back(step_back(a, min_pos.back()));
+								return true;
+							} else {
+								return false;
 							}
+						} else {
+							new_stk.pop_back();
+							min_pos.pop_back();
+							assert(i < min_pos.back());
 							return true;
 						}
-						return false;
+					} else if (new_stk.empty() && (a == 0 || a == 2)) {
+						if (int(common_stk.size()) == int(new_stk.size()) + 1) {
+							// undoing 1 change is just that change again
+							if (i < step_back(a, min_pos.back())) {
+								if (a == 0) std::swap(tgt_pref[1], tgt_pref[2]);
+								else if (a == 2) std::swap(tgt_pref[0], tgt_pref[1]);
+								else assert(false);
+
+								common_stk.pop_back();
+								min_pos.push_back(step_back_tgt(tgt_pref, min_pos.back()));
+								return true;
+							} else {
+								return false;
+							}
+						} else {
+							auto tmp_tgt_pref = tgt_pref;
+							if (a == 0) std::swap(tmp_tgt_pref[1], tmp_tgt_pref[2]);
+							else if (a == 2) std::swap(tmp_tgt_pref[0], tmp_tgt_pref[1]);
+							if (i < step_back_tgt(tmp_tgt_pref, min_pos.end()[-2])) {
+								tgt_pref = tmp_tgt_pref;
+								min_pos.pop_back();
+								if (tgt_pref == pref) {
+									common_stk.push_back(-1);
+								} else {
+									min_pos.push_back(step_back_tgt(tgt_pref, min_pos.back()));
+								}
+								return true;
+							} else {
+								return false;
+							}
+						}
+					} else {
+						// push a onto the new stack
+						if (int(common_stk.size()) == int(new_stk.size()) + 1 && (!stk.empty() && stk.back() == a)) {
+							new_stk.push_back(a);
+							stk.pop_back();
+							min_pos.pop_back();
+							common_stk.push_back(a);
+							assert(i < min_pos.back());
+							return true;
+						} else {
+							if (i < step_back(a, min_pos.back())) {
+								new_stk.push_back(a);
+								min_pos.push_back(step_back(a, min_pos.back()));
+								return true;
+							} else {
+								return false;
+							}
+						}
 					}
 				};
 				auto try_do_swap = [&]() -> bool {
 					// swap mean we don't push anything, so easy to check
-					if (has_tgt ? can_do_with_tgt(tgt_pref, i) : min_pos.back() > i) {
+					if (min_pos.back() > i) {
 						return true;
 					}
 					return false;
