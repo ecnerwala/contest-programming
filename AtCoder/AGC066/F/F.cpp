@@ -2,6 +2,7 @@
 
 std::string solve(std::string S) {
 	using std::cerr;
+	cerr << "Running case" << S << '\n';
 	int N = int(S.size());
 	assert(N > 0);
 	if (N <= 2) {
@@ -37,6 +38,7 @@ std::string solve(std::string S) {
 	// stk + pref now accurately represents the equivalence class
 	// Now, we first want pref as early as possible, we can prepend things of the form AA, BB, and ABABAB
 	std::reverse(stk.begin(), stk.end());
+
 	std::vector<int> min_pos; min_pos.reserve(int(stk.size())+1);
 	min_pos.push_back(N-1);
 
@@ -51,6 +53,8 @@ std::string solve(std::string S) {
 	for (int i = 0; i < int(stk.size()); i++) {
 		min_pos.push_back(step_back(stk[i], min_pos.back()));
 	}
+	for (auto v : stk) { cerr << v << ' '; } cerr << '\n';
+	for (auto v : min_pos) { cerr << v << ' '; } cerr << '\n';
 	assert(min_pos.back() >= 1);
 	auto can_do_with_tgt = [&](std::array<char, 3> tgt_pref, int last_pos) -> bool {
 		// Apply some number of things to the
@@ -82,6 +86,7 @@ std::string solve(std::string S) {
 		for (char c1 = 'A'; c1 <= 'C'; c1++) {
 			if (c0 == c1) continue;
 			std::array<char, 3> tgt_pref{c0, c1, char('A' ^ 'B' ^ 'C' ^ c0 ^ c1)};
+			cerr << c0 << ' ' << c1 << '\n';
 			if (!can_do_with_tgt(tgt_pref, 0)) continue;
 			ans[0] = c0;
 			ans[1] = c1;
