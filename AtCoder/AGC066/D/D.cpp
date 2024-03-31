@@ -82,7 +82,7 @@ int main() {
 					int left_As = (i - j0 - 1) / 2;
 					int right_As = (j1 - i - 1) / 2;
 					int64_t right_tgt = alternating_Xs[j1 + 1] - alternating_Xs[i];
-					int64_t right_src = pref_A_Xs[l+right_As] - pref_A_Xs[l];
+					int64_t right_src = pref_A_Xs[l+right_As+1] - pref_A_Xs[l];
 					int64_t left_src = pref_A_Xs[l] - pref_A_Xs[l - left_As];
 					int64_t left_tgt = alternating_Xs[i] - alternating_Xs[j0+1];
 					int64_t cost = (left_src - left_tgt) + (right_tgt - right_src);
