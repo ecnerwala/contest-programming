@@ -59,7 +59,7 @@ std::string solve(std::string S) {
 	auto can_do_with_tgt = [&](std::array<char, 3> tgt_pref, int last_pos) -> bool {
 		// Apply some number of things to the
 		if (tgt_pref == pref) {
-			return min_pos.back() > last_pos;
+			return last_pos < min_pos.back();
 		} else if (tgt_pref[0] == pref[0]) {
 			// Must do a 0
 			return last_pos < step_back(0, min_pos.back());
