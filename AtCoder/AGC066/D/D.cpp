@@ -23,10 +23,7 @@ int main() {
 			X[i] += X[i-1];
 		}
 
-		for (int i = 0; i < N; i++) {
-			cerr << X[i] << ' ';
-		}
-		cerr << '\n';
+		//for (int i = 0; i < N; i++) { cerr << X[i] << ' '; } cerr << '\n';
 
 		std::vector<int64_t> alternating_Xs(N+2);
 		for (int i = 0; i < N; i++) {
@@ -92,7 +89,7 @@ int main() {
 					int64_t left_tgt = alternating_Xs[i] - alternating_Xs[j0+1];
 					int64_t cost = (left_src - left_tgt) + (right_tgt - right_src);
 
-					cerr << l << ' ' << i << ' ' << j0 << ' ' << j1 << ' ' << cost << ' ' << left_tgt << "<-" << left_src << ' ' << right_src << "->" << right_tgt << '\n';
+					//cerr << l << ' ' << i << ' ' << j0 << ' ' << j1 << ' ' << cost << ' ' << left_tgt << "<-" << left_src << ' ' << right_src << "->" << right_tgt << '\n';
 					setmin(dp[j1], dp[j0] + cost);
 				}
 				l++;
