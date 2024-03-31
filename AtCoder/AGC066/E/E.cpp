@@ -193,7 +193,7 @@ int T; cin >> T; while (T--) {
 	}
 
 	for (int i = 1; i <= N; i++) {
-		cout << ans[i] << '\n';
+		cout << fact[N] * ifact[N-i] / ans[i] << " \n"[i==N];
 	}
 }
 
