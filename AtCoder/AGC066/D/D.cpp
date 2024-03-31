@@ -60,7 +60,7 @@ int main() {
 					jumps[--l][0] = last_val[balance_A[i]] - 1;
 				}
 			}
-			assert(l == L);
+			assert(l == 0);
 		}
 	}
 
