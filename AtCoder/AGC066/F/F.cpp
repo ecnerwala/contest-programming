@@ -2,7 +2,7 @@
 
 std::string solve(std::string S) {
 	using std::cerr;
-	cerr << "Running case " << S << '\n';
+	//cerr << "Running case " << S << '\n';
 	int N = int(S.size());
 	assert(N > 0);
 	if (N <= 2) {
@@ -53,9 +53,9 @@ std::string solve(std::string S) {
 	for (int i = 0; i < int(stk.size()); i++) {
 		min_pos.push_back(step_back(stk[i], min_pos.back()));
 	}
-	for (auto v : stk) { cerr << v << ' '; } cerr << '\n';
-	for (auto v : min_pos) { cerr << v << ' '; } cerr << '\n';
-	for (char c : pref) { cerr << c; } cerr << '\n';
+	//for (auto v : stk) { cerr << v << ' '; } cerr << '\n';
+	//for (auto v : min_pos) { cerr << v << ' '; } cerr << '\n';
+	//for (char c : pref) { cerr << c; } cerr << '\n';
 	assert(min_pos.back() >= 1);
 	auto step_back_tgt = [&](std::array<char, 3> tgt_pref, int src) -> int {
 		// Apply some number of things to the
@@ -89,7 +89,7 @@ std::string solve(std::string S) {
 		for (char c1 = 'A'; c1 <= 'C'; c1++) {
 			if (c0 == c1) continue;
 			tgt_pref = {c0, c1, char('A' ^ 'B' ^ 'C' ^ c0 ^ c1)};
-			cerr << c0 << ' ' << c1 << '\n';
+			//cerr << c0 << ' ' << c1 << '\n';
 			if (!(0 < step_back_tgt(tgt_pref, min_pos.back()))) continue;
 			ans[0] = c0;
 			ans[1] = c1;
