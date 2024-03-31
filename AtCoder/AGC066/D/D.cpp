@@ -84,6 +84,7 @@ int main() {
 					int64_t cost = 0;
 					cost += (alternating_Xs[j1 + 1] - alternating_Xs[i]) - (pref_A_Xs[l+right_As] - pref_A_Xs[l]);
 					cost += (pref_A_Xs[l] - pref_A_Xs[l - left_As]) - (alternating_Xs[i] - alternating_Xs[j0+1]);
+					cerr << l << ' ' << i << ' ' << j0 << ' ' << j1 << ' ' << cost << '\n';
 					setmin(dp[j1], dp[j0] + cost);
 				}
 				l++;
