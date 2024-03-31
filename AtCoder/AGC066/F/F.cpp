@@ -89,6 +89,7 @@ std::string solve(std::string S) {
 			bool has_tgt = true;
 
 			for (int i = 1; i+1 < N; i++) {
+				assert(min_pos.back() >= i);
 				char swap_option = 'A' ^ 'B' ^ 'C' ^ ans[i-1] ^ ans[i];
 				char same_option = ans[i-1];
 				auto try_do_same = [&]() -> bool {
