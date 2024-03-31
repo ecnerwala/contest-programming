@@ -55,6 +55,7 @@ std::string solve(std::string S) {
 	}
 	for (auto v : stk) { cerr << v << ' '; } cerr << '\n';
 	for (auto v : min_pos) { cerr << v << ' '; } cerr << '\n';
+	for (char c : pref) cerr << c << '\n';
 	assert(min_pos.back() >= 1);
 	auto can_do_with_tgt = [&](std::array<char, 3> tgt_pref, int last_pos) -> bool {
 		// Apply some number of things to the
