@@ -28,6 +28,7 @@ int main() {
 				setmin(dp[i+1], prv_any[balance[i+1]]);
 			}
 			setmin(dp[i+1], prv_B[balance[i+1]]);
+			cerr << i+1 << ' ' << dp[i+1] << '\n';
 		}
 		cout << N - dp[N] << '\n';
 	}
