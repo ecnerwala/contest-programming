@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-template <typename T> T setmin(T& a, T b) { if (b < a) a = b; }
+template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
 
 int main() {
 	using namespace std;
