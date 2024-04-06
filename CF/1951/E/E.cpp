@@ -25,11 +25,6 @@ int main() {
 			while (s < N/2 && S[s] == S[0]) s++;
 			if (s == N/2) {
 				cout << "NO" << '\n';
-			} else if (S[2*s+1] != S[s]) {
-				cout << "YES" << '\n';
-				cout << 2 << '\n';
-				std::string_view V(S);
-				cout << V.substr(0, s+1) << ' ' << V.substr(s+1) << '\n';
 			} else if (s == 1) {
 				bool alt = true;
 				for (int i = N-1; i >= 2; i--) {
@@ -46,6 +41,11 @@ int main() {
 				} else {
 					cout << "NO" << '\n';
 				}
+			} else if (S[2*s+1] != S[s]) {
+				cout << "YES" << '\n';
+				cout << 2 << '\n';
+				std::string_view V(S);
+				cout << V.substr(0, s+1) << ' ' << V.substr(s+1) << '\n';
 			} else {
 				cout << "YES" << '\n';
 				cout << 2 << '\n';
