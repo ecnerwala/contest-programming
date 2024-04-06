@@ -239,6 +239,9 @@ int main() {
 				assert(cap[e] == -1);
 				cap[e] = int(c);
 				num_cap++;
+				// Now, reset the things
+				mi = ma;
+				ma = INF_COST;
 			}
 		}
 		int64_t ans = 0;
