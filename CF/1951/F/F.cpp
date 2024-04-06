@@ -217,14 +217,12 @@ int main() {
 				cerr << "Starting from " << '\n';
 				for (auto v : inv_Q) { cerr << v << ' '; } cerr << '\n';
 				cerr << "cur_inv " << cur_inv << '\n';
-				for (int j = i; cur_inv < K; j ++) {
-					assert(j+1 <= N-1-i);
-					assert(inv_Q[j] == 0);
-					assert(inv_Q[j+1] > 0);
-					if (inv_P[inv_Q[j]] < inv_P[inv_Q[j+1]]) {
+				for (int j = i+1; cur_inv < K; j ++) {
+					assert(j <= N-1-i);
+					if (inv_P[inv_Q[i]] < inv_P[inv_Q[j]]) {
 						cur_inv += 2;
 					}
-					std::swap(inv_Q[j], inv_Q[j+1]);
+					std::swap(inv_Q[i], inv_Q[j]);
 					cerr << "At " << '\n';
 					for (auto v : inv_Q) { cerr << v << ' '; } cerr << '\n';
 					cerr << "cur_inv " << cur_inv << '\n';
