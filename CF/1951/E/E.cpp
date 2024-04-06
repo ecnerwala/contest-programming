@@ -27,16 +27,16 @@ int main() {
 					cout << "YES" << '\n';
 					cout << 1 << '\n';
 					cout << S << '\n';
+				} else if (N == 2*s+1) {
+					cout << "NO" << '\n';
 				} else if (!is_pal(s+1, N)) {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
-				} else if (N != 2*s+1) {
+				} else {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
-				} else {
-					cout << "NO" << '\n';
 				}
 			} else {
 				if (!is_pal(0, N)) {
