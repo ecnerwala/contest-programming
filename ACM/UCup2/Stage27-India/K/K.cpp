@@ -51,7 +51,7 @@ int main() {
 			if (r == 3) dist[0]++;
 			return r;
 		})(vert[0], -1);
-		cerr << dist[0] << ' ' << dist[1] << ' ' << dist[2] << '\n';
+		//cerr << dist[0] << ' ' << dist[1] << ' ' << dist[2] << '\n';
 		std::array<char, 3> labels{'A', 'B', 'C'};
 		if (dist[0] == 0) {
 			cout << labels[0] << '\n';
