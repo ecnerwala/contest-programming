@@ -94,7 +94,7 @@ int main() {
 			//for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
 			Dinic<int> flower(2+N+M);
 			for (int i = 0; i < N; i++) {
-				flower.add_edge(N+M, i, K, 0);
+				flower.add_edge(N+M, i, K);
 			}
 			int tot_cnts = 0;
 			for (int e = 0; e < M; e++) {
