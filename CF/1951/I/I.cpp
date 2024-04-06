@@ -235,6 +235,7 @@ int main() {
 				c /= edges[e].a;
 				c++;
 				c /= 2;
+				assert(cap[e] == -1);
 				cap[e] = int(c-1);
 				//cerr << "cap " << e << ' ' << cap[e] << '\n';
 				num_cap++;
