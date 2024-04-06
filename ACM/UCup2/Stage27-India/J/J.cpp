@@ -160,7 +160,7 @@ int main() {
 			for (int z = 0; z < N; z++) {
 				std::priority_queue<int> pq;
 				int ans = 0;
-				for (int a = 0; a < N; a++) {
+				for (int a : A) {
 					ans += a;
 					pq.push(a);
 					pq.push(a);
