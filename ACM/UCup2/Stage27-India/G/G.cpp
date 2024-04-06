@@ -250,6 +250,7 @@ private:
 		sa = std::vector<index_t>(N+1);
 		for (auto s : S) assert(index_t(s) >= 0);
 		int sigma = N ? *max_element(S.begin(), S.end())+1 : 0;
+		std::cerr << N << ' ' << sigma << '\n';
 		std::vector<index_t> tmp(std::max(N, sigma * 2));
 		SuffixArray::sais<String>(N, S, sa.data(), sigma, tmp.data());
 	}
