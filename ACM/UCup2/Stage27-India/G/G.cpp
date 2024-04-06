@@ -270,7 +270,7 @@ public:
 				buckets[x] = 1;
 			}
 			for (int v = 0; v < int(buckets.size()); v++) {
-				if (buckets[v]) buckets[v] = sigma++;
+				if (buckets[v]) buckets[v] = compressed_value_type(sigma++);
 			}
 
 			for (int i = 0; i < sz(S); i++) {
