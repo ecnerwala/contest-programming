@@ -214,6 +214,9 @@ int main() {
 				cur_inv += 2 * non_inv_by_bigger_P[N-1-i];
 			} else {
 				std::iota(inv_Q.begin() + i, inv_Q.end(), 0);
+				cerr << "Starting from " << '\n';
+				for (auto v : inv_Q) { cerr << v << ' '; } cerr << '\n';
+				cerr << "cur_inv " << cur_inv << '\n';
 				for (int j = i; cur_inv < K; j ++) {
 					assert(j+1 <= N-1-i);
 					assert(inv_Q[j] == 0);
@@ -222,6 +225,9 @@ int main() {
 						cur_inv += 2;
 					}
 					std::swap(inv_Q[j], inv_Q[j+1]);
+					cerr << "At " << '\n';
+					for (auto v : inv_Q) { cerr << v << ' '; } cerr << '\n';
+					cerr << "cur_inv " << cur_inv << '\n';
 				}
 				break;
 			}
