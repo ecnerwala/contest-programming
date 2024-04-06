@@ -866,6 +866,7 @@ int main() {
 		for (int i = 1; i < N; i++) prob += a[i] * a[N-i];
 		prob /= 2;
 		prob *= fact[N];
+		cerr << "edge " << h_side << ' ' << diam << ' ' << prob << '\n';
 		tot_prob += prob;
 		tot_diam += diam * prob;
 	}
@@ -886,6 +887,7 @@ int main() {
 		prob *= fact[N];
 		tot_prob += prob;
 		num diam = 2 * h;
+		cerr << "vert " << h << ' ' << diam << ' ' << prob << '\n';
 		tot_diam += diam * prob;
 	}
 	cerr << tot_prob << ' ' << tot_diam << '\n';
