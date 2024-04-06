@@ -89,7 +89,30 @@ int main() {
 			edges[e] = {{u, v}, a, b};
 		}
 		std::vector<int> cnts(M);
-		auto check = [&]() {
+		auto check_many = [&]() {
+			for (int z = 0; z < N; z++) {
+				Dinic<int> flower(2+N+M);
+				for (int i = 0; i < N; i++) {
+					if (i == z) continue;
+					flower.add_edge(N+M, i, K);
+				}
+				int tot_cnts = 0;
+				for (int e = 0; e < M; e++) {
+					// why not
+					if (cnts[e] > K) return false;
+					tot_cnts += cnts[e];
+
+					flower.add_edge(edges[e].dest[0], N+e, K);
+					flower.add_edge(edges[e].dest[1], N+e, K);
+					flower.add_edge(N+e, N+M+1, cnts[e]);
+				}
+				if (flower.max_flow(N+M, N+M+1) != tot_cnts) {
+					return false;
+				}
+			}
+			return true;
+		};
+		auto check_reuse = [&]() {
 			//cerr << "Check " << '\n';
 			//for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
 			Dinic<int> flower(2+N+M);
@@ -168,7 +191,7 @@ int main() {
 				}
 				next_edge = std::min(next_edge, no_take_edge);
 			}
-			if (check()) {
+			if (check_many()) {
 				// we're good
 				mi = next_edge - 1;
 			} else {
