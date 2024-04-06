@@ -267,7 +267,7 @@ public:
 
 			std::vector<compressed_value_type> buckets(hi - lo + 1, 0);
 			for (const auto& x : S) {
-				buckets[x] = 1;
+				buckets[x - lo] = 1;
 			}
 			for (int v = 0; v < int(buckets.size()); v++) {
 				if (buckets[v]) buckets[v] = compressed_value_type(sigma++);
