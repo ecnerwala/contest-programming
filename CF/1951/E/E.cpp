@@ -9,19 +9,20 @@ int main() {
 		std::string S; cin >> S;
 		[&]() -> void {
 			int N = int(S.size());
-			auto is_pal = [&](int l, int r) -> bool {
-				for (int i = l, j = r-1; i < j; i++, j--) {
-					if (S[i] != S[j]) return false;
+			bool is_pal = true;
+			for (int i = 0; i < N-1-i; i++) {
+				if (S[i] != S[N-1-i]) {
+					is_pal = false;
+					break;
 				}
-				return true;
-			};
+			}
 
-			if (N == 1) {
-				cout << "NO" << '\n';
-			} else if (!is_pal(0, N)) {
+			if (!is_pal) {
 				cout << "YES" << '\n';
 				cout << 1 << '\n';
 				cout << S << '\n';
+			} else if (N == 1) {
+				cout << "NO" << '\n';
 			} else if (S[1] == S[0]) {
 				int s = 0;
 				while (s < N/2 && S[s] == S[0]) s++;
