@@ -1,35 +1,5 @@
 #include <bits/stdc++.h>
 
-/**
- * manacher(S): return the maximum palindromic substring of S centered at each point
- *
- * Input: string (or vector) of length N (no restrictions on character-set)
- * Output: vector res of length 2*N+1
- *   For any 0 <= i <= 2*N:
- *   * i % 2 == res[i] % 2
- *   * the half-open substring S[(i-res[i])/2, (i+res[i])/2) is a palindrome of length res[i]
- *   * For odd palindromes, take odd i, and vice versa
- */
-template <typename V> std::vector<int> manacher(const V& S) {
-	int N = int(S.size());
-	std::vector<int> res(2*N+1, 0);
-	for (int i = 1, j = -1, r = 0; i < 2*N; i++, j--) {
-		if (i > r) {
-			r = i+1, res[i] = 1;
-		} else {
-			res[i] = res[j];
-		}
-		if (i+res[i] >= r) {
-			int b = r>>1, a = i-b;
-			while (a > 0 && b < N && S[a-1] == S[b]) {
-				a--, b++;
-			}
-			res[i] = b-a, j = i, r = b<<1;
-		}
-	}
-	return res;
-}
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -39,58 +9,42 @@ int main() {
 		std::string S; cin >> S;
 		[&]() -> void {
 			int N = int(S.size());
-			bool all_same = true;
-			for (int i = 0; i < N; i++) {
-				if (S[i] != S[0]) {
-					all_same = false;
-					break;
-				}
-			}
-			if (all_same) {
-				cout << "NO" << '\n';
-				return;
-			}
-
-			bool all_pal = true;
-			for (int i = 0; i < N-1-i; i++) {
-				if (S[i] != S[N-1-i]) {
-					all_pal = false;
-					break;
-				}
-			}
-			if (!all_pal) {
-				cout << "YES" << '\n';
-				cout << 1 << '\n';
-				cout << S << '\n';
-				return;
-			}
-
-			assert(all_pal && !all_same);
-			assert(N >= 3);
-
-			auto man = manacher(S);
 			auto is_pal = [&](int l, int r) -> bool {
-				assert(0 <= l && l <= r && r <= N);
-				return r - l <= man[l+r];
+				for (int i = l, j = r-1; i < j; i++, j--) {
+					if (S[i] != S[j]) return false;
+				}
+				return true;
 			};
 
-			for (int i = 1; i < N; i++) {
-				if (!is_pal(0, i) && !is_pal(i, N)) {
+			if (N == 1) {
+				cout << "NO" << '\n';
+			} else if (S[1] == S[0]) {
+				int s = 0;
+				while (s < N && S[s] == S[0]) s++;
+				if (s == N) {
+					cout << "NO" << '\n';
+				} else if (!is_pal(0, N)) {
 					cout << "YES" << '\n';
-					cout << 2 << '\n';
-					cout << S.substr(0, i) << ' ' << S.substr(i) << '\n';
-					return;
+					cout << S << '\n';
+				} else if (!is_pal(s+1, N)) {
+					cout << "YES" << '\n';
+					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
+				} else if (!is_pal(s+2, N)) {
+					cout << "YES" << '\n';
+					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
+				} else {
+					cout << "NO" << '\n';
 				}
-			}
-
-			if (S[1] == S[0]) {
-				// We must have aaaaabaaaaa
-				cout << "NO" << '\n';
-				return;
 			} else {
-				// We must be alternating ababababa
-				cout << "NO" << '\n';
-				return;
+				if (!is_pal(0, N)) {
+					cout << "YES" << '\n';
+					cout << S << '\n';
+				} else if (!is_pal(2, N)) {
+					cout << "YES" << '\n';
+					cout << S.substr(0, 2) << ' ' << S.substr(2) << '\n';
+				} else {
+					cout << "NO" << '\n';
+				}
 			}
 		}();
 	}
