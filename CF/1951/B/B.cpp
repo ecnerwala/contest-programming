@@ -6,7 +6,7 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N, K; cin >> N >> K;
+		int N, K; cin >> N >> K; K--;
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
 		int V = A[K];
