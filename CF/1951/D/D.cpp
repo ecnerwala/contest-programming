@@ -18,7 +18,6 @@ int main() {
 			cout << 1 << '\n';
 			cout << 1 << '\n';
 		} else {
-			// You can't charge a small number
 			cout << "NO" << '\n';
 		}
 	}
