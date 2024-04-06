@@ -876,6 +876,20 @@ int main() {
 		tot_diam += diam * prob;
 	}
 
+	// Quarter point of an edge
+	for (int h_side = 1; h_side <= N; h_side++) {
+		num prob = 0;
+		for (int i = 1; i < N; i++) {
+			prob += exact_height[h_side - 1][i] * exact_height[h_side][N - i];
+		}
+		prob += P2;
+		prob *= fact[N];
+		num diam = 2 * h_side + 1;
+		cerr << "edge2 " << h_side << ' ' << diam << ' ' << prob << '\n';
+		tot_prob += prob;
+		tot_diam += diam * prob;
+	}
+
 	// Centered at a vertex
 	for (int h = 0; h <= N; h++) {
 		num prob = exact_height[h][N];
