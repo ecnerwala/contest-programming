@@ -860,7 +860,7 @@ int main() {
 	for (int h_side = 0; h_side <= N; h_side++) {
 		series_t a = exact_height[h_side];
 
-		num diam = h_side * 2 + (P1 * 1 + P2 + 2);
+		num diam = h_side * 2 + (P1 * 1 + P2 * 2);
 
 		num prob = 0;
 		for (int i = 1; i < N; i++) prob += a[i] * a[N-i];
