@@ -526,10 +526,30 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
+	std::mt19937_64 mt(48);
+	constexpr bool TESTING = true;
+	int T;
+	if (TESTING) {
+		T = 1000;
+	} else {
+		cin >> T;
+	}
 	while (T--) {
-		int N, K; cin >> N >> K;
-		std::string S; cin >> S;
+		int N, K;
+		if (TESTING) {
+			N = std::uniform_int_distribution<int>(1, 10)(mt);
+			K = std::uniform_int_distribution<int>(1, 10)(mt);
+		} else {
+			cin >> N >> K;
+		}
+		std::string S;
+		if (TESTING) {
+			S.resize(N);
+			for (char& c : S) c = std::uniform_int_distribution<char>('a', 'e')(mt);
+		} else {
+			cin >> S;
+		}
+		cerr << "Running test " << N << ' ' << K << ' ' << S << '\n';
 		SuffixArray sa = SuffixArray::construct(S + std::string(S.rbegin(), S.rend()));
 
 		auto get_ext = [&](int l, int r) {
