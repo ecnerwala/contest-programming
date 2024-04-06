@@ -245,6 +245,42 @@ public:
 		return construct_raw(compressed_s, sigma);
 	}
 
+	template <typename String> static SuffixArray bucket_and_construct(const String& S) {
+		using std::begin;
+		using std::end;
+		using value_type = typename std::iterator_traits<decltype(begin(S))>::value_type;
+		using compressed_value_type = typename std::conditional<
+			sizeof(value_type) < sizeof(index_t),
+			value_type,
+			index_t
+		>::type;
+
+		std::vector<compressed_value_type> compressed_s(sz(S));
+		int sigma = 0;
+
+		if (sz(S) > 0) {
+			value_type lo = *begin(S), hi = *begin(S);
+			for (const auto& x : S) {
+				if (x < lo) lo = x;
+				if (x > hi) hi = x;
+			}
+
+			std::vector<compressed_value_type> buckets(hi - lo + 1, 0);
+			for (const auto& x : S) {
+				buckets[x] = 1;
+			}
+			for (int v = 0; v < int(buckets.size()); v++) {
+				if (buckets[v]) buckets[v] = sigma++;
+			}
+
+			for (int i = 0; i < sz(S); i++) {
+				compressed_s[i] = buckets[S[i] - lo];
+			}
+		}
+
+		return construct_raw(compressed_s, sigma);
+	}
+
 	index_t get_lcp(index_t a, index_t b) const {
 		if (a == b) return N-a;
 		a = rank[a], b = rank[b];
@@ -556,7 +592,7 @@ int main() {
 	while (T--) {
 		int N, K; cin >> N >> K;
 		std::string S; cin >> S;
-		SuffixArray sa = SuffixArray::shift_and_construct(S + std::string(S.rbegin(), S.rend()));
+		SuffixArray sa = SuffixArray::bucket_and_construct(S + std::string(S.rbegin(), S.rend()));
 
 		auto get_ext = [&](int l, int r) {
 			assert(0 <= l && l <= r && r <= N);
