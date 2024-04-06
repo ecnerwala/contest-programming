@@ -221,12 +221,12 @@ public:
 		return construct_raw(compressed_s, sigma);
 	}
 
-	template <typename String> static SuffixArray shift_and_construct(String&& S) {
+	template <typename String> static SuffixArray shift_and_construct(const String& S) {
 		using std::begin;
 		using std::end;
 		using value_type = typename std::iterator_traits<decltype(begin(S))>::value_type;
 
-		std::vector<value_type> compressed_s(std::forward<String>(S));
+		std::vector<value_type> compressed_s(begin(S), end(S));
 		int N = sz(compressed_s);
 		int sigma = 0;
 
