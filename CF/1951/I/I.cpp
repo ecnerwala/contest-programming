@@ -150,26 +150,31 @@ int main() {
 		auto check = [&]() {
 			//cerr << "Check " << '\n';
 			//for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
-			for (int z = 0; z < N; z++) {
-				MCMF_Dinic<int, int> flower(2+N+M);
-				for (int i = 0; i < N; i++) {
-					if (i != z) {
-						flower.add_edge(N+M, i, K, 0);
-					}
-				}
-				int tot_cnts = 0;
-				for (int e = 0; e < M; e++) {
-					// why not
-					if (cnts[e] > K) return false;
-					tot_cnts += cnts[e];
+			MCMF_Dinic<int, int> flower(2+N+M);
+			for (int i = 0; i < N; i++) {
+				flower.add_edge(N+M, i, K, 0);
+			}
+			int tot_cnts = 0;
+			for (int e = 0; e < M; e++) {
+				// why not
+				if (cnts[e] > K) return false;
+				tot_cnts += cnts[e];
 
-					flower.add_edge(edges[e].dest[0], N+e, K, 0);
-					flower.add_edge(edges[e].dest[1], N+e, K, 0);
-					flower.add_edge(N+e, N+M+1, cnts[e], 0);
-				}
-				if (flower.max_flow(N+M, N+M+1).first != tot_cnts) {
+				flower.add_edge(edges[e].dest[0], N+e, K, 0);
+				flower.add_edge(edges[e].dest[1], N+e, K, 0);
+				flower.add_edge(N+e, N+M+1, cnts[e], 0);
+			}
+			if (flower.max_flow(N+M, N+M+1).first != tot_cnts) {
+				return false;
+			}
+			int cur_source = N+M;
+			for (int i = 0; i < N; i++) {
+				int f = flower.max_flow(cur_source, i).first;
+				assert(f <= K);
+				if (f != K) {
 					return false;
 				}
+				cur_source = i;
 			}
 			return true;
 		};
