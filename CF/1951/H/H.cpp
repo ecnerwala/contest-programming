@@ -11,9 +11,9 @@ int main() {
 		// When you go up by 1 level, you merge children's counts, then cancel 1 surplus with 1 deficit
 		// You win if there's 0 deficit at the top
 		int K; cin >> K;
-		int N = int(1 << K);
 		std::vector<int> A(1<<K);
 		for (auto& a : A) { cin >> a; a--; }
+
 		std::vector<int> ans(K+1);
 		std::vector<int> buf(1<<K);
 		// surplus, deficit
