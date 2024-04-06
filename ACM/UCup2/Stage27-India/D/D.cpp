@@ -838,15 +838,9 @@ int main() {
 		s[0] = 0;
 		by_height[h] = s;
 	}
-	for (int i = 0; i <= N; i++) {
-		cerr << by_height[2*N][i] * fact[i] << ' ';
-	}
-	cerr << '\n';
+	//for (int i = 0; i <= N; i++) { cerr << by_height[2*N][i] * fact[i] << ' '; } cerr << '\n';
 
-	for (int h = 0; h <= 2*N; h++) {
-		cerr << by_height[h][N] * fact[N] << ' ';
-	}
-	cerr << '\n';
+	//for (int h = 0; h <= 2*N; h++) { cerr << by_height[h][N] * fact[N] << ' '; } cerr << '\n';
 
 	std::vector<series_t> exact_height = by_height;
 	for (int i = 1; i <= 2*N; i++) {
