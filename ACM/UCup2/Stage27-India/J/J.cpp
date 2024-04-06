@@ -161,10 +161,10 @@ int main() {
 				std::priority_queue<int> pq;
 				int ans = 0;
 				for (int a : A) {
-					ans += a;
+					ans -= a;
 					pq.push(a);
 					pq.push(a);
-					ans -= pq.top();
+					ans += pq.top();
 					pq.pop();
 				}
 				cerr << ans << '\n';
