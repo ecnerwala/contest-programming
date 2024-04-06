@@ -218,7 +218,7 @@ int main() {
 				for (auto v : inv_Q) { cerr << v << ' '; } cerr << '\n';
 				cerr << "cur_inv " << cur_inv << '\n';
 				for (int j = i+1; cur_inv < K; j ++) {
-					assert(j <= N-1-i);
+					assert(j < N);
 					assert(inv_Q[j] == inv_Q[i] + 1);
 					if (inv_P[inv_Q[i]] < inv_P[inv_Q[j]]) {
 						cur_inv += 2;
