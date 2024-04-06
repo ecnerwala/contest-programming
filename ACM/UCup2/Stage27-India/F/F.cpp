@@ -224,7 +224,7 @@ int main() {
 
 		num cur_ans = orig_ans;
 		for (int c = N; c <= C; c++) {
-			cur_ans += num(c - N);
+			cur_ans += 2 * num(c - N);
 			int64_t a;
 			if (lidx < int(leaves.size()) && (didx == didx2 || leaves[lidx] < diffs[didx])) {
 				a = leaves[lidx++];
