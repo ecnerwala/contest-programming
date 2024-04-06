@@ -60,7 +60,8 @@ int main() {
 			}
 			if (!all_pal) {
 				cout << "YES" << '\n';
-				cout << N << '\n';
+				cout << 1 << '\n';
+				cout << S << '\n';
 				return;
 			}
 
@@ -76,7 +77,8 @@ int main() {
 			for (int i = 1; i < N; i++) {
 				if (!is_pal(0, i) && !is_pal(i, N)) {
 					cout << "YES" << '\n';
-					cout << i << ' ' << N-i << '\n';
+					cout << 2 << '\n';
+					cout << S.substr(0, i) << ' ' << S.substr(i) << '\n';
 					return;
 				}
 			}
