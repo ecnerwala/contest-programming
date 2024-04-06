@@ -228,16 +228,16 @@ int main() {
 			if (ma - mi == 1) {
 				// Then the thing with cost exactly ma is bad
 				int e = int(ma % M);
-				//cerr << "bad cost " << ma << ' ' << e << ' ' << ma / M << '\n';
+				cerr << "bad cost " << ma << ' ' << e << ' ' << ma / M << '\n';
 				int64_t c = (ma - e) / M;
 				assert(c >= edges[e].a + edges[e].b);
 				c -= edges[e].b;
 				c /= edges[e].a;
-				c++;
+				c--;
 				c /= 2;
+				cerr << "cap " << e << ' ' << c << '\n';
 				assert(cap[e] == -1);
-				cap[e] = int(c-1);
-				//cerr << "cap " << e << ' ' << cap[e] << '\n';
+				cap[e] = int(c);
 				num_cap++;
 			}
 		}
