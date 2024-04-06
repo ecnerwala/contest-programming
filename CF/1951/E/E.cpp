@@ -21,13 +21,26 @@ int main() {
 				cout << "YES" << '\n';
 				cout << 1 << '\n';
 				cout << S << '\n';
-			} else if (N == 1) {
-				cout << "NO" << '\n';
-			} else if (S[1] == S[0]) {
+			} else {
 				int s = 0;
 				while (s < N/2 && S[s] == S[0]) s++;
 				if (s == N/2) {
 					cout << "NO" << '\n';
+				} else if (s == 1) {
+					bool alt = true;
+					for (int i = N-1; i >= 2; i--) {
+						if (S[i] != S[i&1]) {
+							alt = false;
+							break;
+						}
+					}
+					if (!alt) {
+						cout << "YES" << '\n';
+						cout << 2 << '\n';
+						cout << S.substr(0, 2) << ' ' << S.substr(2) << '\n';
+					} else {
+						cout << "NO" << '\n';
+					}
 				} else if (S[2*s+1] == S[s]) {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
@@ -36,21 +49,6 @@ int main() {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
-				}
-			} else {
-				bool alt = true;
-				for (int i = N-1; i >= 2; i--) {
-					if (S[i] != S[i&1]) {
-						alt = false;
-						break;
-					}
-				}
-				if (!alt) {
-					cout << "YES" << '\n';
-					cout << 2 << '\n';
-					cout << S.substr(0, 2) << ' ' << S.substr(2) << '\n';
-				} else {
-					cout << "NO" << '\n';
 				}
 			}
 		}();
