@@ -230,6 +230,7 @@ int main() {
 			cerr << "c = " << c << ' ' << "cur_ans = " << cur_ans << '\n';
 			tot_ans += cube(cur_ans);
 		}
+		cout << tot_ans << '\n';
 	}
 
 	return 0;
