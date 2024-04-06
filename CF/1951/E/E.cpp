@@ -18,32 +18,26 @@ int main() {
 
 			if (N == 1) {
 				cout << "NO" << '\n';
+			} else if (!is_pal(0, N)) {
+				cout << "YES" << '\n';
+				cout << 1 << '\n';
+				cout << S << '\n';
 			} else if (S[1] == S[0]) {
 				int s = 0;
-				while (s < N && S[s] == S[0]) s++;
-				if (s == N) {
+				while (s < N/2 && S[s] == S[0]) s++;
+				if (s == N/2) {
 					cout << "NO" << '\n';
-				} else if (!is_pal(0, N)) {
-					cout << "YES" << '\n';
-					cout << 1 << '\n';
-					cout << S << '\n';
-				} else if (N == 2*s+1) {
-					cout << "NO" << '\n';
-				} else if (!is_pal(s+1, N)) {
-					cout << "YES" << '\n';
-					cout << 2 << '\n';
-					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
-				} else {
+				} else if (S[2*s+1] == S[s]) {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
+				} else {
+					cout << "YES" << '\n';
+					cout << 2 << '\n';
+					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
 				}
 			} else {
-				if (!is_pal(0, N)) {
-					cout << "YES" << '\n';
-					cout << 1 << '\n';
-					cout << S << '\n';
-				} else if (!is_pal(2, N)) {
+				if (!is_pal(2, N)) {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, 2) << ' ' << S.substr(2) << '\n';
