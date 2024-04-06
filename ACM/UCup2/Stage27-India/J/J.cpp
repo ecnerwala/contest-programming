@@ -156,20 +156,25 @@ int main() {
 		int N, K; cin >> N >> K;
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
-		if (K == N) {
+
+		auto solve_A = [&]() -> int64_t {
+			std::priority_queue<int> pq;
+			int64_t ans = 0;
+			for (int a : A) {
+				ans -= a;
+				pq.push(a);
+				pq.push(a);
+				ans += pq.top();
+				pq.pop();
+			}
+			return ans;
+		};
+		if (K == 1) {
+			cout << solve_A() << '\n';
+		} else if (K == N) {
 			int64_t best_ans = 1e18;
 			for (int z = 0; z < N; z++) {
-				std::priority_queue<int> pq;
-				int64_t ans = 0;
-				for (int a : A) {
-					ans -= a;
-					pq.push(a);
-					pq.push(a);
-					ans += pq.top();
-					pq.pop();
-				}
-				for (auto a : A) { cerr << a << ' '; } cerr << '\n';
-				cerr << ans << '\n';
+				int64_t ans = solve_A();
 				best_ans = std::min(best_ans, ans);
 				std::rotate(A.begin(), A.begin() + 1, A.end());
 			}
