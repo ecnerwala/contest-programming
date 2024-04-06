@@ -250,12 +250,12 @@ private:
 		sa = std::vector<index_t>(N+1);
 		for (auto s : S) assert(index_t(s) >= 0);
 		int sigma = N ? *max_element(S.begin(), S.end())+1 : 0;
-		std::cerr << N << ' ' << sigma << '\n';
 		std::vector<index_t> tmp(std::max(N, sigma * 2));
 		SuffixArray::sais<String>(N, S, sa.data(), sigma, tmp.data());
 	}
 
 	template <typename String> static void sais(int N, const String& S, index_t* sa, int sigma, index_t* tmp) {
+		std::cerr << "Running iteration " << N << ' ' << sigma << ' ' << tmp << '\n';
 		if (N == 0) {
 			sa[0] = 0;
 			return;
@@ -514,6 +514,20 @@ private:
 			lcp_idx[i] = {lcp[i], i+1};
 		}
 		rmq = RangeMinQuery<std::pair<index_t, index_t>>(std::move(lcp_idx));
+	}
+};
+
+class PrefixArray : private SuffixArray {
+	PrefixArray(const SuffixArray& sa_) : SuffixArray(sa_) {}
+	PrefixArray(SuffixArray&& sa_) : SuffixArray(std::move(sa_)) {}
+public:
+	PrefixArray() {}
+	template <typename String> static PrefixArray construct(const String& S) {
+		return PrefixArray(SuffixArray::construct(String(S.rbegin(), S.rend())));
+	}
+
+	int get_lcs(int a, int b) const {
+		return SuffixArray::get_lcp(SuffixArray::N - a, SuffixArray::N - b);
 	}
 };
 
