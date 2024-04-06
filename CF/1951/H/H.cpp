@@ -55,6 +55,7 @@ int main() {
 			}
 			ans[d] = ma;
 		}
+
 		for (int d = 1; d <= K; d++) {
 			cout << ans[d] << " \n"[d==K];
 		}
