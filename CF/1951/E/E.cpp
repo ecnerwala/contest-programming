@@ -32,11 +32,15 @@ int main() {
 				cout << V.substr(0, s+1) << ' ' << V.substr(s+1) << '\n';
 			} else if (s == 1) {
 				bool alt = true;
-				for (int i = (N-1)/2; i > 0; i--) {
-					if (S[i] != S[i&1]) {
-						alt = false;
-						break;
+				if (N & 1) {
+					for (int i = 2; i <= N/2; i++) {
+						if (S[i] != S[i&1]) {
+							alt = false;
+							break;
+						}
 					}
+				} else {
+					alt = false;
 				}
 				if (!alt) {
 					cout << "YES" << '\n';
