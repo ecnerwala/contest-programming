@@ -31,7 +31,7 @@ int main() {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
-				} else if (!is_pal(s+2, N)) {
+				} else if (N != 2*s+1) {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
