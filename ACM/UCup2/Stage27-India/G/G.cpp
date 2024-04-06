@@ -1,13 +1,5 @@
 #include <bits/stdc++.h>
 
-void wssert(bool b) {
-	if (!b) {
-		std::cout << "GARBAGE" << '\n';
-		exit(0);
-	}
-}
-
-
 /**
  * manacher(S): return the maximum palindromic substring of S centered at each point
  *
@@ -182,11 +174,11 @@ public:
 
 	SuffixArray() {}
 
-	template <typename String> static SuffixArray construct(const String& S) {
+	template <typename String> static SuffixArray construct_raw(const String& S, index_t sigma) {
 		int N = sz(S);
 		SuffixArray sa(N);
 
-		sa.build_sa(S);
+		sa.build_sa(S, sigma);
 		sa.build_rank();
 		sa.build_lcp(S);
 		sa.build_rmq();
@@ -194,39 +186,64 @@ public:
 		return sa;
 	}
 
-	template <typename String, typename F> static SuffixArray map_and_construct(const String& S, const F& f) {
+	template <typename String, typename F> static SuffixArray map_and_construct(const String& S, const F& f, int sigma) {
 		std::vector<decltype((f(S[0])))> mapped(sz(S));
 		for (int i = 0; i < sz(S); i++) {
 			mapped[i] = f(S[i]);
+			assert(0 <= int(mapped[i]) && int(mapped[i]) < sigma);
 		}
-		return construct(mapped);
+		return construct_raw(mapped, sigma);
 	}
 
-	template <typename String> static SuffixArray compress_and_construct(const String& S) {
+	template <typename String> static SuffixArray sort_and_construct(const String& S) {
 		using std::begin;
 		using std::end;
 		using value_type = typename std::iterator_traits<decltype(begin(S))>::value_type;
-		std::vector<value_type> vals(begin(S), end(S));
-		std::sort(vals.begin(), vals.end());
-		vals.resize(unique(vals.begin(), vals.end()) - vals.begin());
 		using compressed_value_type = typename std::conditional<
 			sizeof(value_type) < sizeof(index_t),
 			value_type,
 			index_t
 		>::type;
+
 		std::vector<compressed_value_type> compressed_s(sz(S));
-		for (int i = 0; i < sz(S); i++) {
-			compressed_s[i] = compressed_value_type(index_t(lower_bound(vals.begin(), vals.end(), S[i]) - vals.begin()));
+		int sigma = 0;
+
+		{
+			std::vector<value_type> vals(begin(S), end(S));
+			std::sort(vals.begin(), vals.end());
+			vals.resize(unique(vals.begin(), vals.end()) - vals.begin());
+			for (int i = 0; i < sz(S); i++) {
+				compressed_s[i] = compressed_value_type(index_t(std::lower_bound(vals.begin(), vals.end(), S[i]) - vals.begin()));
+			}
+			sigma = int(vals.size());
 		}
-		return construct(compressed_s);
+
+		return construct_raw(compressed_s, sigma);
 	}
 
-	static SuffixArray construct_lower_alpha(const std::string& s) {
-		return SuffixArray::map_and_construct(s, [](char c) -> char { return char(c - 'a'); });
-	}
+	template <typename String> static SuffixArray shift_and_construct(String&& S) {
+		using std::begin;
+		using std::end;
+		using value_type = typename std::iterator_traits<decltype(begin(S))>::value_type;
 
-	static SuffixArray construct_upper_alpha(const std::string& s) {
-		return SuffixArray::map_and_construct(s, [](char c) -> char { return char(c - 'A'); });
+		std::vector<value_type> compressed_s(std::forward<String>(S));
+		int N = sz(compressed_s);
+		int sigma = 0;
+
+		if (N > 0) {
+			value_type lo = *begin(compressed_s), hi = *begin(compressed_s);
+			for (const auto& x : compressed_s) {
+				if (x < lo) lo = x;
+				if (x > hi) hi = x;
+			}
+
+			for (int i = 0; i < N; i++) {
+				compressed_s[i] = value_type(compressed_s[i] - lo);
+			}
+			sigma = int(hi - lo + 1);
+		}
+
+		return construct_raw(compressed_s, sigma);
 	}
 
 	index_t get_lcp(index_t a, index_t b) const {
@@ -246,16 +263,15 @@ public:
 private:
 	explicit SuffixArray(int N_) : N(N_) {}
 
-	template <typename String> void build_sa(const String& S) {
+	template <typename String> void build_sa(const String& S, index_t sigma) {
 		sa = std::vector<index_t>(N+1);
-		for (auto s : S) assert(index_t(s) >= 0);
-		int sigma = N ? *max_element(S.begin(), S.end())+1 : 0;
+		assert(sigma >= 0);
+		for (auto s : S) assert(0 <= index_t(s) && index_t(s) < sigma);
 		std::vector<index_t> tmp(sigma + std::max(N, sigma));
 		SuffixArray::sais<String>(N, S, sa.data(), sigma, tmp.data());
 	}
 
 	template <typename String> static void sais(int N, const String& S, index_t* sa, int sigma, index_t* tmp) {
-		std::cerr << "Running iteration " << N << ' ' << sigma << ' ' << tmp << '\n';
 		if (N == 0) {
 			sa[0] = 0;
 			return;
@@ -522,9 +538,11 @@ class PrefixArray : private SuffixArray {
 	PrefixArray(SuffixArray&& sa_) : SuffixArray(std::move(sa_)) {}
 public:
 	PrefixArray() {}
-	template <typename String> static PrefixArray construct(const String& S) {
-		return PrefixArray(SuffixArray::construct(String(S.rbegin(), S.rend())));
+	template <typename String> static PrefixArray construct_raw(const String& S, int sigma) {
+		return PrefixArray(SuffixArray::construct_raw(String(S.rbegin(), S.rend())), sigma);
 	}
+
+	// TODO: Fill in other constructors
 
 	int get_lcs(int a, int b) const {
 		return SuffixArray::get_lcp(SuffixArray::N - a, SuffixArray::N - b);
@@ -535,40 +553,14 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	std::mt19937_64 mt(48);
-	constexpr bool TESTING = false;
-	int T;
-	if (TESTING) {
-		T = 100000;
-	} else {
-		cin >> T;
-	}
+	int T; cin >> T;
 	while (T--) {
-		int N, K;
-		if (TESTING) {
-			N = std::uniform_int_distribution<int>(1, 10)(mt);
-			K = std::uniform_int_distribution<int>(1, 10)(mt);
-		} else {
-			cin >> N >> K;
-		}
-		std::string S;
-		if (TESTING) {
-			S.resize(N);
-			for (char& c : S) c = std::uniform_int_distribution<char>('a', 'b')(mt);
-		} else {
-			cin >> S;
-		}
-		if (TESTING) {
-			cerr << "Running test " << N << ' ' << K << ' ' << S << '\n';
-		}
-
-		std::string S_rev = S; std::reverse(S_rev.begin(), S_rev.end());
-		std::string S_pal = S + S_rev;
-		cerr << S_pal << '\n';
-		SuffixArray sa = SuffixArray::construct_lower_alpha(S_pal);
+		int N, K; cin >> N >> K;
+		std::string S; cin >> S;
+		SuffixArray sa = SuffixArray::shift_and_construct(S + std::string(S.rbegin(), S.rend()));
 
 		auto get_ext = [&](int l, int r) {
-			wssert(0 <= l && l <= r && r <= N);
+			assert(0 <= l && l <= r && r <= N);
 			return std::min(N-r, sa.get_lcp(r, 2*N-l));
 		};
 		int ans = 0;
