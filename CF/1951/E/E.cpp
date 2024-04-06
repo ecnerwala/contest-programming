@@ -26,6 +26,10 @@ int main() {
 				while (s < N/2 && S[s] == S[0]) s++;
 				if (s == N/2) {
 					cout << "NO" << '\n';
+				} else if (S[2*s+1] != S[s]) {
+					cout << "YES" << '\n';
+					cout << 2 << '\n';
+					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
 				} else if (s == 1) {
 					bool alt = true;
 					for (int i = N-1; i >= 2; i--) {
@@ -41,14 +45,10 @@ int main() {
 					} else {
 						cout << "NO" << '\n';
 					}
-				} else if (S[2*s+1] == S[s]) {
-					cout << "YES" << '\n';
-					cout << 2 << '\n';
-					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
 				} else {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
-					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
+					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
 				}
 			}
 		}();
