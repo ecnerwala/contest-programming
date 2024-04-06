@@ -140,8 +140,11 @@ int main() {
 		std::vector<num> delta(M);
 		std::vector<num> V(M+1);
 		delta[0] = num(M+1) * num(M-1) / (num(M) * num(3));
+		num inv_M = inv(num(M));
+		num acc = 0;
 		for (int i = 1; i < M; i++) {
-			delta[i] = delta[i-1] - 2 * num(i) / num(M);
+			acc += inv_M;
+			delta[i] = delta[i-1] - 2 * acc;
 		}
 		V[0] = 0;
 		for (int i = 1; i <= M; i++) {
