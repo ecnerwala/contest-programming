@@ -169,6 +169,19 @@ public:
 	}
 };
 
+int64_t count_inv(const std::vector<int>& P) {
+	int N = int(P.size());
+	binary_indexed_tree<int> bit(N);
+	int64_t ans = 0;
+	for (int i = N-1; i >= 0; i--) {
+		int cnt = 0;
+		for (auto v : bit.prefix(P[i])) cnt += v;
+		ans += cnt;
+		for (auto& v : bit.suffix(P[i])) v++;
+	}
+	return ans;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
