@@ -204,6 +204,7 @@ int main() {
 			cout << "NO" << '\n';
 			continue;
 		}
+		assert(std::accumulate(non_inv_by_bigger_P.begin(), non_inv_by_bigger_P.end(), int64_t(0)) == int64_t(N) * int64_t(N-1) - inv_0);
 		std::vector<int> inv_Q(N);
 		int64_t cur_inv = inv_0;
 		for (int i = 0; i < N; i++) {
