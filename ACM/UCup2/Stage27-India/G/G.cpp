@@ -549,6 +549,7 @@ int main() {
 
 		std::string S_rev = S; std::reverse(S_rev.begin(), S_rev.end());
 		std::string S_pal = S + S_rev;
+		cerr << S_pal << '\n';
 		SuffixArray sa = SuffixArray::construct_lower_alpha(S_pal);
 
 		auto get_ext = [&](int l, int r) {
