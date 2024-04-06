@@ -157,9 +157,10 @@ int main() {
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
 		if (K == N) {
+			int64_t best_ans = 1e18;
 			for (int z = 0; z < N; z++) {
 				std::priority_queue<int> pq;
-				int ans = 0;
+				int64_t ans = 0;
 				for (int a : A) {
 					ans -= a;
 					pq.push(a);
@@ -169,8 +170,10 @@ int main() {
 				}
 				for (auto a : A) { cerr << a << ' '; } cerr << '\n';
 				cerr << ans << '\n';
+				best_ans = std::min(best_ans, ans);
 				std::rotate(A.begin(), A.begin() + 1, A.end());
 			}
+			cout << best_ans << '\n';
 		} else {
 			assert(N >= 2);
 
