@@ -175,7 +175,7 @@ int main() {
 		int num_cap = 0;
 		std::vector<int> cap(M, -1);
 		// The ith edge costs (b[i] + a[i] (2i-1)) * M + e
-		const int64_t INF_COST = M * 4 * (K+1) * 1000;
+		const int64_t INF_COST = M * 4 * int64_t(K+1) * 1000;
 		int64_t mi = 0;
 		int64_t ma = INF_COST;
 		while (num_cap < M) {
