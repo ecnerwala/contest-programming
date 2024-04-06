@@ -222,11 +222,11 @@ public:
 	}
 
 	static SuffixArray construct_lower_alpha(const std::string& s) {
-		return SuffixArray::map_and_construct(s, [](char c) -> char { return char(c - 'a'); });
+		return SuffixArray::map_and_construct(s, [](char c) -> index_t { return char(c - 'a'); });
 	}
 
 	static SuffixArray construct_upper_alpha(const std::string& s) {
-		return SuffixArray::map_and_construct(s, [](char c) -> char { return char(c - 'A'); });
+		return SuffixArray::map_and_construct(s, [](char c) -> index_t { return char(c - 'A'); });
 	}
 
 	index_t get_lcp(index_t a, index_t b) const {
