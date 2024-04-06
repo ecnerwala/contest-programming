@@ -214,6 +214,7 @@ int main() {
 			assert(int(leaves.size()) == 2);
 			leaves.pop_back();
 		}
+		std::sort(leaves.begin(), leaves.end());
 
 		std::vector<int64_t> diffs(N+2);
 
