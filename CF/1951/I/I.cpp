@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/priority_queue.hpp>
 
 template <typename flow_t = int, typename cost_t = int64_t>
 struct MCMF_Dinic {
@@ -145,6 +146,105 @@ int main() {
 			int u, v, a, b; cin >> u >> v >> a >> b; u--, v--;
 			edges[e] = {{u, v}, a, b};
 		}
+		std::vector<int> cnts(M);
+		auto check = [&]() {
+			for (int z = 0; z < N; z++) {
+				MCMF_Dinic<int, int> flower(3+N+M);
+				for (int i = 0; i < N; i++) {
+					if (i != z) {
+						flower.add_edge(N+M, i, K, 0);
+					}
+				}
+				int tot_cnts = 0;
+				for (int e = 0; e < M; e++) {
+					// why not
+					if (cnts[e] > K) return false;
+					tot_cnts += cnts[e];
+
+					flower.add_edge(edges[e].dest[0], N+e, K, 0);
+					flower.add_edge(edges[e].dest[1], N+e, K, 0);
+					flower.add_edge(N+e, N+M+1, cnts[e], 0);
+				}
+				if (flower.max_flow(N+M+2, N+M+1).first != tot_cnts) {
+					return false;
+				}
+			}
+			return true;
+		};
+
+		int num_cap = 0;
+		std::vector<int> cap(M, -1);
+		// The ith edge costs (b[i] + a[i] (2i-1)) * M + e
+		const int64_t INF_COST = M * 4 * (K+1) * 1000;
+		int64_t mi = 0;
+		int64_t ma = INF_COST;
+		while (num_cap < M) {
+			int64_t max_take = (mi + ma) / 2;
+			// find the first edge to delete
+			int64_t next_edge = ma;
+			int64_t prev_edge = mi + 1;
+			for (int e = 0; e < M; e++) {
+				if (max_take < e) {
+					cnts[e] = 0;
+				} else {
+					int64_t c = (max_take - e) / M;
+					if (c < edges[e].a + edges[e].b) {
+						cnts[e] = 0;
+					} else {
+						c -= edges[e].b;
+						c /= edges[e].a;
+						c++;
+						c /= 2;
+						if (c > K) c = K+1;
+
+						cnts[e] = int(c);
+					}
+				}
+				if (cap[e] != -1) {
+					assert(cnts[e] >= cap[e]);
+					cnts[e] = cap[e];
+				}
+				int64_t take_edge;
+				if (cnts[e] == 0) {
+					take_edge = 0;
+				} else {
+					take_edge = (edges[e].b + edges[e].a * int64_t(2 * cnts[e] - 1)) * M + e;
+				}
+				prev_edge = std::max(prev_edge, take_edge);
+				int64_t no_take_edge;
+				if (cap[e] != -1) {
+					no_take_edge = INF_COST;
+				} else {
+					no_take_edge = (edges[e].b + edges[e].a * int64_t(2 * (cnts[e] + 1) - 1)) * M + e;
+				}
+				next_edge = std::min(next_edge, no_take_edge);
+			}
+			if (check()) {
+				// we're good
+				mi = next_edge - 1;
+			} else {
+				ma = prev_edge;
+			}
+			if (ma - mi == 1) {
+				// Then the thing with cost exactly ma is bad
+				int e = int(ma % M);
+				//cerr << "bad cost " << ma << ' ' << e << ' ' << ma / M << '\n';
+				int64_t c = (ma - e) / M;
+				assert(c >= edges[e].a + edges[e].b);
+				c -= edges[e].b;
+				c /= edges[e].a;
+				c++;
+				c /= 2;
+				cap[e] = int(c-1);
+				//cerr << "cap " << e << ' ' << cap[e] << '\n';
+				num_cap++;
+			}
+		}
+		int64_t ans = 0;
+		for (int e = 0; e < M; e++) {
+			ans += int64_t(cap[e]) * (int64_t(edges[e].a) * int64_t(cap[e]) + edges[e].b);
+		}
+		cout << ans << '\n';
 	}
 
 	return 0;
