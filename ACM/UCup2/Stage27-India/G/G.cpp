@@ -236,7 +236,7 @@ public:
 				if (x > hi) hi = x;
 			}
 
-			for (int i = 0; i < N; i++) {
+			for (int i = 0; i < sz(S); i++) {
 				compressed_s[i] = value_type(S[i] - lo);
 			}
 			sigma = int(hi - lo + 1);
