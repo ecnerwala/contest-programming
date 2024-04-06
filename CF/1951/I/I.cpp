@@ -148,8 +148,8 @@ int main() {
 		}
 		std::vector<int> cnts(M);
 		auto check = [&]() {
-			cerr << "Check " << '\n';
-			for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
+			//cerr << "Check " << '\n';
+			//for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
 			for (int z = 0; z < N; z++) {
 				MCMF_Dinic<int, int> flower(2+N+M);
 				for (int i = 0; i < N; i++) {
@@ -230,14 +230,14 @@ int main() {
 			if (ma - mi == 1) {
 				// Then the thing with cost exactly ma is bad
 				int e = int(ma % M);
-				cerr << "bad cost " << ma << ' ' << e << ' ' << ma / M << '\n';
+				//cerr << "bad cost " << ma << ' ' << e << ' ' << ma / M << '\n';
 				int64_t c = (ma - e) / M;
 				assert(c >= edges[e].a + edges[e].b);
 				c -= edges[e].b;
 				c /= edges[e].a;
 				c--;
 				c /= 2;
-				cerr << "cap " << e << ' ' << c << '\n';
+				//cerr << "cap " << e << ' ' << c << '\n';
 				assert(cap[e] == -1);
 				cap[e] = int(c);
 				num_cap++;
