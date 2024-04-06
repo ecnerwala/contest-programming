@@ -41,7 +41,7 @@ int main() {
 			int N = int(S.size());
 			bool all_same = true;
 			for (int i = 0; i < N; i++) {
-				if (S[i] != S[i]) {
+				if (S[i] != S[0]) {
 					all_same = false;
 					break;
 				}
