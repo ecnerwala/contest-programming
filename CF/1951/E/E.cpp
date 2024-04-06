@@ -32,7 +32,7 @@ int main() {
 				cout << V.substr(0, s+1) << ' ' << V.substr(s+1) << '\n';
 			} else if (s == 1) {
 				bool alt = true;
-				for (int i = N-1; i >= 2; i--) {
+				for (int i = (N-1)/2; i > 0; i--) {
 					if (S[i] != S[i&1]) {
 						alt = false;
 						break;
