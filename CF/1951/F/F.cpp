@@ -236,6 +236,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			Q[inv_Q[i]] = i;
 		}
+		cout << "YES" << '\n';
 		for (int i = 0; i < N; i++) {
 			cout << Q[i]+1 << " \n"[i+1==N];
 		}
