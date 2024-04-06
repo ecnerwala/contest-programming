@@ -253,6 +253,11 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			cout << Q[i]+1 << " \n"[i+1==N];
 		}
+		std::vector<int> PQ(N);
+		for (int i = 0; i < N; i++) {
+			PQ[i] = Q[P[i]];
+		}
+		assert(count_inv(PQ) + count_inv(Q) == K);
 	}
 
 	return 0;
