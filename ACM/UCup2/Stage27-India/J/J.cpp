@@ -191,6 +191,7 @@ int main() {
 				for (int i = 0; i+1 < N; i++) {
 					ans = std::min(ans, B[i+1].first - B[i].first);
 				}
+				cout << ans << '\n';
 			} else {
 				cout << 0 << '\n';
 			}
