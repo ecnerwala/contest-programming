@@ -558,7 +558,8 @@ int main() {
 
 		std::string S_rev = S; std::reverse(S_rev.begin(), S_rev.end());
 		std::string S_pal = S + S_rev;
-		SuffixArray sa = SuffixArray::compress_and_construct(S_pal);
+		std::vector<int> chars(S_pal.begin(), S_pal.end());
+		SuffixArray sa = SuffixArray::compress_and_construct(chars);
 
 		auto get_ext = [&](int l, int r) {
 			wssert(0 <= l && l <= r && r <= N);
