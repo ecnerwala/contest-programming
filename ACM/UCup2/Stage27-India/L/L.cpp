@@ -375,6 +375,7 @@ int main() {
 					}
 					cerr << '\n';
 				}
+				res = nres;
 			});
 			cout << res[0] << '\n';
 		} else if (op == '#') {
