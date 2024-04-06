@@ -15,11 +15,12 @@ int main() {
 				if (S[i] == '1') cnt++;
 			}
 			if (cnt & 1) return false;
-			if (cnt != 2) return true;
 			if (cnt == 2) {
 				for (int i = 0; i+1 < N; i++) {
 					if (S[i] == '1' && S[i+1] == '1') return false;
 				}
+				return true;
+			} else {
 				return true;
 			}
 		}() ? "YES" : "NO") << '\n';
