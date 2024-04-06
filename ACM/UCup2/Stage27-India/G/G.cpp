@@ -168,7 +168,6 @@ public:
 	}
 };
 
-
 template<class T> int sz(T&& arg) { using std::size; return int(size(std::forward<T>(arg))); }
 
 class SuffixArray {
@@ -195,8 +194,8 @@ public:
 		return sa;
 	}
 
-	template <typename String, typename F> static SuffixArray map_and_compress(const String& S, const F& f) {
-		std::vector<decltype(f(S[0]))> mapped(sz(S));
+	template <typename String, typename F> static SuffixArray map_and_construct(const String& S, const F& f) {
+		std::vector<decltype((f(S[0])))> mapped(sz(S));
 		for (int i = 0; i < sz(S); i++) {
 			mapped[i] = f(S[i]);
 		}
@@ -206,22 +205,28 @@ public:
 	template <typename String> static SuffixArray compress_and_construct(const String& S) {
 		using std::begin;
 		using std::end;
-		std::vector<decltype(S[0])> vals(begin(S), end(S));
+		using value_type = typename std::iterator_traits<decltype(begin(S))>::value_type;
+		std::vector<value_type> vals(begin(S), end(S));
 		std::sort(vals.begin(), vals.end());
 		vals.resize(unique(vals.begin(), vals.end()) - vals.begin());
-		std::vector<decltype(S[0])> compressed_s(sz(S));
+		using compressed_value_type = typename std::conditional<
+			sizeof(value_type) < sizeof(index_t),
+			value_type,
+			index_t
+		>::type;
+		std::vector<compressed_value_type> compressed_s(sz(S));
 		for (int i = 0; i < sz(S); i++) {
-			compressed_s[i] = lower_bound(vals.begin(), vals.end(), S[i]) - vals.begin();
+			compressed_s[i] = compressed_value_type(index_t(lower_bound(vals.begin(), vals.end(), S[i]) - vals.begin()));
 		}
 		return construct(compressed_s);
 	}
 
 	static SuffixArray construct_lower_alpha(const std::string& s) {
-		return SuffixArray::map_and_compress(s, [](char c) -> char { return char(c - 'a'); });
+		return SuffixArray::map_and_construct(s, [](char c) -> char { return char(c - 'a'); });
 	}
 
 	static SuffixArray construct_upper_alpha(const std::string& s) {
-		return SuffixArray::map_and_compress(s, [](char c) -> char { return char(c - 'A'); });
+		return SuffixArray::map_and_construct(s, [](char c) -> char { return char(c - 'A'); });
 	}
 
 	index_t get_lcp(index_t a, index_t b) const {
@@ -511,20 +516,6 @@ private:
 	}
 };
 
-class PrefixArray : private SuffixArray {
-	PrefixArray(const SuffixArray& sa_) : SuffixArray(sa_) {}
-	PrefixArray(SuffixArray&& sa_) : SuffixArray(std::move(sa_)) {}
-public:
-	PrefixArray() {}
-	template <typename String> static PrefixArray construct(const String& S) {
-		return PrefixArray(SuffixArray::construct(String(S.rbegin(), S.rend())));
-	}
-
-	int get_lcs(int a, int b) const {
-		return SuffixArray::get_lcp(SuffixArray::N - a, SuffixArray::N - b);
-	}
-};
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -582,7 +573,7 @@ int main() {
 			for (int k = 0; k <= K && j + k <= N; k++) {
 				check(p + 2 * k + 2 * get_ext(i, j+k));
 			}
-		}
+	}
 		cout << ans << '\n';
 	}
 
