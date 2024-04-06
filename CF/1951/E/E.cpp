@@ -37,7 +37,14 @@ int main() {
 					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
 				}
 			} else {
-				if (!is_pal(2, N)) {
+				bool alt = true;
+				for (int i = N-1; i >= 2; i--) {
+					if (S[i] != S[i&1]) {
+						alt = false;
+						break;
+					}
+				}
+				if (!alt) {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
 					cout << S.substr(0, 2) << ' ' << S.substr(2) << '\n';
