@@ -593,6 +593,7 @@ int main() {
 		int N, K; cin >> N >> K;
 		std::string S; cin >> S;
 		SuffixArray sa = SuffixArray::bucket_and_construct(S + std::string(S.rbegin(), S.rend()));
+		SuffixArray sb = SuffixArray::bucket_and_construct(std::vector<int64_t>({1, 2, 3, 4}));
 
 		auto get_ext = [&](int l, int r) {
 			assert(0 <= l && l <= r && r <= N);
