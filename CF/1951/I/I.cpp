@@ -149,7 +149,7 @@ int main() {
 		std::vector<int> cnts(M);
 		auto check = [&]() {
 			cerr << "Check " << '\n';
-			for (int v : cnts) cerr << v << ' '; cerr << '\n';
+			for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
 			for (int z = 0; z < N; z++) {
 				MCMF_Dinic<int, int> flower(3+N+M);
 				for (int i = 0; i < N; i++) {
