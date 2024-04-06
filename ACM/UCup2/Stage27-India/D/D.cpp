@@ -843,15 +843,53 @@ int main() {
 	}
 	cerr << '\n';
 
+	std::vector<series_t> exact_height = by_height;
+	for (int i = 1; i <= 2*N; i++) {
+		exact_height[i] -= by_height[i-1];
+	}
+
 	// Now, we need things which are exactly this as the center
 	for (int h = 0; h <= 2*N; h++) {
 		by_height[h];
 	}
+
+	num tot_prob = 0;
+	num tot_diam = 0;
+
 	// Centered at an edge
 	for (int h_side = 0; h_side <= N; h_side++) {
-		series_t a = by_height[h_side];
-		if (h_side > 0) a -= by_height[h_side - 1];
+		series_t a = exact_height[h_side];
+
+		num diam = h_side * 2 + (P1 * 1 + P2 + 2);
+
+		num prob = 0;
+		for (int i = 1; i < N; i++) prob += a[i] * a[N-i];
+		prob /= 2;
+		prob *= fact[N];
+		tot_prob += prob;
+		tot_diam += diam * prob;
 	}
+
+	// Centered at a vertex
+	for (int h = 0; h <= N; h++) {
+		num prob = exact_height[h][N];
+		// subtract off everything with only 1 child of this height
+		if (h >= 1) {
+			series_t h_special = P1 * exact_height[h-1];
+			if (h >= 2) {
+				h_special += P2 * exact_height[h-2];
+			}
+			for (int i = 1; i < N; i++) {
+				prob -= by_height[h-1][i] * h_special[N-i];
+			}
+		}
+		prob *= fact[N];
+		tot_prob += prob;
+		num diam = 2 * h;
+		tot_diam += diam * prob;
+	}
+	cerr << tot_prob << ' ' << tot_diam << '\n';
+	cout << tot_diam / tot_prob << '\n';
 
 	return 0;
 }
