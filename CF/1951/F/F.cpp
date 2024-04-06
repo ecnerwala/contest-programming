@@ -236,6 +236,7 @@ int main() {
 					}
 					std::swap(Q[j], Q[i]);
 				}
+				break;
 			}
 		}
 		assert(cur_inv == K);
