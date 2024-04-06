@@ -187,9 +187,9 @@ int main() {
 				if (nxt == prv) continue;
 				num sub_ways = self(nxt, cur);
 				// this edge with itself
-				orig_ans += sz[nxt];
+				orig_ans += num(sz[nxt]) * num(N - sz[nxt]);
 				// this edge with something in it
-				orig_ans += sub_ways * 2 * (N - sz[nxt]);
+				orig_ans += sub_ways * 2 * num(N - sz[nxt]);
 				// this edge with just a vertex
 				sub_ways += sz[nxt];
 				orig_ans += sub_ways * tot_sub_ways * 2;
