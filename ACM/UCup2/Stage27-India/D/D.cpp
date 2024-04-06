@@ -843,5 +843,15 @@ int main() {
 	}
 	cerr << '\n';
 
+	// Now, we need things which are exactly this as the center
+	for (int h = 0; h <= 2*N; h++) {
+		by_height[h];
+	}
+	// Centered at an edge
+	for (int h_side = 0; h_side <= N; h_side++) {
+		series_t a = by_height[h_side];
+		if (h_side > 0) a -= by_height[h_side - 1];
+	}
+
 	return 0;
 }
