@@ -29,7 +29,8 @@ int main() {
 				} else if (S[2*s+1] != S[s]) {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
-					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
+					std::string_view V(S);
+					cout << V.substr(0, s+1) << ' ' << V.substr(s+1) << '\n';
 				} else if (s == 1) {
 					bool alt = true;
 					for (int i = N-1; i >= 2; i--) {
@@ -41,14 +42,16 @@ int main() {
 					if (!alt) {
 						cout << "YES" << '\n';
 						cout << 2 << '\n';
-						cout << S.substr(0, 2) << ' ' << S.substr(2) << '\n';
+						std::string_view V(S);
+						cout << V.substr(0, 2) << ' ' << V.substr(2) << '\n';
 					} else {
 						cout << "NO" << '\n';
 					}
 				} else {
 					cout << "YES" << '\n';
 					cout << 2 << '\n';
-					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
+					std::string_view V(S);
+					cout << V.substr(0, s+2) << ' ' << V.substr(s+2) << '\n';
 				}
 			}
 		}();
