@@ -843,6 +843,11 @@ int main() {
 	}
 	cerr << '\n';
 
+	for (int h = 0; h <= 2*N; h++) {
+		cerr << by_height[h][N] * fact[N] << ' ';
+	}
+	cerr << '\n';
+
 	std::vector<series_t> exact_height = by_height;
 	for (int i = 1; i <= 2*N; i++) {
 		exact_height[i] -= by_height[i-1];
@@ -885,9 +890,10 @@ int main() {
 			}
 		}
 		prob *= fact[N];
-		tot_prob += prob;
 		num diam = 2 * h;
+
 		cerr << "vert " << h << ' ' << diam << ' ' << prob << '\n';
+		tot_prob += prob;
 		tot_diam += diam * prob;
 	}
 	cerr << tot_prob << ' ' << tot_diam << '\n';
