@@ -148,8 +148,9 @@ int main() {
 			V[i] = V[i-1] + delta[i-1];
 		}
 		for (int i = 0; i <= M; i++) cerr << V[i] << " \n"[i==M];
+
 		for (int i = 0; i < N; i++) {
-			int gap = (i+1 == N ? A[i+1] : A[0] + M) - A[i];
+			int gap = (i+1 != N ? A[i+1] : A[0] + M) - A[i];
 
 			// P[this gap finishes] is exactly gap / M
 			ev_steps += V[gap];
