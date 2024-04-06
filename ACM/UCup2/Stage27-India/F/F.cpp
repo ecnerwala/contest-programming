@@ -211,22 +211,26 @@ int main() {
 			if (adj[i].size() == 1) leaves.push_back((N-1) + 2 * tot_dist[i]);
 		}
 
-		std::vector<int64_t> diffs; diffs.reserve(C);
+		std::vector<int64_t> diffs(N+2);
 
 		int lidx = 0;
 		int didx = 0;
+		int didx2 = 0;
 
 		num cur_ans = orig_ans;
 		for (int c = N; c <= C; c++) {
 			cur_ans += num(c - N);
 			int64_t a;
-			if (lidx < int(leaves.size()) && (didx == int(diffs.size()) || leaves[lidx] < diffs[didx])) {
+			if (lidx < int(leaves.size()) && (didx == didx2 || leaves[lidx] < diffs[didx])) {
 				a = leaves[lidx++];
 			} else {
 				a = diffs[didx++];
+				didx %= int(diffs.size());
 			}
 			cur_ans += num(a);
-			diffs.push_back(a + N-1);
+			diffs[didx2] = a + N-1;
+			didx2++;
+			didx2 %= int(diffs.size());
 			//cerr << "c = " << c << ' ' << "cur_ans = " << cur_ans << '\n';
 			tot_ans += cube(cur_ans);
 		}
