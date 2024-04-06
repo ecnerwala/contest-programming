@@ -102,9 +102,9 @@ int main() {
 				if (cnts[e] > K) return false;
 				tot_cnts += cnts[e];
 
-				flower.add_edge(edges[e].dest[0], N+e, K, 0);
-				flower.add_edge(edges[e].dest[1], N+e, K, 0);
-				flower.add_edge(N+e, N+M+1, cnts[e], 0);
+				flower.add_edge(edges[e].dest[0], N+e, K);
+				flower.add_edge(edges[e].dest[1], N+e, K);
+				flower.add_edge(N+e, N+M+1, cnts[e]);
 			}
 			if (flower.max_flow(N+M, N+M+1) != tot_cnts) {
 				return false;
