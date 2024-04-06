@@ -140,7 +140,7 @@ public:
 	}
 
 	T query(int l, int r) const {
-		wssert(l <= r);
+		assert(l <= r);
 		int bucket_l = (l >> BUCKET_SIZE_LOG);
 		int bucket_r = (r >> BUCKET_SIZE_LOG);
 		if (bucket_l == bucket_r) {
