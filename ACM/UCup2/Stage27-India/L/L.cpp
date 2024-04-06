@@ -380,6 +380,7 @@ int main() {
 			cout << res[0] << '\n';
 		} else if (op == '#') {
 			std::string new_str; cin >> new_str;
+			assert(int(new_str.size()) == r - l);
 			rng.for_each_l_to_r(std::y_combinator([&](auto self, seg_tree::point a) -> void {
 				if (a >= layout.N) {
 					seg[a] = letters[new_str[layout.get_leaf_index(a) - l] - 'a'];
