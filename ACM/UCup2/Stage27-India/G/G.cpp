@@ -1,5 +1,13 @@
 #include <bits/stdc++.h>
 
+void wssert(bool b) {
+	if (!b) {
+		std::cout << "GARBAGE" << '\n';
+		exit(0);
+	}
+}
+
+
 /**
  * manacher(S): return the maximum palindromic substring of S centered at each point
  *
@@ -140,7 +148,7 @@ public:
 	}
 
 	T query(int l, int r) const {
-		assert(l <= r);
+		wssert(l <= r);
 		int bucket_l = (l >> BUCKET_SIZE_LOG);
 		int bucket_r = (r >> BUCKET_SIZE_LOG);
 		if (bucket_l == bucket_r) {
@@ -231,7 +239,7 @@ public:
 	// Get the split in the suffix tree, using half-open intervals
 	// Returns len, idx
 	std::pair<index_t, index_t> get_split(index_t l, index_t r) const {
-		assert(r - l > 1);
+		wssert(r - l > 1);
 		return rmq.query(l, r-2);
 	}
 
@@ -240,7 +248,7 @@ private:
 
 	template <typename String> void build_sa(const String& S) {
 		sa = std::vector<index_t>(N+1);
-		for (auto s : S) assert(index_t(s) >= 0);
+		for (auto s : S) wssert(index_t(s) >= 0);
 		int sigma = N ? *max_element(S.begin(), S.end())+1 : 0;
 		std::vector<index_t> tmp(std::max(N, sigma * 2));
 		SuffixArray::sais<String>(N, S, sa.data(), sigma, tmp.data());
@@ -489,7 +497,7 @@ private:
 	}
 
 	template <typename String> void build_lcp(const String& S) {
-		assert(sz(S) == N);
+		wssert(sz(S) == N);
 		lcp = std::vector<index_t>(N);
 		for (int i = 0, k = 0; i < N - 1; i++) {
 			int j = sa[rank[i]-1];
@@ -527,7 +535,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::mt19937_64 mt(48);
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	int T;
 	if (TESTING) {
 		T = 100000;
@@ -549,11 +557,16 @@ int main() {
 		} else {
 			cin >> S;
 		}
-		cerr << "Running test " << N << ' ' << K << ' ' << S << '\n';
-		SuffixArray sa = SuffixArray::construct(S + std::string(S.rbegin(), S.rend()));
+		if (TESTING) {
+			cerr << "Running test " << N << ' ' << K << ' ' << S << '\n';
+		}
+
+		std::string S_rev = S; std::reverse(S_rev.begin(), S_rev.end());
+		std::string S_pal = S + S_rev;
+		SuffixArray sa = SuffixArray::construct(S_pal);
 
 		auto get_ext = [&](int l, int r) {
-			assert(0 <= l && l <= r && r <= N);
+			wssert(0 <= l && l <= r && r <= N);
 			return std::min(N-r, sa.get_lcp(r, 2*N-l));
 		};
 		int ans = 0;
