@@ -193,6 +193,7 @@ int main() {
 				for (auto v : bit.prefix(P[i])) cnt += v;
 				inv_0 += cnt;
 				non_inv_by_bigger_P[P[i]] = P[i] - cnt;
+				assert(cnt <= P[i]);
 				for (auto& v : bit.suffix(P[i])) v++;
 			}
 		}
