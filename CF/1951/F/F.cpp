@@ -257,7 +257,8 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			PQ[i] = Q[P[i]];
 		}
-		for (auto& v : Q) { cerr << v << ' '; } cerr << '\n';
+		cerr << "P =" << ' '; for (auto& v : P) { cerr << v << ' '; } cerr << '\n';
+		cerr << "Q =" << ' '; for (auto& v : Q) { cerr << v << ' '; } cerr << '\n';
 		cerr << count_inv(PQ) << ' ' << count_inv(Q) << '\n';
 		assert(count_inv(PQ) + count_inv(Q) == K);
 	}
