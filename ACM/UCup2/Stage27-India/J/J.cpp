@@ -167,6 +167,7 @@ int main() {
 					ans += pq.top();
 					pq.pop();
 				}
+				for (auto a : A) { cerr << a << ' '; } cerr << '\n';
 				cerr << ans << '\n';
 				std::rotate(A.begin(), A.begin() + 1, A.end());
 			}
