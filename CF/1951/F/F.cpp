@@ -219,8 +219,27 @@ int main() {
 			continue;
 		}
 		assert(std::accumulate(non_inv_by_bigger_P.begin(), non_inv_by_bigger_P.end(), int64_t(0)) == int64_t(N) * int64_t(N-1) / 2 - inv_0);
-		std::vector<int> inv_Q(N);
+		std::vector<int> Q(N);
 		int64_t cur_inv = inv_0;
+		for (int i = N-1; ; i--) {
+			assert(i >= 0);
+			if (cur_inv + 2 * non_inv_by_bigger_P[i] < K) {
+				Q[i] = N-1-i;
+				cur_inv += 2 * non_inv_by_bigger_P[i];
+			} else {
+				std::iota(Q.begin(), Q.begin() + i + 1, N-1-i);
+				for (int j = i-1; cur_inv < K; j--) {
+					assert(j >= 0);
+					assert(Q[j] == Q[i] - 1);
+					if (inv_P[j] < inv_P[i]) {
+						cur_inv += 2;
+					}
+					std::swap(Q[j], Q[i]);
+				}
+			}
+		}
+		assert(cur_inv == K);
+		/*
 		for (int i = 0; i < N; i++) {
 			if (cur_inv + 2 * non_inv_by_bigger_P[N-1-i] < K) {
 				inv_Q[i] = N-1-i;
@@ -244,11 +263,11 @@ int main() {
 				break;
 			}
 		}
-		assert(cur_inv == K);
 		std::vector<int> Q(N);
 		for (int i = 0; i < N; i++) {
 			Q[inv_Q[i]] = i;
 		}
+		*/
 		cout << "YES" << '\n';
 		for (int i = 0; i < N; i++) {
 			cout << Q[i]+1 << " \n"[i+1==N];
