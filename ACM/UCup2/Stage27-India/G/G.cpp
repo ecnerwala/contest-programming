@@ -168,6 +168,7 @@ public:
 	}
 };
 
+
 template<class T> int sz(T&& arg) { using std::size; return int(size(std::forward<T>(arg))); }
 
 class SuffixArray {
@@ -194,8 +195,8 @@ public:
 		return sa;
 	}
 
-	template <typename String, typename F> static SuffixArray map_and_construct(const String& S, const F& f) {
-		std::vector<decltype((f(S[0])))> mapped(sz(S));
+	template <typename String, typename F> static SuffixArray map_and_compress(const String& S, const F& f) {
+		std::vector<decltype(f(S[0]))> mapped(sz(S));
 		for (int i = 0; i < sz(S); i++) {
 			mapped[i] = f(S[i]);
 		}
@@ -205,28 +206,22 @@ public:
 	template <typename String> static SuffixArray compress_and_construct(const String& S) {
 		using std::begin;
 		using std::end;
-		using value_type = typename std::iterator_traits<decltype(begin(S))>::value_type;
-		std::vector<value_type> vals(begin(S), end(S));
+		std::vector<decltype(S[0])> vals(begin(S), end(S));
 		std::sort(vals.begin(), vals.end());
 		vals.resize(unique(vals.begin(), vals.end()) - vals.begin());
-		using compressed_value_type = typename std::conditional<
-			sizeof(value_type) < sizeof(index_t),
-			value_type,
-			index_t
-		>::type;
-		std::vector<compressed_value_type> compressed_s(sz(S));
+		std::vector<decltype(S[0])> compressed_s(sz(S));
 		for (int i = 0; i < sz(S); i++) {
-			compressed_s[i] = compressed_value_type(index_t(lower_bound(vals.begin(), vals.end(), S[i]) - vals.begin()));
+			compressed_s[i] = lower_bound(vals.begin(), vals.end(), S[i]) - vals.begin();
 		}
 		return construct(compressed_s);
 	}
 
 	static SuffixArray construct_lower_alpha(const std::string& s) {
-		return SuffixArray::map_and_construct(s, [](char c) -> index_t { return char(c - 'a'); });
+		return SuffixArray::map_and_compress(s, [](char c) -> char { return char(c - 'a'); });
 	}
 
 	static SuffixArray construct_upper_alpha(const std::string& s) {
-		return SuffixArray::map_and_construct(s, [](char c) -> index_t { return char(c - 'A'); });
+		return SuffixArray::map_and_compress(s, [](char c) -> char { return char(c - 'A'); });
 	}
 
 	index_t get_lcp(index_t a, index_t b) const {
@@ -239,7 +234,7 @@ public:
 	// Get the split in the suffix tree, using half-open intervals
 	// Returns len, idx
 	std::pair<index_t, index_t> get_split(index_t l, index_t r) const {
-		wssert(r - l > 1);
+		assert(r - l > 1);
 		return rmq.query(l, r-2);
 	}
 
@@ -248,7 +243,7 @@ private:
 
 	template <typename String> void build_sa(const String& S) {
 		sa = std::vector<index_t>(N+1);
-		for (auto s : S) wssert(index_t(s) >= 0);
+		for (auto s : S) assert(index_t(s) >= 0);
 		int sigma = N ? *max_element(S.begin(), S.end())+1 : 0;
 		std::vector<index_t> tmp(std::max(N, sigma * 2));
 		SuffixArray::sais<String>(N, S, sa.data(), sigma, tmp.data());
@@ -497,7 +492,7 @@ private:
 	}
 
 	template <typename String> void build_lcp(const String& S) {
-		wssert(sz(S) == N);
+		assert(sz(S) == N);
 		lcp = std::vector<index_t>(N);
 		for (int i = 0, k = 0; i < N - 1; i++) {
 			int j = sa[rank[i]-1];
