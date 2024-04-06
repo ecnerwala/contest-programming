@@ -137,25 +137,13 @@ int main() {
 
 		num ev_steps = 0;
 
-		std::vector<num> delta(M);
-		std::vector<num> V(M+1);
-		delta[0] = num(M+1) * num(M-1) / (num(M) * num(3));
-		num inv_M = inv(num(M));
-		num acc = 0;
-		for (int i = 1; i < M; i++) {
-			acc += inv_M;
-			delta[i] = delta[i-1] - 2 * acc;
-		}
-		V[0] = 0;
-		for (int i = 1; i <= M; i++) {
-			V[i] = V[i-1] + delta[i-1];
-		}
+		num delta0 = num(M+1) * num(M-1) / (num(M) * num(3));
 
 		for (int i = 0; i < N; i++) {
 			int gap = (i+1 < N ? A[i+1] : A[0] + M) - A[i];
 
 			// P[this gap finishes] is exactly gap / M
-			ev_steps += V[gap];
+			ev_steps += delta0 * num(gap) - num(gap+1) * num(gap) * num(gap-1) / (num(M) * num(3));
 		}
 
 		ev_steps *= num(N) / num(2);
