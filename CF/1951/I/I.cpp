@@ -191,7 +191,7 @@ int main() {
 				}
 				next_edge = std::min(next_edge, no_take_edge);
 			}
-			if (check_many()) {
+			if (check_reuse()) {
 				// we're good
 				mi = next_edge - 1;
 			} else {
