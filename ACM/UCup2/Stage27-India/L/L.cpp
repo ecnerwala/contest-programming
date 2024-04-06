@@ -366,11 +366,14 @@ int main() {
 		if (op == '?') {
 			std::array<int, 5> res{0, INF, INF, INF, INF};
 			rng.for_each_l_to_r([&](seg_tree::point a) {
+				cerr << "query " << a << ' ' << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << '\n';
 				std::array<int, 5> nres{INF, INF, INF, INF, INF};
 				for (int i = 0; i < 5; i++) {
 					for (int j = 0; j < 5; j++) {
+						cerr << seg[a][i][j] << ' ';
 						setmin(nres[j], res[i] + seg[a][i][j]);
 					}
+					cerr << '\n';
 				}
 			});
 			cout << res[0] << '\n';
