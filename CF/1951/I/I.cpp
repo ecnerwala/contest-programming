@@ -151,7 +151,7 @@ int main() {
 			cerr << "Check " << '\n';
 			for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
 			for (int z = 0; z < N; z++) {
-				MCMF_Dinic<int, int> flower(3+N+M);
+				MCMF_Dinic<int, int> flower(2+N+M);
 				for (int i = 0; i < N; i++) {
 					if (i != z) {
 						flower.add_edge(N+M, i, K, 0);
@@ -167,7 +167,7 @@ int main() {
 					flower.add_edge(edges[e].dest[1], N+e, K, 0);
 					flower.add_edge(N+e, N+M+1, cnts[e], 0);
 				}
-				if (flower.max_flow(N+M+2, N+M+1).first != tot_cnts) {
+				if (flower.max_flow(N+M, N+M+1).first != tot_cnts) {
 					return false;
 				}
 			}
