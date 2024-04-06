@@ -25,12 +25,15 @@ int main() {
 					cout << "NO" << '\n';
 				} else if (!is_pal(0, N)) {
 					cout << "YES" << '\n';
+					cout << 1 << '\n';
 					cout << S << '\n';
 				} else if (!is_pal(s+1, N)) {
 					cout << "YES" << '\n';
+					cout << 2 << '\n';
 					cout << S.substr(0, s+1) << ' ' << S.substr(s+1) << '\n';
 				} else if (!is_pal(s+2, N)) {
 					cout << "YES" << '\n';
+					cout << 2 << '\n';
 					cout << S.substr(0, s+2) << ' ' << S.substr(s+2) << '\n';
 				} else {
 					cout << "NO" << '\n';
@@ -38,9 +41,11 @@ int main() {
 			} else {
 				if (!is_pal(0, N)) {
 					cout << "YES" << '\n';
+					cout << 1 << '\n';
 					cout << S << '\n';
 				} else if (!is_pal(2, N)) {
 					cout << "YES" << '\n';
+					cout << 2 << '\n';
 					cout << S.substr(0, 2) << ' ' << S.substr(2) << '\n';
 				} else {
 					cout << "NO" << '\n';
