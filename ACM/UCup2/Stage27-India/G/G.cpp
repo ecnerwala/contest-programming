@@ -545,7 +545,7 @@ int main() {
 		std::string S;
 		if (TESTING) {
 			S.resize(N);
-			for (char& c : S) c = std::uniform_int_distribution<char>('a', 'a')(mt);
+			for (char& c : S) c = std::uniform_int_distribution<char>('a', 'b')(mt);
 		} else {
 			cin >> S;
 		}
