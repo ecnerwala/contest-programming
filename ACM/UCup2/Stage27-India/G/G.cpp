@@ -226,19 +226,18 @@ public:
 		using std::end;
 		using value_type = typename std::iterator_traits<decltype(begin(S))>::value_type;
 
-		std::vector<value_type> compressed_s(begin(S), end(S));
-		int N = sz(compressed_s);
+		std::vector<value_type> compressed_s(sz(S));
 		int sigma = 0;
 
-		if (N > 0) {
-			value_type lo = *begin(compressed_s), hi = *begin(compressed_s);
-			for (const auto& x : compressed_s) {
+		if (sz(S) > 0) {
+			value_type lo = *begin(S), hi = *begin(S);
+			for (const auto& x : S) {
 				if (x < lo) lo = x;
 				if (x > hi) hi = x;
 			}
 
 			for (int i = 0; i < N; i++) {
-				compressed_s[i] = value_type(compressed_s[i] - lo);
+				compressed_s[i] = value_type(S[i] - lo);
 			}
 			sigma = int(hi - lo + 1);
 		}
