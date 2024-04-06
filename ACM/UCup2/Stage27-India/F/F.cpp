@@ -210,6 +210,10 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			if (adj[i].size() == 1) leaves.push_back((N-1) + 2 * tot_dist[i]);
 		}
+		if (N == 2) {
+			assert(int(leaves.size()) == 2);
+			leaves.pop_back();
+		}
 
 		std::vector<int64_t> diffs(N+2);
 
