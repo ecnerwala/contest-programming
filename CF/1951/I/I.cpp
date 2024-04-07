@@ -126,25 +126,21 @@ int main() {
 					flower.edges[2*(N+3*e+0)+1].cap
 				);
 			}
-			/*
 			std::vector<int> costs(flower2.edges.size());
 			for (int z = 0; z < int(flower2.edges.size()); z++) {
 				costs[z] = flower2.edges[z].cap;
 			}
-			*/
-			int cur_source = N;
 			for (int i = 0; i < N; i++) {
-				/*
-				for (int z = 0; z < int(flower2.edges.size()); z++) {
-					flower2.edges[z].cap = costs[z];
+				if (i) {
+					for (int z = 0; z < int(flower2.edges.size()); z++) {
+						flower2.edges[z].cap = costs[z];
+					}
 				}
-				*/
-				int f = flower2.max_flow(cur_source, i);
+				int f = flower2.max_flow(N, i);
 				assert(f <= K);
 				if (f != K) {
 					return false;
 				}
-				cur_source = i;
 			}
 			return true;
 		};
