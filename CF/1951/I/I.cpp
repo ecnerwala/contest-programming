@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-template <typename flow_t = int, typename tot_flow_t = int64_t>
+template <typename flow_t = int, typename tot_flow_t = int>
 struct Dinic {
 	int N;
 	std::vector<std::vector<int>> adj;
@@ -73,7 +73,7 @@ struct Dinic {
 		}
 		return tot_flow;
 	}
-	flow_t max_flow(int s, int t) { return dinic(s, t); }
+	tot_flow_t max_flow(int s, int t) { return dinic(s, t); }
 };
 
 int main() {
