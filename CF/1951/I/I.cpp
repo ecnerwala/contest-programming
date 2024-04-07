@@ -97,6 +97,7 @@ int main() {
 			//cerr << "Check " << '\n';
 			//for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
 			Dinic<int> flower(2+N+M);
+			flower.edges.reserve(2*(N+3*M));
 			for (int i = 0; i < N; i++) {
 				flower.add_edge(N+M, i, K);
 			}
@@ -115,6 +116,7 @@ int main() {
 			}
 
 			Dinic<int> flower2(1+N);
+			flower2.edges.reserve(2*(N+M));
 			for (int i = 0; i < N; i++) {
 				flower2.add_bi_edge(N, i, flower.edges[2*i+0].cap, flower.edges[2*i+1].cap);
 			}
