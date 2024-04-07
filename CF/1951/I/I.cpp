@@ -114,16 +114,6 @@ int main() {
 				return false;
 			}
 
-			for (int i = 0; i < N; i++) {
-				Dinic<int> tmp = flower;
-				int f = tmp.max_flow(N+M, i);
-				assert(f <= K);
-				if (f != K) {
-					return false;
-				}
-			}
-
-			/*
 			Dinic<int> flower2(1+N);
 			for (int i = 0; i < N; i++) {
 				flower2.add_bi_edge(N, i, flower.edges[2*i+0].cap, flower.edges[2*i+1].cap);
@@ -136,15 +126,20 @@ int main() {
 					flower.edges[2*(N+3*e+0)+1].cap
 				);
 			}
+			std::vector<int> costs(flower2.edges.size());
+			for (int z = 0; z < int(flower2.edges.size()); z++) {
+				costs[z] = flower2.edges[z].cap;
+			}
 			for (int i = 0; i < N; i++) {
-				Dinic<int> tmp = flower2;
-				int f = tmp.max_flow(N, i);
+				for (int z = 0; z < int(flower2.edges.size()); z++) {
+					flower2.edges[z].cap = costs[z];
+				}
+				int f = flower2.max_flow(N, i);
 				assert(f <= K);
 				if (f != K) {
 					return false;
 				}
 			}
-			*/
 			return true;
 		};
 
