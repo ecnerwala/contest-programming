@@ -114,6 +114,16 @@ int main() {
 				return false;
 			}
 
+			for (int i = 0; i < N; i++) {
+				Dinic<int> tmp = flower;
+				int f = tmp.max_flow(N+M, i);
+				assert(f <= K);
+				if (f != K) {
+					return false;
+				}
+			}
+
+			/*
 			Dinic<int> flower2(1+N);
 			for (int i = 0; i < N; i++) {
 				flower2.add_bi_edge(N, i, flower.edges[2*i+0].cap, flower.edges[2*i+1].cap);
@@ -134,6 +144,7 @@ int main() {
 					return false;
 				}
 			}
+			*/
 			return true;
 		};
 
