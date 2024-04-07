@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-template <typename flow_t = int>
+template <typename flow_t = int, typename tot_flow_t = flow_t>
 struct Dinic {
 	int N;
 	std::vector<std::vector<int>> adj;
@@ -28,18 +28,18 @@ struct Dinic {
 		adj[to].push_back(e+1);
 	}
 
-	static constexpr flow_t INF_FLOW = std::numeric_limits<flow_t>::max() / 4;
+	static constexpr tot_flow_t INF_FLOW = std::numeric_limits<tot_flow_t>::max() / 4;
 	std::vector<int> buf;
 	std::vector<int> level;
-	flow_t dinic_dfs(int cur, int t, flow_t f) {
+	tot_flow_t dinic_dfs(int cur, int t, tot_flow_t f) {
 		if (cur == t) return f;
-		flow_t cur_f = 0;
+		tot_flow_t cur_f = 0;
 		assert(f > 0);
 		for (; buf[cur] < int(adj[cur].size()); buf[cur]++) {
 			int e = adj[cur][buf[cur]];
 			int nxt = edges[e].dest;
 			if (level[nxt] == level[cur] + 1 && edges[e].cap > 0) {
-				flow_t v = dinic_dfs(nxt, t, std::min(f, edges[e].cap));
+				flow_t v = flow_t(dinic_dfs(nxt, t, std::min<tot_flow_t>(f, edges[e].cap)));
 				edges[e].cap -= v;
 				edges[e^1].cap += v;
 				f -= v;
@@ -49,8 +49,8 @@ struct Dinic {
 		}
 		return cur_f;
 	}
-	flow_t dinic(int s, int t) {
-		flow_t tot_flow = 0;
+	tot_flow_t dinic(int s, int t) {
+		tot_flow_t tot_flow = 0;
 		while (true) {
 			buf.clear();
 			buf.reserve(N);
@@ -93,30 +93,7 @@ int main() {
 			edges[e] = {{u, v}, a, b};
 		}
 		std::vector<int> cnts(M);
-		auto check_many = [&]() {
-			for (int z = 0; z < N; z++) {
-				Dinic<int> flower(2+N+M);
-				for (int i = 0; i < N; i++) {
-					if (i == z) continue;
-					flower.add_edge(N+M, i, K);
-				}
-				int tot_cnts = 0;
-				for (int e = 0; e < M; e++) {
-					// why not
-					if (cnts[e] > K) return false;
-					tot_cnts += cnts[e];
-
-					flower.add_edge(edges[e].dest[0], N+e, K);
-					flower.add_edge(edges[e].dest[1], N+e, K);
-					flower.add_edge(N+e, N+M+1, cnts[e]);
-				}
-				if (flower.max_flow(N+M, N+M+1) != tot_cnts) {
-					return false;
-				}
-			}
-			return true;
-		};
-		auto check_reuse = [&]() {
+		auto check = [&]() {
 			//cerr << "Check " << '\n';
 			//for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
 			Dinic<int> flower(2+N+M);
@@ -207,7 +184,7 @@ int main() {
 				}
 				next_edge = std::min(next_edge, no_take_edge);
 			}
-			if (check_reuse()) {
+			if (check()) {
 				// we're good
 				mi = next_edge - 1;
 			} else {
