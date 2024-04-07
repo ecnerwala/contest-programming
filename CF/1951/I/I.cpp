@@ -15,10 +15,15 @@ struct Dinic {
 	explicit Dinic(int N_) : N(N_), adj(N) {}
 
 	void add_edge(int from, int to, flow_t cap) {
+		return add_bi_edge(from, to, cap, 0);
+	}
+
+	void add_bi_edge(int from, int to, flow_t cap, flow_t rev_cap) {
 		assert(cap >= 0);
+		assert(rev_cap >= 0);
 		int e = int(edges.size());
 		edges.emplace_back(edge_t{to, cap});
-		edges.emplace_back(edge_t{from, 0});
+		edges.emplace_back(edge_t{from, rev_cap});
 		adj[from].push_back(e);
 		adj[to].push_back(e+1);
 	}
@@ -131,14 +136,26 @@ int main() {
 			if (flower.max_flow(N+M, N+M+1) != tot_cnts) {
 				return false;
 			}
-			int cur_source = N+M;
+
+			Dinic<int> flower2(1+N);
 			for (int i = 0; i < N; i++) {
-				int f = flower.max_flow(cur_source, i);
+				flower2.add_bi_edge(N, i, flower.edges[2*i+0].cap, flower.edges[2*i+1].cap);
+			}
+			for (int e = 0; e < M; e++) {
+				flower2.add_bi_edge(
+					edges[e].dest[0],
+					edges[e].dest[1],
+					flower.edges[2*(N+3*e+1)+1].cap,
+					flower.edges[2*(N+3*e+0)+1].cap
+				);
+			}
+			for (int i = 0; i < N; i++) {
+				Dinic<int> tmp = flower2;
+				int f = tmp.max_flow(N, i);
 				assert(f <= K);
 				if (f != K) {
 					return false;
 				}
-				cur_source = i;
 			}
 			return true;
 		};
