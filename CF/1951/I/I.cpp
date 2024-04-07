@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-template <typename flow_t = int, typename tot_flow_t = flow_t>
+template <typename flow_t = int, typename tot_flow_t = int64_t>
 struct Dinic {
 	int N;
 	std::vector<std::vector<int>> adj;
