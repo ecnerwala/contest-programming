@@ -93,13 +93,33 @@ int main() {
 			edges[e] = {{u, v}, a, b};
 		}
 		std::vector<int> cnts(M);
+
+		Dinic<int> flower(2+N+M);
+		flower.edges.reserve(2*(N+3*M));
+		for (int i = 0; i < N; i++) {
+			flower.add_edge(N+M, i, 0);
+		}
+		for (int e = 0; e < M; e++) {
+			flower.add_edge(edges[e].dest[0], N+e, 0);
+			flower.add_edge(edges[e].dest[1], N+e, 0);
+			flower.add_edge(N+e, N+M+1, 0);
+		}
+
+		Dinic<int> flower2(2+N+M);
+		flower2.edges.reserve(2*(N+M));
+		for (int i = 0; i < N; i++) {
+			flower2.add_edge(N, i, 0);
+		}
+		for (int e = 0; e < M; e++) {
+			flower2.add_edge(edges[e].dest[0], edges[e].dest[1], 0);
+		}
+		std::vector<int> costs(flower2.edges.size());
 		auto check = [&]() {
 			//cerr << "Check " << '\n';
 			//for (int v : cnts) { cerr << v << ' '; } cerr << '\n';
-			Dinic<int> flower(2+N+M);
-			flower.edges.reserve(2*(N+3*M));
 			for (int i = 0; i < N; i++) {
-				flower.add_edge(N+M, i, K);
+				flower.edges[2*i+0].cap = K;
+				flower.edges[2*i+1].cap = K;
 			}
 			int tot_cnts = 0;
 			for (int e = 0; e < M; e++) {
@@ -107,36 +127,28 @@ int main() {
 				if (cnts[e] > K) return false;
 				tot_cnts += cnts[e];
 
-				flower.add_edge(edges[e].dest[0], N+e, K);
-				flower.add_edge(edges[e].dest[1], N+e, K);
-				flower.add_edge(N+e, N+M+1, cnts[e]);
+				flower.edges[2*(N+3*e+0)+0].cap = K;
+				flower.edges[2*(N+3*e+0)+1].cap = 0;
+				flower.edges[2*(N+3*e+1)+0].cap = K;
+				flower.edges[2*(N+3*e+1)+1].cap = 0;
+				flower.edges[2*(N+3*e+2)+0].cap = cnts[e];
+				flower.edges[2*(N+3*e+2)+1].cap = 0;
 			}
 			if (flower.max_flow(N+M, N+M+1) != tot_cnts) {
 				return false;
 			}
 
-			Dinic<int> flower2(1+N);
-			flower2.edges.reserve(2*(N+M));
 			for (int i = 0; i < N; i++) {
-				flower2.add_bi_edge(N, i, flower.edges[2*i+0].cap, flower.edges[2*i+1].cap);
+				costs[2*i+0] = flower.edges[2*i+0].cap;
+				costs[2*i+1] = flower.edges[2*i+1].cap;
 			}
 			for (int e = 0; e < M; e++) {
-				flower2.add_bi_edge(
-					edges[e].dest[0],
-					edges[e].dest[1],
-					flower.edges[2*(N+3*e+1)+1].cap,
-					flower.edges[2*(N+3*e+0)+1].cap
-				);
-			}
-			std::vector<int> costs(flower2.edges.size());
-			for (int z = 0; z < int(flower2.edges.size()); z++) {
-				costs[z] = flower2.edges[z].cap;
+				costs[2*(N+e)+0] = flower.edges[2*(N+3*e+1)+1].cap;
+				costs[2*(N+e)+1] = flower.edges[2*(N+3*e+0)+1].cap;
 			}
 			for (int i = 0; i < N; i++) {
-				if (i) {
-					for (int z = 0; z < int(flower2.edges.size()); z++) {
-						flower2.edges[z].cap = costs[z];
-					}
+				for (int z = 0; z < int(flower2.edges.size()); z++) {
+					flower2.edges[z].cap = costs[z];
 				}
 				int f = flower2.max_flow(N, i);
 				assert(f <= K);
