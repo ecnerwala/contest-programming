@@ -11,9 +11,12 @@ int main() {
 		std::vector<std::array<int, 2>> v2; v2.reserve(M);
 		std::vector<std::array<int, 3>> v3; v3.reserve(M);
 		for (int e = 0; e < M; e++) {
-			int u, v, w; cin >> u >> v >> w;
-			u--, v--, w--;
+			std::array<int, 3> a;
+			for (auto& v : a) { cin >> v; v--; }
+			std::sort(a.begin(), a.end());
+			auto [u, v, w] = a;
 			assert(u <= v && v <= w);
+			assert(0 <= u && w < N);
 			if (u == w) {
 				cnt1[u] ^= 1;
 			} else if (u == v || v == w) {
