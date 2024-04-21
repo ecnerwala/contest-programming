@@ -25,9 +25,7 @@ int main() {
 			if (vk) {
 				// could differ here
 				int v = trie[cur].ch[va ^ vk ^ 1];
-				if (v != -1) {
-					prv_bad = std::max(prv_bad, trie[v].last_idx);
-				}
+				prv_bad = std::max(prv_bad, v == -1 ? -1 : trie[v].last_idx);
 			}
 			trie[cur].last_idx = i;
 			if (trie[cur].ch[va ^ vk] == -1) {
