@@ -15,8 +15,8 @@ int main() {
 			for (auto& v : a) { cin >> v; v--; }
 			std::sort(a.begin(), a.end());
 			auto [u, v, w] = a;
-			assert(u <= v && v <= w);
-			assert(0 <= u && w < N);
+			//assert(u <= v && v <= w);
+			//assert(0 <= u && w < N);
 			if (u == w) {
 				v1.push_back({u});
 			} else if (u == v || v == w) {
