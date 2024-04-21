@@ -36,6 +36,7 @@ int main() {
 					++it;
 				} else {
 					for (auto i : *it) {
+						cerr << i << '\n';
 						ans[i] = 1;
 					}
 					return true;
