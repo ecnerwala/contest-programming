@@ -78,10 +78,12 @@ int main() {
 		std::vector<std::vector<std::pair<int, int>>> scc_adj(N);
 		std::vector<int> depth(N, -1);
 		kactl::scc(adj2, [&](const std::vector<int>& verts) {
+			cerr << "scc" << ' ' << int(verts.size()) << '\n';
 			bool has_edge = false;
 			for (int v : verts) {
 				for (auto [u, e] : adj[v]) {
 					if (kactl::comp[u] != kactl::comp[v]) continue;
+					cerr << v << ' ' << u << ' ' << e << '\n';
 					scc_adj[v].push_back({u, e});
 					has_edge = true;
 				}
