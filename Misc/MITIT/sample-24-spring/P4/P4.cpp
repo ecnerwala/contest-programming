@@ -45,6 +45,7 @@ int main() {
 	int64_t ma = 0;
 	while (!is_good(ma)) {
 		mi = std::exchange(ma, ma * 2);
+		if (ma == 0) ma = 1;
 	}
 	while (ma - mi > 1) {
 		int64_t md = mi + (ma - mi) / 2;
