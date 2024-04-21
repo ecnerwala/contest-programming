@@ -40,6 +40,7 @@ int main() {
 		trie[cur].last_idx = i;
 		assert(last_good <= i-1);
 		assert(prv_bad <= i-1);
+		cerr << i << ' ' << last_good << ' ' << prv_bad << '\n';
 		ans += std::max(0, last_good - prv_bad);
 	}
 	cout << ans << '\n';
