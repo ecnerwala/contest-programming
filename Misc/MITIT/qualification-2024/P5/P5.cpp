@@ -104,7 +104,7 @@ int main() {
 			int g = 0;
 			std::y_combinator([&](auto self, int cur, int d) -> void{
 				if (depth[cur] != -1) {
-					int c = std::abs(g - depth[cur]);
+					int c = std::abs(d - depth[cur]);
 					if (g == 0) g = c;
 					else if (c > 0) g = std::gcd(g, c);
 					return;
