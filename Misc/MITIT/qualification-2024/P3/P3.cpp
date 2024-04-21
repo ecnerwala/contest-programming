@@ -19,7 +19,7 @@ int main() {
 		for (int j = 0; j < M; j++) {
 			idx += cnt;
 			cout << A[idx-1] << " \n"[j+1==M];
-			if (j+1 < M) cnt = idx+1 - (cnt_smaller[idx]);
+			if (j+1 < M) cnt = std::min(cnt, idx - (cnt_smaller[idx-1]));
 		}
 	}
 
