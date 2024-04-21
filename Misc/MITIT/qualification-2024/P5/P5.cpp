@@ -75,7 +75,6 @@ int main() {
 		}
 		bool good = false;
 		std::vector<int> successor(N, -1);
-		std::vector<int> color(N, -1);
 		std::vector<std::vector<std::pair<int, int>>> scc_adj(N);
 		std::vector<int> depth(N, -1);
 		kactl::scc(adj2, [&](const std::vector<int>& verts) {
@@ -92,17 +91,6 @@ int main() {
 			}
 			if (!has_edge) return;
 
-			for (int v : verts) {
-				assert(!scc_adj[v].empty());
-				color[v] = scc_adj[v][0].second;
-				for (auto [u, e] : scc_adj[v]) {
-					if (e != color[v]) {
-						//cerr << "mark good" << '\n';
-						good = true;
-						return;
-					}
-				}
-			}
 			int g = 0;
 			std::y_combinator([&](auto self, int cur, int d) -> void{
 				if (depth[cur] != -1) {
@@ -122,13 +110,15 @@ int main() {
 			for (int v : verts) {
 				assert(depth[v] != -1);
 				int d = depth[v] % g;
-				if (cyc_colors[d] == -1) cyc_colors[d] = color[v];
-
-				if (color[v] != cyc_colors[d]) {
-					//cerr << "mark good" << '\n';
-					good = true;
-					return;
+				for (auto [u, e] : scc_adj[v]) {
+					if (cyc_colors[d] == -1) cyc_colors[d] = e;
+					if (e != cyc_colors[d]) {
+						//cerr << "mark good" << '\n';
+						good = true;
+						return;
+					}
 				}
+
 			}
 		});
 		cout << (good ? "Yes" : "No") << '\n';
