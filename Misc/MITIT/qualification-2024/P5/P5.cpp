@@ -95,6 +95,7 @@ int main() {
 				color[v] = scc_adj[v][0].second;
 				for (auto [u, e] : scc_adj[v]) {
 					if (e != color[v]) {
+						cerr << "mark good" << '\n';
 						good = true;
 						return;
 					}
@@ -119,6 +120,7 @@ int main() {
 				int d = depth[v] % g;
 				if (colors[d] == -1) colors[d] = color[v];
 				else if (color[v] != colors[d]) {
+					cerr << "mark good" << '\n';
 					good = true;
 					return;
 				}
