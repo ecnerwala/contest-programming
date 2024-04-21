@@ -13,6 +13,7 @@ int main() {
 		for (int e = 0; e < M; e++) {
 			int u, v, w; cin >> u >> v >> w;
 			u--, v--, w--;
+			cerr << u << ' ' << v << ' ' << w << '\n';
 			assert(u <= v && v <= w);
 			if (u == w) {
 				cnt1[u] ^= 1;
@@ -36,7 +37,6 @@ int main() {
 					++it;
 				} else {
 					for (auto i : *it) {
-						cerr << i << '\n';
 						ans[i] = 1;
 					}
 					return true;
