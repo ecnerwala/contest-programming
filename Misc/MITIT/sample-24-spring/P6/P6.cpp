@@ -285,8 +285,8 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 	tensor<num, 3> dp({N+1, N+1, 2*V+2});
-	dp[{0, N, 0}] += 1;
-	dp[{0, N, 1}] -= 1;
+	dp[{0, N, V+0}] += 1;
+	dp[{0, N, V+1}] -= 1;
 	num ans = 0;
 
 	for (int i = 0; i <= N; i++) {
