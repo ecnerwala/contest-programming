@@ -7,7 +7,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		std::vector<int> cnt1(N);
+		std::vector<std::array<int, 1>> v1; v1.reserve(M);
 		std::vector<std::array<int, 2>> v2; v2.reserve(M);
 		std::vector<std::array<int, 3>> v3; v3.reserve(M);
 		for (int e = 0; e < M; e++) {
@@ -18,7 +18,7 @@ int main() {
 			assert(u <= v && v <= w);
 			assert(0 <= u && w < N);
 			if (u == w) {
-				cnt1[u] ^= 1;
+				v1.push_back({u});
 			} else if (u == v || v == w) {
 				v2.push_back({u, w});
 			} else {
@@ -27,9 +27,14 @@ int main() {
 		}
 		std::vector<int> ans(N, 0);
 		if ([&]() -> bool {
-			for (int i = 0; i < N; i++) {
-				if (cnt1[i] & 1) {
-					ans[i] = 1;
+			std::sort(v1.begin(), v1.end());
+			for (auto it = v1.begin(); it != v1.end(); ++it) {
+				if (std::next(it) != v1.end() && *it == *(std::next(it))) {
+					++it;
+				} else {
+					for (auto i : *it) {
+						ans[i] = 1;
+					}
 					return true;
 				}
 			}
