@@ -117,6 +117,11 @@ public:
 	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
 };
 
+template <typename T> T pow(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
+
 template <typename T, int NDIMS> struct tensor_view {
 	static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
 
@@ -341,12 +346,12 @@ int main() {
 			}
 			return numer / denom;
 		};
-		if (N % 2 == 0) {
-			for (int i = 0; i < 3; i++) {
-				int j = (i+1) % 3;
-				if (cnts[i] <= N/2 && cnts[j] <= N/2 && cnts[i] + cnts[j] + qs == N) {
-					ans -= choose(qs, N/2 - cnts[i]);
-				}
+		// Now, we overcounted everything with at most 2 colors, which are always good
+		// We counted the 2-colored things 2 times each, and we counted the 1-colored things 3 times each
+		for (int i = 0; i < 3; i++) {
+			int j = (i+1) % 3;
+			if (cnts[i]+cnts[j]+qs == N) {
+				ans -= pow(num(2), N - qs);
 			}
 		}
 	}
