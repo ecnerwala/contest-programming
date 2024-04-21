@@ -118,12 +118,13 @@ int main() {
 			})(verts[0], 0);
 			assert(g != 0);
 			//cerr << "gcd " << g << '\n';
-			std::vector<int> colors(g, -1);
+			std::vector<int> cyc_colors(g, -1);
 			for (int v : verts) {
 				assert(depth[v] != -1);
 				int d = depth[v] % g;
-				if (colors[d] == -1) colors[d] = color[v];
-				else if (color[v] != colors[d]) {
+				if (cyc_colors[d] == -1) cyc_colors[d] = color[v];
+
+				if (color[v] != cyc_colors[d]) {
 					//cerr << "mark good" << '\n';
 					good = true;
 					return;
