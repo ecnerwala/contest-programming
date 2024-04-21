@@ -79,12 +79,12 @@ int main() {
 		std::vector<std::vector<std::pair<int, int>>> scc_adj(N);
 		std::vector<int> depth(N, -1);
 		kactl::scc(adj2, [&](const std::vector<int>& verts) {
-			cerr << "scc" << ' ' << int(verts.size()) << '\n';
+			//cerr << "scc" << ' ' << int(verts.size()) << '\n';
 			bool has_edge = false;
 			for (int v : verts) {
 				for (auto [u, e] : adj[v]) {
 					if (kactl::comp[u] != kactl::comp[v]) continue;
-					cerr << v << ' ' << u << ' ' << e << '\n';
+					//cerr << v << ' ' << u << ' ' << e << '\n';
 					scc_adj[v].push_back({u, e});
 					has_edge = true;
 				}
@@ -96,7 +96,7 @@ int main() {
 				color[v] = scc_adj[v][0].second;
 				for (auto [u, e] : scc_adj[v]) {
 					if (e != color[v]) {
-						cerr << "mark good" << '\n';
+						//cerr << "mark good" << '\n';
 						good = true;
 						return;
 					}
@@ -116,13 +116,13 @@ int main() {
 				}
 			})(verts[0], 0);
 			assert(g != 0);
-			cerr << "gcd " << g << '\n';
+			//cerr << "gcd " << g << '\n';
 			std::vector<int> colors(g, -1);
 			for (int v : verts) {
 				int d = depth[v] % g;
 				if (colors[d] == -1) colors[d] = color[v];
 				else if (color[v] != colors[d]) {
-					cerr << "mark good" << '\n';
+					//cerr << "mark good" << '\n';
 					good = true;
 					return;
 				}
