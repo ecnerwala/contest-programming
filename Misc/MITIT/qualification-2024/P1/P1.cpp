@@ -23,7 +23,7 @@ int main() {
 			}
 		}
 		std::vector<int> ans(N, 0);
-		if ([&] -> bool {
+		if ([&]() -> bool {
 			for (int i = 0; i < N; i++) {
 				if (cnt1[i] & 1) {
 					ans[i] = 1;
