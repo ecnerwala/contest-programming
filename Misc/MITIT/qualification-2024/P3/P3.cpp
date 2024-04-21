@@ -18,7 +18,7 @@ int main() {
 		int cnt = i;
 		for (int j = 0; j < M; j++) {
 			idx += cnt;
-			cout << A[idx-1] << 'n';
+			cout << A[idx-1] << " \n"[j+1==M];
 			if (j+1 < M) cnt = idx+1 - (cnt_smaller[idx]);
 		}
 	}
