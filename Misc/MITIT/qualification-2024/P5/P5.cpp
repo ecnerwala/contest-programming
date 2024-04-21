@@ -115,6 +115,7 @@ int main() {
 				}
 			})(verts[0], 0);
 			assert(g != 0);
+			cerr << "gcd " << g << '\n';
 			std::vector<int> colors(g, -1);
 			for (int v : verts) {
 				int d = depth[v] % g;
