@@ -108,7 +108,7 @@ int main() {
 				if (depth[cur] != -1) {
 					int c = std::abs(d - depth[cur]);
 					if (g == 0) g = c;
-					else if (c > 0) g = std::gcd(g, c);
+					else if (c != 0) g = std::gcd(g, c);
 					return;
 				}
 				depth[cur] = d;
@@ -120,6 +120,7 @@ int main() {
 			//cerr << "gcd " << g << '\n';
 			std::vector<int> colors(g, -1);
 			for (int v : verts) {
+				assert(depth[v] != -1);
 				int d = depth[v] % g;
 				if (colors[d] == -1) colors[d] = color[v];
 				else if (color[v] != colors[d]) {
