@@ -18,10 +18,12 @@ int main() {
 	int last_good = -1;
 	int64_t ans = 0;
 	for (int i = 0; i < N; i++) {
+		cerr << "processing " << i << '\n';
 		int cur = 0;
 		for (int b = B-1; b >= 0; b--) {
 			int va = ((A[i] >> b) & 1);
 			int vk = ((K >> b) & 1);
+			cerr << "vals " << va << ' ' << vk << '\n';
 			if (vk) {
 				// could differ here
 				int v = trie[cur].ch[va ^ vk ^ 1];
