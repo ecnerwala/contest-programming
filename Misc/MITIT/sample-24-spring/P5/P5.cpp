@@ -19,25 +19,34 @@ int main() {
 	int64_t ans = 0;
 	for (int i = 0; i < N; i++) {
 		cerr << "processing " << i << '\n';
-		int cur = 0;
-		for (int b = B-1; b >= 0; b--) {
-			int va = ((A[i] >> b) & 1);
-			int vk = ((K >> b) & 1);
-			cerr << "vals " << va << ' ' << vk << '\n';
-			if (vk) {
-				// could differ here
-				int v = trie[cur].ch[va ^ vk ^ 1];
-				prv_bad = std::max(prv_bad, v == -1 ? -1 : trie[v].last_idx);
+		{
+			int cur = 0;
+			for (int b = B-1; cur != -1 && b >= 0; b--) {
+				int va = ((A[i] >> b) & 1);
+				int vk = ((K >> b) & 1);
+				cerr << "vals " << va << ' ' << vk << '\n';
+				if (vk) {
+					// could differ here
+					int v = trie[cur].ch[va ^ vk ^ 1];
+					prv_bad = std::max(prv_bad, v == -1 ? -1 : trie[v].last_idx);
+				}
+				cur = trie[cur].ch[va ^ vk];
 			}
-			trie[cur].last_idx = i;
-			if (trie[cur].ch[va ^ vk] == -1) {
-				trie[cur].ch[va ^ vk] = int(trie.size());
-				trie.emplace_back();
-			}
-			cur = trie[cur].ch[va ^ vk];
+			last_good = std::max(last_good, cur == -1 ? -1 : trie[cur].last_idx);
 		}
-		last_good = std::max(last_good, trie[cur].last_idx);
-		trie[cur].last_idx = i;
+		{
+			int cur = 0;
+			trie[cur].last_idx = i;
+			for (int b = B-1; b >= 0; b--) {
+				int va = ((A[i] >> b) & 1);
+				if (trie[cur].ch[va] == -1) {
+					trie[cur].ch[va] = int(trie.size());
+					trie.emplace_back();
+				}
+				cur = trie[cur].ch[va];
+				trie[cur].last_idx = i;
+			}
+		}
 		assert(last_good <= i-1);
 		assert(prv_bad <= i-1);
 		cerr << i << ' ' << last_good << ' ' << prv_bad << '\n';
