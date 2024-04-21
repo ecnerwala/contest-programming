@@ -18,12 +18,14 @@ int main() {
 	}
 
 	auto is_good = [&](int64_t starting_coins) -> bool {
+		cerr << "checking " << starting_coins << '\n';
 		std::vector<int64_t> dist(N, -1);
 		std::priority_queue<std::pair<int64_t, int>> pq;
 		pq.push({dist[0] = starting_coins, 0});
 		while (!pq.empty()) {
 			auto [d, u] = pq.top(); pq.pop();
 			if (d != dist[u]) continue;
+			cerr << u << ' ' << d << '\n';
 			for (auto& e : adj[u]) {
 				if (d < e.cost) continue;
 				if (e.reward > e.cost) {
