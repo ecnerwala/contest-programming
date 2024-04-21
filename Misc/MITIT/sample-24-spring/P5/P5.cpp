@@ -32,6 +32,9 @@ int main() {
 			}
 			last_good = std::max(last_good, cur == -1 ? -1 : trie[cur].last_idx);
 		}
+		assert(last_good <= i-1);
+		assert(prv_bad <= i-1);
+		ans += std::max(0, last_good - prv_bad);
 		{
 			int cur = 0;
 			trie[cur].last_idx = i;
@@ -45,9 +48,6 @@ int main() {
 				trie[cur].last_idx = i;
 			}
 		}
-		assert(last_good <= i-1);
-		assert(prv_bad <= i-1);
-		ans += std::max(0, last_good - prv_bad);
 	}
 	cout << ans << '\n';
 
