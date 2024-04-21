@@ -20,7 +20,7 @@ int main() {
 				solos.push_back(i);
 			}
 		}
-		if (S & 1) {
+		if (!(S & 1)) {
 			cout << "NO" << '\n';
 			continue;
 		}
