@@ -354,6 +354,7 @@ int main() {
 		for (int i = 0; i < 3; i++) {
 			int j = (i+1) % 3;
 			if (cnts[i]+cnts[j]+qs == N) {
+				cerr << "subtracting " << i << ' ' << j << ' ' << pow(num(2), N - qs) << '\n';
 				ans -= pow(num(2), N - qs);
 			}
 		}
