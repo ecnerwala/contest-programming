@@ -6,7 +6,6 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		cerr << "T = " << T << '\n';
 		int N, M; cin >> N >> M;
 		std::vector<int> cnt1(N);
 		std::vector<std::array<int, 2>> v2; v2.reserve(M);
@@ -14,7 +13,6 @@ int main() {
 		for (int e = 0; e < M; e++) {
 			int u, v, w; cin >> u >> v >> w;
 			u--, v--, w--;
-			cerr << u << ' ' << v << ' ' << w << '\n';
 			assert(u <= v && v <= w);
 			if (u == w) {
 				cnt1[u] ^= 1;
