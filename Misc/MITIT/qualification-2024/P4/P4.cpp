@@ -286,7 +286,7 @@ int main() {
 	std::string S; cin >> S;
 	using num = modnum<int(1e9)+7>;
 	num ans = 0;
-	for (int v = '1'; v <= '3'; v++) {
+	for (char v = '1'; v <= '3'; v++) {
 		char a0 = (v == '3' ? '1' : char(v+1));
 		char a1 = (v == '1' ? '3' : char(v-1));
 		std::array<char, 2> a{a0, a1};
