@@ -320,6 +320,7 @@ int main() {
 					dp[{ni, nj, V + 1}] += w;
 				}
 			}
+			w += dp[{i, j, V+1+V}];
 			assert(w == 0);
 		}
 	}
