@@ -319,14 +319,17 @@ int main() {
 			dp = std::move(ndp);
 		}
 
+		num cur_ans = 0;
 		for (int i = 0; i < 2*N+3; i++) {
 			for (int j = 0; j < 2*N+3; j++) {
 				for (int z = 0; z < 2; z++) {
 					num w = dp[{i, j, z}];
-					ans += w;
+					cur_ans += w;
 				}
 			}
 		}
+		cerr << "ans " << v << ' ' << cur_ans << '\n';
+		ans += cur_ans;
 	}
 
 	{
