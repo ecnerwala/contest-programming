@@ -83,6 +83,7 @@ int main() {
 			bool has_edge = false;
 			for (int v : verts) {
 				for (auto [u, e] : adj[v]) {
+					assert(kactl::comp[u] != -1);
 					if (kactl::comp[u] != kactl::comp[v]) continue;
 					//cerr << v << ' ' << u << ' ' << e << '\n';
 					scc_adj[v].push_back({u, e});
