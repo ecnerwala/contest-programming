@@ -6,6 +6,7 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
+		cerr << "T = " << T << '\n';
 		int N, M; cin >> N >> M;
 		std::vector<int> cnt1(N);
 		std::vector<std::array<int, 2>> v2; v2.reserve(M);
