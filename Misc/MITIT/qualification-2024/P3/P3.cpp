@@ -7,9 +7,19 @@ int main() {
 	std::vector<int> A(N*M);
 	for (auto& a : A) { cin >> a; a--; }
 	std::sort(A.begin(), A.end());
-	for (int i = 0; i < N; i++) {
+	int L = N*M;
+	std::vector<int> cnt_smaller(L);
+	for (int i = 0; i < L; i++) {
+		if (i == 0 || A[i] != A[i-1]) cnt_smaller[i] = i;
+		else cnt_smaller[i] = cnt_smaller[i-1];
+	}
+	for (int i = 1; i <= N; i++) {
+		int idx = 0;
+		int cnt = i;
 		for (int j = 0; j < M; j++) {
-			cout << A[(j+1)*(i+1)-1]+1 << " \n"[j+1==M];
+			idx += cnt;
+			cout << A[idx-1] << 'n';
+			if (j+1 < M) cnt = idx+1 - (cnt_smaller[idx]);
 		}
 	}
 
