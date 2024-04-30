@@ -242,6 +242,8 @@ int main() {
 		});
 
 		auto query = [&](int vert, int dist, int v_lo) -> int {
+			// # valid verts is dist + 1
+			dist++;
 			if (dist < depth[vert]) {
 				int anc = la.get_ancestor(vert, dist);
 				return query_seg(segs[vert], segs[anc], v_lo, 0, M);
