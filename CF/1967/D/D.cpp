@@ -190,13 +190,13 @@ int main() {
 		auto can_reach = [&](int src, int dest, int max_steps) -> bool {
 			if (st[dest][0] <= st[src][0] && st[src][0] < st[dest][1]) {
 				// in the subtree
-				return depth[dest] - depth[src] <= max_steps;
+				return depth[src] - depth[dest] <= max_steps;
 			} else {
 				max_steps -= depth[src];
 				src = root_jump[src];
 				if (st[dest][0] <= st[src][0] && st[src][0] < st[dest][1]) {
 					// in the subtree
-					return depth[dest] - depth[src] <= max_steps;
+					return depth[src] - depth[dest] <= max_steps;
 				} else {
 					return false;
 				}
