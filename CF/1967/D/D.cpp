@@ -202,7 +202,6 @@ int main() {
 		std::vector<int> depth(M, -1);
 		//std::vector<std::vector<int>> root_path(M);
 		std::vector<int> segs(M, -1);
-		break;
 		for (int rt = 0; rt < M; rt++) {
 			if (root_par[rt] == -1) continue;
 			depth[rt] = 1;
@@ -238,6 +237,7 @@ int main() {
 		}
 		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
 		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
+		break;
 
 		/*
 		auto query_seg = std::y_combinator([&](auto self, int s_big, int s_small, int v_lo, int lo, int hi) -> int {
