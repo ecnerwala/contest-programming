@@ -200,39 +200,46 @@ int main() {
 		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
 		cerr << nodes.capacity() * sizeof(seg_tree_node) << '\n';
 		std::vector<int> depth(M, -1);
-		//std::vector<std::vector<int>> root_path(M);
+		std::vector<std::vector<int>> root_path(M);
 		std::vector<int> segs(M, -1);
+		std::vector<int> q; q.reserve(M);
 		for (int rt = 0; rt < M; rt++) {
 			if (root_par[rt] == -1) continue;
 			depth[rt] = 1;
-			std::y_combinator([&](auto self, int cur, int cur_tree) -> void {
-				cur_tree = segs[cur] = std::y_combinator([&](auto self, int s, int lo, int hi) -> int {
-					assert(lo <= cur && cur < hi);
-					int idx = int(nodes.size());
-					nodes.push_back(nodes[s]);
-					nodes[idx].cnt++;
-					if (hi - lo > 1) {
-						int md = (lo + hi) / 2;
-						if (cur < md) {
-							nodes[idx].c[0] = self(nodes[idx].c[0], lo, md);
-						} else {
-							nodes[idx].c[1] = self(nodes[idx].c[1], md, hi);
-						}
+			segs[rt] = empty_tree;
+			q.push_back(rt);
+		}
+		for (int q_idx = 0; q_idx < int(q.size()); q_idx++) {
+			int cur = q[q_idx];
+			segs[cur] = std::y_combinator([&](auto self, int s, int lo, int hi) -> int {
+				assert(lo <= cur && cur < hi);
+				seg_tree_node res = nodes[s];
+				res.cnt++;
+				if (hi - lo > 1) {
+					int md = (lo + hi) / 2;
+					if (cur < md) {
+						res.c[0] = self(res.c[0], lo, md);
+					} else {
+						res.c[1] = self(res.c[1], md, hi);
 					}
-					return idx;
-				})(cur_tree, 0, M);
-				for (int nxt : ch[cur]) {
-					depth[nxt] = depth[cur] + 1;
-					self(nxt, cur_tree);
 				}
-			})(rt, empty_tree);
-			/*
+				int idx = int(nodes.size());
+				nodes.push_back(res);
+				return idx;
+			})(segs[cur], 0, M);
+			for (int nxt : ch[cur]) {
+				depth[nxt] = depth[cur] + 1;
+				segs[nxt] = segs[cur];
+				q.push_back(nxt);
+			}
+		}
+		for (int rt = 0; rt < M; rt++) {
+			if (root_par[rt] == -1) continue;
 			root_path[rt].reserve(depth[root_par[rt]]);
 			for (int cur = root_par[rt]; cur != -1; cur = tree_par[cur]) {
 				root_path[rt].push_back(cur);
 				if (cur == rt) break;
 			}
-			*/
 		}
 		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
 		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
