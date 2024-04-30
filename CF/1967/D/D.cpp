@@ -252,7 +252,7 @@ int main() {
 			return self(nodes[s_big].c[1], nodes[s_small].c[1], v_lo, md, hi);
 		});
 
-		break;
+		/*
 		auto query = [&](int vert, int dist, int v_lo) -> int {
 			// # valid verts is dist + 1
 			dist++;
@@ -288,6 +288,7 @@ int main() {
 		} else {
 			cout << ma << '\n';
 		}
+		*/
 	}
 
 	return 0;
