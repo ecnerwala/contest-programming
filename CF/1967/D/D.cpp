@@ -180,7 +180,8 @@ int main() {
 			std::array<int, 2> c{-1, -1};
 			int cnt = 0;
 		};
-		std::vector<seg_tree_node> nodes; nodes.reserve(2 * M + 22 * M);
+		std::vector<seg_tree_node> nodes;
+		//nodes.reserve(2 * M + 22 * M);
 		int empty_tree = std::y_combinator([&](auto self, int lo, int hi) -> int {
 			assert(hi > lo);
 			int l, r;
@@ -224,7 +225,7 @@ int main() {
 					self(nxt, cur_tree);
 				}
 			})(rt, empty_tree);
-			root_path[rt].reserve(depth[root_par[rt]]);
+			//root_path[rt].reserve(depth[root_par[rt]]);
 			for (int cur = root_par[rt]; cur != -1; cur = tree_par[cur]) {
 				root_path[rt].push_back(cur);
 				if (cur == rt) break;
