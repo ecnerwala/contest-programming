@@ -181,7 +181,7 @@ int main() {
 			int cnt = 0;
 		};
 		std::vector<seg_tree_node> nodes;
-		//nodes.reserve(2 * M + 22 * M);
+		nodes.reserve(2 * M + 22 * M);
 		int empty_tree = std::y_combinator([&](auto self, int lo, int hi) -> int {
 			assert(hi > lo);
 			int l, r;
