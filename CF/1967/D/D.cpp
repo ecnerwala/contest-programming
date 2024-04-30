@@ -242,11 +242,10 @@ int main() {
 		}
 
 		auto query_seg = std::y_combinator([&](auto self, int s_big, int s_small, int v_lo, int lo, int hi) -> int {
-			assert(nodes[s_big].cnt >= nodes[s_small].cnt);
-			if (nodes[s_big].cnt == nodes[s_small].cnt) {
+			if (hi <= v_lo) {
 				return M;
 			}
-			if (hi <= v_lo) {
+			if (nodes[s_big].cnt == nodes[s_small].cnt) {
 				return M;
 			}
 			if (hi - lo == 1) {
@@ -259,11 +258,11 @@ int main() {
 			return self(nodes[s_big].c[1], nodes[s_small].c[1], v_lo, md, hi);
 		});
 
-		auto query_seg_2 = std::y_combinator([&](auto self, int b1, int b2, int s1, int s2, int v_lo, int lo, int hi) -> int {
+		auto query_seg_2 = std::y_combinator([&](auto self, int b1, int b2, int s2, int v_lo, int lo, int hi) -> int {
 			if (hi <= v_lo) {
 				return M;
 			}
-			int cnt = nodes[b1].cnt - nodes[s1].cnt + nodes[b2].cnt - nodes[s2].cnt;
+			int cnt = nodes[b1].cnt + nodes[b2].cnt - nodes[s2].cnt;
 			assert(cnt >= 0);
 			if (cnt == 0) { return M; }
 			if (hi - lo == 1) {
@@ -271,9 +270,9 @@ int main() {
 				return lo;
 			}
 			int md = (lo + hi) / 2;
-			int r1 = self(nodes[b1].c[0], nodes[b2].c[0], nodes[s1].c[0], nodes[s2].c[0], v_lo, lo, md);
+			int r1 = self(nodes[b1].c[0], nodes[b2].c[0], nodes[s2].c[0], v_lo, lo, md);
 			if (r1 != M) return r1;
-			return self(nodes[b1].c[1], nodes[b2].c[1], nodes[s1].c[1], nodes[s2].c[1], v_lo, md, hi);
+			return self(nodes[b1].c[1], nodes[b2].c[1], nodes[s2].c[1], v_lo, md, hi);
 		});
 
 		auto query = [&](int vert, int dist, int v_lo) -> int {
@@ -284,10 +283,8 @@ int main() {
 				return query_seg(segs[vert], segs[anc], v_lo, 0, M);
 			} else {
 				int rt = node_root[vert];
-				int a1 = query_seg(segs[vert], empty_tree, v_lo, 0, M);
 				int num_extra = std::min(dist - depth[vert], depth[root_par[rt]] - 1);
-				int a2 = query_seg(segs[root_par[rt]], segs[root_path[rt][num_extra]], v_lo, 0, M);
-				return std::min(a1, a2);
+				return query_seg_2(segs[vert], segs[root_par[rt]], segs[root_path[rt][num_extra]], v_lo, 0, M);
 			}
 		};
 
@@ -298,6 +295,7 @@ int main() {
 			int cur = 0;
 			for (auto a : A) {
 				cur = query(a, md, cur);
+				if (cur == M) break;
 			}
 			if (cur == M) {
 				mi = md;
