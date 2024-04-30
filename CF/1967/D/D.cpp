@@ -126,7 +126,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
+	//int T; cin >> T;
+	int T = 1;
 	while (T--) {
 		/*
 		int L, M; cin >> L >> M;
