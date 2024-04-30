@@ -131,6 +131,9 @@ int main() {
 		int L, M; cin >> L >> M;
 		std::vector<int> A(L); for (auto& a : A) { cin >> a; a--; }
 		std::vector<int> B(M); for (auto& b : B) { cin >> b; b--; }
+		cerr << "Case" << '\n';
+		cerr << L << ' ' << M << '\n';
+		for (auto& b : B) { cerr << b << ' '; } cerr << '\n';
 
 		std::vector<int> root_par(M, -1);
 		std::vector<std::vector<int>> ch(M);
@@ -161,6 +164,8 @@ int main() {
 				}
 			}
 		}
+		for (auto& b : tree_par) { cerr << b << ' '; } cerr << '\n';
+		for (auto& b : root_par) { cerr << b << ' '; } cerr << '\n';
 
 		struct seg_tree_node {
 			std::array<int, 2> c{-1, -1};
