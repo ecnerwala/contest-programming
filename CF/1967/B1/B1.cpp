@@ -12,6 +12,7 @@ int main() {
 		int64_t ans = 0;
 		for (int64_t B = 1; B <= M && B * (B-1) <= N; B++) {
 			ans += (N + B) / B / B;
+			if (B == 1) ans--;
 		}
 		cout << ans << '\n';
 	}
