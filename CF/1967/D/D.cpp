@@ -197,6 +197,8 @@ int main() {
 			return idx;
 		})(0, M);
 
+		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
+		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
 		break;
 		std::vector<int> depth(M, -1);
 		//std::vector<std::vector<int>> root_path(M);
