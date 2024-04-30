@@ -128,9 +128,15 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
+		/*
 		int L, M; cin >> L >> M;
 		std::vector<int> A(L); for (auto& a : A) { cin >> a; a--; }
 		std::vector<int> B(M); for (auto& b : B) { cin >> b; b--; }
+		*/
+		int L = 1e6;
+		int M = 1e6;
+		std::vector<int> A(L); for (int i = 0; i < L; i++) { A[i] = (i % M); }
+		std::vector<int> B(M); for (int i = 0; i < M; i++) { B[i] = (i+1) % M; }
 		//cerr << "Case" << '\n';
 		//cerr << L << ' ' << M << '\n';
 		//for (auto& b : B) { cerr << b << ' '; } cerr << '\n';
