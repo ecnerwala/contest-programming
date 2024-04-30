@@ -196,6 +196,7 @@ int main() {
 		})(0, M);
 
 		std::vector<int> depth(M, -1);
+		std::vector<int> node_root(M, -1);
 		std::vector<std::vector<int>> root_path(M);
 		std::vector<int> segs(M, -1);
 		std::vector<int> q; q.reserve(M);
@@ -203,6 +204,7 @@ int main() {
 			if (root_par[rt] == -1) continue;
 			depth[rt] = 1;
 			segs[rt] = empty_tree;
+			node_root[rt] = rt;
 			q.push_back(rt);
 		}
 		for (int q_idx = 0; q_idx < int(q.size()); q_idx++) {
@@ -226,6 +228,7 @@ int main() {
 			for (int nxt : ch[cur]) {
 				depth[nxt] = depth[cur] + 1;
 				segs[nxt] = segs[cur];
+				node_root[nxt] = node_root[cur];
 				q.push_back(nxt);
 			}
 		}
@@ -263,7 +266,7 @@ int main() {
 				int anc = la.get_ancestor(vert, dist);
 				return query_seg(segs[vert], segs[anc], v_lo, 0, M);
 			} else {
-				int rt = la.get_ancestor(vert, depth[vert] - 1);
+				int rt = node_root[vert];
 				int a1 = query_seg(segs[vert], empty_tree, v_lo, 0, M);
 				int num_extra = std::min(dist - depth[vert], depth[root_par[rt]] - 1);
 				int a2 = query_seg(segs[root_par[rt]], segs[root_path[rt][num_extra]], v_lo, 0, M);
