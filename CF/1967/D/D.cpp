@@ -174,7 +174,7 @@ int main() {
 		//for (auto& b : tree_par) { cerr << b << ' '; } cerr << '\n';
 		//for (auto& b : root_par) { cerr << b << ' '; } cerr << '\n';
 
-		ecnerwala::level_ancestor la(tree_par);
+		//ecnerwala::level_ancestor la(tree_par);
 
 		struct seg_tree_node {
 			std::array<int, 2> c{-1, -1};
@@ -252,6 +252,7 @@ int main() {
 			return self(nodes[s_big].c[1], nodes[s_small].c[1], v_lo, md, hi);
 		});
 
+		break;
 		auto query = [&](int vert, int dist, int v_lo) -> int {
 			// # valid verts is dist + 1
 			dist++;
