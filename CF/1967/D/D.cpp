@@ -259,6 +259,23 @@ int main() {
 			return self(nodes[s_big].c[1], nodes[s_small].c[1], v_lo, md, hi);
 		});
 
+		auto query_seg_2 = std::y_combinator([&](auto self, int b1, int b2, int s1, int s2, int v_lo, int lo, int hi) -> int {
+			if (hi <= v_lo) {
+				return M;
+			}
+			int cnt = nodes[b1].cnt - nodes[s1].cnt + nodes[b2].cnt - nodes[s2].cnt;
+			assert(cnt >= 0);
+			if (cnt == 0) { return M; }
+			if (hi - lo == 1) {
+				assert(lo >= v_lo);
+				return lo;
+			}
+			int md = (lo + hi) / 2;
+			int r1 = self(nodes[b1].c[0], nodes[b2].c[0], nodes[s1].c[0], nodes[s2].c[0], v_lo, lo, md);
+			if (r1 != M) return r1;
+			return self(nodes[b1].c[1], nodes[b2].c[1], nodes[s1].c[1], nodes[s2].c[1], v_lo, md, hi);
+		});
+
 		auto query = [&](int vert, int dist, int v_lo) -> int {
 			// # valid verts is dist + 1
 			dist++;
