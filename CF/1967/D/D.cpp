@@ -231,7 +231,7 @@ int main() {
 				if (cur == rt) break;
 			}
 		}
-		cerr << nodes.size() << '\n';
+		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
 		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
 
 		auto query_seg = std::y_combinator([&](auto self, int s_big, int s_small, int v_lo, int lo, int hi) -> int {
