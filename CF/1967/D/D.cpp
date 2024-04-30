@@ -174,7 +174,7 @@ int main() {
 		//for (auto& b : tree_par) { cerr << b << ' '; } cerr << '\n';
 		//for (auto& b : root_par) { cerr << b << ' '; } cerr << '\n';
 
-		ecnerwala::level_ancestor la(tree_par);
+		//ecnerwala::level_ancestor la(tree_par);
 
 		struct seg_tree_node {
 			std::array<int, 2> c{-1, -1};
