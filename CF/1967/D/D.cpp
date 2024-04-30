@@ -180,7 +180,7 @@ int main() {
 			std::array<int, 2> c{-1, -1};
 			int cnt = 0;
 		};
-		std::vector<seg_tree_node> nodes;
+		std::vector<seg_tree_node> nodes; nodes.reserve(2 * M + 22 * M);
 		int empty_tree = std::y_combinator([&](auto self, int lo, int hi) -> int {
 			assert(hi > lo);
 			int l, r;
