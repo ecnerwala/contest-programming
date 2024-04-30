@@ -167,12 +167,13 @@ int main() {
 		//for (auto& b : tree_par) { cerr << b << ' '; } cerr << '\n';
 		//for (auto& b : root_par) { cerr << b << ' '; } cerr << '\n';
 
+		ecnerwala::level_ancestor la(tree_par);
+
 		struct seg_tree_node {
 			std::array<int, 2> c{-1, -1};
 			int cnt = 0;
 		};
 		std::vector<seg_tree_node> nodes; nodes.reserve((2 * M) + 22 * (M+1));
-		cerr << sizeof(seg_tree_node) << '\n';
 		int empty_tree = std::y_combinator([&](auto self, int lo, int hi) -> int {
 			assert(hi > lo);
 			int l, r;
@@ -222,7 +223,6 @@ int main() {
 				if (cur == rt) break;
 			}
 		}
-		ecnerwala::level_ancestor la(tree_par);
 
 		auto query_seg = std::y_combinator([&](auto self, int s_big, int s_small, int v_lo, int lo, int hi) -> int {
 			assert(nodes[s_big].cnt >= nodes[s_small].cnt);
