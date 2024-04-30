@@ -189,7 +189,7 @@ int main() {
 						self(nxt);
 					}
 					st[cur][1] = idx;
-				});
+				})(rt);
 			}
 			assert(idx == M);
 		}
