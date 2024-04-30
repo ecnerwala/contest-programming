@@ -208,18 +208,17 @@ int main() {
 			std::y_combinator([&](auto self, int cur, int cur_tree) -> void {
 				cur_tree = segs[cur] = std::y_combinator([&](auto self, int s, int lo, int hi) -> int {
 					assert(lo <= cur && cur < hi);
-					seg_tree_node res = nodes[s];
-					res.cnt++;
+					int idx = int(nodes.size());
+					nodes.push_back(nodes[s]);
+					nodes[idx].cnt++;
 					if (hi - lo > 1) {
 						int md = (lo + hi) / 2;
 						if (cur < md) {
-							res.c[0] = self(res.c[0], lo, md);
+							nodes[idx].c[0] = self(nodes[idx].c[0], lo, md);
 						} else {
-							res.c[1] = self(res.c[1], md, hi);
+							nodes[idx].c[1] = self(nodes[idx].c[1], md, hi);
 						}
 					}
-					int idx = int(nodes.size());
-					nodes.push_back(res);
 					return idx;
 				})(cur_tree, 0, M);
 				for (int nxt : ch[cur]) {
