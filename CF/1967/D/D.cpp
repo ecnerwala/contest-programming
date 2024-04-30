@@ -236,6 +236,7 @@ int main() {
 		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
 		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
 
+		/*
 		auto query_seg = std::y_combinator([&](auto self, int s_big, int s_small, int v_lo, int lo, int hi) -> int {
 			assert(nodes[s_big].cnt >= nodes[s_small].cnt);
 			if (nodes[s_big].cnt == nodes[s_small].cnt) {
@@ -289,6 +290,7 @@ int main() {
 		} else {
 			cout << ma << '\n';
 		}
+		*/
 	}
 
 	return 0;
