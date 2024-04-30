@@ -9,9 +9,9 @@ int main() {
 		int N, M; cin >> N >> M;
 
 		// A+B is a multiple of B^2
-		int64_t ans = N;
-		for (int64_t B = 2; B <= M && B * (B-1) <= N; B++) {
-			ans += N / B / (B-1);
+		int64_t ans = 0;
+		for (int64_t B = 1; B <= M && B * (B-1) <= N; B++) {
+			ans += (N + B) / B / B;
 		}
 		cout << ans << '\n';
 	}
