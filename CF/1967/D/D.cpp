@@ -197,6 +197,7 @@ int main() {
 			return idx;
 		})(0, M);
 
+		break;
 		std::vector<int> depth(M, -1);
 		//std::vector<std::vector<int>> root_path(M);
 		std::vector<int> segs(M, -1);
