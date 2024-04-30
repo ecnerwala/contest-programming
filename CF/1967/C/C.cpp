@@ -133,7 +133,7 @@ int main() {
 		weights.push_back(1);
 		for (int i = 0; i < N; i++) {
 			num v = B[i];
-			for (int cur = i, steps = 0; i < N; steps++, i |= (i+1)) {
+			for (int cur = i, steps = 0; cur < N; steps++, cur |= (cur+1)) {
 				if (i == 0 && steps > 0) {
 					weights.push_back(-weights.back() * num(K + 1 - steps) / num(steps));
 				}
