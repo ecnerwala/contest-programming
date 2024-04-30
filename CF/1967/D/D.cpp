@@ -126,18 +126,18 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	//int T; cin >> T;
-	int T = 1;
+	int T; cin >> T;
+	//int T = 1;
 	while (T--) {
-		/*
 		int L, M; cin >> L >> M;
 		std::vector<int> A(L); for (auto& a : A) { cin >> a; a--; }
 		std::vector<int> B(M); for (auto& b : B) { cin >> b; b--; }
-		*/
+		/*
 		int L = 1e6;
 		int M = 1e6;
 		std::vector<int> A(L); for (int i = 0; i < L; i++) { A[i] = (i % M); }
 		std::vector<int> B(M); for (int i = 0; i < M; i++) { B[i] = (i+1) % M; }
+		*/
 		//cerr << "Case" << '\n';
 		//cerr << L << ' ' << M << '\n';
 		//for (auto& b : B) { cerr << b << ' '; } cerr << '\n';
@@ -171,10 +171,8 @@ int main() {
 				}
 			}
 		}
-		//for (auto& b : tree_par) { cerr << b << ' '; } cerr << '\n';
-		//for (auto& b : root_par) { cerr << b << ' '; } cerr << '\n';
 
-		//ecnerwala::level_ancestor la(tree_par);
+		ecnerwala::level_ancestor la(tree_par);
 
 		struct seg_tree_node {
 			std::array<int, 2> c{-1, -1};
@@ -197,8 +195,6 @@ int main() {
 			return idx;
 		})(0, M);
 
-		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
-		cerr << nodes.capacity() * sizeof(seg_tree_node) << '\n';
 		std::vector<int> depth(M, -1);
 		std::vector<std::vector<int>> root_path(M);
 		std::vector<int> segs(M, -1);
@@ -241,11 +237,7 @@ int main() {
 				if (cur == rt) break;
 			}
 		}
-		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
-		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
-		break;
 
-		/*
 		auto query_seg = std::y_combinator([&](auto self, int s_big, int s_small, int v_lo, int lo, int hi) -> int {
 			assert(nodes[s_big].cnt >= nodes[s_small].cnt);
 			if (nodes[s_big].cnt == nodes[s_small].cnt) {
@@ -299,7 +291,6 @@ int main() {
 		} else {
 			cout << ma << '\n';
 		}
-		*/
 	}
 
 	return 0;
