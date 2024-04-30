@@ -12,7 +12,7 @@ int main() {
 		int N, M; cin >> N >> M;
 		int64_t ans = 0;
 		for (int a = 1; a <= N; a++) {
-			for (int b = 1; (a + b) * a <= N && (a + b) * b <= M; b++) {
+			for (int b = 1; int64_t(a + b) * a <= N && int64_t(a + b) * b <= M; b++) {
 				if (std::gcd(a, b) == 1) {
 					ans += std::min(N / a / (a+b), M / b / (a+b));
 				}
