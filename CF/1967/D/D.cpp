@@ -174,7 +174,7 @@ int main() {
 		//for (auto& b : tree_par) { cerr << b << ' '; } cerr << '\n';
 		//for (auto& b : root_par) { cerr << b << ' '; } cerr << '\n';
 
-		//ecnerwala::level_ancestor la(tree_par);
+		ecnerwala::level_ancestor la(tree_par);
 
 		struct seg_tree_node {
 			std::array<int, 2> c{-1, -1};
@@ -198,7 +198,7 @@ int main() {
 		})(0, M);
 
 		std::vector<int> depth(M, -1);
-		std::vector<std::vector<int>> root_path(M);
+		//std::vector<std::vector<int>> root_path(M);
 		std::vector<int> segs(M, -1);
 		for (int rt = 0; rt < M; rt++) {
 			if (root_par[rt] == -1) continue;
@@ -225,11 +225,13 @@ int main() {
 					self(nxt, cur_tree);
 				}
 			})(rt, empty_tree);
+			/*
 			root_path[rt].reserve(depth[root_par[rt]]);
 			for (int cur = root_par[rt]; cur != -1; cur = tree_par[cur]) {
 				root_path[rt].push_back(cur);
 				if (cur == rt) break;
 			}
+			*/
 		}
 		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
 		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
@@ -252,7 +254,6 @@ int main() {
 			return self(nodes[s_big].c[1], nodes[s_small].c[1], v_lo, md, hi);
 		});
 
-		/*
 		auto query = [&](int vert, int dist, int v_lo) -> int {
 			// # valid verts is dist + 1
 			dist++;
@@ -288,7 +289,6 @@ int main() {
 		} else {
 			cout << ma << '\n';
 		}
-		*/
 	}
 
 	return 0;
