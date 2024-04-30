@@ -134,7 +134,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			num v = B[i];
 			for (int cur = i, steps = 0; i < N; steps++, i |= (i+1)) {
-				if (i == 0) {
+				if (i == 0 && steps > 0) {
 					weights.push_back(-weights.back() * num(K + 1 - steps) / num(steps));
 				}
 				A[cur] += v * weights[steps];
