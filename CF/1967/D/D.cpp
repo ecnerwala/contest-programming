@@ -255,7 +255,7 @@ int main() {
 		};
 
 		int mi = 0;
-		int ma = M+1;
+		int ma = M;
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			int cur = 0;
