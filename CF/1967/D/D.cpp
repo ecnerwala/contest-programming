@@ -198,7 +198,7 @@ int main() {
 		})(0, M);
 
 		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
-		cerr << nodes.size() * sizeof(seg_tree_node) << '\n';
+		cerr << nodes.capacity() * sizeof(seg_tree_node) << '\n';
 		break;
 		std::vector<int> depth(M, -1);
 		//std::vector<std::vector<int>> root_path(M);
