@@ -172,119 +172,41 @@ int main() {
 			}
 		}
 
-		ecnerwala::level_ancestor la(tree_par);
-
-		struct seg_tree_node {
-			std::array<int, 2> c{-1, -1};
-			int cnt = 0;
-		};
-		std::vector<seg_tree_node> nodes;
-		nodes.reserve(2 * M + 22 * M);
-		int empty_tree = std::y_combinator([&](auto self, int lo, int hi) -> int {
-			assert(hi > lo);
-			int l, r;
-			if (hi - lo == 1) {
-				l = -1, r = -1;
-			} else {
-				int md = (lo + hi) / 2;
-				l = self(lo, md);
-				r = self(md, hi);
-			}
-			int idx = int(nodes.size());
-			nodes.push_back(seg_tree_node{{l, r}, 0});
-			return idx;
-		})(0, M);
-
 		std::vector<int> depth(M, -1);
-		std::vector<int> node_root(M, -1);
-		std::vector<std::vector<int>> root_path(M);
-		std::vector<int> segs(M, -1);
-		std::vector<int> q; q.reserve(M);
-		for (int rt = 0; rt < M; rt++) {
-			if (root_par[rt] == -1) continue;
-			depth[rt] = 1;
-			segs[rt] = empty_tree;
-			node_root[rt] = rt;
-			q.push_back(rt);
-		}
-		for (int q_idx = 0; q_idx < int(q.size()); q_idx++) {
-			int cur = q[q_idx];
-			segs[cur] = std::y_combinator([&](auto self, int s, int lo, int hi) -> int {
-				assert(lo <= cur && cur < hi);
-				seg_tree_node res = nodes[s];
-				res.cnt++;
-				if (hi - lo > 1) {
-					int md = (lo + hi) / 2;
-					if (cur < md) {
-						res.c[0] = self(res.c[0], lo, md);
-					} else {
-						res.c[1] = self(res.c[1], md, hi);
+		std::vector<int> root_jump(M, -1);
+		std::vector<std::array<int, 2>> st(M);
+		{
+			int idx = 0;
+			for (int rt = 0; rt < M; rt++) {
+				if (root_par[rt] == -1) continue;
+				depth[rt] = 1;
+				std::y_combinator([&](auto self, int cur) -> void {
+					st[cur][0] = idx;
+					idx++;
+					root_jump[cur] = root_par[rt];
+					for (int nxt : ch[cur]) {
+						depth[nxt] = depth[cur] + 1;
+						self(nxt);
 					}
-				}
-				int idx = int(nodes.size());
-				nodes.push_back(res);
-				return idx;
-			})(segs[cur], 0, M);
-			for (int nxt : ch[cur]) {
-				depth[nxt] = depth[cur] + 1;
-				segs[nxt] = segs[cur];
-				node_root[nxt] = node_root[cur];
-				q.push_back(nxt);
+					st[cur][1] = idx;
+				});
 			}
-		}
-		for (int rt = 0; rt < M; rt++) {
-			if (root_par[rt] == -1) continue;
-			root_path[rt].reserve(depth[root_par[rt]]);
-			for (int cur = root_par[rt]; cur != -1; cur = tree_par[cur]) {
-				root_path[rt].push_back(cur);
-				if (cur == rt) break;
-			}
+			assert(idx == M);
 		}
 
-		auto query_seg = std::y_combinator([&](auto self, int s_big, int s_small, int v_lo, int lo, int hi) -> int {
-			if (hi <= v_lo) {
-				return M;
-			}
-			if (nodes[s_big].cnt == nodes[s_small].cnt) {
-				return M;
-			}
-			if (hi - lo == 1) {
-				assert(lo >= v_lo);
-				return lo;
-			}
-			int md = (lo + hi) / 2;
-			int r1 = self(nodes[s_big].c[0], nodes[s_small].c[0], v_lo, lo, md);
-			if (r1 != M) return r1;
-			return self(nodes[s_big].c[1], nodes[s_small].c[1], v_lo, md, hi);
-		});
-
-		auto query_seg_2 = std::y_combinator([&](auto self, int b1, int b2, int s2, int v_lo, int lo, int hi) -> int {
-			if (hi <= v_lo) {
-				return M;
-			}
-			int cnt = nodes[b1].cnt + nodes[b2].cnt - nodes[s2].cnt;
-			assert(cnt >= 0);
-			if (cnt == 0) { return M; }
-			if (hi - lo == 1) {
-				assert(lo >= v_lo);
-				return lo;
-			}
-			int md = (lo + hi) / 2;
-			int r1 = self(nodes[b1].c[0], nodes[b2].c[0], nodes[s2].c[0], v_lo, lo, md);
-			if (r1 != M) return r1;
-			return self(nodes[b1].c[1], nodes[b2].c[1], nodes[s2].c[1], v_lo, md, hi);
-		});
-
-		auto query = [&](int vert, int dist, int v_lo) -> int {
-			// # valid verts is dist + 1
-			dist++;
-			if (dist < depth[vert]) {
-				int anc = la.get_ancestor(vert, dist);
-				return query_seg(segs[vert], segs[anc], v_lo, 0, M);
+		auto can_reach = [&](int src, int dest, int max_steps) -> bool {
+			if (st[dest][0] <= st[src][0] && st[src][0] < st[dest][1]) {
+				// in the subtree
+				return depth[dest] - depth[src] <= max_steps;
 			} else {
-				int rt = node_root[vert];
-				int num_extra = std::min(dist - depth[vert], depth[root_par[rt]] - 1);
-				return query_seg_2(segs[vert], segs[root_par[rt]], segs[root_path[rt][num_extra]], v_lo, 0, M);
+				max_steps -= depth[src];
+				src = root_jump[src];
+				if (st[dest][0] <= st[src][0] && st[src][0] < st[dest][1]) {
+					// in the subtree
+					return depth[dest] - depth[src] <= max_steps;
+				} else {
+					return false;
+				}
 			}
 		};
 
@@ -294,7 +216,10 @@ int main() {
 			int md = (mi + ma) / 2;
 			int cur = 0;
 			for (auto a : A) {
-				cur = query(a, md, cur);
+				while (!can_reach(a, cur, md)) {
+					cur++;
+					if (cur == M) break;
+				}
 				if (cur == M) break;
 			}
 			if (cur == M) {
