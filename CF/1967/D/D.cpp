@@ -225,7 +225,7 @@ int main() {
 					self(nxt, cur_tree);
 				}
 			})(rt, empty_tree);
-			//root_path[rt].reserve(depth[root_par[rt]]);
+			root_path[rt].reserve(depth[root_par[rt]]);
 			for (int cur = root_par[rt]; cur != -1; cur = tree_par[cur]) {
 				root_path[rt].push_back(cur);
 				if (cur == rt) break;
