@@ -199,10 +199,10 @@ int main() {
 
 		cerr << nodes.size() << ' ' << nodes.capacity() << '\n';
 		cerr << nodes.capacity() * sizeof(seg_tree_node) << '\n';
-		break;
 		std::vector<int> depth(M, -1);
 		//std::vector<std::vector<int>> root_path(M);
 		std::vector<int> segs(M, -1);
+		break;
 		for (int rt = 0; rt < M; rt++) {
 			if (root_par[rt] == -1) continue;
 			depth[rt] = 1;
