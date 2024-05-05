@@ -7,7 +7,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N; cin >> N;
-	std::string S;
+	std::string S; cin >> S;
 	struct trie_node {
 		std::array<int, 26> ch{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		int own_lis = 0;
