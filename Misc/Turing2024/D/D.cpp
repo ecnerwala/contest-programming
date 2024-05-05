@@ -896,7 +896,7 @@ int main() {
 
 	std::vector<num> ans(N+1);
 	ans[0] = 1;
-	// ans_2 is the answer excluding things that start exactly with 1
+	// ans_2 is the answer excluding things that with 1 as the first op
 	std::vector<num> ans_2(N+1);
 	ans_2[0] = 1;
 
@@ -907,6 +907,8 @@ int main() {
 	// capped means starting <= 2^n, uncapped means starting at exactly 2^{n+1}
 	vn stack_capped(vn{num(1)});
 	vn stack_uncapped;
+	vn stack_capped_2(vn{num(1)});
+	vn stack_uncapped_2;
 
 	vn pow_weight_2(N+1);
 	pow_weight_2[0] = weight_2;
@@ -918,34 +920,35 @@ int main() {
 		// Update stack_*
 
 		// Uncapped is now must start with 2^{n+1}
-		{
-			num weight_uncapped = pow_weight_2[n] * p2 / weight_2;
-			stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped);
-		}
+		num weight_uncapped = pow_weight_2[n] * p2 / weight_2;
+		num weight_capped = pow_weight_2[n-1];
+		stack_uncapped_2 = weight_uncapped * (p2 / weight_2) * shifted(stack_uncapped + stack_capped);
+		stack_capped_2 = stack_capped_2 + weight_capped * (p2 / weight_2) * shifted(stack_capped);
 
-		{
-			num weight_capped = pow_weight_2[n-1];
-			stack_capped = stack_capped + weight_capped * shifted(stack_capped);
-		}
+		stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped);
+		stack_capped = stack_capped + weight_capped * shifted(stack_capped);
 
 		// empty
+		ans[n] = 0;
 		ans_2[n] = 0;
 
 		// starts at >= 2 and never gets to 1
 		for (int l = 0; l <= n; l++) {
-			ans_2[n] += stack_capped[l];
-			ans_2[n] += stack_uncapped[l];
+			ans[n] += stack_capped[l];
+			ans[n] += stack_uncapped[l];
+			ans_2[n] += stack_capped_2[l];
+			ans_2[n] += stack_uncapped_2[l];
 		}
 
 		// starts at >= 2 and gets to 1
 		for (int l = 0; l+1 <= n; l++) {
-			ans_2[n] += stack_capped[l] * p1 * ans_2[n-l-1];
-			ans_2[n] += stack_uncapped[l] * p1 * ans_2[n-l-1];
+			ans[n] += stack_capped[l] * p1 * ans_2[n-l-1];
+			ans[n] += stack_uncapped[l] * p1 * ans_2[n-l-1];
+			if (l > 0) {
+				ans_2[n] += stack_capped_2[l] * p1 * ans_2[n-l-1];
+				ans_2[n] += stack_uncapped_2[l] * p1 * ans_2[n-l-1];
+			}
 		}
-
-		// starts at 1 is just ans_2[n-1]
-		ans[n] = ans_2[n];
-		ans_2[n] -= p1 * ans_2[n-1];
 	}
 
 	for (int i = 0; i <= N; i++) {
