@@ -150,7 +150,67 @@ int64_t solve(std::vector<std::pair<int, int>> lines) {
 		}
 		return ans;
 	}
-	return 0;
+
+	int64_t tot_pts = 0;
+	for (auto [_, c] : lines) {
+		tot_pts += c;
+	}
+
+	int64_t X;
+	{
+		int64_t min_x = lines.front().first - tot_pts - 1;
+		int64_t max_x = lines.back().first + tot_pts + 1;
+
+		X = max_x - min_x;
+
+		for (auto& [x, _] : lines) {
+			x -= min_x;
+		}
+	}
+	for (auto [x, _] : lines) {
+		assert(0 <= x && x <= X);
+	}
+
+	std::vector<int> num_used(X+1);
+
+	// amount of flow from i to i+1, + means to the right, - means to the left
+	std::vector<int> flow(X);
+
+	int64_t ans = 0;
+	for (auto [x, c] : lines) {
+		for (int z = 0; z < c; z++) {
+			// try to send a flow in at x
+			std::pair<int, int> best = {num_used[x], x};
+			{
+				int cur_cost = 0;
+				for (int p = x-1; p >= 0; p--) {
+					if (flow[p] > 0) cur_cost--;
+					else cur_cost++;
+					best = std::min(best, std::pair<int, int>{cur_cost + num_used[p], p});
+				}
+			}
+			{
+				int cur_cost = 0;
+				for (int p = x+1; p <= X; p++) {
+					if (flow[p-1] < 0) cur_cost--;
+					else cur_cost++;
+					best = std::min(best, std::pair<int, int>{cur_cost + num_used[p], p});
+				}
+			}
+			assert(best.first >= 0);
+			ans += best.first;
+
+			int p = best.second;
+			if (p < x) {
+				for (int i = p; i < x; i++) flow[i]--;
+			} else {
+				for (int i = x; i < p; i++) flow[i]++;
+			}
+			num_used[p] ++;
+		}
+	}
+
+	return ans;
 }
 
 int main() {
