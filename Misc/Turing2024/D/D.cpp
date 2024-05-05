@@ -932,24 +932,23 @@ int main() {
 		ans[n] = 1;
 		ans_2[n] = 1;
 
+		num val = 0;
 		// starts at >= 2 and never gets to 1
 		for (int l = 1; l <= n; l++) {
-			ans[n] += stack_capped[l];
-			ans[n] += stack_uncapped[l];
-			ans_2[n] += stack_capped_2[l];
-			ans_2[n] += stack_uncapped_2[l];
+			val += stack_capped[l];
+			val += stack_uncapped[l];
 		}
 
 		// starts at >= 2 and gets to 1
-		ans[n] += p1 * ans_2[n-1];
 		for (int l = 1; l+1 <= n; l++) {
-			ans[n] += stack_capped[l] * p1 * ans_2[n-l-1];
-			ans[n] += stack_uncapped[l] * p1 * ans_2[n-l-1];
-			if (l > 0) {
-				ans_2[n] += stack_capped_2[l] * p1 * ans_2[n-l-1];
-				ans_2[n] += stack_uncapped_2[l] * p1 * ans_2[n-l-1];
-			}
+			val += stack_capped[l] * p1 * ans_2[n-l-1];
+			val += stack_uncapped[l] * p1 * ans_2[n-l-1];
 		}
+
+		ans[n] += val;
+		ans_2[n] += val * p2 / weight_2;
+
+		ans[n] += p1 * ans_2[n-1];
 	}
 
 	for (int i = 0; i <= N; i++) {
