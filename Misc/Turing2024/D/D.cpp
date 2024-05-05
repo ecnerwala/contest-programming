@@ -907,8 +907,6 @@ int main() {
 	// capped means starting <= 2^n, uncapped means starting at exactly 2^{n+1}
 	vn stack_capped;
 	vn stack_uncapped;
-	vn stack_capped_2;
-	vn stack_uncapped_2;
 
 	vn pow_weight_2(N+1);
 	pow_weight_2[0] = weight_2;
@@ -922,8 +920,6 @@ int main() {
 		// Uncapped is now must start with 2^{n+1}
 		num weight_uncapped = pow_weight_2[n] * p2 / weight_2;
 		num weight_capped = pow_weight_2[n-1];
-		stack_uncapped_2 = weight_uncapped * (p2 / weight_2) * shifted(stack_uncapped + stack_capped + vn({num(1)}));
-		stack_capped_2 = stack_capped_2 + weight_capped * (p2 / weight_2) * shifted(stack_capped + vn({num(1)}));
 
 		stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped + vn({num(1)}));
 		stack_capped = stack_capped + weight_capped * shifted(stack_capped + vn({num(1)}));
