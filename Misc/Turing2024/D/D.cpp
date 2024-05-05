@@ -930,7 +930,7 @@ int main() {
 
 		num val = 0;
 		// starts at >= 2 and never gets to 1
-		// Nonempty only
+		// Nonempty only, length 1..n
 		for (int l = 1; l <= n; l++) {
 			val += stack_capped[l];
 			val += stack_uncapped[l];
