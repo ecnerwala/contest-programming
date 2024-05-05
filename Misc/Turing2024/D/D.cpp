@@ -503,174 +503,33 @@ struct polynomial : public std::vector<T> {
 	friend polynomial operator + (polynomial a, const polynomial& b) {
 		return a += b;
 	}
-	/*
 	polynomial& operator -= (const polynomial& o) {
-		assert(len() == o.len());
+		extend(std::max(len(), o.len()));
 		for (int i = 0; i < int(o.size()); i++) {
 			(*this)[i] -= o[i];
 		}
 		return *this;
 	}
-	friend polynomial operator - (const polynomial& a, const polynomial& b) {
-		polynomial r(std::min(a.size(), b.size()));
-		for (int i = 0; i < r.len(); i++) {
-			r[i] = a[i] - b[i];
-		}
-		return r;
+	friend polynomial operator - (polynomial a, const polynomial& b) {
+		return a -= b;
 	}
 
 	polynomial& operator *= (const T& n) {
 		for (auto& v : *this) v *= n;
 		return *this;
 	}
-	friend polynomial operator * (const polynomial& a, const T& n) {
-		polynomial r(a.size());
+	friend polynomial operator * (polynomial a, const T& n) {
 		for (int i = 0; i < a.len(); i++) {
-			r[i] = a[i] * n;
-		}
-		return r;
-	}
-	friend polynomial operator * (const T& n, const polynomial& a) {
-		polynomial r(a.size());
-		for (int i = 0; i < a.len(); i++) {
-			r[i] = n * a[i];
-		}
-		return r;
-	}
-
-	friend polynomial operator * (const polynomial& a, const polynomial& b) {
-		if (sz(a) == 0 || sz(b) == 0) return {};
-		polynomial r(std::max(0, sz(a) + sz(b) - 1));
-		multiplier::multiply(begin(a), sz(a), begin(b), sz(b), begin(r));
-		r.resize(std::min(a.size(), b.size()));
-		return r;
-	}
-	polynomial& operator *= (const polynomial& o) {
-		return *this = (*this) * o;
-	}
-	friend polynomial square(const polynomial& a) {
-		if (sz(a) == 0) return {};
-		polynomial r(sz(a) * 2 - 1);
-		multiplier::square(begin(a), sz(a), begin(r));
-		r.resize(a.size());
-		return r;
-	}
-
-	friend polynomial stretch(const polynomial& a, int n) {
-		polynomial r(a.size());
-		for (int i = 0; i*n < int(a.size()); i++) {
-			r[i*n] = a[i];
-		}
-		return r;
-	}
-	friend polynomial inverse(polynomial a) {
-		polynomial r(sz(a));
-		inverser::inverse(begin(a), sz(a), begin(r));
-		return r;
-	}
-	friend polynomial deriv_shift(polynomial a) {
-		for (int i = 0; i < a.len(); i++) {
-			a[i] *= i;
+			a[i] = a[i] * n;
 		}
 		return a;
 	}
-	friend polynomial integ_shift(polynomial a) {
-		assert(a[0] == 0);
-		T f = 1;
-		for (int i = 1; i < int(a.size()); i++) {
-			a[i] *= f;
-			f *= i;
-		}
-		f = inv(f);
-		for (int i = int(a.size()) - 1; i > 0; i--) {
-			a[i] *= f;
-			f *= i;
+	friend polynomial operator * (const T& n, polynomial a) {
+		for (int i = 0; i < a.len(); i++) {
+			a[i] = n * a[i];
 		}
 		return a;
 	}
-	friend polynomial deriv_shift_log(polynomial a) {
-		auto r = deriv_shift(a);
-		return r * inverse(a);
-	}
-	friend polynomial poly_log(polynomial a) {
-		assert(a[0] == 1);
-		return integ_shift(deriv_shift_log(std::move(a)));
-	}
-	friend polynomial poly_exp(polynomial a) {
-		assert(a.size() >= 1);
-		assert(a[0] == 0);
-		polynomial r(1, T(1));
-		while (r.size() < a.size()) {
-			int n_sz = std::min(int(r.size()) * 2, int(a.size()));
-			r.resize(n_sz);
-			polynomial v(a.begin(), a.begin() + n_sz);
-			v -= poly_log(r);
-			v[0] += 1;
-			r *= v;
-		}
-		return r;
-	}
-	friend polynomial poly_pow_monic(polynomial a, int64_t k) {
-		if (a.empty()) return a;
-		assert(a.size() >= 1);
-		assert(a[0] == 1);
-		a = poly_log(a);
-		a *= k;
-		return poly_exp(a);
-	}
-	friend polynomial poly_pow(polynomial a, int64_t k) {
-		int st = 0;
-		while (st < a.len() && a[st] == 0) st++;
-		if (st == a.len()) return a;
-
-		polynomial r(a.begin() + st, a.end());
-		T leading_coeff = r[0];
-		r *= inv(leading_coeff);
-		r = poly_pow_monic(r, k);
-		r *= pow(leading_coeff, k);
-		r.insert(r.begin(), size_t(st), T(0));
-		return r;
-	}
-
-	friend polynomial to_newton_sums(const polynomial& a, int deg) {
-		auto r = log_deriv_shift(a);
-		r[0] = deg;
-		for (int i = 1; i < int(r.size()); i++) r[i] = -r[i];
-		return r;
-	}
-	friend polynomial from_newton_sums(polynomial S, int deg) {
-		assert(S[0] == int(deg));
-		S[0] = 0;
-		for (int i = 1; i < int(S.size()); i++) S[i] = -S[i];
-		return poly_exp(integ_shift(std::move(S)));
-	}
-
-	// Calculates prod 1/(1-x^i)^{a[i]}
-	friend polynomial euler_transform(const polynomial& a) {
-		polynomial r = deriv_shift(a);
-		std::vector<bool> is_prime(a.size(), true);
-		for (int p = 2; p < int(a.size()); p++) {
-			if (!is_prime[p]) continue;
-			for (int i = 1; i*p < int(a.size()); i++) {
-				r[i*p] += r[i];
-				is_prime[i*p] = false;
-			}
-		}
-		return poly_exp(integ_shift(r));
-	}
-	friend polynomial inverse_euler_transform(const polynomial& a) {
-		polynomial r = deriv_shift(poly_log(a));
-		std::vector<bool> is_prime(a.size(), true);
-		for (int p = 2; p < int(a.size()); p++) {
-			if (!is_prime[p]) continue;
-			for (int i = (int(a.size())-1)/p; i >= 1; i--) {
-				r[i*p] -= r[i];
-				is_prime[i*p] = false;
-			}
-		}
-		return integ_shift(r);
-	}
-	*/
 };
 
 // Power series; these are assumed to be the min of the length
