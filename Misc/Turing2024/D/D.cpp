@@ -938,7 +938,7 @@ int main() {
 		}
 
 		// starts at >= 2 and gets to 1
-		for (int l = 1; l+1 <= n; l++) {
+		for (int l = 0; l+1 <= n; l++) {
 			ans_2[n] += stack_capped[l] * p1 * ans_2[n-l-1];
 			ans_2[n] += stack_uncapped[l] * p1 * ans_2[n-l-1];
 		}
