@@ -153,8 +153,8 @@ int main() {
 	std::vector<num> stack_uncapped(N+1); // of each length
 
 	// These are the number of ways to have a nonempty stack starting >= 2 and ending == 1
-	std::vector<num> stack_to_1_capped(N+1); // of each length
-	std::vector<num> stack_to_1_uncapped(N+1); // of each length
+	std::vector<num> stack_to_1_capped(std::max(3, N+1)); // of each length
+	std::vector<num> stack_to_1_uncapped(std::max(3, N+1)); // of each length
 
 	std::vector<num> pow_weight_2(N+1);
 	pow_weight_2[0] = weight_2;
