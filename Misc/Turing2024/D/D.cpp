@@ -213,7 +213,7 @@ int main() {
 		cout << ans[N] << '\n';
 	} else {
 		for (int i = 0; i <= N; i++) {
-			cout << ans[i] << " \n"[i+1==N];
+			cout << ans[i] << " \n"[i==N];
 		}
 	}
 
