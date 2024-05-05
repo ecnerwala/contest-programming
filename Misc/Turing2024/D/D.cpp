@@ -834,10 +834,6 @@ int main() {
 	vn stack_capped;
 	vn stack_uncapped;
 
-	// These are the number of ways to have a nonempty stack starting >= 2 and ending == 1
-	vn stack_to_1_capped; // of each length
-	vn stack_to_1_uncapped; // of each length
-
 	vn pow_weight_2(N+1);
 	pow_weight_2[0] = weight_2;
 	for (int n = 1; n <= N; n++) {
@@ -850,15 +846,11 @@ int main() {
 		// Uncapped is now must start with 2^{n+1}
 		{
 			num weight_uncapped = pow_weight_2[n] * p2 / weight_2;
-
-			stack_to_1_uncapped = weight_uncapped * shifted(stack_to_1_uncapped + stack_to_1_capped + vn({num(0), p1}));
-
 			stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped + vn({num(1)}));
 		}
 
 		{
 			num weight_capped = pow_weight_2[n-1];
-			stack_to_1_capped = stack_to_1_capped + weight_capped * shifted(stack_to_1_capped + vn({num(0), p1}));
 			stack_capped = stack_capped + weight_capped * shifted(stack_capped + vn({num(1)}));
 		}
 
@@ -872,9 +864,9 @@ int main() {
 		}
 
 		// starts at >= 2 and gets to 1
-		for (int l = 2; l <= n; l++) {
-			ans_2[n] += stack_to_1_capped[l] * ans_2[n-l];
-			ans_2[n] += stack_to_1_uncapped[l] * ans_2[n-l];
+		for (int l = 1; l+1 <= n; l++) {
+			ans_2[n] += stack_capped[l] * p1 * ans_2[n-l-1];
+			ans_2[n] += stack_uncapped[l] * p1 * ans_2[n-l-1];
 		}
 
 		// starts at 1 is just ans_2[n-1]
