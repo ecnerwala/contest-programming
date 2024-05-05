@@ -905,9 +905,9 @@ int main() {
 	using vn = ecnerwala::polynomial_fft<num>;
 	// These are the number of ways to have a nonempty stack starting >= 2 and ending >= 2, or a stack starting empty
 	// capped means starting <= 2^n, uncapped means starting at exactly 2^{n+1}
-	vn stack_capped(vn{num(1)});
+	vn stack_capped;
 	vn stack_uncapped;
-	vn stack_capped_2(vn{num(1)});
+	vn stack_capped_2;
 	vn stack_uncapped_2;
 
 	vn pow_weight_2(N+1);
@@ -922,18 +922,18 @@ int main() {
 		// Uncapped is now must start with 2^{n+1}
 		num weight_uncapped = pow_weight_2[n] * p2 / weight_2;
 		num weight_capped = pow_weight_2[n-1];
-		stack_uncapped_2 = weight_uncapped * (p2 / weight_2) * shifted(stack_uncapped + stack_capped);
-		stack_capped_2 = stack_capped_2 + weight_capped * (p2 / weight_2) * shifted(stack_capped);
+		stack_uncapped_2 = weight_uncapped * (p2 / weight_2) * shifted(stack_uncapped + stack_capped + vn({num(1)}));
+		stack_capped_2 = stack_capped_2 + weight_capped * (p2 / weight_2) * shifted(stack_capped + vn({num(1)}));
 
-		stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped);
-		stack_capped = stack_capped + weight_capped * shifted(stack_capped);
+		stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped + vn({num(1)}));
+		stack_capped = stack_capped + weight_capped * shifted(stack_capped + vn({num(1)}));
 
 		// empty
-		ans[n] = 0;
-		ans_2[n] = 0;
+		ans[n] = 1;
+		ans_2[n] = 1;
 
 		// starts at >= 2 and never gets to 1
-		for (int l = 0; l <= n; l++) {
+		for (int l = 1; l <= n; l++) {
 			ans[n] += stack_capped[l];
 			ans[n] += stack_uncapped[l];
 			ans_2[n] += stack_capped_2[l];
@@ -941,7 +941,8 @@ int main() {
 		}
 
 		// starts at >= 2 and gets to 1
-		for (int l = 0; l+1 <= n; l++) {
+		ans[n] += p1 * ans_2[n-1];
+		for (int l = 1; l+1 <= n; l++) {
 			ans[n] += stack_capped[l] * p1 * ans_2[n-l-1];
 			ans[n] += stack_uncapped[l] * p1 * ans_2[n-l-1];
 			if (l > 0) {
