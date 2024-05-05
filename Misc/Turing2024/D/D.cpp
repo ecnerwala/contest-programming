@@ -903,7 +903,7 @@ int main() {
 	// We have several cases:
 
 	using vn = ecnerwala::polynomial_fft<num>;
-	// These are the number of ways to have a nonempty stack starting >= 2 and ending >= 2
+	// These are the number of ways to have a nonempty stack starting >= 2 and ending >= 2, or a stack starting empty
 	// capped means starting <= 2^n, uncapped means starting at exactly 2^{n+1}
 	vn stack_capped(vn{num(1)});
 	vn stack_uncapped;
