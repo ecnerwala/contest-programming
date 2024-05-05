@@ -920,12 +920,12 @@ int main() {
 		// Uncapped is now must start with 2^{n+1}
 		{
 			num weight_uncapped = pow_weight_2[n] * p2 / weight_2;
-			stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped));
+			stack_uncapped = weight_uncapped * shifted(stack_uncapped + stack_capped);
 		}
 
 		{
 			num weight_capped = pow_weight_2[n-1];
-			stack_capped = stack_capped + weight_capped * shifted(stack_capped));
+			stack_capped = stack_capped + weight_capped * shifted(stack_capped);
 		}
 
 		// empty
