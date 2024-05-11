@@ -356,7 +356,7 @@ int slow(int N) {
 		if (msk & (1 << 0)) continue;
 		union_find g(N);
 		union_find comp_g(N);
-		for (int e = 0; e < N; e++) {
+		for (int e = 0; e < E; e++) {
 			if (msk & (1 << e)) {
 				g.merge(edges[e][0], edges[e][1]);
 			} else {
