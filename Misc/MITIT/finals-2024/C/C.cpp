@@ -172,9 +172,11 @@ int main() {
 						assert(cur / 2 == tree[cur].m);
 						cur_run.push_back(p[(winner+(cur/2))%N]);
 					}
-					cerr << "got run ";
-					for (int v : cur_run) cerr << v << ' ';
-					cerr << '\n';
+					if (TESTING) {
+						cerr << "got run ";
+						for (int v : cur_run) cerr << v << ' ';
+						cerr << '\n';
+					}
 					if (num_runs & 1) {
 						nxt_p.insert(nxt_p.end(), cur_run.begin(), cur_run.end());
 					} else {
@@ -185,9 +187,11 @@ int main() {
 				}
 			}
 			std::swap(p, nxt_p);
-			cerr << "p = ";
-			for (int v : p) cerr << v << ' ';
-			cerr << '\n';
+			if (TESTING) {
+				cerr << "p = ";
+				for (int v : p) cerr << v << ' ';
+				cerr << '\n';
+			}
 
 			assert(num_runs >= 1);
 			if (num_runs == 1) {
