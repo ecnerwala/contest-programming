@@ -166,7 +166,6 @@ int main() {
 			nxt_p.clear();
 			for (int i = 0; i < N; i++) {
 				if (tree[2*i+1].l == i && tree[2*i+1].r == i) {
-					num_runs++;
 					for (int cur = 2*i+1; cur != -1 && !vis[cur]; cur = tree[cur].p) {
 						vis[cur] = true;
 						assert(cur & 1);
@@ -181,6 +180,7 @@ int main() {
 					} else {
 						nxt_p.insert(nxt_p.end(), cur_run.rbegin(), cur_run.rend());
 					}
+					num_runs++;
 					cur_run.clear();
 				}
 			}
