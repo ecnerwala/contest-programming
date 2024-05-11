@@ -341,6 +341,7 @@ int slow(int N) {
 				int ov = edges[e][0] ^ edges[e][1] ^ v;
 				for (int u = 0; u < N; u++) {
 					int ne = edge_id[v][u];
+					if (ne == -1) continue;
 					if (msk & (1 << ne)) continue;
 					if (!(msk & (1 << edge_id[ov][u]))) continue;
 					if (vis[ne]) continue;
@@ -405,6 +406,7 @@ void test() {
 		cerr << slow(N) << '\n';
 		cerr << solve<mnum>(N) << '\n';
 	}
+	exit(0);
 }
 
 int main() {
