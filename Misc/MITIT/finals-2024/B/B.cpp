@@ -347,7 +347,7 @@ int main() {
 	num ans_connected = 2 * connected_graphs[N] - tot_graphs[N];
 	num ans_disconnected = 0;
 	for (int i = 1; i < N; i++) {
-		ans_disconnected += fact[N] * connected_graphs[i] * ifact[i-1] * connected_graphs[N-i] * ifact[N-i-1];
+		ans_disconnected += fact[N-2] * connected_graphs[i] * ifact[i-1] * connected_graphs[N-i] * ifact[N-i-1];
 	}
 	cerr << ans_connected << '\n';
 	cerr << ans_disconnected << '\n';
