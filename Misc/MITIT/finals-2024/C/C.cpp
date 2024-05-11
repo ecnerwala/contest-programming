@@ -164,7 +164,7 @@ int main() {
 			std::vector<int> cur_run; cur_run.reserve(N);
 			int num_runs = 0;
 			nxt_p.clear();
-			for (int i = 0; i < N-1; i++) {
+			for (int i = 0; i < N; i++) {
 				if (tree[2*i+1].l == i && tree[2*i+1].r == i) {
 					num_runs++;
 					for (int cur = 2*i+1; cur != -1 && !vis[cur]; cur = tree[cur].p) {
