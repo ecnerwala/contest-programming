@@ -16,8 +16,7 @@ template <typename T> T mod_inv_in_range(T a, T m) {
 	return vy < 0 ? m + vy : vy;
 }
 
-template <typename T> struct extended_gcd_result {
-	T gcd;
+template <typename T> struct extended_gcd_result { T gcd;
 	T coeff_a, coeff_b;
 };
 template <typename T> extended_gcd_result<T> extended_gcd(T a, T b) {
@@ -313,6 +312,23 @@ public:
 	friend dynamic_modnum operator / (const dynamic_modnum& a, const dynamic_modnum& b) { return dynamic_modnum(a) /= b; }
 };
 
+void slow(int N) {
+	int E = N * (N-1) / 2;
+
+	std::vector<std::array<int, 2>> edges; edges.reserve(E);
+	std::vector<std::vector<int>> v_adj(N);
+	for (int i = 0; i < N; i++) {
+		for (int j = i+1; j < N; j++) {
+			int e = int(edges.size());
+			edges.push_back({i, j});
+			v_adj[i].push_back(e);
+			v_adj[j].push_back(e);
+		}
+	}
+	for (int msk = 0; msk < (1 << E); msk++) {
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -349,6 +365,7 @@ int main() {
 	}
 
 	num ans_connected = 2 * connected_graphs[N] - tot_graphs[N];
+	ans_connected /= 2;
 	num ans_disconnected = 0;
 	for (int i = 1; i < N; i++) {
 		ans_disconnected += fact[N-2] * connected_graphs[i] * ifact[i-1] * connected_graphs[N-i] * ifact[N-i-1];
