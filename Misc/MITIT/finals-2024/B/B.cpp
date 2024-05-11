@@ -312,31 +312,52 @@ public:
 	friend dynamic_modnum operator / (const dynamic_modnum& a, const dynamic_modnum& b) { return dynamic_modnum(a) /= b; }
 };
 
-void slow(int N) {
+int slow(int N) {
+	using std::cerr;
 	int E = N * (N-1) / 2;
 
 	std::vector<std::array<int, 2>> edges; edges.reserve(E);
-	std::vector<std::vector<int>> v_adj(N);
+	std::vector<std::vector<int>> edge_id(N, std::vector<int>(N, -1));
 	for (int i = 0; i < N; i++) {
 		for (int j = i+1; j < N; j++) {
 			int e = int(edges.size());
 			edges.push_back({i, j});
-			v_adj[i].push_back(e);
-			v_adj[j].push_back(e);
+			edge_id[i][j] = e;
+			edge_id[j][i] = e;
 		}
 	}
+	int ans = 0;
 	for (int msk = 0; msk < (1 << E); msk++) {
+		if (msk & (1 << 0)) continue;
+		std::vector<bool> vis(E);
+		std::vector<int> q; q.reserve(E);
+		vis[0] = true;
+		q.push_back(0);
+		int painted = 0;
+		for (int z = 0; z < int(q.size()); z++) {
+			int e = q[z];
+			for (auto v : edges[e]) {
+				painted |= (1 << v);
+				int ov = edges[e][0] ^ edges[e][1] ^ v;
+				for (int u = 0; u < N; u++) {
+					int ne = edge_id[v][u];
+					if (msk & (1 << ne)) continue;
+					if (!(msk & (1 << edge_id[ov][u]))) continue;
+					if (vis[ne]) continue;
+					vis[ne] = true;
+					q.push_back(ne);
+				}
+			}
+		}
+		if (painted == ((1 << N) - 1)) {
+			ans++;
+		}
 	}
+	return ans;
 }
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-
-	struct my_tag{};
-	using num = dynamic_modnum<my_tag>;
-	int N;
-	cin >> N >> num::MOD_READER();
+template <typename num> num solve(int N) {
+	using std::cerr;
 
 	std::vector<num> fact(N+1);
 	fact[0] = 1;
@@ -365,6 +386,7 @@ int main() {
 	}
 
 	num ans_connected = 2 * connected_graphs[N] - tot_graphs[N];
+	// half have 0-1 connected, half have 0-1 disconnected
 	ans_connected /= 2;
 	num ans_disconnected = 0;
 	for (int i = 1; i < N; i++) {
@@ -372,7 +394,31 @@ int main() {
 	}
 	cerr << ans_connected << '\n';
 	cerr << ans_disconnected << '\n';
-	cout << ans_connected + ans_disconnected << '\n';
+	return ans_connected + ans_disconnected;
+}
+
+void test() {
+	using std::cerr;
+	using mnum = modnum<998244353>;
+	for (int N = 2; N <= 5; N++) {
+		cerr << "test " << N << '\n';
+		cerr << slow(N) << '\n';
+		cerr << solve<mnum>(N) << '\n';
+	}
+}
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	test();
+
+	struct my_tag{};
+	using num = dynamic_modnum<my_tag>;
+	int N;
+	cin >> N >> num::MOD_READER();
+
+	cout << solve<num>(N) << '\n';
 
 	return 0;
 }
