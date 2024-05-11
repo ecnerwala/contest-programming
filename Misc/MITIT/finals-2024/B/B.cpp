@@ -395,6 +395,12 @@ int slow(int N) {
 		ans += passes;
 		if (passes != should_pass) {
 			cerr << "bad graph, expected " << should_pass << " actually " << passes << '\n';
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					cerr << (i == j ? 0 : ((msk >> edge_id[i][j]) & 1));
+				}
+				cerr << '\n';
+			}
 		}
 	}
 	return ans;
