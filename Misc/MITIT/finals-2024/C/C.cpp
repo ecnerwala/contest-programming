@@ -195,13 +195,13 @@ int main() {
 			skill[p[i]] = i;
 		}
 		if (TESTING) {
-			cerr << '!';
+			cerr << '!' << ' ';
 			for (int i = 0; i < N; i++) {
-				cerr << skill[i]+1 << " \n"[i+1==N];
+				cerr << skill[i] << " \n"[i+1==N];
 			}
 			assert(skill == actual_skills);
 		} else {
-			cout << '!';
+			cout << '!' << ' ';
 			for (int i = 0; i < N; i++) {
 				cout << skill[i]+1 << " \n"[i+1==N];
 			}
