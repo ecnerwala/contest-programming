@@ -312,6 +312,31 @@ public:
 	friend dynamic_modnum operator / (const dynamic_modnum& a, const dynamic_modnum& b) { return dynamic_modnum(a) /= b; }
 };
 
+struct union_find {
+	std::vector<int> par;
+	int comps;
+	union_find(int N = 0) : par(N, -1), comps(N) {}
+	int get_par(int a) {
+		while (par[a] >= 0) {
+			if (par[par[a]] >= 0) {
+				par[a] = par[par[a]];
+			}
+			a = par[a];
+		}
+		return a;
+	}
+	bool merge(int a, int b) {
+		a = get_par(a);
+		b = get_par(b);
+		if (a == b) return false;
+		if (par[a] > par[b]) std::swap(a, b);
+		par[a] += par[b];
+		par[b] = a;
+		comps --;
+		return true;
+	}
+};
+
 int slow(int N) {
 	using std::cerr;
 	int E = N * (N-1) / 2;
@@ -329,6 +354,22 @@ int slow(int N) {
 	int ans = 0;
 	for (int msk = 0; msk < (1 << E); msk++) {
 		if (msk & (1 << 0)) continue;
+		union_find g(N);
+		union_find comp_g(N);
+		for (int e = 0; e < N; e++) {
+			if (msk & (1 << e)) {
+				g.merge(edges[e][0], edges[e][1]);
+			} else {
+				comp_g.merge(edges[e][0], edges[e][1]);
+			}
+		}
+		bool should_pass = false;
+		if (g.comps == 2 && g.get_par(0) != g.get_par(1)) {
+			should_pass = true;
+		} else if (g.comps == 1 && comp_g.comps == 1) {
+			should_pass = true;
+		}
+
 		std::vector<bool> vis(E);
 		std::vector<int> q; q.reserve(E);
 		vis[0] = true;
@@ -350,8 +391,10 @@ int slow(int N) {
 				}
 			}
 		}
-		if (painted == ((1 << N) - 1)) {
-			ans++;
+		bool passes = painted == ((1 << N) - 1);
+		ans += passes;
+		if (passes != should_pass) {
+			cerr << "bad graph, expected " << should_pass << " actually " << passes << '\n';
 		}
 	}
 	return ans;
