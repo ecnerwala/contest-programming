@@ -342,9 +342,9 @@ int slow(int N) {
 				for (int u = 0; u < N; u++) {
 					int ne = edge_id[v][u];
 					if (ne == -1) continue;
+					if (vis[ne]) continue;
 					if (msk & (1 << ne)) continue;
 					if (!(msk & (1 << edge_id[ov][u]))) continue;
-					if (vis[ne]) continue;
 					vis[ne] = true;
 					q.push_back(ne);
 				}
