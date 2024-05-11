@@ -185,6 +185,9 @@ int main() {
 				}
 			}
 			std::swap(p, nxt_p);
+			cerr << "p = ";
+			for (int v : p) cerr << v << ' ';
+			cerr << '\n';
 
 			assert(num_runs >= 1);
 			if (num_runs == 1) {
