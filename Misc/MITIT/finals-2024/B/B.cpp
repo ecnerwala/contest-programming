@@ -463,7 +463,7 @@ template <typename num> num solve(int N) {
 void test() {
 	using std::cerr;
 	using mnum = modnum<998244353>;
-	for (int N = 2; N <= 6; N++) {
+	for (int N = 2; N <= 5; N++) {
 		cerr << "test " << N << '\n';
 		cerr << "slow " << slow(N) << '\n';
 		cerr << "fast " << solve<mnum>(N) << '\n';
