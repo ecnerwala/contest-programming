@@ -418,7 +418,7 @@ int slow(int N) {
 	return ans;
 }
 
-template <typename num> num solve(int N) {
+template <typename num> num solve_bad(int N) {
 	using std::cerr;
 
 	std::vector<num> fact(N+1);
@@ -460,6 +460,42 @@ template <typename num> num solve(int N) {
 	return ans_connected + ans_disconnected;
 }
 
+template <typename num> num solve(int N) {
+	using std::cerr;
+
+	std::vector<num> fact(N+1);
+	fact[0] = 1;
+	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(N+1);
+	ifact[N] = inv(fact[N]);
+	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+	std::vector<num> tot_graphs(N+1);
+	tot_graphs[0] = 1;
+	for (int i = 1; i <= N; i++) {
+		tot_graphs[i] = tot_graphs[i-1] * pow(num(2), i-1);
+	}
+
+	std::vector<num> connected_graphs(N+1);
+	connected_graphs[0] = 0;
+	for (int i = 1; i <= N; i++) {
+		connected_graphs[i] = tot_graphs[i];
+		for (int j = 1; j < i; j++) {
+			connected_graphs[i] -= connected_graphs[j] * tot_graphs[i-j] * fact[i-1] * ifact[j-1] * ifact[i-j];
+		}
+	}
+
+	std::vector<num> dp(N+1);
+	dp[2] = 1;
+	for (int i = 3; i <= N; i++) {
+		dp[i] = tot_graphs[i] / 2;
+		for (int j = 2; j < i; j++) {
+			dp[i] -= dp[j] * fact[i-2] * ifact[j-2] * ifact[i-j] * tot_graphs[i-j] * pow(num(2), i-j);
+		}
+	}
+	return dp[N];
+}
+
 void test() {
 	using std::cerr;
 	using mnum = modnum<998244353>;
@@ -475,7 +511,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	struct my_tag{};
 	using num = dynamic_modnum<my_tag>;
