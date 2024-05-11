@@ -344,6 +344,10 @@ int main() {
 		}
 	}
 
+	for (int i = 1; i <= N; i++) {
+		cerr << i << ' ' << connected_graphs[i] << '\n';
+	}
+
 	num ans_connected = 2 * connected_graphs[N] - tot_graphs[N];
 	num ans_disconnected = 0;
 	for (int i = 1; i < N; i++) {
