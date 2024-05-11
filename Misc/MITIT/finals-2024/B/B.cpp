@@ -438,6 +438,7 @@ template <typename num> num solve(int N) {
 	num ans_connected = 2 * connected_graphs[N] - tot_graphs[N];
 	// half have 0-1 connected, half have 0-1 disconnected
 	ans_connected /= 2;
+	ans_connected -= 2 * connected_graphs[N-1] - tot_graphs[N-1];
 	num ans_disconnected = 0;
 	for (int i = 1; i < N; i++) {
 		ans_disconnected += fact[N-2] * connected_graphs[i] * ifact[i-1] * connected_graphs[N-i] * ifact[N-i-1];
