@@ -363,11 +363,23 @@ int slow(int N) {
 				comp_g.merge(edges[e][0], edges[e][1]);
 			}
 		}
+		std::array<int, 2> neighs;
+		for (int z = 0; z < 2; z++) {
+			int v = 0;
+			for (int i = 2; i < N; i++) {
+				v |= (((msk >> edge_id[z][i]) & 1) << i);
+			}
+			neighs[z] = v;
+		}
 		bool should_pass = false;
 		if (g.comps == 2 && g.get_par(0) != g.get_par(1)) {
 			should_pass = true;
 		} else if (g.comps == 1 && comp_g.comps == 1) {
-			should_pass = true;
+			if (neighs[0] == neighs[1]) {
+				should_pass = false;
+			} else {
+				should_pass = true;
+			}
 		}
 
 		std::vector<bool> vis(E);
