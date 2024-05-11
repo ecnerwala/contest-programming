@@ -403,8 +403,8 @@ void test() {
 	using mnum = modnum<998244353>;
 	for (int N = 2; N <= 5; N++) {
 		cerr << "test " << N << '\n';
-		cerr << slow(N) << '\n';
-		cerr << solve<mnum>(N) << '\n';
+		cerr << "slow " << slow(N) << '\n';
+		cerr << "fast " << solve<mnum>(N) << '\n';
 	}
 	exit(0);
 }
