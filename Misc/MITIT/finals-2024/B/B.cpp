@@ -486,8 +486,7 @@ template <typename num> num solve(int N) {
 	}
 
 	std::vector<num> dp(N+1);
-	dp[2] = 1;
-	for (int i = 3; i <= N; i++) {
+	for (int i = 2; i <= N; i++) {
 		dp[i] = tot_graphs[i] / 2;
 		for (int j = 2; j < i; j++) {
 			dp[i] -= dp[j] * fact[i-2] * ifact[j-2] * ifact[i-j] * tot_graphs[i-j] * pow(num(2), i-j);
