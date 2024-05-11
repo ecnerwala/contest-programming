@@ -194,13 +194,18 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			skill[p[i]] = i;
 		}
-		cout << '!';
-		for (int i = 0; i < N; i++) {
-			cout << skill[i]+1 << " \n"[i+1==N];
-		}
-		cout << '\n';
 		if (TESTING) {
+			cerr << '!';
+			for (int i = 0; i < N; i++) {
+				cerr << skill[i]+1 << " \n"[i+1==N];
+			}
 			assert(skill == actual_skills);
+		} else {
+			cout << '!';
+			for (int i = 0; i < N; i++) {
+				cout << skill[i]+1 << " \n"[i+1==N];
+			}
+			cout << flush;
 		}
 	}
 
