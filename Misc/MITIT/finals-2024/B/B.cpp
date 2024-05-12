@@ -1009,16 +1009,16 @@ template <typename num> num solve(int N) {
 		tot_graphs[i] = tot_graphs[i-1] * pow_2[i-1];
 	}
 
-	ps numer(N+1);
-	for (int i = 2; i <= N; i++) {
-		numer[i] = tot_graphs[i] * inv(num(2)) * ifact[i-2];
+	ps numer(N-1);
+	for (int i = 0; i <= N-2; i++) {
+		numer[i] = tot_graphs[i+2] * inv(num(2)) * ifact[i];
 	}
-	ps denom(N+1);
-	for (int i = 0; i <= N; i++) {
+	ps denom(N-1);
+	for (int i = 0; i <= N-2; i++) {
 		denom[i] = tot_graphs[i+1] * ifact[i];
 	}
 
-	return (numer * inverse(denom))[N];
+	return (numer * inverse(denom))[N-2];
 }
 
 int main() {
