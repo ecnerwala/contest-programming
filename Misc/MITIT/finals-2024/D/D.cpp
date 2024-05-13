@@ -1027,7 +1027,7 @@ int main() {
 	}
 	// sqrt
 	a = poly_exp(poly_log(a) * inv(num(2)));
-	cout << a[N] << '\n';
+	cout << a[N] * fact[N] << '\n';
 
 	return 0;
 }
