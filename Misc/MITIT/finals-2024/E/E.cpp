@@ -1010,18 +1010,16 @@ int main() {
 	pow_2[0] = 1;
 	for (int i = 1; i <= K; i++) pow_2[i] = pow_2[i-1] + pow_2[i-1];
 
-	ps prv(N+1); prv[0] = 1;
-	ps cur(N+1);
-	for (int i = 1; i <= N; i++) {
-		cur[i] = ifact[i];
-	}
+	ps prv(N+1);
+	ps cur(N+1); cur[0] = 1;
 	num ans = 0;
 	for (int l = 0; l <= K; l++) {
-		if (l > 0) {
+		{
 			prv = cur;
 			ps tmp(N+1);
 			{
 				num v = 1;
+				num u = l == 0 ? 1 : pow_2[l-1];
 				for (int i = 1; i <= N; i++) {
 					v *= pow_2[l-1];
 					tmp[i] = v * ifact[i];
