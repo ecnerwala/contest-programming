@@ -1021,7 +1021,7 @@ int main() {
 				num v = 1;
 				num u = l == 0 ? 1 : pow_2[l-1];
 				for (int i = 1; i <= N; i++) {
-					v *= pow_2[l-1];
+					v *= u;
 					tmp[i] = v * ifact[i];
 				}
 			}
