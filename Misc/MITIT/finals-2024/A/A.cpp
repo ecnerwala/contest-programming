@@ -171,28 +171,32 @@ int main() {
 				A[{i, j}] = A[{j, i}] = v;
 			}
 		}
+		/*
 		cerr << "Case: N = " << N << '\n';
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { cerr << A[{i, j}] << ' '; } cerr << '\n';
 		}
 		cerr << '\n';
+		*/
 
 		tensor<int, 2> dist({N, N}, N+1);
 		// all distances actually differ by 1
 		for (int i = 0; i < N; i++) {
 			dist[{i, i}] = 0;
 			for (int j = i+1; j < N; j++) {
-				bool bad = false;
-				// Then these two might be connected
-				for (int k = 0; k < N; k++) {
-					int v = (A[{i, k}] - A[{j, k}] + 5) % 5;
-					if (v == 2 || v == 3) {
-						bad = true;
-						break;
+				if (A[{i, j}] == 1) {
+					bool bad = false;
+					// Then these two might be connected
+					for (int k = 0; k < N; k++) {
+						int v = std::abs(A[{i, k}] - A[{j, k}]);
+						if (v == 2 || v == 3) {
+							bad = true;
+							break;
+						}
 					}
-				}
-				if (!bad) {
-					dist[{i, j}] = dist[{j, i}] = 1;
+					if (!bad) {
+						dist[{i, j}] = dist[{j, i}] = 1;
+					}
 				}
 			}
 		}
@@ -206,7 +210,7 @@ int main() {
 		bool is_sol = true;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if (dist[{i, j}] % 5 != A[{i, j}]) {
+				if (dist[{i, j}] == N+1 || dist[{i, j}] % 5 != A[{i, j}]) {
 					is_sol = false;
 				}
 			}
