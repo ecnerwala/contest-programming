@@ -188,7 +188,7 @@ int main() {
 					bool bad = false;
 					// Then these two might be connected
 					for (int k = 0; k < N; k++) {
-						int v = std::abs(A[{i, k}] - A[{j, k}]);
+						int v = (A[{i, k}] - A[{j, k}] + 5) % 5;
 						if (v == 2 || v == 3) {
 							bad = true;
 							break;
