@@ -25,7 +25,7 @@ public:
 	struct Node {
 		int l, m, r; // inclusive ranges
 		std::array<int, 2> c;
-		int p = -1;
+		int p;
 	};
 	std::vector<Node> nodes;
 	int root = -1;
@@ -56,14 +56,17 @@ public:
 			nodes[cur].c = {-1, -1};
 			while (!stk.empty() && (i == int(v.size()) || comp(v[i], v[nodes[stk.back()].m]))) {
 				int nxt = stk.back(); stk.pop_back();
+				nodes[cur].p = nxt;
 				nodes[nxt].c[1] = cur;
 				nodes[nxt].r = nodes[cur].r;
 				cur = nxt;
 			}
 			if (i == int(v.size())) {
+				nodes[cur].p = -1;
 				root = cur;
 				break;
 			}
+			nodes[cur].p = 2*i+1;
 			nodes[2*i+1].l = nodes[cur].l;
 			nodes[2*i+1].m = i;
 			nodes[2*i+1].c[0] = cur;
@@ -83,7 +86,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	std::mt19937 mt(48);
 
 	int T;
@@ -156,10 +159,6 @@ int main() {
 			assert(rounds.front() == 0);
 			rounds.front() = N;
 			auto tree = CartesianTree::build_max_tree(rounds);
-			for (int i = 0; i < N; i++) {
-				tree[tree[2*i+1].c[0]].p = 2*i+1;
-				tree[tree[2*i+1].c[1]].p = 2*i+1;
-			}
 			std::vector<bool> vis(2*N+1);
 			std::vector<int> cur_run; cur_run.reserve(N);
 			int num_runs = 0;
@@ -172,11 +171,6 @@ int main() {
 						assert(cur / 2 == tree[cur].m);
 						cur_run.push_back(p[(winner+(cur/2))%N]);
 					}
-					if (TESTING) {
-						cerr << "got run ";
-						for (int v : cur_run) cerr << v << ' ';
-						cerr << '\n';
-					}
 					if (num_runs & 1) {
 						nxt_p.insert(nxt_p.end(), cur_run.begin(), cur_run.end());
 					} else {
@@ -187,11 +181,6 @@ int main() {
 				}
 			}
 			std::swap(p, nxt_p);
-			if (TESTING) {
-				cerr << "p = ";
-				for (int v : p) cerr << v << ' ';
-				cerr << '\n';
-			}
 
 			assert(num_runs >= 1);
 			if (num_runs == 1) {
