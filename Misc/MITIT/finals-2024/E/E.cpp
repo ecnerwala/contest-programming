@@ -1022,9 +1022,9 @@ int main() {
 			ps tmp(N+1);
 			{
 				num v = 1;
-				for (int i = 0; i <= N; i++) {
-					tmp[i] = v * ifact[i];
+				for (int i = 1; i <= N; i++) {
 					v *= pow_2[l-1];
+					tmp[i] = v * ifact[i];
 				}
 			}
 			cur *= tmp;
