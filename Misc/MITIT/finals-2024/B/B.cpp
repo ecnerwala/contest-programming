@@ -1011,7 +1011,7 @@ template <typename num> num solve(int N) {
 
 	ps numer(N-1);
 	for (int i = 0; i <= N-2; i++) {
-		numer[i] = tot_graphs[i+1] * pow_2[i] * ifact[i];
+		numer[i] = tot_graphs[i+2] * inv(num(2)) * ifact[i];
 	}
 	ps denom(N-1);
 	for (int i = 0; i <= N-2; i++) {
