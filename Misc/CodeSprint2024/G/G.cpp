@@ -28,6 +28,9 @@ int main() {
 		}
 		std::swap(dp, ndp);
 	}
+	for (int i = 0; i <= N; i++) {
+		ans -= dp[i] * i;
+	}
 	cout << fixed << setprecision(10) << ans << '\n';
 
 
