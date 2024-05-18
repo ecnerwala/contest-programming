@@ -364,6 +364,7 @@ int main() {
 			});
 			v = (res == N+1) ? 1 : (res+1);
 		}
+		cerr << "dp " << x << ',' << y << " = " << v << '\n';
 
 		auto a = layout.get_point(y);
 		assert(seg[a].max_x == -1 && seg[a].left_dp == N+1);
