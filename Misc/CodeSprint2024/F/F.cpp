@@ -342,7 +342,7 @@ int main() {
 	auto update_node = [&](seg_tree::point a) -> void {
 		assert(a < layout.N);
 		seg[a].left_dp = query_seg_dp(a.c(0), seg[a.c(1)].max_x);
-		seg[a].max_x = std::min(seg[a.c(0)].max_x, seg[a.c(1)].max_x);
+		seg[a].max_x = std::max(seg[a.c(0)].max_x, seg[a.c(1)].max_x);
 	};
 	for (int i = 0; i < N; i++) {
 		auto a = layout.get_point(i);
