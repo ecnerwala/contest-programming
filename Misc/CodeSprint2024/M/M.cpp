@@ -232,17 +232,22 @@ int main() {
 	using pnum = pairnum<mnum, mnum>;
 	const pnum BASE(2579381, 192785823);
 
+	std::vector<pnum> pref(N+1);
+	pref[0] = 0;
+	for (int i = 0; i < N; i++) {
+		pref[i+1] = pref[i] * BASE + pnum(S[i] - 'a');
+	}
+	std::vector<pnum> pow_BASE(L+1);
+	pow_BASE[0] = 1;
+	for (int i = 0; i < L; i++) {
+		pow_BASE[i+1] = pow_BASE[i] * BASE;
+	}
 
-	if (true || L >= 15) {
+	if (L >= 15) {
 		hash_map<pnum, std::vector<int>> short_locs;
 
 		int L_short = L / 3;
-		std::vector<pnum> pref(N+1);
-		pref[0] = 0;
-		for (int i = 0; i < N; i++) {
-			pref[i+1] = pref[i] * BASE + pnum(S[i] - 'a');
-		}
-		pnum BASE_L_short = pow(BASE, L_short);
+		pnum BASE_L_short = pow_BASE[L_short];
 		for (int i = 0; i+L_short <= N; i++) {
 			pnum cnd = pref[i+L_short] - BASE_L_short * pref[i];
 			short_locs[cnd].push_back(i);
@@ -280,7 +285,41 @@ int main() {
 			ans += check_str(q);
 		}
 		cout << ans << '\n';
+	} else if (L <= 2) {
+		cout << M << '\n';
 	} else {
+		std::vector<hash_set<pnum>> excl(L*L);
+		for (int xa = 0; xa < L; xa++) {
+			for (int xb = xa+1; xb < L; xb++) {
+				for (int i = 0; i+L <= N; i++) {
+					pnum cnd = pref[i+L] - pref[i] * pow_BASE[L];
+					cnd -= pnum(S[i + xa] - 'a') * pow_BASE[L - 1 - xa];
+					cnd -= pnum(S[i + xb] - 'a') * pow_BASE[L - 1 - xb];
+					excl[xa*L+xb].insert(cnd);
+				}
+			}
+		}
+		auto check_str = [&](const std::string& q) -> bool {
+			pnum tot = 0;
+			for (int i = 0; i < L; i++) {
+				tot = tot * BASE + pnum(q[i] - 'a');
+			}
+			for (int xa = 0; xa < L; xa++) {
+				for (int xb = xa+1; xb < L; xb++) {
+					pnum cnd = tot;
+					cnd -= pnum(q[xa] - 'a') * pow_BASE[L - 1 - xa];
+					cnd -= pnum(q[xb] - 'a') * pow_BASE[L - 1 - xb];
+					if (excl[xa*L+xb].find(cnd) != excl[xa*L+xb].end()) return true;
+				}
+			}
+			return false;
+		};
+
+		int ans = 0;
+		for (const auto& q : Q) {
+			ans += check_str(q);
+		}
+		cout << ans << '\n';
 	}
 
 	return 0;
