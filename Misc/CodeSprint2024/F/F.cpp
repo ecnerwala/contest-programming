@@ -340,8 +340,8 @@ int main() {
 	};
 	auto update_node = [&](seg_tree::point a) -> void {
 		assert(a < layout.N);
-		seg[a].max_x = std::min(seg[a.c(0)].max_x, seg[a.c(1)].max_x);
 		seg[a].left_dp = query_seg_dp(a.c(0), seg[a.c(1)].max_x);
+		seg[a].max_x = std::min(seg[a.c(0)].max_x, seg[a.c(1)].max_x);
 	};
 	for (int i = 0; i < N; i++) {
 		auto a = layout.get_point(i);
@@ -354,11 +354,13 @@ int main() {
 	for (int x = 0; x < N; x++) {
 		int y = P[x];
 		int v;
+		cerr << "query " << x << ',' << y << '\n';
 		{
 			auto rng = layout.get_range(0, y);
 			int res = N+1;
 			int x_lo = -1;
 			rng.for_each_r_to_l([&](seg_tree::point a) -> void {
+				cerr << "  ask " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << query_seg_dp(a, x_lo) << '\n';
 				res = std::min(res, query_seg_dp(a, x_lo));
 				x_lo = std::max(x_lo, seg[a].max_x);
 			});
