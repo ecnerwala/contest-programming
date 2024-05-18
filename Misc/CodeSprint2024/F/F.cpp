@@ -309,9 +309,7 @@ int main() {
 		P[a] = c;
 	}
 
-	for (int i = 0; i < N; i++) {
-		cerr << i << ' ' << P[i] << '\n';
-	}
+	//for (int i = 0; i < N; i++) { cerr << i << ' ' << P[i] << '\n'; }
 
 	seg_tree::in_order_layout layout(N);
 	struct seg_node {
@@ -322,7 +320,7 @@ int main() {
 	auto query_seg_dp = [&](seg_tree::point a, int x_lo) -> int {
 		int res = N+1;
 		while (true) {
-			cerr << "    at " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << seg[a].max_x << '\n';
+			//cerr << "    at " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << seg[a].max_x << '\n';
 			if (x_lo >= seg[a].max_x) {
 				break;
 			}
@@ -355,20 +353,20 @@ int main() {
 	for (int x = 0; x < N; x++) {
 		int y = P[x];
 		int v;
-		cerr << "query " << x << ',' << y << '\n';
+		//cerr << "query " << x << ',' << y << '\n';
 		{
 			auto rng = layout.get_range(0, y);
 			int res = N+1;
 			int x_lo = -1;
 			rng.for_each_r_to_l([&](seg_tree::point a) -> void {
 				int query_res = query_seg_dp(a, x_lo);
-				cerr << "  ask " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << query_res << '\n';
+				//cerr << "  ask " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << query_res << '\n';
 				res = std::min(res, query_res);
 				x_lo = std::max(x_lo, seg[a].max_x);
 			});
 			v = (res == N+1) ? 1 : (res+1);
 		}
-		cerr << "dp " << x << ',' << y << " = " << v << '\n';
+		//cerr << "dp " << x << ',' << y << " = " << v << '\n';
 
 		auto a = layout.get_point(y);
 		assert(seg[a].max_x == -1 && seg[a].left_dp == N+1);
