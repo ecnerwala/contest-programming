@@ -322,6 +322,7 @@ int main() {
 	auto query_seg_dp = [&](seg_tree::point a, int x_lo) -> int {
 		int res = N+1;
 		while (true) {
+			cerr << "    at " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << res << '\n';
 			if (x_lo >= seg[a].max_x) {
 				break;
 			}
@@ -360,8 +361,9 @@ int main() {
 			int res = N+1;
 			int x_lo = -1;
 			rng.for_each_r_to_l([&](seg_tree::point a) -> void {
-				cerr << "  ask " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << query_seg_dp(a, x_lo) << '\n';
-				res = std::min(res, query_seg_dp(a, x_lo));
+				int query_res = query_seg_dp(a, x_lo);
+				cerr << "  ask " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << query_res << '\n';
+				res = std::min(res, query_res);
 				x_lo = std::max(x_lo, seg[a].max_x);
 			});
 			v = (res == N+1) ? 1 : (res+1);
