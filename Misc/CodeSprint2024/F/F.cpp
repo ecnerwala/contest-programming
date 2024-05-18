@@ -322,7 +322,7 @@ int main() {
 	auto query_seg_dp = [&](seg_tree::point a, int x_lo) -> int {
 		int res = N+1;
 		while (true) {
-			cerr << "    at " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << res << '\n';
+			cerr << "    at " << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << x_lo << ' ' << seg[a].max_x << '\n';
 			if (x_lo >= seg[a].max_x) {
 				break;
 			}
