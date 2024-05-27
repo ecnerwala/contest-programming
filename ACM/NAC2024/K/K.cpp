@@ -164,6 +164,7 @@ int main() {
 					vhi = -INFTY;
 				}
 			}
+			cerr << i << ' ' << j << ' ' << vlo << ' ' << vhi << '\n';
 			if (vlo < vhi) {
 				evts.push_back({vlo, -1});
 				evts.push_back({vhi, +1});
