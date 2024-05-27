@@ -178,10 +178,10 @@ int main() {
 			bool new_good = (cur < 0);
 			if (new_good && !old_good) {
 				all_evts.push_back({x, -1});
-				cerr << "  " << "start " << x << '\n'
+				cerr << "  " << "start " << x << '\n';
 			} else if (old_good && !new_good) {
 				all_evts.push_back({x, +1});
-				cerr << "  " << "end " << x << '\n'
+				cerr << "  " << "end " << x << '\n';
 			}
 		}
 		assert(cur == 0);
