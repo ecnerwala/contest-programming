@@ -176,7 +176,7 @@ int main() {
 				// 1/2 chance we take min(x + c1, P - x + c0)
 				// take c1 at x <= (P - (c1 - c0)) / 2
 				double x = (P - (c1 - c0)) / 2;
-				double v = c0 / 2 + ((c0 + x / 2) * (x / P) + (c1 + (P-x)/2) * ((P-x) / P)) / 2;
+				double v = c0 / 2 + ((c1 + x / 2) * (x / P) + (c0 + (P-x)/2) * ((P-x) / P)) / 2;
 				cerr << v << ' ';
 				dp[{i, j}] = v;
 			}
