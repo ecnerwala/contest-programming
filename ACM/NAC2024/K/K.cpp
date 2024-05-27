@@ -164,7 +164,7 @@ int main() {
 					vhi = -INFTY;
 				}
 			}
-			cerr << i << ' ' << j << ' ' << vlo << ' ' << vhi << '\n';
+			//cerr << i << ' ' << j << ' ' << vlo << ' ' << vhi << '\n';
 			if (vlo < vhi) {
 				evts.push_back({vlo, -1});
 				evts.push_back({vhi, +1});
@@ -178,10 +178,10 @@ int main() {
 			bool new_good = (cur < 0);
 			if (new_good && !old_good) {
 				all_evts.push_back({x, -1});
-				cerr << "  " << "start " << x << '\n';
+				//cerr << "  " << "start " << x << '\n';
 			} else if (old_good && !new_good) {
 				all_evts.push_back({x, +1});
-				cerr << "  " << "end " << x << '\n';
+				//cerr << "  " << "end " << x << '\n';
 			}
 		}
 		assert(cur == 0);
@@ -201,18 +201,18 @@ int main() {
 			cur += all_evts[i].second;
 			i++;
 		}
-		cerr << x << ' ' << cur << '\n';
+		//cerr << x << ' ' << cur << '\n';
 		bool new_good = (-cur >= N-1);
 		if (new_good && !old_good) {
 			if (x <= -INFTY/2) {
 				cout << -1 << '\n';
 				exit(0);
 			}
-			cerr << "start at " << x << '\n';
+			//cerr << "start at " << x << '\n';
 			ans -= x;
 		}
 		if (old_good && !new_good) {
-			cerr << "end at " << x << '\n';
+			//cerr << "end at " << x << '\n';
 			ans += x;
 		}
 	}
