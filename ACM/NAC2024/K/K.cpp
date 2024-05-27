@@ -194,7 +194,7 @@ int main() {
 	std::sort(all_evts.begin(), all_evts.end());
 	int cur = 0;
 	double ans = 0;
-	for (int i = 0; i < int(all_evts.size()); i++) {
+	for (int i = 0; i < int(all_evts.size()); ) {
 		double x = all_evts[i].first;
 		bool old_good = (-cur >= N-1);
 		while (i < int(all_evts.size()) && all_evts[i].first == x) {
