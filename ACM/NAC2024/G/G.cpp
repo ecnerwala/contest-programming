@@ -173,10 +173,10 @@ int main() {
 				if (c0 > c1) std::swap(c0, c1);
 				c1 = std::min(c1, c0 + P);
 				// 1/2 chance we just take c0
-				// 1/2 chance we take min(x + c1, P - x + c0)
-				// take c1 at x <= (P - (c1 - c0)) / 2
-				double x = (P - (c1 - c0)) / 2;
-				double v = c0 / 2 + ((c1 + x / 2) * (x / P) + (c0 + (P-x)/2) * ((P-x) / P)) / 2;
+				// 1/2 chance we take min(c1, x + c0)
+				// take c1 when x >= c1-c0
+				double x = c1 - c0;
+				double v = c0 / 2 + ((c0 + x/2) * (x / P) + (c1) * ((P-x) / P)) / 2;
 				cerr << v << ' ';
 				dp[{i, j}] = v;
 			}
