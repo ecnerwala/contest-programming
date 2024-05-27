@@ -162,7 +162,7 @@ int main() {
 
 	int R, C, P; cin >> R >> C >> P;
 
-	tensor<int, 2> dp({R, C});
+	tensor<double, 2> dp({R, C});
 	for (int i = 0; i < R; i++) {
 		for (int j = 0; j < C; j++) {
 			if (i == 0 && j == 0) {
