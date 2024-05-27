@@ -201,6 +201,7 @@ int main() {
 			cur += all_evts[i].second;
 			i++;
 		}
+		cerr << x << ' ' << cur << '\n';
 		bool new_good = (-cur >= N-1);
 		if (new_good && !old_good) {
 			if (x <= -INFTY/2) {
