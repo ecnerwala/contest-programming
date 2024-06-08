@@ -127,7 +127,7 @@ int main() {
 	};
 
 	auto do_insert = [&](std::set<location, my_comparator>& st, location l) {
-		cerr << (&st == &set_pos ? "pos" : "neg") << ' ' << "insert " << cur_time << ' ' << l.id << ' ' << l.loc_0 << '\n';
+		//cerr << (&st == &set_pos ? "pos" : "neg") << ' ' << "insert " << cur_time << ' ' << l.id << ' ' << l.loc_0 << '\n';
 		auto [it, did_insert] = st.insert(l);
 		assert(did_insert);
 		assert(it != st.end());
@@ -149,7 +149,7 @@ int main() {
 	};
 
 	auto do_delete = [&](std::set<location, my_comparator>& st, location l) {
-		cerr << (&st == &set_pos ? "pos" : "neg") << ' ' << "delete " << cur_time << ' ' << l.id << ' ' << l.loc_0 << '\n';
+		//cerr << (&st == &set_pos ? "pos" : "neg") << ' ' << "delete " << cur_time << ' ' << l.id << ' ' << l.loc_0 << '\n';
 		auto it = st.find(l);
 		assert(it != st.end());
 		auto pit = it;
