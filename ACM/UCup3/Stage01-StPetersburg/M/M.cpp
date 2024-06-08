@@ -107,7 +107,7 @@ int main() {
 			assert(lb > la);
 			int64_t delta = lb - la;
 			assert(delta > 0);
-			return std::pair<int64_t, std::pair<int, int>>{delta / (N_people+1), {std::max(a.id, b.id), ~std::min(a.id, b.id)}};
+			return std::pair<int64_t, std::pair<int, int>>{cur_time + delta / (N_people+1), {std::max(a.id, b.id), ~std::min(a.id, b.id)}};
 		} else {
 			return std::nullopt;
 		}
