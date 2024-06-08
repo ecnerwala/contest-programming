@@ -23,7 +23,7 @@ int64_t eval_at(const location &l) {
 
 struct my_comparator {
 	int64_t& base;
-	bool operator () (const location& a, const location& b) {
+	bool operator () (const location& a, const location& b) const {
 		int64_t la = eval_at(a);
 		int64_t lb = eval_at(b);
 		return std::make_pair(la < base, la) < std::make_pair(lb < base, lb);
