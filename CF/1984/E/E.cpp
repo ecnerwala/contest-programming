@@ -51,7 +51,7 @@ int main() {
 			if (can_use) cnt++;
 			dp_down[cur] = {cnt, can_use};
 		})(0, -1);
-		int ans = dp_down[0].first;
+		int ans = 0;
 		if (adj[0].size() == 1) {
 			ans = std::max(ans, dp_down[adj[0][0]].first + 1);
 		}
