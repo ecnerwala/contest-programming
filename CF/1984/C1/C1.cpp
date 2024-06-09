@@ -132,7 +132,6 @@ int main() {
 		max_ways = 1;
 		for (int i = 0; i < N; i++) {
 			int a; cin >> a;
-			cerr << a << '\n';
 			min_val += a;
 			max_val += a;
 			if (std::abs(min_val) > max_val) {
@@ -145,7 +144,6 @@ int main() {
 			if (std::abs(min_val) == max_val) {
 				max_ways += min_ways;
 			}
-			cerr << min_val << ' ' << max_val << '\n';
 		}
 		if (min_val == max_val) {
 			max_ways += min_ways;
