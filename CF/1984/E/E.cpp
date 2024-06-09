@@ -54,6 +54,7 @@ int main() {
 			cerr << cur << ' ' << dp_down[cur].first << ' ' << dp_down[cur].second << '\n';
 		})(0, -1);
 		int ans = dp_down[0].first + (!dp_down[0].second && int(adj[0].size()) == 1);
+		cerr << ans << '\n';
 
 		std::vector<std::pair<int, bool>> dp_up(N);
 		dp_up[0] = {0, false};
@@ -62,6 +63,7 @@ int main() {
 			cerr << cur << ' ' << tot_cnt << ' ' << tot_used << '\n';
 			if (prv != -1 && int(adj[cur].size()) == 1) {
 				ans = std::max(ans, tot_cnt + 1);
+				cerr << ans << '\n';
 			}
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
