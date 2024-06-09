@@ -51,7 +51,10 @@ int main() {
 			if (can_use) cnt++;
 			dp_down[cur] = {cnt, can_use};
 		})(0, -1);
-		int ans = dp_down[0].first + (!dp_down[0].second && int(adj[0].size()) == 1);
+		int ans = dp_down[0].first;
+		if (adj[0].size() == 1) {
+			ans = std::max(ans, dp_down[adj[0][0]].first + 1);
+		}
 
 		std::vector<std::pair<int, bool>> dp_up(N);
 		dp_up[0] = {0, false};
