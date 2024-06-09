@@ -556,15 +556,19 @@ int main() {
 			for (int i = l; i < C; i += l) {
 				max_sum = std::min(max_sum, bads[i] - bads[i-1] - 1);
 			}
+			cerr << "good " << l << ' ' << max_pref << ' ' << max_suff << ' ' << max_sum << '\n';
+			int64_t cnt;
 			// We need to pick a+b <= max_sum and a <= max_pref and b <= max_suff
 			if (max_sum <= std::min(max_pref, max_suff)) {
-				ans += int64_t(max_sum + 1) * int64_t(max_sum + 2) / 2;
+				cnt = int64_t(max_sum + 1) * int64_t(max_sum + 2) / 2;
 			} else if (max_sum >= std::max(max_pref, max_suff)) {
-				ans += int64_t(max_pref) * int64_t(max_suff) - int64_t(max_suff + max_pref - max_sum) * int64_t(max_suff + max_pref - max_sum + 1) / 2;
+				cnt = int64_t(max_pref) * int64_t(max_suff) - int64_t(max_suff + max_pref - max_sum) * int64_t(max_suff + max_pref - max_sum + 1) / 2;
 			} else {
 				int lo = std::min(max_pref, max_suff);
-				ans += int64_t(lo+1) * int64_t(lo+2) / 2 + int64_t(lo+1) * int64_t(max_sum - lo);
+				cnt = int64_t(lo+1) * int64_t(lo+2) / 2 + int64_t(lo+1) * int64_t(max_sum - lo);
 			}
+			cerr << cnt << '\n';
+			ans += cnt;
 		}
 		cout << ans << '\n';
 	}
