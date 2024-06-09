@@ -141,6 +141,7 @@ int main() {
 			if (std::abs(min_val) == n_max_val) n_max_ways += min_ways;
 			max_val = n_max_val;
 			max_ways = n_max_ways;
+			cerr << a << ' ' << max_val << 'x' << max_ways << ' ' << min_val << 'x' << min_ways << '\n';
 		}
 		if (min_val == max_val) {
 			max_ways += min_ways;
