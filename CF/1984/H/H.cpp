@@ -299,12 +299,7 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N, M; cin >> N >> M;
-		std::string S; cin >> S;
-		assert(int(S.size()) == N);
-		std::vector<int64_t> B(N);
-		for (auto& a : B) cin >> a;
-
+		int N; cin >> N;
 		using num = modnum<998244353>;
 		using pt_t = Point<int>;
 		std::vector<pt_t> pts(N);
