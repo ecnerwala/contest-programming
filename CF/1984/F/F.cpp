@@ -464,6 +464,7 @@ int main() {
 			} else {
 				seg[a][0][1] = seg[a][1][0] = false;
 				char c = S[(i+1)/2];
+				cerr << c << '\n';
 				seg[a][0][0] = (c == 'P' || c == '?');
 				seg[a][1][1] = (c == 'S' || c == '?');
 			}
