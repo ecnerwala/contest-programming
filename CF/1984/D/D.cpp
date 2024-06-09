@@ -563,7 +563,7 @@ int main() {
 				ans += int64_t(max_pref) * int64_t(max_suff) - int64_t(max_suff + max_pref - max_sum) * int64_t(max_suff + max_pref - max_sum + 1) / 2;
 			} else {
 				int lo = std::min(max_pref, max_suff);
-				ans += int64_t(lo+1) * int64_t(lo+2) / 2 + lo * (max_sum - lo);
+				ans += int64_t(lo+1) * int64_t(lo+2) / 2 + int64_t(lo+1) * int64_t(max_sum - lo);
 			}
 		}
 		cout << ans << '\n';
