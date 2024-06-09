@@ -495,6 +495,7 @@ int main() {
 				seg[a][1][0] = 0;
 				a.for_parents_up(update_node);
 			}
+			cerr << s << ' ' << seg[1][0][1] << '\n';
 			ans += seg[1][0][1];
 			for (int k = i; k < j; k++) {
 				seg_tree::point a = layout.get_point(k);
