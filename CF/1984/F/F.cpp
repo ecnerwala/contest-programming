@@ -1,5 +1,27 @@
 #include <bits/stdc++.h>
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
 template <typename T> struct Point3D {
 	using P = Point3D;
 
@@ -289,16 +311,60 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			cin >> pts[i];
 		}
-		auto eval_4 = [&](pt_t a, pt_t b, pt_t c, pt_t d) -> bool {
-			using pt_3 = Point3D<int64_t>;
-			pt_3 pa(a.x, a.y, norm(a));
-			pt_3 pb(b.x, b.y, norm(b));
-			pt_3 pc(c.x, c.y, norm(c));
-			pt_3 pd(d.x, d.y, norm(d));
+		using pt_3 = Point3D<int64_t>;
+		auto get_pt_3 = [&](int a) -> pt_3 {
+			return pt_3(pts[a].x, pts[a].y, norm(pts[a]));
+		};
+		auto eval_4 = [&](int i, int j, int k, int l) -> int64_t {
+			pt_3 pa = get_pt_3(i);
+			pt_3 pb = get_pt_3(j);
+			pt_3 pc = get_pt_3(k);
+			pt_3 pd = get_pt_3(l);
 			int64_t res = vol(pa, pb, pc, pd);
 			assert(res != 0);
-			return res > 0;
+			return res;
 		};
+		auto get_best = [&](int i, int j) -> int {
+			int res = -1;
+			for (int k = 0; k < N; k++) {
+				if (k == i || k == j) continue;
+				int v = cross3(pts[i], pts[j], pts[k]);
+				assert(v != 0);
+				if (v > 0) {
+					if (res == -1 || eval_4(i, j, k, res) < 0) {
+						res = k;
+					}
+				}
+			}
+			return res;
+		};
+		int r1 = get_best(0, 1);
+		int r2 = get_best(1, 0);
+		if (!(r1 == -1 || r2 == -1 || eval_4(0, 1, r1, r2) < 0)) {
+			cout << 0 << '\n';
+			continue;
+		}
+		// now, we're actually feasible, so just do the math
+
+		num tot_div = 1;
+		auto dfs = std::y_combinator([&](auto self, int i, int j) -> int {
+			int k = get_best(i, j);
+			if (k == -1) return 0;
+			int l = self(i, k);
+			int r = self(k, j);
+			int c = l + r + 1;
+			tot_div *= num(c);
+			return c;
+		});
+		int a = dfs(0, 1);
+		int b = dfs(1, 0);
+		int num_ops = a + b;
+		num ans = 1;
+		for (int i = 1; i <= num_ops; i++) {
+			ans *= num(i);
+		}
+		ans /= tot_div;
+		cout << ans << '\n';
 	}
 
 	return 0;
