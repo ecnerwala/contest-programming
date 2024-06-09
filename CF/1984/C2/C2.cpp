@@ -134,17 +134,13 @@ int main() {
 			int a; cin >> a;
 			min_val += a;
 			max_val += a;
-			if (std::abs(min_val) > max_val) {
-				max_val = std::abs(min_val);
-				max_ways = 0;
-			}
-			if (std::abs(max_val) == max_val) {
-				max_ways *= 2;
-			}
-			if (std::abs(min_val) == max_val) {
-				max_ways += min_ways;
-			}
-			cerr << a << ' ' << min_val << ' ' << max_val << ' ' << min_ways << ' ' << max_ways << '\n';
+			int n_max_val = std::max(std::abs(max_val), std::abs(min_val));
+			int n_max_ways = 0;
+			if (max_val == n_max_val) n_max_ways += max_ways;
+			if (std::abs(max_val) == n_max_val) n_max_ways += max_ways;
+			if (std::abs(min_val) == n_max_ways) n_max_val += min_ways;
+			max_val = n_max_val;
+			max_ways = n_max_ways;
 		}
 		if (min_val == max_val) {
 			max_ways += min_ways;
