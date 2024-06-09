@@ -474,13 +474,13 @@ int main() {
 				a.for_parents_up(update_node);
 			}
 			for (; hi < int(sums.size()) && sums[hi].first <= sums[i].first + 2 * M; hi++) {
-				seg_tree::point a = layout.get_point(hi);
+				seg_tree::point a = layout.get_point(sums[hi].second);
 				seg[a][1][0] = 1;
 				a.for_parents_up(update_node);
 			}
 			for (; lo < int(sums.size()) && sums[lo].first < sums[i].first - 2 * M; lo++) {
 				assert(lo < hi);
-				seg_tree::point a = layout.get_point(hi);
+				seg_tree::point a = layout.get_point(sums[lo].second);
 				seg[a][1][0] = 0;
 				a.for_parents_up(update_node);
 			}
