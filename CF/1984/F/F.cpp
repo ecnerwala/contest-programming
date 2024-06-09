@@ -439,11 +439,6 @@ int main() {
 		B.insert(B.end(), 0);
 
 		using num = modnum<998244353>;
-		std::vector<std::pair<int64_t, int>> sums(N+1);
-		for (int i = 0; i <= N; i++) {
-			sums[i] = {B[i] + B[i+1], i};
-		}
-		std::sort(sums.begin(), sums.end());
 		using mat_t = std::array<std::array<num, 2>, 2>;
 		seg_tree::in_order_layout layout(2*N+1);
 		std::vector<mat_t> seg(2 * layout.N);
@@ -470,6 +465,12 @@ int main() {
 		}
 		for (seg_tree::point a(layout.N-1); a > 0; a--) update_node(a);
 
+		std::vector<std::pair<int64_t, seg_tree::point>> sums(N+1);
+		for (int i = 0; i <= N; i++) {
+			sums[i] = {B[i] + B[i+1], layout.get_point(2*i)};
+		}
+		std::sort(sums.begin(), sums.end());
+
 		num ans = 0;
 		int lo = 0;
 		int hi = 0;
@@ -477,27 +478,27 @@ int main() {
 			int64_t s = sums[i].first;
 			for (; j < int(sums.size()) && sums[j].first == s; j++) { }
 			for (int k = i; k < j; k++) {
-				seg_tree::point a = layout.get_point(2*sums[k].second);
+				seg_tree::point a = sums[k].second;
 				assert(seg[a][0][1] == 0);
 				seg[a][0][1] = 1;
 				a.for_parents_up(update_node);
 			}
 			for (; hi < int(sums.size()) && sums[hi].first <= s + 2 * M; hi++) {
-				seg_tree::point a = layout.get_point(2*sums[hi].second);
+				seg_tree::point a = sums[hi].second;
 				assert(seg[a][1][0] == 0);
 				seg[a][1][0] = 1;
 				a.for_parents_up(update_node);
 			}
 			for (; lo < int(sums.size()) && sums[lo].first < s - 2 * M; lo++) {
 				assert(lo < hi);
-				seg_tree::point a = layout.get_point(2*sums[lo].second);
+				seg_tree::point a = sums[lo].second;
 				assert(seg[a][1][0] == 1);
 				seg[a][1][0] = 0;
 				a.for_parents_up(update_node);
 			}
 			ans += seg[1][0][1];
 			for (int k = i; k < j; k++) {
-				seg_tree::point a = layout.get_point(2*sums[k].second);
+				seg_tree::point a = sums[k].second;
 				assert(seg[a][0][1] == 1);
 				seg[a][0][1] = 0;
 				a.for_parents_up(update_node);
