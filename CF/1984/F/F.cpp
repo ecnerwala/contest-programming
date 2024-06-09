@@ -459,7 +459,7 @@ int main() {
 		for (int i = 0; i < 2*N+1; i++) {
 			auto a = layout.get_point(i);
 			if (i % 2 == 0) {
-				seg[a][0][0] = seg[a][1][1] = std::abs(B[i+1] - B[i]) <= M;
+				seg[a][0][0] = seg[a][1][1] = std::abs(B[i/2+1] - B[i/2]) <= M;
 				seg[a][0][1] = seg[a][1][0] = false;
 			} else {
 				seg[a][0][1] = seg[a][1][0] = false;
