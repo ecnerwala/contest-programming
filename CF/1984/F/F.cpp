@@ -474,19 +474,20 @@ int main() {
 		int lo = 0;
 		int hi = 0;
 		for (int i = 0, j = 0; i < int(sums.size()); i = j) {
-			for (; j < int(sums.size()) && sums[j].first == sums[i].first; j++) { }
+			int64_t s = sums[i].first;
+			for (; j < int(sums.size()) && sums[j].first == s; j++) { }
 			for (int k = i; k < j; k++) {
 				seg_tree::point a = layout.get_point(2*k);
 				seg[a][0][1] = 1;
 				a.for_parents_up(update_node);
 			}
-			for (; hi < int(sums.size()) && sums[hi].first <= sums[i].first + 2 * M; hi++) {
+			for (; hi < int(sums.size()) && sums[hi].first <= s + 2 * M; hi++) {
 				seg_tree::point a = layout.get_point(2*sums[hi].second);
 				assert(seg[a][1][0] == 0);
 				seg[a][1][0] = 1;
 				a.for_parents_up(update_node);
 			}
-			for (; lo < int(sums.size()) && sums[lo].first < sums[i].first - 2 * M; lo++) {
+			for (; lo < int(sums.size()) && sums[lo].first < s - 2 * M; lo++) {
 				assert(lo < hi);
 				seg_tree::point a = layout.get_point(2*sums[lo].second);
 				assert(seg[a][1][0] == 1);
