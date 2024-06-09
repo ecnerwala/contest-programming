@@ -565,6 +565,7 @@ int main() {
 			} else if (max_sum >= std::max(max_pref, max_suff)) {
 				cnt = int64_t(max_pref+1) * int64_t(max_suff+1) - int64_t(max_suff + max_pref - max_sum) * int64_t(max_suff + max_pref - max_sum + 1) / 2;
 			} else {
+				cerr << "hi" << '\n';
 				int lo = std::min(max_pref, max_suff);
 				cnt = int64_t(lo+1) * int64_t(lo+2) / 2 + int64_t(lo+1) * int64_t(max_sum - lo);
 			}
