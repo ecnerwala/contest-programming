@@ -22,155 +22,6 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
-template <typename T> struct Point3D {
-	using P = Point3D;
-
-	T x, y, z;
-	Point3D() : x(0), y(0), z(0) {}
-	Point3D(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {}
-
-	template <typename U> explicit Point3D(const Point3D<U>& p) : x(T(p.x)), y(T(p.y)), z(T(p.z)) {}
-
-	friend std::istream& operator >> (std::istream& i, P& p) { return i >> p.x >> p.y >> p.z; }
-	friend std::ostream& operator << (std::ostream& o, const P& p) { return o << "(" << p.x << "," << p.y << "," << p.z << ")"; }
-
-	friend bool operator == (const P& a, const P& b) { return a.x == b.x && a.y == b.y && a.z == b.z; }
-	friend bool operator != (const P& a, const P& b) { return a.x != b.x || a.y != b.y || a.z != b.z; }
-
-	P& operator += (const P& o) { x += o.x, y += o.y, z += o.z; return *this; }
-	P& operator -= (const P& o) { x -= o.x, y -= o.y, z -= o.z; return *this; }
-	friend P operator + (const P& a, const P& b) { return P(a) += b; }
-	friend P operator - (const P& a, const P& b) { return P(a) -= b; }
-
-	P& operator *= (const T& t) { x *= t, y *= t, z *= t; return *this; }
-	P& operator /= (const T& t) { x /= t, y /= t, z /= t; return *this; }
-	friend P operator * (const P& p, const T& t) { return P(p) *= t; }
-	friend P operator * (const T& t, const P& p) { return P(p) *= t; }
-	friend P operator / (const P& a, const T& t) { return P(a) /= t; }
-
-	friend P operator + (const P& a) { return P(+a.x, +a.y, +a.z); }
-	friend P operator - (const P& a) { return P(-a.x, -a.y, -a.z); }
-
-	friend T dot(const P& a, const P& b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
-	friend T norm(const P& a) { return dot(a,a); }
-	friend P cross(const P& a, const P& b) { return P(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x); }
-
-	friend T int_norm(const P& p) {
-		return gcd(gcd(abs(p.x), abs(p.y)), abs(p.z));
-	}
-	friend P int_unit(const P& p) {
-		T g = int_norm(p);
-		return g ? p / g : p;
-	}
-
-	friend T abs(const P& a) { return sqrt(std::max(T(0), norm(a))); }
-	friend P unit(const P& a) { return a / abs(a); }
-
-	friend T vol(const P& a, const P& b, const P& c, const P& d) { return dot(cross(b-a, c-a), d-a); }
-
-	friend bool lexLess(const P& a, const P& b) { return tie(a.x, a.y, a.z) < tie(b.x, b.y, b.z); }
-
-	friend bool parallelSame(const P& a, const P& b) {
-		assert(a != P());
-		assert(b != P());
-		return lexLess(a, P()) == lexLess(b, P());
-	}
-};
-
-template <typename T> struct Point {
-public:
-	T x, y;
-	Point() : x(0), y(0) {}
-	Point(T x_, T y_) : x(x_), y(y_) {}
-	template <typename U> explicit Point(const Point<U>& p) : x(p.x), y(p.y) {}
-	Point(const std::pair<T, T>& p) : x(p.first), y(p.second) {}
-	Point(const std::complex<T>& p) : x(real(p)), y(imag(p)) {}
-	explicit operator std::pair<T, T> () const { return std::pair<T, T>(x, y); }
-	explicit operator std::complex<T> () const { return std::complex<T>(x, y); }
-
-	friend std::ostream& operator << (std::ostream& o, const Point& p) { return o << '(' << p.x << ',' << p.y << ')'; }
-	friend std::istream& operator >> (std::istream& i, Point& p) { return i >> p.x >> p.y; }
-	friend bool operator == (const Point& a, const Point& b) { return a.x == b.x && a.y == b.y; }
-	friend bool operator != (const Point& a, const Point& b) { return !(a==b); }
-
-	Point operator + () const { return Point(+x, +y); }
-	Point operator - () const { return Point(-x, -y); }
-
-	Point& operator += (const Point& p) { x += p.x, y += p.y; return *this; }
-	Point& operator -= (const Point& p) { x -= p.x, y -= p.y; return *this; }
-	Point& operator *= (const T& t) { x *= t, y *= t; return *this; }
-	Point& operator /= (const T& t) { x /= t, y /= t; return *this; }
-
-	friend Point operator + (const Point& a, const Point& b) { return Point(a.x+b.x, a.y+b.y); }
-	friend Point operator - (const Point& a, const Point& b) { return Point(a.x-b.x, a.y-b.y); }
-	friend Point operator * (const Point& a, const T& t) { return Point(a.x*t, a.y*t); }
-	friend Point operator * (const T& t ,const Point& a) { return Point(t*a.x, t*a.y); }
-	friend Point operator / (const Point& a, const T& t) { return Point(a.x/t, a.y/t); }
-
-	T dist2() const { return x * x + y * y; }
-	auto dist() const { return std::sqrt(dist2()); }
-	Point unit() const { return *this / this->dist(); }
-	auto angle() const { return std::atan2(y, x); }
-
-	T int_norm() const { return __gcd(x,y); }
-	Point int_unit() const { if (!x && !y) return *this; return *this / this->int_norm(); }
-
-	// Convenient free-functions, mostly for generic interop
-	friend auto norm(const Point& a) { return a.dist2(); }
-	friend auto abs(const Point& a) { return a.dist(); }
-	friend auto unit(const Point& a) { return a.unit(); }
-	friend auto arg(const Point& a) { return a.angle(); }
-	friend auto int_norm(const Point& a) { return a.int_norm(); }
-	friend auto int_unit(const Point& a) { return a.int_unit(); }
-
-	Point perp_cw() const { return Point(y, -x); }
-	Point perp_ccw() const { return Point(-y, x); }
-
-	friend T dot(const Point& a, const Point& b) { return a.x * b.x + a.y * b.y; }
-	friend T cross(const Point& a, const Point& b) { return a.x * b.y - a.y * b.x; }
-	friend T cross3(const Point& a, const Point& b, const Point& c) { return cross(b-a, c-a); }
-
-	// Complex numbers and rotation
-	friend Point conj(const Point& a) { return Point(a.x, -a.y); }
-
-	// Returns conj(a) * b
-	friend Point dot_cross(const Point& a, const Point& b) { return Point(dot(a, b), cross(a, b)); }
-	friend Point cmul(const Point& a, const Point& b) { return dot_cross(conj(a), b); }
-	friend Point cdiv(const Point& a, const Point& b) { return dot_cross(b, a) / b.norm(); }
-
-	// Must be a unit vector; otherwise multiplies the result by abs(u)
-	Point rotate(const Point& u) const { return dot_cross(conj(u), *this); }
-	Point unrotate(const Point& u) const { return dot_cross(u, *this); }
-
-	friend bool lex_less(const Point& a, const Point& b) {
-		return std::tie(a.x, a.y) < std::tie(b.x, b.y);
-	}
-
-	friend bool same_dir(const Point& a, const Point& b) { return cross(a,b) == 0 && dot(a,b) > 0; }
-
-	// check if 180 <= s..t < 360
-	friend bool is_reflex(const Point& a, const Point& b) { auto c = cross(a,b); return c ? (c < 0) : (dot(a, b) < 0); }
-
-	// operator < (s,t) for angles in [base,base+2pi)
-	friend bool angle_less(const Point& base, const Point& s, const Point& t) {
-		int r = is_reflex(base, s) - is_reflex(base, t);
-		return r ? (r < 0) : (0 < cross(s, t));
-	}
-
-	friend auto angle_cmp(const Point& base) {
-		return [base](const Point& s, const Point& t) { return angle_less(base, s, t); };
-	}
-	friend auto angle_cmp_center(const Point& center, const Point& dir) {
-		return [center, dir](const Point& s, const Point& t) -> bool { return angle_less(dir, s-center, t-center); };
-	}
-
-	// is p in [s,t] taken ccw? 1/0/-1 for in/border/out
-	friend int angle_between(const Point& s, const Point& t, const Point& p) {
-		if (same_dir(p, s) || same_dir(p, t)) return 0;
-		return angle_less(s, p, t) ? 1 : -1;
-	}
-};
-
 template <typename T> T mod_inv_in_range(T a, T m) {
 	// assert(0 <= a && a < m);
 	T x = a, y = m;
@@ -299,71 +150,53 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N, M; cin >> N >> M;
+		int N; int64_t M; cin >> N >> M;
 		std::string S; cin >> S;
 		assert(int(S.size()) == N);
 		std::vector<int64_t> B(N);
 		for (auto& a : B) cin >> a;
 
-		using num = modnum<998244353>;
-		using pt_t = Point<int>;
-		std::vector<pt_t> pts(N);
-		for (int i = 0; i < N; i++) {
-			cin >> pts[i];
-		}
-		using pt_3 = Point3D<int64_t>;
-		auto get_pt_3 = [&](int a) -> pt_3 {
-			return pt_3(pts[a].x, pts[a].y, norm(pts[a]));
-		};
-		auto eval_4 = [&](int i, int j, int k, int l) -> int64_t {
-			pt_3 pa = get_pt_3(i);
-			pt_3 pb = get_pt_3(j);
-			pt_3 pc = get_pt_3(k);
-			pt_3 pd = get_pt_3(l);
-			int64_t res = vol(pa, pb, pc, pd);
-			assert(res != 0);
-			return res;
-		};
-		auto get_best = [&](int i, int j) -> int {
-			int res = -1;
-			for (int k = 0; k < N; k++) {
-				if (k == i || k == j) continue;
-				int v = cross3(pts[i], pts[j], pts[k]);
-				assert(v != 0);
-				if (v > 0) {
-					if (res == -1 || eval_4(i, j, k, res) < 0) {
-						res = k;
-					}
-				}
-			}
-			return res;
-		};
-		int r1 = get_best(0, 1);
-		int r2 = get_best(1, 0);
-		if (!(r1 == -1 || r2 == -1 || eval_4(0, 1, r1, r2) < 0)) {
-			cout << 0 << '\n';
-			continue;
-		}
-		// now, we're actually feasible, so just do the math
+		// implicit ones
+		S.insert(S.begin(), 'P');
+		B.insert(B.begin(), 0);
 
-		num tot_div = 1;
-		auto dfs = std::y_combinator([&](auto self, int i, int j) -> int {
-			int k = get_best(i, j);
-			if (k == -1) return 0;
-			int l = self(i, k);
-			int r = self(k, j);
-			int c = l + r + 1;
-			tot_div *= num(c);
-			return c;
-		});
-		int a = dfs(0, 1);
-		int b = dfs(1, 0);
-		int num_ops = a + b;
-		num ans = 1;
-		for (int i = 1; i <= num_ops; i++) {
-			ans *= num(i);
+		S.insert(S.end(), 'S');
+		B.insert(B.end(), 0);
+
+		using num = modnum<998244353>;
+		std::vector<int64_t> sums(N+1);
+		for (int i = 0; i <= N; i++) {
+			sums[i] = B[i] + B[i+1];
 		}
-		ans /= tot_div;
+		std::sort(sums.begin(), sums.end());
+		sums.resize(std::unique(sums.begin(), sums.end()) - sums.begin());
+		num ans = 0;
+		for (int64_t s : sums) {
+			std::array<num, 2> dp{num(1), num(0)};
+			for (int i = 1; i <= N+1; i++) {
+				{
+					std::array<num, 2> ndp{num(0), num(0)};
+					if (std::abs(B[i] - B[i-1]) <= M) {
+						ndp[0] += dp[0];
+						ndp[1] += dp[1];
+					}
+					if (B[i] + B[i-1] == s) {
+						ndp[1] += dp[0];
+					}
+					if (std::abs(B[i] + B[i-1] - s) <= 2*M) {
+						ndp[0] += dp[1];
+					}
+					dp = ndp;
+				}
+				if (S[i] == 'S') {
+					dp[0] = 0;
+				} else if (S[i] == 'P') {
+					dp[1] = 0;
+				} else assert(S[i] == '?');
+			}
+			assert(dp[0] == 0);
+			ans += dp[1];
+		}
 		cout << ans << '\n';
 	}
 
