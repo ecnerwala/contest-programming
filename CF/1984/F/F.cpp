@@ -446,7 +446,7 @@ int main() {
 		std::sort(sums.begin(), sums.end());
 		using mat_t = std::array<std::array<num, 2>, 2>;
 		seg_tree::in_order_layout layout(N+1);
-		std::vector<mat_t> seg(N+1);
+		std::vector<mat_t> seg(2 * layout.N);
 		auto update_node = [&](seg_tree::point a) -> void {
 			int l = a.c(0);
 			int r = a.c(1);
