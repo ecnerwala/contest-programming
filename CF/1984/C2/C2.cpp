@@ -148,7 +148,8 @@ int main() {
 		if (min_val == max_val) {
 			max_ways += min_ways;
 		}
-		cout << max_val << '\n';
+		cout << max_ways << '\n';
+		//cout << max_val << '\n';
 	}
 
 	return 0;
