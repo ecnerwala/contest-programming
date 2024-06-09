@@ -12,6 +12,7 @@ int main() {
 		for (int l = 1; l <= 18; l++) {
 			p10 *= 10;
 			int64_t base = (p10 - 1) / 9 * 10;
+			cerr << base << '\n';
 			if (base > X) {
 				continue;
 			}
