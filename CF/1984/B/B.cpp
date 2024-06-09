@@ -13,7 +13,7 @@ int main() {
 			p10 *= 10;
 			int64_t base = (p10 - 1) / 9 * 10;
 			if (base > X) {
-				break;
+				continue;
 			}
 			int64_t extra = (X - base);
 			// every digit of extra must be <= 8
