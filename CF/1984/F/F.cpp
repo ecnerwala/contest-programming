@@ -492,32 +492,6 @@ int main() {
 				a.for_parents_up(update_node);
 			}
 		}
-		for (int64_t s : sums) {
-			std::array<num, 2> dp{num(1), num(0)};
-			for (int i = 1; i <= N+1; i++) {
-				{
-					std::array<num, 2> ndp{num(0), num(0)};
-					if (std::abs(B[i] - B[i-1]) <= M) {
-						ndp[0] += dp[0];
-						ndp[1] += dp[1];
-					}
-					if (B[i] + B[i-1] == s) {
-						ndp[1] += dp[0];
-					}
-					if (std::abs(B[i] + B[i-1] - s) <= 2*M) {
-						ndp[0] += dp[1];
-					}
-					dp = ndp;
-				}
-				if (S[i] == 'S') {
-					dp[0] = 0;
-				} else if (S[i] == 'P') {
-					dp[1] = 0;
-				} else assert(S[i] == '?');
-			}
-			assert(dp[0] == 0);
-			ans += dp[1];
-		}
 		cout << ans << '\n';
 	}
 
