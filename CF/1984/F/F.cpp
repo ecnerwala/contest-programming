@@ -478,7 +478,8 @@ int main() {
 			int64_t s = sums[i].first;
 			for (; j < int(sums.size()) && sums[j].first == s; j++) { }
 			for (int k = i; k < j; k++) {
-				seg_tree::point a = layout.get_point(2*k);
+				seg_tree::point a = layout.get_point(2*sums[k].second);
+				assert(seg[a][0][1] == 0);
 				seg[a][0][1] = 1;
 				a.for_parents_up(update_node);
 			}
@@ -498,7 +499,8 @@ int main() {
 			cerr << s << ' ' << seg[1][0][1] << '\n';
 			ans += seg[1][0][1];
 			for (int k = i; k < j; k++) {
-				seg_tree::point a = layout.get_point(k);
+				seg_tree::point a = layout.get_point(2*sums[k].second);
+				assert(seg[a][0][1] == 1);
 				seg[a][0][1] = 0;
 				a.for_parents_up(update_node);
 			}
