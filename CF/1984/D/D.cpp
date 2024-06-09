@@ -522,6 +522,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		std::string S; cin >> S;
+		cerr << S << '\n';
 		int N = int(S.size());
 		assert(N >= 2);
 		SuffixArray sa = SuffixArray::shift_and_construct(S);
