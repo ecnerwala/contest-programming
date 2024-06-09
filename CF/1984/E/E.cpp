@@ -78,6 +78,7 @@ int main() {
 				tot_used -= ch_used;
 				{
 					bool can_use = tot_used == 0;
+					cerr << "  " << nxt << ' ' << tot_cnt << ' ' << tot_used << ' ' << can_use << '\n';
 					dp_up[nxt] = {tot_cnt + can_use, can_use};
 				}
 				tot_cnt += ch_cnt;
