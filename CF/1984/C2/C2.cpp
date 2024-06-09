@@ -136,10 +136,16 @@ int main() {
 			max_val += a;
 			int64_t n_max_val = std::max(std::abs(max_val), std::abs(min_val));
 			num n_max_ways = 0;
+			num n_min_ways = min_ways;
+
 			if (max_val == n_max_val) n_max_ways += max_ways;
+			else if (max_val == min_val) n_min_ways += max_ways;
+
 			if (std::abs(max_val) == n_max_val) n_max_ways += max_ways;
+			else if (std::abs(max_val) == min_val) n_min_ways += max_ways;
+
 			if (std::abs(min_val) == n_max_val) n_max_ways += min_ways;
-			else if (std::abs(min_val) == min_val) min_ways += min_ways;
+			else if (std::abs(min_val) == min_val) n_min_ways += min_ways;
 			max_val = n_max_val;
 			max_ways = n_max_ways;
 			cerr << a << ' ' << max_val << 'x' << max_ways << ' ' << min_val << 'x' << min_ways << '\n';
