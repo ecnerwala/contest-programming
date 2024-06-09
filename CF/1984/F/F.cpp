@@ -458,7 +458,7 @@ int main() {
 		};
 		for (int i = 0; i < N+1; i++) {
 			auto a = layout.get_point(i);
-			seg[a][0][0] = seg[a][1][1] = std::abs(B[i] - B[i-1]) <= M;
+			seg[a][0][0] = seg[a][1][1] = std::abs(B[i+1] - B[i]) <= M;
 			seg[a][0][1] = seg[a][1][0] = false;
 		}
 		for (seg_tree::point a(layout.N-1); a > 0; a--) update_node(a);
