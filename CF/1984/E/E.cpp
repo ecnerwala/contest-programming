@@ -84,6 +84,7 @@ int main() {
 				self(nxt, cur);
 			}
 		})(0, -1);
+		cout << ans << '\n';
 	}
 
 	return 0;
