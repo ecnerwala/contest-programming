@@ -59,7 +59,8 @@ int main() {
 		std::vector<std::pair<int, bool>> dp_up(N);
 		dp_up[0] = {0, false};
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
-			auto [tot_cnt, tot_used] = dp_up[cur];
+			int tot_cnt, tot_used;
+			std::tie(tot_cnt, tot_used) = dp_up[cur];
 			cerr << cur << ' ' << tot_cnt << ' ' << tot_used << '\n';
 			if (prv != -1 && int(adj[cur].size()) == 1) {
 				ans = std::max(ans, tot_cnt + 1);
