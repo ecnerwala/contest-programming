@@ -464,7 +464,6 @@ int main() {
 			} else {
 				seg[a][0][1] = seg[a][1][0] = false;
 				char c = S[(i+1)/2];
-				cerr << c << '\n';
 				seg[a][0][0] = (c == 'P' || c == '?');
 				seg[a][1][1] = (c == 'S' || c == '?');
 			}
@@ -496,7 +495,6 @@ int main() {
 				seg[a][1][0] = 0;
 				a.for_parents_up(update_node);
 			}
-			cerr << s << ' ' << seg[1][0][1] << '\n';
 			ans += seg[1][0][1];
 			for (int k = i; k < j; k++) {
 				seg_tree::point a = layout.get_point(2*sums[k].second);
