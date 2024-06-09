@@ -444,7 +444,6 @@ int main() {
 			sums[i] = {B[i] + B[i+1], i};
 		}
 		std::sort(sums.begin(), sums.end());
-		num ans = 0;
 		using mat_t = std::array<std::array<num, 2>, 2>;
 		seg_tree::in_order_layout layout(N+1);
 		std::vector<mat_t> seg(N+1);
