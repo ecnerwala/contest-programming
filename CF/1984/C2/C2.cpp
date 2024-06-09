@@ -138,7 +138,7 @@ int main() {
 			num n_max_ways = 0;
 			if (max_val == n_max_val) n_max_ways += max_ways;
 			if (std::abs(max_val) == n_max_val) n_max_ways += max_ways;
-			if (std::abs(min_val) == n_max_ways) n_max_val += min_ways;
+			if (std::abs(min_val) == n_max_val) n_max_ways += min_ways;
 			max_val = n_max_val;
 			max_ways = n_max_ways;
 		}
