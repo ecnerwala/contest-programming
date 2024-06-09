@@ -295,7 +295,7 @@ int main() {
 			pt_3 pb(b.x, b.y, norm(b));
 			pt_3 pc(c.x, c.y, norm(c));
 			pt_3 pd(d.x, d.y, norm(d));
-			int64_t res = vol(a, b, c, d);
+			int64_t res = vol(pa, pb, pc, pd);
 			assert(res != 0);
 			return res > 0;
 		};
