@@ -134,7 +134,7 @@ int main() {
 			int a; cin >> a;
 			min_val += a;
 			max_val += a;
-			int n_max_val = std::max(std::abs(max_val), std::abs(min_val));
+			int64_t n_max_val = std::max(std::abs(max_val), std::abs(min_val));
 			int n_max_ways = 0;
 			if (max_val == n_max_val) n_max_ways += max_ways;
 			if (std::abs(max_val) == n_max_val) n_max_ways += max_ways;
