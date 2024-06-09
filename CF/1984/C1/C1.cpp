@@ -136,7 +136,7 @@ int main() {
 			min_val += a;
 			max_val += a;
 			if (std::abs(min_val) > max_val) {
-				max_val = min_val;
+				max_val = std::abs(min_val);
 				max_ways = 0;
 			}
 			if (std::abs(max_val) == max_val) {
