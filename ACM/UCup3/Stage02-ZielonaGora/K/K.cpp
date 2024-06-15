@@ -178,7 +178,7 @@ int main() {
 		nodes.push_back(nodes[n]);
 		bool carry;
 		if (hi - lo == 1) {
-			assert(nodes[r].v == 0 || nodes[r].v == k);
+			assert(nodes[r].v == 0 || nodes[r].v == vals[k]);
 			carry = (nodes[r].v != 0);
 			nodes[r].v ^= vals[k];
 		} else {
@@ -202,7 +202,7 @@ int main() {
 	pref_roots[0] = 1;
 	for (int i = 0; i < N; i++) {
 		bool carry;
-		std::tie(pref_roots[i+1], carry) = incr(pref_roots[i], L, A[i]);
+		std::tie(pref_roots[i+1], carry) = incr(pref_roots[i], 0, S, A[i]);
 		assert(!carry);
 	}
 
