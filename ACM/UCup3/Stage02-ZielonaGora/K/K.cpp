@@ -365,7 +365,7 @@ int main() {
 				nxt_pq.push({cur_trans[i], {i, j}});
 			}
 			self(nxt_comp, nxt_pq, interval_t{inters[0].front().first, inters[0].back().last});
-			self(comp, pq, interval_t{inters[1].front().first, inters[1].back().last});
+			self(cur_comp, pq, interval_t{inters[1].front().first, inters[1].back().last});
 		}
 	})(0, start_pq, start_interval);
 
