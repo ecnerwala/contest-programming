@@ -156,9 +156,11 @@ int main() {
 
 	std::mt19937_64 mt(48);
 	std::vector<uint64_t> vals(S);
+	std::vector<uint64_t> vals_pref(S+1);
 	for (int i = 0; i < S; i++) {
 		vals[i] = mt();
 		assert(vals[i] != 0);
+		vals_pref[i+1] = vals_pref[i] ^ vals[i];
 	}
 
 	struct seg_node {
@@ -190,7 +192,7 @@ int main() {
 					std::tie(c1, carry) = self(c1, md, hi, md);
 				}
 			} else {
-				std::tie(c1, carry) = self(c1, lo, md, k);
+				std::tie(c1, carry) = self(c1, md, hi, k);
 			}
 			nodes[r].ch = {c0, c1};
 			nodes[r].v = nodes[c0].v ^ nodes[c1].v;
@@ -198,12 +200,59 @@ int main() {
 		return {r, carry};
 	});
 
-	std::vector<int> pref_roots(N+1);
-	pref_roots[0] = 1;
+	std::vector<int> roots(N+1);
+	roots[0] = 1;
 	for (int i = 0; i < N; i++) {
 		bool carry;
-		std::tie(pref_roots[i+1], carry) = incr(pref_roots[i], 0, S, A[i]);
+		std::tie(roots[i+1], carry) = incr(roots[i], 0, S, A[i]);
 		assert(!carry);
+	}
+
+	// Dir 0 means prefix, dir 1 means suffix
+	auto get_match = [&](int n0, int n1, int dir) -> std::pair<int, uint64_t> {
+		assert(nodes[n0].v != nodes[n1].v);
+		int lo = 0, hi = S;
+		int len = 0; uint64_t val = 0;
+		while (hi - lo > 1) {
+			assert(nodes[n0].v != nodes[n1].v);
+			int md = (lo + hi) / 2;
+			if (nodes[nodes[n0].ch[dir]].v != nodes[nodes[n1].ch[dir]].v) {
+				nodes[n0] = nodes[nodes[n0].ch[dir]];
+				nodes[n1] = nodes[nodes[n1].ch[dir]];
+				if (dir == 0) hi = md;
+				else lo = md;
+			} else {
+				len += (dir == 0) ? (md - lo) : (hi - md);
+				val ^= nodes[nodes[n0].ch[dir]].v;
+				nodes[n0] = nodes[nodes[n0].ch[!dir]];
+				nodes[n1] = nodes[nodes[n1].ch[!dir]];
+				if ((!dir) == 0) hi = md;
+				else lo = md;
+			}
+		}
+		return {len, val};
+	};
+	auto get_diff = [&](int n0, int n1) -> std::pair<int, bool> {
+		assert(nodes[n0].v != nodes[n1].v);
+
+		auto [pref_len, pref_val] = get_match(n0, n1, 0);
+		auto [suff_len, suff_val] = get_match(n0, n1, 1);
+
+		assert(pref_len + suff_len < S);
+		uint64_t m0 = nodes[n0].v ^ pref_val ^ suff_val;
+		uint64_t m1 = nodes[n1].v ^ pref_val ^ suff_val;
+
+		int lo = pref_len, hi = S - suff_len;
+
+		bool is_plus_one = m1 == vals[hi-1] && m0 == (vals_pref[hi-1] ^ vals_pref[lo]);
+
+		return {pref_len, is_plus_one};
+	};
+
+	for (int i = 0; i < N; i++) {
+		auto [v2, is_plus_one] = get_diff(roots[i], roots[i+1]);
+		assert(is_plus_one);
+		assert(v2 == A[i]);
 	}
 
 	std::vector<int> nxt(N+1);
