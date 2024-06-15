@@ -183,7 +183,6 @@ int main() {
 		} else {
 			auto [c0, c1] = nodes[r].ch;
 			if (0 <= k && k < (1 << (l-1))) {
-				auto [c0, c1] = nodes[r].ch;
 				std::tie(c0, carry) = self(c0, l-1, k);
 				if (carry) {
 					std::tie(c1, carry) = self(c1, l-1, 0);
