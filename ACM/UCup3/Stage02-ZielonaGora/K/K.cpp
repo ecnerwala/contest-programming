@@ -302,7 +302,7 @@ int main() {
 			int cur_val = -1;
 			std::vector<interval_t> nxt_inters;
 			nxt_inters.push_back({inter.first, -1});
-			while (true) {
+			while (!pq.empty()) {
 				auto [v, verts] = pq.top();
 				auto [i, j] = verts;
 				if (comp[i] != cur_comp || comp[j] != cur_comp) {
