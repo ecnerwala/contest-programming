@@ -191,6 +191,7 @@ int main() {
 				std::tie(c1, carry) = self(c1, l-1, k - (1 << (l-1)));
 			}
 			nodes[r].ch = {c0, c1};
+			nodes[r].v = nodes[c0].v ^ nodes[c1].v;
 		}
 		return {r, carry};
 	});
