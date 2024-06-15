@@ -244,6 +244,7 @@ int main() {
 		uint64_t m1 = nodes[n1].v ^ pref_val ^ suff_val;
 
 		int lo = pref_len, hi = S - suff_len;
+		cerr << m0 << ' ' << m1 << '\n';
 
 		bool is_plus_one = m1 == vals[hi-1] && m0 == (vals_pref[hi-1] ^ vals_pref[lo]);
 
