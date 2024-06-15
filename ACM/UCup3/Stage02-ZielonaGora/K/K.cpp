@@ -210,18 +210,14 @@ int main() {
 
 	// Dir 0 means prefix, dir 1 means suffix
 	auto get_match = [&](int n0, int n1, int dir) -> std::pair<int, uint64_t> {
-		cerr << "testing " << n0 << ' ' << n1 << ' ' << dir << '\n';
 		assert(nodes[n0].v != nodes[n1].v);
 		int lo = 0, hi = S;
 		int len = 0; uint64_t val = 0;
 		while (hi - lo > 1) {
-			cerr << nodes[1].ch[0] << ' ' << nodes[1].ch[1] << '\n';
-			cerr << "   " << n0 << ' ' << n1 << ' ' << dir << ' ' << lo << ' ' << hi << '\n';
 			assert(nodes[n0].v != nodes[n1].v);
 			int md = (lo + hi) / 2;
 			assert(hi - lo > 1);
 			bool z;
-			cerr << nodes[n0].ch[dir] << ' ' << nodes[n1].ch[dir] << '\n';
 			if (nodes[nodes[n0].ch[dir]].v != nodes[nodes[n1].ch[dir]].v) {
 				z = dir;
 			} else {
