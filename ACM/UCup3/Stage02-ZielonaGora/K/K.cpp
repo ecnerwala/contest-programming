@@ -256,15 +256,13 @@ int main() {
 	std::vector<std::array<int, 2>> edges;
 
 	std::vector<int> nxt(N+1);
-	for (int i = 0; i <= N; i++) {
-		nxt[i] = i+1;
-	}
-
 	std::vector<int> cur_trans(N+1);
 	for (int i = 0; i < N; i++) {
+		nxt[i] = i+1;
 		cur_trans[i] = A[i];
 		edges.push_back({i, i+1});
 	}
+	nxt[N] = -1;
 
 	struct interval_t {
 		int first, last;
