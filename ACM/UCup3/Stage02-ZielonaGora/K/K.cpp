@@ -172,23 +172,25 @@ int main() {
 		nodes[i].ch = {2*i+0, 2*i+1};
 	}
 
-	auto incr = std::y_combinator([&](auto self, int n, int l, int k) -> std::pair<int, bool> {
-		assert(0 <= k && k < (1 << l));
+	auto incr = std::y_combinator([&](auto self, int n, int lo, int hi, int k) -> std::pair<int, bool> {
+		assert(lo <= k && k < hi);
 		int r = int(nodes.size());
 		nodes.push_back(nodes[n]);
 		bool carry;
-		if (l == 0) {
+		if (hi - lo == 1) {
+			assert(nodes[r].v == 0 || nodes[r].v == k);
 			carry = (nodes[r].v != 0);
 			nodes[r].v ^= vals[k];
 		} else {
 			auto [c0, c1] = nodes[r].ch;
-			if (0 <= k && k < (1 << (l-1))) {
-				std::tie(c0, carry) = self(c0, l-1, k);
+			int md = (lo + hi) / 2;
+			if (k < md) {
+				std::tie(c0, carry) = self(c0, lo, md, k);
 				if (carry) {
-					std::tie(c1, carry) = self(c1, l-1, 0);
+					std::tie(c1, carry) = self(c1, md, hi, md);
 				}
 			} else {
-				std::tie(c1, carry) = self(c1, l-1, k - (1 << (l-1)));
+				std::tie(c1, carry) = self(c1, lo, md, k);
 			}
 			nodes[r].ch = {c0, c1};
 			nodes[r].v = nodes[c0].v ^ nodes[c1].v;
@@ -204,7 +206,19 @@ int main() {
 		assert(!carry);
 	}
 
+	std::vector<int> nxt(N+1);
+	std::vector<int> prv(N+1);
+	for (int i = 0; i <= N; i++) {
+		nxt[i] = i+1;
+		prv[i] = i-1;
+	}
+
+	struct interval {
+	};
+
 	std::vector<std::array<int, 2>> edges; edges.reserve(N * 40);
+	for (int i = 0; i < N; i++) {
+	}
 
 	return 0;
 }
