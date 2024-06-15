@@ -230,8 +230,8 @@ int main() {
 				val ^= nodes[nodes[n0].ch[dir]].v;
 				z = !dir;
 			}
-			nodes[n0] = nodes[nodes[n0].ch[z]];
-			nodes[n1] = nodes[nodes[n1].ch[z]];
+			n0 = nodes[n0].ch[z];
+			n1 = nodes[n1].ch[z];
 			if (z == 0) hi = md;
 			else lo = md;
 		}
