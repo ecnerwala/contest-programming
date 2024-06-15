@@ -178,7 +178,7 @@ int main() {
 		nodes[r] = nodes[n];
 		bool carry;
 		if (l == 0) {
-			bool carry = (nodes[r].v != 0);
+			carry = (nodes[r].v != 0);
 			nodes[r].v ^= vals[k];
 		} else {
 			auto [c0, c1] = nodes[r].ch;
@@ -189,6 +189,7 @@ int main() {
 					std::tie(c1, carry) = self(c1, l-1, 0);
 				}
 			} else {
+				std::tie(c1, carry) = self(c1, l-1, k - (1 << (l-1)));
 			}
 			nodes[r].ch = {c0, c1};
 		}
