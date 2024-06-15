@@ -88,9 +88,9 @@ int main() {
 				dp_down_val[cur] += d - depth[cur];
 				dp_down_set[cur].insert({-depth[cur], cur});
 			}
-		} else {
+		} else if (S[cur] == '1') {
 			dp_down_set[cur].insert({-depth[cur], cur});
-		}
+		} else assert(false);
 	})(0, -1);
 
 	std::vector<int64_t> ans(N);
@@ -132,10 +132,10 @@ int main() {
 				} else {
 					return std::nullopt;
 				}
-			} else {
+			} else if (S[cur] == '1') {
 				dp_up_set.insert({depth[cur], cur});
 				return std::pair<int, int>({depth[cur], cur});
-			}
+			} else assert(false);
 		};
 		auto undo_self = [&](std::optional<std::pair<int, int>> v) {
 			if (!v) return;
