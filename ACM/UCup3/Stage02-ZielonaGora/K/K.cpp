@@ -278,6 +278,7 @@ int main() {
 		cerr << "recursing " << cur_comp << ' ' << inter.first << ' ' << inter.last << '\n';
 		for (int i = inter.first; i != -1; i = nxt[i]) {
 			cerr << ' ' << i;
+			assert(comp[i] == cur_comp);
 		}
 		cerr << '\n';
 		{
