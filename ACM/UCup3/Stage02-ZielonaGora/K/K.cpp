@@ -251,10 +251,15 @@ int main() {
 	};
 
 	for (int i = 0; i < N; i++) {
-		cerr << "checking " << i << ' ' << i+1 << '\n';
-		auto [v2, is_plus_one] = get_diff(roots[i], roots[i+1]);
-		assert(is_plus_one);
-		assert(v2 == A[i]);
+		for (int j = i+1; j <= N; j++) {
+			cerr << "checking " << i << ' ' << j << '\n';
+			auto [v2, is_plus_one] = get_diff(roots[i], roots[i+1]);
+			cerr << v2 << ' ' << is_plus_one << '\n';
+			if (j - i == 1) {
+				assert(is_plus_one);
+				assert(v2 == A[i]);
+			}
+		}
 	}
 
 	std::vector<int> nxt(N+1);
