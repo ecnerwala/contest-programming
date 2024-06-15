@@ -210,10 +210,12 @@ int main() {
 
 	// Dir 0 means prefix, dir 1 means suffix
 	auto get_match = [&](int n0, int n1, int dir) -> std::pair<int, uint64_t> {
+		cerr << "testing " << n0 << ' ' << n1 << ' ' << dir << '\n';
 		assert(nodes[n0].v != nodes[n1].v);
 		int lo = 0, hi = S;
 		int len = 0; uint64_t val = 0;
 		while (hi - lo > 1) {
+			cerr << "   " << n0 << ' ' << n1 << ' ' << dir << ' ' << lo << ' ' << hi << '\n';
 			assert(nodes[n0].v != nodes[n1].v);
 			int md = (lo + hi) / 2;
 			assert(hi - lo > 1);
@@ -250,6 +252,7 @@ int main() {
 	};
 
 	for (int i = 0; i < N; i++) {
+		cerr << "checking " << i << ' ' << i+1 << '\n';
 		auto [v2, is_plus_one] = get_diff(roots[i], roots[i+1]);
 		assert(is_plus_one);
 		assert(v2 == A[i]);
