@@ -208,8 +208,6 @@ int main() {
 		assert(!carry);
 	}
 
-	cerr << nodes[1].ch[0] << ' ' << nodes[1].ch[1] << '\n';
-
 	// Dir 0 means prefix, dir 1 means suffix
 	auto get_match = [&](int n0, int n1, int dir) -> std::pair<int, uint64_t> {
 		cerr << "testing " << n0 << ' ' << n1 << ' ' << dir << '\n';
@@ -217,6 +215,7 @@ int main() {
 		int lo = 0, hi = S;
 		int len = 0; uint64_t val = 0;
 		while (hi - lo > 1) {
+			cerr << nodes[1].ch[0] << ' ' << nodes[1].ch[1] << '\n';
 			cerr << "   " << n0 << ' ' << n1 << ' ' << dir << ' ' << lo << ' ' << hi << '\n';
 			assert(nodes[n0].v != nodes[n1].v);
 			int md = (lo + hi) / 2;
