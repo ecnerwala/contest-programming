@@ -277,6 +277,7 @@ int main() {
 	}
 	interval_t start_interval{0, N};
 	std::y_combinator([&](auto self, int cur_comp, min_pq<std::pair<int, std::array<int, 2>>>& pq, interval_t inter) -> void {
+		cerr << "recursing " << cur_comp << ' ' << inter.first << ' ' << inter.last << '\n';
 		if (inter.first == inter.last) {
 			return;
 		}
