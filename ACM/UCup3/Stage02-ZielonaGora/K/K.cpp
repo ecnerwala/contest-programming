@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+template <typename T> using min_pq = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+
 namespace std {
 
 template<class Fun>
@@ -244,24 +246,11 @@ int main() {
 		uint64_t m1 = nodes[n1].v ^ pref_val ^ suff_val;
 
 		int lo = pref_len, hi = S - suff_len;
-		cerr << m0 << ' ' << m1 << '\n';
 
 		bool is_plus_one = m1 == vals[hi-1] && m0 == (vals_pref[hi-1] ^ vals_pref[lo]);
 
 		return {pref_len, is_plus_one};
 	};
-
-	for (int i = 0; i < N; i++) {
-		for (int j = i+1; j <= N; j++) {
-			cerr << "checking " << i << ' ' << j << '\n';
-			auto [v2, is_plus_one] = get_diff(roots[i], roots[j]);
-			cerr << v2 << ' ' << is_plus_one << '\n';
-			if (j - i == 1) {
-				assert(is_plus_one);
-				assert(v2 == A[i]);
-			}
-		}
-	}
 
 	std::vector<int> nxt(N+1);
 	std::vector<int> prv(N+1);
@@ -270,8 +259,18 @@ int main() {
 		prv[i] = i-1;
 	}
 
-	struct interval {
+
+	struct interval_t {
+		int first, last;
 	};
+	std::vector<int> comp(N+1, 0);
+	min_pq<std::pair<int, std::array<int, 2>>> start_pq;
+	for (int i = 0; i < N; i++) {
+		start_pq.push({A[i], {i, i+1}});
+	}
+	interval_t start_interval{0, N};
+	std::y_combinator([&](auto self, min_pq<std::pair<int, int>>& pq, interval_t inter) {
+	})(start_pq, start_interval);
 
 	std::vector<std::array<int, 2>> edges; edges.reserve(N * 40);
 	for (int i = 0; i < N; i++) {
