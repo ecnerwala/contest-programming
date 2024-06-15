@@ -275,22 +275,24 @@ int main() {
 	}
 	interval_t start_interval{0, N};
 	std::y_combinator([&](auto self, int cur_comp, min_pq<std::pair<int, std::array<int, 2>>>& pq, interval_t inter) -> void {
-		cerr << "recursing " << cur_comp << ' ' << inter.first << ' ' << inter.last << '\n';
-		for (int i = inter.first; i != -1; i = nxt[i]) {
-			cerr << ' ' << i;
-			assert(comp[i] == cur_comp);
-		}
-		cerr << '\n';
-		{
-			std::vector<std::pair<int, std::array<int, 2>>> a;
-			while (!pq.empty()) {
-				a.push_back(pq.top()); pq.pop();
+		if constexpr (false) {
+			cerr << "recursing " << cur_comp << ' ' << inter.first << ' ' << inter.last << '\n';
+			for (int i = inter.first; i != -1; i = nxt[i]) {
+				cerr << ' ' << i;
+				assert(comp[i] == cur_comp);
 			}
-			for (auto [v, pts] : a) {
-				cerr << "  " << v << ' ' << pts[0] << '-' << pts[1] << '\n';
-			}
-			while (!a.empty()) {
-				pq.push(a.back()); a.pop_back();
+			cerr << '\n';
+			{
+				std::vector<std::pair<int, std::array<int, 2>>> a;
+				while (!pq.empty()) {
+					a.push_back(pq.top()); pq.pop();
+				}
+				for (auto [v, pts] : a) {
+					cerr << "  " << v << ' ' << pts[0] << '-' << pts[1] << '\n';
+				}
+				while (!a.empty()) {
+					pq.push(a.back()); a.pop_back();
+				}
 			}
 		}
 		if (inter.first == inter.last) {
