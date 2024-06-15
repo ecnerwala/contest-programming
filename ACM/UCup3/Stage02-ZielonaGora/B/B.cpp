@@ -143,6 +143,7 @@ int main() {
 			assert(did_erase);
 			auto [d, vert] = *v;
 			if (vert != cur) {
+				dp_up_val -= depth[cur] - d;
 				dp_up_set.insert({d, vert});
 			}
 		};
