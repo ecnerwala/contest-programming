@@ -195,6 +195,14 @@ int main() {
 		return {r, carry};
 	});
 
+	std::vector<int> pref_roots(N+1);
+	pref_roots[0] = 1;
+	for (int i = 0; i < N; i++) {
+		bool carry;
+		std::tie(pref_roots[i+1], carry) = incr(pref_roots[i], L, A[i]);
+		assert(!carry);
+	}
+
 	std::vector<std::array<int, 2>> edges; edges.reserve(N * L);
 
 	return 0;
