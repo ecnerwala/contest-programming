@@ -157,8 +157,8 @@ int main() {
 	std::mt19937_64 mt(48);
 	std::vector<uint64_t> vals(S);
 	for (int i = 0; i < S; i++) {
-		assert(vals[i] != 0);
 		vals[i] = mt();
+		assert(vals[i] != 0);
 	}
 
 	struct seg_node {
