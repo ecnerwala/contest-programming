@@ -236,6 +236,7 @@ int main() {
 		return {len, val};
 	};
 	auto get_diff = [&](int n0, int n1) -> std::pair<int, bool> {
+		cerr << "checking diff " << n0 << ' ' << n1 << '\n';
 		assert(nodes[n0].v != nodes[n1].v);
 
 		auto [pref_len, pref_val] = get_match(n0, n1, 0);
