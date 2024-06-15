@@ -166,16 +166,16 @@ int main() {
 		uint64_t v = 0;
 	};
 
-	std::vector<seg_node> nodes(2*S + 4 * N * L);
-	int nxt_node = 2*S;
+	std::vector<seg_node> nodes; nodes.reserve(2*S + 4 * N * L);
+	nodes.resize(2*S);
 	for (int i = 1; i < S; i++) {
 		nodes[i].ch = {2*i+0, 2*i+1};
 	}
 
 	auto incr = std::y_combinator([&](auto self, int n, int l, int k) -> std::pair<int, bool> {
 		assert(0 <= k && k < (1 << l));
-		int r = nxt_node++;
-		nodes[r] = nodes[n];
+		int r = int(nodes.size());
+		nodes.push_back(nodes[n]);
 		bool carry;
 		if (l == 0) {
 			carry = (nodes[r].v != 0);
@@ -204,7 +204,7 @@ int main() {
 		assert(!carry);
 	}
 
-	std::vector<std::array<int, 2>> edges; edges.reserve(N * L);
+	std::vector<std::array<int, 2>> edges; edges.reserve(N * 40);
 
 	return 0;
 }
