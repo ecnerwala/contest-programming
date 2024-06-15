@@ -223,6 +223,7 @@ int main() {
 			if (nodes[nodes[n0].ch[dir]].v != nodes[nodes[n1].ch[dir]].v) {
 				z = dir;
 			} else {
+				assert(md - lo == hi - md);
 				len += (dir == 0) ? (md - lo) : (hi - md);
 				val ^= nodes[nodes[n0].ch[dir]].v;
 				z = !dir;
