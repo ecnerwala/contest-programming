@@ -217,19 +217,18 @@ int main() {
 			assert(nodes[n0].v != nodes[n1].v);
 			int md = (lo + hi) / 2;
 			assert(hi - lo > 1);
+			bool z;
 			if (nodes[nodes[n0].ch[dir]].v != nodes[nodes[n1].ch[dir]].v) {
-				nodes[n0] = nodes[nodes[n0].ch[dir]];
-				nodes[n1] = nodes[nodes[n1].ch[dir]];
-				if (dir == 0) hi = md;
-				else lo = md;
+				z = dir;
 			} else {
 				len += (dir == 0) ? (md - lo) : (hi - md);
 				val ^= nodes[nodes[n0].ch[dir]].v;
-				nodes[n0] = nodes[nodes[n0].ch[!dir]];
-				nodes[n1] = nodes[nodes[n1].ch[!dir]];
-				if ((!dir) == 0) hi = md;
-				else lo = md;
+				z = !dir;
 			}
+			nodes[n0] = nodes[nodes[n0].ch[z]];
+			nodes[n1] = nodes[nodes[n1].ch[z]];
+			if (z == 0) hi = md;
+			else lo = md;
 		}
 		return {len, val};
 	};
