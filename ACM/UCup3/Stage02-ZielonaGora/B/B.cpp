@@ -37,6 +37,7 @@ int main() {
 	}
 
 	std::vector<int> depth(N, -1);
+	std::vector<int> sz(N);
 
 	// we want the deepest, so we'll store -depth, idx
 	std::vector<std::set<std::pair<int, int>>> dp_down_set(N);
@@ -44,6 +45,7 @@ int main() {
 	std::vector<int64_t> dp_down_val(N);
 	std::y_combinator([&](auto self, int cur, int prv) -> void {
 		depth[cur] = (prv == -1) ? 0 : depth[prv] + 1;
+		sz[cur] = 1;
 		if (prv != -1) {
 			auto it = std::find(adj[cur].begin(), adj[cur].end(), prv);
 			assert(it != adj[cur].end());
@@ -52,14 +54,15 @@ int main() {
 		for (int nxt : adj[cur]) {
 			assert(nxt != prv);
 			self(nxt, cur);
+			sz[cur] += sz[nxt];
 			dp_down_val[cur] += dp_down_val[nxt];
 		}
 
 		// sort in decreasing size, so heaviest first
-		std::sort(adj[cur].begin(), adj[cur].end(), [&](auto i, auto j) { return dp_down_set[i].size() > dp_down_set[j].size(); });
+		std::sort(adj[cur].begin(), adj[cur].end(), [&](auto i, auto j) { return sz[i] > sz[j]; });
 		if (!adj[cur].empty()) {
 			{
-				int keep_sz = (adj[cur].size() >= 2 ? int(dp_down_set[adj[cur][1]].size()) : 0);
+				int keep_sz = (adj[cur].size() >= 2 ? int(sz[adj[cur][1]]) : 0);
 				std::swap(dp_down_set[cur], dp_down_set[adj[cur][0]]);
 				// min the next guy down
 				for (auto it : dp_down_set[cur]) {
