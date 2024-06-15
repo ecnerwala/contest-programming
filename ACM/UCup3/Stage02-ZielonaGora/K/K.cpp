@@ -252,29 +252,131 @@ int main() {
 		return {pref_len, is_plus_one};
 	};
 
+	std::vector<std::array<int, 2>> edges;
+
 	std::vector<int> nxt(N+1);
-	std::vector<int> prv(N+1);
 	for (int i = 0; i <= N; i++) {
 		nxt[i] = i+1;
-		prv[i] = i-1;
 	}
 
+	std::vector<int> cur_trans(N+1);
+	for (int i = 0; i < N; i++) {
+		cur_trans[i] = A[i];
+		edges.push_back({i, i+1});
+	}
 
 	struct interval_t {
 		int first, last;
 	};
 	std::vector<int> comp(N+1, 0);
+	int num_comps = 1;
 	min_pq<std::pair<int, std::array<int, 2>>> start_pq;
 	for (int i = 0; i < N; i++) {
-		start_pq.push({A[i], {i, i+1}});
+		start_pq.push({cur_trans[i], {i, nxt[i]}});
 	}
 	interval_t start_interval{0, N};
-	std::y_combinator([&](auto self, min_pq<std::pair<int, int>>& pq, interval_t inter) {
-	})(start_pq, start_interval);
+	std::y_combinator([&](auto self, int cur_comp, min_pq<std::pair<int, std::array<int, 2>>>& pq, interval_t inter) -> void {
+		if (inter.first == inter.last) {
+			return;
+		}
+		std::array<std::vector<interval_t>, 2> inters;
+		{
+			assert(!pq.empty());
+			int cur_val = -1;
+			std::vector<interval_t> nxt_inters;
+			nxt_inters.push_back({inter.first, -1});
+			while (true) {
+				auto [v, verts] = pq.top();
+				auto [i, j] = verts;
+				if (comp[i] != cur_comp || comp[j] != cur_comp) {
+					pq.pop();
+					continue;
+				}
+				if (cur_val == -1) cur_val = v;
+				assert(cur_val != -1);
+				assert(v >= cur_val);
+				if (v > cur_val) break;
+				pq.pop();
+				nxt_inters.back().last = i;
+				nxt_inters.push_back({j, -1});
+			}
+			assert(cur_val != -1);
+			nxt_inters.back().last = inter.last;
 
-	std::vector<std::array<int, 2>> edges; edges.reserve(N * 40);
-	for (int i = 0; i < N; i++) {
+			assert(nxt_inters.size() >= 2);
+
+			inters[0].reserve(int(nxt_inters.size() + 1) / 2);
+			inters[1].reserve(int(nxt_inters.size()) / 2);
+			// iterate through the intervals
+			for (int i = 0; i < int(nxt_inters.size()); i++) {
+				inters[i%2].push_back(nxt_inters[i]);
+			}
+		}
+		assert(!inters[0].empty());
+		assert(!inters[1].empty());
+		std::array<std::vector<int>, 2> pts;
+		std::array<int, 2> cur_idx{0, 0};
+		std::array<int, 2> cur_val{inters[0][0].first, inters[1][0].first};
+		while (true) {
+			// advance inters[0], then swap the two
+			pts[0].push_back(cur_val[0]);
+			if (cur_val[0] == inters[0][cur_idx[0]].last) {
+				cur_idx[0]++;
+				if (cur_idx[0] == int(inters[0].size())) {
+					break;
+				}
+				cur_val[0] = inters[0][cur_idx[0]].first;
+			} else {
+				cur_val[0] = nxt[cur_val[0]];
+			}
+			std::swap(inters[0], inters[1]);
+			std::swap(pts[0], pts[1]);
+			std::swap(cur_idx[0], cur_idx[1]);
+			std::swap(cur_val[0], cur_val[1]);
+		}
+		// Now, pts[0] is small and complete, while pts[1] is big
+		{
+			int nxt_comp = num_comps++;
+			for (auto p : pts[0]) {
+				comp[p] = nxt_comp;
+			}
+			// update nxt pointers
+			for (int z = 0; z < 2; z++) {
+				for (int a = 0; a+1 < int(inters[z].size()); a++) {
+					int i = inters[z][a].last;
+					int j = inters[z][a+1].first;
+					auto [v, is_plus_one] = get_diff(i, j);
+					if (is_plus_one) {
+						edges.push_back({i, j});
+					}
+					nxt[i] = j;
+					cur_trans[i] = v;
+					if (z == 1) {
+						pq.push({cur_trans[i], {i, j}});
+					}
+				}
+				nxt[inters[z].back().last] = -1;
+			}
+			min_pq<std::pair<int, std::array<int, 2>>> nxt_pq;
+			for (int a = 0; a+1 < int(pts[0].size()); a++) {
+				int i = pts[0][a];
+				int j = pts[0][a+1];
+				assert(nxt[i] == j);
+				nxt_pq.push({cur_trans[i], {i, j}});
+			}
+			self(nxt_comp, nxt_pq, {inters[0].front().first, inters[0].back().last});
+			self(comp, pq, {inters[1].front().first, inters[1].back().last});
+		}
+	})(0, start_pq, start_interval);
+
+	using num = modnum<int(1e9)+7>;
+	std::vector<num> dp(N+1);
+	dp[0] = 1;
+	std::sort(edges.begin(), edges.end());
+	for (auto [i, j] : edges) {
+		dp[j] += dp[i];
 	}
+	cout << dp[N] << '\n';
 
 	return 0;
 }
