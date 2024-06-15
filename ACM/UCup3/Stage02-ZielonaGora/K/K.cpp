@@ -220,6 +220,7 @@ int main() {
 			int md = (lo + hi) / 2;
 			assert(hi - lo > 1);
 			bool z;
+			cerr << nodes[n0].ch[dir] << ' ' << nodes[n1].ch[dir] << '\n';
 			if (nodes[nodes[n0].ch[dir]].v != nodes[nodes[n1].ch[dir]].v) {
 				z = dir;
 			} else {
