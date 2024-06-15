@@ -208,6 +208,8 @@ int main() {
 		assert(!carry);
 	}
 
+	cerr << nodes[1].ch[0] << ' ' << nodes[1].ch[1] << '\n';
+
 	// Dir 0 means prefix, dir 1 means suffix
 	auto get_match = [&](int n0, int n1, int dir) -> std::pair<int, uint64_t> {
 		cerr << "testing " << n0 << ' ' << n1 << ' ' << dir << '\n';
