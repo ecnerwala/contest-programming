@@ -552,6 +552,8 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 		basisG.push_back(curG);
 		dot_self.push_back(cur_dot_self);
 	}
+	// Now, let's fix everything
+	int K = int(basis.size());
 
 	for (int a = 0; a < N; a++) {
 		for (int b = 0; b < N; b++) {
@@ -563,8 +565,6 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 		}
 	}
 
-	// Now, let's fix everything
-	int K = int(basis.size());
 	num first_qnr = 1;
 	if (num::MOD > 2) {
 		while (n_sqrt[int(first_qnr)] != -1) first_qnr++;
