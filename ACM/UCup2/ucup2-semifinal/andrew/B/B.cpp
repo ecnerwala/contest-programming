@@ -386,8 +386,8 @@ int main() {
 						num_bad += cnt;
 					}
 				}
-				cerr << i << '-' << j << ' ' << cnt << '\n';
-				ans_tri_pair -= cnt;
+				cerr << i << '-' << j << ' ' << num_bad << '\n';
+				ans_tri_pair -= num_bad;
 			}
 
 			std::vector<int> pref(hi-lo+2, 0);
