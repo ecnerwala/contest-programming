@@ -494,19 +494,8 @@ template <typename T> struct mod_constraint {
 	}
 };
 
-
-int main() {
+template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<num, 2>& G) {
 	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	struct my_tag{};
-	using num = dynamic_modnum<my_tag>;
-	int N; cin >> N >> num::MOD_READER();
-	tensor<num, 2> G({N, N});
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			cin >> G[{i, j}];
-		}
-	}
 
 	// current basis
 	std::vector<std::vector<num>> basis;
@@ -522,7 +511,6 @@ int main() {
 	for (int i = 0; i <= num::MOD - i; i++) {
 		n_sqrt[int(num(i) * num(i))] = i;
 	}
-
 
 	for (int i = 0; i < N; i++) {
 		std::vector<num> cur(N, num(0));
@@ -625,13 +613,63 @@ int main() {
 		assert(qnrs.empty());
 	}
 
+	for (int a = 0; a < N; a++) {
+		for (int b = 0; b < N; b++) {
+			num s = 0;
+			for (int k = 0; k < K; k++) {
+				s += coeffs[a][k] * coeffs[b][k];
+			}
+			assert((s == G[{a, b}]));
+		}
+	}
+
+	return coeffs;
+}
+
+void test() {
+	std::mt19937_64 mt(48);
+	for (int z = 0; z < 100; z++) {
+		cerr << "TEST " << z << '\n';
+		struct my_tag {};
+		using num = dynamic_modnum<my_tag>;
+		std::vector<int> primes({2, 3, 5, 7, 11, 13, 17, 19});
+		num::set_mod(primes[mt() % int(primes.size())]);
+
+		int N = std::uniform_int_distribution<int>(1, 10)(mt);
+		tensor<num, 2> G({N, N});
+		for (int i = 0; i < N; i++) {
+			for (int j = i; j < N; j++) {
+				G[{i, j}] = std::uniform_int_distribution<int>(0, num::MOD-1)(mt);
+				G[{j, i}] = G[{i, j}];
+			}
+		}
+		solve(N, G);
+	}
+}
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	test();
+	struct my_tag{};
+	using num = dynamic_modnum<my_tag>;
+	int N; cin >> N >> num::MOD_READER();
+	tensor<num, 2> G({N, N});
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> G[{i, j}];
+		}
+	}
+
+	auto coeffs = solve(N, G);
+
+	int K = int(coeffs[0].size());
 	cout << K << '\n';
 	for (int a = 0; a < N; a++) {
 		assert(int(coeffs[a].size()) == K);
 		for (int k = 0; k < K; k++) {
-			cout << coeffs[a][k] << " \n"[k+1==K];
+			cout << coeffs[a][k] << " \n"[k + 1 == K];
 		}
 	}
-
 	return 0;
 }
