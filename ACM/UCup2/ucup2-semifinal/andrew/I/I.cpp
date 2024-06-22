@@ -598,6 +598,7 @@ int main() {
 		}
 		qnrs.push_back(K);
 	}
+	cout << K << '\n';
 
 	return 0;
 }
