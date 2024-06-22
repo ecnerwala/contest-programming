@@ -589,6 +589,15 @@ int main() {
 		dot_self[i] /= fac * fac;
 		assert(dot_self[i] == tgt);
 	}
+	if (int(qnrs.size()) & 1) {
+		assert(num::MOD > 2);
+		K++;
+		dot_self.push_back(first_qnr);
+		for (int a = 0; a < N; a++) {
+			coeffs[a].push_back(num(0));
+		}
+		qnrs.push_back(K);
+	}
 
 	return 0;
 }
