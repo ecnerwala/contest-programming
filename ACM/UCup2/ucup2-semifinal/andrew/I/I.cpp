@@ -587,6 +587,9 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 		}
 		qnrs.push_back(K);
 	}
+	for (int a = 0; a < N; a++) {
+		assert(int(coeffs[a].size()) == K);
+	}
 	assert(int(qnrs.size()) % 2 == 0);
 	if (num::MOD > 2) {
 		// find two qrs which sum to first_qnr
