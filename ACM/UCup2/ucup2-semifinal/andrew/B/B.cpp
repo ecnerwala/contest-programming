@@ -102,7 +102,44 @@ int main() {
 	std::vector<pt_t> pts(N_tot);
 	for (auto& p : pts) cin >> p;
 
-	std::sort(pts.begin(), pts.end());
+	std::vector<pt_t> hull; hull.reserve(N_tot);
+	std::vector<pt_t> interior; interior.reserve(N_tot);
+
+	{
+		std::sort(pts.begin(), pts.end(), [&](auto a, auto b) {
+			return std::tie(a.x, a.y) < std::tie(b.x, b.y);
+		});
+		std::vector<pt_t> upper; upper.reserve(N_tot);
+		std::vector<pt_t> lower; lower.reserve(N_tot);
+		for (int i = 0; i < N_tot; i++) {
+			pt_t cur = pts[i];
+			while (upper.size() >= 2 && cross3(upper.end()[-2], upper.end()[-1], cur) > 0) upper.pop_back();
+			while (lower.size() >= 2 && cross3(lower.end()[-2], lower.end()[-1], cur) < 0) lower.pop_back();
+			upper.push_back(cur);
+			lower.push_back(cur);
+		}
+		std::vector<bool> is_hull(N_tot);
+		for (int i = 0, j = 0; i < N_tot; i++) {
+			if (j < int(upper.size()) && pts[i] == upper[j]) {
+				is_hull[i] = true;
+				j++;
+			}
+		}
+		for (int i = 0, j = 0; i < N_tot; i++) {
+			if (j < int(lower.size()) && pts[i] == lower[j]) {
+				is_hull[i] = true;
+				j++;
+			}
+		}
+		hull.insert(hull.end(), lower.begin(), lower.end()-1);
+		hull.insert(hull.end(), upper.rbegin(), upper.rend()-1);
+		for (int i = 0; i < N_tot; i++) {
+			if (!is_hull[i]) interior.push_back(pts[i]);
+		}
+	}
+	int H = int(hull.size());
+	int P = int(interior.size());
+	assert(H + P == N_tot);
 
 	return 0;
 }
