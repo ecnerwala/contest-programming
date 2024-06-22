@@ -598,6 +598,25 @@ int main() {
 		}
 		qnrs.push_back(K);
 	}
+	assert(int(qnrs.size()) % 2 == 0);
+	if (num::MOD > 2) {
+		// find two qrs which sum to first_qnr
+		num qr1 = 1;
+		while (n_sqrt[int(qr1)] == -1 || n_sqrt[int(first_qnr - qr1)] == -1) {
+			qr1++;
+		}
+		num qr2 = first_qnr - qr1;
+		assert(n_sqrt[int(qr1)] != -1);
+		assert(n_sqrt[int(qr2)] != -1);
+		for (int iter = 0; iter < int(qnrs.size()); iter += 2) {
+			int i = qnrs[iter];
+			int j = qnrs[iter + 1];
+			// fix these
+		}
+	} else {
+		assert(qnrs.empty());
+	}
+
 	cout << K << '\n';
 
 	return 0;
