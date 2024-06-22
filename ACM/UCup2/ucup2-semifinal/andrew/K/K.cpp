@@ -29,7 +29,7 @@ int main() {
 			B_effect[get_B_effect(a)]--;
 			B_effect[get_B_effect(a+1)]++;
 
-			int cur_val = (1 << 31) - 1;
+			int cur_val = ((1 << 30) - 1) * 2 - 1;
 			for (int v = 0; v < 32; v++) {
 				if (B_effect[v] > 0) {
 					cur_val = std::min(cur_val, tot_xor ^ ((1 << (v+1)) - 1));
