@@ -307,6 +307,8 @@ int main() {
 	tensor<int, 2> inter_pt({P, P}, -1);
 	// index i always refers to hull(i) -> hull(i+1) on the hull
 	tensor<bool, 2> bad_tri({P, H});
+	int64_t ans_tri_pair = 0;
+	int64_t tot_good_tris = 0;
 	for (int i = 0; i < P; i++) {
 		for (int j = 0; j < P; j++) {
 			if (i == j) continue;
@@ -323,7 +325,35 @@ int main() {
 			assert(v != -1);
 			inter_pt[{i, j}] = v;
 		}
+		int own_good_tris = 0;
+		for (int h = 0; h < H; h++) {
+			own_good_tris += !bad_tri[{i, h}];
+		}
+		ans_tri_pair += int64_t(tot_good_tris) * int64_t(own_good_tris);
+		tot_good_tris += own_good_tris;
 	}
+
+	int64_t ans_quad = 0;
+
+	for (int i = 0; i < P; i++) {
+		for (int j = 0; j < P; j++) {
+			if (i == j) continue;
+			auto pi = interior[i];
+			auto pj = interior[j];
+			int lo = inter_pt[{i, j}];
+			int hi = inter_pt[{j, i}];
+			assert(cross3(pi, pj, hull(lo+1)) > 0);
+			assert(cross3(pi, pj, hull(lo)) < 0);
+			assert(cross3(pi, pj, hull(hi) > 0);
+			assert(cross3(pi, pj, hull(hi+1)) < 0);
+		}
+	}
+
+	int64_t ans = 1;
+	ans += tot_good_tris;
+	ans += ans_tri_pair;
+	ans += ans_quad;
+	cout << ans << '\n';
 
 	return 0;
 }
