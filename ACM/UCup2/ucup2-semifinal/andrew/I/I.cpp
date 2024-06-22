@@ -608,16 +608,30 @@ int main() {
 		num qr2 = first_qnr - qr1;
 		assert(n_sqrt[int(qr1)] != -1);
 		assert(n_sqrt[int(qr2)] != -1);
+		num fac1 = n_sqrt[int(qr1)];
+		num fac2 = n_sqrt[int(qr2)];
 		for (int iter = 0; iter < int(qnrs.size()); iter += 2) {
 			int i = qnrs[iter];
 			int j = qnrs[iter + 1];
 			// fix these
+			for (int a = 0; a < N; a++) {
+				num ci = coeffs[a][i];
+				num cj = coeffs[a][j];
+				coeffs[a][i] = ci * fac1 + cj * fac2;
+				coeffs[a][j] = ci * fac2 - cj * fac1;
+			}
 		}
 	} else {
 		assert(qnrs.empty());
 	}
 
 	cout << K << '\n';
+	for (int a = 0; a < N; a++) {
+		assert(int(coeffs[a].size()) == K);
+		for (int k = 0; k < K; k++) {
+			cout << coeffs[a][k] << " \n"[k+1==K];
+		}
+	}
 
 	return 0;
 }
