@@ -304,6 +304,11 @@ int main() {
 		return hull_pts[a];
 	};
 
+	cerr << "hull " << H << '\n';
+	for (auto p : hull_pts) { cerr << p << '\n'; }
+	cerr << "interior " << P << '\n';
+	for (auto p : interior) { cerr << p << '\n'; }
+
 	tensor<int, 2> inter_pt({P, P}, -1);
 	// index i always refers to hull(i) -> hull(i+1) on the hull
 	tensor<bool, 2> bad_tri({P, H});
@@ -332,6 +337,21 @@ int main() {
 		ans_tri_pair += int64_t(tot_good_tris) * int64_t(own_good_tris);
 		tot_good_tris += own_good_tris;
 	}
+	cerr << "inter_pt " << '\n';
+	for (int i = 0; i < P; i++) {
+		for (int j = 0; j < P; j++) {
+			cerr << inter_pt[{i, j}] << ' ';
+		}
+		cerr << '\n';
+	}
+	cerr << "bad_tri" << '\n';
+	for (int i = 0; i < P; i++) {
+		for (int j = 0; j < H; j++) {
+			cerr << bad_tri[{i, j}] << ' ';
+		}
+		cerr << '\n';
+	}
+
 
 	int64_t ans_quad = 0;
 
@@ -416,3 +436,77 @@ int main() {
 
 	return 0;
 }
+
+/*
+\time ./B < s1.in > s1.res
+0-1 0
+0--1 2
+1-0 3
+1--0 5
+
+  real  0.00s
+  user  0.00s
+  sys   0.00s
+  mem   8024KB
+Built with DEBUG flags enabled, code may be slower than normal
+diff s1.res s1.out
+1c1
+< 29
+---
+> 26
+make: *** [Makefile:114: __test_s1] Error 1
+icpc@ucup00:~/andrew/B$ make runs
+\time ./B < s2.in > s2.res
+0-1 0
+0--1 2
+1-0 1\time ./B < s1.in > s1.res
+0-1 0
+0--1 2
+1-0 3
+1--0 5
+
+  real  0.00s
+  user  0.00s
+  sys   0.00s
+  mem   8024KB
+Built with DEBUG flags enabled, code may be slower than normal
+diff s1.res s1.out
+1c1
+< 29
+---
+> 26
+make: *** [Makefile:114: __test_s1] Error 1
+icpc@ucup00:~/andrew/B$ make runs
+\time ./B < s2.in > s2.res
+0-1 0
+0--1 2
+1-0 1
+1--0 3
+
+  real  0.00s
+  user  0.00s
+  sys   0.00s
+  mem   8104KB
+Built with DEBUG flags enabled, code may be slower than normal
+\time ./B < s3.in > s3.res
+
+  real  0.00s
+  user  0.00s
+  sys   0.00s
+  mem   7988KB
+Built with DEBUG flags enabled, code may be slower than normal
+1--0 3
+
+  real  0.00s
+  user  0.00s
+  sys   0.00s
+  mem   8104KB
+Built with DEBUG flags enabled, code may be slower than normal
+\time ./B < s3.in > s3.res
+
+  real  0.00s
+  user  0.00s
+  sys   0.00s
+  mem   7988KB
+Built with DEBUG flags enabled, code may be slower than normal
+*/
