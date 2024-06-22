@@ -365,6 +365,17 @@ int main() {
 				if (i >= 3) acc += ndp[i-3];
 				ndp_2[i] = acc;
 			}
+			{
+				std::fill(ndp.begin(), ndp.end(), num(0));
+				std::fill(ndp_2.begin(), ndp_2.end(), num(0));
+				for (int i = 0; i < V; i++) {
+					for (int j = i; j < V; j++) {
+						ndp[j] += dp[i];
+						ndp_2[j] += dp_2[i];
+						ndp_2[j] += dp[i] * num(std::max(j - i - 2, 0));
+					}
+				}
+			}
 			std::swap(dp, ndp);
 			std::swap(dp_2, ndp_2);
 			for (int i = 0; i <= 10; i++) { cerr << dp[i] << ' '; } cerr << '\n';
