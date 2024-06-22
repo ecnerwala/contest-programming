@@ -346,6 +346,9 @@ int main() {
 			assert(cross3(pi, pj, hull(lo)) < 0);
 			assert(cross3(pi, pj, hull(hi)) > 0);
 			assert(cross3(pi, pj, hull(hi+1)) < 0);
+			assert(lo != hi);
+			if (hi < lo) hi += H;
+			assert(lo < hi);
 		}
 	}
 
