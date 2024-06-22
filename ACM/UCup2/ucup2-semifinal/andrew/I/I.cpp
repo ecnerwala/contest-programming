@@ -527,8 +527,8 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		std::vector<num> cur(N, num(0));
 		cur[i] = num(1);
-		for (int j = 0; j < N; j++) {
-			coeffs[i].push_back(num(0));
+		for (int a = 0; a < N; a++) {
+			coeffs[a].push_back(num(0));
 		}
 		// now, let's make cur orthogonal to the whole basis
 		for (int z = 0; z < int(basis.size()); z++) {
@@ -554,8 +554,8 @@ int main() {
 			cur_dot_self += curG[a] * cur[a];
 		}
 		if (cur_dot_self == 0) {
-			for (int j = 0; j < N; j++) {
-				coeffs[i].pop_back();
+			for (int a = 0; a < N; a++) {
+				coeffs[a].pop_back();
 			}
 			continue;
 		}
