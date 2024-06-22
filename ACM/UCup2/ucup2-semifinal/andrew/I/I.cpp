@@ -528,7 +528,7 @@ int main() {
 		std::vector<num> cur(N, num(0));
 		cur[i] = num(1);
 		for (int a = 0; a < N; a++) {
-			coeffs[a].push_back(num(0));
+			coeffs[a].push_back(a == i ? num(1) : num(0));
 		}
 		// now, let's make cur orthogonal to the whole basis
 		for (int z = 0; z < int(basis.size()); z++) {
