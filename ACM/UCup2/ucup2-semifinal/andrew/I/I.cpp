@@ -580,12 +580,12 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 	}
 	if (int(qnrs.size()) & 1) {
 		assert(num::MOD > 2);
-		K++;
 		dot_self.push_back(first_qnr);
 		for (int a = 0; a < N; a++) {
 			coeffs[a].push_back(num(0));
 		}
 		qnrs.push_back(K);
+		K++;
 	}
 	for (int a = 0; a < N; a++) {
 		assert(int(coeffs[a].size()) == K);
