@@ -369,6 +369,7 @@ int main() {
 			std::swap(dp_2, ndp_2);
 			for (int i = 0; i <= 10; i++) { cerr << dp[i] << ' '; } cerr << '\n';
 			for (int i = 0; i <= 10; i++) { cerr << dp_2[i] << ' '; } cerr << '\n';
+			cerr << '\n';
 		}
 		{
 			int s; cin >> s;
@@ -383,6 +384,7 @@ int main() {
 			std::swap(dp_2, ndp_2);
 			for (int i = 0; i <= 10; i++) { cerr << dp[i] << ' '; } cerr << '\n';
 			for (int i = 0; i <= 10; i++) { cerr << dp_2[i] << ' '; } cerr << '\n';
+			cerr << '\n';
 		}
 	}
 
