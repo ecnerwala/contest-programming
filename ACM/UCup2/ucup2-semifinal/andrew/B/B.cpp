@@ -304,10 +304,8 @@ int main() {
 		return hull_pts[a];
 	};
 
-	cerr << "hull " << H << '\n';
-	for (auto p : hull_pts) { cerr << p << '\n'; }
-	cerr << "interior " << P << '\n';
-	for (auto p : interior) { cerr << p << '\n'; }
+	//cerr << "hull " << H << '\n'; for (auto p : hull_pts) { cerr << p << '\n'; }
+	//cerr << "interior " << P << '\n'; for (auto p : interior) { cerr << p << '\n'; }
 
 	tensor<int, 2> inter_pt({P, P}, -1);
 	// index i always refers to hull(i) -> hull(i+1) on the hull
@@ -337,20 +335,8 @@ int main() {
 		ans_tri_pair += int64_t(tot_good_tris) * int64_t(own_good_tris);
 		tot_good_tris += own_good_tris;
 	}
-	cerr << "inter_pt " << '\n';
-	for (int i = 0; i < P; i++) {
-		for (int j = 0; j < P; j++) {
-			cerr << inter_pt[{i, j}] << ' ';
-		}
-		cerr << '\n';
-	}
-	cerr << "bad_tri" << '\n';
-	for (int i = 0; i < P; i++) {
-		for (int j = 0; j < H; j++) {
-			cerr << bad_tri[{i, j}] << ' ';
-		}
-		cerr << '\n';
-	}
+	//cerr << "inter_pt " << '\n'; for (int i = 0; i < P; i++) { for (int j = 0; j < P; j++) { cerr << inter_pt[{i, j}] << ' '; } cerr << '\n'; }
+	//cerr << "bad_tri" << '\n'; for (int i = 0; i < P; i++) { for (int j = 0; j < H; j++) { cerr << bad_tri[{i, j}] << ' '; } cerr << '\n'; }
 
 
 	int64_t ans_quad = 0;
@@ -370,23 +356,23 @@ int main() {
 			if (hi < lo) hi += H;
 			assert(lo < hi);
 
-			cerr << "running " << i << '-' << j << ' ' << lo << '-' << hi << '\n';
+			//cerr << "running " << i << '-' << j << ' ' << lo << '-' << hi << '\n';
 
 			// First, count the bad triangles
 			{
 				int num_bad = 0;
 				int cnt = 0;
 				for (int h = lo + 1; h < hi; h++) {
-					cerr << "h " << h << ' ' << !bad_tri[{i, h%H}] << ' ' << !bad_tri[{j, h%H}] << '\n';
+					//cerr << "h " << h << ' ' << !bad_tri[{i, h%H}] << ' ' << !bad_tri[{j, h%H}] << '\n';
 					if (!bad_tri[{i, h%H}]) {
 						cnt++;
 					}
 					if (!bad_tri[{j, h%H}]) {
-						cerr << "adding " << cnt << '\n';
+						//cerr << "adding " << cnt << '\n';
 						num_bad += cnt;
 					}
 				}
-				cerr << i << '-' << j << ' ' << num_bad << '\n';
+				//cerr << i << '-' << j << ' ' << num_bad << '\n';
 				ans_tri_pair -= num_bad;
 			}
 
@@ -427,7 +413,7 @@ int main() {
 				pref[k+1] += pref[k];
 			}
 			assert(pref.back() == 0);
-			cerr << i << "--" << j << ' ' << num_good << '\n';
+			//cerr << i << "--" << j << ' ' << num_good << '\n';
 			ans_quad += num_good;
 		}
 	}
