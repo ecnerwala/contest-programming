@@ -499,59 +499,78 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 	using namespace std;
 
 	// current basis
-	std::vector<std::vector<num>> basis;
+	std::vector<std::vector<num>> basis(N, std::vector<num>(N, num(0)));
+	std::vector<std::vector<num>> coeffs(N, std::vector<num>(N, num(0)));
 	// basis premultiplied by G
-	std::vector<std::vector<num>> basisG;
-	std::vector<num> dot_self;
-
-	// coeffs of the basis
-	std::vector<std::vector<num>> coeffs(N);
-	for (auto& a : coeffs) a.reserve(N);
+	std::vector<std::vector<num>> basisG(N, std::vector<num>(N, num(0)));
+	for (int i = 0; i < N; i++) {
+		basis[i][i] = num(1);
+		coeffs[i][i] = num(1);
+		for (int j = 0; j < N; j++) {
+			basisG[i][j] = G[{i, j}];
+		}
+	}
 
 	std::vector<int> n_sqrt(num::MOD, -1);
 	for (int i = 0; i <= num::MOD - i; i++) {
 		n_sqrt[int(num(i) * num(i))] = i;
 	}
 
+	// basis[dest] += basis[src] * coeff
+	auto do_row_op = [&](int dest, int src, int coeff) {
+		for (int i = 0; i < N; i++) {
+			basis[dest][i] += basis[src][i] * coeff;
+			basisG[dest][i] += basisG[src][i] * coeff;
+			coeff[i][src] -= coeff[i][dest] * coeff;
+		}
+	};
+
+	auto do_dot = [&](int src, int dest) -> num {
+		num res = 0;
+		for (int i = 0; i < N; i++) {
+			res += basis[src][i] * basisG[dest][i];
+		}
+		return res;
+	};
+	std::vector<num> dot_self(num(N));
+	for (int i = 0; i < N; i++) dot_self[i] = do_dot(i, i);
+
 	for (int i = 0; i < N; i++) {
-		std::vector<num> cur(N, num(0));
-		cur[i] = num(1);
-		for (int a = 0; a < N; a++) {
-			coeffs[a].push_back(a == i ? num(1) : num(0));
-		}
 		// now, let's make cur orthogonal to the whole basis
-		for (int z = 0; z < int(basis.size()); z++) {
-			num dot = 0;
-			for (int a = 0; a < N; a++) {
-				dot += basisG[z][a] * cur[a];
-			}
-			dot /= dot_self[z];
-			coeffs[i][z] = dot;
-			for (int a = 0; a < N; a++) {
-				cur[a] -= basis[z][a] * dot;
-			}
-		}
-		// Now, this guy should be orthogonal to everything
-		std::vector<num> curG(N, num(0));
-		for (int a = 0; a < N; a++) {
-			for (int b = 0; b < N; b++) {
-				curG[b] += cur[a] * G[{a, b}];
+		// First, just deal with the things with nonzero norm
+		std::vector<std::pair<int, num>> zeroes;
+		for (int z = 0; z < i; z++) {
+			num dot = do_dot(i, z);
+			if (dot == 0) continue;
+			if (dot_self[z] == 0) {
+				zeroes.push_back({z, dot});
+			} else {
+				do_row_op(i, z, -dot / dot_self[z]);
 			}
 		}
+		if (!zeroes.empty()) {
+			for (int iter = 1; iter < int(zeroes.size()); iter++) {
+				int a = zeroes[0].first;
+				int b = zeroes[iter].first;
+				// we want basis[b] -= basis[a] * coeff;
+				do_row_op(b, a, -zeroes[iter].second / zeroes[0].second);
+			}
+			zeroes.resize(1);
+		}
+
 		num cur_dot_self = num(0);
 		for (int a = 0; a < N; a++) {
 			cur_dot_self += curG[a] * cur[a];
 		}
-		if (cur_dot_self == 0) {
-			for (int a = 0; a < N; a++) {
-				coeffs[a].pop_back();
+		if (!zeroes.empty()) {
+			if (cur_dot_self != 0) {
+				auto [a, dot] = ;
+				for (int a = 0; a < N; a++) {
+				}
 			}
-			continue;
 		}
-		basis.push_back(cur);
-		basisG.push_back(curG);
-		dot_self.push_back(cur_dot_self);
 	}
+
 	int K = int(basis.size());
 	cerr << K << '\n';
 
