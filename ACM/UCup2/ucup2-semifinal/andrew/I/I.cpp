@@ -3,7 +3,7 @@
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	const int P = 5;
+	const int P = 7;
 	for (int a00 = 0; a00 < P; a00++) {
 		for (int a01 = 0; a01 < P; a01++) {
 			for (int a02 = 0; a02 < P; a02++) {
