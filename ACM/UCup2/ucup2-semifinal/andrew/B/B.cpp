@@ -403,7 +403,7 @@ int main() {
 				pref[k+1] += pref[k];
 			}
 			assert(pref.back() == 0);
-			cerr << i << '--' << j << ' ' << num_good << '\n';
+			cerr << i << "--" << j << ' ' << num_good << '\n';
 			ans_quad += num_good;
 		}
 	}
