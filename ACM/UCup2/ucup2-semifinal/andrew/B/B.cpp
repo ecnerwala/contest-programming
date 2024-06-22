@@ -370,6 +370,8 @@ int main() {
 			if (hi < lo) hi += H;
 			assert(lo < hi);
 
+			cerr << "running " << i << '-' << j << ' ' << lo << '-' << hi << '\n';
+
 			// First, count the bad triangles
 			{
 				int num_bad = 0;
@@ -438,7 +440,26 @@ int main() {
 }
 
 /*
+icpc@ucup00:~/andrew/B$ make test
+mkdir -p archive
+cp B.cpp archive/B-$(date +%Y-%m-%d-%H%M%S).cpp
+g++ -std=c++20 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -fsanitize=address -fsanitize=undefined -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize-recover=all -fstack-protector-all -D_FORTIFY_SOURCE=2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC    -isystem /home/icpc/.precompiled_headers B.cpp   -o B
 \time ./B < s1.in > s1.res
+hull 5
+(0,2)
+(1,0)
+(3,0)
+(4,2)
+(2,5)
+interior 2
+(1,3)
+(3,3)
+inter_pt 
+-1 3 
+4 -1 
+bad_tri
+0 0 0 1 0 
+0 0 0 0 1 
 0-1 0
 0--1 2
 1-0 3
@@ -447,7 +468,7 @@ int main() {
   real  0.00s
   user  0.00s
   sys   0.00s
-  mem   8024KB
+  mem   8080KB
 Built with DEBUG flags enabled, code may be slower than normal
 diff s1.res s1.out
 1c1
@@ -457,27 +478,19 @@ diff s1.res s1.out
 make: *** [Makefile:114: __test_s1] Error 1
 icpc@ucup00:~/andrew/B$ make runs
 \time ./B < s2.in > s2.res
-0-1 0
-0--1 2
-1-0 1\time ./B < s1.in > s1.res
-0-1 0
-0--1 2
-1-0 3
-1--0 5
-
-  real  0.00s
-  user  0.00s
-  sys   0.00s
-  mem   8024KB
-Built with DEBUG flags enabled, code may be slower than normal
-diff s1.res s1.out
-1c1
-< 29
----
-> 26
-make: *** [Makefile:114: __test_s1] Error 1
-icpc@ucup00:~/andrew/B$ make runs
-\time ./B < s2.in > s2.res
+hull 3
+(0,0)
+(4,0)
+(3,3)
+interior 2
+(2,1)
+(3,1)
+inter_pt 
+-1 1 
+2 -1 
+bad_tri
+0 1 0 
+0 0 1 
 0-1 0
 0--1 2
 1-0 1
@@ -486,27 +499,29 @@ icpc@ucup00:~/andrew/B$ make runs
   real  0.00s
   user  0.00s
   sys   0.00s
-  mem   8104KB
+  mem   7972KB
 Built with DEBUG flags enabled, code may be slower than normal
 \time ./B < s3.in > s3.res
+hull 3
+(0,0)
+(3,0)
+(0,3)
+interior 0
+inter_pt 
+bad_tri
 
   real  0.00s
   user  0.00s
   sys   0.00s
-  mem   7988KB
+  mem   8088KB
 Built with DEBUG flags enabled, code may be slower than normal
-1--0 3
-
-  real  0.00s
-  user  0.00s
-  sys   0.00s
-  mem   8104KB
-Built with DEBUG flags enabled, code may be slower than normal
-\time ./B < s3.in > s3.res
-
-  real  0.00s
-  user  0.00s
-  sys   0.00s
-  mem   7988KB
-Built with DEBUG flags enabled, code may be slower than normal
+icpc@ucup00:~/andrew/B$ make test
+diff s1.res s1.out
+1c1
+< 29
+---
+> 26
+make: [Makefile:114: __test_s1] Error 1 (ignored)
+diff s2.res s2.out
+diff s3.res s3.out
 */
