@@ -382,6 +382,7 @@ int main() {
 						cnt++;
 					}
 					if (!bad_tri[{j, h%H}]) {
+						cerr << "adding " << cnt << '\n';
 						num_bad += cnt;
 					}
 				}
