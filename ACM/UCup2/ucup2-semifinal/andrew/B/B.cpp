@@ -377,7 +377,8 @@ int main() {
 				int num_bad = 0;
 				int cnt = 0;
 				for (int h = lo + 1; h < hi; h++) {
-					if (!bad_tri[{i, h % H}]) {
+					cerr << "h " << h << ' ' << !bad_tri[{i, h%H}] << ' ' << !bad_tri[{j, h%H}] << '\n';
+					if (!bad_tri[{i, h%H}]) {
 						cnt++;
 					}
 					if (!bad_tri[{j, h%H}]) {
