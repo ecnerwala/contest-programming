@@ -553,6 +553,16 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 		dot_self.push_back(cur_dot_self);
 	}
 
+	for (int a = 0; a < N; a++) {
+		for (int b = 0; b < N; b++) {
+			num s = 0;
+			for (int k = 0; k < K; k++) {
+				s += coeffs[a][k] * coeffs[b][k] * dot_self[k];
+			}
+			assert((s == G[{a, b}]));
+		}
+	}
+
 	// Now, let's fix everything
 	int K = int(basis.size());
 	num first_qnr = 1;
