@@ -344,7 +344,7 @@ int main() {
 			int hi = inter_pt[{j, i}];
 			assert(cross3(pi, pj, hull(lo+1)) > 0);
 			assert(cross3(pi, pj, hull(lo)) < 0);
-			assert(cross3(pi, pj, hull(hi) > 0);
+			assert(cross3(pi, pj, hull(hi)) > 0);
 			assert(cross3(pi, pj, hull(hi+1)) < 0);
 		}
 	}
