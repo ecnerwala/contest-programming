@@ -342,8 +342,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int N; cin >> N;
-	const int V = 801;
+	int LEN; cin >> LEN;
+	const int V = 810;
 
 	using num = modnum<998244353>;
 	std::vector<num> dp(V, 1);
@@ -351,7 +351,7 @@ int main() {
 
 	std::vector<num> ndp(V, 0);
 	std::vector<num> ndp_2(V, 0);
-	for (int it = 0; it < N; it++) {
+	for (int it = 0; it < LEN; it++) {
 		if (it > 0) {
 			std::fill(ndp.begin(), ndp.end(), num(0));
 			std::fill(ndp_2.begin(), ndp_2.end(), num(0));
@@ -367,6 +367,8 @@ int main() {
 			}
 			std::swap(dp, ndp);
 			std::swap(dp_2, ndp_2);
+			for (auto a : dp) { cerr << a << ' '; } cerr << '\n';
+			for (auto a : dp_2) { cerr << a << ' '; } cerr << '\n';
 		}
 		{
 			int s; cin >> s;
@@ -379,6 +381,8 @@ int main() {
 			}
 			std::swap(dp, ndp);
 			std::swap(dp_2, ndp_2);
+			for (auto a : dp) { cerr << a << ' '; } cerr << '\n';
+			for (auto a : dp_2) { cerr << a << ' '; } cerr << '\n';
 		}
 	}
 
