@@ -353,17 +353,19 @@ int main() {
 	std::vector<num> ndp_2(V, 0);
 	for (int it = 0; it < LEN; it++) {
 		if (it > 0) {
-			std::fill(ndp.begin(), ndp.end(), num(0));
-			std::fill(ndp_2.begin(), ndp_2.end(), num(0));
-			for (int i = 0; i < V; i++) {
-				ndp[i] = dp[i] + (i > 0 ? ndp[i-1] : num(0));
-			}
-			num acc = 0;
-			for (int i = 0; i < V; i++) {
-				// ndp_2[i] is the sum of the previous
-				acc += dp_2[i];
-				if (i >= 3) acc += ndp[i-3];
-				ndp_2[i] = acc;
+			if (false) {
+				std::fill(ndp.begin(), ndp.end(), num(0));
+				std::fill(ndp_2.begin(), ndp_2.end(), num(0));
+				for (int i = 0; i < V; i++) {
+					ndp[i] = dp[i] + (i > 0 ? ndp[i-1] : num(0));
+				}
+				num acc = 0;
+				for (int i = 0; i < V; i++) {
+					// ndp_2[i] is the sum of the previous
+					acc += dp_2[i];
+					if (i >= 3) acc += ndp[i-3];
+					ndp_2[i] = acc;
+				}
 			}
 			{
 				std::fill(ndp.begin(), ndp.end(), num(0));
