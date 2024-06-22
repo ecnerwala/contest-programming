@@ -552,7 +552,6 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 		basisG.push_back(curG);
 		dot_self.push_back(cur_dot_self);
 	}
-	// Now, let's fix everything
 	int K = int(basis.size());
 
 	for (int a = 0; a < N; a++) {
@@ -565,6 +564,7 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 		}
 	}
 
+	// Now, let's fix everything
 	num first_qnr = 1;
 	if (num::MOD > 2) {
 		while (n_sqrt[int(first_qnr)] != -1) first_qnr++;
@@ -671,7 +671,7 @@ void test() {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	test();
+	//test();
 	struct my_tag{};
 	using num = dynamic_modnum<my_tag>;
 	int N; cin >> N >> num::MOD_READER();
