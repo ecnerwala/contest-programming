@@ -636,13 +636,20 @@ void test() {
 		std::vector<int> primes({2, 3, 5, 7, 11, 13, 17, 19});
 		num::set_mod(primes[mt() % int(primes.size())]);
 
-		int N = std::uniform_int_distribution<int>(1, 10)(mt);
+		int N = std::uniform_int_distribution<int>(1, 5)(mt);
 		tensor<num, 2> G({N, N});
 		for (int i = 0; i < N; i++) {
 			for (int j = i; j < N; j++) {
 				G[{i, j}] = std::uniform_int_distribution<int>(0, num::MOD-1)(mt);
 				G[{j, i}] = G[{i, j}];
 			}
+		}
+		cerr << N << '\n';
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cerr << G[{i, j}] << ' ';
+			}
+			cerr << '\n';
 		}
 		solve(N, G);
 	}
