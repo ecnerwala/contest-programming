@@ -351,11 +351,10 @@ int main() {
 
 	std::vector<num> ndp(V, 0);
 	std::vector<num> ndp_2(V, 0);
-	for (int i = 0; i < N; i++) {
-		if (i > 0) {
+	for (int it = 0; it < N; it++) {
+		if (it > 0) {
 			std::fill(ndp.begin(), ndp.end(), num(0));
 			std::fill(ndp_2.begin(), ndp_2.end(), num(0));
-			// transition
 			for (int i = 0; i < V; i++) {
 				ndp[i] = dp[i] + (i > 0 ? ndp[i-1] : num(0));
 			}
@@ -383,7 +382,7 @@ int main() {
 		}
 	}
 
-	cout << std::accumulate(ndp_2.begin(), ndp_2.end(), num(0)) << '\n';
+	cout << std::accumulate(dp_2.begin(), dp_2.end(), num(0)) << '\n';
 
 	return 0;
 }
