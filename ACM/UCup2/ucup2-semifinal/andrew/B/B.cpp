@@ -349,6 +349,62 @@ int main() {
 			assert(lo != hi);
 			if (hi < lo) hi += H;
 			assert(lo < hi);
+
+			// First, count the bad triangles
+			{
+				int num_bad = 0;
+				int cnt = 0;
+				for (int h = lo + 1; h < hi; h++) {
+					if (!bad_tri[{i, h % H}]) {
+						cnt++;
+					}
+					if (!bad_tri[{j, h%H}]) {
+						num_bad += cnt;
+					}
+				}
+				cerr << i << '-' << j << ' ' << cnt << '\n';
+				ans_tri_pair -= cnt;
+			}
+
+			std::vector<int> pref(hi-lo+2, 0);
+			// Now, let's count
+			auto mark_bad = [&](int first, int last) -> void {
+				// inclusive range
+				assert(lo <= first && first <= last && last <= hi);
+				assert(first <= last);
+				pref[first-lo]++;
+				pref[last-lo+1]--;
+			};
+			for (int k = 0; k < P; k++) {
+				if (cross3(pi, pj, interior[k]) > 0) {
+					// K is in the upper half plane, so let's deal with it
+					int a = inter_pt[{i, k}];
+					if (a < lo) a += H;
+					assert(lo <= a && a <= hi);
+					int b = inter_pt[{j, k}];
+					if (b < lo) b += H;
+					assert(lo <= b && b <= hi);
+					assert(a <= b);
+					mark_bad(a, b);
+				}
+			}
+			// take care of bottom half plane stuff
+			if (bad_tri[{j, lo%H}]) {
+				// lo is bad
+				mark_bad(lo, lo);
+			}
+			if (bad_tri[{i, hi%H}]) {
+				// hi is bad
+				mark_bad(hi, hi);
+			}
+			int num_good = 0;
+			for (int k = 0; k+1 < int(pref.size()); k++) {
+				if (pref[k] == 0) num_good++;
+				pref[k+1] += pref[k];
+			}
+			assert(pref.back() == 0);
+			cerr << i << '--' << j << ' ' << num_good << '\n';
+			ans_quad += num_good;
 		}
 	}
 
