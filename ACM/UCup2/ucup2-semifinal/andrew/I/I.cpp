@@ -553,6 +553,7 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 		dot_self.push_back(cur_dot_self);
 	}
 	int K = int(basis.size());
+	cerr << K << '\n';
 
 	for (int a = 0; a < N; a++) {
 		for (int b = 0; b < N; b++) {
