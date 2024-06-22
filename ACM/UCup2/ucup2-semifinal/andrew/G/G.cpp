@@ -423,7 +423,7 @@ int main() {
 
 	int N; cin >> N;
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::vector<int> truth;
 	if (TESTING) {
 		truth.resize(N);
@@ -458,8 +458,8 @@ int main() {
 		while (hi - lo > 1) {
 			int md = lo + (hi - lo) / 2;
 			std::vector<int> tmp(res.begin() + md, res.begin() + i+1);
-			int should_get = get_distinct(tmp);
-			int actually_get = query(md, i+1);
+			int64_t should_get = get_distinct(tmp);
+			int64_t actually_get = query(md, i+1);
 			if (actually_get != should_get) lo = md;
 			else hi = md;
 		}
