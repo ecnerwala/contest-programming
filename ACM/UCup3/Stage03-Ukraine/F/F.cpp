@@ -153,6 +153,7 @@ int main() {
 			v -= ways_any[i & ((1 << (j + 1 - cnt_extra)) - 1)] * ways_good[(1 << cnt_extra) - 2];
 		}
 		ways_good[i] = v;
+		cerr << " res " << v << '\n';
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << int(ways_good[i]) << " \n"[i==N];
