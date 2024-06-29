@@ -71,6 +71,8 @@ int main() {
 
 					int L = int(buf.size());
 
+					assert(std::accumulate(buf.begin(), buf.end(), 0) == N);
+
 					int num_match = 0;
 					{
 						auto it = std::max_element(buf.begin(), buf.end());
