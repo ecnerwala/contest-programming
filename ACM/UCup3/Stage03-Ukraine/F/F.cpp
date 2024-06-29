@@ -138,6 +138,7 @@ int main() {
 	}
 
 	std::vector<num> ways_good(N+1);
+	ways_good[0] = 1;
 	for (int i = 1; i <= N; i++) {
 		int j = 0;
 		while ((2 << j) <= i) j++;
