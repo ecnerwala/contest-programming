@@ -146,15 +146,12 @@ int main() {
 		assert(i & (1 << j));
 		assert(i < (2 << j));
 
-
-		cerr << "i = " << i << ' ' << ways_any[i] << '\n';
 		num v = ways_any[i];
 		for (int cnt_extra = 1; cnt_extra <= j+1; cnt_extra++) {
 			if (!(i & (1 << (j + 1 - cnt_extra)))) break;
 			v -= ways_any[i & ((1 << (j + 1 - cnt_extra)) - 1)] * ways_good[(1 << cnt_extra) - 2];
 		}
 		ways_good[i] = v;
-		cerr << " res " << v << '\n';
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << (ways_any[i] - ways_good[i]) << " \n"[i==N];
