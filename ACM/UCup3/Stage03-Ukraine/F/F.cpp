@@ -147,7 +147,7 @@ int main() {
 
 		num v = ways_any[i];
 		for (int cnt_extra = 1; cnt_extra <= j+1; cnt_extra++) {
-			if (!(i & (1 << (j + 1 - cnt_extra)))) continue;
+			if (!(i & (1 << (j + 1 - cnt_extra)))) break;
 			v -= ways_any[i & ((1 << (j + 1 - cnt_extra)) - 1)] * ways_good[(1 << cnt_extra) - 2];
 		}
 		ways_good[i] = v;
