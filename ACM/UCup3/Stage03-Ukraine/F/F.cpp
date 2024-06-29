@@ -126,7 +126,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	using num = modnum<988244353>;
+	using num = modnum<998244353>;
 
 	int N; cin >> N;
 	std::vector<num> ways_any(N+1);
