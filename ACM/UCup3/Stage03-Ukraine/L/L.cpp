@@ -78,7 +78,7 @@ int main() {
 						auto it = std::max_element(buf.begin(), buf.end());
 						if (N - *it < *it) {
 							*it = N - *it;
-							num_match = N - *it;
+							num_match = *it;
 						} else {
 							num_match = N / 2;
 						}
