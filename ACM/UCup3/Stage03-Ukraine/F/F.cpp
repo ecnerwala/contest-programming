@@ -157,7 +157,7 @@ int main() {
 		cerr << " res " << v << '\n';
 	}
 	for (int i = 1; i <= N; i++) {
-		cout << int(ways_good[i]) << " \n"[i==N];
+		cout << (ways_any[i] - ways_good[i]) << " \n"[i==N];
 	}
 
 	return 0;
