@@ -169,7 +169,7 @@ int main() {
 		std::vector<int> A(N);
 		for (auto& a : A) { cin >> a; a--; }
 		tensor<int, 2> dp({N+1, N+1}, -1);
-		for (int i = N; i >= 0; i--) {
+		for (int i = N-1; i >= 0; i--) {
 			bool can_take = (A[i] <= i && (A[i] & 1) == (i & 1));
 			// min # of things before
 			for (int j = i+2; j <= N; j += 2) {
