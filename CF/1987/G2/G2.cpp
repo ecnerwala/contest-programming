@@ -154,10 +154,10 @@ int main() {
 				setmax(res[1], dp1[1]);
 				setmax(res[0], dp0[0]);
 
-				if (cur == ct.root) return res;
-
 				// iterate over our own direction
 				for (int z = 0; z < 2; z++) {
+					// can't actually do either
+					if (cur == ct.root) continue;
 					if (!(own_c == '?' || own_c == "LR"[z])) continue;
 
 					// someone pointing towards us, and us outwards
