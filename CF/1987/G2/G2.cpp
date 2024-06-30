@@ -133,7 +133,6 @@ int main() {
 			}
 			// we care about edge count
 			int ans = 0;
-			const int INF = 1e8;
 			std::y_combinator([&](auto self, int cur) -> std::array<int, 3> {
 				if (!(cur & 1)) {
 					return {0, 0, 0};
@@ -146,7 +145,7 @@ int main() {
 				cerr << " " << dp0[0] << ' ' << dp0[1] << ' ' << dp0[2] << '\n';
 				cerr << " " << dp1[0] << ' ' << dp1[1] << ' ' << dp1[2] << '\n';
 
-				std::array<int, 3> res{-INF, -INF, -INF};
+				std::array<int, 3> res{0, 0, 0};
 
 				// if we use one from each subtree, we have:
 				// if nothing touches us, we have:
