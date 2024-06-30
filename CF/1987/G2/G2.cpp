@@ -141,6 +141,9 @@ int main() {
 				assert(own_c == 'L' || own_c == 'R' || own_c == '?');
 				auto dp0 = self(ct[cur].c[0]);
 				auto dp1 = self(ct[cur].c[1]);
+				cerr << cur << ' ' << ct[cur].l << '-' << ct[cur].r << ' ' << own_c << '\n';
+				cerr << " " << dp0[0] << ' ' << dp0[1] << ' ' << dp0[2] << '\n';
+				cerr << " " << dp1[0] << ' ' << dp1[1] << ' ' << dp1[2] << '\n';
 
 				std::array<int, 3> res{0, 0, 0};
 
@@ -165,6 +168,7 @@ int main() {
 					setmax((z == 1 ? ans : res[2]), dp0[1] + 1 + dp1[1]);
 				}
 
+				cerr << " " << res[0] << ' ' << res[1] << ' ' << res[2] << ' ' << ans << '\n';
 				return res;
 			})(ct.root);
 			return ans;
