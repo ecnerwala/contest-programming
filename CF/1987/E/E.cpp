@@ -27,7 +27,7 @@ int main() {
 				dp[i][v] -= delta;
 				val -= delta;
 			}
-			dp[i][0] += A[i];
+			dp[i].insert(dp[i].begin(), A[i]);
 			// put the inf back
 			dp[i].back() = INF;
 			int p = P[i];
