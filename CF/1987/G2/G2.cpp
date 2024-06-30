@@ -145,6 +145,7 @@ int main() {
 				std::array<int, 3> res{0, 0, 0};
 
 				// if we use one from each subtree, we have:
+				// if nothing touches us, we have:
 				setmax(ans, dp0[1] + dp1[0]);
 				setmax(res[2], dp0[0] + dp1[1]);
 				setmax(res[1], dp1[1]);
@@ -156,15 +157,12 @@ int main() {
 
 					// someone pointing towards us, and us outwards
 					setmax(res[z], 1 + std::max(dp0[1], dp1[0]));
+					setmax((z == 0 ? ans : res[2]), 1 + dp0[2]);
+					setmax((z == 1 ? ans : res[2]), 1 + dp1[2]);
 
-					// point towards the same guy
-					// both left
-					if (z == 0) {
-						if (ct[cur].l > 0) { setmax(ans, dp0[0] + 1 + dp1[0]); }
-					} else {
-					}
-					// both right
-					if (ct[cur].r < N-1) { setmax(ans, dp0[1] + dp1[1]); }
+					// point towards the same direction
+					setmax((z == 0 ? ans : res[2]), dp0[0] + 1 + dp1[0]);
+					setmax((z == 1 ? ans : res[2]), dp0[1] + 1 + dp1[1]);
 				}
 
 				return res;
