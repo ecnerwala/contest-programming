@@ -78,7 +78,7 @@ int main() {
 						dist_p -= d;
 					}
 					assert(!ndp.empty());
-					dp[i] = std::move(ndp);
+					dp[p] = std::move(ndp);
 				}
 			}
 		}
