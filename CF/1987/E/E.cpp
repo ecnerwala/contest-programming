@@ -19,8 +19,6 @@ int main() {
 				// is leaf is a special case
 				dp[i].push_back({0, 0});
 			}
-			cerr << "dp " << i << '\n';
-			for (auto [a, b] : dp[i]) {cerr << a << ' ' << "+" << b << ' ';} cerr << '\n';
 			{
 				int tot_dist = 0;
 				int val = A[i];
@@ -44,41 +42,41 @@ int main() {
 				}
 				dp[i].push_back({A[i], tot_dist+1});
 			}
-			cerr << "dp " << i << ' ' << ans << '\n';
-			for (auto [a, b] : dp[i]) {cerr << a << ' ' << "+" << b << ' ';} cerr << '\n';
 			assert(!dp[i].empty());
-			int p = P[i];
-			if (p != -1) {
-				if (dp[p].empty()) {
-					std::swap(dp[p], dp[i]);
-				} else {
-					assert(!dp[p].empty());
-					assert(!dp[i].empty());
-					// merge the two in linear time
-					std::vector<std::pair<int, int>> ndp; ndp.reserve(dp[i].size() + dp[p].size());
-					int dist_i = 0;
-					int dist_p = 0;
-					while (true) {
-						int cnt = 0;
-						if (dist_i == 0) {
-							if (dp[i].empty()) break;
-							cnt += dp[i].back().first;
-							dist_i = dp[i].back().second;
-							dp[i].pop_back();
+			{
+				int p = P[i];
+				if (p != -1) {
+					if (dp[p].empty()) {
+						std::swap(dp[p], dp[i]);
+					} else {
+						assert(!dp[p].empty());
+						assert(!dp[i].empty());
+						// merge the two in linear time
+						std::vector<std::pair<int, int>> ndp; ndp.reserve(dp[i].size() + dp[p].size());
+						int dist_i = 0;
+						int dist_p = 0;
+						while (true) {
+							int cnt = 0;
+							if (dist_i == 0) {
+								if (dp[i].empty()) break;
+								cnt += dp[i].back().first;
+								dist_i = dp[i].back().second;
+								dp[i].pop_back();
+							}
+							if (dist_p == 0) {
+								if (dp[p].empty()) break;
+								cnt += dp[p].back().first;
+								dist_p = dp[p].back().second;
+								dp[p].pop_back();
+							}
+							int d = std::min(dist_i, dist_p);
+							ndp.push_back({cnt, d});
+							dist_i -= d;
+							dist_p -= d;
 						}
-						if (dist_p == 0) {
-							if (dp[p].empty()) break;
-							cnt += dp[p].back().first;
-							dist_p = dp[p].back().second;
-							dp[p].pop_back();
-						}
-						int d = std::min(dist_i, dist_p);
-						ndp.push_back({cnt, d});
-						dist_i -= d;
-						dist_p -= d;
+						assert(!ndp.empty());
+						dp[p] = std::move(ndp);
 					}
-					assert(!ndp.empty());
-					dp[p] = std::move(ndp);
 				}
 			}
 		}
