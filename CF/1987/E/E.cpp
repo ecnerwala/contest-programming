@@ -4,19 +4,14 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	//int T; cin >> T;
-	std::mt19937 mt(48);
-	int T = 1000;
+	int T; cin >> T;
 	while (T--) {
-		//int N; cin >> N;
-		int N = std::uniform_int_distribution<int>(1, 1000)(mt);
+		int N; cin >> N;
 		std::vector<int> A(N);
-		//for (auto& a : A) cin >> a;
-		for (auto& a : A) { a = std::uniform_int_distribution<int>(0, 10)(mt); }
+		for (auto& a : A) cin >> a;
 		std::vector<int> P(N);
 		P[0] = -1;
-		//for (int i = 1; i < N; i++) { cin >> P[i]; P[i]--; }
-		for (int i = 1; i < N; i++) { P[i] = std::uniform_int_distribution<int>(0, i-1)(mt); }
+		for (int i = 1; i < N; i++) { cin >> P[i]; P[i]--; }
 		std::vector<std::vector<std::pair<int, int>>> dp(N);
 		int64_t ans = 0;
 		for (int i = N-1; i >= 0; i--) {
