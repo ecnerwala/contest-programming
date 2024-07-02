@@ -44,7 +44,7 @@ int main() {
 				}
 				dp[i].push_back({A[i], tot_dist+1});
 			}
-			cerr << "dp " << i << '\n';
+			cerr << "dp " << i << ' ' << ans << '\n';
 			for (auto [a, b] : dp[i]) {cerr << a << ' ' << "+" << b << ' ';} cerr << '\n';
 			assert(!dp[i].empty());
 			int p = P[i];
