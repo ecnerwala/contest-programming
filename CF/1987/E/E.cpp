@@ -21,8 +21,7 @@ int main() {
 		int64_t ans = 0;
 		for (int i = N-1; i >= 0; i--) {
 			if (dp[i].empty()) {
-				// is leaf is a special case
-				dp[i].push_back({0, 0});
+				// is leaf is a special case, but we don't need to do anything
 			}
 			{
 				int tot_dist = 0;
