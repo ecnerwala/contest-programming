@@ -47,7 +47,7 @@ int main() {
 				int p = P[i];
 				if (p != -1) {
 					if (dp[p].empty()) {
-						std::swap(dp[p], dp[i]);
+						dp[p] = std::move(dp[i]);
 					} else {
 						assert(!dp[p].empty());
 						assert(!dp[i].empty());
@@ -70,10 +70,12 @@ int main() {
 								dp[p].pop_back();
 							}
 							int d = std::min(dist_i, dist_p);
+							assert(d > 0);
 							ndp.push_back({cnt, d});
 							dist_i -= d;
 							dist_p -= d;
 						}
+						std::reverse(ndp.begin(), ndp.end());
 						assert(!ndp.empty());
 						dp[p] = std::move(ndp);
 					}
