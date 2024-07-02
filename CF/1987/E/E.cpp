@@ -46,7 +46,7 @@ int main() {
 				int p = P[i];
 				if (p != -1) {
 					if (dp[p].empty()) {
-						std::swap(dp[p], dp[i]);
+						dp[p] = std::move(dp[i]);
 					} else {
 						assert(!dp[p].empty());
 						assert(!dp[i].empty());
@@ -76,10 +76,11 @@ int main() {
 						}
 						std::reverse(ndp.begin(), ndp.end());
 						assert(!ndp.empty());
-						std::swap(dp[p], ndp);
+						dp[p] = std::move(ndp);
 					}
 				}
 			}
+			dp[i] = {};
 		}
 		cout << ans << '\n';
 	}
