@@ -19,6 +19,8 @@ int main() {
 				// is leaf is a special case
 				dp[i].push_back({0, 0});
 			}
+			cerr << "dp " << i << '\n';
+			for (auto [a, b] : dp[i]) {cerr << a << ' ' << "+" << b << ' ';} cerr << '\n';
 			{
 				int tot_dist = 0;
 				int val = A[i];
