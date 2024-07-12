@@ -211,6 +211,7 @@ int main() {
 		for (int h = 1; h <= N; h++) {
 			for (int w = 1; w <= N; w++) {
 				if (!rects[{h, w}] && (h+1>N || rects[{h+1, w}]) && (w+1>N || rects[{h, w+1}])) {
+					cerr << "computing " << h << 'x' << w << '\n';
 					symb_interval_t sh{h, {N-h, h}, {0, N}};
 					symb_interval_t sw{w, {N-w, h}, {0, N}};
 					// extremal point
@@ -220,10 +221,14 @@ int main() {
 						assert(op_h > h || op_w > w);
 						assert(op_h <= h || op_w <= w); 
 						if (op_h > h) {
+							cerr << "update h outer " << op_rh << '\n';
 							update_outer(sh, op_rh);
+							cerr << "update w inner " << op_rw << '\n';
 							update_inner(sw, op_rw);
 						} else if (op_w > w) {
+							cerr << "update w outer " << op_rw << '\n';
 							update_outer(sw, op_rw);
+							cerr << "update h inner " << op_rh << '\n';
 							update_inner(sh, op_rh);
 						} else assert(false);
 
