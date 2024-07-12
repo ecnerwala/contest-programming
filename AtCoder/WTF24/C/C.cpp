@@ -29,6 +29,7 @@ int main() {
 					return -1;
 				}
 				cur_cap[K[i]] = C;
+				cur_pos = nxt_pos;
 			}
 			return 0;
 		};
