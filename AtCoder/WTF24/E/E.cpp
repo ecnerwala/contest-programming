@@ -254,22 +254,13 @@ int main() {
 				}
 			}
 		}
-		// increasing h, decreasing w
-		for (int z = 0; z+1 < int(inters.size()); z++) {
-			auto& a = inters[z];
-			auto& b = inters[z+1];
-			assert(a[0].len < b[0].len);
-			update_inner(b[0], a[0].inner);
-			assert(a[1].len > b[1].len);
-			update_outer(b[1], a[1].outer);
+		for (int x = 1; x + 1 <= N; x++) {
+			update_inner(by_h[x+1], by_h[x].inner);
+			update_inner(by_w[x+1], by_w[x].inner);
 		}
-		for (int z = int(inters.size()) - 2; z >= 0; z--) {
-			auto& a = inters[z];
-			auto& b = inters[z+1];
-			assert(a[0].len < b[0].len);
-			update_outer(a[0], b[0].outer);
-			assert(a[1].len > b[1].len);
-			update_inner(a[1], b[1].inner);
+		for (int x = N-1; x >= 1; x--) {
+			update_outer(by_h[x], by_h[x+1].outer);
+			update_outer(by_w[x], by_w[x+1].outer);
 		}
 		// we now just have a sequence of increasing h ranges, and decreasing w ranges
 	}
