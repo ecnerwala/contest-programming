@@ -4,14 +4,26 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
-	while (T--) {
-		std::array<int, 3> A;
-		for (auto& a : A) cin >> a;
-		for (int z = 0; z < 5; z++) {
-			++*std::min_element(A.begin(), A.end());
-		}
-		cout << A[0] * A[1] * A[2] << '\n';
+	int N, K; cin >> N >> K;
+	std::vector<int64_t> A(N); for (auto& a : A) cin >> a;
+	int64_t wl = 0;
+	int64_t xl = 0;
+	int64_t pl = 0;
+	int64_t wr = K;
+	int64_t xr = std::accumulate(A.end() - K, A.end(), int64_t(0));
+	int64_t pr = 0;
+	for (int i = 0; i < K; i++) {
+		pr += -(K-1)+2*i;
+	}
+	assert(pr == 0);
+
+	for (int i = 0; i < K-1; i++) {
+		wl++;
+		xl += A[i];
+		pl += (K-1) - 2*i;
+		wr--;
+		xr -= A[N-K+i];
+		pr -= (K-1) - 2*i;
 	}
 
 	return 0;
