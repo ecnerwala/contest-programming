@@ -279,6 +279,7 @@ struct circular_layout {
 };
 
 } // namespace seg_tree
+
 int brute_force(std::vector<int> P) {
 	int N = int(P.size());
 	auto eval = [&](int msk) -> int {
@@ -308,9 +309,38 @@ int brute_force(std::vector<int> P) {
 		}
 		assert(__builtin_popcount(nxt_msk) == i);
 		assert(best_val[i] == vals[nxt_msk]);
+		int j = __builtin_ctz(nxt_msk ^ cur_msk);
+		assert(nxt_msk == (cur_msk + (1 << j)));
+		cerr << vals[nxt_msk] - vals[cur_msk] << ' ' << P[j] - 2*j << '\n';
 		cur_msk = nxt_msk;
 	}
 	return *std::min_element(vals.begin(), vals.end());
+}
+
+int64_t solve(std::vector<int> P) {
+	int N = int(P.size());
+	seg_tree::in_order_layout layout(N);
+	// let's just insert 1's one at a time
+	// We'll maintain the pareto
+	const int INF = 1e9;
+	struct seg_t {
+		int lazy_val;
+		std::pair<int, int> min_val;
+	};
+	std::vector<seg_t> seg(2*N);
+	auto apply_lazy = [&](seg_tree::point a, int v) -> void {
+		seg[a].lazy_val += v;
+		seg[a].min_val.first += v;
+	};
+	auto downdate_node = [&](seg_tree::point a) -> void {
+		apply_lazy(a.c(0), seg[a].lazy_val);
+		apply_lazy(a.c(1), seg[a].lazy_val);
+		seg[a].lazy_val = 0;
+	};
+	auto update_node = [&](seg_tree::point a) -> void {
+		seg[a].min_val = std::min(seg[a.c(0)].min_val, seg[a.c(1)].min_val);
+		assert(seg[a].lazy_val == 0);
+	};
 }
 
 void test() {
@@ -329,12 +359,11 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	int N; cin >> N;
 	std::vector<int> P(N); for (auto& p : P) { cin >> p; p--; }
-	seg_tree::in_order_layout layout(N);
-	// let's just add in 1's one at a time
+	cout << solve(P) << '\n';
 	
 	return 0;
 }
