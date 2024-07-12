@@ -188,11 +188,15 @@ int main() {
 			assert(b[1] - b[0] <= a.len);
 			setmin(a.inner[0], b[0]);
 			setmax(a.inner[1], b[1]);
+			setmin(a.outer[1], b[0] + a.len);
+			setmax(a.outer[0], b[1] - a.len);
 		};
 		auto update_outer = [&](symb_interval_t& a, range_t b) {
 			assert(b[1] - b[0] >= a.len);
-			setmax(a.inner[0], b[0]);
-			setmin(a.inner[1], b[1]);
+			setmax(a.outer[0], b[0]);
+			setmin(a.outer[1], b[1]);
+			setmax(a.inner[1], b[0] + a.len);
+			setmin(a.inner[0], b[1] - a.len);
 		};
 		std::vector<std::array<symb_interval_t, 2>> inters; inters.reserve(N);
 		for (int h = 1; h <= N; h++) {
@@ -239,6 +243,7 @@ int main() {
 			assert(a[1].len > b[1].len);
 			update_inner(b[1], a[1].inner);
 		}
+		// we now just have a sequence of increasing h ranges, and decreasing w ranges
 	}
 
 	return 0;
