@@ -55,9 +55,11 @@ void slow(int N, int K) {
 		cerr << ' ' << ev[msk] << '\n';
 		num v = 0;
 		for (int i = 0; i < N; i++) {
+			int cnt = 0;
 			for (int j = i+1; j < N; j++) {
 				if (((msk >> i) & 1) == 1 && ((msk >> j) & 1) == 0) {
-					v += 1. / (j-i);
+					cnt++;
+					v += 1. / cnt;
 				}
 			}
 		}
