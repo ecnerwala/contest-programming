@@ -21,6 +21,7 @@ int main() {
 		xr -= A[N-K+i];
 		pr -= (K-1) - 2*i;
 		cerr << wl << ' ' << xl << ' ' << pl << ' ' << wr << ' ' << xr << ' ' << pr << '\n';
+		cerr << (double(xr) / double(wr) - double(xl) / double(wl)) / (double(pl) / double(wl) - double(pr) / double(wr)) << '\n';
 	}
 
 	return 0;
