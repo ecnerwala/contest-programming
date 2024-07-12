@@ -169,7 +169,7 @@ struct symb_interval_t {
 	range_t outer;
 };
 // add inner restriction
-auto update_inner = [](symb_interval_t& a, range_t b) {
+void update_inner(symb_interval_t& a, range_t b) {
 	assert(b[1] - b[0] <= a.len);
 	setmin(a.inner[0], b[0]);
 	setmax(a.inner[1], b[1]);
@@ -177,8 +177,8 @@ auto update_inner = [](symb_interval_t& a, range_t b) {
 	setmax(a.outer[0], b[1] - a.len);
 	assert(a.inner[0] == a.outer[1] - a.len);
 	assert(a.inner[1] == a.outer[0] + a.len);
-};
-auto update_outer = [](symb_interval_t& a, range_t b) {
+}
+void update_outer(symb_interval_t& a, range_t b) {
 	assert(b[1] - b[0] >= a.len);
 	setmax(a.outer[0], b[0]);
 	setmin(a.outer[1], b[1]);
@@ -186,7 +186,7 @@ auto update_outer = [](symb_interval_t& a, range_t b) {
 	setmin(a.inner[0], b[1] - a.len);
 	assert(a.inner[0] == a.outer[1] - a.len);
 	assert(a.inner[1] == a.outer[0] + a.len);
-};
+}
 std::ostream& operator << (std::ostream& o, range_t a) {
 	return o << a[0] << '-' << a[1];
 }
@@ -211,7 +211,12 @@ int main() {
 			rects[{h, w}] = r;
 		}
 		std::reverse(ops.begin(), ops.end());
-		std::vector<std::array<symb_interval_t, 2>> inters; inters.reserve(N);
+		//std::vector<std::array<symb_interval_t, 2>> inters; inters.reserve(N);
+		std::vector<symb_interval_t> by_h(N+1);
+		std::vector<symb_interval_t> by_w(N+1);
+		for (int h = 1; h <= N; h++) {
+			by_w[h] = by_h[h] = {h, {N-h, h}, {0, N}};
+		}
 		for (int h = 1; h <= N; h++) {
 			for (int w = 1; w <= N; w++) {
 				if (!rects[{h, w}] && (h+1>N || rects[{h+1, w}]) && (w+1>N || rects[{h, w+1}])) {
@@ -241,7 +246,9 @@ int main() {
 							break;
 						}
 					}
-					inters.push_back({sh, sw});
+					by_h[h] = sh;
+					by_w[w] = sw;
+					//inters.push_back({sh, sw});
 					cerr << "h " << sh << '\n';
 					cerr << "w " << sw << '\n';
 				}
