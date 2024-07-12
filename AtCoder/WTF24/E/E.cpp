@@ -176,6 +176,7 @@ int main() {
 			rect_t r{range_t{a, a+h}, range_t{b, b+w}};
 			ops.push_back({std::array<int, 2>{h, w}, r});
 			cerr << h << ' ' << w << '\n';
+			cerr << rects.shape[0] << ' ' << rects.shape[1] << '\n';
 			rects[{h, w}] = r;
 		}
 		std::reverse(ops.begin(), ops.end());
@@ -223,7 +224,6 @@ int main() {
 				}
 			}
 		}
-		int L = int(inters.size());
 		// increasing h, decreasing w
 		for (int z = 0; z+1 < int(inters.size()); z++) {
 			auto& a = inters[z];
