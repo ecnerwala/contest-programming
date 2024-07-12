@@ -174,6 +174,7 @@ int main() {
 			int h, w, a, b; cin >> h >> w >> a >> b; a--, b--;
 			rect_t r{range_t{a, a+h}, range_t{b, b+w}};
 			ops.push_back({std::array<int, 2>{h, w}, r});
+			cerr << h << ' ' << w << '\n';
 			rects[{h, w}] = r;
 		}
 		std::reverse(ops.begin(), ops.end());
