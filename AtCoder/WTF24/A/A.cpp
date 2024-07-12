@@ -21,7 +21,9 @@ int main() {
 		wr--;
 		xr -= A[N-K+i];
 		pr -= (K-1) - 2*i;
-		double v = (double(xr) / double(wr) - double(xl) / double(wl)) / (double(pl) / double(wl) - double(pr) / double(wr));
+		assert(pl + pr == 0);
+		//double v = (double(xr) / double(wr) - double(xl) / double(wl)) / (double(pl) / double(wl) - double(pr) / double(wr));
+		double v = (double(xr) * double(wl) - double(xl) * double(wr)) / double(pl) / double(K);
 		//cerr << wl << ' ' << xl << ' ' << pl << ' ' << wr << ' ' << xr << ' ' << pr << ' ' << v << '\n';
 		ans = std::max(ans, v);
 	}
