@@ -22,6 +22,7 @@ protected:
 	int flatten_index_checked(std::array<int, NDIMS> idx) const {
 		int res = 0;
 		for (int i = 0; i < NDIMS; i++) {
+			std::cerr << idx[i] << ' ' << shape[i] << '\n';
 			assert(0 <= idx[i] && idx[i] < shape[i]);
 			res += idx[i] * strides[i];
 		}
