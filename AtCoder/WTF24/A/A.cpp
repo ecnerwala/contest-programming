@@ -25,7 +25,7 @@ int main() {
 		//cerr << wl << ' ' << xl << ' ' << pl << ' ' << wr << ' ' << xr << ' ' << pr << ' ' << v << '\n';
 		ans = std::max(ans, v);
 	}
-	cout << ans << '\n';
+	cout << fixed << setprecision(20) << ans << '\n';
 
 	return 0;
 }
