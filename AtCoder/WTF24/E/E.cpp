@@ -22,7 +22,6 @@ protected:
 	int flatten_index_checked(std::array<int, NDIMS> idx) const {
 		int res = 0;
 		for (int i = 0; i < NDIMS; i++) {
-			std::cerr << idx[i] << ' ' << shape[i] << '\n';
 			assert(0 <= idx[i] && idx[i] < shape[i]);
 			res += idx[i] * strides[i];
 		}
@@ -201,7 +200,7 @@ int main() {
 		std::vector<std::array<symb_interval_t, 2>> inters; inters.reserve(N);
 		for (int h = 1; h <= N; h++) {
 			for (int w = 1; w <= N; w++) {
-				if (!rects[{h, w}] && (h+1==N || rects[{h+1, w}]) && (w+1==N || rects[{h, w+1}])) {
+				if (!rects[{h, w}] && (h+1>N || rects[{h+1, w}]) && (w+1>N || rects[{h, w+1}])) {
 					symb_interval_t sh{h, {N, 0}, {0, N}};
 					symb_interval_t sw{w, {N, 0}, {0, N}};
 					// extremal point
