@@ -12,7 +12,7 @@ int main() {
 		std::vector<int> K(N);
 		for (auto& k : K) { cin >> k; k--; }
 		auto solve = [&]() -> int {
-		std::array<int, 2> cur_cap{C, C};
+			std::array<int, 2> cur_cap{C, C};
 			int cur_pos = 0;
 			for (int i = 0; i < N; i++) {
 				// burn the fuel we can get first
@@ -31,6 +31,7 @@ int main() {
 				cur_cap[K[i]] = C;
 				cur_pos = nxt_pos;
 			}
+			if (L - cur_pos > cur_cap[0] + cur_cap[1]) return -1;
 			return 0;
 		};
 		cout << solve() << '\n';
