@@ -225,7 +225,7 @@ int main() {
 	}
 	num ans = 0;
 	for (int z = 0; z < int(vals.size()); z++) {
-		cerr << z+1 << ' ' << vals[z]+z+1 << '\n';
+		cerr << z+1 << ' ' << vals[z]+z << '\n';
 		ans += hsum[vals[z]+z] - hsum[z];
 	}
 	cout << ans << '\n';
