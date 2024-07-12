@@ -26,7 +26,7 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 void slow(int N) {
 	using num = double;
-	std::vector<num> ev(N);
+	std::vector<num> ev(1<<N);
 	for (int msk = (1 << N) - 1; msk >= 0; msk--) {
 		int invs = 0;
 		num tot_time = 0;
@@ -55,7 +55,7 @@ void slow(int N) {
 }
 
 void test() {
-	for (int N = 1; N <= 20; N++) {
+	for (int N = 1; N <= 5; N++) {
 		slow(N);
 	}
 }
