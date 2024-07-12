@@ -224,9 +224,12 @@ int main() {
 		hsum[i] += hsum[i-1];
 	}
 	num ans = 0;
-	for (int z = 0; z < int(vals.size()); z++) {
-		cerr << z+1 << ' ' << vals[z]+z << '\n';
-		ans += hsum[vals[z]+z] - hsum[z];
+	for (int x = 1; x <= int(vals.size()); x++) {
+		int y_max = vals[x-1];
+		if (y_max > x) {
+			ans += hsum[y_max] - hsum[x];
+		}
+		ans += std::min(x, y_max) / num(x);
 	}
 	cout << ans << '\n';
 
