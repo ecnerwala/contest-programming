@@ -263,6 +263,16 @@ int main() {
 			update_outer(by_w[x], by_w[x+1].outer);
 		}
 		// we now just have a sequence of increasing h ranges, and decreasing w ranges
+		for (int h = N; h >= 1; h--) {
+			for (int w = N; w >= 1; w--) {
+				if (!rects[{h, w}]) {
+					int a = by_h[h].inner[0];
+					int b = by_w[w].inner[0];
+					cout << h << ' ' << w << ' ' << a+1 << ' ' << b+1 << '\n';
+				}
+			}
+		}
+		cout << '\n';
 	}
 
 	return 0;
