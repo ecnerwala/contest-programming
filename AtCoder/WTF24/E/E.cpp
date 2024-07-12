@@ -160,6 +160,30 @@ public:
 template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
 template <typename T> void setmax(T& a, T b) { if (b > a) a = b; }
 
+using range_t = std::array<int, 2>;
+using rect_t = std::array<range_t, 2>;
+
+struct symb_interval_t {
+	int len;
+	range_t inner;
+	range_t outer;
+};
+// add inner restriction
+auto update_inner = [](symb_interval_t& a, range_t b) {
+	assert(b[1] - b[0] <= a.len);
+	setmin(a.inner[0], b[0]);
+	setmax(a.inner[1], b[1]);
+	setmin(a.outer[1], b[0] + a.len);
+	setmax(a.outer[0], b[1] - a.len);
+};
+auto update_outer = [](symb_interval_t& a, range_t b) {
+	assert(b[1] - b[0] >= a.len);
+	setmax(a.outer[0], b[0]);
+	setmin(a.outer[1], b[1]);
+	setmax(a.inner[1], b[0] + a.len);
+	setmin(a.inner[0], b[1] - a.len);
+};
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -167,8 +191,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
-		using range_t = std::array<int, 2>;
-		using rect_t = std::array<range_t, 2>;
 		tensor<std::optional<rect_t>, 2> rects({N+1, N+1}, std::nullopt);
 		std::vector<std::pair<std::array<int, 2>, rect_t>> ops; ops.reserve(K);
 		for (int k = 0; k < K; k++) {
@@ -178,26 +200,6 @@ int main() {
 			rects[{h, w}] = r;
 		}
 		std::reverse(ops.begin(), ops.end());
-		struct symb_interval_t {
-			int len;
-			range_t inner;
-			range_t outer;
-		};
-		// add inner restriction
-		auto update_inner = [&](symb_interval_t& a, range_t b) {
-			assert(b[1] - b[0] <= a.len);
-			setmin(a.inner[0], b[0]);
-			setmax(a.inner[1], b[1]);
-			setmin(a.outer[1], b[0] + a.len);
-			setmax(a.outer[0], b[1] - a.len);
-		};
-		auto update_outer = [&](symb_interval_t& a, range_t b) {
-			assert(b[1] - b[0] >= a.len);
-			setmax(a.outer[0], b[0]);
-			setmin(a.outer[1], b[1]);
-			setmax(a.inner[1], b[0] + a.len);
-			setmin(a.inner[0], b[1] - a.len);
-		};
 		std::vector<std::array<symb_interval_t, 2>> inters; inters.reserve(N);
 		for (int h = 1; h <= N; h++) {
 			for (int w = 1; w <= N; w++) {
