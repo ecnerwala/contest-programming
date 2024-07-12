@@ -216,7 +216,8 @@ void test() {
 		std::vector<int> P(N);
 		std::iota(P.begin(), P.end(), 0);
 		do {
-			brute_force(P);
+			auto v = brute_force(P);
+			assert(v == solve(P));
 		} while (std::next_permutation(P.begin(), P.end()));
 	}
 	exit(0);
