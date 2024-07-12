@@ -223,6 +223,7 @@ int main() {
 							break;
 						}
 					}
+					inters.push_back({sh, sw});
 				}
 			}
 		}
@@ -244,6 +245,8 @@ int main() {
 			update_inner(b[1], a[1].inner);
 		}
 		// we now just have a sequence of increasing h ranges, and decreasing w ranges
+		for (int i = 0; i < H; i++) {
+		}
 	}
 
 	return 0;
