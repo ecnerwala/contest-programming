@@ -58,7 +58,7 @@ void slow(int N, int K) {
 }
 
 void test() {
-	for (int N = 1; N <= 5; N++) {
+	for (int N = 1; N <= 6; N++) {
 		for (int K = 0; K <= N; K++) {
 			slow(N, K);
 		}
