@@ -166,6 +166,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
+		cerr << "Case " << N << '\n';
 		using range_t = std::array<int, 2>;
 		using rect_t = std::array<range_t, 2>;
 		tensor<std::optional<rect_t>, 2> rects({N+1, N+1}, std::nullopt);
