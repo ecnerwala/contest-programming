@@ -211,8 +211,8 @@ int main() {
 		for (int h = 1; h <= N; h++) {
 			for (int w = 1; w <= N; w++) {
 				if (!rects[{h, w}] && (h+1>N || rects[{h+1, w}]) && (w+1>N || rects[{h, w+1}])) {
-					symb_interval_t sh{h, {N, 0}, {0, N}};
-					symb_interval_t sw{w, {N, 0}, {0, N}};
+					symb_interval_t sh{h, {N-h, h}, {0, N}};
+					symb_interval_t sw{w, {N-w, h}, {0, N}};
 					// extremal point
 					for (auto op : ops) {
 						auto [op_h, op_w] = op.first;
