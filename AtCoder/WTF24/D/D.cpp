@@ -308,6 +308,7 @@ int brute_force(std::vector<int> P) {
 		}
 		assert(__builtin_popcount(nxt_msk) == i);
 		assert(best_val[i] == vals[nxt_msk]);
+		cur_msk = nxt_msk;
 	}
 	return *std::min_element(vals.begin(), vals.end());
 }
