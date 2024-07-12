@@ -183,6 +183,12 @@ auto update_outer = [](symb_interval_t& a, range_t b) {
 	setmax(a.inner[1], b[0] + a.len);
 	setmin(a.inner[0], b[1] - a.len);
 };
+std::ostream& operator << (std::ostream& o, range_t a) {
+	return o << a[0] << '-' << a[1];
+}
+std::ostream& operator << (std::ostream& o, symb_interval_t a) {
+	return o << a.len << ' ' << a.inner << " to " << a.outer;
+}
 
 int main() {
 	using namespace std;
@@ -226,6 +232,8 @@ int main() {
 						}
 					}
 					inters.push_back({sh, sw});
+					cerr << "h " << sh << '\n';
+					cerr << "w " << sw << '\n';
 				}
 			}
 		}
