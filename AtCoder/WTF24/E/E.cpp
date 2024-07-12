@@ -262,7 +262,7 @@ int main() {
 			assert(a[0].len < b[0].len);
 			update_outer(a[0], b[0].outer);
 			assert(a[1].len > b[1].len);
-			update_inner(b[1], a[1].inner);
+			update_inner(a[1], b[1].inner);
 		}
 		// we now just have a sequence of increasing h ranges, and decreasing w ranges
 	}
