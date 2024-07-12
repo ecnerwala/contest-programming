@@ -170,7 +170,7 @@ int main() {
 		using range_t = std::array<int, 2>;
 		using rect_t = std::array<range_t, 2>;
 		tensor<std::optional<rect_t>, 2> rects({N+1, N+1}, std::nullopt);
-		std::vector<std::pair<std::array<int, 2>, rect_t>> ops(K);
+		std::vector<std::pair<std::array<int, 2>, rect_t>> ops; ops.reserve(K);
 		for (int k = 0; k < K; k++) {
 			int h, w, a, b; cin >> h >> w >> a >> b; a--, b--;
 			rect_t r{range_t{a, a+h}, range_t{b, b+w}};
