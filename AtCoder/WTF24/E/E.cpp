@@ -66,6 +66,7 @@ template <typename T, int NDIMS> struct tensor {
 	static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
 
 protected:
+public:
 	std::array<int, NDIMS> shape;
 	std::array<int, NDIMS> strides;
 	int len;
