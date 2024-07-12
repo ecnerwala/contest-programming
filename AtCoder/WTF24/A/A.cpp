@@ -13,7 +13,8 @@ int main() {
 	int64_t xr = std::accumulate(A.end() - K, A.end(), int64_t(0));
 	int64_t pr = 0;
 
-	double ans = 0;
+	using ld = long double;
+	ld ans = 0;
 	for (int i = 0; i < K-1; i++) {
 		wl++;
 		xl += A[i];
@@ -22,8 +23,8 @@ int main() {
 		xr -= A[N-K+i];
 		pr -= (K-1) - 2*i;
 		assert(pl + pr == 0);
-		//double v = (double(xr) / double(wr) - double(xl) / double(wl)) / (double(pl) / double(wl) - double(pr) / double(wr));
-		double v = (double(xr) * double(wl) - double(xl) * double(wr)) / double(pl) / double(K);
+		//ld v = (ld(xr) / ld(wr) - ld(xl) / ld(wl)) / (ld(pl) / ld(wl) - ld(pr) / ld(wr));
+		ld v = (ld(xr) * ld(wl) - ld(xl) * ld(wr)) / ld(pl) / ld(K);
 		//cerr << wl << ' ' << xl << ' ' << pl << ' ' << wr << ' ' << xr << ' ' << pr << ' ' << v << '\n';
 		ans = std::max(ans, v);
 	}
