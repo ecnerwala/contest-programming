@@ -314,12 +314,14 @@ int brute_force(std::vector<int> P) {
 }
 
 void test() {
-	int N = 8;
-	std::vector<int> P(N);
-	std::iota(P.begin(), P.end(), 0);
-	do {
-		brute_force(P);
-	} while (std::next_permutation(P.begin(), P.end()));
+	for (int N = 1; N <= 10; N++) {
+		cerr << "testing " << N << '\n';
+		std::vector<int> P(N);
+		std::iota(P.begin(), P.end(), 0);
+		do {
+			brute_force(P);
+		} while (std::next_permutation(P.begin(), P.end()));
+	}
 	exit(0);
 }
 
