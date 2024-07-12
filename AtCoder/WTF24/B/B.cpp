@@ -24,10 +24,11 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
-void slow(int N) {
+void slow(int N, int K) {
 	using num = double;
 	std::vector<num> ev(1<<N);
 	for (int msk = (1 << N) - 1; msk >= 0; msk--) {
+		if (__builtin_popcount(msk) != K) continue;
 		int invs = 0;
 		num tot_time = 0;
 		for (int i = 0; i < N; i++) {
@@ -49,6 +50,7 @@ void slow(int N) {
 	}
 	cerr << std::fixed << std::setprecision(20);
 	for (int msk = 0; msk < (1 << N); msk++) {
+		if (__builtin_popcount(msk) != K) continue;
 		for (int i = 0; i < N; i++) cerr << ((msk >> i) & 1);
 		cerr << ' ' << ev[msk] << '\n';
 	}
@@ -56,7 +58,9 @@ void slow(int N) {
 
 void test() {
 	for (int N = 1; N <= 5; N++) {
-		slow(N);
+		for (int K = 0; K <= N; K++) {
+			slow(N, K);
+		}
 	}
 }
 
