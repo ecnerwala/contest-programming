@@ -54,6 +54,7 @@ void slow(int N, int K) {
 		for (int i = 0; i < N; i++) cerr << ((msk >> i) & 1);
 		cerr << ' ' << ev[msk] << '\n';
 	}
+	cerr << '\n';
 }
 
 void test() {
