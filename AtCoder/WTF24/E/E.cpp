@@ -167,7 +167,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
-		cerr << "Case " << N << '\n';
 		using range_t = std::array<int, 2>;
 		using rect_t = std::array<range_t, 2>;
 		tensor<std::optional<rect_t>, 2> rects({N+1, N+1}, std::nullopt);
@@ -176,8 +175,6 @@ int main() {
 			int h, w, a, b; cin >> h >> w >> a >> b; a--, b--;
 			rect_t r{range_t{a, a+h}, range_t{b, b+w}};
 			ops.push_back({std::array<int, 2>{h, w}, r});
-			cerr << h << ' ' << w << '\n';
-			cerr << rects.shape[0] << ' ' << rects.shape[1] << '\n';
 			rects[{h, w}] = r;
 		}
 		std::reverse(ops.begin(), ops.end());
