@@ -320,6 +320,7 @@ void test() {
 	do {
 		brute_force(P);
 	} while (std::next_permutation(P.begin(), P.end()));
+	exit(0);
 }
 
 int main() {
