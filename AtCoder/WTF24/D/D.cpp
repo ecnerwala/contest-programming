@@ -311,7 +311,7 @@ int brute_force(std::vector<int> P) {
 		assert(best_val[i] == vals[nxt_msk]);
 		int j = __builtin_ctz(nxt_msk ^ cur_msk);
 		assert(nxt_msk == (cur_msk + (1 << j)));
-		cerr << vals[nxt_msk] - vals[cur_msk] << ' ' << P[j] - 2*j << '\n';
+		cerr << (vals[nxt_msk] - vals[cur_msk]) - (P[j] - 2*j) << '\n';
 		cur_msk = nxt_msk;
 	}
 	return *std::min_element(vals.begin(), vals.end());
