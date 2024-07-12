@@ -175,6 +175,8 @@ auto update_inner = [](symb_interval_t& a, range_t b) {
 	setmax(a.inner[1], b[1]);
 	setmin(a.outer[1], b[0] + a.len);
 	setmax(a.outer[0], b[1] - a.len);
+	assert(a.inner[0] == a.outer[1] - a.len);
+	assert(a.inner[1] == a.outer[0] + a.len);
 };
 auto update_outer = [](symb_interval_t& a, range_t b) {
 	assert(b[1] - b[0] >= a.len);
@@ -182,6 +184,8 @@ auto update_outer = [](symb_interval_t& a, range_t b) {
 	setmin(a.outer[1], b[1]);
 	setmax(a.inner[1], b[0] + a.len);
 	setmin(a.inner[0], b[1] - a.len);
+	assert(a.inner[0] == a.outer[1] - a.len);
+	assert(a.inner[1] == a.outer[0] + a.len);
 };
 std::ostream& operator << (std::ostream& o, range_t a) {
 	return o << a[0] << '-' << a[1];
