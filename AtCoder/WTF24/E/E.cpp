@@ -197,6 +197,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
+		cerr << "Case " << N << ' ' << K << '\n';
 		tensor<std::optional<rect_t>, 2> rects({N+1, N+1}, std::nullopt);
 		std::vector<std::pair<std::array<int, 2>, rect_t>> ops; ops.reserve(K);
 		for (int k = 0; k < K; k++) {
