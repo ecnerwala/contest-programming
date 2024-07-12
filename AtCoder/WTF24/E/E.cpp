@@ -217,7 +217,7 @@ int main() {
 				if (!rects[{h, w}] && (h+1>N || rects[{h+1, w}]) && (w+1>N || rects[{h, w+1}])) {
 					cerr << "computing " << h << 'x' << w << '\n';
 					symb_interval_t sh{h, {N-h, h}, {0, N}};
-					symb_interval_t sw{w, {N-w, h}, {0, N}};
+					symb_interval_t sw{w, {N-w, w}, {0, N}};
 					// extremal point
 					for (auto op : ops) {
 						auto [op_h, op_w] = op.first;
