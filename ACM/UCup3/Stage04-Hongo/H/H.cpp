@@ -886,7 +886,7 @@ int main() {
 	a[0] += p2K - 1;
 	a[1] -= 2 * (p2K - 1);
 	a[2] += p2K - 1;
-	for (int i = 0; i <= V; i++) {
+	for (int i = 1; i <= V; i++) {
 		cout << a[i] << " \n"[i==V];
 	}
 
