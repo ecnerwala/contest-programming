@@ -134,7 +134,6 @@ int main() {
 		S_inv_B <<= 1;
 		if (S_inv_B[d_A]) S_inv_B ^= A;
 	}
-	cout << ans << '\n';
 
 	return 0;
 }
