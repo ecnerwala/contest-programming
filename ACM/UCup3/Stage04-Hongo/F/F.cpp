@@ -1,5 +1,23 @@
 #include <bits/stdc++.h>
 
+using bs = std::bitset<5020>;
+int deg(const bs& a) {
+	int r = -1;
+	for (int i = 0; i < int(a.size()); i++) {
+		if (a[i]) r = i;
+	}
+	return r;
+}
+std::ostream& operator << (std::ostream& o, bs b) {
+	int d = deg(b);
+	if (d == -1) {
+		o << '0';
+	} else {
+		for (int i = 0; i <= d; i++) o << b[i];
+	}
+	return o;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -7,7 +25,6 @@ int main() {
 	std::string S_; cin >> S_;
 	std::string T_; cin >> T_;
 
-	using bs = bitset<5020>;
 	bs S;
 	for (int i = 0; i < N; i++) S[i] = S_[i] - '0';
 	bs T;
@@ -32,13 +49,6 @@ int main() {
 		}
 	}
 
-	auto deg = [](const bs& a) -> int {
-		int r = -1;
-		for (int i = 0; i < int(a.size()); i++) {
-			if (a[i]) r = i;
-		}
-		return r;
-	};
 	// First, we run euclidean algorithm{
 	bs gcd, inv_B;
 	{
