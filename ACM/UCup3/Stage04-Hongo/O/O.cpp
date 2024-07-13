@@ -511,6 +511,7 @@ int main() {
 			} else {
 				v = query_lichao(idx);
 			}
+			cerr << "at " << idx << " " << "value " << v << " + " << A[idx] << " = " << v + A[idx] << '\n';
 			v += A[idx];
 			if (idx == N) {
 				cout << v << '\n';
@@ -525,6 +526,7 @@ int main() {
 			// Now find own value and add in the next one
 			int c = C[cur/2];
 			int64_t v = -l.query(c);
+			cerr << "at " << c << " " << "height " << c << " " << v << '\n';
 			// now update the lichao tree with v, c
 			auto to_rollback = update_lichao(c, v);
 			kactl::LineContainer r = self(ct.nodes[cur].c[1]);
