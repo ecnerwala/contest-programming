@@ -84,6 +84,7 @@ int main() {
 	bs S_gcd = S;
 	for (int a = deg(S); a >= d_gcd; a--) {
 		if (S_gcd[a]) S ^= (gcd << (a - d_gcd));
+		assert(!S_gcd[a]);
 	}
 	bs T_gcd = T;
 	for (int a = deg(T); a >= d_gcd; a--) {
