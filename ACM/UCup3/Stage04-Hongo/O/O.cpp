@@ -526,7 +526,7 @@ int main() {
 			// Now find own value and add in the next one
 			int c = C[cur/2];
 			int64_t v = -l.query(c);
-			cerr << "at " << c << " " << "height " << c << " " << v << '\n';
+			cerr << "at " << cur/2 << "-" << cur/2+1 << " " << "height " << c << " " << v << '\n';
 			// now update the lichao tree with v, c
 			auto to_rollback = update_lichao(c, v);
 			kactl::LineContainer r = self(ct.nodes[cur].c[1]);
