@@ -18,6 +18,26 @@ std::ostream& operator << (std::ostream& o, bs b) {
 	return o;
 }
 
+void slow(int N, bs S, bs T, bs A, bs B) {
+	assert(deg(A) == N);
+	assert(deg(S) < N);
+	assert(deg(T) < N);
+	assert(deg(B) < N);
+	const int MX = int(1e6);
+	for (int k = 0; k <= MX; k++) {
+	}
+}
+
+std::pair<int, bs> solve(int N, bs S, bs T, bs A, bs B) {
+	assert(deg(A) == N);
+	assert(deg(S) < N);
+	assert(deg(T) < N);
+	assert(deg(B) < N);
+	const int MX = int(1e6);
+	for (int k = 0; k <= MX; k++) {
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -119,15 +139,17 @@ int main() {
 			bs cnd = S_inv_B ^ T_inv_B;
 			int d = deg(cnd);
 			if (d < k + d_gcd) {
-				cout << k << '\n';
 				// Now, divide by gcd
-				for (int i = k-1; i >= 0; i--) {
-					cout << cnd[i + d_gcd];
+				bs r;
+				for (int i = d - d_gcd; i >= 0; i--) {
+					r[i] = cnd[i + d_gcd];
 					if (cnd[i + d_gcd]) {
 						cnd ^= gcd << i;
 					}
 				}
-				cout << '\n';
+				assert(!cnd.any());
+				cout << k << '\n';
+				for (int i = k-1; i >= 0; i--) { cout << r[i]; } cout << '\n';
 				break;
 			}
 		}
