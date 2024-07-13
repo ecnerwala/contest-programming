@@ -461,6 +461,7 @@ int main() {
 	std::vector<lichao_line> seg(layout.N, lichao_line{0, INF});
 
 	auto update_lichao = [&](int k, int64_t m) -> std::tuple<seg_tree::point, int, lichao_line> {
+		cerr << "update lichao " << k << ' ' << m << '\n';
 		lichao_line nxt{k, m};
 		seg_tree::point a(1);
 		int msk = 0;
@@ -488,6 +489,7 @@ int main() {
 			}
 			msk >>= 1;
 		}
+		cerr << "undo update lichao " << nxt.k << ' ' << nxt.m << '\n';
 	};
 	auto query_lichao = [&](int v) -> int64_t {
 		assert(1 <= v && v <= N);
