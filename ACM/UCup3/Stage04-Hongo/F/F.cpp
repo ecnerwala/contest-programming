@@ -109,6 +109,7 @@ int main() {
 	int ans = -1;
 	for (int k = 0; k <= MX; k++) {
 		if (S_gcd == T_gcd) {
+			cerr << "match on gcd" << '\n';
 			int d = deg(S_inv_B ^ T_inv_B);
 			if (d < k + d_gcd) {
 				ans = k;
