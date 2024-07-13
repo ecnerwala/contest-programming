@@ -859,10 +859,17 @@ int main() {
 	int K; cin >> K;
 	using ps = ecnerwala::power_series_fft<num>;
 	const int V = 2*K-2;
+	std::vector<num> fact(V+1);
+	fact[0] = 1;
+	for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(V+1);
+	ifact[V] = inv(fact[V]);
+	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
 	ps a(V+1);
-	a[0] = 1;
-	a[1] = 1;
-	a = poly_pow(a, 2*K);
+	for (int i = 0; i <= 2*K && i <= V; i++) {
+		a[i] = fact[2*K] * ifact[i] * ifact[2*K-i];
+	}
 	a[0] -= pow(num(2), K);
 	{
 		ps b(V+1);
@@ -874,9 +881,9 @@ int main() {
 	}
 	{
 		ps b(V+1);
-		b[0] = 1;
-		b[1] = 1;
-		b = poly_pow(b, K);
+		for (int i = 0; i <= V && i <= K; i++) {
+			b[i] = fact[K] * ifact[i] * ifact[K-i];
+		}
 		b[0] -= pow(num(2), K);
 		a += b * 2;
 	}
