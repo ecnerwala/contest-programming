@@ -138,7 +138,7 @@ int main() {
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	num ans = 0;
-	for (int d = 0; d <= N; d++) {
+	for (int d = 1; d <= N; d++) {
 		for (int i = 1; i * d <= N; i++) {
 			//ans += seq_bounces(d, i) * num(N - d * i) / num(N) / num(2);
 		}
