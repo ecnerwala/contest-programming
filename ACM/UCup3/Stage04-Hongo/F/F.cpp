@@ -28,16 +28,6 @@ void slow(int N, bs S, bs T, bs A, bs B) {
 	}
 }
 
-std::pair<int, bs> solve(int N, bs S, bs T, bs A, bs B) {
-	assert(deg(A) == N);
-	assert(deg(S) < N);
-	assert(deg(T) < N);
-	assert(deg(B) < N);
-	const int MX = int(1e6);
-	for (int k = 0; k <= MX; k++) {
-	}
-}
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
