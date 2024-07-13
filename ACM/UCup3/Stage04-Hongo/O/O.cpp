@@ -500,7 +500,7 @@ int main() {
 		return res;
 	};
 
-	auto ct = CartesianTree::build_max_tree(A);
+	auto ct = CartesianTree::build_max_tree(C);
 
 	std::vector<kactl::LineContainer> containers(2*N+1);
 	std::y_combinator([&](auto self, int cur) -> kactl::LineContainer {
