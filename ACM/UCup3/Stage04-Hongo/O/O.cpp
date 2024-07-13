@@ -461,7 +461,7 @@ int main() {
 	std::vector<lichao_line> seg(layout.N, lichao_line{0, INF});
 
 	auto update_lichao = [&](int k, int64_t m) -> std::tuple<seg_tree::point, int, lichao_line> {
-		cerr << "update lichao " << k << ' ' << m << '\n';
+		//cerr << "update lichao " << k << ' ' << m << '\n';
 		lichao_line nxt{k, m};
 		seg_tree::point a(1);
 		int msk = 0;
@@ -478,7 +478,7 @@ int main() {
 				a = a.c(0);
 			}
 		}
-		cerr << "  "; for (auto line : seg) { cerr << line.k << "x+" << line.m << ' '; } cerr << '\n';
+		//cerr << "  "; for (auto line : seg) { cerr << line.k << "x+" << line.m << ' '; } cerr << '\n';
 		return {a, msk, nxt};
 	};
 	auto rollback_lichao = [&](std::tuple<seg_tree::point, int, lichao_line> r) -> void {
@@ -490,8 +490,8 @@ int main() {
 			}
 			msk >>= 1;
 		}
-		cerr << "undo update lichao " << nxt.k << ' ' << nxt.m << '\n';
-		cerr << "  "; for (auto line : seg) { cerr << line.k << "x+" << line.m << ' '; } cerr << '\n';
+		//cerr << "undo update lichao " << nxt.k << ' ' << nxt.m << '\n';
+		//cerr << "  "; for (auto line : seg) { cerr << line.k << "x+" << line.m << ' '; } cerr << '\n';
 	};
 	auto query_lichao = [&](int v) -> int64_t {
 		assert(1 <= v && v <= N);
@@ -515,7 +515,7 @@ int main() {
 			} else {
 				v = query_lichao(idx);
 			}
-			cerr << "at " << idx << " " << "value " << v << " + " << A[idx] << " = " << v + A[idx] << '\n';
+			//cerr << "at " << idx << " " << "value " << v << " + " << A[idx] << " = " << v + A[idx] << '\n';
 			v += A[idx];
 			if (idx == N) {
 				cout << v << '\n';
@@ -530,10 +530,8 @@ int main() {
 			// Now find own value and add in the next one
 			int c = C[cur/2];
 			int64_t v = -l.query(c);
-			cerr << "at " << cur/2 << "-" << cur/2+1 << " " << "height " << c << " " << v << '\n';
-			for (auto line : l) {
-				cerr << "  " << line.k << ' ' << line.m << '\n';
-			}
+			//cerr << "at " << cur/2 << "-" << cur/2+1 << " " << "height " << c << " " << v << '\n';
+			//for (auto line : l) { cerr << "  " << line.k << ' ' << line.m << '\n'; }
 			// now update the lichao tree with v, c
 			auto to_rollback = update_lichao(c, v);
 			kactl::LineContainer r = self(ct.nodes[cur].c[1]);
