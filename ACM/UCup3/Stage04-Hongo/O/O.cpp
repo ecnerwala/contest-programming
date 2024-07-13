@@ -442,11 +442,60 @@ int main() {
 	std::vector<int> A(N+1);
 	for (int i = 1; i <= N-1; i++) cin >> A[i];
 
-	auto update_lichao = [&](int64_t v, int m) -> std::pair<int, int> {
+	seg_tree::in_order_layout layout(N+1);
+	struct lichao_line {
+		int64_t k; // coeff
+		int64_t m; // const
 	};
-	auto rollback_lichao = [&](std::pair<int, int> r) -> void {
+	auto eval_value = [&](lichao_line a, int val) -> int64_t {
+		assert(1 <= val && val <= N);
+		return a.k * val + a.m;
+	};
+	auto eval_node = [&](lichao_line a, seg_tree::point p) -> int64_t {
+		int val = layout.get_node_split(p);
+		return eval_value(a, val);
+	};
+
+	// lichao tree is a bst
+	const int64_t INF = 1e18;
+	std::vector<lichao_line> seg(layout.N, lichao_line{0, INF});
+
+	auto update_lichao = [&](int k, int64_t m) -> std::tuple<seg_tree::point, int, lichao_line> {
+		lichao_line nxt{k, m};
+		seg_tree::point a(1);
+		int msk = 0;
+		while (a < layout.N) {
+			msk <<= 1;
+			if (eval_node(nxt, a) < eval_node(seg[a], a)) {
+				msk |= 1;
+				std::swap(nxt, seg[a]);
+			}
+			if (nxt.k < seg[a].k) {
+				// better when coeff is smaller
+				a = a.c(0);
+			} else {
+				a = a.c(1);
+			}
+		}
+		return {a, msk, nxt};
+	};
+	auto rollback_lichao = [&](std::tuple<seg_tree::point, int, lichao_line> r) -> void {
+		auto [a, msk, nxt] = r;
+		while (a > 1) {
+			a = a.p();
+			if (msk & 1) {
+				std::swap(nxt, seg[a]);
+			}
+			msk >>= 1;
+		}
 	};
 	auto query_lichao = [&](int v) -> int64_t {
+		assert(1 <= v && v <= N);
+		int64_t res = eval_value(seg[1], v);
+		layout.get_point(v).for_parents_up([&](seg_tree::point a) -> void {
+			res = std::min(res, eval_value(seg[a], v));
+		});
+		return res;
 	};
 
 	auto ct = CartesianTree::build_max_tree(A);
@@ -477,7 +526,7 @@ int main() {
 			int c = C[cur/2];
 			int64_t v = -l.query(c);
 			// now update the lichao tree with v, c
-			auto to_rollback = update_lichao(v, c);
+			auto to_rollback = update_lichao(c, v);
 			kactl::LineContainer r = self(ct.nodes[cur].c[1]);
 			rollback_lichao(to_rollback);
 			if (r.size() > l.size()) std::swap(l, r);
