@@ -60,7 +60,56 @@ int main() {
 			c_x ^= (c_y << (dx - dy));
 		}
 		assert(!y.any());
+		gcd = x;
+		inv_B = c_x;
 	}
+	// Now what...
+	// Now we want to find the first x so that (S * x^k - T) == 0 mod gcd
+	// And also ((S * x^k - T) * inv_B) % (A / gcd) has to have small degree
+
+	int d_gcd = deg(gcd);
+
+	// Let's take it mod gcd
+	bs S_gcd = S;
+	for (int a = deg(S); a >= d_gcd; a--) {
+		if (S_gcd[a]) S ^= (gcd << (a - d_gcd));
+	}
+	bs T_gcd = T;
+	for (int a = deg(T); a >= d_gcd; a--) {
+		if (T_gcd[a]) T ^= (gcd << (a - d_gcd));
+	}
+
+	int d_A = deg(A);
+
+	bs S_inv_B;
+	bs T_inv_B;
+	for (int i = deg(inv_B); i >= 0; i--) {
+		S_inv_B <<= 1;
+		if (S_inv_B[d_A]) S_inv_B ^= A;
+		T_inv_B <<= 1;
+		if (T_inv_B[d_A]) T_inv_B ^= A;
+		if (inv_B[i]) {
+			S_inv_B ^= S;
+			T_inv_B ^= T;
+		}
+	}
+
+	const int MX = int(1e6);
+	int ans = -1;
+	for (int k = 0; k <= MX; k++) {
+		if (S_gcd == T_gcd) {
+			int d = deg(S_inv_B ^ T_inv_B);
+			if (d < k + d_gcd) {
+				ans = k;
+				break;
+			}
+		}
+		S_gcd <<= 1;
+		if (S[d_gcd]) S_gcd ^= gcd;
+		S_inv_B <<= 1;
+		if (S_inv_B[d_A]) S_inv_B ^= A;
+	}
+	cout << ans << '\n';
 
 	return 0;
 }
