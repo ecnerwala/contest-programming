@@ -73,6 +73,7 @@ int main() {
 		gcd = x;
 		inv_B = c_x;
 	}
+	cerr << "A = " << A << ' ' << "B = " << B << ' ' << "gcd = " << gcd << ' ' << "inv_B = " << inv_B << '\n';
 	// Now what...
 	// Now we want to find the first x so that (S * x^k - T) == 0 mod gcd
 	// And also ((S * x^k - T) * inv_B) % (A / gcd) has to have small degree
