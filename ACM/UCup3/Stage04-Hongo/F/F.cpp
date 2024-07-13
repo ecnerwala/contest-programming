@@ -132,16 +132,19 @@ int main() {
 			int d = deg(cnd);
 			if (d < k + d_gcd) {
 				// Now, divide by gcd
-				bs r;
-				for (int i = d - d_gcd; i >= 0; i--) {
-					r[i] = cnd[i + d_gcd];
-					if (cnd[i + d_gcd]) {
-						cnd ^= gcd << i;
+				cout << k << '\n';
+				for (int i = k-1; i >= 0; i--) {
+					if (i + d_gcd > d) {
+						cout << '0';
+					} else {
+						cout << cnd[i + d_gcd];
+						if (cnd[i + d_gcd]) {
+							cnd ^= gcd << i;
+						}
 					}
 				}
 				assert(!cnd.any());
-				cout << k << '\n';
-				for (int i = k-1; i >= 0; i--) { cout << r[i]; } cout << '\n';
+				cout << '\n';
 				break;
 			}
 		}
