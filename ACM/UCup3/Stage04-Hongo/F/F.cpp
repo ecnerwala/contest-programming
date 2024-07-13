@@ -82,13 +82,12 @@ int main() {
 
 	// Let's take it mod gcd
 	bs S_gcd = S;
-	for (int a = deg(S); a >= d_gcd; a--) {
-		if (S_gcd[a]) S ^= (gcd << (a - d_gcd));
-		assert(!S_gcd[a]);
+	for (int a = deg(S_gcd); a >= d_gcd; a--) {
+		if (S_gcd[a]) S_gcd ^= (gcd << (a - d_gcd));
 	}
 	bs T_gcd = T;
-	for (int a = deg(T); a >= d_gcd; a--) {
-		if (T_gcd[a]) T ^= (gcd << (a - d_gcd));
+	for (int a = deg(T_gcd); a >= d_gcd; a--) {
+		if (T_gcd[a]) T_gcd ^= (gcd << (a - d_gcd));
 	}
 
 	int d_A = deg(A);
@@ -121,7 +120,7 @@ int main() {
 			}
 		}
 		S_gcd <<= 1;
-		if (S[d_gcd]) S_gcd ^= gcd;
+		if (S_gcd[d_gcd]) S_gcd ^= gcd;
 		S_inv_B <<= 1;
 		if (S_inv_B[d_A]) S_inv_B ^= A;
 	}
