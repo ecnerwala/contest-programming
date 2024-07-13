@@ -119,6 +119,7 @@ int main() {
 			bs cnd = S_inv_B ^ T_inv_B;
 			int d = deg(cnd);
 			if (d < k + d_gcd) {
+				cout << k << '\n';
 				// Now, divide by gcd
 				for (int i = k-1; i >= 0; i--) {
 					cout << cnd[i + d_gcd];
@@ -126,6 +127,7 @@ int main() {
 						cnd ^= gcd << i;
 					}
 				}
+				cout << '\n';
 				break;
 			}
 		}
