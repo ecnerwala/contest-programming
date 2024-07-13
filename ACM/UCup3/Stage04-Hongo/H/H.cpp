@@ -858,7 +858,7 @@ int main() {
 	using num = modnum<998244353>;
 	int K; cin >> K;
 	using ps = ecnerwala::power_series_fft<num>;
-	const int V = 2*K-2;
+	const int V = 2*K;
 	std::vector<num> fact(V+1);
 	fact[0] = 1;
 	for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
@@ -867,7 +867,7 @@ int main() {
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	ps a(V+1);
-	for (int i = 0; i <= 2*K && i <= V; i++) {
+	for (int i = 0; i <= 2*K; i++) {
 		a[i] = fact[2*K] * ifact[i] * ifact[2*K-i];
 	}
 	a[0] -= pow(num(2), K);
@@ -881,7 +881,7 @@ int main() {
 	}
 	{
 		ps b(V+1);
-		for (int i = 0; i <= V && i <= K; i++) {
+		for (int i = 0; i <= K; i++) {
 			b[i] = fact[K] * ifact[i] * ifact[K-i];
 		}
 		b[0] -= pow(num(2), K);
@@ -894,8 +894,9 @@ int main() {
 	//a[1] -= 2 * (p2K - 1);
 	a[1] -= (p2K - 1);
 	//a[2] += p2K - 1;
-	for (int i = 1; i <= V; i++) {
-		cout << a[i] << " \n"[i==V];
+	const int cap = 2*K-2;
+	for (int i = 1; i <= cap; i++) {
+		cout << a[i] << " \n"[i==cap];
 	}
 
 	return 0;
