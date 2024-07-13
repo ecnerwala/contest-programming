@@ -89,6 +89,7 @@ int main() {
 	// And also ((S * x^k - T) * inv_B) % (A / gcd) has to have small degree
 
 	int d_gcd = deg(gcd);
+	assert(d_gcd != 0);
 
 	// Let's take it mod gcd
 	bs S_gcd = S;
@@ -101,6 +102,7 @@ int main() {
 	}
 
 	int d_A = deg(A);
+	assert(d_A == N);
 
 	bs S_inv_B;
 	bs T_inv_B;
