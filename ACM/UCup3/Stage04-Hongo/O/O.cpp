@@ -473,9 +473,9 @@ int main() {
 			}
 			if (nxt.k < seg[a].k) {
 				// better when coeff is smaller
-				a = a.c(0);
-			} else {
 				a = a.c(1);
+			} else {
+				a = a.c(0);
 			}
 		}
 		cerr << "  "; for (auto line : seg) { cerr << line.k << "x+" << line.m << ' '; } cerr << '\n';
