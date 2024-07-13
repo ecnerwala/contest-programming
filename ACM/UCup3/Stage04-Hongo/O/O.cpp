@@ -480,7 +480,7 @@ int main() {
 		}
 		return {a, msk, nxt};
 	};
-	auto rollback_lichao = [&](std::tuple<seg_tree::point, int, lichao_line> r) -> void {
+	auto rollback_lichao = [&](decltype(update_lichao(0, 0)) r) -> void {
 		auto [a, msk, nxt] = r;
 		while (a > 1) {
 			a = a.p();
