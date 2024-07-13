@@ -13,7 +13,7 @@ int main() {
 		int64_t ans = -1;
 		for (int i = 0; i+2 < N; i++) {
 			int a = L[i], b = L[i+1], c = L[i+2];
-			if (a+b >= c) {
+			if (a+b > c) {
 				int s = (a+b+c) / 2;
 				int64_t cnd = int64_t(s) * int64_t(s-a) * int64_t(s-b) * int64_t(s-c);
 				ans = std::max(ans, cnd);
