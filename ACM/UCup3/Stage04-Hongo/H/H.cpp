@@ -884,8 +884,9 @@ int main() {
 	num p2K = pow(num(2), K);
 	a[1] += p2K;
 	a[0] += p2K - 1;
-	a[1] -= 2 * (p2K - 1);
-	a[2] += p2K - 1;
+	//a[1] -= 2 * (p2K - 1);
+	a[1] -= (p2K - 1);
+	//a[2] += p2K - 1;
 	for (int i = 1; i <= V; i++) {
 		cout << a[i] << " \n"[i==V];
 	}
