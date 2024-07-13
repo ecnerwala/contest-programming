@@ -73,7 +73,7 @@ int main() {
 		gcd = x;
 		inv_B = c_x;
 	}
-	cerr << "A = " << A << ' ' << "B = " << B << ' ' << "gcd = " << gcd << ' ' << "inv_B = " << inv_B << '\n';
+	//cerr << "A = " << A << ' ' << "B = " << B << ' ' << "gcd = " << gcd << ' ' << "inv_B = " << inv_B << '\n';
 	// Now what...
 	// Now we want to find the first x so that (S * x^k - T) == 0 mod gcd
 	// And also ((S * x^k - T) * inv_B) % (A / gcd) has to have small degree
@@ -111,11 +111,11 @@ int main() {
 			cout << -1 << '\n';
 			break;
 		}
-		cerr << "k = " << k << '\n';
-		cerr << "S_gcd = " << S_gcd << ' ' << "T_gcd = " << T_gcd << '\n';
-		cerr << "S_inv_B = " << S_inv_B << ' ' << "T_inv_B = " << T_inv_B << '\n';
+		//cerr << "k = " << k << '\n';
+		//cerr << "S_gcd = " << S_gcd << ' ' << "T_gcd = " << T_gcd << '\n';
+		//cerr << "S_inv_B = " << S_inv_B << ' ' << "T_inv_B = " << T_inv_B << '\n';
 		if (S_gcd == T_gcd) {
-			cerr << "match on gcd" << '\n';
+			//cerr << "match on gcd" << '\n';
 			bs cnd = S_inv_B ^ T_inv_B;
 			int d = deg(cnd);
 			if (d < k + d_gcd) {
