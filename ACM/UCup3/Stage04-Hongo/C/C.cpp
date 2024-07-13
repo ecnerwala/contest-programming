@@ -1,5 +1,21 @@
 #include <bits/stdc++.h>
 
+template <typename T> T mod_inv_in_range(T a, T m) {
+	// assert(0 <= a && a < m);
+	T x = a, y = m;
+	// coeff of a in x and y
+	T vx = 1, vy = 0;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		vy -= k * vx;
+		std::swap(x, y);
+		std::swap(vx, vy);
+	}
+	assert(y == 1);
+	return vy < 0 ? m + vy : vy;
+}
+
 template <typename tag> struct dynamic_modnum {
 private:
 #if __cpp_inline_variables >= 201606
