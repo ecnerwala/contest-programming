@@ -108,6 +108,9 @@ int main() {
 	const int MX = int(1e6);
 	int ans = -1;
 	for (int k = 0; k <= MX; k++) {
+		cerr << "k = " << k << '\n';
+		cerr << "S_gcd = " << S_gcd << ' ' << "T_gcd = " << T_gcd << '\n';
+		cerr << "S_inv_B = " << S_inv_B << ' ' << "T_inv_B = " << T_inv_B << '\n';
 		if (S_gcd == T_gcd) {
 			cerr << "match on gcd" << '\n';
 			int d = deg(S_inv_B ^ T_inv_B);
