@@ -478,9 +478,10 @@ int main() {
 				a = a.c(1);
 			}
 		}
+		cerr << "  "; for (auto line : seg) { cerr << line.k << "x+" << line.m << ' '; } cerr << '\n';
 		return {a, msk, nxt};
 	};
-	auto rollback_lichao = [&](decltype(update_lichao(0, 0)) r) -> void {
+	auto rollback_lichao = [&](std::tuple<seg_tree::point, int, lichao_line> r) -> void {
 		auto [a, msk, nxt] = r;
 		while (a > 1) {
 			a = a.p();
@@ -490,6 +491,7 @@ int main() {
 			msk >>= 1;
 		}
 		cerr << "undo update lichao " << nxt.k << ' ' << nxt.m << '\n';
+		cerr << "  "; for (auto line : seg) { cerr << line.k << "x+" << line.m << ' '; } cerr << '\n';
 	};
 	auto query_lichao = [&](int v) -> int64_t {
 		assert(1 <= v && v <= N);
