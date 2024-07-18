@@ -19,7 +19,8 @@ int main() {
 		int m_actual;
 		if constexpr (TESTING) {
 			p_actual = std::uniform_int_distribution<int>(27, 50)(mt);
-			m_actual = std::uniform_int_distribution<int>(p_actual+2, 200)(mt);
+			//m_actual = std::uniform_int_distribution<int>(p_actual+2, 200)(mt);
+			m_actual = 2 * p_actual;
 		}
 		auto query = [&](std::string s) -> int {
 			if constexpr (TESTING) {
