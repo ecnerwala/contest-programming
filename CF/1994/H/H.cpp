@@ -28,6 +28,7 @@ int main() {
 				for (int i = int(s.size())-1; i >= 0; i--) {
 					r *= p_actual; r += (s[i]-'a'+1); r %= m_actual;
 				}
+				cerr << r << '\n';
 				return int(r);
 			} else {
 				cout << '?' << ' ' << s << '\n' << flush;
