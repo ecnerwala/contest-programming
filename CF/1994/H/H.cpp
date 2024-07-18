@@ -37,11 +37,11 @@ int main() {
 		// p+1 < m, so we just get the value of p
 		int p = query("aa") - 1;
 		std::string s(30, 'z');
-		int v_init = query(s);
-		int sub_idx;
-		int sub_val;
+		int64_t v_init = query(s);
+		int64_t sub_idx;
+		int64_t sub_val;
 		{
-			int v = v_init;
+			int64_t v = v_init;
 			sub_idx = 0;
 			while (v >= p) {
 				sub_idx++;
