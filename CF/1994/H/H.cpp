@@ -38,12 +38,19 @@ int main() {
 		assert(1 <= sub_val && sub_val <= 25);
 		s[sub_idx] -= sub_val;
 		assert('a' <= s[sub_idx] && s[sub_idx] <= 'z');
-		cout << '?' << ' ' << s << '\n' << flush;
-		int res; cin >> res;
 
 		int64_t actual_sub_val = sub_val;
 		for (int z = 0; z < sub_idx; z++) actual_sub_val *= p;
-		cout << '!' << ' ' << res + (actual_sub_val - v_init) << '\n' << flush;
+		assert(actual_sub_val >= v_init+1);
+		assert(actual_sub_val <= 2*v_init);
+		actual_sub_val -= v_init;
+		assert(actual_sub_val >= 1);
+		assert(actual_sub_val <= v_init);
+
+		cout << '?' << ' ' << s << '\n' << flush;
+		int res; cin >> res;
+
+		cout << '!' << ' ' << p << ' ' << res + actual_sub_val << '\n' << flush;
 	}
 
 	return 0;
