@@ -23,7 +23,7 @@ int main() {
 					buckets[A[j].first % i] = A[j].second;
 				} else {
 					cout << buckets[A[j].first % i] << ' ' << A[j].second << '\n';
-					buckets.erase(buckets.begin() + j);
+					A.erase(A.begin() + j);
 					break;
 				}
 			}
