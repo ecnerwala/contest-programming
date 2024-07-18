@@ -10,8 +10,8 @@ int main() {
 		std::string S, T; cin >> S >> T;
 		bool good = true;
 		for (int i = 0; i < N; i++) {
-			if (T[i] == '1') break;
-			if (S[i] == '1') {
+			if (S[i] == '1') break;
+			if (T[i] == '1') {
 				good = false;
 				break;
 			}
