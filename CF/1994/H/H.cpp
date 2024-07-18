@@ -10,7 +10,7 @@ int main() {
 	std::mt19937 mt(64);
 	int T;
 	if constexpr (TESTING) {
-		T = 1000;
+		T = 1000000;
 	} else {
 		cin >> T;
 	}
