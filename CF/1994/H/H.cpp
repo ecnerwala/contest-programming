@@ -66,10 +66,10 @@ int main() {
 		int64_t actual_sub_val = sub_val;
 		for (int z = 0; z < sub_idx; z++) actual_sub_val *= p;
 		assert(actual_sub_val >= v_init+1);
-		assert(actual_sub_val <= 2*int64_t(v_init));
+		assert(actual_sub_val <= 2*int64_t(v_init)+1);
 		actual_sub_val -= v_init;
 		assert(actual_sub_val >= 1);
-		assert(actual_sub_val <= v_init);
+		assert(actual_sub_val <= v_init+1);
 
 		int res = query(s);
 
