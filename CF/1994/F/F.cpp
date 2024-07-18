@@ -93,6 +93,11 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				assert(must_edges[i].size() % 2 == 0);
 			}
+			for (int i = 0; i < N; i++) {
+				for (auto [j, e] : must_edges[i]) {
+					cerr << i << '-' << j << ' ' << e << '\n';
+				}
+			}
 			auto res = kactl::eulerWalk(must_edges, M, 0);
 			cout << "YES" << '\n';
 			cout << int(res.size())-1 << '\n';
