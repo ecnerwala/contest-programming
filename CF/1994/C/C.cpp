@@ -17,7 +17,7 @@ int main() {
 			// jump to j
 			dp[j] += dp[i];
 		}
-		cout << std::accumulate(dp.begin(), dp.end(), int64_t(-N)) << '\n';
+		cout << int64_t(N) * int64_t(N+1) / 2 - std::accumulate(dp.begin(), dp.end(), 0) << '\n';
 	}
 
 	return 0;
