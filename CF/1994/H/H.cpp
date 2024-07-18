@@ -1,4 +1,3 @@
-#define NDEBUG
 #include <bits/stdc++.h>
 
 int main() {
