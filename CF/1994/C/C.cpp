@@ -19,7 +19,7 @@ int main() {
 			dp[j] += dp[i];
 			cerr << i << ' ' << j << ' ' << dp[i] << '\n';
 		}
-		cout << int64_t(N) * int64_t(N+1) / 2 - std::accumulate(dp.begin(), dp.end(), 0) << '\n';
+		cout << int64_t(N+2) * int64_t(N+1) / 2 - std::accumulate(dp.begin(), dp.end(), 0) << '\n';
 	}
 
 	return 0;
