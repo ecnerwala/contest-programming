@@ -20,6 +20,7 @@ int main() {
 			p_actual = std::uniform_int_distribution<int>(27, 50)(mt);
 			m_actual = std::uniform_int_distribution<int>(p_actual+2, 200)(mt);
 		}
+		cerr << p_actual << ' ' << m_actual << '\n';
 		auto query = [&](std::string s) -> int {
 			if constexpr (TESTING) {
 				cerr << '?' << ' ' << s << '\n' << flush;
@@ -74,6 +75,10 @@ int main() {
 		int64_t m = res + actual_sub_val;
 
 		cout << '!' << ' ' << p << ' ' << m << '\n' << flush;
+		if constexpr (TESTING) {
+			assert(p_actual == p);
+			assert(m_actual == m);
+		}
 	}
 
 	return 0;
