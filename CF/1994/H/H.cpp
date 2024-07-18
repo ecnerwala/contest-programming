@@ -18,7 +18,7 @@ int main() {
 		int p_actual;
 		int m_actual;
 		if constexpr (TESTING) {
-			p_actual = std::uniform_int_distribution<int>(27, 50)(mt);
+			p_actual = std::uniform_int_distribution<int>(27, 51)(mt);
 			//m_actual = std::uniform_int_distribution<int>(p_actual+2, 200)(mt);
 			m_actual = 2 * p_actual;
 		}
