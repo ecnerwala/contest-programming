@@ -10,7 +10,7 @@ int main() {
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
 
-		std::vector<int> dp(N+1);
+		std::vector<int> dp(N+1, 1);
 		int64_t cur = 0;
 		for (int i = 0, j = 0; i < N; cur -= A[i++]) {
 			while (j < N && cur <= X) cur += A[j++];
