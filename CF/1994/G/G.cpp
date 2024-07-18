@@ -181,7 +181,7 @@ int main() {
 		for (int k = 0; k < K; k++) {
 			for (int v = 0; v < N; v++) {
 				if (dp[{k, v}] != -1) {
-					for (int z = 0; z < 2; z++) {
+					for (int z = 1; z >= 0; z--) {
 						if (((v + val[k][z]) & 1) == S[k] - '0') {
 							int nv = (v+val[k][z]) >> 1;
 							dp[{k+1, nv}] = 2*v+z;
