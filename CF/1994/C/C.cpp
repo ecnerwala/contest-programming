@@ -14,6 +14,7 @@ int main() {
 		int64_t cur = 0;
 		for (int i = 0, j = 0; i < N; cur -= A[i++]) {
 			while (j < N && cur <= X) cur += A[j++];
+			if (cur <= X) break;
 			// jump to j
 			dp[j] += dp[i];
 			cerr << i << ' ' << j << ' ' << dp[i] << '\n';
