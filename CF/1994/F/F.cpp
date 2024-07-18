@@ -90,6 +90,9 @@ int main() {
 			}
 		}
 		if (good) {
+			for (int i = 0; i < N; i++) {
+				assert(must_edges[i].size() % 2 == 0);
+			}
 			auto res = kactl::eulerWalk(must_edges, M, 0);
 			cout << "YES" << '\n';
 			cout << res.size() << '\n';
