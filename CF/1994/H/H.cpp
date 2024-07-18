@@ -4,7 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 
 	std::mt19937 mt(64);
 	int T;
@@ -19,8 +19,8 @@ int main() {
 		if constexpr (TESTING) {
 			p_actual = std::uniform_int_distribution<int>(27, 50)(mt);
 			m_actual = std::uniform_int_distribution<int>(p_actual+2, 200)(mt);
+			cerr << p_actual << ' ' << m_actual << '\n';
 		}
-		cerr << p_actual << ' ' << m_actual << '\n';
 		auto query = [&](std::string s) -> int {
 			if constexpr (TESTING) {
 				cerr << '?' << ' ' << s << '\n' << flush;
