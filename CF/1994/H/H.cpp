@@ -1,10 +1,11 @@
+#define NDEBUG
 #include <bits/stdc++.h>
 
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 
 	std::mt19937 mt(64);
 	int T;
@@ -18,7 +19,7 @@ int main() {
 		int m_actual;
 		if constexpr (TESTING) {
 			p_actual = std::uniform_int_distribution<int>(27, 50)(mt);
-			m_actual = std::uniform_int_distribution<int>(p_actual+2, 2e9)(mt);
+			m_actual = std::uniform_int_distribution<int>(p_actual+2, 200)(mt);
 		}
 		auto query = [&](std::string s) -> int {
 			if constexpr (TESTING) {
