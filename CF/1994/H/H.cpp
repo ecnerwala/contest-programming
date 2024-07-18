@@ -4,28 +4,50 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
+	constexpr bool TESTING = true;
+
+	std::mt19937 mt(64);
+	int T;
+	if constexpr (TESTING) {
+		T = 1000;
+	} else {
+		cin >> T;
+	}
 	while (T--) {
+		int p_actual;
+		int m_actual;
+		if constexpr (TESTING) {
+			p_actual = std::uniform_int_distribution<int>(27, 50)(mt);
+			m_actual = std::uniform_int_distribution<int>(p_actual+2, 2e9)(mt);
+		}
+		auto query = [&](std::string s) -> int {
+			if constexpr (TESTING) {
+				cerr << '?' << ' ' << s << '\n' << flush;
+				int64_t r = 0;
+				for (int i = int(s.size())-1; i >= 0; i--) {
+					r *= p_actual; r += (s[i]-'a'+1); r %= m_actual;
+				}
+				return int(r);
+			} else {
+				cout << '?' << ' ' << s << '\n' << flush;
+				int res; cin >> res; return res;
+			}
+		};
 		// ask for p+1
-		cout << '?' << ' ' << "aa" << '\n' << flush;
 		// p+1 < m, so we just get the value of p
-		int p; cin >> p; p--;
+		int p = query("aa") - 1;
 		std::string s(30, 'z');
-		cout << '?' << ' ' << s << '\n' << flush;
-		int v_init; cin >> v_init;
+		int v_init = query(s);
 		int sub_idx;
 		int sub_val;
-		if (v_init == 0) {
-			sub_idx = 0;
-			sub_val = 1;
-		} else {
+		{
 			int v = v_init;
 			sub_idx = 0;
 			while (v >= p) {
 				sub_idx++;
 				v /= p;
 			}
-			assert(1 <= v && v < p);
+			assert(0 <= v && v < p);
 			if (v <= 24) {
 				// subtract v+1, which is <= 25
 				sub_val = v+1;
@@ -47,10 +69,11 @@ int main() {
 		assert(actual_sub_val >= 1);
 		assert(actual_sub_val <= v_init);
 
-		cout << '?' << ' ' << s << '\n' << flush;
-		int res; cin >> res;
+		int res = query(s);
 
-		cout << '!' << ' ' << p << ' ' << res + actual_sub_val << '\n' << flush;
+		int64_t m = res + actual_sub_val;
+
+		cout << '!' << ' ' << p << ' ' << m << '\n' << flush;
 	}
 
 	return 0;
