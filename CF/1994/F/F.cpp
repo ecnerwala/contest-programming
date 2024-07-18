@@ -95,7 +95,7 @@ int main() {
 			}
 			auto res = kactl::eulerWalk(must_edges, M, 0);
 			cout << "YES" << '\n';
-			cout << res.size() << '\n';
+			cout << int(res.size())-1 << '\n';
 			for (int i = 0; i < int(res.size()); i++) {
 				cout << res[i]+1 << " \n"[i+1==int(res.size())];
 			}
