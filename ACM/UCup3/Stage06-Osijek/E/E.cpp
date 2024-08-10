@@ -265,7 +265,7 @@ num solve(std::vector<num> A, int M) {
 		C[i].erase(C[i].begin(), C[i].begin() + n/2);
 	}
 	for (const auto& r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
-	return kactl::det(C) * pow(leading_coeff, M) * pow(pow(num(-1), M), n/2);
+	return kactl::det(C) * pow(leading_coeff, M) * pow(pow(num(-1), M), n/2) * fact(M);
 }
 
 int main() {
