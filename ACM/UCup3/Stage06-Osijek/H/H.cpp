@@ -140,6 +140,7 @@ int main() {
 			assert(c == '0' || c == '1');
 			std::fill(ndp.begin(), ndp.end(), num(0));
 			for (int i = 0; i <= N; i++) {
+				if (dp[i] == 0) continue;
 				for (int out_back = 0; out_back < (i > 0); out_back++) {
 					for (int in_back = 0; in_back < (c == '1' && i > 0); in_back++) {
 						num w = dp[i];
