@@ -257,12 +257,12 @@ num solve(std::vector<num> A, int M) {
 		C.push_back(pol);
 		mul(pol, id, true);
 	}
-	for (auto r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
+	for (const auto& r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
 	C.erase(C.begin(), C.begin() + n/2);
 	for (int i = 0; i < n/2; i++) {
 		C[i].erase(C[i].begin(), C[i].begin() + n/2);
 	}
-	for (auto r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
+	for (const auto& r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
 	return kactl::det(C) * pow(leading_coeff, M) * pow(pow(num(-1), M), n/2);
 }
 
