@@ -109,6 +109,7 @@ good:
 		int x, y; cin >> x >> y;
 		ans[q] = '0' + op(x, y);
 	}
+	cout << ans << '\n';
 
 	return 0;
 }
