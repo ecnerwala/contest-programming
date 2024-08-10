@@ -59,8 +59,8 @@ int main() {
 			std::pair<int, int>{x+1, y-1},
 			std::pair<int, int>{x+1, y  },
 			std::pair<int, int>{x+1, y+1},
-			std::pair<int, int>{x  , y-1},
-			std::pair<int, int>{x-1, y-1},
+			std::pair<int, int>{x  , y+1},
+			std::pair<int, int>{x-1, y+1},
 		};
 		std::array<int, 8> comps;
 		for (int i = 0; i < 8; i ++) {
