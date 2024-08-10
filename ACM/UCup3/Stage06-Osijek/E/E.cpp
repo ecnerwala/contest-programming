@@ -190,6 +190,24 @@ using num = modnum<int(1e9)+7>;
 
 using std::cerr;
 
+const int BUCKET = 10'000'000;
+const int N_BUCKET = 100;
+void precomp() {
+	std::vector<num> vals; vals.reserve(N_BUCKET+1);
+	num f = num(1);
+	vals.push_back(f);
+	for (int i = 1; i <= N_BUCKET * BUCKET; i++) {
+		f *= num(i);
+		if (i <= N_BUCKET || i % BUCKET == 0) {
+			vals.push_back(f);
+		}
+	}
+	//assert(int(vals.size()) == N_BUCKET+1);
+	cerr << '{';
+	for (num v : vals) cerr << v << ',';
+	cerr << '}' << '\n';
+}
+
 num fact(int M) {
 	// TODO
 	num r = 1;
@@ -272,6 +290,7 @@ num solve(std::vector<num> A, int M) {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	precomp();
 
 	int N, M; cin >> N >> M;
 	std::vector<num> A(N+1);
