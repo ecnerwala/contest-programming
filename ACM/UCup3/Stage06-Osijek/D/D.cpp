@@ -31,7 +31,7 @@ int main() {
 		return true;
 	};
 	auto op = [&](int x, int y) -> bool {
-		cerr << "trying " << x << ' ' << y << '\n';
+		//cerr << "trying " << x << ' ' << y << '\n';
 		// check for 3x3
 		filled[v(x, y)] = true;
 		for (int dx = -1; dx <= 1; dx++) {
@@ -44,7 +44,7 @@ int main() {
 						}
 					}
 					if (cnt == 9) {
-						cerr << "bad 3x3 at " << x + dx << ' ' << y + dy << '\n';
+						//cerr << "bad 3x3 at " << x + dx << ' ' << y + dy << '\n';
 						filled[v(x, y)] = false;
 						return false;
 					}
@@ -63,11 +63,17 @@ int main() {
 			std::pair<int, int>{x-1, y+1},
 		};
 		std::array<int, 8> comps;
+		int num_filled = 0;
 		for (int i = 0; i < 8; i ++) {
 			auto [a, b] = neighbors[i];
 			int p = v(a, b);
+			if (filled[p]) num_filled++;
 			comps[i] = filled[p] ? get_par(p) : -1;
-			cerr << i << ' ' << a << ',' << b << ' ' << comps[i] << '\n';
+			//cerr << i << ' ' << a << ',' << b << ' ' << comps[i] << '\n';
+		}
+		if (num_filled == 7) {
+			// we're okay
+			goto good;
 		}
 		for (int i = 0; i < 8; i += 2) {
 			if (comps[i] == -1) continue;
@@ -75,16 +81,9 @@ int main() {
 				if (comps[(i+1)%8] == comps[i]) {
 					// we're okay
 				} else {
-					assert(comps[(i+1)%8] == -1);
-					int num_same = 0;
-					for (int c : comps) num_same += (c == comps[i]);
-					if (num_same == 7) {
-						// we're okay
-						goto good;
-					} else {
-						cerr << "bad cycle at " << x << ' ' << y << '\n';
-						return false;
-					}
+					assert(num_filled != 7);
+					//cerr << "bad cycle at " << x << ' ' << y << '\n';
+					return false;
 				}
 			}
 
@@ -92,7 +91,7 @@ int main() {
 				if (comps[(i+2)%8] == comps[i] || comps[(i+6)%8] == comps[i]) {
 					// we're okay, and the above checks are enough
 				} else {
-					cerr << "bad oppo at " << x << ' ' << y << '\n';
+					//cerr << "bad oppo at " << x << ' ' << y << '\n';
 					return false;
 				}
 			}
