@@ -222,6 +222,8 @@ num solve(std::vector<num> A, int M) {
 	for (auto& v : tr) v *= -inv_leading_coeff;
 	assert(int(tr.size()) == 2 * int(vals.size()) - 2);
 
+	for (auto& v : vals) { cerr << v << ' '; } cerr << '\n';
+
 	int n = int(tr.size());
 	auto mod_tr = [&](std::vector<num>& r) -> void {
 		assert(int(r.size()) >= n);
