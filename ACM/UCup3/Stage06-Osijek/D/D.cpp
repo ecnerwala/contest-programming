@@ -66,7 +66,7 @@ int main() {
 		for (int i = 0; i < 8; i ++) {
 			auto [a, b] = neighbors[i];
 			int p = v(a, b);
-			comps[i] = filled[p] ? -1 : get_par(p);
+			comps[i] = filled[p] ? get_par(p) : -1;
 			cerr << i << ' ' << a << ',' << b << ' ' << comps[i] << '\n';
 		}
 		for (int i = 0; i < 8; i += 2) {
