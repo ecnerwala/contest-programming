@@ -31,6 +31,7 @@ int main() {
 		return true;
 	};
 	auto op = [&](int x, int y) -> bool {
+		cerr << "trying " << x << ' ' << y << '\n';
 		// check for 3x3
 		filled[v(x, y)] = true;
 		for (int dx = -1; dx <= 1; dx++) {
@@ -43,6 +44,7 @@ int main() {
 						}
 					}
 					if (cnt == 9) {
+						cerr << "bad 3x3 at " << x + dx << ' ' << y + dy << '\n';
 						filled[v(x, y)] = false;
 						return false;
 					}
@@ -79,6 +81,7 @@ int main() {
 						// we're okay
 						goto good;
 					} else {
+						cerr << "bad cycle at " << x << ' ' << y << '\n';
 						return false;
 					}
 				}
