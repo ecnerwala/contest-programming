@@ -67,6 +67,7 @@ int main() {
 			auto [a, b] = neighbors[i];
 			int p = v(a, b);
 			comps[i] = filled[p] ? -1 : get_par(p);
+			cerr << i << ' ' << a << ',' << b << ' ' << comps[i] << '\n';
 		}
 		for (int i = 0; i < 8; i += 2) {
 			if (comps[i] == -1) continue;
