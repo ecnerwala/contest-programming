@@ -149,25 +149,127 @@ public:
 	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
 };
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+template <typename T> T pow(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
 
-	using num = modnum<int(1e9)+7>;
-	int N, M; cin >> N >> M;
-	std::vector<num> A(N+1);
-	for (auto& a : A) cin >> a;
+template <typename num>
+std::vector<num> linearRec(const std::vector<num>& S, const std::vector<num>& tr, long long k) {
+	int n = int(tr.size());
+	assert(S.size() >= tr.size());
 
-	// we have up to n values
-	std::vector<num> vals(N+1);
+	auto combine = [&](std::vector<num> a, std::vector<num> b) {
+		std::vector<num> res(n * 2 + 1);
+		for (int i = 0; i <= n; i++) for (int j = 0; j <= n; j++) res[i + j] += a[i] * b[j];
+		for (int i = 2 * n; i > n; --i) for (int j = 0; j < n; j++)
+			res[i - 1 - j] += res[i] * tr[j];
+		res.resize(n + 1);
+		return res;
+	};
 
-	for (int i = 0; i <= N; i++) {
-		for (int j = i; j <= N; j++) {
+	std::vector<num> pol(n + 1), e(pol);
+	pol[0] = e[1] = 1;
+
+	for (++k; k; k /= 2) {
+		if (k % 2) pol = combine(pol, e);
+		e = combine(e, e);
+	}
+
+	pol.erase(pol.begin());
+	return pol;
+
+	/*
+	num res = 0;
+	for (int i = 0; i < n; i++) res += pol[i] * S[i];
+	return res;
+	*/
+}
+
+using num = modnum<int(1e9)+7>;
+
+using std::cerr;
+
+num fact(int M) {
+}
+
+num solve(std::vector<num> A, int M) {
+	std::vector<num> vals(A.size());
+	for (int i = 0; i < int(A.size()); i++) {
+		for (int j = i; j < int(A.size()); j++) {
 			vals[j-i] += A[i] * A[j];
 		}
 	}
 
-	for (int i = 0; i <= N; i++) cerr << vals[i] << '\n';
+	// min things down to M
+	if (int(vals.size()) > M) vals.resize(M);
+	while (!vals.empty() && vals.back() == 0) vals.pop_back();
+	if (vals.empty()) {
+		return 0;
+	}
+	assert(int(vals.size()) <= M);
+	assert(int(vals.size()) >= 1);
+
+	num leading_coeff = vals.back();
+	num inv_leading_coeff = inv(leading_coeff);
+
+	std::vector<num> tr; tr.reserve(int(vals.size()) * 2 - 2);
+	tr.insert(tr.end(), vals.rbegin() + 1, vals.rend());
+	tr.insert(tr.end(), vals.begin() + 1, vals.end());
+	for (auto& v : tr) v *= -inv_leading_coeff;
+	assert(int(tr.size()) == 2 * int(vals.size()) - 2);
+
+	int n = int(tr.size());
+	auto mod_tr = [&](std::vector<num>& r) -> void {
+		assert(int(r.size()) >= n);
+		for (int i = int(r.size())-1; i >= n; i--) {
+			for (int j = 0; j < n; j++) {
+				r[i-1-j] += r[i] * tr[j];
+			}
+		}
+		r.resize(n);
+	};
+	auto mul = [&](std::vector<num> a, std::vector<num> b, bool e = false) -> std::vector<num> {
+		std::vector<num> res(int(a.size()) + int(b.size()));
+		for (int i = 0; i < int(a.size()); i++) {
+			for (int j = 0; j < int(b.size()); j++) {
+				res[i + j + e] += a[i] * b[j];
+			}
+		}
+		mod_tr(res);
+		return res;
+	};
+
+	std::vector<num> pol(std::max(n, 1)), x(std::max(n, 2));
+	pol[0] = 1;
+	x[1] = 1;
+	mod_tr(pol);
+	mod_tr(x);
+	for (int i = 30; i >= 0; i--) {
+		pol = mul(pol, pol, (M >> i) & 1);
+	}
+	std::vector<num> id({num(1)});
+	std::vector<std::vector<num>> C; C.reserve(n);
+	for (int i = 0; i < n; i++) {
+		C.push_back(pol);
+		mul(pol, id, true);
+	}
+	C.erase(C.begin(), C.begin() + n/2);
+	for (int i = 0; i < n/2; i++) {
+		C[i].erase(C[i].begin(), C[i].begin() + n/2);
+	}
+	return kactl::det(C) * pow(leading_coeff, M) * pow(pow(num(-1), M), n/2);
+}
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, M; cin >> N >> M;
+	std::vector<num> A(N+1);
+	for (auto& a : A) cin >> a;
+
+	cout << solve(A, M) << '\n';
 
 	return 0;
 }
