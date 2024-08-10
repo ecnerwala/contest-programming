@@ -91,6 +91,7 @@ int main() {
 				if (comps[(i+2)%8] == comps[i] || comps[(i+6)%8] == comps[i]) {
 					// we're okay, and the above checks are enough
 				} else {
+					cerr << "bad oppo at " << x << ' ' << y << '\n';
 					return false;
 				}
 			}
