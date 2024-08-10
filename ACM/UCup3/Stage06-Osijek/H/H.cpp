@@ -129,15 +129,15 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		using num = modnum<998244353>;
-		int N; cin >> N;
 		std::string S; cin >> S;
-		assert(int(S.size()) == N);
+		int N = int(S.size());
 
 		// number of locations which point forwards/backwards
 		std::vector<num> dp(N+1);
 		std::vector<num> ndp(N+1);
 		dp[0] = 1;
 		for (char c : S) {
+			assert(c == '0' || c == '1');
 			std::fill(ndp.begin(), ndp.end(), num(0));
 			for (int i = 0; i <= N; i++) {
 				for (int out_back = 0; out_back < (i > 0); out_back++) {
