@@ -14,7 +14,7 @@ template <typename num> num det(vector<vector<num>>& a) {
 	int n = sz(a); num res = 1;
 	rep(i,0,n) {
 		int b = i;
-		rep(j,i+1,n) if (fabs(a[j][i]) > fabs(a[b][i])) b = j;
+		//rep(j,i+1,n) if (fabs(a[j][i]) > fabs(a[b][i])) b = j;
 		if (i != b) swap(a[i], a[b]), res *= -1;
 		res *= a[i][i];
 		if (res == 0) return 0;
