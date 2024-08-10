@@ -191,6 +191,7 @@ using num = modnum<int(1e9)+7>;
 using std::cerr;
 
 num fact(int M) {
+	// TODO
 	num r = 1;
 	for (int i = 1; i <= M; i++) r *= i;
 	return r;
@@ -222,7 +223,7 @@ num solve(std::vector<num> A, int M) {
 	for (auto& v : tr) v *= -inv_leading_coeff;
 	assert(int(tr.size()) == 2 * int(vals.size()) - 2);
 
-	for (auto& v : vals) { cerr << v << ' '; } cerr << '\n';
+	//for (auto& v : vals) { cerr << v << ' '; } cerr << '\n';
 
 	int n = int(tr.size());
 	auto mod_tr = [&](std::vector<num>& r) -> void {
@@ -259,12 +260,12 @@ num solve(std::vector<num> A, int M) {
 		C.push_back(pol);
 		pol = mul(pol, id, true);
 	}
-	for (const auto& r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
+	//for (const auto& r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
 	C.erase(C.begin(), C.begin() + n/2);
 	for (int i = 0; i < n/2; i++) {
 		C[i].erase(C[i].begin(), C[i].begin() + n/2);
 	}
-	for (const auto& r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
+	//for (const auto& r : C) { for (auto v : r) { cerr << v << ' '; } cerr << '\n'; } cerr << '\n';
 	return kactl::det(C) * pow(leading_coeff, M) * pow(pow(num(-1), M), n/2) * fact(M);
 }
 
