@@ -197,7 +197,6 @@ num fact(int M) {
 }
 
 num solve(std::vector<num> A, int M) {
-	if (M == 0) return num(1);
 	std::vector<num> vals(A.size());
 	for (int i = 0; i < int(A.size()); i++) {
 		for (int j = i; j < int(A.size()); j++) {
@@ -209,7 +208,7 @@ num solve(std::vector<num> A, int M) {
 	if (int(vals.size()) > M) vals.resize(M);
 	while (!vals.empty() && vals.back() == 0) vals.pop_back();
 	if (vals.empty()) {
-		return 0;
+		return M == 0 ? num(1) : num(0);
 	}
 	assert(int(vals.size()) <= M);
 	assert(int(vals.size()) >= 1);
