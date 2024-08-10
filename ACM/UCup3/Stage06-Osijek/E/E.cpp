@@ -198,11 +198,11 @@ void precomp() {
 	vals.push_back(f);
 	for (int i = 1; i <= N_BUCKET * BUCKET; i++) {
 		f *= num(i);
-		if (i <= N_BUCKET || i % BUCKET == 0) {
+		if (i % BUCKET == 0) {
 			vals.push_back(f);
 		}
 	}
-	//assert(int(vals.size()) == N_BUCKET+1);
+	assert(int(vals.size()) == N_BUCKET+1);
 	cerr << '{';
 	for (num v : vals) cerr << v << ',';
 	cerr << '}' << '\n';
