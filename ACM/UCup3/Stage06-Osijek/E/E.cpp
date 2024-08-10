@@ -206,7 +206,7 @@ num solve(std::vector<num> A, int M) {
 	}
 
 	// min things down to M
-	if (int(vals.size()) > M) vals.resize(M+1);
+	if (int(vals.size()) > M) vals.resize(M);
 	while (!vals.empty() && vals.back() == 0) vals.pop_back();
 	if (vals.empty()) {
 		return 0;
