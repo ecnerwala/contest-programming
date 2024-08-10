@@ -191,6 +191,9 @@ using num = modnum<int(1e9)+7>;
 using std::cerr;
 
 num fact(int M) {
+	num r = 1;
+	for (int i = 1; i <= M; i++) r *= i;
+	return r;
 }
 
 num solve(std::vector<num> A, int M) {
