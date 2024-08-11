@@ -183,33 +183,35 @@ int main() {
 		cerr << "Case " << N << ' ' << M << ' ' << L << ' ' << F << '\n';
 		assert(N <= M);
 		int64_t ans = 0;
-		assert(N >= 2);
-		int p = prv_prime[M];
-		int v_min = prv_prime[std::min(p-1, N)];
-		while (v_min > 1 && (M / v_min) != (p-1) / v_min) {
-			v_min = prv_prime[v_min-1];
-		}
-		int lo = p;
-		int hi = M;
-		std::vector<char> dp(N + 1 - v_min);
-		cerr << lo << '-' << hi << ' ' << v_min << '\n';
-		dp[v_min - v_min] = true;
-		for (int i = lo; i <= hi; i++) {
-			int max_legal = 0;
-			for (int v = v_min; v <= N; v++) {
-				if (dp[v - v_min] && std::gcd(v, i) == 1) {
-					max_legal = v;
-					if (v+1 <= N) dp[v - v_min + 1] = true;
-				} else {
-					assert(v != v_min);
-					dp[v - v_min] = false;
-				}
+		for (int z = 0; z < 2; z++, std::swap(N, M), std::swap(L, F)) {
+			int p = prv_prime[M];
+			int v_min = prv_prime[std::min(p-1, N)];
+			while (v_min > 1 && (M / v_min) != (p-1) / v_min) {
+				v_min = prv_prime[v_min-1];
 			}
-			assert(max_legal >= v_min);
-			cerr << max_legal << ' ' << i << '\n';
-			ans = std::max(ans, L * max_legal + F * i);
+			int lo = p;
+			int hi = M;
+			int v_max = std::min(M, N);
+			std::vector<char> dp(v_max - v_min);
+			cerr << lo << '-' << hi << ' ' << v_min << '\n';
+			dp[v_min - v_min] = true;
+			for (int i = lo; i <= hi; i++) {
+				int max_legal = 0;
+				for (int v = v_min; v <= v_max; v++) {
+					if (dp[v - v_min] && std::gcd(v, i) == 1) {
+						max_legal = v;
+						if (v+1 <= v_max) dp[v - v_min + 1] = true;
+					} else {
+						assert(v != v_min);
+						dp[v - v_min] = false;
+					}
+				}
+				assert(max_legal >= v_min);
+				cerr << max_legal << ' ' << i << '\n';
+				ans = std::max(ans, L * max_legal + F * i);
+			}
+			cerr << ans << '\n';
 		}
-		cerr << ans << '\n';
 		cout << ans << '\n';
 	}
 
