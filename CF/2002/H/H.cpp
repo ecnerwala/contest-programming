@@ -373,7 +373,7 @@ int main() {
 								int nl = l0 + l1 + 1;
 								int nc = c0 + 1;
 								int na0 = c1 - a1;
-								int na1 = l1 - a0;
+								int na1 = nl - l0a0 - 1;
 								assert(na1 >= 0);
 								assert(na1 == nl - l0a0 - 1);
 								if (na0 < 0) {
