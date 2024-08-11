@@ -417,6 +417,7 @@ int main() {
 						}
 					}
 				}
+
 				// add 1 + c0 to the length at the end
 				for (int lab = 0; lab <= N - c0 - 1; lab++) {
 					for (int gab = 0; gab <= (N - c0) / 2; gab++) {
