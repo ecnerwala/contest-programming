@@ -327,12 +327,12 @@ int main() {
 				}
 			}
 			for (int l0 = c0; l0 <= N; l0++) {
+				// could optimize further w/ prefix sums, but don't really need to
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = 0;
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
 						w += cur_dp[{l0, a0, a1}];
 					}
-					// could even precompute this
 					num o = 1;
 					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++, o *= num(m-1)) {
 						int nl = l0 + l1 + 1;
