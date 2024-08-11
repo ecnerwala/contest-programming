@@ -407,9 +407,9 @@ int main() {
 				tensor<num, 2> sum({N - c0, (N-c0)/2 + 1});
 				// TODO: CONVOLVE FAST!
 				for (int la = 0; la <= N - c0 - 1; la++) {
-					for (int ga = 0; ga <= la / 2 && ga <= (N - c0) / 2; ga++) {
+					for (int ga = 0; ga <= la / 2; ga++) {
 						for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
-							for (int gb = 0; gb <= lb / 2 && ga + gb <= (N - c0) / 2; gb++) {
+							for (int gb = 0; gb <= lb / 2; gb++) {
 								int lab = (la + lb);
 								int gab = (ga + gb);
 								sum[{lab, gab}] += lhs[{la, ga}] * rhs[{lb, gb}];
