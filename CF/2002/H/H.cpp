@@ -284,8 +284,8 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 	//const int N = 130;
-	const int N = 130;
-	const int M = 30;
+	const int N = 10;
+	const int M = 10;
 
 	// the main dp is:
 	// M, length, cost, max surplus, min surplus without paying
