@@ -332,8 +332,9 @@ int main() {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
 						w += cur_dp[{l0, a0, a1}];
 					}
-					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++) {
-						num o = pow(num(m-1), l1);
+					// could even precompute this
+					num o = 1;
+					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++, o *= num(m-1)) {
 						int nl = l0 + l1 + 1;
 						int nc = c0 + 1;
 						int na1 = l1 - ((a0 - 1) & 1);
