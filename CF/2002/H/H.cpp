@@ -387,7 +387,7 @@ int main() {
 			//
 			for (int l0a0 = c0; l0a0 <= 2 * N - c0; l0a0 += 2) {
 				// we now convolve pairs in coords of (len, gap), where len <= N - c0 - 1 and gap <= (N - c0)/2
-				tensor<num, 2> lhs({N - c0, (N-c0)/2});
+				tensor<num, 2> lhs({N - c0, (N-c0+1)/2});
 				for (int l0 = c0; l0 + 1 <= N; l0++) {
 					int a0 = l0a0 - l0;
 					if (0 <= a0 && a0 + c0 <= l0) {
@@ -397,14 +397,14 @@ int main() {
 						}
 					}
 				}
-				tensor<num, 2> rhs({N - c0, (N-c0)/2});
+				tensor<num, 2> rhs({N - c0, (N-c0+1)/2});
 				for (int l1 = 0; c0 + 1 + l1 <= N; l1++) {
 					for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 						num o = ans[{m-1, l1, c1}];
 						rhs[{l1, (l1 - c1) / 2}] += o;
 					}
 				}
-				tensor<num, 2> sum({N - c0, (N-c0)/2});
+				tensor<num, 2> sum({N - c0, (N-c0+1)/2});
 				// TODO: CONVOLVE FAST!
 				for (int la = 0; la <= N - c0 - 1; la++) {
 					for (int ga = 0; ga <= la / 2; ga++) {
