@@ -177,6 +177,7 @@ int main() {
 		}
 	}
 
+	cerr << "done sieve" << '\n';
 	std::vector<int> max_legal(V+1);
 	max_legal[1] = 1;
 	for (int z = 0; z < int(primes.size()); z++) {
@@ -192,9 +193,11 @@ int main() {
 					max_legal[i] = v;
 					dp[v - v_min + 1] = true;
 				} else {
+					assert(v != v_min);
 					dp[v - v_min] = false;
 				}
 			}
+			cerr << i << ' ' << max_legal[i] << '\n';
 		}
 	}
 
