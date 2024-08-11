@@ -284,8 +284,8 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 	//const int N = 130;
-	const int N = 10;
-	const int M = 10;
+	const int N = 130;
+	const int M = 30;
 
 	// the main dp is:
 	// M, length, cost, max surplus, min surplus without paying
@@ -327,7 +327,7 @@ int main() {
 				}
 			}
 			for (int l0 = c0; l0 <= N; l0++) {
-				// could optimize further w/ prefix/suffix sums, but don't really need to
+				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = 0;
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
