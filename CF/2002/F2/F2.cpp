@@ -185,7 +185,7 @@ int main() {
 		assert(N >= 2);
 		int p = prv_prime[M];
 		int v_min = prv_prime[std::min(p-1, N)];
-		while (v_min > 1 && (N / v_min) != (p-1) / v_min) {
+		while (v_min > 1 && (M / v_min) != (p-1) / v_min) {
 			v_min = prv_prime[v_min-1];
 		}
 		int lo = p;
@@ -197,7 +197,7 @@ int main() {
 			for (int v = v_min; v <= N; v++) {
 				if (dp[v - v_min] && std::gcd(v, i) == 1) {
 					max_legal = v;
-					if (v < N) dp[v - v_min + 1] = true;
+					if (v <= N) dp[v - v_min + 1] = true;
 				} else {
 					assert(v != v_min);
 					dp[v - v_min] = false;
