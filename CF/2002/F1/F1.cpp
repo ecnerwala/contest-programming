@@ -165,11 +165,11 @@ int main() {
 	std::vector<int> prv_prime(V+1);
 	prv_prime[0] = prv_prime[1] = 0;
 	for (int i = 2; i <= V; i++) {
-		prv_prime[i] = primes.empty() ? 1 : primes.back();
 		if (!pfac[i]) {
 			primes.push_back(i);
 			pfac[i] = i;
 		}
+		prv_prime[i] = int(primes.back());
 		for (int p : primes) {
 			if (int64_t(p) * int64_t(i) > V) break;
 			pfac[i * p] = p;
@@ -178,39 +178,36 @@ int main() {
 	}
 
 	cerr << "done sieve" << '\n';
-	std::vector<int> max_legal(V+1);
-	max_legal[1] = 1;
-	for (int z = 0; z < int(primes.size()); z++) {
-		int lo = primes[z];
-		int hi = (z+1 == int(primes.size()) ? V : primes[z+1] - 1);
-		int v_min = (z > 0 && hi < 2 * primes[z-1]) ? primes[z-1] : 1;
-		if (z >= 4) assert(v_min > 1);
+
+	int T; cin >> T;
+	while (T--) {
+		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
+		assert(N == M);
+		if (L > F) std::swap(L, F);
+		assert(L <= F);
+		int64_t ans = 0;
+		assert(N >= 2);
+		int p = prv_prime[N];
+		int v_min = (p > 2 && N < 2 * prv_prime[p-1]) ? prv_prime[p-1] : 1;
+		int lo = p;
+		int hi = N;
 		std::vector<bool> dp(hi + 1 - v_min);
 		dp[v_min - v_min] = true;
 		for (int i = lo; i <= hi; i++) {
+			int max_legal = 0;
 			for (int v = v_min; v < i; v++) {
 				if (dp[v - v_min] && std::gcd(v, i) == 1) {
-					max_legal[i] = v;
+					max_legal = v;
 					if (v+1 < i) dp[v - v_min + 1] = true;
 				} else {
 					assert(v != v_min);
 					dp[v - v_min] = false;
 				}
 			}
+			assert(max_legal >= v_min);
+			ans = std::max(ans, L * max_legal + F * i);
 		}
-	}
-	for (int i = 0; i < 0 + 100; i++) {
-		cerr << i << ' ' << max_legal[i] << '\n';
-	}
-	for (int i = 10000; i < 10000 + 100; i++) {
-		cerr << i << ' ' << max_legal[i] << '\n';
-	}
-
-	int T; cin >> T;
-	while (T--) {
-		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
-		assert(N == M);
-		cout << (L + F) * (N-1) + std::max(L, F) << '\n';
+		cout << ans << '\n';
 	}
 
 	return 0;
