@@ -197,7 +197,9 @@ int main() {
 					dp[v - v_min] = false;
 				}
 			}
-			cerr << i << ' ' << max_legal[i] << '\n';
+			if (i <= 10) {
+				cerr << i << ' ' << max_legal[i] << '\n';
+			}
 		}
 	}
 
