@@ -336,8 +336,6 @@ int main() {
 								} else if (na0 < 0) {
 									na0 = na1 & 1;
 								}
-								cerr << l0 << ' ' << c0 << ' ' << a0 << ' ' << a1 << ' ' << l1 << ' ' << c1 << '\n';
-								cerr << ' ' << nl << ' ' << nc << ' ' << na0 << ' ' << na1 << '\n';
 								cur_dp[{nl, nc, na0, na1}] += w * o;
 							}
 						}
