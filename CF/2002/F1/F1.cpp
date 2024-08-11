@@ -184,8 +184,19 @@ int main() {
 		int hi = (z+1 == int(primes.size()) ? V : primes[z+1] - 1);
 		int v_min = (z > 0 && hi < 2 * primes[z-1]) ? primes[z-1] : 1;
 		if (z >= 4) assert(v_min > 1);
+		std::vector<bool> dp(hi + 1 - v_min);
+		dp[v_min - v_min] = true;
+		for (int i = lo; i <= hi; i++) {
+			for (int v = v_min; v < i; v++) {
+				if (dp[v - v_min] && std::gcd(v, i) == 1) {
+					max_legal[i] = v;
+					dp[v - v_min + 1] = true;
+				} else {
+					dp[v - v_min] = false;
+				}
+			}
+		}
 	}
-	assert(max_legal[11] != 0);
 
 	int T; cin >> T;
 	while (T--) {
