@@ -339,30 +339,6 @@ int main() {
 								cur_dp[{nl, nc, na0, na1}] += w * o;
 							}
 						}
-						for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
-							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-								num o = ans[{m-1, l1, c1}];
-								if (o == 0) continue;
-								int nl = l0 + l1 + 1;
-								int nc = c0 + 1;
-								int na0 = c1 - a1;
-								int na1 = l1 - a0;
-								if (na1 < 0) {
-									na1 = l1 - ((a0 - 1) & 1);
-									nc++;
-									if (na1 < 0) {
-										assert(l1 == 0);
-										assert(!(a0 & 1));
-										na1 = l1 - ((a0 - 2) & 1);
-										nc++;
-									}
-									na0 = na1 & 1;
-								} else if (na0 < 0) {
-									na0 = na1 & 1;
-								}
-								cur_dp[{nl, nc, na0, na1}] += w * o;
-							}
-						}
 					}
 				}
 			}
