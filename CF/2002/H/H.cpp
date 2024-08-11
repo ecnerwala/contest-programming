@@ -407,6 +407,7 @@ int main() {
 				}
 				tensor<num, 2> sum({N - c0, (N-c0+1)/2});
 				// TODO: CONVOLVE FAST!
+				if (false)
 				for (int la = (l0a0 - c0 + 1) / 2; la <= std::min(N-1,l0a0) - c0; la++) {
 				//for (int la = 0; la <= N - c0 - 1; la++) {
 					for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
