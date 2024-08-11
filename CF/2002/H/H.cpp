@@ -310,10 +310,10 @@ int main() {
 				}
 			}
 
+			// update ans
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
-						// finish it off
 						num w = cur_dp[{l0, a0, a1}];
 						if (w == 0) continue;
 						if (a0 == 0) {
@@ -323,6 +323,13 @@ int main() {
 						} else {
 							ans[{m, l0, c0 + 2}] += w;
 						}
+					}
+				}
+			}
+			for (int l0 = c0; l0 <= N; l0++) {
+				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
+					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
+						num w = cur_dp[{l0, a0, a1}];
 						for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++) {
 							num o = 0;
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
@@ -341,6 +348,13 @@ int main() {
 							//int na0 = na1 & 1;
 							fail_dp[{nc, nl, na1}] += w * o;
 						}
+					}
+				}
+			}
+			for (int l0 = c0; l0 <= N; l0++) {
+				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
+					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
+						num w = cur_dp[{l0, a0, a1}];
 						for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 								num o = ans[{m-1, l1, c1}];
