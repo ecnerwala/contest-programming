@@ -351,7 +351,7 @@ int main() {
 
 			// This is the big thing to optimize: make this into a convolution
 			tensor<num, 3> nxt_dp({N+1, N+1, N+1});
-			if (false)
+			/*
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
@@ -381,6 +381,7 @@ int main() {
 					}
 				}
 			}
+			*/
 			// first, let's fix l0 + a0 so that we can get nl and na1 the same way
 			// l0 + a0 has to be the same parity as c0
 			//
@@ -404,23 +405,27 @@ int main() {
 						rhs[{l1, (l1 - c1) / 2}] += o;
 					}
 				}
+				tensor<num, 2> sum({N - c0, (N-c0)/2 + 1});
 				// add 1 + c0 to the length at the end
 				for (int la = 0; la <= N - c0 - 1; la++) {
 					for (int ga = 0; ga <= (N - c0) / 2; ga++) {
 						for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
-							for (int gb = 0; gb <= (N - c0) / 2; gb++) {
-								num w = lhs[{la, ga}] * rhs[{lb, gb}];
+							for (int gb = 0; ga + gb <= (N - c0) / 2; gb++) {
 								int lab = (la + lb);
 								int gab = (ga + gb);
-
-								int nl = lab + (1 + c0);
-								int na1 = nl - l0a0 - 1;
-								if (na1 < 0) continue;
-								int na0 = na1 - 2 * gab;
-								if (na0 < 0) na0 = na1 & 1;
-								nxt_dp[{nl, na0, na1}] += w;
+								sum[{lab, gab}] += lhs[{la, ga}] * rhs[{lb, gb}];
 							}
 						}
+					}
+				}
+				for (int lab = 0; lab <= N - c0 - 1; lab++) {
+					for (int gab = 0; gab <= (N - c0) / 2; gab++) {
+						int nl = lab + (1 + c0);
+						int na1 = nl - l0a0 - 1;
+						if (na1 < 0) continue;
+						int na0 = na1 - 2 * gab;
+						if (na0 < 0) na0 = na1 & 1;
+						nxt_dp[{nl, na0, na1}] += sum[{lab, gab}];
 					}
 				}
 			}
