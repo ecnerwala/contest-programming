@@ -371,7 +371,6 @@ int main() {
 								int gab = ga + gb;
 
 								int nl = l0 + l1 + 1;
-								int nc = c0 + 1;
 								int na0 = c1 - a1;
 								int na1 = nl - l0a0 - 1;
 								assert(na1 >= 0);
@@ -379,7 +378,6 @@ int main() {
 								if (na0 < 0) {
 									na0 = na1 & 1;
 								}
-								assert(nc == c0 + 1);
 								nxt_dp[{nl, na0, na1}] += w * o;
 							}
 						}
