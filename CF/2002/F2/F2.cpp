@@ -197,7 +197,7 @@ int main() {
 			for (int v = v_min; v <= N; v++) {
 				if (dp[v - v_min] && std::gcd(v, i) == 1) {
 					max_legal = v;
-					if (v <= N) dp[v - v_min + 1] = true;
+					if (v+1 <= N) dp[v - v_min + 1] = true;
 				} else {
 					assert(v != v_min);
 					dp[v - v_min] = false;
