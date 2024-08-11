@@ -298,15 +298,15 @@ int main() {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 				assert(0 <= l1 && l1 < N+1);
 				assert(0 <= c1 && c1 < N+1);
-				cur_dp[{l1, 0, c1, l1}] += ans[{m-1, l1, c1}];
+				cur_dp[{0, l1, c1, l1}] += ans[{m-1, l1, c1}];
 			}
 		}
-		for (int l0 = 0; l0 <= N; l0++) {
-			for (int c0 = 0; c0 <= l0; c0++) {
+		for (int c0 = 0; c0 <= N; c0++) {
+			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
 						// finish it off
-						num w = cur_dp[{l0, c0, a0, a1}];
+						num w = cur_dp[{c0, l0, a0, a1}];
 						if (w == 0) continue;
 						if (a0 == 0) {
 							ans[{m, l0, c0}] += w;
@@ -331,7 +331,7 @@ int main() {
 								nc++;
 							}
 							int na0 = na1 & 1;
-							cur_dp[{nl, nc, na0, na1}] += w * o;
+							cur_dp[{nc, nl, na0, na1}] += w * o;
 						}
 						for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
@@ -345,7 +345,7 @@ int main() {
 								if (na0 < 0) {
 									na0 = na1 & 1;
 								}
-								cur_dp[{nl, nc, na0, na1}] += w * o;
+								cur_dp[{nc, nl, na0, na1}] += w * o;
 							}
 						}
 					}
