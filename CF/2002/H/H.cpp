@@ -303,7 +303,6 @@ int main() {
 			}
 		}
 		for (int c0 = 0; c0 <= N; c0++) {
-			tensor<num, 3> nxt_dp({N+1, N+1, N+1});
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a1 = (l0 ^ c0) & 1; a1 + c0 <= l0; a1 += 2) {
 					cur_dp[{l0, a1 & 1, a1}] += fail_dp[{c0, l0, a1}];
@@ -315,7 +314,6 @@ int main() {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
 						num w = cur_dp[{l0, a0, a1}];
-						if (w == 0) continue;
 						if (a0 == 0) {
 							ans[{m, l0, c0}] += w;
 						} else if (a0 & 1) {
@@ -350,6 +348,10 @@ int main() {
 					}
 				}
 			}
+
+			// This is the big thing to optimize: make this into a convolution
+			tensor<num, 3> nxt_dp({N+1, N+1, N+1});
+			/*
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
@@ -368,6 +370,48 @@ int main() {
 								}
 								assert(nc == c0 + 1);
 								nxt_dp[{nl, na0, na1}] += w * o;
+							}
+						}
+					}
+				}
+			}
+			*/
+			// first, let's fix l0 + a0 so that we can get nl and na1 the same way
+			// l0 + a0 has to be the same parity as c0
+			for (int l0a0 = c0; l0a0 <= 2 * N - c0; l0a0 += 2) {
+				// we now convolve pairs in coords of (len, gap), where len <= N - c0 - 1 and gap <= (N - c0)/2
+				tensor<num, 2> lhs({N - c0, (N-c0)/2 + 1});
+				for (int l0 = c0; l0 + 1 <= N; l0++) {
+					int a0 = l0a0 - l0;
+					if (0 <= a0 && a0 + c0 <= l0) {
+						for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
+							num w = cur_dp[{l0, a0, a1}];
+							lhs[{l0 - c0, (a1 - a0) / 2}] += w;
+						}
+					}
+				}
+				tensor<num, 2> rhs({N - c0, (N-c0)/2 + 1});
+				for (int l1 = 0; c0 + 1 + l1 <= N; l1++) {
+					for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
+						num o = ans[{m-1, l1, c1}];
+						rhs[{l1, (l1 - c1) / 2}] += o;
+					}
+				}
+				// add 1 + c0 to the length at the end
+				for (int la = 0; la <= N - c0 - 1; la++) {
+					for (int ga = 0; ga <= (N - c0) / 2; ga++) {
+						for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
+							for (int gb = 0; gb <= (N - c0) / 2; gb++) {
+								num w = lhs[{la, ga}] * rhs[{lb, gb}];
+								int lab = (la + lb);
+								int gab = (ga + gb);
+
+								int nl = lab + (1 + c0);
+								int na1 = nl - l0a0 - 1;
+								if (na1 < 0) continue;
+								int na0 = na1 - gab;
+								if (na0 < 0) na0 = na1 & 1;
+								nxt_dp[{nl, na0, na1}] += w;
 							}
 						}
 					}
