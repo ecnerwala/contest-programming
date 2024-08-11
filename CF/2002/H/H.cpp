@@ -298,7 +298,7 @@ int main() {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 				assert(0 <= l1 && l1 < N+1);
 				assert(0 <= c1 && c1 < N+1);
-				cur_dp[{l1, c1, c1, l1}] += ans[{m-1, l1, c1}];
+				cur_dp[{l1, 0, c1, l1}] += ans[{m-1, l1, c1}];
 			}
 		}
 		for (int l0 = 0; l0 <= N; l0++) {
