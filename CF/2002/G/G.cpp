@@ -204,6 +204,7 @@ int main() {
 		dp[{0, 0}].push_back(0);
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; i+j < N-1; j++) {
+				cerr << i << ' ' << j << ' ' << dp[{i, j}].size() << '\n';
 				update(i, j, i+1, j, D[{i, j}]);
 				update(i, j, i, j+1, R[{i, j}]);
 			}
