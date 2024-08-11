@@ -289,7 +289,7 @@ int main() {
 
 	// the main dp is:
 	// M, length, cost, max surplus, min surplus without paying
-	tensor<num, 3> ans({M, N+1, N+1});
+	tensor<num, 3> ans({M+1, N+1, N+1});
 	ans[{0, 0, 0}] = num(1);
 	for (int m = 1; m <= M; m++) {
 		tensor<num, 4> cur_dp({N+1, N+1, N+1, N+1});
