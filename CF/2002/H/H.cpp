@@ -283,7 +283,6 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<int(1e9)+7>;
-	//const int N = 130;
 	const int N = 130;
 	const int M = 30;
 
@@ -315,7 +314,26 @@ int main() {
 						} else {
 							ans[{m, l0, c0 + 2}] += w;
 						}
-						for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
+						for (int l1 = 0; l0 < a0 && l0 + 1 + l1 <= N; l1++) {
+							num o = 0;
+							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
+								o += ans[{m-1, l1, c1}];
+							}
+							if (o == 0) continue;
+							int nl = l0 + l1 + 1;
+							int nc = c0 + 1;
+							int na1 = l1 - ((a0 - 1) & 1);
+							nc++;
+							if (na1 < 0) {
+								assert(l1 == 0);
+								assert(!(a0 & 1));
+								na1 = l1 - ((a0 - 2) & 1);
+								nc++;
+							}
+							int na0 = na1 & 1;
+							cur_dp[{nl, nc, na0, na1}] += w * o;
+						}
+						for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 								num o = ans[{m-1, l1, c1}];
 								if (o == 0) continue;
@@ -323,17 +341,8 @@ int main() {
 								int nc = c0 + 1;
 								int na0 = c1 - a1;
 								int na1 = l1 - a0;
-								if (na1 < 0) {
-									na1 = l1 - ((a0 - 1) & 1);
-									nc++;
-									if (na1 < 0) {
-										assert(l1 == 0);
-										assert(!(a0 & 1));
-										na1 = l1 - ((a0 - 2) & 1);
-										nc++;
-									}
-									na0 = na1 & 1;
-								} else if (na0 < 0) {
+								assert(na1 >= 0);
+								if (na0 < 0) {
 									na0 = na1 & 1;
 								}
 								cur_dp[{nl, nc, na0, na1}] += w * o;
