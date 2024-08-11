@@ -199,6 +199,12 @@ int main() {
 			}
 		}
 	}
+	for (int i = 0; i < 0 + 100; i++) {
+		cerr << i << ' ' << max_legal[i] << '\n';
+	}
+	for (int i = 10000; i < 10000 + 100; i++) {
+		cerr << i << ' ' << max_legal[i] << '\n';
+	}
 
 	int T; cin >> T;
 	while (T--) {
