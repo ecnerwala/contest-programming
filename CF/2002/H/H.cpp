@@ -354,8 +354,8 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int n, m; cin >> n >> m;
-		for (int k = 0; 2 * k <= n; k++) {
-			cout << ans[{m, n, n-2*k}] << " \n"[2*k+2 > n];
+		for (int k = 0; 2 * k < n; k++) {
+			cout << ans[{m, n, n-2*k}] << " \n"[2*k+2 >= n];
 		}
 	}
 
