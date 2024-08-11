@@ -306,7 +306,7 @@ int main() {
 			tensor<num, 3> nxt_dp({N+1, N+1, N+1});
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a1 = (l0 ^ c0) & 1; a1 + c0 <= l0; a1 += 2) {
-					cur_dp[{c0, l0, a1 & 1, a1}] += fail_dp[{c0, l0, a1}];
+					cur_dp[{l0, a1 & 1, a1}] += fail_dp[{c0, l0, a1}];
 				}
 			}
 
