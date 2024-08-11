@@ -302,7 +302,7 @@ int main() {
 		}
 		for (int l0 = 0; l0 <= N; l0++) {
 			for (int c0 = 0; c0 <= l0; c0++) {
-				for (int a0 = 0; a0 <= l0; a0++) {
+				for (int a0 = (l0 ^ c0) & 1; a0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 <= l0; a1 += 2) {
 						// finish it off
 						num w = cur_dp[{l0, c0, a0, a1}];
@@ -333,7 +333,6 @@ int main() {
 							int na0 = na1 & 1;
 							cur_dp[{nl, nc, na0, na1}] += w * o;
 						}
-						if (false)
 						for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 								num o = ans[{m-1, l1, c1}];
