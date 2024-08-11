@@ -159,35 +159,33 @@ public:
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	{
-		int N = 100;
-		tensor<bool, 2> poss({N+1, N+1});
-		poss[{0, 0}] = true;
-		for (int i = 0; i <= N; i++) {
-			for (int j = 0; j <= N; j++) {
-				if (std::gcd(i, j) > 1) poss[{i, j}] = false;
-				if (poss[{i, j}]) {
-					if (i < N) poss[{i+1, j}] = true;
-					if (j < N) poss[{i, j+1}] = true;
-				}
-			}
+	const int V = int(2e7) + 10;
+	std::vector<int> primes; primes.reserve(2e6);
+	std::vector<int> pfac(V+1);
+	std::vector<int> prv_prime(V+1);
+	prv_prime[0] = prv_prime[1] = 0;
+	for (int i = 2; i <= V; i++) {
+		prv_prime[i] = primes.empty() ? 1 : primes.back();
+		if (!pfac[i]) {
+			primes.push_back(i);
+			pfac[i] = i;
 		}
-		for (int i = 0; i <= N; i++) {
-			cerr << i/1000 % 10 << i/100%10 << i/10%10 << i/1%10 << ' ';
-			for (int j = 1; j < i; j++) {
-				cerr << poss[{i, j}];
-			}
-			cerr << '\n';
+		for (int p : primes) {
+			if (int64_t(p) * int64_t(i) > V) break;
+			pfac[i * p] = p;
+			if (p == pfac[i]) break;
 		}
-		exit(0);
 	}
 
+
+	/*
 	int T; cin >> T;
 	while (T--) {
 		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
 		assert(N == M);
 		cout << (L + F) * (N-1) + std::max(L, F) << '\n';
 	}
+	*/
 
 	return 0;
 }
