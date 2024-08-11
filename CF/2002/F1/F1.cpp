@@ -192,7 +192,6 @@ int main() {
 		int p = primes[z-1], q = primes[z];
 		int lo = q;
 		int hi = (z+1 == int(primes.size()) ? V : primes[z+1] - 1);
-		cerr << p << ' ' << q << ' ' << lo << ' ' << hi << '\n';
 		assert(hi < 2 * p);
 		// we know that all {p, q} is valid
 	}
