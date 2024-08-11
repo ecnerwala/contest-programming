@@ -296,6 +296,7 @@ int main() {
 		tensor<num, 4> cur_dp({N+1, N+1, N+1, N+1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
+				cerr << l1 << ' ' << c1 << '\n';
 				cur_dp[{l1, c1, c1, l1}] += ans[{m-1, l1, c1}];
 			}
 		}
