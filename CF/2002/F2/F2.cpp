@@ -192,7 +192,7 @@ int main() {
 			int lo = p;
 			int hi = M;
 			int v_max = std::min(M, N);
-			std::vector<char> dp(v_max - v_min);
+			std::vector<char> dp(v_max + 1 - v_min);
 			cerr << lo << '-' << hi << ' ' << v_min << '\n';
 			dp[v_min - v_min] = true;
 			for (int i = lo; i <= hi; i++) {
