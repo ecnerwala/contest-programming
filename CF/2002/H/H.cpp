@@ -353,6 +353,7 @@ int main() {
 								if (na0 < 0) {
 									na0 = na1 & 1;
 								}
+								assert(nc == c0 + 1);
 								nxt_dp[{nl, na0, na1}] += w * o;
 							}
 						}
