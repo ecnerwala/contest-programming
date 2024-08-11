@@ -180,7 +180,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
-		cerr << "Case " << N << ' ' << M << ' ' << L << ' ' << F << '\n';
+		//cerr << "Case " << N << ' ' << M << ' ' << L << ' ' << F << '\n';
 		assert(N <= M);
 		int64_t ans = 0;
 		for (int z = 0; z < 2; z++, std::swap(N, M), std::swap(L, F)) {
@@ -193,7 +193,7 @@ int main() {
 			int hi = M;
 			int v_max = std::min(M, N);
 			std::vector<char> dp(v_max + 1 - v_min);
-			cerr << lo << '-' << hi << ' ' << v_min << '\n';
+			//cerr << lo << '-' << hi << ' ' << v_min << '\n';
 			dp[v_min - v_min] = true;
 			for (int i = lo; i <= hi; i++) {
 				int max_legal = 0;
@@ -207,10 +207,10 @@ int main() {
 					}
 				}
 				assert(max_legal >= v_min);
-				cerr << max_legal << ' ' << i << '\n';
+				//cerr << max_legal << ' ' << i << '\n';
 				ans = std::max(ans, L * max_legal + F * i);
 			}
-			cerr << ans << '\n';
+			//cerr << ans << '\n';
 		}
 		cout << ans << '\n';
 	}
