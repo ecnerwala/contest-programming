@@ -337,6 +337,7 @@ int main() {
 						for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 							o += ans[{m-1, l1, c1}];
 						}
+						assert(o == pow(num(m-1), l1));
 						int nl = l0 + l1 + 1;
 						int nc = c0 + 1;
 						int na1 = l1 - ((a0 - 1) & 1);
