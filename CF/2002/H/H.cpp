@@ -420,7 +420,7 @@ int main() {
 
 				// add 1 + c0 to the length at the end
 				for (int lab = 0; lab <= N - c0 - 1; lab++) {
-					for (int gab = 0; gab <= (N - c0) / 2; gab++) {
+					for (int gab = 0; gab <= lab / 2; gab++) {
 						int nl = lab + (1 + c0);
 						int na1 = nl - l0a0 - 1;
 						if (na1 < 0) continue;
