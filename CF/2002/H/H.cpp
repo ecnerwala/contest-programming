@@ -351,7 +351,7 @@ int main() {
 
 			// This is the big thing to optimize: make this into a convolution
 			tensor<num, 3> nxt_dp({N+1, N+1, N+1});
-			/*
+			if (true)
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
@@ -375,10 +375,10 @@ int main() {
 					}
 				}
 			}
-			*/
 			// first, let's fix l0 + a0 so that we can get nl and na1 the same way
 			// l0 + a0 has to be the same parity as c0
 			//
+			if (false)
 			for (int l0a0 = c0; l0a0 <= 2 * N - c0; l0a0 += 2) {
 				// we now convolve pairs in coords of (len, gap), where len <= N - c0 - 1 and gap <= (N - c0)/2
 				tensor<num, 2> lhs({N - c0, (N-c0)/2 + 1});
