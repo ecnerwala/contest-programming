@@ -436,12 +436,7 @@ int main() {
 			}
 			cur_dp = std::move(nxt_dp);
 		}
-		for (int i = 0; i <= N; i++) {
-			for (int c = 0; c <= i; c++) {
-				cerr << ans[{m, i, c}] << ' ';
-			}
-			cerr << '\n';
-		}
+		//for (int i = 0; i <= N; i++) { for (int c = 0; c <= i; c++) { cerr << ans[{m, i, c}] << ' '; } cerr << '\n'; }
 	}
 
 	int T; cin >> T;
