@@ -177,15 +177,26 @@ int main() {
 		}
 	}
 
+	std::vector<int> max_legal(V+1);
+	max_legal[1] = 1;
+	max_legal[2] = 1;
+	max_legal[3] = 1;
+	max_legal[4] = 1;
+	for (int z = 2; z < int(primes.size()); z++) {
+		int p = primes[z-1], q = primes[z];
+		int lo = q;
+		int hi = (z+1 == int(primes.size()) ? V : primes[z+1] - 1);
+		assert(hi < 2 * p);
+		// we know that all {p, q} is valid
+	}
+	assert(max_legal[5] != 0);
 
-	/*
 	int T; cin >> T;
 	while (T--) {
 		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
 		assert(N == M);
 		cout << (L + F) * (N-1) + std::max(L, F) << '\n';
 	}
-	*/
 
 	return 0;
 }
