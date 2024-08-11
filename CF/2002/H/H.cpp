@@ -292,6 +292,7 @@ int main() {
 	tensor<num, 3> ans({M+1, N+1, N+1});
 	ans[{0, 0, 0}] = num(1);
 	for (int m = 1; m <= M; m++) {
+		cerr << "M = " << m << '\n';
 		tensor<num, 4> cur_dp({N+1, N+1, N+1, N+1});
 		cur_dp[{0, 0, 0, 0}] = num(1);
 		for (int l0 = 0; l0 <= N; l0++) {
@@ -335,6 +336,12 @@ int main() {
 					}
 				}
 			}
+		}
+		for (int i = 0; i <= N; i++) {
+			for (int c = 0; c <= i; c++) {
+				cerr << ans[{m, i, c}] << ' ';
+			}
+			cerr << '\n';
 		}
 	}
 
