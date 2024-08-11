@@ -305,6 +305,7 @@ int main() {
 						// finish it off
 						num w = cur_dp[{l0, c0, a0, a1}];
 						if (w == 0) continue;
+						assert(a1 + c0 <= l0);
 						if (a0 == 0) {
 							ans[{m, l0, c0}] += w;
 						} else if (a0 & 1) {
