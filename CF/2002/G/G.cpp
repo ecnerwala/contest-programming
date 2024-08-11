@@ -196,10 +196,13 @@ int main() {
 		auto update = [&](int old_i, int old_j, int new_i, int new_j, int v) {
 			auto& odp = dp[{old_i, old_j}];
 			auto& ndp = dp[{new_i, new_j}];
-			ndp.insert(ndp.end(), odp.begin(), odp.end());
-			for (auto u : odp) if (!(u & (int64_t(1) << v))) ndp.push_back(u | (int64_t(1) << v));
-			std::sort(ndp.begin(), ndp.end());
-			ndp.resize(std::unique(ndp.begin(), ndp.end()) - ndp.begin());
+			std::vector<int64_t> tmp; tmp.reserve(odp.size() + ndp.size());
+			std::set_union(odp.begin(), odp.end(), ndp.begin(), ndp.end(), std::back_inserter(tmp));
+			std::vector<int64_t> tmp_2; tmp_2.reserve(odp.size());
+			for (auto u : odp) if (!(u & (int64_t(1) << v))) tmp_2.push_back(u | (int64_t(1) << v));
+			ndp.clear();
+			ndp.reserve(tmp.size() + tmp_2.size());
+			std::set_union(tmp.begin(), tmp.end(), tmp_2.begin(), tmp_2.end(), std::inserter(ndp, ndp.end()));
 		};
 		dp[{0, 0}].push_back(0);
 		for (int i = 0; i < N; i++) {
