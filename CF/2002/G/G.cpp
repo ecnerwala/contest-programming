@@ -197,7 +197,7 @@ int main() {
 			auto& odp = dp[{old_i, old_j}];
 			auto& ndp = dp[{new_i, new_j}];
 			ndp.insert(ndp.end(), odp.begin(), odp.end());
-			for (auto u : odp) ndp.push_back(u | (int64_t(1) << v));
+			for (auto u : odp) if (!(u & (int64_t(1) << v))) ndp.push_back(u | (int64_t(1) << v));
 			std::sort(ndp.begin(), ndp.end());
 			ndp.resize(std::unique(ndp.begin(), ndp.end()) - ndp.begin());
 		};
