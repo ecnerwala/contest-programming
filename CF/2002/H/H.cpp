@@ -294,6 +294,7 @@ int main() {
 	for (int m = 1; m <= M; m++) {
 		cerr << "M = " << m << '\n';
 		tensor<num, 4> cur_dp({N+1, N+1, N+1, N+1});
+		tensor<num, 3> fail_dp({N+1, N+1, N+1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 				assert(0 <= l1 && l1 < N+1);
@@ -302,6 +303,12 @@ int main() {
 			}
 		}
 		for (int c0 = 0; c0 <= N; c0++) {
+			for (int l0 = c0; l0 <= N; l0++) {
+				for (int a1 = (l0 ^ c0) & 1; a1 + c0 <= l0; a1 += 2) {
+					cur_dp[{c0, l0, a1 & 1, a1}] += fail_dp[{c0, l0, a1}];
+				}
+			}
+
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
@@ -330,8 +337,8 @@ int main() {
 								na1 = l1 - ((a0 - 2) & 1);
 								nc++;
 							}
-							int na0 = na1 & 1;
-							cur_dp[{nc, nl, na0, na1}] += w * o;
+							//int na0 = na1 & 1;
+							fail_dp[{nc, nl, na1}] += w * o;
 						}
 						for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
