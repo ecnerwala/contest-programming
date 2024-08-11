@@ -333,11 +333,7 @@ int main() {
 						w += cur_dp[{l0, a0, a1}];
 					}
 					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++) {
-						num o = 0;
-						for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-							o += ans[{m-1, l1, c1}];
-						}
-						assert(o == pow(num(m-1), l1));
+						num o = pow(num(m-1), l1);
 						int nl = l0 + l1 + 1;
 						int nc = c0 + 1;
 						int na1 = l1 - ((a0 - 1) & 1);
