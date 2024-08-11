@@ -197,10 +197,9 @@ int main() {
 					dp[v - v_min] = false;
 				}
 			}
-			if (i <= 10) {
-				cerr << i << ' ' << max_legal[i] << '\n';
-			}
+			cerr << i << ' ' << max_legal[i] << '\n';
 		}
+		if (z >= 15) break;
 	}
 
 	int T; cin >> T;
