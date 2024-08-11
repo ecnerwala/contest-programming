@@ -25,7 +25,7 @@ int main() {
 					break;
 				}
 			}
-			cout << stk[0].first << '\n';
+			cout << stk[0].first << " \n"[i+1==N];
 		}
 	}
 
