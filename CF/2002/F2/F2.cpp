@@ -163,7 +163,7 @@ int main() {
 	std::vector<int> primes; primes.reserve(2e6);
 	std::vector<int> pfac(V+1);
 	std::vector<int> prv_prime(V+1);
-	prv_prime[0] = prv_prime[1] = 0;
+	prv_prime[0] = prv_prime[1] = 1;
 	for (int i = 2; i <= V; i++) {
 		if (!pfac[i]) {
 			primes.push_back(i);
@@ -177,12 +177,6 @@ int main() {
 		}
 	}
 
-	int max_gap = 0;
-	for (int i = 2; i <= V; i++) {
-		max_gap = std::max(max_gap, i - prv_prime[i]);
-	}
-	cerr << max_gap << '\n';
-
 	int T; cin >> T;
 	while (T--) {
 		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
@@ -190,7 +184,10 @@ int main() {
 		int64_t ans = 0;
 		assert(N >= 2);
 		int p = prv_prime[M];
-		int v_min = (p > 2 && N < 2 * prv_prime[p-1]) ? prv_prime[p-1] : 1;
+		int v_min = prv_prime[std::min(p-1, N)];
+		while (v_min > 1 && (N / v_min) != (p-1) / v_min) {
+			v_min = prv_prime[v_min-1];
+		}
 		int lo = p;
 		int hi = N;
 		std::vector<char> dp(hi + 1 - v_min);
