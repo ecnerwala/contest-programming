@@ -406,7 +406,6 @@ int main() {
 				}
 				tensor<num, 2> sum({N - c0, (N-c0)/2 + 1});
 				// TODO: CONVOLVE FAST!
-				if (false)
 				for (int la = 0; la <= N - c0 - 1; la++) {
 					for (int ga = 0; ga <= la / 2 && ga <= (N - c0) / 2; ga++) {
 						for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
