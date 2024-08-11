@@ -180,6 +180,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
+		cerr << "Case " << N << ' ' << M << ' ' << L << ' ' << F << '\n';
 		assert(N <= M);
 		int64_t ans = 0;
 		assert(N >= 2);
@@ -191,6 +192,7 @@ int main() {
 		int lo = p;
 		int hi = M;
 		std::vector<char> dp(N + 1 - v_min);
+		cerr << lo << '-' << hi << ' ' << v_min << '\n';
 		dp[v_min - v_min] = true;
 		for (int i = lo; i <= hi; i++) {
 			int max_legal = 0;
