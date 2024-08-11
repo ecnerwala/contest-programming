@@ -390,6 +390,8 @@ int main() {
 				tensor<num, 2> lhs({N - c0, (N-c0+1)/2});
 				for (int l0 = c0; l0 + 1 <= N; l0++) {
 					int a0 = l0a0 - l0;
+					// (l0a0 + c0) / 2 <= l0 && l0 <= std::min(N-1, l0a0)
+					// (l0a0 - c0) / 2 <= la && la <= std::min(N-1, l0a0) - c0
 					if (0 <= a0 && a0 + c0 <= l0) {
 						for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
 							num w = cur_dp[{l0, a0, a1}];
@@ -406,7 +408,8 @@ int main() {
 				}
 				tensor<num, 2> sum({N - c0, (N-c0+1)/2});
 				// TODO: CONVOLVE FAST!
-				for (int la = 0; la <= N - c0 - 1; la++) {
+				for (int la = (l0a0 - c0 + 1) / 2; la <= std::min(N-1,l0a0) - c0; la++) {
+				//for (int la = 0; la <= N - c0 - 1; la++) {
 					for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
 						for (int ga = 0; ga <= la / 2; ga++) {
 							for (int gb = 0; gb <= lb / 2; gb++) {
@@ -417,6 +420,7 @@ int main() {
 						}
 					}
 				}
+				// we only care about lab >= l0a0 - c0
 
 				// add 1 + c0 to the length at the end
 				for (int lab = 0; lab <= N - c0 - 1; lab++) {
