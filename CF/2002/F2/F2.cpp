@@ -208,6 +208,7 @@ int main() {
 			assert(max_legal >= v_min);
 			ans = std::max(ans, L * max_legal + F * i);
 		}
+		cerr << ans << '\n';
 		cout << ans << '\n';
 	}
 
