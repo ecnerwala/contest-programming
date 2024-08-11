@@ -314,6 +314,7 @@ int main() {
 						} else {
 							ans[{m, l0, c0 + 2}] += w;
 						}
+						if (false)
 						for (int l1 = 0; l0 < a0 && l0 + 1 + l1 <= N; l1++) {
 							num o = 0;
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
