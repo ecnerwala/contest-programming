@@ -285,7 +285,7 @@ int main() {
 	using num = modnum<int(1e9)+7>;
 	//const int N = 130;
 	const int N = 10;
-	const int M = 10;
+	const int M = 30;
 
 	// the main dp is:
 	// M, length, cost, max surplus, min surplus without paying
@@ -405,7 +405,7 @@ int main() {
 					}
 				}
 				tensor<num, 2> sum({N - c0, (N-c0)/2 + 1});
-				// add 1 + c0 to the length at the end
+				// TODO: CONVOLVE FAST!
 				for (int la = 0; la <= N - c0 - 1; la++) {
 					for (int ga = 0; ga <= (N - c0) / 2; ga++) {
 						for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
@@ -417,6 +417,7 @@ int main() {
 						}
 					}
 				}
+				// add 1 + c0 to the length at the end
 				for (int lab = 0; lab <= N - c0 - 1; lab++) {
 					for (int gab = 0; gab <= (N - c0) / 2; gab++) {
 						int nl = lab + (1 + c0);
