@@ -367,6 +367,9 @@ int main() {
 								int lb = l1;
 								int gb = (l1 - c1) / 2;
 
+								int lab = la + lb;
+								int gab = ga + gb;
+
 								int nl = l0 + l1 + 1;
 								int nc = c0 + 1;
 								int na0 = c1 - a1;
