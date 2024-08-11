@@ -295,8 +295,6 @@ int main() {
 		tensor<num, 4> cur_dp({N+1, N+1, N+1, N+1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-				assert(0 <= l1 && l1 < N+1);
-				assert(0 <= c1 && c1 < N+1);
 				cur_dp[{l1, 0, c1, l1}] += ans[{m-1, l1, c1}];
 			}
 		}
@@ -307,6 +305,7 @@ int main() {
 						// finish it off
 						num w = cur_dp[{l0, c0, a0, a1}];
 						if (w == 0) continue;
+						assert(a0 + c0 <= l0);
 						if (a0 == 0) {
 							ans[{m, l0, c0}] += w;
 						} else if (a0 & 1) {
