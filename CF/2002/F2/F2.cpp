@@ -189,15 +189,15 @@ int main() {
 			v_min = prv_prime[v_min-1];
 		}
 		int lo = p;
-		int hi = N;
-		std::vector<char> dp(hi + 1 - v_min);
+		int hi = M;
+		std::vector<char> dp(N + 1 - v_min);
 		dp[v_min - v_min] = true;
 		for (int i = lo; i <= hi; i++) {
 			int max_legal = 0;
-			for (int v = v_min; v < i; v++) {
+			for (int v = v_min; v <= N; v++) {
 				if (dp[v - v_min] && std::gcd(v, i) == 1) {
 					max_legal = v;
-					if (v+1 < i) dp[v - v_min + 1] = true;
+					if (v < N) dp[v - v_min + 1] = true;
 				} else {
 					assert(v != v_min);
 					dp[v - v_min] = false;
