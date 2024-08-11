@@ -202,7 +202,7 @@ int main() {
 			for (auto u : odp) if (!(u & (int64_t(1) << v))) tmp_2.push_back(u | (int64_t(1) << v));
 			ndp.clear();
 			ndp.reserve(tmp.size() + tmp_2.size());
-			std::set_union(tmp.begin(), tmp.end(), tmp_2.begin(), tmp_2.end(), std::inserter(ndp, ndp.end()));
+			std::set_union(tmp.begin(), tmp.end(), tmp_2.begin(), tmp_2.end(), std::back_inserter(ndp));
 		};
 		dp[{0, 0}].push_back(0);
 		for (int i = 0; i < N; i++) {
