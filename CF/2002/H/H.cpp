@@ -341,7 +341,7 @@ int main() {
 						if (na1 < 0) {
 							assert(l1 == 0);
 							assert(!(a0 & 1));
-							na1 = l1 - ((a0 - 2) & 1);
+							na1 = l1;
 							nc++;
 						}
 						//int na0 = na1 & 1;
