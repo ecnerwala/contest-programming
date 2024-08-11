@@ -22,7 +22,6 @@ protected:
 	int flatten_index_checked(std::array<int, NDIMS> idx) const {
 		int res = 0;
 		for (int i = 0; i < NDIMS; i++) {
-			std::cerr << "check " << i << '/' << NDIMS << ' ' << idx[i] << ' ' << shape[i] << '\n';
 			assert(0 <= idx[i] && idx[i] < shape[i]);
 			res += idx[i] * strides[i];
 		}
@@ -293,11 +292,9 @@ int main() {
 	tensor<num, 3> ans({M+1, N+1, N+1});
 	ans[{0, 0, 0}] = num(1);
 	for (int m = 1; m <= M; m++) {
-		cerr << "M = " << m << '\n';
 		tensor<num, 4> cur_dp({N+1, N+1, N+1, N+1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-				cerr << l1 << ' ' << c1 << '\n';
 				assert(0 <= l1 && l1 < N+1);
 				assert(0 <= c1 && c1 < N+1);
 				cur_dp[{l1, c1, c1, l1}] += ans[{m-1, l1, c1}];
