@@ -346,7 +346,6 @@ int main() {
 							nc++;
 						}
 						//int na0 = na1 & 1;
-						assert(nl - na1 == 0 || nl - na1 == 1);
 						fail_dp[{nc, nl, na1}] += w * o;
 					}
 				}
