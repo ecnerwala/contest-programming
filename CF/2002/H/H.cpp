@@ -360,11 +360,19 @@ int main() {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 								num o = ans[{m-1, l1, c1}];
 								if (o == 0) continue;
+
+								int l0a0 = l0 + a0;
+								int la = l0 - c0;
+								int ga = (a1 - a0) / 2;
+								int lb = l1;
+								int gb = (l1 - c1) / 2;
+
 								int nl = l0 + l1 + 1;
 								int nc = c0 + 1;
 								int na0 = c1 - a1;
 								int na1 = l1 - a0;
 								assert(na1 >= 0);
+								assert(na1 == nl - l0a0 - 1);
 								if (na0 < 0) {
 									na0 = na1 & 1;
 								}
