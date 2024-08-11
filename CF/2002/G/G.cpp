@@ -185,7 +185,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N-1; j++) {
 				if (TESTING) {
-					D[{i, j}] = std::uniform_int_distribution<int>(0, 2*N-2)(mt);
+					R[{i, j}] = std::uniform_int_distribution<int>(0, 2*N-2)(mt);
 				} else {
 					cin >> R[{i, j}];
 				}
