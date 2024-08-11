@@ -370,7 +370,7 @@ int main() {
 								int lab = la + lb;
 								int gab = ga + gb;
 
-								int nl = l0 + l1 + 1;
+								int nl = lab + 1 + c0;
 								int na0 = c1 - a1;
 								int na1 = nl - l0a0 - 1;
 								if (na1 < 0) continue;
