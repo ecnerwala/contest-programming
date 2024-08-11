@@ -293,16 +293,17 @@ int main() {
 	ans[{0, 0, 0}] = num(1);
 	for (int m = 1; m <= M; m++) {
 		cerr << "M = " << m << '\n';
-		tensor<num, 4> cur_dp({N+1, N+1, N+1, N+1});
+		tensor<num, 3> cur_dp({N+1, N+1, N+1});
 		tensor<num, 3> fail_dp({N+1, N+1, N+1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 				assert(0 <= l1 && l1 < N+1);
 				assert(0 <= c1 && c1 < N+1);
-				cur_dp[{0, l1, c1, l1}] += ans[{m-1, l1, c1}];
+				cur_dp[{l1, c1, l1}] += ans[{m-1, l1, c1}];
 			}
 		}
 		for (int c0 = 0; c0 <= N; c0++) {
+			tensor<num, 3> nxt_dp({N+1, N+1, N+1});
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a1 = (l0 ^ c0) & 1; a1 + c0 <= l0; a1 += 2) {
 					cur_dp[{c0, l0, a1 & 1, a1}] += fail_dp[{c0, l0, a1}];
@@ -313,7 +314,7 @@ int main() {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
 						// finish it off
-						num w = cur_dp[{c0, l0, a0, a1}];
+						num w = cur_dp[{l0, a0, a1}];
 						if (w == 0) continue;
 						if (a0 == 0) {
 							ans[{m, l0, c0}] += w;
@@ -352,12 +353,13 @@ int main() {
 								if (na0 < 0) {
 									na0 = na1 & 1;
 								}
-								cur_dp[{nc, nl, na0, na1}] += w * o;
+								nxt_dp[{nl, na0, na1}] += w * o;
 							}
 						}
 					}
 				}
 			}
+			cur_dp = std::move(nxt_dp);
 		}
 		for (int i = 0; i <= N; i++) {
 			for (int c = 0; c <= i; c++) {
