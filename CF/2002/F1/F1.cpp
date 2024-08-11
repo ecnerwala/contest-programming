@@ -196,7 +196,9 @@ int main() {
 					assert(v != v_min);
 					dp[v - v_min] = false;
 				}
+				cerr << dp[v-v_min];
 			}
+			cerr << '\n';
 			cerr << i << ' ' << max_legal[i] << '\n';
 		}
 		if (z >= 15) break;
