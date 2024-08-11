@@ -173,11 +173,13 @@ int main() {
 			}
 		}
 		for (int i = 0; i <= N; i++) {
-			for (int j = 0; j <= i; j++) {
+			cerr << i/1000 % 10 << i/100%10 << i/10%10 << i/1%10 << ' ';
+			for (int j = 1; j < i; j++) {
 				cerr << poss[{i, j}];
 			}
 			cerr << '\n';
 		}
+		exit(0);
 	}
 
 	int T; cin >> T;
