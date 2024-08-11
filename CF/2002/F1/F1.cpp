@@ -179,21 +179,11 @@ int main() {
 
 	std::vector<int> max_legal(V+1);
 	max_legal[1] = 1;
-	max_legal[2] = 1;
-	max_legal[3] = 2;
-	max_legal[4] = 1;
-	max_legal[5] = 4;
-	max_legal[6] = 1;
-	max_legal[7] = 6;
-	max_legal[8] = 5;
-	max_legal[9] = 5;
-	max_legal[10] = 1;
-	for (int z = 4; z < int(primes.size()); z++) {
-		int p = primes[z-1], q = primes[z];
-		int lo = q;
+	for (int z = 0; z < int(primes.size()); z++) {
+		int lo = primes[z];
 		int hi = (z+1 == int(primes.size()) ? V : primes[z+1] - 1);
-		assert(hi < 2 * p);
-		// we know that all {p, q} is valid
+		int v_min = (z > 0 && hi < 2 * primes[z-1]) ? primes[z-1] : 1;
+		if (z >= 4) assert(v_min > 1);
 	}
 	assert(max_legal[11] != 0);
 
