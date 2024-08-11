@@ -371,8 +371,8 @@ int main() {
 								int gab = ga + gb;
 
 								int nl = lab + 1 + c0;
-								int na0 = c1 - a1;
 								int na1 = nl - l0a0 - 1;
+								int na0 = na1 - gab;
 								if (na1 < 0) continue;
 								if (na0 < 0) na0 = na1 & 1;
 								nxt_dp[{nl, na0, na1}] += w * o;
