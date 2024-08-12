@@ -357,7 +357,6 @@ int main() {
 						for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 								num o = ans[{m-1, l1, c1}];
-								if (o == 0) continue;
 
 								int l0a0 = l0 + a0;
 								int la = l0 - c0;
