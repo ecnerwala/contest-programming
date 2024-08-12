@@ -383,7 +383,6 @@ int main() {
 			// first, let's fix l0 + a0 so that we can get nl and na1 the same way
 			// l0 + a0 has to be the same parity as c0
 			//
-			if (false)
 			for (int l0a0 = c0; l0a0 <= 2 * N - c0; l0a0 += 2) {
 				// we now convolve pairs in coords of (len, gap), where len <= N - c0 - 1 and gap <= (N - c0)/2
 				tensor<num, 2> lhs({N - c0, (N-c0+1)/2});
