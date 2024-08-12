@@ -354,7 +354,7 @@ int main() {
 				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
 						num w = cur_dp[{l0, a0, a1}];
-						for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
+						for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
 							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 								num o = ans[{m-1, l1, c1}];
 
