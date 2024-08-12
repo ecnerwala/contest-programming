@@ -350,29 +350,31 @@ int main() {
 
 			// This is the big thing to optimize: make this into a convolution
 			tensor<num, 3> nxt_dp({N+1, N+1, N+1});
-			for (int l0 = c0; l0 <= N; l0++) {
-				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
-					for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
-						num w = cur_dp[{l0, a0, a1}];
-						for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
-							for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-								num o = ans[{m-1, l1, c1}];
+			if constexpr (false) {
+				for (int l0 = c0; l0 <= N; l0++) {
+					for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
+						for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
+							num w = cur_dp[{l0, a0, a1}];
+							for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
+								for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
+									num o = ans[{m-1, l1, c1}];
 
-								int l0a0 = l0 + a0;
-								int la = l0 - c0;
-								int ga = (a1 - a0) / 2;
-								int lb = l1;
-								int gb = (l1 - c1) / 2;
+									int l0a0 = l0 + a0;
+									int la = l0 - c0;
+									int ga = (a1 - a0) / 2;
+									int lb = l1;
+									int gb = (l1 - c1) / 2;
 
-								int lab = la + lb;
-								int gab = ga + gb;
+									int lab = la + lb;
+									int gab = ga + gb;
 
-								int nl = lab + 1 + c0;
-								int na1 = nl - l0a0 - 1;
-								int na0 = na1 - 2 * gab;
-								if (na1 < 0) continue;
-								if (na0 < 0) na0 = na1 & 1;
-								nxt_dp[{nl, na0, na1}] += w * o;
+									int nl = lab + 1 + c0;
+									int na1 = nl - l0a0 - 1;
+									int na0 = na1 - 2 * gab;
+									if (na1 < 0) continue;
+									if (na0 < 0) na0 = na1 & 1;
+									nxt_dp[{nl, na0, na1}] += w * o;
+								}
 							}
 						}
 					}
