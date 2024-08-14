@@ -335,7 +335,7 @@ int main() {
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = cur_dp_lo[{l0, a0}] * pow(num(m-1), a0);
 					int e = l0 + 1 + a0;
-					nxt_dp_hi[{e, 0}] = w;
+					nxt_dp_hi[{e, 0}] += w;
 				}
 			}
 			for (int nl = c0 + 1; nl + 1 <= N; nl++) {
