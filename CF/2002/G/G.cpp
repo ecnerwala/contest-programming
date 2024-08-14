@@ -264,6 +264,7 @@ int main() {
 				self(x, y-1, v | (uint64_t(1) << R[{x, y-1}]));
 			}
 		})(N-1, N-1, 0);
+		cout << ans << '\n';
 	}
 
 	return 0;
