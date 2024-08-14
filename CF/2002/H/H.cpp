@@ -334,34 +334,31 @@ int main() {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = cur_dp_lo[{l0, a0}];
-					for (int l1 = 0; l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
+					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
 						int nl = l0 + l1 + 1;
 						int nc = c0 + 1;
-						int na1 = l1 - a0;
-						if (l1 < a0) {
-							na1 = l1 - ((a0 - 1) & 1);
+						int na1 = l1 - ((a0 - 1) & 1);
+						nc++;
+						if (na1 < 0) {
+							assert(l1 == 0);
+							assert(!(a0 & 1));
+							na1 = l1;
 							nc++;
-							if (na1 < 0) {
-								assert(l1 == 0);
-								assert(!(a0 & 1));
-								na1 = l1;
-								nc++;
-							}
-							//int na0 = na1 & 1;
-							fail_dp[{nc, nl, na1}] += w;
-							// subtract from nxt_dp_lo
-							nxt_dp_lo[{nl, (l1 - a0) & 1}] -= w;
 						}
+						//int na0 = na1 & 1;
+						fail_dp[{nc, nl, na1}] += w;
+						// subtract from nxt_dp_lo
+						nxt_dp_lo[{nl, (l1 - a0) & 1}] -= w;
 					}
 				}
 			}
 
 			for (int l0 = c0; l0 <= N; l0++) {
-				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = cur_dp_lo[{l0, a0}] * pow(num(m-1), a0);
 					int e = l0 + 1 + a0;
 					for (int na1 = 0; na1 + e <= N; na1++, w *= num(m-1)) {
+						// na1 == l1 - a0
 						nxt_dp_hi[{e + na1, na1}] += w;
 					}
 				}
