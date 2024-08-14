@@ -1,4 +1,48 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
+struct splitmix64_hash {
+	static uint64_t splitmix64(uint64_t x) {
+		// http://xorshift.di.unimi.it/splitmix64.c
+		x += 0x9e3779b97f4a7c15;
+		x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+		x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+		return x ^ (x >> 31);
+	}
+
+	size_t operator()(uint64_t x) const {
+		static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
+		return splitmix64(x + FIXED_RANDOM);
+	}
+};
+
+template <typename K, typename V, typename Hash = splitmix64_hash>
+using hash_map = __gnu_pbds::gp_hash_table<K, V, Hash>;
+
+template <typename K, typename Hash = splitmix64_hash>
+using hash_set = hash_map<K, __gnu_pbds::null_type, Hash>;
 
 template <typename T, int NDIMS> struct tensor_view {
 	static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
@@ -192,26 +236,34 @@ int main() {
 			}
 		}
 
-		tensor<std::vector<int64_t>, 2> dp({N, N});
-		auto update = [&](int old_i, int old_j, int new_i, int new_j, int v) {
-			auto& odp = dp[{old_i, old_j}];
-			auto& ndp = dp[{new_i, new_j}];
-			std::vector<int64_t> tmp; tmp.reserve(odp.size() + ndp.size());
-			std::set_union(odp.begin(), odp.end(), ndp.begin(), ndp.end(), std::back_inserter(tmp));
-			std::vector<int64_t> tmp_2; tmp_2.reserve(odp.size());
-			for (auto u : odp) if (!(u & (int64_t(1) << v))) tmp_2.push_back(u | (int64_t(1) << v));
-			ndp.clear();
-			ndp.reserve(tmp.size() + tmp_2.size());
-			std::set_union(tmp.begin(), tmp.end(), tmp_2.begin(), tmp_2.end(), std::back_inserter(ndp));
-		};
-		dp[{0, 0}].push_back(0);
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; i+j < N-1; j++) {
-				cerr << i << ' ' << j << ' ' << dp[{i, j}].size() << '\n';
-				update(i, j, i+1, j, D[{i, j}]);
-				update(i, j, i, j+1, R[{i, j}]);
+		// round a little higher
+		const int MD = 2 * N / 3;
+		std::vector<hash_set<uint64_t>> maps;
+		std::y_combinator([&](auto self, int x, int y, bool can_skip_right, uint64_t v) -> void {
+			if (x + y == MD) {
+				maps[x].insert(v);
+				return;
 			}
-		}
+			// if we move down, we can't go right anymore (to keep paths canonical)
+			self(x+1, y, false, v);
+			self(x+1, y, true, v | (uint64_t(1) << D[{x, y}]));
+			if (can_skip_right) self(x, y+1, true, v);
+			self(x, y+1, true, v | (uint64_t(1) << R[{x, y}]));
+		})(0, 0, true, 0);
+
+		int ans = 0;
+		std::y_combinator([&](auto self, int x, int y, uint64_t v) -> void {
+			if (x + y == MD) {
+				while (maps[x].find((~v) & (uint64_t(1) << (ans + 1)) - 1) != maps[x].end()) ans++;
+				return;
+			}
+			if (x > 0) {
+				self(x-1, y, v | (uint64_t(1) << D[{x-1, y}]));
+			}
+			if (y > 0) {
+				self(x, y-1, v | (uint64_t(1) << R[{x, y-1}]));
+			}
+		})(N-1, N-1, 0);
 	}
 
 	return 0;
