@@ -293,8 +293,8 @@ int main() {
 	for (int m = 1; m <= M; m++) {
 		cerr << "M = " << m << '\n';
 		//tensor<num, 3> cur_dp({N+1, N+1, N+1});
-		tensor<num, 3> cur_dp_lo({N+1, N+1});
-		tensor<num, 3> cur_dp_hi({N+1, N+1});
+		tensor<num, 2> cur_dp_lo({N+1, N+1});
+		tensor<num, 2> cur_dp_hi({N+1, N+1});
 		tensor<num, 3> fail_dp({N+1, N+1, N+1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
@@ -328,8 +328,8 @@ int main() {
 				}
 			}
 
-			tensor<num, 3> nxt_dp_lo({N+1, N+1});
-			tensor<num, 3> nxt_dp_hi({N+1, N+1});
+			tensor<num, 2> nxt_dp_lo({N+1, N+1});
+			tensor<num, 2> nxt_dp_hi({N+1, N+1});
 
 			for (int l0 = c0; l0 <= N; l0++) {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
