@@ -254,7 +254,7 @@ int main() {
 		int ans = 0;
 		std::y_combinator([&](auto self, int x, int y, uint64_t v) -> void {
 			if (x + y == MD) {
-				while (maps[x].find((~v) & (uint64_t(1) << (ans + 1)) - 1) != maps[x].end()) ans++;
+				while (maps[x].find((~v) & ((uint64_t(1) << (ans + 1)) - 1)) != maps[x].end()) ans++;
 				return;
 			}
 			if (x > 0) {
