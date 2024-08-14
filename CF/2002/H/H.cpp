@@ -283,7 +283,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<int(1e9)+7>;
-	const int N = 10;
+	const int N = 130;
 	const int M = 30;
 
 	// the main dp is:
