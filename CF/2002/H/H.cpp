@@ -354,7 +354,7 @@ int main() {
 							//int na0 = na1 & 1;
 							fail_dp[{nc, nl, na1}] += w;
 							// subtract from nxt_dp_lo
-							nxt_dp_lo[{nl, na1 & 1}] -= w;
+							nxt_dp_lo[{nl, (l1 - a0) & 1}] -= w;
 							acc_lo -= w;
 						} else {
 							nxt_dp_hi[{nl, na1}] += w;
