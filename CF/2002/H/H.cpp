@@ -339,8 +339,8 @@ int main() {
 				}
 			}
 			for (int nl = c0 + 1; nl + 1 <= N; nl++) {
-				for (int na1 = nl & 1; na1 <= nl; na1 += 2) {
-					nxt_dp_hi[{nl + 1, na1 + 1}] = nxt_dp_hi[{nl, na1}] * num(m-1);
+				for (int na1 = nl & 1; na1 <= nl; na1 ++) {
+					nxt_dp_hi[{nl + 1, na1 + 1}] += nxt_dp_hi[{nl, na1}] * num(m-1);
 				}
 			}
 
