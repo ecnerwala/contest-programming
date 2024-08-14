@@ -334,39 +334,29 @@ int main() {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = cur_dp_lo[{l0, a0}];
-					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
+					for (int l1 = 0; l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
 						int nl = l0 + l1 + 1;
 						int nc = c0 + 1;
-						assert(l1 - a0 < 0);
-						int na1 = l1 - ((a0 - 1) & 1);
-						nc++;
-						if (na1 < 0) {
-							assert(l1 == 0);
-							assert(!(a0 & 1));
-							na1 = l1;
-							nc++;
-						}
-						//int na0 = na1 & 1;
-						fail_dp[{nc, nl, na1}] += w;
-						// subtract from nxt_dp_lo
-						nxt_dp_lo[{nl, (l1 - a0) & 1}] -= w;
-					}
-				}
-			}
-
-			for (int l0 = c0; l0 <= N; l0++) {
-				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
-				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
-					num w = cur_dp_lo[{l0, a0}];
-					for (int l1 = a0; l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
-						int nl = l0 + l1 + 1;
 						int na1 = l1 - a0;
-						assert(na1 >= 0);
-						nxt_dp_hi[{nl, na1}] += w;
+						if (na1 < 0) {
+							na1 = l1 - ((a0 - 1) & 1);
+							nc++;
+							if (na1 < 0) {
+								assert(l1 == 0);
+								assert(!(a0 & 1));
+								na1 = l1;
+								nc++;
+							}
+							//int na0 = na1 & 1;
+							fail_dp[{nc, nl, na1}] += w;
+							// subtract from nxt_dp_lo
+							nxt_dp_lo[{nl, (l1 - a0) & 1}] -= w;
+						} else {
+							nxt_dp_hi[{nl, na1}] += w;
+						}
 					}
 				}
 			}
-
 			for (int l0 = c0; l0 <= N; l0++) {
 				// TODO: This is 2D convolution, could optimize down
 				for (int a1 = l0 - c0; a1 >= 0; a1 -= 2) {
