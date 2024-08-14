@@ -374,11 +374,11 @@ int main() {
 			}
 
 			// This is the big thing to optimize: make this into a convolution
-			if constexpr (false) {
+			/*
 				for (int l0 = c0; l0 <= N; l0++) {
 					for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
 						for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
-							num w = cur_dp[{l0, a0, a1}];
+							num w = 0; //cur_dp[{l0, a0, a1}];
 							for (int l1 = a0; l0 + 1 + l1 <= N; l1++) {
 								for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
 									num o = ans[{m-1, l1, c1}];
@@ -397,65 +397,66 @@ int main() {
 									int na0 = na1 - 2 * gab;
 									if (na1 < 0) continue;
 									if (na0 < 0) na0 = na1 & 1;
-									nxt_dp[{nl, na0, na1}] += w * o;
+									//nxt_dp[{nl, na0, na1}] += w * o;
 								}
 							}
 						}
 					}
 				}
-			// first, let's fix l0 + a0 so that we can get nl and na1 the same way
-			// l0 + a0 has to be the same parity as c0
-			//
-			for (int l0a0 = c0; l0a0 <= 2 * N - c0; l0a0 += 2) {
-				// we now convolve pairs in coords of (len, gap), where len <= N - c0 - 1 and gap <= (N - c0)/2
-				tensor<num, 2> lhs({N - c0, (N-c0+1)/2});
-				for (int l0 = c0; l0 + 1 <= N; l0++) {
-					int a0 = l0a0 - l0;
-					// (l0a0 + c0) / 2 <= l0 && l0 <= std::min(N-1, l0a0)
-					// (l0a0 - c0) / 2 <= la && la <= std::min(N-1, l0a0) - c0
-					if (0 <= a0 && a0 + c0 <= l0) {
-						for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
-							num w = cur_dp[{l0, a0, a1}];
-							lhs[{l0 - c0, (a1 - a0) / 2}] += w;
-						}
-					}
-				}
-				tensor<num, 2> rhs({N - c0, (N-c0+1)/2});
-				for (int l1 = 0; c0 + 1 + l1 <= N; l1++) {
-					for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-						num o = ans[{m-1, l1, c1}];
-						rhs[{l1, (l1 - c1) / 2}] += o;
-					}
-				}
-				tensor<num, 2> sum({N - c0, (N-c0+1)/2});
-				// TODO: CONVOLVE FAST!
-				for (int la = (l0a0 - c0 + 1) / 2; la <= std::min(N-1,l0a0) - c0; la++) {
-				//for (int la = 0; la <= N - c0 - 1; la++) {
-					for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
-						for (int ga = 0; ga <= la / 2; ga++) {
-							for (int gb = 0; gb <= lb / 2; gb++) {
-								int lab = (la + lb);
-								int gab = (ga + gb);
-								sum[{lab, gab}] += lhs[{la, ga}] * rhs[{lb, gb}];
+				// first, let's fix l0 + a0 so that we can get nl and na1 the same way
+				// l0 + a0 has to be the same parity as c0
+				//
+				for (int l0a0 = c0; l0a0 <= 2 * N - c0; l0a0 += 2) {
+					// we now convolve pairs in coords of (len, gap), where len <= N - c0 - 1 and gap <= (N - c0)/2
+					tensor<num, 2> lhs({N - c0, (N-c0+1)/2});
+					for (int l0 = c0; l0 + 1 <= N; l0++) {
+						int a0 = l0a0 - l0;
+						// (l0a0 + c0) / 2 <= l0 && l0 <= std::min(N-1, l0a0)
+						// (l0a0 - c0) / 2 <= la && la <= std::min(N-1, l0a0) - c0
+						if (0 <= a0 && a0 + c0 <= l0) {
+							for (int a1 = a0; a1 + c0 <= l0; a1 += 2) {
+								num w = cur_dp[{l0, a0, a1}];
+								lhs[{l0 - c0, (a1 - a0) / 2}] += w;
 							}
 						}
 					}
-				}
-				// we only care about lab >= l0a0 - c0
+					tensor<num, 2> rhs({N - c0, (N-c0+1)/2});
+					for (int l1 = 0; c0 + 1 + l1 <= N; l1++) {
+						for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
+							num o = ans[{m-1, l1, c1}];
+							rhs[{l1, (l1 - c1) / 2}] += o;
+						}
+					}
+					tensor<num, 2> sum({N - c0, (N-c0+1)/2});
+					// TODO: CONVOLVE FAST!
+					for (int la = (l0a0 - c0 + 1) / 2; la <= std::min(N-1,l0a0) - c0; la++) {
+					//for (int la = 0; la <= N - c0 - 1; la++) {
+						for (int lb = 0; la + lb <= N - c0 - 1; lb++) {
+							for (int ga = 0; ga <= la / 2; ga++) {
+								for (int gb = 0; gb <= lb / 2; gb++) {
+									int lab = (la + lb);
+									int gab = (ga + gb);
+									sum[{lab, gab}] += lhs[{la, ga}] * rhs[{lb, gb}];
+								}
+							}
+						}
+					}
+					// we only care about lab >= l0a0 - c0
 
-				// add 1 + c0 to the length at the end
-				for (int lab = 0; lab <= N - c0 - 1; lab++) {
-					for (int gab = 0; gab <= lab / 2; gab++) {
-						int nl = lab + (1 + c0);
-						int na1 = nl - l0a0 - 1;
-						if (na1 < 0) continue;
-						int na0 = na1 - 2 * gab;
-						if (na0 < 0) na0 = na1 & 1;
-						nxt_dp[{nl, na0, na1}] += sum[{lab, gab}];
+					// add 1 + c0 to the length at the end
+					for (int lab = 0; lab <= N - c0 - 1; lab++) {
+						for (int gab = 0; gab <= lab / 2; gab++) {
+							int nl = lab + (1 + c0);
+							int na1 = nl - l0a0 - 1;
+							if (na1 < 0) continue;
+							int na0 = na1 - 2 * gab;
+							if (na0 < 0) na0 = na1 & 1;
+							nxt_dp[{nl, na0, na1}] += sum[{lab, gab}];
+						}
 					}
 				}
 			}
-			}
+			*/
 			//cur_dp = std::move(nxt_dp);
 			cur_dp_lo = std::move(nxt_dp_lo);
 			cur_dp_hi = std::move(nxt_dp_hi);
