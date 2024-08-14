@@ -238,7 +238,7 @@ int main() {
 
 		// round a little higher
 		const int MD = 2 * N / 3;
-		std::vector<hash_set<uint64_t>> maps;
+		std::vector<hash_set<uint64_t>> maps(MD+1);
 		std::y_combinator([&](auto self, int x, int y, bool can_skip_right, uint64_t v) -> void {
 			if (x + y == MD) {
 				maps[x].insert(v);
