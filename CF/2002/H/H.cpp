@@ -381,6 +381,7 @@ int main() {
 					sum_hi += nxt_dp_hi[{l0, a0}];
 				}
 			}
+			cerr << sum_lo << ' ' << sum_hi << '\n';
 			assert(sum_lo == sum_hi);
 
 			// This is the big thing to optimize: make this into a convolution
