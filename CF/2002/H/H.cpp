@@ -330,6 +330,20 @@ int main() {
 			tensor<num, 2> nxt_dp_lo({N+1, N+1});
 			tensor<num, 2> nxt_dp_hi({N+1, N+1});
 
+			// common case for lo -> hi, just convolve
+			for (int l0 = c0; l0 <= N; l0++) {
+				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
+					num w = cur_dp_lo[{l0, a0}] * pow(num(m-1), a0);
+					int e = l0 + 1 + a0;
+					nxt_dp_hi[{e, 0}] = w;
+				}
+			}
+			for (int nl = c0 + 1; nl + 1 <= N; nl++) {
+				for (int na1 = nl & 1; na1 <= nl; na1 += 2) {
+					nxt_dp_hi[{nl + 1, na1 + 1}] = nxt_dp_hi[{nl, na1}] * num(m-1);
+				}
+			}
+
 			for (int l0 = c0; l0 <= N; l0++) {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
@@ -349,17 +363,6 @@ int main() {
 						fail_dp[{nc, nl, na1}] += w;
 						// subtract from nxt_dp_lo
 						nxt_dp_lo[{nl, (l1 - a0) & 1}] -= w;
-					}
-				}
-			}
-
-			for (int l0 = c0; l0 <= N; l0++) {
-				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
-					num w = cur_dp_lo[{l0, a0}] * pow(num(m-1), a0);
-					int e = l0 + 1 + a0;
-					for (int na1 = 0; na1 + e <= N; na1++, w *= num(m-1)) {
-						// na1 == l1 - a0
-						nxt_dp_hi[{e + na1, na1}] += w;
 					}
 				}
 			}
