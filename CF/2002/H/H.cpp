@@ -331,6 +331,9 @@ int main() {
 			tensor<num, 2> nxt_dp_lo({N+1, N+1});
 			tensor<num, 2> nxt_dp_hi({N+1, N+1});
 
+			num acc_lo = 0;
+			num acc_hi = 0;
+
 			for (int l0 = c0; l0 <= N; l0++) {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
@@ -352,8 +355,10 @@ int main() {
 							fail_dp[{nc, nl, na1}] += w;
 							// subtract from nxt_dp_lo
 							nxt_dp_lo[{nl, na1 & 1}] -= w;
+							acc_lo -= w;
 						} else {
 							nxt_dp_hi[{nl, na1}] += w;
+							acc_hi += w;
 						}
 					}
 				}
@@ -368,10 +373,12 @@ int main() {
 							if (na0 < 0) na0 = na0 & 1;
 
 							nxt_dp_lo[{nl, na0}] += w * o;
+							acc_lo += w * o;
 						}
 					}
 				}
 			}
+			cerr << acc_lo << ' ' << acc_hi << '\n';
 			num sum_lo = 0;
 			num sum_hi = 0;
 			for (int l0 = c0; l0 <= N; l0++) {
