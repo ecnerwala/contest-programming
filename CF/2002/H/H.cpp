@@ -372,6 +372,16 @@ int main() {
 					}
 				}
 			}
+			num sum_lo = 0;
+			num sum_hi = 0;
+			for (int l0 = c0; l0 <= N; l0++) {
+				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
+				for (int a0 = l0 - c0 - 1; a0 >= 0; a0 -= 2) {
+					sum_lo += nxt_dp_lo[{l0, a0}];
+					sum_hi += nxt_dp_hi[{l0, a0}];
+				}
+			}
+			assert(sum_lo == sum_hi);
 
 			// This is the big thing to optimize: make this into a convolution
 			/*
