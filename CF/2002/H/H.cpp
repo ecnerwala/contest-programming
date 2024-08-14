@@ -330,7 +330,26 @@ int main() {
 			tensor<num, 2> nxt_dp_lo({N+1, N+1});
 			tensor<num, 2> nxt_dp_hi({N+1, N+1});
 
-			// common case for lo -> hi, just convolve
+			// hi -> lo
+			for (int l0 = c0; l0 <= N; l0++) {
+				// TODO: This is 2D convolution, could optimize down
+				for (int a1 = l0 - c0; a1 >= 0; a1 -= 2) {
+					num w = cur_dp_hi[{l0, a1}];
+					for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
+						for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
+							num o = ans[{m-1, l1, c1}];
+
+							int nl = l0 + l1 + 1;
+							int na0 = c1 - a1;
+							if (na0 < 0) na0 = na0 & 1;
+
+							nxt_dp_lo[{nl, na0}] += w * o;
+						}
+					}
+				}
+			}
+
+			// common case for lo -> hi, just convolve with powers of m-1
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = cur_dp_lo[{l0, a0}] * pow(num(m-1), a0);
@@ -344,6 +363,7 @@ int main() {
 				}
 			}
 
+			// case where l1 < a0, and we need to increase the cost and also subtract it from nxt_dp_lo
 			for (int l0 = c0; l0 <= N; l0++) {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
@@ -362,28 +382,11 @@ int main() {
 						//int na0 = na1 & 1;
 						fail_dp[{nc, nl, na1}] += w;
 						// subtract from nxt_dp_lo
-						nxt_dp_lo[{nl, (l1 - a0) & 1}] -= w;
+						nxt_dp_lo[{nl, (nl - c0 - 1) & 1}] -= w;
 					}
 				}
 			}
 
-			for (int l0 = c0; l0 <= N; l0++) {
-				// TODO: This is 2D convolution, could optimize down
-				for (int a1 = l0 - c0; a1 >= 0; a1 -= 2) {
-					num w = cur_dp_hi[{l0, a1}];
-					for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
-						for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-							num o = ans[{m-1, l1, c1}];
-
-							int nl = l0 + l1 + 1;
-							int na0 = c1 - a1;
-							if (na0 < 0) na0 = na0 & 1;
-
-							nxt_dp_lo[{nl, na0}] += w * o;
-						}
-					}
-				}
-			}
 
 			cur_dp_lo = std::move(nxt_dp_lo);
 			cur_dp_hi = std::move(nxt_dp_hi);
