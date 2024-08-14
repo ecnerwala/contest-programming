@@ -204,7 +204,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	const bool TESTING = true;
+	const bool TESTING = false;
 	std::mt19937 mt(48);
 
 	int T; cin >> T;
