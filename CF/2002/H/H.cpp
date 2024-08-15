@@ -1060,7 +1060,7 @@ int main() {
 			// hi -> lo
 			// TODO: This is 2D convolution, could optimize down
 			int mx_l = N - c0 - 1;
-			int mx_k = mx_l * 3 / 4 + 1;
+			int mx_k = mx_l * 3 / 4;
 			std::vector<num> lhs((mx_l + 1) * (mx_k + 1));
 			std::vector<num> rhs((mx_l + 1) * (mx_k + 1));
 			for (int l0 = 0; l0 <= mx_l; l0++) {
