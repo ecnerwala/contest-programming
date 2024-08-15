@@ -327,18 +327,14 @@ int main() {
 			tensor<num, 2> nxt_dp_hi({N+1, N/2+1});
 
 			// hi -> lo
+			// TODO: This is 2D convolution, could optimize down
 			for (int l0 = c0; l0 <= N; l0++) {
-				// TODO: This is 2D convolution, could optimize down
 				for (int k1 = 0; k1 <= (l0 - c0) / 2; k1++) {
 					num w = cur_dp_hi[{l0, k1}];
 					for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
 						for (int k = 0; k <= l1 / 2; k++) {
 							num o = ans[{m-1, l1, k}];
 							int nl = l0 + l1 + 1;
-							// c1 = l1 - 2 * k, a1 = l0 - c0 - 2 * k1
-							// 2nk0 = nl - c0 - 1 - (c1 - a1)
-							//      = (l0 - c0) + a1 + l1 - c1
-							//      = 2 k + (l0 - c0) * 2 - 2 k1
 							int nk0 = k + (l0 - c0) - k1;
 							if (nk0 > (nl - c0 - 1) / 2) {
 								nk0 = (nl - c0 - 1) / 2;
