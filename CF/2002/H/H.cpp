@@ -364,7 +364,7 @@ int main() {
 			}
 
 			// case where l1 < a0, and we need to increase the cost and also subtract it from nxt_dp_lo
-			for (int l0 = c0; l0 <= N; l0++) {
+			for (int l0 = c0 + 1; l0 <= N; l0++) {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int k0 = 0; k0 <= (l0 - c0) / 2; k0++) {
 					num w = cur_dp_lo[{l0, k0}];
