@@ -288,62 +288,62 @@ int main() {
 
 	// the main dp is:
 	// M, length, cost, max surplus, min surplus without paying
-	tensor<num, 3> ans({M+1, N+1, N+1});
+	tensor<num, 3> ans({M+1, N+1, N/2 + 1});
 	ans[{0, 0, 0}] = num(1);
 	for (int m = 1; m <= M; m++) {
 		cerr << "M = " << m << '\n';
-		tensor<num, 2> cur_dp_lo({N+1, N+1});
-		tensor<num, 2> cur_dp_hi({N+1, N+1});
-		tensor<num, 3> fail_dp({N+1, N+1, N+1});
+		tensor<num, 2> cur_dp_lo({N+1, N/2 + 1});
+		tensor<num, 2> cur_dp_hi({N+1, N/2 + 1});
+		tensor<num, 3> fail_dp({N+1, N+1, N/2 + 1});
 		for (int l1 = 0; l1 <= N; l1++) {
-			for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-				assert(0 <= l1 && l1 < N+1);
-				assert(0 <= c1 && c1 < N+1);
-				//cur_dp[{l1, c1, l1}] += ans[{m-1, l1, c1}];
-				cur_dp_lo[{l1, c1}] += ans[{m-1, l1, c1}];
-				cur_dp_hi[{l1, l1}] += ans[{m-1, l1, c1}];
+			for (int k = 0; k <= l1/2; k++) {
+				cur_dp_lo[{l1, k}] += ans[{m-1, l1, k}];
+				cur_dp_hi[{l1, 0}] += ans[{m-1, l1, k}];
 			}
 		}
 		for (int c0 = 0; c0 <= N; c0++) {
 			for (int l0 = c0; l0 <= N; l0++) {
-				for (int a1 = (l0 ^ c0) & 1; a1 + c0 <= l0; a1 += 2) {
-					//cur_dp[{l0, a1 & 1, a1}] += fail_dp[{c0, l0, a1}];
-					cur_dp_lo[{l0, a1 & 1}] += fail_dp[{c0, l0, a1}];
-					cur_dp_hi[{l0, a1}] += fail_dp[{c0, l0, a1}];
+				for (int k1 = 0; k1 <= (l0 - c0) / 2; k1++) {
+					cur_dp_lo[{l0, (l0 - c0) / 2}] += fail_dp[{c0, l0, k1}];
+					cur_dp_hi[{l0, k1}] += fail_dp[{c0, l0, k1}];
 				}
 			}
 
 			// update ans
 			for (int l0 = c0; l0 <= N; l0++) {
-				for (int a0 = (l0 ^ c0) & 1; a0 + c0 <= l0; a0 += 2) {
-					num w = cur_dp_lo[{l0, a0}];
-					if (a0 == 0) {
-						ans[{m, l0, c0}] += w;
-					} else if (a0 & 1) {
-						ans[{m, l0, c0 + 1}] += w;
+				for (int k0 = 0; k0 <= (l0 - c0) / 2; k0++) {
+					num w = cur_dp_lo[{l0, k0}];
+					if ((l0 - c0) & 1) {
+						ans[{m, l0, (l0 - c0 - 1) / 2}] += w;
+					} else if (k0 == (l0 - c0) / 2) {
+						ans[{m, l0, (l0 - c0) / 2}] += w;
 					} else {
-						ans[{m, l0, c0 + 2}] += w;
+						ans[{m, l0, (l0 - c0 - 2) / 2}] += w;
 					}
 				}
 			}
 
-			tensor<num, 2> nxt_dp_lo({N+1, N+1});
-			tensor<num, 2> nxt_dp_hi({N+1, N+1});
+			tensor<num, 2> nxt_dp_lo({N+1, N/2+1});
+			tensor<num, 2> nxt_dp_hi({N+1, N/2+1});
 
 			// hi -> lo
 			for (int l0 = c0; l0 <= N; l0++) {
 				// TODO: This is 2D convolution, could optimize down
-				for (int a1 = l0 - c0; a1 >= 0; a1 -= 2) {
-					num w = cur_dp_hi[{l0, a1}];
+				for (int k1 = 0; k1 <= (l0 - c0) / 2; k1++) {
+					num w = cur_dp_hi[{l0, k1}];
 					for (int l1 = 0; l0 + 1 + l1 <= N; l1++) {
-						for (int c1 = l1 & 1; c1 <= l1; c1 += 2) {
-							num o = ans[{m-1, l1, c1}];
-
+						for (int k = 0; k <= l1 / 2; k++) {
+							num o = ans[{m-1, l1, k}];
 							int nl = l0 + l1 + 1;
-							int na0 = c1 - a1;
-							if (na0 < 0) na0 = na0 & 1;
-
-							nxt_dp_lo[{nl, na0}] += w * o;
+							// c1 = l1 - 2 * k, a1 = l0 - c0 - 2 * k1
+							// 2nk0 = nl - c0 - 1 - (c1 - a1)
+							//      = (l0 - c0) + a1 + l1 - c1
+							//      = 2 k + (l0 - c0) * 2 - 2 k1
+							int nk0 = k + (l0 - c0) - k1;
+							if (nk0 > (nl - c0 - 1) / 2) {
+								nk0 = (nl - c0 - 1) / 2;
+							}
+							nxt_dp_lo[{nl, nk0}] += w * o;
 						}
 					}
 				}
@@ -352,14 +352,14 @@ int main() {
 			// common case for lo -> hi, just convolve with powers of m-1
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
-					num w = cur_dp_lo[{l0, a0}] * pow(num(m-1), a0);
+					num w = cur_dp_lo[{l0, (l0-c0-a0)/2}] * pow(num(m-1), a0);
 					int e = l0 + 1 + a0;
-					nxt_dp_hi[{e, 0}] += w;
+					nxt_dp_hi[{e, (e-c0-1-0)/2}] += w;
 				}
 			}
 			for (int nl = c0 + 1; nl + 1 <= N; nl++) {
 				for (int na1 = (nl - c0 - 1) & 1; na1 <= nl - c0 - 1; na1 += 2) {
-					nxt_dp_hi[{nl + 1, na1 + 1}] = nxt_dp_hi[{nl, na1}] * num(m-1);
+					nxt_dp_hi[{nl + 1, ((nl + 1 - c0 - 1) - (na1 + 1)) / 2}] = nxt_dp_hi[{nl, (nl - c0 - 1 - na1) / 2}] * num(m-1);
 				}
 			}
 
@@ -367,7 +367,7 @@ int main() {
 			for (int l0 = c0; l0 <= N; l0++) {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
-					num w = cur_dp_lo[{l0, a0}];
+					num w = cur_dp_lo[{l0, (l0 - c0 - a0) / 2}];
 					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
 						int nl = l0 + l1 + 1;
 						int nc = c0 + 1;
@@ -380,9 +380,9 @@ int main() {
 							nc++;
 						}
 						//int na0 = na1 & 1;
-						fail_dp[{nc, nl, na1}] += w;
+						fail_dp[{nc, nl, (nl - nc - na1) / 2}] += w;
 						// subtract from nxt_dp_lo
-						nxt_dp_lo[{nl, (nl - c0 - 1) & 1}] -= w;
+						nxt_dp_lo[{nl, (nl - c0 - 1) / 2}] -= w;
 					}
 				}
 			}
@@ -397,8 +397,8 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int n, m; cin >> n >> m;
-		for (int k = 0; 2 * k < n; k++) {
-			cout << ans[{m, n, n-2*k}] << " \n"[2*k+2 >= n];
+		for (int k = 0; k <= (n-1)/2; k++) {
+			cout << ans[{m, n, k}] << " \n"[k == (n-1)/2];
 		}
 	}
 
