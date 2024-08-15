@@ -351,9 +351,9 @@ int main() {
 
 			// common case for lo -> hi, just convolve with powers of m-1
 			for (int l0 = c0; l0 <= N; l0++) {
-				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
-					num w = cur_dp_lo[{l0, (l0-c0-a0)/2}] * pow(num(m-1), a0);
-					int e = l0 + 1 + a0;
+				for (int k0 = 0; k0 <= l0 / 2; k0++) {
+					num w = cur_dp_lo[{l0, k0}] * pow(num(m-1), l0 - c0 - 2 * k0);
+					int e = l0 + 1 + l0 - c0 - 2 * k0;
 					if (e <= N) nxt_dp_hi[{e, (e-c0-1-0)/2}] += w;
 				}
 			}
