@@ -357,7 +357,7 @@ int main() {
 				for (int a0 = l0 - c0; a0 >= 0; a0 -= 2) {
 					num w = cur_dp_lo[{l0, (l0-c0-a0)/2}] * pow(num(m-1), a0);
 					int e = l0 + 1 + a0;
-					nxt_dp_hi[{e, (e-c0-1-0)/2}] += w;
+					if (e <= N) nxt_dp_hi[{e, (e-c0-1-0)/2}] += w;
 				}
 			}
 			for (int nl = c0 + 1; nl + 1 <= N; nl++) {
