@@ -65,7 +65,7 @@ public:
 template <typename T, int NDIMS> struct tensor {
 	static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
 
-protected:
+public:
 	std::array<int, NDIMS> shape;
 	std::array<int, NDIMS> strides;
 	int len;
@@ -297,7 +297,7 @@ int main() {
 		tensor<num, 3> fail_dp({N+1, N+1, N/2 + 1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int k = 0; k <= l1/2; k++) {
-				cerr << l1 << ' ' << k << '\n';
+				cerr << l1 << ' ' << k << ' ' << cur_dp_lo.shape[0] << ' ' << cur_dp_lo.shape[1] << '\n';
 				assert(0 <= l1 && l1 < N+1);
 				assert(0 <= k && k < N/2 + 1);
 				cur_dp_lo[{l1, k}] += ans[{m-1, l1, k}];
