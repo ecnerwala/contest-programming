@@ -372,8 +372,8 @@ int main() {
 					w += cur_dp_lo[{l0, k0}];
 				}
 				num o = 1;
-				for (int l1 = 0; l0 + 1 + l1 <= N; l1++, o *= num(m-1)) {
-					if (l1 <= l0 - c0 && (l1 & 1) == sgn) w -= cur_dp_lo[{l0, (l0 - c0 - l1) / 2}];
+				for (int l1 = 0; l1 < l0 - c0 && l0 + 1 + l1 <= N; l1++, o *= num(m-1)) {
+					if ((l1 & 1) == sgn) w -= cur_dp_lo[{l0, (l0 - c0 - l1) / 2}];
 					int nl = l0 + l1 + 1;
 					int nc = c0 + 1;
 					int na1 = l1 - !sgn;
