@@ -294,6 +294,7 @@ int main() {
 		cerr << "M = " << m << '\n';
 		tensor<num, 2> cur_dp_lo({N+1, N/2 + 1});
 		tensor<num, 2> cur_dp_hi({N+1, N/2 + 1});
+		// ring buffer mod 3
 		tensor<num, 3> fail_dp({3, N+1, N/2 + 1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int k = 0; k <= l1/2; k++) {
