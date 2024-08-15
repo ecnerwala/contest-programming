@@ -294,7 +294,7 @@ int main() {
 		cerr << "M = " << m << '\n';
 		tensor<num, 2> cur_dp_lo({N+1, N/2 + 1});
 		tensor<num, 2> cur_dp_hi({N+1, N/2 + 1});
-		tensor<num, 3> fail_dp({N+1, N+1, N/2 + 1});
+		tensor<num, 3> fail_dp({2, N+1, N/2 + 1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int k = 0; k <= l1/2; k++) {
 				cur_dp_lo[{l1, k}] += ans[{m-1, l1, k}];
@@ -304,8 +304,9 @@ int main() {
 		for (int c0 = 0; c0 <= N; c0++) {
 			for (int l0 = c0; l0 <= N; l0++) {
 				for (int k1 = 0; k1 <= (l0 - c0) / 2; k1++) {
-					cur_dp_lo[{l0, (l0 - c0) / 2}] += fail_dp[{c0, l0, k1}];
-					cur_dp_hi[{l0, k1}] += fail_dp[{c0, l0, k1}];
+					num w = std::exchange(fail_dp[{c0 & 1, l0, k1}], num(0));
+					cur_dp_lo[{l0, (l0 - c0) / 2}] += w;
+					cur_dp_hi[{l0, k1}] += w;
 				}
 			}
 
@@ -381,7 +382,7 @@ int main() {
 						nc++;
 					}
 					//int na0 = na1 & 1;
-					fail_dp[{nc, nl, (nl - nc - na1) / 2}] += w * o;
+					fail_dp[{nc & 1, nl, (nl - nc - na1) / 2}] += w * o;
 					// subtract from nxt_dp_lo
 					nxt_dp_lo[{nl, (nl - c0 - 1) / 2}] -= w * o;
 				}
