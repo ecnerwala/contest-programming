@@ -358,8 +358,8 @@ int main() {
 				}
 			}
 			for (int nl = c0 + 1; nl + 1 <= N; nl++) {
-				for (int na1 = (nl - c0 - 1) & 1; na1 <= nl - c0 - 1; na1 += 2) {
-					nxt_dp_hi[{nl + 1, ((nl + 1 - c0 - 1) - (na1 + 1)) / 2}] = nxt_dp_hi[{nl, (nl - c0 - 1 - na1) / 2}] * num(m-1);
+				for (int nk = 0; nk <= (nl - c0 - 1) / 2; nk++) {
+					nxt_dp_hi[{nl + 1, nk}] = nxt_dp_hi[{nl, nk}] * num(m-1);
 				}
 			}
 
