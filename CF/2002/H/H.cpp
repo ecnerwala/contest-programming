@@ -1072,11 +1072,13 @@ int main() {
 					rhs[l1 * (mx + 1) + k] += ans[{m-1, l1, k}];
 				}
 			}
+			if (false) {
 			auto prod = ecnerwala::fft::fft_mod_multiply(lhs, rhs);
 			for (int nl = 0; nl <= mx; nl++) {
 				for (int nk = 0; nk <= nl; nk++) {
 					nxt_dp_lo[{nl + c0 + 1, std::min(nk, nl / 2)}] += prod[nl * (mx + 1) + nk];
 				}
+			}
 			}
 
 			// common case for lo -> hi, just convolve with powers of m-1
