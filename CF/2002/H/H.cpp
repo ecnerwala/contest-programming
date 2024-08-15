@@ -367,24 +367,27 @@ int main() {
 			for (int l0 = c0 + 1; l0 <= N; l0++) {
 				// could optimize further w/ prefix/suffix sums, but don't really need to, this is already M * N^4
 				int sgn = (l0 - c0) & 1;
+				num w = 0;
 				for (int k0 = 0; k0 <= (l0 - c0) / 2; k0++) {
-					num w = cur_dp_lo[{l0, k0}];
-					for (int l1 = 0; l1 + 2 * k0 < l0 - c0 && l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
-						int nl = l0 + l1 + 1;
-						int nc = c0 + 1;
-						int na1 = l1 - !sgn;
+					w += cur_dp_lo[{l0, k0}];
+				}
+				num o = 1;
+				for (int l1 = 0; l0 + 1 + l1 <= N; l1++, o *= num(m-1)) {
+					if (l1 <= l0 - c0 && (l1 & 1) == sgn) w -= cur_dp_lo[{l0, (l0 - c0 - l1) / 2}];
+					int nl = l0 + l1 + 1;
+					int nc = c0 + 1;
+					int na1 = l1 - !sgn;
+					nc++;
+					if (na1 < 0) {
+						assert(l1 == 0);
+						assert(!sgn);
+						na1 = l1;
 						nc++;
-						if (na1 < 0) {
-							assert(l1 == 0);
-							assert(!sgn);
-							na1 = l1;
-							nc++;
-						}
-						//int na0 = na1 & 1;
-						fail_dp[{nc, nl, (nl - nc - na1) / 2}] += w;
-						// subtract from nxt_dp_lo
-						nxt_dp_lo[{nl, (nl - c0 - 1) / 2}] -= w;
 					}
+					//int na0 = na1 & 1;
+					fail_dp[{nc, nl, (nl - nc - na1) / 2}] += w * o;
+					// subtract from nxt_dp_lo
+					nxt_dp_lo[{nl, (nl - c0 - 1) / 2}] -= w * o;
 				}
 			}
 
