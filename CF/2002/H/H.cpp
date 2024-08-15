@@ -369,8 +369,7 @@ int main() {
 				int sgn = (l0 - c0) & 1;
 				for (int k0 = 0; k0 <= (l0 - c0) / 2; k0++) {
 					num w = cur_dp_lo[{l0, k0}];
-					int a0 = l0 - c0 - 2 * k0;
-					for (int l1 = 0; l1 < a0 && l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
+					for (int l1 = 0; l1 + 2 * k0 < l0 - c0 && l0 + 1 + l1 <= N; l1++, w *= num(m-1)) {
 						int nl = l0 + l1 + 1;
 						int nc = c0 + 1;
 						int na1 = l1 - !sgn;
