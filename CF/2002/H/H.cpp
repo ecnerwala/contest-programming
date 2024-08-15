@@ -297,6 +297,7 @@ int main() {
 		tensor<num, 3> fail_dp({N+1, N+1, N/2 + 1});
 		for (int l1 = 0; l1 <= N; l1++) {
 			for (int k = 0; k <= l1/2; k++) {
+				cerr << l1 << ' ' << k << '\n';
 				cur_dp_lo[{l1, k}] += ans[{m-1, l1, k}];
 				cur_dp_hi[{l1, 0}] += ans[{m-1, l1, k}];
 			}
