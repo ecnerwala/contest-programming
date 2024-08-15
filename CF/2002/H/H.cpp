@@ -1059,26 +1059,25 @@ int main() {
 
 			// hi -> lo
 			// TODO: This is 2D convolution, could optimize down
-			int mx = N - c0 - 1;
-			std::vector<num> lhs((mx + 1) * (mx + 1));
-			std::vector<num> rhs((mx + 1) * (mx + 1));
-			for (int l0 = 0; l0 <= mx; l0++) {
+			int mx_l = N - c0 - 1;
+			int mx_k = mx_l * 3 / 4 + 1;
+			std::vector<num> lhs((mx_l + 1) * (mx_k + 1));
+			std::vector<num> rhs((mx_l + 1) * (mx_k + 1));
+			for (int l0 = 0; l0 <= mx_l; l0++) {
 				for (int k1 = 0; k1 <= l0 / 2; k1++) {
-					lhs[l0 * (mx + 1) + (l0 - k1)] += cur_dp_hi[{l0 + c0, k1}];
+					lhs[l0 * (mx_k + 1) + std::min(l0 - k1, mx_l / 2)] += cur_dp_hi[{l0 + c0, k1}];
 				}
 			}
-			for (int l1 = 0; l1 <= mx; l1++) {
+			for (int l1 = 0; l1 <= mx_l; l1++) {
 				for (int k = 0; k <= l1 / 2; k++) {
-					rhs[l1 * (mx + 1) + k] += ans[{m-1, l1, k}];
+					rhs[l1 * (mx_k + 1) + k] += ans[{m-1, l1, k}];
 				}
 			}
-			if (false) {
 			auto prod = ecnerwala::fft::fft_mod_multiply(lhs, rhs);
-			for (int nl = 0; nl <= mx; nl++) {
-				for (int nk = 0; nk <= nl; nk++) {
-					nxt_dp_lo[{nl + c0 + 1, std::min(nk, nl / 2)}] += prod[nl * (mx + 1) + nk];
+			for (int nl = 0; nl <= mx_l; nl++) {
+				for (int nk = 0; nk <= std::min(mx_k, nl); nk++) {
+					nxt_dp_lo[{nl + c0 + 1, std::min(nk, nl / 2)}] += prod[nl * (mx_k + 1) + nk];
 				}
-			}
 			}
 
 			// common case for lo -> hi, just convolve with powers of m-1
