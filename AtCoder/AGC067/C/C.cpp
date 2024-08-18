@@ -21,11 +21,11 @@ int main() {
 		// we want all prime powers
 		for (int p = 2; p <= N; p++) {
 			if (!is_prime[p]) continue;
-			cerr << "prime " << p << '\n';
 			for (int j = p+p; j <= N; j += p) is_prime[j] = false;
 
 			for (int q = 1; q <= N / p; ) {
 				q *= p;
+				cerr << "checking " << q << '\n';
 				int64_t g = A[q];
 				for (int i = 1; i <= N; i++) {
 					if (i % q == 0) continue;
