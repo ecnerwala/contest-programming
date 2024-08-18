@@ -25,7 +25,6 @@ int main() {
 
 			for (int q = 1; q <= N / p; ) {
 				q *= p;
-				cerr << "checking " << q << '\n';
 				int64_t g = A[q];
 				for (int i = 1; i <= N; i++) {
 					if (i % q == 0) continue;
