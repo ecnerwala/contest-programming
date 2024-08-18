@@ -19,6 +19,21 @@ int main() {
 				}
 			}
 		}
+		std::vector<bool> is_prime(N, true);
+		for (int p = 2; p <= N; p++) {
+			if (!is_prime[p]) continue;
+			for (int j = p+p; j <= N; j += p) is_prime[j] = false;
+
+			int64_t g = A[p];
+			for (int i = 1; i <= N; i++) {
+				if (i % p == 0) continue;
+				g = std::gcd(g, A[p] / std::gcd(A[i], A[p]));
+			}
+			if (g == 1) {
+				good = false;
+				break;
+			}
+		}
 		cout << (good ? "Yes" : "No") << '\n';
 	}
 
