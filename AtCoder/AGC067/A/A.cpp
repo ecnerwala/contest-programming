@@ -173,7 +173,7 @@ int main() {
 		}
 		tensor<bool, 2> adj({N, N});
 		for (auto [u, v] : edges) adj[{u, v}] = adj[{v, u}] = true;
-		std::vector<int> par(2*N);
+		std::vector<int> par(2*N, -1);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
 				if (par[par[a]] >= 0) par[a] = par[par[a]];
