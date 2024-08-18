@@ -194,15 +194,8 @@ int main() {
 		//cerr << "n = " << n << '\n';
 		// where is the first unique guy
 		for (int a = 0; a < n; a++) {
-			buf[a] = dp_with_right[a] * num(n-a) * dp_any[n-a-1];
-			//cerr << a << ' ' << buf[a] << '\n';
-		}
-		for (int a = n-1; a > 0; a--) {
-			buf[a-1] += buf[a];
-		}
-		dp_any[n] = buf[0];
-		for (int i = 0; i < n; i++) {
-			dp_with_right[n] += buf[i];
+			dp_any[n] += dp_with_right[a] * num(n-a) * dp_any[n-a-1];
+			dp_with_right[n] += num(a+1) * dp_with_right[a] * num(n-a) * dp_any[n-a-1];
 		}
 	}
 	num ans = dp_any[N];
