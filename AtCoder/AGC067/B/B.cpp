@@ -127,7 +127,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<998244353>;
-	auto solve_minimal = [&](std::vector<std::array<int, 2>> ints) -> num {
+	auto solve_minimal = [](std::vector<std::array<int, 2>> ints, num C) -> num {
 		assert(!ints.empty());
 		cerr << "solving minimal " << ints.size() << '\n';
 		for (int i = 0; i < int(ints.size()); i++) {
@@ -170,7 +170,7 @@ int main() {
 		return dp[L][2] + dp[L][3];
 	};
 
-	int N, M; cin >> N >> M;
+	int N, M; num C; cin >> N >> M >> C;
 
 	std::vector<std::array<int, 2>> intervals(M);
 	for (auto& [u, v] : intervals) {
@@ -200,7 +200,7 @@ int main() {
 			while (j < int(mins.size()) && mins[j-1][1] >= mins[j][0]) {
 				j++;
 			}
-			solve_minimal(std::vector(mins.begin()+i, mins.begin()+j));
+			solve_minimal(std::vector(mins.begin()+i, mins.begin()+j), C);
 			int lo = mins[i][0], hi = mins[j-1][1];
 			for (int z = lo; z < hi; z++) covered[z] = true;
 		}
