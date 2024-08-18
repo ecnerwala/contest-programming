@@ -997,9 +997,9 @@ int main() {
 
 	for (int n = 1; n <= N; n++) {
 		m1.push(dp_with_right[n-1], num(n) * dp_any[n-1]);
-		dp_any[n] = m1.peek();
+		dp_any[n] = m1.back();
 		m2.push(num(n) * dp_with_right[n-1], num(n) * dp_any[n-1]);
-		dp_with_right[n] = m2.peek();
+		dp_with_right[n] = m2.back();
 	}
 	num ans = dp_any[N];
 	for (int i = 1; i <= N; i++) ans *= num(i);
