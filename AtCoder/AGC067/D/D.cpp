@@ -992,8 +992,8 @@ int main() {
 	dp_any[0] = 1;
 	dp_with_right[0] = 1;
 
-	auto m1 = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N+1);
-	auto m2 = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N+1);
+	auto m1 = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N);
+	auto m2 = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N);
 
 	for (int n = 1; n <= N; n++) {
 		m1.push(dp_with_right[n-1], num(n) * dp_any[n-1]);
