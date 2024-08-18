@@ -25,13 +25,9 @@ int main() {
 
 			for (int q = 1; q <= N / p; ) {
 				q *= p;
-				int64_t g = A[q];
 				for (int i = 1; i <= N; i++) {
 					if (i % q == 0) continue;
-					g = std::gcd(g, A[q] / std::gcd(A[i], A[q]));
-				}
-				if (g == 1) {
-					good = false;
+					if ((A[q] / std::gcd(A[i], A[q])) % p != 0) good = false;
 				}
 			}
 		}
