@@ -173,8 +173,41 @@ int main() {
 
 	while (N > 0) {
 		std::sort(intervals.begin(), intervals.end(), [&](auto a, auto b) { return (a[0] == b[0]) ? (a[1] > b[1]) : (a[0] < b[0]); });
-		std::vector<std::array<int, 2>> mins;
-		std::vector<int> covered(N+1);
+		std::vector<std::array<int, 2>> mins; mins.reserve(N);
+		for (auto [l, r] : intervals) {
+			while (true) {
+				if (mins.empty()) break;
+				assert(mins.back()[0] <= l);
+				if (mins.back()[1] >= r) {
+					mins.pop_back();
+				} else {
+					break;
+				}
+			}
+			mins.push_back({l, r});
+		}
+		std::vector<bool> covered(N, false);
+		for (int i = 0, j = 0; i < int(mins.size()); i = j) {
+			j++;
+			while (j < int(mins.size()) && mins[j-1][1] >= mins[j][0]) {
+				j++;
+			}
+			solve_minimal(std::vector(mins.begin()+i, mins.begin()+j));
+			int lo = mins[i][0], hi = mins[j-1][1];
+			for (int z = lo; z < hi; z++) covered[z] = true;
+		}
+		std::vector<int> idx(N+1);
+		for (int i = 0; i < N; i++) {
+			idx[i+1] = idx[i] + !covered[i];
+		}
+		std::vector<std::array<int, 2>> n_intervals;
+		for (auto [l, r] : intervals) {
+			l = idx[l];
+			r = idx[r];
+			if (l < r) n_intervals.push_back({l, r});
+		}
+		intervals = std::move(n_intervals);
+		N = idx[N];
 	}
 
 	cout << ans << '\n';
