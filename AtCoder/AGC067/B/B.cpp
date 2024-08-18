@@ -223,6 +223,7 @@ int main() {
 		}
 		intervals = std::move(n_intervals);
 		N = idx[N];
+		cerr << "New N = " << N << '\n';
 	}
 
 	cout << ans << '\n';
