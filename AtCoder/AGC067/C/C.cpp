@@ -6,11 +6,9 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N; //cin >> N;
-		N = 5000;
+		int N; cin >> N;
 		std::vector<int64_t> A(N+1);
-		//for (int i = 1; i <= N; i++) cin >> A[i];
-		for (int i = 1; i <= N; i++) A[i] = i;
+		for (int i = 1; i <= N; i++) cin >> A[i];
 		bool good = true;
 		for (int i = 1; i <= N; i++) {
 			for (int j = 1; j <= N; j++) {
@@ -26,7 +24,6 @@ int main() {
 			for (int j = p+p; j <= N; j += p) is_prime[j] = false;
 
 			for (int q = 1; q <= N / p; ) {
-				cerr << p << ' ' << q << '\n';
 				q *= p;
 				int64_t g = A[q];
 				for (int i = 1; i <= N; i++) {
