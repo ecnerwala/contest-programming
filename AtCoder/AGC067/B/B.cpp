@@ -158,12 +158,12 @@ int main() {
 		// there is a way to assign them to L and R so that every L -> R transition is wide enough
 		assert(can_l[0] != -1 && can_r[L] != -1);
 		std::vector<std::array<num, 4>> dp(L+1, std::array<num, 4>{num(0), num(0), num(0), num(0)});
-		dp[0][1] = num(1);
+		dp[0][1] = num(C);
 		for (int i = 0; i <= L; i++) {
 			for (int j = i+1; j <= L; j++) {
 				for (int msk_i = 1; msk_i <= 3; msk_i++) {
 					int msk_j = (can_l[j] != -1) + 2 * (can_r[j] != -1 && ((msk_i & 2) || (can_l[i] != -1 && can_l[i] <= j)));
-					dp[j][msk_j] += dp[i][msk_i];
+					dp[j][msk_j] += dp[i][msk_i] * num(C-1);
 				}
 			}
 		}
