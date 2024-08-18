@@ -129,6 +129,10 @@ int main() {
 	using num = modnum<998244353>;
 	auto solve_minimal = [&](std::vector<std::array<int, 2>> ints) -> num {
 		assert(!ints.empty());
+		cerr << "solving minimal " << ints.size() << '\n';
+		for (int i = 0; i < int(ints.size()); i++) {
+			cerr << ints[i][0] << '-' << ints[i][1] << '\n';
+		}
 		for (int i = 0; i+1 < int(ints.size()); i++) {
 			assert(ints[i][0] < ints[i+1][0]);
 			assert(ints[i][1] < ints[i+1][1]);
@@ -138,6 +142,10 @@ int main() {
 		{
 			int lo = ints.front()[0];
 			for (auto& [l, r] : ints) { l -= lo, r -= lo; }
+		}
+		cerr << "shifted" << '\n';
+		for (int i = 0; i < int(ints.size()); i++) {
+			cerr << ints[i][0] << '-' << ints[i][1] << '\n';
 		}
 		int L = ints.back()[1];
 		std::vector<int> can_l(L+1, -1);
