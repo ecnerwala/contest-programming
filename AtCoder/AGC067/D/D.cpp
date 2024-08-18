@@ -487,11 +487,11 @@ int main() {
 
 	std::vector<num> buf(N+1);
 	for (int n = 1; n <= N; n++) {
-		cerr << "n = " << n << '\n';
+		//cerr << "n = " << n << '\n';
 		// where is the first unique guy
 		for (int a = 0; a < n; a++) {
 			buf[a] = dp_with_right[a] * num(n-a) * dp_any[n-a-1];
-			cerr << a << ' ' << buf[a] << '\n';
+			//cerr << a << ' ' << buf[a] << '\n';
 		}
 		for (int a = n-1; a > 0; a--) {
 			buf[a-1] += buf[a];
