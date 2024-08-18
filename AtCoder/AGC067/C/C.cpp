@@ -25,12 +25,12 @@ int main() {
 
 			for (int q = 1; q <= N / p; ) {
 				q *= p;
-				int64_t g = A[q];
+				int64_t g = 1;
 				for (int i = 1; i <= N; i++) {
 					if (i % q == 0) continue;
-					g = std::gcd(g, A[q] / std::gcd(A[i], A[q]));
+					g = std::lcm(g, std::gcd(A[i], A[q]));
 				}
-				if (g == 1) {
+				if (g == A[q]) {
 					good = false;
 				}
 			}
