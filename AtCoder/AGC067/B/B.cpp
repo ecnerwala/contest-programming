@@ -162,7 +162,7 @@ int main() {
 			for (int j = i+1; j <= L; j++) {
 				for (int msk_i = 1; msk_i <= 3; msk_i++) {
 					int msk_j = (can_l[j] != -1) + 2 * (can_r[j] != -1 && ((msk_i & 2) || (can_l[i] != -1 && can_l[i] <= j)));
-					num v = (i == 0 && msk_i == 1 ? num(C) : dp[i][msk_i] * num(C-1));
+					num v = ((i == 0 && msk_i == 1) ? num(C) : (dp[i][msk_i] * num(C-1)));
 					cerr << "(" << i << ',' << msk_i << ")" << " -> " << "(" << j << ',' << msk_j << ")" << " " << v << '\n';
 					dp[j][msk_j] += v;
 				}
