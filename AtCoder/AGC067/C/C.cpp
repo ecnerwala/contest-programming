@@ -20,6 +20,7 @@ int main() {
 		std::vector<bool> is_prime(N+1, true);
 		for (int p = 2; p <= N; p++) {
 			if (!is_prime[p]) continue;
+			cerr << "prime " << p << '\n';
 			for (int j = p+p; j <= N; j += p) is_prime[j] = false;
 
 			int64_t g = A[p];
