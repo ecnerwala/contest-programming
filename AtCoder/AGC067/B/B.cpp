@@ -204,7 +204,7 @@ int main() {
 		std::vector<bool> covered(N, false);
 		for (int i = 0, j = 0; i < int(mins.size()); i = j) {
 			j++;
-			while (j < int(mins.size()) && mins[j-1][1] >= mins[j][0]) {
+			while (j < int(mins.size()) && mins[j-1][1] > mins[j][0]) {
 				j++;
 			}
 			ans *= solve_minimal(std::vector(mins.begin()+i, mins.begin()+j), C);
