@@ -166,7 +166,9 @@ int main() {
 				}
 			}
 		}
-		return dp[L][2] + dp[L][3];
+		num res = dp[L][2] + dp[L][3];
+		cerr << res << '\n';
+		return res;
 	};
 
 	int N, M; num C; cin >> N >> M >> C;
@@ -199,7 +201,7 @@ int main() {
 			while (j < int(mins.size()) && mins[j-1][1] >= mins[j][0]) {
 				j++;
 			}
-			solve_minimal(std::vector(mins.begin()+i, mins.begin()+j), C);
+			ans *= solve_minimal(std::vector(mins.begin()+i, mins.begin()+j), C);
 			int lo = mins[i][0], hi = mins[j-1][1];
 			for (int z = lo; z < hi; z++) covered[z] = true;
 		}
