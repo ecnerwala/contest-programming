@@ -51,7 +51,6 @@ int main() {
 		cout << 0 << '\n';
 		exit(0);
 	} else {
-		int ans = 0;
 		std::array<int, 8> dp; dp.fill(0);
 		for (int i = 0; i < N; i++) {
 			for (int x = 0; x < 2; x++) {
@@ -69,12 +68,7 @@ int main() {
 				dp[x * 4 + y * 2 + p]++;
 			}
 		}
-		std::vector<bool> collinear(N);
-		for (int i = 0; i < N; i++) {
-			collinear[i] = 
-		}
 		// TODO: count the number of collinear segmens
-		ans -= N;
 		cout << ans << '\n';
 	}
 
