@@ -65,7 +65,7 @@ std::string solve(int N, int X, int Y) {
 				assert(G_only + B_only <= N - 4);
 				ag = std::min(G_only, N/2-2);
 				ab = std::min(B_only, N/2 - 2 - ag);
-				if ((N - ag - ab) & 1) {
+				if ((N/2 - ag - ab) & 1) {
 					if (ab) {
 						ab--;
 					} else if (ag) {
