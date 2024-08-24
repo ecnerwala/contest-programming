@@ -372,7 +372,7 @@ int main() {
 		auto get_cut = [&]() -> int {
 			assert(std::max(int(g.size()) - 1, 0) == int(l.size()));
 			if (g.empty()) {
-				cerr << "  empty " << 0 << ' ' < 0 << '\n';
+				cerr << "  empty " << 0 << ' ' << 0 << '\n';
 				return 0;
 			} else if (!l.empty()) {
 				cerr << "  lca " << l.begin()->first.first << ' ' << l.begin()->first.second << '\n';
