@@ -118,13 +118,16 @@ int main() {
 			// this is the same as cross, but maybe different sign
 			int64_t denom1 = dot(D1.perp_cw(), D2);
 			assert(denom1 != 0);
-			// we want P1 + numer1 / denom1 * D1.perp_cw();
+			// P1 + numer1 / denom1 * D1.perp_cw()
 			
 			int64_t numer2 = dot(P1 - P2, D1);
-			int64_t denom2 = dot(D2.perp_cw(), D1);
+			int64_t denom2 = dot(D2.perp_ccw(), D1);
 			assert(denom2 != 0);
-			assert(denom1 == -denom2);
-			cerr << "hi" << '\n';
+			// P2 + numer2 / denom2 * D2.perp_ccw()
+
+			assert(denom1 == denom2);
+			pt_t off1 = D1.perp_cw() * numer1;
+			pt_t off2 = D2.perp_ccw() * numer2;
 		};
 		cout << solve() << '\n';
 	}
