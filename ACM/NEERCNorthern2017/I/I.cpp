@@ -17,7 +17,10 @@ int main() {
 	} else {
 		int ans = 0;
 		for (int i = 0; i < N; i++) {
-			for (int j = i+1; j < N; j++) {
+			for (int j = i+2; j < N; j++) {
+				if (i == 0 && j == N-1) {
+					continue;
+				}
 				bool b = pref[j] ^ pref[i] ^ (pts[i][0] & pts[j][1]) ^ (pts[i][1] & pts[j][0]);
 				ans += !b;
 			}
