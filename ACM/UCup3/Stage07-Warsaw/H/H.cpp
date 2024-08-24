@@ -123,7 +123,7 @@ int main() {
 			int64_t numer2 = dot(P1 - P2, D1);
 			int64_t denom2 = dot(D2.perp_cw(), D1);
 			assert(denom2 != 0);
-			assert(denom1 == denom2);
+			assert(denom1 == -denom2);
 			cerr << "hi" << '\n';
 		};
 		cout << solve() << '\n';
