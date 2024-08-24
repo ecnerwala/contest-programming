@@ -49,9 +49,6 @@ int main() {
 	dp_mid[2*N][0] = 0;
 	std::array<std::vector<std::pair<int, int>>, 2> chain;
 	std::array<std::vector<std::array<int64_t, 2>>, 2> dp_chain;
-	for (int z = 0; z < 2; z++) {
-		dp_chain[z].resize(chain[z].size(), std::array<int64_t, 2>{INF, INF});
-	}
 
 	auto transition = [&](int p, int from, int to, int z) -> int64_t {
 		assert(p == 0 || p == 1);
