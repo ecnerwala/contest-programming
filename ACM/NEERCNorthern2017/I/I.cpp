@@ -16,12 +16,24 @@ int main() {
 		exit(0);
 	} else {
 		int ans = 0;
+		std::array<int, 8> dp; dp.fill(0);
 		for (int i = 0; i < N; i++) {
-			for (int j = i+1; j < N; j++) {
-				bool b = pref[j] ^ pref[i] ^ (pts[i][0] & pts[j][1]) ^ (pts[i][1] & pts[j][0]);
-				ans += !b;
+			for (int x = 0; x < 2; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int p = 0; p < 2; p++) {
+						bool b = p ^ pref[j] ^ (x & pts[j][1]) ^ (y & pts[j][0]);
+						if (!b) ans += dp[x * 4 + y * 2 + p];
+					}
+				}
+			}
+			{
+				int p = pref[i];
+				int x = pts[i][0];
+				int y = pts[i][1];
+				dp[x * 4 + y * 2 + p]++;
 			}
 		}
+		// TODO: count the number of collinear segmens
 		ans -= N;
 		cout << ans << '\n';
 	}
