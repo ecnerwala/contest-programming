@@ -355,7 +355,7 @@ int main() {
 	int num_sets = 0;
 	int tot_cut = 0;
 	for (int q = 0; q < Q; q++) {
-		int op; cin >> op;
+		char op; cin >> op;
 		int v; cin >> v; v--;
 		assert(1 <= v && v < N);
 		int s = subtree[v];
@@ -407,6 +407,7 @@ int main() {
 			if (g.empty()) num_sets--;
 			num_gansters--;
 		} else assert(false);
+		cout << num_sets << ' ' << tot_cut - num_gansters << '\n';
 	}
 
 	return 0;
