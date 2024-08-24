@@ -73,9 +73,10 @@ int main() {
 				for (int p = 0; p < 2; p++) {
 					cnd[p] = dp_mid[pair[v]+1][p] + transition(p, pair[v] + 1, v + 1, z);
 					auto u = chain[z].first;
+					int pair_u = chain[z].second;
 					setmin(cnd[p],
 						dp_chain[z][p]
-						+ transition(p, pair[u], pair[v] + 1, !z)
+						+ transition(p, pair_u, pair[v] + 1, !z)
 						+ transition(p, u, v + 1, z)
 					);
 				}
