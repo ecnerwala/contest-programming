@@ -33,6 +33,8 @@ int main() {
 	if (B_only >= 1) B_only++;
 
 
+	cerr << G_only << ' ' << B_only << '\n';
+
 	int other = N - (G_only - B_only);
 	if (other < 2) {
 		cout << "Impossible" << '\n';
