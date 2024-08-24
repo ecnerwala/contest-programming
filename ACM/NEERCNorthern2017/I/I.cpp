@@ -36,6 +36,7 @@ int main() {
 		}
 		assert(!collinear.back());
 		for (int i = 0, j = 0; i < N; i = j+1) {
+			j = i;
 			while (collinear[j]) j++;
 			cerr << i << ' ' << j << '\n';
 			int num_segs = j - i + 1;
