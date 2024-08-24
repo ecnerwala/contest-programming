@@ -128,6 +128,18 @@ int main() {
 			assert(denom1 == denom2);
 			pt_t off1 = D1.perp_cw() * numer1;
 			pt_t off2 = D2.perp_ccw() * numer2;
+
+			// (x - Z1 * denom1) * (x - Z2 * denom1) + const_term
+			int64_t const_term = dot(off1, off2) + Z1 * Z2 * denom1 * denom2;
+			int64_t mid_term = (Z1 + Z2) * denom1;
+
+			int64_t disc = mid_term * mid_term - 4 * const_term;
+
+			int num_roots = (disc >= 0) + (disc > 0);
+			num_roots -= (numer1 == 0);
+			num_roots -= (numer2 == 0);
+			return (num_roots > 0) ? 3 : 4;
+
 		};
 		cout << solve() << '\n';
 	}
