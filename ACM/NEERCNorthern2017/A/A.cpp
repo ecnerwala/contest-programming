@@ -1,8 +1,10 @@
 #include <bits/stdc++.h>
 
 int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	//using namespace std;
+
+	std::ifstream cin("anniversary.in");
+	std::ofstream cout("anniversary.in");
 
 	int w, h; cin >> w >> h;
 	int x1, y1, x2, y2; cin >> x1 >> y1 >> x2 >> y2;
