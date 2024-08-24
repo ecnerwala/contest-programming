@@ -120,6 +120,14 @@ void test() {
 				}
 			}
 		}
+		for (int msk = 0; msk < (1 << N); msk++) {
+			std::string a; for (int i = 0; i < N; i++) {
+				a += "GB"[(msk >> i) & 1];
+			}
+			auto [x, y] = cnt(a);
+			assert(solve(N, x, y) != "Impossible");
+		}
+		std::cerr << "Tested " << N << '\n';
 	}
 }
 
