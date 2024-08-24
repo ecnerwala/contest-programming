@@ -54,7 +54,7 @@ int main() {
 		assert(p == 0 || p == 1);
 		assert(from >= to);
 		assert(z == 0 || z == 1);
-		return suff_sum[z][from][p] - suff_sum[z][to][p];
+		return suff_sum[z][to][p] - suff_sum[z][from][p];
 	};
 
 	for (int v = 2*N-1; v >= 0; v--) {
