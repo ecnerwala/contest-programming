@@ -346,14 +346,14 @@ int main() {
 
 	// pass in by index
 	auto lca = [&](int a, int b) -> std::pair<std::pair<int, int>, std::pair<int, int>> {
-		cerr << "query lca " << a << ' ' << b << '\n';
+		//cerr << "query lca " << a << ' ' << b << '\n';
 		assert(a < b);
 		// by index
 		std::pair<int, int> res = preorder[a];
 		layout.get_range(a, b).for_each([&](auto p) {
 			res = std::min(res, seg[p]);
 		});
-		cerr << " " << res.first << ' ' << res.second << '\n';
+		//cerr << " " << res.first << ' ' << res.second << '\n';
 		return {res, {a, b}};
 	};
 
@@ -369,18 +369,18 @@ int main() {
 		int s = subtree[v];
 		auto& g = gansters[s];
 		auto& l = lcas[s];
-		cerr << op << ' ' << v << ' ' << s << '\n';
+		//cerr << op << ' ' << v << ' ' << s << '\n';
 
 		auto get_cut = [&]() -> int {
 			assert(std::max(int(g.size()) - 1, 0) == int(l.size()));
 			if (g.empty()) {
-				cerr << "  empty " << 0 << ' ' << 0 << '\n';
+				//cerr << "  empty " << 0 << ' ' << 0 << '\n';
 				return 0;
 			} else if (!l.empty()) {
-				cerr << "  lca " << l.begin()->first.first << ' ' << l.begin()->first.second << '\n';
+				//cerr << "  lca " << l.begin()->first.first << ' ' << l.begin()->first.second << '\n';
 				return l.begin()->first.second;
 			} else {
-				cerr << "  one " << preorder[*g.begin()].first << ' ' << preorder[*g.begin()].second << '\n';
+				//cerr << "  one " << preorder[*g.begin()].first << ' ' << preorder[*g.begin()].second << '\n';
 
 				return preorder[*g.begin()].second;
 			}
@@ -424,7 +424,7 @@ int main() {
 			if (g.empty()) num_sets--;
 			num_gansters--;
 		} else assert(false);
-		cerr << num_sets << ' ' << tot_cut << ' ' << num_gansters << '\n';
+		//cerr << num_sets << ' ' << tot_cut << ' ' << num_gansters << '\n';
 		cout << num_sets << ' ' << tot_cut - num_gansters << '\n';
 	}
 
