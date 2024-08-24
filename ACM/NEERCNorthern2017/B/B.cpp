@@ -39,7 +39,7 @@ int main() {
 	// B_only means BB
 	// if you alternate at least once, then G_only + B_only + 2 * k = N for k >= 1
 	// otherwise, G_only == N or B_only == N
-	if (G_only ^ B_only ^ N) {
+	if ((G_only ^ B_only ^ N) & 1) {
 		cout << "Impossible" << '\n';
 		exit(0);
 	}
