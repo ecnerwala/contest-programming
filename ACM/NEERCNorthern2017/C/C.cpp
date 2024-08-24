@@ -19,7 +19,7 @@ int main() {
 	});
 
 	std::vector<int> pref_b(N+1, -1);
-	for (int i = 0; i <= N; i++) {
+	for (int i = 0; i < N; i++) {
 		pref_b[i+1] = std::max(pref_b[i], P[i].b);
 	}
 	std::vector<int> suff_b(N+1, 1e9);
