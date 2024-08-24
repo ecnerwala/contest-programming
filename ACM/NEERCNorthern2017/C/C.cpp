@@ -24,7 +24,7 @@ int main() {
 	}
 	std::vector<int> suff_b(N+1, 1e9);
 	for (int i = N-1; i >= 0; i--) {
-		suff_b[i] = std::min(suff_b[i], P[i].b);
+		suff_b[i] = std::min(suff_b[i+1], P[i].b);
 	}
 
 	std::vector<int> ans(N, -1);
