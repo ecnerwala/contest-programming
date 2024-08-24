@@ -319,7 +319,7 @@ int main() {
 	// min number of clogged pipes is just # of subtrees with at least one gangster
 	std::vector<int> sz(N);
 	std::y_combinator([&](auto self, int cur, int d) -> void {
-		sz[cur] = 1;
+		sz[cur] = ch[cur].empty() ? 1 : 0;
 		for (int nxt : ch[cur]) {
 			self(nxt, d+1);
 			sz[cur] += sz[nxt];
