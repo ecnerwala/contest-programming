@@ -380,10 +380,10 @@ int main() {
 					l.erase(lca(*std::prev(it), *std::next(it)));
 				}
 				if (std::next(it) != g.end()) {
-					l.erase(lca(*it, *std::next(it)));
+					l.insert(lca(*it, *std::next(it)));
 				}
 				if (it != g.begin()) {
-					l.erase(lca(*std::prev(it), *it));
+					l.insert(lca(*std::prev(it), *it));
 				}
 			}
 			tot_cut += get_cut();
