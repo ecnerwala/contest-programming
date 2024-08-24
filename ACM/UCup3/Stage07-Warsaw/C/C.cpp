@@ -80,10 +80,8 @@ int main() {
 							+ transition(p, u, v + 1, z)
 						);
 					}
-					if (p == (suff_cnt[!z][pair[v]+1] & 1)) {
-						cnd[p] += vals[pair[v]].first;
-					}
 				}
+				cnd[suff_cnt[!z][pair[v] + 1] & 1] += vals[pair[v]].first;
 				std::swap(cnd[0], cnd[1]);
 				chain[z].push_back({v, pair[v]});
 				dp_chain[z].push_back(cnd);
