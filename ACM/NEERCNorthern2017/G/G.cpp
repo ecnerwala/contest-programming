@@ -317,19 +317,25 @@ int main() {
 	}
 
 	// min number of clogged pipes is just # of subtrees with at least one gangster
-	std::vector<int> idx(N, -1);
 	std::vector<int> sz(N);
+	std::y_combinator([&](auto self, int cur, int d) -> void {
+		sz[cur] = 1;
+		for (int nxt : ch[cur]) {
+			self(nxt, d+1);
+			sz[cur] += sz[nxt];
+		}
+	})(0, 0);
+
+	std::vector<int> idx(N, -1);
 	std::vector<std::pair<int, int>> preorder; preorder.reserve(N);
 	std::vector<std::pair<int, int>> costs; costs.reserve(N-1);
 	std::y_combinator([&](auto self, int cur, int d) -> void {
 		idx[cur] = int(preorder.size());
 		preorder.push_back({d, sz[cur]});
 		costs.push_back({d, sz[cur]});
-		sz[cur] = 1;
 		for (int nxt : ch[cur]) {
 			self(nxt, d+1);
-			costs.back() = {d, cur};
-			sz[cur] += sz[nxt];
+			costs.back() = {d, sz[cur]};
 		}
 	})(0, 0);
 
