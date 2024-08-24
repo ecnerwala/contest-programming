@@ -77,6 +77,7 @@ std::string solve(int N, int X, int Y) {
 			}
 			int bg = G_only - ag;
 			int bb = B_only - ab;
+			std::cerr << N << ' ' << G_only << ' ' << B_only << ' ' << ag << ' ' << ab << ' ' << bg << ' ' << bb << '\n';
 			std::string a = solve_cyc(N/2, ag, ab);
 			std::string b = solve_cyc(N/2, bg, bb);
 			std::string res;
