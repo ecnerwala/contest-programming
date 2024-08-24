@@ -29,28 +29,47 @@ int main() {
 	assert(0 <= G_only && G_only < N);
 	assert(0 <= B_only && B_only < N);
 
+	if (G_only >= 1) G_only++;
+	if (B_only >= 1) B_only++;
+
+
 	int other = N - (G_only - B_only);
-	if (other < 0) {
+	if (other < 2) {
 		cout << "Impossible" << '\n';
 		exit(0);
-	} else if (other == 4) {
-		cout << "G" + std::string(G_only, 'G') + "GB" + std::string(B_only, 'B') + "B" << '\n';
-		exit(0);
-	} else if (other >= 6) {
-		std::string res = "G" + std::string(G_only, 'G') + "GB" + std::string(B_only, 'B') + "B";
-		other -= 4;
-		assert(other >= 2);
+	}
+	if (other == 3) {
+		// we might be bad
+		if (G_only == 0) {
+			cout << "GGB" + std::string(N-3, 'B') << '\n';
+			exit(0);
+		} else if (B_only == 0) {
+			cout << "BBG" + std::string(N-3, 'G') << '\n';
+			exit(0);
+		} else {
+			cout << "Impossible" << '\n';
+			exit(0);
+		}
+	} else {
+		other -= 2;
+		G_only++;
+		B_only++;
+		assert(other != 1);
+		std::string res;
+		res += std::string(G_only, 'G');
+		res += std::string(B_only, 'B');
 		if (other & 1) {
 			res += "GGB";
 			other -= 3;
 		}
-		for (; other; other -= 2) {
+		while (other) {
 			res += "GB";
+			other -= 2;
 		}
 		cout << res << '\n';
 		exit(0);
-	} else if (other == 5) {
 	}
+	assert(false);
 
 	return 0;
 }
