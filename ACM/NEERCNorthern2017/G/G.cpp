@@ -422,7 +422,6 @@ int main() {
 			if (g.empty()) num_sets--;
 			num_gansters--;
 		} else assert(false);
-		cerr << ' ' << s << ' ' << get_cut() << '\n';
 		cout << num_sets << ' ' << tot_cut - num_gansters << '\n';
 	}
 
