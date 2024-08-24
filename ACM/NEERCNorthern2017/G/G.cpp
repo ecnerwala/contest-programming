@@ -361,6 +361,7 @@ int main() {
 		int s = subtree[v];
 		auto& g = gansters[s];
 		auto& l = lcas[s];
+		cerr << op << ' ' << v << ' ' << s << '\n';
 
 		auto get_cut = [&]() -> int {
 			assert(std::max(int(g.size()) - 1, 0) == int(l.size()));
@@ -407,6 +408,7 @@ int main() {
 			if (g.empty()) num_sets--;
 			num_gansters--;
 		} else assert(false);
+		cerr << ' ' << s << ' ' << get_cut() << '\n';
 		cout << num_sets << ' ' << tot_cut - num_gansters << '\n';
 	}
 
