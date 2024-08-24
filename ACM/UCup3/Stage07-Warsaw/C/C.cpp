@@ -46,6 +46,7 @@ int main() {
 
 	const int64_t INF = 1e18;
 	std::vector<std::array<int64_t, 2>> dp_mid(2*N+1, std::array<int64_t, 2>{INF, INF});
+	dp_mid[2*N][0] = 0;
 	std::array<std::vector<std::pair<int, int>>, 2> chain;
 	std::array<std::vector<std::array<int64_t, 2>>, 2> dp_chain;
 	for (int z = 0; z < 2; z++) {
