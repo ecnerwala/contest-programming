@@ -11,7 +11,7 @@ int main() {
 	std::reverse(V.begin(), V.end());
 	int64_t ans = std::accumulate(V.begin(), V.end(), int64_t(0));
 	for (int i = 1; i < L; i++) {
-		ans = std::max(ans, std::accumulate(V.begin(), V.end() + (1 << i), int64_t(0)));
+		ans = std::max(ans, std::accumulate(V.begin(), V.begin() + (1 << i), int64_t(0)));
 	}
 	cout << ans << '\n';
 
