@@ -47,8 +47,8 @@ int main() {
 	const int64_t INF = 1e18;
 	std::vector<std::array<int64_t, 2>> dp_mid(2*N+1, std::array<int64_t, 2>{INF, INF});
 	dp_mid[2*N][0] = 0;
-	std::array<std::vector<std::pair<int, int>>, 2> chain;
-	std::array<std::vector<std::array<int64_t, 2>>, 2> dp_chain;
+	std::array<std::pair<int, int>, 2> chain{std::pair<int, int>{2*N, 2*N}, {2*N, 2*N}};
+	std::array<std::array<int64_t, 2>, 2> dp_chain{std::array<int64_t, 2>{INF, INF}, {INF, INF}};
 
 	auto transition = [&](int p, int from, int to, int z) -> int64_t {
 		assert(p == 0 || p == 1);
@@ -66,25 +66,23 @@ int main() {
 		}
 		if (pair[v] > v) {
 			int z = vals[v].second[1];
-			if (chain[z].empty() || pair[v] < chain[z].back().second) {
+			if (pair[v] < chain[z].second) {
 				// transition the chain
 				// transition to v+1, pair[v]+1
 				std::array<int64_t, 2> cnd;
 				for (int p = 0; p < 2; p++) {
 					cnd[p] = dp_mid[pair[v]+1][p] + transition(p, pair[v] + 1, v + 1, z);
-					if (!chain[z].empty()) {
-						auto u = chain[z].back().first;
-						setmin(cnd[p],
-							dp_chain[z].back()[p]
-							+ transition(p, pair[u], pair[v] + 1, !z)
-							+ transition(p, u, v + 1, z)
-						);
-					}
+					auto u = chain[z].first;
+					setmin(cnd[p],
+						dp_chain[z][p]
+						+ transition(p, pair[u], pair[v] + 1, !z)
+						+ transition(p, u, v + 1, z)
+					);
 				}
 				cnd[suff_cnt[!z][pair[v] + 1] & 1] += vals[pair[v]].first;
 				std::swap(cnd[0], cnd[1]);
-				chain[z].push_back({v, pair[v]});
-				dp_chain[z].push_back(cnd);
+				chain[z] = {v, pair[v]};
+				dp_chain[z] = cnd;
 				// transition back to the main chain
 				for (int p = 0; p < 2; p++) {
 					setmin(dp_mid[v][p], cnd[p] + transition(p, pair[v], v, !z));
