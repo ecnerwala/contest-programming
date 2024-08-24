@@ -350,7 +350,7 @@ int main() {
 		assert(a < b);
 		// by index
 		std::pair<int, int> res = preorder[a];
-		layout.get_range(a + 1, b + 1).for_each([&](auto p) {
+		layout.get_range(a, b).for_each([&](auto p) {
 			res = std::min(res, seg[p]);
 		});
 		cerr << " " << res.first << ' ' << res.second << '\n';
