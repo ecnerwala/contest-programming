@@ -349,8 +349,8 @@ int main() {
 		return {res, {a, b}};
 	};
 
-	std::vector<std::set<int>> gansters;
-	std::vector<std::set<std::pair<std::pair<int, int>, std::pair<int, int>>>> lcas;
+	std::vector<std::set<int>> gansters(N);
+	std::vector<std::set<std::pair<std::pair<int, int>, std::pair<int, int>>>> lcas(N);
 	int num_gansters = 0;
 	int num_sets = 0;
 	int tot_cut = 0;
