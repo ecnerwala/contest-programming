@@ -77,7 +77,7 @@ std::string solve(int N, int X, int Y) {
 			}
 			int bg = G_only - ag;
 			int bb = B_only - ab;
-			std::cerr << N << ' ' << G_only << ' ' << B_only << ' ' << ag << ' ' << ab << ' ' << bg << ' ' << bb << '\n';
+			//std::cerr << N << ' ' << G_only << ' ' << B_only << ' ' << ag << ' ' << ab << ' ' << bg << ' ' << bb << '\n';
 			std::string a = solve_cyc(N/2, ag, ab);
 			std::string b = solve_cyc(N/2, bg, bb);
 			std::string res;
@@ -98,11 +98,26 @@ std::string solve(int N, int X, int Y) {
 	}
 }
 
+std::pair<int, int> cnt(std::string S) {
+	int N = int(S.size());
+	int x = 0, y = 0;
+	for (int i = 0; i < N; i++) {
+		if (S[i] == 'B' || S[(i+2)%N] == 'B') x++;
+		if (S[i] == 'G' || S[(i+2)%N] == 'G') y++;
+	}
+	return {x, y};
+}
+
 void test() {
 	for (int N = 2; N <= 10; N++) {
 		for (int X = 0; X <= N; X++) {
 			for (int Y = 0; Y <= N; Y++) {
-				std::cerr << solve(N, X, Y) << '\n';
+				std::string r = solve(N, X, Y);
+				if (r != "Impossible") {
+					assert(int(r.size()) == N);
+					auto [x, y] = cnt(r);
+					assert(x == X && y == Y);
+				}
 			}
 		}
 	}
