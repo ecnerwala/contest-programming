@@ -21,7 +21,7 @@ int main() {
 			for (int x = 0; x < 2; x++) {
 				for (int y = 0; y < 2; y++) {
 					for (int p = 0; p < 2; p++) {
-						bool b = p ^ pref[j] ^ (x & pts[j][1]) ^ (y & pts[j][0]);
+						bool b = p ^ pref[i] ^ (x & pts[i][1]) ^ (y & pts[i][0]);
 						if (!b) ans += dp[x * 4 + y * 2 + p];
 					}
 				}
