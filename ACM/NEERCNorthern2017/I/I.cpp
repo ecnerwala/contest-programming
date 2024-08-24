@@ -37,7 +37,8 @@ int main() {
 		assert(!collinear.back());
 		for (int i = 0, j = 0; i < N; i = j+1) {
 			while (collinear[j]) j++;
-			int num_segs = j - i;
+			cerr << i << ' ' << j << '\n';
+			int num_segs = j - i + 1;
 			ans -= int64_t(num_segs) * int64_t(num_segs + 1) / 2;
 		}
 	}
