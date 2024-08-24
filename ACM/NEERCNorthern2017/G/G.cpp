@@ -346,12 +346,14 @@ int main() {
 
 	// pass in by index
 	auto lca = [&](int a, int b) -> std::pair<std::pair<int, int>, std::pair<int, int>> {
+		cerr << "query lca " << a << ' ' << b << '\n';
 		assert(a < b);
 		// by index
 		std::pair<int, int> res = preorder[a];
 		layout.get_range(a + 1, b + 1).for_each([&](auto p) {
 			res = std::min(res, seg[p]);
 		});
+		cerr << " " << res.first << ' ' << res.second << '\n';
 		return {res, {a, b}};
 	};
 
