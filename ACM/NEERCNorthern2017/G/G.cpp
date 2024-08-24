@@ -371,9 +371,17 @@ int main() {
 
 		auto get_cut = [&]() -> int {
 			assert(std::max(int(g.size()) - 1, 0) == int(l.size()));
-			if (g.empty()) return 0;
-			else if (!l.empty()) return l.begin()->first.second;
-			else return preorder[*g.begin()].second;
+			if (g.empty()) {
+				cerr << "  empty " << 0 << ' ' < 0 << '\n';
+				return 0;
+			} else if (!l.empty()) {
+				cerr << "  lca " << l.begin()->first.first << ' ' << l.begin()->first.second << '\n';
+				return l.begin()->first.second;
+			} else {
+				cerr << "  one " << preorder[*g.begin()].first << ' ' << preorder[*g.begin()].second << '\n';
+
+				return preorder[*g.begin()].second;
+			}
 		};
 
 		if (op == '+') {
