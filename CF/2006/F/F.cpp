@@ -246,6 +246,8 @@ int main() {
 				}
 			}
 		}
+		ans /= num(N) * num(N);
+		cout << ans << '\n';
 	}
 
 	return 0;
