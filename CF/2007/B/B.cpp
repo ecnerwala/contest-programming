@@ -7,7 +7,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, Q; cin >> N >> Q;
-		int a = -1;
+		int a = 0;
 		while (N--) { int v; cin >> v; a = std::max(a, v); }
 		while (Q--) {
 			char op; int l, r; cin >> op >> l >> r;
