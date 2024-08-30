@@ -7,7 +7,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int L, R; cin >> L >> R;
-		cout << ((R+1)/2 - (L+1)/2) / 2 << '\n';
+		cout << ((R+1)/2 - L/2) / 2 << '\n';
 	}
 
 	return 0;
