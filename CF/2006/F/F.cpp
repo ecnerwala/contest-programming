@@ -216,7 +216,6 @@ int main() {
 		auto cnt_good = [&](const std::vector<int>& a) {
 			num res = 1;
 			for (int i = 0; i+1 < int(a.size()); i++) res *= fact[a[i]];
-			res *= ifact[a.back()];
 			return res;
 		};
 
