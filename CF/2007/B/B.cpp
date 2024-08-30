@@ -12,9 +12,8 @@ int main() {
 		while (Q--) {
 			char op; int l, r; cin >> op >> l >> r;
 			if (l <= a && a <= r) {
-				if (op == '+') a++;
-				else if (op == '-') a--;
-				else assert(false);
+				// + is 43, - is 45
+				a += 44 - op;
 			}
 			cout << a << " \n"[!Q];
 		}
