@@ -580,7 +580,7 @@ int main() {
 		int diam_len = 0;
 		bool bad = false;
 		std::vector<int> answers(N);
-		answers[0] = 0;
+		answers[0] = 1;
 		for (int i = 1; i < N; i++) {
 			my_top_tree_node* v = &nodes[i];
 			v->is_path = v->is_vert = true;
@@ -622,7 +622,7 @@ int main() {
 				if (d->is_vert) {
 					assert(l_extra == r_extra);
 					d->make_root();
-					ans = d->closest_good[0];
+					ans = d->closest_good[0] + l_extra;
 					break;
 				} else {
 					int l_len = d->c[0]->path_len + l_extra;
@@ -635,7 +635,7 @@ int main() {
 						d = d->c[0];
 					} else {
 						d->expose_edge();
-						ans = std::min(d->c[0]->closest_good[1], d->c[1]->closest_good[0]);
+						ans = std::min(d->c[0]->closest_good[1], d->c[1]->closest_good[0]) + l_len + 1;
 						break;
 					}
 				}
