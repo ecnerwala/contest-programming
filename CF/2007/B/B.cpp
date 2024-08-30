@@ -16,7 +16,7 @@ int main() {
 				else if (op == '-') a--;
 				else assert(false);
 			}
-			cout << a << '\n';
+			cout << a << " \n"[q+1==Q];
 		}
 	}
 
