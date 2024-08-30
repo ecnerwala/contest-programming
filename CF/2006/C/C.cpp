@@ -39,7 +39,7 @@ int main() {
 			int L = 0;
 			for (int i = 0; i < int(freq.size()); i++) {
 				if (L && freq[i].first == freq[L-1].first) {
-					freq[L-1].second += freq[i].first;
+					freq[L-1].second += freq[i].second;
 				} else {
 					freq[L++] = freq[i];
 				}
