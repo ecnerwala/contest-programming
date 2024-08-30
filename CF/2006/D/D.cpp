@@ -82,9 +82,9 @@ int main() {
 
 			// now answer the query
 			{
-				cerr << "query " << query.q << " l=" << query.l << " r=" << query.r << '\n';
-				for (int i = 1; i <= RT; i++) { cerr << ' ' << freq_big[i]; } cerr << '\n';
-				for (int i = 1; i <= RT; i++) { cerr << ' ' << freq_small[i]; } cerr << '\n';
+				//cerr << "query " << query.q << " l=" << query.l << " r=" << query.r << '\n';
+				//for (int i = 1; i <= RT; i++) { cerr << ' ' << freq_big[i]; } cerr << '\n';
+				//for (int i = 1; i <= RT; i++) { cerr << ' ' << freq_small[i]; } cerr << '\n';
 				// we need to match all the big to all the small
 				int ans = 0;
 
