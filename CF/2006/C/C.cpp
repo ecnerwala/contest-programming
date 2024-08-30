@@ -16,13 +16,10 @@ int main() {
 		}
 		N--;
 
-		for (int v : V) { cerr << v << ' '; } cerr << '\n';
-
 		int64_t ans = N+1;
 		// we want the number of (possibly empty) intervals of V whose gcd is 0 or 1
 		std::vector<std::pair<int, int>> freq; freq.reserve(32);
 		for (int v : V) {
-			cerr << "add " << v << '\n';
 			{
 				// add a 0
 				if (freq.empty() || freq.back().first != 0) freq.push_back({0, 1});
@@ -45,7 +42,6 @@ int main() {
 				}
 			}
 			freq.resize(L);
-			for (auto [a, c] : freq) { cerr << ' ' << a << ' ' << c << '\n'; }
 		}
 		cout << ans << '\n';
 	}
