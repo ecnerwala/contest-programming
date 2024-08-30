@@ -17,30 +17,34 @@ int main() {
 		assert(N >= 2);
 		std::array<int, 2> leaf_cnt{0, 0};
 		int leaf_unknown = 0;
+		int other_unknown = 0;
 		for (int i = 1; i < N; i++) {
 			if (deg[i] == 1) {
 				if (S[i] == '?') leaf_unknown++;
 				else leaf_cnt[S[i] - '0']++;
+			} else {
+				if (S[i] == '?') other_unknown++;
 			}
 		}
 
 		cerr << leaf_cnt[0] << ' ' << leaf_cnt[1] << ' ' << leaf_unknown << ' ' << S[0] << '\n';
 
 		// take the first turn
-		int root_val;
 		if (S[0] == '?') {
-			// set it to be different from the majority
-			root_val = (leaf_cnt[0] > leaf_cnt[1]) ? 1 : 0;
+			if (leaf_cnt[0] == leaf_cnt[1]) {
+				if (other_unknown & 1) {
+					cout << leaf_cnt[0] + (leaf_unknown + 1) / 2 << '\n';
+				} else {
+					cout << leaf_cnt[0] + leaf_unknown / 2 << '\n';
+				}
+			} else {
+				cout << std::max(leaf_cnt[0], leaf_cnt[1]) + leaf_unknown / 2 << '\n';
+			}
 		} else {
 			assert(S[0] == '0' || S[0] == '1');
-			root_val = (S[0] - '0');
-			if (leaf_unknown) {
-				leaf_cnt[!root_val]++;
-				leaf_unknown--;
-			}
+			int root_val = (S[0] - '0');
+			cout << (leaf_unknown + 1) / 2 + leaf_cnt[!root_val] << '\n';
 		}
-		// now dora takes the first turn
-		cout << leaf_unknown / 2 + leaf_cnt[!root_val] << '\n';
 	}
 
 	return 0;
