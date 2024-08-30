@@ -206,7 +206,7 @@ int main() {
 		int N, M; cin >> N >> M;
 		std::vector<std::array<int, 2>> A(M);
 		for (auto& [x, y] : A) { cin >> x >> y; x--, y--; }
-		cerr << "CASE: " << N << ' ' << M << '\n';
+		//cerr << "CASE: " << N << ' ' << M << '\n';
 
 		using num = modnum<998244353>;
 		std::vector<num> fact(N+1);
@@ -230,19 +230,12 @@ int main() {
 			//cerr << "good" << '\n';
 			//for (auto v : moves) { cerr << v << ' '; } cerr << '\n';
 			num baseline = cnt_good(moves);
-			for (int i = 0; i+2 < int(moves.size()); i++) {
+			for (int i = 0; i+1 < int(moves.size()); i++) {
 				// try to swap this pair
 				num w = baseline;
 				if (moves[i] == 1 && i-1 >= 0) w *= moves[i-1] + 1;
+				if (i+2 == int(moves.size())) w *= moves[i+1];
 				if (moves[i+1] == 1 && i+3 < int(moves.size())) w *= moves[i+2] + 1;
-				ans += w;
-			}
-			// now, just the ending one
-			{
-				int i = int(moves.size()) - 2;
-				num w = baseline;
-				if (moves[i] == 1 && i-1 >= 0) w *= moves[i-1] + 1;
-				w *= num(moves[i+1]);
 				ans += w;
 			}
 		} else {
