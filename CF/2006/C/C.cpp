@@ -20,6 +20,7 @@ int main() {
 		// we want the number of (possibly empty) intervals of V whose gcd is 0 or 1
 		std::vector<std::pair<int, int>> freq; freq.reserve(32);
 		for (int v : V) {
+			cerr << v << '\n';
 			{
 				// add a 0
 				if (freq.empty() || freq.back().first != 0) freq.push_back({0, 1});
