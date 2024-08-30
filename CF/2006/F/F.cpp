@@ -219,9 +219,6 @@ int main() {
 		num ans = 0;
 		if (std::holds_alternative<std::vector<int>>(r)) {
 			auto moves = std::get<std::vector<int>>(r);
-			cout << moves.size() << '\n';
-			for (auto& x : moves) cout << x << ' ';
-			cout << '\n';
 		} else {
 			auto checkerboard = std::get<std::array<std::array<int, 2>, 2>>(r);
 			// try swapping all of them
