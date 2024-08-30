@@ -191,6 +191,9 @@ std::variant<std::vector<int>, std::array<std::array<int, 2>, 2>> check_matrix(i
 			moves.push_back(1);
 		}
 	}
+	if (l_deg[N-1].first < N) {
+		moves.push_back(N - l_deg[N-1].first);
+	}
 	return moves;
 }
 
