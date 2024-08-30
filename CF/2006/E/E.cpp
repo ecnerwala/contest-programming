@@ -644,7 +644,7 @@ int main() {
 			cerr << answers[i] << '\n';
 		}
 		for (int i = 0; i < N; i++) {
-			cout << answers[i] << '\n';
+			cout << answers[i] << " \n"[i+1==N];
 		}
 	}
 
