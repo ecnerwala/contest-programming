@@ -626,10 +626,10 @@ int main() {
 					int l_len = d->c[0]->path_len + l_extra;
 					int r_len = d->c[1]->path_len + r_extra;
 					if (r_len > l_len) {
-						l_extra += l_len + 1;
+						l_extra = l_len + 1;
 						d = d->c[1];
 					} else if (l_len > r_len) {
-						r_extra += r_len + 1;
+						r_extra = r_len + 1;
 						d = d->c[0];
 					} else {
 						d->expose_edge();
