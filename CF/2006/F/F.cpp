@@ -203,6 +203,7 @@ int main() {
 		int N, M; cin >> N >> M;
 		std::vector<std::array<int, 2>> A(M);
 		for (auto& [x, y] : A) { cin >> x >> y; x--, y--; }
+		cerr << "CASE: " << N << ' ' << M << '\n';
 
 		using num = modnum<998244353>;
 		std::vector<num> fact(N+1);
@@ -222,6 +223,8 @@ int main() {
 		num ans = 0;
 		if (std::holds_alternative<std::vector<int>>(r)) {
 			auto moves = std::get<std::vector<int>>(r);
+			cerr << "good" << '\n';
+			for (auto v : moves) { cerr << v << ' '; } cerr << '\n';
 			num baseline = cnt_good(moves);
 			for (int i = 0; i+1 < int(moves.size()); i++) {
 				// try to swap this pair
