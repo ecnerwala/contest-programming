@@ -208,6 +208,9 @@ int main() {
 		std::vector<num> fact(N+1);
 		fact[0] = 1;
 		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(N+1);
+		ifact[N] = inv(fact[N]);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		auto cnt_good = [&](std::vector<int> a) {
 			num res = 1;
@@ -219,6 +222,14 @@ int main() {
 		num ans = 0;
 		if (std::holds_alternative<std::vector<int>>(r)) {
 			auto moves = std::get<std::vector<int>>(r);
+			num baseline = cnt_good(moves);
+			for (int i = 0; i+1 < int(moves.size()); i++) {
+				// try to swap this pair
+				num w = baseline;
+				if (moves[i] == 1 && i-1 >= 0) w *= moves[i-1] + 1;
+				if (moves[i+1] == 1 && i+2 < int(moves.size())) w *= moves[i+2] + 1;
+				ans += w;
+			}
 		} else {
 			auto checkerboard = std::get<std::array<std::array<int, 2>, 2>>(r);
 			// try swapping all of them
