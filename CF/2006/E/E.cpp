@@ -641,7 +641,6 @@ int main() {
 				}
 			}
 			answers[i] = bad ? -1 : (ans + 1);
-			cerr << answers[i] << '\n';
 		}
 		for (int i = 0; i < N; i++) {
 			cout << answers[i] << " \n"[i+1==N];
