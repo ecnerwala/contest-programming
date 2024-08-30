@@ -24,6 +24,8 @@ int main() {
 			}
 		}
 
+		cerr << leaf_cnt[0] << ' ' << leaf_cnt[1] << ' ' << leaf_unknown << ' ' << S[0] << '\n';
+
 		// take the first turn
 		int root_val;
 		if (S[0] == '?') {
