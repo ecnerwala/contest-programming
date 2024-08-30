@@ -88,16 +88,14 @@ int main() {
 				// we need to match all the big to all the small
 				int ans = 0;
 
-				int tot_need = 0;
-				for (int i = 1; i <= RT; i++) {
-					tot_need += freq_big[i];
-				}
+				int tot_cnt = query.r - query.l + 1;
+
 				int need = 0;
 				int have = 0;
 				for (int i = 1; i <= RT; i++) {
 					need += freq_big[i];
 					have += freq_small[i];
-					ans = std::max(ans, (need - have + (tot_need > need) + 1) / 2);
+					ans = std::max(ans, (need - have + (tot_cnt > need + have) + 1) / 2);
 				}
 				answers[query.q] = ans;
 			}
