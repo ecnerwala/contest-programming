@@ -11,10 +11,7 @@ int main() {
 		while (N--) { int v; cin >> v; a = std::max(a, v); }
 		while (Q--) {
 			char op; int l, r; cin >> op >> l >> r;
-			if (l <= a && a <= r) {
-				// + is 43, - is 45
-				a += 44 - op;
-			}
+			if (l <= a && a <= r) a += 44 - op;
 			cout << a << " \n"[!Q];
 		}
 	}
