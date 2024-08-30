@@ -223,8 +223,8 @@ int main() {
 		num ans = 0;
 		if (std::holds_alternative<std::vector<int>>(r)) {
 			auto moves = std::get<std::vector<int>>(r);
-			//cerr << "good" << '\n';
-			//for (auto v : moves) { cerr << v << ' '; } cerr << '\n';
+			cerr << "good" << '\n';
+			for (auto v : moves) { cerr << v << ' '; } cerr << '\n';
 			num baseline = cnt_good(moves);
 			for (int i = 0; i+1 < int(moves.size()); i++) {
 				// try to swap this pair
