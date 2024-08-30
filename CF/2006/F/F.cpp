@@ -193,7 +193,6 @@ std::variant<std::vector<int>, std::array<std::array<int, 2>, 2>> check_matrix(i
 	}
 	if (l_deg[N-1].first < N) {
 		moves.push_back(N - l_deg[N-1].first);
-		moves.push_back(0);
 	}
 	return moves;
 }
@@ -220,6 +219,7 @@ int main() {
 		auto cnt_good = [&](std::vector<int> a) {
 			num res = 1;
 			for (auto v : a) res *= fact[v];
+			res *= ifact[a.back()];
 			return res;
 		};
 
