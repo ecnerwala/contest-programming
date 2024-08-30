@@ -212,13 +212,10 @@ int main() {
 		std::vector<num> fact(N+1);
 		fact[0] = 1;
 		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(N+1);
-		ifact[N] = inv(fact[N]);
-		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-		auto cnt_good = [&](std::vector<int> a) {
+		auto cnt_good = [&](const std::vector<int>& a) {
 			num res = 1;
-			for (auto v : a) res *= fact[v];
+			for (int i = 0; i+1 < int(a.size()); i++) res *= fact[a[i]];
 			res *= ifact[a.back()];
 			return res;
 		};
