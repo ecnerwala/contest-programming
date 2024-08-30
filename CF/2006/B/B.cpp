@@ -47,7 +47,7 @@ int main() {
 		int64_t tot_seen = 0;
 		for (int i = 0; i < N-1; i++) {
 			tot_seen += evts[i].second;
-			cout << tot_seen * 2 + (W - tot_seen) * num_question[i+1] << '\n';
+			cout << tot_seen * 2 + (W - tot_seen) * num_question[i+1] << " \n"[i+1==N-1];
 		}
 	}
 
