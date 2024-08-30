@@ -210,7 +210,6 @@ private:
 		assert(p->p->r());
 	}
 
-public:
 	void splay() {
 		assert(!is_vert);
 		while (!r()) {
@@ -635,8 +634,7 @@ int main() {
 						r_extra = r_len + 1;
 						d = d->c[0];
 					} else {
-						//d->expose_edge();
-						d->splay(); d->update();
+						d->expose_edge();
 						ans = std::min(d->c[0]->closest_good[1], d->c[1]->closest_good[0]) + l_len + 1;
 						break;
 					}
