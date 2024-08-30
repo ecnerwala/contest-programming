@@ -55,7 +55,7 @@ int main() {
 
 		std::vector<int> freq_small(RT+1);
 		std::vector<int> freq_big(RT+1);
-		freq_small[0]++;
+		freq_small[1]++;
 		int l = 0;
 		int r = 0;
 		for (auto query : Qs) {
