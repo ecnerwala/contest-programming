@@ -579,6 +579,8 @@ int main() {
 		std::array<int, 2> diam{0, 0};
 		int diam_len = 0;
 		bool bad = false;
+		std::vector<int> answers(N);
+		answers[0] = 0;
 		for (int i = 1; i < N; i++) {
 			my_top_tree_node* v = &nodes[i];
 			v->is_path = v->is_vert = true;
@@ -638,7 +640,11 @@ int main() {
 					}
 				}
 			}
-			cout << (bad ? -1 : ans) << " \n"[i+1==N];
+			answers[i] = bad ? -1 : (ans + 1);
+			cerr << answers[i] << '\n';
+		}
+		for (int i = 0; i < N; i++) {
+			cout << answers[i] << '\n';
 		}
 	}
 
