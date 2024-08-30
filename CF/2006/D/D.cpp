@@ -97,7 +97,7 @@ int main() {
 				for (int i = 1; i <= RT; i++) {
 					need += freq_big[i];
 					have += freq_small[i];
-					ans = std::max(ans, need - have + (tot_need > need));
+					ans = std::max(ans, (need - have + (tot_need > need) + 1) / 2);
 				}
 				answers[query.q] = ans;
 			}
