@@ -638,7 +638,7 @@ int main() {
 					}
 				}
 			}
-			cout << (bad ? -1 : ans) << '\n';
+			cout << (bad ? -1 : ans) << " \n"[i+1==N];
 		}
 	}
 
