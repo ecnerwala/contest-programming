@@ -232,7 +232,7 @@ int main() {
 	std::vector<std::pair<int, int>> bigs; bigs.reserve(N);
 	for (int i = 0; i < N; i++) {
 		if (W[P[i]] * 2 > W_MAX) {
-			bigs.push_back({W[i], i});
+			bigs.push_back({W[P[i]], i});
 		}
 	}
 	auto ct = CartesianTree::build_max_tree(bigs);
