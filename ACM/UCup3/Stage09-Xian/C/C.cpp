@@ -541,7 +541,7 @@ int main() {
 		int p = primes[z];
 		auto& a = prime_rel[z];
 		a.set();
-		for (int i = p; i <= N; i += p) {
+		for (int i = 0; i <= N; i += p) {
 			a.reset(i);
 		}
 		cerr << p << ' '; for (int i = 0; i <= N; i++) { cerr << a[i]; } cerr << '\n';
