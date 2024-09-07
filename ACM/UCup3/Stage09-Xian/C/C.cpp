@@ -598,10 +598,10 @@ int main() {
 		if (l_min < l_max) {
 			auto& a = stk.back();
 			// we care about gcd with len - 1, which ranges from l_min .. l_max - 1
-			bs cur = a >> l_min << (l_min + 1);
+			bs cur_bs = a >> l_min << (l_min + 1);
 			int64_t cur_sum = 0;
 			for (int b = 0; b < 17; b++) {
-				cur_sum += int64_t((cur & by_set[b]).count()) << b;
+				cur_sum += int64_t((cur_bs & by_set[b]).count()) << b;
 			}
 			cerr << "  adding " << cur_sum << '\n';
 			ans += cur_sum;
