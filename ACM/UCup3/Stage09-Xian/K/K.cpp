@@ -315,7 +315,7 @@ int main() {
 			// do nothing
 		} else {
 			res = self(ct[cur].c[0]);
-			int mid = P[bigs[ct[cur].m].first];
+			int mid = P[bigs[ct[cur].m].second];
 			if (!res.empty() && mid < *res.rbegin()) {
 				ch[*res.rbegin()].push_back(mid);
 			} else {
