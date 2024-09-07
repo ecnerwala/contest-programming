@@ -586,6 +586,7 @@ int main() {
 			stk.pop_back();
 		}
 		cerr << "process " << cur << ' ' << ct[cur].l << '-' << ct[cur].r+1 << ' ' << l_min << '-' << l_max << '\n';
+		cerr << ' '; for (int i = 0; i <= N; i++) { cerr << stk.back()[i]; } cerr << '\n';
 		assert(l_min <= l_max);
 		if (l_min < l_max) {
 			auto& a = stk.back();
