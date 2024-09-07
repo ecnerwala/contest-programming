@@ -268,7 +268,6 @@ int main() {
 					assert(!used[i]);
 					used[i] = true;
 					inds[ma == int(stk.size()) ? cur : stk[ma].second].push_back(P[i]);
-					cerr << "index " << i << ' ' << (ma == int(stk.size()) ? cur : stk[ma].second) << '\n';
 				}
 			} else {
 				assert(!used[bigs[ct[cur].m].second]);
@@ -278,10 +277,6 @@ int main() {
 				self(ct[cur].c[1]);
 				stk.pop_back();
 			}
-			cerr << "node " << cur << ' ' << ct[cur].l << ' ' << ct[cur].m << ' ' << ct[cur].r << '\n';
-			cerr << "  ";
-			for (auto v : inds[cur]) cerr << v << ' ';
-			cerr << '\n';
 		})(ct.root);
 		for (int i = 0; i < N; i++) assert(used[i]);
 	}
@@ -312,6 +307,44 @@ int main() {
 		return {len, ans};
 	})(ct.root).second;
 	cout << ways << '\n';
+
+	std::vector<std::vector<int>> ch(N);
+	std::set<int> root_list = std::y_combinator([&](auto self, int cur) -> std::set<int> {
+		std::set<int> res;
+		if (!(cur & 1)) {
+			// do nothing
+		} else {
+			res = self(ct[cur].c[0]);
+			int mid = P[bigs[ct[cur].m].first];
+			if (!res.empty() && mid < *res.rbegin()) {
+				ch[*res.rbegin()].push_back(mid);
+			} else {
+				res.insert(mid);
+			}
+			int mx = *res.rbegin();
+			std::set<int> res_2 = self(ct[cur].c[1]);
+			while (!res_2.empty() && *res_2.begin() < mx) {
+				ch[mx].push_back(*res_2.begin());
+				res_2.erase(res_2.begin());
+			}
+			// concatenate res and res_2
+			if (int(res_2.size()) > int(res.size())) std::swap(res, res_2);
+			for (int v : res_2) res.insert(v);
+		}
+		for (int v : inds[cur]) res.insert(v);
+		return res;
+	})(ct.root);
+	std::vector<int> ans; ans.reserve(N);
+	for (auto a : root_list) {
+		std::y_combinator([&](auto self, int cur) -> void {
+			ans.push_back(cur);
+			for (int v : ch[cur]) self(v);
+		})(a);
+	}
+	assert(int(ans.size()) == N);
+	for (int i = 0; i < N; i++) {
+		cout << ans[i]+1 << " \n"[i+1==N];
+	}
 
 	return 0;
 }
