@@ -573,8 +573,8 @@ int main() {
 				}
 			}
 			// remove indices >= l_max
-			a <<= (BS_LEN - l_max);
-			a >>= (BS_LEN - l_max);
+			//a <<= (BS_LEN - l_max);
+			//a >>= (BS_LEN - l_max);
 		} else {
 			l_max = SA.lcp[ct[cur].m];
 			// do the bigger side first
