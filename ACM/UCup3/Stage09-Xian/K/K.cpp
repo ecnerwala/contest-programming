@@ -129,7 +129,7 @@ int main() {
 				// we're a leaf, so let's process all the leaves here
 				assert(ct[cur].c[0] == -1);
 				assert(ct[cur].c[1] == -1);
-				assert(ct[cur].r - ct[cur].l == 1);
+				assert(ct[cur].r - ct[cur].l == -1);
 				int l = ct[cur].l-1 == -1 ? -1 : bigs[ct[cur].l-1].second;
 				int r = ct[cur].r+1 == int(bigs.size()) ? N : bigs[ct[cur].r+1].second;
 				for (int i = l+1; i <= r-1; i++) {
