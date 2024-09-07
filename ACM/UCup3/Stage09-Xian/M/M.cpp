@@ -530,9 +530,22 @@ int main() {
 	for (int t = 0; t < T; t++) {
 		int n, m; cin >> n >> m;
 		num ans = 0;
+		std::vector<int> vals; vals.reserve(n);
 		for (int w = 1; w <= n; w++) {
+			// add m + 1 - w
 			num weight = dp[{n, w}];
-			ans += weight * choose[{m, w}];
+			vals.push_back(m+1-w);
+			{
+				int den = w;
+				for (int& v : vals) {
+					int g = std::gcd(v, den);
+					v /= g;
+					den /= g;
+					weight *= num(v);
+				}
+				assert(den == 1);
+			}
+			ans += weight;
 		}
 		cout << ans << '\n';
 	}
