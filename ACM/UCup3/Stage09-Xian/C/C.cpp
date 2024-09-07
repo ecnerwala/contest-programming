@@ -560,12 +560,16 @@ int main() {
 			a.set();
 			int l = SA.sa[ct[cur].l];
 			l_max = N - l;
-			for (int v = l+1; v > 1; ) {
-				int z = pfac[v];
-				int p = primes[z];
-				assert(v % p == 0);
-				while (v % p == 0) v /= p;
-				a &= prime_rel[z];
+			if (l == N) {
+				// what do we do? this guys doesn't matter anyways
+			} else {
+				for (int v = l+1; v > 1; ) {
+					int z = pfac[v];
+					int p = primes[z];
+					assert(v % p == 0);
+					while (v % p == 0) v /= p;
+					a &= prime_rel[z];
+				}
 			}
 			// remove indices >= l_max
 			a <<= (BS_LEN - l_max);
