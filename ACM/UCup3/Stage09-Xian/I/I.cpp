@@ -46,7 +46,7 @@ int main() {
 		int l, r; cin >> l >> r; l--, r--;
 		queries[l].push_back({r, q});
 	}
-	const int BUCKET_SIZE = 150;
+	const int BUCKET_SIZE = 1;
 	std::vector<int> buckets((N-1) / BUCKET_SIZE + 1);
 	std::vector<int> vals(N);
 	for (int l = N-1; l >= 0; l--) {
