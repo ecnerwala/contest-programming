@@ -502,7 +502,7 @@ int main() {
 
 	int T; cin >> T >> num::MOD_READER();
 
-	int N = 1000;
+	int N = 100;
 	tensor<num, 2> choose({N+1, N+1});
 	for (int i = 0; i <= N; i++) {
 		choose[{i, 0}] = choose[{i, i}] = num(1);
