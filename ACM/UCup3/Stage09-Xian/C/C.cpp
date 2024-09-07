@@ -592,6 +592,7 @@ int main() {
 			auto& a = stk.back();
 			// we care about gcd with len - 1, which ranges from l_min .. l_max - 1
 			int cur_cnt = int((a >> l_min).count());
+			cerr << "  adding " << cur_cnt << '\n';
 			ans += cur_cnt;
 			// remove indices >= l_min
 			a <<= (BS_LEN - l_min);
