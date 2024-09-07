@@ -306,7 +306,7 @@ int main() {
 			len = l0 + 1 + l1;
 			ans = a0 * a1;
 		}
-		ans *= ifact[int(inds[cur].size())] * ifact[len];
+		ans *= ifact[len];
 		len += int(inds[cur].size());
 		ans *= fact[len];
 		return {len, ans};
