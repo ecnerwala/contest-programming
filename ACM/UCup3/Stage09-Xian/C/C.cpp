@@ -595,6 +595,7 @@ int main() {
 			a <<= (BS_LEN - l_min);
 			a >>= (BS_LEN - l_min);
 		}
+		cerr << ' '; for (int i = 0; i <= N; i++) { cerr << stk.back()[i]; } cerr << '\n';
 	})(ct.root, 0);
 	cout << ans << '\n';
 
