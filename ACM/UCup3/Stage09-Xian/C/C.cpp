@@ -544,6 +544,7 @@ int main() {
 		for (int i = p; i <= N; i += p) {
 			a.reset(i);
 		}
+		cerr << p << ' '; for (int i = 0; i <= N; i++) { cerr << a[i]; } cerr << '\n';
 	}
 
 	std::string S; cin >> S;
