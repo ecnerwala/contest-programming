@@ -269,7 +269,6 @@ int main() {
 					used[i] = true;
 					inds[ma == int(stk.size()) ? cur : stk[ma].second].push_back(P[i]);
 				}
-				return;
 			} else {
 				assert(!used[bigs[ct[cur].m].second]);
 				used[bigs[ct[cur].m].second] = true;
@@ -278,6 +277,10 @@ int main() {
 				self(ct[cur].c[1]);
 				stk.pop_back();
 			}
+			cerr << "node " << cur << ' ' << ct[cur].l << ' ' << ct[cur].m << ' ' << ct[cur].r << '\n';
+			cerr << "  ";
+			for (auto v : inds[cur]) cerr << v << ' ';
+			cerr << '\n';
 		})(ct.root);
 		for (int i = 0; i < N; i++) assert(used[i]);
 	}
