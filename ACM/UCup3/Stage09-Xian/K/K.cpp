@@ -288,7 +288,7 @@ int main() {
 	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
 	std::vector<num> ifact(N+1);
 	ifact[N] = inv(fact[N]);
-	for (int i = 1; i <= N; i++) ifact[i-1] = ifact[i] * num(i);
+	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	num ways = std::y_combinator([&](auto self, int cur) -> std::pair<int, num> {
 		int len;
