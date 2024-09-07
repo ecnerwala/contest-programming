@@ -521,7 +521,7 @@ int main() {
 				num weight = num(1);
 				for (int i = 0; a + i * h <= N; i++) {
 					if (i > 0) weight *= choose[{a + i * h, h}];
-					ndp[{a + i * h, w + i}] += dp[{a, w}] * choose[{w + i, i}] * weight * (a == 0 ? num(h) : num(1));
+					ndp[{a + i * h, w + i}] += dp[{a, w}] * choose[{w + i, i}] * weight * (a == 0 && i > 0 ? num(h) : num(1));
 				}
 			}
 		}
