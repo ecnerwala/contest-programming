@@ -521,9 +521,9 @@ int main() {
 
 	int N; cin >> N;
 	std::vector<int> primes; primes.reserve(N);
-	std::vector<int> pfac(N+1);
+	std::vector<int> pfac(N+1, -1);
 	for (int i = 2; i <= N; i++) {
-		if (!pfac[i]) {
+		if (pfac[i] == -1) {
 			pfac[i] = int(primes.size());
 			primes.push_back(i);
 		}
