@@ -268,6 +268,7 @@ int main() {
 					assert(!used[i]);
 					used[i] = true;
 					inds[ma == int(stk.size()) ? cur : stk[ma].second].push_back(P[i]);
+					cerr << "index " << i << ' ' << (ma == int(stk.size()) ? cur : stk[ma].second) << '\n';
 				}
 			} else {
 				assert(!used[bigs[ct[cur].m].second]);
