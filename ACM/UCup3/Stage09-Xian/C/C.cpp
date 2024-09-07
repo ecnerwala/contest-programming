@@ -547,6 +547,13 @@ int main() {
 		cerr << p << ' '; for (int i = 0; i <= N; i++) { cerr << a[i]; } cerr << '\n';
 	}
 
+	std::vector<bs> by_set(17);
+	for (int b = 0; b < 17; b++) {
+		for (int i = 0; i <= N; i++) {
+			by_set[b][i] = ((i >> b) & 1);
+		}
+	}
+
 	std::string S; cin >> S;
 	auto SA = SuffixArray::shift_and_construct(S);
 	auto ct = CartesianTree::build_min_tree(SA.lcp);
@@ -591,9 +598,13 @@ int main() {
 		if (l_min < l_max) {
 			auto& a = stk.back();
 			// we care about gcd with len - 1, which ranges from l_min .. l_max - 1
-			int cur_cnt = int((a >> l_min).count());
-			cerr << "  adding " << cur_cnt << '\n';
-			ans += cur_cnt;
+			bs cur = a >> l_min << (l_min + 1);
+			int64_t cur_sum = 0;
+			for (int b = 0; b < 17; b++) {
+				cur_sum += int64_t((cur & by_set[b]).count()) << b;
+			}
+			cerr << "  adding " << cur_sum << '\n';
+			ans += cur_sum;
 			// remove indices >= l_min
 			a <<= (BS_LEN - l_min);
 			a >>= (BS_LEN - l_min);
