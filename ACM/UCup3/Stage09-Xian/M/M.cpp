@@ -513,6 +513,7 @@ int main() {
 
 	// total area and total width
 	tensor<num, 2> dp({N+1, N+1});
+	dp[{0, 0}] = num(1);
 	for (int h = N; h >= 1; h--) {
 		tensor<num, 2> ndp({N+1, N+1});
 		for (int a = 0; a <= N; a++) {
