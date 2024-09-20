@@ -108,7 +108,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 		early[root] = -1;
 		return false;
 	})(0, 0, 0)) {
-		return std::vector<int>({0});
+		return std::vector<int>({0, 1, 2, 3});
 	} else {
 		return std::nullopt;
 	}
