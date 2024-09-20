@@ -62,11 +62,6 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 	int N = int(P.size());
 	assert(N == int(L.size()));
 
-	std::vector<int> prv(N+1);
-	std::vector<int> nxt(N+1);
-	std::iota(prv.begin(), prv.end(), 0);
-	std::iota(nxt.begin(), nxt.end(), 0);
-
 	std::vector<bool> alive(N, true);
 
 	std::vector<bool> broken(N, false);
@@ -87,13 +82,12 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 			// We're going to try to break the cur .. P[cur] edge
 			int n_root = L[cur];
 			int n_top = P[cur];
-			int n_early_epoch = early_epoch + (cur != root);
+			int n_early_epoch = cur == root ? early_epoch : cur;
 			early[cur] = n_early_epoch;
 			if (self(n_root, n_top, n_early_epoch)) {
 				broken[cur] = true;
 				return true;
 			}
-			early[cur] = -1;
 
 			if (P[cur] == top) break;
 		}
@@ -115,7 +109,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 				in_deg[i]++;
 			} else {
 				out_edges[i].push_back(P[i]);
-				in_deg[P[i]] ++;
+				in_deg[P[i]]++;
 			}
 		}
 		std::vector<int> ordering; ordering.reserve(N);
