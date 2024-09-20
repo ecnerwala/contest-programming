@@ -128,7 +128,7 @@ int main() {
 	auto res = solve(P, L);
 	if (res) {
 		for (int i = 0; i < N; i++) {
-			cout << (*res)[i] << " \n"[i+1==N];
+			cout << (*res)[i]+1 << " \n"[i+1==N];
 		}
 	} else {
 		cout << "impossible" << '\n';
