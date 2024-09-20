@@ -92,6 +92,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 				// don't worry if early is already set, cause we'll always return true
 				early[nroot] = n_early_epoch;
 				if (self(nroot, ntop, n_early_epoch)) {
+					std::cerr << "break " << cur << ' ' << P[cur] << '\n';
 					broken[cur] = true;
 					return true;
 				}
