@@ -91,7 +91,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 				int n_early_epoch = early_epoch + (cur != root);
 				early[cur] = n_early_epoch;
 				if (self(nroot, ntop, n_early_epoch)) {
-					//std::cerr << "break " << cur << ' ' << P[cur] << '\n';
+					std::cerr << "break " << cur << ' ' << P[cur] << '\n';
 					broken[cur] = true;
 					return true;
 				}
