@@ -108,7 +108,31 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 		early[root] = -1;
 		return false;
 	})(0, 0, 0)) {
-		return std::vector<int>({0, 1, 2, 3});
+		std::vector<std::vector<int>> out_edges(N);
+		std::vector<int> in_deg(N);
+		for (int i = 0; i < N; i++) {
+			if (broken[i]) {
+				out_edges[P[i]].push_back(L[i]);
+				in_deg[L[i]]++;
+				out_edges[L[i]].push_back(i);
+				in_deg[i]++;
+			} else {
+				out_edges[i].push_back(P[i]);
+				in_deg[P[i]] ++;
+			}
+		}
+		std::vector<int> ordering; ordering.reserve(N);
+		for (int i = 0; i < N; i++) {
+			if (!in_deg[i]) ordering.push_back(i);
+		}
+		for (int z = 0; z < int(ordering.size()); z++) {
+			for (int u : out_edges[ordering[z]]) {
+				if (!--in_deg[u]) ordering.push_back(u);
+			}
+		}
+		assert(int(ordering.size()) == N);
+		std::reverse(ordering.begin(), ordering.end());
+		return ordering;
 	} else {
 		return std::nullopt;
 	}
