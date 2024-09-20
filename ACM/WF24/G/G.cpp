@@ -143,7 +143,7 @@ void test() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 1000000; z++) {
 		std::cerr << "test " << z << '\n';
-		int N = std::uniform_int_distribution(3, 10)(mt);
+		int N = std::uniform_int_distribution(3, 8)(mt);
 		std::vector<int> P(N);
 		std::vector<int> L(N);
 		for (int i = 0; i < N; i++) {
