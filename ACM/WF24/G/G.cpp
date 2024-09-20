@@ -157,6 +157,10 @@ void test() {
 				L[i] = std::uniform_int_distribution(0, N-1)(mt);
 			} while (L[i] == i || L[i] == P[i]);
 		}
+		std::cerr << N << '\n';
+		for (int i = 0; i < N; i++) {
+			std::cerr << P[i] << ' ' << L[i] << '\n';
+		}
 		auto r = solve(P, L);
 		if (r) {
 			assert(is_valid(P, L, *r));
