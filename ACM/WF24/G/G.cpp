@@ -91,7 +91,6 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 			} else {
 				early[cur] = n_early_epoch;
 				if (self(nroot, ntop, n_early_epoch)) {
-					std::cerr << "break " << cur << ' ' << P[cur] << '\n';
 					broken[cur] = true;
 					return true;
 				}
@@ -143,7 +142,7 @@ void test() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 1000000; z++) {
 		std::cerr << "test " << z << '\n';
-		int N = std::uniform_int_distribution(3, 8)(mt);
+		int N = std::uniform_int_distribution(3, 9)(mt);
 		std::vector<int> P(N);
 		std::vector<int> L(N);
 		for (int i = 0; i < N; i++) {
