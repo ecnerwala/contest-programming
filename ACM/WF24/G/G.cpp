@@ -141,7 +141,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 
 void test() {
 	std::mt19937 mt(48);
-	for (int z = 0; z < 1000; z++) {
+	for (int z = 0; z < 1000000; z++) {
 		std::cerr << "test " << z << '\n';
 		int N = std::uniform_int_distribution(3, 10)(mt);
 		std::vector<int> P(N);
