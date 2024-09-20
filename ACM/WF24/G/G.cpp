@@ -85,10 +85,10 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 			// We're going to try to break the cur .. P[cur] edge
 			int nroot = L[cur];
 			int ntop = P[cur];
-			if (early[nroot] == early_epoch) {
+			int n_early_epoch = early_epoch + (cur != root);
+			if (early[nroot] == n_early_epoch) {
 				// excluded
 			} else {
-				int n_early_epoch = early_epoch + (cur != root);
 				early[cur] = n_early_epoch;
 				if (self(nroot, ntop, n_early_epoch)) {
 					std::cerr << "break " << cur << ' ' << P[cur] << '\n';
