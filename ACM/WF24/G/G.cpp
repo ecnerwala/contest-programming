@@ -91,7 +91,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 				int n_early_epoch = early_epoch + (cur != root);
 				early[cur] = n_early_epoch;
 				if (self(nroot, ntop, n_early_epoch)) {
-					std::cerr << "break " << cur << ' ' << P[cur] << '\n';
+					//std::cerr << "break " << cur << ' ' << P[cur] << '\n';
 					broken[cur] = true;
 					return true;
 				}
@@ -136,6 +136,33 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 		return ordering;
 	} else {
 		return std::nullopt;
+	}
+}
+
+void test() {
+	std::mt19937 mt(48);
+	for (int z = 0; z < 1000; z++) {
+		std::cerr << "test " << z << '\n';
+		int N = std::uniform_int_distribution(3, 10)(mt);
+		std::vector<int> P(N);
+		std::vector<int> L(N);
+		for (int i = 0; i < N; i++) {
+			if (i) {
+				P[i] = std::uniform_int_distribution(0, i-1)(mt);
+			} else {
+				P[i] = std::uniform_int_distribution(1, N-1)(mt);
+			}
+
+			do {
+				L[i] = std::uniform_int_distribution(0, N-1)(mt);
+			} while (L[i] == i || L[i] == P[i]);
+		}
+		auto r = solve(P, L);
+		if (r) {
+			assert(is_valid(P, L, *r));
+		} else {
+			assert(!solve_brute_force(P, L));
+		}
 	}
 }
 
