@@ -165,7 +165,11 @@ void test() {
 		if (r) {
 			assert(is_valid(P, L, *r));
 		} else {
-			assert(!solve_brute_force(P, L));
+			auto slo = !solve_brute_force(P, L);
+			if (slo) {
+				for (auto v : *slo) { std::cerr << v << ' '; } std::cerr << '\n';
+				assert(!slo);
+			}
 		}
 	}
 }
