@@ -72,10 +72,10 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 	std::vector<bool> broken(N, false);
 	std::vector<int> early(N, -1);
 	if (std::y_combinator([&](auto self, int root, int top, int early_epoch) -> bool {
+		// root must come after everything with early[i] == early_epoch
 		if (early[root] == early_epoch) return false;
 
 		// root is the bottom of the cycle
-		// root must come after everything with early[i] == early_epoch
 		for (int cur = root; true; cur = P[cur]) {
 			// we actually looped back somewhere else, so this guy is good
 			if (!alive[cur]) return true;
@@ -85,11 +85,11 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 
 		for (int cur = root; true; cur = P[cur]) {
 			// We're going to try to break the cur .. P[cur] edge
-			int nroot = L[cur];
-			int ntop = P[cur];
+			int n_root = L[cur];
+			int n_top = P[cur];
 			int n_early_epoch = early_epoch + (cur != root);
 			early[cur] = n_early_epoch;
-			if (self(nroot, ntop, n_early_epoch)) {
+			if (self(n_root, n_top, n_early_epoch)) {
 				broken[cur] = true;
 				return true;
 			}
