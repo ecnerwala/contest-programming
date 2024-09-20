@@ -132,6 +132,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 		}
 		assert(int(ordering.size()) == N);
 		std::reverse(ordering.begin(), ordering.end());
+		assert(is_valid(P, L, ordering));
 		return ordering;
 	} else {
 		return std::nullopt;
