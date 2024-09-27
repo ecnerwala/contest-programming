@@ -40,7 +40,7 @@ int main() {
 			for (auto [l, r] : segs) {
 				if (l < cur_l) continue;
 				if (cur_r < r) {
-					val[r] = {get_par(cur_r), right_gap};
+					val[r] = {cur_r, right_gap};
 					par[r] = -(r - cur_r);
 					// merge everything into r
 					while ((++cur_r) < r) par[cur_r] = r;
