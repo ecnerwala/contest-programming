@@ -344,6 +344,7 @@ int main() {
 								if (in_slope == 2 && out_slope == 2) {
 									ways *= num(N-h);
 								}
+								// otherwise, it's unique
 							} else {
 								if (l_in_slope == 1 && l_out_slope == 1) {
 									ways *= num(N-h);
