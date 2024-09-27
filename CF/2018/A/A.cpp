@@ -16,7 +16,7 @@ int main() {
 				if (K >= delta) {
 					K -= delta;
 				} else {
-					cout << A[i-1] + (K / i) << '\n';
+					return A[i-1] + (K / i);
 				}
 			}
 			return (K / N) + A[N-1];
