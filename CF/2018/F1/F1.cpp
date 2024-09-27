@@ -361,6 +361,9 @@ int main() {
 							ans[2 * h - w + 1] += ways;
 						} else if (w - out_slope <= h - 1) {
 							ndp[w - out_slope][out_slope] += ways;
+						} else {
+							assert(out_slope == 0);
+							ans[0] += pow(num(h), w + 1);
 						}
 					}
 				}
@@ -368,7 +371,7 @@ int main() {
 			dp = std::move(ndp);
 		}
 
-		ans[0] = pow(num(N), N) - std::accumulate(ans.begin() + 1, ans.begin() + N + 1, num(0));
+		//ans[0] = pow(num(N), N) - std::accumulate(ans.begin() + 1, ans.begin() + N + 1, num(0));
 		for (int i = 0; i <= N; i++) {
 			cout << ans[i] << " \n"[i==N];
 		}
