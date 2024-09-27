@@ -340,8 +340,10 @@ int main() {
 							if (ways == 0) continue;
 							if (w == 0 && out_slope == 1) {
 								continue;
-							} else if (w == 0 && in_slope == 2 && out_slope == 2) {
-								ways *= num(N-h);
+							} else if (w == 0) {
+								if (in_slope == 2 && out_slope == 2) {
+									ways *= num(N-h);
+								}
 							} else {
 								if (l_in_slope == 1 && l_out_slope == 1) {
 									ways *= num(N-h);
