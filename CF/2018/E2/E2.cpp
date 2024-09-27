@@ -36,8 +36,7 @@ int main() {
 
 			int cur_l = 0;
 			int cur_r = -1;
-			int right_gap = 0;
-			int tot_val = 0;
+			int right_gap = s;
 			for (auto [l, r] : segs) {
 				if (l < cur_l) continue;
 				if (cur_r < r) {
@@ -49,22 +48,20 @@ int main() {
 				}
 				l = get_par(l);
 				right_gap++;
-				if (val[l].first >= cur_l) {
-					int o = val[l].first = get_par(val[l].first);
-					assert(val[l].second >= 0);
-					val[l].second--;
-					if (val[l].second == 0) {
+				assert(val[l].second >= 0);
+				if (!(--val[l].second)) {
+					if (val[l].first >= cur_l) {
+						int o = val[l].first = get_par(val[l].first);
 						val[l] = val[o];
 						if (par[l] > par[o]) std::swap(l, o);
 						par[l] += par[o];
 						par[o] = l;
+					} else {
+						// move on
+						cnd++;
+						cur_l = cur_r + 1;
+						right_gap = s;
 					}
-				} else if ((++tot_val) == s) {
-					// move on
-					cur_l = cur_r+1;
-					right_gap = 0;
-					tot_val = 0;
-					cnd++;
 				}
 			}
 			return cnd;
