@@ -36,7 +36,7 @@ int main() {
 			adj[v].push_back(u);
 		}
 		std::vector<int> pref(N+1);
-		std::y_combinator([&](auto self, int cur, int prv, int d) -> int {
+		[&](this auto& self, int cur, int prv, int d) -> int {
 			int max_depth = d;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
@@ -46,7 +46,7 @@ int main() {
 			pref[d]++;
 			pref[max_depth+1]--;
 			return max_depth;
-		})(0, -1, 0);
+		}(0, -1, 0);
 		for (int i = 0; i < N; i++) pref[i+1] += pref[i];
 		cout << N - *std::max_element(pref.begin(), pref.end()) << '\n';
 	}
