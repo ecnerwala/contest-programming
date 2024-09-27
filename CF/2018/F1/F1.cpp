@@ -349,8 +349,12 @@ int main() {
 								if (out_slope == 1) {
 									ways *= num(2);
 								}
-								if (in_slope >= 1 && out_slope >= 1) ways *= num(N-h);
-								if (in_slope >= 2 && out_slope >= 2) ways *= num(N-h);
+								if (in_slope >= 1 && out_slope >= 1) {
+									ways *= num(N-h);
+								}
+								if (in_slope >= 2 && out_slope >= 2) {
+									ways *= num(N-h);
+								}
 							}
 						}
 						if (w - out_slope < 0) {
