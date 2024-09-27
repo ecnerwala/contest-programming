@@ -31,7 +31,6 @@ int main() {
 			return a;
 		};
 		auto solve = [&](int s) -> int {
-			cerr << "solve " << s << '\n';
 			reset();
 			int cnd = 0;
 
