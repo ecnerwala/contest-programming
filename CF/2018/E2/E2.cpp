@@ -48,7 +48,7 @@ int main() {
 				}
 				l = get_par(l);
 				right_gap++;
-				assert(val[l].second >= 0);
+				assert(val[l].second > 0);
 				if ((--val[l].second) == 0) {
 					if (val[l].first >= cur_l) {
 						int o = val[l].first = get_par(val[l].first);
