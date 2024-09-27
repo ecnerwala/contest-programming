@@ -9,17 +9,13 @@ int main() {
 		int N; int64_t K; cin >> N >> K;
 		std::vector<int64_t> A(N);
 		for (auto& a : A) cin >> a;
-		std::sort(A.begin(), A.end());
 		cout << [&]() -> int64_t {
-			for (int i = 1; i < N; i++) {
-				int64_t delta = (A[i] - A[i-1]) * i;
-				if (K >= delta) {
-					K -= delta;
-				} else {
-					return A[i-1] + (K / i);
-				}
+			int64_t mx = *std::max_element(A.begin(), A.end());
+			int64_t tot = std::accumulate(A.begin(), A.end(), int64_t(0));
+			for (int d = N; d >= 1; d--) {
+				if (mx <= (tot + K) / d) return d;
 			}
-			return (K / N) + A[N-1];
+			assert(false);
 		}() << '\n';
 	}
 
