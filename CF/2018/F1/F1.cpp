@@ -199,10 +199,12 @@ int main() {
 			dp = std::move(ndp);
 		}
 
-		num v = num(1);
-		for (int i = 0; i < N; i++) v *= num(N);
-		for (int i = 1; i <= N; i++) v -= ans[i];
-		ans[0] = v;
+		{
+			num v = num(1);
+			for (int i = 0; i < N; i++) v *= num(N);
+			for (int i = 1; i <= N; i++) v -= ans[i];
+			ans[0] = v;
+		}
 		for (int i = 0; i <= N; i++) {
 			cout << ans[i] << " \n"[i==N];
 		}
