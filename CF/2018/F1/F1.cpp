@@ -331,34 +331,31 @@ int main() {
 			std::vector<std::array<num, 3>> ndp(h);
 			for (int w = 0; w <= h; w++) {
 				for (int in_slope = 0; in_slope <= 2; in_slope++) {
-					int l_in_slope = std::min(1, in_slope);
-					int r_in_slope = in_slope - l_in_slope;
-					for (int l_out_slope = 0; l_out_slope <= 1; l_out_slope++) {
-						for (int r_out_slope = 0; r_out_slope <= 1; r_out_slope++) {
-							int out_slope = l_out_slope + r_out_slope;
-							num ways = dp[w][in_slope];
-							if (ways == 0) continue;
-							if (w == 0 && out_slope == 1) {
-								continue;
-							} else if (w == 0) {
-								if (in_slope == 2 && out_slope == 2) {
-									ways *= num(N-h);
-								}
-								// otherwise, it's unique
-							} else {
-								if (l_in_slope == 1 && l_out_slope == 1) {
-									ways *= num(N-h);
-								}
-								if (r_in_slope == 1 && r_out_slope == 1) {
-									ways *= num(N-h);
-								}
+					for (int out_slope = 0; out_slope <= 2; out_slope++) {
+						num ways = dp[w][in_slope];
+						if (ways == 0) continue;
+						if (w == 0) {
+							// invalid to have out_slope == 1
+							if (out_slope == 1) continue;
+
+							if (in_slope == 2 && out_slope == 2) {
+								ways *= num(N-h);
 							}
-							if (w - out_slope < 0) {
-								assert(out_slope == 2);
-								ans[2 * h - w + 1] += ways;
-							} else if (w - out_slope <= h - 1) {
-								ndp[w - out_slope][out_slope] += ways;
+						} else {
+							// multiply by (N-h) for each in_slope / out_slope matching pair
+							if (in_slope == 1 && out_slope == 1) {
+								ways *= num(2 * ((N-h) + 1));
+							} else if (in_slope == 2 && out_slope == 2) {
+								ways *= num(N-h) * num(N-h);
+							} else if (in_slope >= 1 && out_slope >= 1) {
+								ways *= num(2 * (N-h));
 							}
+						}
+						if (w - out_slope < 0) {
+							assert(out_slope == 2);
+							ans[2 * h - w + 1] += ways;
+						} else if (w - out_slope <= h - 1) {
+							ndp[w - out_slope][out_slope] += ways;
 						}
 					}
 				}
