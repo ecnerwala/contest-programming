@@ -68,10 +68,7 @@ int main() {
 		};
 		int ans = 0;
 		[&](this auto&& self, int l, int vl, int r, int vr) -> void {
-			assert(l < r);
-			assert(vl >= vr);
-			if (vl == vr) return;
-			if (r - l == 1) return;
+			if (vl == vr || r - l == 1) return;
 			int m = (l + r) / 2;
 			int vm = solve(m);
 			ans = std::max(ans, m * vm);
