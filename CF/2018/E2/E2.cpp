@@ -48,6 +48,7 @@ int main() {
 				}
 				l = get_par(l);
 				val[l].second++;
+				cerr << ' ' << l << ' ' << val[l].second << '\n';
 				if (val[l].first >= cur_l) {
 					int o = val[l].first = get_par(val[l].first);
 					cerr << o << ' ' << l << ' ' << val[o].second << ' ' << val[l].second << '\n';
