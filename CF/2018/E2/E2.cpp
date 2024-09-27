@@ -309,6 +309,7 @@ int main() {
 			int l_idx = 0;
 			int r_idx = 0;
 			while (true) {
+				cerr << s << ' ' << l_idx << ' ' << r_idx << '\n';
 				if (seg[1].val >= s) {
 					cnd += s;
 					ans = std::max(ans, cnd);
