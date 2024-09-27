@@ -292,7 +292,7 @@ int main() {
 		int mx = *std::max_element(A.begin(), A.end());
 		using seg_node = std::array<std::array<std::array<int, 2>, 2>, 2>;
 		seg_tree::in_order_layout layout(N);
-		std::vector<seg_node> seg(2*N, seg_node{std::array<std::array<int, 2>, 2>{std::array<int, 2>{0, 0}, {0, 0}}, {std::array<int, 2>{0, 0}, {0, 0}}});
+		std::vector<seg_node> seg(2*N, seg_node{std::array<std::array<int, 2>, 2>{std::array<int, 2>{0, -N}, {-N, -N}}, {std::array<int, 2>{-N, -N}, {-N, -N}}});
 		auto update_node = [&](seg_tree::point a) -> void {
 			for (int l = 0; l < 2; l++) {
 				for (int r = 0; r < 2; r++) {
