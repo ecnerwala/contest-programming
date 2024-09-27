@@ -296,8 +296,8 @@ int main() {
 		auto update_node = [&](seg_tree::point a) -> void {
 			for (int l = 0; l < 2; l++) {
 				for (int r = 0; r < 2; r++) {
-					seg[a][l][r][0] = 0;
-					seg[a][l][r][1] = 0;
+					seg[a][l][r][0] = -N;
+					seg[a][l][r][1] = -N;
 					for (int ml = 0; ml < 2; ml++) {
 						for (int mr = 0; mr < 2; mr++) {
 							if (ml && mr) continue;
