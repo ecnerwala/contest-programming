@@ -1,5 +1,27 @@
 #include <bits/stdc++.h>
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
 namespace seg_tree {
 
 // Floor of log_2(a); index of highest 1-bit
@@ -302,7 +324,6 @@ int main() {
 		};
 		// sort by right endpoint
 		std::sort(segs.begin(), segs.end(), [&](auto a, auto b) { return a[1] < b[1]; });
-		int ans = 0;
 		auto solve = [&](int s) -> int {
 			int cnd = 0;
 			int l_loc = 0;
@@ -339,9 +360,18 @@ int main() {
 			}
 			return cnd;
 		};
-		for (int s = 1; s <= N; s++) {
-			ans = std::max(ans, s * solve(s));
-		}
+		int ans = 0;
+		std::y_combinator([&](auto self, int l, int vl, int r, int vr) -> void {
+			assert(l < r);
+			assert(vl >= vr);
+			if (vl == vr) return;
+			if (r - l == 1) return;
+			int m = (l + r) / 2;
+			int vm = solve(m);
+			ans = std::max(ans, m * vm);
+			self(l, vl, m, vm);
+			self(m, vm, r, vr);
+		})(0, N+1, N+1, 0);
 		cout << ans << '\n';
 	}
 
