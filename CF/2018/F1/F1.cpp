@@ -16,11 +16,6 @@ template <typename T> T mod_inv_in_range(T a, T m) {
 	return vy < 0 ? m + vy : vy;
 }
 
-template <typename T> T pow(T a, long long b) {
-	assert(b >= 0);
-	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
-}
-
 template <typename tag> struct dynamic_modnum {
 private:
 #if __cpp_inline_variables >= 201606
@@ -204,7 +199,10 @@ int main() {
 			dp = std::move(ndp);
 		}
 
-		ans[0] = pow(num(N), N) - std::accumulate(ans.begin() + 1, ans.begin() + N + 1, num(0));
+		num v = num(1);
+		for (int i = 0; i < N; i++) v *= num(N);
+		for (int i = 1; i <= N; i++) v -= ans[i];
+		ans[0] = v;
 		for (int i = 0; i <= N; i++) {
 			cout << ans[i] << " \n"[i==N];
 		}
