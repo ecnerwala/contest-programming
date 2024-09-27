@@ -344,7 +344,7 @@ int main() {
 								} else if (out_slope == 1) {
 									// nothing will happen
 								} else if (out_slope == 2) {
-									if (in_slope >= 1) {
+									if (in_slope == 2) {
 										ways *= num(N-h);
 									}
 								} else assert(false);
