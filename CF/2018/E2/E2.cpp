@@ -34,7 +34,7 @@ int main() {
 			}
 		};
 		int ans = 0;
-		[&](this auto& self, int l, int vl, int r, int vr) -> void {
+		[&](this auto&& self, int l, int vl, int r, int vr) -> void {
 			assert(l < r);
 			assert(vl >= vr);
 			if (vl == vr) return;
