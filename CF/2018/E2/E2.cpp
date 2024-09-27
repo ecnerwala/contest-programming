@@ -11,7 +11,7 @@ int main() {
 		for (int z = 0; z < 2; z++) {
 			for (int i = 0; i < N; i++) {
 				cin >> segs[i][z];
-				segs[i][z] -= !z;
+				segs[i][z] --;
 			}
 		}
 		const int V = 2*N;
