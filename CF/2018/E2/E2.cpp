@@ -60,6 +60,7 @@ int main() {
 					}
 				} else {
 					if (val[l].second == s) {
+						cerr << " found match" << '\n';
 						// move on
 						cur_l = cur_r+1;
 						cnd++;
