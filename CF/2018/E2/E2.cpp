@@ -66,6 +66,7 @@ int main() {
 						// move on
 						cur_l = cur_r+1;
 						right_gap = 0;
+						tot_val = 0;
 						cnd++;
 					}
 				}
