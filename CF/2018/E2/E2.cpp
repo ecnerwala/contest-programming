@@ -332,7 +332,7 @@ int main() {
 					break;
 				} else {
 					if (segs[r_idx][0] >= l_loc) {
-						auto rng = layout.get_range(segs[l_idx]);
+						auto rng = layout.get_range(segs[r_idx]);
 						rng.for_each([&](auto a) { seg[a].lazy++, seg[a].val++; });
 						rng.for_parents_up(update);
 					}
