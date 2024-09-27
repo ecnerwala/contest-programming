@@ -303,15 +303,14 @@ int main() {
 		// sort by right endpoint
 		std::sort(segs.begin(), segs.end(), [&](auto a, auto b) { return a[1] < b[1]; });
 		int ans = 0;
-		for (int s = 1; s <= N; s++) {
+		auto solve = [&](int s) -> int {
 			int cnd = 0;
 			int l_loc = 0;
 			int l_idx = 0;
 			int r_idx = 0;
 			while (true) {
 				if (seg[1].val >= s) {
-					cnd += s;
-					ans = std::max(ans, cnd);
+					cnd++;
 					for (; l_idx < r_idx; l_idx++) {
 						if (segs[l_idx][0] >= l_loc) {
 							auto rng = layout.get_range(segs[l_idx]);
@@ -338,6 +337,10 @@ int main() {
 					r_idx++;
 				}
 			}
+			return cnd;
+		};
+		for (int s = 1; s <= N; s++) {
+			ans = std::max(ans, s * solve(s));
 		}
 		cout << ans << '\n';
 	}
