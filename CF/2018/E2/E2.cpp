@@ -63,7 +63,6 @@ int main() {
 				} else {
 					tot_val++;
 					if (tot_val == s) {
-						cerr << " found match" << '\n';
 						// move on
 						cur_l = cur_r+1;
 						cnd++;
