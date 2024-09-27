@@ -18,6 +18,8 @@ int main() {
 		// sort by right endpoint
 		std::sort(segs.begin(), segs.end(), [&](auto a, auto b) { return a[1] < b[1]; });
 		std::vector<int> par(V, -1);
+		// first is linked list pointer, second is actual value
+		std::vector<std::pair<int, int>> val(V, {0, 0});
 		auto reset = [&]() -> void {
 			std::fill(par.begin(), par.end(), -1);
 		};
@@ -30,8 +32,38 @@ int main() {
 		};
 		auto solve = [&](int s) -> int {
 			reset();
+			int cnd = 0;
+
+			int cur_l = 0;
+			int cur_r = -1;
 			for (auto [l, r] : segs) {
+				if (l < cur_l) continue;
+				if (cur_r < r) {
+					val[r] = {cur_r, 0};
+					par[r] = -(r - cur_r);
+					// merge everything into r
+					while ((++cur_r) < r) par[cur_r] = r;
+				}
+				l = get_par(l);
+				val[l].second++;
+				if (val[l].first >= cur_l) {
+					int o = val[l].first = get_par(val[l].first);
+					assert(val[o].second >= val[l].second);
+					if (val[o].second == val[l].second) {
+						val[l].first = val[o].first;
+						if (par[l] > par[o]) std::swap(l, o);
+						par[l] += par[o];
+						par[o] = l;
+					}
+				} else {
+					if (val[l].second == s) {
+						// move on
+						cur_l = cur_r+1;
+						cnd++;
+					}
+				}
 			}
+			return cnd;
 		};
 		int ans = 0;
 		[&](this auto&& self, int l, int vl, int r, int vr) -> void {
