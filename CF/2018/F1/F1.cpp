@@ -337,8 +337,10 @@ int main() {
 						for (int r_out_slope = 0; r_out_slope <= 1; r_out_slope++) {
 							int out_slope = l_out_slope + r_out_slope;
 							num ways = dp[w][in_slope];
+							if (ways == 0) continue;
 							if (w == 0) {
 								if (out_slope == 0) {
+									// we can pick something or not
 								} else if (out_slope == 1) {
 									// nothing will happen
 								} else if (out_slope == 2) {
