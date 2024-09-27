@@ -65,6 +65,7 @@ int main() {
 					if (tot_val == s) {
 						// move on
 						cur_l = cur_r+1;
+						right_gap = 0;
 						cnd++;
 					}
 				}
