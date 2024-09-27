@@ -1,21 +1,5 @@
 #include <bits/stdc++.h>
 
-template <typename T> T mod_inv_in_range(T a, T m) {
-	// assert(0 <= a && a < m);
-	T x = a, y = m;
-	// coeff of a in x and y
-	T vx = 1, vy = 0;
-	while (x) {
-		T k = y / x;
-		y %= x;
-		vy -= k * vx;
-		std::swap(x, y);
-		std::swap(vx, vy);
-	}
-	assert(y == 1);
-	return vy < 0 ? m + vy : vy;
-}
-
 template <typename tag> struct dynamic_modnum {
 private:
 #if __cpp_inline_variables >= 201606
@@ -86,12 +70,6 @@ public:
 	friend bool operator == (const dynamic_modnum& a, const dynamic_modnum& b) { return a.v == b.v; }
 	friend bool operator != (const dynamic_modnum& a, const dynamic_modnum& b) { return a.v != b.v; }
 
-	dynamic_modnum inv() const {
-		dynamic_modnum res;
-		res.v = mod_inv_in_range(v, MOD);
-		return res;
-	}
-	friend dynamic_modnum inv(const dynamic_modnum& m) { return m.inv(); }
 	dynamic_modnum neg() const {
 		dynamic_modnum res;
 		res.v = v ? MOD-v : 0;
@@ -130,16 +108,12 @@ public:
 		v = barrett_reduce(int64_t(v) * int64_t(o.v));
 		return *this;
 	}
-	dynamic_modnum& operator /= (const dynamic_modnum& o) {
-		return *this *= o.inv();
-	}
 
 	friend dynamic_modnum operator ++ (dynamic_modnum& a, int) { dynamic_modnum r = a; ++a; return r; }
 	friend dynamic_modnum operator -- (dynamic_modnum& a, int) { dynamic_modnum r = a; --a; return r; }
 	friend dynamic_modnum operator + (const dynamic_modnum& a, const dynamic_modnum& b) { return dynamic_modnum(a) += b; }
 	friend dynamic_modnum operator - (const dynamic_modnum& a, const dynamic_modnum& b) { return dynamic_modnum(a) -= b; }
 	friend dynamic_modnum operator * (const dynamic_modnum& a, const dynamic_modnum& b) { return dynamic_modnum(a) *= b; }
-	friend dynamic_modnum operator / (const dynamic_modnum& a, const dynamic_modnum& b) { return dynamic_modnum(a) /= b; }
 };
 
 int main() {
