@@ -338,16 +338,10 @@ int main() {
 							int out_slope = l_out_slope + r_out_slope;
 							num ways = dp[w][in_slope];
 							if (ways == 0) continue;
-							if (w == 0) {
-								if (out_slope == 0) {
-									// we can pick something or not
-								} else if (out_slope == 1) {
-									// nothing will happen
-								} else if (out_slope == 2) {
-									if (in_slope == 2) {
-										ways *= num(N-h);
-									}
-								} else assert(false);
+							if (w == 0 && out_slope == 1) {
+								continue;
+							} else if (w == 0 && in_slope == 2 && out_slope == 2) {
+								ways *= num(N-h);
 							} else {
 								if (l_in_slope == 1 && l_out_slope == 1) {
 									ways *= num(N-h);
@@ -357,11 +351,12 @@ int main() {
 								}
 							}
 							if (w - out_slope < 0) {
-								if (out_slope == 2) {
-									ans[2 * h - w + 1] += ways;
-								}
+								assert(out_slope == 2);
+								ans[2 * h - w + 1] += ways;
 							} else if (w - out_slope <= h - 1) {
 								ndp[w - out_slope][out_slope] += ways;
+							} else {
+								ans[0] += ways;
 							}
 						}
 					}
@@ -370,7 +365,7 @@ int main() {
 			dp = std::move(ndp);
 		}
 
-		ans[0] = pow(num(N), N) - std::accumulate(ans.begin() + 1, ans.begin() + N + 1, num(0));
+		//ans[0] = pow(num(N), N) - std::accumulate(ans.begin() + 1, ans.begin() + N + 1, num(0));
 		for (int i = 0; i <= N; i++) {
 			cout << ans[i] << " \n"[i==N];
 		}
