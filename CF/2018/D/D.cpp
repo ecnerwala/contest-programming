@@ -331,7 +331,7 @@ int main() {
 					setmax(max_cnt, seg[1][l][r][1]);
 				}
 			}
-			cerr << v << ' ' << i << ' ' << max_cnt << '\n';
+			//cerr << v << ' ' << i << ' ' << max_cnt << '\n';
 			setmax(ans, int64_t(mx) + int64_t(v) + int64_t(max_cnt));
 		}
 		cout << ans << '\n';
