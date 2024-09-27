@@ -20,9 +20,6 @@ int main() {
 		std::vector<int> par(V, -1);
 		// first is linked list pointer, second is actual value
 		std::vector<std::pair<int, int>> val(V, {0, 0});
-		auto reset = [&]() -> void {
-			std::fill(par.begin(), par.end(), -1);
-		};
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
 				if (par[par[a]] >= 0) par[a] = par[par[a]];
@@ -31,7 +28,6 @@ int main() {
 			return a;
 		};
 		auto solve = [&](int s) -> int {
-			reset();
 			int cnd = 0;
 
 			int cur_l = 0;
