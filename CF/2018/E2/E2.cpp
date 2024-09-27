@@ -31,12 +31,14 @@ int main() {
 			return a;
 		};
 		auto solve = [&](int s) -> int {
+			cerr << "solve " << s << '\n';
 			reset();
 			int cnd = 0;
 
 			int cur_l = 0;
 			int cur_r = -1;
 			for (auto [l, r] : segs) {
+				cerr << "process " << l << ' ' << r << '\n';
 				if (l < cur_l) continue;
 				if (cur_r < r) {
 					val[r] = {cur_r, 0};
