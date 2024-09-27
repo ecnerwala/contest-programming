@@ -337,11 +337,22 @@ int main() {
 						for (int r_out_slope = 0; r_out_slope <= 1; r_out_slope++) {
 							int out_slope = l_out_slope + r_out_slope;
 							num ways = dp[w][in_slope];
-							if (l_in_slope == 1 && l_out_slope == 1) {
-								ways *= num(N-h);
-							}
-							if (r_in_slope == 1 && r_out_slope == 1) {
-								ways *= num(N-h);
+							if (w == 0) {
+								if (out_slope == 0) {
+								} else if (out_slope == 1) {
+									// nothing will happen
+								} else if (out_slope == 2) {
+									if (in_slope >= 1) {
+										ways *= num(N-h);
+									}
+								} else assert(false);
+							} else {
+								if (l_in_slope == 1 && l_out_slope == 1) {
+									ways *= num(N-h);
+								}
+								if (r_in_slope == 1 && r_out_slope == 1) {
+									ways *= num(N-h);
+								}
 							}
 							if (w - out_slope < 0) {
 								if (out_slope == 2) {
