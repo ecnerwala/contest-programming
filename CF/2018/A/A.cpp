@@ -13,7 +13,7 @@ int main() {
 			int64_t mx = *std::max_element(A.begin(), A.end());
 			int64_t tot = std::accumulate(A.begin(), A.end(), int64_t(0));
 			for (int d = N; d >= 1; d--) {
-				if (mx <= (tot + K) / d) return d;
+				if ((tot % d == 0 || (tot + K) / d > tot / d) && mx <= (tot + K) / d) return d;
 			}
 			assert(false);
 		}() << '\n';
