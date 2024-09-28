@@ -1165,8 +1165,10 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		if (queries[q].op_type < 0) {
 			int t = ~queries[q].op_type;
+			assert(t < q);
 			queries[q].s = queries[t].s;
 		}
+		assert(queries[q].s.size() == 1);
 	}
 
 	std::vector<int> Xs; Xs.reserve(Q);
