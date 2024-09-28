@@ -649,19 +649,42 @@ int main() {
 		for (auto& a : v) { cin >> a[0] >> a[1]; a[0]--; }
 	};
 
+	constexpr bool DEBUG = true;
 	for (int q = 0; q < Q; q++) {
 		char c; cin >> c;
+		if (DEBUG) cerr << "query " << q << ' ' << c << '\n';
 		if (c == '+') {
 			queries[q].op_type = 0;
 			read_inters(queries[q].s[0]);
 			queries[q].s[1] = queries[q].s[0];
+			if (DEBUG) {
+				cerr << "  ";
+				for (auto [a, b] : queries[q].s[0]) {
+					cerr << S.substr(a, b - a);
+				}
+				cerr << '\n';
+			}
 		} else if (c == '-') {
 			int t; cin >> t;
 			queries[q].op_type = ~t;
+			if (DEBUG) {
+				cerr << "  ";
+				for (auto [a, b] : queries[t].s[0]) {
+					cerr << S.substr(a, b - a);
+				}
+				cerr << '\n';
+			}
 		} else if (c == '?') {
 			queries[q].op_type = 1;
 			read_inters(queries[q].s[0]);
 			read_inters(queries[q].s[1]);
+			if (DEBUG) for (int z = 0; z < 2; z++) {
+				cerr << "  ";
+				for (auto [a, b] : queries[q].s[0]) {
+					cerr << S.substr(a, b - a);
+				}
+				cerr << '\n';
+			}
 		} else assert(false);
 	}
 
