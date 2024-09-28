@@ -680,7 +680,7 @@ int main() {
 			read_inters(queries[q].s[1]);
 			if (DEBUG) for (int z = 0; z < 2; z++) {
 				cerr << "  ";
-				for (auto [a, b] : queries[q].s[0]) {
+				for (auto [a, b] : queries[q].s[z]) {
 					cerr << S.substr(a, b - a) << ' ';
 				}
 				cerr << '\n';
