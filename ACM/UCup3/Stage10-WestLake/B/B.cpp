@@ -755,7 +755,7 @@ int main() {
 			cerr << "query " << bounds[0] << '-' << bounds[1] << ' ' << len << '\n';
 			cerr << "match " << ct_node << ' ' << ct[ct_node].l << ' ' << ct[ct_node].r << '\n';
 			assert(ct[ct_node].l == bounds[0]);
-			assert(ct[ct_node].r == bounds[1]);
+			assert(ct[ct_node].r + 1 == bounds[1]);
 			assert(ct_intervals[ct_node].min_len < len && len <= ct_intervals[ct_node].max_len);
 			return {ct_intervals[ct_node].st + len - 1 - ct_intervals[ct_node].min_len, ct_intervals[ct_node].en};
 		};
