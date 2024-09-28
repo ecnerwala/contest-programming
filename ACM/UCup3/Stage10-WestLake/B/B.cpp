@@ -1168,7 +1168,8 @@ int main() {
 			assert(t < q);
 			queries[q].s = queries[t].s;
 		}
-		assert(queries[q].s.size() == 1);
+		assert(queries[q].s[0].size() == 1);
+		assert(queries[q].s[1].size() == 1);
 	}
 
 	std::vector<int> Xs; Xs.reserve(Q);
@@ -1206,6 +1207,7 @@ int main() {
 			int x = queries[q].s[0][0][0];
 			int y = queries[q].s[1][0][0];
 			int delta = (queries[q].op_type == 0) ? +1 : -1;
+			cerr << "update " << x << ' ' << y << ' ' << delta << '\n';
 			Xlayout.get_point(lb(Xs, x)).for_each([&](auto a) -> void {
 				seg_tree::in_order_layout Ylayout(int(Ys[a].size()));
 				Ylayout.get_point(lb(Ys[a], y)).for_each([&](auto b) -> void {
@@ -1219,6 +1221,7 @@ int main() {
 			int ylo = queries[q].s[1][0][0];
 			int yhi = queries[q].s[1][0][1];
 			int ans = 0;
+			cerr << "query " << xlo << '-' << xhi << ' ' << ylo << '-' << yhi << '\n';
 			Xlayout.get_range(lb(Xs, xlo), lb(Xs, xhi)).for_each([&](auto a) -> void {
 				seg_tree::in_order_layout Ylayout(int(Ys[a].size()));
 				Ylayout.get_range(lb(Ys[a], ylo), lb(Ys[a], yhi)).for_each([&](auto b) -> void {
