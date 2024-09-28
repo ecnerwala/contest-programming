@@ -597,7 +597,7 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::vector<std::vector<std::tuple<int, int, int>>> adj(N);
 	for (int e = 0; e < N-1; e++) {
-		int u, v, w; cin >> u >> v; u--, v--;
+		int u, v, w; cin >> u >> v >> w; u--, v--;
 		adj[u].push_back({v, w, e});
 		adj[v].push_back({u, w, e});
 	}
