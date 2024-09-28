@@ -695,8 +695,9 @@ int main() {
 				if (queries[q].op_type >= 0) {
 					auto& s = queries[q].s[z];
 					std::reverse(s.begin(), s.end());
-					for (auto& a : queries[q].s[z]) {
+					for (auto& a : s) {
 						a = {N - a[1], N - a[0]};
+						assert(a[0] < a[1]);
 					}
 				}
 			}
