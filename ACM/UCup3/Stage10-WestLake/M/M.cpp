@@ -41,7 +41,6 @@ int main() {
 			while (!pq.empty()) {
 				auto [d, v] = pq.top();
 				pq.pop();
-				assert(d == k);
 				assert(dist[v].first == k);
 				assert(dist[v].second >= d);
 				if (dist[v].second != d) continue;
