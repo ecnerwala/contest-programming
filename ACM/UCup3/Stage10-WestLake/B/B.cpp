@@ -660,7 +660,7 @@ int main() {
 			if (DEBUG) {
 				cerr << "  ";
 				for (auto [a, b] : queries[q].s[0]) {
-					cerr << S.substr(a, b - a);
+					cerr << S.substr(a, b - a) << ' ';
 				}
 				cerr << '\n';
 			}
@@ -670,7 +670,7 @@ int main() {
 			if (DEBUG) {
 				cerr << "  ";
 				for (auto [a, b] : queries[t].s[0]) {
-					cerr << S.substr(a, b - a);
+					cerr << S.substr(a, b - a) << ' ';
 				}
 				cerr << '\n';
 			}
@@ -681,7 +681,7 @@ int main() {
 			if (DEBUG) for (int z = 0; z < 2; z++) {
 				cerr << "  ";
 				for (auto [a, b] : queries[q].s[0]) {
-					cerr << S.substr(a, b - a);
+					cerr << S.substr(a, b - a) << ' ';
 				}
 				cerr << '\n';
 			}
