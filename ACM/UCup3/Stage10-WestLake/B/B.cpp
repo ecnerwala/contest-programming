@@ -1,5 +1,105 @@
 #include <bits/stdc++.h>
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
+template <typename F> struct reverse_comparator_t {
+	F f;
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) & {
+		return f(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) const& {
+		return f(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) && {
+		return std::move(f)(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) const&& {
+		return std::move(f)(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+};
+
+template <typename F> constexpr reverse_comparator_t<std::decay_t<F>> reverse_comparator(F&& f) {
+	return { std::forward<F>(f) };
+}
+
+class CartesianTree {
+public:
+	struct Node {
+		int l, m, r; // inclusive ranges
+		std::array<int, 2> c;
+	};
+	std::vector<Node> nodes;
+	int root = -1;
+
+	CartesianTree() {}
+
+	Node& operator [] (int idx) { return nodes[idx]; }
+	const Node& operator [] (int idx) const { return nodes[idx]; }
+
+	int size() const { return int(nodes.size()); }
+
+private:
+	CartesianTree(std::vector<Node>&& nodes_, int root_) : nodes(std::move(nodes_)), root(root_) {}
+
+public:
+
+	// min-cartesian-tree, with earlier cells tiebroken earlier
+	template <typename T, typename Comp = std::less<T>>
+	static CartesianTree build_min_tree(const std::vector<T>& v, Comp comp = Comp()) {
+		std::vector<Node> nodes(v.size()*2+1);
+		std::vector<int> stk; stk.reserve(v.size());
+		int root = -1;
+		for (int i = 0; i <= int(v.size()); i++) {
+			int cur = 2*i;
+			nodes[cur].l = i;
+			nodes[cur].r = i-1;
+			nodes[cur].m = i-1;
+			nodes[cur].c = {-1, -1};
+			while (!stk.empty() && (i == int(v.size()) || comp(v[i], v[nodes[stk.back()].m]))) {
+				int nxt = stk.back(); stk.pop_back();
+				nodes[nxt].c[1] = cur;
+				nodes[nxt].r = nodes[cur].r;
+				cur = nxt;
+			}
+			if (i == int(v.size())) {
+				root = cur;
+				break;
+			}
+			nodes[2*i+1].l = nodes[cur].l;
+			nodes[2*i+1].m = i;
+			nodes[2*i+1].c[0] = cur;
+			stk.push_back(2*i+1);
+		}
+		return {std::move(nodes), root};
+	}
+
+	// max-cartesian-tree, with earlier cells tiebroken earlier
+	template <typename T, typename Comp = std::less<T>>
+	static CartesianTree build_max_tree(const std::vector<T>& v, Comp comp = Comp()) {
+		return build_min_tree(v, reverse_comparator(comp));
+	}
+};
+
 template <typename T, class Compare = std::less<T>> class RangeMinQuery : private Compare {
 	static const int BUCKET_SIZE = 32;
 	static const int BUCKET_SIZE_LOG = 5;
@@ -101,7 +201,6 @@ public:
 		}
 	}
 };
-
 
 template<class T> int sz(T&& arg) { using std::size; return int(size(std::forward<T>(arg))); }
 
@@ -539,7 +638,228 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::string S; S.reserve(N); cin >> S;
 	assert(int(S.size()) == N);
-	for (int i = 0; i < N; i++) {
+	struct query_t {
+		int op_type;
+		std::array<std::vector<std::array<int, 2>>, 2> s;
+	};
+	std::vector<query_t> queries(Q);
+	auto read_inters = [&](std::vector<std::array<int, 2>>& v) -> void {
+		int k; cin >> k;
+		v.resize(k);
+		for (auto& a : v) { cin >> a[0] >> a[1]; a[0]--; }
+	};
+
+	for (int q = 0; q < Q; q++) {
+		char c; cin >> c;
+		if (c == '+') {
+			queries[q].op_type = 0;
+			read_inters(queries[q].s[0]);
+			queries[q].s[1] = queries[q].s[0];
+		} else if (c == '-') {
+			int t; cin >> t;
+			queries[q].op_type = ~t;
+		} else if (c == '?') {
+			queries[q].op_type = 1;
+			read_inters(queries[q].s[0]);
+			read_inters(queries[q].s[1]);
+		} else assert(false);
+	}
+
+	for (int z = 0; z < 2; z++) {
+		if (z) {
+			std::reverse(S.begin(), S.end());
+			for (int q = 0; q < Q; q++) {
+				if (queries[q].op_type >= 0) {
+					auto& s = queries[q].s[z];
+					std::reverse(s.begin(), s.end());
+					for (auto& a : queries[q].s[z]) {
+						a = {N - a[1], N - a[0]};
+					}
+				}
+			}
+		}
+		SuffixArray sa = SuffixArray::shift_and_construct(S);
+		// inclusive interval
+		auto get_interval = [&](std::array<int, 2> subst) -> std::array<int, 2> {
+			int rnk = sa.rank[subst[0]];
+			int len = subst[1] - subst[0];
+			int lo, hi;
+			{
+				int mi = -1;
+				int ma = rnk;
+				while (ma - mi > 1) {
+					int md = (mi + ma) / 2;
+					if (sa.rmq.query(md, rnk - 1).first >= len) {
+						ma = md;
+					} else {
+						mi = md;
+					}
+				}
+				lo = ma;
+			}
+			{
+				int mi = rnk;
+				int ma = N+1;
+				while (ma - mi > 1) {
+					int md = (mi + ma) / 2;
+					if (sa.rmq.query(rnk, md-1).first >= len) {
+						mi = md;
+					} else {
+						ma = md;
+					}
+				}
+				hi = mi;
+			}
+			return {lo, hi};
+		};
+
+		CartesianTree ct = CartesianTree::build_min_tree(sa.lcp);
+		assert(int(sa.lcp.size()) == N);
+		// for each cartesian tree node, we need
+		struct ct_data {
+			// min_len is exclusive
+			int min_len, max_len;
+			int64_t st, en;
+		};
+		std::vector<ct_data> ct_intervals(ct.size());
+		{
+			int64_t cur_idx = 0;
+			std::y_combinator([&](auto self, int cur, int min_len) -> void {
+				int max_len;
+				if (cur & 1) {
+					// we're an intermediate node
+					max_len = sa.lcp[cur / 2];
+				} else {
+					max_len = N - sa.sa[cur / 2];
+				}
+				assert(min_len <= max_len);
+				int64_t st = cur_idx;
+				cur_idx += max_len - min_len;
+				if (cur & 1) {
+					self(ct[cur].c[0], max_len);
+					self(ct[cur].c[1], max_len);
+				}
+				int64_t en = cur_idx;
+				ct_intervals[cur] = {min_len, max_len, st, en};
+			})(ct.root, -1);
+		}
+
+		auto range_to_inter = [&](std::array<int, 2> bounds, int len) -> std::array<int64_t, 2> {
+			int ct_node;
+			if (bounds[0] == bounds[1]) {
+				ct_node = bounds[0] * 2;
+			} else {
+				ct_node = sa.rmq.query(bounds[0], bounds[1]-1).second * 2 - 1;
+			}
+			assert(ct[ct_node].l == bounds[0]);
+			assert(ct[ct_node].r == bounds[1]);
+			assert(ct_intervals[ct_node].min_len < len && len <= ct_intervals[ct_node].max_len);
+			return {ct_intervals[ct_node].st + len - 1 - ct_intervals[ct_node].min_len, ct_intervals[ct_node].en};
+		};
+
+		std::vector<std::map<int64_t, int>> trie;
+		trie.emplace_back();
+		auto trie_move = [&](int trie_node, int64_t cur_str) -> int {
+			int nxt_trie_node;
+			auto it = trie[trie_node].find(cur_str);
+			if (it == trie[trie_node].end()) {
+				nxt_trie_node = int(trie.size());
+				trie[trie_node].insert({cur_str, nxt_trie_node});
+				trie.emplace_back();
+			} else {
+				nxt_trie_node = it->second;
+			}
+			return nxt_trie_node;
+		};
+
+		for (int q = 0; q < Q; q++) {
+			if (queries[q].op_type >= 0) {
+				auto& s = queries[q].s[z];
+
+				assert(int(sa.sa.size()) == N+1);
+				// canonicalize
+				std::array<int, 2> cur_range{0, N};
+				int cur_len = 0;
+				int trie_node = 0;
+				for (int i = 0; i < int(s.size()); i++) {
+					auto nxt_subst = s[i];
+					int nxt_len = nxt_subst[1] - nxt_subst[0];
+					assert(nxt_len >= 1);
+					auto nxt_range = get_interval(nxt_subst);
+					int mi = cur_range[0] - 1;
+					int ma = cur_range[1] + 1;
+					while (ma - mi > 1) {
+						int md = (mi + ma) / 2;
+						assert(sa.sa[md] + cur_len <= N);
+						int rnk = sa.rank[sa.sa[md] + cur_len];
+						if (rnk < nxt_range[0]) {
+							mi = rnk;
+						} else {
+							ma = rnk;
+						}
+					}
+					// mi, ma are the two boundaries
+					int lcp = 0;
+					int lcp_idx = cur_range[0];
+					if (mi >= cur_range[0]) {
+						int cnd = sa.get_lcp(sa.sa[mi] + cur_len, nxt_subst[0]);
+						if (cnd > lcp) {
+							lcp = cnd;
+							lcp_idx = mi;
+						}
+					}
+					if (ma <= cur_range[1]) {
+						int cnd = sa.get_lcp(sa.sa[ma] + cur_len, nxt_subst[0]);
+						if (cnd > lcp) {
+							lcp = cnd;
+							lcp_idx = ma;
+						}
+					}
+					lcp = std::min(lcp, nxt_len);
+					cur_len += lcp;
+					cur_range = get_interval({sa.sa[lcp_idx], sa.sa[lcp_idx] + cur_len});
+					if (lcp < nxt_len) {
+						// cut it and move on
+						int64_t cur_str = range_to_inter(cur_range, cur_len)[0];
+						trie_node = trie_move(trie_node, cur_str);
+
+						cur_len = nxt_len - lcp;
+						cur_range = get_interval({nxt_subst[0] + lcp, nxt_subst[1]});
+					}
+					assert(cur_len >= 1);
+				}
+				// just stuff our data into here
+				auto [st, en] = range_to_inter(cur_range, cur_len);
+				if (queries[q].op_type == 0) {
+					int n = trie_move(trie_node, st);
+					s = {{n, n}};
+				} else if (queries[q].op_type == 1) {
+					int a = trie_move(trie_node, st);
+					int b = trie_move(trie_node, en);
+					s = {{a, b}};
+				} else assert(false);
+			}
+		}
+		std::vector<int> trie_preorder(trie.size(), -1);
+		{
+			int cur_idx = 0;
+			std::y_combinator([&](auto self, int cur) -> void {
+				trie_preorder[cur] = cur_idx++;
+				for (auto [v, nxt] : trie[cur]) {
+					self(nxt);
+				}
+			});
+			assert(cur_idx == int(trie.size()));
+		}
+		for (int q = 0; q < Q; q++) {
+			if (queries[q].op_type >= 0) {
+				auto& s = queries[q].s[z];
+				assert(int(s.size()) == 1);
+				s[0][0] = trie_preorder[s[0][0]];
+				s[0][1] = trie_preorder[s[0][1]];
+				cerr << "query " << q << ' ' << queries[q].op_type << ' ' << s[0][0] << '-' << s[0][1] << '\n';
+			}
+		}
 	}
 
 	return 0;
