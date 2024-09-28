@@ -851,7 +851,7 @@ int main() {
 				for (auto [v, nxt] : trie[cur]) {
 					self(nxt);
 				}
-			});
+			})(0);
 			assert(cur_idx == int(trie.size()));
 		}
 		for (int q = 0; q < Q; q++) {
