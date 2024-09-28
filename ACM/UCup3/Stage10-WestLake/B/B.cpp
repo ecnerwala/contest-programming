@@ -713,7 +713,7 @@ int main() {
 			return {lo, hi};
 		};
 
-		cerr << "Current string " << S << '\n';
+		//cerr << "Current string " << S << '\n';
 		CartesianTree ct = CartesianTree::build_min_tree(sa.lcp);
 		assert(int(sa.lcp.size()) == N);
 		// for each cartesian tree node, we need
@@ -752,8 +752,6 @@ int main() {
 			} else {
 				ct_node = sa.rmq.query(bounds[0], bounds[1]-1).second * 2 - 1;
 			}
-			cerr << "query " << bounds[0] << '-' << bounds[1] << ' ' << len << '\n';
-			cerr << "match " << ct_node << ' ' << ct[ct_node].l << ' ' << ct[ct_node].r << '\n';
 			assert(ct[ct_node].l == bounds[0]);
 			assert(ct[ct_node].r + 1 == bounds[1]);
 			assert(ct_intervals[ct_node].min_len < len && len <= ct_intervals[ct_node].max_len);
