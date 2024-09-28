@@ -793,9 +793,9 @@ int main() {
 						assert(sa.sa[md] + cur_len <= N);
 						int rnk = sa.rank[sa.sa[md] + cur_len];
 						if (rnk < nxt_range[0]) {
-							mi = rnk;
+							mi = md;
 						} else {
-							ma = rnk;
+							ma = md;
 						}
 					}
 					// mi, ma are the two boundaries
