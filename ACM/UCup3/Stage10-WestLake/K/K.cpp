@@ -289,6 +289,7 @@ int main() {
 			}
 		}
 		cout << ans << '\n';
+		cerr << ans << '\n';
 	}
 
 	return 0;
