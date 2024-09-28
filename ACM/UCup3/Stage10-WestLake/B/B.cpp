@@ -649,15 +649,15 @@ int main() {
 		for (auto& a : v) { cin >> a[0] >> a[1]; a[0]--; }
 	};
 
-	constexpr bool DEBUG = true;
+	constexpr bool DEBUG_INPUT = false;
 	for (int q = 0; q < Q; q++) {
 		char c; cin >> c;
-		if (DEBUG) cerr << "query " << q << ' ' << c << '\n';
+		if (DEBUG_INPUT) cerr << "query " << q << ' ' << c << '\n';
 		if (c == '+') {
 			queries[q].op_type = 0;
 			read_inters(queries[q].s[0]);
 			queries[q].s[1] = queries[q].s[0];
-			if (DEBUG) {
+			if (DEBUG_INPUT) {
 				cerr << "  ";
 				for (auto [a, b] : queries[q].s[0]) {
 					cerr << S.substr(a, b - a) << ' ';
@@ -667,7 +667,7 @@ int main() {
 		} else if (c == '-') {
 			int t; cin >> t;
 			queries[q].op_type = ~t;
-			if (DEBUG) {
+			if (DEBUG_INPUT) {
 				cerr << "  ";
 				for (auto [a, b] : queries[t].s[0]) {
 					cerr << S.substr(a, b - a) << ' ';
@@ -678,7 +678,7 @@ int main() {
 			queries[q].op_type = 1;
 			read_inters(queries[q].s[0]);
 			read_inters(queries[q].s[1]);
-			if (DEBUG) for (int z = 0; z < 2; z++) {
+			if (DEBUG_INPUT) for (int z = 0; z < 2; z++) {
 				cerr << "  ";
 				for (auto [a, b] : queries[q].s[z]) {
 					cerr << S.substr(a, b - a) << ' ';
