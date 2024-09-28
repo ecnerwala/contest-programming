@@ -1165,7 +1165,7 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		if (queries[q].op_type < 0) {
 			int t = ~queries[q].op_type;
-			queries[t].s = queries[t].s;
+			queries[q].s = queries[t].s;
 		}
 	}
 
