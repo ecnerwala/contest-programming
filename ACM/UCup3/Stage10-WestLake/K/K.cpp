@@ -284,12 +284,12 @@ int main() {
 						if (dp[{k, j, 0}] >= 0) setmax(dp[{i, j, 1}], dp[{k, j, 0}] + cross3(pts[i], pts[k], pts[j]));
 					}
 				}
-				cerr << i << '-' << j << ' ' << dp[{i, j, 0}] << ' ' << dp[{i, j, 1}] << '\n';
+				//cerr << i << '-' << j << ' ' << dp[{i, j, 0}] << ' ' << dp[{i, j, 1}] << '\n';
 				setmax(ans, dp[{i, j, 0}]);
 			}
 		}
 		cout << ans << '\n';
-		cerr << ans << '\n';
+		//cerr << ans << '\n';
 	}
 
 	return 0;
