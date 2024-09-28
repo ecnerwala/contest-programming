@@ -281,7 +281,7 @@ int main() {
 						if (dp[{i, k, 1}] >= 0) setmax(dp[{i, j, 0}], dp[{i, k, 1}] + cross3(pts[i], pts[k], pts[j]));
 					}
 					{
-						if (dp[{j, k, 0}] >= 0) setmax(dp[{i, j, 1}], dp[{k, j, 0}] + cross3(pts[i], pts[k], pts[j]));
+						if (dp[{k, j, 0}] >= 0) setmax(dp[{i, j, 1}], dp[{k, j, 0}] + cross3(pts[i], pts[k], pts[j]));
 					}
 				}
 				cerr << i << '-' << j << ' ' << dp[{i, j, 0}] << ' ' << dp[{i, j, 1}] << '\n';
