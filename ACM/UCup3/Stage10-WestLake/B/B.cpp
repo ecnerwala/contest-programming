@@ -940,7 +940,7 @@ int main() {
 				cerr << '\n';
 			}
 		} else if (c == '-') {
-			int t; cin >> t;
+			int t; cin >> t; t--;
 			queries[q].op_type = ~t;
 			if (DEBUG_INPUT) {
 				cerr << "  ";
