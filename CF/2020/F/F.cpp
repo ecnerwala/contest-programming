@@ -849,7 +849,7 @@ int main() {
 		static dirichlet_series::div_vector_layout layout;
 		layout = dirichlet_series::div_vector_layout(N);
 		using ds_prefix = dirichlet_series::dirichlet_series_prefix<layout, num>;
-		using ds_values = dirichlet_series::dirichlet_series_prefix<layout, num>;
+		using ds_values = dirichlet_series::dirichlet_series_values<layout, num>;
 		ds_prefix one([&](int64_t x) -> num { return num(x); });
 		ds_prefix primes_pref = inverse_euler_transform_binary_indexed_tree(one);
 		for (int i = 1; i <= layout.rt; i++) {
@@ -869,7 +869,7 @@ int main() {
 		for (int64_t i = layout.rt + 1; i < layout.len; i++) {
 			log_res.st[i] += W[1] * primes.st[i];
 		}
-		ds_prefix res = euler_transform_binary_indexed_tree(log_res);
+		ds_prefix res = euler_transform_binary_indexed_tree(ds_prefix(log_res));
 		cout << res[N] << '\n';
 	}
 
