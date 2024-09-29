@@ -368,7 +368,7 @@ int main() {
 						ndp_close[{al, ar}] += dp_open[{al, ar}] * num(cur+1);
 					}
 					// You can also insert us into one of the groups, but we get -1 for PIE
-					{
+					if (false) {
 						ndp_open[{al, ar}] -= dp_open[{al, ar}] * B * num(al);
 						ndp_open[{al, ar}] -= dp_open[{al, ar}] * num(ar);
 						ndp_close[{al, ar}] -= dp_close[{al, ar}] * B * num(al);
