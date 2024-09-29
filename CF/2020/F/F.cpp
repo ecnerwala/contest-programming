@@ -843,8 +843,8 @@ int main() {
 		cerr << '\n';
 		// first, clean things up
 		for (int e = 1; e <= 30; e++) {
-			for (int j = 30 / e; j >= 2; j --) {
-				W[j * e] -= W[(j-1) * e] * W[e];
+			for (int j = 30; j >= 2 * e; j --) {
+				W[j] -= W[j - e] * W[e];
 			}
 			cerr << e << ' ' << W[e] << '\n';
 		}
