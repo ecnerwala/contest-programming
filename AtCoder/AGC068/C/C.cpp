@@ -73,7 +73,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		std::vector<int> A(N); for (auto& a : A) { cin >> a; a--; }
-		cout << (solve(A) ? "YES" : "NO") << '\n';
+		cout << (solve(A) ? "Yes" : "No") << '\n';
 	}
 
 	return 0;
