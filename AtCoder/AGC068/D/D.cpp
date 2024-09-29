@@ -354,7 +354,6 @@ int main() {
 			dp_close = std::move(ndp_close);
 			sz[cur] += sz[nxt];
 		}
-		sz[cur]++;
 		{
 			tensor<num, 2> ndp_open({sz[cur] + 1 + 1, sz[cur] + 1 + 1});
 			tensor<num, 2> ndp_close({sz[cur] + 1 + 1, sz[cur] + 1 + 1});
@@ -382,6 +381,7 @@ int main() {
 			}
 			dp_open = std::move(ndp_open);
 			dp_close = std::move(ndp_close);
+			sz[cur]++;
 		}
 		return {dp_open, dp_close};
 	})(0);
