@@ -851,6 +851,10 @@ int main() {
 		using ds_prefix = dirichlet_series::dirichlet_series_prefix<layout, num>;
 		using ds_values = dirichlet_series::dirichlet_series_prefix<layout, num>;
 		ds_prefix one([&](int64_t x) -> num { return num(x); });
+		ds_prefix primes_pref = inverse_euler_transform_binary_indexed_tree(one);
+		for (int i = 1; i <= layout.rt; i++) {
+			cerr << i << ' ' << primes_pref[i] << '\n';
+		}
 		ds_values primes = ds_values(inverse_euler_transform_binary_indexed_tree(one));
 		ds_values log_res;
 		for (int i = 1; i <= layout.rt; i++) {
