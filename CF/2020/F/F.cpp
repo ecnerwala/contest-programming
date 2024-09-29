@@ -839,7 +839,8 @@ int main() {
 		for (int e = 0; e <= 30; e++) {
 			W[e] = fact[e * K + D] * ifact[e * K] * ifact[D];
 		}
-		static dirichlet_series::div_vector_layout layout(N);
+		static dirichlet_series::div_vector_layout layout;
+		layout = dirichlet_series::div_vector_layout(N);
 		using ds_prefix = dirichlet_series::dirichlet_series_prefix<layout, num>;
 		ds_prefix one([&](int64_t x) -> num { return num(x); });
 		ds_prefix primes = inverse_euler_transform_binary_indexed_tree(one);
