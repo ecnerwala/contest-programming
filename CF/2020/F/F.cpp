@@ -838,15 +838,12 @@ int main() {
 		std::vector<num> W(31);
 		for (int e = 0; e <= 30; e++) {
 			W[e] = fact[e * K + D] * ifact[e * K] * ifact[D];
-			cerr << e << ' ' << W[e] << '\n';
 		}
-		cerr << '\n';
 		// first, clean things up
 		for (int e = 1; e <= 30; e++) {
 			for (int j = 30; j >= 2 * e; j --) {
 				W[j] -= W[j - e] * W[e];
 			}
-			cerr << e << ' ' << W[e] << '\n';
 		}
 		static dirichlet_series::div_vector_layout layout;
 		layout = dirichlet_series::div_vector_layout(N);
@@ -857,10 +854,8 @@ int main() {
 		ds_values log_res;
 		for (int i = 1; i <= layout.rt; i++) {
 			if (primes[i] != 0) {
-				cerr << i << ' ' << primes[i] << '\n';
 				assert(primes[i] == 1);
 				for (int v = 1, e = 1; int64_t(v) * int64_t(i) <= N; v *= i, e ++) {
-					cerr << v * i << ' ' << e << ' ' << W[e] << '\n';
 					log_res[v * i] += W[e];
 				}
 			}
