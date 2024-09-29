@@ -78,13 +78,10 @@ void test(int N) {
 		all_paths = std::move(n_all_paths);
 	}
 
-	std::set<std::vector<int>> paths;
-	for (auto p : all_paths) {
-		std::y_combinator([&](auto self, std::vector<int> A, int cur) -> void {
-			if (cur == N) {
-				paths.insert(A);
-				return;
-			}
+	std::set<std::vector<int>> legal_paths(all_paths.begin(), all_paths.end());
+	for (int cur = 0; cur < N; cur++) {
+		std::set<std::vector<int>> nxt_legal_paths;
+		for (const auto& A : legal_paths) {
 			std::vector<int> locs; locs.reserve(N);
 			for (int i = 0; i < N; i++) {
 				if (A[i] == cur) locs.push_back(i);
@@ -94,13 +91,14 @@ void test(int N) {
 				for (int i = 0; i < int(locs.size()); i++) {
 					nA[locs[i]] = locs[(i + 1) % int(locs.size())];
 				}
-				self(nA, cur + 1);
+				nxt_legal_paths.insert(nA);
 			} while (std::next_permutation(locs.begin(), locs.end()));
-		})(p, 0);
+		}
+		legal_paths = std::move(nxt_legal_paths);
 	}
 	for (auto p : all_paths) {
 		bool mine = solve(p);
-		bool real = paths.count(p);
+		bool real = legal_paths.count(p);
 		assert(mine == real);
 	}
 }
