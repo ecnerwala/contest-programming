@@ -839,28 +839,32 @@ int main() {
 		for (int e = 0; e <= 30; e++) {
 			W[e] = fact[e * K + D] * ifact[e * K] * ifact[D];
 		}
+		// first, clean things up
+		for (int e = 1; e <= 30; e++) {
+			for (int j = 30 / e; j >= 2; j --) {
+				W[j * e] -= W[(j-1) * e] * W[e];
+			}
+			cerr << e << ' ' << W[e] << '\n';
+		}
 		static dirichlet_series::div_vector_layout layout;
 		layout = dirichlet_series::div_vector_layout(N);
 		using ds_prefix = dirichlet_series::dirichlet_series_prefix<layout, num>;
 		using ds_values = dirichlet_series::dirichlet_series_prefix<layout, num>;
 		ds_prefix one([&](int64_t x) -> num { return num(x); });
-		ds_prefix primes = inverse_euler_transform_binary_indexed_tree(one);
-		ds_prefix base = primes;
-		for (int i = 1; i < layout.len; i++) {
-			cerr << " p " << i << ' ' << primes.st[i] << '\n';
-			base.st[i] *= W[1];
-		}
-		ds_values prime_vals(primes);
-		ds_values powerful_correction;
+		ds_values primes = ds_values(inverse_euler_transform_binary_indexed_tree(one));
+		ds_values log_res;
 		for (int i = 1; i <= layout.rt; i++) {
-			if (prime_vals[i] != 0) {
+			if (primes[i] != 0) {
 				cerr << i << '\n';
-				for (int v = i, e = 2; int64_t(v) * int64_t(i) <= N; v *= i) {
-					powerful_correction[v * i] += W[e] - W[e-1] * W[1];
+				for (int v = 1, e = 1; int64_t(v) * int64_t(i) <= N; v *= i) {
+					log_res[v * i] += W[e];
 				}
 			}
 		}
-		ds_prefix res = euler_transform_binary_indexed_tree(base) * ds_prefix(powerful_correction);
+		for (int64_t i = layout.rt + 1; i < layout.len; i++) {
+			log_res.st[i] += W[1] * primes.st[i];
+		}
+		ds_prefix res = euler_transform_binary_indexed_tree(log_res);
 		cout << res[N] << '\n';
 	}
 
