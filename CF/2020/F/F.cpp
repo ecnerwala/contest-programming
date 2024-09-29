@@ -856,6 +856,7 @@ int main() {
 		for (int i = 1; i <= layout.rt; i++) {
 			if (primes[i] != 0) {
 				cerr << i << '\n';
+				assert(primes[i] == 1);
 				for (int v = 1, e = 1; int64_t(v) * int64_t(i) <= N; v *= i) {
 					log_res[v * i] += W[e];
 				}
