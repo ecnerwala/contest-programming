@@ -64,9 +64,54 @@ bool solve(std::vector<int> A) {
 	return good;
 }
 
+void test(int N) {
+	std::vector<std::vector<int>> all_paths;
+	all_paths.emplace_back();
+	for (int z = 0; z < N; z++) {
+		std::vector<std::vector<int>> n_all_paths; n_all_paths.reserve(all_paths.size() * N);
+		for (int i = 0; i < N; i++) {
+			for (auto p : all_paths) {
+				p.push_back(i);
+				n_all_paths.emplace_back(std::move(p));
+			}
+		}
+		all_paths = std::move(n_all_paths);
+	}
+
+	std::set<std::vector<int>> paths;
+	for (auto p : all_paths) {
+		std::y_combinator([&](auto self, std::vector<int> A, int cur) -> void {
+			if (cur == N) {
+				paths.insert(A);
+			}
+			std::vector<int> locs; locs.reserve(N);
+			for (int i = 0; i < N; i++) {
+				if (A[i] == cur) locs.push_back(i);
+			}
+			do {
+				std::vector<int> nA = A;
+				for (int i = 0; i < int(locs.size()); i++) {
+					nA[locs[i]] = locs[(i + 1) % int(locs.size())];
+				}
+				self(nA, cur + 1);
+			} while (std::next_permutation(locs.begin(), locs.end()));
+		})(p, 0);
+	}
+	for (auto p : all_paths) {
+		bool mine = solve(p);
+		bool real = paths.count(p);
+		assert(mine == real);
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	for (int t = 1; t <= 5; t++) {
+		cerr << "testing " << t << '\n';
+		test(t);
+	}
 
 	// The max of every subtree must be greater than you
 	int T; cin >> T;
