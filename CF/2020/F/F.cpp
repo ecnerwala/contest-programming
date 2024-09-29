@@ -851,8 +851,9 @@ int main() {
 				}
 			}
 		}
-		ds_prefix res = euler_transform_binary_indexed_tree(primes * W[1]);
-		res = res * powerful_correction;
+		ds_prefix base = primes;
+		base *= W[1];
+		ds_prefix res = euler_transform_binary_indexed_tree(base) * powerful_correction;
 	}
 
 	return 0;
