@@ -844,7 +844,10 @@ int main() {
 		ds_prefix one([&](int64_t x) -> num { return num(x); });
 		ds_prefix primes = inverse_euler_transform_binary_indexed_tree(one);
 		ds_prefix base = primes;
-		for (int i = 1; i < layout.len; i++) base.st[i] *= W[1];
+		for (int i = 1; i < layout.len; i++) {
+			cerr << " p " << i << ' ' << primes.st[i] << '\n';
+			base.st[i] *= W[1];
+		}
 		ds_prefix powerful_correction;
 		for (int i = 1; i <= layout.rt; i++) {
 			if (primes[i] != 0) {
