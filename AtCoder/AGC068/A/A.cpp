@@ -153,6 +153,7 @@ int main() {
 			ways += fact[a + b + c] * ifact[a] * ifact[b] * ifact[c];
 		}
 		cerr << ways << '\n';
+		ways *= num(L);
 		ways /= num(N);
 		ans += (all_ways - ways);
 	}
