@@ -311,7 +311,7 @@ int main() {
 		}
 	}
 	for (int i = 0; i < N; i++) {
-		cout << ans[i] << '\n';
+		cout << ans[i] << " \n"[i+1==N];
 	}
 
 	return 0;
