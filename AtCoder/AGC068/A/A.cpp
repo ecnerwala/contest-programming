@@ -152,6 +152,7 @@ int main() {
 			int a = free, b = num_swap, c = N - num_swap - 1;
 			ways += fact[a + b + c] * ifact[a] * ifact[b] * ifact[c];
 		}
+		cerr << ways << '\n';
 		ways /= num(N);
 		ans += (all_ways - ways);
 	}
