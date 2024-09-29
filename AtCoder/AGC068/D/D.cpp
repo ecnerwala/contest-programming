@@ -374,7 +374,7 @@ int main() {
 						ndp_close[{al, ar}] -= dp_close[{al, ar}] * B * num(al);
 						ndp_close[{al, ar}] -= dp_close[{al, ar}] * num(ar + 1);
 						if (al >= 1) {
-							ndp_close[{al - 1, ar}] -= dp_open[{al, ar}] * num(cur+1) * ifact[al - 1] * fact[al];
+							ndp_close[{al - 1, ar}] -= dp_open[{al, ar}] * num(cur+1) * num(al);
 						}
 					}
 				}
