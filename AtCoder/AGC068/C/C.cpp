@@ -107,10 +107,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int t = 1; t <= 7; t++) {
-		cerr << "testing " << t << '\n';
-		test(t);
-	}
+	//for (int t = 1; t <= 7; t++) { cerr << "testing " << t << '\n'; test(t); }
 
 	// The max of every subtree must be greater than you
 	int T; cin >> T;
