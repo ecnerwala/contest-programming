@@ -24,44 +24,22 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 bool solve(std::vector<int> A) {
 	int N = int(A.size());
-	std::vector<int> vis(N, -1);
-	std::vector<bool> is_cyc(N);
+	std::vector<int> val(N);
+	std::iota(val.begin(), val.end(), 0);
+	std::vector<int> deg(N);
+	for (int i = 0; i < N; i++) deg[A[i]] += i;
+	std::vector<int> q; q.reserve(N);
 	for (int i = 0; i < N; i++) {
-		// first, find and break cycles
-		int cur = i;
-		while (vis[cur] == -1) {
-			vis[cur] = i;
-			cur = A[cur];
-		}
-		if (vis[cur] == i) {
-			// we've hit a cycle starting with cur
-			for (int a = A[cur]; true; a = A[a]) {
-				is_cyc[a] = true;
-				if (a == cur) break;
-			}
-		}
+		if (!deg[i]) q.push_back(i);
 	}
-	std::vector<std::vector<int>> ch(N);
-	for (int i = 0; i < N; i++) {
-		if (!is_cyc[i]) ch[A[i]].push_back(i);
+	for (int z = 0; z < int(q.size()); z++) {
+		int cur = q[z];
+		int nxt = A[cur];
+		if (val[cur] < nxt) return false;
+		val[nxt] = std::min(val[nxt], val[cur]);
+		if (!--deg[nxt]) q.push_back(nxt);
 	}
-	bool good = true;
-	for (int i = 0; i < N; i++) {
-		if (is_cyc[i]) {
-			std::y_combinator([&](auto self, int cur) -> int {
-				int res = cur;
-				for (int nxt : ch[cur]) {
-					int v = self(nxt);
-					if (v < cur) {
-						good = false;
-					}
-					res = std::max(res, v);
-				}
-				return res;
-			})(i);
-		}
-	}
-	return good;
+	return true;
 }
 
 void test(int N) {
