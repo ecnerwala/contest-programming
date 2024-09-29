@@ -1012,8 +1012,8 @@ int main() {
 			return {lo, hi};
 		};
 
-		std::vector<int64_t> num_strings(N+1);
-		for (int i = 0; i < N; i++) {
+		std::vector<int64_t> num_strings(N+2);
+		for (int i = 0; i <= N; i++) {
 			num_strings[i+1] = num_strings[i] + (N - sa.sa[i] - (i ? sa.lcp[i-1] : -1));
 		}
 		auto range_to_inter = [&](std::array<int, 2> bounds, int len) -> std::array<int64_t, 2> {
