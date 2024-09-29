@@ -139,10 +139,11 @@ int main() {
 					int a = ((A[z] >> i) & 1) ^ (((A[z] >> j) & 1) << 1);
 					num p = P[z];
 					std::array<num, 4> ndp = dp;
+					for (int v = 0; v < 4; v++) ndp[v] *= 1-p;
 					for (int v = 0; v < 4; v++) ndp[v ^ a] += p * dp[v];
 					dp = ndp;
 				}
-				cerr << dp[3] << '\n';
+				cerr << i << ' ' << j << ' ' << dp[3] << '\n';
 				ans += dp[3] * num(1 << (i + j + (i!=j)));
 			}
 		}
