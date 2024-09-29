@@ -842,6 +842,7 @@ int main() {
 		static dirichlet_series::div_vector_layout layout;
 		layout = dirichlet_series::div_vector_layout(N);
 		using ds_prefix = dirichlet_series::dirichlet_series_prefix<layout, num>;
+		using ds_values = dirichlet_series::dirichlet_series_prefix<layout, num>;
 		ds_prefix one([&](int64_t x) -> num { return num(x); });
 		ds_prefix primes = inverse_euler_transform_binary_indexed_tree(one);
 		ds_prefix base = primes;
@@ -849,16 +850,17 @@ int main() {
 			cerr << " p " << i << ' ' << primes.st[i] << '\n';
 			base.st[i] *= W[1];
 		}
-		ds_prefix powerful_correction;
+		ds_values prime_vals(primes);
+		ds_values powerful_correction;
 		for (int i = 1; i <= layout.rt; i++) {
-			if (primes[i] != 0) {
+			if (prime_vals[i] != 0) {
 				cerr << i << '\n';
 				for (int v = i, e = 2; int64_t(v) * int64_t(i) <= N; v *= i) {
 					powerful_correction[v * i] += W[e] - W[e-1] * W[1];
 				}
 			}
 		}
-		ds_prefix res = euler_transform_binary_indexed_tree(base) * powerful_correction;
+		ds_prefix res = euler_transform_binary_indexed_tree(base) * ds_prefix(powerful_correction);
 		cout << res[N] << '\n';
 	}
 
