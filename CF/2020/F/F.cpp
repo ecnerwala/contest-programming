@@ -860,6 +860,7 @@ int main() {
 				cerr << i << ' ' << primes[i] << '\n';
 				assert(primes[i] == 1);
 				for (int v = 1, e = 1; int64_t(v) * int64_t(i) <= N; v *= i) {
+					cerr << v * i << ' ' << e << ' ' << W[e] << '\n';
 					log_res[v * i] += W[e];
 				}
 			}
