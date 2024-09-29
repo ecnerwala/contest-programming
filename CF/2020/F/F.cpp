@@ -838,7 +838,9 @@ int main() {
 		std::vector<num> W(31);
 		for (int e = 0; e <= 30; e++) {
 			W[e] = fact[e * K + D] * ifact[e * K] * ifact[D];
+			cerr << e << ' ' << W[e] << '\n';
 		}
+		cerr << '\n';
 		// first, clean things up
 		for (int e = 1; e <= 30; e++) {
 			for (int j = 30 / e; j >= 2; j --) {
