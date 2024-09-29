@@ -142,6 +142,7 @@ int main() {
 					for (int v = 0; v < 4; v++) ndp[v ^ a] += p * dp[v];
 					dp = ndp;
 				}
+				cerr << dp[3] << '\n';
 				ans += dp[3] * num(1 << (i + j + (i!=j)));
 			}
 		}
