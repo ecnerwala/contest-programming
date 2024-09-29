@@ -1012,49 +1012,13 @@ int main() {
 			return {lo, hi};
 		};
 
-		//cerr << "Current string " << S << '\n';
-		CartesianTree ct = CartesianTree::build_min_tree(sa.lcp);
-		assert(int(sa.lcp.size()) == N);
-		// for each cartesian tree node, we need
-		struct ct_data {
-			// min_len is exclusive
-			int min_len, max_len;
-			int64_t st, en;
-		};
-		std::vector<ct_data> ct_intervals(ct.size());
-		{
-			int64_t cur_idx = 0;
-			std::y_combinator([&](auto self, int cur, int min_len) -> void {
-				int max_len;
-				if (cur & 1) {
-					// we're an intermediate node
-					max_len = sa.lcp[cur / 2];
-				} else {
-					max_len = N - sa.sa[cur / 2];
-				}
-				assert(min_len <= max_len);
-				int64_t st = cur_idx;
-				cur_idx += max_len - min_len;
-				if (cur & 1) {
-					self(ct[cur].c[0], max_len);
-					self(ct[cur].c[1], max_len);
-				}
-				int64_t en = cur_idx;
-				ct_intervals[cur] = {min_len, max_len, st, en};
-			})(ct.root, -1);
+		std::vector<int64_t> num_strings(N+1);
+		for (int i = 0; i < N; i++) {
+			num_strings[i+1] = num_strings[i] + (N - sa.sa[i] - (i ? sa.lcp[i-1] : -1));
 		}
-
 		auto range_to_inter = [&](std::array<int, 2> bounds, int len) -> std::array<int64_t, 2> {
-			int ct_node;
-			if (bounds[0] == bounds[1]) {
-				ct_node = bounds[0] * 2;
-			} else {
-				ct_node = sa.rmq.query(bounds[0], bounds[1]-1).second * 2 - 1;
-			}
-			assert(ct[ct_node].l == bounds[0]);
-			assert(ct[ct_node].r + 1 == bounds[1]);
-			assert(ct_intervals[ct_node].min_len < len && len <= ct_intervals[ct_node].max_len);
-			return {ct_intervals[ct_node].st + len - 1 - ct_intervals[ct_node].min_len, ct_intervals[ct_node].en};
+			auto [i, j] = bounds;
+			return {num_strings[i] + len - 1 - (i ? sa.lcp[i-1] : -1), num_strings[j+1]};
 		};
 
 		std::vector<std::map<int64_t, int>> trie;
