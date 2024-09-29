@@ -150,11 +150,10 @@ int main() {
 			free /= 2;
 			// mix together free, num_swap, N - num_swap - 1
 			int a = free, b = num_swap, c = N - num_swap;
-			ways += (fact[b + c] * ifact[b] * ifact[c]) * fact[a + (N-1)] * ifact[a] * ifact[N-1];
+			ways += ifact[b] * ifact[c] * fact[a + (N-1)] * ifact[a];
 		}
 		//cerr << "max " << k << ' ' << ways << '\n';
 		ways *= num(L);
-		ways /= num(N);
 		//cerr << "max " << k << ' ' << ways << '\n';
 		ans += (all_ways - ways);
 	}
