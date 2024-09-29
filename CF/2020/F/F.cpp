@@ -852,7 +852,7 @@ int main() {
 			}
 		}
 		ds_prefix base = primes;
-		base *= W[1];
+		for (int i = 1; i < layout.len; i++) base.st[i] *= W[1];
 		ds_prefix res = euler_transform_binary_indexed_tree(base) * powerful_correction;
 	}
 
