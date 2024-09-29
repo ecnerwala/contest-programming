@@ -22,7 +22,7 @@ int main() {
 		int64_t r = floor_sqrt(K);
 		int64_t v = K + r;
 		if (v >= (r+1) * (r+1)) v++;
-		assert(v <= (r+2) * (r+2));
+		assert(v < (r+2) * (r+2));
 		cout << v << '\n';
 	}
 
