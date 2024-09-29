@@ -83,6 +83,7 @@ void test(int N) {
 		std::y_combinator([&](auto self, std::vector<int> A, int cur) -> void {
 			if (cur == N) {
 				paths.insert(A);
+				return;
 			}
 			std::vector<int> locs; locs.reserve(N);
 			for (int i = 0; i < N; i++) {
