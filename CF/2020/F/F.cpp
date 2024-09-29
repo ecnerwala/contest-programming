@@ -848,6 +848,7 @@ int main() {
 		ds_prefix powerful_correction;
 		for (int i = 1; i <= layout.rt; i++) {
 			if (primes[i] != 0) {
+				cerr << i << '\n';
 				for (int v = i, e = 2; int64_t(v) * int64_t(i) <= N; v *= i) {
 					powerful_correction[v * i] += W[e] - W[e-1] * W[1];
 				}
