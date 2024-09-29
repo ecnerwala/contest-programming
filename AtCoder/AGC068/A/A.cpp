@@ -152,9 +152,10 @@ int main() {
 			int a = free, b = num_swap, c = N - num_swap - 1;
 			ways += fact[a + b + c] * ifact[a] * ifact[b] * ifact[c];
 		}
-		cerr << ways << '\n';
+		cerr << "max " << k << ' ' << ways << '\n';
 		ways *= num(L);
 		ways /= num(N);
+		cerr << "max " << k << ' ' << ways << '\n';
 		ans += (all_ways - ways);
 	}
 	cout << ans << '\n';
