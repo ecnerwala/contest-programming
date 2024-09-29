@@ -288,6 +288,7 @@ int main() {
 
 	std::vector<num> ans(N);
 	std::vector<num> dp(M);
+	dp[0] = 1;
 	for (int i = N-1; i >= 0; i--) {
 		std::vector<num> cur_dp(N);
 		for (int m = 0; m < M; m++) {
