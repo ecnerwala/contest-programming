@@ -10,6 +10,7 @@ int main() {
 		cout << [&]() -> int64_t {
 			int64_t res = 0;
 			for (int b = 0; D; b++, B>>=1, C>>=1, D>>=1) {
+				if (b >= 61) return false;
 				int wa = 0;
 				if (B & 1) {
 					D --;
