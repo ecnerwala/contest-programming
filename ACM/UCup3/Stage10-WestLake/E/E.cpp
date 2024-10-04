@@ -361,6 +361,8 @@ int main() {
 				nxt_oe->update();
 				root->child_edges[!z] = nxt_oe;
 			}
+			root->update();
+			cerr << "root->own_sz = " << root->own_sz << '\n';
 
 			assert(!cur_e->c[1]);
 			assert(!cur_v->c[1]);
