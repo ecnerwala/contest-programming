@@ -167,7 +167,7 @@ struct edge_splay_node : splay_node_base<edge_splay_node> {
 		assert(!flip);
 
 		own_cnt = 1;
-		own_sz = child_vert ? (child_edges[0]->own_sz + child_edges[1]->own_sz + 1) : 1;
+		own_sz = child_vert ? (child_edges[0]->own_sz + child_edges[1]->own_sz) : 1;
 
 		tot_cnt = own_cnt;
 		tot_sz = own_sz;
