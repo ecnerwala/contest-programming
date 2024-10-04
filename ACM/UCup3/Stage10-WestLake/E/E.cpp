@@ -266,6 +266,7 @@ int main() {
 			root->update();
 			assert(target_l_sz <= cur_l_sz);
 			bool should_splice = target_l_sz < cur_l_sz;
+			break;
 		}
 
 		// flip and reverse the path
