@@ -408,6 +408,7 @@ int main() {
 			}
 
 			root->update();
+			cerr << "root->own_sz = " << root->own_sz << '\n';
 		}
 
 		// flip and reverse the path
