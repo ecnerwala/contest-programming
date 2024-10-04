@@ -70,7 +70,7 @@ public:
 		pa->update();
 	}
 
-	splay_node* splay() {
+	splay_node* splay_no_update() {
 		while (p) {
 			if (p->p) {
 				if (p->d() == d()) p->rot();
@@ -78,6 +78,11 @@ public:
 			}
 			rot();
 		}
+		return derived_this();
+	}
+
+	splay_node* splay() {
+		splay_no_update();
 		update();
 		return derived_this();
 	}
@@ -220,13 +225,14 @@ int main() {
 		}
 		if (x == N) {
 			root->do_flip();
+			// I don't like leaving stuff in the root
+			root->downdate();
 			return 1;
 		}
 		assert(0 < x && x < N);
 
 		// TODO: Expose the x-1 -> x cutoff
 		while (true) {
-			root->downdate();
 			assert(0 < x && x < root->own_sz);
 			assert(root->child_vert);
 			if (x == root->child_edges[0]->tot_sz) {
@@ -264,11 +270,7 @@ int main() {
 				}
 				cur_e->splay();
 				root->child_edges[z] = cur_e;
-				root->update();
 			}
-
-			assert(target_l_sz <= cur_l_sz);
-			bool should_splice = target_l_sz < cur_l_sz;
 
 			vertex_splay_node* cur_v = root->child_vert;
 			{
@@ -293,18 +295,111 @@ int main() {
 				}
 				cur_v->splay();
 				root->child_vert = cur_v;
-				root->update();
 			}
 
 			assert(cur_v->own_cnt[z]);
 			if (!cur_v->own_cnt[!z]) {
 				// cut the right edge
 				assert(cur_v->spare);
+				assert(cur_v->c[1]);
+				edge_splay_node* nxt_oe = std::exchange(cur_v->spare, nullptr);
+				// Clear it out for good measure
+				*nxt_oe = edge_splay_node{};
+
+				cur_v->downdate();
+				nxt_oe->child_vert = cur_v->c[1];
+				cur_v->c[1]->p = nullptr;
+				cur_v->c[1] = nullptr;
+				cur_v->own_cnt[!z] = 1;
+				cur_v->update();
+
+				cur_e->downdate();
+				nxt_oe->child_edges[z] = cur_e->c[1];
+				if (cur_e->c[1]) cur_e->c[1]->p = nullptr;
+				cur_e->c[1] = nullptr;
+				cur_e->update();
+
+				{
+					int target_cnt = cur_v->c[0]->tot_cnt[!z];
+					if (!target_cnt) {
+						// Take the whole tree
+						nxt_oe->child_edges[!z] = root->child_edges[!z];
+					} else {
+						edge_splay_node* cur_oe = root->child_edges[!z];
+						while (true) {
+							cur_oe->downdate();
+							int c0_cnt = cur_oe->c[0] ? cur_oe->c[0]->tot_cnt : 0;
+							if (target_cnt <= c0_cnt) {
+								cur_oe = cur_oe->c[0];
+								continue;
+							}
+							target_cnt -= c0_cnt;
+							if (target_cnt == 1) {
+								break;
+							}
+							target_cnt--;
+							cur_oe = cur_oe->c[1];
+							continue;
+						}
+						cur_oe->splay_no_update();
+						nxt_oe->child_edges[!z] = cur_oe->c[1];
+						if (cur_oe->c[1]) cur_oe->c[1]->p = nullptr;
+						cur_oe->c[1] = nullptr;
+						cur_oe->update();
+
+						nxt_oe->c[0] = cur_oe;
+						assert(cur_oe->p == nullptr);
+						cur_oe->p = nxt_oe;
+					}
+				}
+
+				nxt_oe->update();
+				root->child_edges[!z] = nxt_oe;
 			}
+
+			assert(!cur_e->c[1]);
+			assert(!cur_v->c[1]);
+
+			auto splice = [&](auto& node_ptr, auto new_node) {
+				auto cur = node_ptr;
+				while (true) {
+					cur->downdate();
+					if (cur->c[1]) {
+						cur = cur->c[1];
+					} else {
+						break;
+					}
+				}
+				cur->splay_no_update();
+				cur->c[1] = new_node;
+				if (new_node) new_node->p = cur;
+				cur->update();
+
+				node_ptr = cur;
+			};
+
+			assert(cur_e->tot_sz >= x);
+			if (cur_e->tot_sz > x) {
+				assert(cur_e->tot_sz - cur_e->own_sz < x);
+				assert(cur_e == root->child_edges[z]);
+				// Splice the new path
+				root->child_edges[z] = cur_e->c[0];
+				if (cur_e->c[0]) cur_e->c[0]->p = nullptr;
+				cur_e->c[0] = nullptr;
+				splice(root->child_edges[z], cur_e->child_edges[z]);
+				splice(root->child_edges[!z], cur_e->child_edges[!z]);
+				splice(root->child_vert, cur_e->child_vert);
+				assert(root->child_vert == cur_v);
+
+				*cur_e = edge_splay_node{};
+				cur_v->spare = cur_e;
+			}
+
+			root->update();
 		}
 
 		// flip and reverse the path
-		root->downdate();
+		//root->downdate(); // unnecessary
 		assert(root->child_edges[0]->tot_sz == x);
 		root->child_edges[0]->do_flip();
 		root->child_edges[0]->do_reverse();
