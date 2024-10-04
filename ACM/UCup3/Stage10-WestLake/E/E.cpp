@@ -88,7 +88,7 @@ public:
 struct edge_splay_node;
 
 struct vertex_splay_node : splay_node_base<vertex_splay_node> {
-	edge_splay_node* spare;
+	edge_splay_node* spare = nullptr;
 	std::array<int, 2> own_cnt{0, 0};
 	std::array<int, 2> tot_cnt{0, 0};
 	bool flip = false;
@@ -106,6 +106,7 @@ struct vertex_splay_node : splay_node_base<vertex_splay_node> {
 	}
 	void update() {
 		assert(!flip);
+		assert(own_cnt[0] + own_cnt[1] + bool(spare) == 2);
 		tot_cnt = own_cnt;
 		for (int z = 0; z < 2; z++) {
 			if (c[z]) {
