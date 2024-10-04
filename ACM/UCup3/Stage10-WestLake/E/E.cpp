@@ -245,28 +245,62 @@ int main() {
 			// nxt_sz is the number of shallow (left) things
 			// TODO: Split at that location, splice in the other side
 			edge_splay_node* cur_e = root->child_edges[z];
-			int cur_l_sz = 0;
-			while (true) {
-				cur_e->downdate();
-				int cnd_l_sz = cur_e->c[0] ? cur_e->c[0]->tot_sz : 0;
-				if (target_l_sz <= cur_l_sz + cnd_l_sz) {
-					cur_e = cur_e->c[0];
-					continue;
+			{
+				int cur_l_sz = 0;
+				while (true) {
+					cur_e->downdate();
+					int cnd_l_sz = cur_e->c[0] ? cur_e->c[0]->tot_sz : 0;
+					if (target_l_sz <= cur_l_sz + cnd_l_sz) {
+						cur_e = cur_e->c[0];
+						continue;
+					}
+					cur_l_sz += cnd_l_sz;
+					cur_l_sz += cur_e->own_sz;
+					if (target_l_sz <= cur_l_sz) {
+						// This is the one to take
+						break;
+					}
+					cur_e = cur_e->c[1];
 				}
-				cur_l_sz += cnd_l_sz;
-				cur_l_sz += cur_e->own_sz;
-				if (target_l_sz <= cur_l_sz) {
-					// This is the one to take
-					break;
-				}
-				cur_e = cur_e->c[1];
+				cur_e->splay();
+				root->child_edges[z] = cur_e;
+				root->update();
 			}
-			cur_e->splay();
-			root->child_edges[z] = cur_e;
-			root->update();
+
 			assert(target_l_sz <= cur_l_sz);
 			bool should_splice = target_l_sz < cur_l_sz;
-			break;
+
+			vertex_splay_node* cur_v = root->child_vert;
+			{
+				int target_cnt = (cur_e->c[0] ? cur_e->c[0]->tot_cnt : 0) + 1;
+				while (true) {
+					assert(cur_v);
+					cur_v->downdate();
+					assert(1 <= target_cnt && target_cnt <= cur_v->tot_cnt[z]);
+					int c0_cnt = cur_v->c[0] ? cur_v->c[0]->tot_cnt[z] : 0;
+					if (target_cnt <= c0_cnt) {
+						cur_v = cur_v->c[0];
+						continue;
+					}
+					target_cnt -= c0_cnt;
+					if (target_cnt <= cur_v->own_cnt[z]) {
+						assert(cur_v->own_cnt[z] == 1);
+						break;
+					}
+					target_cnt -= cur_v->own_cnt[z];
+					cur_v = cur_v->c[1];
+					continue;
+				}
+				cur_v->splay();
+				root->child_vert = cur_v;
+				root->update();
+			}
+
+			assert(cur_v->own_cnt[z]);
+			if (!cur_v->own_cnt[!z]) {
+				// cut the right edge
+				assert(cur_v->spare);
+			}
 		}
 
 		// flip and reverse the path
