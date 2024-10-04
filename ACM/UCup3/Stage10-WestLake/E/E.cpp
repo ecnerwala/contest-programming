@@ -233,10 +233,9 @@ int main() {
 
 		// TODO: Expose the x-1 -> x cutoff
 		while (true) {
-			cerr << "root->own_sz = " << root->own_sz << '\n';
+			assert(root->own_sz == N);
 			assert(0 < x && x < root->own_sz);
 			assert(root->child_vert);
-			cerr << root->child_edges[0]->tot_sz << '\n';
 			if (x == root->child_edges[0]->tot_sz) {
 				// This is the leaf
 				break;
@@ -361,8 +360,6 @@ int main() {
 				nxt_oe->update();
 				root->child_edges[!z] = nxt_oe;
 			}
-			root->update();
-			cerr << "root->own_sz = " << root->own_sz << '\n';
 
 			assert(!cur_e->c[1]);
 			assert(!cur_v->c[1]);
@@ -389,7 +386,6 @@ int main() {
 				node_ptr = cur;
 			};
 
-			cerr << z << ' ' << cur_e->tot_sz << ' ' << target_l_sz << '\n';
 			assert(cur_e->tot_sz >= target_l_sz);
 			if (cur_e->tot_sz > target_l_sz) {
 				assert(cur_e->tot_sz - cur_e->own_sz < target_l_sz);
@@ -411,7 +407,7 @@ int main() {
 			}
 
 			root->update();
-			cerr << "root->own_sz = " << root->own_sz << '\n';
+			//cerr << "root->own_sz = " << root->own_sz << '\n';
 		}
 
 		// flip and reverse the path
@@ -424,7 +420,7 @@ int main() {
 
 	for (int q = 0; q < Q; q++) {
 		int x; cin >> x;
-		cerr << "op " << x << '\n';
+		//cerr << "op " << x << '\n';
 		int res = op(x);
 		cout << res << '\n';
 	}
