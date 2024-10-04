@@ -235,6 +235,7 @@ int main() {
 		while (true) {
 			assert(0 < x && x < root->own_sz);
 			assert(root->child_vert);
+			cerr << root->child_edges[0]->tot_sz << '\n';
 			if (x == root->child_edges[0]->tot_sz) {
 				// This is the leaf
 				break;
