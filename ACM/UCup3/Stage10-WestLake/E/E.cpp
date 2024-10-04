@@ -311,6 +311,9 @@ int main() {
 				cur_v->c[1]->p = nullptr;
 				cur_v->c[1] = nullptr;
 				cur_v->own_cnt[!z] = 1;
+				assert(cur_v->own_cnt[!z] == 1);
+				assert(cur_v->own_cnt[z] == 1);
+				assert(!cur_v->spare);
 				cur_v->update();
 
 				cur_e->downdate();
@@ -390,13 +393,16 @@ int main() {
 				root->child_edges[z] = cur_e->c[0];
 				if (cur_e->c[0]) cur_e->c[0]->p = nullptr;
 				cur_e->c[0] = nullptr;
+
+				cur_v->spare = cur_e;
+				cur_v->own_cnt[z] = 0;
+
 				splice(root->child_edges[z], cur_e->child_edges[z]);
 				splice(root->child_edges[!z], cur_e->child_edges[!z]);
 				splice(root->child_vert, cur_e->child_vert);
 				assert(root->child_vert == cur_v);
 
 				*cur_e = edge_splay_node{};
-				cur_v->spare = cur_e;
 			}
 
 			root->update();
