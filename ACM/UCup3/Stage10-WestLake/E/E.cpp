@@ -183,8 +183,16 @@ struct edge_splay_node : splay_node_base<edge_splay_node> {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	constexpr bool TESTING = false;
+	std::mt19937 mt(48);
 
-	int N, Q; cin >> N >> Q;
+	int N, Q;
+	if (TESTING) {
+		N = std::uniform_int_distribution(2, 100)(mt);
+		Q = 10000;
+	} else {
+		cin >> N >> Q;
+	}
 	assert(N >= 2);
 
 	std::vector<edge_splay_node> edge_nodes(2*N-1);
@@ -201,7 +209,12 @@ int main() {
 			return e;
 		}
 
-		int m; cin >> m;
+		int m;
+		if (TESTING) {
+			m = std::uniform_int_distribution(l + 1, r - 1)(mt);
+		} else {
+			cin >> m;
+		}
 		assert(l < m && m < r);
 		auto el = self(l, m);
 		auto er = self(m, r);
@@ -419,7 +432,12 @@ int main() {
 	};
 
 	for (int q = 0; q < Q; q++) {
-		int x; cin >> x;
+		int x;
+		if (TESTING) {
+			x = std::uniform_int_distribution(0, N)(mt);
+		} else {
+			cin >> x;
+		}
 		//cerr << "op " << x << '\n';
 		int res = op(x);
 		cout << res << '\n';
