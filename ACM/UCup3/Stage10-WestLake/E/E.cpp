@@ -323,7 +323,7 @@ int main() {
 				cur_e->update();
 
 				{
-					int target_cnt = cur_v->c[0]->tot_cnt[!z];
+					int target_cnt = cur_v->c[0] ? cur_v->c[0]->tot_cnt[!z] : 0;
 					if (!target_cnt) {
 						// Take the whole tree
 						nxt_oe->child_edges[!z] = root->child_edges[!z];
