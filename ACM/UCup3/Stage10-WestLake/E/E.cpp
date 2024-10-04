@@ -419,11 +419,11 @@ int main() {
 	};
 
 	for (int q = 0; q < Q; q++) {
+		if (q == 2) exit(1);
 		int x; cin >> x;
 		cerr << "op " << x << '\n';
 		int res = op(x);
 		cout << res << '\n';
-		exit(1);
 	}
 
 	return 0;
