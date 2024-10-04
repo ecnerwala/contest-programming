@@ -386,10 +386,10 @@ int main() {
 				node_ptr = cur;
 			};
 
-			cerr << z << ' ' << cur_e->tot_sz << ' ' << x << '\n';
-			assert(cur_e->tot_sz >= x);
-			if (cur_e->tot_sz > x) {
-				assert(cur_e->tot_sz - cur_e->own_sz < x);
+			cerr << z << ' ' << cur_e->tot_sz << ' ' << target_l_sz << '\n';
+			assert(cur_e->tot_sz >= target_l_sz);
+			if (cur_e->tot_sz > target_l_sz) {
+				assert(cur_e->tot_sz - cur_e->own_sz < target_l_sz);
 				assert(cur_e == root->child_edges[z]);
 				// Splice the new path
 				root->child_edges[z] = cur_e->c[0];
@@ -419,7 +419,6 @@ int main() {
 	};
 
 	for (int q = 0; q < Q; q++) {
-		if (q == 2) exit(1);
 		int x; cin >> x;
 		cerr << "op " << x << '\n';
 		int res = op(x);
