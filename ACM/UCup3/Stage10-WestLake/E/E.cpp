@@ -385,6 +385,7 @@ int main() {
 				node_ptr = cur;
 			};
 
+			cerr << z << ' ' << cur_e->tot_sz << ' ' << x << '\n';
 			assert(cur_e->tot_sz >= x);
 			if (cur_e->tot_sz > x) {
 				assert(cur_e->tot_sz - cur_e->own_sz < x);
