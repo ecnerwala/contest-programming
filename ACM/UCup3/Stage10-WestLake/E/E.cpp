@@ -183,7 +183,7 @@ struct edge_splay_node : splay_node_base<edge_splay_node> {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	std::mt19937 mt(48);
 
 	int N, Q;
