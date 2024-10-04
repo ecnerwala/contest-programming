@@ -233,6 +233,7 @@ int main() {
 
 		// TODO: Expose the x-1 -> x cutoff
 		while (true) {
+			cerr << "root->own_sz = " << root->own_sz << '\n';
 			assert(0 < x && x < root->own_sz);
 			assert(root->child_vert);
 			cerr << root->child_edges[0]->tot_sz << '\n';
