@@ -189,7 +189,7 @@ int main() {
 	int N, Q;
 	if (TESTING) {
 		N = std::uniform_int_distribution(2, 100000)(mt);
-		Q = 10000;
+		Q = 100000;
 	} else {
 		cin >> N >> Q;
 	}
