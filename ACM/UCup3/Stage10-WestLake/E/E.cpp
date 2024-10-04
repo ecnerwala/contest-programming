@@ -362,6 +362,10 @@ int main() {
 
 			auto splice = [&](auto& node_ptr, auto new_node) {
 				auto cur = node_ptr;
+				if (!cur) {
+					node_ptr = new_node;
+					return;
+				}
 				while (true) {
 					cur->downdate();
 					if (cur->c[1]) {
