@@ -419,6 +419,7 @@ int main() {
 
 	for (int q = 0; q < Q; q++) {
 		int x; cin >> x;
+		cerr << "op " << x << '\n';
 		int res = op(x);
 		cout << res << '\n';
 	}
