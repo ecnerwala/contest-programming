@@ -423,6 +423,7 @@ int main() {
 		cerr << "op " << x << '\n';
 		int res = op(x);
 		cout << res << '\n';
+		exit(1);
 	}
 
 	return 0;
