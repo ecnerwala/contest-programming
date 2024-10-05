@@ -277,12 +277,25 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	using num = modnum<998244353>;
+	const int V = 20;
+	// how much this guy adds
+	std::vector<num> dp(1 << (V+1));
+	dp[1] = 0;
+	for (int i = 2; i < (1 << (V+1)); i++) {
+		dp[i] = dp[i/2] * (i & 1 ? num(26) : num(1)) + num(1);
+	}
+	std::vector<num> pow_26(V+1);
+	pow_26[0] = num(1);
+	for (int i = 1; i <= V; i++) {
+		pow_26[i] = pow_26[i-1] * num(26);
+	}
+
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		int N; cin >> N;
 		std::vector<std::string> S(N);
 		for (auto& s : S) { cin >> s; assert(!s.empty()); }
-		using num = modnum<998244353>;
 		int MAXL = 0;
 		for (const auto& s : S) MAXL = std::max(MAXL, int(s.size()));
 		cerr << "Case #" << case_num << ": " << "N = " << N << ' ' << "L = " << MAXL << '\n';
@@ -320,11 +333,15 @@ int main() {
 			num p = 1;
 			num r = 1;
 			i128 v = all_msks[m];
-			for (int i = 0; i < first_conflict[m]; i++) {
-				if (v & 1) r *= num(26);
-				p += r;
-				v >>= 1;
+			int l = first_conflict[m];
+			while (l >= V) {
+				int lo = ((1 << V) - 1) & v;
+				p += r * dp[(1 << V) + lo];
+				r *= pow_26[__builtin_popcount(lo)];
+				v >>= V;
+				l -= V;
 			}
+			p += r * dp[(1 << l) + (((1 << l) - 1) & v)];
 			ans += (__builtin_popcount(m) & 1) ? p : -p;
 		}
 
