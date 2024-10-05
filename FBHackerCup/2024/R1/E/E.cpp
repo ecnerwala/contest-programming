@@ -278,7 +278,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<998244353>;
-	const int V = 20;
+	const int V = 25;
 	// how much this guy adds
 	std::vector<num> dp(1 << (V+1));
 	dp[1] = 0;
