@@ -314,7 +314,7 @@ int main() {
 			all_msks[1 << i] = msks[i];
 			for (int m = 1; m < (1 << i); m++) {
 				int j = __builtin_ctz(m);
-				first_conflict[m + (1 << i)] = std::max({first_conflict[m], first_conflict[m + (1 << i) - (1 << j)], conflict[{i, j}]});
+				first_conflict[m + (1 << i)] = std::min({first_conflict[m], first_conflict[m + (1 << i) - (1 << j)], conflict[{i, j}]});
 				all_msks[m + (1 << i)] = all_msks[m] & msks[i];
 			}
 		}
