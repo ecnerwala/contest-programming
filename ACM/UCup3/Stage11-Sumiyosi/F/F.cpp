@@ -30,6 +30,70 @@ int m; /* current node */
 
 //@<Subroutines@>@;
 
+/*
+@ The |combine| subroutine combines weights |q[k-1]| and |q[k]| of the working
+list, and continues to combine earlier weights if necessary to maintain
+the condition $q[j-1]>q[j+1]$.
+
+(The bug in my previous version was, in essence, to use `|if|' instead of
+`|while|' in the final statement of this routine.)
+*/
+
+void combine(int k)
+{
+  int j,d,x;
+  m++; l[m]=v[k-1]; r[m]=v[k]; w[m]=x=q[k-1]+q[k];
+  printf(" node %d(%d)=%d(%d)+%d(%d)\n",m,x,l[m],w[l[m]],r[m],w[r[m]]);
+  t--;
+  for (j=k;j<=t;j++) q[j]=q[j+1],v[j]=v[j+1];
+  for (j=k-2;q[j]<x;j--) q[j+1]=q[j],v[j+1]=v[j];
+  q[j+1]=x; v[j+1]=m;
+  for (d=1;d<=t;d++) printf("%d ",q[d]);
+  printf("\n");
+  while (j>0 && q[j-1]<=x) {
+    d=t-j; combine(j); j=t-d;
+  }
+}
+
+/*
+@ The |mark| subroutine assigns level numbers to a subtree.
+*/
+
+void mark(
+  int k, /* node */
+  int p /* starting depth */
+) {
+  printf(" node %d(%d) has depth %d\n",k,w[k],p);
+  d[k]=p;
+  if (l[k]>=0) mark(l[k],p+1);
+  if (r[k]>=0) mark(r[k],p+1);
+}
+
+/*
+@ @<Do phase 3@>=
+
+@ The |build| subroutine rebuilds a tree from the depth table,
+by doing a depth-first search according a slick idea by Bob Tarjan.
+It creates a tree rooted at node~|m| having leftmost leaf~|t|.
+*/
+
+//@<Sub...@>=
+void build(int b) /* depth of node |m|, plus 1 */
+{
+  int j=m;
+  if (d[t]==b) l[j]=t++;
+  else {
+    m--; l[j]=m; build(b+1);
+  }
+  if (d[t]==b) r[j]=t++;
+  else {
+    m--; r[j]=m; build(b+1);
+  }
+  printf(" node %d = %d + %d\n", j,l[j],r[j]);
+}
+  
+//@* Index.
+
 int knuth_main() {
 	int i,j,k,n;
   { //@<Scan the command line@>;
@@ -73,72 +137,6 @@ mark(v[1],0);
 }
 
 
-void phase1() {
-}
-
-/*
-@ The |combine| subroutine combines weights |q[k-1]| and |q[k]| of the working
-list, and continues to combine earlier weights if necessary to maintain
-the condition $q[j-1]>q[j+1]$.
-
-(The bug in my previous version was, in essence, to use `|if|' instead of
-`|while|' in the final statement of this routine.)
-*/
-
-int combine(int k)
-{
-  int j,d,x;
-  m++; l[m]=v[k-1]; r[m]=v[k]; w[m]=x=q[k-1]+q[k];
-  printf(" node %d(%d)=%d(%d)+%d(%d)\n",m,x,l[m],w[l[m]],r[m],w[r[m]]);
-  t--;
-  for (j=k;j<=t;j++) q[j]=q[j+1],v[j]=v[j+1];
-  for (j=k-2;q[j]<x;j--) q[j+1]=q[j],v[j+1]=v[j];
-  q[j+1]=x; v[j+1]=m;
-  for (d=1;d<=t;d++) printf("%d ",q[d]);
-  printf("\n");
-  while (j>0 && q[j-1]<=x) {
-    d=t-j; combine(j); j=t-d;
-  }
-}
-
-/*
-@ The |mark| subroutine assigns level numbers to a subtree.
-*/
-
-int mark(
-  int k, /* node */
-  int p /* starting depth */
-) {
-  printf(" node %d(%d) has depth %d\n",k,w[k],p);
-  d[k]=p;
-  if (l[k]>=0) mark(l[k],p+1);
-  if (r[k]>=0) mark(r[k],p+1);
-}
-
-/*
-@ @<Do phase 3@>=
-
-@ The |build| subroutine rebuilds a tree from the depth table,
-by doing a depth-first search according a slick idea by Bob Tarjan.
-It creates a tree rooted at node~|m| having leftmost leaf~|t|.
-*/
-
-//@<Sub...@>=
-void build(int b) /* depth of node |m|, plus 1 */
-{
-  int j=m;
-  if (d[t]==b) l[j]=t++;
-  else {
-    m--; l[j]=m; build(b+1);
-  }
-  if (d[t]==b) r[j]=t++;
-  else {
-    m--; r[j]=m; build(b+1);
-  }
-  printf(" node %d = %d + %d\n", j,l[j],r[j]);
-}
-  
-//@* Index.
 
 int main() {
 	using namespace std;
