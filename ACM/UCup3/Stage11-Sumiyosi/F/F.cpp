@@ -17,6 +17,7 @@ int main() {
 	std::vector<int> stk; stk.reserve(N+1);
 	for (int i = 0; i <= N; i++) {
 		int nw = weights[i];
+		cerr << nw << '\n';
 		while (int(stk.size()) >= 2 && stk[int(stk.size())-2] >= nw) {
 			int v = stk.back();
 			stk.pop_back();
