@@ -24,7 +24,7 @@ int main() {
 			hi = std::min(hi, fraction_t{i, a});
 		}
 		cout << "Case #" << case_num << ": ";
-		if (lo <= hi) {
+		if (lo < hi) {
 			cout << double(lo.n) / double(lo.d) << '\n';
 		} else {
 			cout << -1 << '\n';
