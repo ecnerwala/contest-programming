@@ -44,7 +44,9 @@ int main() {
 						K /= 9;
 					}
 				} else if (S[i+1] == '?' || ('1' <= S[i+1] && S[i+1] <= '6')) {
-					assert(i + 2 < cap);
+					if (S[i+1] == '?') {
+						assert(i + 2 < cap);
+					}
 					S[i] = char('1' + (K % 2));
 					K /= 2;
 				} else if ('7' <= S[i+1] && S[i+1] <= '9') {
