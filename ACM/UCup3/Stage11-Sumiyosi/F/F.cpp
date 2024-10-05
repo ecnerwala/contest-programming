@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 
+// https://www-cs-faculty.stanford.edu/~knuth/programs/garsia-wachs.w
+namespace knuth {
 /*
-https://www-cs-faculty.stanford.edu/~knuth/programs/garsia-wachs.w
 
 \datethis
 @*Introduction. This is a quick-and-dirty implementation of the Garsia-Wachs
@@ -94,20 +95,21 @@ void build(int b) /* depth of node |m|, plus 1 */
   
 //@* Index.
 
-int knuth_main() {
+void knuth_main(std::vector<int> inp) {
 	int i,j,k,n;
   { //@<Scan the command line@>;
-	n=argc-2;
+	n = int(inp.size()) - 1;
+	//n=argc-2;
 	if (n<0) {
-		fprintf(stderr,"Usage: %s wt0 ... wtn\n",argv[0]); exit(0);
+		assert(false);
 	}
 	if (n+n>=size) {
-		fprintf(stderr,"Recompile me with a larger tree size!\n"); exit(0);
+		assert(false);
+		//fprintf(stderr,"Recompile me with a larger tree size!\n"); exit(0);
 	}
 	for (j=0;j<=n;j++) {
-		if (sscanf(argv[j+1],"%d",&m)!=1) {
-			fprintf(stderr,"Couldn't read wt%d!\n",j); exit(0);
-		}
+		//if (sscanf(argv[j+1],"%d",&m)!=1) { fprintf(stderr,"Couldn't read wt%d!\n",j); exit(0); }
+		m = inp[j];
 		w[j]=m; l[j]=r[j]=-1;
 	}
   }
@@ -115,7 +117,7 @@ int knuth_main() {
 printf("Phase I:\n");
 m=n;
 t=1;
-q[0]=1000000000; /* infinity */
+q[0]=1000000100; /* infinity */
 q[1]=w[0]; v[1]=0;
 for (k=1;k<=n;k++) {
   while (q[t-1]<=w[k]) combine(t);
@@ -136,11 +138,22 @@ mark(v[1],0);
 }
 }
 
+}
 
 
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	int N, M; cin >> N >> M;
+	std::vector<int> A(N); for (auto& a : A) cin >> a;
+	std::sort(A.begin(), A.end());
+	std::vector<int> weights(N+1);
+	weights[0] = A[0] - 0;
+	for (int i = 1; i < N; i++) {
+		weights[i] = A[i] - A[i-1];
+	}
+	weights[N] = M+1 - weights[N-1];
+	knuth::knuth_main(weights);
 
 	return 0;
 }
