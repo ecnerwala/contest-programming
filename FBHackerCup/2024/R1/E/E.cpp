@@ -125,7 +125,7 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		int N; cin >> N;
 		std::vector<std::string> S(N);
-		for (auto& s : S) { assert(!s.empty()); cin >> s; }
+		for (auto& s : S) { cin >> s; assert(!s.empty()); }
 		using num = modnum<998244353>;
 		[&](this auto&& self, std::string cnd, int cur) -> num {
 			if (cur == N) {
