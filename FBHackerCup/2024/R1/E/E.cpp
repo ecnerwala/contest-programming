@@ -334,14 +334,14 @@ int main() {
 			num r = 1;
 			i128 v = all_msks[m];
 			int l = first_conflict[m];
-			while (l >= V) {
-				int lo = ((1 << V) - 1) & v;
-				p += r * dp[(1 << V) + lo];
+			while (l > 0) {
+				int a = std::min(l, V);
+				int lo = ((1 << a) - 1) & v;
+				p += r * dp[(1 << a) + lo];
 				r *= pow_26[__builtin_popcount(lo)];
-				v >>= V;
-				l -= V;
+				v >>= a;
+				l -= a;
 			}
-			p += r * dp[(1 << l) + (((1 << l) - 1) & v)];
 			ans += (__builtin_popcount(m) & 1) ? p : -p;
 		}
 
