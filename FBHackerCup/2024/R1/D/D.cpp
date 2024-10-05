@@ -45,16 +45,15 @@ int main() {
 						S[i] = char('1' + (K % 9));
 						K /= 9;
 					}
-				} else if (S[i+1] == '?' || ('1' <= S[i+1] && S[i+1] <= '6')) {
-					if (S[i+1] == '?') {
-						assert(i + 2 < cap);
-					}
+				} else if ('1' <= S[i+1] && S[i+1] <= '6') {
 					S[i] = char('1' + (K % 2));
 					K /= 2;
 				} else if ('7' <= S[i+1] && S[i+1] <= '9') {
 					// 1 only
 					S[i] = '1';
 				} else if (S[i+1] == '0') {
+					assert(false);
+				} else if (S[i+1] == '?') {
 					assert(false);
 				} else assert(false);
 			}
