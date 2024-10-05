@@ -117,9 +117,14 @@ public:
 	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
 };
 
-int main() {
+int main(int argc, char** argv) {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int BLOCK = -1;
+	if (argc >= 2) {
+		BLOCK = std::atoi(argv[1]);
+	}
 
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
@@ -133,7 +138,9 @@ int main() {
 		std::vector<std::string> cnds(N+1);
 		for (auto& s : cnds) s.reserve(MAXL);
 		cnds[0] = std::string(MAXL, '?');
+		if ((case_num - 1) / 20 != BLOCK) continue;
 		cerr << "Case #" << case_num << ": " << "N = " << N << ' ' << "L = " << MAXL << '\n';
+
 
 		[&](this auto&& self, int cur, int cnt) -> void {
 			if (cur == N) {
