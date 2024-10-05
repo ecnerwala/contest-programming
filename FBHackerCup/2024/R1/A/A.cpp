@@ -25,7 +25,7 @@ int main() {
 		}
 		cout << "Case #" << case_num << ": ";
 		if (lo <= hi) {
-			cout << double(lo.n) / double(lo.d) << '\n';
+			cout << fixed << setprecision(20) << double(lo.n) / double(lo.d) << '\n';
 		} else {
 			cout << -1 << '\n';
 		}
