@@ -11,7 +11,7 @@ int main() {
 	for (int i = 1; i < N; i++) {
 		weights[i] = A[i] - A[i-1];
 	}
-	weights[N] = M+1 - weights[N-1];
+	weights[N] = M+1 - A[N-1];
 
 	int64_t ans = 0;
 	std::vector<int> stk; stk.reserve(N+1);
