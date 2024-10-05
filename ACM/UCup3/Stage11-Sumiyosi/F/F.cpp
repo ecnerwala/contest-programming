@@ -24,6 +24,12 @@ int main() {
 			ans += stk.back();
 		}
 	}
+	while (!stk.empty()) {
+		int v = stk.back();
+		stk.pop_back();
+		stk.back() += v;
+		ans += stk.back();
+	}
 	cout << ans << '\n';
 
 	return 0;
