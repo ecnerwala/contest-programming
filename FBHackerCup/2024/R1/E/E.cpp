@@ -283,7 +283,7 @@ int main() {
 	std::vector<num> dp(1 << (V+1));
 	dp[1] = 0;
 	for (int i = 2; i < (1 << (V+1)); i++) {
-		dp[i] = dp[i/2] * (i & 1 ? num(26) : num(1)) + num(1);
+		dp[i] = (dp[i/2] + 1) * (i & 1 ? num(26) : num(1));
 	}
 	std::vector<num> pow_26(V+1);
 	pow_26[0] = num(1);
