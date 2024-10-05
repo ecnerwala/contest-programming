@@ -285,9 +285,6 @@ int main() {
 		using num = modnum<998244353>;
 		int MAXL = 0;
 		for (const auto& s : S) MAXL = std::max(MAXL, int(s.size()));
-		std::vector<std::string> cnds(N+1);
-		for (auto& s : cnds) s.reserve(MAXL);
-		cnds[0] = std::string(MAXL, '?');
 		cerr << "Case #" << case_num << ": " << "N = " << N << ' ' << "L = " << MAXL << '\n';
 
 		using i128 = __int128_t;
