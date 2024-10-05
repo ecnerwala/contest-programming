@@ -216,6 +216,7 @@ int main() {
 	num p = 1;
 	num ans = 0;
 	for (auto [_, i] : pts) {
+		cerr << i << ' ' << T[i] << ' ' << A[i] << ' ' << B[i] << '\n';
 		ans += p * num(T[i]);
 		p *= num(A[i]) / num(B[i]);
 	}
