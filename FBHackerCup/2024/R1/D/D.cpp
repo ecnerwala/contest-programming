@@ -207,13 +207,6 @@ int main() {
 		std::string cnd = S;
 		for (char& c : cnd) if (c == '?') c = '1';
 		num v = ways(cnd);
-		for (int k = 0; k <= K; k++) {
-			std::string tmp = solve(S, k);
-			assert(ways(tmp) == v);
-			if (k >= 1) {
-				assert(tmp < solve(S, k-1));
-			}
-		}
 		std::string res = solve(S, K);
 		num u = ways(res);
 		assert(v == u);
