@@ -300,14 +300,16 @@ int main() {
 			}
 		}
 		tensor<int8_t, 2> conflict({N, N});
-		std::vector<i128> all_msks(1 << N);
-		std::vector<int8_t> first_conflict(1 << N);
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < i; j++) {
 				int l = 0;
 				while (l < int(S[i].size()) && l < int(S[j].size()) && (S[i][l] == '?' || S[j][l] == '?' || S[i][l] == S[j][l])) l++;
 				conflict[{i, j}] = conflict[{j, i}] = int8_t(l);
 			}
+		}
+		std::vector<i128> all_msks(1 << N);
+		std::vector<int8_t> first_conflict(1 << N);
+		for (int i = 0; i < N; i++) {
 			first_conflict[(1 << i)] = int8_t(int(S[i].size()));
 			all_msks[1 << i] = msks[i];
 			for (int m = 1; m < (1 << i); m++) {
