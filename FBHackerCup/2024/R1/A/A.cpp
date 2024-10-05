@@ -16,7 +16,7 @@ int main() {
 		int N; cin >> N;
 		fraction_t lo{0, 1};
 		fraction_t hi{1, 0};
-		for (int i = 0; i < N; i++) {
+		for (int i = 1; i <= N; i++) {
 			int a, b; cin >> a >> b;
 			// sonic must run at least i/b and at most i/a
 			assert(a < b);
