@@ -132,7 +132,7 @@ int main() {
 		// EV time to hit -1 or 2L+1 starting from 0
 		// should be quadratic
 		assert(W > G);
-		assert(L >= 1);
+		assert(L >= 0);
 
 		using num = modnum<998244353>;
 		num ans = num(2*L+1) * num(W - G);
