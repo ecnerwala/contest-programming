@@ -127,19 +127,22 @@ int main() {
 		std::vector<std::string> S(N);
 		for (auto& s : S) { cin >> s; assert(!s.empty()); }
 		using num = modnum<998244353>;
-		num ans = [&](this auto&& self, std::string cnd, int cur) -> num {
+		num ans = 0;
+		[&](this auto&& self, std::string cnd, int cur, int cnt) -> void {
 			if (cur == N) {
-				if (cnd.empty()) return num(0);
+				if (cnt == 0) return;
 				num p = 1;
 				num r = 1;
 				for (char c : cnd) {
 					if (c == '?') r *= num(26);
 					p += r;
 				}
-				return -p;
+				ans += (cnt & 1) ? p : -p;
+				return;
 			}
 
-			num res = self(cnd, cur+1);
+			self(cnd, cur+1, cnt);
+
 			const std::string& o = S[cur];
 			bool good = true;
 			if (cnd.empty()) {
@@ -158,9 +161,8 @@ int main() {
 					}
 				}
 			}
-			if (good) res -= self(cnd, cur + 1);
-			return res;
-		}("", 0);
+			if (good) self(cnd, cur + 1, cnt + 1);
+		}("", 0, 0);
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
