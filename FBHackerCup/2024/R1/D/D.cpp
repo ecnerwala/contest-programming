@@ -208,7 +208,7 @@ int main() {
 		for (char& c : cnd) if (c == '?') c = '1';
 		num v = ways(cnd);
 		std::string res = solve(S, K);
-		num u = ways(S);
+		num u = ways(res);
 		assert(v == u);
 		cout << "Case #" << case_num << ": " << res << ' ' << u << '\n';
 	}
