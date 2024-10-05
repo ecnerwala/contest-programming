@@ -155,7 +155,7 @@ int main() {
 					} else if (o[i] == '?') {
 						// nothing
 					} else if (cnd[i] != o[i]) {
-						good = false;
+						cnd.resize(i);
 						break;
 					}
 				}
