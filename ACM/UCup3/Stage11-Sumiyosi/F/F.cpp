@@ -23,8 +23,9 @@ int main() {
 			stk.back() += v;
 			ans += stk.back();
 		}
+		stk.push_back(nw);
 	}
-	while (!stk.empty()) {
+	while (stk.size() >= 2) {
 		int v = stk.back();
 		stk.pop_back();
 		stk.back() += v;
