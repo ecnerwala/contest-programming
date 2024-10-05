@@ -145,11 +145,10 @@ int main() {
 
 			const std::string& o = S[cur];
 			bool good = true;
-			if (cnd.empty()) {
+			if (cnt == 0) {
 				cnd = o;
 			} else {
 				cnd.resize(std::min(cnd.size(), o.size()));
-				assert(!cnd.empty());
 				for (int i = 0; i < int(cnd.size()); i++) {
 					if (cnd[i] == '?') {
 						cnd[i] = o[i];
