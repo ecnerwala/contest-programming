@@ -8,6 +8,8 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
 		std::string S; int K; cin >> S >> K;
+		assert(K >= 1);
+		K--;
 		int cap = int(S.size());
 		for (int i = int(S.size())-1; i >= 0; i--) {
 			assert(i < cap);
