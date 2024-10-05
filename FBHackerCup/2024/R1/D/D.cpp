@@ -15,7 +15,7 @@ int main() {
 			if (S[i] == '0') {
 				assert(i > 0);
 				if (S[i-1] == '?') {
-					S[i-1] = char('1' + (K % 2));
+					S[i-1] = char('1' + (2 - 1 - K % 2));
 					K /= 2;
 				} else {
 					assert(S[i-1] == '1' || S[i-1] == '2');
@@ -28,7 +28,7 @@ int main() {
 				if (i+1 == cap) {
 					if (i > 0 && S[i-1] == '?') {
 						// these two form a pair, anything from 11-19 or 21-26
-						int v = 11 + (K % 15);
+						int v = 11 + (15 - 1 - K % 15);
 						K /= 15;
 						if (v >= 20) v++;
 						S[i] = char('0' + v % 10);
@@ -37,15 +37,15 @@ int main() {
 						continue;
 					} else if (i > 0 && S[i-1] == '2') {
 						// must be 1-6
-						S[i] = char('1' + (K % 6));
+						S[i] = char('1' + (6 - 1 - K % 6));
 						K /= 6;
 					} else {
 						// can be 1-9, since that guy is either 1, 0, or 3-9, any of which have the same merging right behavior
-						S[i] = char('1' + (K % 9));
+						S[i] = char('1' + (9 - 1 - K % 9));
 						K /= 9;
 					}
 				} else if ('1' <= S[i+1] && S[i+1] <= '6') {
-					S[i] = char('1' + (K % 2));
+					S[i] = char('1' + (2 - 1 - K % 2));
 					K /= 2;
 				} else if ('7' <= S[i+1] && S[i+1] <= '9') {
 					// 1 only
