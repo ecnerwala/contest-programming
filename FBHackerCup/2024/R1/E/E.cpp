@@ -126,7 +126,6 @@ int main() {
 		int N; cin >> N;
 		std::vector<std::string> S(N);
 		for (auto& s : S) { cin >> s; assert(!s.empty()); }
-		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		using num = modnum<998244353>;
 		num ans = 0;
 		int MAXL = 0;
@@ -134,6 +133,7 @@ int main() {
 		std::vector<std::string> cnds(N+1);
 		for (auto& s : cnds) s.reserve(MAXL);
 		cnds[0] = std::string(MAXL, '?');
+		cerr << "Case #" << case_num << ": " << "N = " << N << ' ' << "L = " << MAXL << '\n';
 
 		[&](this auto&& self, int cur, int cnt) -> void {
 			if (cur == N) {
