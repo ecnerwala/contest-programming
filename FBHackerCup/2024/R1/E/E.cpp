@@ -160,7 +160,7 @@ int main() {
 					}
 				}
 			}
-			if (good) self(cnd, cur + 1, cnt + 1);
+			if (good) self(std::move(cnd), cur + 1, cnt + 1);
 		}("", 0, 0);
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
