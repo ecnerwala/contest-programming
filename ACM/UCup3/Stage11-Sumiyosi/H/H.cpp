@@ -220,7 +220,7 @@ int main() {
 		ans += p * num(T[i]);
 		p *= num(A[i]) / num(B[i]);
 	}
-	cout << ans / (1 - p) << '\n';
+	cout << ans / (p) << '\n';
 
 
 	return 0;
