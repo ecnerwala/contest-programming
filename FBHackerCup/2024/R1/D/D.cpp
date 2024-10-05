@@ -6,7 +6,6 @@ int main() {
 
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
-
 		std::string S; int K; cin >> S >> K;
 		assert(K >= 1);
 		K--;
