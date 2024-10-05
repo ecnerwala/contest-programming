@@ -129,12 +129,18 @@ int main() {
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		using num = modnum<998244353>;
 		num ans = 0;
-		[&](this auto&& self, std::string cnd, int cur, int cnt) -> void {
+		int MAXL = 0;
+		for (const auto& s : S) MAXL = std::max(MAXL, int(s.size()));
+		std::vector<std::string> cnds(N+1);
+		for (auto& s : cnds) s.reserve(MAXL);
+		cnds[0] = std::string(MAXL, '?');
+
+		[&](this auto&& self, int cur, int cnt) -> void {
 			if (cur == N) {
 				if (cnt == 0) return;
 				num p = 1;
 				num r = 1;
-				for (char c : cnd) {
+				for (char c : cnds[cnt]) {
 					if (c == '?') r *= num(26);
 					p += r;
 				}
@@ -142,27 +148,27 @@ int main() {
 				return;
 			}
 
-			self(cnd, cur+1, cnt);
+			self(cur+1, cnt);
 
 			const std::string& o = S[cur];
-			bool good = true;
-			if (cnt == 0) {
-				cnd = o;
-			} else {
-				cnd.resize(std::min(cnd.size(), o.size()));
-				for (int i = 0; i < int(cnd.size()); i++) {
-					if (cnd[i] == '?') {
-						cnd[i] = o[i];
-					} else if (o[i] == '?') {
-						// nothing
-					} else if (cnd[i] != o[i]) {
-						cnd.resize(i);
-						break;
-					}
+			const auto& cnd = cnds[cnt];
+			auto& ncnd = cnds[cnt+1];
+			ncnd.resize(std::min(cnd.size(), o.size()));
+			for (int i = 0; i < int(ncnd.size()); i++) {
+				if (cnd[i] == '?') {
+					ncnd[i] = o[i];
+				} else if (o[i] == '?') {
+					ncnd[i] = cnd[i];
+					// nothing
+				} else if (cnd[i] != o[i]) {
+					ncnd.resize(i);
+					break;
+				} else {
+					ncnd[i] = cnd[i];
 				}
 			}
-			if (good) self(std::move(cnd), cur + 1, cnt + 1);
-		}("", 0, 0);
+			self(cur + 1, cnt + 1);
+		}(0, 0);
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
