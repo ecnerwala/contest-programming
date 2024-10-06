@@ -13,7 +13,7 @@ int main() {
 		// we only care about entries from 1..N
 		std::vector<int64_t> dp(M+1, -INF);
 		std::vector<int64_t> ndp(M+1, -INF);
-		for (int r = 1; r < NUM_DAYS; r++) {
+		for (int r = 0; r < NUM_DAYS; r++) {
 			std::vector<int64_t> A(M);
 			for (auto& a : A) cin >> a;
 
