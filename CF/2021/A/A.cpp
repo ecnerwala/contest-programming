@@ -11,10 +11,7 @@ int main() {
 		for (auto& a : A) cin >> a;
 		std::sort(A.begin(), A.end());
 		int v = A[0];
-		for (auto a : A) {
-			v += a;
-			v >>= 1;
-		}
+		for (auto a : A) v = (v+a)>>1;
 		cout << v << '\n';
 	}
 
