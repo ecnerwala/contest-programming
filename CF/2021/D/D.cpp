@@ -69,7 +69,7 @@ int main() {
 					setmax(ways_not, 0);
 					ways_not += A[i];
 					ways_use += A[i];
-					setmax(ndp[i+1], ways_use);
+					setmax(ndp[i], ways_use);
 				}
 			}
 			dp = std::move(ndp);
