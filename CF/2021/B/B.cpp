@@ -13,7 +13,7 @@ int main() {
 			int v; cin >> v; if (v < N) cnt[v]++;
 		}
 		int ans = 0;
-		while (ans < N && cnt[ans] > 0) {
+		for (; ans < N && cnt[ans] > 0; ans++) {
 			if (ans + X < N) cnt[ans + X] += cnt[ans] - 1;
 		}
 		cout << ans << '\n';
