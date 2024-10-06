@@ -19,8 +19,7 @@ int main() {
 				int64_t ways_not = -INF;
 				int64_t ways_use = -INF;
 				for (int i = 0; i < M; i++) {
-					setmax(ways_use, dp[i] + ways_not);
-					if (!t) setmax(ways_use, 0);
+					setmax(ways_use, t ? dp[i] + ways_not : 0);
 					setmax(ways_not, 0);
 					ways_not += A[i];
 					ways_use += A[i];
