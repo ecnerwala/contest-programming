@@ -11,8 +11,7 @@ int main() {
 
 		int NUM_DAYS, M; cin >> NUM_DAYS >> M;
 		std::vector<int64_t> A(M);
-		std::vector<int64_t> dp(M+1, -INF);
-		std::vector<int64_t> ndp(M+1, -INF);
+		std::vector<int64_t> dp(M+1, -INF), ndp(M+1);
 		for (int r = 0; r < NUM_DAYS; r++) {
 			for (auto& a : A) cin >> a;
 
