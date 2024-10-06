@@ -11,10 +11,10 @@ int main() {
 
 		int NUM_DAYS, M; cin >> NUM_DAYS >> M;
 		// we only care about entries from 1..N
+		std::vector<int64_t> A(M);
 		std::vector<int64_t> dp(M+1, -INF);
 		std::vector<int64_t> ndp(M+1, -INF);
 		for (int r = 0; r < NUM_DAYS; r++) {
-			std::vector<int64_t> A(M);
 			for (auto& a : A) cin >> a;
 
 			std::fill(ndp.begin(), ndp.end(), -INF);
