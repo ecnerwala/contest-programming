@@ -21,6 +21,16 @@ int main() {
 
 		std::vector<int64_t> deltas; deltas.reserve(N);
 
+		struct vertex_t {
+			int64_t first_edge;
+			int weight;
+			int cnt;
+		};
+		std::vector<vertex_t> verts(N);
+		for (int i = 0; i < N; i++) {
+			verts[i] = {0, 0, need[i]};
+		}
+
 		std::vector<int> par(2*N-1, -1);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
@@ -31,15 +41,6 @@ int main() {
 			}
 			return a;
 		};
-		struct vertex_t {
-			int64_t first_edge;
-			int weight;
-			int cnt;
-		};
-		std::vector<vertex_t> verts(N);
-		for (int i = 0; i < N; i++) {
-			verts[i] = {0, 0, need[i]};
-		}
 		for (auto [w, vs] : edges) {
 			auto [u, v] = vs;
 			//cerr << "edge " << w << ' ' << u << '-' << v << '\n';
