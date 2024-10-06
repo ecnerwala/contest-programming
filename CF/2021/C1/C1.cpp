@@ -12,7 +12,7 @@ int main() {
 		std::vector<int> invA(N);
 		for (int i = 0; i < N; i++) invA[A[i]] = i;
 		std::vector<int> B(M);
-		for (auto& b : B) { cin >> b; b = invA[b]; }
+		for (auto& b : B) { cin >> b; b--; b = invA[b]; }
 		std::vector<std::set<int>> times(N);
 		for (int j = 0; j < M; j++) {
 			times[B[j]].insert(j);
