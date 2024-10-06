@@ -22,7 +22,7 @@ int main() {
 		}
 		std::sort(edges.begin(), edges.end());
 		std::vector<int> par(2*N-1, -1);
-		std::vector<int> rep(2*N-1);
+		std::vector<int> rep(2*N-1, -1); std::iota(rep.begin(), rep.begin() + N, 0);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
 				if (par[par[a]] >= 0) {
