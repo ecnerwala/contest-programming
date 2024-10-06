@@ -57,30 +57,33 @@ int main() {
 		}
 		assert(nxt_vert == 2*N-1);
 		auto ans = [&](this auto&& self, int cur, int p_w) -> std::pair<int, std::priority_queue<int64_t>> {
+			std::priority_queue<int64_t> res;
+			int cnt;
 			if (cur < N) {
-				std::priority_queue<int64_t> deltas;
-				deltas.push(p_w);
-				return {need[cur], std::move(deltas)};
+				cnt = need[cur];
+				res.push(p_w);
 			} else {
 				//cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
 				int w = weight[cur];
-				auto [lcnt, lval] = self(ch[cur][0], w);
-				auto [rcnt, rval] = self(ch[cur][1], w);
-				int cnt = lcnt + rcnt;
-				if (lval.size() < rval.size()) {
-					std::swap(lval, rval);
-				}
-				std::priority_queue<int64_t> res = std::move(lval);
-				while (!rval.empty()) {
-					res.push(rval.top());
-					rval.pop();
+				{
+					auto [lcnt, lval] = self(ch[cur][0], w);
+					auto [rcnt, rval] = self(ch[cur][1], w);
+					cnt = lcnt + rcnt;
+					if (lval.size() < rval.size()) {
+						std::swap(lval, rval);
+					}
+					res = std::move(lval);
+					while (!rval.empty()) {
+						res.push(rval.top());
+						rval.pop();
+					}
 				}
 				assert(p_w >= w);
 				int64_t ntop = int64_t(p_w - w) * cnt + res.top();
 				res.pop();
 				res.push(ntop);
-				return {cnt, std::move(res)};
 			}
+			return {cnt, std::move(res)};
 		}(2*N-2, weight[2*N-2]);
 		assert(ans.first == P);
 		int64_t baseline = int64_t(weight[2*N-2]) * int64_t(ans.first);
