@@ -9,9 +9,9 @@ int main() {
 	while (T--) {
 		const int64_t INF = int64_t(1e18);
 
-		int NUM_DAYS, M; cin >> NUM_DAYS >> M;
+		int N, M; cin >> N >> M;
 		std::vector<int64_t> dp(M+1, -INF), ndp(M+1), A(M);
-		for (int r = 0; r < NUM_DAYS; r++) {
+		for (int t = 0; t < N; t++) {
 			for (auto& a : A) cin >> a;
 
 			std::fill(ndp.begin(), ndp.end(), -INF);
@@ -20,7 +20,7 @@ int main() {
 				int64_t ways_use = -INF;
 				for (int i = 0; i < M; i++) {
 					setmax(ways_use, dp[i] + ways_not);
-					if (r == 0) setmax(ways_use, 0);
+					if (!t) setmax(ways_use, 0);
 					setmax(ways_not, 0);
 					ways_not += A[i];
 					ways_use += A[i];
