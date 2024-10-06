@@ -10,19 +10,6 @@ int main() {
 		const int64_t INF = int64_t(1e18);
 
 		int NUM_DAYS, M; cin >> NUM_DAYS >> M;
-		if (NUM_DAYS == 1) {
-			std::vector<int> A(M);
-			for (auto& a : A) cin >> a;
-			int64_t ans = -INF;
-			int64_t mx = 0;
-			for (auto a : A) {
-				mx += a;
-				setmax(ans, mx);
-				setmax(mx, 0);
-			}
-			cout << ans << '\n';
-			continue;
-		}
 		// we only care about entries from 1..N
 		std::vector<int64_t> dp(M+1, -INF);
 		{
