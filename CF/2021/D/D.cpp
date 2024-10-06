@@ -23,7 +23,7 @@ int main() {
 					int64_t mx = 0;
 					for (int i = 0; i < M; i++) {
 						mx += A[i];
-						setmax(dp[i+1], mx);
+						setmax(ndp[i+1], mx);
 						setmax(mx, 0);
 					}
 				}
@@ -31,7 +31,7 @@ int main() {
 					int64_t mx = 0;
 					for (int i = M-1; i >= 0; i--) {
 						mx += A[i];
-						setmax(dp[i], mx);
+						setmax(ndp[i], mx);
 						setmax(mx, 0);
 					}
 				}
