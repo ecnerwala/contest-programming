@@ -6,11 +6,11 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N; cin >> N;
-		int X; cin >> X;
+		int N, X; cin >> N >> X;
 		std::vector<int> cnt(N);
 		for (int i = 0; i < N; i++) {
-			int v; cin >> v; if (v < N) cnt[v]++;
+			int v; cin >> v;
+			if (v < N) cnt[v]++;
 		}
 		int ans = 0;
 		for (; ans < N && cnt[ans] > 0; ans++) {
