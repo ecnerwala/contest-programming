@@ -16,7 +16,7 @@ int main() {
 			for (auto& a : A) cin >> a;
 
 			std::fill(ndp.begin(), ndp.end(), -INF);
-			{
+			for (int z = 0; z < 2; z++) {
 				int64_t ways_not = -INF;
 				int64_t ways_use = -INF;
 				for (int i = 0; i < M; i++) {
@@ -27,18 +27,9 @@ int main() {
 					ways_use += A[i];
 					setmax(ndp[i+1], ways_use);
 				}
-			}
-			{
-				int64_t ways_not = -INF;
-				int64_t ways_use = -INF;
-				for (int i = M-1; i >= 0; i--) {
-					setmax(ways_use, dp[i+1] + ways_not);
-					if (r == 0) setmax(ways_use, 0);
-					setmax(ways_not, 0);
-					ways_not += A[i];
-					ways_use += A[i];
-					setmax(ndp[i], ways_use);
-				}
+				std::reverse(A.begin(), A.end());
+				std::reverse(dp.begin(), dp.end());
+				std::reverse(ndp.begin(), ndp.end());
 			}
 			std::swap(dp, ndp);
 		}
