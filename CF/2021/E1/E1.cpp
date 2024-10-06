@@ -56,26 +56,32 @@ int main() {
 			rep[get_par(a)] = a;
 		}
 		assert(nxt_vert == 2*N-1);
-		auto ans = [&](this auto&& self, int cur) -> std::pair<int, std::vector<int64_t>> {
+		auto ans = [&](this auto&& self, int cur, int p_w) -> std::pair<int, std::priority_queue<int64_t>> {
 			if (cur < N) {
-				return {need[cur], std::vector<int64_t>(1, 0)};
+				std::priority_queue<int64_t> deltas;
+				deltas.push(p_w);
+				return {need[cur], std::move(deltas)};
 			} else {
 				//cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
-				auto [lcnt, lval] = self(ch[cur][0]);
-				auto [rcnt, rval] = self(ch[cur][1]);
-				int64_t w = weight[cur];
-				std::vector<int64_t> res(int(lval.size()) + int(rval.size()), INF);
-				for (int i = 0; i <= int(lval.size()); i++) {
-					for (int j = 0; j <= int(rval.size()); j++) {
-						if (i + j == 0) continue;
-						int64_t lv = i ? lval[i-1] : int64_t(w) * lcnt; 
-						int64_t rv = j ? rval[j-1] : int64_t(w) * rcnt;
-						setmin(res[i+j-1], lv + rv);
-					}
+				int w = weight[cur];
+				auto [lcnt, lval] = self(ch[cur][0], w);
+				auto [rcnt, rval] = self(ch[cur][1], w);
+				int cnt = lcnt + rcnt;
+				if (lval.size() < rval.size()) {
+					std::swap(lval, rval);
 				}
-				return {lcnt + rcnt, res};
+				std::priority_queue<int64_t> res = std::move(lval);
+				while (!rval.empty()) {
+					res.push(rval.top());
+					rval.pop();
+				}
+				assert(p_w >= w);
+				int64_t ntop = int64_t(p_w - w) * cnt + res.top();
+				res.pop();
+				res.push(ntop);
+				return {cnt, std::move(res)};
 			}
-		}(2*N-2);
+		}(2*N-2, weight[2*N-2]);
 		assert(ans.first == P);
 		for (int i = 1; i <= N; i++) {
 			cout << ans.second[i-1] << " \n"[i==N];
