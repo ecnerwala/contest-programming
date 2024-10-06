@@ -83,6 +83,18 @@ int main() {
 				res.pop();
 				res.push(ntop);
 			}
+			{
+				cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
+				auto ores = res;
+				int64_t v = int64_t(cnt) * p_w;
+				cerr << v;
+				while (!ores.empty()) {
+					v -= ores.top();
+					ores.pop();
+					cerr << ' ' << v;
+				}
+				cerr << '\n';
+			}
 			return {cnt, std::move(res)};
 		}(2*N-2, weight[2*N-2]);
 		assert(ans.first == P);
