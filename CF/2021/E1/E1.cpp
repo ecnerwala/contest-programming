@@ -46,17 +46,19 @@ int main() {
 
 			assert(w >= verts[u].weight);
 			verts[u].first_edge += int64_t(w - verts[u].weight) * verts[u].cnt;
+			verts[u].weight = w;
 
 			assert(w >= verts[v].weight);
 			verts[v].first_edge += int64_t(w - verts[v].weight) * verts[v].cnt;
+			verts[v].weight = w;
 
-			verts[u].weight = w;
+			if (verts[u].first_edge < verts[v].first_edge) std::swap(verts[u].first_edge, verts[v].first_edge);
 
-			deltas.push_back(std::min(verts[u].first_edge, verts[v].first_edge));
-			verts[u].first_edge = std::max(verts[u].first_edge, verts[v].first_edge);
+			deltas.push_back(verts[v].first_edge);
 
 			verts[u].cnt += verts[v].cnt;
 		}
+
 		int rt = get_par(0);
 		deltas.push_back(verts[rt].first_edge);
 		assert(verts[rt].cnt == P);
