@@ -61,7 +61,7 @@ int main() {
 			int cnt;
 			if (cur < N) {
 				cnt = need[cur];
-				res.push(p_w);
+				res.push(cnt * p_w);
 			} else {
 				//cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
 				int w = weight[cur];
@@ -82,18 +82,6 @@ int main() {
 				int64_t ntop = int64_t(p_w - w) * cnt + res.top();
 				res.pop();
 				res.push(ntop);
-			}
-			{
-				cerr << cur << ' ' << weight[cur] << ' ' << p_w << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
-				auto ores = res;
-				int64_t v = int64_t(cnt) * p_w;
-				cerr << v;
-				while (!ores.empty()) {
-					v -= ores.top();
-					ores.pop();
-					cerr << ' ' << v;
-				}
-				cerr << '\n';
 			}
 			return {cnt, std::move(res)};
 		}(2*N-2, weight[2*N-2]);
