@@ -84,7 +84,7 @@ int main() {
 				res.push(ntop);
 			}
 			{
-				cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
+				cerr << cur << ' ' << weight[cur] << ' ' << p_w << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
 				auto ores = res;
 				int64_t v = int64_t(cnt) * p_w;
 				cerr << v;
