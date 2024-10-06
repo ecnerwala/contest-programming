@@ -44,7 +44,7 @@ int main() {
 		std::vector<int> weight(2*N-1);
 		for (auto [w, vs] : edges) {
 			auto [u, v] = vs;
-			cerr << "edge " << w << ' ' << u << '-' << v << '\n';
+			//cerr << "edge " << w << ' ' << u << '-' << v << '\n';
 			u = get_par(u), v = get_par(v);
 			if (u == v) continue;
 			int a = nxt_vert++;
@@ -60,7 +60,7 @@ int main() {
 			if (cur < N) {
 				return {need[cur], std::vector<int64_t>(1, 0)};
 			} else {
-				cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
+				//cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
 				auto [lcnt, lval] = self(ch[cur][0]);
 				auto [rcnt, rval] = self(ch[cur][1]);
 				int64_t w = weight[cur];
