@@ -7,29 +7,24 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M, P; cin >> N >> M >> P;
-		std::vector<bool> need(N);
+		std::vector<int64_t> deltas; deltas.reserve(N);
+
+		struct vertex_t {
+			int64_t first_edge = 0;
+			int weight = 0;
+			int cnt = 0;
+		};
+		std::vector<vertex_t> verts(N);
 		for (int z = 0; z < P; z++) {
-			int cur; cin >> cur; cur--;
-			assert(!need[cur]);
-			need[cur] = true;
+			int v; cin >> v; v--;
+			verts[v].cnt ++;
 		}
+
 		std::vector<std::pair<int, std::array<int, 2>>> edges(M);
 		for (auto& [w, vs] : edges) {
 			cin >> vs[0] >> vs[1] >> w; vs[0]--, vs[1]--;
 		}
 		std::sort(edges.begin(), edges.end());
-
-		std::vector<int64_t> deltas; deltas.reserve(N);
-
-		struct vertex_t {
-			int64_t first_edge;
-			int weight;
-			int cnt;
-		};
-		std::vector<vertex_t> verts(N);
-		for (int i = 0; i < N; i++) {
-			verts[i] = {0, 0, need[i]};
-		}
 
 		std::vector<int> par(2*N-1, -1);
 		auto get_par = [&](int a) -> int {
@@ -43,7 +38,6 @@ int main() {
 		};
 		for (auto [w, vs] : edges) {
 			auto [u, v] = vs;
-			//cerr << "edge " << w << ' ' << u << '-' << v << '\n';
 			u = get_par(u), v = get_par(v);
 			if (u == v) continue;
 			if (par[u] > par[v]) std::swap(u, v);
