@@ -55,7 +55,7 @@ int main() {
 			rep[get_par(a)] = a;
 		}
 		assert(nxt_vert == 2*N-1);
-		auto res = [&](this auto&& self, int cur) -> std::pair<int, std::vector<int64_t>> {
+		auto ans = [&](this auto&& self, int cur) -> std::pair<int, std::vector<int64_t>> {
 			if (cur < N) {
 				return {need[cur], std::vector<int64_t>(1, 0)};
 			} else {
@@ -74,8 +74,9 @@ int main() {
 				return {lcnt + rcnt, res};
 			}
 		}(2*N-2);
+		assert(ans.first == P);
 		for (int i = 1; i <= N; i++) {
-			cout << res.second[i-1] << " \n"[i==N];
+			cout << ans.second[i-1] << " \n"[i==N];
 		}
 	}
 
