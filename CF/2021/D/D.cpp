@@ -10,8 +10,7 @@ int main() {
 		const int64_t INF = int64_t(1e18);
 
 		int NUM_DAYS, M; cin >> NUM_DAYS >> M;
-		std::vector<int64_t> A(M);
-		std::vector<int64_t> dp(M+1, -INF), ndp(M+1);
+		std::vector<int64_t> dp(M+1, -INF), ndp(M+1), A(M);
 		for (int r = 0; r < NUM_DAYS; r++) {
 			for (auto& a : A) cin >> a;
 
