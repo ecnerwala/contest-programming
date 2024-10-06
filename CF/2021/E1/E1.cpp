@@ -84,10 +84,11 @@ int main() {
 		}(2*N-2, weight[2*N-2]);
 		assert(ans.first == P);
 		int64_t baseline = int64_t(weight[2*N-2]) * int64_t(ans.first);
+		assert(int(ans.second.size()) == N);
 		for (int i = 1; i <= N; i++) {
 			baseline -= ans.second.top();
 			ans.second.pop();
-			cout << baseline << '\n';
+			cout << baseline << " \n"[i==N];
 		}
 	}
 
