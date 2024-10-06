@@ -44,6 +44,7 @@ int main() {
 		std::vector<int> weight(2*N-1);
 		for (auto [w, vs] : edges) {
 			auto [u, v] = vs;
+			cerr << "edge " << w << ' ' << u << '-' << v << '\n';
 			u = get_par(u), v = get_par(v);
 			if (u == v) continue;
 			int a = nxt_vert++;
