@@ -18,7 +18,7 @@ int main() {
 		}
 		std::vector<std::pair<int, std::array<int, 2>>> edges(M);
 		for (auto& [w, vs] : edges) {
-			cin >> w >> vs[0] >> vs[1]; vs[0]--, vs[1]--;
+			cin >> vs[0] >> vs[1] >> w; vs[0]--, vs[1]--;
 		}
 		std::sort(edges.begin(), edges.end());
 		std::vector<int> par(2*N-1, -1);
