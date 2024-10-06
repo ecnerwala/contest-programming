@@ -11,7 +11,7 @@ int main() {
 		for (auto& a : A) {
 			cin >> a;
 		}
-		while (int(A.size()) >= 1) {
+		while (int(A.size()) >= 2) {
 			std::nth_element(A.begin(), A.begin() + 1, A.end());
 			A[0] += A[1];
 			A[0] /= 2;
