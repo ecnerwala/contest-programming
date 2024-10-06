@@ -1,14 +1,11 @@
 #include <bits/stdc++.h>
 
-template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int T; cin >> T;
 	while (T--) {
-		const int64_t INF = 1e18;
 		int N, M, P; cin >> N >> M >> P;
 		std::vector<bool> need(N);
 		for (int z = 0; z < P; z++) {
@@ -21,8 +18,10 @@ int main() {
 			cin >> vs[0] >> vs[1] >> w; vs[0]--, vs[1]--;
 		}
 		std::sort(edges.begin(), edges.end());
+
+		std::vector<int64_t> deltas; deltas.reserve(N);
+
 		std::vector<int> par(2*N-1, -1);
-		std::vector<int> rep(2*N-1, -1); std::iota(rep.begin(), rep.begin() + N, 0);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
 				if (par[par[a]] >= 0) {
@@ -32,66 +31,46 @@ int main() {
 			}
 			return a;
 		};
-		auto merge = [&](int a, int b) -> void {
-			a = get_par(a), b = get_par(b);
-			assert(a != b);
-			if (par[a] > par[b]) std::swap(a, b);
-			par[a] += par[b];
-			par[b] = a;
+		struct vertex_t {
+			int64_t first_edge;
+			int weight;
+			int cnt;
 		};
-		int nxt_vert = N;
-		std::vector<std::array<int, 2>> ch(2*N-1, {-1, -1});
-		std::vector<int> weight(2*N-1);
+		std::vector<vertex_t> verts(N);
+		for (int i = 0; i < N; i++) {
+			verts[i] = {0, 0, need[i]};
+		}
 		for (auto [w, vs] : edges) {
 			auto [u, v] = vs;
 			//cerr << "edge " << w << ' ' << u << '-' << v << '\n';
 			u = get_par(u), v = get_par(v);
 			if (u == v) continue;
-			int a = nxt_vert++;
-			weight[a] = w;
-			ch[a] = {rep[u], rep[v]};
+			if (par[u] > par[v]) std::swap(u, v);
+			par[u] += par[v];
+			par[v] = u;
 
-			merge(u, a);
-			merge(v, a);
-			rep[get_par(a)] = a;
+			assert(w >= verts[u].weight);
+			verts[u].first_edge += int64_t(w - verts[u].weight) * verts[u].cnt;
+
+			assert(w >= verts[v].weight);
+			verts[v].first_edge += int64_t(w - verts[v].weight) * verts[v].cnt;
+
+			verts[u].weight = w;
+
+			deltas.push_back(std::min(verts[u].first_edge, verts[v].first_edge));
+			verts[u].first_edge = std::max(verts[u].first_edge, verts[v].first_edge);
+
+			verts[u].cnt += verts[v].cnt;
 		}
-		assert(nxt_vert == 2*N-1);
-		auto ans = [&](this auto&& self, int cur, int p_w) -> std::pair<int, std::priority_queue<int64_t>> {
-			std::priority_queue<int64_t> res;
-			int cnt;
-			if (cur < N) {
-				cnt = need[cur];
-				res.push(cnt * p_w);
-			} else {
-				//cerr << cur << ' ' << weight[cur] << ' ' << ch[cur][0] << ',' << ch[cur][1] << '\n';
-				int w = weight[cur];
-				{
-					auto [lcnt, lval] = self(ch[cur][0], w);
-					auto [rcnt, rval] = self(ch[cur][1], w);
-					cnt = lcnt + rcnt;
-					if (lval.size() < rval.size()) {
-						std::swap(lval, rval);
-					}
-					res = std::move(lval);
-					while (!rval.empty()) {
-						res.push(rval.top());
-						rval.pop();
-					}
-				}
-				assert(p_w >= w);
-				int64_t ntop = int64_t(p_w - w) * cnt + res.top();
-				res.pop();
-				res.push(ntop);
-			}
-			return {cnt, std::move(res)};
-		}(2*N-2, weight[2*N-2]);
-		assert(ans.first == P);
-		int64_t baseline = int64_t(weight[2*N-2]) * int64_t(ans.first);
-		assert(int(ans.second.size()) == N);
-		for (int i = 1; i <= N; i++) {
-			baseline -= ans.second.top();
-			ans.second.pop();
-			cout << baseline << " \n"[i==N];
+		int rt = get_par(0);
+		deltas.push_back(verts[rt].first_edge);
+		assert(verts[rt].cnt == P);
+		int64_t ans = int64_t(verts[rt].weight) * verts[rt].cnt;
+		std::sort(deltas.begin(), deltas.end(), std::greater<>());
+		assert(int(deltas.size()) == N);
+		for (int i = 0; i < N; i++) {
+			ans -= deltas[i];
+			cout << ans << " \n"[i+1==N];
 		}
 	}
 
