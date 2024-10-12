@@ -183,6 +183,7 @@ int main() {
 			}
 		}
 		auto [tot_flow, tot_bad_flow] = flower.max_flow(N, N+1);
+		cerr << tot_flow << ' ' << tot_bad_flow << ' ' << cnt_1 << '\n';
 		tot_flow += (cnt_1 - tot_bad_flow) / 2;
 		int ans = std::min(num_total, std::min(tot_flow, K) + K);
 		cout << ans << '\n';
