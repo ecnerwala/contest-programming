@@ -46,6 +46,7 @@ int main() {
 				res.back().second.push_back(j);
 				alive[j] = false;
 				cnd.insert(cnd.end(), adj_earlier[j].begin(), adj_earlier[j].end());
+				cnd.push_back(j);
 			}
 			assert(!alive[i]);
 			alive[i] = true;
