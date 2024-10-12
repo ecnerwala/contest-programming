@@ -21,7 +21,7 @@ int main() {
 		std::vector<int> idx(N);
 		for (int i = 0; i < N; i++) idx[verts[i].second] = i;
 
-		std::vector<std::vector<int>> adj_earlier;
+		std::vector<std::vector<int>> adj_earlier(N);
 		for (int i = 0; i < N; i++) {
 			adj_earlier[i].reserve(adj[i].size());
 			for (auto v : adj[i]) {
