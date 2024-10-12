@@ -169,8 +169,8 @@ int main() {
 			if (has_edge) {
 				num_total ++;
 				if (A[i] & 1) {
-					if (i == 1) cnt_1++;
-					flower.add_edge(N, i, 1, (i == 1) ? 1 : 0);
+					if (A[i] == 1) cnt_1++;
+					flower.add_edge(N, i, 1, (A[i] == 1) ? 1 : 0);
 					for (int j = 0; j < N; j++) {
 						if (A[j] & 1) continue;
 						if (pfac[A[i] + A[j]] == A[i] + A[j]) {
