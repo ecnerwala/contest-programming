@@ -36,7 +36,7 @@ int main() {
 			assert(resp == 0 || resp == 1);
 			return !resp;
 		};
-		cout << [&]() -> int {
+		int ans = [&]() -> int {
 			assert(N >= 3);
 			if (N == 3) {
 				if (get_parity(0, 1) == get_parity(1, 0)) return 2;
@@ -75,7 +75,11 @@ int main() {
 			assert(N == 2);
 			if (get_parity(1, 2) != get_parity(2, 1)) return 1;
 			else return 0;
-		}()+1 << '\n' << flush;
+		}();
+		if (TESTING) {
+			assert(testing_ans[ans] == -1);
+		}
+		cout << ans+1 << '\n' << flush;
 		// if first query has size k (k >= 2), it costs k + max(ceil(log_2(k)), f(N-k))
 		// F(1) == 0
 		// F(2) == 2
