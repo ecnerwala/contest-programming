@@ -170,7 +170,7 @@ int main() {
 				}
 			}
 			if (has_edge) {
-				num_total ++;
+				num_total += A[i].second;
 				if (A[i].first & 1) {
 					if (A[i].first == 1) cnt_1 += A[i].second;
 					flower.add_edge(N, i, A[i].second, (A[i].first == 1) ? 1 : 0);
