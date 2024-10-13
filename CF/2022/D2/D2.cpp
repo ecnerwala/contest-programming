@@ -7,16 +7,22 @@ int main() {
 	constexpr bool TESTING = true;
 	int T;
 	if (TESTING) {
-		T = 1;
+		T = 100;
 	} else {
 		cin >> T;
 	}
+	std::mt19937 mt(48);
 	while (T--) {
 		int N;
 		std::vector<int> testing_ans;
 		if (TESTING) {
 			//testing_ans = {0, 1, 0, -1, 0, 1, 0};
-			testing_ans = {0, 1, -1, 0};
+			//testing_ans = {0, 1, -1, 0};
+			testing_ans.resize(std::uniform_int_distribution(3, 20)(mt));
+			for (auto& v : testing_ans) {
+				v = std::uniform_int_distribution(0, 1)(mt);
+			}
+			testing_ans[std::uniform_int_distribution(0, int(testing_ans.size())-1)(mt)] = -1;
 			N = int(testing_ans.size());
 		} else {
 			cin >> N;
@@ -90,6 +96,7 @@ int main() {
 		// F(3) == 4
 		// F(4) == 4
 		// F(5) == 5
+		// F(6) == 
 	}
 
 	return 0;
