@@ -59,14 +59,9 @@ int main() {
 				int b = get_parity(N-2, N-1);
 				int c = get_parity(N-1, N-3);
 				if (a ^ b ^ c) {
-					int d = get_parity(N-2, N-3);
-					if (d == a) {
-						return N-1;
-					} else {
-						if (get_parity(N-4, N-3) != get_parity(N-3, N-4)) return N-3;
-						else return N-2;
-					}
-					assert(false);
+					if (get_parity(N-2, N-3) == a) return N-1;
+					else if (get_parity(N-1, N-2) == b) return N-3;
+					else return N-2;
 				} else {
 					N -= 3;
 				}
