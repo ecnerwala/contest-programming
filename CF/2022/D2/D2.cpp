@@ -4,13 +4,35 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
+	constexpr bool TESTING = true;
+	int T;
+	if (TESTING) {
+		T = 1;
+	} else {
+		cin >> T;
+	}
 	while (T--) {
-		int N; cin >> N;
+		int N;
+		if (TESTING) {
+			N = 7;
+		} else {
+			cin >> N;
+		}
+		std::vector<int> testing_ans;
+		if (TESTING) {
+			testing_ans = {0, 1, 0, -1, 0, 1, 0};
+		}
 		auto get_parity = [&](int a, int b) -> int {
 			assert(a != b);
 			cout << '?' << ' ' << a+1 << ' ' << b+1 << '\n' << flush;
-			int resp; cin >> resp;
+			int resp;
+			if (TESTING) {
+				if (testing_ans[a] == -1) resp = !testing_ans[b];
+				else if (testing_ans[b] == -1) resp = testing_ans[a];
+				else resp = testing_ans[a] ^ testing_ans[b] ^ 1;
+			} else {
+				cin >> resp;
+			}
 			assert(resp == 0 || resp == 1);
 			return !resp;
 		};
