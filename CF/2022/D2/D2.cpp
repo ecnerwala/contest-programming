@@ -4,10 +4,10 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	int T;
 	if (TESTING) {
-		T = 100;
+		T = 100000;
 	} else {
 		cin >> T;
 	}
