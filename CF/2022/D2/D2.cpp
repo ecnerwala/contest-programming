@@ -4,5 +4,63 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	int T; cin >> T;
+	while (T--) {
+		int N; cin >> N;
+		auto get_parity = [&](int a, int b) -> int {
+			assert(a != b);
+			cout << '?' << ' ' << a+1 << ' ' << b+1 << '\n' << flush;
+			int resp; cin >> resp;
+			assert(resp == 0 || resp == 1);
+			return !resp;
+		};
+		cout << [&]() -> int {
+			assert(N >= 3);
+			if (N == 3) {
+				if (get_parity(0, 1) == get_parity(1, 0)) return 2;
+				else if (get_parity(0, 2) == get_parity(2, 0)) return 1;
+				else return 0;
+			} else if (N & 1) {
+				assert(N >= 5);
+				// first do a chunk of size 3
+				int a = get_parity(N-3, N-2);
+				int b = get_parity(N-2, N-1);
+				int c = get_parity(N-1, N-3);
+				if (a ^ b ^ c) {
+					int d = get_parity(N-2, N-3);
+					if (d == a) {
+						return N-1;
+					} else {
+						// TODO
+						if (get_parity(N-4, N-3) != get_parity(N-3, N-4)) return N-3;
+						else return N-2;
+					}
+					assert(false);
+				} else {
+					N -= 3;
+				}
+			}
+			assert(N % 2 == 0);
+			assert(N >= 2);
+			while (N > 2) {
+				assert(N >= 4);
+				if (get_parity(N-2, N-1) != get_parity(N-1, N-2)) {
+					if (get_parity(N-2, N-3) != get_parity(N-3, N-2)) return N-2;
+					else return N-1;
+				}
+				N -= 2;
+			}
+			assert(N == 2);
+			if (get_parity(1, 2) != get_parity(2, 1)) return 1;
+			else return 0;
+		}()+1 << '\n' << flush;
+		// if first query has size k (k >= 2), it costs k + max(ceil(log_2(k)), f(N-k))
+		// F(1) == 0
+		// F(2) == 2
+		// F(3) == 4
+		// F(4) == 4
+		// F(5) == 5
+	}
+
 	return 0;
 }
