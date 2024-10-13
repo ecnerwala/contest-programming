@@ -20,6 +20,7 @@ int main() {
 			N = int(testing_ans.size());
 		} else {
 			cin >> N;
+			if (N == -1) exit(0);
 		}
 		const int N_orig = N;
 		int num_queries = 0;
@@ -34,6 +35,7 @@ int main() {
 				else resp = testing_ans[a] ^ testing_ans[b] ^ 1;
 			} else {
 				cin >> resp;
+				if (resp == -1) exit(0);
 			}
 			assert(resp == 0 || resp == 1);
 			return !resp;
