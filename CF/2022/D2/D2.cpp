@@ -88,6 +88,7 @@ int main() {
 		if (TESTING) {
 			assert(testing_ans[ans] == -1);
 			cerr << "solved " << N_orig << " with " << num_queries << " queries" << '\n';
+			assert(num_queries <= std::max(N_orig, 4));
 		}
 		cout << ans+1 << '\n' << flush;
 		// if first query has size k (k >= 2), it costs k + max(ceil(log_2(k)), f(N-k))
