@@ -156,6 +156,7 @@ int main() {
 		for (int i = 0; i < N; i++) { int a; cin >> a; freq[a]++; }
 		std::vector<std::pair<int, int>> A(freq.begin(), freq.end());
 		freq = {};
+		N = int(A.size());
 
 		int cnt_1 = 0;
 		int num_total = 0;
