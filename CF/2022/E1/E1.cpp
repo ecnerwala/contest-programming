@@ -160,7 +160,11 @@ int main() {
 			par[b] = {a, v};
 		};
 
-		auto get_ans = [&]() -> int {
+		using num = modnum<int(1e9)+7>;
+		auto get_ans = [&]() -> num {
+			if (!good) return 0;
+			assert(num_comps >= 1);
+			return pow(num(1 << 30), num_comps-1);
 		};
 		for (int q = 0; q < K + Q; q++) {
 			if (q >= K) cout << get_ans() << '\n';
