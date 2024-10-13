@@ -152,8 +152,10 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
-		std::vector<int> A(N);
-		for (auto& a : A) cin >> a;
+		std::map<int, int> freq;
+		for (int i = 0; i < N; i++) { int a; cin >> a; freq[a]++; }
+		std::vector<std::pair<int, int>> A(freq.begin(), freq.end());
+		freq = {};
 
 		int cnt_1 = 0;
 		int num_total = 0;
@@ -161,29 +163,29 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			bool has_edge = false;
 			for (int j = 0; j < N; j++) {
-				if (j == i) continue;
-				if (pfac[A[i] + A[j]] == A[i] + A[j]) {
+				if (j == i && A[i].second == 1) continue;
+				if (pfac[A[i].first + A[j].first] == A[i].first + A[j].first) {
 					has_edge = true;
 				}
 			}
 			if (has_edge) {
 				num_total ++;
-				if (A[i] & 1) {
-					if (A[i] == 1) cnt_1++;
-					flower.add_edge(N, i, 1, (A[i] == 1) ? 1 : 0);
+				if (A[i].first & 1) {
+					if (A[i].first == 1) cnt_1 += A[i].second;
+					flower.add_edge(N, i, A[i].second, (A[i].first == 1) ? 1 : 0);
 					for (int j = 0; j < N; j++) {
-						if (A[j] & 1) continue;
-						if (pfac[A[i] + A[j]] == A[i] + A[j]) {
-							flower.add_edge(i, j, 1, 0);
+						if (A[j].first & 1) continue;
+						if (pfac[A[i].first + A[j].first] == A[i].first + A[j].first) {
+							flower.add_edge(i, j, std::min(A[i].second, A[j].second), 0);
 						}
 					}
 				} else {
-					flower.add_edge(i, N+1, 1, 0);
+					flower.add_edge(i, N+1, A[i].second, 0);
 				}
 			}
 		}
 		auto [tot_flow, tot_bad_flow] = flower.max_flow(N, N+1);
-		cerr << tot_flow << ' ' << tot_bad_flow << ' ' << cnt_1 << '\n';
+		//cerr << tot_flow << ' ' << tot_bad_flow << ' ' << cnt_1 << '\n';
 		tot_flow += (cnt_1 - tot_bad_flow) / 2;
 		int ans = std::min(num_total, std::min(tot_flow, K) + K);
 		cout << ans << '\n';
