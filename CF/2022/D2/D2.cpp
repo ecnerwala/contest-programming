@@ -55,7 +55,6 @@ int main() {
 					if (d == a) {
 						return N-1;
 					} else {
-						// TODO
 						if (get_parity(N-4, N-3) != get_parity(N-3, N-4)) return N-3;
 						else return N-2;
 					}
