@@ -45,7 +45,7 @@ int main() {
 		} else {
 			res = mi;
 		}
-		cout << '!' << ' ' << res << '\n' << flush;
+		cout << '!' << ' ' << res+1 << '\n' << flush;
 	}
 
 	return 0;
