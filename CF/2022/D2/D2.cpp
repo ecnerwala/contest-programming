@@ -22,8 +22,10 @@ int main() {
 		if (TESTING) {
 			testing_ans = {0, 1, 0, -1, 0, 1, 0};
 		}
+		int num_queries = 0;
 		auto get_parity = [&](int a, int b) -> int {
 			assert(a != b);
+			num_queries++;
 			cout << '?' << ' ' << a+1 << ' ' << b+1 << '\n' << flush;
 			int resp;
 			if (TESTING) {
