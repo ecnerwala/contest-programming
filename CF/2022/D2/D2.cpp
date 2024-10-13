@@ -18,6 +18,7 @@ int main() {
 		} else {
 			cin >> N;
 		}
+		const int N_orig = N;
 		std::vector<int> testing_ans;
 		if (TESTING) {
 			testing_ans = {0, 1, 0, -1, 0, 1, 0};
@@ -80,6 +81,7 @@ int main() {
 		}();
 		if (TESTING) {
 			assert(testing_ans[ans] == -1);
+			cerr << "solved " << N_orig << " with " << num_queries << " queries" << '\n';
 		}
 		cout << ans+1 << '\n' << flush;
 		// if first query has size k (k >= 2), it costs k + max(ceil(log_2(k)), f(N-k))
