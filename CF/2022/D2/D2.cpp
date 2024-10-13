@@ -13,16 +13,15 @@ int main() {
 	}
 	while (T--) {
 		int N;
+		std::vector<int> testing_ans;
 		if (TESTING) {
-			N = 7;
+			//testing_ans = {0, 1, 0, -1, 0, 1, 0};
+			testing_ans = {0, 1, -1, 0};
+			N = int(testing_ans.size());
 		} else {
 			cin >> N;
 		}
 		const int N_orig = N;
-		std::vector<int> testing_ans;
-		if (TESTING) {
-			testing_ans = {0, 1, 0, -1, 0, 1, 0};
-		}
 		int num_queries = 0;
 		auto get_parity = [&](int a, int b) -> int {
 			assert(a != b);
