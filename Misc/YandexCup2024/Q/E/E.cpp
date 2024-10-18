@@ -149,7 +149,7 @@ int main() {
 
 		// take nothing else
 		if (!has_zero) {
-			if (N < MX) ans += dp[N];
+			if (N < MX) ans += dp[N >> 1];
 		}
 	}
 	assert(N == 0);
