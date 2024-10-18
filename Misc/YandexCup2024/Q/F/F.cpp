@@ -4,6 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	int T; cin >> T;
 	cout << 11 << '\n';
 	for (int i = 0; i < 11; i++) {
 		cout << (1 << i);
@@ -15,7 +16,6 @@ int main() {
 		cout << '\n';
 	}
 	cout << flush;
-	int T; cin >> T;
 	while (T--) {
 		int ans = 0;
 		for (int i = 0; i < 11; i++) {
