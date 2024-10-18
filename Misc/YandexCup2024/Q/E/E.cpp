@@ -123,7 +123,8 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 
-	int N; cin >> N;
+	int64_t N; cin >> N;
+	assert(N >= 1);
 	int M; cin >> M;
 	std::vector<int> A(M);
 	for (auto& a : A) cin >> a;
