@@ -32,7 +32,7 @@ int main() {
 		for (int v = 1; v <= 2024; v++) {
 			if ((code[v] >> i) & 1) {
 				if (!first) cout << ' ';
-				first = true;
+				first = false;
 				cout << v;
 			}
 		}
