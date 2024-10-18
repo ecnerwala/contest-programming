@@ -26,6 +26,8 @@ int main() {
 			for (int a = 0; a < 15; a++) decode[i ^ (1 << a)] = i;
 		}
 	}
+	assert(int(code.size()) == (1 << 11));
+	assert(code[0] == 0);
 	cout << 15 << '\n';
 	for (int i = 0; i < 15; i++) {
 		bool first = true;
@@ -39,10 +41,11 @@ int main() {
 		cout << '\n';
 	}
 	cout << flush;
-	while (T--) {
+	for (int t = 0; t < T; t++) {
 		int ans = 0;
 		for (int i = 0; i < 15; i++) {
 			int a; cin >> a;
+			if (a == -1) exit(0);
 			assert(a == 0 || a == 1);
 			ans |= (a << i);
 		}
