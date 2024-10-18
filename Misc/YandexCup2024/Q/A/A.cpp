@@ -12,7 +12,7 @@ int main() {
 		// lcm(x * y, z)
 		z /= std::gcd(x, z);
 		z /= std::gcd(y, z);
-		res -= 2 * (k / x / y / z);
+		res -= 3 * (k / x / y / z);
 		assert(res >= 0);
 		return res;
 	};
