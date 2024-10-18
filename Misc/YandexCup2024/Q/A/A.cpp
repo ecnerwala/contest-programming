@@ -16,6 +16,7 @@ int main() {
 		assert(res >= 0);
 		return res;
 	};
+	cerr << get_cnt(42) << '\n';
 
 	int64_t N; cin >> N;
 	int64_t MX = int64_t(1e18);
