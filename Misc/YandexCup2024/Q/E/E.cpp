@@ -145,6 +145,7 @@ int main() {
 		for (int i = 0; i < MX; i++) {
 			for (auto a : A) {
 				if (((a + i) & 1) == (N & 1)) {
+					assert(((a + i) >> 1) < MX);
 					ndp[(a + i) >> 1] += dp[i];
 				}
 			}
