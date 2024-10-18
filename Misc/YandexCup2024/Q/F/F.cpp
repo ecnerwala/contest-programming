@@ -22,8 +22,12 @@ int main() {
 		if (good) {
 			int v = int(code.size());
 			code.push_back(i);
+			assert(decode[i] == -1);
 			decode[i] = v;
-			for (int a = 0; a < 15; a++) decode[i ^ (1 << a)] = i;
+			for (int a = 0; a < 15; a++) {
+				assert(decode[i ^ (1 << a)] == -1);
+				decode[i ^ (1 << a)] = i;
+			}
 		}
 	}
 	assert(int(code.size()) == (1 << 11));
