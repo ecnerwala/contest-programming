@@ -145,7 +145,6 @@ int main() {
 		for (int i = 0; i < MX; i++) {
 			for (auto a : A) {
 				if (((a + i) & 1) == (N & 1)) {
-					assert(((a + i) >> 1) < MX);
 					ndp[(a + i) >> 1] += dp[i];
 				}
 			}
@@ -153,7 +152,7 @@ int main() {
 		dp = std::move(ndp);
 	}
 	assert(N == 0);
-	if (has_zero) ans = dp[0];
+	ans += dp[0];
 	cout << ans << '\n';
 
 	return 0;
