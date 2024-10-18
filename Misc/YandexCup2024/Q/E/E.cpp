@@ -134,7 +134,7 @@ int main() {
 	// we need different stopping conditions depending on whether 0 is in the weights
 	bool has_zero = std::find(A.begin(), A.end(), 0) != A.end();
 	num ans = 0;
-	for (; N >= 0; N >>= 1) {
+	for (; N > 0; N >>= 1) {
 		// take nothing else
 		if (!has_zero) {
 			if (N < MX) ans += dp[N];
