@@ -151,6 +151,7 @@ int main() {
 		}
 		dp = std::move(ndp);
 	}
+	assert(N == 0);
 	if (has_zero) ans = dp[0];
 	cout << ans << '\n';
 
