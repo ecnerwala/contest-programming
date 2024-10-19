@@ -198,7 +198,7 @@ int main() {
 				for (int oy = y; oy >= 0; oy--) {
 					tot_cnt[y - oy] += w * cur_cnt_y[{oy, x+y}];
 				}
-				for (int oy = y+1; oy < C; oy++) assert((cur_cnt_y[{oy, x+y}] == 0));
+				for (int oy = y; oy < C; oy++) assert((cur_cnt_y[{oy, x+y}] == 0));
 				// now update
 				for (int s = 0; s <= (R-1)+(C-1); s++) {
 					if (s > x+y) cur_cnt_y[{y, s}]++;
