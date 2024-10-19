@@ -196,6 +196,7 @@ int main() {
 					vis[nxt] = true;
 					// now, check if this is a win
 					bool win = false;
+					int wdc = -1, wdr = -1, wa = -1, wb = -1;
 					for (auto [dc, dr] : {std::array<int, 2>{-1, 0}, std::array<int, 2>{0, 1}, std::array<int, 2>{-1, 1}, std::array<int, 2>{1, 1}}) {
 						assert(good(0, 0));
 						int a = 0;
@@ -204,6 +205,8 @@ int main() {
 						while (good(-dc * b, -dr * b)) b++;
 						if (a + b + 1 >= 4) {
 							win = true;
+							wdc = dc, wdr = dr;
+							wa = a, wb = b;
 							break;
 						}
 					}
@@ -211,6 +214,7 @@ int main() {
 						if (!can_win[move & 1]) {
 							for (int v : nxt) cerr << v << ' ';
 							cerr << '\n';
+							cerr << ' ' << wdc << ' ' << wdr << ' ' << wa << ' ' << wb << '\n';
 						}
 						can_win[move & 1] = true;
 					} else {
