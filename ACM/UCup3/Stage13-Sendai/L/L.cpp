@@ -284,7 +284,7 @@ int main() {
 	}
 	using num = modnum<998244353>;
 	for (int i = 1; i <= N; i++) {
-		cout << num(int(best_pts[i] % uint64_t(num::MOD))) / (num(i) * num(i) * num(3)) << '\n';
+		cout << num(int(best_pts[i] % uint64_t(num::MOD))) / (num(i) * num(i) * num(27)) << '\n';
 	}
 
 	return 0;
