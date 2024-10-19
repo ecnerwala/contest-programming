@@ -17,6 +17,7 @@ int main() {
 		for (auto& c : C) { cin >> c; c--; assert(0 <= c && c < N); }
 		cerr << "Case #" << case_num << ' ' << "N = " << N << '\n';
 		auto has_solution = [&]() -> bool {
+			return true;
 			struct color_t {
 				int lo;
 				int hi;
