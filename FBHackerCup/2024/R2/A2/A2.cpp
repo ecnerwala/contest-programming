@@ -29,7 +29,7 @@ int main() {
 	}
 	cerr << int(mtns.size()) << '\n';
 
-	int T; cin >> T; T = 95;
+	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
 		int64_t A, B, M; cin >> A >> B >> M;
