@@ -15,6 +15,7 @@ int main() {
 		for (auto& w : W) { cin >> w; }
 		std::vector<int> C(N);
 		for (auto& c : C) { cin >> c; c--; assert(0 <= c && c < N); }
+		cerr << "Case #" << case_num << ' ' << "N = " << N << '\n';
 		auto has_solution = [&]() -> bool {
 			struct color_t {
 				int lo;
