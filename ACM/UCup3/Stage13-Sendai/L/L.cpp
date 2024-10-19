@@ -238,6 +238,7 @@ int main() {
 			}
 		}
 	}
+	std::sort(ops.begin(), ops.end());
 	for (int i = 0; i < N; i++) {
 		//cerr << base_cnt[i] << '\n';
 	}
