@@ -85,9 +85,9 @@ int main() {
 								nmi = color.knowns[1];
 							} else {
 								assert(val <= 0);
-								if (val == 0) continue;
-								assert(val < 0);
-								nmi = std::min(nlo + (-val), nhi - 1);
+								//if (val == 0) continue;
+								//assert(val < 0);
+								nmi = std::max(nlo + 1, std::min(nlo + (-val), nhi - 1));
 							}
 							assert(nmi > nlo);
 							val += nmi - nlo;
