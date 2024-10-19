@@ -7,13 +7,18 @@ int main() {
 	int N, K; cin >> N >> K;
 	std::vector<int> A(N);
 	for (auto& a : A) cin >> a;
-	int t = 0;
-	while (t+K < N && A[t+K] <= A[t]) {
-		t++;
+	std::vector<std::pair<int, int>> best(N);
+	for (int i = N-1; i >= 0; i--) {
+		best[i] = {A[i], -i};
+		best[i] = std::max(best[i], best[i+K]);
 	}
-	A.erase(A.begin() + t, A.begin() + t + K);
-	for (int i = 0; i < N-K; i++) {
-		cout << A[i] << " \n"[i+1==N-K];
+	std::vector<int> res;
+	for (int i = 0; i < N; i++) {
+		i = -best[i].second;
+		res.push_back(A[i]);
+	}
+	for (int i = 0; i < int(res.size()); i++) {
+		cout << res[i] << " \n"[i+1==int(res.size())];
 	}
 
 	return 0;
