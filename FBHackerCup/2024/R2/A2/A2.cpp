@@ -5,19 +5,24 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	// at most 9 digits
-	std::vector<std::vector<int>> mtns;
+	struct mtn_t {
+		int64_t v;
+		int64_t p10;
+		int head, tail;
+	};
+	std::vector<mtn_t> mtns;
 	for (int d = 1; d <= 9; d++) {
-		mtns.push_back(std::vector<int>(1, d));
+		mtns.push_back({d, 10, d-1, d-1});
 	}
 	for (int z = 0; z < int(mtns.size()); z++) {
-		if (int(mtns[z].size()) >= 17) break;
-		if (z % 1000 == 0) cerr << z << '\n';
-		for (int a = 1; a <= (mtns[z].front() - (int(mtns.size()) == 1)); a++) {
-			for (int b = 1; b <= (mtns[z].back() - int(mtns.size() == 1)); b++) {
-				std::vector<int> nxt = mtns[z];
-				nxt.insert(nxt.begin(), a);
-				nxt.insert(nxt.end(), b);
-				mtns.push_back(nxt);
+		if (mtns[z].p10 > int64_t(1e18) / 10 / 10) break;
+		for (int a = 1; a <= mtns[z].head; a++) {
+			for (int b = 1; b <= mtns[z].tail; b++) {
+				mtns.push_back({
+					(a * mtns[z].p10 + mtns[z].v) * 10 + b,
+					10 * mtns[z].p10 * 10,
+					a, b
+				});
 			}
 		}
 	}
