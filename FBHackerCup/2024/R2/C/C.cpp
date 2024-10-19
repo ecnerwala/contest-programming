@@ -210,15 +210,15 @@ int main() {
 				}
 				//for (int oy = y; oy < C; oy++) assert((cur_cnt_y[{oy, x+y}] == 0));
 				// now update
-				for (int s : sums) {
-				//for (int s = 0; s <= (R-1)+(C-1); s++) {
+				//for (int s : sums) {
+				for (int s = 0; s <= (R-1)+(C-1); s++) {
 					if (s > x+y) cur_cnt_y[{y, s}]++;
 					else cur_cnt_x[{x, s}]++;
 				}
 			}
 			for (auto [x, y] : by_owner[o]) {
-				for (int s : sums) {
-				//for (int s = 0; s <= (R-1)+(C-1); s++) {
+				//for (int s : sums) {
+				for (int s = 0; s <= (R-1)+(C-1); s++) {
 					if (s > x+y) cur_cnt_y[{y, s}] = 0;
 					else cur_cnt_x[{x, s}] = 0;
 				}
