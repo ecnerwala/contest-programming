@@ -168,6 +168,31 @@ int main() {
 		for (auto s : rows) cerr << s << '\n';
 		std::reverse(rows.begin(), rows.end());
 
+		tensor<bool, 7> rev_vis({7, 7, 7, 7, 7, 7, 7});
+		{
+			std::vector<std::array<int, 7>> q;
+			std::array<int, 7> st; st.fill(6);
+			rev_vis[st] = true;
+			q.push_back(st);
+
+			std::array<bool, 2> can_win{false, false};
+			for (int move = 0, idx = 0; move < 42; move++) {
+				char piece = "FC"[move & 1];
+				int en = int(q.size());
+				for (; idx < en; idx++) {
+					for (int col = 0; col < 7; col++) {
+						std::array<int, 7> nxt = q[idx];
+						if (nxt[col] == 0) continue;
+						nxt[col]--;
+						if (rows[nxt[col]][col] != piece) continue;
+						if (rev_vis[nxt]) continue;
+						rev_vis[nxt] = true;
+						q.push_back(nxt);
+					}
+				}
+			}
+		}
+
 		tensor<bool, 7> vis({7, 7, 7, 7, 7, 7, 7});
 		std::vector<std::array<int, 7>> q;
 		std::array<int, 7> st; st.fill(0);
@@ -192,6 +217,7 @@ int main() {
 						return rows[r][c] == piece;
 					};
 					assert(good(0, 0));
+					if (!rev_vis[nxt]) continue;
 					if (vis[nxt]) continue;
 					vis[nxt] = true;
 					// now, check if this is a win
