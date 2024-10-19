@@ -163,7 +163,7 @@ int main() {
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
-		int R, C, K; cin >> R >> C >> K;
+		int R, C; int64_t K; cin >> R >> C >> K;
 		cerr << "Case #" << case_num << " " << R << ' ' << C << '\n';
 		tensor<int, 2> owners({R, C});
 		for (int i = 0; i < R; i++) {
@@ -206,7 +206,13 @@ int main() {
 		}
 		for (auto& v : tot_cnt) v *= 2;
 
-		cout << "Case #" << case_num << ": ";
+		K--;
+		int64_t a = 0;
+		while (K >= tot_cnt[a]) {
+			K -= tot_cnt[a];
+			a++;
+		}
+		cout << "Case #" << case_num << ": " << a << '\n';
 	}
 
 	return 0;
