@@ -190,12 +190,10 @@ int main() {
 			tensor<int, 2> cur_cnt_y({C, R+C-1});
 			for (auto [x, y] : by_owner[o]) {
 				// first, query
-				for (int ox = 0; ox < R; ox++) {
-					assert((ox >= x || cur_cnt_x[{ox, x+y}] == 0));
+				for (int ox = x; ox < R; ox++) {
 					tot_cnt[ox - x] += w * cur_cnt_x[{ox, x+y}];
 				}
-				for (int oy = 0; oy < C; oy++) {
-					assert((y >= oy || cur_cnt_y[{oy, x+y}] == 0));
+				for (int oy = y; oy >= 0; oy--) {
 					tot_cnt[y - oy] += w * cur_cnt_y[{oy, x+y}];
 				}
 				// now update
