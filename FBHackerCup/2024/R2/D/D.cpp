@@ -210,6 +210,7 @@ int main() {
 			assert(int(std::set<int>(W.begin(), W.end()).size()) == N);
 			for (int i = 0; i < N; i++) {
 				assert(W[i] != -1);
+				assert(1 <= W[i] && W[i] <= 10000);
 				cout << W[i] << " \n"[i+1==N];
 			}
 		}
