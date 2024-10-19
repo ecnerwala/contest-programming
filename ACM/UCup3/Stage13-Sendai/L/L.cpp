@@ -215,7 +215,7 @@ int main() {
 		//cerr << i << ' ' << pts[i] << '\n';
 	}
 
-	std::map<pt_t, std::vector<std::pair<int, int>>> ops;
+	std::vector<std::pair<pt_t, std::pair<int, int>>> ops; ops.reserve(N * (N-1));
 	std::vector<int> base_cnt(N);
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
@@ -228,8 +228,8 @@ int main() {
 					if (i < j) base_cnt[i]++;
 					continue;
 				}
-				ops[d_st].push_back({i, +1});
-				ops[d_en].push_back({i, -1});
+				ops.push_back({d_st, {i, +1}});
+				ops.push_back({d_en, {i, -1}});
 				if (d_st < d_en) {
 					// do nothing
 				} else {
@@ -260,19 +260,22 @@ int main() {
 	for (int i = 0; i <= N; i++) {
 		best_pts[i] = get_val(cnds[i]);
 	}
-	for (const auto& [_, changes] : ops) {
-		std::set<int> did_change;
-		for (auto [i, delta] : changes) {
+	std::vector<int> did_change; did_change.reserve(N * (N-1));
+	for (int it = 0; it < int(ops.size()); it++) {
+		pt_t base = ops[it].first;
+		did_change.clear();
+		for (; it < int(ops.size()) && ops[it].first == base; ++it) {
+			auto [i, delta] = ops[it].second;
 			if (delta == +1) {
 				base_cnt[i]++;
 				if (0 <= base_cnt[i] && base_cnt[i] <= N) {
 					cnds[base_cnt[i]] -= pts[i];
-					did_change.insert(base_cnt[i]);
+					did_change.push_back(base_cnt[i]);
 				}
 			} else if (delta == -1) {
 				if (0 <= base_cnt[i] && base_cnt[i] <= N) {
 					cnds[base_cnt[i]] += pts[i];
-					did_change.insert(base_cnt[i]);
+					did_change.push_back(base_cnt[i]);
 				}
 				base_cnt[i]--;
 			} else assert(false);
