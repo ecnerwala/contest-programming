@@ -185,7 +185,16 @@ int main() {
 		std::vector<int64_t> tot_cnt(std::max(R, C));
 		tensor<int, 2> cur_cnt_x({R, R+C-1});
 		tensor<int, 2> cur_cnt_y({C, R+C-1});
+		std::vector<bool> has_sums(R+C-1);
+		std::vector<int> sums; sums.reserve(R+C-1);
 		for (int o = 0; o <= R*C; o++) {
+			sums.clear();
+			for (auto [x, y] : by_owner[o]) {
+				if (!has_sums[x+y]) {
+					sums.push_back(x+y);
+					has_sums[x+y] = true;
+				}
+			}
 			// we're processing in increasing y - x
 			for (auto [x, y] : by_owner[o]) {
 				// first, query
@@ -199,13 +208,15 @@ int main() {
 				}
 				for (int oy = y; oy < C; oy++) assert((cur_cnt_y[{oy, x+y}] == 0));
 				// now update
-				for (int s = 0; s <= (R-1)+(C-1); s++) {
+				for (int s : sums) {
+				//for (int s = 0; s <= (R-1)+(C-1); s++) {
 					if (s > x+y) cur_cnt_y[{y, s}]++;
 					else cur_cnt_x[{x, s}]++;
 				}
 			}
 			for (auto [x, y] : by_owner[o]) {
-				for (int s = 0; s <= (R-1)+(C-1); s++) {
+				for (int s : sums) {
+				//for (int s = 0; s <= (R-1)+(C-1); s++) {
 					if (s > x+y) cur_cnt_y[{y, s}]--;
 					else cur_cnt_x[{x, s}]--;
 				}
