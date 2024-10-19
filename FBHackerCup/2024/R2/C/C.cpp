@@ -192,12 +192,12 @@ int main() {
 				for (int ox = x; ox < R; ox++) {
 					tot_cnt[ox - x] -= cur_cnt_x[{ox, x+y}];
 				}
-				//for (int ox = x; ox >= 0; ox--) assert((cur_cnt_x[{ox, x+y}] == 0));
+				for (int ox = x; ox >= 0; ox--) assert((cur_cnt_x[{ox, x+y}] == 0));
 
 				for (int oy = y; oy >= 0; oy--) {
 					tot_cnt[y - oy] -= cur_cnt_y[{oy, x+y}];
 				}
-				//for (int oy = y; oy < C; oy++) assert((cur_cnt_y[{oy, x+y}] == 0));
+				for (int oy = y; oy < C; oy++) assert((cur_cnt_y[{oy, x+y}] == 0));
 				// now update
 				for (int s = 0; s <= (R-1)+(C-1); s++) {
 					if (s > x+y) cur_cnt_y[{y, s}]++;
