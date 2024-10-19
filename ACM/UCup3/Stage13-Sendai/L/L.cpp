@@ -239,9 +239,7 @@ int main() {
 		}
 	}
 	std::sort(ops.begin(), ops.end());
-	for (int i = 0; i < N; i++) {
-		cerr << base_cnt[i] << '\n';
-	}
+	//for (int i = 0; i < N; i++) { cerr << base_cnt[i] << '\n'; }
 	std::vector<pt_t> cnds(N+1);
 	for (int i = 0; i < N; i++) {
 		cnds[base_cnt[i]+1] = pts[i];
@@ -281,9 +279,9 @@ int main() {
 				base_cnt[i]--;
 			} else assert(false);
 		}
-	for (int i = 0; i < N; i++) { cerr << base_cnt[i] << ' '; } cerr << '\n';
+		//for (int i = 0; i < N; i++) { cerr << base_cnt[i] << ' '; } cerr << '\n';
 		for (auto v : did_change) {
-			cerr << "candidate " << v << ' ' << cnds[v] << ' ' << get_val(cnds[v]) << '\n';
+			//cerr << "candidate " << v << ' ' << cnds[v] << ' ' << get_val(cnds[v]) << '\n';
 			best_pts[v] = std::max(best_pts[v], get_val(cnds[v]));
 		}
 	}
