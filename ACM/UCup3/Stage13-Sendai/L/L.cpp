@@ -240,7 +240,7 @@ int main() {
 	}
 	std::sort(ops.begin(), ops.end());
 	for (int i = 0; i < N; i++) {
-		//cerr << base_cnt[i] << '\n';
+		cerr << base_cnt[i] << '\n';
 	}
 	std::vector<pt_t> cnds(N+1);
 	for (int i = 0; i < N; i++) {
