@@ -16,6 +16,7 @@ int main() {
 	}
 	for (int z = 0; z < int(mtns.size()); z++) {
 		if (mtns[z].p10 > int64_t(1e18) / 10 / 10) break;
+		if (z > 0 && mtns[z].p10 > mtns[z-1].p10) cerr << z << ' ' << mtns[z].p10 << '\n';
 		for (int a = 1; a <= mtns[z].head; a++) {
 			for (int b = 1; b <= mtns[z].tail; b++) {
 				mtns.push_back({
