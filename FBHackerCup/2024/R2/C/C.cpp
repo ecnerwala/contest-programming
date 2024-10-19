@@ -186,17 +186,16 @@ int main() {
 		tensor<int, 2> cur_cnt_x({R, R+C-1});
 		tensor<int, 2> cur_cnt_y({C, R+C-1});
 		for (int o = 0; o <= R*C; o++) {
-			int w = (o == 0) ? 1 : -1;
 			// we're processing in increasing y - x
 			for (auto [x, y] : by_owner[o]) {
 				// first, query
 				for (int ox = x; ox < R; ox++) {
-					tot_cnt[ox - x] += w * cur_cnt_x[{ox, x+y}];
+					tot_cnt[ox - x] -= cur_cnt_x[{ox, x+y}];
 				}
 				for (int ox = x; ox >= 0; ox--) assert((cur_cnt_x[{ox, x+y}] == 0));
 
 				for (int oy = y; oy >= 0; oy--) {
-					tot_cnt[y - oy] += w * cur_cnt_y[{oy, x+y}];
+					tot_cnt[y - oy] -= cur_cnt_y[{oy, x+y}];
 				}
 				for (int oy = y; oy < C; oy++) assert((cur_cnt_y[{oy, x+y}] == 0));
 				// now update
@@ -212,6 +211,7 @@ int main() {
 				}
 			}
 			assert(tot_cnt[0] == 0);
+			if (o == 0) for (auto& v : tot_cnt) v = -v;
 		}
 		for (auto& v : tot_cnt) v *= 2;
 
