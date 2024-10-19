@@ -196,6 +196,7 @@ int main() {
 				}
 			}
 			std::sort(sums.begin(), sums.end());
+			for (auto s : sums) has_sums[s] = false;
 			// we're processing in increasing y - x
 			for (auto [x, y] : by_owner[o]) {
 				// first, query
