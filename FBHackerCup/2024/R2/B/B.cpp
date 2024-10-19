@@ -164,6 +164,8 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		std::array<std::string, 6> rows;
 		for (auto& s : rows) cin >> s;
+		cerr << "Case #" << case_num << '\n';
+		for (auto s : rows) cerr << s << '\n';
 		std::reverse(rows.begin(), rows.end());
 
 		tensor<bool, 7> vis({7, 7, 7, 7, 7, 7, 7});
@@ -205,6 +207,10 @@ int main() {
 						}
 					}
 					if (win) {
+						if (!can_win[move & 1]) {
+							for (int v : nxt) cerr << v << ' ';
+							cerr << '\n';
+						}
 						can_win[move & 1] = true;
 					} else {
 						q.push_back(nxt);
