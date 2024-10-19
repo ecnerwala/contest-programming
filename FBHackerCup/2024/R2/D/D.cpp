@@ -38,6 +38,7 @@ int main() {
 				}
 			}
 			for (auto& c : by_color) {
+				cerr << c.cnt << ' ' << c.lo << '-' << c.hi << '\n';
 				if (!(c.cnt == 2 || c.cnt == 3)) return false;
 				std::sort(c.knowns.begin(), c.knowns.end());
 			}
