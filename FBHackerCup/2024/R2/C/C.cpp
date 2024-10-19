@@ -189,6 +189,7 @@ int main() {
 			}
 		}
 		tot_cnt[0] = 0;
+		for (auto& v : tot_cnt) v /= 2;
 		tensor<int, 2> cur_cnt_x({R, R+C-1});
 		tensor<int, 2> cur_cnt_y({C, R+C-1});
 		for (int o = 1; o <= R*C; o++) {
