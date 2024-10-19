@@ -46,9 +46,9 @@ int main() {
 			int F = 0;
 			while (F < N && by_color[F].lo != INF) F++;
 
-			std::vector<std::array<std::pair<int, int>, 3>> dp(F+1);
+			std::vector<std::array<std::pair<int, std::pair<int, int>>, 3>> dp(F+1);
 			for (int z = 0; z <= F; z++) {
-				dp[z].fill(std::pair<int, int>{-INF, -1});
+				dp[z].fill({-INF, {-1, -1}});
 			}
 			dp[0][0] = std::pair<int, int>{INF, 0};
 			for (int idx = 0; idx < F; idx++) {
@@ -96,7 +96,7 @@ int main() {
 						assert(nhi > nmi);
 						val += nhi - nmi;
 						val = -std::max(val, 0);
-						setmax(dp[idx+1][nz], std::pair<int, int>{val, pz});
+						setmax(dp[idx+1][nz], {val, {pz, nmi}});
 					} else {
 						assert(color.hi - color.lo == num_fixed - 1);
 						for (int nz = 0; nz < int(color.unknowns.size()); nz++) {
@@ -124,11 +124,17 @@ int main() {
 								val = -std::max(val, 0);
 								assert(val == -1);
 							}
-							setmax(dp[idx+1][nz], std::pair<int, int>{val, pz});
+							setmax(dp[idx+1][nz], {val, {pz, -1}});
 						}
 					}
 				}
 			}
+
+			int z = 0;
+			while (z < 3 && dp[F][z].first == -INF) z++;
+			if (z == 3) return false;
+			// otherwise we're fine
+			for (int cur = )
 
 			for (int idx = F; idx < N; idx++) {
 				// now just sprinkle these in at the end
@@ -136,9 +142,7 @@ int main() {
 				assert(color.lo == INF);
 			}
 
-			for (const auto& color : by_color) {
-				if (!color.cnt) continue;
-			}
+			return true;
 		}();
 
 		cout << "Case #" << case_num << ": " << (has_solution ? "Yes" : "No") << '\n';
