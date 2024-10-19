@@ -179,6 +179,8 @@ int main() {
 				// now just sprinkle these in at the end
 				const auto& color = by_color[idx];
 				assert(color.lo == INF);
+				if (color.cnt == 0) continue;
+				assert(color.cnt == 2 || color.cnt == 3);
 			}
 
 			return true;
