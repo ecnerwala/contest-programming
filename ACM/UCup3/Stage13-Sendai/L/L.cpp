@@ -262,7 +262,7 @@ int main() {
 		best_pts[i] = get_val(cnds[i]);
 	}
 	std::vector<int> did_change; did_change.reserve(N * (N-1));
-	for (int it = 0; it < int(ops.size()); it++) {
+	for (int it = 0; it < int(ops.size()); ) {
 		pt_t base = ops[it].first;
 		did_change.clear();
 		for (; it < int(ops.size()) && ops[it].first == base; ++it) {
