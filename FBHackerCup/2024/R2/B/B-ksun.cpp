@@ -23,6 +23,7 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 void solve(int t){
+	cerr << "Case #" << t << '\n';
 	cout << "Case #" << t << ": ";
 	vector<string> rows(6);
 	for(int i = 0; i < 6; i++){
