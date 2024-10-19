@@ -60,8 +60,8 @@ int main() {
 				for (int pz = 0; pz < 3; pz++) {
 					if (dp[idx][pz].first == -INF) continue;
 					int prv_hi = idx == 0 ? 0 : by_color[idx-1].hi + pz;
-					//cerr << "possible " << idx << ' ' << pz << '\n';
-					//cerr << "processing " << color.lo << '-' << color.hi << ' ' << color.cnt << '\n';
+					cerr << "possible " << idx << ' ' << pz << '\n';
+					cerr << "processing " << color.lo << '-' << color.hi << ' ' << color.cnt << '\n';
 
 					int num_fixed = color.cnt - int(color.unknowns.size());
 					if (color.hi - color.lo >= color.cnt - 1) {
