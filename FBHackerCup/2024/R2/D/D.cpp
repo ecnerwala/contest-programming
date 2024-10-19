@@ -59,7 +59,7 @@ int main() {
 				assert(color.cnt == 2 || color.cnt == 3);
 				for (int pz = 0; pz < 3; pz++) {
 					if (dp[idx][pz].first == -INF) continue;
-					int prv_hi = idx ? 0 : by_color[idx-1].hi + pz;
+					int prv_hi = idx == 0 ? 0 : by_color[idx-1].hi + pz;
 					cerr << "possible " << idx << ' ' << pz << '\n';
 					cerr << "processing " << color.lo << '-' << color.hi << ' ' << color.cnt << '\n';
 
