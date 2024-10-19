@@ -228,7 +228,7 @@ int main() {
 		if (can_win[0] && can_win[1]) res = '?';
 		else if (can_win[0]) res = 'C';
 		else if (can_win[1]) res = 'F';
-		else res = '?';
+		else res = '0';
 		cout << "Case #" << case_num << ": " << res << '\n';
 	}
 
