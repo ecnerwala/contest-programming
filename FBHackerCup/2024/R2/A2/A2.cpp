@@ -29,10 +29,11 @@ int main() {
 	}
 	cerr << int(mtns.size()) << '\n';
 
-	int T; cin >> T;
+	int T; cin >> T; T = 95;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
 		int64_t A, B, M; cin >> A >> B >> M;
+		cerr << "Case #" << case_num << " " << A << ' ' << B << ' ' << M << '\n';
 		int ans = 0;
 		for (auto v : mtns) {
 			if (A <= v.v && v.v <= B && v.v % M == 0) ans++;
