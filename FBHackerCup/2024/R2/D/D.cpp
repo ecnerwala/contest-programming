@@ -104,7 +104,7 @@ int main() {
 						setmax(dp[idx+1][nz], {val, {pz, nmi}});
 					} else {
 						assert(color.hi - color.lo == num_fixed - 1);
-						for (int nz = 0; nz < int(color.unknowns.size()); nz++) {
+						for (int nz = 0; nz <= int(color.unknowns.size()); nz++) {
 							int nhi = color.hi + nz;
 							int nlo = nhi - color.cnt + 1;
 							assert(nhi - nlo + 1 == color.cnt);
