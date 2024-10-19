@@ -179,10 +179,12 @@ int main() {
 			for (; idx < en; idx++) {
 				for (int col = 0; col < 7; col++) {
 					std::array<int, 7> nxt = q[idx];
+					if (nxt[col] == 6) continue;
 					nxt[col]++;
 					auto good = [&](int dc, int dr) -> bool {
 						int c = col + dc;
 						if (!(0 <= c && c < 7)) return false;
+						cerr << c << '\n';
 						int r = nxt[col] - 1 + dr;
 						if (!(0 <= r && r < nxt[c])) return false;
 						return rows[r][c] == piece;
