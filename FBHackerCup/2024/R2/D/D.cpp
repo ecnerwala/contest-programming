@@ -60,8 +60,8 @@ int main() {
 				for (int pz = 0; pz < 3; pz++) {
 					if (dp[idx][pz].first == -INF) continue;
 					int prv_hi = idx == 0 ? 0 : by_color[idx-1].hi + pz;
-					cerr << "possible " << idx << ' ' << pz << ' ' << dp[idx][pz].first << '\n';
-					cerr << "processing " << color.lo << '-' << color.hi << ' ' << color.cnt << ' ' << color.unknowns.size() << '\n';
+					//cerr << "possible " << idx << ' ' << pz << ' ' << dp[idx][pz].first << '\n';
+					//cerr << "processing " << color.lo << '-' << color.hi << ' ' << color.cnt << ' ' << color.unknowns.size() << '\n';
 
 					int num_fixed = color.cnt - int(color.unknowns.size());
 					if (color.hi - color.lo >= color.cnt - 1) {
@@ -129,7 +129,7 @@ int main() {
 								val = -std::max(val, 0);
 								assert(val == -1);
 							}
-							cerr << "  next " << idx+1 << ' ' << nz << ' ' << val << '\n';
+							//cerr << "  next " << idx+1 << ' ' << nz << ' ' << val << '\n';
 							setmax(dp[idx+1][nz], {val, {pz, -1}});
 						}
 					}
