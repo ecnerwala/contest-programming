@@ -175,12 +175,31 @@ int main() {
 				assert(z == 0);
 			}
 
+			int cur_x = F == 0 ? 0 : by_color[F-1].hi + final_z;
+			int cur_val = std::min(dp[F][final_z].first, 0);
+
 			for (int idx = F; idx < N; idx++) {
 				// now just sprinkle these in at the end
 				const auto& color = by_color[idx];
 				assert(color.lo == INF);
 				if (color.cnt == 0) continue;
 				assert(color.cnt == 2 || color.cnt == 3);
+				assert(cur_val <= 0);
+				if (color.cnt == 3) {
+					// hit at least 1, then we set it to -1
+					cur_x += std::max(1, 1 - cur_val);
+					cur_val = -1;
+					W[color.unknowns[0]] = cur_x+0;
+					W[color.unknowns[1]] = cur_x+1;
+					W[color.unknowns[2]] = cur_x+2;
+					cur_x += 2;
+				} else if (color.cnt == 2) {
+					cur_x += std::max(1, 0 - cur_val);
+					cur_val = -1;
+					W[color.unknowns[0]] = cur_x+0;
+					W[color.unknowns[1]] = cur_x+1;
+					cur_x += 1;
+				}
 			}
 
 			return true;
