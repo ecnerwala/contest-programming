@@ -212,6 +212,7 @@ int main() {
 		pts[i].x -= s;
 		pts[i].y -= s;
 		pts[i].z -= s;
+		cerr << i << ' ' << pts[i] << '\n';
 	}
 
 	std::map<pt_t, std::vector<std::pair<int, int>>> ops;
