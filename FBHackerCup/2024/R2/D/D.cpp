@@ -156,6 +156,14 @@ int main() {
 						assert(nmi == -1);
 						int nhi = color.hi + z;
 						int nlo = nhi - color.cnt + 1;
+						assert(color.hi - color.lo + 1 == int(color.knowns.size()));
+						int tmp = 0;
+						for (int a = nlo; a <= nhi; a++) {
+							if (a == color.lo || a == color.hi) {
+								continue;
+							}
+							W[color.unknowns[tmp++]] = a;
+						}
 					}
 					z = dp[idx+1][z].second.first;
 				}
