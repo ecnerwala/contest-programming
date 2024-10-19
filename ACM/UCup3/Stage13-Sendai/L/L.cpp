@@ -245,7 +245,7 @@ int main() {
 		cnds[base_cnt[i]+1] = pts[i];
 	}
 	for (int i = 0; i < N; i++) {
-		pts[i+1] += pts[i];
+		cnds[i+1] += cnds[i];
 	}
 
 	auto get_val = [](pt_t p) {
