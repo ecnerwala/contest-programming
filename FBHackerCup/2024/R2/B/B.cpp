@@ -176,7 +176,7 @@ int main() {
 
 		std::array<bool, 2> can_win{false, false};
 		for (int move = 0, idx = 0; move < 42; move++) {
-			int piece = "CF"[move & 1];
+			char piece = "CF"[move & 1];
 			int en = int(q.size());
 			for (; idx < en; idx++) {
 				for (int col = 0; col < 7; col++) {
@@ -212,6 +212,7 @@ int main() {
 					}
 					if (win) {
 						if (!can_win[move & 1]) {
+							cerr << "Win for " << piece << '\n';
 							for (int v : nxt) cerr << v << ' ';
 							cerr << '\n';
 							cerr << ' ' << wdc << ' ' << wdr << ' ' << wa << ' ' << wb << '\n';
