@@ -207,6 +207,7 @@ int main() {
 
 		cout << "Case #" << case_num << ": " << (has_solution ? "Yes" : "No") << '\n';
 		if (has_solution) {
+			assert(int(std::set<int>(W.begin(), W.end()).size()) == N);
 			for (int i = 0; i < N; i++) {
 				assert(W[i] != -1);
 				cout << W[i] << " \n"[i+1==N];
