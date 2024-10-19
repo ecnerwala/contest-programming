@@ -183,11 +183,11 @@ int main() {
 			}
 		}
 		std::vector<int64_t> tot_cnt(std::max(R, C));
+		tensor<int, 2> cur_cnt_x({R, R+C-1});
+		tensor<int, 2> cur_cnt_y({C, R+C-1});
 		for (int o = 0; o <= R*C; o++) {
 			int w = (o == 0) ? 1 : -1;
 			// we're processing in increasing y - x
-			tensor<int, 2> cur_cnt_x({R, R+C-1});
-			tensor<int, 2> cur_cnt_y({C, R+C-1});
 			for (auto [x, y] : by_owner[o]) {
 				// first, query
 				for (int ox = x; ox < R; ox++) {
@@ -200,6 +200,12 @@ int main() {
 				for (int s = 0; s <= (R-1)+(C-1); s++) {
 					if (s > x+y) cur_cnt_y[{y, s}]++;
 					else cur_cnt_x[{x, s}]++;
+				}
+			}
+			for (auto [x, y] : by_owner[o]) {
+				for (int s = 0; s <= (R-1)+(C-1); s++) {
+					if (s > x+y) cur_cnt_y[{y, s}]--;
+					else cur_cnt_x[{x, s}]--;
 				}
 			}
 			assert(tot_cnt[0] == 0);
