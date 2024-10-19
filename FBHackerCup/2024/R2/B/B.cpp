@@ -183,7 +183,7 @@ int main() {
 					auto good = [&](int dc, int dr) -> bool {
 						int c = col + dc;
 						if (!(0 <= c && c < 7)) return false;
-						int r = nxt[col] + dr;
+						int r = nxt[col] - 1 + dr;
 						if (!(0 <= r && r < nxt[c])) return false;
 						return rows[r][c] == piece;
 					};
