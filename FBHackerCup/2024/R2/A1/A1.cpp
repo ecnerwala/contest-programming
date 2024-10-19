@@ -5,7 +5,6 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::vector<int64_t> peaks;
-	peaks.push_back(0);
 	for (int m = 1; m <= 9; m++) {
 		for (int k = 0; k < m; k++) {
 			int64_t v = 0;
