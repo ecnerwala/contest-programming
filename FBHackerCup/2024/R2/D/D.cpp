@@ -164,6 +164,7 @@ int main() {
 							}
 							W[color.unknowns[tmp++]] = a;
 						}
+						assert(tmp == int(color.unknowns.size()));
 					}
 					z = dp[idx+1][z].second.first;
 				}
