@@ -205,6 +205,7 @@ int main() {
 			return true;
 		}();
 
+		cerr << "Case #" << case_num << ": " << (has_solution ? "Yes" : "No") << '\n';
 		cout << "Case #" << case_num << ": " << (has_solution ? "Yes" : "No") << '\n';
 		if (has_solution) {
 			assert(int(std::set<int>(W.begin(), W.end()).size()) == N);
