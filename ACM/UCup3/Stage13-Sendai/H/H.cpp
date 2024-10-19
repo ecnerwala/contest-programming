@@ -10,7 +10,7 @@ int main() {
 	std::vector<std::pair<int, int>> best(N);
 	for (int i = N-1; i >= 0; i--) {
 		best[i] = {A[i], -i};
-		best[i] = std::max(best[i], best[i+K]);
+		if (i+K < N) best[i] = std::max(best[i], best[i+K]);
 	}
 	std::vector<int> res;
 	for (int i = 0; i < N; i++) {
