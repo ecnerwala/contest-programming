@@ -203,7 +203,7 @@ int main() {
 						while (good(dc * a, dr * a)) a++;
 						int b = 0;
 						while (good(-dc * b, -dr * b)) b++;
-						if (a + b + 1 >= 4) {
+						if (a + b - 1 >= 4) {
 							win = true;
 							wdc = dc, wdr = dr;
 							wa = a, wb = b;
