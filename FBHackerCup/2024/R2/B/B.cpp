@@ -182,15 +182,16 @@ int main() {
 				for (int col = 0; col < 7; col++) {
 					std::array<int, 7> nxt = q[idx];
 					if (nxt[col] == 6) continue;
+					if (rows[nxt[col]][col] != piece) continue;
 					nxt[col]++;
 					auto good = [&](int dc, int dr) -> bool {
 						int c = col + dc;
-						if (!(0 <= c && c < 7)) return false;
 						int r = nxt[col] - 1 + dr;
+						if (!(0 <= c && c < 7)) return false;
 						if (!(0 <= r && r < nxt[c])) return false;
 						return rows[r][c] == piece;
 					};
-					if (!good(0, 0)) continue;
+					assert(good(0, 0));
 					if (vis[nxt]) continue;
 					vis[nxt] = true;
 					// now, check if this is a win
