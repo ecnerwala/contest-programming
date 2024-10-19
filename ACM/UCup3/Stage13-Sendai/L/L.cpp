@@ -212,7 +212,7 @@ int main() {
 		pts[i].x -= s;
 		pts[i].y -= s;
 		pts[i].z -= s;
-		//cerr << i << ' ' << pts[i] << '\n';
+		cerr << i << ' ' << pts[i] << '\n';
 	}
 
 	std::vector<std::pair<pt_t, std::pair<int, int>>> ops; ops.reserve(N * (N-1));
@@ -281,6 +281,7 @@ int main() {
 				base_cnt[i]--;
 			} else assert(false);
 		}
+	for (int i = 0; i < N; i++) { cerr << base_cnt[i] << ' '; } cerr << '\n';
 		for (auto v : did_change) {
 			cerr << "candidate " << v << ' ' << cnds[v] << ' ' << get_val(cnds[v]) << '\n';
 			best_pts[v] = std::max(best_pts[v], get_val(cnds[v]));
