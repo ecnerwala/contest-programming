@@ -1,4 +1,3 @@
-#define NDEBUG
 #include<bits/stdc++.h>
 
 template <typename T, int NDIMS> struct tensor_view {
