@@ -277,6 +277,7 @@ int main() {
 			} else assert(false);
 		}
 		for (auto v : did_change) {
+			cerr << "candidate " << v << ' ' << best_pts[v] << ' ' << get_val(cnds[v]) << '\n';
 			best_pts[v] = std::max(best_pts[v], get_val(cnds[v]));
 		}
 	}
