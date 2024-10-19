@@ -163,12 +163,12 @@ int main() {
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
-		int R, C; cin >> R >> C;
+		int R, C, K; cin >> R >> C >> K;
 		cerr << "Case #" << case_num << " " << R << ' ' << C << '\n';
 		tensor<int, 2> owners({R, C});
 		for (int i = 0; i < R; i++) {
 			for (int j = 0; j < C; j++) {
-				int v; cin >> v; owners[{i, j}] = v;
+				cin >> owners[{i, j}];
 			}
 		}
 		std::vector<std::vector<std::array<int, 2>>> by_owner(R*C+1);
