@@ -11,6 +11,7 @@ int main() {
 	}
 	for (int z = 0; z < int(mtns.size()); z++) {
 		if (int(mtns[z].size()) >= 17) break;
+		if (z % 1000 == 0) cerr << z << '\n';
 		for (int a = 1; a <= (mtns[z].front() - (int(mtns.size()) == 1)); a++) {
 			for (int b = 1; b <= (mtns[z].back() - int(mtns.size() == 1)); b++) {
 				std::vector<int> nxt = mtns[z];
