@@ -192,11 +192,11 @@ int main() {
 				// first, query
 				for (int ox = 0; ox < R; ox++) {
 					assert((ox >= x || cur_cnt_x[{ox, x+y}] == 0));
-					tot_cnt[ox - x] += cur_cnt_x[{ox, x+y}];
+					tot_cnt[ox - x] += w * cur_cnt_x[{ox, x+y}];
 				}
 				for (int oy = 0; oy < C; oy++) {
 					assert((y >= oy || cur_cnt_y[{oy, x+y}] == 0));
-					tot_cnt[y - oy] += cur_cnt_y[{oy, x+y}];
+					tot_cnt[y - oy] += w * cur_cnt_y[{oy, x+y}];
 				}
 				// now update
 				for (int s = 0; s <= (R-1)+(C-1); s++) {
