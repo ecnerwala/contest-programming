@@ -212,7 +212,7 @@ int main() {
 		pts[i].x -= s;
 		pts[i].y -= s;
 		pts[i].z -= s;
-		cerr << i << ' ' << pts[i] << '\n';
+		//cerr << i << ' ' << pts[i] << '\n';
 	}
 
 	std::vector<std::pair<pt_t, std::pair<int, int>>> ops; ops.reserve(N * (N-1));
