@@ -50,7 +50,7 @@ int main() {
 			for (int z = 0; z <= F; z++) {
 				dp[z].fill({-INF, {-1, -1}});
 			}
-			dp[0][0] = std::pair<int, int>{INF, 0};
+			dp[0][0] = {INF, {0, -1}};
 			for (int idx = 0; idx < F; idx++) {
 				const auto& color = by_color[idx];
 				assert(color.lo != INF);
@@ -96,6 +96,7 @@ int main() {
 						assert(nhi > nmi);
 						val += nhi - nmi;
 						val = -std::max(val, 0);
+						assert(val <= 0);
 						setmax(dp[idx+1][nz], {val, {pz, nmi}});
 					} else {
 						assert(color.hi - color.lo == num_fixed - 1);
@@ -130,11 +131,36 @@ int main() {
 				}
 			}
 
-			int z = 0;
-			while (z < 3 && dp[F][z].first == -INF) z++;
-			if (z == 3) return false;
+			int final_z = 0;
+			while (final_z < 3 && dp[F][final_z].first == -INF) final_z++;
+			if (final_z == 3) return false;
+
 			// otherwise we're fine
-			for (int cur = )
+			{
+				int z = final_z;
+				for (int idx = F-1; idx >= 0; idx--) {
+					int nmi = dp[idx+1][z].second.second;
+					const auto& color = by_color[idx];
+					if (color.hi - color.lo >= color.cnt - 1) {
+						assert(color.lo <= nmi && nmi < color.hi);
+						if (color.cnt == 3) assert(color.lo < nmi);
+						else assert(color.lo == nmi);
+
+						assert(int(color.unknowns.size()) <= 1);
+						if (color.unknowns.size()) {
+							assert(color.cnt == 3);
+							assert(color.unknowns.size() == 1);
+							W[color.unknowns[0]] = nmi;
+						}
+					} else {
+						assert(nmi == -1);
+						int nhi = color.hi + z;
+						int nlo = nhi - color.cnt + 1;
+					}
+					z = dp[idx+1][z].second.first;
+				}
+				assert(z == 0);
+			}
 
 			for (int idx = F; idx < N; idx++) {
 				// now just sprinkle these in at the end
@@ -148,7 +174,8 @@ int main() {
 		cout << "Case #" << case_num << ": " << (has_solution ? "Yes" : "No") << '\n';
 		if (has_solution) {
 			for (int i = 0; i < N; i++) {
-				cout << W[i]+1 << " \n"[i+1==N];
+				assert(W[i] != -1);
+				cout << W[i] << " \n"[i+1==N];
 			}
 		}
 	}
