@@ -31,7 +31,13 @@ int main() {
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
-		cout << "Case #" << case_num << ": ";
+		int64_t A, B, M; cin >> A >> B >> M;
+		int ans = 0;
+		for (auto v : mtns) {
+			if (A <= v.v && v.v <= B && v.v % M == 0) ans++;
+		}
+
+		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
 
 	return 0;
