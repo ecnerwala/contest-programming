@@ -213,6 +213,25 @@ int main() {
 				assert(1 <= W[i] && W[i] <= 10000);
 				cout << W[i] << " \n"[i+1==N];
 			}
+			std::vector<int> w_sorted = W;
+			std::sort(w_sorted.begin(), w_sorted.end());
+			std::array<int, 2> dp{INF, 0};
+			for (int i = 1; i < N; i++) {
+				assert(w_sorted[i] > w_sorted[i-1]);
+				dp[1] += w_sorted[i] - w_sorted[i-1];
+				dp = {dp[1], std::min(dp[0], dp[1])};
+			}
+			int best = dp[0];
+			std::vector<std::vector<int>> by_color(N);
+			for (int i = 0; i < N; i++) {
+				by_color[C[i]].push_back(W[i]);
+			}
+			int actual = 0;
+			for (const auto& c : by_color) {
+				if (c.empty()) continue;
+				actual += (*std::max_element(c.begin(), c.end())) - (*std::min_element(c.begin(), c.end()));
+			}
+			assert(best == actual);
 		}
 	}
 
