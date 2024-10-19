@@ -15,8 +15,8 @@ template <typename T> struct Point3D {
 	friend std::istream& operator >> (std::istream& i, P& p) { return i >> p.x >> p.y >> p.z; }
 	friend std::ostream& operator << (std::ostream& o, const P& p) { return o << "(" << p.x << "," << p.y << "," << p.z << ")"; }
 
-	friend bool operator == (const P& a, const P& b) { return a.x == b.x && a.y == b.y && a.z == b.z; }
-	friend bool operator != (const P& a, const P& b) { return a.x != b.x || a.y != b.y || a.z != b.z; }
+	//friend bool operator == (const P& a, const P& b) { return a.x == b.x && a.y == b.y && a.z == b.z; }
+	//friend bool operator != (const P& a, const P& b) { return a.x != b.x || a.y != b.y || a.z != b.z; }
 
 	P& operator += (const P& o) { x += o.x, y += o.y, z += o.z; return *this; }
 	P& operator -= (const P& o) { x -= o.x, y -= o.y, z -= o.z; return *this; }
@@ -52,8 +52,8 @@ template <typename T> struct Point3D {
 	friend bool lexLess(const P& a, const P& b) { return tie(a.x, a.y, a.z) < tie(b.x, b.y, b.z); }
 
 	friend bool parallelSame(const P& a, const P& b) {
-		assert(a != P());
-		assert(b != P());
+		//assert(a != P());
+		//assert(b != P());
 		return lexLess(a, P()) == lexLess(b, P());
 	}
 	friend inline T my_cross(const P& a, const P& b) {
@@ -76,6 +76,9 @@ template <typename T> struct Point3D {
 		if (ca != cb) return ca > cb;
 		return !is_ccw_eq(b, a);
 	}
+	friend bool operator == (const P& a, const P& b) {
+		return my_cross(a, b) == 0 && parallelSame(a, b);
+	}
 };
 
 int main() {
@@ -94,16 +97,34 @@ int main() {
 		pts[i].z -= s;
 	}
 
+	std::map<pt_t, std::vector<std::pair<int, int>>> ops;
+	std::vector<int> base_cnt(N);
 	for (int i = 0; i < N; i++) {
-		std::vector<std::pair<pt_t, int>> ops;
 		for (int j = 0; j < N; j++) {
 			if (i == j) continue;
-			if (pts[i] == pts[j]) {
-				if (i < j) {
+			{
+				pt_t d_st = pts[i] - pts[j];
+				pt_t d_en = -d_st;
+				if (d_st == d_en) {
+					assert(d_st.x == 0 && d_st.y == 0 && d_st.z == 0);
+					if (i < j) base_cnt[i]++;
+					continue;
 				}
-			} else {
+				ops[d_st].push_back({i, +1});
+				ops[d_en].push_back({i, -1});
+				if (d_st < d_en) {
+					// do nothing
+				} else {
+					base_cnt[i]++;
+				}
 			}
 		}
+	}
+	for (int i = 0; i < N; i++) {
+		cerr << base_cnt[i] << '\n';
+	}
+
+	for (const auto& [_, changes] : ops) {
 	}
 
 	return 0;
