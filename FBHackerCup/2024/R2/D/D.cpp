@@ -66,9 +66,37 @@ int main() {
 						assert(color.unknowns.size() <= 1);
 						int nlo = color.lo;
 						int nhi = color.hi;
-						int val = dp[idx][pz].first;
 						int nz = 0;
+
+						int val = dp[idx][pz].first;
 						if (nlo <= prv_hi) continue;
+						val += nlo - prv_hi;
+						// 0 -> 1
+						if (val < 0) continue;
+						val = -val;
+						int nmi;
+						// now, either we pick the midpoint
+						if (color.cnt == 3) {
+							if (num_fixed == 3) {
+								nmi = color.knowns[1];
+							} else {
+								assert(val <= 0);
+								if (val == 0) continue;
+								assert(val < 0);
+								nmi = std::min(nlo + (-val), nhi - 1);
+							}
+							assert(nmi > nlo);
+							val += nmi - nlo;
+							if (val > 0) continue;
+							assert(val <= 0);
+							val = 0;
+						} else {
+							nmi = nlo;
+						}
+						assert(nhi > nmi);
+						val += nhi - nmi;
+						val = -std::max(val, 0);
+						setmax(dp[idx+1][nz], std::pair<int, int>{val, pz});
 					} else {
 						assert(color.hi - color.lo == num_fixed - 1);
 						for (int nz = 0; nz < int(color.unknowns.size()); nz++) {
