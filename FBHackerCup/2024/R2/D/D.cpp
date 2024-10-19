@@ -130,6 +130,7 @@ int main() {
 								val = -std::max(val, 0);
 								assert(val == -1);
 							}
+							cerr << "  next " << idx+1 << ' ' << nz << ' ' << val << '\n';
 							setmax(dp[idx+1][nz], {val, {pz, -1}});
 						}
 					}
