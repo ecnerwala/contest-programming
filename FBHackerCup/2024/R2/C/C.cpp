@@ -217,8 +217,8 @@ int main() {
 			for (auto [x, y] : by_owner[o]) {
 				for (int s : sums) {
 				//for (int s = 0; s <= (R-1)+(C-1); s++) {
-					if (s > x+y) cur_cnt_y[{y, s}]--;
-					else cur_cnt_x[{x, s}]--;
+					if (s > x+y) cur_cnt_y[{y, s}] = 0;
+					else cur_cnt_x[{x, s}] = 0;
 				}
 			}
 			assert(tot_cnt[0] == 0);
