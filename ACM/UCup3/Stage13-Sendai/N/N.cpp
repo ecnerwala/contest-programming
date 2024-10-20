@@ -285,15 +285,16 @@ int main() {
 	tensor<num, 3> dp({N+1, N+1, 2});
 	dp[{0, 0, 0}] = 1;
 	for (int i = 0; i < N; i++) {
+		tensor<num, 3> ndp({N+1, N+1, 2});
 		for (int st = 0; st <= i; st++) {
 			for (int cur = 0; cur <= i; cur++) {
 				// take a 0 step
-				{
+				if (S[i] == '0' || S[i] == '?') {
 					num w = dp[{st, cur, 0}] + dp[{st, cur, 1}];
 					dp[{st, cur + 1, 0}] += w;
 				}
 				// take a 1 step
-				{
+				if (S[i] == '1' || S[i] == '?') {
 					num w = dp[{st, cur, 0}];
 					if (cur == 2) {
 						dp[{st + 1, 0, 1}] += w;
@@ -303,6 +304,7 @@ int main() {
 				}
 			}
 		}
+		dp = std::move(ndp);
 	}
 	num ans = 0;
 	for (int v = 0; v <= N; v++) {
