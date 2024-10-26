@@ -233,12 +233,11 @@ int main() {
 					pts[x].w += pts[y].w;
 					pts[x].v += pts[y].w;
 
-					vel[x] = (pts[x].v < 0) - (pts[x].v > 0);
-
 					nxt[x] = nxt[y];
 					if (nxt[x] != -1) prv[nxt[x]] = x;
 					prv[y] = nxt[y] = y;
 
+					vel[x] = (pts[x].v < 0) - (pts[x].v > 0);
 					pts[x].x = px - cur_t * vel[x];
 
 					check_evt(x, nxt[x]);
