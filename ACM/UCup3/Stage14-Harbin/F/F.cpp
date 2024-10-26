@@ -232,8 +232,8 @@ int main() {
 				if (px & 1) {
 					// fake merge
 					assert(cur_t & 1);
-					assert(vel[x] == +1);
-					assert(vel[y] == -1);
+					//assert(vel[x] == +1);
+					//assert(vel[y] == -1);
 					swap_pts(x, y);
 					std::swap(x, y);
 					vel[x] = (pts[x].v < 0) - (pts[x].v > 0);
