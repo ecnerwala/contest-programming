@@ -221,6 +221,8 @@ int main() {
 						offset[x] = ((cur_t - 1) & 2) ? -1 : +1;
 						offset[y] = ((cur_t - 1) & 2) ? +1 : -1;
 					}
+					pts[x].x = px - cur_t * vel[x];
+					pts[y].x = py - cur_t * vel[y];
 					check_evt(prv[x], x);
 					check_evt(x, y);
 					check_evt(y, nxt[y]);
@@ -236,6 +238,8 @@ int main() {
 					nxt[x] = nxt[y];
 					if (nxt[x] != -1) prv[nxt[x]] = x;
 					prv[y] = nxt[y] = y;
+
+					pts[x].x = px - cur_t * vel[x];
 
 					check_evt(x, nxt[x]);
 					check_evt(prv[x], x);
