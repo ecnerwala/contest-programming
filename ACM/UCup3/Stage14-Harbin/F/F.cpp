@@ -66,6 +66,7 @@ int main() {
 			assert(v != 2);
 			delta_p --;
 		}
+		if (delta_p == 0 && (pts[x].x & 1) && (pts[y].x & 1)) return std::nullopt;
 		if (delta_p == 0) return cur_t;
 		if (v <= 0) return std::nullopt;
 		assert(v == 1 || v == 2);
