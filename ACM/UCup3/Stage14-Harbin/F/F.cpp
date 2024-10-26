@@ -226,6 +226,8 @@ int main() {
 						// at cur_t + 1, they're at px - 1 and py + 1
 						pts[x].x = (px - 1) - (cur_t + 1) * vel[x];
 						pts[y].x = (py + 1) - (cur_t + 1) * vel[y];
+						assert(!(pts[x].x & 1));
+						assert(!(pts[y].x & 1));
 					}
 					check_evt(prv[x], x);
 					check_evt(x, y);
