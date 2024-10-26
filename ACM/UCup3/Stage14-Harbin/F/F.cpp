@@ -77,6 +77,23 @@ int main() {
 		if (t) evts.push({*t, x, y});
 	};
 
+	auto dump_lst = [&]() -> void {
+		cerr << "t = " << cur_t << '\n';
+		int a = get_par(0);
+		while (prv[a] != -1) a = prv[a];
+		for (; a != -1; a = nxt[a]) {
+			cerr << " pt " << a << ' ';
+			cerr << "x=" << pts[a].x + cur_t * vel[a] << ' ';
+			cerr << "vel=" << vel[a] << ' ';
+			cerr << "x_0=" << pts[a].x << ' ';
+			cerr << "offset=" << offset[a] << ' ';
+			cerr << "v=" << pts[a].v << ' ';
+			cerr << "w=" << pts[a].w << ' ';
+			cerr << '\n';
+		}
+		cerr << '\n';
+	};
+
 	{
 		int lst = -1;
 		int64_t cur_pref = 0;
