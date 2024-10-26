@@ -203,8 +203,8 @@ int main() {
 				} else assert(false);
 				// that's all we're doing, we just process the new event
 			} else if (py - px == 0) {
-				assert(!(px & 1));
-				assert(!(py & 1));
+				assert(!(pts[x].x & 1));
+				assert(!(pts[y].x & 1));
 				// merge x and y
 				if (px & 1) {
 					// fake merge
