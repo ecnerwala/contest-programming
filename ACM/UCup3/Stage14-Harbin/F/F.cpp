@@ -225,6 +225,7 @@ int main() {
 					check_evt(x, y);
 					check_evt(y, nxt[y]);
 				} else {
+					assert(!(cur_t & 1));
 					// real merge
 					merge_into(y, x);
 					pts[x].w += pts[y].w;
