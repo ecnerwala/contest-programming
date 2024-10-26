@@ -221,9 +221,12 @@ int main() {
 						// x was at +1 at cur_t - 1
 						offset[x] = ((cur_t - 1) & 2) ? -1 : +1;
 						offset[y] = ((cur_t - 1) & 2) ? +1 : -1;
+						pts[x].x = pts[y].x = px;
+					} else {
+						// at cur_t + 1, they're at px - 1 and py + 1
+						pts[x].x = (px - 1) - (cur_t + 1) * vel[x];
+						pts[y].x = (py + 1) - (cur_t + 1) * vel[y];
 					}
-					pts[x].x = px - cur_t * vel[x];
-					pts[y].x = py - cur_t * vel[y];
 					check_evt(prv[x], x);
 					check_evt(x, y);
 					check_evt(y, nxt[y]);
