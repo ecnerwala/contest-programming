@@ -62,12 +62,14 @@ int main() {
 		int64_t delta_p = py - px;
 		assert(delta_p >= 0);
 		int v = (vel[x] - vel[y]);
-		if (delta_p & 1) {
-			assert(v != 2);
-			delta_p --;
+		if ((pts[x].x & 1) && (pts[y].x & 1) && px == py) {
+			// these guys are already paired
+			return std::nullopt;
 		}
-		if (delta_p == 0 && (pts[x].x & 1) && (pts[y].x & 1)) return std::nullopt;
 		if (delta_p == 0) return cur_t;
+		if (pts[x].x & 1) delta_p--;
+		if (pts[y].x & 1) delta_p--;
+		if (delta_p == 0) return cur_t + (cur_t & 1);
 		if (v <= 0) return std::nullopt;
 		assert(v == 1 || v == 2);
 		return cur_t + delta_p / v;
