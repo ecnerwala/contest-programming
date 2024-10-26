@@ -196,7 +196,7 @@ int main() {
 		queries[q] = {t, i, q};
 	}
 	std::sort(queries.begin(), queries.end(), [&](auto a, auto b) { return a.t < b.t; });
-	dump_lst();
+	//dump_lst();
 	for (auto query : queries) {
 		assert(query.t >= cur_t);
 		while (!evts.empty() && evts.top().t <= query.t) {
@@ -290,7 +290,7 @@ int main() {
 					check_evt(prv[x], x);
 				}
 			} else assert(false);
-			dump_lst();
+			//dump_lst();
 		}
 		assert(query.t >= cur_t);
 		cur_t = query.t;
