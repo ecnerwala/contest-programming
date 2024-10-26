@@ -232,28 +232,46 @@ int main() {
 				if (px & 1) {
 					// fake merge
 					assert(cur_t & 1);
-					//assert(vel[x] == +1);
-					//assert(vel[y] == -1);
-					swap_pts(x, y);
-					std::swap(x, y);
-					vel[x] = (pts[x].v < 0) - (pts[x].v > 0);
-					vel[y] = (pts[y].v < 0) - (pts[y].v > 0);
 					if (vel[x] == +1 && vel[y] == -1) {
-						vel[x] = vel[y] = 0;
-						// x was at +1 at cur_t - 1
-						offset[x] = ((cur_t - 1) & 2) ? -1 : +1;
-						offset[y] = ((cur_t - 1) & 2) ? +1 : -1;
-						pts[x].x = pts[y].x = px;
+						swap_pts(x, y);
+						std::swap(x, y);
+						vel[x] = (pts[x].v < 0) - (pts[x].v > 0);
+						vel[y] = (pts[y].v < 0) - (pts[y].v > 0);
+						if (vel[x] == +1 && vel[y] == -1) {
+							vel[x] = vel[y] = 0;
+							// x was at +1 at cur_t - 1
+							offset[x] = ((cur_t - 1) & 2) ? -1 : +1;
+							offset[y] = ((cur_t - 1) & 2) ? +1 : -1;
+							pts[x].x = pts[y].x = px;
+						} else {
+							// at cur_t + 1, they're at px - 1 and py + 1
+							pts[x].x = (px - 1) - (cur_t + 1) * vel[x];
+							pts[y].x = (py + 1) - (cur_t + 1) * vel[y];
+							assert(!(pts[x].x & 1));
+							assert(!(pts[y].x & 1));
+						}
+						check_evt(prv[x], x);
+						check_evt(x, y);
+						check_evt(y, nxt[y]);
 					} else {
-						// at cur_t + 1, they're at px - 1 and py + 1
-						pts[x].x = (px - 1) - (cur_t + 1) * vel[x];
-						pts[y].x = (py + 1) - (cur_t + 1) * vel[y];
-						assert(!(pts[x].x & 1));
-						assert(!(pts[y].x & 1));
+						// IS THIS TRUE
+						assert(vel[x] != 0 && vel[y] != 0);
+						assert(vel[x] == vel[y]);
+						// real merge
+						merge_into(y, x);
+						pts[x].w += pts[y].w;
+						pts[x].v += pts[y].w;
+
+						nxt[x] = nxt[y];
+						if (nxt[x] != -1) prv[nxt[x]] = x;
+						prv[y] = nxt[y] = y;
+
+						vel[x] = (pts[x].v < 0) - (pts[x].v > 0);
+						pts[x].x = px - cur_t * vel[x];
+
+						check_evt(x, nxt[x]);
+						check_evt(prv[x], x);
 					}
-					check_evt(prv[x], x);
-					check_evt(x, y);
-					check_evt(y, nxt[y]);
 				} else {
 					assert(!(cur_t & 1));
 					// real merge
