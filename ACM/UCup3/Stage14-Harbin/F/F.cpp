@@ -194,10 +194,12 @@ int main() {
 		queries[q] = {t, i, q};
 	}
 	std::sort(queries.begin(), queries.end(), [&](auto a, auto b) { return a.t < b.t; });
+	dump_lst();
 	for (auto query : queries) {
 		assert(query.t >= cur_t);
 		while (!evts.empty() && evts.top().t <= query.t) {
 			auto [nxt_t, x, y] = evts.top(); evts.pop();
+			cerr << "checking evt " << nxt_t << ' ' << x << '-' << y << '\n';
 			assert(nxt_t >= cur_t);
 			cur_t = nxt_t;
 
@@ -208,6 +210,7 @@ int main() {
 			if (!(nxt[x] == y && prv[y] == x)) continue;
 			if (get_evt_time(x, y) != cur_t) continue;
 
+			cerr << "performing evt " << nxt_t << ' ' << x << '-' << y << '\n';
 			int64_t px = pts[x].x + cur_t * vel[x];
 			int64_t py = pts[y].x + cur_t * vel[y];
 			assert(py - px == 1 || py - px == 0);
@@ -267,6 +270,7 @@ int main() {
 					check_evt(prv[x], x);
 				}
 			} else assert(false);
+			dump_lst();
 		}
 		assert(query.t >= cur_t);
 		cur_t = query.t;
