@@ -48,6 +48,9 @@ int main() {
 		bool operator < (const evt_t& o) const {
 			return t < o.t;
 		}
+		bool operator > (const evt_t& o) const {
+			return t > o.t;
+		}
 	};
 	min_pq<evt_t> evts;
 	auto get_evt_time = [&](int x, int y) -> std::optional<int> {
