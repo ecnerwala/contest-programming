@@ -12,7 +12,7 @@ int main() {
 			if (N <= 3) {
 				cout << -1 << '\n';
 			} else {
-				cout << std::string(N-5, '6') << "36366" << '\n';
+				cout << std::string(N-5, '3') << "36366" << '\n';
 			}
 		} else {
 			cout << std::string(N - 2, '3') << "66" << '\n';
