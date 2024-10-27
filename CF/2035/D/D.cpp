@@ -132,29 +132,22 @@ int main() {
 		using num = modnum<int(1e9)+7>;
 		num ans = 0;
 		std::vector<std::pair<int, int>> stk;
-		stk.reserve(N+1);
-		stk.push_back({1, 0});
+		stk.reserve(N);
 		for (int i = 0; i < N; i++) {
-			int64_t a; cin >> a;
-			while (a >= stk.back().first) {
+			int a; cin >> a;
+			int tot_extra = __builtin_ctz(a);
+			a >>= tot_extra;
+			while (!stk.empty() && (tot_extra >= 30 || (a << tot_extra) >= stk.back().first)) {
 				auto [v, extra] = stk.back(); stk.pop_back();
 				if (stk.empty()) {
 					ans -= num(v) * (pow(num(2), extra) - 1);
-					int lg = __builtin_ctzll(a);
-					ans += num(a) * pow(num(2), extra);
-					stk.push_back({int(a >> lg), lg + extra});
-					goto done;
 				} else {
 					ans -= num((v << extra) - v);
-					a <<= extra;
 				}
+				tot_extra += extra;
 			}
-			{
-				int lg = __builtin_ctzll(a);
-				ans += num(a);
-				stk.push_back({int(a >> lg), lg});
-			}
-done:
+			ans += num(a) * pow(num(2), tot_extra);
+			stk.push_back({a, tot_extra});
 			cout << ans << " \n"[i+1==N];
 		}
 	}
