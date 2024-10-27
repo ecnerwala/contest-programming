@@ -252,6 +252,7 @@ int main() {
 		for (int x = 0; x < N; x++) {
 			if (cnd[x] != -1) {
 				int k = cnd[x];
+				if (k == 0 && x > 0) continue;
 				cerr << "doing " << x << ' ' << k << '\n';
 				int cur_lcp;
 				{
