@@ -344,6 +344,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 							cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
 						}
 						cerr << "  insert " << node << ' ' << k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
+						cerr << seq.decr.back().first << '\n';
 						assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
 						seq.tot_ways += cur_fn;
 						seq.decr.push_back({k, cur_fn});
