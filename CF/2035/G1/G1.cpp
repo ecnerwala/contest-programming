@@ -1,4 +1,208 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+
+struct splitmix64_hash {
+	static uint64_t splitmix64(uint64_t x) {
+		// http://xorshift.di.unimi.it/splitmix64.c
+		x += 0x9e3779b97f4a7c15;
+		x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+		x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+		return x ^ (x >> 31);
+	}
+
+	size_t operator()(uint64_t x) const {
+		static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
+		return splitmix64(x + FIXED_RANDOM);
+	}
+};
+
+template <typename K, typename V, typename Hash = splitmix64_hash>
+using hash_map = __gnu_pbds::gp_hash_table<K, V, Hash>;
+
+template <typename K, typename Hash = splitmix64_hash>
+using hash_set = hash_map<K, __gnu_pbds::null_type, Hash>;
+
+template <typename T> T mod_inv_in_range(T a, T m) {
+	// assert(0 <= a && a < m);
+	T x = a, y = m;
+	// coeff of a in x and y
+	T vx = 1, vy = 0;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		vy -= k * vx;
+		std::swap(x, y);
+		std::swap(vx, vy);
+	}
+	assert(y == 1);
+	return vy < 0 ? m + vy : vy;
+}
+
+template <typename T> struct extended_gcd_result {
+	T gcd;
+	T coeff_a, coeff_b;
+};
+template <typename T> extended_gcd_result<T> extended_gcd(T a, T b) {
+	T x = a, y = b;
+	// coeff of a and b in x and y
+	T ax = 1, ay = 0;
+	T bx = 0, by = 1;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		ay -= k * ax;
+		by -= k * bx;
+		std::swap(x, y);
+		std::swap(ax, ay);
+		std::swap(bx, by);
+	}
+	return {y, ay, by};
+}
+
+template <typename T> T mod_inv(T a, T m) {
+	a %= m;
+	a = a < 0 ? a + m : a;
+	return mod_inv_in_range(a, m);
+}
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+
+private:
+	int v;
+
+public:
+
+	modnum() : v(0) {}
+	modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	explicit operator int() const { return v; }
+	friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { int64_t v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
+	friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
+
+	modnum inv() const {
+		modnum res;
+		res.v = mod_inv_in_range(v, MOD);
+		return res;
+	}
+	friend modnum inv(const modnum& m) { return m.inv(); }
+	modnum neg() const {
+		modnum res;
+		res.v = v ? MOD-v : 0;
+		return res;
+	}
+	friend modnum neg(const modnum& m) { return m.neg(); }
+
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (const modnum& o) {
+		v -= MOD-o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator -= (const modnum& o) {
+		v -= o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator *= (const modnum& o) {
+		v = int(int64_t(v) * int64_t(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (const modnum& o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
+	friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
+	friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
+	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
+};
+
+template <typename U, typename V> struct pairnum {
+	U u;
+	V v;
+
+	pairnum() : u(0), v(0) {}
+	pairnum(long long val) : u(val), v(val) {}
+	pairnum(const U& u_, const V& v_) : u(u_), v(v_) {}
+
+	friend std::ostream& operator << (std::ostream& out, const pairnum& n) { return out << '(' << n.u << ',' << ' ' << n.v << ')'; }
+	friend std::istream& operator >> (std::istream& in, pairnum& n) { long long val; in >> val; n = pairnum(val); return in; }
+
+	friend bool operator == (const pairnum& a, const pairnum& b) { return a.u == b.u && a.v == b.v; }
+	friend bool operator != (const pairnum& a, const pairnum& b) { return a.u != b.u || a.v != b.v; }
+
+	pairnum inv() const {
+		return pairnum(u.inv(), v.inv());
+	}
+	pairnum neg() const {
+		return pairnum(u.neg(), v.neg());
+	}
+	pairnum operator- () const {
+		return pairnum(-u, -v);
+	}
+	pairnum operator+ () const {
+		return pairnum(+u, +v);
+	}
+
+	pairnum& operator ++ () {
+		++u, ++v;
+		return *this;
+	}
+	pairnum& operator -- () {
+		--u, --v;
+		return *this;
+	}
+
+	pairnum& operator += (const pairnum& o) {
+		u += o.u;
+		v += o.v;
+		return *this;
+	}
+	pairnum& operator -= (const pairnum& o) {
+		u -= o.u;
+		v -= o.v;
+		return *this;
+	}
+	pairnum& operator *= (const pairnum& o) {
+		u *= o.u;
+		v *= o.v;
+		return *this;
+	}
+	pairnum& operator /= (const pairnum& o) {
+		u /= o.u;
+		v /= o.v;
+		return *this;
+	}
+
+	friend pairnum operator ++ (pairnum& a, int) { pairnum r = a; ++a; return r; }
+	friend pairnum operator -- (pairnum& a, int) { pairnum r = a; --a; return r; }
+	friend pairnum operator + (const pairnum& a, const pairnum& b) { return pairnum(a) += b; }
+	friend pairnum operator - (const pairnum& a, const pairnum& b) { return pairnum(a) -= b; }
+	friend pairnum operator * (const pairnum& a, const pairnum& b) { return pairnum(a) *= b; }
+	friend pairnum operator / (const pairnum& a, const pairnum& b) { return pairnum(a) /= b; }
+};
 
 int main() {
 	using namespace std;
@@ -26,6 +230,83 @@ int main() {
 			self(l, m, d+1);
 			self(m+1, h, d+1);
 		}(0, N-1, 0);
+
+		using num = modnum<998244353>;
+		using lin_fn = pairnum<num, num>;
+
+		num invN = inv(num(N));
+
+		num ans = 0;
+		std::vector<int> lcp_dp; lcp_dp.reserve(N);
+		struct seq_t {
+			lin_fn tot_ways;
+			int st = 0;
+			std::vector<std::pair<int, lin_fn>> decr;
+		};
+		std::vector<hash_map<int, seq_t>> mp(N-1);
+		for (int x = 0; x < N; x++) {
+			if (cnd[x] != -1) {
+				int k = cnd[x];
+				int cur_lcp;
+				{
+					int mi = -1;
+					int ma = int(lcp_dp.size());
+					while (ma - mi > 1) {
+						int md = (mi + ma) / 2;
+						if (k > lcp_dp[md]) {
+							mi = md;
+						} else {
+							ma = md;
+						}
+					}
+					if (ma == int(lcp_dp.size())) {
+						ans = 0;
+						lcp_dp.push_back(k);
+					} else {
+						lcp_dp[ma] = k;
+					}
+					cur_lcp = ma;
+				}
+				num ways = 0;
+				{
+					num cur_w = 1;
+					num p_smaller = num(k) * invN;
+					for (int node = x-1; true; node = prv_smaller[node], cur_w *= p_smaller) {
+						if (node == -1) {
+							if (cur_lcp == 0) {
+								// one way in
+								ways += cur_w;
+							}
+							break;
+						} else {
+							auto it = mp[node].find(cur_lcp-1);
+							if (it != mp[node].end()) {
+								auto& seq = it->second;
+								for (; seq.st < int(seq.decr.size()) && seq.decr[seq.st].first > k; seq.st++) {
+									seq.tot_ways -= seq.decr[seq.st].second;
+								}
+								ways += cur_w * (seq.tot_ways.u + num(k) * seq.tot_ways.v);
+							}
+						}
+					}
+				}
+				{
+					num cur_w = ways * invN;
+					num p_bigger = num(N-1-k) * invN;
+					for (int node = x; true; node = nxt_smaller[node], cur_w *= (node == x ? 1 : p_bigger)) {
+						num w = cur_w;
+						if (node == N-1) {
+							if (cur_lcp == int(lcp_dp.size()) - 1) {
+								ans += cur_w;
+							}
+							break;
+						} else {
+						}
+					}
+				}
+			}
+			// lift things
+		}
 	}
 
 	return 0;
