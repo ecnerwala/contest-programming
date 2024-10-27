@@ -148,7 +148,7 @@ int main() {
 					cerr << (a >> lg) << ' ' << lg + extra << '\n';
 					goto done;
 				} else {
-					ans -= num(v << extra) - 1;
+					ans -= num((v << extra) - v);
 					a <<= extra;
 				}
 			}
