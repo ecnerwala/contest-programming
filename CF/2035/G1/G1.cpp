@@ -239,8 +239,8 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 	};
 	std::vector<hash_map<int, seq_t>> mp(N-1);
 	for (int x = 0; x < N; x++) {
-		std::vector<int> to_merge;
-		{
+		auto do_merges = [&]() -> void {
+			std::vector<int> to_merge;
 			for (int node = x-1; node != -1 && nxt_smaller[node] == x; node = prv_smaller[node]) {
 				to_merge.push_back(node);
 			}
@@ -271,7 +271,11 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						}
 					}
 				}
+				mp[old_node] = {};
 			}
+		};
+		if (cnd[x] == -1) {
+			do_merges();
 		}
 		if (cnd[x] != -1) {
 			int k = cnd[x];
@@ -321,6 +325,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 					}
 				}
 			}
+			do_merges();
 			//cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
 			//cerr << "  " << ways * pow(num(N), x) << '\n';
 			{
@@ -341,10 +346,6 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 					seq.decr.push_back({k, cur_fn});
 				}
 			}
-		}
-		for (auto v : to_merge) {
-			mp[v].clear();
-			mp[v] = {};
 		}
 	}
 	return {int(lcp_dp.size()), ans * pow(num(N), N)};
