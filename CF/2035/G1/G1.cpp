@@ -279,7 +279,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 			do_merges();
 		} else {
 			int k = cnd[x];
-			cerr << "doing " << x << ' ' << k << '\n';
+			//cerr << "doing " << x << ' ' << k << '\n';
 			int cur_lcp;
 			{
 				int mi = -1;
@@ -325,8 +325,8 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 				}
 			}
 			do_merges();
-			cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
-			cerr << "  " << ways * pow(num(N), x) << '\n';
+			//cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
+			//cerr << "  " << ways * pow(num(N), x) << '\n';
 			{
 				num cur_w = ways * invN;
 				int node = x;
@@ -394,7 +394,7 @@ int main() {
 		std::vector<int> cnd(N);
 		std::iota(cnd.begin(), cnd.end(), 0);
 		std::shuffle(cnd.begin(), cnd.end(), mt);
-		//cerr << solve(cnd).first << '\n';
+		cerr << solve(cnd).first << '\n';
 	}
 
 	int T; cin >> T;
