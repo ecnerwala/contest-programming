@@ -137,13 +137,10 @@ int main() {
 			int a; cin >> a;
 			int tot_extra = __builtin_ctz(a);
 			a >>= tot_extra;
+			assert(a & 1);
 			while (!stk.empty() && (tot_extra >= 30 || (a << tot_extra) >= stk.back().first)) {
 				auto [v, extra] = stk.back(); stk.pop_back();
-				if (stk.empty()) {
-					ans -= num(v) * (pow(num(2), extra) - 1);
-				} else {
-					ans -= num((v << extra) - v);
-				}
+				ans -= num(v) * (pow(num(2), extra) - 1);
 				tot_extra += extra;
 			}
 			ans += num(a) * pow(num(2), tot_extra);
