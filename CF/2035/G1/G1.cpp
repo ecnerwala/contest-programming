@@ -253,7 +253,7 @@ int main() {
 			if (cnd[x] != -1) {
 				int k = cnd[x];
 				if (k == 0 && x > 0) continue;
-				cerr << "doing " << x << ' ' << k << '\n';
+				//cerr << "doing " << x << ' ' << k << '\n';
 				int cur_lcp;
 				{
 					int mi = -1;
@@ -293,20 +293,20 @@ int main() {
 									seq.tot_ways -= seq.decr[seq.st].second;
 								}
 								ways += cur_w * (seq.tot_ways.u + num(k) * seq.tot_ways.v);
-								cerr  <<  "  " << "prv " << node << ' ' << cur_w << ' ' << pow(num(N), node+1) * (seq.tot_ways.u + num(k) * seq.tot_ways.v) << '\n';
+								//cerr  <<  "  " << "prv " << node << ' ' << cur_w << ' ' << pow(num(N), node+1) * (seq.tot_ways.u + num(k) * seq.tot_ways.v) << '\n';
 							}
 						}
 					}
 				}
-				cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
-				cerr << "  " << ways * pow(num(N), x) << '\n';
+				//cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
+				//cerr << "  " << ways * pow(num(N), x) << '\n';
 				{
 					num cur_w = ways * invN;
 					num p_bigger = num(N-k) * invN;
 					for (int node = x; true; cur_w *= (node == x ? 1 : p_bigger), node = nxt_smaller[node]) {
 						if (node == N-1) {
 							if (cur_lcp == int(lcp_dp.size()) - 1) {
-								cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
+								//cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
 								ans += cur_w;
 							}
 							break;
@@ -319,7 +319,7 @@ int main() {
 							} else {
 								cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
 							}
-							cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
+							//cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 							seq.tot_ways += cur_fn;
 							seq.decr.push_back({k, cur_fn});
 						}
