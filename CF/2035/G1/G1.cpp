@@ -230,7 +230,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 
 	num invN = inv(num(N));
 
-	num ans = 0;
+	num ans = 1;
 	std::vector<int> lcp_dp; lcp_dp.reserve(N);
 	struct seq_t {
 		lin_fn tot_ways{0, 0};
