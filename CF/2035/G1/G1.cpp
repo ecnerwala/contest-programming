@@ -304,6 +304,7 @@ int main() {
 					for (int node = x; true; node = nxt_smaller[node], cur_w *= (node == x ? 1 : p_bigger)) {
 						if (node == N-1) {
 							if (cur_lcp == int(lcp_dp.size()) - 1) {
+								cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
 								ans += cur_w;
 							}
 							break;
