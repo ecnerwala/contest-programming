@@ -237,7 +237,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 		int st = 0;
 		std::vector<std::pair<int, lin_fn>> decr;
 	};
-	std::vector<hash_map<int, seq_t>> mp(N-1);
+	std::vector<std::map<int, seq_t>> mp(N-1);
 	for (int x = 0; x < N; x++) {
 		std::vector<int> to_merge;
 		{
