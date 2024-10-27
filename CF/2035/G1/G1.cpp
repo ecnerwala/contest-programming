@@ -313,7 +313,7 @@ int main() {
 							if (node == x) {
 								cur_fn = {cur_w, 0};
 							} else {
-								cur_fn = {cur_w * num(k) * invN, cur_w};
+								cur_fn = {cur_w * num(k) * invN, cur_w * invN};
 							}
 							seq.tot_ways += cur_fn;
 							seq.decr.push_back({k, cur_fn});
