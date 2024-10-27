@@ -276,8 +276,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 		};
 		if (cnd[x] == -1) {
 			do_merges();
-		}
-		if (cnd[x] != -1) {
+		} else {
 			int k = cnd[x];
 			if (k == 0 && x > 0) continue;
 			//cerr << "doing " << x << ' ' << k << '\n';
