@@ -128,6 +128,7 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
+		cerr << "start case " << '\n';
 		int N; cin >> N;
 		using num = modnum<int(1e9)+7>;
 		num ans = 0;
@@ -136,6 +137,7 @@ int main() {
 		stk.push_back({1, 0});
 		for (int i = 0; i < N; i++) {
 			int64_t a; cin >> a;
+			cerr << a << '\n';
 			while (a >= stk.back().first) {
 				auto [v, extra] = stk.back(); stk.pop_back();
 				if (stk.empty()) {
