@@ -263,7 +263,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 							auto& seq = mp[node][lcp_val];
 							for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
 								auto [k, old_fn] = old_seq.decr[idx];
-								num cur_w = (k == cnd[old_node] ? old_fn.u : old_fn.v * num(N-k));
+								num cur_w = old_fn.u + old_fn.v * num(N);
 								lin_fn cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
 								//cerr << "  insert " << node << ' ' << cur_k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 								seq.tot_ways += cur_fn;
@@ -394,7 +394,7 @@ int main() {
 		std::vector<int> cnd(N);
 		std::iota(cnd.begin(), cnd.end(), 0);
 		std::shuffle(cnd.begin(), cnd.end(), mt);
-		cerr << solve(cnd).first << '\n';
+		//cerr << solve(cnd).first << '\n';
 	}
 
 	int T; cin >> T;
