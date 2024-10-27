@@ -8,6 +8,7 @@ int main() {
 	while (T--) {
 		int64_t N, M, R, C; cin >> N >> M >> R >> C;
 		int64_t ans = N * M - (R-1) * M + C + (N-R) * M;
+		cout << ans << '\n';
 	}
 
 	return 0;
