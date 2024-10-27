@@ -346,7 +346,9 @@ std::pair<int, num> solve_slow(std::vector<int> cnd) {
 				ways = 0;
 			}
 			if (score == best_score) ways++;
+			return;
 		}
+		for (A[idx] = 0; A[idx] < N; A[idx]++) self(idx+1);
 	}(0);
 	return {best_score, ways};
 }
