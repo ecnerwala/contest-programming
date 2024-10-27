@@ -22,10 +22,10 @@ int main() {
 			cerr << "buff " << i << ' ' << cnd << '\n';
 			ans = std::min(ans, cnd);
 		}
-		for (int64_t i = 1; i * i <= Z; i++) {
+		for (int64_t i = 0; i * i <= Z; i++) {
 			// if we want to do i real hits, how many buffs do we need?
 			int64_t mi = 0;
-			int64_t ma = (Z + i - 1) / i;
+			int64_t ma = i ? (Z + i - 1) / i : Z + K;
 			while (ma - mi > 1) {
 				int64_t md = mi + (ma - mi) / 2;
 				int64_t buff_val = (md / K) * (md / K + 1) / 2 * K;
@@ -44,3 +44,4 @@ int main() {
 
 	return 0;
 }
+// 10 buff, 60 swing, 10 buff, 60 swing, 10 buff, 160 swing
