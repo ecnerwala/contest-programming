@@ -215,6 +215,7 @@ using lin_fn = pairnum<num, num>;
 
 std::pair<int, num> solve(std::vector<int> cnd) {
 	int N = int(cnd.size());
+	for (int i = 1; i < N; i++) if (cnd[i] == 0) cnd[i] = -1;
 	std::vector<int> check_time(N-1);
 	std::vector<int> nxt_smaller(N-1);
 	std::vector<int> prv_smaller(N-1);
@@ -278,7 +279,6 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 			do_merges();
 		} else {
 			int k = cnd[x];
-			if (k == 0 && x > 0) continue;
 			cerr << "doing " << x << ' ' << k << '\n';
 			int cur_lcp;
 			{
