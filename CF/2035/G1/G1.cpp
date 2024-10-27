@@ -253,20 +253,20 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						if (node == N-1) {
 							if (lcp_val == int(lcp_dp.size()) - 1) {
 								for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
-									auto [cur_k, f] = old_seq.decr[idx];
-									num cur_w = (cur_k == cnd[old_node] ? f.u : f.v * num(N-cur_k));
+									auto [k, old_fn] = old_seq.decr[idx];
+									num cur_w = (k == cnd[old_node] ? old_fn.u : old_fn.v * num(N-k));
 									ans += cur_w;
 								}
 							}
 						} else {
 							auto& seq = mp[node][lcp_val];
 							for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
-								auto [cur_k, f] = old_seq.decr[idx];
-								num cur_w = (cur_k == cnd[old_node] ? f.u : f.v * num(N-cur_k));
-								lin_fn cur_fn = {-cur_w * num(cur_k) * invN, cur_w * invN};
+								auto [k, old_fn] = old_seq.decr[idx];
+								num cur_w = (k == cnd[old_node] ? old_fn.u : old_fn.v * num(N-k));
+								lin_fn cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
 								//cerr << "  insert " << node << ' ' << cur_k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 								seq.tot_ways += cur_fn;
-								seq.decr.push_back({cur_k, cur_fn});
+								seq.decr.push_back({k, cur_fn});
 							}
 						}
 					}
@@ -326,28 +326,20 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 			{
 				num cur_w = ways * invN;
 				num p_bigger = num(N-k) * invN;
-				for (int node = x; true; cur_w *= (node == x ? 1 : p_bigger), node = nxt_smaller[node]) {
-					if (node == N-1) {
-						if (cur_lcp == int(lcp_dp.size()) - 1) {
-							//cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
-							ans += cur_w;
-						}
-						break;
-					} else {
-						auto& seq = mp[node][cur_lcp];
-						lin_fn cur_fn;
-						if (node == x) {
-							cur_fn = {cur_w, 0};
-						} else {
-							cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
-						}
-						//cerr << "  insert " << node << ' ' << k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
-						//cerr << seq.decr.back().first << '\n';
-						assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
-						seq.tot_ways += cur_fn;
-						seq.decr.push_back({k, cur_fn});
-						break;
+				int node = x;
+				if (node == N-1) {
+					if (cur_lcp == int(lcp_dp.size()) - 1) {
+						//cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
+						ans += cur_w;
 					}
+				} else {
+					auto& seq = mp[node][cur_lcp];
+					lin_fn cur_fn = {cur_w, 0};
+					//cerr << "  insert " << node << ' ' << k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
+					//cerr << seq.decr.back().first << '\n';
+					assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
+					seq.tot_ways += cur_fn;
+					seq.decr.push_back({k, cur_fn});
 				}
 			}
 		}
