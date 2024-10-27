@@ -277,7 +277,7 @@ int main() {
 				{
 					num cur_w = 1;
 					num p_smaller = num(k) * invN;
-					for (int node = x-1; true; node = prv_smaller[node], cur_w *= p_smaller) {
+					for (int node = x-1; true; cur_w *= p_smaller, node = prv_smaller[node]) {
 						if (node == -1) {
 							if (cur_lcp == 0) {
 								// one way in
@@ -302,7 +302,7 @@ int main() {
 				{
 					num cur_w = ways * invN;
 					num p_bigger = num(N-1-k) * invN;
-					for (int node = x; true; node = nxt_smaller[node], cur_w *= (node == x ? 1 : p_bigger)) {
+					for (int node = x; true; cur_w *= (node == x ? 1 : p_bigger), node = nxt_smaller[node]) {
 						if (node == N-1) {
 							if (cur_lcp == int(lcp_dp.size()) - 1) {
 								cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
