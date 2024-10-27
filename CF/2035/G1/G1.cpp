@@ -311,7 +311,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 								for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
 									auto [cur_k, f] = old_seq.decr[idx];
 									num cur_w = (cur_k == cnd[old_node] ? f.u : f.v * num(N-cur_k));
-									lin_fn cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
+									lin_fn cur_fn = {-cur_w * num(cur_k) * invN, cur_w * invN};
 									cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 									seq.tot_ways += cur_fn;
 									seq.decr.push_back({cur_k, cur_fn});
