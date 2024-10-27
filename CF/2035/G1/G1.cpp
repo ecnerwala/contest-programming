@@ -295,6 +295,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 				int node = x;
 				while (!to_merge.empty()) {
 					int old_node = to_merge.back(); to_merge.pop_back();
+					cerr << " step " << old_node << " -> " << node << '\n';
 					for (auto& [lcp_val, old_seq] : mp[old_node]) {
 						if (old_seq.st < int(old_seq.decr.size())) {
 							if (node == N-1) {
