@@ -287,6 +287,41 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 					}
 				}
 			}
+			{
+				std::vector<int> to_merge;
+				for (int node = x-1; node != -1 && nxt_smaller[node] == x; node = prv_smaller[node]) {
+					to_merge.push_back(node);
+				}
+				int node = x;
+				while (!to_merge.empty()) {
+					int old_node = to_merge.back(); to_merge.pop_back();
+					for (auto& [lcp_val, old_seq] : mp[old_node]) {
+						if (old_seq.st < int(old_seq.decr.size())) {
+							if (node == N-1) {
+								if (lcp_val == int(lcp_dp.size()) - 1) {
+									for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
+										auto [cur_k, f] = old_seq.decr[idx];
+										num cur_w = (cur_k == cnd[old_node] ? f.u : f.v * num(N-cur_k));
+										ans += cur_w;
+									}
+								}
+							} else {
+								auto& seq = mp[node][cur_lcp];
+								for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
+									auto [cur_k, f] = old_seq.decr[idx];
+									num cur_w = (cur_k == cnd[old_node] ? f.u : f.v * num(N-cur_k));
+									lin_fn cur_fn;
+									cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
+									seq.tot_ways += cur_fn;
+									seq.decr.push_back({k, cur_fn});
+								}
+							}
+						}
+						old_seq = {};
+					}
+					mp[old_node] = {};
+				}
+			}
 			//cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
 			//cerr << "  " << ways * pow(num(N), x) << '\n';
 			{
@@ -311,6 +346,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						//cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 						seq.tot_ways += cur_fn;
 						seq.decr.push_back({k, cur_fn});
+						break;
 					}
 				}
 			}
