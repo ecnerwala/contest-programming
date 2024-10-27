@@ -343,9 +343,9 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 				}
 			}
 		}
-		for (auto v : to_merge) {
-			mp[v].clear();
-			mp[v] = {};
+		for (auto node : to_merge) {
+			mp[check_time[node]].clear();
+			mp[check_time[node]] = {};
 		}
 	}
 	return {int(lcp_dp.size()), ans * pow(num(N), N)};
