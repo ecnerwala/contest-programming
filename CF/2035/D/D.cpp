@@ -128,7 +128,6 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		cerr << "start case " << '\n';
 		int N; cin >> N;
 		using num = modnum<int(1e9)+7>;
 		num ans = 0;
@@ -137,7 +136,6 @@ int main() {
 		stk.push_back({1, 0});
 		for (int i = 0; i < N; i++) {
 			int64_t a; cin >> a;
-			cerr << a << '\n';
 			while (a >= stk.back().first) {
 				auto [v, extra] = stk.back(); stk.pop_back();
 				if (stk.empty()) {
@@ -145,7 +143,6 @@ int main() {
 					int lg = __builtin_ctzll(a);
 					ans += num(a) * pow(num(2), extra);
 					stk.push_back({int(a >> lg), lg + extra});
-					cerr << (a >> lg) << ' ' << lg + extra << '\n';
 					goto done;
 				} else {
 					ans -= num((v << extra) - v);
@@ -156,7 +153,6 @@ int main() {
 				int lg = __builtin_ctzll(a);
 				ans += num(a);
 				stk.push_back({int(a >> lg), lg});
-				cerr << (a >> lg) << ' ' << lg << '\n';
 			}
 done:
 			cout << ans << " \n"[i+1==N];
