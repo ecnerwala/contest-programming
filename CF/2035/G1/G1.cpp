@@ -320,7 +320,7 @@ int main() {
 				}
 			}
 		}
-		cout << ans * pow(num(N), N) << '\n';
+		cout << int(lcp_dp.size()) << ' ' << ans * pow(num(N), N) << '\n';
 	}
 
 	return 0;
