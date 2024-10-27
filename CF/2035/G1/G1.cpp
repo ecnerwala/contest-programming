@@ -312,7 +312,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 									auto [cur_k, f] = old_seq.decr[idx];
 									num cur_w = (cur_k == cnd[old_node] ? f.u : f.v * num(N-cur_k));
 									lin_fn cur_fn = {-cur_w * num(cur_k) * invN, cur_w * invN};
-									cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
+									cerr << "  insert " << node << ' ' << cur_k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 									seq.tot_ways += cur_fn;
 									seq.decr.push_back({cur_k, cur_fn});
 								}
@@ -343,7 +343,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						} else {
 							cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
 						}
-						cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
+						cerr << "  insert " << node << ' ' << k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 						assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
 						seq.tot_ways += cur_fn;
 						seq.decr.push_back({k, cur_fn});
