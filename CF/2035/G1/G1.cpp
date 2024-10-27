@@ -279,7 +279,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 		} else {
 			int k = cnd[x];
 			if (k == 0 && x > 0) continue;
-			//cerr << "doing " << x << ' ' << k << '\n';
+			cerr << "doing " << x << ' ' << k << '\n';
 			int cur_lcp;
 			{
 				int mi = -1;
@@ -325,8 +325,8 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 				}
 			}
 			do_merges();
-			//cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
-			//cerr << "  " << ways * pow(num(N), x) << '\n';
+			cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
+			cerr << "  " << ways * pow(num(N), x) << '\n';
 			{
 				num cur_w = ways * invN;
 				int node = x;
