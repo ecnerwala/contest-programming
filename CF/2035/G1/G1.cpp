@@ -367,8 +367,8 @@ int main() {
 			assert(cnd[x] == -1);
 			cnd[x] = k;
 		}
-		//auto [lcp, ways] = solve(cnd);
-		auto [lcp, ways] = solve_slow(cnd);
+		auto [lcp, ways] = solve(cnd);
+		//auto [lcp, ways] = solve_slow(cnd);
 		cout << M - lcp << ' ' << ways << '\n';
 	}
 
