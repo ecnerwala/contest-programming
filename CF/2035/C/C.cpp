@@ -8,13 +8,12 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		int val;
-		std::vector<int> P;
+		std::vector<int> P(N);
 		if (N & 1) {
 			// if N is odd, the last value is a mask, so it's an upper bound
 			// end should be N, N-1, odd, odd
 			if (N >= 5) {
 				val = N;
-				P.resize(N);
 				std::iota(P.begin(), P.end(), 1);
 				std::swap(P[N-5], P[N-4]);
 			} else {
