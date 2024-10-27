@@ -387,6 +387,15 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	{
+		std::mt19937 mt(48);
+		int N = 3e5;
+		std::vector<int> cnd(N);
+		std::iota(cnd.begin(), cnd.end(), 0);
+		std::shuffle(cnd.begin(), cnd.end(), mt);
+		cerr << solve(cnd).first << '\n';
+	}
+
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
