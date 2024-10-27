@@ -325,7 +325,6 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 			//cerr << "  " << ways * pow(num(N), x) << '\n';
 			{
 				num cur_w = ways * invN;
-				num p_bigger = num(N-k) * invN;
 				int node = x;
 				if (node == N-1) {
 					if (cur_lcp == int(lcp_dp.size()) - 1) {
