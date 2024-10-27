@@ -244,7 +244,7 @@ int main() {
 		num ans = 0;
 		std::vector<int> lcp_dp; lcp_dp.reserve(N);
 		struct seq_t {
-			lin_fn tot_ways;
+			lin_fn tot_ways{0, 0};
 			int st = 0;
 			std::vector<std::pair<int, lin_fn>> decr;
 		};
@@ -318,6 +318,7 @@ int main() {
 							} else {
 								cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
 							}
+							cerr << "  insert " << node << ' ' << pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 							seq.tot_ways += cur_fn;
 							seq.decr.push_back({k, cur_fn});
 						}
