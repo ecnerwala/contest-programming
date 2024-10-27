@@ -343,6 +343,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 			}
 		}
 		for (auto v : to_merge) {
+			mp[v].clear();
 			mp[v] = {};
 		}
 	}
