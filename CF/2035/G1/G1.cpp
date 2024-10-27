@@ -242,7 +242,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 		if (cnd[x] != -1) {
 			int k = cnd[x];
 			if (k == 0 && x > 0) continue;
-			cerr << "doing " << x << ' ' << k << '\n';
+			//cerr << "doing " << x << ' ' << k << '\n';
 			int cur_lcp;
 			{
 				int mi = -1;
