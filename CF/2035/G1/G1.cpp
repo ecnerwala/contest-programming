@@ -209,6 +209,148 @@ template <typename U, typename V> struct pairnum {
 	friend pairnum operator / (const pairnum& a, const pairnum& b) { return pairnum(a) /= b; }
 };
 
+using std::cerr;
+using num = modnum<998244353>;
+using lin_fn = pairnum<num, num>;
+
+std::pair<int, num> solve(std::vector<int> cnd) {
+	int N = int(cnd.size());
+	std::vector<int> check_time(N-1);
+	std::vector<int> nxt_smaller(N-1);
+	std::vector<int> prv_smaller(N-1);
+	[&](this auto&& self, int l, int h, int d) -> void {
+		if (l == h) return;
+		int m = (l + h) / 2;
+		check_time[m] = d;
+		prv_smaller[m] = l-1;
+		nxt_smaller[m] = h;
+		self(l, m, d+1);
+		self(m+1, h, d+1);
+	}(0, N-1, 0);
+
+	num invN = inv(num(N));
+
+	num ans = 0;
+	std::vector<int> lcp_dp; lcp_dp.reserve(N);
+	struct seq_t {
+		lin_fn tot_ways{0, 0};
+		int st = 0;
+		std::vector<std::pair<int, lin_fn>> decr;
+	};
+	std::vector<hash_map<int, seq_t>> mp(N-1);
+	for (int x = 0; x < N; x++) {
+		if (cnd[x] != -1) {
+			int k = cnd[x];
+			if (k == 0 && x > 0) continue;
+			//cerr << "doing " << x << ' ' << k << '\n';
+			int cur_lcp;
+			{
+				int mi = -1;
+				int ma = int(lcp_dp.size());
+				while (ma - mi > 1) {
+					int md = (mi + ma) / 2;
+					if (k > lcp_dp[md]) {
+						mi = md;
+					} else {
+						ma = md;
+					}
+				}
+				if (ma == int(lcp_dp.size())) {
+					ans = 0;
+					lcp_dp.push_back(k);
+				} else {
+					lcp_dp[ma] = k;
+				}
+				cur_lcp = ma;
+			}
+			num ways = 0;
+			{
+				num cur_w = 1;
+				num p_smaller = num(k) * invN;
+				for (int node = x-1; true; cur_w *= p_smaller, node = prv_smaller[node]) {
+					if (node == -1) {
+						if (cur_lcp == 0) {
+							// one way in
+							ways += cur_w;
+						}
+						break;
+					} else {
+						auto it = mp[node].find(cur_lcp-1);
+						if (it != mp[node].end()) {
+							auto& seq = it->second;
+							for (; seq.st < int(seq.decr.size()) && seq.decr[seq.st].first > k; seq.st++) {
+								seq.tot_ways -= seq.decr[seq.st].second;
+							}
+							ways += cur_w * (seq.tot_ways.u + num(k) * seq.tot_ways.v);
+							//cerr  <<  "  " << "prv " << node << ' ' << cur_w << ' ' << pow(num(N), node+1) * (seq.tot_ways.u + num(k) * seq.tot_ways.v) << '\n';
+						}
+					}
+				}
+			}
+			//cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
+			//cerr << "  " << ways * pow(num(N), x) << '\n';
+			{
+				num cur_w = ways * invN;
+				num p_bigger = num(N-k) * invN;
+				for (int node = x; true; cur_w *= (node == x ? 1 : p_bigger), node = nxt_smaller[node]) {
+					if (node == N-1) {
+						if (cur_lcp == int(lcp_dp.size()) - 1) {
+							//cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
+							ans += cur_w;
+						}
+						break;
+					} else {
+						auto& seq = mp[node][cur_lcp];
+						assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
+						lin_fn cur_fn;
+						if (node == x) {
+							cur_fn = {cur_w, 0};
+						} else {
+							cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
+						}
+						//cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
+						seq.tot_ways += cur_fn;
+						seq.decr.push_back({k, cur_fn});
+					}
+				}
+			}
+		}
+	}
+	return {int(lcp_dp.size()), ans * pow(num(N), N)};
+}
+std::pair<int, num> solve_slow(std::vector<int> cnd) {
+	int N = int(cnd.size());
+	std::vector<int> A(N);
+	int best_score = 0;
+	int ways = 0;
+	[&](this auto&& self, int idx) -> void {
+		if (idx == N) {
+			int score = 0;
+			for (int k = 0; k < N; k++) {
+				int l = 0, h = N-1;
+				while (l < h) {
+					int m = (l + h) / 2;
+					if (A[m] < k) {
+						l = m+1;
+					} else {
+						h = m;
+					}
+				}
+				int x = l;
+				if (A[x] == k && cnd[x] == k) {
+					score++;
+				}
+			}
+			if (score > best_score) {
+				best_score = score;
+				ways = 0;
+			}
+			if (score == best_score) ways++;
+		}
+	}(0);
+	return {best_score, ways};
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -223,111 +365,9 @@ int main() {
 			assert(cnd[x] == -1);
 			cnd[x] = k;
 		}
-		std::vector<int> check_time(N-1);
-		std::vector<int> nxt_smaller(N-1);
-		std::vector<int> prv_smaller(N-1);
-		[&](this auto&& self, int l, int h, int d) -> void {
-			if (l == h) return;
-			int m = (l + h) / 2;
-			check_time[m] = d;
-			prv_smaller[m] = l-1;
-			nxt_smaller[m] = h;
-			self(l, m, d+1);
-			self(m+1, h, d+1);
-		}(0, N-1, 0);
-
-		using num = modnum<998244353>;
-		using lin_fn = pairnum<num, num>;
-
-		num invN = inv(num(N));
-
-		num ans = 0;
-		std::vector<int> lcp_dp; lcp_dp.reserve(N);
-		struct seq_t {
-			lin_fn tot_ways{0, 0};
-			int st = 0;
-			std::vector<std::pair<int, lin_fn>> decr;
-		};
-		std::vector<hash_map<int, seq_t>> mp(N-1);
-		for (int x = 0; x < N; x++) {
-			if (cnd[x] != -1) {
-				int k = cnd[x];
-				if (k == 0 && x > 0) continue;
-				//cerr << "doing " << x << ' ' << k << '\n';
-				int cur_lcp;
-				{
-					int mi = -1;
-					int ma = int(lcp_dp.size());
-					while (ma - mi > 1) {
-						int md = (mi + ma) / 2;
-						if (k > lcp_dp[md]) {
-							mi = md;
-						} else {
-							ma = md;
-						}
-					}
-					if (ma == int(lcp_dp.size())) {
-						ans = 0;
-						lcp_dp.push_back(k);
-					} else {
-						lcp_dp[ma] = k;
-					}
-					cur_lcp = ma;
-				}
-				num ways = 0;
-				{
-					num cur_w = 1;
-					num p_smaller = num(k) * invN;
-					for (int node = x-1; true; cur_w *= p_smaller, node = prv_smaller[node]) {
-						if (node == -1) {
-							if (cur_lcp == 0) {
-								// one way in
-								ways += cur_w;
-							}
-							break;
-						} else {
-							auto it = mp[node].find(cur_lcp-1);
-							if (it != mp[node].end()) {
-								auto& seq = it->second;
-								for (; seq.st < int(seq.decr.size()) && seq.decr[seq.st].first > k; seq.st++) {
-									seq.tot_ways -= seq.decr[seq.st].second;
-								}
-								ways += cur_w * (seq.tot_ways.u + num(k) * seq.tot_ways.v);
-								//cerr  <<  "  " << "prv " << node << ' ' << cur_w << ' ' << pow(num(N), node+1) * (seq.tot_ways.u + num(k) * seq.tot_ways.v) << '\n';
-							}
-						}
-					}
-				}
-				//cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
-				//cerr << "  " << ways * pow(num(N), x) << '\n';
-				{
-					num cur_w = ways * invN;
-					num p_bigger = num(N-k) * invN;
-					for (int node = x; true; cur_w *= (node == x ? 1 : p_bigger), node = nxt_smaller[node]) {
-						if (node == N-1) {
-							if (cur_lcp == int(lcp_dp.size()) - 1) {
-								//cerr << "adding ans " << cur_w * pow(num(N), N) << '\n';
-								ans += cur_w;
-							}
-							break;
-						} else {
-							auto& seq = mp[node][cur_lcp];
-							assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
-							lin_fn cur_fn;
-							if (node == x) {
-								cur_fn = {cur_w, 0};
-							} else {
-								cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
-							}
-							//cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
-							seq.tot_ways += cur_fn;
-							seq.decr.push_back({k, cur_fn});
-						}
-					}
-				}
-			}
-		}
-		cout << M - int(lcp_dp.size()) << ' ' << ans * pow(num(N), N) << '\n';
+		//auto [lcp, ways] = solve(cnd);
+		auto [lcp, ways] = solve_slow(cnd);
+		cout << M - lcp << ' ' << ways << '\n';
 	}
 
 	return 0;
