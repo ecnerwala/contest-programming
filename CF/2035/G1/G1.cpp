@@ -237,8 +237,8 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 		int st = 0;
 		std::vector<std::pair<int, lin_fn>> decr;
 	};
-	int max_depth = *std::max_element(check_time.begin(), check_time.end());
-	std::vector<std::map<int, seq_t>> mp(max_depth + 1);
+	//int max_depth = *std::max_element(check_time.begin(), check_time.end());
+	std::vector<std::map<int, seq_t>> mp(N - 1);
 	for (int x = 0; x < N; x++) {
 		auto do_merges = [&]() -> void {
 			std::vector<int> to_merge;
@@ -249,7 +249,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 			while (!to_merge.empty()) {
 				int old_node = to_merge.back(); to_merge.pop_back();
 				//cerr << " step " << old_node << " -> " << node << '\n';
-				for (auto& [lcp_val, old_seq] : mp[check_time[old_node]]) {
+				for (auto& [lcp_val, old_seq] : mp[old_node]) {
 					if (old_seq.st < int(old_seq.decr.size())) {
 						if (node == N-1) {
 							if (lcp_val == int(lcp_dp.size()) - 1) {
@@ -260,7 +260,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 								}
 							}
 						} else {
-							auto& seq = mp[check_time[node]][lcp_val];
+							auto& seq = mp[node][lcp_val];
 							for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
 								auto [k, old_fn] = old_seq.decr[idx];
 								num cur_w = (k == cnd[old_node] ? old_fn.u : old_fn.v * num(N-k));
@@ -272,7 +272,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						}
 					}
 				}
-				mp[check_time[old_node]] = {};
+				mp[old_node] = {};
 			}
 		};
 		if (cnd[x] == -1) {
@@ -314,8 +314,8 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						}
 						break;
 					} else {
-						auto it = mp[check_time[node]].find(cur_lcp-1);
-						if (it != mp[check_time[node]].end()) {
+						auto it = mp[node].find(cur_lcp-1);
+						if (it != mp[node].end()) {
 							auto& seq = it->second;
 							for (; seq.st < int(seq.decr.size()) && seq.decr[seq.st].first > k; seq.st++) {
 								seq.tot_ways -= seq.decr[seq.st].second;
@@ -338,7 +338,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						ans += cur_w;
 					}
 				} else {
-					auto& seq = mp[check_time[node]][cur_lcp];
+					auto& seq = mp[node][cur_lcp];
 					lin_fn cur_fn = {cur_w, 0};
 					//cerr << "  insert " << node << ' ' << k << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 					//cerr << seq.decr.back().first << '\n';
