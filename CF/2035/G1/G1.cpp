@@ -292,7 +292,7 @@ int main() {
 									seq.tot_ways -= seq.decr[seq.st].second;
 								}
 								ways += cur_w * (seq.tot_ways.u + num(k) * seq.tot_ways.v);
-								cerr  <<  "  " << "prv " << node << ' ' << cur_w << ' ' << pow(num(N), x) * (seq.tot_ways.u + num(k) * seq.tot_ways.v) << '\n';
+								cerr  <<  "  " << "prv " << node << ' ' << cur_w << ' ' << pow(num(N), node+1) * (seq.tot_ways.u + num(k) * seq.tot_ways.v) << '\n';
 							}
 						}
 					}
