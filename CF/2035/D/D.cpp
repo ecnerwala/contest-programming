@@ -143,6 +143,7 @@ int main() {
 					int lg = __builtin_ctzll(a);
 					ans += num(a) * pow(num(2), extra);
 					stk.push_back({int(a >> lg), lg + extra});
+					cerr << (a >> lg) << ' ' << lg + extra << '\n';
 					goto done;
 				} else {
 					ans -= num(v << extra) - 1;
@@ -153,6 +154,7 @@ int main() {
 				int lg = __builtin_ctzll(a);
 				ans += num(a);
 				stk.push_back({int(a >> lg), lg});
+				cerr << (a >> lg) << ' ' << lg << '\n';
 			}
 done:
 			cout << ans << " \n"[i+1==N];
