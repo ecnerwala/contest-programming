@@ -239,7 +239,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 	};
 	std::vector<hash_map<int, seq_t>> mp(N-1);
 	for (int x = 0; x < N; x++) {
-		if (true) {
+		{
 			std::vector<int> to_merge;
 			for (int node = x-1; node != -1 && nxt_smaller[node] == x; node = prv_smaller[node]) {
 				to_merge.push_back(node);
