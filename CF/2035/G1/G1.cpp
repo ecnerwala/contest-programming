@@ -314,7 +314,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 									lin_fn cur_fn = {-cur_w * num(k) * invN, cur_w * invN};
 									cerr << "  insert " << node << ' ' << -pow(num(N), node+1) * cur_fn.u << ' ' << pow(num(N), node+1) * cur_fn.v << '\n';
 									seq.tot_ways += cur_fn;
-									seq.decr.push_back({k, cur_fn});
+									seq.decr.push_back({cur_k, cur_fn});
 								}
 							}
 						}
