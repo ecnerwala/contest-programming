@@ -19,7 +19,6 @@ int main() {
 				break;
 			}
 			cnd += ((Z - buff_val + i-1) / i) * Y;
-			cerr << "buff " << i << ' ' << cnd << '\n';
 			ans = std::min(ans, cnd);
 		}
 		for (int64_t i = 0; i * i <= Z; i++) {
@@ -36,7 +35,6 @@ int main() {
 				}
 			}
 			int64_t cnd = ma * X + (ma / K + i) * Y;
-			cerr << "use " << i << ' ' << "buff " << ma << ' ' << cnd << '\n';
 			ans = std::min(ans, cnd);
 		}
 		cout << ans << '\n';
@@ -44,4 +42,3 @@ int main() {
 
 	return 0;
 }
-// 10 buff, 60 swing, 10 buff, 60 swing, 10 buff, 160 swing
