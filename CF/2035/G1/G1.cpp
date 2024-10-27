@@ -287,7 +287,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 					}
 				}
 			}
-			{
+			if (false) {
 				std::vector<int> to_merge;
 				for (int node = x-1; node != -1 && nxt_smaller[node] == x; node = prv_smaller[node]) {
 					to_merge.push_back(node);
@@ -348,7 +348,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 						assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
 						seq.tot_ways += cur_fn;
 						seq.decr.push_back({k, cur_fn});
-						break;
+						//break;
 					}
 				}
 			}
