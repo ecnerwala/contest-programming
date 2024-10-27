@@ -238,7 +238,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 		std::vector<std::pair<int, lin_fn>> decr;
 	};
 	int max_depth = *std::max_element(check_time.begin(), check_time.end());
-	std::vector<hash_map<int, seq_t>> mp(max_depth + 1);
+	std::vector<std::map<int, seq_t>> mp(max_depth + 1);
 	for (int x = 0; x < N; x++) {
 		std::vector<int> to_merge;
 		{
