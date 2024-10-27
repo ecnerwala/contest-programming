@@ -155,7 +155,7 @@ int main() {
 				stk.push_back({int(a >> lg), lg});
 			}
 done:
-			cout << ans << '\n';
+			cout << ans << " \n"[i+1==N];
 		}
 	}
 
