@@ -302,7 +302,7 @@ int main() {
 				cerr << "  " << ways * pow(num(N), x) << '\n';
 				{
 					num cur_w = ways * invN;
-					num p_bigger = num(N-1-k) * invN;
+					num p_bigger = num(N-k) * invN;
 					for (int node = x; true; cur_w *= (node == x ? 1 : p_bigger), node = nxt_smaller[node]) {
 						if (node == N-1) {
 							if (cur_lcp == int(lcp_dp.size()) - 1) {
