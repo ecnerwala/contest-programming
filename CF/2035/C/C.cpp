@@ -31,6 +31,12 @@ int main() {
 			std::rotate(P.begin(), P.begin() + (1 << v), P.end());
 			std::swap(P[N-6], P[N-5]);
 		}
+		int k = 0;
+		for (int i = 0; i < N; i++) {
+			if (i & 1) k |= P[i];
+			else k &= P[i];
+		}
+		assert(k == val);
 		cout << val << '\n';
 		for (int i = 0; i < N; i++) {
 			cout << P[i] << " \n"[i+1==N];
