@@ -296,11 +296,10 @@ int main() {
 						}
 					}
 				}
-				ways *= invN;
 				cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
-				cerr << "  " << ways * pow(num(N), N) << '\n';
+				cerr << "  " << ways * pow(num(N), x) << '\n';
 				{
-					num cur_w = ways;
+					num cur_w = ways * invN;
 					num p_bigger = num(N-1-k) * invN;
 					for (int node = x; true; node = nxt_smaller[node], cur_w *= (node == x ? 1 : p_bigger)) {
 						if (node == N-1) {
