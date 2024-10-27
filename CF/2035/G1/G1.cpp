@@ -252,6 +252,7 @@ int main() {
 		for (int x = 0; x < N; x++) {
 			if (cnd[x] != -1) {
 				int k = cnd[x];
+				cerr << "doing " << x << ' ' << k << '\n';
 				int cur_lcp;
 				{
 					int mi = -1;
@@ -295,6 +296,7 @@ int main() {
 						}
 					}
 				}
+				cerr << "  " << ways * pow(num(N), N) << '\n';
 				{
 					num cur_w = ways * invN;
 					num p_bigger = num(N-1-k) * invN;
