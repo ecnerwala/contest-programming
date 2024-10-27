@@ -139,6 +139,11 @@ public:
 	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
 };
 
+template <typename T> T pow(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
+
 template <typename U, typename V> struct pairnum {
 	U u;
 	V v;
@@ -294,19 +299,28 @@ int main() {
 					num cur_w = ways * invN;
 					num p_bigger = num(N-1-k) * invN;
 					for (int node = x; true; node = nxt_smaller[node], cur_w *= (node == x ? 1 : p_bigger)) {
-						num w = cur_w;
 						if (node == N-1) {
 							if (cur_lcp == int(lcp_dp.size()) - 1) {
 								ans += cur_w;
 							}
 							break;
 						} else {
+							auto& seq = mp[node][cur_lcp];
+							assert(seq.st == int(seq.decr.size()) || k < seq.decr.back().first);
+							lin_fn cur_fn;
+							if (node == x) {
+								cur_fn = {cur_w, 0};
+							} else {
+								cur_fn = {cur_w * num(k) * invN, cur_w};
+							}
+							seq.tot_ways += cur_fn;
+							seq.decr.push_back({k, cur_fn});
 						}
 					}
 				}
 			}
-			// lift things
 		}
+		cout << ans * pow(num(N), N) << '\n';
 	}
 
 	return 0;
