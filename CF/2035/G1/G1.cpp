@@ -296,6 +296,7 @@ int main() {
 						}
 					}
 				}
+				cerr << "  " << "lcp" << ' ' << cur_lcp << '\n';
 				cerr << "  " << ways * pow(num(N), N) << '\n';
 				{
 					num cur_w = ways * invN;
