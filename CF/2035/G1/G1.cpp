@@ -307,7 +307,7 @@ std::pair<int, num> solve(std::vector<int> cnd) {
 									}
 								}
 							} else {
-								auto& seq = mp[node][cur_lcp];
+								auto& seq = mp[node][lcp_val];
 								for (int idx = old_seq.st; idx < int(old_seq.decr.size()); idx++) {
 									auto [cur_k, f] = old_seq.decr[idx];
 									num cur_w = (cur_k == cnd[old_node] ? f.u : f.v * num(N-cur_k));
