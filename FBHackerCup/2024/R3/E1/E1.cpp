@@ -61,6 +61,9 @@ bool solve(const std::vector<std::vector<int>>& adj) {
 			}
 		}
 	}(0, -1);
+	if (int(adj.size()) <= 50) {
+		assert(good == (run_ijk(adj) == run_ikj(adj)));
+	}
 	return good;
 }
 
