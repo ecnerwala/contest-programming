@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+using std::cerr;
+
 struct bound_t {
 	int v;
 };
@@ -76,6 +78,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
 	std::vector<std::pair<int, range_t>> cnds; cnds.reserve(4);
 	for (int i = 0; i < N; i++) {
 		int p = P[i];
+		cerr << "process " << p << '\n';
 		cnds.clear();
 		if (p & 1) {
 			// we can go up or down
@@ -91,8 +94,10 @@ std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
 		}
 		int tot_sz = 0;
 		for (auto& [delta, rng] : cnds) {
+			cerr << ' ' << delta << ' ' << rng.lo.v << '-' << rng.hi.v << '\n';
 			rng.lo = do_max(rng.lo, cur.lo);
 			rng.hi = do_min(rng.hi, cur.hi);
+			cerr << ' ' << "  " << rng.lo.v << '-' << rng.hi.v << '\n';
 			tot_sz += rng.sz();
 		}
 		assert(tot_sz == cur.sz());
