@@ -198,11 +198,13 @@ int main() {
 			if (int64_t(p) * p > v) {
 				p = v;
 			}
-			while (v % p == 0) {
-				v /= p;
-				pot++;
+			if (v % p == 0) {
+				while (v % p == 0) {
+					v /= p;
+					pot++;
+				}
+				primes.push_back(p);
 			}
-			primes.push_back(p);
 		}
 		int v = ins(A[i], primes, pot);
 		flower.add_edge(0, v, 1, 30 - pot);
