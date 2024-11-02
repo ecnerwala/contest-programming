@@ -188,7 +188,7 @@ int main() {
 	});
 
 	for (int i = 0; i < N; i++) {
-		A[i] = ins(A[i]);
+		int v = ins(A[i]);
 	}
 
 	return 0;
