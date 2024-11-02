@@ -336,6 +336,7 @@ int main() {
 				assert(a_out == a_cur);
 			}
 			nodes[cur].val = A[cur];
+			nodes[cur].update();
 			t_cur = insert(t_cur, &nodes[cur]);
 			assert(t_cur);
 			while (t_cur->sz > M) {
