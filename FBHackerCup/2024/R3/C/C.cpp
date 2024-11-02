@@ -58,7 +58,7 @@ int main() {
 				assert(lo <= hi);
 				// we need the sum from k = lo .. hi of (100 * N) / (k * (100 - P_guaranteed) + N * P_guaranteed)
 				ld res = 0;
-				for (int i = 0; i <= int(1e7) && lo <= hi; i++) {
+				for (int i = 0; i <= int(1e8) && lo <= hi; i++) {
 					res += ld(100 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed);
 					lo++;
 				}
