@@ -131,7 +131,7 @@ struct treap_node {
 	void update() {
 		sz = 1;
 		sum = val;
-		sum_incr = val;
+		sum_incr = 0;
 		if (c[0]) {
 			sum_incr += num(c[0]->sz) * num(sum);
 			sum_incr += c[0]->sum_incr;
