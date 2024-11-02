@@ -190,10 +190,7 @@ int main() {
 		std::vector<int> A(N);
 		{
 			std::vector<std::vector<int>> ch(N);
-			for (int i = 1; i < N; i++) {
-				cerr << i << ' ' << P[i] << '\n';
-				ch[P[i]].push_back(i);
-			}
+			for (int i = 1; i < N; i++) ch[P[i]].push_back(i);
 			std::vector<int> cnt(U+1);
 			std::set<std::pair<int, int>> best;
 			[&](this auto&& self, int cur) -> void {
@@ -218,6 +215,7 @@ int main() {
 			for (int i = N-1; i >= 0; i--) {
 				D[i] = treaps[i] ? treaps[i]->best.second : 0;
 				nodes[i].val = V[i];
+				nodes[i].cnt = 1;
 				nodes[i].update();
 				treaps[i] = treap_union(treaps[i], &nodes[i]);
 				int p = P[i];
