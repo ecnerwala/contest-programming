@@ -380,6 +380,9 @@ int main() {
 			for (int i = 0; i < int(t_cur.size()); i++) {
 				ans += t_cur[i];
 			}
+			for (int i = 0; i+2 < int(t_cur.size()); i++) {
+				assert(t_cur[i+2] - t_cur[i+1] <= t_cur[i+1] - t_cur[i]);
+			}
 			ans += int64_t(M + 1 - int(t_cur.size())) * t_cur.back();
 			return t_cur;
 		}(0, -1);
