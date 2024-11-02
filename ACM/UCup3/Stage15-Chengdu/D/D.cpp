@@ -9,7 +9,8 @@ struct bound_t {
 bound_t do_min(bound_t a, bound_t b) {
 	if (a.v > b.v) std::swap(a.v, b.v);
 	assert(a.v <= b.v);
-	if (b.v == (a.v | 1)) {
+	if (a.v == b.v) return a;
+	else if (b.v == (a.v | 1)) {
 		assert((a.v & 3) == 2);
 		assert((b.v & 3) == 3);
 		return bound_t{a.v - 2};
@@ -21,7 +22,8 @@ bound_t do_min(bound_t a, bound_t b) {
 bound_t do_max(bound_t a, bound_t b) {
 	if (a.v > b.v) std::swap(a.v, b.v);
 	assert(a.v <= b.v);
-	if (b.v == (a.v | 1)) {
+	if (a.v == b.v) return b;
+	else if (b.v == (a.v | 1)) {
 		assert((a.v & 3) == 2);
 		assert((b.v & 3) == 3);
 		return bound_t{a.v + 2};
