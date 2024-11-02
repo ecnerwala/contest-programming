@@ -162,13 +162,14 @@ int main() {
 	std::vector<int> A(N);
 	for (auto& a : A) cin >> a;
 	std::map<int, int> vals;
-	MCMF_Dinic flower(2);
-	auto ins = std::y_combinator([&](auto&& self, int cur, std::vector<int> primes) -> int {
+	MCMF_Dinic<int, int> flower(2);
+	auto ins = std::y_combinator([&](auto&& self, int cur, std::vector<int> primes, int pot) -> int {
 		{
 			auto it = vals.find(cur);
 			if (it != vals.end()) return it->second;
 		}
 		int idx = flower.add_vert();
+		flower.add_edge(idx, 1, 1, pot);
 		vals.insert({cur, idx});
 		for (int i = 0; i < int(primes.size()); i++) {
 			int p = primes[i];
@@ -178,18 +179,34 @@ int main() {
 			if (nxt % p != 0) {
 				std::vector<int> np(primes);
 				np.erase(np.begin() + i);
-				n_idx = self(nxt, np);
+				n_idx = self(nxt, np, pot-1);
 			} else {
-				n_idx = self(nxt, primes);
+				n_idx = self(nxt, primes, pot-1);
 			}
-			flower.add_edge(idx, n_idx, 0, 0);
+			flower.add_edge(idx, n_idx, N, 0);
 		}
 		return idx;
 	});
 
 	for (int i = 0; i < N; i++) {
-		int v = ins(A[i]);
+		std::vector<int> primes;
+		int pot = 0;
+		for (int p = 2, v = A[i]; v > 1; p++) {
+			if (int64_t(p) * p > v) {
+				p = v;
+			}
+			while (v % p == 0) {
+				v /= p;
+				pot++;
+			}
+			primes.push_back(p);
+		}
+		int v = ins(A[i], primes, pot);
+		flower.add_edge(0, v, 1, 30 - pot);
 	}
+	auto [tot_flow, tot_cost] = flower.max_flow(0, 1);
+	assert(tot_flow == N);
+	cout << tot_flow * 30 - tot_cost << '\n';
 
 	return 0;
 }
