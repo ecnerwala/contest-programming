@@ -66,7 +66,7 @@ bool solve(const std::vector<std::vector<int>>& adj) {
 
 void test() {
 	std::mt19937 mt(48);
-	for (int z = 0; z < 1000; z++) {
+	for (int z = 0; z < 10000; z++) {
 		int N = std::uniform_int_distribution<int>(2, 20)(mt);
 		std::cerr << "test " << z << ' ' << N << '\n';
 		std::vector<int> par(N, -1);
