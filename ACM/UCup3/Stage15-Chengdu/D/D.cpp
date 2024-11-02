@@ -90,7 +90,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
 			if (p-2 >= 0) cnds.push_back({-2, {{(p-1) * 2 + 1}, {(p-1) * 2 + 1}}});
 			if (p-1 >= 0) cnds.push_back({-1, {{4*0}, {(p-1) * 2 + 0}}});
 			if (p+1 < N-1) cnds.push_back({+1, {{(p+1) * 2 + 1}, {4*L}}});
-			if (p < N-1) cnds.push_back({+2, {{(p+1) * 2 + 0}, {(p+1) * 2 + 0}}});
+			if (p+2 < N-1) cnds.push_back({+2, {{(p+1) * 2 + 0}, {(p+1) * 2 + 0}}});
 		}
 		int tot_sz = 0;
 		for (auto& [delta, rng] : cnds) {
