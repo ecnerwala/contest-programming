@@ -168,7 +168,7 @@ int main() {
 			good = solve_ikj(adj);
 		} else if (s[2] == 'k') {
 			good = solve_ijk(adj);
-		}
+		} else assert(false);
 
 		cout << "Case #" << case_num << ": " << (good ? "Lucky" : "Wrong") << '\n';
 	}
