@@ -341,13 +341,16 @@ int main() {
 			assert(t_cur);
 			ans += num(t_cur->sum) * num(M) - t_cur->sum_incr;
 			if (true) {
-				cerr << "recurse " << cur << '\n';
+				//cerr << "recurse " << cur << '\n';
 				buf_cur.assign(1, int64_t(0));
 				flatten(t_cur, buf_cur);
-				for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
-				cerr << "  contrib " << num(t_cur->sum) * num(M) - t_cur->sum_incr << '\n';
-				cerr << "  sum_incr " << t_cur->sum_incr << '\n';
-				cerr << "  sum " << t_cur->sum << '\n';
+				//for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
+				for (int i = 0; i+2 < int(buf_cur.size()); i++) {
+					assert(buf_cur[i+2] - buf_cur[i+1] <= buf_cur[i+1] - buf_cur[i]);
+				}
+				//cerr << "  contrib " << num(t_cur->sum) * num(M) - t_cur->sum_incr << '\n';
+				//cerr << "  sum_incr " << t_cur->sum_incr << '\n';
+				//cerr << "  sum " << t_cur->sum << '\n';
 			}
 			return t_cur;
 		}(0, -1);
