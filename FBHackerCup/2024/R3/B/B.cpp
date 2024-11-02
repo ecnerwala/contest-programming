@@ -225,8 +225,8 @@ int main() {
 			}
 		}
 
-		for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
-		for (int i = 0; i < N; i++) { cerr << D[i] << ' '; } cerr << '\n';
+		//for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
+		//for (int i = 0; i < N; i++) { cerr << D[i] << ' '; } cerr << '\n';
 
 		modnum<998244353> hsh = 0;
 		for (int i = 0; i < N; i++) {
