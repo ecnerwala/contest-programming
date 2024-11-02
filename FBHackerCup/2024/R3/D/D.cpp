@@ -227,10 +227,10 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 	assert(get_sz(a) == 1 + get_sz(a->c[0]) + get_sz(a->c[1]));
 	if (cnt > get_sz(a->c[0])) {
 		l = a;
-		std::tie(l->c[1], r) = split_value(a->c[1], cnt - 1 - get_sz(a->c[0]));
+		std::tie(l->c[1], r) = split_sz(a->c[1], cnt - 1 - get_sz(a->c[0]));
 	} else {
 		r = a;
-		std::tie(l, r->c[0]) = split_value(a->c[0], cnt);
+		std::tie(l, r->c[0]) = split_sz(a->c[0], cnt);
 	}
 	a->update();
 	return {l, r};
