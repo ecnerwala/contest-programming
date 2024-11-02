@@ -204,6 +204,7 @@ int main() {
 				primes.push_back(p);
 			}
 		}
+		assert(pot <= 30);
 		int v = ins(A[i], primes, pot);
 		flower.add_edge(0, v, 1, 30 - pot);
 	}
