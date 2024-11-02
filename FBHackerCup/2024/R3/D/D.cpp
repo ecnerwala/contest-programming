@@ -169,7 +169,7 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 		n->update();
 		return n;
 	} else {
-		if (n->val < t->val) {
+		if (n->val > t->val) {
 			t->c[0] = insert(t->c[0], n);
 		} else {
 			t->c[1] = insert(t->c[1], n);
