@@ -329,7 +329,7 @@ int main() {
 			return t_cur;
 		}(0, -1);
 
-		cout << "Case #" << case_num << ": ";
+		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
 
 	return 0;
