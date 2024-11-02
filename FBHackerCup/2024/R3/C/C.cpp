@@ -5,7 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using ld = long double;
-	int MX = int(1e8);
+	int MX = int(1e6);
 	std::vector<ld> suff(MX+1);
 	for (int i = MX; i >= 1; i--) {
 		suff[i-1] = suff[i] + ld(1) / ld(i);
