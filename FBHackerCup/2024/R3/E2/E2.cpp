@@ -34,7 +34,28 @@ std::vector<std::vector<int>> run_ikj(const std::vector<std::vector<int>>& adj) 
 	return dist;
 }
 
-bool solve(const std::vector<std::vector<int>>& adj) {
+std::vector<std::vector<int>> run_kij(const std::vector<std::vector<int>>& adj) {
+	int N = int(adj.size());
+	std::vector<std::vector<int>> dist(N, std::vector<int>(N, N));
+	for (int i = 0; i < N; i++) {
+		for (int j : adj[i]) dist[i][j] = 1;
+		dist[i][i] = 0;
+	}
+	for (int k = 0; k < N; k++) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				dist[i][j] = std::min(dist[i][j], dist[i][k] + dist[k][j]);
+			}
+		}
+	}
+	return dist;
+}
+
+std::vector<std::vector<int>> real_dist(const std::vector<std::vector<int>>& adj) {
+	return run_kij(adj);
+}
+
+bool solve_ikj(const std::vector<std::vector<int>>& adj) {
 	bool good = true;
 	[&](this auto&& self, int cur, int prv) -> void {
 		assert(prv < cur);
@@ -62,7 +83,17 @@ bool solve(const std::vector<std::vector<int>>& adj) {
 		}
 	}(0, -1);
 	if (int(adj.size()) <= 50) {
-		assert(good == (run_ijk(adj) == run_ikj(adj)));
+		bool slo = run_ikj(adj) == real_dist(adj);
+		assert(good == slo);
+	}
+	return good;
+}
+
+bool solve_ijk(const std::vector<std::vector<int>>& adj) {
+	bool good = true;
+	if (int(adj.size()) <= 50) {
+		bool slo = run_ijk(adj) == real_dist(adj);
+		assert(good == slo);
 	}
 	return good;
 }
@@ -99,9 +130,16 @@ void test() {
 				ccs--;
 			}
 		}
-		bool ans = solve(adj);
-		bool slo = run_ijk(adj) == run_ikj(adj);
-		assert(ans == slo);
+		{
+			bool ans = solve_ikj(adj);
+			bool slo = run_ikj(adj) == real_dist(adj);
+			assert(ans == slo);
+		}
+		{
+			bool ans = solve_ijk(adj);
+			bool slo = run_ijk(adj) == real_dist(adj);
+			assert(ans == slo);
+		}
 	}
 }
 
@@ -113,7 +151,8 @@ int main() {
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		int N; cin >> N;
-		cerr << "Case #" << case_num << " " << "N = " << N << '\n';
+		std::string s; cin >> s;
+		cerr << "Case #" << case_num << " " << "N = " << N << ' ' << s << '\n';
 		assert(N >= 2);
 		std::vector<std::vector<int>> adj(N);
 		for (int e = 0; e < N-1; e++) {
@@ -122,7 +161,14 @@ int main() {
 			adj[v].push_back(u);
 		}
 
-		bool good = solve(adj);
+		bool good;
+		if (s[0] == 'k') {
+			good = true;
+		} else if (s[1] == 'k') {
+			good = solve_ikj(adj);
+		} else if (s[2] == 'k') {
+			good = solve_ijk(adj);
+		}
 
 		cout << "Case #" << case_num << ": " << (good ? "Lucky" : "Wrong") << '\n';
 	}
