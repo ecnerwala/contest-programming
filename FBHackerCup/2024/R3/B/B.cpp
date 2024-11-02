@@ -192,7 +192,10 @@ int main() {
 		std::vector<int> A(N);
 		{
 			std::vector<std::vector<int>> ch(N);
-			for (int i = 1; i < N; i++) ch[P[i]].push_back(i);
+			for (int i = 1; i < N; i++) {
+				cerr << i << ' ' << P[i] << '\n';
+				ch[P[i]].push_back(i);
+			}
 			std::vector<int> cnt(U+1);
 			std::set<std::pair<int, int>> best;
 			[&](this auto&& self, int cur) -> void {
