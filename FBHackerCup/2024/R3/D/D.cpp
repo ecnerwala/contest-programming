@@ -298,6 +298,7 @@ int main() {
 				if (get_sz(t_nxt) > get_sz(t_cur)) {
 					std::swap(t_cur, t_nxt);
 				}
+				assert(get_sz(t_cur) >= get_sz(t_nxt));
 				while (get_sz(t_cur) > get_sz(t_nxt) && get_sum(t_nxt) <= get_sum(t_cur)) {
 					t_cur = pop_back(t_cur);
 				}
