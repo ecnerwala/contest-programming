@@ -224,6 +224,7 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 	assert(0 <= cnt && cnt <= get_sz(a));
 	if (!a) return {nullptr, nullptr};
 	treap_node *l, *r;
+	assert(get_sz(a) == 1 + get_sz(a->c[0]) + get_sz(a->c[1]));
 	if (cnt > get_sz(a->c[0])) {
 		l = a;
 		std::tie(l->c[1], r) = split_value(a->c[1], cnt - 1 - get_sz(a->c[0]));
