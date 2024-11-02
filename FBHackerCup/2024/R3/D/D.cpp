@@ -268,6 +268,7 @@ int main() {
 		}
 		std::vector<treap_node> nodes(N);
 		num ans = 0;
+		if (false) {
 		std::vector<int64_t> buf_cur; buf_cur.reserve(N+1);
 		std::vector<int64_t> buf_nxt; buf_nxt.reserve(N+1);
 		[&](this auto&& self, const int cur, const int prv) -> treap_node* {
@@ -349,6 +350,36 @@ int main() {
 			}
 			return t_cur;
 		}(0, -1);
+		} else {
+		[&](this auto&& self, const int cur, const int prv) -> std::vector<int64_t> {
+			bool has_ch = false;
+			std::vector<int64_t> t_cur;
+			for (const int nxt : adj[cur]) {
+				if (nxt == prv) continue;
+				auto t_nxt = self(nxt, cur);
+				if (!has_ch) {
+					has_ch = true;
+					t_cur = t_nxt;
+					continue;
+				}
+				if (t_cur.size() < t_nxt.size()) {
+					std::swap(t_cur, t_nxt);
+				}
+				t_nxt.resize(t_cur.size(), t_nxt.back());
+				for (int i = 0; i < int(t_cur.size()); i++) {
+					t_cur[i] = std::min(t_cur[i], t_nxt[i]);
+				}
+			}
+			while (int(t_cur.size()) > M+1) {
+				t_cur.pop_back();
+			}
+			for (int i = 0; i < int(t_cur.size()); i++) {
+				ans += t_cur[i];
+			}
+			ans += int64_t(M + 1 - int(t_cur.size())) * t_cur.back();
+			return t_cur;
+		}(0, -1);
+		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
