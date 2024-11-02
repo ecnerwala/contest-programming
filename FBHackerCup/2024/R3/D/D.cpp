@@ -270,6 +270,7 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 
 		int N, M; cin >> N >> M;
+		cerr << "Case #" << case_num << " " << "N = " << N << " M = " << M << '\n';
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
 		std::vector<std::vector<int>> adj(N);
