@@ -268,7 +268,7 @@ int main() {
 		}
 		std::vector<treap_node> nodes(N);
 		num ans = 0;
-		if (false) {
+		if (true) {
 		std::vector<int64_t> buf_cur; buf_cur.reserve(N+1);
 		std::vector<int64_t> buf_nxt; buf_nxt.reserve(N+1);
 		[&](this auto&& self, const int cur, const int prv) -> treap_node* {
