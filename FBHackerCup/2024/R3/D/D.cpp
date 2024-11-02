@@ -344,6 +344,7 @@ int main() {
 			buf_cur.assign(1, int64_t(0));
 			flatten(t_cur, buf_cur);
 			for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
+			cerr << "  contrib " << num(t_cur->sum) * num(M) - t_cur->sum_incr << '\n';
 			return t_cur;
 		}(0, -1);
 
