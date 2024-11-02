@@ -253,7 +253,7 @@ void flatten(treap_node* a, std::vector<int64_t>& b) {
 	flatten(a->c[1], b);
 }
 
-void unflatten(treap_node* a, std::vector<int64_t>& b, int& idx) {
+void unflatten(treap_node* a, const std::vector<int64_t>& b, int& idx) {
 	if (!a) return;
 	unflatten(a->c[0], b, idx);
 	a->val = b[idx+1] - b[idx];
