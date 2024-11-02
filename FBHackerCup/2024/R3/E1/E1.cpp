@@ -17,6 +17,23 @@ std::vector<std::vector<int>> run_ijk(const std::vector<std::vector<int>>& adj) 
 	return dist;
 }
 
+std::vector<std::vector<int>> run_kij(const std::vector<std::vector<int>>& adj) {
+	int N = int(adj.size());
+	std::vector<std::vector<int>> dist(N, std::vector<int>(N, N));
+	for (int i = 0; i < N; i++) {
+		for (int j : adj[i]) dist[i][j] = 1;
+		dist[i][i] = 0;
+	}
+	for (int k = 0; k < N; k++) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				dist[i][j] = std::min(dist[i][j], dist[i][k] + dist[k][j]);
+			}
+		}
+	}
+	return dist;
+}
+
 std::vector<std::vector<int>> run_ikj(const std::vector<std::vector<int>>& adj) {
 	int N = int(adj.size());
 	std::vector<std::vector<int>> dist(N, std::vector<int>(N, N));
@@ -62,7 +79,7 @@ bool solve(const std::vector<std::vector<int>>& adj) {
 		}
 	}(0, -1);
 	if (int(adj.size()) <= 50) {
-		assert(good == (run_ijk(adj) == run_ikj(adj)));
+		assert(good == (run_kij(adj) == run_ikj(adj)));
 	}
 	return good;
 }
@@ -100,7 +117,7 @@ void test() {
 			}
 		}
 		bool ans = solve(adj);
-		bool slo = run_ijk(adj) == run_ikj(adj);
+		bool slo = run_kij(adj) == run_ikj(adj);
 		assert(ans == slo);
 	}
 }
