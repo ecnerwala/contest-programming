@@ -163,8 +163,8 @@ int main() {
 
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
-		int N; cin >> N;
 		std::string s; cin >> s;
+		int N; cin >> N;
 		cerr << "Case #" << case_num << " " << "N = " << N << ' ' << s << '\n';
 		assert(N >= 2);
 		std::vector<std::vector<int>> adj(N);
