@@ -345,6 +345,8 @@ int main() {
 			flatten(t_cur, buf_cur);
 			for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
 			cerr << "  contrib " << num(t_cur->sum) * num(M) - t_cur->sum_incr << '\n';
+			cerr << "  sum_incr " << t_cur->sum_incr << '\n';
+			cerr << "  sum " << t_cur->sum << '\n';
 			return t_cur;
 		}(0, -1);
 
