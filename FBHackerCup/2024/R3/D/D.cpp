@@ -320,7 +320,7 @@ int main() {
 				{
 					int idx = 0;
 					unflatten(t_cur_pref, buf_cur, idx);
-					assert(idx + 1 == int(buf_cur.size()));
+					assert(idx + 2 == int(buf_cur.size()));
 				}
 
 				adjust_first(t_cur_suff, -get_sum(t_cur_pref));
