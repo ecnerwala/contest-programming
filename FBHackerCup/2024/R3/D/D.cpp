@@ -152,7 +152,7 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 [[nodiscard]] std::pair<treap_node*, treap_node*> split_value(treap_node* a, int64_t v) {
 	if (!a) return {nullptr, nullptr};
 	treap_node *l, *r;
-	if (a->val < v) {
+	if (a->val > v) {
 		l = a;
 		std::tie(l->c[1], r) = split_value(a->c[1], v);
 	} else {
