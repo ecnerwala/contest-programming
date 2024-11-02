@@ -105,7 +105,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
 		assert(tot_sz == cur.sz());
 		for (int idx = 0; true; idx++) {
 			assert(idx < int(cnds.size()));
-			auto [delta, rng] = cnds[i];
+			auto [delta, rng] = cnds[idx];
 			assert(1 <= K);
 			if (K <= rng.sz()) {
 				Q[i] = P[i] + delta;
