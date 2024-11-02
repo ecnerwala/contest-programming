@@ -193,7 +193,20 @@ int main() {
 		{
 			std::vector<std::vector<int>> ch(N);
 			for (int i = 1; i < N; i++) ch[P[i]].push_back(i);
+			std::vector<int> cnt(U+1);
+			std::set<std::pair<int, int>> best;
 			[&](this auto&& self, int cur) -> void {
+				A[cur] = best.empty() ? 0 : best.begin()->second;
+				int v = V[cur];
+				if (cnt[v]) best.erase({cnt[v], v});
+				++cnt[v];
+				if (cnt[v]) best.insert({cnt[v], v});
+				for (int nxt : ch[cur]) {
+					self(nxt);
+				}
+				if (cnt[v]) best.erase({cnt[v], v});
+				--cnt[v];
+				if (cnt[v]) best.insert({cnt[v], v});
 			}(0);
 		}
 
