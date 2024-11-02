@@ -17,7 +17,7 @@ struct MCMF_Dinic {
 
 	explicit MCMF_Dinic(int N_) : N(N_), adj(N), pi(N, 0) {}
 
-	int add_vert(cost_t potential = 0) { int idx = N; N++; adj.emplace_back(); pi.push_back(potential); }
+	int add_vert(cost_t potential = 0) { int idx = N; N++; adj.emplace_back(); pi.push_back(potential); return idx; }
 
 	void add_edge(int from, int to, flow_t cap, cost_t cost) {
 		assert(cap >= 0);
