@@ -327,6 +327,10 @@ int main() {
 			}
 			assert(t_cur);
 			ans += num(t_cur->sum) * num(M) - t_cur->sum_incr;
+			buf_cur.assign(1, int64_t(0));
+			flatten(t_cur, buf_cur);
+			cerr << "recurse " << cur << '\n';
+			for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
 			return t_cur;
 		}(0, -1);
 
