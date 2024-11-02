@@ -54,19 +54,19 @@ int main() {
 			auto get_sum_most = [&](int64_t lo, int64_t hi) -> ld {
 				assert(lo <= hi);
 				// we need the sum from k = lo .. hi of (100 * N) / (k * (100 - P_guaranteed) + N * P_guaranteed)
-				ld ans = 0;
+				ld res = 0;
 				for (int i = 0; i <= int(1e7) && lo <= hi; i++) {
-					ans += ld(100 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed);
+					res += ld(100 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed);
 					lo++;
 				}
 				// half-open
 				lo--;
-				ans +=
+				res +=
 					ld(100 * N) / std::log(ld(hi * (100 - P_guaranteed) + N * P_guaranteed) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
 					+ (ld(50 * N) / ld(hi * (100 - P_guaranteed) + N * P_guaranteed)
 					- ld(50 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
 				;
-				return ans;
+				return res;
 			};
 			auto get_sum = [&](bool use_full, int64_t lo, int64_t hi) -> ld{
 				return use_full ? get_sum_full(lo, hi) : get_sum_most(lo, hi);
