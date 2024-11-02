@@ -370,6 +370,10 @@ int main() {
 					t_cur[i] = std::min(t_cur[i], t_nxt[i]);
 				}
 			}
+			t_cur.push_back(t_cur.back());
+			for (int i = int(t_cur.size()) - 1; i > 0; i--) {
+				t_cur[i] = std::max(t_cur[i-1] + A[cur], t_cur[i]);
+			}
 			while (int(t_cur.size()) > M+1) {
 				t_cur.pop_back();
 			}
