@@ -23,6 +23,7 @@ int main() {
 		assert(use_D_cap <= N);
 
 		auto get_harmonic = [&](int64_t lo, int64_t hi) -> ld {
+			cerr << "harmonic " << lo+1 << ' ' << hi << '\n';
 			if (hi <= MX) {
 				return suff[lo] - suff[hi];
 			}
@@ -48,10 +49,12 @@ int main() {
 			assert(100 - P_guaranteed > 0);
 
 			auto get_sum_full = [&](int64_t lo, int64_t hi) -> ld {
+				cerr << "full " << lo << ' ' << hi << '\n';
 				assert(lo <= hi);
 				return ld(hi - lo + 1) * ld(D_normal + 1);
 			};
 			auto get_sum_most = [&](int64_t lo, int64_t hi) -> ld {
+				cerr << "most " << lo << ' ' << hi << '\n';
 				assert(lo <= hi);
 				// we need the sum from k = lo .. hi of (100 * N) / (k * (100 - P_guaranteed) + N * P_guaranteed)
 				ld res = 0;
