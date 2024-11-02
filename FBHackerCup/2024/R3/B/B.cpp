@@ -188,8 +188,6 @@ int main() {
 			V[S[i].second] = U;
 		}
 
-		for (auto& p : P) cin >> p;
-
 		std::vector<int> A(N);
 		{
 			std::vector<std::vector<int>> ch(N);
