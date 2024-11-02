@@ -68,7 +68,7 @@ void test() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 1000; z++) {
 		int N = std::uniform_int_distribution<int>(2, 20)(mt);
-		cerr << "test " << z << ' ' << N << '\n';
+		std::cerr << "test " << z << ' ' << N << '\n';
 		std::vector<int> par(N, -1);
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
