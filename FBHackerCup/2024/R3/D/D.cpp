@@ -353,7 +353,7 @@ int main() {
 		} else {
 		[&](this auto&& self, const int cur, const int prv) -> std::vector<int64_t> {
 			bool has_ch = false;
-			std::vector<int64_t> t_cur;
+			std::vector<int64_t> t_cur({0});
 			for (const int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				auto t_nxt = self(nxt, cur);
