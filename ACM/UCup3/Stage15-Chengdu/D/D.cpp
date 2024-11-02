@@ -52,7 +52,7 @@ struct range_t {
 	}
 };
 
-std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
+std::optional<std::vector<int>> solve(const std::vector<int>& P, int K) {
 	int N = int(P.size());
 	assert(N >= 2);
 	if (!(N & 1)) {
@@ -117,6 +117,20 @@ std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
 		}
 	}
 	return Q;
+}
+
+void test() {
+	std::mt19937 mt(48);
+	for (int z = 0; z <= 1000; z++) {
+		int N = std::uniform_int_distribution<int>(2, 20)(mt);
+		cerr << "test " << z << ' ' << N << '\n';
+		std::vector<int> P(N);
+		std::iota(P.begin(), P.end(), 0);
+		std::shuffle(P.begin(), P.end(), mt);
+		for (int k = 1; k <= 3 * N + 3; k++) {
+			solve(P, k);
+		}
+	}
 }
 
 int main() {
