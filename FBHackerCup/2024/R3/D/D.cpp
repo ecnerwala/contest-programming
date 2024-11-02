@@ -318,6 +318,12 @@ int main() {
 
 				adjust_first(t_cur_suff, -get_sum(t_cur_pref));
 				t_cur = merge(t_cur_pref, t_cur_suff);
+				cerr << "merge " << cur << ' ' << nxt << '\n';
+				{
+					buf_cur.assign(1, int64_t(0));
+					flatten(t_cur, buf_cur);
+					for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
+				}
 			}
 			nodes[cur].val = A[cur];
 			t_cur = insert(t_cur, &nodes[cur]);
@@ -327,9 +333,9 @@ int main() {
 			}
 			assert(t_cur);
 			ans += num(t_cur->sum) * num(M) - t_cur->sum_incr;
+			cerr << "recurse " << cur << '\n';
 			buf_cur.assign(1, int64_t(0));
 			flatten(t_cur, buf_cur);
-			cerr << "recurse " << cur << '\n';
 			for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
 			return t_cur;
 		}(0, -1);
