@@ -187,6 +187,8 @@ int main() {
 			V[S[i].second] = U;
 		}
 
+		cerr << "Case #" << case_num << " " << "N = " << N << ' ' << "U = " << U << '\n';
+
 		std::vector<int> A(N);
 		{
 			std::vector<std::vector<int>> ch(N);
