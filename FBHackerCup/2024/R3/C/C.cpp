@@ -16,7 +16,7 @@ int main() {
 
 		int64_t N; cin >> N;
 		int P; cin >> P;
-		cout << "Case #" << case_num << " " << "N = " << N << ' ' << "P = " << P << '\n';
+		cerr << "Case #" << case_num << " " << "N = " << N << ' ' << "P = " << P << '\n';
 
 		int64_t use_D_cap = N * P / (P + 100);
 		// sum of k = use_D_cap+1..N of N / k
