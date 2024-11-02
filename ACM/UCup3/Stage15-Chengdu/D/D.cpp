@@ -26,7 +26,7 @@ bound_t do_max(bound_t a, bound_t b) {
 		assert((b.v & 3) == 3);
 		return bound_t{a.v + 2};
 	} else {
-		return a;
+		return b;
 	}
 }
 
