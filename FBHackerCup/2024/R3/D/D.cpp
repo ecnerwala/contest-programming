@@ -192,6 +192,25 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 	}
 }
 
+[[nodiscard]] treap_node* cap_at(treap_node* a, int64_t sum) {
+	if (!a) return a;
+	assert(a);
+	if (get_sum(a->c[0]) >= sum) {
+		treap_node* r = std::exchange(a->c[0], nullptr);
+		a->update();
+		return cap_at(r, sum);
+	} else if (a->val + get_sum(a->c[0]) >= sum) {
+		a->c[1] = nullptr;
+		a->val = sum - get_sum(a->c[0]);
+		a->update();
+		return a;
+	} else {
+		a->c[1] = cap_at(a->c[1], sum - get_sum(a->c[0]) - a->val);
+		a->update();
+		return a;
+	}
+}
+
 [[nodiscard]] treap_node* merge(treap_node *l, treap_node *r) {
 	if (!r) return l;
 	if (!l) return r;
@@ -300,16 +319,10 @@ int main() {
 				}
 
 				assert(get_sz(t_cur) >= get_sz(t_nxt));
-				while (get_sz(t_cur) > get_sz(t_nxt) && get_sum(t_nxt) <= get_sum(t_cur)) {
-					t_cur = pop_back(t_cur);
-				}
-				if (get_sz(t_cur) > get_sz(t_nxt)) {
-					assert(get_sum(t_nxt) > get_sum(t_cur));
-				}
-				assert(get_sz(t_cur) >= get_sz(t_nxt));
 				// now, replace the prefix of t_cur with the min of t_cur and t_nxt
 				auto [t_cur_pref, t_cur_suff] = split_sz(t_cur, get_sz(t_nxt));
 				adjust_first(t_cur_suff, +get_sum(t_cur_pref));
+				t_cur_suff = cap_at(t_cur_suff, get_sum(t_nxt));
 
 				buf_cur.assign(1, int64_t(0));
 				flatten(t_cur_pref, buf_cur);
