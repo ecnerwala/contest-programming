@@ -284,10 +284,17 @@ int main() {
 		std::vector<int64_t> buf_cur; buf_cur.reserve(N+1);
 		std::vector<int64_t> buf_nxt; buf_nxt.reserve(N+1);
 		[&](this auto&& self, int cur, int prv) -> treap_node* {
+			bool has_ch = false;
 			treap_node* t_cur = nullptr;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				auto t_nxt = self(nxt, cur);
+				if (!has_ch) {
+					has_ch = true;
+					t_cur = t_nxt;
+					continue;
+				}
+
 				if (get_sz(t_nxt) > get_sz(t_cur)) {
 					std::swap(t_cur, t_nxt);
 				}
