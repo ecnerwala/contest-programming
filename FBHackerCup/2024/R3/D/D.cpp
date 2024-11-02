@@ -349,11 +349,13 @@ int main() {
 				for (int i = 0; i+2 < int(buf_cur.size()); i++) {
 					assert(buf_cur[i+2] - buf_cur[i+1] <= buf_cur[i+1] - buf_cur[i]);
 				}
+				/*
 				num contrib = 0;
 				for (int i = 0; i <= M; i++) {
 					contrib += buf_cur[std::min(i, int(buf_cur.size()) - 1)];
 				}
 				assert(contrib == num(t_cur->sum) * num(M) - t_cur->sum_incr);
+				*/
 				//cerr << "  contrib " << num(t_cur->sum) * num(M) - t_cur->sum_incr << '\n';
 				//cerr << "  sum_incr " << t_cur->sum_incr << '\n';
 				//cerr << "  sum " << t_cur->sum << '\n';
