@@ -255,10 +255,10 @@ void flatten(treap_node* a, std::vector<int64_t>& b) {
 
 void unflatten(treap_node* a, std::vector<int64_t>& b, int& idx) {
 	if (!a) return;
-	flatten(a->c[0], b);
+	unflatten(a->c[0], b, idx);
 	a->val = b[idx+1] - b[idx];
 	idx++;
-	flatten(a->c[1], b);
+	unflatten(a->c[1], b, idx);
 	a->update();
 }
 
@@ -320,7 +320,7 @@ int main() {
 				{
 					int idx = 0;
 					unflatten(t_cur_pref, buf_cur, idx);
-					assert(idx + 2 == int(buf_cur.size()));
+					assert(idx + 1 == int(buf_cur.size()));
 				}
 
 				adjust_first(t_cur_suff, -get_sum(t_cur_pref));
