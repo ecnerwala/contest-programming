@@ -91,6 +91,20 @@ bool solve_ikj(const std::vector<std::vector<int>>& adj) {
 
 bool solve_ijk(const std::vector<std::vector<int>>& adj) {
 	bool good = true;
+	[&](this auto&& self, int cur, int prv) -> void {
+		assert(prv < cur);
+		for (int nxt : adj[cur]) {
+			if (nxt == prv) continue;
+			if (nxt > cur) {
+			} else {
+				if (prv == 0) {
+				} else {
+					good = false;
+				}
+			}
+			self(nxt, cur);
+		}
+	}(0, -1);
 	if (int(adj.size()) <= 50) {
 		bool slo = run_ijk(adj) == real_dist(adj);
 		assert(good == slo);
