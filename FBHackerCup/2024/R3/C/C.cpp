@@ -66,7 +66,7 @@ int main() {
 					// half-open
 					lo--;
 					res +=
-						ld(100 * N) / std::log(ld(hi * (100 - P_guaranteed) + N * P_guaranteed) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed)) / ld(100 - P_guaranteed)
+						ld(100 * N) * std::log(ld(hi * (100 - P_guaranteed) + N * P_guaranteed) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed)) / ld(100 - P_guaranteed)
 						+ (ld(50 * N) / ld(hi * (100 - P_guaranteed) + N * P_guaranteed)
 						- ld(50 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
 					;
