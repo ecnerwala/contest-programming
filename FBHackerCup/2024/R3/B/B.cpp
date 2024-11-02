@@ -178,7 +178,6 @@ int main() {
 			cin >> P[i] >> S[i].first;
 			if (i > 0) P[i]--;
 			S[i].second = i;
-			cerr << i << ' ' << P[i] << ' ' << S[i].first << '\n';
 		}
 		std::sort(S.begin(), S.end());
 		std::vector<int> V(N);
@@ -227,6 +226,9 @@ int main() {
 				}
 			}
 		}
+
+		for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
+		for (int i = 0; i < N; i++) { cerr << D[i] << ' '; } cerr << '\n';
 
 		modnum<998244353> hsh = 0;
 		for (int i = 0; i < N; i++) {
