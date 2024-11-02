@@ -168,9 +168,7 @@ int main() {
 			auto it = vals.find(cur);
 			if (it != vals.end()) return it->second;
 		}
-		cerr << cur << ": ";
-		for (auto p : primes) cerr << p << ' ';
-		cerr << '\n';
+		//cerr << cur << ": "; for (auto p : primes) { cerr << p << ' '; } cerr << '\n';
 		int idx = flower.add_vert();
 		flower.add_edge(idx, 1, 1, pot);
 		vals.insert({cur, idx});
