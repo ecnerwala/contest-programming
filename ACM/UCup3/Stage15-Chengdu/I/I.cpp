@@ -297,7 +297,7 @@ int main() {
 				seg[a] = std::gcd(seg[a.c(0)], seg[a.c(1)]);
 			} else {
 				int i = layout.get_leaf_index(a);
-				seg[a] = (i < N && A[i] > A[i+1]) ? i+1 : 0;
+				seg[a] = (i+1 < N && A[i] > A[i+1]) ? i+1 : 0;
 			}
 		};
 		for (seg_tree::point a(2*N-1); a > 0; a--) {
