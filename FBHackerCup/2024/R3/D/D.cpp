@@ -195,7 +195,7 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 [[nodiscard]] treap_node* pop_front(treap_node* a) {
 	assert(a);
 	if (a->c[0]) {
-		a->c[0] = pop_back(a->c[0]);
+		a->c[0] = pop_front(a->c[0]);
 		a->update();
 		return a;
 	} else {
