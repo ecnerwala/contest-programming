@@ -38,7 +38,7 @@ int main() {
 
 		ld ans = 0;
 		ans += N * get_harmonic(use_D_cap, N);
-		cerr << ans << '\n';
+		cerr << ' ' << ans << '\n';
 
 		
 		if (use_D_cap > 0) {
