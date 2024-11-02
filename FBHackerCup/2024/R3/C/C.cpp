@@ -59,13 +59,15 @@ int main() {
 					res += ld(100 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed);
 					lo++;
 				}
-				// half-open
-				lo--;
-				res +=
-					ld(100 * N) / std::log(ld(hi * (100 - P_guaranteed) + N * P_guaranteed) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
-					+ (ld(50 * N) / ld(hi * (100 - P_guaranteed) + N * P_guaranteed)
-					- ld(50 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
-				;
+				if (lo <= hi) {
+					// half-open
+					lo--;
+					res +=
+						ld(100 * N) / std::log(ld(hi * (100 - P_guaranteed) + N * P_guaranteed) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
+						+ (ld(50 * N) / ld(hi * (100 - P_guaranteed) + N * P_guaranteed)
+						- ld(50 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
+					;
+				}
 				return res;
 			};
 			auto get_sum = [&](bool use_full, int64_t lo, int64_t hi) -> ld{
