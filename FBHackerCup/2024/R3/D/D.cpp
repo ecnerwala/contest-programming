@@ -286,6 +286,16 @@ int main() {
 				if (get_sz(t_nxt) > get_sz(t_cur)) {
 					std::swap(t_cur, t_nxt);
 				}
+
+				std::vector<int64_t> a_cur; a_cur.assign(1, 0);
+				flatten(t_cur, a_cur);
+				std::vector<int64_t> a_nxt; a_nxt.assign(1, 0);
+				flatten(t_nxt, a_nxt);
+				a_nxt.resize(a_cur.size(), a_nxt.back());
+				for (int i = 0; i < int(a_nxt.size()); i++) {
+					a_cur[i] = std::min(a_cur[i], a_nxt[i]);
+				}
+
 				assert(get_sz(t_cur) >= get_sz(t_nxt));
 				while (get_sz(t_cur) > get_sz(t_nxt) && get_sum(t_nxt) <= get_sum(t_cur)) {
 					t_cur = pop_back(t_cur);
@@ -320,6 +330,10 @@ int main() {
 					flatten(t_cur, buf_cur);
 					for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
 				}
+				std::vector<int64_t> a_out; a_out.assign(1, 0);
+				flatten(t_cur, a_out);
+				a_out.resize(a_cur.size(), a_out.back());
+				assert(a_out == a_cur);
 			}
 			nodes[cur].val = A[cur];
 			t_cur = insert(t_cur, &nodes[cur]);
