@@ -192,19 +192,6 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 	}
 }
 
-[[nodiscard]] treap_node* pop_front(treap_node* a) {
-	assert(a);
-	if (a->c[0]) {
-		a->c[0] = pop_front(a->c[0]);
-		a->update();
-		return a;
-	} else {
-		treap_node* r = std::exchange(a->c[1], nullptr);
-		a->update();
-		return r;
-	}
-}
-
 [[nodiscard]] treap_node* merge(treap_node *l, treap_node *r) {
 	if (!r) return l;
 	if (!l) return r;
@@ -283,10 +270,10 @@ int main() {
 		num ans = 0;
 		std::vector<int64_t> buf_cur; buf_cur.reserve(N+1);
 		std::vector<int64_t> buf_nxt; buf_nxt.reserve(N+1);
-		[&](this auto&& self, int cur, int prv) -> treap_node* {
+		[&](this auto&& self, const int cur, const int prv) -> treap_node* {
 			bool has_ch = false;
 			treap_node* t_cur = nullptr;
-			for (int nxt : adj[cur]) {
+			for (const int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				auto t_nxt = self(nxt, cur);
 				if (!has_ch) {
