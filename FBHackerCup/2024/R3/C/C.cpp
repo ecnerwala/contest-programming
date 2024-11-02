@@ -38,6 +38,7 @@ int main() {
 
 		ld ans = 0;
 		ans += N * get_harmonic(use_D_cap, N);
+		cerr << ans << '\n';
 
 		
 		if (use_D_cap > 0) {
@@ -51,7 +52,8 @@ int main() {
 			auto get_sum_full = [&](int64_t lo, int64_t hi) -> ld {
 				cerr << "full " << lo << ' ' << hi << '\n';
 				assert(lo <= hi);
-				return ld(hi - lo + 1) * ld(D_normal + 1);
+				ld res = ld(hi - lo + 1) * ld(D_normal + 1);
+				cerr << ' ' << res << '\n';
 			};
 			auto get_sum_most = [&](int64_t lo, int64_t hi) -> ld {
 				cerr << "most " << lo << ' ' << hi << '\n';
@@ -72,6 +74,7 @@ int main() {
 					;
 				}
 				res *= D_normal;
+				cerr << ' ' << res << '\n';
 				return res;
 			};
 			auto get_sum = [&](bool use_full, int64_t lo, int64_t hi) -> ld{
