@@ -54,6 +54,7 @@ int main() {
 				assert(lo <= hi);
 				ld res = ld(hi - lo + 1) * ld(D_normal + 1);
 				cerr << ' ' << res << '\n';
+				return res;
 			};
 			auto get_sum_most = [&](int64_t lo, int64_t hi) -> ld {
 				cerr << "most " << lo << ' ' << hi << '\n';
