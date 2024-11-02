@@ -291,6 +291,9 @@ int main() {
 				flatten(t_cur, a_cur);
 				std::vector<int64_t> a_nxt; a_nxt.assign(1, 0);
 				flatten(t_nxt, a_nxt);
+				cerr << "merge " << '\n';
+				for (auto v : a_cur) { cerr << v << ' '; } cerr << '\n';
+				for (auto v : a_nxt) { cerr << v << ' '; } cerr << '\n';
 				a_nxt.resize(a_cur.size(), a_nxt.back());
 				for (int i = 0; i < int(a_nxt.size()); i++) {
 					a_cur[i] = std::min(a_cur[i], a_nxt[i]);
@@ -332,6 +335,7 @@ int main() {
 				}
 				std::vector<int64_t> a_out; a_out.assign(1, 0);
 				flatten(t_cur, a_out);
+				for (auto v : a_out) { cerr << v << ' '; } cerr << '\n';
 				a_out.resize(a_cur.size(), a_out.back());
 				assert(a_out == a_cur);
 			}
