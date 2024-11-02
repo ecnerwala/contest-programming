@@ -71,6 +71,7 @@ int main() {
 						- ld(50 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
 					;
 				}
+				res *= D_normal;
 				return res;
 			};
 			auto get_sum = [&](bool use_full, int64_t lo, int64_t hi) -> ld{
