@@ -92,7 +92,6 @@ bool solve_ikj(const std::vector<std::vector<int>>& adj) {
 bool solve_ijk(const std::vector<std::vector<int>>& adj) {
 	bool good = true;
 	[&](this auto&& self, int cur, int prv) -> void {
-		assert(prv < cur);
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
 			if (nxt > cur) {
