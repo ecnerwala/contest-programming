@@ -56,7 +56,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
 		if (K == 1) {
 			std::vector<int> Q(N);
 			for (int i = 0; i < N; i++) Q[i] = P[i] ^ 1;
-			return std::move(Q);
+			return Q;
 		} else {
 			return std::nullopt;
 		}
@@ -109,7 +109,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, int K) {
 			}
 		}
 	}
-	return std::move(Q);
+	return Q;
 }
 
 int main() {
