@@ -34,7 +34,7 @@ int main() {
 				lo = MX;
 			}
 			ans += std::log(ld(hi) / ld(lo)) +
-				0 * (ld(0.5) / hi - ld(0.5) / lo);
+				(ld(0.5) / hi - ld(0.5) / lo);
 			return ans;
 		};
 
