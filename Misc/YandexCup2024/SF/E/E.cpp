@@ -219,6 +219,7 @@ int main() {
 				const auto& d = diams[p];
 				ans = std::max({ans, get_dist(d.coords[0], i), get_dist(d.coords[1], i)});
 			}
+			cout << ans << '\n';
 		}
 
 		for (int i = 0; i < N; i++) {
