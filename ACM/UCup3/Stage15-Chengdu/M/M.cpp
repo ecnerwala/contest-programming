@@ -592,6 +592,10 @@ int main() {
 						ld t_en = t_evts[z+1];
 						int t_en_floor = z+2 == int(t_evts.size()) ? t_max : int(t_en);
 						t_en_floor = std::clamp(t_en_floor, t_min, t_max);
+						cerr << "handling ";
+						cerr << "x = " << x_st << '-' << x_en << ' ';
+						cerr << "t = " << t_st << '-' << t_en << ' ';
+						cerr << "area = " << area_at(t_st) << '-' << area_at(t_en) << '\n';
 						if (t_en_floor > t_st_floor) {
 							tot_integ_at[t_st_floor] += integ_at(t_st, t_st_floor + 1);
 							if (t_en_floor - t_st_floor > 1) {
