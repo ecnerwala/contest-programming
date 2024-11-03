@@ -23,6 +23,19 @@ int main() {
 		// sum of k = use_D_cap+1..N of N / k
 		assert(use_D_cap <= N);
 
+		auto get_optimal_D = [&](int64_t k) {
+			std::pair<ld, int> best(ld(N) / k, 1);
+			for (int d = 1; true; d++) {
+				int p_guaranteed = std::min(100, (d-1) * P);
+				std::pair<ld, int> cnd(ld(d) / (
+					p_guaranteed / ld(100) + (100 - p_guaranteed) / ld(100) * ld(k) / ld(N)
+				), d);
+				best = std::min(best, cnd);
+			}
+			cerr << "optimal " << k << ' ' << best.second << ' ' << best.first << '\n';
+			return best;
+		};
+
 		auto get_harmonic = [&](int64_t lo, int64_t hi) -> ld {
 			cerr << "harmonic " << lo+1 << ' ' << hi << '\n';
 			if (hi <= MX) {
@@ -41,7 +54,7 @@ int main() {
 		ld ans = 0;
 		ans += N * get_harmonic(use_D_cap, N);
 		cerr << ' ' << ans << '\n';
-
+		get_optimal_D(use_D_cap);
 		
 		if (use_D_cap > 0) {
 			assert(P > 0);
@@ -53,6 +66,8 @@ int main() {
 
 			auto get_sum_full = [&](int64_t lo, int64_t hi) -> ld {
 				cerr << "full " << lo << ' ' << hi << '\n';
+				get_optimal_D(lo);
+				get_optimal_D(hi);
 				assert(lo <= hi);
 				ld res = ld(hi - lo + 1) * ld(D_normal + 1);
 				cerr << ' ' << res << '\n';
@@ -61,6 +76,8 @@ int main() {
 			auto get_sum_most = [&](int64_t lo, int64_t hi) -> ld {
 				cerr << "most " << lo << ' ' << hi << '\n';
 				cerr << P_guaranteed << '\n';
+				get_optimal_D(lo);
+				get_optimal_D(hi);
 				assert(lo <= hi);
 				// we need the sum from k = lo .. hi of (100 * N) / (k * (100 - P_guaranteed) + N * P_guaranteed)
 				ld res = 0;
