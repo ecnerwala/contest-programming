@@ -126,6 +126,7 @@ public:
 		return construct_raw(compressed_s, sigma);
 	}
 
+	/*
 	index_t get_lcp(index_t a, index_t b) const {
 		if (a == b) return N-a;
 		a = rank[a], b = rank[b];
@@ -139,6 +140,7 @@ public:
 		assert(r - l > 1);
 		return rmq.query(l, r-2);
 	}
+	*/
 
 private:
 	explicit SuffixArray(int N_) : N(N_) {}
