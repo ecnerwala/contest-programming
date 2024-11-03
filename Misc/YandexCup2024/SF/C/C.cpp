@@ -283,12 +283,14 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 	std::vector<tensor<num, 2>> ways(MAXL);
+	ways[0] = tensor<num, 2>({N, N});
 	for (int e = 0; e < M; e++) {
 		int u, v; cin >> u >> v; u--, v--;
 		ways[0][{u, v}]++;
 		ways[0][{v, u}]++;
 	}
 	for (int b = 1; b < MAXL; b++) {
+		ways[b] = tensor<num, 2>({N, N});
 		const auto& inp = ways[b-1];
 		auto& out = ways[b];
 		for (int i = 0; i < N; i++) {
