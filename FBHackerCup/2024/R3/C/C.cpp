@@ -32,7 +32,7 @@ int main() {
 				ans += suff[lo];
 				lo = MX;
 			}
-			ans += std::log((ld(hi) + 0.5) / (ld(lo) + 0.5));
+			ans += std::log(ld(hi) / ld(lo)) + (ld(0.5) / hi - ld(0.5) / lo);
 			return ans;
 		};
 
