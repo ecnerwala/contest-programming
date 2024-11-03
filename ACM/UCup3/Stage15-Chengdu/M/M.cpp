@@ -478,7 +478,7 @@ int main() {
 				}
 				auto area_at = [&](ld timestamp) -> ld {
 					// TODO
-					return 0;
+					return (x_en - x_st);
 				};
 				auto integ_at = [&](ld t0, ld t1) -> ld {
 					ld a0 = area_at(t0);
