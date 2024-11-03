@@ -212,7 +212,7 @@ int main() {
 
 		for (int z = 0; z < N; z++) {
 			int i = preorder_idx[z];
-			int ans = 0;
+			int ans = -1;
 			for (int val = vals[i]; val > 1; ) {
 				int p = pfac[val]; while (val % p == 0) { val /= p; }
 
