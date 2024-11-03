@@ -126,6 +126,32 @@ int main() {
 		ld S_side_1 = V_side_1.dist();
 		V_side_1 = V_side_1.unrotate(V_dir);
 		cerr << V_side_1 << ' ' << S_side_1 << '\n';
+
+		// P[1] moves in the positive y direction with speed S_side_1
+		std::array<std::vector<pt_t>, 4> hull;
+		for (int side = 0; side < 2; side++) {
+			auto& P_i = P[side];
+			auto& lower = hull[side * 2 + 0];
+			auto& upper = hull[side * 2 + 1];
+			auto lex_cmp = [](pt_t a, pt_t b) -> bool { return std::pair<ld, ld>(a) < std::pair<ld, ld>(b); };
+			int i_min = int(std::min_element(P_i.begin(), P_i.end(), lex_cmp) - P_i.begin());
+			int i_max = int(std::max_element(P_i.begin(), P_i.end(), lex_cmp) - P_i.begin());
+			assert(i_min != i_max);
+			if (i_min < i_max) {
+				lower.insert(lower.end(), P_i.begin() + i_min, P_i.begin() + i_max + 1);
+				upper.insert(upper.end(), P_i.begin() + i_max, P_i.end());
+				upper.insert(upper.end(), P_i.begin(), P_i.begin() + i_min + 1);
+			} else {
+				lower.insert(lower.end(), P_i.begin() + i_min, P_i.end());
+				lower.insert(lower.end(), P_i.begin(), P_i.begin() + i_max + 1);
+				upper.insert(upper.end(), P_i.begin() + i_max, P_i.begin() + i_min + 1);
+			}
+			std::reverse(upper.begin(), upper.end());
+		}
+
+		std::array<int, 4> idx{0, 0, 0, 0};
+		for (int i = 0; i < N; i++) {
+		}
 	}
 
 	return 0;
