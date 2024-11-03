@@ -878,8 +878,9 @@ int main() {
 		assert(p >= 1);
 		num ans = 0;
 		for (int i = 1; i <= p+1; i++) {
-			ans += fact[p] * (pow(num(MX), i) - num(1)) * ifact[i] * bernoulli[p+1-i];
+			ans += (pow(num(MX), i) - num(1)) * ifact[i] * bernoulli[p+1-i];
 		}
+		ans *= fact[p];
 		return ans;
 	};
 
