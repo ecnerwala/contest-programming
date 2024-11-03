@@ -189,24 +189,22 @@ int main() {
 			if (u > v) std::swap(u, v);
 			return depths[u] + depths[v] - 2 * rmq.query(u, v-1);
 		};
-		auto ins = [&](diam_t& d, int i) -> void {
-			if (d.len == -1) {
-				d.len = 0;
-				d.coords = {i, i};
-			} else {
-				int d0 = get_dist(d.coords[0], i);
-				int d1 = get_dist(d.coords[1], i);
-				if (std::max(d0, d1) > d.len) {
-					d.len = std::max(d0, d1);
-					d.coords = {(d0 > d1) ? d.coords[0] : d.coords[1], i};
-				}
-			}
-		};
 		for (int i = 0; i < N; i++) {
 			for (int val = vals[i]; val > 1; ) {
 				int p = pfac[val]; while (val % p == 0) { val /= p; }
 
-				ins(diams[p], i);
+				auto& d = diams[p];
+				if (d.len == -1) {
+					d.len = 0;
+					d.coords = {i, i};
+				} else {
+					int d0 = get_dist(d.coords[0], i);
+					int d1 = get_dist(d.coords[1], i);
+					if (std::max(d0, d1) > d.len) {
+						d.len = std::max(d0, d1);
+						d.coords = {(d0 > d1) ? d.coords[0] : d.coords[1], i};
+					}
+				}
 			}
 		}
 
@@ -217,6 +215,7 @@ int main() {
 				int p = pfac[val]; while (val % p == 0) { val /= p; }
 
 				const auto& d = diams[p];
+				assert(d.len != -1);
 				ans = std::max({ans, get_dist(d.coords[0], i), get_dist(d.coords[1], i)});
 			}
 			cout << ans << '\n';
