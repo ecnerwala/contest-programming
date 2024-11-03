@@ -33,7 +33,7 @@ int main() {
 				best = std::min(best, cnd);
 				if (p_guaranteed == 100 || P == 0) break;
 			}
-			cerr << "optimal " << k << ' ' << best.second << ' ' << best.first << '\n';
+			cerr << "  optimal " << k << ' ' << best.second << ' ' << best.first << '\n';
 			return best;
 		};
 
