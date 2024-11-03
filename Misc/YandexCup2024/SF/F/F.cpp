@@ -660,7 +660,7 @@ int main() {
 		for (auto q : queries_by_vert[cur]) {
 			ans[q] += do_query(q);
 		}
-	});
+	})(0);
 	for (int q = 0; q < Q; q++) cout << ans[q] << '\n';
 
 	return 0;
