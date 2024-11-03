@@ -60,6 +60,7 @@ int main() {
 			};
 			auto get_sum_most = [&](int64_t lo, int64_t hi) -> ld {
 				cerr << "most " << lo << ' ' << hi << '\n';
+				cerr << P_guaranteed << '\n';
 				assert(lo <= hi);
 				// we need the sum from k = lo .. hi of (100 * N) / (k * (100 - P_guaranteed) + N * P_guaranteed)
 				ld res = 0;
