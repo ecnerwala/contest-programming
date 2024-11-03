@@ -149,7 +149,7 @@ struct treap_node {
 int get_sz(treap_node* t) { return t ? t->sz : 0; }
 int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 
-auto split_value = [][[nodiscard]](this auto&& self, treap_node* a, int64_t v) -> std::pair<treap_node*, treap_node*> {
+auto split_value = [] [[nodiscard]] (this auto&& self, treap_node* a, int64_t v) -> std::pair<treap_node*, treap_node*> {
 	if (!a) return {nullptr, nullptr};
 	treap_node *l, *r;
 	if (a->val > v) {
@@ -213,62 +213,62 @@ auto cap_at = [] [[nodiscard]] (this auto&& self, treap_node* a, int64_t sum) ->
 	}
 };
 
-[[nodiscard]] treap_node* merge(treap_node *l, treap_node *r) {
+auto merge = [] [[nodiscard]] (this auto&& self, treap_node *l, treap_node *r) -> treap_node* {
 	if (!r) return l;
 	if (!l) return r;
 	treap_node* a;
 	if (l->pri < r->pri) {
 		a = l;
-		a->c[1] = merge(l->c[1], r);
+		a->c[1] = self(l->c[1], r);
 	} else {
 		a = r;
-		a->c[0] = merge(l, r->c[0]);
+		a->c[0] = self(l, r->c[0]);
 	}
 	a->update();
 	return a;
-}
+};
 
-[[nodiscard]] std::pair<treap_node*, treap_node*> split_sz(treap_node* a, int64_t cnt) {
+auto split_sz = [] [[nodiscard]] (this auto&& self, treap_node* a, int64_t cnt) -> std::pair<treap_node*, treap_node*> {
 	assert(0 <= cnt && cnt <= get_sz(a));
 	if (!a) return {nullptr, nullptr};
 	treap_node *l, *r;
 	assert(get_sz(a) == 1 + get_sz(a->c[0]) + get_sz(a->c[1]));
 	if (cnt > get_sz(a->c[0])) {
 		l = a;
-		std::tie(l->c[1], r) = split_sz(a->c[1], cnt - 1 - get_sz(a->c[0]));
+		std::tie(l->c[1], r) = self(a->c[1], cnt - 1 - get_sz(a->c[0]));
 	} else {
 		r = a;
-		std::tie(l, r->c[0]) = split_sz(a->c[0], cnt);
+		std::tie(l, r->c[0]) = self(a->c[0], cnt);
 	}
 	a->update();
 	return {l, r};
-}
+};
 
-void adjust_first(treap_node* t, int64_t delta) {
+auto adjust_first = [](this auto&& self, treap_node* t, int64_t delta) -> void {
 	if (!t) {
 		return;
 	}
 	assert(t);
-	if (t->c[0]) adjust_first(t->c[0], delta);
+	if (t->c[0]) self(t->c[0], delta);
 	else t->val += delta;
 	t->update();
-}
+};
 
-void flatten(treap_node* a, std::vector<int64_t>& b) {
+auto flatten = [](this auto&& self, treap_node* a, std::vector<int64_t>& b) -> void {
 	if (!a) return;
-	flatten(a->c[0], b);
+	self(a->c[0], b);
 	b.push_back(b.back() + a->val);
-	flatten(a->c[1], b);
-}
+	self(a->c[1], b);
+};
 
-void unflatten(treap_node* a, const std::vector<int64_t>& b, int& idx) {
+auto unflatten = [](this auto&& self, treap_node* a, const std::vector<int64_t>& b, int& idx) -> void {
 	if (!a) return;
-	unflatten(a->c[0], b, idx);
+	self(a->c[0], b, idx);
 	a->val = b[idx+1] - b[idx];
 	idx++;
-	unflatten(a->c[1], b, idx);
+	self(a->c[1], b, idx);
 	a->update();
-}
+};
 
 int main() {
 	using namespace std;
