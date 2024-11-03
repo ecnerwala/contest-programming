@@ -124,7 +124,8 @@ int main() {
 		for (auto& P_i : P) {
 			for (auto& p : P_i) p = p.unrotate(V_dir);
 		}
-		cerr << V_side_1 << '\n';
+		ld S_side_1 = V_side_1.dist();
+		cerr << V_side_1 << ' ' << S_side_1 << '\n';
 	}
 
 	return 0;
