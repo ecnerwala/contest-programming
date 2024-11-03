@@ -517,6 +517,7 @@ int main() {
 					for (int i = 1; i+1 < int(final_poly.size()); i++) {
 						res += cross3(final_poly[0], final_poly[i], final_poly[i+1]);
 					}
+					res /= 2;
 					return res;
 				};
 				auto integ_at = [&](ld t0, ld t1) -> ld {
