@@ -149,20 +149,21 @@ struct treap_node {
 int get_sz(treap_node* t) { return t ? t->sz : 0; }
 int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 
-[[nodiscard]] std::pair<treap_node*, treap_node*> split_value(treap_node* a, int64_t v) {
+auto split_value = [][[nodiscard]](this auto&& self, treap_node* a, int64_t v) -> std::pair<treap_node*, treap_node*> {
 	if (!a) return {nullptr, nullptr};
 	treap_node *l, *r;
 	if (a->val > v) {
 		l = a;
-		std::tie(l->c[1], r) = split_value(a->c[1], v);
+		std::tie(l->c[1], r) = self(a->c[1], v);
 	} else {
 		r = a;
-		std::tie(l, r->c[0]) = split_value(a->c[0], v);
+		std::tie(l, r->c[0]) = self(a->c[0], v);
 	}
 	a->update();
 	return {l, r};
-}
-[[nodiscard]] treap_node* insert(treap_node* t, treap_node* n) {
+};
+
+auto insert = [] [[nodiscard]] (this auto&& self, treap_node* t, treap_node* n) -> treap_node* {
 	assert(n);
 	if (!t || n->pri < t->pri) {
 		std::tie(n->c[0], n->c[1]) = split_value(t, n->val);
@@ -170,19 +171,19 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 		return n;
 	} else {
 		if (n->val > t->val) {
-			t->c[0] = insert(t->c[0], n);
+			t->c[0] = self(t->c[0], n);
 		} else {
-			t->c[1] = insert(t->c[1], n);
+			t->c[1] = self(t->c[1], n);
 		}
 		t->update();
 		return t;
 	}
-}
+};
 
-[[nodiscard]] treap_node* pop_back(treap_node* a) {
+auto pop_back = [] [[nodiscard]] (this auto&& self, treap_node* a) -> treap_node* {
 	assert(a);
 	if (a->c[1]) {
-		a->c[1] = pop_back(a->c[1]);
+		a->c[1] = self(a->c[1]);
 		a->update();
 		return a;
 	} else {
@@ -190,26 +191,27 @@ int64_t get_sum(treap_node* t) { return t ? t->sum : 0; }
 		a->update();
 		return r;
 	}
-}
+};
 
-[[nodiscard]] treap_node* cap_at(treap_node* a, int64_t sum) {
+
+auto cap_at = [] [[nodiscard]] (this auto&& self, treap_node* a, int64_t sum) -> treap_node* {
 	if (!a) return a;
 	assert(a);
 	if (get_sum(a->c[0]) >= sum) {
 		treap_node* r = std::exchange(a->c[0], nullptr);
 		a->update();
-		return cap_at(r, sum);
+		return self(r, sum);
 	} else if (a->val + get_sum(a->c[0]) >= sum) {
 		a->c[1] = nullptr;
 		a->val = sum - get_sum(a->c[0]);
 		a->update();
 		return a;
 	} else {
-		a->c[1] = cap_at(a->c[1], sum - get_sum(a->c[0]) - a->val);
+		a->c[1] = self(a->c[1], sum - get_sum(a->c[0]) - a->val);
 		a->update();
 		return a;
 	}
-}
+};
 
 [[nodiscard]] treap_node* merge(treap_node *l, treap_node *r) {
 	if (!r) return l;
