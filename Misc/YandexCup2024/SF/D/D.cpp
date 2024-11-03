@@ -225,6 +225,7 @@ int main() {
 				// sum from b = 2 to max_b of (MX + 1 - b^l)
 				num v = num(MX + 1) * num(max_b - 1) - linearRec(recs[l].first, recs[l].second, max_b - 1);
 				cerr << l << ' ' << max_b << ' ' << v << '\n';
+				if (l == 1) v *= 2;
 				ans += v;
 			}
 		}
