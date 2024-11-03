@@ -864,8 +864,10 @@ template <typename num, typename multiplier> struct online_squarer {
 /* namespace ecnerwala */ }
 
 int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
+	using std::cin;
+	using std::cout;
+	using std::cerr;
 
 	using num = modnum<int(1e9)+7>;
 
@@ -906,16 +908,14 @@ int main() {
 		num ans = 0;
 		// total length of all >= 2 digit numbers
 		// for each base in 2 .. MX, count how many things take at least k digits
-		for (int l = 1; l < MAXL; l++) {
+		for (int l = 1; (int64_t(1) << l) <= MX; l++) {
 			// sum over b of (MX - b^l)
 			int64_t max_b;
 			if (l == 1) max_b = MX;
 			else if (l == 2) max_b = floor_sqrt(MX);
 			else {
 				auto is_good = [&MX, &l](int64_t md) -> bool {
-					int64_t v = MX;
-					for (int z = 0; v && z < l; z++) v /= md;
-					return v;
+					return ::pow(__int128_t(md), l) <= MX;
 				};
 				int64_t mi = 1;
 				int64_t ma = 2;
@@ -930,15 +930,12 @@ int main() {
 				}
 				max_b = mi;
 			}
-			if (max_b >= 2) {
-				// sum from b = 2 to max_b of (MX + 1 - b^l)
-				num v = num(MX + 1) * num(max_b - 1) - sum_pow(max_b, l);
-				//cerr << l << ' ' << max_b << ' ' << v << '\n';
-				if (l == 1) v *= 2;
-				ans += v;
-			} else {
-				break;
-			}
+			assert(max_b >= 2);
+			// sum from b = 2 to max_b of (MX + 1 - b^l)
+			num v = num(MX + 1) * num(max_b - 1) - sum_pow(max_b, l);
+			//cerr << l << ' ' << max_b << ' ' << v << '\n';
+			if (l == 1) v *= 2;
+			ans += v;
 		}
 		return ans;
 	};
