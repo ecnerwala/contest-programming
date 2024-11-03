@@ -6,7 +6,7 @@ int main() {
 	cerr << fixed << setprecision(20);
 
 	using ld = long double;
-	int MX = int(1e8);
+	int MX = int(1e5);
 	std::vector<ld> suff(MX+1);
 	for (int i = MX; i >= 1; i--) {
 		suff[i-1] = suff[i] + ld(1) / ld(i);
