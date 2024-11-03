@@ -595,8 +595,10 @@ int main() {
 						if (std::max(t_st, ld(2)) <= std::min(t_en, ld(3))) {
 							cerr << "handling ";
 							cerr << "x = " << x_st << '-' << x_en << ' ';
-							cerr << "t = " << t_st << '-' << t_en << ' ';
-							cerr << "area = " << area_at(std::max(t_st, ld(2))) << '-' << area_at(std::min(t_en, ld(3))) << '\n';
+							ld my_t_st = std::max(t_st, ld(2));
+							ld my_t_en = std::min(t_en, ld(3));
+							cerr << "t = " << my_t_st << '-' << my_t_en << ' ';
+							cerr << "area = " << area_at(my_t_st) << '-' << area_at(my_t_en) << '\n';
 						}
 						if (t_en_floor > t_st_floor) {
 							tot_integ_at[t_st_floor] += integ_at(t_st, t_st_floor + 1);
