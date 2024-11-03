@@ -31,6 +31,7 @@ int main() {
 					p_guaranteed / ld(100) + (100 - p_guaranteed) / ld(100) * ld(k) / ld(N)
 				), d);
 				best = std::min(best, cnd);
+				if (p_guaranteed == 100) break;
 			}
 			cerr << "optimal " << k << ' ' << best.second << ' ' << best.first << '\n';
 			return best;
