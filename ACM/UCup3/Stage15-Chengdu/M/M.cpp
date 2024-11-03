@@ -119,7 +119,7 @@ int main() {
 		}
 
 		// P[1] moves with velocity V_side_1
-		pt_t V_dir = -V_L.unit();
+		pt_t V_dir = V_side_1.perp_cw().unit();
 		V_side_1 = V_side_1.unrotate(V_L);
 		for (auto& P_i : P) {
 			for (auto& p : P_i) p = p.unrotate(V_L);
