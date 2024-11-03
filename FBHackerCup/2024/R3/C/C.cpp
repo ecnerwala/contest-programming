@@ -55,7 +55,8 @@ int main() {
 		ld ans = 0;
 		ans += N * get_harmonic(use_D_cap, N);
 		cerr << ' ' << ans << '\n';
-		get_optimal_D(use_D_cap);
+		get_optimal_D(use_D_cap + 1);
+		get_optimal_D(N);
 		
 		if (use_D_cap > 0) {
 			assert(P > 0);
