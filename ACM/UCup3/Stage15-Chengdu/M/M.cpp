@@ -521,7 +521,7 @@ int main() {
 						pt_t cur = poly[i], prev = i ? poly[i-1] : poly.back();
 						bool side = cross3(s, e, cur) < 0;
 						if (side != (cross3(s, e, prev) < 0)){
-							auto [val, p] = lineInter(s, e, cur, prev);
+							auto [val, p] = lineInter(cur, prev, s, e);
 							if(val){
 								res.push_back(p);
 							} else {
