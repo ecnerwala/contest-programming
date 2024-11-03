@@ -213,7 +213,7 @@ auto cap_at = [] [[nodiscard]] (this auto&& self, treap_node* a, int64_t sum) ->
 	}
 };
 
-auto merge = [] [[nodiscard]] (this auto&& self, treap_node *l, treap_node *r) -> treap_node* {
+auto treap_merge = [] [[nodiscard]] (this auto&& self, treap_node *l, treap_node *r) -> treap_node* {
 	if (!r) return l;
 	if (!l) return r;
 	treap_node* a;
@@ -343,7 +343,7 @@ int main() {
 				}
 
 				adjust_first(t_cur_suff, -get_sum(t_cur_pref));
-				t_cur = merge(t_cur_pref, t_cur_suff);
+				t_cur = treap_merge(t_cur_pref, t_cur_suff);
 				if (false) {
 					cerr << "merge " << cur << ' ' << nxt << '\n';
 					buf_cur.assign(1, int64_t(0));
