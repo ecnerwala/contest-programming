@@ -32,7 +32,8 @@ int main() {
 				ans += suff[lo];
 				lo = MX;
 			}
-			ans += std::log(ld(hi) / ld(lo)) + (ld(0.5) / hi - ld(0.5) / lo);
+			ans += std::log(ld(hi) / ld(lo)) +
+				0 * (ld(0.5) / hi - ld(0.5) / lo);
 			return ans;
 		};
 
@@ -70,7 +71,7 @@ int main() {
 					lo--;
 					res +=
 						ld(100 * N) * std::log(ld(hi * (100 - P_guaranteed) + N * P_guaranteed) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed)) / ld(100 - P_guaranteed)
-						+ (ld(50 * N) / ld(hi * (100 - P_guaranteed) + N * P_guaranteed)
+						+ 0 * (ld(50 * N) / ld(hi * (100 - P_guaranteed) + N * P_guaranteed)
 						- ld(50 * N) / ld(lo * (100 - P_guaranteed) + N * P_guaranteed))
 					;
 				}
