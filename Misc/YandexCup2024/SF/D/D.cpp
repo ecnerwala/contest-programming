@@ -903,7 +903,7 @@ int main() {
 				while (ma - mi > 1) {
 					int64_t md = (mi + ma) / 2;
 					int64_t v = MX;
-					for (int z = 0; z < l; z++) v /= md;
+					for (int z = 0; v && z < l; z++) v /= md;
 					if (v) mi = md;
 					else ma = md;
 				}
