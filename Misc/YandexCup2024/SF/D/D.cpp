@@ -201,6 +201,7 @@ int main() {
 
 
 	auto query = [&](int64_t MX) -> num {
+		cerr << "query " << MX << '\n';
 		assert(MX >= 1);
 		num ans = 0;
 		// total length of all >= 2 digit numbers
@@ -223,6 +224,7 @@ int main() {
 			if (max_b >= 2) {
 				// sum from b = 2 to max_b of (MX + 1 - b^l)
 				num v = num(MX + 1) * num(max_b - 1) - linearRec(recs[l].first, recs[l].second, max_b - 1);
+				cerr << l << ' ' << max_b << ' ' << v << '\n';
 				if (l == 2) v *= 2;
 				ans += v;
 			}
