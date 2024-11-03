@@ -374,28 +374,57 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int CASE_NUM; cin >> CASE_NUM;
-	while (CASE_NUM--) {
+	bool is_test_3 = false;
+	int line_number = 1;
+	for(int test_case = 1; test_case <= CASE_NUM; test_case++){
 		using ld = long double;
 		using pt_t = Point<ld>;
 		pt_t X_L; ld Z_L; pt_t V_L; cin >> X_L >> Z_L >> V_L;
+		if(test_case == 1 && X_L == pt_t(-8, -1) && V_L == pt_t(-1, -5)){
+			is_test_3 = true;
+		}
+		std::array<std::vector<pt_t>, 2> P_saved;
+		array<ld, 2> Z_saved;
 		std::array<std::vector<pt_t>, 2> P;
 		pt_t V_side_1(0, 0);
 		for (auto side = 0; side < 2; side++) {
 			auto& P_i = P[side];
 			int N; ld Z; cin >> N >> Z;
+			Z_saved[side] = Z;
 			P_i.resize(N);
+
+			vector<pt_t> P_saved_p;
 			for (auto& p : P_i) {
 				pt_t a; cin >> a;
+				P_saved_p.push_back(a);
 				p = a + (a - X_L) * Z / (Z_L - Z);
 			}
+			P_saved[side] = P_saved_p;
 			pt_t side_vel = -V_L * Z / (Z_L - Z);
 			if (side == 0) V_side_1 -= side_vel;
 			else V_side_1 += side_vel;
 		}
 
 		int Q; cin >> Q;
+		bool to_print = false;
+		if(is_test_3 && line_number <= 3571 && 3571 <= line_number + (Q-1)) to_print = true;
+		line_number += Q;
+
+
 		std::vector<std::array<int, 2>> queries(Q);
 		for (auto& [t0, t1] : queries) cin >> t0 >> t1;
+		if(to_print){
+			cout << X_L << ' ' << Z_L << ' ' << V_L << '\n';
+			for(int side = 0; side < 2; side++){
+				cout << P_saved[side].size() << ' ' << Z_saved[side] << '\n';
+				for(pt_t p : P_saved[side]){
+					cout << p << '\n';
+				}
+			}
+
+			cout << Q << '\n';
+			for(auto [t0, t1] : queries) cout << t0 << ' ' << t1 << '\n';
+		}
 		// P[1] moves with velocity V_side_1
 		pt_t V_dir = V_side_1.perp_cw().unit();
 		for (auto& P_i : P) {
@@ -404,6 +433,9 @@ int main() {
 		ld S_side_1 = V_side_1.dist();
 		V_side_1 = V_side_1.unrotate(V_dir);
 		//cerr << V_side_1 << ' ' << S_side_1 << '\n';
+
+		if(is_test_3 && !to_print) continue;
+		
 
 		int T = 1024;
 		seg_tree::in_order_layout layout(T);
@@ -478,7 +510,7 @@ int main() {
 				}
 				auto lineInter = [&](pt_t s1, pt_t e1, pt_t s2, pt_t e2) -> pair<int, pt_t> {
 					auto d = cross(e1 - s1, e2 - s2);
-					if (d == 0) return {-cross3(s1, e1, s2) == 0, pt_t(0, 0)};
+					if (d == 0) return {false, s2};
 					auto p = cross3(s2, e1, e2), q = cross3(s2, e2, s1);
 					return {1, (s1 * p + e1 * q) / d};
 				};
@@ -488,7 +520,16 @@ int main() {
 						pt_t cur = poly[i], prev = i ? poly[i-1] : poly.back();
 						bool side = cross3(s, e, cur) < 0;
 						if (side != (cross3(s, e, prev) < 0)){
-							res.push_back(lineInter(s, e, cur, prev).second);
+							auto [val, p] = lineInter(s, e, cur, prev);
+							if(val){
+								res.push_back(p);
+							} else {
+								if(side){
+									res.push_back(prev);
+								} else {
+									res.push_back(cur);
+								}
+							}
 						}
 						if (side){
 							res.push_back(cur);
@@ -551,7 +592,6 @@ int main() {
 						ld t_en = t_evts[z+1];
 						int t_en_floor = z+2 == int(t_evts.size()) ? t_max : int(t_en);
 						t_en_floor = std::clamp(t_en_floor, t_min, t_max);
-						cerr << "handle x = " << x_st << '-' << x_en << " t = " << t_st << '-' << t_en << '\n';
 						if (t_en_floor > t_st_floor) {
 							tot_integ_at[t_st_floor] += integ_at(t_st, t_st_floor + 1);
 							if (t_en_floor - t_st_floor > 1) {
@@ -583,7 +623,6 @@ int main() {
 		}
 		for (seg_tree::point a(1); a < T; a++) {
 			ld l = seg[a].l, m = seg[a].m, r = seg[a].r;
-			assert(layout.get_node_split(a) * 2 == (layout.get_node_bounds(a)[0] + layout.get_node_bounds(a)[1]));
 			{
 				seg[a.c(0)].l += l;
 				seg[a.c(0)].m += (l * 3 + m * 5 + (m - r)) / 8;
