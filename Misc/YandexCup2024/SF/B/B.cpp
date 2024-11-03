@@ -142,8 +142,7 @@ int main() {
 	num ans = 0;
 	for (int i = 0; i <= K; i++) {
 		s += coeff * ifact[i] * ifact[K-i];
-		cerr << s << '\n';
-		ans += 1 - pow(s, N);
+		ans += 1 - pow(s, N-1);
 	}
 	cout << ans << '\n';
 
