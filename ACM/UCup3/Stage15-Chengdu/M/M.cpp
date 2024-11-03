@@ -480,7 +480,7 @@ int main() {
 					auto d = cross(e1 - s1, e2 - s2);
 					if (d == 0) return {-cross3(s1, e1, s2) == 0, pt_t(0, 0)};
 					auto p = cross3(s2, e1, e2), q = cross3(s2, e2, s1);
-					return {1, (s1 * p + e1 * q) / q};
+					return {1, (s1 * p + e1 * q) / d};
 				};
 				auto cut = [&](vector<pt_t> poly, pt_t s, pt_t e) -> vector<pt_t> {
 					vector<pt_t> res;
@@ -497,9 +497,27 @@ int main() {
 					return res;
 				};
 				auto area_at = [&](ld timestamp) -> ld {
-					vector<pt_t> trapezoid;
-					// TODO
-					return 0;
+					vector<pt_t> trapezoid0({
+						pt_t{x_st, y_sts[0]},
+						pt_t{x_en, y_ens[0]},
+						pt_t{x_en, y_ens[1]},
+						pt_t{x_st, y_sts[1]}
+					});
+					ld delta_y = S_side_1 * timestamp;
+					vector<pt_t> trapezoid1({
+						pt_t{x_st, y_sts[2] + delta_y},
+						pt_t{x_en, y_ens[2] + delta_y},
+						pt_t{x_en, y_ens[3] + delta_y},
+						pt_t{x_st, y_sts[3] + delta_y}
+					});
+					std::vector<pt_t> final_poly = trapezoid0;
+					final_poly = cut(final_poly, trapezoid1[1], trapezoid1[0]);
+					final_poly = cut(final_poly, trapezoid1[3], trapezoid1[2]);
+					ld res = 0;
+					for (int i = 1; i+1 < int(final_poly.size()); i++) {
+						res += cross3(final_poly[0], final_poly[i], final_poly[i+1]);
+					}
+					return res;
 				};
 				auto integ_at = [&](ld t0, ld t1) -> ld {
 					ld a0 = area_at(t0);
