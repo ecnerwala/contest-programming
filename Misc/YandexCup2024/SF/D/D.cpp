@@ -915,6 +915,8 @@ int main() {
 				//cerr << l << ' ' << max_b << ' ' << v << '\n';
 				if (l == 1) v *= 2;
 				ans += v;
+			} else {
+				break;
 			}
 		}
 		return ans;
