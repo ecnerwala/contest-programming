@@ -476,9 +476,30 @@ int main() {
 					y_sts[z] = get_y(x_st);
 					y_ens[z] = get_y(x_en);
 				}
+				auto lineInter = [&](pt_t s1, pt_t e1, pt_t s2, pt_t e2) -> pair<int, pt_t> {
+					auto d = cross(e1 - s1, e2 - s2);
+					if (d == 0) return {-cross3(s1, e1, s2) == 0, pt_t(0, 0)};
+					auto p = cross3(s2, e1, e2), q = cross3(s2, e2, s1);
+					return {1, (s1 * p + e1 * q) / q};
+				};
+				auto cut = [&](vector<pt_t> poly, pt_t s, pt_t e) -> vector<pt_t> {
+					vector<pt_t> res;
+					for(int i = 0; i < (int)poly.size(); i++){
+						pt_t cur = poly[i], prev = i ? poly[i-1] : poly.back();
+						bool side = cross3(s, e, cur) < 0;
+						if (side != (cross3(s, e, prev) < 0)){
+							res.push_back(lineInter(s, e, cur, prev).second);
+						}
+						if (side){
+							res.push_back(cur);
+						}
+					}
+					return res;
+				};
 				auto area_at = [&](ld timestamp) -> ld {
+					vector<pt_t> trapezoid;
 					// TODO
-					return (x_en - x_st);
+					return 0;
 				};
 				auto integ_at = [&](ld t0, ld t1) -> ld {
 					ld a0 = area_at(t0);
