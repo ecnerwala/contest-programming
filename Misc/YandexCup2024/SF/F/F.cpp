@@ -591,16 +591,16 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N, Q; cin >> N >> Q;
-	std::string cur;
+	std::string str;
 	std::vector<std::array<int, 2>> bounds(N);
 	for (int i = 0; i < N; i++) {
 		std::string s; cin >> s;
-		int st = int(cur.size());
-		cur += s;
-		cur += 'A' - 2;
-		int en = int(cur.size());
-		cur += s;
-		cur += 'Z' + 2;
+		int st = int(str.size());
+		str += s;
+		str += 'A' - 2;
+		int en = int(str.size());
+		str += s;
+		str += 'Z' + 2;
 		bounds[i] = {st, en};
 	}
 
@@ -615,19 +615,19 @@ int main() {
 	std::vector<std::vector<int>> queries_by_vert(N);
 	for (int q = 0; q < Q; q++) {
 		int v; std::string t; cin >> v >> t; v--;
-		int st = int(cur.size());
-		cur += t;
-		int en = int(cur.size());
-		cur += 'A' - 1;
+		int st = int(str.size());
+		str += t;
+		int en = int(str.size());
+		str += 'A' - 1;
 		queries[q] = {st, en};
 		queries_by_vert[v].push_back(q);
 	}
 
 	std::vector<int64_t> ans(Q);
 
-	SuffixArray sa = SuffixArray::shift_and_construct(cur);
+	SuffixArray sa = SuffixArray::shift_and_construct(str);
 
-	int L = int(cur.size()+1);
+	int L = int(str.size()+1);
 	binary_indexed_tree<int64_t> bit(L);
 
 	auto do_query = [&](int q) -> int64_t {
@@ -661,6 +661,7 @@ int main() {
 			ans[q] += do_query(q);
 		}
 	});
+	for (int q = 0; q < Q; q++) cout << ans[q] << '\n';
 
 	return 0;
 }
