@@ -1,5 +1,17 @@
 #include <bits/stdc++.h>
 
+constexpr int64_t floor_sqrt(int64_t N) {
+	assert(N >= 0);
+	if (N == 0) return 0;
+	int64_t a = N;
+	while (true) {
+		int64_t b = N/a;
+		assert(a >= b);
+		if (a-b <= 1) return b;
+		a = (a+b+1)>>1;
+	}
+}
+
 template <typename T> T mod_inv_in_range(T a, T m) {
 	// assert(0 <= a && a < m);
 	T x = a, y = m;
@@ -898,6 +910,7 @@ int main() {
 			// sum over b of (MX - b^l)
 			int64_t max_b;
 			if (l == 1) max_b = MX;
+			else if (l == 2) max_b = floor_sqrt(MX);
 			else {
 				auto is_good = [&MX, &l](int64_t md) -> bool {
 					int64_t v = MX;
