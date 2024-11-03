@@ -897,14 +897,22 @@ int main() {
 		for (int l = 1; l < MAXL; l++) {
 			// sum over b of (MX - b^l)
 			int64_t max_b;
-			{
-				int64_t mi = 1;
-				int64_t ma = MX + 1;
-				while (ma - mi > 1) {
-					int64_t md = (mi + ma) / 2;
+			if (l == 1) max_b = MX;
+			else {
+				auto is_good = [&MX, &l](int64_t md) -> bool {
 					int64_t v = MX;
 					for (int z = 0; v && z < l; z++) v /= md;
-					if (v) mi = md;
+					return v;
+				};
+				int64_t mi = 1;
+				int64_t ma = 2;
+				while (is_good(ma)) {
+					mi = ma;
+					ma *= 2;
+				}
+				while (ma - mi > 1) {
+					int64_t md = (mi + ma) / 2;
+					if (is_good(md)) mi = md;
 					else ma = md;
 				}
 				max_b = mi;
