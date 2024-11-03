@@ -452,7 +452,7 @@ int main() {
 					best_en = std::min(best_en, cnd_en);
 				}
 			}
-			ld x_st = best_en.first;
+			ld x_st = best_st.first;
 			ld x_en = best_en.first;
 			if (x_st < x_en) {
 				std::array<ld, 4> y_sts;
