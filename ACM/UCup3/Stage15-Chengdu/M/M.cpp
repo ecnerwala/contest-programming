@@ -593,7 +593,7 @@ int main() {
 						ld t_en = t_evts[z+1];
 						int t_en_floor = z+2 == int(t_evts.size()) ? t_max : int(t_en);
 						t_en_floor = std::clamp(t_en_floor, t_min, t_max);
-						if (std::max(t_st, ld(2)) <= std::min(t_en, ld(3))) {
+						if (false && std::max(t_st, ld(2)) <= std::min(t_en, ld(3))) {
 							cerr << "handling ";
 							cerr << "x = " << x_st << '-' << x_en << ' ';
 							ld my_t_st = std::max(t_st, ld(2));
