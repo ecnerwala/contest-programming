@@ -403,7 +403,7 @@ int main() {
 		}
 		ld S_side_1 = V_side_1.dist();
 		V_side_1 = V_side_1.unrotate(V_dir);
-		cerr << V_side_1 << ' ' << S_side_1 << '\n';
+		//cerr << V_side_1 << ' ' << S_side_1 << '\n';
 
 		int T = 1024;
 		seg_tree::in_order_layout layout(T);
@@ -551,6 +551,7 @@ int main() {
 						ld t_en = t_evts[z+1];
 						int t_en_floor = z+2 == int(t_evts.size()) ? t_max : int(t_en);
 						t_en_floor = std::clamp(t_en_floor, t_min, t_max);
+						cerr << "handle x = " << x_st << '-' << x_en << " t = " << t_st << '-' << t_en << '\n';
 						if (t_en_floor > t_st_floor) {
 							tot_integ_at[t_st_floor] += integ_at(t_st, t_st_floor + 1);
 							if (t_en_floor - t_st_floor > 1) {
@@ -582,6 +583,7 @@ int main() {
 		}
 		for (seg_tree::point a(1); a < T; a++) {
 			ld l = seg[a].l, m = seg[a].m, r = seg[a].r;
+			assert(layout.get_node_split(a) * 2 == (layout.get_node_bounds(a)[0] + layout.get_node_bounds(a)[1]));
 			{
 				seg[a.c(0)].l += l;
 				seg[a.c(0)].m += (l * 3 + m * 5 + (m - r)) / 8;
@@ -603,11 +605,11 @@ int main() {
 		for (int i = 0; i < T; i++) {
 			pref_integ[i+1] = pref_integ[i] + tot_integ_at[i];
 		}
+		cout << fixed << setprecision(20);
 		for (auto [t0, t1] : queries) {
 			if (t0 == t1) {
 				cout << tot_area_at[t0] << '\n';
 			} else {
-				cout << fixed << setprecision(20) << '\n';
 				cout << (pref_integ[t1] - pref_integ[t0]) / ld(t1 - t0) << '\n';
 			}
 		}
