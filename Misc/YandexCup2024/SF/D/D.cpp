@@ -196,7 +196,6 @@ int main() {
 			vals[i-1] = vals[i-2] + my_pow(num(i), l);
 		}
 		auto tr = BerlekampMassey(vals);
-		cerr << l << ' ' << tr.size() << '\n';
 		recs[l] = {vals, tr};
 	}
 
