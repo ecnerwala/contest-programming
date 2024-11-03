@@ -3,6 +3,7 @@
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	cerr << fixed << setprecision(20);
 
 	using ld = long double;
 	int MX = int(1e8);
