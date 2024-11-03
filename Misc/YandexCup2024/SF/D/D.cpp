@@ -190,7 +190,7 @@ int main() {
 	const int MAXL = 60;
 
 	std::vector<std::pair<std::vector<num>, std::vector<num>>> recs(MAXL);
-	for (int l = 2; l < MAXL; l++) {
+	for (int l = 1; l < MAXL; l++) {
 		std::vector<num> vals(300);
 		for (int i = 2; i <= 300; i++) {
 			vals[i-1] = vals[i-2] + my_pow(num(i), l);
@@ -206,7 +206,7 @@ int main() {
 		num ans = 0;
 		// total length of all >= 2 digit numbers
 		// for each base in 2 .. MX, count how many things take at least k digits
-		for (int l = 2; l < MAXL; l++) {
+		for (int l = 1; l < MAXL; l++) {
 			// sum over b of (MX - b^l)
 			int64_t max_b;
 			{
