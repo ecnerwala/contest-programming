@@ -512,7 +512,8 @@ int main() {
 					auto d = cross(e1 - s1, e2 - s2);
 					if (d == 0) return {false, s2};
 					auto p = cross3(s2, e1, e2), q = cross3(s2, e2, s1);
-					return {1, (s1 * p + e1 * q) / d};
+					return {1, s1 + (e1 - s1) * std::clamp<ld>(q / d, 0, 1)};
+					//return {1, (s1 * p + e1 * q) / d};
 				};
 				auto cut = [&](vector<pt_t> poly, pt_t s, pt_t e) -> vector<pt_t> {
 					vector<pt_t> res;
