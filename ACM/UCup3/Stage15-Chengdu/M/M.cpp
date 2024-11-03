@@ -407,7 +407,7 @@ int main() {
 
 		int Q; cin >> Q;
 		bool to_print = false;
-		if(is_test_3 && line_number <= 3571 && 3571 <= line_number + (Q-1)) to_print = true;
+		//if(is_test_3 && line_number <= 3571 && 3571 <= line_number + (Q-1)) to_print = true;
 		line_number += Q;
 
 
@@ -434,7 +434,7 @@ int main() {
 		V_side_1 = V_side_1.unrotate(V_dir);
 		//cerr << V_side_1 << ' ' << S_side_1 << '\n';
 
-		if(is_test_3 && !to_print) continue;
+		//if(is_test_3 && !to_print) continue;
 		
 
 		int T = 1024;
