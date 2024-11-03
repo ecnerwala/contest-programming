@@ -140,8 +140,9 @@ int main() {
 	std::vector<num> ways(K+1);
 	num s = 0;
 	num ans = 0;
-	for (int i = 0; i < K; i++) {
+	for (int i = 0; i <= K; i++) {
 		s += coeff * ifact[i] * ifact[K-i];
+		cerr << s << '\n';
 		ans += 1 - pow(s, N);
 	}
 	cout << ans << '\n';
