@@ -407,8 +407,8 @@ int main() {
 
 		int T = 1024;
 		seg_tree::in_order_layout layout(T);
-		std::vector<ld> tot_area_at(T);
-		std::vector<ld> tot_integ_at(T);
+		std::vector<ld> tot_area_at(T+1);
+		std::vector<ld> tot_integ_at(T+1);
 		int t_min = 0, t_max = T;
 		struct seg_node {
 			ld l, m, r;
