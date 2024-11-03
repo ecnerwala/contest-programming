@@ -872,7 +872,7 @@ int main() {
 		bernoulli[i] = ((i & 1) ? -ifact[i+1] : +ifact[i+1]);
 	}
 	bernoulli = inverse(bernoulli);
-	for (auto v : bernoulli) cerr  << v << ' ';
+	for (auto v : bernoulli) cerr << v * 6 << ' ';
 	cerr << '\n';
 
 	auto sum_pow = [&](int64_t MX, int64_t p) -> num {
