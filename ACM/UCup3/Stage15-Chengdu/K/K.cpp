@@ -206,9 +206,9 @@ int main() {
 			}
 		}
 		assert(pot <= 30);
-		tot_pot += 30;
+		tot_pot += pot;
 		int v = ins(A[i], primes, pot);
-		flower.add_edge(0, v, 1, 30 - pot);
+		flower.add_edge(0, v, 1, 0);
 	}
 	auto [tot_flow, tot_cost] = flower.max_flow(0, 1);
 	assert(tot_flow == N);
