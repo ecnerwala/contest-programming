@@ -189,6 +189,7 @@ int main() {
 		return idx;
 	});
 
+	int64_t tot_pot = 0;
 	for (int i = 0; i < N; i++) {
 		std::vector<int> primes;
 		int pot = 0;
@@ -205,12 +206,13 @@ int main() {
 			}
 		}
 		assert(pot <= 30);
+		tot_pot += pot;
 		int v = ins(A[i], primes, pot);
-		flower.add_edge(0, v, 1, 30 - pot);
+		flower.add_edge(0, v, 1, 0);
 	}
 	auto [tot_flow, tot_cost] = flower.max_flow(0, 1);
 	assert(tot_flow == N);
-	cout << tot_flow * 30 - tot_cost << '\n';
+	cout << tot_pot - tot_cost << '\n';
 
 	return 0;
 }
