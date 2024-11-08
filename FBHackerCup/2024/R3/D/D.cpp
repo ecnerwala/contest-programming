@@ -304,10 +304,6 @@ int main() {
 					continue;
 				}
 
-				if (get_sz(t_nxt) > get_sz(t_cur)) {
-					std::swap(t_cur, t_nxt);
-				}
-
 				if (false) {
 					std::vector<int64_t> a_cur; a_cur.assign(1, 0);
 					flatten(t_cur, a_cur);
@@ -322,11 +318,20 @@ int main() {
 					}
 				}
 
+				if (get_sum(t_nxt) > get_sum(t_cur)) {
+					std::swap(t_cur, t_nxt);
+				}
+				t_cur = cap_at(t_cur, get_sum(t_nxt));
+
+				if (get_sz(t_nxt) > get_sz(t_cur)) {
+					std::swap(t_cur, t_nxt);
+				}
+
 				assert(get_sz(t_cur) >= get_sz(t_nxt));
 				// now, replace the prefix of t_cur with the min of t_cur and t_nxt
 				auto [t_cur_pref, t_cur_suff] = split_sz(t_cur, get_sz(t_nxt));
 				adjust_first(t_cur_suff, +get_sum(t_cur_pref));
-				t_cur_suff = cap_at(t_cur_suff, get_sum(t_nxt));
+				//t_cur_suff = cap_at(t_cur_suff, get_sum(t_nxt));
 
 				buf_cur.assign(1, int64_t(0));
 				flatten(t_cur_pref, buf_cur);
