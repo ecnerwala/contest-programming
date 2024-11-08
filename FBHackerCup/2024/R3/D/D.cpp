@@ -289,7 +289,6 @@ int main() {
 		}
 		std::vector<treap_node> nodes(N);
 		num ans = 0;
-		if (true) {
 		std::vector<int64_t> buf_cur; buf_cur.reserve(N+1);
 		std::vector<int64_t> buf_nxt; buf_nxt.reserve(N+1);
 		[&](this auto&& self, const int cur, const int prv) -> treap_node* {
@@ -302,20 +301,6 @@ int main() {
 					has_ch = true;
 					t_cur = t_nxt;
 					continue;
-				}
-
-				if (false) {
-					std::vector<int64_t> a_cur; a_cur.assign(1, 0);
-					flatten(t_cur, a_cur);
-					std::vector<int64_t> a_nxt; a_nxt.assign(1, 0);
-					flatten(t_nxt, a_nxt);
-					cerr << "merge " << '\n';
-					for (auto v : a_cur) { cerr << v << ' '; } cerr << '\n';
-					for (auto v : a_nxt) { cerr << v << ' '; } cerr << '\n';
-					a_nxt.resize(a_cur.size(), a_nxt.back());
-					for (int i = 0; i < int(a_nxt.size()); i++) {
-						a_cur[i] = std::min(a_cur[i], a_nxt[i]);
-					}
 				}
 
 				if (get_sum(t_nxt) > get_sum(t_cur)) {
@@ -355,13 +340,6 @@ int main() {
 					flatten(t_cur, buf_cur);
 					for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
 				}
-				if (false) {
-					std::vector<int64_t> a_out; a_out.assign(1, 0);
-					flatten(t_cur, a_out);
-					for (auto v : a_out) { cerr << v << ' '; } cerr << '\n';
-					//a_out.resize(a_cur.size(), a_out.back());
-					//assert(a_out == a_cur);
-				}
 			}
 			nodes[cur].val = A[cur];
 			nodes[cur].update();
@@ -372,64 +350,8 @@ int main() {
 			}
 			assert(t_cur);
 			ans += num(t_cur->sum) * num(M) - t_cur->sum_incr;
-			if (false) {
-				//cerr << "recurse " << cur << '\n';
-				buf_cur.assign(1, int64_t(0));
-				flatten(t_cur, buf_cur);
-				//for (auto v : buf_cur) { cerr << v << ' '; } cerr << '\n';
-				for (int i = 0; i+2 < int(buf_cur.size()); i++) {
-					assert(buf_cur[i+2] - buf_cur[i+1] <= buf_cur[i+1] - buf_cur[i]);
-				}
-				/*
-				num contrib = 0;
-				for (int i = 0; i <= M; i++) {
-					contrib += buf_cur[std::min(i, int(buf_cur.size()) - 1)];
-				}
-				assert(contrib == num(t_cur->sum) * num(M) - t_cur->sum_incr);
-				*/
-				//cerr << "  contrib " << num(t_cur->sum) * num(M) - t_cur->sum_incr << '\n';
-				//cerr << "  sum_incr " << t_cur->sum_incr << '\n';
-				//cerr << "  sum " << t_cur->sum << '\n';
-			}
 			return t_cur;
 		}(0, -1);
-		} else {
-		[&](this auto&& self, const int cur, const int prv) -> std::vector<int64_t> {
-			bool has_ch = false;
-			std::vector<int64_t> t_cur({0});
-			for (const int nxt : adj[cur]) {
-				if (nxt == prv) continue;
-				auto t_nxt = self(nxt, cur);
-				if (!has_ch) {
-					has_ch = true;
-					t_cur = t_nxt;
-					continue;
-				}
-				if (t_cur.size() < t_nxt.size()) {
-					std::swap(t_cur, t_nxt);
-				}
-				t_nxt.resize(t_cur.size(), t_nxt.back());
-				for (int i = 0; i < int(t_cur.size()); i++) {
-					t_cur[i] = std::min(t_cur[i], t_nxt[i]);
-				}
-			}
-			t_cur.push_back(t_cur.back());
-			for (int i = int(t_cur.size()) - 1; i > 0; i--) {
-				t_cur[i] = std::max(t_cur[i-1] + A[cur], t_cur[i]);
-			}
-			while (int(t_cur.size()) > M+1) {
-				t_cur.pop_back();
-			}
-			for (int i = 0; i < int(t_cur.size()); i++) {
-				ans += t_cur[i];
-			}
-			for (int i = 0; i+2 < int(t_cur.size()); i++) {
-				assert(t_cur[i+2] - t_cur[i+1] <= t_cur[i+1] - t_cur[i]);
-			}
-			ans += int64_t(M + 1 - int(t_cur.size())) * t_cur.back();
-			return t_cur;
-		}(0, -1);
-		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
