@@ -62,7 +62,9 @@ int main() {
 	int P, K; cin >> P >> K;
 
 	std::vector<int> A_K(K);
+	for (auto& a : A_K) cin >> a;
 	std::vector<int> B_K(K);
+	for (auto& b : B_K) cin >> b;
 
 	int V = 0;
 	std::vector<int> A;
