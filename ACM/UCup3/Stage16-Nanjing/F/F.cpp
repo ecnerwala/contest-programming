@@ -124,7 +124,7 @@ int main() {
 
 	while (!pq.empty()) {
 		auto [d, v] = pq.top(); pq.pop();
-		assert(dist[v] != -1 && dist[v] >= d);
+		assert(dist[v] != -1 && dist[v] <= d);
 		if (vis[v]) continue;
 		assert(d == dist[v]);
 		vis[v] = true;
