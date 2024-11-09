@@ -162,8 +162,13 @@ int main() {
 			}
 		}
 	}
-	for (int i = 0; i < N; i++) {
-		cout << dp[i][i] * fact[sz[i]-1] << " \n"[i+1==N];
+	for (int p = 0; p < N; p++) {
+		int v = p;
+		num w = dp[p][v];
+		int p_suff = N-v-1;
+		assert(p_suff >= sz[p] - 1);
+		w *= fact[p_suff] * ifact[p_suff - (sz[p] - 1)];
+		cout << w << " \n"[p+1==N];
 	}
 
 	return 0;
