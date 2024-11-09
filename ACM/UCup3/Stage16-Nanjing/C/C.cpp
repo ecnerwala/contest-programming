@@ -156,7 +156,7 @@ int main() {
 		for (int v = 0; v + sz[p] <= N; v++) {
 			num w = dp[p][v];
 			int p_suff = N-v-1;
-			int others = sz[p] - sz[i];
+			assert(p_suff >= sz[p]);
 			w *= fact[p_suff - sz[i]] * ifact[p_suff - sz[p]];
 			w *= sz[i];
 			for (int nv = v+1; nv + sz[i] <= N; nv++) {
