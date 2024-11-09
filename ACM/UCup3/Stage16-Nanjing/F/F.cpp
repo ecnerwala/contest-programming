@@ -110,7 +110,7 @@ int main() {
 		containers[p].add(-a, -t);
 		if (by_loc[p].empty()) return;
 		auto [b, v] = by_loc[p].back();
-		try_cnd(v, containers[p].query(b));
+		try_cnd(v, -containers[p].query(b));
 	};
 	insert_line(0, 0, 0);
 
