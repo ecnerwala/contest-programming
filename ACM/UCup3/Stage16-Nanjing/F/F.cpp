@@ -103,14 +103,14 @@ int main() {
 	min_pq<std::pair<int64_t, int>> pq;
 
 	auto try_cnd = [&](int v, int64_t cnd) -> void {
-		cerr << "trying " << v << ' ' << cnd << '\n';
+		//cerr << "trying " << v << ' ' << cnd << '\n';
 		if (dist[v] == -1 || cnd < dist[v]) {
 			pq.push({dist[v] = cnd, v});
 		}
 	};
 
 	auto insert_line = [&](int p, int64_t t, int a) -> void {
-		cerr << "line " << p << ' ' << t << ' ' << a << '\n';
+		//cerr << "line " << p << ' ' << t << ' ' << a << '\n';
 		containers[p].add(-a, -t);
 		if (by_loc[p].empty()) return;
 		auto [b, v] = by_loc[p].back();
@@ -129,7 +129,7 @@ int main() {
 		assert(d == dist[v]);
 		vis[v] = true;
 		int x = X[v];
-		cerr << "reach " << v << ' ' << d << ' ' << " at " << x << '\n';
+		//cerr << "reach " << v << ' ' << d << ' ' << " at " << x << '\n';
 		if (best_dist[x] == -1) {
 			best_dist[x] = d;
 		}
@@ -137,9 +137,6 @@ int main() {
 		insert_line(x, d, A[v]);
 		if (v+1 != V && W[v+1] != -1) {
 			try_cnd(v+1, d + W[v+1]);
-		}
-		if (v != 0 && W[v] != -1) {
-			try_cnd(v-1, d + W[v]);
 		}
 	}
 
