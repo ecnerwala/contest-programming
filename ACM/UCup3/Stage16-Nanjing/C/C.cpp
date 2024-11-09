@@ -152,14 +152,15 @@ int main() {
 	for (int i = 1; i < N; i++) {
 		int p = P[i];
 		num acc = 0;
-		for (int v = 0; v + sz[p] <= N; v++) {
-			num w = dp[p][v];
-			int p_suff = N-v-1;
-			assert(p_suff >= sz[p] - 1);
-			w *= fact[p_suff - sz[i]] * ifact[p_suff - (sz[p] - 1)];
-			w *= sz[i];
-			for (int nv = v+1; nv + sz[i] <= N; nv++) {
-				dp[i][nv] += w;
+		for (int v = 0; v + sz[i] <= N; v++) {
+			dp[i][v] += acc;
+			if (v + sz[p] <= N) {
+				num w = dp[p][v];
+				int p_suff = N-v-1;
+				assert(p_suff >= sz[p] - 1);
+				w *= fact[p_suff - sz[i]] * ifact[p_suff - (sz[p] - 1)];
+				w *= sz[i];
+				acc += w;
 			}
 		}
 	}
