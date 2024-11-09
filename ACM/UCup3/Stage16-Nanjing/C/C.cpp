@@ -149,7 +149,7 @@ int main() {
 	tot = inv(tot);
 	for (int i = 1; i <= N; i++) tot *= num(i);
 
-	std::vector<std::vector<num>> dp(N);
+	std::vector<std::vector<num>> dp(N, std::vector<num>(N+1));
 	dp[0][0] = sz[0];
 	for (int i = 1; i < N; i++) {
 		int p = P[i];
