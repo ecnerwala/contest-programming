@@ -873,13 +873,13 @@ int main() {
 		std::sort(A.begin(), A.end(), std::greater<>());
 		std::vector<num> v1(V+1);
 		for (int e = 1; e <= V; e++) {
-			v1[e] = (A[e-1] - A[e]) * ifact[e];
+			v1[e] = (A[e-1] - A[e]) * fact[V-e];
 		}
 		v1 = ecnerwala::fft::fft_multiply(v1, ifact);
 		num ans = 0;
 		for (int i = 0; i <= N; i++) {
 			for (int j = 0; j <= M; j++) {
-				num a = fact[N] * ifact[i] * ifact[N-i] * fact[M] * ifact[j] * ifact[M-j] * fact[(N-i) * (M-j)] * fact[N*M - (N-i) * (M-j)];
+				num a = fact[N] * ifact[i] * ifact[N-i] * fact[M] * ifact[j] * ifact[M-j] * fact[(N-i) * (M-j)];
 				a = (((i^j) & 1) ? -a : a);
 				ans += v1[(N-i) * (M-j)] * a;
 			}
