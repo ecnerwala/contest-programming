@@ -146,11 +146,9 @@ int main() {
 
 	num tot = 1;
 	for (int i = 0; i < N; i++) tot *= num(sz[i]);
-	tot = inv(tot);
-	for (int i = 1; i <= N; i++) tot *= num(i);
 
 	std::vector<std::vector<num>> dp(N, std::vector<num>(N));
-	dp[0][0] = sz[0];
+	dp[0][0] = sz[0] / tot;
 	for (int i = 1; i < N; i++) {
 		int p = P[i];
 		for (int v = 0; v + sz[p] <= N; v++) {
