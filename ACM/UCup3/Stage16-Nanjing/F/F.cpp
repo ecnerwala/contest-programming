@@ -122,8 +122,10 @@ int main() {
 		auto [d, v] = pq.top(); pq.pop();
 		assert(dist[v] != -1 && dist[v] >= d);
 		if (vis[v]) continue;
+		assert(d == dist[v]);
 		vis[v] = true;
 		int x = X[v];
+		cerr << "reach " << v << ' ' << d << ' ' << " at " << x << '\n';
 		if (best_dist[x] == -1) {
 			best_dist[x] = d;
 		}
