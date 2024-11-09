@@ -879,7 +879,7 @@ int main() {
 		num ans = 0;
 		for (int i = 0; i <= N; i++) {
 			for (int j = 0; j <= M; j++) {
-				num a = fact[N] * ifact[i] * ifact[N-i] * fact[M] * ifact[j] * ifact[M-j] * fact[(N-i) * (M-j)] * fact[N*M - (N-i) * (M-i)];
+				num a = fact[N] * ifact[i] * ifact[N-i] * fact[M] * ifact[j] * ifact[M-j] * fact[(N-i) * (M-j)] * fact[N*M - (N-i) * (M-j)];
 				a = (((i^j) & 1) ? -a : a);
 				ans += v1[(N-i) * (M-j)] * a;
 			}
