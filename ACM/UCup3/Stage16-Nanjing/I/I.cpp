@@ -884,7 +884,7 @@ int main() {
 				ans += v1[(N-i) * (M-j)] * a;
 			}
 		}
-		cout << ans << '\n';
+		cout << ans * fact[V] << '\n';
 	}
 
 	return 0;
