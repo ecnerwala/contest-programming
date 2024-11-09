@@ -103,12 +103,14 @@ int main() {
 	min_pq<std::pair<int64_t, int>> pq;
 
 	auto try_cnd = [&](int v, int64_t cnd) -> void {
+		cerr << "trying " << v << ' ' << cnd << '\n';
 		if (dist[v] == -1 || cnd < dist[v]) {
 			pq.push({dist[v] = cnd, v});
 		}
 	};
 
 	auto insert_line = [&](int p, int64_t t, int a) -> void {
+		cerr << "line " << p << ' ' << t << ' ' << a << '\n';
 		containers[p].add(-a, -t);
 		if (by_loc[p].empty()) return;
 		auto [b, v] = by_loc[p].back();
