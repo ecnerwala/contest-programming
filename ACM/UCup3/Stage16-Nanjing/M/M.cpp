@@ -113,12 +113,15 @@ int main() {
 	}
 	//assert(mi >= -M_PI);
 	//assert(ma <= +M_PI);
-
+	
 	mi += M_PI;
 	ma += M_PI;
 
 	double ang_0 = dir.unrotate(P[0]).angle() + M_PI;
 	double ang_1 = ang_0 + t;
+
+	cerr << mi << ' ' << ma << '\n';
+	cerr << ang_0 << ' ' << ang_1 << '\n';
 
 	auto pref = [&](double mx) -> double {
 		mx += 2 * M_PI;
