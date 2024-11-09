@@ -107,7 +107,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		auto ang = P[i].unrotate(P[0]).angle();
 		double l = P[i].dist();
-		auto rng = std::acos(d / l);
+		auto rng = std::asin(d / l);
 		mi = std::min(mi, ang - rng);
 		ma = std::max(ma, ang + rng);
 	}
