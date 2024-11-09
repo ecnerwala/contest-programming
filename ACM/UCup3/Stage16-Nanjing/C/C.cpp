@@ -156,8 +156,8 @@ int main() {
 		for (int v = 0; v + sz[p] <= N; v++) {
 			num w = dp[p][v];
 			int p_suff = N-v-1;
-			assert(p_suff >= sz[p]);
-			w *= fact[p_suff - sz[i]] * ifact[p_suff - sz[p]];
+			assert(p_suff >= sz[p] - 1);
+			w *= fact[p_suff - sz[i]] * ifact[p_suff - (sz[p] - 1)];
 			w *= sz[i];
 			for (int nv = v+1; nv + sz[i] <= N; nv++) {
 				dp[i][nv] += w;
