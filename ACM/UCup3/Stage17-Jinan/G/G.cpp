@@ -126,7 +126,9 @@ int main() {
 	std::vector<double> areas(N);
 	{
 		int i = 0;
-		while (angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), big_pt_t(tot_center + W * big_pt_t(pts[0]))) == -1) i++;
+		if (big_pt_t(tot_center + W * big_pt_t(pts[0])) != big_pt_t(0, 0)) {
+			while (angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), big_pt_t(tot_center + W * big_pt_t(pts[0]))) == -1) i++;
+		}
 		for (int z = 0; z < N; z++) {
 			big_pt_t A = big_pt_t(tot_center + W * big_pt_t(pts[z]));
 			big_pt_t B = big_pt_t(tot_center + W * big_pt_t(pts[(z+1)%N]));
@@ -169,7 +171,9 @@ int main() {
 			} else {
 				// collinear, should occur at most once
 				i = 0;
-				while (angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), B) == -1) i++;
+				if (B != big_pt_t(0, 0)) {
+					while (angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), B) == -1) i++;
+				}
 			}
 		}
 	}
