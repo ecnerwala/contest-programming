@@ -678,10 +678,10 @@ int main() {
 			} else {
 				while (!p->is_vert) {
 					p->downdate();
-					if (p->c[1]->first_alive == -1 || p->c[1]->first_alive >= u) {
-						p = p->c[0];
-					} else {
+					if (p->c[0]->first_alive == -1 || p->c[0]->first_alive >= u) {
 						p = p->c[1];
+					} else {
+						p = p->c[0];
 					}
 				}
 				int idx = p->idx;
