@@ -676,7 +676,7 @@ int main() {
 		}
 	}
 	for (int q = 0; q < N_queries; q++) {
-		assert(ans[q] != -1);
+		assert(ans[q] != -2);
 		cout << ans[q]+1 << '\n';
 	}
 
