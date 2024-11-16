@@ -660,6 +660,7 @@ int main() {
 		} else {
 			auto [l, u, q] = queries[q_idx++];
 			cerr << "process query " << l << ' ' << u << ' ' << q << '\n';
+			cerr << p->first_alive << '\n';
 			if (p->first_alive == -1 || p->first_alive >= u) {
 				ans[q] = -1;
 			} else {
