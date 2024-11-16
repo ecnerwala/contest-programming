@@ -589,7 +589,7 @@ int main() {
 
 	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
-	for (int z = 0; z < (TESTING ? 1000 : 1); z++) {
+	for (int N_CASES = 0; N_CASES < (TESTING ? 1000 : 1); N_CASES++) {
 	int tot_Q;
 	if (TESTING) {
 		tot_Q = 1000;
