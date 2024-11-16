@@ -661,7 +661,9 @@ int main() {
 			p->downdate();
 			p->expose();
 
-			cut(&edges[idx]);
+			if (end_time[idx] != N) {
+				cut(&edges[idx]);
+			}
 
 			verts[idx].expose();
 			verts[idx].is_alive = false;
