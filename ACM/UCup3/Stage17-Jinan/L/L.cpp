@@ -623,9 +623,7 @@ int main() {
 		if (end_time[i] == -1) end_time[i] = N;
 		if (end_query[i] == -1) end_query[i] = N_queries;
 	}
-	for (int i = 0; i < N; i++) {
-		cerr << i << ' ' << end_time[i] << ' ' << end_query[i] << ' ' << verts[i].lifetime << '\n';
-	}
+	//for (int i = 0; i < N; i++) { cerr << i << ' ' << end_time[i] << ' ' << end_query[i] << ' ' << verts[i].lifetime << '\n'; }
 
 	std::vector<my_top_tree_node> edges(N);
 	for (int i = 0; i < N; i++) {
@@ -641,7 +639,7 @@ int main() {
 	while (q_idx < int(queries.size())) {
 		auto p = get_path_to_root(&verts[0]);
 		if (p->first_alive != INF && (p->min_lifetime == 0 || cur_lines + p->min_lifetime < std::get<0>(queries[q_idx]))) {
-			cerr << "moving " << p->min_lifetime << " lines" << '\n';
+			//cerr << "moving " << p->min_lifetime << " lines" << '\n';
 			cur_lines += p->min_lifetime;
 			p->shrink_lifetime(p->min_lifetime);
 			while (!p->is_vert) {
@@ -656,7 +654,7 @@ int main() {
 			assert(p->is_vert);
 			assert(p->is_alive);
 			int idx = p->idx;
-			cerr << "cutting " << idx << '\n';
+			//cerr << "cutting " << idx << '\n';
 			// expose for splay
 			p->downdate();
 			p->expose();
@@ -673,9 +671,9 @@ int main() {
 			}
 		} else {
 			auto [l, u, q] = queries[q_idx++];
-			cerr << "process query " << l << ' ' << u << ' ' << q << '\n';
-			cerr << p->first_alive << '\n';
-			dump_tree(p);
+			//cerr << "process query " << l << ' ' << u << ' ' << q << '\n';
+			//cerr << p->first_alive << '\n';
+			//dump_tree(p);
 			if (p->first_alive >= u) {
 				ans[q] = -1;
 			} else {
@@ -688,7 +686,7 @@ int main() {
 					}
 				}
 				int idx = p->idx;
-				cerr << "  have " << idx << '\n';
+				//cerr << "  have " << idx << '\n';
 				ans[q] = q < end_query[idx] ? idx : -1;
 				p->downdate();
 				p->expose();
