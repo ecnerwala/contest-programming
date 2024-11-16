@@ -589,6 +589,7 @@ int main() {
 
 	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
+	for (int z = 0; z < (TESTING ? 1000 : 1); z++) {
 	int tot_Q;
 	if (TESTING) {
 		tot_Q = 1000;
@@ -730,6 +731,7 @@ int main() {
 	for (int q = 0; q < N_queries; q++) {
 		assert(ans[q] != -2);
 		cout << ans[q]+1 << '\n';
+	}
 	}
 
 	return 0;
