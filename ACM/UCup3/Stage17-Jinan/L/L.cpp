@@ -655,6 +655,7 @@ int main() {
 			verts[idx].is_alive = false;
 			verts[idx].update();
 			if (idx+1 < N) {
+				cerr << "linking to " << idx+1 << '\n';
 				link_direct(&edges[idx], &verts[idx], &verts[idx+1]);
 			}
 		} else {
