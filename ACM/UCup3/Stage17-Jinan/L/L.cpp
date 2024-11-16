@@ -593,7 +593,7 @@ int main() {
 		cerr << "CASE " << N_CASES << '\n';
 	int tot_Q;
 	if (TESTING) {
-		tot_Q = 100000;
+		tot_Q = 1;
 	} else {
 		cin >> tot_Q;
 	}
