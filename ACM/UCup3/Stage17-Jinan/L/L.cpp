@@ -607,8 +607,8 @@ int main() {
 	for (int q = 0; q < tot_Q; q++) {
 		int op;
 		if (TESTING) {
-			if (alives.empty()) op = std::discrete_distribution<int>({1, 3})(mt);
-			else op = std::discrete_distribution<int>({1, 2, 3})(mt);
+			if (alives.empty()) op = std::uniform_int_distribution<int>(0, 1)(mt) * 2 + 1;
+			else op = std::uniform_int_distribution<int>(1, 3)(mt);
 		} else {
 			cin >> op;
 		}
