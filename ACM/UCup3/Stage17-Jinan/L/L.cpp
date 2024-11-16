@@ -673,6 +673,14 @@ int main() {
 	int cur_lines = 0;
 	int q_idx = 0;
 	while (q_idx < int(queries.size())) {
+		if (N == 0) {
+			auto [l, u, q] = queries[q_idx++];
+			//cerr << "process query " << l << ' ' << u << ' ' << q << '\n';
+			//cerr << p->first_alive << '\n';
+			//dump_tree(p);
+			ans[q] = -1;
+			continue;
+		}
 		auto p = get_path_to_root(&verts[0]);
 		if (p->first_alive != INF && (p->min_lifetime == 0 || cur_lines + p->min_lifetime < std::get<0>(queries[q_idx]))) {
 			//cerr << "moving " << p->min_lifetime << " lines" << '\n';
