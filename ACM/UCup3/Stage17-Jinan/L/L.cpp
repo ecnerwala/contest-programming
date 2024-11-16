@@ -611,6 +611,9 @@ int main() {
 		if (end_time[i] == -1) end_time[i] = N;
 		if (end_query[i] == -1) end_query[i] = N_queries;
 	}
+	for (int i = 0; i < N; i++) {
+		cerr << i << ' ' << end_time[i] << ' ' << end_query[i] << '\n';
+	}
 
 	std::vector<my_top_tree_node> edges(N);
 	for (int i = 0; i < N; i++) {
