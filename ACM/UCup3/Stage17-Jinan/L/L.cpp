@@ -669,6 +669,7 @@ int main() {
 					}
 				}
 				int idx = p->idx;
+				cerr << "  have " << idx << '\n';
 				ans[q] = q < end_query[idx] ? idx : -1;
 				p->downdate();
 				p->expose();
