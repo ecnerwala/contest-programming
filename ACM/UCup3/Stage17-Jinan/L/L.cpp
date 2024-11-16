@@ -587,7 +587,14 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int tot_Q; cin >> tot_Q;
+	constexpr bool TESTING = false;
+	std::mt19937 mt(48);
+	int tot_Q;
+	if (TESTING) {
+		tot_Q = 1000;
+	} else {
+		cin >> tot_Q;
+	}
 	int N = 0;
 	std::vector<int> end_time; end_time.reserve(tot_Q);
 	std::vector<int> end_query; end_query.reserve(tot_Q);
@@ -595,10 +602,22 @@ int main() {
 	int N_queries = 0;
 	std::vector<int> ans; ans.reserve(tot_Q);
 	std::vector<std::tuple<int, int, int>> queries; queries.reserve(tot_Q);
+	std::vector<int> alives;
 	for (int q = 0; q < tot_Q; q++) {
-		int op; cin >> op;
+		int op;
+		if (TESTING) {
+			if (alives.empty()) op = std::discrete_distribution({1, 3})(mt);
+			else op = std::discrete_distribution({1, 2, 3})(mt);
+		} else {
+			cin >> op;
+		}
 		if (op == 1) {
-			int k; cin >> k;
+			int k;
+			if (TESTING) {
+				k = std::uniform_int_distribution<int>(1, 10000)(mt);
+			} else {
+				cin >> k;
+			}
 			int idx = N++;
 			end_time.push_back(-1);
 			end_query.push_back(-1);
@@ -607,12 +626,27 @@ int main() {
 			verts[idx].idx = idx;
 			verts[idx].is_path = verts[idx].is_vert = true;
 			verts[idx].update();
+			if (TESTING) {
+				alives.push_back(idx);
+			}
 		} else if (op == 2) {
-			int u; cin >> u; u--;
+			int u;
+			if (TESTING) {
+				int z = std::uniform_int_distribution<int>(0, int(alives.size())-1)(mt);
+				u = alives[z];
+				alives.erase(alives.begin() + z);
+			} else {
+				cin >> u; u--;
+			}
 			end_time[u] = N;
 			end_query[u] = N_queries;
 		} else if (op == 3) {
-			int l; cin >> l;
+			int l;
+			if (TESTING) {
+				l = std::uniform_int_distribution<int>(1, 100000)(mt);
+			} else {
+				cin >> l;
+			}
 			int idx = N_queries++;
 			ans.push_back(-2);
 			queries.push_back({l, N, idx});
