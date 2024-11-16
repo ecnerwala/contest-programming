@@ -590,6 +590,7 @@ int main() {
 	constexpr bool TESTING = true;
 	std::mt19937 mt(48);
 	for (int N_CASES = 0; N_CASES < (TESTING ? 1000 : 1); N_CASES++) {
+		cerr << "CASE " << N_CASES << '\n';
 	int tot_Q;
 	if (TESTING) {
 		tot_Q = 1000;
@@ -612,7 +613,6 @@ int main() {
 		} else {
 			cin >> op;
 		}
-		cerr << op << '\n';
 		if (op == 1) {
 			int k;
 			if (TESTING) {
@@ -731,7 +731,11 @@ int main() {
 	}
 	for (int q = 0; q < N_queries; q++) {
 		assert(ans[q] != -2);
-		cout << ans[q]+1 << '\n';
+		if (TESTING) {
+			// do nothing
+		} else {
+			cout << ans[q]+1 << '\n';
+		}
 	}
 	}
 
