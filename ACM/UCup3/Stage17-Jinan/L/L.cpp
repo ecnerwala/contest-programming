@@ -587,7 +587,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	std::mt19937 mt(48);
 	for (int N_CASES = 0; N_CASES < (TESTING ? 1000 : 1); N_CASES++) {
 	int tot_Q;
