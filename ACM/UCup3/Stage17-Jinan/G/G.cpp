@@ -137,7 +137,7 @@ int main() {
 				auto cb = cross(big_pt_t(pts[idx]), B);
 				return (double(cb) * double_pt_t(A) - double(ca) * double_pt_t(B)) / double(cb - ca);
 			};
-			assert(angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), A) != -1);
+			//assert(angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), A) != -1);
 			if (cross(A, B) > 0) {
 				// increasing
 				double_pt_t prv(A);
@@ -168,6 +168,8 @@ int main() {
 					areas[i] += cross(prv, nxt);
 					prv = nxt;
 				}
+			} else if (same_dir(A, B)) {
+				// do nothing;
 			} else {
 				// collinear, should occur at most once
 				i = 0;
