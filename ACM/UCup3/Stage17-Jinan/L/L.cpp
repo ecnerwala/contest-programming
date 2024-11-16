@@ -609,14 +609,14 @@ int main() {
 		int op;
 		if (TESTING) {
 			if (alives.empty()) op = std::uniform_int_distribution<int>(0, 1)(mt) * 2 + 1;
-			else op = std::uniform_int_distribution<int>(1, 3)(mt);
+			else op = std::discrete_distribution<int>({100, 1, 100})(mt) + 1;
 		} else {
 			cin >> op;
 		}
 		if (op == 1) {
 			int k;
 			if (TESTING) {
-				k = std::uniform_int_distribution<int>(1, 1000)(mt);
+				k = std::uniform_int_distribution<int>(1, 1e9)(mt);
 			} else {
 				cin >> k;
 			}
@@ -645,7 +645,7 @@ int main() {
 		} else if (op == 3) {
 			int l;
 			if (TESTING) {
-				l = std::uniform_int_distribution<int>(1, 100000)(mt);
+				l = std::uniform_int_distribution<int>(1, 1e9)(mt);
 			} else {
 				cin >> l;
 			}
