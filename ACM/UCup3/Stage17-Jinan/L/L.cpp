@@ -616,7 +616,7 @@ int main() {
 		if (op == 1) {
 			int k;
 			if (TESTING) {
-				k = std::uniform_int_distribution<int>(1, 10000)(mt);
+				k = std::uniform_int_distribution<int>(1, 1000)(mt);
 			} else {
 				cin >> k;
 			}
