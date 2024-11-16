@@ -626,6 +626,7 @@ int main() {
 	while (q_idx < int(queries.size())) {
 		auto p = get_path_to_root(&verts[0]);
 		if (p->first_alive != -1 && (p->min_lifetime == 0 || cur_lines + p->min_lifetime < std::get<0>(queries[q_idx]))) {
+			cerr << "moving " << p->min_lifetime << " lines" << '\n';
 			cur_lines += p->min_lifetime;
 			p->shrink_lifetime(p->min_lifetime);
 			while (!p->is_vert) {
@@ -640,6 +641,7 @@ int main() {
 			assert(p->is_vert);
 			assert(p->is_alive);
 			int idx = p->idx;
+			cerr << "cutting " << idx << '\n';
 			// expose for splay
 			p->downdate();
 			p->expose();
@@ -653,7 +655,8 @@ int main() {
 				link_direct(&edges[idx], &verts[idx], &verts[idx+1]);
 			}
 		} else {
-			auto [_, u, q] = queries[q_idx++];
+			auto [l, u, q] = queries[q_idx++];
+			cerr << "process query " << l << ' ' << u << ' ' << q << '\n';
 			if (p->first_alive == -1 || p->first_alive >= u) {
 				ans[q] = -1;
 			} else {
