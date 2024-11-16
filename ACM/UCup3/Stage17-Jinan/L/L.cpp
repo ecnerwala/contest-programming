@@ -571,6 +571,17 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	}
 };
 
+void dump_tree(my_top_tree_node* a) {
+	assert(a->is_path);
+	if (a->is_vert) {
+		std::cerr << " v " << a->idx << '\n';
+	} else {
+		dump_tree(a->c[0]);
+		std::cerr << " e " << a->idx << '\n';
+		dump_tree(a->c[1]);
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -655,13 +666,13 @@ int main() {
 			verts[idx].is_alive = false;
 			verts[idx].update();
 			if (idx+1 < N) {
-				cerr << "linking to " << idx+1 << '\n';
 				link_direct(&edges[idx], &verts[idx], &verts[idx+1]);
 			}
 		} else {
 			auto [l, u, q] = queries[q_idx++];
 			cerr << "process query " << l << ' ' << u << ' ' << q << '\n';
 			cerr << p->first_alive << '\n';
+			dump_tree(p);
 			if (p->first_alive == -1 || p->first_alive >= u) {
 				ans[q] = -1;
 			} else {
