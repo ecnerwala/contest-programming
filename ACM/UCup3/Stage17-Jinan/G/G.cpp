@@ -101,6 +101,9 @@ int main() {
 	int N; int64_t W; cin >> N >> W;
 
 	using small_pt_t = Point<int64_t>;
+	using big_pt_t = Point<__int128_t>;
+	using double_pt_t = Point<double>;
+
 	std::vector<small_pt_t> pts(N);
 	for (auto& p : pts) cin >> p;
 
@@ -112,23 +115,21 @@ int main() {
 
 	W *= 6;
 	int64_t tot_cross = 0;
-	small_pt_t tot_center = {0, 0};
+	big_pt_t tot_center = {0, 0};
 	for (int i = 0; i < N; i++) {
 		int64_t cur_area = cross(pts[i], pts[(i+1)%N]);
 		assert(cur_area >= 0);
 		tot_cross += cur_area;
-		tot_center += cur_area * (small_pt_t(0, 0) + pts[i] + pts[(i+1)%N]);
+		tot_center += cur_area * big_pt_t(small_pt_t(0, 0) + pts[i] + pts[(i+1)%N]);
 	}
 	// we have tot_center + W * pts[i]
 	std::vector<double> areas(N);
 	{
 		int i = 0;
-		using big_pt_t = Point<__int128_t>;
-		while (angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), big_pt_t(tot_center + W * pts[0])) == -1) i++;
-		using double_pt_t = Point<double>;
+		while (angle_between(big_pt_t(pts[i]), big_pt_t(pts[(i+1)%N]), big_pt_t(tot_center + W * big_pt_t(pts[0]))) == -1) i++;
 		for (int z = 0; z < N; z++) {
-			big_pt_t A = big_pt_t(tot_center + W * pts[z]);
-			big_pt_t B = big_pt_t(tot_center + W * pts[(z+1)%N]);
+			big_pt_t A = big_pt_t(tot_center + W * big_pt_t(pts[z]));
+			big_pt_t B = big_pt_t(tot_center + W * big_pt_t(pts[(z+1)%N]));
 			auto get_inter = [&](int idx) -> double_pt_t {
 				auto ca = cross(big_pt_t(pts[idx]), A);
 				auto cb = cross(big_pt_t(pts[idx]), B);
@@ -173,8 +174,8 @@ int main() {
 		}
 	}
 	double denom = double(tot_cross) * double(W) * double(W);
-	cerr << fixed << setprecision(20);
-	cerr << std::accumulate(areas.begin(), areas.end(), double(0)) << '\n';
+	//cerr << fixed << setprecision(20);
+	//cerr << std::accumulate(areas.begin(), areas.end(), double(0)) << '\n';
 	cerr << denom << '\n';
 	cout << fixed << setprecision(20);
 	for (int i = 0; i < N; i++) {
