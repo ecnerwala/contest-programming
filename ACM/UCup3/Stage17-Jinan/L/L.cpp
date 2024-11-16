@@ -587,10 +587,10 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
 	for (int N_CASES = 0; N_CASES < (TESTING ? 1000 : 1); N_CASES++) {
-		cerr << "CASE " << N_CASES << '\n';
+		//cerr << "CASE " << N_CASES << '\n';
 	int tot_Q;
 	if (TESTING) {
 		tot_Q = std::uniform_int_distribution<int>(1, 100)(mt);
