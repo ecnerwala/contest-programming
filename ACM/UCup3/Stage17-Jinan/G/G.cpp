@@ -168,7 +168,7 @@ int main() {
 					areas[i] += cross(prv, nxt);
 					prv = nxt;
 				}
-			} else if (same_dir(A, B)) {
+			} else if (dot(A, B) > 0) {
 				// do nothing;
 			} else {
 				// collinear, should occur at most once
