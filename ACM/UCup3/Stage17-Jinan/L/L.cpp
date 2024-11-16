@@ -325,6 +325,7 @@ public:
 		downdate_all();
 
 		top_tree_node* v = is_path ? c[1] : c[2];
+		assert(v);
 		v->downdate();
 
 		while (!v->is_vert) {
