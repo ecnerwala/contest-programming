@@ -630,7 +630,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		edges[i].idx = i;
 		if (end_time[i] != N) {
-			link_direct(&edges[i], &verts[i], &verts[end_time[i]]);
+			link_direct(&edges[i], &verts[end_time[i]], &verts[i]);
 		}
 	}
 
@@ -666,7 +666,7 @@ int main() {
 			verts[idx].is_alive = false;
 			verts[idx].update();
 			if (idx+1 < N) {
-				link_direct(&edges[idx], &verts[idx], &verts[idx+1]);
+				link_direct(&edges[idx], &verts[idx+1], &verts[idx]);
 			}
 		} else {
 			auto [l, u, q] = queries[q_idx++];
