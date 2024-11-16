@@ -612,6 +612,7 @@ int main() {
 		} else {
 			cin >> op;
 		}
+		cerr << op << '\n';
 		if (op == 1) {
 			int k;
 			if (TESTING) {
