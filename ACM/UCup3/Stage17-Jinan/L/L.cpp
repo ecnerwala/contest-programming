@@ -574,7 +574,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 void dump_tree(my_top_tree_node* a) {
 	assert(a->is_path);
 	if (a->is_vert) {
-		std::cerr << " v " << a->idx << '\n';
+		std::cerr << " v " << a->idx << ' ' << a->is_alive << '\n';
 	} else {
 		dump_tree(a->c[0]);
 		std::cerr << " e " << a->idx << '\n';
