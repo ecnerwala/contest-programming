@@ -664,7 +664,7 @@ int main() {
 
 			verts[idx].expose();
 			verts[idx].is_alive = false;
-			verts[idx].update();
+			verts[idx].update_all();
 			if (idx+1 < N) {
 				link_direct(&edges[idx], &verts[idx+1], &verts[idx]);
 			}
