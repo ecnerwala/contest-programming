@@ -593,6 +593,7 @@ int main() {
 			verts.emplace_back();
 			verts[idx].lifetime = k;
 			verts[idx].idx = idx;
+			verts[idx].is_path = verts[idx].is_vert = true;
 			verts[idx].update();
 		} else if (op == 2) {
 			int u; cin >> u; u--;
