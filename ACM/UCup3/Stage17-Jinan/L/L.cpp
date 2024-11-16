@@ -555,10 +555,10 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	// when accessing grandchildren information.
 	void update() {
 		if (is_vert) {
-			min_lifetime = lifetime;
-			first_alive = -1;
+			min_lifetime = INF;
+			first_alive = INF;
 			if (is_alive) {
-				min_lifetime = std::min(min_lifetime, lifetime);
+				min_lifetime = lifetime;
 				first_alive = idx;
 			}
 		} else if (is_path) {
@@ -673,12 +673,12 @@ int main() {
 			cerr << "process query " << l << ' ' << u << ' ' << q << '\n';
 			cerr << p->first_alive << '\n';
 			dump_tree(p);
-			if (p->first_alive == -1 || p->first_alive >= u) {
+			if (p->first_alive >= u) {
 				ans[q] = -1;
 			} else {
 				while (!p->is_vert) {
 					p->downdate();
-					if (p->c[0]->first_alive == -1 || p->c[0]->first_alive >= u) {
+					if (p->c[0]->first_alive >= u) {
 						p = p->c[1];
 					} else {
 						p = p->c[0];
