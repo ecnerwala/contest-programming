@@ -140,7 +140,7 @@ int main() {
 			num delta_val = num(i) * (delta_ans[i] + ans[i-1]) - num(i-1) * ans[i-1];
 			delta_dp[i] += 2 * delta_val;
 		}
-		cerr << delta_dp[i] << '\n';
+		cerr << i << ' ' << mu[i] << ' ' << delta_dp[i] << '\n';
 		dp[i] = delta_dp[i] + dp[i-1];
 		delta_ans[i] += delta_dp[i];
 		ans[i] = delta_ans[i] + ans[i-1];
