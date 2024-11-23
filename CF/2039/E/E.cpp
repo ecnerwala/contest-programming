@@ -133,7 +133,7 @@ int main() {
 		num cur = 1;
 		for (int i = 2; i <= N; i++) {
 			if (i >= 4) cur *= num(i);
-			ans += cur;
+			if (i >= 3) ans += cur;
 		}
 		cout << ans << '\n';
 	}
