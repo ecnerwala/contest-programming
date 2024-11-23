@@ -30,7 +30,7 @@ int main() {
 		if (x >= M) {
 			cout << -1 << '\n';
 		} else {
-			std::sort(fac_cnt.begin(), fac_cnt.end(), std::greater<>());
+			std::sort(S.begin(), S.end(), std::greater<>());
 			for (int i = 1; i <= N; i++) {
 				cerr << i << ' ' << fac_cnt[i] << '\n';
 				cout << S[fac_cnt[i]] << " \n"[i==N];
