@@ -18,7 +18,7 @@ int main() {
 				int64_t hi = lo + 1;
 				lo <<= b;
 				hi <<= b;
-				cerr << lo << ' ' << hi << '\n';
+				//cerr << lo << ' ' << hi << '\n';
 				cnt += (hi + X-1) / X - (lo + X-1) / X;
 			}
 		}
