@@ -137,7 +137,7 @@ int main() {
 	for (int i = 1; i <= X; i++) {
 		mu[i] += num(1);
 		{
-			num delta_val = num(i) * ans[i] - num(i-1) * ans[i-1];
+			num delta_val = num(i) * (delta_ans[i] + ans[i-1]) - num(i-1) * ans[i-1];
 			delta_dp[i] += delta_val;
 		}
 		cerr << delta_dp[i] << '\n';
