@@ -137,7 +137,7 @@ int main() {
 	mu[1] += num(1);
 	for (int i = 1; i <= X; i++) {
 		{
-			num delta_val = num(i) * (delta_ans[i] + ans[i-1]) - num(i-1) * ans[i-1];
+			num delta_val = num(i) * (delta_ans[i] + ans[i-1] - dp[i-1]) - num(i-1) * ans[i-1];
 			delta_dp[i] += 2 * delta_val;
 		}
 		cerr << i << ' ' << mu[i] << ' ' << delta_dp[i] << ' ' << dp[i] << ' ' << ans[i] << '\n';
@@ -152,6 +152,8 @@ int main() {
 		}
 		cerr << i << ' ' << mu[i] << ' ' << delta_dp[i] << ' ' << dp[i] << ' ' << ans[i] << '\n';
 	}
+
+	// dp[2] = 1 + 2 * sum(
 
 	int T; cin >> T;
 	while (T--) {
