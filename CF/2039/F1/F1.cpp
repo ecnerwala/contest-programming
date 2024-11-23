@@ -147,7 +147,9 @@ int main() {
 
 		// fix ans properly
 		ans[i] += dp[i];
+		cerr << i << ' ' << dp[i] << ' ' << ans[i] << '\n';
 	}
+
 	/*
 	std::vector<num> delta_dp(X+1);
 	std::vector<num> ans(X+1);
