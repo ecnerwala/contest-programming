@@ -142,7 +142,7 @@ int main() {
 
 		dp[i] = 1;
 		for (int g = 1; g <= i; g++) {
-			dp[i] += mu[g] * num(i/g) * ans[i/g];
+			dp[i] += 2 * mu[g] * num(i/g) * ans[i/g];
 		}
 
 		// fix ans properly
