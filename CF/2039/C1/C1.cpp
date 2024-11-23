@@ -9,7 +9,7 @@ int main() {
 		int X; int64_t M; cin >> X >> M;
 		// if Y >= 2 * X, then X ^ Y > Y/2 >= X so it's not a divisor of Y or Y
 		int cnt = 0;
-		for (int Y = 0; Y <= 2 * X; Y++) {
+		for (int Y = 0; Y <= 2 * X && Y <= M; Y++) {
 			if (X == Y) continue;
 			if (Y % (X ^ Y) == 0 || X % (X ^ Y) == 0) {
 				cnt++;
