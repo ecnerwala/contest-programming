@@ -178,7 +178,7 @@ int main() {
 		num res = mu[g];
 		for (auto a : max_path) {
 			int cnt = 0;
-			for (int v = g; v <= M; v++) {
+			for (int v = g; v <= M; v += g) {
 				bool good = true;
 				for (int i = 2; i <= a; i++) {
 					if (v % i == 0) good = false;
