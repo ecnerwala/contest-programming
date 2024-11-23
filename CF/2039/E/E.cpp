@@ -127,15 +127,17 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 	int T; cin >> T;
 	while (T--) {
-		int N; cin >> N;
 		using num = modnum<998244353>;
+		int N; cin >> N;
 		num ans = 0;
-		num cur = 1;
-		for (int i = 3; i <= N; i++) {
-			ans += cur;
-			cur *= num(i+1);
+		num ways_1_used = 0;
+		num ways_2 = 0;
+		for (int i = 2; i <= N; i++) {
+			ans += num(1) + ways_1_used + ways_2;
+			ways_2 *= num(i+1);
+			ways_2 += ways_1_used * num(i);
+			if (i >= 3) ways_1_used += num(i-1);
 		}
-		if (N == 2) ans++;
 		cout << ans << '\n';
 	}
 
@@ -148,5 +150,4 @@ int main() {
 // In general, you start at length l, then you prepend some number >= 0, then multiply by l (and add 1)
 // The first l >= 3
 //
-// First you have 1 of length 3, 1 of length 4, 1 of length 5, 1 of length 6, 1 of length 7
-//
+// You multiply by some subset of 2, 3, 4, 5, up to & including L, divided by L, but the first and second cannot be adjacent (if they exist)
