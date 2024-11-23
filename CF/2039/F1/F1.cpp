@@ -157,6 +157,9 @@ int main() {
 			}
 
 			if (j == 1) {
+				for (int v = 1; v <= X/i; v++) {
+					cerr << i << ' ' << v << ' ' << dp[i][v] << '\n';
+				}
 				// recompute pref_mu
 				for (int v = 1; v <= X/i; v++) {
 					pref_mu[v] = pref_mu[v-1] + dp_mu[i][v];
