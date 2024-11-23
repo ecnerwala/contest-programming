@@ -122,7 +122,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	// dp[L] = 1 + 2 * sum(2 <= v <= L) sum(1 <= a <= L, gcd(a, v) == 1) dp[L / v]
-	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * sum(1 <= v <= L/g) dp[L / g / v]
+	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * sum(1 <= v <= L/g) dp[L / g / v] excluding v=g=1
 	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * ans[L/g]
 	// delta_dp[L] = 2 * sum(g | L) * mu[g] * ((L/g)ans[L/g] - (L/g-1)ans[L/g-1])
 	//const int X = int(1e6) + 10;
@@ -137,7 +137,7 @@ int main() {
 	mu[1] += num(1);
 	for (int i = 1; i <= X; i++) {
 		{
-			num delta_val = num(i) * (delta_ans[i] + ans[i-1] - dp[i-1]) - num(i-1) * ans[i-1];
+			num delta_val = num(i) * (delta_ans[i] + ans[i-1]) - num(i-1) * ans[i-1];
 			delta_dp[i] += 2 * delta_val;
 		}
 		cerr << i << ' ' << mu[i] << ' ' << delta_dp[i] << ' ' << dp[i] << ' ' << ans[i] << '\n';
@@ -152,8 +152,6 @@ int main() {
 		}
 		cerr << i << ' ' << mu[i] << ' ' << delta_dp[i] << ' ' << dp[i] << ' ' << ans[i] << '\n';
 	}
-
-	// dp[2] = 1 + 2 * sum(
 
 	int T; cin >> T;
 	while (T--) {
