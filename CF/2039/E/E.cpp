@@ -131,9 +131,9 @@ int main() {
 		using num = modnum<998244353>;
 		num ans = 0;
 		num cur = 1;
-		for (int i = 2; i <= N; i++) {
-			if (i >= 4) cur *= num(i);
-			if (i >= 3) ans += cur;
+		for (int i = 3; i <= N; i++) {
+			ans += cur;
+			cur *= num(i+1);
 		}
 		if (N == 2) ans++;
 		cout << ans << '\n';
@@ -147,3 +147,6 @@ int main() {
 // Then there's 2, and you append 2's and then insert a 2 somewhere before old final char
 // In general, you start at length l, then you prepend some number >= 0, then multiply by l (and add 1)
 // The first l >= 3
+//
+// First you have 1 of length 3, 1 of length 4, 1 of length 5, 1 of length 6, 1 of length 7
+//
