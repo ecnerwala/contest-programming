@@ -135,6 +135,7 @@ int main() {
 			if (i >= 4) cur *= num(i);
 			if (i >= 3) ans += cur;
 		}
+		if (N == 2) ans++;
 		cout << ans << '\n';
 	}
 
