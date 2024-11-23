@@ -133,21 +133,20 @@ int main() {
 	std::vector<num> delta_dp(X+1);
 	std::vector<num> ans(X+1);
 	std::vector<num> delta_ans(X+1);
-	dp[0] = num(1);
+	delta_dp[1] += num(1);
 	for (int i = 1; i <= X; i++) {
 		mu[i] += num(1);
 		{
 			num delta_val = num(i) * (delta_ans[i] + ans[i-1]) - num(i-1) * ans[i-1];
-			delta_dp[i] += delta_val;
+			delta_dp[i] += 2 * delta_val;
 		}
 		cerr << delta_dp[i] << '\n';
-		delta_dp[i] *= 2;
 		dp[i] = delta_dp[i] + dp[i-1];
 		delta_ans[i] += delta_dp[i];
 		ans[i] = delta_ans[i] + ans[i-1];
 		num delta_val = num(i) * ans[i] - num(i-1) * ans[i-1];
 		for (int j = 2; i * j <= X; j++) {
-			delta_dp[i*j] += delta_val;
+			delta_dp[i*j] += 2 * delta_val;
 			delta_ans[i*j] += delta_dp[i];
 			mu[i*j] -= mu[i];
 		}
