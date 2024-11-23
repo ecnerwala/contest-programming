@@ -129,12 +129,13 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		using num = modnum<998244353>;
-		num ans = 1;
+		num ans = 0;
 		num cur = 1;
 		for (int i = 2; i <= N; i++) {
 			if (i >= 4) cur *= num(i);
 			ans += cur;
 		}
+		cout << ans << '\n';
 	}
 
 	return 0;
