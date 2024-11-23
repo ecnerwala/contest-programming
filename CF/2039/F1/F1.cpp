@@ -146,7 +146,7 @@ int main() {
 		ans[i] = delta_ans[i] + ans[i-1];
 		num delta_val = num(i) * ans[i] - num(i-1) * ans[i-1];
 		for (int j = 2; i * j <= X; j++) {
-			delta_dp[i*j] += 2 * delta_val;
+			delta_dp[i*j] += mu[j] * 2 * delta_val;
 			delta_ans[i*j] += delta_dp[i];
 			mu[i*j] -= mu[i];
 		}
