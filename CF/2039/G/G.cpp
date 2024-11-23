@@ -187,6 +187,7 @@ int main() {
 			}
 			res *= num(cnt);
 		}
+		cerr << g << ' ' << res << '\n';
 		ans += res;
 	}
 	cout << ans << '\n';
