@@ -134,8 +134,8 @@ int main() {
 	std::vector<num> ans(X+1);
 	std::vector<num> delta_ans(X+1);
 	delta_dp[1] += num(1);
+	mu[1] += num(1);
 	for (int i = 1; i <= X; i++) {
-		mu[i] += num(1);
 		{
 			num delta_val = num(i) * (delta_ans[i] + ans[i-1]) - num(i-1) * ans[i-1];
 			delta_dp[i] += 2 * delta_val;
