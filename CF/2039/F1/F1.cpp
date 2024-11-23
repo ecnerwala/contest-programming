@@ -147,7 +147,7 @@ int main() {
 
 		// fix ans properly
 		ans[i] += dp[i];
-		cerr << i << ' ' << mu[i] << ' ' << dp[i] << ' ' << ans[i] << '\n';
+		cerr << i << ' ' << int(mu[i]+1)-1 << ' ' << dp[i] << ' ' << ans[i] << '\n';
 	}
 
 	/*
