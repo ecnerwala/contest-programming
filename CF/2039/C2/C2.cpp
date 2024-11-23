@@ -8,7 +8,6 @@ int main() {
 	while (T--) {
 		int X; int64_t M; cin >> X >> M;
 		assert(X >= 1);
-		int b = 31 - __builtin_clz(X);
 		// we want (X^Y) % X == 0 || (X^Y) % Y == 0
 		int64_t cnt = 0;
 		// count the first case first
@@ -22,14 +21,17 @@ int main() {
 			}
 		}
 		// Y >= (1 << (b+1)), then Y > (X ^ Y) / 2, so the second case can't happen
-		for (int Y = 0; Y < (1 << (b+1)) && Y < M; Y++) {
-			if ((X ^ Y) % X == 0) {
-				cnt--;
+		{
+			int b = 31 - __builtin_clz(X);
+			for (int Y = 0; Y < (1 << (b+1)) && Y < M; Y++) {
+				if ((X ^ Y) % X == 0) {
+					cnt--;
+				}
 			}
-		}
-		for (int Y = 1; Y < (1 << (b+1)) && Y < M; Y++) {
-			if ((X ^ Y) % Y == 0 || (X ^ Y) % X == 0) {
-				cnt++;
+			for (int Y = 1; Y < (1 << (b+1)) && Y < M; Y++) {
+				if ((X ^ Y) % Y == 0 || (X ^ Y) % X == 0) {
+					cnt++;
+				}
 			}
 		}
 		cout << cnt << '\n';
