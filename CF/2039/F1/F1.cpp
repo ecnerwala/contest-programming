@@ -138,11 +138,10 @@ int main() {
 	std::vector<std::vector<num>> dp(X+1);
 	std::vector<std::vector<num>> dp_mu(X+1);
 	for (int i = 1; i <= X; i++) {
-		dp[i].resize(X/i+1);
-		dp_mu[i].resize(X/i+1);
+		dp[i].assign(X/i+1, num(1));
+		dp_mu[i].assign(X/i+1, num(0));
 	}
 	for (int i = 1; i <= X; i++) {
-		dp[i][1] += num(1);
 		std::vector<num> pref_mu(X/i+1);
 		for (int v = 1; v <= X/i; v++) {
 			pref_mu[v] = pref_mu[v-1] + dp_mu[i][v];
@@ -157,6 +156,8 @@ int main() {
 			}
 
 			if (j == 1) {
+				for (int v = 1; v <= X/i; v++) {
+				}
 				for (int v = 1; v <= X/i; v++) {
 					cerr << i << ' ' << v << ' ' << dp[i][v] << '\n';
 				}
