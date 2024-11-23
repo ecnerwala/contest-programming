@@ -122,32 +122,51 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	// dp[L] = 1 + 2 * sum(2 <= v <= L) sum(1 <= a <= L, gcd(a, v) == 1) dp[L / v]
-	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * sum(1 <= v <= L/g) dp[L / g / v] - dp[L]
-	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * ans[L/g] - dp[L]
+	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * sum(1 <= v <= L/g) dp[L / g / v]
+	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * ans[L/g]
 	// delta_dp[L] = 2 * sum(g | L) * mu[g] * ((L/g)ans[L/g] - (L/g-1)ans[L/g-1])
 	//const int X = int(1e6) + 10;
 	const int X = 10;
 	using num = modnum<998244353>;
 	std::vector<num> mu(X+1);
-	std::vector<num> dp(X+1);
-	std::vector<num> ans(X+1);
 	mu[1] += num(1);
 	for (int i = 1; i <= X; i++) {
 		for (int j = 2; i*j <= X; j++) {
 			mu[i*j] -= mu[i];
 		}
-
-		ans[i] = 0;
-		for (int v = 1; v <= i; v++) ans[i] += dp[i / v];
-
-		dp[i] = 1;
-		for (int g = 1; g <= i; g++) {
-			dp[i] += 2 * mu[g] * num(i/g) * ans[i/g];
+	}
+	std::vector<std::vector<num>> dp(X+1);
+	std::vector<std::vector<num>> dp_mu(X+1);
+	for (int i = 1; i <= X; i++) {
+		dp[i].resize(X/i+1);
+		dp_mu[i].resize(X/i+1);
+	}
+	for (int i = 1; i <= X; i++) {
+		dp[i][1] += num(1);
+		std::vector<num> pref_mu(X/i+1);
+		for (int v = 1; v <= X/i; v++) {
+			pref_mu[v] = pref_mu[v-1] + dp_mu[i][v];
 		}
+		for (int j = 1; j <= X/i; j++) {
+			for (int v = 1; v <= X/i/j; v++) {
+				dp[i*j][v] += 2 * pref_mu[v * j - 1];
+			}
 
-		// fix ans properly
-		ans[i] += dp[i];
-		cerr << i << ' ' << int(mu[i]+1)-1 << ' ' << dp[i] << ' ' << ans[i] << '\n';
+			for (int v = 1; v <= X/i/j; v++) {
+				dp_mu[i * j][v] += mu[j] * dp[i][v * j];
+			}
+
+			if (j == 1) {
+				// recompute pref_mu
+				for (int v = 1; v <= X/i; v++) {
+					pref_mu[v] = pref_mu[v-1] + dp_mu[i][v];
+				}
+			}
+		}
+	}
+	std::vector<num> ans(X+1);
+	for (int i = 1; i <= X; i++) {
+		ans[i] = dp[i][1] + ans[i-1];
 	}
 
 	/*
