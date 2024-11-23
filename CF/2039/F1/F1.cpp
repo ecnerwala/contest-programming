@@ -125,8 +125,8 @@ int main() {
 	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * sum(1 <= v <= L/g) dp[L / g / v]
 	// dp[L] = 1 + 2 * sum(1 <= g <= L) mu(g) * (L/g) * ans[L/g]
 	// delta_dp[L] = 2 * sum(g | L) * mu[g] * ((L/g)ans[L/g] - (L/g-1)ans[L/g-1])
-	//const int X = int(1e6) + 10;
-	const int X = 10;
+	const int X = int(1e6) + 10;
+	//const int X = 10;
 	using num = modnum<998244353>;
 	std::vector<num> mu(X+1);
 	mu[1] += num(1);
