@@ -17,6 +17,7 @@ int main() {
 			if ((M >> b) & 1) {
 				int64_t lo = (M ^ X) >> (b+1) << (b+1);
 				int64_t hi = lo + (int64_t(1) << b);
+				cerr << lo << ' ' << hi << '\n';
 				cnt += (hi + X-1) / X - (lo + X-1) / X;
 			}
 		}
