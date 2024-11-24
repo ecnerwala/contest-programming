@@ -20,7 +20,7 @@ int main() {
 			for (int ops = 0; ops <= st + carry; ops += 2) {
 				if ((st - carry - 3 * ops - en) & 1) continue;
 				int nxt_carry = (en + carry + 3 * ops) / 2;
-				if (nxt_carry < 5) {
+				if (nxt_carry < int(ndp.size())) {
 					setmin(ndp[nxt_carry], dp[carry] + ops);
 				}
 			}
