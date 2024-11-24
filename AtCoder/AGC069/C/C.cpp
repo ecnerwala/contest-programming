@@ -15,6 +15,7 @@ int main() {
 		std::array<int, 5> ndp; ndp.fill(INF);
 		int st = S[i] == 'A';
 		int en = T[i] == 'A';
+		cerr << st << "->" << en << '\n';
 		for (int carry = 0; carry < 5; carry++) {
 			for (int ops = 0; ops <= st + carry; ops += 2) {
 				if ((st - carry - 3 * ops - en) & 1) continue;
