@@ -502,7 +502,7 @@ int main() {
 		for (int e = 1; e <= N; e++) {
 			for (int c = 1; c <= e; c++) {
 				int diff = e - c;
-				for (int ne = 1; ne < e; ne++) {
+				for (int ne = diff; ne < e; ne++) {
 					ndp[{ne, std::min(ne, ne - diff + 1)}] += dp[{e, c}];
 				}
 			}
