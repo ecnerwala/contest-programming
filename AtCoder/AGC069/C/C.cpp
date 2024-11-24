@@ -17,10 +17,12 @@ int main() {
 		int en = T[i] == 'A';
 		cerr << st << "->" << en << '\n';
 		for (int carry = 0; carry < 5; carry++) {
+			if (dp[carry] == INF) continue;
 			for (int ops = 0; ops <= st + carry; ops += 2) {
 				if ((st - carry - 3 * ops - en) & 1) continue;
 				int nxt_carry = (en + carry + 3 * ops) / 2;
 				if (nxt_carry < int(ndp.size())) {
+					cerr << carry << ' ' << nxt_carry << ' ' << ops << '\n';
 					setmin(ndp[nxt_carry], dp[carry] + ops);
 				}
 			}
