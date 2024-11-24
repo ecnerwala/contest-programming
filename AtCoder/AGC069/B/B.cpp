@@ -8,7 +8,7 @@ bool slow(const std::vector<std::string>& S) {
 		do {
 			auto curS = S;
 			bool good = true;
-			for (int i = 0; i < N; i++) {
+			for (int i = 0; i < N-1; i++) {
 				bool has0 = 0;
 				for (int j = 0; j < N; j++) {
 					if (curS[A[i]][j] == '0') {
@@ -76,6 +76,8 @@ int main() {
 			}
 			cerr << S[i] << '\n';
 		}
+		cerr << solve(S) << '\n';
+		cerr << slow(S) << '\n';
 		assert(solve(S) == slow(S));
 	}
 
