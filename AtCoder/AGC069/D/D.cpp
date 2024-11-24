@@ -12,7 +12,7 @@ int main() {
 
 	const int INF = 1e9;
 	std::array<int, 5> dp; dp.fill(INF); dp[0] = 0;
-	for (int i = 0; i < int(S.size()); i++) {
+	for (int i = 0; i < N; i++) {
 		std::array<int, 5> ndp; ndp.fill(INF);
 		int st = S[i] == 'A';
 		int en = T[i] == 'A';
