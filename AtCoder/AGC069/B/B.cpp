@@ -63,7 +63,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::mt19937 mt(48);
-	for (int z = 0; z < 100; z++) {
+	for (int z = 0; z < 10000; z++) {
 		cerr << "test " << z << '\n';
 		int N = std::uniform_int_distribution<int>(1, 5)(mt);
 		double p = std::uniform_real_distribution<double>(0, 1)(mt);
