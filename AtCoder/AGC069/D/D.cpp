@@ -479,9 +479,11 @@ int main() {
 
 	// number of edges, # of comps
 	tensor<num, 2> dp({N+1, N+1});
-	dp[{0, 0}] = 1;
+	for (int i = 1; i <= N; i++) {
+		dp[{i, 1}] = 1;
+	}
 
-	for (int i = 0; i <= N; i++) {
+	for (int i = 1; i < N; i++) {
 		tensor<num, 2> ndp({N+1, N+1});
 		for (int e = 0; e <= N; e++) {
 			for (int c = bool(e); c <= e; c++) {
@@ -500,7 +502,11 @@ int main() {
 		dp = std::move(ndp);
 	}
 
-	cout << dp[{0, 0}] << '\n';
+	num ans = 0;
+	for (int i = 1; i <= N; i++) {
+		ans += dp[{i, i}];
+	}
+	cout << ans << '\n';
 
 	return 0;
 }
