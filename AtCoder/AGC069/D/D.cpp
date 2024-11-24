@@ -499,6 +499,15 @@ int main() {
 				pref += dp[{e, c}];
 			}
 		}
+		for (int e = 1; e <= N; e++) {
+			for (int c = 1; c <= e; c++) {
+				int diff = e - c;
+				for (int ne = 1; ne < e; ne++) {
+					ndp[{ne, std::min(ne, ne - diff + 1)}] += dp[{e, c}];
+				}
+			}
+		}
+		/*
 		for (int diff = 0; diff <= N; diff++) {
 			num pref = 0;
 			for (int e = N; e > diff; e--) {
@@ -507,6 +516,7 @@ int main() {
 				pref += dp[{e, c}];
 			}
 		}
+		*/
 		dp = std::move(ndp);
 	}
 
