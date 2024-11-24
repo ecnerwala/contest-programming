@@ -489,15 +489,22 @@ int main() {
 		for (int e = 1; e <= N; e++) {
 			for (int c = 1; c <= e; c++) {
 				//cerr << i << ' ' << e << ' ' << c << ' ' << dp[{e, c}] << '\n';
-				for (int ne = 1; ne <= N; ne++) {
-					if (ne == e) {
-						ndp[{ne, c}] += dp[{e, c}];
-					} else if (ne > e) {
-						ndp[{ne, c + 1}] += dp[{e, c}];
-					} else if (ne < e) {
-						if (c >= (e - ne)) ndp[{ne, std::min(ne, c - (e - ne) + 1)}] += dp[{e, c}];
-					} else assert(false);
-				}
+				ndp[{e, c}] += dp[{e, c}];
+			}
+		}
+		for (int c = 1; c+1 <= N; c++) {
+			num pref = 0;
+			for (int e = c; e <= N; e++) {
+				ndp[{e, c+1}] += pref;
+				pref += dp[{e, c}];
+			}
+		}
+		for (int diff = 0; diff <= N; diff++) {
+			num pref = 0;
+			for (int e = N; e > diff; e--) {
+				int c = e - diff;
+				dp[{e, std::min(e, e - diff + 1)}] += pref;
+				pref += dp[{e, c}];
 			}
 		}
 		dp = std::move(ndp);
