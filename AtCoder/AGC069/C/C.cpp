@@ -26,6 +26,7 @@ int main() {
 			}
 		}
 		dp = ndp;
+		for (int i = 0; i < 5; i++) cerr << (dp[i] == INF ? -1 : dp[i]) << '\n';
 	}
 	int ans = dp[0];
 	if (ans < INF) cout << ans << '\n';
