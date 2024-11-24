@@ -25,8 +25,7 @@ int main() {
 			tot_cost += arr[e1] - arr[e0];
 			auto buf_en = std::merge(arr.begin() + s0, arr.begin() + e0 + 1, arr.begin() + s1, arr.begin() + e1, buf.begin());
 			assert(buf_en == buf.begin() + (1 << (b+1)) + 1);
-			tot_cost -= arr[e1] - *buf_en;
-			*buf_en = arr[e1];
+			tot_cost -= arr[e1] - std::exchange(buf[1 << (b+1)], arr[e1]);
 			int sout = (2*i+0) << (b+1);
 			std::copy(buf.begin(), buf_en, arr.begin() + sout);
 		}
