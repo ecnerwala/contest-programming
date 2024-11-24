@@ -476,6 +476,7 @@ int main() {
 	struct my_tag{};
 	using num = dynamic_modnum<my_tag>;
 	int N; cin >> N >> num::MOD_READER();
+	N--;
 
 	// number of edges, # of comps
 	tensor<num, 2> dp({N+1, N+1});
