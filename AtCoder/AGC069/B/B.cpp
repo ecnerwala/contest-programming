@@ -76,9 +76,10 @@ int main() {
 			}
 			cerr << S[i] << '\n';
 		}
-		cerr << solve(S) << '\n';
-		cerr << slow(S) << '\n';
-		assert(solve(S) == slow(S));
+		bool res = solve(S);
+		bool ans = slow(S);
+		cerr << res << ' ' << ans << '\n';
+		assert(res == ans);
 	}
 
 	int T; cin >> T;
