@@ -488,7 +488,7 @@ int main() {
 		tensor<num, 2> ndp({N+1, N+1});
 		for (int e = 1; e <= N; e++) {
 			for (int c = 1; c <= e; c++) {
-				cerr << i << ' ' << e << ' ' << c << ' ' << dp[{e, c}] << '\n';
+				//cerr << i << ' ' << e << ' ' << c << ' ' << dp[{e, c}] << '\n';
 				for (int ne = 1; ne <= N; ne++) {
 					if (ne == e) {
 						ndp[{ne, c}] += dp[{e, c}];
