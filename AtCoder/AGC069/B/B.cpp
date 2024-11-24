@@ -65,7 +65,7 @@ int main() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 100; z++) {
 		cerr << "test " << z << '\n';
-		int N = std::uniform_int_distribution<int>(1, 20)(mt);
+		int N = std::uniform_int_distribution<int>(1, 5)(mt);
 		double p = std::uniform_real_distribution<double>(0, 1)(mt);
 		std::vector<std::string> S(N);
 		cerr << N << '\n';
