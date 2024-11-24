@@ -485,8 +485,8 @@ int main() {
 
 	for (int i = 1; i < N; i++) {
 		tensor<num, 2> ndp({N+1, N+1});
-		for (int e = 0; e <= N; e++) {
-			for (int c = bool(e); c <= e; c++) {
+		for (int e = 1; e <= N; e++) {
+			for (int c = 1; c <= e; c++) {
 				cerr << i << ' ' << e << ' ' << c << ' ' << dp[{e, c}] << '\n';
 				for (int ne = (i == N) ? 0 : 1; ne <= N; ne++) {
 					if (ne == e) {
