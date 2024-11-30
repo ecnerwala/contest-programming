@@ -55,7 +55,7 @@ int main() {
 			for (auto& t : times) t = -t;
 			std::reverse(weights.begin(), weights.end());
 
-			for (int i = 0; i < L; i++) { cerr << '@' << times[i] << ' ' << 'x' << weights[i] << ' '; } cerr << '@' << times[L] << '\n';
+			//for (int i = 0; i < L; i++) { cerr << '@' << times[i] << ' ' << 'x' << weights[i] << ' '; } cerr << '@' << times[L] << '\n';
 
 			// we need to find an interval which is > p0_minus_p1
 			std::vector<std::pair<int64_t, int>> stk; stk.reserve(L);
