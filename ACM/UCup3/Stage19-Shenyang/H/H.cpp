@@ -544,7 +544,7 @@ int main() {
 	}
 
 	// don't count node 0 itself
-	tot_ans /= p2[N-2];
+	tot_ans /= p2[N-1];
 	cout << tot_ans << '\n';
 
 	return 0;
