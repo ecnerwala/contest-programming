@@ -535,9 +535,9 @@ int main() {
 			ans_cross += v;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
-				self(nxt, cur);
+				self(nxt, cur, v);
 			}
-		})(0, -1);
+		})(0, -1, num(1));
 		tot_ans *= ans_cross;
 	}
 
