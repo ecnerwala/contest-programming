@@ -51,7 +51,7 @@ int main() {
 		}
 
 		int64_t T = times.back() - times.front();
-		std::pair<int64_t, int64_t> best{T+1, -1};
+		std::tuple<int64_t, int64_t, int64_t> best{T+1, -1, -1};
 
 		for (int z = 0; z < 2; z++) {
 			std::reverse(times.begin(), times.end());
@@ -86,8 +86,11 @@ int main() {
 						int j = stk[mi].second;
 						assert(j < i);
 						int64_t t0 = times[j];
+						int64_t excess = pref - stk[mi].first - p0_minus_p1;
 						if (weights[j] > 0) {
-							t0 += ((pref - stk[mi].first) - p0_minus_p1 - 1) / weights[j];
+							int64_t dt = excess / weights[j];
+							t0 += dt;
+							excess -= dt * weights[j];
 							assert(t0 <= times[j+1]);
 						}
 						int64_t t1 = times[i];
@@ -97,8 +100,10 @@ int main() {
 							t1 = -t1;
 							std::swap(t0, t1);
 						}
-						std::pair<int64_t, int64_t> cnd{t1 - t0, t0};
-						best = std::min(best, cnd);
+						std::tuple<int64_t, int64_t, int64_t> cnd{t1 - t0, t0, excess};
+						if (s0_minus_s1 == 0) {
+							best = std::min(best, cnd);
+						}
 					}
 				}
 				if (i+1 < L) {
@@ -106,14 +111,28 @@ int main() {
 				}
 			}
 		}
-		if (s0_minus_s1 != 0) {
-			cout << -1 << '\n';
-		} else if (best.second == -1) {
-			cout << -1 << '\n';
-		} else {
-			cout << best.second << ' ' << best.second+best.first << '\n';
-		}
+		{
+			auto [l, t0, excess] = best;
+			if (t0 == -1) {
+				cout << -1 << '\n';
+			} else {
+				int64_t t1 = t0 + l;
+				int i = int(std::lower_bound(times.begin(), times.end(), t0) - times.begin());
+				int j = int(std::lower_bound(times.begin(), times.end(), t1) - times.begin());
+				assert(j >= i);
+				if (i > 0) {
+					int delta_weight = weights[j-1] - weights[i-1];
+					if (delta_weight > 0) {
+						// shift it left
+						int64_t dt = excess / delta_weight;
+						t0 -= dt;
+						t1 -= dt;
+					}
+				}
 
+				cout << t0 << ' ' << t1 << '\n';
+			}
+		}
 	}
 
 	return 0;
