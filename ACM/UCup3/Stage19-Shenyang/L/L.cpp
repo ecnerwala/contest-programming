@@ -15,6 +15,8 @@ int main() {
 		times.push_back(0);
 		std::vector<int> weights; weights.reserve(N);
 
+		int s0_minus_s1 = 0;
+
 		{
 			std::array<std::map<int, int>, 2> status;
 			for (int i = 0; i < N; i++) {
@@ -30,6 +32,7 @@ int main() {
 					p0_minus_p1 += 2 * (a ? -penalty : +penalty);
 					times.push_back(c);
 					weights.push_back(a ? -2 : +2);
+					s0_minus_s1 += (a ? -1 : +1);
 				} else if (d == 0) {
 					v++;
 				} else assert(false);
@@ -103,7 +106,9 @@ int main() {
 				}
 			}
 		}
-		if (best.second == -1) {
+		if (s0_minus_s1 != 0) {
+			cout << -1 << '\n';
+		} else if (best.second == -1) {
 			cout << -1 << '\n';
 		} else {
 			cout << best.second << ' ' << best.second+best.first << '\n';
