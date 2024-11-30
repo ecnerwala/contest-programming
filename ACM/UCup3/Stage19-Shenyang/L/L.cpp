@@ -63,7 +63,7 @@ int main() {
 			for (int i = 0; i <= L; i++) {
 				// insert i
 				{
-					while (pref <= stk.back().first) {
+					while (!stk.empty() && pref <= stk.back().first) {
 						stk.pop_back();
 					}
 					stk.push_back({pref, i});
