@@ -35,7 +35,7 @@ int main() {
 	while (!pq.empty()) {
 		auto [d, v] = pq.top(); pq.pop();
 		if (d != dist[v]) continue;
-		//cerr << v << ' ' << d << '\n';
+		cerr << v << ' ' << d << '\n';
 		for (int e = 0; e < 2; e++) {
 			int nv = (e << 15) | v;
 			//cerr << nv << '\n';
