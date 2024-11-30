@@ -38,6 +38,7 @@ int main() {
 		cerr << v << ' ' << d << '\n';
 		for (int e = 0; e < 2; e++) {
 			int nv = (e << 15) | v;
+			cerr << nv << '\n';
 			check(flip_cell(nv, 0), d + A0);
 			check(flip_cell(nv, 1), d + A0);
 			check(flip_cell(nv, 2), d + A0);
