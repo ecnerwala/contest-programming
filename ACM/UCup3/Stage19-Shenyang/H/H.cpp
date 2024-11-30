@@ -514,6 +514,7 @@ int main() {
 				ans_t1 += seg2[layout.get_point(st[0])];
 			}
 		}
+		cerr << z << ' ' << ans_t1 << '\n';
 		tot_ans *= ans_t1;
 	}
 
@@ -538,6 +539,7 @@ int main() {
 				self(nxt, cur, v);
 			}
 		})(0, -1, num(1));
+		cerr << ans_cross << '\n';
 		tot_ans *= ans_cross;
 	}
 
