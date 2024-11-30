@@ -71,7 +71,7 @@ int main() {
 				{
 					int mi = -1;
 					int ma = int(stk.size());
-					while (ma - mi > 0) {
+					while (ma - mi > 1) {
 						int md = mi + (ma - mi) / 2;
 						if (pref - stk[md].first > p0_minus_p1) {
 							mi = md;
