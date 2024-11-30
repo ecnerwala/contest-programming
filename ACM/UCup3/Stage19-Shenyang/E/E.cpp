@@ -26,7 +26,8 @@ int main() {
 	std::vector<int64_t> dist(1 << 16, -1);
 	min_pq<std::pair<int64_t, int>> pq;
 	auto check = [&](int a, int64_t cnd) {
-		if (dist[a] == -1 || dist[a] > cnd) {
+		cerr << "cnd " << a << '\n';
+		if (dist[a] == -1 || cnd < dist[a]) {
 			pq.push({dist[a] = cnd, a});
 		}
 	};
