@@ -20,7 +20,7 @@ int main() {
 		} else if (i == 3) {
 			msk = 0b0000000011111111;
 		} else assert(false);
-		return ((a & msk) << i) | ((a >> i) & msk);
+		return ((a & msk) << (1 << i)) | ((a >> (1 << i)) & msk);
 	};
 
 	std::vector<int64_t> dist(1 << 16, -1);
