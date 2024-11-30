@@ -26,7 +26,7 @@ int main() {
 	std::vector<int64_t> dist(1 << 16, -1);
 	min_pq<std::pair<int64_t, int>> pq;
 	auto check = [&](int a, int64_t cnd) {
-		cerr << "cnd " << a << '\n';
+		//cerr << "cnd " << a << '\n';
 		if (dist[a] == -1 || cnd < dist[a]) {
 			pq.push({dist[a] = cnd, a});
 		}
@@ -35,10 +35,10 @@ int main() {
 	while (!pq.empty()) {
 		auto [d, v] = pq.top(); pq.pop();
 		if (d != dist[v]) continue;
-		cerr << v << ' ' << d << '\n';
+		//cerr << v << ' ' << d << '\n';
 		for (int e = 0; e < 2; e++) {
 			int nv = (e << 15) | v;
-			cerr << nv << '\n';
+			//cerr << nv << '\n';
 			check(flip_cell(nv, 0), d + A0);
 			check(flip_cell(nv, 1), d + A0);
 			check(flip_cell(nv, 2), d + A0);
