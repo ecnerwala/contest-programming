@@ -40,6 +40,7 @@ int main() {
 			p0_minus_p1 = -p0_minus_p1;
 			for (auto& w : weights) w = -w;
 		}
+		assert(p0_minus_p1 > 0);
 		int L = int(weights.size());
 		assert(int(times.size()) == L+1);
 		for (int i = L-1; i > 0; i--) {
@@ -56,12 +57,56 @@ int main() {
 
 			for (int i = 0; i < L; i++) { cerr << '@' << times[i] << ' ' << 'x' << weights[i] << ' '; } cerr << '@' << times[L] << '\n';
 
-			for (int i = 0; i < L; i++) {
+			// we need to find an interval which is > p0_minus_p1
+			std::vector<std::pair<int64_t, int>> stk; stk.reserve(L);
+			int64_t pref = 0;
+			for (int i = 0; i <= L; i++) {
+				// insert i
+				{
+					while (pref <= stk.back().first) {
+						stk.pop_back();
+					}
+					stk.push_back({pref, i});
+				}
+				{
+					int mi = -1;
+					int ma = int(stk.size());
+					while (ma - mi > 0) {
+						int md = mi + (ma - mi) / 2;
+						if (pref - stk[md].first > p0_minus_p1) {
+							mi = md;
+						} else {
+							ma = md;
+						}
+					}
+					if (mi >= 0) {
+						int j = stk[mi].second;
+						assert(j < i);
+						int64_t t0 = times[j];
+						if (weights[j] > 0) {
+							t0 += ((pref - stk[mi].first) - p0_minus_p1 - 1) / weights[j];
+							assert(t0 <= times[j+1]);
+						}
+						int64_t t1 = times[i];
+						// t0 .. t1
+						if (z == 0) {
+							t0 = -t0;
+							t1 = -t1;
+							std::swap(t0, t1);
+						}
+						std::pair<int64_t, int64_t> cnd{t1 - t0, t0};
+						best = std::min(best, cnd);
+					}
+				}
+				if (i+1 < L) {
+					pref += weights[i] * (times[i+1] - times[i]);
+				}
 			}
-
-			if (z == 0) {
-				// this is reversed
-			}
+		}
+		if (best.second == -1) {
+			cout << -1 << '\n';
+		} else {
+			cout << best.second << ' ' << best.second+best.first << '\n';
 		}
 
 	}
