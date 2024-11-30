@@ -448,6 +448,8 @@ int main() {
 	int r1 = 0;
 	while (is_t0[r1]) r1++;
 
+	num extra_ans = 0;
+
 	num tot_ans = 1;
 	for (int z = 1; z >= 0; z--) {
 		std::vector<int> st(N, -1);
@@ -516,6 +518,7 @@ int main() {
 		}
 		cerr << z << ' ' << ans_t1 << '\n';
 		tot_ans *= ans_t1;
+		if (z == 0) extra_ans = ans_t1;
 	}
 
 	{
@@ -545,6 +548,9 @@ int main() {
 
 	// don't count node 0 itself
 	tot_ans /= p2[N-1];
+	if (adj[r1].empty()) {
+		tot_ans += extra_ans / p2[N-2];
+	}
 	cout << tot_ans << '\n';
 
 	return 0;
