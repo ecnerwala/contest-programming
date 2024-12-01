@@ -178,6 +178,7 @@ int main() {
 		for (int a = 1; a * d <= N; a++) {
 			cnt += mu[a] * p2[freq_mult[a * d]];
 		}
+		cerr << d << ' ' << cnt << '\n';
 		ways_2_deck += num(d) * cnt * cnt;
 	}
 
