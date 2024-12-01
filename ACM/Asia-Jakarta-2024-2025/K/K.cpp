@@ -145,7 +145,7 @@ int main() {
 	std::vector<int> phi(N+1);
 	std::iota(phi.begin(), phi.end(), 0);
 	for (int i = 1; i <= N; i++) {
-		for (int j = i; j <= N; j += i) {
+		for (int j = i * 2; j <= N; j += i) {
 			mu[j] -= mu[i];
 			phi[j] -= phi[i];
 		}
