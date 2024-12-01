@@ -473,16 +473,6 @@ int main() {
 		move_v(0);
 	}
 
-	for (int i = 0; i < N; i++) {
-		int m0 = 0;
-		int m1 = 0;
-		for (int j = i; j < N; j++) {
-			m0 = std::max(m0, P[j][0]);
-			m1 = std::max(m1, P[j][1]);
-			ans += std::min(m0, m1) * pinv2[j - i + 1];
-		}
-	}
-
 	// same value
 	for (int i = 0; i < N; i++) {
 		int m0 = 0;
