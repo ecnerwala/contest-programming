@@ -180,7 +180,6 @@ int main() {
 			if (std::gcd(a, b) != 1) continue;
 			for (int g = 1; a * b * g <= N; g++) {
 				for (int d = 1; a * b * g * d <= N; d++) {
-					ways_2_deck -= num(d) * mu[a * g] * mu[b * g] * (p2[freq_mult[a * g * d]] - 1) * (p2[freq_mult[b * g * d]] - 1);
 
 					int l = freq_mult[a * g * d];
 					int r = freq_mult[b * g * d];
@@ -188,9 +187,10 @@ int main() {
 					l -= both;
 					r -= both;
 
-					num ways_nonempty = p2[l] * p2[r] * p3[both] - p2[l + both] - p2[r + both] + 1;
+					num ways_nonempty = p2[l + r] * p3[both];
+					ways_nonempty -= p2[l + both] - p2[r + both];
 
-					ways_2_deck += num(d) * mu[a * g] * mu[b * g] * ways_nonempty;
+					ways_2_deck += num(d * mu[a * g] * mu[b * g]) * ways_nonempty;
 
 				}
 			}
