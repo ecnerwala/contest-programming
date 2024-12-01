@@ -126,12 +126,16 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	/*
 	int N; cin >> N;
 	std::vector<int> freq(N+1);
 	for (int i = 0; i < N; i++) {
 		int a; cin >> a;
 		freq[a]++;
 	}
+	*/
+	int N = 100000;
+	std::vector<int> freq(N+1, 1);
 
 	std::vector<int> freq_mult(N+1);
 	for (int i = 1; i <= N; i++) {
