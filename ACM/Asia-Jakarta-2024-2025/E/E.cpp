@@ -425,6 +425,14 @@ int main() {
 
 	num ans = 0;
 
+	std::vector<std::pair<int, std::array<int, 2>>> vals; vals.reserve(2*N);
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < 2; j++) {
+			vals.push_back({P[i][j], {i, j}});
+		}
+	}
+	std::sort(vals.begin(), vals.end(), std::greater<>());
+
 	// distinct values
 	{
 		// we want the number of ways of picking a subarray with at least one 0 in each row
@@ -450,13 +458,6 @@ int main() {
 			return counter[0].cnt - counter[1].cnt - counter[2].cnt + counter[3].cnt;
 		};
 
-		std::vector<std::pair<int, std::array<int, 2>>> vals; vals.reserve(2*N);
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < 2; j++) {
-				vals.push_back({P[i][j], {i, j}});
-			}
-		}
-		std::sort(vals.begin(), vals.end(), std::greater<>());
 
 		int prv_v = vals.front().first;
 		auto move_v = [&](int v) -> void {
@@ -465,10 +466,14 @@ int main() {
 			ans += num(prv_v - v) * q();
 			prv_v = v;
 		};
-		for (auto [v, pos] : vals) {
+		for (int it = 0, jt = 0; it < int(vals.size()); it = jt) {
+			int v = vals[it].first;
 			move_v(v);
-			ins(3, pos[0]);
-			ins(1 << pos[1], pos[0]);
+			while (jt < int(vals.size()) && vals[jt].first == v) jt++;
+			for (int k = it; k < jt; k++) {
+				ins(0, vals[k].second[0]);
+				ins(1 << vals[k].second[1], vals[k].second[0]);
+			}
 		}
 		move_v(0);
 	}
