@@ -427,14 +427,6 @@ int main() {
 
 	// distinct values
 	{
-		std::vector<std::pair<int, std::array<int, 2>>> vals; vals.reserve(2*N);
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < 2; j++) {
-				vals.push_back({P[i][j], {i, j}});
-			}
-		}
-		std::sort(vals.begin(), vals.end());
-
 		// we want the number of ways of picking a subarray with at least one 0 in each row
 		// so we'll compute ways with only 1's in each
 		struct cntr {
@@ -458,13 +450,23 @@ int main() {
 			return counter[0].cnt - counter[1].cnt - counter[2].cnt + counter[3].cnt;
 		};
 
-		int prv_v = 0;
+		std::vector<std::pair<int, std::array<int, 2>>> vals; vals.reserve(2*N);
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < 2; j++) {
+				vals.push_back({P[i][j], {i, j}});
+			}
+		}
+		std::sort(vals.begin(), vals.end(), std::greater<>());
+
+		int prv_v = vals.front().first;
 		for (auto [v, pos] : vals) {
-			ans += num(v - prv_v) * q();
+			assert(prv_v >= v);
+			ans += num(prv_v - v) * q();
 			prv_v = v;
 			ins(3, pos[0]);
 			ins(1 << pos[1], pos[0]);
 		}
+		ans += num(prv_v - 0) * q();
 	}
 
 	for (int i = 0; i < N; i++) {
