@@ -441,8 +441,8 @@ int main() {
 			num cnt;
 			std::set<int> bads;
 		};
-		std::array<cntr, 4> counter;
-		for (int z = 0; z < 4; z++) {
+		std::array<cntr, 5> counter;
+		for (int z = 0; z < 5; z++) {
 			counter[z].bads.insert(-1);
 			counter[z].bads.insert(N);
 			counter[z].cnt = ways_subarray[N];
@@ -470,22 +470,24 @@ int main() {
 			int v = vals[it].first;
 			move_v(v);
 
-			std::array<num, 4> cnts;
-			for (int z = 0; z < 4; z++) cnts[z] = counter[z].cnt;
+			num num_eq = counter[3].cnt;
 
 			while (jt < int(vals.size()) && vals[jt].first == v) jt++;
 			for (int k = it; k < jt; k++) {
-				ins(3, vals[k].second[0]);
+				ins(3 + vals[k].second[1], vals[k].second[0]);
 				ins(1 << vals[k].second[1], vals[k].second[0]);
 			}
-
-			// we want number of arrays with both max's equal to v
-			for (int z = 0; z < 4; z++) cnts[z] -= counter[z].cnt;
+			num_eq -= counter[3].cnt;
+			num_eq -= counter[4].cnt;
+			for (int k = it; k < jt; k++) {
+				ins(3 + !vals[k].second[1], vals[k].second[0]);
+			}
+			num_eq += counter[3].cnt;
 
 			// cnts[1] is number of arrays with m0 == v
 			// cnts[2] is number of arrays with m1 == v
-			// cnts[3] is number of arrays with m0 == v or m1 == v
-			cerr << "new " << num(v) << ' ' << (cnts[1] + cnts[2] - cnts[3]) * pow(num(2), N) << ' ' << cnts[1] * pow(num(2), N) << ' ' << cnts[2] * pow(num(2), N) << ' ' << cnts[3] * pow(num(2), N) << '\n';
+			// cnts[3] is number of arrays with max(m0, m1) == v
+			cerr << "new " << num(v) << ' ' << num_eq << '\n';
 			//ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
 		}
 		move_v(0);
