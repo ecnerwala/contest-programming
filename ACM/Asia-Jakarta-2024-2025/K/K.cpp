@@ -188,7 +188,7 @@ int main() {
 					r -= both;
 
 					num ways_nonempty = p2[l + r] * p3[both];
-					ways_nonempty -= p2[l + both] - p2[r + both];
+					ways_nonempty -= p2[l + both] * p2[r + both];
 
 					ways_2_deck += num(d * mu[a * g] * mu[b * g]) * ways_nonempty;
 
