@@ -49,6 +49,7 @@ int main() {
 	int64_t ans = 0;
 	{
 		std::vector<trie_node> X_trie; X_trie.reserve(N * 30);
+		X_trie.emplace_back();
 		for (int x : X) {
 			{
 				int cur = 0;
