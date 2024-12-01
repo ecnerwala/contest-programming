@@ -177,6 +177,7 @@ int main() {
 	for (int d = 1; d <= N; d++) {
 		num cnt = 0;
 		for (int a = 1; a * d <= N; a++) {
+			cerr << d << ' ' << a << ' ' << freq_mult[a * d] << '\n';
 			cnt += mu[a] * p2[freq_mult[a * d]];
 		}
 		cerr << d << ' ' << cnt << '\n';
