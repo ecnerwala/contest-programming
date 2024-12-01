@@ -166,15 +166,19 @@ int main() {
 		ways_1_deck += phi[i] * p2[freq_mult[i]];
 	}
 	num ways_0_deck = num(N) * num(N+1) / num(2);
+	cerr << ways_0_deck << '\n';
+	cerr << ways_1_deck << '\n';
 
 	num ways_2_deck = 0;
+
+	//std::vector<num> ways_2_deck(N+1);
 
 	for (int d = 1; d <= N; d++) {
 		num cnt = 0;
 		for (int a = 1; a * d <= N; a++) {
 			cnt += mu[a] * p2[freq_mult[a * d]];
 		}
-		ways_2_deck *= num(d) * cnt * cnt;
+		ways_2_deck += num(d) * cnt * cnt;
 	}
 
 	for (int a = 1; a <= N; a++) {
@@ -187,6 +191,8 @@ int main() {
 			}
 		}
 	}
+
+	cerr << ways_2_deck << '\n';
 
 	cout << ways_2_deck - 2 * ways_1_deck + ways_0_deck << '\n';
 
