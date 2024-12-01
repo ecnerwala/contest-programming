@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include<bits/extc++.h>
+#include <bits/extc++.h>
 
 template <typename K, typename V, typename Comp = std::less<K>>
 using order_statistic_map = __gnu_pbds::tree<
