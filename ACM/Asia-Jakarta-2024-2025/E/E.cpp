@@ -461,6 +461,7 @@ int main() {
 		int prv_v = vals.front().first;
 		auto move_v = [&](int v) -> void {
 			assert(prv_v >= v);
+			cerr << prv_v << ' ' << v << ' ' << q() << '\n';
 			ans += num(prv_v - v) * q();
 			prv_v = v;
 		};
