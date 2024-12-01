@@ -470,6 +470,7 @@ int main() {
 			int v = vals[it].first;
 			move_v(v);
 
+			assert(counter[3].cnt == counter[4].cnt);
 			num num_eq = counter[3].cnt;
 
 			while (jt < int(vals.size()) && vals[jt].first == v) jt++;
@@ -483,6 +484,7 @@ int main() {
 				ins(3 + !vals[k].second[1], vals[k].second[0]);
 			}
 			num_eq += counter[3].cnt;
+			assert(counter[3].cnt == counter[4].cnt);
 
 			// cnts[1] is number of arrays with m0 == v
 			// cnts[2] is number of arrays with m1 == v
