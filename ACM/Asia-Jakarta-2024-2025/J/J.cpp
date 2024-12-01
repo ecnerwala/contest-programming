@@ -71,7 +71,7 @@ int main() {
 				int cur = 0;
 				for (int b = 29; b >= 0; b--) {
 					X_trie[cur].sz++;
-					int d = (a >> b) & 1;
+					int d = (x >> b) & 1;
 					if (X_trie[cur].ch[d] == -1) {
 						X_trie[cur].ch[d] = int(X_trie.size());
 						X_trie.emplace_back();
