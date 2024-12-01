@@ -469,11 +469,23 @@ int main() {
 		for (int it = 0, jt = 0; it < int(vals.size()); it = jt) {
 			int v = vals[it].first;
 			move_v(v);
+
+			std::array<num, 4> cnts;
+			for (int z = 0; z < 4; z++) cnts[z] = counter[z].cnt;
+
 			while (jt < int(vals.size()) && vals[jt].first == v) jt++;
 			for (int k = it; k < jt; k++) {
 				ins(0, vals[k].second[0]);
 				ins(1 << vals[k].second[1], vals[k].second[0]);
 			}
+
+			// we want number of arrays with both max's equal to v
+			for (int z = 0; z < 4; z++) cnts[z] -= counter[z].cnt;
+
+			// cnts[1] is number of arrays with m0 == v
+			// cnts[2] is number of arrays with m1 == v
+			// cnts[3] is number of arrays with m0 == v or m1 == v
+			ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
 		}
 		move_v(0);
 	}
@@ -486,7 +498,7 @@ int main() {
 			m0 = std::max(m0, P[j][0]);
 			m1 = std::max(m1, P[j][1]);
 			if (m0 == m1) {
-				ans -= m0 * pinv2[j - i + 1];
+				//ans -= m0 * pinv2[j - i + 1];
 			}
 		}
 	}
