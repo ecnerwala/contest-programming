@@ -142,14 +142,10 @@ int main() {
 
 	std::vector<int> mu(N+1);
 	mu[1] = 1;
-	std::vector<int> phi(N+1);
-	std::iota(phi.begin(), phi.end(), 0);
 	for (int i = 1; i <= N; i++) {
 		for (int j = i * 2; j <= N; j += i) {
 			mu[j] -= mu[i];
-			phi[j] -= phi[i];
 		}
-		cerr << i << ' ' << mu[i] << ' ' << phi[i] << '\n';
 	}
 
 	using num = modnum<998244353>;
@@ -171,7 +167,7 @@ int main() {
 		for (int a = 1; a * d <= N; a++) {
 			cnt += mu[a] * (p2[freq_mult[a * d]] - 1);
 		}
-		cerr << d << ' ' << cnt << '\n';
+		//cerr << d << ' ' << cnt << '\n';
 		ways_2_deck += num(d) * cnt * cnt;
 	}
 
