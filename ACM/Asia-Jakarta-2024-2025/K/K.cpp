@@ -158,17 +158,9 @@ int main() {
 	p2[0] = 1;
 	for (int i = 1; i <= N; i++) p2[i] = p2[i-1] * 2;
 
-	std::vector<num> p34(N+1);
-	p34[0] = 1;
-	for (int i = 1; i <= N; i++) p34[i] = p34[i-1] * num(3) / num(4);
-
-	num ways_1_deck = 0;
-	for (int i = 1; i <= N; i++) {
-		ways_1_deck += phi[i] * p2[freq_mult[i]];
-	}
-	num ways_0_deck = num(N) * num(N+1) / num(2);
-	cerr << ways_0_deck << '\n';
-	cerr << ways_1_deck << '\n';
+	std::vector<num> p3(N+1);
+	p3[0] = 1;
+	for (int i = 1; i <= N; i++) p3[i] = p3[i-1] * num(3);
 
 	num ways_2_deck = 0;
 
@@ -177,8 +169,7 @@ int main() {
 	for (int d = 1; d <= N; d++) {
 		num cnt = 0;
 		for (int a = 1; a * d <= N; a++) {
-			cerr << d << ' ' << a << ' ' << mu[a] << ' ' << p2[freq_mult[a * d]] << '\n';
-			cnt += mu[a] * p2[freq_mult[a * d]];
+			cnt += mu[a] * (p2[freq_mult[a * d]] - 1);
 		}
 		cerr << d << ' ' << cnt << '\n';
 		ways_2_deck += num(d) * cnt * cnt;
@@ -189,15 +180,24 @@ int main() {
 			if (std::gcd(a, b) != 1) continue;
 			for (int g = 1; a * b * g <= N; g++) {
 				for (int d = 1; a * b * g * d <= N; d++) {
-					ways_2_deck -= num(d) * mu[a * g] * mu[b * g] * p2[freq_mult[a * g * d]] * p2[freq_mult[b * g * d]] * (1 - p34[freq_mult[a * b * g * d]]);
+					ways_2_deck -= num(d) * mu[a * g] * mu[b * g] * (p2[freq_mult[a * g * d]] - 1) * (p2[freq_mult[b * g * d]] - 1);
+
+					int l = freq_mult[a * g * d];
+					int r = freq_mult[b * g * d];
+					int both = freq_mult[a * b * g * d];
+					l -= both;
+					r -= both;
+
+					num ways_nonempty = p2[l] * p2[r] * p3[both] - p2[l + both] - p2[r + both] + 1;
+
+					ways_2_deck += num(d) * mu[a * g] * mu[b * g] * ways_nonempty;
+
 				}
 			}
 		}
 	}
 
-	cerr << ways_2_deck << '\n';
-
-	cout << ways_2_deck - 2 * ways_1_deck + ways_0_deck << '\n';
+	cout << ways_2_deck << '\n';
 
 	return 0;
 }
