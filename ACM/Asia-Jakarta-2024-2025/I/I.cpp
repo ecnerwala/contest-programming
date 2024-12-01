@@ -38,6 +38,7 @@ int main() {
 		lasts.insert(i);
 	}
 	int tot = int(lasts.size());
+	ans += int64_t(M - tot) * int64_t(tot);
 	ans += int64_t(tot) * int64_t(tot - 1) / 2;
 	cout << ans << '\n';
 
