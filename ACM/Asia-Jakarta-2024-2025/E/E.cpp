@@ -485,7 +485,8 @@ int main() {
 			// cnts[1] is number of arrays with m0 == v
 			// cnts[2] is number of arrays with m1 == v
 			// cnts[3] is number of arrays with m0 == v or m1 == v
-			ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
+			cerr << "new " << num(v) << ' ' << (cnts[1] + cnts[2] - cnts[3]) * pow(num(2), N) << '\n';
+			//ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
 		}
 		move_v(0);
 	}
@@ -498,7 +499,8 @@ int main() {
 			m0 = std::max(m0, P[j][0]);
 			m1 = std::max(m1, P[j][1]);
 			if (m0 == m1) {
-				//ans -= m0 * pinv2[j - i + 1];
+				cerr << "old " << m0 << ' ' << pinv2[j - i + 1] * pow(num(2), N) << '\n';
+				ans -= m0 * pinv2[j - i + 1];
 			}
 		}
 	}
