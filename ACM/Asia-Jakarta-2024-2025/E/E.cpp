@@ -485,7 +485,7 @@ int main() {
 			// cnts[1] is number of arrays with m0 == v
 			// cnts[2] is number of arrays with m1 == v
 			// cnts[3] is number of arrays with m0 == v or m1 == v
-			cerr << "new " << num(v) << ' ' << (cnts[1] + cnts[2] - cnts[3]) * pow(num(2), N) << '\n';
+			cerr << "new " << num(v) << ' ' << (cnts[1] + cnts[2] - cnts[3]) * pow(num(2), N) << ' ' << cnts[1] * pow(num(2), N) << ' ' << cnts[2] * pow(num(2), N) << ' ' << cnts[3] * pow(num(2), N) << '\n';
 			//ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
 		}
 		move_v(0);
