@@ -459,14 +459,17 @@ int main() {
 		std::sort(vals.begin(), vals.end(), std::greater<>());
 
 		int prv_v = vals.front().first;
-		for (auto [v, pos] : vals) {
+		auto move_v = [&](int v) -> void {
 			assert(prv_v >= v);
 			ans += num(prv_v - v) * q();
 			prv_v = v;
+		};
+		for (auto [v, pos] : vals) {
+			move_v(v);
 			ins(3, pos[0]);
 			ins(1 << pos[1], pos[0]);
 		}
-		ans += num(prv_v - 0) * q();
+		move_v(0);
 	}
 
 	for (int i = 0; i < N; i++) {
