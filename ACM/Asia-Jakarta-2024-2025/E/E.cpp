@@ -414,9 +414,59 @@ int main() {
 	pinv2[0] = 1;
 	for (int i = 1; i <= N; i++) pinv2[i] = pinv2[i-1] / 2;
 
+	std::vector<num> ways_subarray(N+1);
+	{
+		num pref = 0;
+		for (int i = 1; i <= N; i++) {
+			pref += pinv2[i];
+			ways_subarray[i] = ways_subarray[i-1] + pref;
+		}
+	}
+
 	num ans = 0;
 
-	// distinct days
+	// distinct values
+	{
+		std::vector<std::pair<int, std::array<int, 2>>> vals; vals.reserve(2*N);
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < 2; j++) {
+				vals.push_back({P[i][j], {i, j}});
+			}
+		}
+		std::sort(vals.begin(), vals.end());
+
+		// we want the number of ways of picking a subarray with at least one 0 in each row
+		// so we'll compute ways with only 1's in each
+		struct cntr {
+			num cnt;
+			std::set<int> bads;
+		};
+		std::array<cntr, 4> counter;
+		for (int z = 0; z < 4; z++) {
+			counter[z].bads.insert(-1);
+			counter[z].bads.insert(N);
+			counter[z].cnt = ways_subarray[N];
+		}
+		auto ins = [&](int z, int p) -> void {
+			auto [it, did_insert] = counter[z].bads.insert(p);
+			if (!did_insert) return;
+			counter[z].cnt -= ways_subarray[*std::next(it) - *std::prev(it) - 1];
+			counter[z].cnt += ways_subarray[*it - *std::prev(it) - 1];
+			counter[z].cnt += ways_subarray[*std::next(it) - *it - 1];
+		};
+		auto q = [&]() -> num {
+			return counter[0].cnt - counter[1].cnt - counter[2].cnt + counter[3].cnt;
+		};
+
+		int prv_v = 0;
+		for (auto [v, pos] : vals) {
+			ans += num(v - prv_v) * q();
+			prv_v = v;
+			ins(3, pos[0]);
+			ins(1 << pos[1], pos[0]);
+		}
+	}
+
 	for (int i = 0; i < N; i++) {
 		int m0 = 0;
 		int m1 = 0;
@@ -427,6 +477,7 @@ int main() {
 		}
 	}
 
+	// same value
 	for (int i = 0; i < N; i++) {
 		int m0 = 0;
 		int m1 = 0;
