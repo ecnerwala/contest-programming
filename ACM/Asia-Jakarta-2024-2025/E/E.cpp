@@ -490,12 +490,14 @@ int main() {
 			// cnts[2] is number of arrays with m1 == v
 			// cnts[3] is number of arrays with max(m0, m1) == v
 			cerr << "new " << num(v) << ' ' << num_eq * pow(num(2), N) << '\n';
+			ans -= num(v) * num_eq;
 			//ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
 		}
 		move_v(0);
 	}
 
 	// same value
+	/*
 	for (int i = 0; i < N; i++) {
 		int m0 = 0;
 		int m1 = 0;
@@ -508,6 +510,7 @@ int main() {
 			}
 		}
 	}
+	*/
 
 	{
 		int m0 = 0;
