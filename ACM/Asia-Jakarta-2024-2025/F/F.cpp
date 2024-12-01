@@ -8,7 +8,7 @@ int main() {
 	while (T--) {
 		int N, M, K; cin >> N >> M >> K;
 		std::vector<int> vals(K+1);
-		for (int m = 0; m < K; m++) {
+		for (int m = 0; m < M; m++) {
 			int r, c, a; cin >> r >> c >> a;
 			r %= (K+1);
 			a %= (K+1);
