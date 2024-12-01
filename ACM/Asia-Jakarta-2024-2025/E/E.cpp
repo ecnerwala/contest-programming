@@ -489,7 +489,7 @@ int main() {
 			// cnts[1] is number of arrays with m0 == v
 			// cnts[2] is number of arrays with m1 == v
 			// cnts[3] is number of arrays with max(m0, m1) == v
-			cerr << "new " << num(v) << ' ' << num_eq << '\n';
+			cerr << "new " << num(v) << ' ' << num_eq * pow(num(2), N) << '\n';
 			//ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
 		}
 		move_v(0);
