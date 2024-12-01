@@ -462,7 +462,7 @@ int main() {
 		int prv_v = vals.front().first;
 		auto move_v = [&](int v) -> void {
 			assert(prv_v >= v);
-			cerr << prv_v << ' ' << v << ' ' << q() * pow(num(2), N) << '\n';
+			//cerr << prv_v << ' ' << v << ' ' << q() * pow(num(2), N) << '\n';
 			ans += num(prv_v - v) * q();
 			prv_v = v;
 		};
@@ -489,7 +489,7 @@ int main() {
 			// cnts[1] is number of arrays with m0 == v
 			// cnts[2] is number of arrays with m1 == v
 			// cnts[3] is number of arrays with max(m0, m1) == v
-			cerr << "new " << num(v) << ' ' << num_eq * pow(num(2), N) << '\n';
+			//cerr << "new " << num(v) << ' ' << num_eq * pow(num(2), N) << '\n';
 			ans -= num(v) * num_eq;
 			//ans -= num(v) * (cnts[1] + cnts[2] - cnts[3]);
 		}
