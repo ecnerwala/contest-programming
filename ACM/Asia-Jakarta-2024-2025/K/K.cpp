@@ -149,6 +149,7 @@ int main() {
 			mu[j] -= mu[i];
 			phi[j] -= phi[i];
 		}
+		cerr << i << ' ' << mu[i] << ' ' << phi[i] << '\n';
 	}
 
 	using num = modnum<998244353>;
