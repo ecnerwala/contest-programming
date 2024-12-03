@@ -285,7 +285,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-		if (int(bigs.size()) >= 20) {
+		if (int(bigs.size()) >= 25) {
 #ifdef ECNERWALA
 			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
