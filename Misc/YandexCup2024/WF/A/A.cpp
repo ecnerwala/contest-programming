@@ -41,45 +41,34 @@ int main() {
 
 	std::sort(P.begin(), P.end());
 
-	auto check = [&](int cnt) -> std::optional<std::pair<int, int>> {
-		assert(cnt >= 1);
-		order_statistic_set<std::pair<int, int>> los;
-		order_statistic_set<std::pair<int, int>> his;
-		for (int i = 0; i < N; i++) {
-			his.insert({P[i].second, i});
+	std::pair<int, int> best{0, 0};
+	int cnt = 1;
+
+	order_statistic_set<std::pair<int, int>> los;
+	order_statistic_set<std::pair<int, int>> his;
+	for (int i = 0; i < N; i++) {
+		his.insert({P[i].second, i});
+	}
+	for (int i = 0; i+1 < N; i++) {
+		// move P[i] from lo to hi
+		{
+			his.erase({P[i].second, i});
+			los.insert({P[i].second, i});
 		}
-		for (int i = 0; i+1 < N; i++) {
-			// move P[i] from lo to hi
-			{
-				his.erase({P[i].second, i});
-				los.insert({P[i].second, i});
-			}
-			if (P[i].first < P[i+1].first) {
-				// check this cut
-				if (int(los.size()) >= 2 * cnt && int(his.size()) >= 2 * cnt) {
-					int ylo = std::max(los.find_by_order(cnt - 1)->first, his.find_by_order(cnt - 1)->first);
-					int yhi = std::min(los.find_by_order(int(los.size()) - cnt)->first, his.find_by_order(int(his.size()) - cnt)->first);
-					if (ylo < yhi) return std::pair<int, int>{Xs[P[i+1].first], Ys[yhi]};
+		if (P[i].first < P[i+1].first) {
+			// check this cut
+			while (int(los.size()) >= 2 * cnt && int(his.size()) >= 2 * cnt) {
+				int ylo = std::max(los.find_by_order(cnt - 1)->first, his.find_by_order(cnt - 1)->first);
+				int yhi = std::min(los.find_by_order(int(los.size()) - cnt)->first, his.find_by_order(int(his.size()) - cnt)->first);
+				if (ylo < yhi) {
+					best = std::pair<int, int>{Xs[P[i+1].first], Ys[yhi]};
+					cnt++;
 				}
 			}
 		}
-		return std::nullopt;
-	};
-
-	int mi = 0;
-	std::pair<int, int> best{0, 0};
-	int ma = N/4+1;
-	while (ma - mi > 1) {
-		int md = (mi + ma) / 2;
-		auto res = check(md);
-		if (res) {
-			mi = md;
-			best = *res;
-		} else {
-			ma = md;
-		}
 	}
-	cout << mi << '\n';
+
+	cout << cnt - 1 << '\n';
 	cout << best.first << ' ' << best.second << '\n';
 
 	return 0;
