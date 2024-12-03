@@ -345,7 +345,7 @@ int main() {
 		scc_mess[scc_id[i]] += A[i];
 	}
 
-	MCMF_Dinic<int, int64_t> flower(2*C + 2);
+	MCMF_Dinic<int64_t, int64_t> flower(2*C + 2);
 	int SOURCE = 2 * C;
 	int SINK = 2 * C + 1;
 	for (auto [u, v] : edges) {
@@ -364,7 +364,7 @@ int main() {
 		if (!scc_mess[i]) num_req++;
 	}
 	auto [tot_flow, tot_cost] = flower.max_flow(SOURCE, SINK);
-	int64_t tot_savings = tot_flow * C * (C+1) - tot_cost;
+	int64_t tot_savings = int64_t(tot_flow) * C * (C+1) - tot_cost;
 	if (tot_savings < num_req * (C+1)) {
 		cout << -1 << '\n';
 	} else {
