@@ -239,7 +239,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 
 		std::vector<bool> vis(N);
 		std::vector<std::pair<int, int>> cc_edges;
-		cc_edges.push_back({p1, p2});
+		cc_edges.push_back({cur_must.get_par(p1), cur_must.get_par(p2)});
 		std::y_combinator([&](auto self, int cur) -> void {
 			if (vis[cur]) return;
 			vis[cur] = true;
