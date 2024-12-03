@@ -68,7 +68,7 @@ int main() {
 
 	int mi = 0;
 	std::pair<int, int> best{0, 0};
-	int ma = N+1;
+	int ma = N/4+1;
 	while (ma - mi > 1) {
 		int md = (mi + ma) / 2;
 		auto res = check(md);
