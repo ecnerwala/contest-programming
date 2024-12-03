@@ -169,6 +169,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 				GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
 			}
 		}
+		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
 
 		return {1, true};
 	};
