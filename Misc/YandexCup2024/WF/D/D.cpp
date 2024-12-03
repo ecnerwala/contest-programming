@@ -361,8 +361,8 @@ int main() {
 	for (int i = 0; i < C; i++) {
 		flower.add_edge(SOURCE, 2 * i + 1, std::min(C, scc_mess[i]), (C+1) * (i+1));
 		flower.add_edge(2 * i + 1, SINK, C, (C+1) * (C-1-i));
-		flower.add_edge(2 * i + 0, 2 * i + 1, C, C + 1);
 		flower.add_edge(2 * i + 0, 2 * i + 1, 1, scc_mess[i] ? C : 0);
+		flower.add_edge(2 * i + 0, 2 * i + 1, C, C + 1);
 		if (!scc_mess[i]) num_req++;
 	}
 	auto [tot_flow, tot_cost] = flower.max_flow(SOURCE, SINK);
