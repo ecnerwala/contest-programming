@@ -202,6 +202,7 @@ int main() {
 
 	int T; cin >> T;
 	GD_INIT("test" + std::to_string(T / 10) + std::to_string(T % 10) + ".html");
+	GD_LOG_TO_STDERR(false);
 	int N; cin >> N;
 	std::vector<pt_t> P(N);
 	for (auto& p : P) cin >> p;
