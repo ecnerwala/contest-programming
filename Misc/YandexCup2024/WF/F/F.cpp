@@ -287,15 +287,25 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-		if (int(bigs.size()) >= 20) {
-			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
-			cerr << "WARNING! TOO BIG!!!!!" << '\n';
 #ifdef ECNERWALA
 			GD_LAYER();
 			for (auto [i, j] : bcc_edges) {
 				GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
 			}
 			GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
+#endif
+
+		if (int(bigs.size()) >= 20) {
+#ifdef ECNERWALA
+			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
+			cerr << "WARNING! TOO BIG!!!!!" << '\n';
+			GD_LAYER();
+			for (auto [i, j] : bcc_edges) {
+				GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
+			}
+			GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
+#else
+			assert(false);
 #endif
 
 			return {1, true};
