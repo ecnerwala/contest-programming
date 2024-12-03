@@ -298,7 +298,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-		if (int(bigs.size()) >= 10) {
+		if (int(bigs.size()) >= 31) {
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
 			return {1, true};
 		}
