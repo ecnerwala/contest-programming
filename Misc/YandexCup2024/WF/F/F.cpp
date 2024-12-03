@@ -322,6 +322,30 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 						inters[u].push_back(idx);
 					}
 				}
+				int st = cur_must.get_par(p1);
+				int en = cur_must.get_par(p2);
+				int st_ma = *std::max_element(inters[st].begin(), inters[st].end());
+				int en_ma = *std::max_element(inters[en].begin(), inters[en].end());
+				if (st_ma > en_ma) {
+					std::swap(st, en);
+					std::swap(st_ma, en_ma);
+				}
+				for (auto [k, vs] : inters) {
+					int lo = NQ;
+					int hi = -1;
+					for (auto v : vs) {
+						v -= st_ma;
+						v += NQ - 1;
+						v %= NQ;
+						if (v < 0) v += NQ;
+						lo = std::min(lo, v);
+						hi = std::max(hi, v);
+					}
+					if (k == st) {
+						assert(hi == NQ - 1);
+					}
+					assert(lo < hi);
+				}
 			}
 #ifdef ECNERWALA
 			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
