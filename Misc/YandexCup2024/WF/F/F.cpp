@@ -366,9 +366,9 @@ int main() {
 	std::vector<pt_t> Q(M);
 	for (auto& q : Q) cin >> q;
 
-	if (T == 1) {
+	if (false && T == 1) {
 		cout << "6.38908729652601138" << '\n';
-	} else if (T == 2) {
+	} else if (false && T == 2) {
 		cout << (N-1) + double(M) * 0.5 << '\n';
 	} else {
 		double res = solve(P, Q);
