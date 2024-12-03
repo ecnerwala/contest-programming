@@ -1,6 +1,53 @@
 #include <bits/stdc++.h>
 #include "geodeb.h"
 
+namespace kactl {
+using namespace std;
+#define rep(i, a, b) for(int i = a; i < (b); ++i)
+#define all(x) begin(x), end(x)
+#define sz(x) (int)(x).size()
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+
+vi num, st;
+vector<vector<pii>> ed;
+int Time;
+template<class F>
+int dfs(int at, int par, F& f) {
+	int me = num[at] = ++Time, top = me;
+	for (auto [y, e] : ed[at]) if (e != par) {
+		if (num[y]) {
+			top = min(top, num[y]);
+			if (num[y] < me)
+				st.push_back(e);
+		} else {
+			int si = sz(st);
+			int up = dfs(y, e, f);
+			top = min(top, up);
+			if (up == me) {
+				st.push_back(e);
+				f(vi(st.begin() + si, st.end()));
+				st.resize(si);
+			}
+			else if (up < me) st.push_back(e);
+			else { /* e is a bridge */ }
+		}
+	}
+	return top;
+}
+
+template<class F>
+void bicomps(F f) {
+	num.assign(sz(ed), 0);
+	rep(i,0,sz(ed)) if (!num[i]) dfs(i, -1, f);
+}
+
+#undef rep
+#undef all
+#undef sz
+}
+
 template <typename T> struct Point {
 public:
 	T x, y;
@@ -186,24 +233,48 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		real_cnt++;
 
 		GD_LAYER();
-		for (int i = 0; i < N; i++) {
-			for (int j : adj[i]) {
-				GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
-			}
-		}
-		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
-
-		std::vector<int> bigs;
 		std::vector<bool> vis(N);
+		std::vector<std::pair<int, int>> cc_edges;
+		cc_edges.push_back({p1, p2});
 		std::y_combinator([&](auto self, int cur) -> void {
 			if (vis[cur]) return;
-			if (cur >= NP && cur != p1 && cur != p2) bigs.push_back(NP);
 			vis[cur] = true;
 			for (int nxt : adj[cur]) {
+				cc_edges.push_back({cur, nxt});
 				self(nxt);
 			}
 		})(p1);
 		assert(vis[p2]);
+		std::vector<std::pair<int, int>> bcc_edges;
+		{
+			std::vector<std::vector<std::pair<int, int>>> kactl_edges(N);
+			for (int e = 0; e < int(cc_edges.size()); e++) {
+				auto [cur, nxt] = cc_edges[e];
+				kactl_edges[cur].push_back({nxt, e});
+				kactl_edges[nxt].push_back({cur, e});
+			}
+			kactl::bicomps([&](auto lst) -> void {
+				if (std::find(lst.begin(), lst.end(), 0) != lst.end()) {
+					assert(bcc_edges.empty());
+					for (auto e : lst) {
+						if (e == 0) continue;
+						bcc_edges.push_back(cc_edges[e]);
+					}
+				}
+			});
+		}
+		std::set<int> bigs;
+		for (auto vs : bcc_edges) {
+			for (auto u : {vs.first, vs.second}) {
+				if (u >= NP && u != p1 && u != p2) bigs.insert(u);
+			}
+		}
+
+		for (auto [i, j] : bcc_edges) {
+			GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
+		}
+		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
+
 		cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 
 		return {1, true};
