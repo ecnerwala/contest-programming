@@ -245,7 +245,6 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		})(p1);
 		assert(vis[p2]);
-		cerr << "have " << cc_edges.size() << " cc_edges" << '\n';
 		std::vector<std::pair<int, int>> bcc_edges;
 		{
 			kactl::ed = std::vector<std::vector<std::pair<int, int>>>(N);
@@ -264,7 +263,6 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 				}
 			});
 		}
-		cerr << "have " << bcc_edges.size() << " bcc_edges" << '\n';
 		std::set<int> bigs;
 		for (auto vs : bcc_edges) {
 			for (auto u : {vs.first, vs.second}) {
@@ -272,7 +270,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-		for (auto [i, j] : cc_edges) {
+		for (auto [i, j] : bcc_edges) {
 			GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
 		}
 		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
