@@ -55,6 +55,12 @@ int main() {
 			for (auto v : nomes[j]) {
 				auto [a, b, c] = cities[v];
 				if (j > 0 && a >= nome_bounds[j-1].second) {
+					// must not take
+					if (a < b) {
+						specs[c].cants.push_back({a, b});
+					}
+				}
+				if (j+1 < M && a <= nome_bounds[j+1].first) {
 					// must take specialization c between b and a
 					auto& m = specs[c].musts;
 					if (!m) {
@@ -62,12 +68,6 @@ int main() {
 					} else {
 						m->first = std::max(m->first, a);
 						m->second = std::min(m->second, b);
-					}
-				}
-				if (j+1 < M && a <= nome_bounds[j+1].first) {
-					// must not take
-					if (a < b) {
-						specs[c].cants.push_back({a, b});
 					}
 				}
 			}
