@@ -240,7 +240,9 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			if (vis[cur]) return;
 			vis[cur] = true;
 			for (int nxt : adj[cur]) {
-				cc_edges.push_back({cur, nxt});
+				if (!vis[nxt]) {
+					cc_edges.push_back({cur, nxt});
+				}
 				self(nxt);
 			}
 		})(p1);
@@ -276,6 +278,10 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
 
 		cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
+
+		std::vector<std::vector<int>> 
+		if (int(bigs.size()) <= 5) {
+		}
 
 		return {1, true};
 	};
