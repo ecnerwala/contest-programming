@@ -245,6 +245,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		})(p1);
 		assert(vis[p2]);
+		cerr << "have " << cc_edges.size() << " cc_edges" << '\n';
 		std::vector<std::pair<int, int>> bcc_edges;
 		{
 			std::vector<std::vector<std::pair<int, int>>> kactl_edges(N);
@@ -263,6 +264,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 				}
 			});
 		}
+		cerr << "have " << bcc_edges.size() << " bcc_edges" << '\n';
 		std::set<int> bigs;
 		for (auto vs : bcc_edges) {
 			for (auto u : {vs.first, vs.second}) {
