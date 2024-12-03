@@ -322,9 +322,12 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-		cerr << "prob " << ways << '/' << (1 << int(bigs.size())) << '\n';
+		int num_big = int(bigs.size());
+		num_big += (p1 >= NP);
+		num_big += (p2 >= NP);
+		cerr << "prob " << ways << '/' << (1 << num_big) << '\n';
 
-		return {ways / double(1 << int(bigs.size())), true};
+		return {ways / double(1 << num_big), true};
 	};
 
 	double ans = 0;
