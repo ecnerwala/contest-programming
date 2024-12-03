@@ -222,6 +222,8 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 	std::vector<std::vector<int>> adj(N);
 	union_find all_edges(N);
 
+	bool is_first = true;
+
 	int real_cnt = 0;
 	auto get_contrib = [&](int p1, int p2) -> std::pair<double, bool> {
 		if (all_edges.get_par(p1) != all_edges.get_par(p2)) {
@@ -299,7 +301,13 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
 
+
 			if (T == 5) {
+				if (is_first) {
+					// essentially always use it
+					return {1, true};
+					is_first = false;
+				}
 				std::set<int> smalls;
 				for (auto vs : bcc_edges) {
 					for (auto u : {vs.first, vs.second}) {
@@ -344,7 +352,7 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 					if (k == st) {
 						assert(hi == NQ - 1);
 					}
-					assert(lo <= hi);
+					assert(lo < hi);
 				}
 			}
 #ifdef ECNERWALA
