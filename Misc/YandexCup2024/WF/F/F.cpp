@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "geodeb.h"
 
 template <typename T> struct Point {
 public:
@@ -128,6 +129,13 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 	pts.insert(pts.end(), P.begin(), P.end());
 	pts.insert(pts.end(), Q.begin(), Q.end());
 
+	for (auto p : P) {
+		GD_POINT(p.x, p.y, "black");
+	}
+	for (auto p : Q) {
+		GD_POINT(p.x, p.y, "red");
+	}
+
 	std::vector<std::pair<int, std::array<int, 2>>> segs;
 	segs.reserve(N * (N-1) / 2);
 	for (int p1 = 0; p1 < N; p1++) {
@@ -141,9 +149,9 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 	union_find all_edges(N);
 
 	int real_cnt = 0;
-	auto get_contrib = [&](int p1, int p2) -> double {
+	auto get_contrib = [&](int p1, int p2) -> std::pair<double, bool> {
 		if (all_edges.get_par(p1) != all_edges.get_par(p2)) {
-			return 1;
+			return {1, true};
 		}
 
 		union_find cur_must = must_take;
@@ -151,20 +159,27 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		if (p2 >= NP) for (int nxt : adj[p2]) cur_must.merge(p2, nxt);
 
 		if (cur_must.get_par(p1) == cur_must.get_par(p2)) {
-			return 0;
+			return {0, false};
 		}
 		real_cnt++;
 
-		return 1;
+		GD_LAYER();
+		for (int i = 0; i < N; i++) {
+			for (int j : adj[i]) {
+				GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
+			}
+		}
+
+		return {1, true};
 	};
 
 	double ans = 0;
 	for (int cur_idx = 0; cur_idx < int(segs.size()); cur_idx++) {
 		auto [p1, p2] = segs[cur_idx].second;
-		double prob = get_contrib(p1, p2);
+		auto [prob, ever_used] = get_contrib(p1, p2);
 		ans += std::sqrt(segs[cur_idx].first) * prob;
 
-		if (prob > 0) {
+		if (ever_used) {
 			all_edges.merge(p1, p2);
 			if (p1 < NP && p2 < NP) {
 				must_take.merge(p1, p2);
@@ -186,6 +201,7 @@ int main() {
 	cout << fixed << setprecision(20);
 
 	int T; cin >> T;
+	GD_INIT("test" + std::to_string(T / 10) + std::to_string(T % 10) + ".html");
 	int N; cin >> N;
 	std::vector<pt_t> P(N);
 	for (auto& p : P) cin >> p;
