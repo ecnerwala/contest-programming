@@ -252,8 +252,10 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 				auto [cur, nxt] = cc_edges[e];
 				cur = cur_must.get_par(cur);
 				nxt = cur_must.get_par(nxt);
-				kactl::ed[cur].push_back({nxt, e});
-				kactl::ed[nxt].push_back({cur, e});
+				if (cur != nxt) {
+					kactl::ed[cur].push_back({nxt, e});
+					kactl::ed[nxt].push_back({cur, e});
+				}
 			}
 			kactl::bicomps([&](auto lst) -> void {
 				if (std::find(lst.begin(), lst.end(), 0) != lst.end()) {
@@ -279,10 +281,36 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 
 		cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 
-		if (int(bigs.size()) <= 5) {
+		std::vector<int> big_id(N, -1);
+		{
+			int c = 0;
+			for (auto v : bigs) {
+				big_id[v] = c++;
+			}
 		}
 
-		return {1, true};
+		int ways = 0;
+		for (int msk = 0; msk < (1 << int(bigs.size())); msk++) {
+			union_find cur = cur_must;
+			for (auto [u, v] : bcc_edges) {
+				if (big_id[u] != -1 && !((msk >> big_id[u]) & 1)) {
+					// don't take this guy
+					continue;
+				}
+				if (big_id[v] != -1 && !((msk >> big_id[v]) & 1)) {
+					// don't take this guy
+					continue;
+				}
+				cur.merge(u, v);
+			}
+			if (cur.get_par(p1) != cur.get_par(p2)) {
+				ways++;
+			}
+		}
+
+		cerr << "prob " << ways << '/' << (1 << int(bigs.size())) << '\n';
+
+		return {ways / double(1 << int(bigs.size())), true};
 	};
 
 	double ans = 0;
