@@ -294,6 +294,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 				GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
 			}
 			GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
+			GD_SEGMENT(pts[cur_must.get_par(p1)].x, pts[cur_must.get_par(p1)].y, pts[cur_must.get_par(p2)].x, pts[cur_must.get_par(p2)].y, "green bold");
 #else
 			assert(false);
 #endif
