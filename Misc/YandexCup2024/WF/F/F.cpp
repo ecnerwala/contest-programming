@@ -140,6 +140,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 	std::vector<std::vector<int>> adj(N);
 	union_find all_edges(N);
 
+	int real_cnt = 0;
 	auto get_contrib = [&](int p1, int p2) -> double {
 		if (all_edges.get_par(p1) != all_edges.get_par(p2)) {
 			return 1;
@@ -152,6 +153,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		if (cur_must.get_par(p1) == cur_must.get_par(p2)) {
 			return 0;
 		}
+		real_cnt++;
 		return 1;
 	};
 
@@ -168,6 +170,8 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		adj[p1].push_back(p2);
 		adj[p2].push_back(p1);
 	}
+
+	cerr << "real_cnt " << real_cnt << '\n';
 
 	return ans;
 }
