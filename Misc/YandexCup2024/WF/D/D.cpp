@@ -306,10 +306,12 @@ int main() {
 		vis[{u, v}] = true;
 	}
 
-	for (int k = 0; k < N; k++) {
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				if (vis[{i, k}] && vis[{k, j}]) vis[{i, j}] = true;
+	for (int z = 0; z < 3; z++) {
+		for (int k = 0; k < N; k++) {
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					if (vis[{i, k}] && vis[{k, j}]) vis[{i, j}] = true;
+				}
 			}
 		}
 	}
