@@ -362,7 +362,7 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 						en_inter = {lo, hi};
 					}
 					assert(lo <= hi);
-					vals.push_back({lo, hi});
+					if (lo < hi) vals.push_back({lo, hi});
 				}
 				std::sort(vals.begin(), vals.end());
 				int en_idx = int(std::lower_bound(vals.begin(), vals.end(), en_inter) - vals.begin());
