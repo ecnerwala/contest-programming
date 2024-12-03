@@ -229,8 +229,8 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		}
 
 		union_find cur_must = must_take;
-		if (p1 >= NP) for (int nxt : adj[p1]) cur_must.merge(p1, nxt);
-		if (p2 >= NP) for (int nxt : adj[p2]) cur_must.merge(p2, nxt);
+		if (p1 >= NP) for (int nxt : adj[p1]) if (nxt < NP) cur_must.merge(p1, nxt);
+		if (p2 >= NP) for (int nxt : adj[p2]) if (nxt < NP) cur_must.merge(p2, nxt);
 
 		if (cur_must.get_par(p1) == cur_must.get_par(p2)) {
 			return {0, false};
