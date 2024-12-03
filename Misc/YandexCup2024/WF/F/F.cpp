@@ -344,7 +344,7 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 					if (k == st) {
 						assert(hi == NQ - 1);
 					}
-					assert(lo < hi);
+					assert(lo <= hi);
 				}
 			}
 #ifdef ECNERWALA
