@@ -350,8 +350,10 @@ int main() {
 	cout << fixed << setprecision(20);
 
 	int T; cin >> T;
+#ifdef ECNERWALA
 	GD_INIT("test" + std::to_string(T / 10) + std::to_string(T % 10) + ".html");
 	GD_LOG_TO_STDERR(false);
+#endif
 	int N; cin >> N;
 	std::vector<pt_t> P(N);
 	for (auto& p : P) cin >> p;
