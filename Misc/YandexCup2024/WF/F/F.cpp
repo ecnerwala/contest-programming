@@ -305,8 +305,8 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 			if (T == 5) {
 				if (is_first) {
 					// essentially always use it
-					return {1, true};
 					is_first = false;
+					return {1, true};
 				}
 				std::set<int> smalls;
 				for (auto vs : bcc_edges) {
