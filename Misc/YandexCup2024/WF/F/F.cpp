@@ -193,7 +193,7 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
-double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
+double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 	int NP = int(P.size());
 	int NQ = int(Q.size());
 	int N = NP + NQ;
@@ -288,6 +288,14 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		if (int(bigs.size()) >= 20) {
 			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
+
+			if (T == 5) {
+				for (auto [u, v] : bcc_edges) {
+					if (u >= NP && u != p1 && u != p2 && v >= NP && v != p1 && v != p2) {
+						assert(std::abs(u - v) == 1 || std::abs(u - v) == NQ - 1);
+					}
+				}
+			}
 		}
 		if (int(bigs.size()) >= 25) {
 #ifdef ECNERWALA
@@ -396,7 +404,7 @@ int main() {
 		exit(0);
 	}
 #endif
-	double res = solve(P, Q);
+	double res = solve(T, P, Q);
 	cerr << res << '\n';
 	cout << res << '\n';
 
