@@ -300,7 +300,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 
 		if (int(bigs.size()) >= 10) {
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
-			continue;
+			return {1, true};
 		}
 
 		int ways = 0;
