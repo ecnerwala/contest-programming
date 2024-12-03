@@ -310,9 +310,16 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 					}
 				}
 				cerr << smalls.size() << '\n';
+				std::map<int, std::vector<int>> inters;
 				for (auto [u, v] : bcc_edges) {
 					if (u >= NP && u != p1 && u != p2 && v >= NP && v != p1 && v != p2) {
 						assert(std::abs(u - v) == 1 || std::abs(u - v) == NQ - 1);
+					} else {
+						if (u >= NP && u != p1 && u != p2) std::swap(u, v);
+						assert(v >= NP && v != p1 && v != p2);
+						assert(smalls.count(u));
+						int idx = v - NP;
+						inters[u].push_back(idx);
 					}
 				}
 			}
