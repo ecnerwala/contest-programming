@@ -63,6 +63,8 @@ int main() {
 				if (ylo < yhi) {
 					best = std::pair<int, int>{Xs[P[i+1].first], Ys[yhi]};
 					cnt++;
+				} else {
+					break;
 				}
 			}
 		}
