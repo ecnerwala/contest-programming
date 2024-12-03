@@ -323,8 +323,6 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		}
 
 		int num_big = int(bigs.size());
-		num_big += (p1 >= NP);
-		num_big += (p2 >= NP);
 		cerr << "prob " << ways << '/' << (1 << num_big) << '\n';
 
 		return {ways / double(1 << num_big), true};
@@ -334,6 +332,8 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 	for (int cur_idx = 0; cur_idx < int(segs.size()); cur_idx++) {
 		auto [p1, p2] = segs[cur_idx].second;
 		auto [prob, ever_used] = get_contrib(p1, p2);
+		if (p1 >= NP) prob /= 2;
+		if (p2 >= NP) prob /= 2;
 		ans += std::sqrt(segs[cur_idx].first) * prob;
 
 		if (ever_used) {
