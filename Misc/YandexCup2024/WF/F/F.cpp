@@ -355,7 +355,7 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 					if (k == st) {
 						assert(lo != 0);
 						assert(hi == NQ);
-						vals.push_back({0, hi});
+						vals.push_back({0, 0});
 						vals.push_back({lo, NQ});
 						continue;
 					} else if (k == en) {
