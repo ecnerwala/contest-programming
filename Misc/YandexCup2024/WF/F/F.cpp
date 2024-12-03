@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
-//#include "geodeb.h"
+
+#ifdef ECNERWALA
+#include "geodeb.h"
+#endif
 
 namespace kactl {
 using namespace std;
@@ -198,12 +201,14 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 	pts.insert(pts.end(), P.begin(), P.end());
 	pts.insert(pts.end(), Q.begin(), Q.end());
 
+#ifdef ECNERWALA
 	for (auto p : P) {
 		GD_POINT(p.x, p.y, "black");
 	}
 	for (auto p : Q) {
 		GD_POINT(p.x, p.y, "red");
 	}
+#endif
 
 	std::vector<std::pair<int, std::array<int, 2>>> segs;
 	segs.reserve(N * (N-1) / 2);
@@ -232,7 +237,9 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		}
 		real_cnt++;
 
+#ifdef ECNERWALA
 		GD_LAYER();
+#endif
 		std::vector<bool> vis(N);
 		std::vector<std::pair<int, int>> cc_edges;
 		cc_edges.push_back({p1, p2});
@@ -274,10 +281,12 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
+#ifdef ECNERWALA
 		for (auto [i, j] : bcc_edges) {
 			GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
 		}
 		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
+#endif
 
 		cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 
