@@ -279,7 +279,6 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 
 		cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 
-		std::vector<std::vector<int>> 
 		if (int(bigs.size()) <= 5) {
 		}
 
