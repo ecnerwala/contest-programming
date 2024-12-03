@@ -348,12 +348,13 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 						v += NQ;
 						v %= NQ;
 						if (v < 0) v += NQ;
+						if (k == st && v == 0) v = NQ;
 						lo = std::min(lo, v);
 						hi = std::max(hi, v);
 					}
 					if (k == st) {
 						assert(lo != 0);
-						assert(hi == 0);
+						assert(hi == NQ);
 						vals.push_back({0, hi});
 						vals.push_back({lo, NQ});
 						continue;
