@@ -154,6 +154,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			return 0;
 		}
 		real_cnt++;
+
 		return 1;
 	};
 
@@ -163,12 +164,14 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		double prob = get_contrib(p1, p2);
 		ans += std::sqrt(segs[cur_idx].first) * prob;
 
-		all_edges.merge(p1, p2);
-		if (p1 < NP && p2 < NP) {
-			must_take.merge(p1, p2);
+		if (prob > 0) {
+			all_edges.merge(p1, p2);
+			if (p1 < NP && p2 < NP) {
+				must_take.merge(p1, p2);
+			}
+			adj[p1].push_back(p2);
+			adj[p2].push_back(p1);
 		}
-		adj[p1].push_back(p2);
-		adj[p2].push_back(p1);
 	}
 
 	cerr << "real_cnt " << real_cnt << '\n';
