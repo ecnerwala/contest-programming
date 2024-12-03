@@ -375,6 +375,7 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 				for (int i = 0; i < en_idx; i++) {
 					cnt_small += vals[i+1].first - vals[i].second + 1;
 				}
+				cerr << cnt_big << ' ' << cnt_small << '\n';
 				return {(1 - pow(0.5, cnt_big)) * (1 - pow(0.5, cnt_small)), true};
 			}
 #ifdef ECNERWALA
