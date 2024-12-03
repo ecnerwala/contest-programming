@@ -248,11 +248,11 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		cerr << "have " << cc_edges.size() << " cc_edges" << '\n';
 		std::vector<std::pair<int, int>> bcc_edges;
 		{
-			std::vector<std::vector<std::pair<int, int>>> kactl_edges(N);
+			kactl::ed = std::vector<std::vector<std::pair<int, int>>>(N);
 			for (int e = 0; e < int(cc_edges.size()); e++) {
 				auto [cur, nxt] = cc_edges[e];
-				kactl_edges[cur].push_back({nxt, e});
-				kactl_edges[nxt].push_back({cur, e});
+				kactl::ed[cur].push_back({nxt, e});
+				kactl::ed[nxt].push_back({cur, e});
 			}
 			kactl::bicomps([&](auto lst) -> void {
 				if (std::find(lst.begin(), lst.end(), 0) != lst.end()) {
