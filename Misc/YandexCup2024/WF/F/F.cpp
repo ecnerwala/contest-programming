@@ -298,6 +298,11 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
+		if (int(bigs.size()) >= 10) {
+			cerr << "WARNING! TOO BIG!!!!!" << '\n';
+			continue;
+		}
+
 		int ways = 0;
 		for (int msk = 0; msk < (1 << int(bigs.size())); msk++) {
 			union_find cur = cur_must;
