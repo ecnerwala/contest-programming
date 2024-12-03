@@ -300,6 +300,16 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
 
 			if (T == 5) {
+				std::set<int> smalls;
+				for (auto vs : bcc_edges) {
+					for (auto u : {vs.first, vs.second}) {
+						if (u >= NP && u != p1 && u != p2) {
+						} else {
+							smalls.insert(u);
+						}
+					}
+				}
+				cerr << smalls.size() << '\n';
 				for (auto [u, v] : bcc_edges) {
 					if (u >= NP && u != p1 && u != p2 && v >= NP && v != p1 && v != p2) {
 						assert(std::abs(u - v) == 1 || std::abs(u - v) == NQ - 1);
