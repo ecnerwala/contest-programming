@@ -386,6 +386,10 @@ int main() {
 	};
 
 #ifdef ECNERWALA
+	if (precomp.find(T) != precomp.end()) {
+		cout << precomp[T] << '\n';
+		exit(0);
+	}
 #else
 	if (precomp.find(T) != precomp.end()) {
 		cout << precomp[T] << '\n';
