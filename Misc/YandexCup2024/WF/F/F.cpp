@@ -237,9 +237,6 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		}
 		real_cnt++;
 
-#ifdef ECNERWALA
-		GD_LAYER();
-#endif
 		std::vector<bool> vis(N);
 		std::vector<std::pair<int, int>> cc_edges;
 		cc_edges.push_back({p1, p2});
@@ -281,14 +278,6 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-#ifdef ECNERWALA
-		for (auto [i, j] : bcc_edges) {
-			GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
-		}
-		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
-#endif
-
-		cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 
 		std::vector<int> big_id(N, -1);
 		{
@@ -298,8 +287,17 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-		if (int(bigs.size()) >= 31) {
+		if (int(bigs.size()) >= 20) {
+			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
+#ifdef ECNERWALA
+			GD_LAYER();
+			for (auto [i, j] : bcc_edges) {
+				GD_SEGMENT(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
+			}
+			GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
+#endif
+
 			return {1, true};
 		}
 
@@ -323,7 +321,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		}
 
 		int num_big = int(bigs.size());
-		cerr << "prob " << ways << '/' << (1 << num_big) << '\n';
+		//cerr << "prob " << ways << '/' << (1 << num_big) << '\n';
 
 		return {ways / double(1 << num_big), true};
 	};
