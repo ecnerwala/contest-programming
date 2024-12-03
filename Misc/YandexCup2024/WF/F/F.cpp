@@ -338,22 +338,44 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 					std::swap(st, en);
 					std::swap(st_ma, en_ma);
 				}
+				std::pair<int, int> en_inter;
+				std::vector<std::pair<int, int>> vals;
 				for (auto [k, vs] : inters) {
 					int lo = NQ;
 					int hi = -1;
 					for (auto v : vs) {
 						v -= st_ma;
-						v += NQ - 1;
+						v += NQ;
 						v %= NQ;
 						if (v < 0) v += NQ;
 						lo = std::min(lo, v);
 						hi = std::max(hi, v);
 					}
 					if (k == st) {
-						assert(hi == NQ - 1);
+						assert(lo != 0);
+						assert(hi == 0);
+						vals.push_back({0, hi});
+						vals.push_back({lo, NQ});
+						continue;
+					} else if (k == en) {
+						en_inter = {lo, hi};
 					}
 					assert(lo < hi);
+					vals.push_back({lo, hi});
 				}
+				std::sort(vals.begin(), vals.end());
+				int en_idx = int(std::lower_bound(vals.begin(), vals.end(), en_inter) - vals.begin());
+
+				// probability that each exists
+				int cnt_big = 0;
+				for (int i = en_idx; i+1 < int(vals.size()); i++) {
+					cnt_big += vals[i+1].first - vals[i].second + 1;
+				}
+				int cnt_small = 0;
+				for (int i = 0; i < en_idx; i++) {
+					cnt_small += vals[i+1].first - vals[i].second + 1;
+				}
+				return {(1 - pow(0.5, cnt_big)) * (1 - pow(0.5, cnt_small)), true};
 			}
 #ifdef ECNERWALA
 			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
