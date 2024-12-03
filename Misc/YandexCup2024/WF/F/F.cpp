@@ -335,9 +335,9 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		auto [p1, p2] = segs[cur_idx].second;
 		auto [prob, ever_used] = get_contrib(p1, p2);
 		ans += std::sqrt(segs[cur_idx].first) * prob;
-		cerr << "adding " << p1 << ' ' << p2 << ' ' << std::sqrt(segs[cur_idx].first) << ' ' << prob << '\n';
 
 		if (ever_used) {
+			cerr << "adding " << p1 << ' ' << p2 << ' ' << std::sqrt(segs[cur_idx].first) << ' ' << prob << '\n';
 			all_edges.merge(p1, p2);
 			if (p1 < NP && p2 < NP) {
 				must_take.merge(p1, p2);
