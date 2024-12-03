@@ -362,6 +362,7 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 						en_inter = {lo, hi};
 					}
 					assert(lo <= hi);
+					cerr << lo << ' ' << hi << ' ' << " *"[k == en] << '\n';
 					if (lo < hi) vals.push_back({lo, hi});
 				}
 				std::sort(vals.begin(), vals.end());
