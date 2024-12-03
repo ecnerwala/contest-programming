@@ -121,6 +121,28 @@ struct union_find {
 	}
 };
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
 double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 	int NP = int(P.size());
 	int NQ = int(Q.size());
@@ -170,6 +192,19 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 		GD_SEGMENT(pts[p1].x, pts[p1].y, pts[p2].x, pts[p2].y, "green bold");
+
+		std::vector<int> bigs;
+		std::vector<bool> vis(N);
+		std::y_combinator([&](auto self, int cur) -> void {
+			if (vis[cur]) return;
+			if (cur >= NP && cur != p1 && cur != p2) bigs.push_back(NP);
+			vis[cur] = true;
+			for (int nxt : adj[cur]) {
+				self(nxt);
+			}
+		})(p1);
+		assert(vis[p2]);
+		cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 
 		return {1, true};
 	};
