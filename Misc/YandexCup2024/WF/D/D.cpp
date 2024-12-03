@@ -350,19 +350,20 @@ int main() {
 	MCMF_Dinic<int64_t, int64_t> flower(2*C + 2);
 	int SOURCE = 2 * C;
 	int SINK = 2 * C + 1;
+	const int INF_FLOW = 1e9;
 	for (auto [u, v] : edges) {
 		u = scc_id[u];
 		v = scc_id[v];
 		assert(u <= v);
 		if (u == v) continue;
-		flower.add_edge(2 * u + 1, 2 * v + 0, C, (v - u - 1) * (C+1));
+		flower.add_edge(2 * u + 1, 2 * v + 0, INF_FLOW, (v - u - 1) * (C+1));
 	}
 	int num_req = 0;
 	for (int i = 0; i < C; i++) {
-		flower.add_edge(SOURCE, 2 * i + 1, std::min(C, scc_mess[i]), (C+1) * (i+1));
-		flower.add_edge(2 * i + 1, SINK, C, (C+1) * (C-1-i));
+		flower.add_edge(SOURCE, 2 * i + 1, scc_mess[i], (C+1) * (i+1));
+		flower.add_edge(2 * i + 1, SINK, INF_FLOW, (C+1) * (C-1-i));
 		flower.add_edge(2 * i + 0, 2 * i + 1, 1, scc_mess[i] ? C : 0);
-		flower.add_edge(2 * i + 0, 2 * i + 1, C, C + 1);
+		flower.add_edge(2 * i + 0, 2 * i + 1, INF_FLOW, C + 1);
 		if (!scc_mess[i]) num_req++;
 	}
 	auto [tot_flow, tot_cost] = flower.max_flow(SOURCE, SINK);
