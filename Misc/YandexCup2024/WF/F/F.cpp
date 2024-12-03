@@ -307,6 +307,8 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		for (int msk = 0; msk < (1 << int(bigs.size())); msk++) {
 			union_find cur = cur_must;
 			for (auto [u, v] : bcc_edges) {
+				assert(u == cur_must.get_par(u));
+				assert(v == cur_must.get_par(v));
 				if (big_id[u] != -1 && !((msk >> big_id[u]) & 1)) {
 					// don't take this guy
 					continue;
