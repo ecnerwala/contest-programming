@@ -240,9 +240,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			if (vis[cur]) return;
 			vis[cur] = true;
 			for (int nxt : adj[cur]) {
-				if (!vis[nxt]) {
-					cc_edges.push_back({cur, nxt});
-				}
+				cc_edges.push_back({cur, nxt});
 				self(nxt);
 			}
 		})(p1);
@@ -252,6 +250,8 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 			kactl::ed = std::vector<std::vector<std::pair<int, int>>>(N);
 			for (int e = 0; e < int(cc_edges.size()); e++) {
 				auto [cur, nxt] = cc_edges[e];
+				cur = cur_must.get_par(cur);
+				nxt = cur_must.get_par(nxt);
 				kactl::ed[cur].push_back({nxt, e});
 				kactl::ed[nxt].push_back({cur, e});
 			}
