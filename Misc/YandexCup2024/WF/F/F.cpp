@@ -162,6 +162,8 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		adj[p1].push_back(p2);
 		adj[p2].push_back(p1);
 	}
+
+	return ans;
 }
 
 int main() {
