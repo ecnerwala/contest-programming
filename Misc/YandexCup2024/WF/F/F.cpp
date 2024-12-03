@@ -240,6 +240,8 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 		std::vector<bool> vis(N);
 		std::vector<std::pair<int, int>> cc_edges;
 		cc_edges.push_back({std::min(cur_must.get_par(p1), cur_must.get_par(p2)), std::max(cur_must.get_par(p1), cur_must.get_par(p2))});
+		std::set<std::pair<int, int>> cc_edges_set;
+		cc_edges_set.insert(cc_edges[0]);
 		std::y_combinator([&](auto self, int cur) -> void {
 			if (vis[cur]) return;
 			vis[cur] = true;
@@ -248,7 +250,10 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 				int v = cur_must.get_par(nxt);
 				if (u != v) {
 					if (u > v) std::swap(u, v);
-					cc_edges.push_back({u, v});
+					if (!cc_edges_set.count({u, v})) {
+						cc_edges.push_back({u, v});
+						cc_edges_set.insert({u, v});
+					}
 				}
 				self(nxt);
 			}
