@@ -138,8 +138,13 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 	std::sort(segs.begin(), segs.end());
 	union_find must_take(N);
 	std::vector<std::vector<int>> adj(N);
+	union_find all_edges(N);
 
 	auto get_contrib = [&](int p1, int p2) -> double {
+		if (all_edges.get_par(p1) != all_edges.get_par(p2)) {
+			return 1;
+		}
+
 		union_find cur_must = must_take;
 		if (p1 >= NP) for (int nxt : adj[p1]) cur_must.merge(p1, nxt);
 		if (p2 >= NP) for (int nxt : adj[p2]) cur_must.merge(p2, nxt);
@@ -159,6 +164,7 @@ double solve(std::vector<pt_t> P, std::vector<pt_t> Q) {
 		if (p1 < NP && p2 < NP) {
 			must_take.merge(p1, p2);
 		}
+		all_edges.merge(p1, p2);
 		adj[p1].push_back(p2);
 		adj[p2].push_back(p1);
 	}
