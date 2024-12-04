@@ -297,7 +297,7 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 			}
 		}
 
-		if (int(bigs.size()) >= 20) {
+		if (int(bigs.size()) >= 31) {
 			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 			cerr << "WARNING! TOO BIG!!!!!" << '\n';
 
@@ -397,6 +397,9 @@ double solve(int T, std::vector<pt_t> P, std::vector<pt_t> Q) {
 #endif
 
 			return {1, true};
+		}
+		if (int(bigs.size()) >= 20) {
+			cerr << "have " << int(bigs.size()) << " points to brute force" << '\n';
 		}
 
 		int ways = 0;
