@@ -137,7 +137,7 @@ int main() {
 	std::vector<num> ifact(N+1);
 	ifact[N] = inv(fact[N]);
 	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
-	cout << fact[N] * ifact[N/2] * ifact[N/2] / num(N+1) << '\n';
+	cout << fact[N] * ifact[N/2] * ifact[N/2] / num(N/2+1) << '\n';
 
 	return 0;
 }
