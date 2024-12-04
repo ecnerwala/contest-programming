@@ -132,6 +132,7 @@ int main() {
 	}
 	using num = modnum<int(1e9)+7>;
 	std::vector<num> fact(N+1);
+	fact[0] = 1;
 	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
 	std::vector<num> ifact(N+1);
 	ifact[N] = inv(fact[N]);
