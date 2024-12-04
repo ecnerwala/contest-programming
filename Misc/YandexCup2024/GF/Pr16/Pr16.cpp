@@ -32,7 +32,7 @@ int main() {
 		par[a] += par[b];
 		par[b] = a;
 		return true;
-	}
+	};
 	std::vector<std::pair<int, std::array<int, 2>>> edges; edges.reserve(N*N);
 	for (int i = 0; i < N; i++) {
 		for (int j = i+1; j < N; j++) {
