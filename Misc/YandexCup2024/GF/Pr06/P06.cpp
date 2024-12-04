@@ -5,7 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N, K; cin >> N >> K;
-	if (N * N % K == 0) {
+	if ((K > 1 || N == 1) && N * N % K == 0) {
 		cout << "Yes" << '\n';
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
