@@ -9,7 +9,7 @@ int main() {
 		cout << "Yes" << '\n';
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				cout << 1 + (i*N+j)%K << " \n"[j+1==N];
+				cout << 1 + (i+j)%K << " \n"[j+1==N];
 			}
 		}
 	} else {
