@@ -129,6 +129,7 @@ int main() {
 	int N; cin >> N;
 	if (N & 1) {
 		cout << 0 << '\n';
+		exit(0);
 	}
 	using num = modnum<int(1e9)+7>;
 	std::vector<num> fact(N+1);
