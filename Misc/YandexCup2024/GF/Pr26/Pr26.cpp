@@ -31,7 +31,7 @@ int main() {
 								while (cur.size() > l) cur.erase(cur.begin());
 								new_has.insert(cur);
 							}
-							if (!new_has.count(cnd)) {
+							if (!new_has.count(cur)) {
 								return {l, off};
 							}
 						}
