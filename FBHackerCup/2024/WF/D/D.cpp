@@ -316,6 +316,7 @@ int main() {
 							assert(w != 0);
 							const auto& src = dp[{c, s, t}];
 							auto& dst = ndp[{nc, ns, nt}];
+							assert(nc - ns - nt >= 0);
 							int delta = dist * (2 * nc - ns - nt);
 							assert(delta >= 0);
 							int need_sz = int(src.size()) + delta;
