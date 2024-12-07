@@ -181,7 +181,7 @@ int main() {
 			// The remaining H locations have to mismatch one or both sides
 			if (r1 + r2 < H) continue;
 			std::array<int, 2> tgt_s{std::max(H - r1, 0), std::max(H - r2, 0)};
-			cerr << tgt_s[0] << ' ' << tgt_s[1] << '\n';
+			//cerr << tgt_s[0] << ' ' << tgt_s[1] << '\n';
 			for (int z = 0; z < 2; z++) {
 				assert(tgt_s[z] >= prv_s[z]);
 				while (prv_s[z] < tgt_s[z]) {
