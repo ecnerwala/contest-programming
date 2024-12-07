@@ -316,6 +316,7 @@ int main() {
 							assert(w != 0);
 							const auto& src = dp[{c, s, t}];
 							auto& dst = ndp[{nc, ns, nt}];
+							cerr << c << ' ' << s << ' ' << t << " -> " << nc << ' ' << ns << ' ' << nt << '\n';
 							assert(nc - ns - nt >= 0);
 							int delta = dist * (2 * nc - ns - nt);
 							assert(delta >= 0);
