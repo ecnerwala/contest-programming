@@ -152,17 +152,16 @@ int main() {
 			if (a1 + a2 > H) return 0;
 			return fact[H] * ifact[H - a1 - a2] * ifact[a1] * ifact[a2] * pow_S2[H - a1 - a2];
 		};
-		int prv_s1 = 0;
-		int prv_s2 = 0;
+		std::array<int, 2> prv_s{0, 0};
+		auto eval_side = [&](int z) -> num {
+			num r = 0;
+			for (int a = prv_s[!z]; a + prv_s[z] <= H; a++) {
+				r += eval(prv_s[z], a);
+			}
+			return r;
+		};
 		num cur_tri = pow(num(S), H);
-		num side_s1 = 0;
-		for (int v = 0; v + prv_s1 <= H; v++) {
-			side_s1 += eval(prv_s1, v);
-		}
-		num side_s2 = 0;
-		for (int v = 0; v + prv_s2 <= H; v++) {
-			side_s2 += eval(v, prv_s2);
-		}
+		std::array<num, 2> side_sum{eval_side(0), eval_side(1)};
 
 		for (int a = 0; a <= N-H && a <= std::min(M1, M2); a++) {
 			// we choose a of the N-H locations to mismatch
@@ -172,30 +171,22 @@ int main() {
 			int r2 = M2 - a;
 			// The remaining H locations have to mismatch one or both sides
 			if (r1 + r2 < H) continue;
-			int tgt_s1 = std::max(H - r1, 0);
-			int tgt_s2 = std::max(H - r2, 0);
-			cerr << tgt_s1 << ' ' << tgt_s2 << '\n';
-			assert(tgt_s1 >= prv_s1);
-			assert(tgt_s2 >= prv_s2);
-			while (prv_s1 < tgt_s1) {
-				cur_tri -= side_s1;
-				if (num(S-2) == 0) {
-					side_s1 = eval(prv_s1+1, H - (prv_s1+1));
-				} else {
-					side_s1 = (side_s1 - eval(prv_s1, H - prv_s1)) / num(S-2) - (side_s1 - eval(prv_s1, prv_s2));
+			std::array<int, 2> tgt_s{std::max(H - r1, 0), std::max(H - r2, 0)};
+			cerr << tgt_s[0] << ' ' << tgt_s[1] << '\n';
+			for (int z = 0; z < 2; z++) {
+				assert(tgt_s[z] >= prv_s[z]);
+				while (prv_s[z] < tgt_s[z]) {
+					cur_tri -= side_sum[z];
+					if (num(S-2) == 0) {
+						side_sum[z] = eval(prv_s[z] + 1, H - prv_s[z] + 1);
+					} else {
+						side_sum[z] = (side_sum[z] - eval(prv_s[z], H - prv_s[z])) / num(S-2) - (side_sum[z] - eval(prv_s[z], prv_s[!z]));
+					}
+					side_sum[!z] -= eval(prv_s[z], prv_s[!z]);
+					prv_s[z]++;
+					assert(side_sum[z] == eval_side(z));
+					assert(side_sum[!z] == eval_side(!z));
 				}
-				side_s2 -= eval(prv_s1, prv_s2);
-				prv_s1++;
-			}
-			while (prv_s2 < tgt_s2) {
-				cur_tri -= side_s2;
-				if (num(S-2) == 0) {
-					side_s2 = eval(prv_s2+1, H - (prv_s2+1));
-				} else {
-					side_s2 = (side_s2 - eval(prv_s2, H - prv_s2)) / num(S-2) - (side_s2 - eval(prv_s1, prv_s2));
-				}
-				side_s1 -= eval(prv_s1, prv_s2);
-				prv_s2++;
 			}
 			ans += w * cur_tri;
 		}
