@@ -109,8 +109,8 @@ int main() {
 							expected++;
 						}
 						if (v > cnd[idx] || (idx + 1 == int(cnd.size()) && v == cnd[idx])) {
-							flower.add_edge((i*C+j) * 2 + 0, (i*C+j) * 2 + 1, 1);
-							flower.add_edge((i*C+j) * 2 + 1, T, 1);
+							//flower.add_edge((i*C+j) * 2 + 0, (i*C+j) * 2 + 1, 1);
+							flower.add_edge((i*C+j) * 2 + 0, T, 1);
 						} else if (v == cnd[idx]) {
 							flower.add_edge((i*C+j) * 2 + 0, (i*C+j) * 2 + 1, 1);
 						}
