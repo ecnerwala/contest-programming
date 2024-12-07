@@ -130,6 +130,7 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		using num = modnum<int(1e9)+7>;
 		int N, M1, M2, H, S; cin >> N >> M1 >> M2 >> H >> S;
+		cout << "Case #" << case_num << " " << N << ' ' << M1 << ' ' << M2 << ' ' << H << ' ' << S << '\n';
 
 		num ans = 0;
 
