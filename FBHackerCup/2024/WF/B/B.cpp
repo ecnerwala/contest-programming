@@ -244,6 +244,8 @@ int main() {
 		std::vector<std::string> G(R);
 		for (auto& s : G) { cin >> s; assert(int(s.size()) == C); }
 
+		cerr << "Case #" << case_num << " " << R << 'x' << C << '\n';
+
 		auto is_good = [&](const std::string& cnd) -> bool {
 			for (int st = 0; st < R+C; st++) {
 				Dinic<int> flower(2 * (R*C) + 2);
