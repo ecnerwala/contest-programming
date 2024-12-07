@@ -457,7 +457,7 @@ int main() {
 			}
 		}
 
-		cout << "Case #" << case_num << ": ";
+		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
 
 	return 0;
