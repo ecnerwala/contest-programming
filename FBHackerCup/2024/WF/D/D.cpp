@@ -305,7 +305,7 @@ int main() {
 		tensor<std::vector<num>, 3> dp({1, 2, 2});
 		dp[{0, 0, 0}] = std::vector<num>(1);
 		for (int z = 0; z < N; z++) {
-			tensor<std::vector<num>, 3> ndp({z+1, 2, 2});
+			tensor<std::vector<num>, 3> ndp({z+2, 2, 2});
 			int dist = (z + 1 == N ? 100 : A[z+1]) - A[z];
 			for (int c = 0; c <= z; c++) {
 				for (int s = 0; s < 2; s++) {
