@@ -452,6 +452,8 @@ int main() {
 					ins(lo);
 				}
 				ans += num(min_area);
+				segs.push_back({st, st + (new_len - 1) * dir, dir, new_len});
+				ins(int(segs.size()) - 1);
 			}
 		}
 
