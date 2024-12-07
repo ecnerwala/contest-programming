@@ -303,7 +303,7 @@ int main() {
 
 		// our dp state is how many ends we have, and whether we've used the start/end
 		tensor<std::vector<num>, 3> dp({1, 2, 2});
-		dp[{0, 0, 0}] = std::vector<num>(1);
+		dp[{0, 0, 0}] = std::vector<num>({num(1)});
 		for (int z = 0; z < N; z++) {
 			tensor<std::vector<num>, 3> ndp({z+2, 2, 2});
 			int dist = (z + 1 == N ? 100 : A[z+1]) - A[z];
