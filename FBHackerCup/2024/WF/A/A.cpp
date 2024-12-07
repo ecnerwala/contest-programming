@@ -177,7 +177,7 @@ int main() {
 			cerr << tgt_s1 << ' ' << tgt_s2 << '\n';
 			assert(tgt_s1 >= prv_s1);
 			assert(tgt_s2 >= prv_s2);
-			while (prv_s1 <= tgt_s1) {
+			while (prv_s1 < tgt_s1) {
 				cur_tri -= side_s1;
 				if (num(S-2) == 0) {
 					side_s1 = eval(prv_s1+1, H - (prv_s1+1));
@@ -187,7 +187,7 @@ int main() {
 				side_s2 -= eval(prv_s1, prv_s2);
 				prv_s1++;
 			}
-			while (prv_s2 <= tgt_s2) {
+			while (prv_s2 < tgt_s2) {
 				cur_tri -= side_s2;
 				if (num(S-2) == 0) {
 					side_s2 = eval(prv_s2+1, H - (prv_s2+1));
