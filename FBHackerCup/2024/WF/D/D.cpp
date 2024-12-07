@@ -351,11 +351,11 @@ int main() {
 						}
 						// left sink and right something
 						if (s == 0 && c - t > 0) {
-							do_upd(1, c - 1, 1, t);
+							do_upd(1, c, 1, t);
 						}
 						// right sink and left something
 						if (t == 0 && c - s > 0) {
-							do_upd(1, c - 1, s, 1);
+							do_upd(1, c, s, 1);
 						}
 						// both something
 						if (c >= 2 && c - s - t > 0) {
