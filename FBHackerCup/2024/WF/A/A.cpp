@@ -179,7 +179,7 @@ int main() {
 				while (prv_s[z] < tgt_s[z]) {
 					cur_tri -= side_sum[z];
 					if (num(S-2) == 0) {
-						side_sum[z] = eval(prv_s[z] + 1, H - prv_s[z] + 1);
+						side_sum[z] = eval(prv_s[z] + 1, H - (prv_s[z] + 1));
 					} else {
 						side_sum[z] = (side_sum[z] - eval(prv_s[z], H - prv_s[z])) / num(S-2) - (side_sum[z] - eval(prv_s[z], prv_s[!z]));
 					}
