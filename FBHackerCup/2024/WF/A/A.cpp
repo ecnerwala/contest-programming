@@ -161,6 +161,8 @@ int main() {
 			cerr << s1 << ' ' << s2 << '\n';
 			assert(s1 >= prv_s1);
 			assert(s2 >= prv_s2);
+			assert(s1 <= prv_s1 + 1);
+			assert(s2 <= prv_s2 + 1);
 			s1 = prv_s1;
 			s2 = prv_s2;
 		}
