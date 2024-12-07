@@ -164,7 +164,7 @@ int main() {
 		std::array<num, 2> side_sum{eval_side(0), eval_side(1)};
 		cerr << "at " << prv_s[0] << ' ' << prv_s[1] << ' ' << side_sum[0] << ' ' << side_sum[1] << '\n';
 		for (int i = 0; i <= H; i++) {
-			for (int j = 0; i + j <= H; i++) {
+			for (int j = 0; i + j <= H; j++) {
 				cerr << eval(i, j) << ' ';
 			}
 			cerr << '\n';
