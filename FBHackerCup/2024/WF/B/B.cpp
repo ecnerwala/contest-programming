@@ -237,8 +237,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
-	for (int case_num = 1; case_num <= T; case_num ++) {
+	int NUM_CASES; cin >> NUM_CASES;
+	for (int case_num = 1; case_num <= NUM_CASES; case_num ++) {
 
 		int R, C; cin >> R >> C;
 		std::vector<std::string> G(R);
