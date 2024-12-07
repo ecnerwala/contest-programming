@@ -163,12 +163,14 @@ int main() {
 		num cur_tri = pow(num(S), H);
 		std::array<num, 2> side_sum{eval_side(0), eval_side(1)};
 		cerr << "at " << prv_s[0] << ' ' << prv_s[1] << ' ' << side_sum[0] << ' ' << side_sum[1] << '\n';
+		/*
 		for (int i = 0; i <= H; i++) {
 			for (int j = 0; i + j <= H; j++) {
 				cerr << eval(i, j) << ' ';
 			}
 			cerr << '\n';
 		}
+		*/
 
 		for (int a = 0; a <= N-H && a <= std::min(M1, M2); a++) {
 			// we choose a of the N-H locations to mismatch
