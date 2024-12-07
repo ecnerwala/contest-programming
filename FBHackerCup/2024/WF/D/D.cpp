@@ -382,8 +382,8 @@ int main() {
 			int c = __builtin_popcount(msk);
 			if (msk == 0) continue;
 			if (c > N) continue;
-			const auto& v = dp[{c, s, t}];
-			if (v.empty()) continue;
+			const auto& a = dp[{c, s, t}];
+			if (a.empty()) continue;
 			do {
 				int64_t weight = 0;
 				for (int v = 0; v < M; v++) {
@@ -396,7 +396,7 @@ int main() {
 					}
 				}
 				if (weight <= L) {
-					ans += v[std::min<int64_t>(int(v.size()) - 1, L - weight)];
+					ans += a[std::min<int64_t>(int(a.size()) - 1, L - weight)];
 				}
 			} while (std::next_permutation(B.begin(), B.end()));
 		}
