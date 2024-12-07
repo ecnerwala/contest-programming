@@ -143,11 +143,26 @@ int main() {
 
 		num ways = fact[N] * ifact[H] * ifact[N-H] * pow(num(S), N) * pow(num(S-1), H);
 
-		std::vector<num> ways_mismatch(H+1);
+		std::vector<num> pow_S2(H+1);
+		pow_S2[0] = 1;
+		for (int i = 1; i <= H; i++) pow_S2[i] = pow_S2[i-1] * num(S-2);
 
+		auto eval = [&](int a1, int a2) -> num {
+			assert(a1 >= 0 && a2 >= 0);
+			if (a1 + a2 > H) return 0;
+			return fact[H] * ifact[H - a1 - a2] * ifact[a1] * ifact[a2] * pow_S2[H - a1 - a2];
+		};
 		int prv_s1 = 0;
 		int prv_s2 = 0;
 		num cur_tri = pow(num(S), H);
+		num side_s1 = 0;
+		for (int v = 0; v + prv_s1 <= H; v++) {
+			side_s1 += eval(prv_s1, v);
+		}
+		num side_s2 = 0;
+		for (int v = 0; v + prv_s2 <= H; v++) {
+			side_s2 += eval(v, prv_s2);
+		}
 
 		for (int a = 0; a <= N-H && a <= std::min(M1, M2); a++) {
 			// we choose a of the N-H locations to mismatch
@@ -157,15 +172,28 @@ int main() {
 			int r2 = M2 - a;
 			// The remaining H locations have to mismatch one or both sides
 			if (r1 + r2 < H) continue;
-			int s1 = std::max(H - r1, 0);
-			int s2 = std::max(H - r2, 0);
-			cerr << s1 << ' ' << s2 << '\n';
-			assert(s1 >= prv_s1);
-			assert(s2 >= prv_s2);
-			assert(s1 <= prv_s1 + 1);
-			assert(s2 <= prv_s2 + 1);
-			prv_s1 = s1;
-			prv_s2 = s2;
+			int tgt_s1 = std::max(H - r1, 0);
+			int tgt_s2 = std::max(H - r2, 0);
+			assert(tgt_s1 >= prv_s1);
+			assert(tgt_s2 >= prv_s2);
+			while (prv_s1 <= tgt_s1) {
+				if (num(S-2) == 0) {
+					side_s1 = eval(prv_s1+1, H - (prv_s1+1));
+				} else {
+					side_s1 = (side_s1 - eval(prv_s1, H - prv_s1)) / num(S-2) - (side_s1 - eval(prv_s1, prv_s2));
+				}
+				side_s2 -= eval(prv_s1, prv_s2);
+				prv_s1++;
+			}
+			while (prv_s2 <= tgt_s2) {
+				if (num(S-2) == 0) {
+					side_s2 = eval(prv_s2+1, H - (prv_s2+1));
+				} else {
+					side_s2 = (side_s2 - eval(prv_s2, H - prv_s2)) / num(S-2) - (side_s2 - eval(prv_s1, prv_s2));
+				}
+				side_s1 -= eval(prv_s1, prv_s2);
+				prv_s2++;
+			}
 		}
 
 		ans *= ways;
