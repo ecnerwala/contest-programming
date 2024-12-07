@@ -184,8 +184,8 @@ int main() {
 					}
 					side_sum[!z] -= eval(prv_s[z], prv_s[!z]);
 					prv_s[z]++;
-					assert(side_sum[z] == eval_side(z));
 					assert(side_sum[!z] == eval_side(!z));
+					assert(side_sum[z] == eval_side(z));
 				}
 			}
 			ans += w * cur_tri;
