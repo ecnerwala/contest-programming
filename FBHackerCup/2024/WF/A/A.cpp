@@ -164,8 +164,8 @@ int main() {
 			assert(s2 >= prv_s2);
 			assert(s1 <= prv_s1 + 1);
 			assert(s2 <= prv_s2 + 1);
-			s1 = prv_s1;
-			s2 = prv_s2;
+			prv_s1 = s1;
+			prv_s2 = s2;
 		}
 
 		ans *= ways;
