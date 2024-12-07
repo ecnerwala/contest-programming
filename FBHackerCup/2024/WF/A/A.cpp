@@ -174,9 +174,11 @@ int main() {
 			if (r1 + r2 < H) continue;
 			int tgt_s1 = std::max(H - r1, 0);
 			int tgt_s2 = std::max(H - r2, 0);
+			cerr << tgt_s1 << ' ' << tgt_s2 << '\n';
 			assert(tgt_s1 >= prv_s1);
 			assert(tgt_s2 >= prv_s2);
 			while (prv_s1 <= tgt_s1) {
+				cur_tri -= side_s1;
 				if (num(S-2) == 0) {
 					side_s1 = eval(prv_s1+1, H - (prv_s1+1));
 				} else {
@@ -186,6 +188,7 @@ int main() {
 				prv_s1++;
 			}
 			while (prv_s2 <= tgt_s2) {
+				cur_tri -= side_s2;
 				if (num(S-2) == 0) {
 					side_s2 = eval(prv_s2+1, H - (prv_s2+1));
 				} else {
@@ -194,6 +197,7 @@ int main() {
 				side_s1 -= eval(prv_s1, prv_s2);
 				prv_s2++;
 			}
+			ans += w * cur_tri;
 		}
 
 		ans *= ways;
