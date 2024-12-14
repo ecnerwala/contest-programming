@@ -216,7 +216,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 
 	num coeff = num(1 << L);
 	for (int bit = L; !carry_locs.empty(); coeff *= 2, bit++) {
-		std::cerr << bit << ' ' << int(carry_locs.size()) << ' ' << carry_locs.begin() <<  '\n';
+		std::cerr << bit << ' ' << int(carry_locs.size()) << ' ' << carry_locs.front() << '\n';
 		std::vector<int64_t> n_carry_locs;
 		std::array<int, 3> sum{0, 0, 0};
 		for (int z = 0; z < 2; z++) {
