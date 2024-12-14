@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+using std::cerr;
+
 template <typename T> T mod_inv_in_range(T a, T m) {
 	// assert(0 <= a && a < m);
 	T x = a, y = m;
