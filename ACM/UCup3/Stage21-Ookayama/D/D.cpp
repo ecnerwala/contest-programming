@@ -195,8 +195,8 @@ num solve(int A, int B, int C, int L, int64_t N) {
 
 	int64_t mod = 3 << (L-1);
 	std::vector<int64_t> carry_locs; carry_locs.reserve(mod);
-	int pa = 0;
-	int pb = 0;
+	int pa = A;
+	int pb = B;
 	for (int z = 0; z < mod; z++) {
 		int v = (pa ^ pb) + C;
 		if (v >> L) {
