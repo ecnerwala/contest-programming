@@ -219,7 +219,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 	num coeff = num(1 << L);
 	for (int bit = L; !carry_locs.empty(); coeff *= 2, bit++) {
 		std::cerr << bit << ' ' << int(carry_locs.size()) << ' ' << carry_locs.front() << '\n';
-		std::vector<int64_t> n_carry_locs;
+		std::vector<int64_t> n_carry_locs; n_carry_locs.reserve(carry_locs.size() * 2);
 		std::array<int, 3> sum{0, 0, 0};
 		std::optional<bool> N_val;
 		auto do_N_val = [&]() -> void {
@@ -242,7 +242,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 		if (*N_val) ans += coeff;
 		mod *= 2;
 		mod = std::min(mod, N+1);
-		carry_locs = n_carry_locs;
+		carry_locs = std::move(n_carry_locs);
 	}
 	return ans;
 }
