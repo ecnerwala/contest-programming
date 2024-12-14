@@ -265,7 +265,14 @@ int main() {
 	for (int A = 0; A < 8; A++) {
 		for (int B = 0; B < 8; B++) {
 			for (int C = 0; C < 8; C++) {
-				cerr << solve(A, B, C, 3, 1000) << ' ' << solve_slow(A, B, C, 3, 1000) << '\n';
+				for (int N = 1; N <= 1000; N++) {
+					num res = solve(A, B, C, 3, N);
+					num ans = solve_slow(A, B, C, 3, N);
+					if (res != ans) {
+						cerr << A << ' ' << B << ' ' << C << ' ' << N << '\n';
+						assert(res == ans);
+					}
+				}
 			}
 		}
 	}
