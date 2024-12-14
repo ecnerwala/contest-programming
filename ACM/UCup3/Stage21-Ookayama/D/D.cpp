@@ -235,6 +235,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 		}
 		mod *= 2;
 		mod = std::min(mod, N+1);
+		carry_locs = n_carry_locs;
 	}
 	return ans;
 }
