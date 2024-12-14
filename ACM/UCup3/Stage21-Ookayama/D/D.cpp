@@ -247,7 +247,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 				if (z) v += mod;
 				if (v > N) break;
 				assert(v <= N);
-				if (!N_val && v > N % mod) do_N_val();
+				if (!N_val && v > N % (2 * mod)) do_N_val();
 				if (sum[v%3] ^ sum[(v+2)%3]) {
 					n_carry_locs.push_back(v);
 				}
