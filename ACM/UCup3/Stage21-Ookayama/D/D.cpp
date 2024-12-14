@@ -221,20 +221,24 @@ num solve(int A, int B, int C, int L, int64_t N) {
 		std::cerr << bit << ' ' << int(carry_locs.size()) << ' ' << carry_locs.front() << '\n';
 		std::vector<int64_t> n_carry_locs;
 		std::array<int, 3> sum{0, 0, 0};
+		std::optional<bool> N_val;
+		auto do_N_val = [&]() -> void {
+			assert(!N_val);
+			N_val = bool(sum[N%3] ^ sum[(N+2)%3]);
+		};
 		for (int z = 0; z < 2; z++) {
 			for (int64_t v : carry_locs) {
 				if (z) v += mod;
 				if (v > N) break;
 				assert(v <= N);
+				if (v > N % mod) do_N_val();
 				if (sum[v%3] ^ sum[(v+2)%3]) {
 					n_carry_locs.push_back(v);
 				}
 				sum[v % 3] ^= 1;
 			}
 		}
-		if (sum[N%3] ^ sum[(N+2)%3]) {
-			ans += coeff;
-		}
+		if (!N_val) do_N_val();
 		mod *= 2;
 		mod = std::min(mod, N+1);
 		carry_locs = n_carry_locs;
