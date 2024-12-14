@@ -52,9 +52,9 @@ int main() {
 		std::set<std::vector<int>> ncarries;
 		for (auto c : carries) {
 			for (int msk = 0; msk < 8; msk++) {
-				for (auto v : c) { cerr << v; } cerr << " + " << msk << " => ";
+				for (auto v : c) { cerr << v; } cerr << " (" << c.size() << ")" << " + " << msk << " => ";
 				auto r = sim(msk, c);
-				for (auto v : r) { cerr << v; } cerr << '\n';
+				for (auto v : r) { cerr << v; } cerr << " (" << r.size() << ")" << '\n';
 				ncarries.insert(r);
 			}
 		}
