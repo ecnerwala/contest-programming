@@ -212,6 +212,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 			ans += v;
 		}
 	}
+
 	num coeff = num(1 << L);
 	for (int bit = L; !carry_locs.empty(); coeff *= 2, bit++) {
 		std::vector<int64_t> n_carry_locs;
