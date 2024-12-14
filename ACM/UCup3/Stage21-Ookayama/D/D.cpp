@@ -270,14 +270,16 @@ int main() {
 	for (int A = 0; A < 8; A++) {
 		for (int B = 0; B < 8; B++) {
 			for (int C = 0; C < 8; C++) {
-				for (int N = 1; N <= 1000; N++) {
-					break;
-					num res = solve(A, B, C, 3, N);
-					num ans = solve_slow(A, B, C, 3, N);
-					if (res != ans) {
-						cerr << A << ' ' << B << ' ' << C << ' ' << N << '\n';
-						cerr << res << ' ' << ans << '\n';
-						assert(res == ans);
+				solve(A, B, C, 3, 1e18);
+				if (false) {
+					for (int N = 1; N <= 1000; N++) {
+						num res = solve(A, B, C, 3, N);
+						num ans = solve_slow(A, B, C, 3, N);
+						if (res != ans) {
+							cerr << A << ' ' << B << ' ' << C << ' ' << N << '\n';
+							cerr << res << ' ' << ans << '\n';
+							assert(res == ans);
+						}
 					}
 				}
 			}
