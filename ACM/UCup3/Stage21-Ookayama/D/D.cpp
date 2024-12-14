@@ -48,7 +48,7 @@ int main() {
 
 	std::set<std::vector<int>> carries;
 	carries.insert(std::vector<int>(1, 0));
-	for (int d = 0; d < 5; d++) {
+	for (int d = 0; d < 3; d++) {
 		std::set<std::vector<int>> ncarries;
 		for (auto c : carries) {
 			for (int msk = 0; msk < 8; msk++) {
