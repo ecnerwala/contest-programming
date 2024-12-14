@@ -215,6 +215,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 		int v = (pa ^ pb) + C;
 		if (v >> L) {
 			if (z <= N) {
+				cerr << "carry " << z << '\n';
 				carry_locs.push_back(z);
 			}
 			v -= (1 << L);
