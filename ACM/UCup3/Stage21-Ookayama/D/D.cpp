@@ -270,6 +270,7 @@ int main() {
 					num ans = solve_slow(A, B, C, 3, N);
 					if (res != ans) {
 						cerr << A << ' ' << B << ' ' << C << ' ' << N << '\n';
+						cerr << res << ' ' << ans << '\n';
 						assert(res == ans);
 					}
 				}
