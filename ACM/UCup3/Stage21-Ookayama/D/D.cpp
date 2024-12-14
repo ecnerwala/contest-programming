@@ -191,6 +191,7 @@ num solve_slow(int64_t A, int64_t B, int64_t C, int L, int64_t N) {
 }
 
 num solve(int A, int B, int C, int L, int64_t N) {
+	cerr << "solve " << A << ' ' << B << ' ' << C << ' ' << L << ' ' << N << '\n';
 	assert(L >= 1);
 	assert(A < (1 << L));
 	assert(B < (1 << L));
