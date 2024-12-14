@@ -209,6 +209,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 		pa = pb;
 		pb = v;
 		if (N % mod == z) {
+			std::cerr << N << ' ' << mod << ' ' << z << ' ' << v << '\n';
 			ans += v;
 		}
 	}
