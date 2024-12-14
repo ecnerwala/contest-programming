@@ -398,7 +398,7 @@ int main() {
 	int N; cin >> N;
 	std::vector<int> A(N); for (auto& a : A) cin >> a;
 
-	auto ct = CartesianTree::build_max_tree(A);
+	auto ct = CartesianTree::build_min_tree(A);
 	std::map<std::pair<int, int>, int> labels;
 	int nxt_label = 1;
 	std::vector<int> label(2*N+1);
@@ -446,7 +446,7 @@ int main() {
 
 	std::vector<std::pair<int, int>> A2(N);
 	for (int i = 0; i < N; i++) A2[i] = {A[i], i};
-	RangeMaxQuery<std::pair<int, int>> rmq(A2);
+	RangeMinQuery<std::pair<int, int>> rmq(A2);
 
 	int Q; cin >> Q;
 	std::vector<std::array<int, 6>> cnds; cnds.reserve(Q);
