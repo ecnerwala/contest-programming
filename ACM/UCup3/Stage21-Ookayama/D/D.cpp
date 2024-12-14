@@ -193,7 +193,7 @@ num solve_slow(int64_t A, int64_t B, int64_t C, int L, int64_t N) {
 }
 
 num solve(int A, int B, int C, int L, int64_t N) {
-	cerr << "solve " << A << ' ' << B << ' ' << C << ' ' << L << ' ' << N << '\n';
+	//cerr << "solve " << A << ' ' << B << ' ' << C << ' ' << L << ' ' << N << '\n';
 	assert(L >= 1);
 	assert(A < (1 << L));
 	assert(B < (1 << L));
@@ -215,7 +215,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 		int v = (pa ^ pb) + C;
 		if (v >> L) {
 			if (z <= N) {
-				cerr << "carry " << z << '\n';
+				//cerr << "carry " << z << '\n';
 				carry_locs.push_back(z);
 			}
 			v -= (1 << L);
@@ -224,7 +224,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 		pa = pb;
 		pb = v;
 		if (N % mod == z) {
-			std::cerr << N << ' ' << mod << ' ' << z << ' ' << v << '\n';
+			//std::cerr << N << ' ' << mod << ' ' << z << ' ' << v << '\n';
 			ans += v;
 		}
 	}
@@ -233,7 +233,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 
 	num coeff = num(1 << L);
 	for (int bit = L; true; coeff *= 2, bit++) {
-		std::cerr << "doing bit " << bit << ' ' << int(carry_locs.size()) << ' ' << (carry_locs.empty() ? -1 : carry_locs.front()) << ' ' << mod << '\n';
+		//std::cerr << "doing bit " << bit << ' ' << int(carry_locs.size()) << ' ' << (carry_locs.empty() ? -1 : carry_locs.front()) << ' ' << mod << '\n';
 		if (carry_locs.empty()) break;
 		std::vector<int64_t> n_carry_locs; n_carry_locs.reserve(carry_locs.size() * 2);
 		std::array<int, 3> sum{0, 0, 0};
