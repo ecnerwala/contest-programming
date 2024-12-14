@@ -213,6 +213,8 @@ num solve(int A, int B, int C, int L, int64_t N) {
 			ans += v;
 		}
 	}
+	assert(pa == A);
+	assert(pb == B);
 
 	num coeff = num(1 << L);
 	for (int bit = L; !carry_locs.empty(); coeff *= 2, bit++) {
