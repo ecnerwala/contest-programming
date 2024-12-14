@@ -252,7 +252,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int A, B, C; int64_t N; cin >> A >> B >> C >> N;
-	cout << solve(A, B, C, 20, N) << '\n';
+	cout << solve(A, B, C, 2, N) << '\n';
 
 	return 0;
 }
