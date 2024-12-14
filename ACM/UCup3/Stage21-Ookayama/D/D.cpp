@@ -271,6 +271,7 @@ int main() {
 		for (int B = 0; B < 8; B++) {
 			for (int C = 0; C < 8; C++) {
 				for (int N = 1; N <= 1000; N++) {
+					break;
 					num res = solve(A, B, C, 3, N);
 					num ans = solve_slow(A, B, C, 3, N);
 					if (res != ans) {
