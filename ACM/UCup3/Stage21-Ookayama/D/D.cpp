@@ -179,6 +179,17 @@ void test() {
 }
 
 using num = modnum<998244353>;
+num solve_slow(int64_t A, int64_t B, int64_t C, int L, int64_t N) {
+	assert(N >= 1);
+	N--;
+	for (int z = 0; z < N; z++) {
+		int64_t nv = (A ^ B) + C;
+		A = B;
+		B = nv;
+	}
+	return num(A);
+}
+
 num solve(int A, int B, int C, int L, int64_t N) {
 	assert(L >= 1);
 	assert(A < (1 << L));
@@ -251,8 +262,16 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	for (int A = 0; A < 8; A++) {
+		for (int B = 0; B < 8; B++) {
+			for (int C = 0; C < 8; C++) {
+				cerr << solve(A, B, C, 3, 1000) << ' ' << solve_slow(A, B, C, 3, 1000) << '\n';
+			}
+		}
+	}
+
 	int A, B, C; int64_t N; cin >> A >> B >> C >> N;
-	cout << solve(A, B, C, 2, N) << '\n';
+	cout << solve(A, B, C, 20, N) << '\n';
 
 	return 0;
 }
