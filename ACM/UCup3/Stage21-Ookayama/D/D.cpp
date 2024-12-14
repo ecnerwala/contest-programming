@@ -231,8 +231,9 @@ num solve(int A, int B, int C, int L, int64_t N) {
 	assert(pb == B);
 
 	num coeff = num(1 << L);
-	for (int bit = L; !carry_locs.empty(); coeff *= 2, bit++) {
-		std::cerr << bit << ' ' << int(carry_locs.size()) << ' ' << carry_locs.front() << '\n';
+	for (int bit = L; true; coeff *= 2, bit++) {
+		std::cerr << "doing bit " << bit << ' ' << int(carry_locs.size()) << ' ' << carry_locs.front() << ' ' << mod << '\n';
+		if (carry_locs.empty()) break;
 		std::vector<int64_t> n_carry_locs; n_carry_locs.reserve(carry_locs.size() * 2);
 		std::array<int, 3> sum{0, 0, 0};
 		std::optional<bool> N_val;
