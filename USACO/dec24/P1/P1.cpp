@@ -201,10 +201,8 @@ int main() {
 		}
 	}
 	std::vector<num> weight(K+1);
-	for (int i = 1; i <= K; i++) {
-		weight[i] = inv(num(i));
-	}
 	for (int i = K; i >= 1; i--) {
+		weight[i] += inv(num(i));
 		weight[i-1] -= weight[i];
 	}
 	for (int m = 0; m < (1 << K); m++) {
@@ -225,14 +223,3 @@ int main() {
 
 	return 0;
 }
-
-// 0 2
-// 1 1
-
-// cnt at the end
-// 0 2
-// 1 4
-//
-//
-// for 3: # things with union == 3
-// for 2: # things with union == 2 is 
