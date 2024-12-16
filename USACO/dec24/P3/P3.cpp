@@ -12,8 +12,8 @@ int main() {
 			for (int i = 0; i+1 < N; i++) {
 				V = std::min(V, std::abs(P[i+1] - P[i]));
 			}
-			assert(V >= (N-1)/2);
-			if (V == (N-1)/2) {
+			assert(V >= N/2);
+			if (V == N/2) {
 				for (auto a : P) { cerr << a << ' '; } cerr << '\n';
 			}
 		} while (std::next_permutation(P.begin(), P.end()));
