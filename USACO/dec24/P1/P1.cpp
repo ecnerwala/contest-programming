@@ -202,7 +202,7 @@ int main() {
 	}
 	std::vector<num> weight(K+1);
 	for (int i = 1; i <= K; i++) {
-		weight[i] = 1 / i - weight[i-1];
+		weight[i] = 1 / num(i) - weight[i-1];
 	}
 	for (int m = 0; m < (1 << K); m++) {
 		num w = weight[__builtin_popcount(m)];
