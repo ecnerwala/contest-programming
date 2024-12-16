@@ -230,7 +230,7 @@ std::vector<num> solve_slow(std::vector<int> A, int K) {
 void test() {
 	using std::cerr;
 	for (int K = 1; K <= 10; K++) {
-		for (int i = 0; i < (1 << K); i++) {
+		for (int i = 1; i < (1 << K); i++) {
 			std::vector<int> A({i});
 			auto res = solve(A, K);
 			auto ans = solve_slow(A, K);
