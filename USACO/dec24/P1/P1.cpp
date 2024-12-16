@@ -1,8 +1,224 @@
 #include <bits/stdc++.h>
 
+template <typename T> T mod_inv_in_range(T a, T m) {
+	// assert(0 <= a && a < m);
+	T x = a, y = m;
+	// coeff of a in x and y
+	T vx = 1, vy = 0;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		vy -= k * vx;
+		std::swap(x, y);
+		std::swap(vx, vy);
+	}
+	assert(y == 1);
+	return vy < 0 ? m + vy : vy;
+}
+
+template <typename T> struct extended_gcd_result {
+	T gcd;
+	T coeff_a, coeff_b;
+};
+template <typename T> extended_gcd_result<T> extended_gcd(T a, T b) {
+	T x = a, y = b;
+	// coeff of a and b in x and y
+	T ax = 1, ay = 0;
+	T bx = 0, by = 1;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		ay -= k * ax;
+		by -= k * bx;
+		std::swap(x, y);
+		std::swap(ax, ay);
+		std::swap(bx, by);
+	}
+	return {y, ay, by};
+}
+
+template <typename T> T mod_inv(T a, T m) {
+	a %= m;
+	a = a < 0 ? a + m : a;
+	return mod_inv_in_range(a, m);
+}
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+
+private:
+	int v;
+
+public:
+
+	modnum() : v(0) {}
+	modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	explicit operator int() const { return v; }
+	friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { int64_t v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
+	friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
+
+	modnum inv() const {
+		modnum res;
+		res.v = mod_inv_in_range(v, MOD);
+		return res;
+	}
+	friend modnum inv(const modnum& m) { return m.inv(); }
+	modnum neg() const {
+		modnum res;
+		res.v = v ? MOD-v : 0;
+		return res;
+	}
+	friend modnum neg(const modnum& m) { return m.neg(); }
+
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (const modnum& o) {
+		v -= MOD-o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator -= (const modnum& o) {
+		v -= o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator *= (const modnum& o) {
+		v = int(int64_t(v) * int64_t(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (const modnum& o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
+	friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
+	friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
+	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
+};
+
+template <typename U, typename V> struct pairnum {
+	U u;
+	V v;
+
+	pairnum() : u(0), v(0) {}
+	pairnum(long long val) : u(val), v(val) {}
+	pairnum(const U& u_, const V& v_) : u(u_), v(v_) {}
+
+	friend std::ostream& operator << (std::ostream& out, const pairnum& n) { return out << '(' << n.u << ',' << ' ' << n.v << ')'; }
+	friend std::istream& operator >> (std::istream& in, pairnum& n) { long long val; in >> val; n = pairnum(val); return in; }
+
+	friend bool operator == (const pairnum& a, const pairnum& b) { return a.u == b.u && a.v == b.v; }
+	friend bool operator != (const pairnum& a, const pairnum& b) { return a.u != b.u || a.v != b.v; }
+
+	pairnum inv() const {
+		return pairnum(u.inv(), v.inv());
+	}
+	pairnum neg() const {
+		return pairnum(u.neg(), v.neg());
+	}
+	pairnum operator- () const {
+		return pairnum(-u, -v);
+	}
+	pairnum operator+ () const {
+		return pairnum(+u, +v);
+	}
+
+	pairnum& operator ++ () {
+		++u, ++v;
+		return *this;
+	}
+	pairnum& operator -- () {
+		--u, --v;
+		return *this;
+	}
+
+	pairnum& operator += (const pairnum& o) {
+		u += o.u;
+		v += o.v;
+		return *this;
+	}
+	pairnum& operator -= (const pairnum& o) {
+		u -= o.u;
+		v -= o.v;
+		return *this;
+	}
+	pairnum& operator *= (const pairnum& o) {
+		u *= o.u;
+		v *= o.v;
+		return *this;
+	}
+	pairnum& operator /= (const pairnum& o) {
+		u /= o.u;
+		v /= o.v;
+		return *this;
+	}
+
+	friend pairnum operator ++ (pairnum& a, int) { pairnum r = a; ++a; return r; }
+	friend pairnum operator -- (pairnum& a, int) { pairnum r = a; --a; return r; }
+	friend pairnum operator + (const pairnum& a, const pairnum& b) { return pairnum(a) += b; }
+	friend pairnum operator - (const pairnum& a, const pairnum& b) { return pairnum(a) -= b; }
+	friend pairnum operator * (const pairnum& a, const pairnum& b) { return pairnum(a) *= b; }
+	friend pairnum operator / (const pairnum& a, const pairnum& b) { return pairnum(a) /= b; }
+};
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, K; cin >> N >> K;
+	std::vector<int> A(N); for (auto& a : A) cin >> a;
+
+	using num = modnum<int(1e9)+7>;
+	using pnum = pairnum<num, num>;
+	std::vector<pnum> cnt(1 << K);
+	for (auto a : A) {
+		cnt[a] += {1, __builtin_popcount(a)};
+	}
+	for (int i = 0; i < K; i++) {
+		for (int m = 0; m < (1 << K); m++) {
+			if ((m >> i) & 1) cnt[m] += cnt[m - (1 << i)];
+		}
+	}
+	std::vector<num> weight(K+1);
+	for (int i = 1; i <= K; i++) {
+		weight[i] = 1 / i - weight[i-1];
+	}
+	for (int m = 0; m < (1 << K); m++) {
+		num w = weight[__builtin_popcount(m)];
+		cnt[m] *= pnum(w, w);
+	}
+	for (int i = 0; i < K; i++) {
+		for (int m = 0; m < (1 << K); m++) {
+			if ((m >> i) & 1) cnt[m - (1 << i)] += cnt[m];
+		}
+	}
+	for (int m = 0; m < (1 << K); m++) {
+		cnt[m].u = __builtin_popcount(m) * cnt[m].u + cnt[m].v - N;
+	}
+	for (int i = 0; i < N; i++) {
+		cout << cnt[A[i]].u << '\n';
+	}
 
 	return 0;
 }
