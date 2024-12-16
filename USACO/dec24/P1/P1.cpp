@@ -182,14 +182,8 @@ template <typename U, typename V> struct pairnum {
 	friend pairnum operator / (const pairnum& a, const pairnum& b) { return pairnum(a) /= b; }
 };
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-
-	int N, K; cin >> N >> K;
-	std::vector<int> A(N); for (auto& a : A) cin >> a;
-
-	using num = modnum<int(1e9)+7>;
+using num = modnum<int(1e9)+7>;
+std::vector<num> solve(std::vector<int> A, int K) {
 	using pnum = pairnum<num, num>;
 	std::vector<pnum> cnt(1 << K);
 	for (auto a : A) {
@@ -214,11 +208,34 @@ int main() {
 			if ((m >> i) & 1) cnt[m - (1 << i)] += cnt[m];
 		}
 	}
+	std::vector<num> ans(1 << K);
 	for (int m = 0; m < (1 << K); m++) {
-		cnt[m].u = __builtin_popcount(m) * cnt[m].u + cnt[m].v - N;
+		ans[m] = __builtin_popcount(m) * cnt[m].u + cnt[m].v - int(A.size());
 	}
-	for (int i = 0; i < N; i++) {
-		cout << cnt[A[i]].u << '\n';
+	return ans;
+}
+
+std::vector<num> solve_slow(std::vector<int> A, int K) {
+	std::vector<num> res(1 << K);
+	for (int m = 0; m < (1 << K); m++) {
+		num v = 0;
+		for (auto a : A) {
+			v += num(__builtin_popcount(a & m)) / num(__builtin_popcount(a | m));
+		}
+		res[m] = v;
+	}
+	return res;
+}
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, K; cin >> N >> K;
+	std::vector<int> A(N); for (auto& a : A) cin >> a;
+	auto ans = solve_slow(A, K);
+	for (auto a : A) {
+		cout << ans[a] << '\n';
 	}
 
 	return 0;
