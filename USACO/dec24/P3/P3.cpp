@@ -16,6 +16,14 @@ int main() {
 			assert(V <= best);
 			if (V == best) {
 				for (auto a : P) { cerr << a << ' '; } cerr << '\n';
+				for (int i = 0; i < N; i++) {
+					cerr << P[i];
+					if (i+1 < N) {
+						cerr << " *"[std::abs(P[i+1] - P[i]) > best + 1];
+					} else {
+						cerr << '\n';
+					}
+				}
 			}
 		} while (std::next_permutation(P.begin(), P.end()));
 	}
