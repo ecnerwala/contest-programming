@@ -227,13 +227,30 @@ std::vector<num> solve_slow(std::vector<int> A, int K) {
 	return res;
 }
 
+void test() {
+	using std::cerr;
+	for (int K = 1; K <= 10; K++) {
+		for (int i = 0; i < (1 << K); i++) {
+			std::vector<int> A({i});
+			auto res = solve(A, K);
+			auto ans = solve_slow(A, K);
+			if (res != ans) {
+				cerr << "bad " << K << ' ' << i << '\n';
+				cerr << "res "; for (auto v : res) { cerr << v << ' '; } cerr << '\n';
+				cerr << "ans "; for (auto v : ans) { cerr << v << ' '; } cerr << '\n';
+				assert(false);
+			}
+		}
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N, K; cin >> N >> K;
 	std::vector<int> A(N); for (auto& a : A) cin >> a;
-	auto ans = solve_slow(A, K);
+	auto ans = solve(A, K);
 	for (auto a : A) {
 		cout << ans[a] << '\n';
 	}
