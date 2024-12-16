@@ -4,7 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int N = 1; N <= 5; N++) {
+	for (int N = 2; N <= 5; N++) {
 		int best = N/2;
 		std::vector<int> P(N);
 		std::iota(P.begin(), P.end(), 0);
