@@ -194,10 +194,18 @@ std::vector<num> solve(std::vector<int> A, int K) {
 			if ((m >> i) & 1) cnt[m] += cnt[m - (1 << i)];
 		}
 	}
+	std::vector<num> fact(K+1);
+	fact[0] = 1;
+	for (int i = 1; i <= K; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(K+1);
+	ifact[K] = inv(fact[K]);
+	for (int i = K; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
 	std::vector<num> weight(K+1);
-	for (int i = K; i >= 1; i--) {
-		if (i == 1) weight[i] += inv(num(i));
-		weight[i-1] -= weight[i];
+	for (int i = 1; i <= K; i++) {
+		for (int j = i; j <= K; j++) {
+			weight[i] += (((j - i) & 1) ? -1 : 1) * inv(num(j)) * fact[K-i] * ifact[K-j] * ifact[j-i];
+		}
 	}
 	for (int m = 0; m < (1 << K); m++) {
 		num w = weight[__builtin_popcount(m)];
