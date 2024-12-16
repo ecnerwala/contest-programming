@@ -196,7 +196,7 @@ std::vector<num> solve(std::vector<int> A, int K) {
 	}
 	std::vector<num> weight(K+1);
 	for (int i = K; i >= 1; i--) {
-		weight[i] += inv(num(i));
+		if (i == 1) weight[i] += inv(num(i));
 		weight[i-1] -= weight[i];
 	}
 	for (int m = 0; m < (1 << K); m++) {
@@ -229,8 +229,10 @@ std::vector<num> solve_slow(std::vector<int> A, int K) {
 
 void test() {
 	using std::cerr;
-	for (int K = 1; K <= 10; K++) {
-		for (int i = 1; i < (1 << K); i++) {
+	//for (int K = 1; K <= 10; K++) {
+	{ int K = 3;
+		//for (int i = 1; i < (1 << K); i++) {
+		{ int i = 1;
 			std::vector<int> A({i});
 			auto res = solve(A, K);
 			auto ans = solve_slow(A, K);
