@@ -37,16 +37,16 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 			if (r*G == 2) {
 				assert(false);
 			} else {
-				vr = -1;
-				vp = 1, vq = 2;
+				vr = 2;
+				vp = 1, vq = -1;
 			}
 		} else {
-			vq = -1;
-			vr = 1, vp = 2;
+			vq = 2;
+			vr = 1, vp = -1;
 		}
 	} else {
-		vp = -1;
-		vq = 1, vr = 2;
+		vp = 2;
+		vq = 1, vr = -1;
 	}
 
 	auto fp = [&](int64_t a) -> int {
