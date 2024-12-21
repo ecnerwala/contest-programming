@@ -28,7 +28,10 @@ int main() {
 
 	for (int q = 0; q < Q; q++) {
 		int x, y; cin >> x >> y; x--, y--;
-		int64_t end_time = A[y].b + pref_max[y+1] + std::max<int64_t>(K, tot_work) * x + A[y].l - 1;
+		int64_t end_time = A[y].b + std::max(
+			pref_max[y+1] + std::max<int64_t>(K, tot_work) * x,
+			x > 0 ? (pref_max[N] + std::max<int64_t>(K, tot_work) * (x-1) + tot_work) : 0,
+		) + A[y].l - 1;
 		int64_t d = end_time / K;
 		int64_t h = end_time % K;
 		cout << d+1 << ' ' << h+1 << '\n';
