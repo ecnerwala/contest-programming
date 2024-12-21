@@ -14,9 +14,9 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 			int eB = 0; while (B % p == 0) { B /= p, eB++; }
 			int eC = 0; while (C % p == 0) { C /= p, eC++; }
 			auto pow_p = [&](int e) -> int {
-				int res = 1;
-				for (int z = 0; z < e; z++) res *= p;
-				return res;
+				int v = 1;
+				for (int z = 0; z < e; z++) v *= p;
+				return v;
 			};
 
 			std::array<std::pair<int, int>, 3> vals{std::pair<int, int>{eA, 0}, {eB, 1}, {eC, 2}};
