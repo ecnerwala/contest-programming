@@ -421,7 +421,7 @@ int main() {
 	}
 
 	for (int l = 0; l < 2*N; l++) {
-	cerr << "transition " << l << '\n';
+		cerr << "transition " << l << ' ' << l+1 << '\n';
 		for (int i = 0; i <= N; i++) {
 			for (int j = (l+i)&1; j <= N; j += 2) {
 				if (j > 0) transitions[{l+1, i, j-1}] += transitions[{l, i, j}] * num(j);
