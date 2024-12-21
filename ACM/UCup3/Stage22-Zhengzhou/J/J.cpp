@@ -465,8 +465,8 @@ int main() {
 			// even to odd
 			for (int k = 0; k <= N; k++) {
 				num w = std::exchange(dp_even[k], 0);
-				for (int x = 0; x <= 2*k; x++) {
-					for (int y = x; y <= 2*k; y++) {
+				for (int x = 0; 2*x <= k; x++) {
+					for (int y = x; 2*y <= k; y++) {
 						num n = w * transitions[{k, 0, k-2*x}] * transitions[{2*N-2*k, k-2*x, k-2*y}] * transitions[{k, k-2*y, 0}];
 						dp_odd[{x, y}] += n;
 						if (x != y) dp_odd[{y, x}] += n;
