@@ -458,7 +458,8 @@ int main() {
 					for (int k = std::max(x, y); k <= std::min(x + ax, y + ay); k++) {
 						assert(3*x - 2*k + ax == 3 * y - 2*k + ay);
 						assert(3*x - 2*k + ax <= N);
-						dp_even[k] += w * transitions[{ax, x, 3*x-2*k+ax}] * transitions[{ay, y, 3*y-2*k+ay}] * fact[3*x-2*k + ax];
+						assert(0 <= 3*x - 2*k + ax);
+						dp_even[k] += w * transitions[{ax, x, 3*x-2*k+ax}] * transitions[{ay, y, 3*y-2*k+ay}] * fact[3*x-2*k+ax];
 					}
 				}
 			}
