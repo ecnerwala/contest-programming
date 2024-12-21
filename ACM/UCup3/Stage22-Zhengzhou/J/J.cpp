@@ -457,6 +457,7 @@ int main() {
 					if (x != y) w += std::exchange(dp_odd[{y, x}], 0);
 					for (int k = std::max(x, y); k <= std::min(x + ax, y + ay); k++) {
 						assert(3*x - k + ax == 3 * y - k + ay);
+						assert(3*x - k + ax <= N);
 						dp_even[k] += w * transitions[{ax, x, 3*x-k+ax}] * transitions[{ay, y, 3*y-k+ay}] * fact[3*x-k + ax];
 					}
 				}
