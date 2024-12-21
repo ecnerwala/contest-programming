@@ -32,13 +32,13 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	};
 	for (int g = 0; g < G; g++) {
 		for (int i = 0; i < A; i++) {
-			res[0][i*G+g] = "01"[tm(i % p * G + g) ^ tm(i % q * G + g)];
+			res[0][i*G+g] = "01"[tm(i % p) ^ tm(i % q) ^ tm(g % 3 != 0)];
 		}
 		for (int j = 0; j < B; j++) {
-			res[1][j*G+g] = "01"[tm(j % q * G + g) ^ tm(j % r * G + g)];
+			res[1][j*G+g] = "01"[tm(j % q) ^ tm(j % r) ^ tm(g % 3 != 1)];
 		}
 		for (int k = 0; k < C; k++) {
-			res[2][k*G+g] = "01"[tm(k % r * G + g) ^ tm(k % p * G + g)];
+			res[2][k*G+g] = "01"[tm(k % r) ^ tm(k % p) ^ tm(g % 3 != 2)];
 		}
 	}
 	return res;
