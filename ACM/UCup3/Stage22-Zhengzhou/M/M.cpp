@@ -10,14 +10,25 @@ int main() {
 	for (auto& a : A) cin >> a;
 
 	using ld = long double;
-	ld sum = 0;
-	for (auto a : A) {
-		sum += ld(a) / ld(1 + a);
+	auto eval = [&](ld c) -> ld {
+		ld sum = 0;
+		for (auto a : A) {
+			sum += ld(c * a) / ld(1 + c * a);
+		}
+		return sum;
+	};
+	ld mi = 0;
+	ld ma = N;
+	for (int z = 0; z <= 60; z++) {
+		ld md = mi + (ma - mi) / 2;
+		if (eval(md) >= K) ma = md;
+		else mi = md;
 	}
-	ld coeff = K / sum;
+
 	cout << fixed << setprecision(20);
+	ld c = mi;
 	for (auto a : A) {
-		cout << ld(a) / ld(1 + a) * coeff << '\n';
+		cout << ld(c * a) / ld(1 + c * a) << '\n';
 	}
 
 	return 0;
