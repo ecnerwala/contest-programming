@@ -2,6 +2,21 @@
 
 using std::cerr;
 
+bool has_period(std::string S) {
+	int N = int(S.size());
+	for (int i = 1; i < N; i++) {
+		if (N % i == 0) {
+			bool good = true;
+			for (int j = 0; j + i < N; j++) {
+				if (S[j] != S[j + i]) { good = false; break; }
+			}
+			if (good) return true;
+		}
+	}
+	return false;
+}
+
+
 std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C) {
 	if (A == 2 && B == 2 && C == 2) return std::nullopt;
 	if (A == 1 && B == 1 && C == 1) return std::array<std::string, 3>{"0", "0", "0"};
@@ -34,16 +49,16 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	int vr;
 	if (p*G >= 3) {
 		vp = 2;
-		if (q*G >= 2) vq = 1, vr = 3;
-		else vr = 1, vq = 3;
+		if (q*G >= 2) vq = 1, vr = -1;
+		else vr = 1, vq = -1;
 	} else if (q*G >= 3) {
 		vq = 2;
-		if (p*G >= 2) vp = 1, vr = 3;
-		else vp = 1, vr = 3;
+		if (p*G >= 2) vp = 1, vr = -1;
+		else vp = 1, vr = -1;
 	} else if (r*G >= 3) {
 		vr = 2;
-		if (p*G >= 2) vp = 1, vq = 3;
-		else vp = 1, vq = 3;
+		if (p*G >= 2) vp = 1, vq = -1;
+		else vp = 1, vq = -1;
 	} else {
 		if (p*G == 2) vp = 1, vq = -1, vr = -1;
 		else if (q*G == 2) vq = 1, vp = -1, vr = -1;
@@ -51,40 +66,25 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 		else vp = -1, vq = -1, vr = -1;
 	}
 	//cerr << vp << ' ' << vq << ' ' << vr << '\n';
+	std::mt19937 mt(48);
 
-	auto fp = [&](int64_t a) -> int {
-		return a == vp;
-	};
-	auto fq = [&](int64_t a) -> int {
-		return a == vq;
-	};
-	auto fr = [&](int64_t a) -> int {
-		return a == vr;
-	};
-	for (int i = 0; i < A*G; i++) {
-		res[0][i] = "01"[fp(i % (p*G)) ^ fq(i % (q*G))];
-	}
-	for (int j = 0; j < B*G; j++) {
-		res[1][j] = "01"[fq(j % (q*G)) ^ fr(j % (r*G))];
-	}
-	for (int k = 0; k < C*G; k++) {
-		res[2][k] = "01"[fr(k % (r*G)) ^ fp(k % (p*G))];
+	while (true) {
+		std::vector<int> fp(p*G); for (auto& a : fp) a = mt() & 1;
+		std::vector<int> fq(q*G); for (auto& a : fq) a = mt() & 1;
+		std::vector<int> fr(q*G); for (auto& a : fr) a = mt() & 1;
+		for (int i = 0; i < A*G; i++) {
+			res[0][i] = "01"[fp[i % (p*G)] ^ fq[i % (q*G)]];
+		}
+		for (int j = 0; j < B*G; j++) {
+			res[1][j] = "01"[fq[j % (q*G)] ^ fr[j % (r*G)]];
+		}
+		for (int k = 0; k < C*G; k++) {
+			res[2][k] = "01"[fr[k % (r*G)] ^ fp[k % (p*G)]];
+		}
+
+		if (!has_period(res[0]) && !has_period(res[1]) && !has_period(res[2])) break;
 	}
 	return res;
-}
-
-bool has_period(std::string S) {
-	int N = int(S.size());
-	for (int i = 1; i < N; i++) {
-		if (N % i == 0) {
-			bool good = true;
-			for (int j = 0; j + i < N; j++) {
-				if (S[j] != S[j + i]) { good = false; break; }
-			}
-			if (good) return true;
-		}
-	}
-	return false;
 }
 
 void test() {
