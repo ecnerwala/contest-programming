@@ -43,8 +43,6 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 				return std::nullopt;
 			}
 			pres[z_mi][1] = '1';
-			if (2 < p_mi) pres[z_mi][2] = '1';
-			pres[z_ma_x][2] = '1';
 			pres[z_ma_x][0] = '1';
 			pres[z_ma_y][0] = '1';
 			pres[z_ma_y][1] = '1';
