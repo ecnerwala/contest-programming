@@ -29,25 +29,28 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	res[1].resize(B*G);
 	res[2].resize(C*G);
 
-	int vp = 0;
-	int vq = 0;
-	int vr = 0;
-	if (p*G == 2) {
-		if (q*G == 2) {
-			if (r*G == 2) {
-				assert(false);
-			} else {
-				vr = 2;
-				vp = 1, vq = -1;
-			}
-		} else {
-			vq = 2;
-			vr = 1, vp = -1;
-		}
-	} else {
+	int vp;
+	int vq;
+	int vr;
+	if (p*G >= 3) {
 		vp = 2;
-		vq = 1, vr = -1;
+		if (q*G >= 2) vq = 1, vr = -1;
+		else vr = 1, vq = -1;
+	} else if (q*G >= 3) {
+		vq = 2;
+		if (p*G >= 2) vp = 1, vr = -1;
+		else vp = 1, vr = -1;
+	} else if (r*G >= 3) {
+		vr = 2;
+		if (p*G >= 2) vp = 1, vq = -1;
+		else vp = 1, vq = -1;
+	} else {
+		if (p*G == 2) vp = 1, vq = -1, vr = -1;
+		else if (q*G == 2) vq = 1, vp = -1, vr = -1;
+		else if (r*G == 2) vr = 1, vp = -1, vq = -1;
+		else vp = -1, vq = -1, vr = -1;
 	}
+	//cerr << vp << ' ' << vq << ' ' << vr << '\n';
 
 	auto fp = [&](int64_t a) -> int {
 		return a == vp;
