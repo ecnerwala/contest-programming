@@ -34,16 +34,16 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	int vr;
 	if (p*G >= 3) {
 		vp = 2;
-		if (q*G >= 2) vq = 1, vr = 4;
-		else vr = 1, vq = 4;
+		if (q*G >= 2) vq = 1, vr = 3;
+		else vr = 1, vq = 3;
 	} else if (q*G >= 3) {
 		vq = 2;
-		if (p*G >= 2) vp = 1, vr = 4;
-		else vp = 1, vr = 4;
+		if (p*G >= 2) vp = 1, vr = 3;
+		else vp = 1, vr = 3;
 	} else if (r*G >= 3) {
 		vr = 2;
-		if (p*G >= 2) vp = 1, vq = 4;
-		else vp = 1, vq = 4;
+		if (p*G >= 2) vp = 1, vq = 3;
+		else vp = 1, vq = 3;
 	} else {
 		if (p*G == 2) vp = 1, vq = -1, vr = -1;
 		else if (q*G == 2) vq = 1, vp = -1, vr = -1;
