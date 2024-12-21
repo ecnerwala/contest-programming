@@ -293,8 +293,7 @@ int main() {
 				da.diam, db.diam
 			});
 			merge(a, b);
-			dat[get_par(a)] = nd;
-			update_tot_ans(nd);
+			update_tot_ans(dat[get_par(a)] = nd);
 		}
 	}
 
