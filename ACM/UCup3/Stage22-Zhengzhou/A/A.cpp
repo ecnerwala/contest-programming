@@ -132,6 +132,7 @@ void test() {
 				}
 			}
 		}
+		cerr << "tested " << A << '\n';
 	}
 }
 
