@@ -21,7 +21,6 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 
 			std::array<std::pair<int, int>, 3> vals{std::pair<int, int>{eA, 0}, {eB, 1}, {eC, 2}};
 			std::sort(vals.begin(), vals.end());
-			cerr << p << ' ' << vals[1].first << ' ' << vals[2].first << '\n';
 			if (vals[1].first != vals[2].first) return std::nullopt;
 			int z_mi = vals[0].second;
 			int z_ma_x = vals[1].second;
