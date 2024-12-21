@@ -26,7 +26,7 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	res[2].resize(C*G);
 
 	auto tm = [&](int64_t a) -> int {
-		return __builtin_ctzll(a) & 1;
+		return __builtin_popcountll(a) & 1;
 	};
 	for (int g = 0; g < G; g++) {
 		for (int i = 0; i < A; i++) {
