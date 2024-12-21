@@ -424,7 +424,7 @@ int main() {
 		cerr << "transition " << l << ' ' << l+1 << '\n';
 		for (int i = 0; i <= N; i++) {
 			for (int j = (l+i)&1; j <= N; j += 2) {
-				if (j > 0) transitions[{l+1, i, j-1}] += transitions[{l, i, j}] * num(j);
+				if (j-1 >= 0) transitions[{l+1, i, j-1}] += transitions[{l, i, j}] * num(j);
 				if (j+1 <= N) transitions[{l+1, i, j+1}] += transitions[{l, i, j}];
 			}
 		}
