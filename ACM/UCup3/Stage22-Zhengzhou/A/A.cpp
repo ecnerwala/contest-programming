@@ -34,16 +34,16 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	int vr;
 	if (p*G >= 3) {
 		vp = 2;
-		if (q*G >= 2) vq = 1, vr = -1;
-		else vr = 1, vq = -1;
+		if (q*G >= 2) vq = 1, vr = 3;
+		else vr = 1, vq = 3;
 	} else if (q*G >= 3) {
 		vq = 2;
-		if (p*G >= 2) vp = 1, vr = -1;
-		else vp = 1, vr = -1;
+		if (p*G >= 2) vp = 1, vr = 3;
+		else vp = 1, vr = 3;
 	} else if (r*G >= 3) {
 		vr = 2;
-		if (p*G >= 2) vp = 1, vq = -1;
-		else vp = 1, vq = -1;
+		if (p*G >= 2) vp = 1, vq = 3;
+		else vp = 1, vq = 3;
 	} else {
 		if (p*G == 2) vp = 1, vq = -1, vr = -1;
 		else if (q*G == 2) vq = 1, vp = -1, vr = -1;
@@ -53,13 +53,13 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	//cerr << vp << ' ' << vq << ' ' << vr << '\n';
 
 	auto fp = [&](int64_t a) -> int {
-		return a == 0;
+		return a == vp;
 	};
 	auto fq = [&](int64_t a) -> int {
-		return a == 0;
+		return a == vq;
 	};
 	auto fr = [&](int64_t a) -> int {
-		return a == 0;
+		return a == vr;
 	};
 	for (int i = 0; i < A*G; i++) {
 		res[0][i] = "01"[fp(i % (p*G)) ^ fq(i % (q*G))];
