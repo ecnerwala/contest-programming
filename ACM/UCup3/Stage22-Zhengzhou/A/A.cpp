@@ -58,6 +58,8 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 			}
 		}
 	}
+	return res;
+	/*
 	int64_t G = std::gcd(std::gcd(A, B), C);
 	A /= G;
 	B /= G;
@@ -97,6 +99,7 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 		}
 	}
 	return res;
+	*/
 }
 
 bool has_period(std::string S) {
