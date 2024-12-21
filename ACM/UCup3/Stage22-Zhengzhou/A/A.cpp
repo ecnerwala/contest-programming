@@ -29,17 +29,34 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	res[1].resize(B*G);
 	res[2].resize(C*G);
 
-	auto tm = [&](int64_t a) -> int {
-		return __builtin_popcountll(a) & 1;
-	};
+	int vp = 0;
+	int vq = 0;
+	int vr = 0;
+	if (p*G == 2) {
+		if (q*G == 2) {
+			if (r*G == 2) {
+				assert(false);
+			} else {
+				vr = 3;
+				vp = 1, vq = 2;
+			}
+		} else {
+			vq = 3;
+			vr = 1, vp = 2;
+		}
+	} else {
+		vp = 3;
+		vq = 1, vr = 2;
+	}
+
 	auto fp = [&](int64_t a) -> int {
-		return a == 0;
+		return a < 2 && ((vp >> a) & 1);
 	};
 	auto fq = [&](int64_t a) -> int {
-		return a == 1;
+		return a < 2 && ((vq >> a) & 1);
 	};
 	auto fr = [&](int64_t a) -> int {
-		return a == 0 || a == 1;
+		return a < 2 && ((vr >> a) & 1);
 	};
 	for (int i = 0; i < A*G; i++) {
 		res[0][i] = "01"[fp(i % (p*G)) ^ fq(i % (q*G))];
