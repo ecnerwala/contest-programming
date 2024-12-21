@@ -33,20 +33,23 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 			int p_mi = pow_p(e_mi);
 			int p_ma = pow_p(e_ma);
 
-			if (p == 2 && e_mi == 1 && e_ma == 1) return std::nullopt;
-
 			std::array<std::string, 3> pres;
 			pres[0].assign(pow_p(eA), '0');
 			pres[1].assign(pow_p(eB), '0');
 			pres[2].assign(pow_p(eC), '0');
 
-			if (p_ma == 2) {
+			if (p_mi == 2 && p_ma == 2) {
 				return std::nullopt;
+			} else if (p_ma == 2) {
+				assert(p_mi == 1);
+				pres[z_ma_x][1] = '1';
+				pres[z_ma_y][1] = '1';
+			} else {
+				pres[z_mi][0] = '1';
+				pres[z_ma_x][1] = '1';
+				pres[z_ma_y][0] = '1';
+				pres[z_ma_y][1] = '1';
 			}
-			pres[z_mi][1] = '1';
-			pres[z_ma_x][0] = '1';
-			pres[z_ma_y][0] = '1';
-			pres[z_ma_y][1] = '1';
 
 			for (int z = 0; z < 3; z++) {
 				std::string x; x.resize(res[z].size() * pres[z].size());
