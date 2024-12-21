@@ -3,7 +3,61 @@
 using std::cerr;
 
 std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C) {
-	if (A == 2 && B == 2 && C == 2) return std::nullopt;
+	std::array<std::string, 3> res;
+	res[0] = "0";
+	res[1] = "0";
+	res[2] = "0";
+
+	for (int p = 2; p <= std::max({A, B, C}); p++) {
+		if (A % p == 0 || B % p == 0 || C % p == 0) {
+			int eA = 0; while (A % p == 0) { A /= p, eA++; }
+			int eB = 0; while (B % p == 0) { B /= p, eB++; }
+			int eC = 0; while (C % p == 0) { C /= p, eC++; }
+			auto pow_p = [&](int e) -> int {
+				int res = 1;
+				for (int z = 0; z < e; z++) res *= p;
+				return res;
+			};
+
+			std::array<std::pair<int, int>, 3> vals{std::pair<int, int>{eA, 0}, {eB, 1}, {eC, 2}};
+			std::sort(vals.begin(), vals.end());
+			if (vals[1].first != vals[2].first) return std::nullopt;
+			int z_mi = vals[0].second;
+			int z_ma_x = vals[1].second;
+			int z_ma_y = vals[2].second;
+
+			int e_mi = vals[0].first;
+			int e_ma = vals[1].first;
+
+			int p_mi = pow_p(e_mi);
+			int p_ma = pow_p(e_ma);
+
+			if (p == 2 && e_mi == 1 && e_ma == 1) return std::nullopt;
+
+			std::array<std::string, 3> pres;
+			pres[0].assign(pow_p(eA), '0');
+			pres[1].assign(pow_p(eB), '0');
+			pres[2].assign(pow_p(eC), '0');
+
+			if (p_ma == 2) {
+				return std::nullopt;
+			}
+			pres[z_mi][1] = '1';
+			if (2 < p_mi) pres[z_mi][2] = '1';
+			pres[z_ma_x][2] = '1';
+			pres[z_ma_x][0] = '1';
+			pres[z_ma_y][0] = '1';
+			pres[z_ma_y][1] = '1';
+
+			for (int z = 0; z < 3; z++) {
+				std::string x; x.resize(res[z].size() * pres[z].size());
+				for (int i = 0; i < int(x.size()); i++) {
+					x[i] = char(res[z][i % int(res[z].size())] ^ pres[z][i % int(pres[z].size())] ^ '0');
+				}
+				res[z] = std::move(x);
+			}
+		}
+	}
 	int64_t G = std::gcd(std::gcd(A, B), C);
 	A /= G;
 	B /= G;
