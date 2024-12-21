@@ -295,6 +295,7 @@ int main() {
 			merge(a, b);
 			update_tot_ans(dat[get_par(a)] = nd);
 		}
+		cout << tot_ans[0] << ' ' << tot_ans[1] << '\n';
 	}
 
 	return 0;
