@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+using std::cerr;
+
 std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C) {
 	int64_t G = std::gcd(std::gcd(A, B), C);
 	A /= G;
@@ -40,6 +42,41 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 		}
 	}
 	return res;
+}
+
+bool has_period(std::string S) {
+	int N = int(S.size());
+	for (int i = 1; i < N; i++) {
+		if (N % i == 0) {
+			bool good = true;
+			for (int j = 0; j + i < N; j++) {
+				if (S[j] != S[j + i]) { good = false; break; }
+			}
+			if (good) return true;
+		}
+	}
+	return false;
+}
+
+void test() {
+	for (int A = 1; A <= 100; A++) {
+		for (int B = 1; B <= A; B++) {
+			for (int C = 1; C <= B; C++) {
+				auto res = solve(A, B, C);
+				if (res) {
+					const auto& v = *res;
+					if (has_period(v[0]) || has_period(v[1]) || has_period(v[2])) {
+						cerr << "bad" << '\n';
+						cerr << A << ' ' << B << ' ' << C << '\n';
+						cerr << v[0] << '\n';
+						cerr << v[1] << '\n';
+						cerr << v[2] << '\n';
+						assert(false);
+					}
+				}
+			}
+		}
+	}
 }
 
 int main() {
