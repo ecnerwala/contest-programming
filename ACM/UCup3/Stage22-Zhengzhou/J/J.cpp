@@ -413,16 +413,14 @@ int main() {
 	using num = dynamic_modnum<my_tag>;
 	int N, ITERS; cin >> N >> ITERS >> num::MOD_READER();
 
-	cerr << N << '\n';
+	//cerr << N << '\n';
 
 	tensor<num, 3> transitions({2*N+1, N+1, N+1});
 	for (int i = 0; i <= N; i++) {
-		cerr << 0 << ' ' << i << ' ' << i << '\n';
 		transitions[{0, i, i}] = 1;
 	}
 
 	for (int l = 0; l < 2*N; l++) {
-		cerr << "transition " << l << ' ' << l+1 << '\n';
 		for (int i = 0; i <= N; i++) {
 			for (int j = (l+i)&1; j <= N; j += 2) {
 				if (j-1 >= 0) transitions[{l+1, i, j-1}] += transitions[{l, i, j}] * num(j);
@@ -431,7 +429,6 @@ int main() {
 		}
 	}
 
-	cerr << "hi" << '\n';
 	std::vector<num> fact(2*N+1);
 	fact[0] = 1;
 	for (int i = 1; i < int(fact.size()); i++) fact[i] = fact[i-1] * num(i);
