@@ -50,13 +50,13 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	}
 
 	auto fp = [&](int64_t a) -> int {
-		return a < 2 && ((vp >> a) & 1);
+		return a == vp;
 	};
 	auto fq = [&](int64_t a) -> int {
-		return a < 2 && ((vq >> a) & 1);
+		return a == vq;
 	};
 	auto fr = [&](int64_t a) -> int {
-		return a < 2 && ((vr >> a) & 1);
+		return a == vr;
 	};
 	for (int i = 0; i < A*G; i++) {
 		res[0][i] = "01"[fp(i % (p*G)) ^ fq(i % (q*G))];
