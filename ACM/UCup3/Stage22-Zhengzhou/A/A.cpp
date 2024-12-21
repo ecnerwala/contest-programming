@@ -8,9 +8,10 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	if (std::lcm(A, B) % C != 0 || std::lcm(B, C) % A != 0 || std::lcm(C, A) % B != 0) {
 		return std::nullopt;
 	}
-	int64_t p = std::gcd(A, B);
-	int64_t q = std::gcd(B, C);
-	int64_t r = std::gcd(C, A);
+
+	int64_t p = std::gcd(C, A);
+	int64_t q = std::gcd(A, B);
+	int64_t r = std::gcd(B, C);
 
 	assert(std::gcd(p, q) == 1);
 	assert(std::gcd(q, r) == 1);
