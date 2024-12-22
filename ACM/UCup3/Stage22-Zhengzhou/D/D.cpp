@@ -390,6 +390,7 @@ int main() {
 		} else {
 			res = la.get_ancestor(a, 1);
 		}
+		cerr << a << ' ' << r << ' ' << res << ' ' << la.get_next(a, r) << '\n';
 		assert(res == la.get_next(a, r));
 		return res;
 	};
