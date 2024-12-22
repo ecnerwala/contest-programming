@@ -330,7 +330,7 @@ int main() {
 
 	auto get_next = [&](int a, int r) -> int {
 		assert(a != r);
-		int l = la.get_next(a, r);
+		return la.get_next(a, r);
 	};
 
 	std::vector<bool> is_alive(V, true);
