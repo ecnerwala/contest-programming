@@ -391,6 +391,7 @@ int main() {
 			res = la.get_ancestor(a, 1);
 		}
 		assert(res == la.get_next(a, r));
+		return res;
 	};
 
 	std::vector<bool> is_alive(V, true);
