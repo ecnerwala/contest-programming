@@ -1,5 +1,107 @@
 #include <bits/stdc++.h>
 
+template <typename T, class Compare = std::less<T>> class RangeMinQuery : private Compare {
+	static const int BUCKET_SIZE = 32;
+	static const int BUCKET_SIZE_LOG = 5;
+	static_assert(BUCKET_SIZE == (1 << BUCKET_SIZE_LOG), "BUCKET_SIZE should be a power of 2");
+	static const int CACHE_LINE_ALIGNMENT = 64;
+	int n = 0;
+	std::vector<T> data;
+	std::vector<T> pref_data;
+	std::vector<T> suff_data;
+	std::vector<T> sparse_table;
+	std::vector<uint32_t> range_mask;
+
+private:
+	int num_buckets() const {
+		return n >> BUCKET_SIZE_LOG;
+	}
+	int num_levels() const {
+		return num_buckets() ? 32 - __builtin_clz(num_buckets()) : 0;
+	}
+	int sparse_table_size() const {
+		return num_buckets() * num_levels();
+	}
+private:
+	const T& min(const T& a, const T& b) const {
+		return Compare::operator()(a, b) ? a : b;
+	}
+	void setmin(T& a, const T& b) const {
+		if (Compare::operator()(b, a)) a = b;
+	}
+
+	template <typename Vec> static int get_size(const Vec& v) { using std::size; return int(size(v)); }
+
+public:
+	RangeMinQuery() {}
+	template <typename Vec> explicit RangeMinQuery(const Vec& data_, const Compare& comp_ = Compare())
+		: Compare(comp_)
+		, n(get_size(data_))
+		, data(n)
+		, pref_data(n)
+		, suff_data(n)
+		, sparse_table(sparse_table_size())
+		, range_mask(n)
+	{
+		for (int i = 0; i < n; i++) data[i] = data_[i];
+		for (int i = 0; i < n; i++) {
+			if (i & (BUCKET_SIZE-1)) {
+				uint32_t m = range_mask[i-1];
+				while (m && !Compare::operator()(data[(i | (BUCKET_SIZE-1)) - __builtin_clz(m)], data[i])) {
+					m -= uint32_t(1) << (BUCKET_SIZE - 1 - __builtin_clz(m));
+				}
+				m |= uint32_t(1) << (i & (BUCKET_SIZE - 1));
+				range_mask[i] = m;
+			} else {
+				range_mask[i] = 1;
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			pref_data[i] = data[i];
+			if (i & (BUCKET_SIZE-1)) {
+				setmin(pref_data[i], pref_data[i-1]);
+			}
+		}
+		for (int i = n-1; i >= 0; i--) {
+			suff_data[i] = data[i];
+			if (i+1 < n && ((i+1) & (BUCKET_SIZE-1))) {
+				setmin(suff_data[i], suff_data[i+1]);
+			}
+		}
+		for (int i = 0; i < num_buckets(); i++) {
+			sparse_table[i] = data[i * BUCKET_SIZE];
+			for (int v = 1; v < BUCKET_SIZE; v++) {
+				setmin(sparse_table[i], data[i * BUCKET_SIZE + v]);
+			}
+		}
+		for (int l = 0; l+1 < num_levels(); l++) {
+			for (int i = 0; i + (1 << (l+1)) <= num_buckets(); i++) {
+				sparse_table[(l+1) * num_buckets() + i] = min(sparse_table[l * num_buckets() + i], sparse_table[l * num_buckets() + i + (1 << l)]);
+			}
+		}
+	}
+
+	T query(int l, int r) const {
+		assert(l <= r);
+		int bucket_l = (l >> BUCKET_SIZE_LOG);
+		int bucket_r = (r >> BUCKET_SIZE_LOG);
+		if (bucket_l == bucket_r) {
+			uint32_t msk = range_mask[r] & ~((uint32_t(1) << (l & (BUCKET_SIZE-1))) - 1);
+			int ind = (l & ~(BUCKET_SIZE-1)) + __builtin_ctz(msk);
+			return data[ind];
+		} else {
+			T ans = min(suff_data[l], pref_data[r]);
+			bucket_l++;
+			if (bucket_l < bucket_r) {
+				int level = (32 - __builtin_clz(bucket_r - bucket_l)) - 1;
+				setmin(ans, sparse_table[level * num_buckets() + bucket_l]);
+				setmin(ans, sparse_table[level * num_buckets() + bucket_r - (1 << level)]);
+			}
+			return ans;
+		}
+	}
+};
+
 namespace std {
 
 template<class Fun>
@@ -22,108 +124,110 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
-namespace ecnerwala {
-
-using std::swap;
-
-struct level_ancestor {
+struct static_forest_t {
 	int N;
-	std::vector<int> depth;
-	std::vector<int> preorder;
+	// original label to preorder
 	std::vector<int> idx;
-	std::vector<std::pair<int, int>> heavyPar; // heavy parent, distance
-	level_ancestor() : N(0) {}
 
-	level_ancestor(const std::vector<int>& par) : N(int(par.size())), depth(N), preorder(N), idx(N), heavyPar(N) {
-		std::vector<std::vector<int>> ch(N);
-		for (int i = 0; i < N; i++) {
-			if (par[i] != -1) ch[par[i]].push_back(i);
-		}
-		std::vector<int> sz(N);
-		int nxt_idx = 0;
-		for (int i = 0; i < N; i++) {
-			if (par[i] == -1) {
-				depth[i] = 0;
-				std::y_combinator([&](auto self, int cur) -> void {
-					sz[cur] = 1;
-					for (int nxt : ch[cur]) {
-						depth[nxt] = depth[cur] + 1;
-						self(nxt);
-						sz[cur] += sz[nxt];
-					}
-					if (!ch[cur].empty()) {
-						auto mit = max_element(ch[cur].begin(), ch[cur].end(), [&](int a, int b) { return sz[a] < sz[b]; });
-						swap(*ch[cur].begin(), *mit);
-					}
-				})(i);
-				std::y_combinator([&](auto self, int cur, int isRoot = true) -> void {
-					preorder[idx[cur] = nxt_idx++] = cur;
-					if (isRoot) {
-						heavyPar[idx[cur]] = {par[cur] == -1 ? -1 : idx[par[cur]], 1};
-					} else {
-						assert(idx[par[cur]] == idx[cur]-1);
-						heavyPar[idx[cur]] = heavyPar[idx[cur]-1];
-						heavyPar[idx[cur]].second++;
-					}
-					bool chRoot = false;
-					for (int nxt : ch[cur]) {
-						self(nxt, chRoot);
-						chRoot = true;
-					}
-				})(i);
-			}
-		}
-	}
+	// all keys/values are by preorder relabelling
+	std::vector<int> preorder;
+	std::vector<int> depth;
+	std::vector<int> par;
+	std::vector<int> sz;
 
-	int get_ancestor(int a, int k) const {
-		assert(k >= 0);
-		a = idx[a];
-		while (a != -1 && k) {
-			if (k >= heavyPar[a].second) {
-				k -= heavyPar[a].second;
-				assert(heavyPar[a].first <= a - heavyPar[a].second);
-				a = heavyPar[a].first;
+	std::vector<int> depth_val_to_idx;
+	RangeMinQuery<int> depth_val_rmq;
+
+	static_forest_t() : N(0) {}
+	static_forest_t(std::vector<std::vector<int>> adj, std::vector<int> roots = {}) :
+		N(int(adj.size())),
+		idx(N, -1),
+		preorder(N, -1),
+		depth(N, -1),
+		par(N, -1),
+		sz(N, -1),
+		depth_val_to_idx(N, -1)
+	{
+		{
+			int nxt_idx = 0;
+			std::vector<int> depth_freq(N);
+			std::vector<int> depth_val(N);
+			auto build_one_tree = [&](int rt) -> void {
+				assert(idx[rt] == -1);
+				std::y_combinator([&](auto&& self, int cur, int prv, int par_idx, int d) -> int {
+					int cur_idx = idx[cur] = nxt_idx++;
+					preorder[cur_idx] = cur;
+					par[cur_idx] = par_idx;
+					sz[cur_idx] = 1;
+					depth[cur_idx] = d;
+					depth_val[cur_idx] = ++depth_freq[d];
+					for (int nxt : adj[cur]) {
+						if (nxt == prv) continue;
+						sz[cur_idx] += self(nxt, cur, cur_idx, d+1);
+					}
+					return sz[cur_idx];
+				})(rt, -1, -1, 0);
+			};
+			if (!roots.empty()) {
+				for (int r : roots) build_one_tree(r);
+				for (int i = 0; i < N; i++) {
+					assert(idx[i] != -1);
+				}
 			} else {
-				a -= k;
-				k = 0;
+				for (int rt = 0; rt < N; rt++) {
+					if (idx[rt] == -1) {
+						build_one_tree(rt);
+						roots.push_back(rt);
+					}
+				}
 			}
-		}
-		if (a == -1) return -1;
-		else return preorder[a];
-	}
-
-	int lca(int a, int b) const {
-		a = idx[a], b = idx[b];
-		while (true) {
-			if (a > b) swap(a, b);
-			assert(a <= b);
-			if (a > b - heavyPar[b].second) {
-				return preorder[a];
+			for (int i = 1; i < N; i++) {
+				depth_freq[i] += depth_freq[i-1];
 			}
-			b = heavyPar[b].first;
-			if (b == -1) return -1;
+			for (int i = 0; i < N; i++) {
+				depth_val[i] = depth_freq[depth[i]] - depth_val[i];
+				assert(depth_val_to_idx[depth_val[i]] == -1);
+				depth_val_to_idx[depth_val[i]] = i;
+			}
+			depth_val_rmq = RangeMinQuery<int>(depth_val);
 		}
 	}
 
-	int dist(int a, int b) const {
+	int dist(int a, int b) {
+		if (a == b) return 0;
 		a = idx[a], b = idx[b];
-		int res = 0;
-		while (true) {
-			if (a > b) swap(a, b);
-			assert(a <= b);
-			if (a > b - heavyPar[b].second) {
-				res += b - a;
-				break;
-			}
-			res += heavyPar[b].second;
-			b = heavyPar[b].first;
-			if (b == -1) return -1;
+		if (a > b) std::swap(a, b);
+		int o = depth_val_to_idx[depth_val_rmq.query(a+1, b)];
+		return depth[a] + depth[b] - 2 * (depth[o] - 1);
+	}
+
+	int lca(int a, int b) {
+		if (a == b) return a;
+		a = idx[a], b = idx[b];
+		if (a > b) std::swap(a, b);
+		int o = depth_val_to_idx[depth_val_rmq.query(a+1, b)];
+		return preorder[par[o]];
+	}
+
+	// query which subtree of a contains b; b must be inside a 
+	// returns -1 if a == b
+	int get_subtree(int a, int b) {
+		if (a == b) return -1;
+		a = idx[a], b = idx[b];
+		assert(a < b && b < a + sz[a]);
+		return preorder[depth_val_to_idx[depth_val_rmq.query(a+1, b)]];
+	}
+
+	// next from a to b
+	int get_next(int a, int b) {
+		a = idx[a], b = idx[b];
+		if (b <= a && a < b + sz[b]) {
+			return get_subtree(b, a);
+		} else {
+			return preorder[par[a]];
 		}
-		return res;
 	}
 };
-
-} // namespace ecnerwala
 
 int main() {
 	using namespace std;
