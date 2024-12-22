@@ -268,19 +268,7 @@ int main() {
 		}
 	}
 
-	std::vector<int> tree_par(V, -1);
-	for (int z = 0; z < V; z++) {
-		if (tree_par[z] == -1) {
-			std::y_combinator([&](auto self, int cur, int prv) -> void {
-				tree_par[cur] = prv;
-				for (int nxt : adj[cur]) {
-					if (nxt == prv) continue;
-					self(nxt, cur);
-				}
-			})(z, -1);
-		}
-	}
-	ecnerwala::level_ancestor la(tree_par);
+	static_forest_t la(adj);
 
 	std::vector<int> par(V, -1);
 	auto get_par = [&](int a) -> int {
@@ -342,12 +330,7 @@ int main() {
 
 	auto get_next = [&](int a, int r) -> int {
 		assert(a != r);
-		int l = la.lca(a, r);
-		if (l == a) {
-			return la.get_ancestor(r, la.depth[r] - la.depth[a] - 1);
-		} else {
-			return la.get_ancestor(a, 1);
-		}
+		int l = la.get_next(a, r);
 	};
 
 	std::vector<bool> is_alive(V, true);
