@@ -221,8 +221,8 @@ struct static_forest_t {
 	// next from a to b
 	int get_next(int a, int b) {
 		a = idx[a], b = idx[b];
-		if (b <= a && a < b + sz[b]) {
-			return get_subtree(b, a);
+		if (a <= b && b < a + sz[a]) {
+			return get_subtree(a, b);
 		} else {
 			return preorder[par[a]];
 		}
