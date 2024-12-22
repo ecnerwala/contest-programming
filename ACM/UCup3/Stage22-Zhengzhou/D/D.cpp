@@ -170,9 +170,6 @@ struct static_forest_t {
 			};
 			if (!roots.empty()) {
 				for (int r : roots) build_one_tree(r);
-				for (int i = 0; i < N; i++) {
-					assert(idx[i] != -1);
-				}
 			} else {
 				for (int rt = 0; rt < N; rt++) {
 					if (idx[rt] == -1) {
@@ -180,6 +177,9 @@ struct static_forest_t {
 						roots.push_back(rt);
 					}
 				}
+			}
+			for (int i = 0; i < N; i++) {
+				assert(idx[i] != -1);
 			}
 			for (int i = 1; i < N; i++) {
 				depth_freq[i] += depth_freq[i-1];
