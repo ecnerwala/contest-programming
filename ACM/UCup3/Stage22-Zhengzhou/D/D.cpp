@@ -126,6 +126,8 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 struct static_forest_t {
 	int N;
+
+private:
 	// original label to preorder
 	std::vector<int> idx;
 
@@ -139,6 +141,8 @@ struct static_forest_t {
 
 	std::vector<int> depth_val_to_idx;
 	RangeMinQuery<int> depth_val_rmq;
+
+public:
 
 	static_forest_t() : N(0) {}
 	static_forest_t(const std::vector<std::vector<int>>& adj, const std::vector<int>& roots = {}) :
@@ -159,7 +163,7 @@ struct static_forest_t {
 			std::vector<int> heavy_child(N, -1);
 			auto build_one_tree = [&](int rt) -> void {
 				std::y_combinator([&](auto self, int cur, int prv) -> int {
-					int sz = 1;
+					int cur_sz = 1;
 					int cur_heavy = -1;
 					int cur_heavy_weight = 0;
 					for (int nxt : adj[cur]) {
@@ -169,10 +173,10 @@ struct static_forest_t {
 							cur_heavy = nxt;
 							cur_heavy_weight = n_sz;
 						}
-						sz += n_sz;
+						cur_sz += n_sz;
 					}
 					heavy_child[cur] = cur_heavy;
-					return sz;
+					return cur_sz;
 				})(rt, -1);
 				assert(idx[rt] == -1);
 				std::y_combinator([&](auto&& self, int cur, int prv, int par_idx, int d, bool is_heavy_root) -> void {
@@ -278,6 +282,11 @@ struct static_forest_t {
 		}
 		return preorder[a];
 	}
+
+	int get_depth(int a) const { return depth[idx[a]]; }
+	int get_sz(int a) const { return sz[idx[a]]; }
+	std::array<int, 2> get_range(int a) const { return {idx[a], idx[a] + sz[idx[a]]}; }
+	bool is_ancestor(int a, int b) { return idx[a] <= idx[b] && idx[b] < idx[a] + sz[idx[a]]; }
 };
 
 int main() {
@@ -386,7 +395,7 @@ int main() {
 		int l = la.lca(a, r);
 		int res;
 		if (l == a) {
-			res = la.get_ancestor(r, la.depth[r] - la.depth[a] - 1);
+			res = la.get_ancestor(r, la.get_depth(r) - la.get_depth(a) - 1);
 		} else {
 			res = la.get_ancestor(a, 1);
 		}
