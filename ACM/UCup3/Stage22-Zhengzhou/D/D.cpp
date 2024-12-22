@@ -384,11 +384,13 @@ int main() {
 	auto get_next = [&](int a, int r) -> int {
 		assert(a != r);
 		int l = la.lca(a, r);
+		int res;
 		if (l == a) {
-			return la.get_ancestor(r, la.depth[r] - la.depth[a] - 1);
+			res = la.get_ancestor(r, la.depth[r] - la.depth[a] - 1);
 		} else {
-			return la.get_ancestor(a, 1);
+			res = la.get_ancestor(a, 1);
 		}
+		assert(res == la.get_next(a, r));
 	};
 
 	std::vector<bool> is_alive(V, true);
