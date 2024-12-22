@@ -223,7 +223,7 @@ struct static_forest_t {
 		if (a == b) return -1;
 		a = idx[a], b = idx[b];
 		if (a < b && b < a + sz[a]) {
-			return get_subtree(a, b);
+			return preorder[depth_val_to_idx[depth_val_rmq.query(a+1, b)]];
 		} else {
 			return preorder[par[a]];
 		}
