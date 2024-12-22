@@ -218,7 +218,7 @@ struct static_forest_t {
 		return preorder[depth_val_to_idx[depth_val_rmq.query(a+1, b)]];
 	}
 
-	// next from a to b
+	// next from a to b, a and b must be in the same tree
 	int get_next(int a, int b) {
 		if (a == b) return -1;
 		a = idx[a], b = idx[b];
@@ -301,7 +301,9 @@ int main() {
 		int bad_vert = -1;
 		std::pair<int, std::array<int, 2>> diam;
 	};
-	auto update_tot_ans = [&](comp_data_t& d) -> void {
+	std::vector<comp_data_t> dat(V);
+	auto update_tot_ans = [&](int v) -> void {
+		auto& d = dat[get_par(v)];
 		assert((d.cur_ans == std::array<int, 2>{0, 0}));
 		d.cur_ans = d.alive_freq;
 		if (d.bad_vert == -1) {
@@ -311,20 +313,20 @@ int main() {
 		tot_ans[0] += d.cur_ans[0];
 		tot_ans[1] += d.cur_ans[1];
 	};
-	auto remove_tot_ans = [&](comp_data_t& d) -> void {
+	auto remove_tot_ans = [&](int v) -> void {
+		auto& d = dat[get_par(v)];
 		tot_ans[0] -= d.cur_ans[0];
 		tot_ans[1] -= d.cur_ans[1];
 		d.cur_ans = {0, 0};
 	};
 
-	std::vector<comp_data_t> dat(V);
 	for (int v = 0; v < V; v++) {
 		dat[v].cur_ans = {0, 0};
 		dat[v].alive_freq = {0, 0};
 		dat[v].alive_freq[v >= VA]++;
 		dat[v].diam = get_dist(v, v);
 		dat[v].bad_vert = -1;
-		update_tot_ans(dat[v]);
+		update_tot_ans(v);
 		assert(dat[v].cur_ans[0] == 0);
 		assert(dat[v].cur_ans[1] == 0);
 	}
@@ -351,19 +353,19 @@ int main() {
 		int pa = get_par(a);
 		int pb = get_par(b);
 		if (pa == pb) {
+			remove_tot_ans(pa);
 			auto& d = dat[pa];
-			remove_tot_ans(d);
 			if (d.bad_vert == -1) {
 				d.bad_vert = a;
 			}
 			mark_bad(d, a);
 			mark_bad(d, b);
-			update_tot_ans(d);
+			update_tot_ans(pa);
 		} else {
+			remove_tot_ans(pa);
+			remove_tot_ans(pb);
 			auto& da = dat[pa];
 			auto& db = dat[pb];
-			remove_tot_ans(da);
-			remove_tot_ans(db);
 			if (da.bad_vert != -1 && db.bad_vert != -1) {
 				mark_bad(da, a);
 				mark_bad(db, b);
@@ -381,7 +383,8 @@ int main() {
 				da.diam, db.diam
 			});
 			merge(a, b);
-			update_tot_ans(dat[get_par(a)] = nd);
+			dat[get_par(pa)] = nd;
+			update_tot_ans(pa);
 		}
 		cout << tot_ans[0] << ' ' << tot_ans[1] << '\n';
 	}
