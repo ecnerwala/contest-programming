@@ -221,7 +221,10 @@ int main() {
 	for (int x = 1; x * x <= rt; x++) {
 		for (int y = x; int64_t(x) * y * y * y <= N; y++) {
 			// p >= max(x, y)
-			num val = pref_weight[len - get_bucket(int64_t(x) * y)] - pref_weight[std::max(x, y) - 1];
+			int max_bucket = len - get_bucket(int64_t(x) * y);
+			int min_bucket = y - 1;
+			assert(max_bucket >= min_bucket);
+			num val = pref_weight[max_bucket] - pref_weight[min_bucket];
 			cnt[y] += val;
 			cnt[y-1] -= val;
 			if (x < y) {
