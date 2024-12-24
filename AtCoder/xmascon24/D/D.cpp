@@ -148,26 +148,51 @@ int main() {
 
 	using num = modnum<998244353>;
 
-	std::vector<int64_t> cnt(len);
+	std::vector<num> cnt(len);
 
 	std::vector<int> primes; primes.reserve(rt+1);
 	std::vector<int> pfac(rt+1);
+	std::vector<int> num_fac(rt+1);
+	std::vector<int> sqfree(rt+1);
+	num_fac[1] = 0;
+	sqfree[1] = true;
 	for (int i = 2; i <= rt; i++) {
 		if (!pfac[i]) {
 			primes.push_back(i);
 			pfac[i] = i;
+			num_fac[i] = 1;
+			sqfree[i] = true;
 		}
 		for (int p : primes) {
 			if (int64_t(p) * int64_t(i) > rt) break;
 			pfac[p * i] = p;
+			num_fac[p * i] = num_fac[i] + 1;
+			sqfree[p * i] = sqfree[i] && (p != pfac[i]);
 			if (p == pfac[i]) break;
 		}
 	}
-	std::vector<int> num_primes(rt+1);
-	for (int i = 1; i <= rt; i++) num_primes[i] += num_primes[i-1] + (pfac[i] == i);
+	for (int i = 1; i <= rt; i++) if (!sqfree[i]) num_fac[i] = -1;
 
-	for (int p : primes) {
-		if (int64_t(p) * p * p >= N) continue;
+	const int LG = *std::max_element(num_fac.begin(), num_fac.end());
+	std::vector<num> fact(LG+1);
+	fact[0] = 1;
+	for (int i = 1; i <= LG; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(LG+1);
+	ifact[LG] = inv(fact[LG]);
+	for (int i = LG; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+	std::vector<num> weight(LG+1);
+	for (int i = 0; i <= LG; i++) {
+		weight[i] = pow(num(i), A);
+		for (int j = 0; j < i; j++) {
+			weight[i] -= fact[i] * ifact[j] * ifact[i-j] * weight[j];
+		}
+	}
+
+	for (int p = 1; int64_t(p) * p * p <= N; p++) {
+		if (num_fac[p] == -1) continue;
+		num w = weight[num_fac[p]];
+		if (w == 0) continue;
 		for (int x = 1; x <= std::min(N / p / p / p, rt / p); x++) {
 			// y > std::max(p, x)
 			int min_bucket = get_bucket(std::max(p, x));
@@ -175,20 +200,27 @@ int main() {
 			assert(max_bucket >= min_bucket);
 
 			// we'll do suffix sums
-			cnt[max_bucket]++;
-			cnt[min_bucket]--;
+			cnt[max_bucket] += w;
+			cnt[min_bucket] -= w;
 
 			int bucket_x = get_bucket(x);
-			int64_t val = N / (int64_t(p) * p * x) - std::max(p, x) + (x > p);
+			num val = num(N / (int64_t(p) * p * x) - std::max(p, x) + (x > p)) * w;
 			cnt[bucket_x] += val;
 			cnt[bucket_x-1] -= val;
 		}
 	}
 
+	std::vector<num> pref_weight(len);
+	for (int i = 1; i <= rt; i++) {
+		if (num_fac[i] != -1) pref_weight[get_bucket(i * i)] += weight[num_fac[i]];
+	}
+	for (int i = 1; i < len; i++) pref_weight[i] += pref_weight[i-1];
+
+
 	for (int x = 1; x * x <= rt; x++) {
 		for (int y = x; int64_t(x) * y * y * y <= N; y++) {
 			// p >= max(x, y)
-			int64_t val = num_primes[floor_sqrt(N / x / y)] - num_primes[std::max(x, y) - 1];
+			num val = pref_weight[floor_sqrt(N / x / y)] - pref_weight[std::max(x, y) - 1];
 			cnt[y] += val;
 			cnt[y-1] -= val;
 			if (x < y) {
@@ -206,3 +238,5 @@ int main() {
 
 	return 0;
 }
+
+// 40 / 4 + 40 / 9 + 40 / 25
