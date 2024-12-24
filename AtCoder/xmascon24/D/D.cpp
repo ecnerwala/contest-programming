@@ -248,7 +248,7 @@ std::vector<num> solve(int64_t N, int64_t A) {
 
 	std::vector<num> pref_weight(len);
 	for (int i = 1; i <= rt; i++) {
-		if (num_fac[i] != -1) pref_weight[get_bucket(i * i)] += weight[num_fac[i]];
+		if (num_fac[i] != -1) pref_weight[get_bucket(int64_t(i) * i)] += weight[num_fac[i]];
 	}
 	for (int i = 1; i < len; i++) pref_weight[i] += pref_weight[i-1];
 
