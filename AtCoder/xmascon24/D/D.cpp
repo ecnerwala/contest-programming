@@ -233,6 +233,7 @@ int main() {
 	for (int a = len-1; a > 0; a--) {
 		cnt[a-1] += cnt[a];
 	}
+	std::reverse(cnt.begin() + 1, cnt.begin() + len);
 	for (int a = 1; a < len; a++) {
 		cerr << cnt[a] << '\n';
 	}
