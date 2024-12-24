@@ -219,7 +219,7 @@ std::vector<num> solve(int64_t N, int64_t A) {
 		for (int j = 0; j < i; j++) {
 			weight[i] -= fact[i] * ifact[j] * ifact[i-j] * weight[j];
 		}
-		cerr << i << ' ' << weight[i] << '\n';
+		//cerr << i << ' ' << weight[i] << '\n';
 	}
 
 	for (int p = 1; int64_t(p) * p * p <= N; p++) {
@@ -227,7 +227,7 @@ std::vector<num> solve(int64_t N, int64_t A) {
 		num w = weight[num_fac[p]];
 		if (w == 0) continue;
 		for (int x = 1; x <= std::min(N / p / p / p, rt / p); x++) {
-			cerr << x << ' ' << p << '\n';
+			//cerr << x << ' ' << p << '\n';
 			// y > std::max(p, x)
 			int min_bucket = get_bucket(std::max(p, x));
 			int max_bucket = len - get_bucket(int64_t(p) * p * x);
@@ -236,13 +236,13 @@ std::vector<num> solve(int64_t N, int64_t A) {
 			// we'll do suffix sums
 			cnt[max_bucket] += w;
 			cnt[min_bucket] -= w;
-			cerr << "increment " << min_bucket+1 << '-' << max_bucket << ' ' << w << '\n';
+			//cerr << "increment " << min_bucket+1 << '-' << max_bucket << ' ' << w << '\n';
 
 			int bucket_x = get_bucket(x);
 			num val = num(N / (int64_t(p) * p * x) - std::max(p, x-1)) * w;
 			cnt[bucket_x] += val;
 			cnt[bucket_x-1] -= val;
-			cerr << "increment " << bucket_x << ' ' << val << '\n';
+			//cerr << "increment " << bucket_x << ' ' << val << '\n';
 		}
 	}
 
@@ -255,21 +255,21 @@ std::vector<num> solve(int64_t N, int64_t A) {
 
 	for (int x = 1; x * x <= rt; x++) {
 		for (int y = x; int64_t(x) * y * y * y <= N; y++) {
-			cerr << x << ' ' << y << '\n';
+			//cerr << x << ' ' << y << '\n';
 			// p >= max(x, y)
 			int max_bucket = len - get_bucket(int64_t(x) * y);
 			int min_bucket = get_bucket(int64_t(y) * y) - 1;
 			assert(y <= rt);
 			assert(max_bucket > min_bucket);
 			num val = pref_weight[max_bucket] - pref_weight[min_bucket];
-			cerr << min_bucket+1 << '-' << max_bucket << '\n';
+			//cerr << min_bucket+1 << '-' << max_bucket << '\n';
 			cnt[y] += val;
 			cnt[y-1] -= val;
-			cerr << "increment " << y << ' ' << val << '\n';
+			//cerr << "increment " << y << ' ' << val << '\n';
 			if (x < y) {
 				cnt[x] += val;
 				cnt[x-1] -= val;
-				cerr << "increment " << x << ' ' << val << '\n';
+				//cerr << "increment " << x << ' ' << val << '\n';
 			}
 		}
 	}
@@ -278,7 +278,7 @@ std::vector<num> solve(int64_t N, int64_t A) {
 	}
 	std::reverse(cnt.begin() + 1, cnt.begin() + len);
 	for (int a = 1; a < len; a++) {
-		cerr << cnt[a] << '\n';
+		//cerr << cnt[a] << '\n';
 	}
 	return cnt;
 }
