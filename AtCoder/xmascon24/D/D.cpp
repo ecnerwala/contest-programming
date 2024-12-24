@@ -203,7 +203,7 @@ int main() {
 			// we'll do suffix sums
 			cnt[max_bucket] += w;
 			cnt[min_bucket] -= w;
-			cerr << "increment " << min_bucket+1 << '-' << max_bucket << w << '\n';
+			cerr << "increment " << min_bucket+1 << '-' << max_bucket << ' ' << w << '\n';
 
 			int bucket_x = get_bucket(x);
 			num val = num(N / (int64_t(p) * p * x) - std::max(p, x) + (x > p)) * w;
@@ -225,6 +225,7 @@ int main() {
 			// p >= max(x, y)
 			int max_bucket = len - get_bucket(int64_t(x) * y);
 			int min_bucket = y - 1;
+			assert(y <= rt);
 			assert(max_bucket > min_bucket);
 			num val = pref_weight[max_bucket] - pref_weight[min_bucket];
 			cnt[y] += val;
