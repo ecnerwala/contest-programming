@@ -187,6 +187,7 @@ int main() {
 		for (int j = 0; j < i; j++) {
 			weight[i] -= fact[i] * ifact[j] * ifact[i-j] * weight[j];
 		}
+		cerr << i << ' ' << weight[i] << '\n';
 	}
 
 	for (int p = 1; int64_t(p) * p * p <= N; p++) {
