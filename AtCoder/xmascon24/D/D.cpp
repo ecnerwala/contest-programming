@@ -195,6 +195,7 @@ int main() {
 		num w = weight[num_fac[p]];
 		if (w == 0) continue;
 		for (int x = 1; x <= std::min(N / p / p / p, rt / p); x++) {
+			cerr << x << ' ' << p << '\n';
 			// y > std::max(p, x)
 			int min_bucket = get_bucket(std::max(p, x));
 			int max_bucket = len - get_bucket(int64_t(p) * p * x);
@@ -222,6 +223,7 @@ int main() {
 
 	for (int x = 1; x * x <= rt; x++) {
 		for (int y = x; int64_t(x) * y * y * y <= N; y++) {
+			cerr << x << ' ' << y << '\n';
 			// p >= max(x, y)
 			int max_bucket = len - get_bucket(int64_t(x) * y);
 			int min_bucket = y - 1;
