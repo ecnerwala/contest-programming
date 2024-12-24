@@ -207,7 +207,7 @@ int main() {
 			cerr << "increment " << min_bucket+1 << '-' << max_bucket << ' ' << w << '\n';
 
 			int bucket_x = get_bucket(x);
-			num val = num(N / (int64_t(p) * p * x) - std::max(p, x) + (x > p)) * w;
+			num val = num(N / (int64_t(p) * p * x) - std::max(p, x-1)) * w;
 			cnt[bucket_x] += val;
 			cnt[bucket_x-1] -= val;
 			cerr << "increment " << bucket_x << ' ' << val << '\n';
