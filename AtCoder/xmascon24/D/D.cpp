@@ -300,8 +300,8 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int64_t N, A; cin >> N >> A;
-	cout << hsh(slow(N, A)) << '\n';
-	//cout << solve(N, A) << '\n';
+	//cout << hsh(slow(N, A)) << '\n';
+	cout << hsh(solve(N, A)) << '\n';
 
 	return 0;
 }
