@@ -134,10 +134,10 @@ constexpr int64_t floor_sqrt(int64_t N) {
 	}
 }
 
-using num = modnum<int(1e9)+7>;
+using num = modnum<998244353>;
 
 using std::cerr;
-num slow(int64_t N, int64_t A) {
+std::vector<num> slow(int64_t N, int64_t A) {
 	int64_t rt = floor_sqrt(N);
 	std::vector<int> primes; primes.reserve(rt+1);
 	std::vector<int> pfac(rt+1);
@@ -162,20 +162,17 @@ num slow(int64_t N, int64_t A) {
 		f[i] += f[i-1];
 	}
 	std::vector<num> res;
+	res.push_back(num(0));
 	for (int64_t i = 1; ; i = N / (N / (i + 1))) {
 		res.push_back(f[i]);
 		if (i == N) break;
 	}
-	std::reverse(res.begin(), res.end());
-	num ans = 0;
-	for (auto v : res) {
-		ans += v;
-		ans *= 2024;
-	}
-	return ans;
+	int len = int(2 * rt + (rt * (rt+1) <= N));
+	assert(int(res.size()) == len);
+	return res;
 }
 
-num solve(int64_t N, int64_t A) {
+std::vector<num> solve(int64_t N, int64_t A) {
 	int64_t rt = floor_sqrt(N);
 	int len = int(2 * rt + (rt * (rt+1) <= N));
 	// len corresponds to N/0 = infty
@@ -283,12 +280,18 @@ num solve(int64_t N, int64_t A) {
 	for (int a = 1; a < len; a++) {
 		cerr << cnt[a] << '\n';
 	}
-	num ans = 0;
-	for (int a = len-1; a >= 1; a--) {
-		ans += cnt[a];
-		ans *= 2024;
+	return cnt;
+}
+
+
+int hsh(std::vector<num> a) {
+	using num2 = modnum<int(1e9)+7>;
+	num2 res = 0;
+	for (int i = int(a.size())-1; i > 0; i--) {
+		res += int(a[i]);
+		res *= 2024;
 	}
-	return ans;
+	return int(res);
 }
 
 
@@ -297,7 +300,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int64_t N, A; cin >> N >> A;
-	cout << slow(N, A) << '\n';
+	cout << hsh(slow(N, A)) << '\n';
 	//cout << solve(N, A) << '\n';
 
 	return 0;
