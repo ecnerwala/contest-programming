@@ -134,19 +134,54 @@ constexpr int64_t floor_sqrt(int64_t N) {
 	}
 }
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+using num = modnum<int(1e9)+7>;
 
-	int64_t N, A; cin >> N >> A;
+using std::cerr;
+num slow(int64_t N, int64_t A) {
+	int64_t rt = floor_sqrt(N);
+	std::vector<int> primes; primes.reserve(rt+1);
+	std::vector<int> pfac(rt+1);
+	for (int i = 2; i <= rt; i++) {
+		if (!pfac[i]) {
+			primes.push_back(i);
+			pfac[i] = i;
+		}
+		for (int p : primes) {
+			if (int64_t(p) * int64_t(i) > rt) break;
+			pfac[p * i] = p;
+			if (p == pfac[i]) break;
+		}
+	}
+	std::vector<num> f(N+1);
+	for (int p : primes) {
+		int q = p * p;
+		for (int j = q; j <= N; j += q) f[j]++;
+	}
+	for (int i = 1; i <= N; i++) {
+		f[i] = pow(f[i], A);
+		f[i] += f[i-1];
+	}
+	std::vector<num> res;
+	for (int64_t i = 1; ; i = N / (N / (i + 1))) {
+		res.push_back(f[i]);
+		if (i == N) break;
+	}
+	std::reverse(res.begin(), res.end());
+	num ans = 0;
+	for (auto v : res) {
+		ans += v;
+		ans *= 2024;
+	}
+	return ans;
+}
+
+num solve(int64_t N, int64_t A) {
 	int64_t rt = floor_sqrt(N);
 	int len = int(2 * rt + (rt * (rt+1) <= N));
 	// len corresponds to N/0 = infty
 	auto get_bucket = [&](int64_t a) -> int {
 		return a <= rt ? int(a) : len - int(N/a);
 	};
-
-	using num = modnum<int(1e9)+7>;
 
 	std::vector<num> cnt(len);
 
@@ -253,7 +288,17 @@ int main() {
 		ans += cnt[a];
 		ans *= 2024;
 	}
-	cout << ans << '\n';
+	return ans;
+}
+
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int64_t N, A; cin >> N >> A;
+	cout << slow(N, A) << '\n';
+	//cout << solve(N, A) << '\n';
 
 	return 0;
 }
