@@ -226,7 +226,7 @@ int main() {
 			cerr << x << ' ' << y << '\n';
 			// p >= max(x, y)
 			int max_bucket = len - get_bucket(int64_t(x) * y);
-			int min_bucket = y - 1;
+			int min_bucket = get_bucket(int64_t(y) * y) - 1;
 			assert(y <= rt);
 			assert(max_bucket > min_bucket);
 			num val = pref_weight[max_bucket] - pref_weight[min_bucket];
