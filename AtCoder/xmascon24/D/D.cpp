@@ -237,6 +237,12 @@ int main() {
 	for (int a = 1; a < len; a++) {
 		cerr << cnt[a] << '\n';
 	}
+	num ans = 0;
+	for (int a = len-1; a >= 1; a--) {
+		ans += cnt[a];
+		ans *= 2024;
+	}
+	cout << ans << '\n';
 
 	return 0;
 }
