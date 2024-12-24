@@ -223,7 +223,7 @@ int main() {
 			// p >= max(x, y)
 			int max_bucket = len - get_bucket(int64_t(x) * y);
 			int min_bucket = y - 1;
-			assert(max_bucket >= min_bucket);
+			assert(max_bucket > min_bucket);
 			num val = pref_weight[max_bucket] - pref_weight[min_bucket];
 			cnt[y] += val;
 			cnt[y-1] -= val;
