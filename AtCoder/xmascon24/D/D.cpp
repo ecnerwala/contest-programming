@@ -230,6 +230,7 @@ int main() {
 			assert(y <= rt);
 			assert(max_bucket > min_bucket);
 			num val = pref_weight[max_bucket] - pref_weight[min_bucket];
+			cerr << min_bucket+1 << '-' << max_bucket << '\n';
 			cnt[y] += val;
 			cnt[y-1] -= val;
 			cerr << "increment " << y << ' ' << val << '\n';
