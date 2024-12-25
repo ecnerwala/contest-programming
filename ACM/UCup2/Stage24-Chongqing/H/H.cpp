@@ -604,7 +604,8 @@ void main_fast() {
 		int sz = heavy_cnt[i];
 		seg_tree::in_order_layout layout(sz);
 		auto x = layout.get_point(v - i);
-		heavy_segs[i][x] = query_lights(v);
+		auto& fn = heavy_segs[i][x] = query_lights(v);
+		cerr << "lights " << v << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
 		x.for_parents_up([&](auto a) -> void {
 			heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
 		});
