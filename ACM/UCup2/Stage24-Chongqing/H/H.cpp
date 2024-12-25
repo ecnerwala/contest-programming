@@ -439,6 +439,7 @@ int main() {
 			int cur_idx = int(preorder.size());
 			preorder.push_back(cur);
 			preorder_idx[cur] = cur_idx;
+			cerr << "dfs " << cur << ' ' << cur_idx << ' ' << prv_idx << '\n';
 
 			par[cur_idx] = prv_idx;
 			if (prv_idx != -1 && cur_idx == prv_idx+1) heavy_root[cur_idx] = heavy_root[prv_idx];
