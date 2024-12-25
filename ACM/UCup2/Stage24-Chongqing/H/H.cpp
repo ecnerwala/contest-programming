@@ -567,6 +567,11 @@ void main_fast() {
 		return {b.thresh, eval(a, b.v_smaller), eval(a, b.v_bigger) };
 	};
 
+	cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
+	cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
+	cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
+	cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
+
 	for (int i = N-1; i >= 0; i--) {
 		if (heavy_root[i] == i) {
 			int sz = heavy_cnt[i];
