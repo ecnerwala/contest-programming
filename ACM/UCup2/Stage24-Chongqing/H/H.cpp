@@ -409,59 +409,9 @@ void insert_and_splay(splay_node* n, splay_node* t) {
 	}
 }
 
-void main_slow() {
+int main() {
 	using namespace std;
-
-	int N, Q; cin >> N >> Q;
-	std::vector<int> P(N);
-	P[0] = -1;
-	for (int i = 1; i < N; i++) {
-		cin >> P[i]; P[i]--;
-	}
-	std::vector<int> A(N);
-	for (auto& a : A) cin >> a;
-	std::vector<int> B(N);
-	for (auto& b : B) cin >> b;
-
-	auto sim = [&]() -> std::vector<int> {
-		std::vector<int64_t> votes(N);
-		for (int i = 0; i < N; i++) {
-			votes[i] += A[i];
-			if (i) votes[P[i]] += B[i];
-		}
-		std::vector<int> times(N, -1);
-		for (int t = 0; t < N; t++) {
-			int64_t most_votes = -1;
-			int best_person = -1;
-			for (int i = N-1; i >= 0; i--) {
-				if (times[i] != -1) continue;
-				if (best_person == -1 || votes[i] > most_votes) {
-					best_person = i;
-					most_votes = votes[i];
-				}
-			}
-			times[best_person] = t;
-			if (best_person) votes[P[best_person]] -= B[best_person];
-		}
-		return times;
-	};
-
-	for (int q = 0; q < Q; q++) {
-		int op; cin >> op;
-		if (op == 1) {
-			int p; int x, y; cin >> p >> x >> y; p--;
-			A[p] = x;
-			B[p] = y;
-		} else if (op == 2) {
-			int c, d; cin >> c >> d; c--, d--;
-			auto times = sim();
-			cout << int(times[d] < times[c]) << '\n';
-		}
-	}
-}
-
-void main_fast() {
-	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N, Q; cin >> N >> Q;
 	std::vector<int> orig_par(N);
@@ -521,20 +471,12 @@ void main_fast() {
 		int64_t v_smaller;
 		int64_t v_bigger;
 	};
-	auto dump_tree = std::y_combinator([&](auto&& self, splay_node* t) -> void {
-		if (!t) return;
-		self(t->c[0]);
-		cerr << int(t - nodes.data()) << ' ' << t->own_time << ' ' << t->own_b << '\n';
-		self(t->c[1]);
-	});
 	auto query_tree = [&](int i, int64_t a) -> int64_t {
-		//cerr << "query_tree " << i << ' ' << a << '\n';
 		splay_node* t = light_trees[i];
 		assert(!t || !t->p);
 		if (!t || a < t->min_a_needed) {
 			return a;
 		}
-		//cerr << "tree " << t->min_a_needed << ' ' << t->tot_b << '\n';
 		while (true) {
 			assert(a >= t->min_a_needed);
 			int64_t b_left = (t->c[0] ? t->c[0]->tot_b : 0) + t->own_b;
@@ -560,7 +502,6 @@ void main_fast() {
 			assert(light_trees[i] == nullptr);
 			return piecewise_fn{-1, A[i], A[i]};
 		} else {
-			//cerr << "query " << i << ' ' << A[i] << ' ' << B[i+1] << '\n';
 			int64_t v_smaller = query_tree(i, A[i] + B[i+1]);
 			int64_t v_bigger = query_tree(i, A[i]);
 			assert(v_smaller >= v_bigger);
@@ -577,19 +518,13 @@ void main_fast() {
 		return {b.thresh, eval(a, b.v_smaller), eval(a, b.v_bigger) };
 	};
 
-	//cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
-	//cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
-	//cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
-	//cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
-
 	for (int i = N-1; i >= 0; i--) {
 		if (heavy_root[i] == i) {
 			int sz = heavy_cnt[i];
 			seg_tree::in_order_layout layout(sz);
 			heavy_segs[i].resize(2*sz);
 			for (int j = i; j < i + sz; j++) {
-				auto& fn = heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
-				//cerr << "lights " << j << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
+				heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
 			}
 			for (seg_tree::point a(sz-1); a > 0; a--) {
 				heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
@@ -602,13 +537,8 @@ void main_fast() {
 				nodes[i].own_time = heavy_segs[i][1].v_smaller;
 				nodes[i].own_b = B[i];
 				nodes[i].update();
-				//cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
-				//cerr << "light_trees " << p << '\n';
-				//dump_tree(light_trees[p]);
 				insert_and_splay(&nodes[i], light_trees[p]);
 				light_trees[p] = &nodes[i];
-				//cerr << "light_trees " << p << '\n';
-				//dump_tree(light_trees[p]);
 			}
 		}
 	}
@@ -617,8 +547,7 @@ void main_fast() {
 		int sz = heavy_cnt[i];
 		seg_tree::in_order_layout layout(sz);
 		auto x = layout.get_point(v - i);
-		auto& fn = heavy_segs[i][x] = query_lights(v);
-		//cerr << "lights " << v << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
+		heavy_segs[i][x] = query_lights(v);
 		x.for_parents_up([&](auto a) -> void {
 			heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
 		});
@@ -646,40 +575,12 @@ void main_fast() {
 			nodes[v].own_time = heavy_segs[v][1].v_smaller;
 			nodes[v].own_b = B[v];
 			nodes[v].update();
-			//cerr << "own_time " << v << ' ' << nodes[v].own_time << ' ' << nodes[v].own_b << '\n';
 			insert_and_splay(&nodes[v], t);
 			light_trees[p] = &nodes[v];
-			//cerr << "light_trees " << p << '\n';
-			//dump_tree(light_trees[p]);
 			v = p;
 			update_heavy_chain(v);
 		}
 	};
-
-	auto sim = [&]() -> std::vector<int64_t> {
-		std::vector<int64_t> votes(N);
-		for (int i = 0; i < N; i++) {
-			votes[i] += A[i];
-			if (i) votes[par[i]] += B[i];
-		}
-		std::vector<int64_t> times(N, -1);
-		for (int t = 0; t < N; t++) {
-			int64_t most_votes = -1;
-			int best_person = -1;
-			for (int i = N-1; i >= 0; i--) {
-				if (times[i] != -1) continue;
-				if (best_person == -1 || votes[i] > most_votes) {
-					best_person = i;
-					most_votes = votes[i];
-				}
-			}
-			times[best_person] = most_votes;
-			if (best_person) votes[par[best_person]] -= B[best_person];
-		}
-		//for (auto t : times) { cerr << t << ' '; } cerr << '\n';
-		return times;
-	};
-
 
 	auto query = [&](int v) -> int64_t {
 		int i = heavy_root[v];
@@ -690,14 +591,10 @@ void main_fast() {
 		x.for_each_r_to_l([&](auto a) -> void {
 			res = eval(heavy_segs[i][a], res);
 		});
-		//auto sim_res = sim()[v];
-		//cerr << "query " << v << ' ' << res << ' ' << sim_res << '\n';
-		//assert(res == sim_res);
 		return res;
 	};
 
 	for (int q = 0; q < Q; q++) {
-		//cerr << '\n';
 		int op; cin >> op;
 		if (op == 1) {
 			int p; int64_t x, y; cin >> p >> x >> y; p--;
@@ -706,7 +603,6 @@ void main_fast() {
 			p = preorder_idx[p];
 			A[p] = x;
 			B[p] = y;
-			//cerr << "update " << p << ' ' << A[p] << ' ' << B[p] << '\n';
 			update(p);
 		} else if (op == 2) {
 			int c, d; cin >> c >> d; c--, d--;
@@ -715,11 +611,6 @@ void main_fast() {
 			cout << int(query(c) < query(d)) << '\n';
 		}
 	}
-}
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	main_fast();
 	return 0;
 }
