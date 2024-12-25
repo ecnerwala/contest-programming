@@ -556,7 +556,10 @@ int main() {
 		if (v != heavy_root[v]) {
 			// B[i] changed, so update v-1
 			update_heavy_chain(v-1);
+		} else {
+			// otherwise, we'll just update it as part of the nodes[v] update
 		}
+
 		// now just update up the chain
 		while (true) {
 			v = heavy_root[v];
