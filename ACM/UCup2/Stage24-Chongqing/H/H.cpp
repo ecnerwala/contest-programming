@@ -520,6 +520,12 @@ void main_fast() {
 		int64_t v_smaller;
 		int64_t v_bigger;
 	};
+	auto dump_tree = std::y_combinator([&](auto&& self, splay_node* t) -> void {
+		if (!t) return;
+		self(t->c[0]);
+		cerr << int(t - nodes.data()) << ' ' << t->own_time << ' ' << t->own_b << '\n';
+		self(t->c[1]);
+	});
 	auto query_tree = [&](int i, int64_t a) -> int64_t {
 		cerr << "query_tree " << i << ' ' << a << '\n';
 		splay_node* t = light_trees[i];
@@ -598,6 +604,8 @@ void main_fast() {
 				cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
 				insert_and_splay(&nodes[i], light_trees[p]);
 				light_trees[p] = &nodes[i];
+				cerr << "light_trees " << p << '\n';
+				dump_tree(light_trees[p]);
 			}
 		}
 	}
