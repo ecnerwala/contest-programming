@@ -632,7 +632,7 @@ void main_fast() {
 			nodes[v].own_b = B[v];
 			nodes[v].update();
 			insert_and_splay(&nodes[v], t);
-			light_trees[p] = t;
+			light_trees[p] = &nodes[v];
 			v = p;
 			update_heavy_chain(v);
 		}
