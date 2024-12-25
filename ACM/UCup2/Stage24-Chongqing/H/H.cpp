@@ -523,7 +523,8 @@ int main() {
 			seg_tree::in_order_layout layout(sz);
 			heavy_segs[i].resize(2*sz);
 			for (int j = i; j < i + sz; j++) {
-				heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
+				auto& fn = heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
+				cerr << i << ' ' << j << ' ' << fn.thresh << "->" << fn.v_smaller << '/' << fn.v_bigger << '\n';
 			}
 			for (seg_tree::point a(sz-1); a > 0; a--) {
 				heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
