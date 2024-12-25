@@ -521,11 +521,13 @@ void main_fast() {
 		int64_t v_bigger;
 	};
 	auto query_tree = [&](int i, int64_t a) -> int64_t {
+		cerr << "query_tree " << i << ' ' << a << '\n';
 		splay_node* t = light_trees[i];
 		assert(!t || !t->p);
 		if (!t || a < t->min_a_needed) {
 			return a;
 		}
+		cerr << "tree " << t->min_a_needed << ' ' << t->tot_b << '\n';
 		while (true) {
 			assert(a >= t->min_a_needed);
 			int64_t b_left = (t->c[0] ? t->c[0]->tot_b : 0) + t->tot_b;
