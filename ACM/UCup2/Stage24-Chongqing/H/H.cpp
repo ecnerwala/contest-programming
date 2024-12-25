@@ -551,7 +551,7 @@ void main_fast() {
 			assert(light_trees[i] == nullptr);
 			return piecewise_fn{-1, A[i], A[i]};
 		} else {
-			cerr << "query " << i << ' ' << A[i] << ' ' << B[i+1] << '\n';
+			//cerr << "query " << i << ' ' << A[i] << ' ' << B[i+1] << '\n';
 			int64_t v_smaller = query_tree(i, A[i] + B[i+1]);
 			int64_t v_bigger = query_tree(i, A[i]);
 			assert(v_smaller >= v_bigger);
@@ -568,10 +568,10 @@ void main_fast() {
 		return {b.thresh, eval(a, b.v_smaller), eval(a, b.v_bigger) };
 	};
 
-	cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
-	cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
-	cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
-	cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
+	//cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
+	//cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
+	//cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
+	//cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
 
 	for (int i = N-1; i >= 0; i--) {
 		if (heavy_root[i] == i) {
@@ -580,7 +580,7 @@ void main_fast() {
 			heavy_segs[i].resize(2*sz);
 			for (int j = i; j < i + sz; j++) {
 				auto& fn = heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
-				cerr << "lights " << j << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
+				//cerr << "lights " << j << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
 			}
 			for (seg_tree::point a(sz-1); a > 0; a--) {
 				heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
@@ -593,7 +593,7 @@ void main_fast() {
 				nodes[i].own_time = heavy_segs[i][1].v_smaller;
 				nodes[i].own_b = B[i];
 				nodes[i].update();
-				cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
+				//cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
 				insert_and_splay(&nodes[i], light_trees[p]);
 				light_trees[p] = &nodes[i];
 			}
@@ -672,7 +672,7 @@ void main_fast() {
 		x.for_each_r_to_l([&](auto a) -> void {
 			res = eval(heavy_segs[i][a], res);
 		});
-		cerr << "query " << v << ' ' << res << ' ' << sim()[v] << '\n';
+		//cerr << "query " << v << ' ' << res << ' ' << sim()[v] << '\n';
 		return res;
 	};
 
