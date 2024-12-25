@@ -646,6 +646,8 @@ void main_fast() {
 			cerr << "own_time " << v << ' ' << nodes[v].own_time << ' ' << nodes[v].own_b << '\n';
 			insert_and_splay(&nodes[v], t);
 			light_trees[p] = &nodes[v];
+			cerr << "light_trees " << p << '\n';
+			dump_tree(light_trees[p]);
 			v = p;
 			update_heavy_chain(v);
 		}
