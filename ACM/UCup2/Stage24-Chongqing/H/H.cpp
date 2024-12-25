@@ -661,6 +661,7 @@ void main_fast() {
 			times[best_person] = most_votes;
 			if (best_person) votes[par[best_person]] -= B[best_person];
 		}
+		for (auto t : times) { cerr << t << ' '; } cerr << '\n';
 		return times;
 	};
 
