@@ -630,6 +630,29 @@ void main_fast() {
 		}
 	};
 
+	auto sim = [&]() -> std::vector<int64_t> {
+		std::vector<int64_t> votes(N);
+		for (int i = 0; i < N; i++) {
+			votes[i] += A[i];
+			if (i) votes[par[i]] += B[i];
+		}
+		std::vector<int64_t> times(N, -1);
+		for (int t = 0; t < N; t++) {
+			int64_t most_votes = -1;
+			int best_person = -1;
+			for (int i = N-1; i >= 0; i--) {
+				if (times[i] != -1) continue;
+				if (best_person == -1 || votes[i] > most_votes) {
+					best_person = i;
+					most_votes = votes[i];
+				}
+			}
+			times[best_person] = most_votes;
+		}
+		return times;
+	};
+
+
 	auto query = [&](int v) -> int64_t {
 		int i = heavy_root[v];
 		int sz = heavy_cnt[i];
@@ -639,6 +662,7 @@ void main_fast() {
 		x.for_each_r_to_l([&](auto a) -> void {
 			res = eval(heavy_segs[i][a], res);
 		});
+		cerr << "query " << v << ' ' << res << ' ' << sim()[v] << '\n';
 		return res;
 	};
 
