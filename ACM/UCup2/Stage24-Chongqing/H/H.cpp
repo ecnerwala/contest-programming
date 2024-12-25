@@ -568,10 +568,10 @@ void main_fast() {
 		return {b.thresh, eval(a, b.v_smaller), eval(a, b.v_bigger) };
 	};
 
-	//cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
-	//cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
-	//cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
-	//cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
+	cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
+	cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
+	cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
+	cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
 
 	for (int i = N-1; i >= 0; i--) {
 		if (heavy_root[i] == i) {
@@ -593,7 +593,7 @@ void main_fast() {
 				nodes[i].own_time = heavy_segs[i][1].v_smaller;
 				nodes[i].own_b = B[i];
 				nodes[i].update();
-				//cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
+				cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
 				insert_and_splay(&nodes[i], light_trees[p]);
 				light_trees[p] = &nodes[i];
 			}
@@ -673,7 +673,7 @@ void main_fast() {
 			res = eval(heavy_segs[i][a], res);
 		});
 		auto sim_res = sim()[v];
-		//cerr << "query " << v << ' ' << res << ' ' << sim()[v] << '\n';
+		cerr << "query " << v << ' ' << res << ' ' << sim()[v] << '\n';
 		assert(res == sim_res);
 		return res;
 	};
@@ -700,6 +700,6 @@ void main_fast() {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	main_slow();
+	main_fast();
 	return 0;
 }
