@@ -681,6 +681,7 @@ void main_fast() {
 	};
 
 	for (int q = 0; q < Q; q++) {
+		cerr << '\n';
 		int op; cin >> op;
 		if (op == 1) {
 			int p; int64_t x, y; cin >> p >> x >> y; p--;
