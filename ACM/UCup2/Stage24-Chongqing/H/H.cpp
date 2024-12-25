@@ -538,7 +538,7 @@ void main_fast() {
 		cerr << "tree " << t->min_a_needed << ' ' << t->tot_b << '\n';
 		while (true) {
 			assert(a >= t->min_a_needed);
-			int64_t b_left = (t->c[0] ? t->c[0]->tot_b : 0) + t->tot_b;
+			int64_t b_left = (t->c[0] ? t->c[0]->tot_b : 0) + t->own_b;
 			if (t->c[1] && a + b_left >= t->c[1]->min_a_needed) {
 				a += b_left;
 				t = t->c[1];
