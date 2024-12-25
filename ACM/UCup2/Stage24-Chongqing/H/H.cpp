@@ -408,9 +408,58 @@ void insert_and_splay(splay_node* n, splay_node* t) {
 	}
 }
 
-int main() {
+void main_slow() {
 	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, Q; cin >> N >> Q;
+	std::vector<int> P(N);
+	P[0] = -1;
+	for (int i = 1; i < N; i++) {
+		cin >> P[i]; P[i]--;
+	}
+	std::vector<int> A(N);
+	for (auto& a : A) cin >> a;
+	std::vector<int> B(N);
+	for (auto& b : B) cin >> b;
+
+	auto sim = [&]() -> std::vector<int> {
+		std::vector<int64_t> votes(N);
+		for (int i = 0; i < N; i++) {
+			votes[i] += A[i];
+			if (i) votes[P[i]] += B[i];
+		}
+		std::vector<int> times(N, -1);
+		for (int t = 0; t < N; t++) {
+			int64_t most_votes = -1;
+			int best_person = -1;
+			for (int i = N-1; i >= 0; i--) {
+				if (times[i] != -1) continue;
+				if (best_person == -1 || votes[i] > most_votes) {
+					best_person = i;
+					most_votes = votes[i];
+				}
+			}
+			times[best_person] = t;
+		}
+		return times;
+	};
+
+	for (int q = 0; q < Q; q++) {
+		int op; cin >> op;
+		if (op == 1) {
+			int p; int x, y; cin >> p >> x >> y; p--;
+			A[p] = x;
+			B[p] = y;
+		} else if (op == 2) {
+			int c, d; cin >> c >> d; c--, d--;
+			auto times = sim();
+			cout << int(times[d] < times[c]) << '\n';
+		}
+	}
+}
+
+void main_fast() {
+	using namespace std;
 
 	int N, Q; cin >> N >> Q;
 	std::vector<int> orig_par(N);
@@ -590,7 +639,6 @@ int main() {
 		x.for_each_r_to_l([&](auto a) -> void {
 			res = eval(heavy_segs[i][a], res);
 		});
-		cerr << "query " << v << ' ' << res << '\n';
 		return res;
 	};
 
@@ -611,6 +659,11 @@ int main() {
 			cout << int(query(c) < query(d)) << '\n';
 		}
 	}
+}
 
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	main_slow();
 	return 0;
 }
