@@ -347,7 +347,7 @@ struct splay_node {
 		pa->c[x] = this->c[!x];
 
 		pa->p = this;
-		this->c[!x] = p;
+		this->c[!x] = pa;
 
 		pa->update();
 	}
