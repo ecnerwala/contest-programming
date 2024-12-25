@@ -473,7 +473,7 @@ int main() {
 	};
 	auto query_tree = [&](int i, int64_t a) -> int64_t {
 		splay_node* t = light_trees[i];
-		if (a < t->min_a_needed) {
+		if (!t || a < t->min_a_needed) {
 			return a;
 		}
 		while (true) {
