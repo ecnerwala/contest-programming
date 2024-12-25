@@ -401,7 +401,6 @@ void insert_and_splay(splay_node* n, splay_node* t) {
 		if (!t->c[d]) {
 			t->c[d] = n;
 			n->p = t;
-			std::cerr << "splaying " << n << '\n';
 			n->splay();
 			return;
 		} else {
