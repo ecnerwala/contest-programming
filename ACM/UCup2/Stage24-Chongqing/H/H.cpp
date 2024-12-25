@@ -550,6 +550,7 @@ void main_fast() {
 			assert(light_trees[i] == nullptr);
 			return piecewise_fn{-1, A[i], A[i]};
 		} else {
+			cerr << "query " << i << ' ' << A[i] << ' ' << B[i+1] << '\n';
 			int64_t v_smaller = query_tree(i, A[i] + B[i+1]);
 			int64_t v_bigger = query_tree(i, A[i]);
 			assert(v_smaller >= v_bigger);
