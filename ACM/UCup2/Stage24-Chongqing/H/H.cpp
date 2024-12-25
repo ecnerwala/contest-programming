@@ -700,6 +700,6 @@ void main_fast() {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	main_fast();
+	main_slow();
 	return 0;
 }
