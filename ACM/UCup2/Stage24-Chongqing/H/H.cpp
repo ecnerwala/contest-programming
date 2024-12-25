@@ -687,6 +687,7 @@ void main_fast() {
 			p = preorder_idx[p];
 			A[p] = x;
 			B[p] = y;
+			cerr << "update " << p << ' ' << A[p] << ' ' << B[p] << '\n';
 			update(p);
 		} else if (op == 2) {
 			int c, d; cin >> c >> d; c--, d--;
