@@ -439,7 +439,6 @@ int main() {
 			int cur_idx = int(preorder.size());
 			preorder.push_back(cur);
 			preorder_idx[cur] = cur_idx;
-			cerr << "dfs " << cur << ' ' << cur_idx << ' ' << prv_idx << '\n';
 
 			par[cur_idx] = prv_idx;
 			if (prv_idx != -1 && cur_idx == prv_idx+1) heavy_root[cur_idx] = heavy_root[prv_idx];
@@ -523,8 +522,7 @@ int main() {
 			seg_tree::in_order_layout layout(sz);
 			heavy_segs[i].resize(2*sz);
 			for (int j = i; j < i + sz; j++) {
-				auto& fn = heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
-				cerr << i << ' ' << j << ' ' << fn.thresh << "->" << fn.v_smaller << '/' << fn.v_bigger << '\n';
+				heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
 			}
 			for (seg_tree::point a(sz-1); a > 0; a--) {
 				heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
