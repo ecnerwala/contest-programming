@@ -664,6 +664,6 @@ void main_fast() {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	main_slow();
+	main_fast();
 	return 0;
 }
