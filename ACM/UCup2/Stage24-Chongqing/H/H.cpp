@@ -592,7 +592,7 @@ void main_fast() {
 				nodes[i].own_time = heavy_segs[i][1].v_smaller;
 				nodes[i].own_b = B[i];
 				nodes[i].update();
-				cerr << "own_time " << i << ' ' << nodes[i].own_time << '\n';
+				cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
 				insert_and_splay(&nodes[i], light_trees[p]);
 				light_trees[p] = &nodes[i];
 			}
