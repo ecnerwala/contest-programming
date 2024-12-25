@@ -338,6 +338,7 @@ struct splay_node {
 		assert(p);
 		splay_node* pa = p;
 		int x = d();
+		assert(pa->c[x] == this);
 
 		if (pa->p) pa->p->c[pa->d()] = this;
 		this->p = pa->p;
