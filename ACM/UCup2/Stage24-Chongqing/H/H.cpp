@@ -481,7 +481,7 @@ int main() {
 			if (t->c[1] && a + b_left >= t->c[1]->min_a_needed) {
 				a += b_left;
 				t = t->c[1];
-			} else if (a + b_left + t->tot_b >= t->own_time) {
+			} else if (a + b_left >= t->own_time) {
 				a += b_left;
 				break;
 			} else {
