@@ -672,7 +672,9 @@ void main_fast() {
 		x.for_each_r_to_l([&](auto a) -> void {
 			res = eval(heavy_segs[i][a], res);
 		});
+		auto sim_res = sim()[v];
 		//cerr << "query " << v << ' ' << res << ' ' << sim()[v] << '\n';
+		assert(res == sim_res);
 		return res;
 	};
 
@@ -698,6 +700,6 @@ void main_fast() {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	main_slow();
+	main_fast();
 	return 0;
 }
