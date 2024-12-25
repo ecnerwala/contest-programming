@@ -514,7 +514,7 @@ int main() {
 		return (v < a.thresh) ? a.v_smaller : a.v_bigger;
 	};
 	auto compose = [eval](piecewise_fn a, piecewise_fn b) -> piecewise_fn {
-		return {b.v_smaller, eval(a, b.v_smaller), eval(a, b.v_bigger) };
+		return {b.thresh, eval(a, b.v_smaller), eval(a, b.v_bigger) };
 	};
 
 	for (int i = N-1; i >= 0; i--) {
