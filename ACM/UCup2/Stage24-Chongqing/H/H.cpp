@@ -676,7 +676,7 @@ void main_fast() {
 			res = eval(heavy_segs[i][a], res);
 		});
 		auto sim_res = sim()[v];
-		cerr << "query " << v << ' ' << res << ' ' << sim()[v] << '\n';
+		cerr << "query " << v << ' ' << res << ' ' << sim_res << '\n';
 		assert(res == sim_res);
 		return res;
 	};
