@@ -590,6 +590,7 @@ int main() {
 		x.for_each_r_to_l([&](auto a) -> void {
 			res = eval(heavy_segs[i][a], res);
 		});
+		cerr << "query " << v << ' ' << res << '\n';
 		return res;
 	};
 
