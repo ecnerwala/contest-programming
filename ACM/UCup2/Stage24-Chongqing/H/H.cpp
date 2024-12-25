@@ -415,7 +415,7 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::vector<int> orig_par(N);
 	orig_par[0] = -1;
-	for (int i = 1; i < N; i++) cin >> orig_par[i];
+	for (int i = 1; i < N; i++) { cin >> orig_par[i]; orig_par[i] --; }
 	std::vector<std::vector<int>> orig_ch(N);
 	for (int i = 1; i < N; i++) orig_ch[orig_par[i]].push_back(i);
 
