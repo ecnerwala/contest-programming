@@ -603,6 +603,8 @@ void main_fast() {
 				nodes[i].own_b = B[i];
 				nodes[i].update();
 				cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
+				cerr << "light_trees " << p << '\n';
+				dump_tree(light_trees[p]);
 				insert_and_splay(&nodes[i], light_trees[p]);
 				light_trees[p] = &nodes[i];
 				cerr << "light_trees " << p << '\n';
