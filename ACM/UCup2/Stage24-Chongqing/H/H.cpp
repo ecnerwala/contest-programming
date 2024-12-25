@@ -529,13 +529,13 @@ void main_fast() {
 		self(t->c[1]);
 	});
 	auto query_tree = [&](int i, int64_t a) -> int64_t {
-		cerr << "query_tree " << i << ' ' << a << '\n';
+		//cerr << "query_tree " << i << ' ' << a << '\n';
 		splay_node* t = light_trees[i];
 		assert(!t || !t->p);
 		if (!t || a < t->min_a_needed) {
 			return a;
 		}
-		cerr << "tree " << t->min_a_needed << ' ' << t->tot_b << '\n';
+		//cerr << "tree " << t->min_a_needed << ' ' << t->tot_b << '\n';
 		while (true) {
 			assert(a >= t->min_a_needed);
 			int64_t b_left = (t->c[0] ? t->c[0]->tot_b : 0) + t->own_b;
@@ -578,10 +578,10 @@ void main_fast() {
 		return {b.thresh, eval(a, b.v_smaller), eval(a, b.v_bigger) };
 	};
 
-	cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
-	cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
-	cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
-	cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
+	//cerr << "par "; for (int i = 0; i < N; i++) { cerr << par[i] << ' '; } cerr << '\n';
+	//cerr << "hrt "; for (int i = 0; i < N; i++) { cerr << heavy_root[i] << ' '; } cerr << '\n';
+	//cerr << "A "; for (int i = 0; i < N; i++) { cerr << A[i] << ' '; } cerr << '\n';
+	//cerr << "B "; for (int i = 0; i < N; i++) { cerr << B[i] << ' '; } cerr << '\n';
 
 	for (int i = N-1; i >= 0; i--) {
 		if (heavy_root[i] == i) {
@@ -590,7 +590,7 @@ void main_fast() {
 			heavy_segs[i].resize(2*sz);
 			for (int j = i; j < i + sz; j++) {
 				auto& fn = heavy_segs[i][layout.get_point(j - i)] = query_lights(j);
-				cerr << "lights " << j << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
+				//cerr << "lights " << j << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
 			}
 			for (seg_tree::point a(sz-1); a > 0; a--) {
 				heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
@@ -603,13 +603,13 @@ void main_fast() {
 				nodes[i].own_time = heavy_segs[i][1].v_smaller;
 				nodes[i].own_b = B[i];
 				nodes[i].update();
-				cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
-				cerr << "light_trees " << p << '\n';
-				dump_tree(light_trees[p]);
+				//cerr << "own_time " << i << ' ' << nodes[i].own_time << ' ' << nodes[i].own_b << '\n';
+				//cerr << "light_trees " << p << '\n';
+				//dump_tree(light_trees[p]);
 				insert_and_splay(&nodes[i], light_trees[p]);
 				light_trees[p] = &nodes[i];
-				cerr << "light_trees " << p << '\n';
-				dump_tree(light_trees[p]);
+				//cerr << "light_trees " << p << '\n';
+				//dump_tree(light_trees[p]);
 			}
 		}
 	}
@@ -619,7 +619,7 @@ void main_fast() {
 		seg_tree::in_order_layout layout(sz);
 		auto x = layout.get_point(v - i);
 		auto& fn = heavy_segs[i][x] = query_lights(v);
-		cerr << "lights " << v << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
+		//cerr << "lights " << v << ' ' << fn.thresh << "?" << fn.v_smaller << ":" << fn.v_bigger << '\n';
 		x.for_parents_up([&](auto a) -> void {
 			heavy_segs[i][a] = compose(heavy_segs[i][a.c(0)], heavy_segs[i][a.c(1)]);
 		});
@@ -647,11 +647,11 @@ void main_fast() {
 			nodes[v].own_time = heavy_segs[v][1].v_smaller;
 			nodes[v].own_b = B[v];
 			nodes[v].update();
-			cerr << "own_time " << v << ' ' << nodes[v].own_time << ' ' << nodes[v].own_b << '\n';
+			//cerr << "own_time " << v << ' ' << nodes[v].own_time << ' ' << nodes[v].own_b << '\n';
 			insert_and_splay(&nodes[v], t);
 			light_trees[p] = &nodes[v];
-			cerr << "light_trees " << p << '\n';
-			dump_tree(light_trees[p]);
+			//cerr << "light_trees " << p << '\n';
+			//dump_tree(light_trees[p]);
 			v = p;
 			update_heavy_chain(v);
 		}
@@ -677,7 +677,7 @@ void main_fast() {
 			times[best_person] = most_votes;
 			if (best_person) votes[par[best_person]] -= B[best_person];
 		}
-		for (auto t : times) { cerr << t << ' '; } cerr << '\n';
+		//for (auto t : times) { cerr << t << ' '; } cerr << '\n';
 		return times;
 	};
 
@@ -691,14 +691,14 @@ void main_fast() {
 		x.for_each_r_to_l([&](auto a) -> void {
 			res = eval(heavy_segs[i][a], res);
 		});
-		auto sim_res = sim()[v];
-		cerr << "query " << v << ' ' << res << ' ' << sim_res << '\n';
-		assert(res == sim_res);
+		//auto sim_res = sim()[v];
+		//cerr << "query " << v << ' ' << res << ' ' << sim_res << '\n';
+		//assert(res == sim_res);
 		return res;
 	};
 
 	for (int q = 0; q < Q; q++) {
-		cerr << '\n';
+		//cerr << '\n';
 		int op; cin >> op;
 		if (op == 1) {
 			int p; int64_t x, y; cin >> p >> x >> y; p--;
@@ -707,7 +707,7 @@ void main_fast() {
 			p = preorder_idx[p];
 			A[p] = x;
 			B[p] = y;
-			cerr << "update " << p << ' ' << A[p] << ' ' << B[p] << '\n';
+			//cerr << "update " << p << ' ' << A[p] << ' ' << B[p] << '\n';
 			update(p);
 		} else if (op == 2) {
 			int c, d; cin >> c >> d; c--, d--;
