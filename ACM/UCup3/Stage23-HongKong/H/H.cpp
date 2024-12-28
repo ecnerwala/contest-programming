@@ -39,12 +39,14 @@ int main() {
 					int val = en_val - st_val - num_needed[z];
 					val %= 3;
 					if (val < 0) val += 3;
-					if (val && z + 2 >= 8) {
-						goto bad;
+					if (val) {
+						if (z + 2 >= 8) {
+							goto bad;
+						}
+						num_needed[z] += val;
+						num_needed[z+1] += val;
+						num_needed[z+2] += val;
 					}
-					num_needed[z] += val;
-					num_needed[z+1] += val;
-					num_needed[z+2] += val;
 				}
 				for (int i = 0, j = 0; j < int(inds[en_msk].size()); j++) {
 					int en = inds[en_msk][j];
