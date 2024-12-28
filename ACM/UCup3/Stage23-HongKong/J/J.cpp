@@ -335,6 +335,8 @@ int main() {
 				} else {
 					val[bad_j]++;
 				}
+			} else {
+				val[0]++;
 			}
 		}
 		std::y_combinator([&](auto self, int cur, int prv) -> void {
