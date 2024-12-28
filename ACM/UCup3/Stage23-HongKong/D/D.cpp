@@ -658,7 +658,7 @@ int main() {
 				assert(!v->p);
 				v->lazy_v = {ID, 0};
 			}
-			{
+			if (((a + 1) >> b) & 1) {
 				auto n = get_path(&verts[attacks[a].verts[0]], &verts[attacks[a].verts[1]]);
 				assert(!n->p);
 				int64_t z = attacks[a].val;
