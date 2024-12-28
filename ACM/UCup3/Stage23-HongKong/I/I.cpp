@@ -253,6 +253,7 @@ int main() {
 			}
 			assert(i < P);
 			self(f2, mu, i+1);
+			cerr << i << '\n';
 			if ((f2 / strides[i]) % (pfacs[i].second+1) <= pfacs[i].second) {
 				self(f2 + strides[i], -mu, i+1);
 			}
