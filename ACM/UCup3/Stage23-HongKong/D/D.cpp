@@ -618,7 +618,7 @@ int main() {
 			A++;
 		} else if (op == 'D') {
 			int x, h; cin >> x >> h; x--;
-			defenses.push_back({ID, x, h, A, A});
+			defenses.push_back({ID, h, x, A, A});
 			D++;
 		} else assert(false);
 	}
