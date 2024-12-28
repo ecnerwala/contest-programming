@@ -144,6 +144,7 @@ int main() {
 			A[z][x]++;
 			int idx = int(std::upper_bound(A_sorted[z].begin(), A_sorted[z].end(), old_val+1) - A_sorted[z].begin()) - 1;
 			assert(A_sorted[z][idx] == old_val);
+			assert(idx+1 == N || A_sorted[z][idx+1] > old_val);
 			val /= num(std::min(A_sorted[z][idx], A_sorted[!z][idx]));
 			A_sorted[z][idx]++;
 			val *= num(std::min(A_sorted[z][idx], A_sorted[!z][idx]));
