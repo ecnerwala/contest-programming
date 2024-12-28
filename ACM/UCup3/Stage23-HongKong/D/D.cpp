@@ -639,6 +639,7 @@ int main() {
 
 	// starting points are numbered from 0 .. A-1
 	for (int b = 31 - __builtin_clz(A); b >= 0; b--) {
+		cerr << "doing round " << b << '\n';
 		// all starting points which are 011111 (b 1's)
 		std::vector<std::vector<int>> ends(A+1);
 		std::vector<std::vector<int>> starts(A);
