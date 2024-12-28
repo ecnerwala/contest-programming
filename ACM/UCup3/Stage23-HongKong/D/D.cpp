@@ -628,6 +628,7 @@ int main() {
 
 	// starting points are numbered from 0 .. A-1
 	for (int b = 31 - __builtin_clz(A); b >= 0; b--) {
+		cerr << "doing " << b << '\n';
 		// all starting points which are 011111 (b 1's)
 		std::vector<std::vector<int>> ends(A+1);
 		std::vector<std::vector<int>> starts(A);
@@ -659,6 +660,7 @@ int main() {
 				assert(!v->p);
 				mat_t cnd = mul(v->lazy_v, defenses[d].cur_attacks);
 				int cnd_st = (defenses[d].attack_st >> b << b) - 1;
+				cerr << "checking " << d << ' ' << cnd_st << '\n';
 				//int cnd_en = defenses[d].attack_st;
 				if (std::min({cnd[0][0], cnd[0][1], cnd[1][0], cnd[1][1]}) < defenses[d].health * 2) {
 					defenses[d].cur_attacks = cnd;
