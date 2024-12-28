@@ -66,14 +66,7 @@ std::pair<int64_t, int64_t> solve(std::vector<int> A, int W) {
 			ans += (z - num_same) % 2 == 0 ? 1 : 2;
 		}
 
-		if ((N - num_same) % 2 == 0) {
-			// all the sames must be 11 since we go 111110101
-			return {ans, num_same - num_good_same};
-		} else {
-			// we're allowed to have 1 00, since it's going to be 110101010
-			// so 101010101 is fine, i.e. we can drop a same by pushing it to the end instead
-			return {ans, num_same - num_good_same};
-		}
+		return {ans, num_same - num_good_same};
 	} else if (W >= 3) {
 		int64_t cur_tot = std::accumulate(A.begin(), A.end(), int64_t(0));
 		if (cur_tot >= int64_t(W) * N - 1) {
