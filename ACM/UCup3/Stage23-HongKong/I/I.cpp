@@ -249,12 +249,11 @@ int main() {
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
 			cerr << f << ' ' << f2 << ' ' << mu << ' ' << i << '\n';
 			if (i == P) {
-				dp[f] -= mu * pow(dp[f2], factors[f2] / factors[i]);
+				dp[f] -= mu * pow(dp[f2], factors[f2] / factors[f]);
 				return;
 			}
 			assert(i < P);
 			self(f2, mu, i+1);
-			cerr << i << '\n';
 			if ((f2 / strides[i]) % (pfacs[i].second+1) < pfacs[i].second) {
 				self(f2 + strides[i], -mu, i+1);
 			}
