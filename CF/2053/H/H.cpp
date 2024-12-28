@@ -72,6 +72,7 @@ std::pair<int64_t, int64_t> solve(std::vector<int> A, int W) {
 		if (cur_tot >= int64_t(W) * N - 1) {
 			return {cur_tot, 0};
 		}
+		return {int64_t(W) * N - 1, 1};
 	} else assert(false);
 }
 
