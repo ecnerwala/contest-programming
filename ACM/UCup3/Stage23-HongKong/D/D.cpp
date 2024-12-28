@@ -520,6 +520,11 @@ using mat_t = std::array<std::array<int64_t, 2>, 2>;
 const int64_t INF = 1e18;
 const mat_t ID{std::array<int64_t, 2>{0, INF}, {INF, 0}};
 
+struct attacks_t {
+	mat_t m;
+	int cnt;
+};
+
 mat_t mul(mat_t a, mat_t b) {
 	return mat_t{
 		std::array<int64_t, 2>{
@@ -533,10 +538,14 @@ mat_t mul(mat_t a, mat_t b) {
 	};
 }
 
+attacks_t mul(attacks_t a, attacks_t b) {
+	return {mul(a.m, b.m), a.cnt + b.cnt};
+}
+
 struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	bool lazy_flip_path = false;
 
-	mat_t lazy_v = ID;
+	attacks_t lazy_v{ID, 0};
 
 	void do_flip_path() {
 		assert(is_path);
@@ -545,7 +554,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	}
 
 	// append
-	void do_apply_mat(mat_t m) {
+	void do_apply_mat(attacks_t m) {
 		assert(is_path);
 		lazy_v = mul(lazy_v, m);
 	}
@@ -562,7 +571,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 		if (is_path && !is_vert) {
 			c[0]->do_apply_mat(lazy_v);
 			c[1]->do_apply_mat(lazy_v);
-			lazy_v = ID;
+			lazy_v = {ID, 0};
 		}
 	}
 
@@ -602,7 +611,7 @@ int main() {
 
 	int D = 0;
 	struct defense_t {
-		mat_t cur_attacks = ID;
+		attacks_t cur_attacks;
 		int64_t health;
 		int vert;
 		int attack_en;
@@ -618,7 +627,7 @@ int main() {
 			A++;
 		} else if (op == 'D') {
 			int x, h; cin >> x >> h; x--;
-			defenses.push_back({ID, h, x, A, A});
+			defenses.push_back({{ID, 0}, h, x, A, A});
 			D++;
 		} else assert(false);
 	}
@@ -652,7 +661,7 @@ int main() {
 				auto n = get_path(&verts[attacks[a].verts[0]], &verts[attacks[a].verts[1]]);
 				assert(!n->p);
 				int64_t z = attacks[a].val;
-				n->do_apply_mat(mat_t{std::array<int64_t, 2>{2 * z, z}, {2 * z, 2 * z}});
+				n->do_apply_mat({mat_t{std::array<int64_t, 2>{2 * z, z}, {2 * z, 2 * z}}, 1});
 				n->downdate();
 				n->update_all();
 			}
@@ -660,11 +669,11 @@ int main() {
 				auto v = &verts[defenses[d].vert];
 				v->make_root();
 				assert(!v->p);
-				mat_t cnd = mul(v->lazy_v, defenses[d].cur_attacks);
+				attacks_t cnd = mul(v->lazy_v, defenses[d].cur_attacks);
 				int cnd_st = (defenses[d].attack_st >> b << b) - 1;
 				cerr << "checking " << d << ' ' << cnd_st << '\n';
 				//int cnd_en = defenses[d].attack_st;
-				if (std::min({cnd[0][0], cnd[0][1], cnd[1][0], cnd[1][1]}) < defenses[d].health * 2) {
+				if (std::min({cnd.m[0][0], cnd.m[0][1], cnd.m[1][0], cnd.m[1][1]}) < defenses[d].health * 2) {
 					defenses[d].cur_attacks = cnd;
 					defenses[d].attack_st = cnd_st;
 				}
@@ -675,7 +684,7 @@ int main() {
 	}
 	cerr << "outputing" << '\n';
 	for (int d = 0; d < D; d++) {
-		cout << defenses[d].attack_en - defenses[d].attack_st << '\n';
+		cout << defenses[d].cur_attacks.cnt << '\n';
 	}
 
 	return 0;
