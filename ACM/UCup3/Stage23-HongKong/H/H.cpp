@@ -9,6 +9,7 @@ int main() {
 		int N; cin >> N;
 		std::vector<int> A(N);
 		for (auto& a : A) { cin >> a; a--; }
+		for (auto a : A) cerr << a << '\n';
 
 		std::vector<std::vector<int>> inds(1 << 16);
 
@@ -31,6 +32,7 @@ int main() {
 		for (auto st_msk : valid_msk) {
 			for (auto en_msk : valid_msk) {
 				if ((inds[st_msk][0] - inds[en_msk][0]) % 3 != 0) continue;
+				cerr << "trying msks" << '\n';
 
 				std::array<int, 8> num_needed; num_needed.fill(0);
 				for (int z = 0; z < 8; z++) {
@@ -47,6 +49,7 @@ int main() {
 						num_needed[z+1] += val;
 						num_needed[z+2] += val;
 					}
+					cerr << st_val << ' ' << en_val << ' ' << num_needed[z] << '\n';
 				}
 				for (int i = 0, j = 0; j < int(inds[en_msk].size()); j++) {
 					int en = inds[en_msk][j];
