@@ -674,7 +674,7 @@ int main() {
 		cerr << "hi" << '\n';
 	}
 	cerr << "outputing" << '\n';
-	for (int d = 0; d < D; D++) {
+	for (int d = 0; d < D; d++) {
 		cout << defenses[d].attack_en - defenses[d].attack_st << '\n';
 	}
 
