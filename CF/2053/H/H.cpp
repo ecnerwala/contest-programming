@@ -91,6 +91,12 @@ void test() {
 		cerr << "test " << z << ' ' << N << ' ' << W << '\n';
 		auto ans = solve_slow(A, W);
 		auto mine = solve(A, W);
+		if (ans != mine) {
+			cerr << N << ' ' << W << '\n';
+			for (auto a : A) { cerr << a << ' '; } cerr << '\n';
+			cerr << "ans " << ans.first << ' ' << ans.second << '\n';
+			cerr << "mine " << mine.first << ' ' << mine.second << '\n';
+		}
 		assert(ans == mine);
 	}
 }
