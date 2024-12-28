@@ -650,9 +650,11 @@ int main() {
 			}
 			{
 				auto n = get_path(&verts[attacks[a].verts[0]], &verts[attacks[a].verts[1]]);
+				assert(!n->p);
 				int64_t z = attacks[a].val;
 				n->do_apply_mat(mat_t{std::array<int64_t, 2>{2 * z, z}, {2 * z, 2 * z}});
 				n->downdate();
+				n->update_all();
 			}
 			for (auto d : ends[a+1]) {
 				auto v = &verts[defenses[d].vert];
