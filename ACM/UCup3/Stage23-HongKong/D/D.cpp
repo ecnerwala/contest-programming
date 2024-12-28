@@ -653,7 +653,7 @@ int main() {
 			}
 		}
 		for (int a = 0; a < A; a++) {
-			for (auto d : starts[a]) {
+			if (false) for (auto d : starts[a]) {
 				auto v = &verts[defenses[d].vert];
 				v->make_root();
 				assert(!v->p);
@@ -667,7 +667,7 @@ int main() {
 				n->downdate();
 				n->update_all();
 			}
-			for (auto d : ends[a+1]) {
+			if (false) for (auto d : ends[a+1]) {
 				auto v = &verts[defenses[d].vert];
 				v->make_root();
 				assert(!v->p);
