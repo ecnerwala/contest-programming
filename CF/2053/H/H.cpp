@@ -79,7 +79,7 @@ std::pair<int64_t, int64_t> solve(std::vector<int> A, int W) {
 void test() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 10000; z++) {
-		int N = std::uniform_int_distribution(1, 6)(mt);
+		int N = std::uniform_int_distribution(1, 8)(mt);
 		int W = std::uniform_int_distribution(2, 2)(mt);
 		std::vector<int> A(N);
 		for (auto& a : A) a = std::uniform_int_distribution(1, W)(mt);
