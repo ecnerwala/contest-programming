@@ -18,6 +18,8 @@ int main() {
 
 		int msk = 0;
 		std::vector<int> valid_msk; valid_msk.reserve(N);
+		valid_msk.push_back(0);
+		inds[msk].push_back(0);
 		for (int i = 0; i < N; i++) {
 			freq[i+1] = freq[i];
 			freq[i+1][A[i]]++;
@@ -26,7 +28,7 @@ int main() {
 				msk -= 3 << (2 * A[i]);
 			}
 			if (inds[msk].empty()) valid_msk.push_back(msk);
-			inds[msk].push_back(i);
+			inds[msk].push_back(i+1);
 		}
 		int64_t ans = 0;
 		for (auto st_msk : valid_msk) {
