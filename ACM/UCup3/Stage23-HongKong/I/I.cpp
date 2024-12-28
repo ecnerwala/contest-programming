@@ -1,5 +1,27 @@
 #include <bits/stdc++.h>
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
 namespace kactl {
 using namespace std;
 
@@ -213,16 +235,10 @@ int main() {
 	for (int f = 0; f < F; f++) {
 		ways_single[f] = M / factors[f];
 	}
-	std::vector<int> mu(F);
-	mu[0] = 1;
 	for (int i = 0; i < P; i++) {
 		for (int v = 0; v < F; v++) {
 			if (v % strides[i+1] / strides[i] == 0) continue;
 			ways_single[v - strides[i]] -= ways_single[v];
-		}
-		for (int v = F-1; v >= 0; v--) {
-			if (v % strides[i+1] / strides[i] == 0) continue;
-			mu[v] -= mu[v - strides[i]];
 		}
 	}
 
@@ -230,11 +246,15 @@ int main() {
 	std::vector<num> dp(F);
 	for (int f = F-1; f >= 0; f--) {
 		dp[f] = ways_single[f];
-		for (int f2 = f+1; f2 < F; f2++) {
-			if (factors[f2] % factors[f]) continue;
-			//cerr << f2 << ' ' << mu[f2 - f] << ' ' << pow(dp[f2], factors[f2] / factors[f]) << '\n';
-			dp[f] -= mu[f2 - f] * pow(dp[f2], factors[f2] / factors[f]);
-		}
+		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
+			if (i == P) {
+				dp[f] -= mu * pow(dp[f2], factors[f2] / factors[i]);
+			}
+			self(f2, mu, i+1);
+			if ((f2 / strides[i]) % (pfacs[i].second+1) <= pfacs[i].second) {
+				self(f2 + strides[i], -mu, i+1);
+			}
+		})(f, 1, 0);
 		//cerr << f << ' ' << ways_single[f] << ' ' << factors[f] << ' ' << dp[f] << '\n';
 	}
 
