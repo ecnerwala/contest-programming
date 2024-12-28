@@ -256,9 +256,9 @@ int main() {
 	std::vector<num> dp(F);
 	for (int f = F-1; f >= 0; f--) {
 		dp[f] += ways_single[f];
-		std::vector<int> primes; primes.reserve(P);
+		std::vector<std::pair<int, int64_t>> primes; primes.reserve(P);
 		for (int i = 0; i < P; i++) {
-			if (f / strides[i] % (pfacs[i].second + 1) != 0) primes.push_back(i);
+			if (f / strides[i] % (pfacs[i].second + 1) != 0) primes.push_back({strides[i], pfacs[i].first});
 		}
 
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i, num v) -> void {
@@ -269,8 +269,8 @@ int main() {
 			i--;
 			assert(i < int(primes.size()));
 			self(f2, mu, i, v);
-			int p = primes[i];
-			self(f2 - strides[p], -mu, i, pow(v, pfacs[p].first));
+			auto [s, p] = primes[i];
+			self(f2 - s, -mu, i, pow(v, p));
 		})(f, 1, int(primes.size()), dp[f]);
 		/*
 		int msk = 0;
