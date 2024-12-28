@@ -25,6 +25,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			int cur = 0;
 			for (char c : S[i]) {
+				c -= 'a';
 				if (trie[cur][c] == -1) {
 					trie[cur][c] = int(trie.size());
 					trie.emplace_back(); trie.back().fill(-1);
