@@ -69,10 +69,52 @@ std::pair<int64_t, int64_t> solve(std::vector<int> A, int W) {
 		return {ans, num_same - num_good_same};
 	} else if (W >= 3) {
 		int64_t cur_tot = std::accumulate(A.begin(), A.end(), int64_t(0));
-		if (cur_tot >= int64_t(W) * N - 1) {
+		int64_t final_val = int64_t(W) * N - 1;
+		if (cur_tot >= final_val) {
 			return {cur_tot, 0};
 		}
-		return {int64_t(W) * N - 1, 1};
+		// we need to do at least one op
+		int st = 0, en = N;
+		while (A[st] == W) st++;
+		while (A[en-1] == W) en--;
+		assert(st < en);
+		if (en - st == 1) {
+			return {final_val, 2};
+		}
+		int64_t best_moves = int64_t(1e18);
+		auto check = [&](int loc, int ploc) -> void {
+			int64_t num_moves = en - st - 1;
+			num_moves += std::abs(loc - ploc);
+
+			int cur_run = 0;
+			for (int i = st; i < en; i++) {
+				if (i <= std::max(loc, ploc) + 1 || i+1 >= std::min(loc, ploc)) continue;
+				if (A[i] == W) {
+					cur_run++;
+				} else {
+					num_moves += (cur_run + 1) / 2;
+					cur_run = 0;
+				}
+			}
+			num_moves += (cur_run + 1) / 2;
+
+			best_moves = std::min(best_moves, num_moves);
+		};
+		for (int loc : {st, en-2}) {
+			for (int i = loc; i >= 0; i--) {
+				if (A[i] == A[i+1]) {
+					check(loc, i);
+					break;
+				}
+			}
+			for (int i = loc; i+1 < N; i++) {
+				if (A[i] == A[i+1]) {
+					check(loc, i);
+					break;
+				}
+			}
+		}
+		return {final_val, best_moves};
 	} else assert(false);
 }
 
