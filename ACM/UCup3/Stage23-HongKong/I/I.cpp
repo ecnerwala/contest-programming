@@ -242,6 +242,7 @@ int main() {
 		}
 	}
 
+	cerr << "doing dp " << '\n';
 	// number of ways of solving a single tree
 	std::vector<num> dp(F);
 	for (int f = F-1; f >= 0; f--) {
