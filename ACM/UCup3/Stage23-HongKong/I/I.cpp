@@ -202,6 +202,7 @@ int main() {
 
 	int F = strides.back();
 	std::vector<int64_t> factors(F);
+	factors[0] = 1;
 	for (int i = 0; i < P; i++) {
 		for (int v = strides[i]; v < strides[i+1]; v++) {
 			factors[v] = factors[v - strides[i]] * pfacs[i].first;
