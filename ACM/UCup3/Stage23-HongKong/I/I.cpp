@@ -231,7 +231,7 @@ int main() {
 			if (factors[f2] % factors[f]) continue;
 			dp[f] -= mu[f2 - f] * pow(dp[f2], factors[f2] / factors[f]);
 		}
-		cerr << f << ' ' << factors[f] << ' ' << dp[f] << '\n';
+		cerr << f << ' ' << ways_single[f] << ' ' << factors[f] << ' ' << dp[f] << '\n';
 	}
 
 	cout << dp[0] << '\n';
