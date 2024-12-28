@@ -424,6 +424,7 @@ int main() {
 			layout.get_range(0, i).for_each_r_to_l(check_range);
 			layout.get_range(i+1, N).for_each_r_to_l(check_range);
 			best = std::max(best, int64_t(other.val) + int64_t(cur.val) + int64_t(A[i]));
+			cout << best << " \n"[i+1==N];
 		}
 	}
 
