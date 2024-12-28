@@ -52,12 +52,12 @@ int main() {
 					int en = inds[en_msk][j];
 					while (i < int(inds[st_msk].size())) {
 						int st = inds[st_msk][i];
-						bool good = true;
-						for (int z = 0; z < 8; z++) {
+						bool good = st < en;
+						for (int z = 0; good && z < 8; z++) {
 							if (freq[en][z] - freq[st][z] < num_needed[z]) { good = false; break; }
 						}
 						if (!good) break;
-						cerr << "good " << st << ' ' << en << '\n';
+						//cerr << "good " << st << ' ' << en << '\n';
 						i++;
 					}
 					ans += i;
