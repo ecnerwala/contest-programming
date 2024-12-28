@@ -20,7 +20,7 @@ int main() {
 		}
 		for (int i = 0; i < N; i++) {
 			auto [l, r] = bounds[i];
-			if ((r - l == 1) ? (seen[l] >= 2) : (pref[r] - pref[l] != 0)) {
+			if ((r - l == 1) ? (seen[l] >= 2) : (pref[r] - pref[l] == r - l)) {
 				cout << '0';
 			} else {
 				cout << '1';
