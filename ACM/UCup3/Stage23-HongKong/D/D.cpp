@@ -569,9 +569,11 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			lazy_flip_path = false;
 		}
 		if (is_path && !is_vert) {
-			c[0]->do_apply_mat(lazy_v);
-			c[1]->do_apply_mat(lazy_v);
-			lazy_v = {ID, 0};
+			if (lazy_v.cnt) {
+				c[0]->do_apply_mat(lazy_v);
+				c[1]->do_apply_mat(lazy_v);
+				lazy_v = {ID, 0};
+			}
 		}
 	}
 
