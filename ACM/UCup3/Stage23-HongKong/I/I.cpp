@@ -242,11 +242,28 @@ int main() {
 		}
 	}
 
+	std::vector<std::pair<int64_t, int>> msks(1 << P);
+	msks[0] = {1, 0};
+	for (int i = 0; i < P; i++) {
+		for (int v = 0; v < (1 << i); v++) {
+			msks[v + (1 << i)].first = msks[v].first * pfacs[i].first;
+			msks[v + (1 << i)].second = msks[v].second + strides[i];
+		}
+	}
+
 	cerr << "doing dp " << '\n';
 	// number of ways of solving a single tree
 	std::vector<num> dp(F);
 	for (int f = F-1; f >= 0; f--) {
 		dp[f] = ways_single[f];
+		int msk = 0;
+		for (int i = 0; i < P; i++) {
+			if (f / strides[i] % (pfacs[i].second + 1) != pfacs[i].second) msk |= (1 << i);
+		}
+		for (int v = msk; v > 0; v = (v-1) & msk) {
+			dp[f] -= ((__builtin_popcount(v) & 1) ? -1 : 1) * pow(dp[f + msks[v].second], msks[v].first);
+		}
+		/*
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
 			if (i == P) {
 				if (f2 > f) dp[f] -= mu * pow(dp[f2], factors[f2] / factors[f]);
@@ -258,6 +275,7 @@ int main() {
 				self(f2 + strides[i], -mu, i+1);
 			}
 		})(f, 1, 0);
+		*/
 		//cerr << f << ' ' << ways_single[f] << ' ' << factors[f] << ' ' << dp[f] << '\n';
 	}
 
