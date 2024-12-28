@@ -20,10 +20,10 @@ int main() {
 				return 0;
 			}
 			// p != q, so there's always one initial vertex
-			// if q is intially a leaf, then Aron win
-			int64_t ans = 0;
+			// if q is intially a leaf, but p is not then Aron win
+			int num_leaves = 0;
 			for (int i = 0; i < N; i++) {
-				if (int(adj[i].size()) == 1) ans += N-1;
+				if (int(adj[i].size()) == 1) num_leaves++;
 			}
 
 			// Consider (p,q)
@@ -49,6 +49,8 @@ int main() {
 				}
 			}
 			cerr << num_p << ' ' << num_q << '\n';
+			int64_t ans = 0;
+			ans += int64_t(num_leaves) * int64_t(N - num_leaves);
 			ans += int64_t(num_p) * int64_t(num_q);
 
 			return ans;
