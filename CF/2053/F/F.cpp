@@ -50,6 +50,7 @@ int main() {
 				weight[i][v] += c;
 			}
 		}
+		cerr << ans << '\n';
 		std::vector<int64_t> val_pref(K, 0);
 		std::vector<int64_t> dp_val(K, 0);
 		int64_t dp_blank = 0;
@@ -61,7 +62,7 @@ int main() {
 			// when you start here, you subtract off diff_pref[i]
 			for (auto [v, c] : weight[i]) {
 				dp_val_set.erase({dp_val[v], v});
-				dp_val[v] = std::max(dp_val[v], dp_blank) + c;
+				dp_val[v] = std::max(dp_val[v], dp_blank) + int64_t(c) * int64_t(freq_blank[i]);
 				dp_val_set.insert({dp_val[v], v});
 			}
 			if (i+1 < N) {
