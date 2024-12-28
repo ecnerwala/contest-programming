@@ -655,7 +655,7 @@ int main() {
 				auto v = &verts[defenses[d].vert];
 				v->make_root();
 				assert(!v->p);
-				v->lazy_v = ID;
+				v->lazy_v = {ID, 0};
 			}
 			{
 				auto n = get_path(&verts[attacks[a].verts[0]], &verts[attacks[a].verts[1]]);
