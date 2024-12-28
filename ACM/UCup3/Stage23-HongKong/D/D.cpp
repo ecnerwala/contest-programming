@@ -516,9 +516,8 @@ public:
 };
 
 // min/+ matrix
-using mat_t = std::array<std::array<int64_t, 2>, 2>;
-const int64_t INF = 1e18;
-const mat_t ID{std::array<int64_t, 2>{0, INF}, {INF, 0}};
+using mat_t = std::array<std::array<int, 2>, 2>;
+const mat_t ID{std::array<int, 2>{0, 0}, {0, 0}};
 
 struct attacks_t {
 	mat_t m;
@@ -527,11 +526,11 @@ struct attacks_t {
 
 mat_t mul(mat_t a, mat_t b) {
 	return mat_t{
-		std::array<int64_t, 2>{
+		std::array<int, 2>{
 			std::min(a[0][0] + b[0][0], a[0][1] + b[1][0]),
 			std::min(a[0][0] + b[0][1], a[0][1] + b[1][1]),
 		},
-		std::array<int64_t, 2>{
+		std::array<int, 2>{
 			std::min(a[1][0] + b[0][0], a[1][1] + b[1][0]),
 			std::min(a[1][0] + b[0][1], a[1][1] + b[1][1]),
 		}
@@ -607,14 +606,14 @@ int main() {
 	int A = 0;
 	struct attack_t {
 		std::array<int, 2> verts;
-		int64_t val;
+		int val;
 	};
 	std::vector<attack_t> attacks; attacks.reserve(Q);
 
 	int D = 0;
 	struct defense_t {
 		attacks_t cur_attacks;
-		int64_t health;
+		int health;
 		int vert;
 		int attack_en;
 		int attack_st;
@@ -653,7 +652,7 @@ int main() {
 			}
 		}
 		for (int a = 0; a < A; a++) {
-			if (false) for (auto d : starts[a]) {
+			for (auto d : starts[a]) {
 				auto v = &verts[defenses[d].vert];
 				v->make_root();
 				assert(!v->p);
@@ -662,12 +661,12 @@ int main() {
 			if (((a + 1) >> b) & 1) {
 				auto n = get_path(&verts[attacks[a].verts[0]], &verts[attacks[a].verts[1]]);
 				assert(!n->p);
-				int64_t z = attacks[a].val;
-				n->do_apply_mat({mat_t{std::array<int64_t, 2>{2 * z, z}, {2 * z, 2 * z}}, 1});
+				int z = attacks[a].val;
+				n->do_apply_mat({mat_t{std::array<int, 2>{2 * z, z}, {2 * z, 2 * z}}, 1});
 				n->downdate();
 				n->update_all();
 			}
-			if (false) for (auto d : ends[a+1]) {
+			for (auto d : ends[a+1]) {
 				auto v = &verts[defenses[d].vert];
 				v->make_root();
 				assert(!v->p);
