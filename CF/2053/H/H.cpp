@@ -65,7 +65,7 @@ int64_t solve(std::vector<int> A, int W) {
 
 void test() {
 	std::mt19937 mt(48);
-	for (int z = 0; z < 100; z++) {
+	for (int z = 0; z < 10000; z++) {
 		int N = std::uniform_int_distribution(1, 6)(mt);
 		int W = std::uniform_int_distribution(2, 4)(mt);
 		std::vector<int> A(N);
