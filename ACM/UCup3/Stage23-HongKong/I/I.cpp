@@ -247,6 +247,7 @@ int main() {
 	for (int f = F-1; f >= 0; f--) {
 		dp[f] = ways_single[f];
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
+			cerr << f << ' ' << f2 << ' ' << mu << ' ' << i << '\n';
 			if (i == P) {
 				dp[f] -= mu * pow(dp[f2], factors[f2] / factors[i]);
 				return;
