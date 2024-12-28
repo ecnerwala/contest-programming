@@ -12,6 +12,7 @@ int main() {
 		int64_t cur_len = N;
 		int64_t ans = 0;
 		while (cur_len >= K) {
+			cerr << cur_len << '\n';
 			if (cur_len & 1) {
 				ans += tot_left + (cur_len / 2) * num_segs;
 			}
