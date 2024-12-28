@@ -36,7 +36,7 @@ bool isPrime(ull n) {
 
 ull pollard(ull n) {
 	ull x = 0, y = 0, t = 30, prd = 2, i = 1, q;
-	auto f = [&](ull x) { return modmul(x, x, n) + i; };
+	auto f = [&](ull v) { return modmul(v, v, n) + i; };
 	while (t++ % 40 || __gcd(prd, n) == 1) {
 		if (x == y) x = ++i, y = f(x);
 		if ((q = modmul(prd, max(x,y) - min(x,y), n))) prd = q;
@@ -231,6 +231,7 @@ int main() {
 			if (factors[f2] % factors[f]) continue;
 			dp[f] -= mu[f2 - f] * pow(dp[f2], factors[f2] / factors[f]);
 		}
+		cerr << f << ' ' << factors[f] << ' ' << dp[f] << '\n';
 	}
 
 	cout << dp[0] << '\n';
