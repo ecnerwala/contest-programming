@@ -14,7 +14,7 @@ int main() {
 			bounds[i] = {l, r};
 			if (r - l == 1) seen[r]++;
 		}
-		for (int i = 0; i < 2*N; i++) {
+		for (int i = 0; i+1 < int(seen.size()); i++) {
 			seen[i+1] += seen[i];
 		}
 		for (int i = 0; i < 2*N; i++) {
