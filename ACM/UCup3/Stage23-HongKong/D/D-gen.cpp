@@ -7,6 +7,7 @@ int main() {
 
 	int N = int(5e5);
 	int Q = int(3e5);
+	cout << N << ' ' << Q << '\n';
 	std::vector<int> par(N, -1);
 	auto get_par = [&](int a) -> int {
 		while (par[a] >= 0) {
