@@ -71,7 +71,8 @@ std::pair<int64_t, int64_t> solve(std::vector<int> A, int W) {
 			return {ans, num_same - num_good_same};
 		} else {
 			// we're allowed to have 1 00, since it's going to be 110101010
-			return {ans, std::max(0, num_same - num_good_same - 1)};
+			// so 101010101 is fine, i.e. we can drop a same by pushing it to the end instead
+			return {ans, num_same - num_good_same};
 		}
 	} else if (W >= 3) {
 		int64_t cur_tot = std::accumulate(A.begin(), A.end(), int64_t(0));
