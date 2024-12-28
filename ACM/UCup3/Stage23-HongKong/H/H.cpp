@@ -57,7 +57,7 @@ int main() {
 							if (freq[en][z] - freq[st][z] < num_needed[z]) { good = false; break; }
 						}
 						if (!good) break;
-						//cerr << "good " << st << ' ' << en << '\n';
+						cerr << "good " << st << ' ' << en << '\n';
 						i++;
 					}
 					ans += i;
