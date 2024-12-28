@@ -517,7 +517,8 @@ public:
 
 // min/+ matrix
 using mat_t = std::array<std::array<int, 2>, 2>;
-const mat_t ID{std::array<int, 2>{0, 0}, {0, 0}};
+const int INF = int(2e9);
+const mat_t ID{std::array<int, 2>{0, INF}, {INF, 0}};
 
 struct attacks_t {
 	mat_t m;
