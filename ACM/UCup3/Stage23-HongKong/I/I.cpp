@@ -251,6 +251,7 @@ int main() {
 				dp[f] -= mu * pow(dp[f2], factors[f2] / factors[i]);
 				return;
 			}
+			assert(i < P);
 			self(f2, mu, i+1);
 			if ((f2 / strides[i]) % (pfacs[i].second+1) <= pfacs[i].second) {
 				self(f2 + strides[i], -mu, i+1);
