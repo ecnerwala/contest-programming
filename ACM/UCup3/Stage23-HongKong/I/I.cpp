@@ -256,6 +256,23 @@ int main() {
 	std::vector<num> dp(F);
 	for (int f = F-1; f >= 0; f--) {
 		dp[f] = ways_single[f];
+		std::vector<int> primes; primes.reserve(P);
+		for (int i = 0; i < P; i++) {
+			if (f / strides[i] % (pfacs[i].second + 1) != 0) primes.push_back(i);
+		}
+
+		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i, num v) -> void {
+			if (i == 0) {
+				if (f2 < f) dp[f2] -= mu * v;
+				return;
+			}
+			i--;
+			assert(i < int(primes.size()));
+			self(f2, mu, i, v);
+			int p = primes[i];
+			self(f2 - strides[p], -mu, i, pow(v, pfacs[p].first));
+		})(f, 1, int(primes.size()), dp[f]);
+		/*
 		int msk = 0;
 		for (int i = 0; i < P; i++) {
 			if (f / strides[i] % (pfacs[i].second + 1) != pfacs[i].second) msk |= (1 << i);
@@ -263,7 +280,6 @@ int main() {
 		for (int v = msk; v > 0; v = (v-1) & msk) {
 			dp[f] -= ((__builtin_popcount(v) & 1) ? -1 : 1) * pow(dp[f + msks[v].second], msks[v].first);
 		}
-		/*
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
 			if (i == P) {
 				if (f2 > f) dp[f] -= mu * pow(dp[f2], factors[f2] / factors[f]);
