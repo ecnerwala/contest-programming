@@ -48,6 +48,7 @@ int main() {
 					num_q += std::max(int(adj[i].size()) - num_leaves - 1, 0);
 				}
 			}
+			cerr << num_p << ' ' << num_q << '\n';
 			ans += int64_t(num_p) * int64_t(num_q);
 
 			return ans;
