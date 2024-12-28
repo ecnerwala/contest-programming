@@ -345,7 +345,7 @@ int main() {
 			}
 		})(0, -1);
 		for (int i = 0; i < N; i++) {
-			if (val[i] == 0) ans[i] = '1';
+			if (val[i] == N) ans[i] = '1';
 		}
 bad:
 		cout << ans << '\n';
