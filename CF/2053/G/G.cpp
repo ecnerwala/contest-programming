@@ -72,7 +72,7 @@ int main() {
 				}
 				z_fn[i] = j - i;
 			}
-			max_match[z].resize(M);
+			max_match[z].resize(M+1);
 			for (int best_i = 0, best_j = 0, i = 0; i < M; i++) {
 				int j = std::min(best_j, i + (i - best_i >= N ? 0 : z_fn[i - best_i]));
 				j = std::max(j, i);
@@ -85,6 +85,7 @@ int main() {
 				}
 				max_match[z][i] = j - i;
 			}
+			max_match[z][M] = 0;
 			std::reverse(S.begin(), S.end());
 			std::reverse(T.begin(), T.end());
 		}
