@@ -92,11 +92,11 @@ std::pair<int64_t, int64_t> solve(std::vector<int> A, int W) {
 				if (A[i] == W) {
 					cur_run++;
 				} else {
-					num_moves += (cur_run + 1) / 2;
+					num_moves += (cur_run == 1) ? 2 : (cur_run + 1) / 2;
 					cur_run = 0;
 				}
 			}
-			num_moves += (cur_run + 1) / 2;
+			num_moves += (cur_run == 1) ? 2 : (cur_run + 1) / 2;
 
 			best_moves = std::min(best_moves, num_moves);
 		};
