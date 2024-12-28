@@ -219,7 +219,10 @@ int main() {
 		for (int v = 0; v < F; v++) {
 			if (v % strides[i+1] / strides[i] == 0) continue;
 			ways_single[v - strides[i]] -= ways_single[v];
-			mu[v - strides[i]] -= mu[v];
+		}
+		for (int v = F-1; v >= 0; v--) {
+			if (v % strides[i+1] / strides[i] == 0) continue;
+			mu[v] -= mu[v - strides[i]];
 		}
 	}
 
