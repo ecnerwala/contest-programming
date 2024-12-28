@@ -249,7 +249,7 @@ int main() {
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
 			cerr << factors[f] << ' ' << factors[f2] << ' ' << mu << ' ' << i << '\n';
 			if (i == P) {
-				dp[f] -= mu * pow(dp[f2], factors[f2] / factors[f]);
+				if (f2 > f) dp[f] -= mu * pow(dp[f2], factors[f2] / factors[f]);
 				return;
 			}
 			assert(i < P);
