@@ -46,6 +46,10 @@ int main() {
 			std::reverse(T.begin(), T.end());
 		}
 		std::reverse(max_match[1].begin(), max_match[1].end());
+		for (auto v : max_match[0]) { cerr << v << ' '; } cerr << '\n';
+		for (auto v : max_match[1]) { cerr << v << ' '; } cerr << '\n';
+		for (int i = 1; i < N; i++) {
+		}
 	}
 
 	return 0;
