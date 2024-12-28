@@ -39,7 +39,7 @@ int main() {
 					int val = en_val - st_val - num_needed[z];
 					val %= 3;
 					if (val < 0) val += 3;
-					if (z + 2 >= 8) {
+					if (val && z + 2 >= 8) {
 						goto bad;
 					}
 					num_needed[z] += val;
