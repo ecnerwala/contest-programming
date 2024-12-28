@@ -249,6 +249,7 @@ int main() {
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
 			if (i == P) {
 				dp[f] -= mu * pow(dp[f2], factors[f2] / factors[i]);
+				return;
 			}
 			self(f2, mu, i+1);
 			if ((f2 / strides[i]) % (pfacs[i].second+1) <= pfacs[i].second) {
