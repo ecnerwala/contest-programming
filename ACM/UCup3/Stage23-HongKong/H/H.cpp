@@ -9,7 +9,7 @@ int main() {
 		int N; cin >> N;
 		std::vector<int> A(N);
 		for (auto& a : A) { cin >> a; a--; }
-		for (auto a : A) cerr << a << '\n';
+		for (auto a : A) { cerr << a << ' '; } cerr << '\n';
 
 		std::vector<std::vector<int>> inds(1 << 16);
 
