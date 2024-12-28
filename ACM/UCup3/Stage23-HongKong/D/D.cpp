@@ -669,6 +669,7 @@ int main() {
 					defenses[d].attack_st = cnd_st;
 				}
 			}
+			cerr << "done " << a << '\n';
 		}
 	}
 	for (int d = 0; d < D; D++) {
