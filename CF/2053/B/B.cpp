@@ -17,7 +17,7 @@ int main() {
 		for (int i = 0; i+1 < int(seen.size()); i++) {
 			seen[i+1] += seen[i];
 		}
-		for (int i = 0; i < 2*N; i++) {
+		for (int i = 0; i < N; i++) {
 			auto [l, r] = bounds[i];
 			if (seen[r] - seen[l] - (r - l == 1)) {
 				cout << '0';
