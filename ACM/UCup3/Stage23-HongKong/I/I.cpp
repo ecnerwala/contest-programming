@@ -261,7 +261,7 @@ int main() {
 			if (f / strides[i] % (pfacs[i].second + 1) != pfacs[i].second) msk |= (1 << i);
 		}
 		for (int v = msk; v > 0; v = (v-1) & msk) {
-			dp[f] -= ((__builtin_popcount(v) & 1) ? -1 : 1) * pow(dp[f + msks[v].second], msks[v].first);
+			//dp[f] -= ((__builtin_popcount(v) & 1) ? -1 : 1) * pow(dp[f + msks[v].second], msks[v].first);
 		}
 		/*
 		std::y_combinator([&](auto&& self, int64_t f2, int mu, int i) -> void {
