@@ -232,10 +232,10 @@ int main() {
 		dp[f] = ways_single[f];
 		for (int f2 = f+1; f2 < F; f2++) {
 			if (factors[f2] % factors[f]) continue;
-			cerr << f2 << ' ' << mu[f2 - f] << ' ' << pow(dp[f2], factors[f2] / factors[f]) << '\n';
+			//cerr << f2 << ' ' << mu[f2 - f] << ' ' << pow(dp[f2], factors[f2] / factors[f]) << '\n';
 			dp[f] -= mu[f2 - f] * pow(dp[f2], factors[f2] / factors[f]);
 		}
-		cerr << f << ' ' << ways_single[f] << ' ' << factors[f] << ' ' << dp[f] << '\n';
+		//cerr << f << ' ' << ways_single[f] << ' ' << factors[f] << ' ' << dp[f] << '\n';
 	}
 
 	cout << dp[0] << '\n';
