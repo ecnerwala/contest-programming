@@ -137,7 +137,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			val *= num(std::min(A_sorted[0][i], A_sorted[1][i]));
 		}
-		cout << val << '\n';
+		cout << val;
 		for (int q = 0; q < Q; q++) {
 			int z, x; cin >> z >> x; z--, x--;
 			int old_val = A[z][x];
@@ -148,8 +148,9 @@ int main() {
 			val /= num(std::min(A_sorted[z][idx], A_sorted[!z][idx]));
 			A_sorted[z][idx]++;
 			val *= num(std::min(A_sorted[z][idx], A_sorted[!z][idx]));
-			cout << val << '\n';
+			cout << ' ' << val;
 		}
+		cout << '\n';
 	}
 
 	return 0;
