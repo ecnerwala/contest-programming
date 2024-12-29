@@ -144,6 +144,7 @@ num get_ways_slow(int A, int B, int C) {
 }
 
 num get_ways(int A, int B, int C) {
+	if (A < 0 || B < 0 || C < 0) return 0;
 	return get_ways_slow(A, B, C);
 }
 
