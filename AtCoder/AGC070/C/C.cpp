@@ -144,8 +144,54 @@ num get_ways_slow(int A, int B, int C) {
 }
 
 num get_ways(int A, int B, int C) {
-	if (A < 0 || B < 0 || C < 0) return 0;
-	return get_ways_slow(A, B, C);
+	if (A < 0 || B < 0 || C < 0) {
+		return 0;
+	}
+
+
+	// what do we do?
+	int N = A+B+C;
+	std::vector<num> fact(N+1);
+	fact[0] = 1;
+	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(N+1);
+	ifact[N] = inv(fact[N]);
+	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+	auto choose = [&](int n, int r) -> num {
+		if (0 <= r && r <= n) return fact[n] * ifact[r] * ifact[n-r];
+		else return 0;
+	};
+	auto stars_and_bars = [&](int buckets, int objs) -> num {
+		return choose(buckets + objs - 1, buckets - 1);
+	};
+
+	auto stars_and_bars_nonempty = [&](int buckets, int objs) -> num {
+		return stars_and_bars(buckets, objs - buckets);
+		// obs - 1 choose buckets - 1
+	};
+
+	if (A == 0 && B == 0) {
+		return 1;
+	} else if (A == 0 || B == 0) {
+		return stars_and_bars(A+B+1, C - (A+B-1));
+	}
+
+	num ans = 0;
+	assert(A > 0 && B > 0);
+	for (int z = 0; z < 2; z++, std::swap(A, B)) {
+		for (int runs = 2; runs <= A + B; runs ++) {
+			int A_runs = (runs + 1) / 2;
+			int B_runs = runs / 2;
+			if (A_runs > A) break;
+			if (B_runs > B) break;
+			num ways = stars_and_bars_nonempty(A_runs, A) * stars_and_bars_nonempty(B_runs, A);
+			ways *= stars_and_bars(A + B + 1, C - (A - A_runs) - (B - B_runs));
+			ans += ways;
+		}
+	}
+
+	return ans;
 }
 
 num solve(int A, int B, int C) {
