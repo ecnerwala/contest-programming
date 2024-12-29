@@ -229,7 +229,7 @@ int main() {
 	// # (A, B, C) - # (B-1, A, C) B - # (B-1, A+1, C-1) B - # (B-1, A, C-1) B
 	
 	int N, A, B; cin >> N >> A >> B;
-	cout << solve(N, A, B) << '\n';
+	cout << solve(A, B, N - A - B) << '\n';
 
 	return 0;
 }
