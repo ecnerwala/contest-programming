@@ -170,7 +170,7 @@ num solve_slow(int A, int B, int C) {
 }
 
 void test() {
-	for (int N = 2; N <= 7; N++) {
+	for (int N = 2; N <= 10; N++) {
 		cerr << "testing " << N << '\n';
 		for (int A = 1; A + 1 <= N; A++) {
 			for (int B = 1; B <= A && A + B <= N; B++) {
