@@ -173,7 +173,7 @@ void test() {
 	for (int N = 2; N <= 7; N++) {
 		cerr << "testing " << N << '\n';
 		for (int A = 1; A + 1 <= N; A++) {
-			for (int B = 1; A + B <= N; B++) {
+			for (int B = 1; B <= A && A + B <= N; B++) {
 				int C = N - A - B;
 				num ans = solve_slow(A, B, C);
 				num mine = solve(A, B, C);
