@@ -185,7 +185,7 @@ num get_ways(int A, int B, int C) {
 			int B_runs = runs / 2;
 			if (A_runs > A) break;
 			if (B_runs > B) break;
-			num ways = stars_and_bars_nonempty(A_runs, A) * stars_and_bars_nonempty(B_runs, A);
+			num ways = stars_and_bars_nonempty(A_runs, A) * stars_and_bars_nonempty(B_runs, B);
 			ways *= stars_and_bars(A + B + 1, C - (A - A_runs) - (B - B_runs));
 			ans += ways;
 		}
