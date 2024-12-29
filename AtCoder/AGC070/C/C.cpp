@@ -143,9 +143,13 @@ num get_ways_slow(int A, int B, int C) {
 	return ans;
 }
 
+num get_ways(int A, int B, int C) {
+	return get_ways_slow(A, B, C);
+}
+
 num solve(int A, int B, int C) {
 	assert(A >= B);
-	return get_ways_slow(A, B, C) - get_ways_slow(B-1, A, C) - get_ways_slow(B-1, A+1, C-1) - get_ways_slow(B-1, A, C-1);
+	return get_ways(A, B, C) - get_ways(B-1, A, C) - get_ways(B-1, A+1, C-1) - get_ways(B-1, A, C-1);
 }
 
 num solve_slow(int A, int B, int C) {
@@ -170,6 +174,22 @@ num solve_slow(int A, int B, int C) {
 }
 
 void test() {
+	for (int N = 2; N <= 10; N++) {
+		cerr << "testing " << N << '\n';
+		for (int A = 1; A + 1 <= N; A++) {
+			for (int B = 1; B <= A && A + B <= N; B++) {
+				int C = N - A - B;
+				num ans = get_ways_slow(A, B, C);
+				num mine = get_ways(A, B, C);
+				if (mine != ans) {
+					cerr << "bad get_ways" << '\n';
+					cerr << A << ' ' << B << ' ' << C << '\n';
+					cerr << "ans " << ans << '\n';
+					cerr << "mine " << mine << '\n';
+				}
+			}
+		}
+	}
 	for (int N = 2; N <= 10; N++) {
 		cerr << "testing " << N << '\n';
 		for (int A = 1; A + 1 <= N; A++) {
