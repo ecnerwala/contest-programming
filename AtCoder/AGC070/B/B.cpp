@@ -137,9 +137,10 @@ int main() {
 
 	num ans = 1;
 	std::vector<num> dp(N);
+	num invN1 = inv(num(N-1));
 	for (int i = N-1; i >= 0; i--) {
 		dp[i]++;
-		dp[i] /= num(N - (i > 0));
+		dp[i] *= i == 0 ? inv(num(N)) : invN1;
 		if (i > 0) dp[P[i]] += dp[i];
 		ans += dp[i];
 	}
