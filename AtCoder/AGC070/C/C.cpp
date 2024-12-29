@@ -191,6 +191,7 @@ void test() {
 			}
 		}
 	}
+	return;
 	for (int N = 2; N <= 10; N++) {
 		cerr << "testing " << N << '\n';
 		for (int A = 1; A + 1 <= N; A++) {
@@ -226,6 +227,9 @@ int main() {
 	// # (A, B, C) - # (B-1, A+1, C) BB - # (B-1, A+1, C) Btie
 	// # (A, B, C) - # (B-1, A+1, C) BB - # (B-1, A+1, C) Btie(A/tie/$) - # (B-1, A+1, C) BtieB
 	// # (A, B, C) - # (B-1, A, C) B - # (B-1, A+1, C-1) B - # (B-1, A, C-1) B
+	
+	int N, A, B; cin >> N >> A >> B;
+	cout << solve(N, A, B) << '\n';
 
 	return 0;
 }
