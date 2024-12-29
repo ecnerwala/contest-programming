@@ -260,7 +260,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	// sequences of x A's and y B's and z draws where no 2 x's in a row and no 2 y's in a row
 
