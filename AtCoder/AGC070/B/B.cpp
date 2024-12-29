@@ -135,7 +135,7 @@ int main() {
 
 	using num = modnum<998244353>;
 
-	num ans = 0;
+	num ans = 1;
 	std::vector<num> dp(N);
 	for (int i = N-1; i >= 0; i--) {
 		dp[i]++;
