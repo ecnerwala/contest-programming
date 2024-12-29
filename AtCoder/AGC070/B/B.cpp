@@ -138,11 +138,16 @@ int main() {
 	num ans = 1;
 	std::vector<num> dp(N);
 	num invN1 = inv(num(N-1));
-	for (int i = N-1; i >= 0; i--) {
+	for (int i = N-1; i > 0; i--) {
 		dp[i]++;
-		dp[i] *= i == 0 ? inv(num(N)) : invN1;
-		if (i > 0) dp[P[i]] += dp[i];
+		dp[i] *= invN1;
+		dp[P[i]] += dp[i];
 		ans += dp[i];
+	}
+	{
+		dp[0]++;
+		dp[0] /= num(N);
+		ans += dp[0];
 	}
 	ans *= pow(num(N-1), N-1) * num(N);
 	cout << ans << '\n';
