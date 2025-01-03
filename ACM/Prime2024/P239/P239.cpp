@@ -15,7 +15,7 @@ int main() {
 			std::pair<int, int> m1{0, 0};
 			std::pair<int, int> m2{0, 0};
 			for (int i = 0; i < N; i++) {
-				std::pair<int, int> cnd(std::min(A[i], B[i]), (B[i] > A[i]) - (B[i] < A[i]));
+				std::pair<int, int> cnd(std::min(A[i], B[i]), B[i] - A[i]);
 				if (cnd > m1) {
 					m2 = m1;
 					m1 = cnd;
@@ -23,8 +23,8 @@ int main() {
 					m2 = cnd;
 				}
 			}
-			if (m1.second == +1 || m2.second == +1) return true;
-			else if (m1.second == -1 || m1.first == m2.first) return false;
+			if (m1.second > 0 || m2.second > 0) return true;
+			else if (m1.second < 0 || m1.first == m2.first) return false;
 			else return true;
 		}() ? "Alice" : "Bob") << '\n';
 	}
