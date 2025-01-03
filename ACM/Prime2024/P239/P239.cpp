@@ -23,9 +23,7 @@ int main() {
 					m2 = cnd;
 				}
 			}
-			if (m1.second > 0 || m2.second > 0) return true;
-			else if (m1.second < 0 || m1.first == m2.first) return false;
-			else return true;
+			return m1.second <= 0 && m2.second <= 0 && (m1.second < 0 || m1.first == m2.first);
 		}() ? "Alice" : "Bob") << '\n';
 	}
 
