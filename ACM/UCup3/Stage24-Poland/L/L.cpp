@@ -83,7 +83,7 @@ int main() {
 				fail.push_back(cnd+1);
 			}
 			int period = int(cur_string.size()) - fail.back();
-			int v = period < int(cur_string.size()) ? 0 : cur_string[period];
+			int v = period < int(cur_string.size()) ? cur_string[period] : 0;
 			int cnt_periodic = 0;
 			for (int i = period; i <= int(cur_string.size()); i += period) {
 				cnt_periodic += freq[i];
