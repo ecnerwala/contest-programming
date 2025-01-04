@@ -168,7 +168,7 @@ int main() {
 			auto& [u, v] = vs;
 			cin >> u >> v >> w; u--, v--;
 		}
-		std::sort(edges.begin(), edges.end(), std::greater<>());
+		std::sort(edges.begin(), edges.end());
 
 		tensor<std::vector<std::pair<int, int>>, 2> queries({N, N});
 		for (int q = 0; q < Q; q++) {
