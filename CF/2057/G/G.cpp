@@ -20,14 +20,14 @@ int main() {
 				auto check = [&](int x, int y) -> void {
 					if (0 <= x && x < N && 0 <= y && y < M && G[x][y] == '#') freq[v]++;
 				};
-				if (G[i][j] == '#') {
+				if (0 <= i && i < N && 0 <= j && j < M && G[i][j] == '#') {
 					check(i, j);
-				} else if (G[i][j] == '.') {
+				} else {
 					check(i-1, j);
 					check(i+1, j);
 					check(i, j-1);
 					check(i, j+1);
-				} else assert(false);
+				}
 			}
 		}
 		int best_v = int(std::min_element(freq.begin(), freq.end()) - freq.begin());
@@ -39,14 +39,14 @@ int main() {
 				auto check = [&](int x, int y) -> void {
 					if (0 <= x && x < N && 0 <= y && y < M && G[x][y] == '#') R[x][y] = 'S';
 				};
-				if (G[i][j] == '#') {
+				if (0 <= i && i < N && 0 <= j && j < M && G[i][j] == '#') {
 					check(i, j);
-				} else if (G[i][j] == '.') {
+				} else {
 					check(i-1, j);
 					check(i+1, j);
 					check(i, j-1);
 					check(i, j+1);
-				} else assert(false);
+				}
 			}
 		}
 		for (auto& row : R) cout << row << '\n';
