@@ -194,7 +194,7 @@ int main() {
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				std::sort(queries[{i, j}].begin(), queries[{i, j}].end(), std::greater<>());
+				std::sort(queries[{i, j}].begin(), queries[{i, j}].end());
 				if (!queries[{i, j}].empty()) {
 					cerr << i << ' ' << j << ' ' << dist[{i, j}] << ' ' << queries[{i, j}].back().first << '\n';
 					assert((queries[{i, j}].back().first <= dist[{i, j}]));
