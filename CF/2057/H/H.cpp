@@ -38,6 +38,7 @@ int main() {
 					}
 				}
 			}
+			for (int i = 0; i < N; i++) cerr << B[i] << " \n"[i+1==N];
 		}
 		for (int i = 0; i < N; i++) cout << B[i] << " \n"[i+1==N];
 	}
