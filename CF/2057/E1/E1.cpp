@@ -181,7 +181,6 @@ int main() {
 		for (int i = 0; i < N; i++) dist[{i, i}] = 0;
 		for (auto [w, vs] : edges) {
 			auto [u, v] = vs;
-			cerr << "e " << u << ' ' << v << ' ' << w << '\n';
 			dist[{u, v}] = dist[{v, u}] = 1;
 		}
 		for (int k = 0; k < N; k++) {
@@ -196,7 +195,6 @@ int main() {
 			for (int j = 0; j < N; j++) {
 				std::sort(queries[{i, j}].begin(), queries[{i, j}].end());
 				if (!queries[{i, j}].empty()) {
-					cerr << i << ' ' << j << ' ' << dist[{i, j}] << ' ' << queries[{i, j}].back().first << '\n';
 					assert((queries[{i, j}].back().first <= dist[{i, j}]));
 				}
 			}
@@ -219,7 +217,6 @@ int main() {
 					}
 				}
 			}
-			if (N >= 6) cerr << w << ' ' << dist[{0, 5}] << '\n';
 		}
 
 		for (int q = 0; q < Q; q++) {
