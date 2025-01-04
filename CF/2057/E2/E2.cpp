@@ -213,7 +213,7 @@ int main() {
 			int w = edges[e].first;
 			auto [u, v] = edges[e].second;
 			for (auto [i, j] : upds[e]) {
-				cerr << e << ' ' << u << ' ' << v << '\n';
+				cerr << e << ' ' << i << ' ' << j << '\n';
 				std::pair<int, int> cnd = std::min(merge(dist[{i, u}], dist[{v, j}]), merge(dist[{i, v}], dist[{u, j}]));
 				assert((cnd.first == dist[{i, j}].first - 1));
 				dist[{i, j}] = cnd;
