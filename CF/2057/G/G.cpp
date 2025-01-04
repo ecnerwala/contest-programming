@@ -16,7 +16,7 @@ int main() {
 		std::array<int, 5> freq; freq.fill(0);
 		for (int i = -1; i <= N; i++) {
 			for (int j = -1; j <= M; j++) {
-				int v = (i*2+j)%5;
+				int v = (i*2+j + 5)%5;
 				auto check = [&](int x, int y) -> void {
 					if (0 <= x && x < N && 0 <= y && y < M && G[x][y] == '#') freq[v]++;
 				};
@@ -34,7 +34,7 @@ int main() {
 		std::vector<std::string> R = G;
 		for (int i = -1; i <= N; i++) {
 			for (int j = -1; j <= M; j++) {
-				int v = (i*2+j)%5;
+				int v = (i*2+j + 5)%5;
 				if (v != best_v) continue;
 				auto check = [&](int x, int y) -> void {
 					if (0 <= x && x < N && 0 <= y && y < M && G[x][y] == '#') R[x][y] = 'S';
