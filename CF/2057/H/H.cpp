@@ -33,7 +33,7 @@ int main() {
 						nxt_stack += dist - 1;
 						zero_pos.pop_back();
 					} else {
-						zero_pos.back() += freq;
+						zero_pos.back() += int(freq);
 						nxt_stack += freq;
 						freq = 0;
 						break;
