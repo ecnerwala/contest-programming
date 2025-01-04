@@ -219,6 +219,7 @@ int main() {
 					}
 				}
 			}
+			cerr << w << ' ' << dist[{0, 5}] << '\n';
 		}
 
 		for (int q = 0; q < Q; q++) {
