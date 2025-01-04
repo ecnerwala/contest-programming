@@ -217,11 +217,11 @@ int main() {
 				std::pair<int, int> cnd = std::min(merge(dist[{i, u}], dist[{v, j}]), merge(dist[{i, v}], dist[{u, j}]));
 				assert((cnd.first == dist[{i, j}].first - 1));
 				dist[{i, j}] = cnd;
+				upds[cnd.second].push_back({i, j});
 				while (!queries[{i, j}].empty() && queries[{i, j}].back().first > cnd.first) {
 					ans[queries[{i, j}].back().second] = w;
 					queries[{i, j}].pop_back();
 				}
-				upds[cnd.second].push_back({i, j});
 			}
 		}
 
