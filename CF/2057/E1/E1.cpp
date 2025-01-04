@@ -197,7 +197,7 @@ int main() {
 				std::sort(queries[{i, j}].begin(), queries[{i, j}].end(), std::greater<>());
 				if (!queries[{i, j}].empty()) {
 					cerr << i << ' ' << j << ' ' << dist[{i, j}] << ' ' << queries[{i, j}].back().first << '\n';
-					assert((queries[{i, j}].back().first >= dist[{i, j}]));
+					assert((queries[{i, j}].back().first <= dist[{i, j}]));
 				}
 			}
 		}
