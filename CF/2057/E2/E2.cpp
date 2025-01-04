@@ -181,8 +181,8 @@ int main() {
 		auto merge = [&](std::pair<int, int> a, std::pair<int, int> b) -> std::pair<int, int> {
 			return {a.first + b.first, std::min(a.second, b.second)};
 		};
-		tensor<std::pair<int, int>, 2> dist({N, N}, {N+1, -1});
-		for (int i = 0; i < N; i++) dist[{i, i}] = {0, -1};
+		tensor<std::pair<int, int>, 2> dist({N, N}, {N+1, M});
+		for (int i = 0; i < N; i++) dist[{i, i}] = {0, M};
 		for (int e = 0; e < M; e++) {
 			auto [u, v] = edges[e].second;
 			dist[{u, v}] = dist[{v, u}] = {1, e};
@@ -195,11 +195,11 @@ int main() {
 			}
 		}
 
-		std::vector<std::vector<std::array<int, 2>>> upds(M);
+		std::vector<std::vector<std::array<int, 2>>> upds(M+1);
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if (dist[{i, j}].second != -1) upds[dist[{i, j}].second].push_back({i, j});
+				upds[dist[{i, j}].second].push_back({i, j});
 				std::sort(queries[{i, j}].begin(), queries[{i, j}].end());
 				if (!queries[{i, j}].empty()) {
 					assert((queries[{i, j}].back().first <= dist[{i, j}].first));
@@ -220,7 +220,7 @@ int main() {
 					ans[queries[{i, j}].back().second] = w;
 					queries[{i, j}].pop_back();
 				}
-				if (cnd.second != -1) upds[cnd.second].push_back({i, j});
+				upds[cnd.second].push_back({i, j});
 			}
 		}
 
