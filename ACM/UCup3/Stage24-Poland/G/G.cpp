@@ -28,6 +28,7 @@ int main() {
 
 	int N; cin >> N;
 	std::vector<std::string> G(N);
+	for (auto& s : G) cin >> s;
 	auto get_score = [&]() -> int {
 		int ans = 0;
 		auto check_pair = [&](char a, char b) -> void {
