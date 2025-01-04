@@ -181,6 +181,7 @@ int main() {
 		for (int i = 0; i < N; i++) dist[{i, i}] = 0;
 		for (auto [w, vs] : edges) {
 			auto [u, v] = vs;
+			cerr << "e " << u << ' ' << v << ' ' << w << '\n';
 			dist[{u, v}] = dist[{v, u}] = 1;
 		}
 		for (int k = 0; k < N; k++) {
