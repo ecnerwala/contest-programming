@@ -186,6 +186,7 @@ int main() {
 		for (int e = 0; e < M; e++) {
 			auto [u, v] = edges[e].second;
 			dist[{u, v}] = dist[{v, u}] = {1, e};
+			cerr << "edge " << e << ' ' << u << '-' << v << ' ' << edges[e].first << '\n';
 		}
 		for (int k = 0; k < N; k++) {
 			for (int i = 0; i < N; i++) {
