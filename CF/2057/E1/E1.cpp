@@ -210,6 +210,7 @@ int main() {
 				for (int j = 0; j < N; j++) {
 					int cnd = std::min(dist[{i, u}] + dist[{v, j}], dist[{i, v}] + dist[{u, j}]);
 					if (cnd < dist[{i, j}]) {
+						assert((cnd == dist[{i, j}] - 1));
 						dist[{i, j}] = cnd;
 						while (!queries[{i, j}].empty() && queries[{i, j}].back().first > cnd) {
 							ans[queries[{i, j}].back().second] = w;
