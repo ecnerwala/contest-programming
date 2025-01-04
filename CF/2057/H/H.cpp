@@ -42,7 +42,6 @@ int main() {
 				cur_stack = nxt_stack;
 				B[i] += cur_stack;
 			}
-			for (int i = 0; i < N; i++) cerr << B[i] << " \n"[i+1==N];
 		}
 		for (int i = 0; i < N; i++) cout << B[i] << " \n"[i+1==N];
 	}
