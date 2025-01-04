@@ -177,52 +177,45 @@ int main() {
 			queries[{a, b}].push_back({k, q});
 		}
 
-		// distance and minimum edge
-		auto merge = [&](std::pair<int, int> a, std::pair<int, int> b) -> std::pair<int, int> {
-			return {a.first + b.first, std::min(a.second, b.second)};
-		};
-		tensor<std::pair<int, int>, 2> dist({N, N}, {N+1, M});
-		for (int i = 0; i < N; i++) dist[{i, i}] = {0, M};
-		for (int e = 0; e < M; e++) {
-			auto [u, v] = edges[e].second;
-			dist[{u, v}] = dist[{v, u}] = {1, e};
-			cerr << "edge " << e << ' ' << u << '-' << v << ' ' << edges[e].first << '\n';
+		tensor<int, 2> dist({N, N}, N+1);
+		for (int i = 0; i < N; i++) dist[{i, i}] = 0;
+		for (auto [w, vs] : edges) {
+			auto [u, v] = vs;
+			dist[{u, v}] = dist[{v, u}] = 1;
 		}
 		for (int k = 0; k < N; k++) {
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
-					dist[{i, j}] = std::min(dist[{i, j}], merge(dist[{i, k}], dist[{k, j}]));
+					dist[{i, j}] = std::min(dist[{i, j}], dist[{i, k}] + dist[{k, j}]);
 				}
 			}
 		}
 
-		std::vector<std::vector<std::array<int, 2>>> upds(M+1);
-
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				cerr << i << '-' << j << ' ' << dist[{i, j}].first << ' ' << dist[{i, j}].second << '\n';
-				upds[dist[{i, j}].second].push_back({i, j});
 				std::sort(queries[{i, j}].begin(), queries[{i, j}].end());
 				if (!queries[{i, j}].empty()) {
-					assert((queries[{i, j}].back().first <= dist[{i, j}].first));
+					assert((queries[{i, j}].back().first <= dist[{i, j}]));
 				}
 			}
 		}
 
 		std::vector<int> ans(Q, -1);
 
-		for (int e = 0; e < M; e++) {
-			int w = edges[e].first;
-			auto [u, v] = edges[e].second;
-			for (auto [i, j] : upds[e]) {
-				cerr << e << ' ' << i << ' ' << j << '\n';
-				std::pair<int, int> cnd = std::min(merge(dist[{i, u}], dist[{v, j}]), merge(dist[{i, v}], dist[{u, j}]));
-				assert((cnd.first == dist[{i, j}].first - 1));
-				dist[{i, j}] = cnd;
-				upds[cnd.second].push_back({i, j});
-				while (!queries[{i, j}].empty() && queries[{i, j}].back().first > cnd.first) {
-					ans[queries[{i, j}].back().second] = w;
-					queries[{i, j}].pop_back();
+		for (auto [w, vs] : edges) {
+			auto [u, v] = vs;
+			if (dist[{u, v}] == 0) continue;
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					int cnd = std::min(dist[{i, u}] + dist[{v, j}], dist[{i, v}] + dist[{u, j}]);
+					if (cnd < dist[{i, j}]) {
+						assert((cnd == dist[{i, j}] - 1));
+						dist[{i, j}] = cnd;
+						while (!queries[{i, j}].empty() && queries[{i, j}].back().first > cnd) {
+							ans[queries[{i, j}].back().second] = w;
+							queries[{i, j}].pop_back();
+						}
+					}
 				}
 			}
 		}
