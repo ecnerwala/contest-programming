@@ -199,7 +199,7 @@ int main() {
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				upds[dist[{i, j}].second].push_back({i, j});
+				if (dist[{i, j}].second != -1) upds[dist[{i, j}].second].push_back({i, j});
 				std::sort(queries[{i, j}].begin(), queries[{i, j}].end());
 				if (!queries[{i, j}].empty()) {
 					assert((queries[{i, j}].back().first <= dist[{i, j}].first));
@@ -220,6 +220,7 @@ int main() {
 					ans[queries[{i, j}].back().second] = w;
 					queries[{i, j}].pop_back();
 				}
+				if (cnd.second != -1) upds[cnd.second].push_back({i, j});
 			}
 		}
 
