@@ -200,6 +200,7 @@ int main() {
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
+				cerr << i << '-' << j << ' ' << dist[{i, j}].first << ' ' << dist[{i, j}].second << '\n';
 				upds[dist[{i, j}].second].push_back({i, j});
 				std::sort(queries[{i, j}].begin(), queries[{i, j}].end());
 				if (!queries[{i, j}].empty()) {
