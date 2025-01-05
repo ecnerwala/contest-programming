@@ -740,6 +740,7 @@ int main() {
 						num_comps -= merge(j % N, (j - 1) % N);
 					}
 				}
+				std::cerr << i << ' ' << locs[i] << ' ' << ans[i] << '\n';
 			}
 		}
 		{
