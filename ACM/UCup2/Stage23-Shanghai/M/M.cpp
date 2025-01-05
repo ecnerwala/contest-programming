@@ -1,510 +1,737 @@
 #include <bits/stdc++.h>
 
-namespace seg_tree {
+template <typename T> void setmax(T& a, T b) { if (b > a) a = b; }
 
-// Floor of log_2(a); index of highest 1-bit
-inline int floor_log_2(int a) {
-	return a ? (8 * sizeof(a)) - 1 - __builtin_clz(a) : -1;
-}
+/**
+ * Top tree!
+ *
+ * Usage:
+ *   Make a `struct T : public top_tree_node_base<T>` (CRTP), which implements
+ *     void update()
+ *     void downdate()
+ *     void do_flip_path()
+ *     void do_other_operation() ...
+ *   When update() is called, you can assume downdate() has already been called.
+ *
+ *   In general, do_op() should eagerly apply the operation but not touch the
+ *   children. In downdate(), you can push down to the children with ch->do_op().
+ *   WARNING: if different operations do not trivially commute, you *must*
+ *   implement a way to swap/alter them to compose in a consistent order, and you
+ *   must use that order when implementing downdate(). This can be nontrivial!
+ *
+ *   Creating vertices:
+ *     n->is_path = n->is_vert = true;
+ *     n->update();
+ *
+ *   Creating edges: no setup/update() needed, just call
+ *     link(e, va, vb);
+ *
+ *   Updates:
+ *     auto cur = get_path(va, vb); // or get_subtree(va, vb)
+ *     cur->do_stuff();
+ *     cur->downdate();
+ *     cur->update_all();
+ *
+ * Node types:
+ *   path edges: compress(c[0], self, c[1])
+ *     assert(is_path && !is_vert);
+ *     assert(c[0] && c[1]);
+ *     assert(c[0]->is_path && c[1]->is_path);
+ *     assert(!c[2]);
+ *   (path) vertices: self + rake(c[0], c[1])
+ *     assert(is_path && is_vert);
+ *     assert(!c[2]);
+ *     if (c[0]) assert(!c[0]->is_path);
+ *     if (c[1]) assert(!c[1]->is_path);
+ *   non-path edges: rake(c[0], self + c[2], c[1])
+ *     assert(!is_path && !is_vert);
+ *     assert(c[2])
+ *     assert(c[2]->is_path);
+ *     if (c[0]) assert(!c[0]->is_path);
+ *     if (c[1]) assert(!c[1]->is_path);
+ */
 
-inline int ceil_log_2(int a) {
-	return a ? floor_log_2(2*a-1) : -1;
-}
+template <typename top_tree_node> struct top_tree_node_base {
+private:
+	top_tree_node* derived_this() {
+		return static_cast<top_tree_node*>(this);
+	}
+	const top_tree_node* derived_this() const {
+		return static_cast<const top_tree_node*>(this);
+	}
+public:
+	mutable top_tree_node* p = nullptr;
+	std::array<top_tree_node*, 3> c{nullptr, nullptr, nullptr};
 
-inline int next_pow_2(int a) {
-	return 1 << ceil_log_2(a);
-}
+	int d() const {
+		assert(p);
+		if (this == p->c[0]) {
+			return 0;
+		} else if (this == p->c[1]) {
+			return 1;
+		} else if (this == p->c[2]) {
+			return 2;
+		} else assert(false);
+	}
+	top_tree_node*& p_c() const { return p->c[d()]; } // p->c which points to you
 
-struct point {
-	int a;
-	point() : a(0) {}
-	explicit point(int a_) : a(a_) { assert(a >= -1); }
+	// 3 types of verts: path edges, path verts, non-path edges
+	bool is_path;
+	bool is_vert;
 
-	explicit operator bool () { return bool(a); }
+	bool r() const { return !p || p->is_path != is_path; }
 
-	// This is useful so you can directly do array indices
-	/* implicit */ operator int() const { return a; }
-
-	point c(bool z) const {
-		return point((a<<1)|z);
+private:
+	// Convenience wrappers for the derived functions.
+	void do_flip_path() {
+		derived_this()->do_flip_path();
+	}
+	void downdate() {
+		derived_this()->downdate();
+	}
+	void update() {
+		derived_this()->update();
 	}
 
-	point operator [] (bool z) const {
-		return c(z);
+public:
+	void downdate_all() {
+		if (p) p->downdate_all();
+		downdate();
 	}
 
-	point p() const {
-		return point(a>>1);
-	}
-
-	friend std::ostream& operator << (std::ostream& o, const point& p) { return o << int(p); }
-
-	template <typename F> void for_each(F f) const {
-		for (int v = a; v > 0; v >>= 1) {
-			f(point(v));
+	// Returns the root
+	top_tree_node* update_all() {
+		top_tree_node* cur = derived_this();
+		cur->update();
+		while (cur->p) {
+			cur = cur->p;
+			cur->update();
 		}
+		return cur;
 	}
 
-	template <typename F> void for_parents_down(F f) const {
-		// strictly greater than 0
-		for (int L = floor_log_2(a); L > 0; L--) {
-			f(point(a >> L));
+private:
+
+	void rot() {
+		assert(!is_vert);
+		assert(!r());
+		top_tree_node* pa = p;
+		int x = d(); assert(x == 0 || x == 1);
+		top_tree_node* ch = c[!x];
+
+		if (pa->p) pa->p_c() = derived_this();
+		this->p = pa->p;
+
+		pa->c[x] = ch;
+		if (ch) ch->p = pa;
+
+		this->c[!x] = pa;
+		pa->p = derived_this();
+
+		pa->update();
+	}
+
+	void rot_2(int c_d) {
+		assert(!is_vert);
+		assert(!r());
+		assert(c[c_d]);
+		assert(!c[c_d]->is_vert);
+
+		if (d() == c_d) {
+			rot();
+			return;
 		}
+
+		top_tree_node* pa = p;
+		int x = d(); assert(x == 0 || x == 1);
+		assert(c_d == !x);
+		top_tree_node* ch = c[c_d]->c[!x];
+
+		if (pa->p) pa->p_c() = derived_this();
+		this->p = pa->p;
+
+		pa->c[x] = ch;
+		if (ch) ch->p = pa;
+
+		this->c[c_d]->c[!x] = pa;
+		pa->p = this->c[c_d];
+
+		pa->update();
 	}
 
-	template <typename F> void for_parents_up(F f) const {
-		for (int v = a >> 1; v > 0; v >>= 1) {
-			f(point(v));
-		}
-	}
-
-	point& operator ++ () { ++a; return *this; }
-	point operator ++ (int) { return point(a++); }
-	point& operator -- () { --a; return *this; }
-	point operator -- (int) { return point(a--); }
-};
-
-struct range {
-	int a, b;
-	range() : a(1), b(1) {}
-	range(int a_, int b_) : a(a_), b(b_) {
-		assert(1 <= a && a <= b && b <= 2 * a);
-	}
-	explicit range(std::array<int, 2> r) : range(r[0], r[1]) {}
-
-	explicit operator std::array<int, 2>() const {
-		return {a,b};
-	}
-
-	const int& operator[] (bool z) const {
-		return z ? b : a;
-	}
-
-	friend std::ostream& operator << (std::ostream& o, const range& r) { return o << "[" << r.a << ".." << r.b << ")"; }
-
-	// Iterate over the range from outside-in.
-	//   Calls f(point a)
-	template <typename F> void for_each(F f) const {
-		for (int x = a, y = b; x < y; x >>= 1, y >>= 1) {
-			if (x & 1) f(point(x++));
-			if (y & 1) f(point(--y));
-		}
-	}
-
-	// Iterate over the range from outside-in.
-	//   Calls f(point a, bool is_right)
-	template <typename F> void for_each_with_side(F f) const {
-		for (int x = a, y = b; x < y; x >>= 1, y >>= 1) {
-			if (x & 1) f(point(x++), false);
-			if (y & 1) f(point(--y), true);
-		}
-	}
-
-	// Iterate over the range from left to right.
-	//    Calls f(point)
-	template <typename F> void for_each_l_to_r(F f) const {
-		int anc_depth = floor_log_2((a-1) ^ b);
-		int anc_msk = (1 << anc_depth) - 1;
-		for (int v = (-a) & anc_msk; v; v &= v-1) {
-			int i = __builtin_ctz(v);
-			f(point(((a-1) >> i) + 1));
-		}
-		for (int v = b & anc_msk; v; ) {
-			int i = floor_log_2(v);
-			f(point((b >> i) - 1));
-			v ^= (1 << i);
-		}
-	}
-
-	// Iterate over the range from right to left.
-	//    Calls f(point)
-	template <typename F> void for_each_r_to_l(F f) const {
-		int anc_depth = floor_log_2((a-1) ^ b);
-		int anc_msk = (1 << anc_depth) - 1;
-		for (int v = b & anc_msk; v; v &= v-1) {
-			int i = __builtin_ctz(v);
-			f(point((b >> i) - 1));
-		}
-		for (int v = (-a) & anc_msk; v; ) {
-			int i = floor_log_2(v);
-			f(point(((a-1) >> i) + 1));
-			v ^= (1 << i);
-		}
-	}
-
-	template <typename F> void for_parents_down(F f) const {
-		int x = a, y = b;
-		if ((x ^ y) > x) { x <<= 1, std::swap(x, y); }
-		int dx = __builtin_ctz(x);
-		int dy = __builtin_ctz(y);
-		int anc_depth = floor_log_2((x-1) ^ y);
-		for (int i = floor_log_2(x); i > dx; i--) {
-			f(point(x >> i));
-		}
-		for (int i = anc_depth; i > dy; i--) {
-			f(point(y >> i));
-		}
-	}
-
-	template <typename F> void for_parents_up(F f) const {
-		int x = a, y = b;
-		if ((x ^ y) > x) { x <<= 1, std::swap(x, y); }
-		int dx = __builtin_ctz(x);
-		int dy = __builtin_ctz(y);
-		int anc_depth = floor_log_2((x-1) ^ y);
-		for (int i = dx+1; i <= anc_depth; i++) {
-			f(point(x >> i));
-		}
-		for (int v = y >> (dy+1); v; v >>= 1) {
-			f(point(v));
-		}
-	}
-};
-
-struct in_order_layout {
-	// Alias them in for convenience
-	using point = seg_tree::point;
-	using range = seg_tree::range;
-
-	int N, S;
-	in_order_layout() : N(0), S(0) {}
-	in_order_layout(int N_) : N(N_), S(N ? next_pow_2(N) : 0) {}
-
-	point get_point(int a) const {
-		assert(0 <= a && a < N);
-		a += S;
-		return point(a >= 2 * N ? a - N : a);
-	}
-
-	range get_range(int a, int b) const {
-		assert(0 <= a && a <= b && b <= N);
-		if (N == 0) return range();
-		a += S, b += S;
-		return range((a >= 2 * N ? 2*(a-N) : a), (b >= 2 * N ? 2*(b-N) : b));
-	}
-
-	range get_range(std::array<int, 2> p) const {
-		return get_range(p[0], p[1]);
-	}
-
-	int get_leaf_index(point pt) const {
-		int a = int(pt);
-		assert(N <= a && a < 2 * N);
-		return (a < S ? a + N : a) - S;
-	}
-
-	std::array<int, 2> get_node_bounds(point pt) const {
-		int a = int(pt);
-		assert(1 <= a && a < 2 * N);
-		int l = __builtin_clz(a) - __builtin_clz(2*N-1);
-		int x = a << l, y = (a+1) << l;
-		assert(S <= x && x < y && y <= 2*S);
-		return {(x >= 2 * N ? (x>>1) + N : x) - S, (y >= 2 * N ? (y>>1) + N : y) - S};
-	}
-
-	int get_node_split(point pt) const {
-		int a = int(pt);
-		assert(1 <= a && a < N);
-		int l = __builtin_clz(2*a+1) - __builtin_clz(2*N-1);
-		int x = (2*a+1) << l;
-		assert(S <= x && x < 2*S);
-		return (x >= 2 * N ? (x>>1) + N : x) - S;
-	}
-
-	int get_node_size(point pt) const {
-		auto bounds = get_node_bounds(pt);
-		return bounds[1] - bounds[0];
-	}
-};
-
-struct circular_layout {
-	// Alias them in for convenience
-	using point = seg_tree::point;
-	using range = seg_tree::range;
-
-	int N;
-	circular_layout() : N(0) {}
-	circular_layout(int N_) : N(N_) {}
-
-	point get_point(int a) const {
-		assert(0 <= a && a < N);
-		return point(N + a);
-	}
-
-	range get_range(int a, int b) const {
-		assert(0 <= a && a <= b && b <= N);
-		if (N == 0) return range();
-		return range(N + a, N + b);
-	}
-
-	range get_range(std::array<int, 2> p) const {
-		return get_range(p[0], p[1]);
-	}
-
-	int get_leaf_index(point pt) const {
-		int a = int(pt);
-		assert(N <= a && a < 2 * N);
-		return a - N;
-	}
-
-	// Returns {x,y} so that 0 <= x < N and 1 <= y <= N
-	// If the point is non-wrapping, then 0 <= x < y <= N
-	std::array<int, 2> get_node_bounds(point pt) const {
-		int a = int(pt);
-		assert(1 <= a && a < 2 * N);
-		int l = __builtin_clz(a) - __builtin_clz(2*N-1);
-		int S = next_pow_2(N);
-		int x = a << l, y = (a+1) << l;
-		assert(S <= x && x < y && y <= 2*S);
-		return {(x >= 2 * N ? x >> 1 : x) - N, (y > 2 * N ? y >> 1 : y) - N};
-	}
-
-	// Returns the split point of the node, such that 1 <= s <= N.
-	int get_node_split(point pt) const {
-		int a = int(pt);
-		assert(1 <= a && a < N);
-		return get_node_bounds(pt.c(0))[1];
-	}
-
-	int get_node_size(point pt) const {
-		auto bounds = get_node_bounds(pt);
-		int r = bounds[1] - bounds[0];
-		return r > 0 ? r : r + N;
-	}
-};
-
-} // namespace seg_tree
-
-using std::cerr;
-std::vector<int64_t> solve(int M, int64_t L, std::vector<std::array<int, 2>> routes, std::vector<int64_t> queries) {
-	std::vector<int64_t> coords; coords.reserve(2*M);
-	for (auto [s, t] : routes) {
-		coords.push_back(s);
-		coords.push_back(t);
-	}
-	std::sort(coords.begin(), coords.end());
-	coords.resize(int(std::unique(coords.begin(), coords.end()) - coords.begin()));
-	int N = int(coords.size());
-	for (auto& [s, t] : routes) {
-		s = int(std::lower_bound(coords.begin(), coords.end(), s) - coords.begin());
-		t = int(std::lower_bound(coords.begin(), coords.end(), t) - coords.begin());
-	}
-
-	std::vector<int> num_edges(N);
-	for (auto [s, t] : routes) {
-		assert(s != t);
-		num_edges[(t+1)%N]++;
-		num_edges[(s+1)%N]--;
-	}
-	for (int i = 0; i+1 < N; i++) num_edges[i+1] += num_edges[i];
-	{
-		int v = *std::min_element(num_edges.begin(), num_edges.end());
-		for (auto& a : num_edges) a -= v;
-	}
-	assert(*std::min_element(num_edges.begin(), num_edges.end()) == 0);
-
-	{ // First, find the baseline
-		std::vector<int> par(N, -1);
-		auto get_par = [&](int a) -> int {
-			while (par[a] >= 0) {
-				if (par[par[a]] >= 0) par[a] = par[par[a]];
-				a = par[a];
+	void splay_dir(int x) {
+		while (!r() && d() == x) {
+			if (!p->r() && p->d() == x) {
+				p->rot();
 			}
-			return a;
-		};
-		auto merge = [&](int a, int b) -> bool {
-			a = get_par(a);
-			b = get_par(b);
-			if (a == b) return false;
-			if (par[a] > par[b]) std::swap(a, b);
-			par[a] += par[b];
-			par[b] = a;
-			return true;
-		};
-		int num_comps = N;
-		for (auto [s, t] : routes) {
-			num_comps -= merge(s, t);
+			rot();
 		}
-		for (int i = 0; i < N; i++) {
-			if (num_edges[i] > 0) {
-				num_comps -= merge(i, (i+N-1) % N);
+	}
+
+	void splay_2(int c_d) {
+		assert(!is_vert && is_path);
+		assert(c[c_d] && !c[c_d]->is_vert);
+		while (!r()) {
+			if (!p->r()) {
+				if (p->d() == d()) {
+					p->rot();
+				} else {
+					rot_2(c_d);
+				}
 			}
-		}
-		if (num_comps == 1) {
-			// create some -1's, but that's fine
-			for (auto& a : num_edges) a--;
+			rot_2(c_d);
 		}
 	}
 
-	int64_t ans = 0;
-	for (auto [s, t] : routes) {
-		ans += (coords[t] - coords[s]) + (s > t ? L : 0);
+	void splay_2() {
+		assert(!is_vert && is_path);
+		assert(!r());
+		p->splay_2(d());
 	}
-	for (int i = 0; i < N; i++) {
-		ans += num_edges[i] * ((i == 0) ? (L + coords[0] - coords[N-1]) : (coords[i] - coords[i-1]));
-	}
-	assert(ans % L == 0);
 
-	std::vector<int> par(N, -1);
-	auto get_par = [&](int a) -> int {
-		while (par[a] >= 0) {
-			if (par[par[a]] >= 0) par[a] = par[par[a]];
-			a = par[a];
+	void splay_vert() {
+		assert(is_vert);
+		if (r()) {
+			return;
 		}
-		return a;
-	};
-	auto merge = [&](int a, int b) -> bool {
-		a = get_par(a);
-		b = get_par(b);
-		if (a == b) return false;
-		if (par[a] > par[b]) std::swap(a, b);
-		par[a] += par[b];
-		par[b] = a;
+		p->splay_dir(d());
+		if (p->r()) {
+			return;
+		}
+
+		assert(p->d() != d());
+		// we have a preference to be the left child
+		if (d() == 1) {
+			p->rot();
+		}
+		assert(d() == 0);
+
+		p->splay_2();
+		assert(d() == 0);
+		assert(p->d() == 1);
+		assert(p->p->r());
+	}
+
+	void splay() {
+		assert(!is_vert);
+		while (!r()) {
+			if (!p->r()) {
+				if (p->d() == d()) {
+					p->rot();
+				} else {
+					rot();
+				}
+			}
+			rot();
+		}
+	}
+
+	top_tree_node* cut_right() {
+		assert(is_vert && is_path);
+		splay_vert();
+
+		if (r() || d() == 1) {
+			assert(r() || (d() == 1 && p->r()));
+			assert(c[0] == nullptr);
+			return nullptr;
+		}
+
+		top_tree_node* pa = p;
+		assert(pa->r() || (pa->d() == 1 && pa->p->r()));
+		assert(!pa->is_vert);
+		assert(pa->is_path);
+		assert(pa->c[0] == this);
+		assert(pa->c[2] == nullptr);
+
+		if (pa->p) pa->p_c() = derived_this();
+		this->p = pa->p;
+
+		pa->is_path = false;
+		pa->c[2] = pa->c[1]; // don't need to change the parent
+
+		pa->c[0] = c[0]; if (c[0]) c[0]->p = pa;
+		pa->c[1] = c[1]; if (c[1]) c[1]->p = pa;
+
+		c[0] = nullptr;
+		c[1] = pa; pa->p = derived_this();
+		assert(c[2] == nullptr);
+
+		assert(c[0] == nullptr);
+
+		pa->update();
+		return pa;
+	}
+
+	top_tree_node* splice_non_path() {
+		assert(!is_path);
+		assert(!is_vert);
+
+		splay();
+		assert(p && p->is_vert && p->is_path);
+		p->cut_right();
+
+		if (!p->is_path) rot();
+		assert(p && p->is_vert && p->is_path);
+		assert(p->r() || (p->d() == 1 && p->p->r()));
+		assert(p->c[d()] == this && p->c[!d()] == nullptr);
+
+		top_tree_node* pa = p;
+
+		if (pa->p) pa->p_c() = derived_this();
+		this->p = pa->p;
+
+		pa->c[0] = c[0]; if (c[0]) c[0]->p = pa;
+		pa->c[1] = c[1]; if (c[1]) c[1]->p = pa;
+
+		assert(c[2] && c[2]->is_path);
+		c[1] = c[2]; // don't need to change parent
+		c[0] = pa; pa->p = derived_this();
+		c[2] = nullptr;
+
+		is_path = true;
+
+		pa->update();
+		return pa;
+	}
+
+	// Return the topmost vertex which was spliced into
+	top_tree_node* splice_all() {
+		top_tree_node* res = nullptr;
+		for (top_tree_node* cur = derived_this(); cur; cur = cur->p) {
+			if (!cur->is_path) {
+				res = cur->splice_non_path();
+			}
+			assert(cur->is_path);
+		}
+		return res;
+	}
+
+public:
+	// Return the topmost vertex which was spliced into
+	top_tree_node* expose() {
+		assert(is_vert);
+		downdate_all();
+
+		top_tree_node* res = splice_all();
+
+		cut_right();
+
+		update_all();
+
+		return res;
+	}
+
+	// Return the topmost vertex which was spliced into
+	top_tree_node* expose_edge() {
+		assert(!is_vert);
+		downdate_all();
+
+		top_tree_node* v = is_path ? c[1] : c[2];
+		v->downdate();
+
+		while (!v->is_vert) {
+			v = v->c[0];
+			v->downdate();
+		}
+
+		top_tree_node* res = v->splice_all();
+		v->cut_right();
+		v->update_all();
+
+		assert(!p);
+		assert(v == c[1]);
+
+		return res;
+	}
+
+	// Return the new root
+	top_tree_node* meld_path_end() {
+		assert(!p);
+		top_tree_node* rt = derived_this();
+		while (true) {
+			rt->downdate();
+			if (rt->is_vert) break;
+			rt = rt->c[1];
+		}
+		assert(rt->is_vert);
+		rt->splay_vert();
+		if (rt->c[0] && rt->c[1]) {
+			top_tree_node* ch = rt->c[1];
+			while (true) {
+				ch->downdate();
+				if (!ch->c[0]) break;
+				ch = ch->c[0];
+			}
+			ch->splay();
+			assert(ch->c[0] == nullptr);
+
+			ch->c[0] = rt->c[0];
+			ch->c[0]->p = ch;
+
+			rt->c[0] = nullptr;
+
+			ch->update();
+		} else if (rt->c[0]) {
+			rt->c[1] = rt->c[0];
+			rt->c[0] = nullptr;
+		}
+		assert(rt->c[0] == nullptr);
+		return rt->update_all();
+	}
+
+	void make_root() {
+		expose();
+
+		top_tree_node* rt = derived_this();
+		while (rt->p) {
+			assert(rt->d() == 1);
+			rt = rt->p;
+		}
+		rt->do_flip_path();
+		rt->meld_path_end();
+
+		expose();
+
+		assert(!p);
+	}
+
+	// Link v2 as a child of v1 with edge e
+	friend void link(top_tree_node* e, top_tree_node* v1, top_tree_node* v2) {
+		assert(e && v1 && v2);
+		assert(!e->c[0] && !e->c[1] && !e->c[2]);
+		v1->expose(); while (v1->p) v1 = v1->p;
+		v2->make_root();
+
+		assert(!v1->p);
+		assert(!v2->p);
+
+		e->is_path = true, e->is_vert = false;
+		e->c[0] = v1;
+		v1->p = e;
+		e->c[1] = v2;
+		v2->p = e;
+		e->update();
+	}
+
+	// Link v2's root as a child of v1 with edge e
+	// Returns false if they're already in the same subtree
+	friend bool link_root(top_tree_node* e, top_tree_node* v1, top_tree_node* v2) {
+		assert(e && v1 && v2);
+		assert(!e->c[0] && !e->c[1] && !e->c[2]);
+		v1->expose();
+		v2->expose();
+
+		while (v1->p) v1 = v1->p;
+		while (v2->p) v2 = v2->p;
+		if (v1 == v2) return false;
+
+		assert(!v1->p);
+		assert(!v2->p);
+
+		e->is_path = true, e->is_vert = false;
+		e->c[0] = v1;
+		v1->p = e;
+		e->c[1] = v2;
+		v2->p = e;
+		e->update();
+
 		return true;
-	};
-	int num_comps = N;
-	for (auto [s, t] : routes) {
-		num_comps -= merge(s, t);
-	}
-	for (int i = 0; i < N; i++) {
-		if (num_edges[i] > 0) {
-			num_comps -= merge(i, (i+N-1) % N);
-		}
 	}
 
-	seg_tree::in_order_layout layout(N);
-	std::vector<int64_t> seg(2*N, -L);
-	auto set_end = [&](int lo, int hi, int64_t val) {
-		layout.get_range(lo, hi).for_each([&](seg_tree::point a) {
-			seg[a] = std::max(seg[a], val);
-		});
-	};
-	for (int i = 0; i < N; i++) {
-		assert(num_edges[i] >= -1);
-		if (num_edges[i] == -1) {
-			// < i requires going up to coords[i]
-			// i or bigger requires going up to coords[i] + L
-			set_end(0, i, coords[i]);
-			set_end(i, N, coords[i] + L);
+	// Link v2 as a child of v1 with edge e, v2 must be the root
+	friend void link_direct(top_tree_node* e, top_tree_node* v1, top_tree_node* v2) {
+		assert(e && v1 && v2);
+		assert(!e->c[0] && !e->c[1] && !e->c[2]);
+		v1->expose();
+		v2->expose();
+
+		while (v1->p) v1 = v1->p;
+		assert(!v2->p);
+
+		assert(v1 != v2);
+
+		assert(!v1->p);
+		assert(!v2->p);
+
+		e->is_path = true, e->is_vert = false;
+		e->c[0] = v1;
+		v1->p = e;
+		e->c[1] = v2;
+		v2->p = e;
+		e->update();
+	}
+
+	// Cuts the edge e
+	// Returns the top-tree-root of the two halves; they are not necessarily the split vertices.
+	friend std::pair<top_tree_node*, top_tree_node*> cut(top_tree_node* e) {
+		assert(!e->is_vert);
+		e->expose_edge();
+
+		assert(!e->p);
+		assert(e->is_path);
+
+		top_tree_node* l = e->c[0];
+		top_tree_node* r = e->c[1];
+		assert(l && r);
+
+		e->c[0] = e->c[1] = nullptr;
+		l->p = r->p = nullptr;
+
+		assert(e->c[2] == nullptr);
+
+		l = l->meld_path_end();
+
+		return {l, r};
+	}
+
+	friend std::optional<top_tree_node*> maybe_get_path(top_tree_node* a, top_tree_node* b) {
+		assert(a->is_vert && b->is_vert);
+		a->make_root();
+		b->expose();
+		if (a == b) {
+			assert(!b->p);
+			return b;
 		}
+		if (!a->p) return std::nullopt;
+		assert(!b->p->p);
+		return b->p;
 	}
-	// Now, we need to find the components
-	std::vector<std::vector<int>> comps(N);
-	for (int i = 0; i < N; i++) {
-		comps[get_par(i)].push_back(i);
+
+	friend top_tree_node* get_path(top_tree_node* a, top_tree_node* b) {
+		assert(a->is_vert && b->is_vert);
+		a->make_root();
+		b->expose();
+		if (a == b) {
+			assert(!b->p);
+			return b;
+		}
+		assert(!b->p->p);
+		return b->p;
 	}
-	for (const auto& comp : comps) {
-		if (comp.empty()) continue;
-		// Otherwise, you must reach a point of the component
-		for (int z = 0; z < int(comp.size()); z++) {
-			int i = comp[z];
-			if (num_edges[i] > 0) continue;
-			// strictly after prv and i or earlier must reach i
-			if (z == 0) {
-				int prv = comp.back();
-				set_end(prv+1, N, coords[i] + L);
-				set_end(0, i+1, coords[i]);
-			} else {
-				int prv = comp[z-1];
-				set_end(prv+1, i+1, coords[i]);
+
+	friend top_tree_node* get_subtree(top_tree_node* rt, top_tree_node* n) {
+		rt->make_root();
+		n->expose();
+		return n;
+	}
+
+	friend top_tree_node* get_path_to_root(top_tree_node* b) {
+		assert(b->is_vert);
+		b->expose();
+		if (!b->p) return b;
+		assert(!b->p->p);
+		return b->p;
+	}
+
+	friend top_tree_node* get_subtree_from_root(top_tree_node* n) {
+		n->expose();
+		return n;
+	}
+
+};
+
+struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
+	bool lazy_flip_path = false;
+
+	int own_edge_val;
+	int max_path_edge_val;
+	int max_edge_val;
+
+	void do_flip_path() {
+		assert(is_path);
+		std::swap(c[0], c[1]);
+		lazy_flip_path ^= 1;
+	}
+
+	void downdate() {
+		if (lazy_flip_path) {
+			assert(is_path);
+			if (!is_vert) {
+				c[0]->do_flip_path();
+				c[1]->do_flip_path();
 			}
-		}
-	}
-	for (seg_tree::point a(1); a < layout.N; a++) {
-		for (int z = 0; z < 2; z++) {
-			seg[a.c(z)] = std::max(seg[a.c(z)], seg[a]);
+			lazy_flip_path = false;
 		}
 	}
 
-	std::vector<int64_t> answers; answers.reserve(queries.size());
-	for (int64_t x : queries) {
-		auto it = std::lower_bound(coords.begin(), coords.end(), x);
-		if (it == coords.end()) {
-			x -= L;
-			it = coords.begin();
+	// NOTE: You may assume downdate() has been called on the current node, but
+	// it may not have been called on the children! In particular, be careful
+	// when accessing grandchildren information.
+	void update() {
+		if (is_vert) {
+			max_edge_val = -1;
+			if (c[0]) setmax(max_edge_val, c[0]->max_edge_val);
+			if (c[1]) setmax(max_edge_val, c[1]->max_edge_val);
+			max_path_edge_val = -1;
+		} else if (is_path) {
+			max_edge_val = std::max({own_edge_val, c[0]->max_edge_val, c[1]->max_edge_val});
+			max_path_edge_val = std::max({own_edge_val, c[0]->max_path_edge_val, c[1]->max_path_edge_val});
+		} else {
+			max_edge_val = -1;
+			if (c[0]) setmax(max_edge_val, c[0]->max_edge_val);
+			if (c[1]) setmax(max_edge_val, c[1]->max_edge_val);
 		}
-		int i = int(it - coords.begin());
-		// find the first thing we have to increment
-		int64_t y = seg[layout.get_point(i)];
-		assert(y >= x);
-		assert(y >= coords[i]);
-		if (num_edges[i] == -1) assert(y == coords[i] + L);
-		else assert(y < coords[i] + L);
-
-		int64_t real_ans = ans + (y - x);
-		answers.push_back(real_ans);
 	}
-	return answers;
-}
+};
 
 int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	std::ios_base::sync_with_stdio(false); std::cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
-	std::mt19937_64 mt(48);
-
-	int T;
-	if (TESTING) T = 10000;
-	else cin >> T;
+	int T; std::cin >> T;
 	while (T--) {
-		int M; int64_t L;
-		if (TESTING) {
-			cerr << "Start test" << ' ' << T << '\n';
-			M = std::uniform_int_distribution<int>(1, 200)(mt);
-			L = std::uniform_int_distribution<int>(2, 200)(mt);
-			//cerr << "M = " << M << ", L = " << L << '\n';
-		} else {
-			cin >> M >> L;
+		int N, L; std::cin >> N >> L;
+		std::vector<std::array<int, 2>> edges(N);
+		for (auto& [s, t] : edges) std::cin >> s >> t;
+
+		std::vector<int> locs; locs.reserve(2*N);
+		for (auto [s, t] : edges) {
+			locs.push_back(s);
+			locs.push_back(t);
 		}
-		std::vector<std::array<int, 2>> routes(M);
-		for (auto& [s, t] : routes) {
-			if (TESTING) {
-				s = std::uniform_int_distribution<int>(0, L-1)(mt);
-				t = std::uniform_int_distribution<int>(0, L-1)(mt);
-				if (t == s) t = (s+1)%L;
-				assert(s != t);
-				//cerr << s << ' ' << t << '\n';
-			} else {
-				cin >> s >> t;
+		std::sort(locs.begin(), locs.end());
+		locs.resize(std::unique(locs.begin(), locs.end()) - locs.begin());
+
+		for (auto& [s, t] : edges) {
+			s = int(std::lower_bound(locs.begin(), locs.end(), s) - locs.begin());
+			t = int(std::lower_bound(locs.begin(), locs.end(), t) - locs.begin());
+		}
+
+		// outdeg - indeg
+		std::vector<int> cur_edges(N);
+		for (auto [s, t] : edges) {
+			assert(s != t);
+			cur_edges[s]--;
+			cur_edges[t]++;
+			if (s > t) {
+				cur_edges[N-1]++;
 			}
 		}
 
-		int Q;
-		if (TESTING) {
-			Q = 100;
-			//cerr << "Q = " << Q << '\n';
-		} else {
-			cin >> Q;
+		for (int i = N-1; i > 0; i--) {
+			cur_edges[i-1] += cur_edges[i];
 		}
-		std::vector<int64_t> queries(Q);
-		for (auto& x : queries) {
-			if (TESTING) {
-				x = std::uniform_int_distribution<int64_t>(0, L-1)(mt);
-				//cerr << x << '\n';
-			} else {
-				cin >> x;
+
+		int C = *std::max_element(cur_edges.begin(), cur_edges.end());
+
+		// ans stores how much further you need to go past C-1 circles
+		std::vector<int> ans(N, 0);
+
+		{
+			std::vector<int> par(N, -1);
+			auto get_par = [&](int a) -> int {
+				while (par[a] >= 0) {
+					if (par[par[a]] >= 0) par[a] = par[par[a]];
+					a = par[a];
+				}
+				return a;
+			};
+			auto merge = [&](int a, int b) -> bool {
+				a = get_par(a), b = get_par(b);
+				if (a == b) return false;
+				if (par[a] > par[b]) std::swap(a, b);
+				par[a] += par[b];
+				par[b] = a;
+				return true;
+			};
+			int num_comps = N;
+			for (auto [s, t] : edges) {
+				num_comps -= merge(s, t);
+			}
+			for (int i = 0; i < N; i++) {
+				if (cur_edges[i] < C) {
+					num_comps -= merge(i, i ? i-1 : N-1);
+				}
+			}
+			if (num_comps >= 2) {
+				C++;
 			}
 		}
 
-		auto answers = solve(M, L, routes, queries);
-		if (TESTING) {
-			auto shift = std::uniform_int_distribution<int>(1, L-1)(mt);
-			auto routes_rotated = routes;
-			for (auto& [s, t] : routes_rotated) {
-				s = (s + shift) % L;
-				t = (t + shift) % L;
+		{
+			std::vector<my_top_tree_node> vert_nodes(N);
+			for (int i = 0; i < N; i++) {
+				vert_nodes[i].is_vert = vert_nodes[i].is_path = true;
+				vert_nodes[i].update();
 			}
-			auto queries_rotated = queries;
-			for (auto& x : queries_rotated) {
-				x = (x + shift) % L;
+			std::vector<my_top_tree_node> edge_nodes(N-1);
+			int nxt_edge_node = 0;
+			int cur_ans = -1;
+			auto add_edge = [&](int a, int b, int v) -> void {
+				auto va = &vert_nodes[a], vb = &vert_nodes[b];
+				auto path = maybe_get_path(va, vb);
+				if (!path) {
+					assert(nxt_edge_node < N-1);
+					auto e = &edge_nodes[nxt_edge_node++];
+					e->own_edge_val = v;
+					link(e, va, vb);
+					assert(!e->p);
+					cur_ans = e->max_edge_val;
+				} else {
+					auto e = *path;
+					if (v < e->max_path_edge_val) {
+						while (e->own_edge_val != e->max_path_edge_val) {
+							if (e->c[0]->max_path_edge_val == e->max_path_edge_val) {
+								e = e->c[0];
+							} else if (e->c[1]->max_path_edge_val == e->max_path_edge_val) {
+								e = e->c[1];
+							} else assert(false);
+						}
+						cut(e);
+						e->own_edge_val = v;
+						link(e, va, vb);
+						assert(!e->p);
+						cur_ans = e->max_edge_val;
+					}
+				}
+			};
+			for (auto [s, t] : edges) {
+				add_edge(s, t, -1);
 			}
-			auto answers_rotated = solve(M, L, routes_rotated, queries_rotated);
-			assert(answers == answers_rotated);
+			for (int i = 0; i < N; i++) {
+				if (cur_edges[i] < C-1) {
+					add_edge(i, i ? i-1 : N-1, -1);
+				}
+			}
+			for (int i = N-1; i >= 0; i--) {
+				if (cur_edges[i] < C) {
+					add_edge(i, i ? i-1 : N-1, locs[i] + L);
+				}
+			}
+			assert(int(nxt_edge_node) == N-1);
+			for (int i = N-1; i >= 0; i--) {
+				ans[i] = cur_ans;
+				if (i && cur_edges[i] < C) {
+					add_edge(i, i-1, locs[i]);
+				}
+			}
+		}
+		{
+			int cur_needs = -1;
+			for (int i = 0; i < N; i++) {
+				if (cur_edges[i] == C) {
+					cur_needs = locs[i];
+				}
+			}
+			for (int i = 0; i < N; i++) {
+				if (cur_edges[i] == C) {
+					setmax(cur_needs, locs[i] + L);
+				} else {
+					setmax(cur_needs, locs[i]);
+				}
+				setmax(ans[i], cur_needs);
+			}
 		}
 
-		if (!TESTING) {
-			for (auto& v : answers) cout << v << '\n';
+		int Q; std::cin >> Q;
+		for (int q = 0; q < Q; q++) {
+			int x; std::cin >> x;
+			int i = int(std::lower_bound(locs.begin(), locs.end(), x) - locs.begin());
+			if (i == int(locs.size())) {
+				i = 0;
+				x -= L;
+			}
+			int y = ans[i];
+			std::cout << int64_t(C-1) * int64_t(L) + (y - x) << '\n';
 		}
 	}
 
