@@ -648,7 +648,7 @@ int main() {
 			}
 		}
 
-		if (true) {
+		if (false) {
 			std::vector<my_top_tree_node> vert_nodes(N);
 			for (int i = 0; i < N; i++) {
 				vert_nodes[i].is_vert = vert_nodes[i].is_path = true;
