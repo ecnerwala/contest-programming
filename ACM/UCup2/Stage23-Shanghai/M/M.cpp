@@ -729,7 +729,7 @@ int main() {
 				}
 				for (int j = 0; j < N-1; j++) {
 					if (cur_edges[j] < C-1) {
-						num_comps -= merge(i, i ? i-1 : N-1);
+						num_comps -= merge(j, j ? j-1 : N-1);
 					}
 				}
 				ans[i] = locs[i];
