@@ -735,7 +735,7 @@ int main() {
 				ans[i] = locs[i];
 				for (int j = i+1; num_comps > 1; j++) {
 					ans[i] = j >= N ? locs[j - N] + L : locs[j];
-					if (cur_edges[j % L] < C) {
+					if (cur_edges[j % N] < C) {
 						num_comps -= merge(j % N, (j - 1) % N);
 					}
 				}
