@@ -373,6 +373,7 @@ int main() {
 				}
 			}
 		}
+		for (int q = 0; q < Q; q++) cout << ans[q] << " \n"[q+1==Q];
 	}
 
 	return 0;
