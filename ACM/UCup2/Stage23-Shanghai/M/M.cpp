@@ -648,7 +648,7 @@ int main() {
 			}
 		}
 
-		if (true) {
+		if (false) {
 			std::vector<my_top_tree_node> vert_nodes(N);
 			for (int i = 0; i < N; i++) {
 				vert_nodes[i].is_vert = vert_nodes[i].is_path = true;
@@ -735,7 +735,9 @@ int main() {
 				ans[i] = locs[i];
 				for (int j = i+1; num_comps > 1; j++) {
 					ans[i] = j >= N ? locs[j - N] + L : locs[j];
-					num_comps -= merge(j % N, (j - 1) % N);
+					if (cur_edges[j] < C) {
+						num_comps -= merge(j % N, (j - 1) % N);
+					}
 				}
 			}
 		}
