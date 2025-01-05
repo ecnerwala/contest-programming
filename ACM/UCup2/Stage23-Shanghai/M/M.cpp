@@ -729,7 +729,7 @@ int main() {
 					if (i == 0) std::cerr << "merging " << s << ' ' << t << '\n';
 					num_comps -= merge(s, t);
 				}
-				for (int j = 0; j < N-1; j++) {
+				for (int j = 0; j < N; j++) {
 					if (cur_edges[j] < C-1) {
 						if (i == 0) std::cerr << "merging " << j << ' ' << (j ? j-1 : N-1) << '\n';
 						num_comps -= merge(j, j ? j-1 : N-1);
