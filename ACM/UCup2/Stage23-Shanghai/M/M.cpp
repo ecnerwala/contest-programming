@@ -618,37 +618,6 @@ int main() {
 		std::vector<int> ans(N, 0);
 
 		{
-			std::vector<int> par(N, -1);
-			auto get_par = [&](int a) -> int {
-				while (par[a] >= 0) {
-					if (par[par[a]] >= 0) par[a] = par[par[a]];
-					a = par[a];
-				}
-				return a;
-			};
-			auto merge = [&](int a, int b) -> bool {
-				a = get_par(a), b = get_par(b);
-				if (a == b) return false;
-				if (par[a] > par[b]) std::swap(a, b);
-				par[a] += par[b];
-				par[b] = a;
-				return true;
-			};
-			int num_comps = N;
-			for (auto [s, t] : edges) {
-				num_comps -= merge(s, t);
-			}
-			for (int i = 0; i < N; i++) {
-				if (cur_edges[i] < C) {
-					num_comps -= merge(i, i ? i-1 : N-1);
-				}
-			}
-			if (num_comps >= 2) {
-				C++;
-			}
-		}
-
-		if (false) {
 			std::vector<my_top_tree_node> vert_nodes(N);
 			for (int i = 0; i < N; i++) {
 				vert_nodes[i].is_vert = vert_nodes[i].is_path = true;
@@ -698,47 +667,21 @@ int main() {
 					add_edge(i, i ? i-1 : N-1, locs[i] + L);
 				}
 			}
+			if (nxt_edge_node < N-1) {
+				for (int i = N-1; i >= 0; i--) {
+					if (cur_edges[i] == C-1) {
+						add_edge(i, i ? i-1 : N-1, -1);
+					} else if (cur_edges[i] == C) {
+						add_edge(i, i ? i-1 : N-1, locs[i] + L);
+					}
+				}
+				C++;
+			}
 			assert(int(nxt_edge_node) == N-1);
 			for (int i = N-1; i >= 0; i--) {
 				ans[i] = cur_ans;
 				if (i && cur_edges[i] < C) {
 					add_edge(i, i-1, locs[i]);
-				}
-			}
-		} else {
-			for (int i = 0; i < N; i++) {
-				std::vector<int> par(N, -1);
-				auto get_par = [&](int a) -> int {
-					while (par[a] >= 0) {
-						if (par[par[a]] >= 0) par[a] = par[par[a]];
-						a = par[a];
-					}
-					return a;
-				};
-				auto merge = [&](int a, int b) -> bool {
-					a = get_par(a), b = get_par(b);
-					if (a == b) return false;
-					if (par[a] > par[b]) std::swap(a, b);
-					par[a] += par[b];
-					par[b] = a;
-					return true;
-				};
-				int num_comps = N;
-				for (auto [s, t] : edges) {
-					num_comps -= merge(s, t);
-				}
-				for (int j = 0; j < N; j++) {
-					if (cur_edges[j] < C-1) {
-						num_comps -= merge(j, j ? j-1 : N-1);
-					}
-				}
-				ans[i] = locs[i];
-				for (int j = i+1; num_comps > 1; j++) {
-					assert(j <= N + i);
-					ans[i] = j >= N ? locs[j - N] + L : locs[j];
-					if (cur_edges[j % N] < C) {
-						num_comps -= merge(j % N, (j - 1) % N);
-					}
 				}
 			}
 		}
