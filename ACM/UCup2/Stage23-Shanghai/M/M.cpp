@@ -726,12 +726,12 @@ int main() {
 				};
 				int num_comps = N;
 				for (auto [s, t] : edges) {
-					std::cerr << "merging " << s << ' ' << t << '\n';
+					if (i == 0) std::cerr << "merging " << s << ' ' << t << '\n';
 					num_comps -= merge(s, t);
 				}
 				for (int j = 0; j < N-1; j++) {
 					if (cur_edges[j] < C-1) {
-						std::cerr << "merging " << j << ' ' << (j ? j-1 : N-1) << '\n';
+						if (i == 0) std::cerr << "merging " << j << ' ' << (j ? j-1 : N-1) << '\n';
 						num_comps -= merge(j, j ? j-1 : N-1);
 					}
 				}
