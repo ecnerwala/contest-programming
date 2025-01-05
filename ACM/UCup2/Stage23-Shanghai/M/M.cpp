@@ -579,17 +579,18 @@ int main() {
 
 	int T; std::cin >> T;
 	while (T--) {
-		int N, L; std::cin >> N >> L;
-		std::vector<std::array<int, 2>> edges(N);
+		int M, L; std::cin >> M >> L;
+		std::vector<std::array<int, 2>> edges(M);
 		for (auto& [s, t] : edges) std::cin >> s >> t;
 
-		std::vector<int> locs; locs.reserve(2*N);
+		std::vector<int> locs; locs.reserve(2*M);
 		for (auto [s, t] : edges) {
 			locs.push_back(s);
 			locs.push_back(t);
 		}
 		std::sort(locs.begin(), locs.end());
 		locs.resize(std::unique(locs.begin(), locs.end()) - locs.begin());
+		int N = int(locs.size());
 
 		for (auto& [s, t] : edges) {
 			s = int(std::lower_bound(locs.begin(), locs.end(), s) - locs.begin());
