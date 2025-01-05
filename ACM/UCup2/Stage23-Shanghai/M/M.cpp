@@ -648,7 +648,7 @@ int main() {
 			}
 		}
 
-		if (false) {
+		if (true) {
 			std::vector<my_top_tree_node> vert_nodes(N);
 			for (int i = 0; i < N; i++) {
 				vert_nodes[i].is_vert = vert_nodes[i].is_path = true;
@@ -740,8 +740,10 @@ int main() {
 						num_comps -= merge(j % N, (j - 1) % N);
 					}
 				}
-				std::cerr << i << ' ' << locs[i] << ' ' << ans[i] << '\n';
 			}
+		}
+		for (int i = 0; i < N; i++) {
+			std::cerr << i << ' ' << locs[i] << ' ' << ans[i] << '\n';
 		}
 		{
 			int cur_needs = -1;
