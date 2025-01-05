@@ -648,7 +648,7 @@ int main() {
 			}
 		}
 
-		if (true) {
+		if (false) {
 			std::vector<my_top_tree_node> vert_nodes(N);
 			for (int i = 0; i < N; i++) {
 				vert_nodes[i].is_vert = vert_nodes[i].is_path = true;
@@ -658,7 +658,6 @@ int main() {
 			int nxt_edge_node = 0;
 			int cur_ans = -1;
 			auto add_edge = [&](int a, int b, int v) -> void {
-				if (v == -1) std::cerr << "merging " << a << ' ' << b << '\n';
 				auto va = &vert_nodes[a], vb = &vert_nodes[b];
 				auto path = maybe_get_path(va, vb);
 				if (!path) {
@@ -726,12 +725,10 @@ int main() {
 				};
 				int num_comps = N;
 				for (auto [s, t] : edges) {
-					if (i == 0) std::cerr << "merging " << s << ' ' << t << '\n';
 					num_comps -= merge(s, t);
 				}
 				for (int j = 0; j < N; j++) {
 					if (cur_edges[j] < C-1) {
-						if (i == 0) std::cerr << "merging " << j << ' ' << (j ? j-1 : N-1) << '\n';
 						num_comps -= merge(j, j ? j-1 : N-1);
 					}
 				}
