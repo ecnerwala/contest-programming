@@ -567,7 +567,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			max_edge_val = std::max({own_edge_val, c[0]->max_edge_val, c[1]->max_edge_val});
 			max_path_edge_val = std::max({own_edge_val, c[0]->max_path_edge_val, c[1]->max_path_edge_val});
 		} else {
-			max_edge_val = c[2]->max_edge_val;
+			max_edge_val = std::max(own_edge_val, c[2]->max_edge_val);
 			if (c[0]) setmax(max_edge_val, c[0]->max_edge_val);
 			if (c[1]) setmax(max_edge_val, c[1]->max_edge_val);
 		}
