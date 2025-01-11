@@ -21,6 +21,9 @@ int main() {
 			pref[locs[a][0]]++;
 			pref[locs[a][1]]--;
 		}
+		for (int i = 1; i < N; i++) {
+			pref[i] += pref[i-1];
+		}
 		std::vector<int64_t> pref_pairs(N+1);
 		std::vector<int> pref_cnt(N);
 		std::vector<int> val(N);
