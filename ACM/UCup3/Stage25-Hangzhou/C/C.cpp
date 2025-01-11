@@ -145,6 +145,18 @@ int main() {
 		auto pa = [&](int x) -> pt_t { return a[(x >= int(a.size())) ? x - int(a.size()) : x]; };
 		auto pb = [&](int x) -> pt_t { return b[(x >= int(b.size())) ? x - int(b.size()) : x]; };
 
+		std::array<pt_t, 2> ans{a[0], b[0]};
+
+		for (int i = a_lo; i <= a_hi; i++) {
+			for (int j = b_lo; j <= b_hi; j++) {
+				std::array<pt_t, 2> cnd({pa(i), pb(j)});
+				if (angle_less(-base_ang, ans[1] - ans[0], cnd[1] - cnd[0])) {
+					ans = cnd;
+				}
+			}
+		}
+		return ans;
+
 		while (a_lo != a_hi && b_lo != b_hi) {
 			// TODO: Fixme
 		}
