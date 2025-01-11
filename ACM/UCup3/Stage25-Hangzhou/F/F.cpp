@@ -17,6 +17,7 @@ int main() {
 		}
 		std::vector<int> pref(N);
 		for (int a = 0; a < N; a++) {
+			cerr << a << ' ' << locs[a][0] << ' ' << locs[a][1] << '\n';
 			pref[locs[a][0]]++;
 			pref[locs[a][1]]--;
 		}
