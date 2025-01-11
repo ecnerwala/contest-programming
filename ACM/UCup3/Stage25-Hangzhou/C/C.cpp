@@ -101,6 +101,10 @@ struct frac_t {
 	int64_t numer;
 	int64_t denom;
 
+	friend std::ostream& operator << (std::ostream& o, frac_t f) {
+		return o << f.numer << '/' << f.denom << '\n';
+	}
+
 	friend auto operator <=> (frac_t a, frac_t b) {
 		return __int128_t(a.numer) * b.denom <=> __int128_t(b.numer) * a.denom;
 	}
@@ -224,6 +228,7 @@ int main() {
 			cerr << "tangents " << s2 << ' ' << m2 << '\n';
 
 			auto bad = intersect(get_inter(m1, s1), get_inter(m1, m2), get_inter(s2, m2));
+			cerr << "inter " << bad[0] << ' ' << bad[1] << '\n';
 			if (bad[0] < bad[1]) {
 				evts.push_back({bad[0], +1});
 				evts.push_back({bad[1], -1});
