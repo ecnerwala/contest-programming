@@ -208,11 +208,15 @@ int main() {
 		std::vector<pt_t> S = read_polygon();
 		std::vector<std::pair<frac_t, bool>> evts; evts.reserve(N_MOON * 2 + 1);
 		for (int j = 0; j < N_MOON; j++) {
+			cerr << '\n';
+			cerr << "MOON " << j << '\n';
 			std::vector<pt_t> M = read_polygon();
 
 			// find the common tangents
 			auto [s1, m1] = get_common_tangent(S, M);
 			auto [m2, s2] = get_common_tangent(M, S);
+			cerr << "tangents " << s1 << ' ' << m1 << '\n';
+			cerr << "tangents " << s2 << ' ' << m2 << '\n';
 
 			auto bad = intersect(get_inter(m1, s1), get_inter(m1, m2), get_inter(s2, m2));
 			if (bad[0] < bad[1]) {
