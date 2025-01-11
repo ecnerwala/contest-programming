@@ -37,7 +37,7 @@ int main() {
 		}
 		std::vector<int> perm; perm.reserve(N);
 		int64_t ans = 0;
-		int pos = 0;
+		int pos = F;
 		for (int i = nxt[N]; i != N; i = nxt[i]) {
 			perm.push_back(i);
 			ans += std::max(orig_people[i].l - pos, 0);
