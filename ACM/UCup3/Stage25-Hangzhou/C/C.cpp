@@ -134,6 +134,43 @@ int main() {
 		return ma == int(a.size()) ? 0 : ma;
 	};
 
+	auto get_common_tangents_slow = [&](const std::vector<pt_t>& a, const std::vector<pt_t>& b) -> std::array<std::array<pt_t, 2>, 2> {
+		pt_t base_ang = b[0] - a[0];
+		int a_lo = get_ang(a, +base_ang);
+		int a_hi = get_ang(a, -base_ang);
+		assert(a_lo != a_hi);
+		if (a_lo > a_hi) a_hi += int(a.size());
+
+		int b_lo = get_ang(b, -base_ang);
+		int b_hi = get_ang(b, +base_ang);
+		assert(b_lo != b_hi);
+		if (b_lo > b_hi) b_hi += int(b.size());
+
+		auto pa = [&](int x) -> pt_t { return a[(x >= int(a.size())) ? x - int(a.size()) : x]; };
+		auto pb = [&](int x) -> pt_t { return b[(x >= int(b.size())) ? x - int(b.size()) : x]; };
+
+		std::array<pt_t, 2> ans_big{a[0], b[0]};
+		std::array<pt_t, 2> ans_small{a[0], b[0]};
+
+		for (int i = a_lo; i <= a_hi; i++) {
+			for (int j = b_lo; j <= b_hi; j++) {
+				std::array<pt_t, 2> cnd({pa(i), pb(j)});
+				if (angle_less(-base_ang, ans_big[1] - ans_big[0], cnd[1] - cnd[0])) {
+					ans_big = cnd;
+				}
+				if (angle_less(-base_ang, cnd[1] - cnd[0], ans_small[1] - ans_small[0])) {
+					ans_small = cnd;
+				}
+			}
+		}
+		return {ans_big, ans_small};
+
+		while (a_lo != a_hi && b_lo != b_hi) {
+			// TODO: Fixme
+		}
+		//return {pa(a_lo), pb(b_lo)};
+	};
+
 	auto get_common_tangents = [&](const std::vector<pt_t>& a, const std::vector<pt_t>& b) -> std::array<std::array<pt_t, 2>, 2> {
 		pt_t base_ang = b[0] - a[0];
 		int a_lo = get_ang(a, +base_ang);
@@ -174,8 +211,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N_MOON, L, R; cin >> N_MOON >> L >> R;
-		cerr << '\n';
-		cerr << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
+		//cerr << '\n' << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
 
 		auto read_polygon = [&]() -> std::vector<pt_t> {
 			int K; cin >> K;
@@ -220,19 +256,18 @@ int main() {
 		std::vector<pt_t> S = read_polygon();
 		std::vector<std::pair<frac_t, int>> evts; evts.reserve(N_MOON * 2 + 1);
 		for (int j = 0; j < N_MOON; j++) {
-			cerr << '\n';
-			cerr << "MOON " << j << '\n';
+			//cerr << '\n' << "MOON " << j << '\n';
 			std::vector<pt_t> M = read_polygon();
 
 			// find the common tangents
 			auto [t1, t2] = get_common_tangents(S, M);
 			auto [s1, m1] = t1;
 			auto [s2, m2] = t2;
-			cerr << "tangents " << s1 << ' ' << m1 << '\n';
-			cerr << "tangents " << s2 << ' ' << m2 << '\n';
+			//cerr << "tangents " << s1 << ' ' << m1 << '\n';
+			//cerr << "tangents " << s2 << ' ' << m2 << '\n';
 
 			auto bad = intersect(get_inter(m1, s1), get_inter(m1, m2), get_inter(s2, m2));
-			cerr << "inter " << bad[0] << ' ' << bad[1] << '\n';
+			//cerr << "inter " << bad[0] << ' ' << bad[1] << '\n';
 			if (bad[0] < bad[1]) {
 				evts.push_back({bad[0], +1});
 				evts.push_back({bad[1], -1});
@@ -245,7 +280,7 @@ int main() {
 		bool has_good = false;
 		ld ans = 0;
 		for (auto [x, v] : evts) {
-			cerr << "interval " << prv_x << ' ' << x << ' ' << bad_cnt << ' ' << v << '\n';
+			//cerr << "interval " << prv_x << ' ' << x << ' ' << bad_cnt << ' ' << v << '\n';
 			if (bad_cnt == 0) {
 				// closed interval prv_x .. x is good
 				if (x > frac_t{L, 1} && prv_x < frac_t{R, 1}) {
