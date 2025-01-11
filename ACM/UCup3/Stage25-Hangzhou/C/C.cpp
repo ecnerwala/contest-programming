@@ -248,15 +248,12 @@ int main() {
 			if (bad_cnt == 0) {
 				cerr << "good interval " << prv_x << ' ' << x << '\n';
 				// closed interval prv_x .. x is good
-				if (x <= frac_t{L, 1}) {
-					continue;
-				} else if (prv_x >= frac_t{R, 1}) {
-					continue;
+				if (x > frac_t{L, 1} && prv_x < frac_t{R, 1}) {
+					has_good = true;
+					frac_t lo = std::max(prv_x, frac_t{L, 1});
+					frac_t hi = std::min(x, frac_t{R, 1});
+					ans += ld(hi) - ld(lo);
 				}
-				has_good = true;
-				frac_t lo = std::max(prv_x, frac_t{L, 1});
-				frac_t hi = std::min(x, frac_t{R, 1});
-				ans += ld(hi) - ld(lo);
 			}
 			bad_cnt += v;
 			prv_x = x;
