@@ -214,7 +214,7 @@ int main() {
 					pt_t x = pa(md), y = pa(md+1);
 					if (cross(base_ang, cur - x) > 0) {
 						mi = md;
-					} else if (cross(y - x, cur - x) > 0) {
+					} else if (cross(y - x, cur - x) < 0) {
 						mi = md;
 					} else {
 						ma = md;
