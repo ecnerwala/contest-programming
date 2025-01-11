@@ -95,6 +95,7 @@ public:
 };
 
 using pt_t = Point<int64_t>;
+using ld = long double;
 
 struct frac_t {
 	int64_t numer;
@@ -102,6 +103,10 @@ struct frac_t {
 
 	friend auto operator <=> (frac_t a, frac_t b) {
 		return __int128_t(a.numer) * b.denom <=> __int128_t(b.numer) * a.denom;
+	}
+
+	explicit operator ld () const {
+		return ld(numer) / denom;
 	}
 };
 
@@ -188,14 +193,46 @@ int main() {
 		};
 
 		std::vector<pt_t> S = read_polygon();
+		std::vector<std::pair<frac_t, bool>> evts; evts.reserve(N_MOON * 2 + 1);
 		for (int j = 0; j < N_MOON; j++) {
 			std::vector<pt_t> M = read_polygon();
 
 			// find the common tangents
 			auto [s1, m1] = get_common_tangent(S, M);
 			auto [m2, s2] = get_common_tangent(M, S);
-			intersect(get_inter(m1, s1), get_inter(m1, m2), get_inter(s2, m2));
-			// bad trapezoid:
+
+			auto bad = intersect(get_inter(m1, s1), get_inter(m1, m2), get_inter(s2, m2));
+			if (bad[0] < bad[1]) {
+				evts.push_back({bad[0], +1});
+				evts.push_back({bad[1], -1});
+			}
+		}
+		std::sort(evts.begin(), evts.end());
+		evts.push_back({{R+1, 1}, +1});
+		int bad_cnt = 0;
+		frac_t prv_x{L-1, 1};
+		bool has_good = false;
+		ld ans = 0;
+		for (auto [x, v] : evts) {
+			if (bad_cnt == 0) {
+				// closed interval prv_x .. x is good
+				if (x <= frac_t{L, 1}) {
+					continue;
+				} else if (prv_x >= frac_t{R, 1}) {
+					continue;
+				}
+				has_good = true;
+				frac_t lo = std::max(prv_x, frac_t{L, 1});
+				frac_t hi = std::min(x, frac_t{R, 1});
+				ans += ld(hi) - ld(lo);
+			}
+			bad_cnt += v;
+			prv_x = x;
+		}
+		if (has_good) {
+			cout << fixed << setprecision(20) << ans << '\n';
+		} else {
+			cout << -1 << '\n';
 		}
 	}
 
