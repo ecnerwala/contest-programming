@@ -245,7 +245,7 @@ int main() {
 		bool has_good = false;
 		ld ans = 0;
 		for (auto [x, v] : evts) {
-			cerr << "interval " << prv_x << ' ' << x << ' ' << bad_cnt << '\n';
+			cerr << "interval " << prv_x << ' ' << x << ' ' << bad_cnt << ' ' << v << '\n';
 			if (bad_cnt == 0) {
 				// closed interval prv_x .. x is good
 				if (x > frac_t{L, 1} && prv_x < frac_t{R, 1}) {
