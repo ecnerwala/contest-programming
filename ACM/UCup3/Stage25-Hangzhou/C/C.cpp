@@ -152,8 +152,8 @@ int main() {
 		std::array<pt_t, 2> ans_big{a[0], b[0]};
 		std::array<pt_t, 2> ans_small{a[0], b[0]};
 
-		for (int i = a_lo; i <= a_hi; i++) {
-			for (int j = b_lo; j <= b_hi; j++) {
+		for (int j = b_lo; j <= b_hi; j++) {
+			for (int i = a_lo; i <= a_hi; i++) {
 				std::array<pt_t, 2> cnd({pa(i), pb(j)});
 				if (angle_less(-base_ang, ans_big[1] - ans_big[0], cnd[1] - cnd[0])) {
 					ans_big = cnd;
@@ -210,9 +210,9 @@ int main() {
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					pt_t x = pa(md), y = pa(md+1);
-					if (cross(base_ang, cur - x) > 0) {
+					if (cross(base_ang, cur - x) >= 0) {
 						mi = md;
-					} else if (cross(y - x, cur - x) > 0) {
+					} else if (cross(y - x, cur - x) >= 0) {
 						mi = md;
 					} else {
 						ma = md;
