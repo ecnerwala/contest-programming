@@ -160,21 +160,21 @@ int main() {
 			bool l_inside = cross3(pt_t(L, 0), p1, p2) > 0;
 			bool r_inside = cross3(pt_t(R, 0), p1, p2) > 0;
 			if (l_inside && r_inside) {
-				return {{L-1, 1}, {R+1, 1}};
+				return {frac_t{L-1, 1}, frac_t{R+1, 1}};
 			} else if (!l_inside && !r_inside) {
-				return {{L-1, 1}, {L-1, 1}};
+				return {frac_t{L-1, 1}, frac_t{L-1, 1}};
 			} else {
 				// only one of them
 				assert(p1.y != p2.y);
-				frac_t mid = {p2.y * p1.x - p1.y * p2.x, p2.y - p1.y};
+				frac_t mid{p2.y * p1.x - p1.y * p2.x, p2.y - p1.y};
 				if (mid.denom < 0) {
 					mid.numer = -mid.numer;
 					mid.denom = -mid.denom;
 				}
 				if (l_inside && !r_inside) {
-					return {{L-1, 1}, mid};
+					return {frac_t{L-1, 1}, mid};
 				} else if (r_inside && !l_inside) {
-					return {mid, {R+1, 1}};
+					return {mid, frac_t{R+1, 1}};
 				} else assert(false);
 			}
 		};
