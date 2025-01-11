@@ -199,6 +199,7 @@ int main() {
 						mi = md;
 					}
 				}
+				cerr << "trying big " << pa(ma) << ' ' << cur << '\n';
 				std::array<pt_t, 2> cnd({pa(ma), cur});
 				if (angle_less(-base_ang, ans_big[1] - ans_big[0], cnd[1] - cnd[0])) {
 					ans_big = cnd;
@@ -218,6 +219,7 @@ int main() {
 						ma = md;
 					}
 				}
+				cerr << "trying small " << pa(ma) << ' ' << cur << '\n';
 				std::array<pt_t, 2> cnd({pa(ma), cur});
 				if (angle_less(-base_ang, cnd[1] - cnd[0], ans_small[1] - ans_small[0])) {
 					ans_small = cnd;
