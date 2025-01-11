@@ -168,7 +168,7 @@ int main() {
 
 	auto get_common_tangents = [&](const std::vector<pt_t>& a, const std::vector<pt_t>& b) -> std::array<std::array<pt_t, 2>, 2> {
 		pt_t base_ang = b[0] - a[0];
-		cerr << "base_ang " << base_ang << '\n';
+		cerr << "base_ang " << a[0] << ' ' << b[0] << ' ' << base_ang << '\n';
 		int a_lo = get_ang(a, +base_ang);
 		int a_hi = get_ang(a, -base_ang);
 		assert(a_lo != a_hi);
