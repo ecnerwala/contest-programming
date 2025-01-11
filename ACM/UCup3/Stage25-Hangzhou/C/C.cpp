@@ -210,9 +210,9 @@ int main() {
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					pt_t x = pa(md), y = pa(md+1);
-					if (cross(base_ang, cur - x) >= 0) {
+					if (cross(base_ang, cur - x) > 0) {
 						mi = md;
-					} else if (cross(y - x, cur - x) >= 0) {
+					} else if (cross(y - x, cur - x) > 0) {
 						mi = md;
 					} else {
 						ma = md;
@@ -230,7 +230,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N_MOON, L, R; cin >> N_MOON >> L >> R;
-		//cerr << '\n' << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
+		cerr << '\n' << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
 
 		auto read_polygon = [&]() -> std::vector<pt_t> {
 			int K; cin >> K;
@@ -275,18 +275,18 @@ int main() {
 		std::vector<pt_t> S = read_polygon();
 		std::vector<std::pair<frac_t, int>> evts; evts.reserve(N_MOON * 2 + 1);
 		for (int j = 0; j < N_MOON; j++) {
-			//cerr << '\n' << "MOON " << j << '\n';
+			cerr << '\n' << "MOON " << j << '\n';
 			std::vector<pt_t> M = read_polygon();
 
 			// find the common tangents
 			auto [t1, t2] = get_common_tangents(S, M);
 			auto [s1, m1] = t1;
 			auto [s2, m2] = t2;
-			//cerr << "tangents " << s1 << ' ' << m1 << '\n';
-			//cerr << "tangents " << s2 << ' ' << m2 << '\n';
+			cerr << "tangents " << s1 << ' ' << m1 << '\n';
+			cerr << "tangents " << s2 << ' ' << m2 << '\n';
 
 			auto bad = intersect(get_inter(m1, s1), get_inter(m1, m2), get_inter(s2, m2));
-			//cerr << "inter " << bad[0] << ' ' << bad[1] << '\n';
+			cerr << "inter " << bad[0] << ' ' << bad[1] << '\n';
 			if (bad[0] < bad[1]) {
 				evts.push_back({bad[0], +1});
 				evts.push_back({bad[1], -1});
