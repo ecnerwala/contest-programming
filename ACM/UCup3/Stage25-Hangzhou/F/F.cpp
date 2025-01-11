@@ -36,6 +36,7 @@ int main() {
 			pref_cnt[i] = cnt;
 			val[i] = v;
 			pref_pairs[i+1] = pref_pairs[i] + cnt;
+			cerr << i << ' ' << cnt << '\n';
 			cnt++;
 			tot_cnt[v]++;
 		}
