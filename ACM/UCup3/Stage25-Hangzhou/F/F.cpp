@@ -47,6 +47,7 @@ int main() {
 			// subtract off l <-> r pairs
 			assert(l < r);
 			int a = pref_cnt[l]; int b = tot_cnt[val[l]] - a;
+			b = std::min(b, r - l);
 			int64_t ans = pref_pairs[r] - pref_pairs[l] - int64_t(a) * int64_t(b);
 			return ans;
 		};
