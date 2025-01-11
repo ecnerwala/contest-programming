@@ -102,7 +102,7 @@ struct frac_t {
 	int64_t denom;
 
 	friend std::ostream& operator << (std::ostream& o, frac_t f) {
-		return o << f.numer << '/' << f.denom << '\n';
+		return o << f.numer << '/' << f.denom;
 	}
 
 	friend auto operator <=> (frac_t a, frac_t b) {
