@@ -164,11 +164,6 @@ int main() {
 			}
 		}
 		return {ans_big, ans_small};
-
-		while (a_lo != a_hi && b_lo != b_hi) {
-			// TODO: Fixme
-		}
-		//return {pa(a_lo), pb(b_lo)};
 	};
 
 	auto get_common_tangents = [&](const std::vector<pt_t>& a, const std::vector<pt_t>& b) -> std::array<std::array<pt_t, 2>, 2> {
@@ -189,23 +184,47 @@ int main() {
 		std::array<pt_t, 2> ans_big{a[0], b[0]};
 		std::array<pt_t, 2> ans_small{a[0], b[0]};
 
-		for (int i = a_lo; i <= a_hi; i++) {
-			for (int j = b_lo; j <= b_hi; j++) {
-				std::array<pt_t, 2> cnd({pa(i), pb(j)});
+		for (int j = b_lo; j <= b_hi; j++) {
+			pt_t cur = pb(j);
+			{
+				int mi = a_lo - 1, ma = a_hi;
+				while (ma - mi > 1) {
+					int md = (mi + ma) / 2;
+					pt_t x = pa(md), y = pa(md+1);
+					if (cross(base_ang, cur - y) < 0) {
+						ma = md;
+					} else if (cross(y - x, cur - y) < 0) {
+						ma = md;
+					} else {
+						mi = md;
+					}
+				}
+				std::array<pt_t, 2> cnd({pa(ma), cur});
 				if (angle_less(-base_ang, ans_big[1] - ans_big[0], cnd[1] - cnd[0])) {
 					ans_big = cnd;
 				}
+			}
+
+			{
+				int mi = a_lo - 1, ma = a_hi;
+				while (ma - mi > 1) {
+					int md = (mi + ma) / 2;
+					pt_t x = pa(md), y = pa(md+1);
+					if (cross(base_ang, cur - y) > 0) {
+						mi = md;
+					} else if (cross(y - x, cur - y) > 0) {
+						mi = md;
+					} else {
+						ma = md;
+					}
+				}
+				std::array<pt_t, 2> cnd({pa(ma), cur});
 				if (angle_less(-base_ang, cnd[1] - cnd[0], ans_small[1] - ans_small[0])) {
 					ans_small = cnd;
 				}
 			}
 		}
 		return {ans_big, ans_small};
-
-		while (a_lo != a_hi && b_lo != b_hi) {
-			// TODO: Fixme
-		}
-		//return {pa(a_lo), pb(b_lo)};
 	};
 
 	int T; cin >> T;
