@@ -166,6 +166,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N_MOON, L, R; cin >> N_MOON >> L >> R;
+		cerr << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
 
 		auto read_polygon = [&]() -> std::vector<pt_t> {
 			int K; cin >> K;
