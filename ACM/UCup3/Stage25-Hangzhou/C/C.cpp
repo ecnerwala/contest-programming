@@ -218,7 +218,7 @@ int main() {
 		};
 
 		std::vector<pt_t> S = read_polygon();
-		std::vector<std::pair<frac_t, bool>> evts; evts.reserve(N_MOON * 2 + 1);
+		std::vector<std::pair<frac_t, int>> evts; evts.reserve(N_MOON * 2 + 1);
 		for (int j = 0; j < N_MOON; j++) {
 			cerr << '\n';
 			cerr << "MOON " << j << '\n';
