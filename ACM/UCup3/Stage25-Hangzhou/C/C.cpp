@@ -183,7 +183,7 @@ int main() {
 			}
 		};
 
-		auto intersect(std::array<frac_t, 2> x, std::array<frac_t, 2> y, std::array<frac_t, 2> z) -> std::array<frac_t, 2> {
+		auto intersect = [&](std::array<frac_t, 2> x, std::array<frac_t, 2> y, std::array<frac_t, 2> z) -> std::array<frac_t, 2> {
 			return {std::max(x[0], y[0], z[0]), std::min(x[1], y[1], z[1])};
 		};
 
