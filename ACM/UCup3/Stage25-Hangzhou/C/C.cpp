@@ -186,6 +186,9 @@ int main() {
 			return P;
 		};
 		auto get_inter = [&](pt_t p1, pt_t p2) -> std::array<frac_t, 2> {
+			if (p1 == p2) {
+				return {frac_t{L-1, 1}, frac_t{R+1, 1}};
+			}
 			// strict ccw halfplane of p1 -> p2, i.e. cross3(x, p1, p2) > 0
 			bool l_inside = cross3(pt_t(L, 0), p1, p2) > 0;
 			bool r_inside = cross3(pt_t(R, 0), p1, p2) > 0;
