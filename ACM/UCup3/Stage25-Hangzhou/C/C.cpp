@@ -168,7 +168,7 @@ int main() {
 
 	auto get_common_tangents = [&](const std::vector<pt_t>& a, const std::vector<pt_t>& b) -> std::array<std::array<pt_t, 2>, 2> {
 		pt_t base_ang = b[0] - a[0];
-		cerr << "base_ang " << a[0] << ' ' << b[0] << ' ' << base_ang << '\n';
+		//cerr << "base_ang " << a[0] << ' ' << b[0] << ' ' << base_ang << '\n';
 		int a_lo = get_ang(a, +base_ang);
 		int a_hi = get_ang(a, -base_ang);
 		assert(a_lo != a_hi);
@@ -200,7 +200,7 @@ int main() {
 						mi = md;
 					}
 				}
-				cerr << "trying big " << pa(ma) << ' ' << cur << '\n';
+				//cerr << "trying big " << pa(ma) << ' ' << cur << '\n';
 				std::array<pt_t, 2> cnd({pa(ma), cur});
 				if (angle_less(-base_ang, ans_big[1] - ans_big[0], cnd[1] - cnd[0])) {
 					ans_big = cnd;
@@ -220,7 +220,7 @@ int main() {
 						ma = md;
 					}
 				}
-				cerr << "trying small " << pa(ma) << ' ' << cur << '\n';
+				//cerr << "trying small " << pa(ma) << ' ' << cur << '\n';
 				std::array<pt_t, 2> cnd({pa(ma), cur});
 				if (angle_less(-base_ang, cnd[1] - cnd[0], ans_small[1] - ans_small[0])) {
 					ans_small = cnd;
@@ -233,7 +233,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N_MOON, L, R; cin >> N_MOON >> L >> R;
-		cerr << '\n' << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
+		//cerr << '\n' << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
 
 		auto read_polygon = [&]() -> std::vector<pt_t> {
 			int K; cin >> K;
@@ -278,18 +278,18 @@ int main() {
 		std::vector<pt_t> S = read_polygon();
 		std::vector<std::pair<frac_t, int>> evts; evts.reserve(N_MOON * 2 + 1);
 		for (int j = 0; j < N_MOON; j++) {
-			cerr << '\n' << "MOON " << j << '\n';
+			//cerr << '\n' << "MOON " << j << '\n';
 			std::vector<pt_t> M = read_polygon();
 
 			// find the common tangents
 			auto [t1, t2] = get_common_tangents(S, M);
 			auto [s1, m1] = t1;
 			auto [s2, m2] = t2;
-			cerr << "tangents " << s1 << ' ' << m1 << '\n';
-			cerr << "tangents " << s2 << ' ' << m2 << '\n';
+			//cerr << "tangents " << s1 << ' ' << m1 << '\n';
+			//cerr << "tangents " << s2 << ' ' << m2 << '\n';
 
 			auto bad = intersect(get_inter(m1, s1), get_inter(m1, m2), get_inter(s2, m2));
-			cerr << "inter " << bad[0] << ' ' << bad[1] << '\n';
+			//cerr << "inter " << bad[0] << ' ' << bad[1] << '\n';
 			if (bad[0] < bad[1]) {
 				evts.push_back({bad[0], +1});
 				evts.push_back({bad[1], -1});
