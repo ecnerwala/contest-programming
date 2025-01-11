@@ -99,6 +99,10 @@ using pt_t = Point<int64_t>;
 struct frac_t {
 	int64_t numer;
 	int64_t denom;
+
+	friend auto operator <=> (frac_t a, frac_t b) {
+		return __int128_t(a.numer) * b.denom <=> __int128_t(b.numer) * a.denom;
+	}
 };
 
 int main() {
@@ -177,6 +181,10 @@ int main() {
 					return {mid, frac_t{R+1, 1}};
 				} else assert(false);
 			}
+		};
+
+		auto intersect(std::array<frac_t, 2> x, std::array<frac_t, 2> y, std::array<frac_t, 2> z) -> std::array<frac_t, 2> {
+			return {std::max(x[0], y[0], z[0]), std::min(x[1], y[1], z[1])};
 		};
 
 		std::vector<pt_t> S = read_polygon();
