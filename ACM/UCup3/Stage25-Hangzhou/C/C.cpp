@@ -174,6 +174,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N_MOON, L, R; cin >> N_MOON >> L >> R;
+		cerr << '\n';
 		cerr << "Start case " << N_MOON << ' ' << L << ' ' << R << '\n';
 
 		auto read_polygon = [&]() -> std::vector<pt_t> {
@@ -245,6 +246,7 @@ int main() {
 		ld ans = 0;
 		for (auto [x, v] : evts) {
 			if (bad_cnt == 0) {
+				cerr << "good interval " << prv_x << ' ' << x << '\n';
 				// closed interval prv_x .. x is good
 				if (x <= frac_t{L, 1}) {
 					continue;
