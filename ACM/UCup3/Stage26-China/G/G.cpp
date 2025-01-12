@@ -67,7 +67,7 @@ int main() {
 				good = false;
 				break;
 			}
-			v = nxt_v;
+			v = nxt_v / A;
 		}
 		cout << (good ? "Yes" : "No") << '\n';
 	}
