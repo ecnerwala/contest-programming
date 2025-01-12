@@ -51,7 +51,7 @@ int main() {
 	while (T--) {
 		int64_t A, B, N; cin >> A >> B >> N;
 		int64_t coeff = mod_inv(-B, A);
-		int64_t v = N;
+		int64_t v = N % A == 0 ? N / A : N + B;
 		bool good;
 		while (true) {
 			if (v < B) {
