@@ -56,8 +56,9 @@ int main() {
 		bool good;
 		while (true) {
 			cerr << "testing " << v << '\n';
-			if (v < B) {
+			if (v <= B) {
 				v = N % B;
+				if (v == 0) v = B;
 			}
 			int64_t nxt_v = (v % A) * coeff % A * B + v;
 			assert(nxt_v % A == 0);
@@ -65,7 +66,7 @@ int main() {
 				good = true;
 				break;
 			}
-			if (v < B) {
+			if (v <= B) {
 				good = false;
 				break;
 			}
