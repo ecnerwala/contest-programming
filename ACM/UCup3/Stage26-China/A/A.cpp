@@ -45,7 +45,7 @@ int main() {
 		cout << "Yes" << '\n';
 		for (int z = 0; z < N; z++) {
 			for (int i = 0; i < 3; i++) {
-				cout << goods[z][i]+1 << " \n"[i+1==N];
+				cout << goods[z][i]+1 << " \n"[i+1==3];
 			}
 		}
 
