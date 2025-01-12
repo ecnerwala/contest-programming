@@ -17,28 +17,34 @@ int main() {
 			p.i = i;
 		}
 
-		std::vector<std::vector<int>> goods(3);
-		for (int z = 0; z < 3; z++) {
-			goods[z].reserve(N);
-			int max_A = 0;
-			for (auto [a, b, i] : people) {
-				setmax(max_A, a);
-			}
-			std::sort(people.begin(), people.end(), [&](auto a, auto b) -> bool {
-				return std::make_pair(a.b >= max_A, a.a) < std::make_pair(b.b >= max_A, b.a);
-			});
-			if (people[int(people.size()) - N].b < max_A) {
-				goto bad;
-			}
-			for (int a = 0; a < N; a++) {
-				goods[z].push_back(people.back().i);
+		std::set<std::pair<int, int>> alive_As;
+		for (auto p : people) {
+			alive_As.insert({p.a, p.i});
+		}
+		std::sort(people.begin(), people.end(), [&](person_t a, person_t b) { return a.b < b.b; });
+		std::set<std::pair<int, int>> big_valid;
+
+		std::vector<std::array<int, 3>> goods; goods.reserve(N);
+		for (int z = 0; z < N; z++) {
+			int max_A = alive_As.rbegin()->first;
+			while (!people.empty() && people.back().b >= max_A) {
+				big_valid.insert({people.back().a, people.back().i});
 				people.pop_back();
 			}
+			if (big_valid.size() < 3) goto bad;
+			std::array<int, 3> cur;
+			for (int a = 0; a < 3; a++) {
+				auto v = *big_valid.rbegin();
+				cur[a] = v.second;
+				alive_As.erase(v);
+				big_valid.erase(v);
+			}
+			goods.push_back(cur);
 		}
 
 		cout << "Yes" << '\n';
-		for (int z = 0; z < 3; z++) {
-			for (int i = 0; i < N; i++) {
+		for (int z = 0; z < N; z++) {
+			for (int i = 0; i < 3; i++) {
 				cout << goods[z][i]+1 << " \n"[i+1==N];
 			}
 		}
