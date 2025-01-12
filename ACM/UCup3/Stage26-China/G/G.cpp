@@ -52,10 +52,10 @@ int main() {
 		int64_t A, B, N; cin >> A >> B >> N;
 		int64_t coeff = mod_inv(-B, A);
 		int64_t v = N % A == 0 ? N / A : N + B;
-		cerr << "case " << A << ' ' << B << ' ' << N << '\n';
+		//cerr << "case " << A << ' ' << B << ' ' << N << '\n';
 		bool good;
 		while (true) {
-			cerr << "testing " << v << '\n';
+			//cerr << "testing " << v << '\n';
 			if (v <= B) {
 				v = N % B;
 				if (v == 0) v = B;
