@@ -25,7 +25,7 @@ int main() {
 				setmax(max_A, a);
 			}
 			std::sort(people.begin(), people.end(), [&](auto a, auto b) -> bool {
-				return std::make_pair(a.b >= max_A, a.a) <= std::make_pair(b.b >= max_A, b.a);
+				return std::make_pair(a.b >= max_A, a.a) < std::make_pair(b.b >= max_A, b.a);
 			});
 			if (people[int(people.size()) - N].b < max_A) {
 				goto bad;
