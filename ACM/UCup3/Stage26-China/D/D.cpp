@@ -318,6 +318,18 @@ int main() {
 
 		auto is_good = [&](ld w) -> bool {
 			ld h = tgt_H / tgt_W * w;
+			std::vector<kactl::Line> lines; lines.reserve(32);
+			for (ld off_x : {-w/2, w/2}) {
+				for (ld off_y : {-h/2, h/2}) {
+					for (int z = 0; z < 4; z++) {
+						using kd = double;
+						kactl::P a(kd(lens2[z].x + off_x), kd(lens2[z].y + off_y));
+						kactl::P b(kd(lens2[(z+1)%4].x + off_x), kd(lens2[(z+1)%4].y + off_y));
+						lines.push_back(kactl::Line(a, b));
+					}
+				}
+			}
+			return kactl::Intersection_Area(lines) > 0;
 		};
 
 		ld mi = 0;
