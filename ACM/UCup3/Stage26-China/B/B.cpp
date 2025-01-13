@@ -592,7 +592,7 @@ struct frac_t {
 	}
 
 	friend frac_t operator + (const frac_t& a, const frac_t& b) {
-		frac_t r{a.numer * b.denom - b.numer * a.denom, a.denom * b.denom};
+		frac_t r{a.numer * b.denom + b.numer * a.denom, a.denom * b.denom};
 		r.reduce();
 		return r;
 	}
