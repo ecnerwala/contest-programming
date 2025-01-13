@@ -316,7 +316,7 @@ int main() {
 		for (auto v : lens2) { cerr << v << ' '; } cerr << '\n';
 		for (auto v : screen2) { cerr << v << ' '; } cerr << '\n';
 
-		auto is_good = [&](ld w) -> void {
+		auto is_good = [&](ld w) -> bool {
 			ld h = tgt_H / tgt_W * w;
 		};
 
