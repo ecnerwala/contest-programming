@@ -726,7 +726,7 @@ int main() {
 			if (nxt[i] != -1) {
 				d = d + slope(P[nxt[i]] - P[i]);
 			}
-			if (prv[i] == -1 && nxt[i] == -1) {
+			if (prv[i] != -1 && nxt[i] != -1) {
 				assert(d.numer == 0);
 				continue;
 			}
