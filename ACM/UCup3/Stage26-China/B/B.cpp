@@ -615,9 +615,9 @@ int main() {
 		std::vector<pt_t> P(N);
 		for (auto& p : P) cin >> p;
 
-		//int64_t A = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
-		//int64_t B = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
-		int64_t A = 1, B = 1;
+		int64_t A = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
+		int64_t B = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
+		//int64_t A = 1, B = 1;
 
 		pt_t dir(A, B);
 
@@ -655,7 +655,7 @@ int main() {
 		std::vector<int> prv(N, -1);
 		std::vector<int> nxt(N, -1);
 		for (int i = 0; i < N; i++) {
-			cerr << "trying " << i << '\n';
+			//cerr << "trying " << i << '\n';
 			frac_t d = delta_slopes[i];
 			auto slope = [&](pt_t p) -> frac_t {
 				assert(p.x != 0);
@@ -673,17 +673,17 @@ int main() {
 				continue;
 			}
 
-			cerr << "target slope " << d.numer << '/' << d.denom << '\n';
+			//cerr << "target slope " << d.numer << '/' << d.denom << '\n';
 
 			// delta_slope = slope(P[prv] - P[i]) - slope(P[nxt] - P[i])
 			std::vector<std::pair<frac_t, int>> v; v.reserve(N);
 			for (int j = i+1; j < N; j++) {
 				v.push_back({slope(P[j] - P[i]), j});
-				cerr << "cnd " << v.back().first.numer << '/' << v.back().first.denom << ' ' << j << '\n';
+				//cerr << "cnd " << v.back().first.numer << '/' << v.back().first.denom << ' ' << j << '\n';
 			}
 			std::sort(v.begin(), v.end());
 			if (prv[i] == -1 && nxt[i] == -1) {
-				cerr << "finding prv and nxt" << '\n';
+				//cerr << "finding prv and nxt" << '\n';
 				assert(d.denom > 0);
 				for (int a = 0, b = 0; true; ) {
 					frac_t cnd = v[b].first - v[a].first - d;
@@ -701,7 +701,7 @@ int main() {
 					}
 				}
 			} else if (prv[i] == -1) {
-				cerr << "finding prv" << '\n';
+				//cerr << "finding prv" << '\n';
 				for (int a = 0; true; a++) {
 					if ((v[a].first - d).numer == 0) {
 						prv[i] = v[a].second;
@@ -710,7 +710,7 @@ int main() {
 					}
 				}
 			} else if (nxt[i] == -1) {
-				cerr << "finding nxt" << '\n';
+				//cerr << "finding nxt" << '\n';
 				for (int b = 0; true; b++) {
 					if ((v[b].first + d).numer == 0) {
 						nxt[i] = v[b].second;
@@ -719,7 +719,7 @@ int main() {
 					}
 				}
 			} else assert(false);
-			cerr << "have " << i << ' ' << prv[i] << ' ' << nxt[i] << '\n';
+			//cerr << "have " << i << ' ' << prv[i] << ' ' << nxt[i] << '\n';
 		}
 
 		std::vector<int> cyc; cyc.reserve(N);
