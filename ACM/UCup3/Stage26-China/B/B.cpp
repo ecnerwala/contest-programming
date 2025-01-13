@@ -685,7 +685,6 @@ int main() {
 			if (prv[i] == -1 && nxt[i] == -1) {
 				cerr << "finding prv and nxt" << '\n';
 				assert(d.denom > 0);
-				assert(d.numer > 0);
 				for (int a = 0, b = 0; true; ) {
 					frac_t cnd = v[b].first - v[a].first - d;
 					assert(cnd.denom > 0);
