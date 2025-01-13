@@ -683,6 +683,8 @@ int main() {
 		for (auto& p : P) p = p.unrotate(dir);
 		std::sort(P.begin(), P.end(), [&](auto a, auto b) { return lex_less(a, b); });
 
+		for (int i = 0; i < N; i++) cerr << P[i] << '\n';
+
 		std::vector<frac_t> vals(N+1);
 
 		vals[0] = {0, 1};
