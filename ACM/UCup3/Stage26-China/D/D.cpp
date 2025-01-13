@@ -316,8 +316,8 @@ int main() {
 		screen2[2] = {1 * s_width, screen[2].z};
 		screen2[3] = {0 * s_width, screen[3].z};
 
-		for (auto v : lens2) { cerr << v << ' '; } cerr << '\n';
-		for (auto v : screen2) { cerr << v << ' '; } cerr << '\n';
+		//for (auto v : lens2) { cerr << v << ' '; } cerr << '\n';
+		//for (auto v : screen2) { cerr << v << ' '; } cerr << '\n';
 
 		{
 			ld a = 0;
@@ -356,7 +356,6 @@ int main() {
 				ma = md;
 			}
 		}
-		cerr << mi << ' ' << ma << '\n';
 		ld ans = mi * mi * (tgt_H / tgt_W);
 		cout << fixed << setprecision(20) << ans << '\n';
 
