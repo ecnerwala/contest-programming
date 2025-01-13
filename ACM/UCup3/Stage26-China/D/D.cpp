@@ -304,7 +304,9 @@ int main() {
 			// project 0 -> lens[z] onto the screen
 			p2_t cur(lens[idx].x, lens[idx].y);
 			ld x = cross(cur, SL) / cross(cur, SL - SR) * s_width;
-			ld y = lens[idx].z * cross3(p2_t(0, 0), SR, SL) / cross3(p2_t(0, 0) - cur, SR, SL);
+			ld a_orig = cross3(p2_t(0, 0), SR, SL);
+			ld a_pt = cross3(cur, SR, SL);
+			ld y = lens[idx].z * a_orig / (a_orig - a_pt);
 			lens2[idx] = {x, y};
 		}
 		std::array<p2_t, 4> screen2;
