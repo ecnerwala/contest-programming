@@ -372,6 +372,8 @@ int main() {
 				}
 			};
 
+			rng.for_each(ins);
+
 			int mex = 0;
 			for (; !queues[mex].empty(); mex++) {
 				for (int z = 0; z < int(queues[mex].size()); z++) {
