@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#pragma GCC diagnostic ignored "-Wsign-compare"
 namespace indy256 {
 
 using namespace std;
@@ -537,6 +540,7 @@ int main() {
 }
 
 }
+#pragma GCC diagnostic pop
 
 template <typename T> struct Point {
 public:
