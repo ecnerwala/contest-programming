@@ -683,6 +683,7 @@ int main() {
 			}
 			std::sort(v.begin(), v.end());
 			if (prv[i] == -1 && nxt[i] == -1) {
+				cerr << "finding prv and nxt" << '\n';
 				assert(d.denom > 0 && d.numer > 0);
 				for (int a = 0, b = 0; true; ) {
 					frac_t cnd = v[b].first - v[a].first - d;
@@ -700,6 +701,7 @@ int main() {
 					}
 				}
 			} else if (prv[i] == -1) {
+				cerr << "finding prv" << '\n';
 				for (int a = 0; true; a++) {
 					if ((v[a].first - d).numer == 0) {
 						prv[i] = v[a].second;
@@ -708,6 +710,7 @@ int main() {
 					}
 				}
 			} else if (nxt[i] == -1) {
+				cerr << "finding nxt" << '\n';
 				for (int b = 0; true; b++) {
 					if ((v[b].first + d).numer == 0) {
 						nxt[i] = v[b].second;
