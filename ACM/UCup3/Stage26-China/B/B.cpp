@@ -771,6 +771,7 @@ int main() {
 					}
 				}
 			} else assert(false);
+			cerr << "have " << i << ' ' << prv[i] << ' ' << nxt[i] << '\n';
 		}
 
 		std::vector<int> cyc; cyc.reserve(N);
