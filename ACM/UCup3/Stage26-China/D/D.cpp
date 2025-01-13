@@ -93,7 +93,7 @@ bool cmp(Line a, Line b) {
 
 double Intersection_Area(vector <Line> b) {
 	sort(b.begin(), b.end(), cmp);
-	int n = b.size();
+	int n = int(b.size());
 	int q = 1, h = 0, i;
 	vector <Line> c(b.size() + 10);
 	for (i = 0; i < n; i++) {
