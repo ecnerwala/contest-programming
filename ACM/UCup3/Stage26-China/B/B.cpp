@@ -714,6 +714,7 @@ int main() {
 		std::vector<int> prv(N, -1);
 		std::vector<int> nxt(N, -1);
 		for (int i = 0; i < N; i++) {
+			cerr << "trying " << i << '\n';
 			frac_t d = delta_slopes[i];
 			auto slope = [&](pt_t p) -> frac_t {
 				assert(p.x != 0);
@@ -730,6 +731,8 @@ int main() {
 				assert(d.numer == 0);
 				continue;
 			}
+
+			cerr << "target slope " << d.numer << '/' << d.denom << '\n';
 
 			// delta_slope = slope(P[prv] - P[i]) - slope(P[nxt] - P[i])
 			std::vector<std::pair<frac_t, int>> v; v.reserve(N);
