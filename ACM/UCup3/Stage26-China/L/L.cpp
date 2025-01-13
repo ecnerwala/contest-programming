@@ -387,6 +387,8 @@ int main() {
 				}
 			}
 
+			cerr << "got mex " << mex << '\n';
+
 			for (auto v : to_clear) queues[v] = {};
 			to_clear.clear();
 
