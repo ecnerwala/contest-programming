@@ -319,6 +319,14 @@ int main() {
 		for (auto v : lens2) { cerr << v << ' '; } cerr << '\n';
 		for (auto v : screen2) { cerr << v << ' '; } cerr << '\n';
 
+		{
+			ld a = 0;
+			for (int idx = 0; idx < 4; idx++) {
+				a += cross(lens2[idx], lens2[(idx+1)%4]);
+			}
+			if (a < 0) std::reverse(lens2.begin(), lens2.end());
+		}
+
 		auto is_good = [&](ld w) -> bool {
 			ld h = tgt_H / tgt_W * w;
 			std::vector<kactl::Line> lines; lines.reserve(32);
