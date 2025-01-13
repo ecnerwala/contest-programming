@@ -639,7 +639,7 @@ struct frac_t {
 	bigint denom;
 
 	void reduce() {
-		auto g = gcd(numer, denom);
+		auto g = gcd(numer, denom).abs();
 		numer /= g;
 		denom /= g;
 	}
