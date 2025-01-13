@@ -679,6 +679,7 @@ int main() {
 			std::vector<std::pair<frac_t, int>> v; v.reserve(N);
 			for (int j = i+1; j < N; j++) {
 				v.push_back({slope(P[j] - P[i]), j});
+				cerr << "cnd " << v.back().first.numer << '/' << v.back().first.denom << ' ' << j << '\n';
 			}
 			std::sort(v.begin(), v.end());
 			if (prv[i] == -1 && nxt[i] == -1) {
