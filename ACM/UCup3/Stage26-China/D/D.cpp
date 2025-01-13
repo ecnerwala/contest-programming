@@ -339,7 +339,7 @@ int main() {
 		ld mi = 0;
 		ld ma = s_width;
 
-		for (int z = 0; z < 100; z++) {
+		for (int z = 0; z < 128; z++) {
 			ld md = mi + (ma - mi) / 2;
 			if (is_good(md)) {
 				mi = md;
