@@ -674,8 +674,9 @@ int main() {
 		std::vector<pt_t> P(N);
 		for (auto& p : P) cin >> p;
 
-		int64_t A = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
-		int64_t B = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
+		//int64_t A = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
+		//int64_t B = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
+		int64_t A = 1, B = 0;
 
 		pt_t dir(A, B);
 
