@@ -345,6 +345,7 @@ int main() {
 				ma = md;
 			}
 		}
+		cerr << mi << ' ' << ma << '\n';
 		ld ans = mi * mi * (tgt_H / tgt_W);
 		cout << fixed << setprecision(20) << ans << '\n';
 
