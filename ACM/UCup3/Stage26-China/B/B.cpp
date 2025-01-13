@@ -617,7 +617,7 @@ int main() {
 
 		//int64_t A = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
 		//int64_t B = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
-		int64_t A = 2, B = 1;
+		int64_t A = 1, B = 1;
 
 		pt_t dir(A, B);
 
