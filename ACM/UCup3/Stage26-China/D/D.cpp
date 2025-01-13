@@ -92,7 +92,7 @@ bool cmp(Line a, Line b) {
 	return mycmp(a.dir(), b.dir());
 }
 
-double Intersection_Area(vector <Line> b) {
+ld Intersection_Area(vector <Line> b) {
 	sort(b.begin(), b.end(), cmp);
 	int n = int(b.size());
 	int q = 1, h = 0, i;
@@ -121,7 +121,7 @@ double Intersection_Area(vector <Line> b) {
 	vector <P> s;
 	for (i = q; i <= h; i++)	s.push_back(c[i].intpo(c[i + 1]));
 	s.push_back(s[0]);
-	double ans = 0;
+	ld ans = 0;
 	for (i = 0; i < (int) s.size() - 1; i++)	ans += s[i].cross(s[i + 1]);
 	return ans / 2;
 }
