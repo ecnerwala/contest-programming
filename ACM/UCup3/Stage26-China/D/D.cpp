@@ -48,8 +48,9 @@ int lineIntersection(const P& s1, const P& e1, const P& s2,
 		return -((e1-s1).cross(s2-s1)==0 || s2==e2);
 }
 
-#define eps 1e-8
-typedef Point<double> P;
+#define eps 1e-12
+using ld = long double;
+typedef Point<ld> P;
 
 struct Line {
 	P P1, P2;
@@ -325,7 +326,7 @@ int main() {
 				for (ld off_y : {-h/2, h/2}) {
 					for (auto poly : {lens2, screen2}) {
 						for (int z = 0; z < 4; z++) {
-							using kd = double;
+							using kd = kactl::ld;
 							kactl::P a(kd(poly[z].x + off_x), kd(poly[z].y + off_y));
 							kactl::P b(kd(poly[(z+1)%4].x + off_x), kd(poly[(z+1)%4].y + off_y));
 							lines.push_back(kactl::Line(b, a));
