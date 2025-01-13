@@ -325,7 +325,7 @@ int main() {
 						using kd = double;
 						kactl::P a(kd(lens2[z].x + off_x), kd(lens2[z].y + off_y));
 						kactl::P b(kd(lens2[(z+1)%4].x + off_x), kd(lens2[(z+1)%4].y + off_y));
-						lines.push_back(kactl::Line(a, b));
+						lines.push_back(kactl::Line(b, a));
 					}
 				}
 			}
