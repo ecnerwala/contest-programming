@@ -435,6 +435,7 @@ int main() {
 				res.push_back(a);
 				assert(cur_mod % a == 0);
 				X -= cur_mod / a;
+				assert(X >= 0);
 			}
 			assert(X % p == 0);
 			X /= p;
