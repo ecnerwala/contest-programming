@@ -358,7 +358,7 @@ std::pair<bool, num> solve_slow(std::vector<std::pair<std::array<int, 2>, std::s
 void test() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 1000; z++) {
-		int N = std::uniform_int_distribution(1, 3)(mt);
+		int N = std::uniform_int_distribution(1, 5)(mt);
 		std::vector<std::pair<std::array<int, 2>, std::string>> pts(N);
 		std::vector<int> xs(N);
 		std::iota(xs.begin(), xs.end(), 0);
