@@ -50,6 +50,8 @@ int main() {
 			}
 		}
 
+		cerr << "K = " << K << '\n';
+
 		std::map<int, std::vector<int>> alive_stacks;
 
 		std::vector<std::vector<int>> stacks(K);
@@ -59,12 +61,14 @@ int main() {
 		}
 
 		for (int i = 0; i < N; i++) {
+			cerr << "at " << i << '\n';
 			{
 				int L = 0;
 				for (int z = 0; z < int(cur_balances.size()); z++) {
 					if (cur_balances[z].en > i) {
 						cur_balances[L++] = cur_balances[z];
 					} else {
+						cerr << "  clear " << cur_balances[z].color << '\n';
 						assert(cur_balances[z].en == i);
 						assert(cur_balances[z].bal == 0);
 					}
@@ -74,6 +78,7 @@ int main() {
 			cur_balances.insert(cur_balances.end(), starts[i].begin(), starts[i].end());
 
 			int c = C[i];
+			cerr << "try insert " << c << '\n';
 
 			auto get_cnt = [&](int color) -> int {
 				auto it = alive_stacks.find(color);
@@ -86,6 +91,7 @@ int main() {
 			for (const auto& it : cur_balances) {
 				assert(it.en > i);
 				int cnt = get_cnt(it.color);
+				cerr << "color " << it.color << ' ' << cnt << ' ' << it.bal << '\n';
 				assert(cnt + it.bal <= K);
 				if (it.color == c) {
 					continue;
