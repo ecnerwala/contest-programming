@@ -122,214 +122,252 @@ template <typename T> T pow(T a, long long b) {
 	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
 }
 
+using num = modnum<int(1e9)+7>;
+std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string>> pts) {
+	int N = int(pts.size());
+	std::vector<int> x_to_y(N, -1);
+	std::vector<int> y_to_x(N, -1);
+	std::vector<bool> x_is_vert(N);
+	std::vector<bool> y_is_horz(N);
+	for (const auto& [p, s] : pts) {
+		auto [x, y] = p;
+		assert(0 <= x && x < N);
+		assert(x_to_y[x] == -1);
+		assert(0 <= y && y < N);
+		assert(y_to_x[y] == -1);
+		x_to_y[x] = y;
+		y_to_x[y] = x;
+		if (s == "UD") {
+			x_is_vert[x] = true;
+			y_is_horz[y] = false;
+		} else if (s == "LR") {
+			x_is_vert[x] = false;
+			y_is_horz[y] = true;
+		} else assert(false);
+	}
+
+	std::vector<int> horz_xs; horz_xs.reserve(N);
+	for (int x = 0; x < N; x++) {
+		if (!x_is_vert[x]) horz_xs.push_back(x);
+	}
+
+	bool ans_poss = false;
+	num ans_ways = 0;
+
+	for (int z = 0; z+1 < int(horz_xs.size()); z++) {
+		bool poss = true;
+		std::vector<bool> can_left(N);
+		{
+			int min_up = N;
+			int max_down = -1;
+			for (int x = 0; x < N; x++) {
+				int y = x_to_y[x];
+				if (x_is_vert[x]) {
+					assert(x != horz_xs[z]);
+					assert(x != horz_xs[z+1]);
+					bool can_up = true, can_down = true;
+					if (x > horz_xs[z]) {
+						if (y > x_to_y[horz_xs[z]]) {
+							can_down = false;
+						} else {
+							can_up = false;
+						}
+					}
+					if (x < horz_xs[z+1]) {
+						if (y > x_to_y[horz_xs[z+1]]) {
+							can_down = false;
+						} else {
+							can_up = false;
+						}
+					}
+					assert(!can_up || !can_down);
+					if (can_up) {
+						min_up = std::min(min_up, y);
+					} else if (can_down) {
+						max_down = std::max(max_down, y);
+					} else {
+						poss = false;
+						break;
+					}
+				} else {
+					can_left[x] = (y > max_down) && (y < min_up);
+				}
+			}
+		}
+		if (!poss) continue;
+		std::vector<bool> can_right(N);
+		{
+			int min_up = N;
+			int max_down = -1;
+			for (int x = N-1; x >= 0; x--) {
+				int y = x_to_y[x];
+				if (x_is_vert[x]) {
+					assert(x != horz_xs[z]);
+					assert(x != horz_xs[z+1]);
+					bool can_up = true, can_down = true;
+					if (x > horz_xs[z]) {
+						if (y > x_to_y[horz_xs[z]]) {
+							can_down = false;
+						} else {
+							can_up = false;
+						}
+					}
+					if (x < horz_xs[z+1]) {
+						if (y > x_to_y[horz_xs[z+1]]) {
+							can_down = false;
+						} else {
+							can_up = false;
+						}
+					}
+					assert(!can_up || !can_down);
+					if (can_up) {
+						min_up = std::min(min_up, y);
+					} else if (can_down) {
+						max_down = std::max(max_down, y);
+					} else {
+						poss = false;
+						break;
+					}
+				} else {
+					can_right[x] = (y > max_down) && (y < min_up);
+				}
+			}
+		}
+		assert(poss);
+		if (!can_left[horz_xs[z+1]]) poss = false;
+		if (!can_right[horz_xs[z]]) poss = false;
+		num ways = 1;
+		for (int a = z+2; a < int(horz_xs.size()); a++) {
+			int x = horz_xs[a];
+			if (can_left[x] && can_right[x]) {
+				ways += ways;
+			} else if (can_left[x] || can_right[x]) {
+				// 1 way
+			} else {
+				poss = false;
+				break;
+			}
+		}
+		if (!poss) continue;
+		int max_must_right = -1;
+		int min_must_left = z;
+		for (int a = 0; a < z; a++) {
+			int x = horz_xs[a];
+			if (!can_left[x]) {
+				max_must_right = a;
+			}
+			if (!can_right[x] && min_must_left == z) {
+				min_must_left = a;
+			}
+		}
+		if (min_must_left <= max_must_right) {
+			poss = false;
+		}
+		if (!poss) continue;
+
+		ways *= num(min_must_left - max_must_right);
+		ans_poss = true;
+		ans_ways += ways;
+	}
+
+	for (int z = 0; z <= int(horz_xs.size()); z++) {
+		std::vector<bool> can_down(N);
+		{
+			int max_left = -1; 
+			int min_right = N;
+			for (int y = 0; y < N; y++) {
+				int x = y_to_x[y];
+				if (y_is_horz[y]) {
+					if (z == int(horz_xs.size()) || x < horz_xs[z]) {
+						max_left = std::max(max_left, x);
+					} else {
+						// go right
+						min_right = std::min(min_right, x);
+					}
+				} else {
+					can_down[y] = (x > max_left) && (x < min_right);
+				}
+			}
+		}
+		std::vector<bool> can_up(N);
+		{
+			int max_left = -1; 
+			int min_right = N;
+			for (int y = N-1; y >= 0; y--) {
+				int x = y_to_x[y];
+				if (y_is_horz[y]) {
+					if (z == int(horz_xs.size()) || x < horz_xs[z]) {
+						max_left = std::max(max_left, x);
+					} else {
+						// go right
+						min_right = std::min(min_right, x);
+					}
+				} else {
+					can_up[y] = (x > max_left) && (x < min_right);
+				}
+			}
+		}
+		bool poss = true;
+		num ways = 1;
+		for (int y = 0; y < N; y++) {
+			if (!y_is_horz[y]) {
+				if (can_up[y] && can_down[y]) {
+					ways += ways;
+				} else if (can_up[y] || can_down[y]) {
+				} else {
+					poss = false;
+				}
+			}
+		}
+		if (!poss) continue;
+		ans_poss = true;
+		ans_ways += ways;
+	}
+
+	return {ans_poss, ans_ways};
+}
+
+std::pair<bool, num> solve_slow(std::vector<std::pair<std::array<int, 2>, std::string>> pts) {
+	int N = int(pts.size());
+
+	bool poss = false;
+	num ways = 0;
+	for (int msk = 0; msk < (1 << N); msk++) {
+		bool good = true;
+		for (int i = 0; i < N; i++) {
+			if (pts[i].second != "UD") continue;
+			for (int j = 0; j < N; j++) {
+				if (pts[j].second != "LR") continue;
+				if (
+					((pts[i].first[0] > pts[j].first[0]) == ((msk >> j) & 1)) &&
+					((pts[j].first[1] > pts[i].first[1]) == ((msk >> i) & 1))
+				) {
+					good = false;
+				}
+			}
+		}
+		if (good) {
+			poss = true;
+			ways++;
+		}
+	}
+	return {poss, ways};
+}
+
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int T; cin >> T;
 	while (T--) {
-		using num = modnum<int(1e9)+7>;
 		int N; cin >> N;
-		std::vector<int> x_to_y(N, -1);
-		std::vector<int> y_to_x(N, -1);
-		std::vector<bool> x_is_vert(N);
-		std::vector<bool> y_is_horz(N);
-		for (int i = 0; i < N; i++) {
-			int x, y; std::string s; cin >> x >> y >> s;
-			x--, y--;
-			assert(0 <= x && x < N);
-			assert(x_to_y[x] == -1);
-			assert(0 <= y && y < N);
-			assert(y_to_x[y] == -1);
-			x_to_y[x] = y;
-			y_to_x[y] = x;
-			if (s == "UD") {
-				x_is_vert[x] = true;
-				y_is_horz[y] = false;
-			} else if (s == "LR") {
-				x_is_vert[x] = false;
-				y_is_horz[y] = true;
-			} else assert(false);
+		std::vector<std::pair<std::array<int, 2>, std::string>> pts(N);
+		for (auto& [p, s] : pts) {
+			auto [x, y] = p;
+			cin >> x >> y >> s; x--, y--;
 		}
-
-		std::vector<int> horz_xs; horz_xs.reserve(N);
-		for (int x = 0; x < N; x++) {
-			if (!x_is_vert[x]) horz_xs.push_back(x);
-		}
-
-		bool ans_poss = false;
-		num ans_ways = 0;
-
-		for (int z = 0; z+1 < int(horz_xs.size()); z++) {
-			bool poss = true;
-			std::vector<bool> can_left(N);
-			{
-				int min_up = N;
-				int max_down = -1;
-				for (int x = 0; x < N; x++) {
-					int y = x_to_y[x];
-					if (x_is_vert[x]) {
-						assert(x != horz_xs[z]);
-						assert(x != horz_xs[z+1]);
-						bool can_up = true, can_down = true;
-						if (x > horz_xs[z]) {
-							if (y > x_to_y[horz_xs[z]]) {
-								can_down = false;
-							} else {
-								can_up = false;
-							}
-						}
-						if (x < horz_xs[z+1]) {
-							if (y > x_to_y[horz_xs[z+1]]) {
-								can_down = false;
-							} else {
-								can_up = false;
-							}
-						}
-						assert(!can_up || !can_down);
-						if (can_up) {
-							min_up = std::min(min_up, y);
-						} else if (can_down) {
-							max_down = std::max(max_down, y);
-						} else {
-							poss = false;
-							break;
-						}
-					} else {
-						can_left[x] = (y > max_down) && (y < min_up);
-					}
-				}
-			}
-			if (!poss) continue;
-			std::vector<bool> can_right(N);
-			{
-				int min_up = N;
-				int max_down = -1;
-				for (int x = N-1; x >= 0; x--) {
-					int y = x_to_y[x];
-					if (x_is_vert[x]) {
-						assert(x != horz_xs[z]);
-						assert(x != horz_xs[z+1]);
-						bool can_up = true, can_down = true;
-						if (x > horz_xs[z]) {
-							if (y > x_to_y[horz_xs[z]]) {
-								can_down = false;
-							} else {
-								can_up = false;
-							}
-						}
-						if (x < horz_xs[z+1]) {
-							if (y > x_to_y[horz_xs[z+1]]) {
-								can_down = false;
-							} else {
-								can_up = false;
-							}
-						}
-						assert(!can_up || !can_down);
-						if (can_up) {
-							min_up = std::min(min_up, y);
-						} else if (can_down) {
-							max_down = std::max(max_down, y);
-						} else {
-							poss = false;
-							break;
-						}
-					} else {
-						can_right[x] = (y > max_down) && (y < min_up);
-					}
-				}
-			}
-			assert(poss);
-			if (!can_left[horz_xs[z+1]]) poss = false;
-			if (!can_right[horz_xs[z]]) poss = false;
-			num ways = 1;
-			for (int a = z+2; a < int(horz_xs.size()); a++) {
-				int x = horz_xs[a];
-				if (can_left[x] && can_right[x]) {
-					ways += ways;
-				} else if (can_left[x] || can_right[x]) {
-					// 1 way
-				} else {
-					poss = false;
-					break;
-				}
-			}
-			if (!poss) continue;
-			int max_must_right = -1;
-			int min_must_left = z;
-			for (int a = 0; a < z; a++) {
-				int x = horz_xs[a];
-				if (!can_left[x]) {
-					max_must_right = a;
-				}
-				if (!can_right[x] && min_must_left == z) {
-					min_must_left = a;
-				}
-			}
-			if (min_must_left <= max_must_right) {
-				poss = false;
-			}
-			if (!poss) continue;
-
-			ways *= num(min_must_left - max_must_right);
-			ans_poss = true;
-			ans_ways += ways;
-		}
-
-		for (int z = 0; z <= int(horz_xs.size()); z++) {
-			std::vector<bool> can_down(N);
-			{
-				int max_left = -1; 
-				int min_right = N;
-				for (int y = 0; y < N; y++) {
-					int x = y_to_x[y];
-					if (y_is_horz[y]) {
-						if (z == int(horz_xs.size()) || x < horz_xs[z]) {
-							max_left = std::max(max_left, x);
-						} else {
-							// go right
-							min_right = std::min(min_right, x);
-						}
-					} else {
-						can_down[y] = (x > max_left) && (x < min_right);
-					}
-				}
-			}
-			std::vector<bool> can_up(N);
-			{
-				int max_left = -1; 
-				int min_right = N;
-				for (int y = N-1; y >= 0; y--) {
-					int x = y_to_x[y];
-					if (y_is_horz[y]) {
-						if (z == int(horz_xs.size()) || x < horz_xs[z]) {
-							max_left = std::max(max_left, x);
-						} else {
-							// go right
-							min_right = std::min(min_right, x);
-						}
-					} else {
-						can_up[y] = (x > max_left) && (x < min_right);
-					}
-				}
-			}
-			bool poss = true;
-			num ways = 1;
-			for (int y = 0; y < N; y++) {
-				if (!y_is_horz[y]) {
-					if (can_up[y] && can_down[y]) {
-						ways += ways;
-					} else if (can_up[y] || can_down[y]) {
-					} else {
-						poss = false;
-					}
-				}
-			}
-			if (!poss) continue;
-			ans_poss = true;
-			ans_ways += ways;
-		}
-
+		auto [ans_poss, ans_ways] = solve_slow(pts);
 		cout << (ans_poss ? "YES" : "NO") << '\n';
 		cout << ans_ways << '\n';
 	}
