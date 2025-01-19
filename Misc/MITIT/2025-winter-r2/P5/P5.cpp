@@ -104,7 +104,7 @@ int main() {
 			}
 			cerr << "  must use " << must_color << '\n';
 
-			if (must_color != -1) {
+			if (must_color == -1) {
 				auto it = alive_stacks.begin();
 				assert(it != alive_stacks.end());
 				if (it->first == c) {
