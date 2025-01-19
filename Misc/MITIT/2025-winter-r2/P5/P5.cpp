@@ -48,8 +48,13 @@ int main() {
 				cur_x = x;
 			}
 			if (balance > 0) {
-				cerr << "pushing initial balance " << balance << '\n';
-				cur_balances.push_back({balance, c, st});
+				if (balance - cur_x < 0) {
+					starts[cur_x - balance].push_back({0, c, st});
+				} else {
+					balance -= cur_x;
+					cerr << "pushing initial balance " << balance << '\n';
+					cur_balances.push_back({balance, c, st});
+				}
 			}
 		}
 
