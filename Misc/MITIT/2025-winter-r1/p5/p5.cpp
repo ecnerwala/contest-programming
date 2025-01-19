@@ -421,7 +421,7 @@ int main() {
 		i128 P = P_, X = X_;
 		X *= mod / 17;
 		X %= P;
-		X *= mod;
+		X *= 17;
 		X %= P;
 		assert(P <= hi - lo);
 		X += (lo - 1) / P * P;
