@@ -383,12 +383,7 @@ int main() {
 			mod *= p;
 			lo *= p;
 			hi *= p;
-			if (lo == hi) {
-				assert(p == 2);
-				hi += mod / q;
-			} else {
-				lo += mod / q;
-			}
+			lo += mod / q / q;
 		}
 		cerr << p << ' ' << e << ' ' << q << '\n';
 		cerr << lo << ' ' << hi << ' ' << mod << '\n';
