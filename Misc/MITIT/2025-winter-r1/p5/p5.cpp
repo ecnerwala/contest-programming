@@ -375,6 +375,7 @@ int main() {
 	i128 hi = 0;
 	i128 mod = 1;
 	std::vector<i128> factors; factors.push_back(1);
+	std::vector<std::pair<int, std::vector<int>>> choices;
 	for (int p : primes) {
 		int e = 0;
 		i128 q = 1;
@@ -388,7 +389,7 @@ int main() {
 			vals[0] = 0;
 			for (int z = int(factors.size())-1; z >= 0; z--) {
 				if (factors[z] % (q/p) == 0) {
-					if (factors[z] * p <= 5000) {
+					if (factors[z] * p <= MX) {
 						factors.push_back(factors[z] * p);
 						i128 x = mod / (factors[z] * p);
 						int v = int(x % p);
@@ -400,6 +401,14 @@ int main() {
 			for (auto v : vals) { assert(v != mod); }
 			lo += *std::max_element(vals.begin(), vals.end()) - (p-1);
 			hi += p-1;
+			std::vector<int> cur_choices(p);
+			cur_choices[0] = 0;
+			for (int i = 1; i < p; i++) {
+				assert(mod % vals[i] == 0);
+				assert(mod / vals[i] <= MX);
+				cur_choices[i] = int(mod / vals[i]);
+			}
+			choices.push_back({p, cur_choices});
 			cerr << p << '^' << e << '=' << q << ' ' << lo << ' ' << hi << ' ' << mod << '\n';
 		}
 		if (hi - lo >= int64_t(2e18)) break;
@@ -408,7 +417,7 @@ int main() {
 	int T, S; cin >> T >> S;
 	while (T--) {
 		struct my_tag{};
-		using num = dynamic_modnum<my_tag>;
+		using num = dynamic_modnum<my=_tag>;
 		cin >> num::MOD_READER();
 		num x; cin >> x;
 	}
