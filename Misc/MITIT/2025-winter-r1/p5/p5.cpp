@@ -411,15 +411,38 @@ int main() {
 			choices.push_back({p, cur_choices});
 			cerr << p << '^' << e << '=' << q << ' ' << lo << ' ' << hi << ' ' << mod << '\n';
 		}
-		if (hi - lo >= int64_t(1e18)) break;
+		if (hi - lo >= int64_t(2e18)) break;
 	}
+	std::reverse(choices.begin(), choices.end());
 
 	int T, S; cin >> T >> S;
 	while (T--) {
-		struct my_tag{};
-		using num = dynamic_modnum<my_tag>;
-		cin >> num::MOD_READER();
-		num x; cin >> x;
+		int64_t P_, X_; cin >> P_ >> X_;
+		i128 P = P_, X = X_;
+		X *= mod / 17;
+		X %= P;
+		X *= mod;
+		X %= P;
+		assert(P <= hi - lo);
+		X += P * (lo - 1) / P;
+		while (X < lo) X += P;
+		assert(X <= hi);
+		std::vector<int> res;
+		i128 cur_mod = mod;
+		for (const auto& [p, c] : choices) {
+			int a = c[X % p];
+			if (a != 0) {
+				res.push_back(a);
+				assert(cur_mod % a == 0);
+				X -= cur_mod / a;
+			}
+			assert(X % p == 0);
+			X /= p;
+			cur_mod /= p;
+		}
+		cout << res.size();
+		for (int v : res) cout << ' ' << v;
+		cout << '\n';
 	}
 
 	return 0;
