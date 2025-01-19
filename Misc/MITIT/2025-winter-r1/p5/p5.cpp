@@ -374,6 +374,7 @@ int main() {
 	i128 lo = 0;
 	i128 hi = 0;
 	i128 mod = 1;
+	std::vector<int> factors; factors.push_back(1);
 	for (int p : primes) {
 		int e = 0;
 		i128 q = 1;
@@ -383,11 +384,21 @@ int main() {
 			mod *= p;
 			lo *= p;
 			hi *= p;
+			std::vector<i128> vals(p, mod);
+			vals[0] = 0;
+			for (int z = int(factors.size())-1; z >= 0; z--) {
+				if (factors[z] % (q/p) == 0) {
+					factors.push_back(factors[z] * p);
+					i128 x = mod / (factors[z] * p);
+					int v = int(x % p);
+					assert(v != 0);
+					vals[v] = std::min(vals[v], x);
+				}
+			}
+			for (auto v : vals) { assert(v != mod); }
+			lo += *std::max_element(vals.begin(), vals.end()) - (p-1);
 			hi += p-1;
-			lo += mod / q - (p-1);
-			cerr << p << ' ' << e << ' ' << q << '\n';
-			cerr << lo << ' ' << hi << ' ' << mod << '\n';
-			cerr << hi - lo << '\n';
+			cerr << p << '^' << e << '=' << q << ' ' << lo << ' ' << hi << ' ' << mod << '\n';
 		}
 		if (hi - lo >= int64_t(2e18)) break;
 	}
