@@ -375,7 +375,7 @@ void test() {
 		if (mine != theirs) {
 			std::cerr << N << '\n';
 			for (auto p : pts) {
-				std::cerr << p.first[0] << ' ' << p.first[1] << ' ' << p.second << '\n';
+				std::cerr << p.first[0]+1 << ' ' << p.first[1]+1 << ' ' << p.second << '\n';
 			}
 			std::cerr << (theirs.first ? "YES" : "NO") << ' ' << theirs.second << '\n';
 			std::cerr << (mine.first ? "YES" : "NO") << ' ' << mine.second << '\n';
