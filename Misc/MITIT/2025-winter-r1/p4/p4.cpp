@@ -256,24 +256,24 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 			}
 		}
 		if (!poss) continue;
-		int max_must_right = -1;
-		int min_must_left = z;
+		int max_must_left = -1;
+		int min_must_right = z;
 		for (int a = 0; a < z; a++) {
 			int x = horz_xs[a];
-			if (!can_left[x]) {
-				max_must_right = a;
+			if (!can_right[x]) {
+				max_must_left = a;
 			}
-			if (!can_right[x] && min_must_left == z) {
-				min_must_left = a;
+			if (!can_left[x] && min_must_right == z) {
+				min_must_right = a;
 			}
 		}
-		if (min_must_left <= max_must_right) {
+		if (min_must_right <= max_must_left) {
 			poss = false;
 		}
 		if (!poss) continue;
 
-		ways *= num(min_must_left - max_must_right);
-		std::cerr << "split " << horz_xs[z] << ' ' << horz_xs[z+1] << ' ' << ways << ' ' << min_must_left << '-' << max_must_right << '\n';
+		ways *= num(min_must_right - max_must_left);
+		std::cerr << "split " << horz_xs[z] << ' ' << horz_xs[z+1] << ' ' << ways << ' ' << min_must_right << '-' << max_must_left << '\n';
 		ans_poss = true;
 		ans_ways += ways;
 	}
