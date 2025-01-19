@@ -28,12 +28,14 @@ int main() {
 			int c = num_colors++;
 			while (r < N && locs[r].first == locs[l].first) r++;
 			for (int i = l; i < r; i++) C[locs[i].second] = c;
+			cerr << "color " << c << '\n';
 			int cur_x = N;
 			int balance = 0;
 			int st = N;
 			for (int i = r-1; i >= l; i--) {
 				int x = locs[i].second;
 				if (balance > 0 && balance - (cur_x - (x+1)) <= 0) {
+					cerr << "pushing balance at " << cur_x - balance << '\n';
 					starts[cur_x - balance].push_back({0, c, st});
 				}
 				balance -= cur_x - (x+1);
