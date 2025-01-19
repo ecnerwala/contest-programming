@@ -347,6 +347,9 @@ std::pair<bool, num> solve_slow(std::vector<std::pair<std::array<int, 2>, std::s
 			}
 		}
 		if (good) {
+			if (!poss) {
+				std::cerr << std::bitset<30>(msk) << '\n';
+			}
 			poss = true;
 			ways++;
 		}
