@@ -16,7 +16,7 @@ int main() {
 		std::sort(locs.begin(), locs.end());
 
 		std::vector<std::vector<std::pair<int, int>>> starts(N);
-		int ans = 0;
+		int K = 0;
 		for (int l = 0, r = 0; l < N; l = r) {
 			int c = locs[l].first;
 			while (r < N && locs[r].first == c) r++;
@@ -34,13 +34,17 @@ int main() {
 					st = x+1;
 				}
 				balance++; cur_x++;
-				ans = std::max(ans, balance);
+				K = std::max(K, balance);
 			}
 			if (balance > 0) {
 				// TODO: fixme
 			}
 		}
-		cout << ans << '\n';
+		cout << K << '\n';
+		for (int i = 0; i < K-1; i++) {
+			cout << 1 << ' ' << i+1 << '\n';
+		}
+		cout << N-(K-1); for (int i = K-1; i < N; i++) { cout << ' ' << i+1; } cout << '\n';
 	}
 
 	return 0;
