@@ -33,8 +33,9 @@ int main() {
 					balance = 0;
 					st = x+1;
 				}
-				balance++; cur_x++;
+				balance++;
 				K = std::max(K, balance);
+				cur_x = x;
 			}
 			if (balance > 0) {
 				// TODO: fixme
