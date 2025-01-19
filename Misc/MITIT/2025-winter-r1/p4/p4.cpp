@@ -339,8 +339,8 @@ std::pair<bool, num> solve_slow(std::vector<std::pair<std::array<int, 2>, std::s
 			for (int j = 0; j < N; j++) {
 				if (pts[j].second != "LR") continue;
 				if (
-					((pts[i].first[0] > pts[j].first[0]) == ((msk >> j) & 1)) &&
-					((pts[j].first[1] > pts[i].first[1]) == ((msk >> i) & 1))
+					((pts[i].first[0] > pts[j].first[0]) == bool((msk >> j) & 1)) &&
+					((pts[j].first[1] > pts[i].first[1]) == bool((msk >> i) & 1))
 				) {
 					good = false;
 				}
