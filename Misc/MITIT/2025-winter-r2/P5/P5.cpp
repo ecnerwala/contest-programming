@@ -120,7 +120,7 @@ int main() {
 				stacks[k].push_back(c);
 			}
 			for (auto& it : cur_balances) {
-				if (it.color == must_color) {
+				if (it.color == c) {
 					assert(it.bal > 0);
 					it.bal --;
 				} else {
