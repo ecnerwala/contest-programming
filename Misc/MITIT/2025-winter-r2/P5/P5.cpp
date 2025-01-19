@@ -91,7 +91,7 @@ int main() {
 			for (const auto& it : cur_balances) {
 				assert(it.en > i);
 				int cnt = get_cnt(it.color);
-				cerr << "color " << it.color << ' ' << cnt << ' ' << it.bal << '\n';
+				cerr << "  color " << it.color << ' ' << cnt << ' ' << it.bal << '\n';
 				assert(cnt + it.bal <= K);
 				if (it.color == c) {
 					continue;
@@ -102,6 +102,7 @@ int main() {
 					// we're fine
 				}
 			}
+			cerr << "  must use " << must_color << '\n';
 
 			if (must_color != -1) {
 				auto it = alive_stacks.begin();
@@ -114,6 +115,7 @@ int main() {
 				assert(it->first != c);
 				must_color = it->first;
 			}
+			cerr << "  using " << must_color << '\n';
 			{
 				auto it = alive_stacks.find(must_color);
 				assert(it != alive_stacks.end());
