@@ -347,9 +347,6 @@ std::pair<bool, num> solve_slow(std::vector<std::pair<std::array<int, 2>, std::s
 			}
 		}
 		if (good) {
-			if (!poss) {
-				std::cerr << std::bitset<30>(msk) << '\n';
-			}
 			poss = true;
 			ways++;
 		}
@@ -358,9 +355,40 @@ std::pair<bool, num> solve_slow(std::vector<std::pair<std::array<int, 2>, std::s
 }
 
 
+void test() {
+	std::mt19937 mt(48);
+	for (int z = 0; z < 1000; z++) {
+		int N = std::uniform_int_distribution(1, 10)(mt);
+		std::vector<std::pair<std::array<int, 2>, std::string>> pts(N);
+		std::vector<int> xs(N);
+		std::iota(xs.begin(), xs.end(), 0);
+		std::shuffle(xs.begin(), xs.end(), mt);
+		std::vector<int> ys(N);
+		std::iota(ys.begin(), ys.end(), 0);
+		std::shuffle(ys.begin(), ys.end(), mt);
+		for (int i = 0; i < N; i++) {
+			pts[i].first = {xs[i], ys[i]};
+			pts[i].second = (mt() & 1) ? "UD" : "LR";
+		}
+		auto theirs = solve_slow(pts);
+		auto mine = solve(pts);
+		if (mine != theirs) {
+			std::cerr << N << '\n';
+			for (auto p : pts) {
+				std::cerr << p.first[0] << ' ' << p.first[1] << ' ' << p.second << '\n';
+			}
+			std::cerr << (theirs.first ? "YES" : "NO") << ' ' << theirs.second << '\n';
+			std::cerr << (mine.first ? "YES" : "NO") << ' ' << mine.second << '\n';
+		}
+	}
+}
+
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	test();
 
 	int T; cin >> T;
 	while (T--) {
