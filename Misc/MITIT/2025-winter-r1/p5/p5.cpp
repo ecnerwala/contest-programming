@@ -337,6 +337,21 @@ template <typename T> struct mod_constraint {
 	}
 };
 
+std::string to_string(__int128_t v) {
+	if (!v) return "0";
+	if (v < 0) return "-" + to_string(-v);
+	std::string res;
+	for (; v; v /= 10) {
+		res += char('0' + (v % 10));
+	}
+	std::reverse(res.begin(), res.end());
+	return res;
+}
+
+std::ostream& operator << (std::ostream& o, __int128_t v) {
+	return o << to_string(v);
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -344,7 +359,7 @@ int main() {
 	const int MX = int(5e3);
 	std::vector<int> primes; primes.reserve(MX);
 	std::vector<int> pfac(MX+1);
-	using i128 = int64_t;
+	using i128 = __int128_t;
 	for (int i = 2; i <= MX; i++) {
 		if (!pfac[i]) {
 			primes.push_back(i);
