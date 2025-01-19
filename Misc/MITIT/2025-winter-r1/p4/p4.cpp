@@ -191,7 +191,7 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 					}
 				} else {
 					can_left[x] = (y > max_down) && (y < min_up);
-					if (z == 2) std::cerr << x << ' ' << can_left[x] << '\n';
+					//if (z == 2) std::cerr << x << ' ' << can_left[x] << '\n';
 				}
 			}
 		}
@@ -229,14 +229,10 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 						poss = false;
 						break;
 					}
-					if (z == 2) {
-						std::cerr << "hi" << can_up << ' ' << can_down << '\n';
-					}
+					//if (z == 2) { std::cerr << "hi" << can_up << ' ' << can_down << '\n'; }
 				} else {
 					can_right[x] = (y > max_down) && (y < min_up);
-					if (z == 2) {
-						std::cerr << x << ' ' << can_right[x] << '\n';
-					}
+					//if (z == 2) { std::cerr << x << ' ' << can_right[x] << '\n'; }
 				}
 			}
 		}
@@ -273,7 +269,7 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 		if (!poss) continue;
 
 		ways *= num(min_must_right - max_must_left);
-		std::cerr << "split " << horz_xs[z] << ' ' << horz_xs[z+1] << ' ' << ways << ' ' << min_must_right << '-' << max_must_left << '\n';
+		//std::cerr << "split " << horz_xs[z] << ' ' << horz_xs[z+1] << ' ' << ways << ' ' << min_must_right << '-' << max_must_left << '\n';
 		ans_poss = true;
 		ans_ways += ways;
 	}
@@ -328,7 +324,7 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 			}
 		}
 		if (!poss) continue;
-		std::cerr << "normal " << z << ' ' << ways << '\n';
+		//std::cerr << "normal " << z << ' ' << ways << '\n';
 		ans_poss = true;
 		ans_ways += ways;
 	}
