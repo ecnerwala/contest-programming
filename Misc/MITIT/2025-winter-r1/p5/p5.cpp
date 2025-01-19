@@ -444,6 +444,12 @@ int main() {
 		cout << res.size();
 		for (int v : res) cout << ' ' << v;
 		cout << '\n';
+		struct my_tag{};
+		using num = dynamic_modnum<my_tag>;
+		num::set_mod(P_);
+		num nx(X_);
+		for (auto a : res) nx -= 1 / a;
+		cerr << nx << '\n';
 	}
 
 	return 0;
