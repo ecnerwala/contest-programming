@@ -398,7 +398,8 @@ int main() {
 			auto& [x, y] = p;
 			cin >> x >> y >> s; x--, y--;
 		}
-		auto [ans_poss, ans_ways] = solve_slow(pts);
+		solve_slow(pts);
+		auto [ans_poss, ans_ways] = solve(pts);
 		cout << (ans_poss ? "YES" : "NO") << '\n';
 		cout << ans_ways << '\n';
 	}
