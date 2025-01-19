@@ -48,6 +48,7 @@ int main() {
 				cur_x = x;
 			}
 			if (balance > 0) {
+				cerr << "pushing initial balance " << balance << '\n';
 				cur_balances.push_back({balance, c, st});
 			}
 		}
