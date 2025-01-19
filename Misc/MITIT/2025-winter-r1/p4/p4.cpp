@@ -349,7 +349,9 @@ std::pair<bool, num> solve_slow(std::vector<std::pair<std::array<int, 2>, std::s
 			}
 		}
 		if (good) {
-			std::cerr << std::bitset<5>(msk) << '\n';
+			for (int i = 0; i < N; i++) {
+				std::cerr << pts[i].second[(msk >> i) & 1] << '\n';
+			}
 			poss = true;
 			ways++;
 		}
