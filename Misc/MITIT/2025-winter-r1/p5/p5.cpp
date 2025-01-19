@@ -417,7 +417,7 @@ int main() {
 	int T, S; cin >> T >> S;
 	while (T--) {
 		struct my_tag{};
-		using num = dynamic_modnum<my=_tag>;
+		using num = dynamic_modnum<my_tag>;
 		cin >> num::MOD_READER();
 		num x; cin >> x;
 	}
