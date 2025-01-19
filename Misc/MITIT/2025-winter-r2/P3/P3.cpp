@@ -646,7 +646,7 @@ int main() {
 		dp[v] = 0;
 	}
 
-	for (int l = int(by_level.size()) - 2; l > 0; l--) {
+	for (int l = int(by_level.size()) - 2; l >= 0; l--) {
 		for (int v : by_level[l+1]) {
 			cerr << "set " << v << ' ' << dp[v] << '\n';
 			verts[v].expose();
