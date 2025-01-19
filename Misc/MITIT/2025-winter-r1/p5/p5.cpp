@@ -387,6 +387,7 @@ int main() {
 			lo += mod / q;
 		}
 		cerr << lo << ' ' << hi << ' ' << mod << '\n';
+		cerr << hi - lo << '\n';
 		if (hi - lo >= int64_t(2e18)) break;
 	}
 
