@@ -133,7 +133,7 @@ int main() {
 					alive_stacks.erase(it);
 				}
 				alive_stacks[c].push_back(k);
-				stacks[k].push_back(c);
+				stacks[k].push_back(i);
 			}
 			for (auto& it : cur_balances) {
 				if (it.color == c) {
