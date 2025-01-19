@@ -233,6 +233,9 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 					}
 				} else {
 					can_right[x] = (y > max_down) && (y < min_up);
+					if (z == 2) {
+						std::cerr << x << ' ' << can_right[x] << '\n';
+					}
 				}
 			}
 		}
