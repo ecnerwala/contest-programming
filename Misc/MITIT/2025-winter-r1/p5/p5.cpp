@@ -388,11 +388,13 @@ int main() {
 			vals[0] = 0;
 			for (int z = int(factors.size())-1; z >= 0; z--) {
 				if (factors[z] % (q/p) == 0) {
-					factors.push_back(factors[z] * p);
-					i128 x = mod / (factors[z] * p);
-					int v = int(x % p);
-					assert(v != 0);
-					vals[v] = std::min(vals[v], x);
+					if (factors[z] * p <= 5000) {
+						factors.push_back(factors[z] * p);
+						i128 x = mod / (factors[z] * p);
+						int v = int(x % p);
+						assert(v != 0);
+						vals[v] = std::min(vals[v], x);
+					}
 				}
 			}
 			for (auto v : vals) { assert(v != mod); }
