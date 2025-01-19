@@ -378,6 +378,7 @@ int main() {
 		int e = 0;
 		int q = 1;
 		while (p * (p-1) * q <= MX) {
+			if (p >= 5 && q > p) break;
 			q *= p;
 			e ++;
 			mod *= p;
