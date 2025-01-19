@@ -367,7 +367,7 @@ int main() {
 		int N; cin >> N;
 		std::vector<std::pair<std::array<int, 2>, std::string>> pts(N);
 		for (auto& [p, s] : pts) {
-			auto& [y, x] = p;
+			auto& [x, y] = p;
 			cin >> x >> y >> s; x--, y--;
 		}
 		auto [ans_poss, ans_ways] = solve(pts);
