@@ -419,9 +419,9 @@ int main() {
 	while (T--) {
 		int64_t P_, X_; cin >> P_ >> X_;
 		i128 P = P_, X = X_;
-		X *= mod / 17;
+		X *= mod / 289;
 		X %= P;
-		X *= 17;
+		X *= 289;
 		X %= P;
 		assert(P <= hi - lo);
 		X += (lo - 1) / P * P;
@@ -444,12 +444,14 @@ int main() {
 		cout << res.size();
 		for (int v : res) cout << ' ' << v;
 		cout << '\n';
-		struct my_tag{};
-		using num = dynamic_modnum<my_tag>;
-		num::set_mod(P_);
-		num nx(X_);
-		for (auto a : res) nx -= num(1) / num(a);
-		cerr << P_ << ' ' << X_ << ' ' << nx << '\n';
+		if (false) {
+			struct my_tag{};
+			using num = dynamic_modnum<my_tag>;
+			num::set_mod(P_);
+			num nx(X_);
+			for (auto a : res) nx -= num(1) / num(a);
+			cerr << P_ << ' ' << X_ << ' ' << nx << '\n';
+		}
 	}
 
 	return 0;
