@@ -158,7 +158,7 @@ int main() {
 		}
 
 		bool ans_poss = false;
-		num ans_ways = true;
+		num ans_ways = 0;
 
 		for (int z = 0; z+1 < int(horz_xs.size()); z++) {
 			bool poss = true;
