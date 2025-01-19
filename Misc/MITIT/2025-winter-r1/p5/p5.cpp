@@ -374,7 +374,7 @@ int main() {
 	i128 lo = 0;
 	i128 hi = 0;
 	i128 mod = 1;
-	std::vector<int> factors; factors.push_back(1);
+	std::vector<i128> factors; factors.push_back(1);
 	for (int p : primes) {
 		int e = 0;
 		i128 q = 1;
