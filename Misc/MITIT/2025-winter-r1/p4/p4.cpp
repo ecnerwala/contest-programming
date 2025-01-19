@@ -266,6 +266,7 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 		if (!poss) continue;
 
 		ways *= num(min_must_left - max_must_right);
+		std::cerr << "split " << horz_xs[z] << ' ' << horz_xs[z+1] << ' ' << ways << '\n';
 		ans_poss = true;
 		ans_ways += ways;
 	}
@@ -320,6 +321,7 @@ std::pair<bool, num> solve(std::vector<std::pair<std::array<int, 2>, std::string
 			}
 		}
 		if (!poss) continue;
+		std::cerr << "normal " << z << ' ' << ways << '\n';
 		ans_poss = true;
 		ans_ways += ways;
 	}
