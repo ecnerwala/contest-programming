@@ -115,7 +115,7 @@ int main() {
 				assert(it->first != c);
 				must_color = it->first;
 			}
-			cerr << "  using " << must_color << '\n';
+			cerr << "  using " << must_color << " ->" << c << '\n';
 			{
 				auto it = alive_stacks.find(must_color);
 				assert(it != alive_stacks.end());
