@@ -376,7 +376,7 @@ int main() {
 	i128 mod = 1;
 	for (int p : primes) {
 		int e = 0;
-		int q = 1;
+		i128 q = 1;
 		while (p * (p-1) * q <= MX) {
 			q *= p;
 			e ++;
