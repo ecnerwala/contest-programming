@@ -424,7 +424,7 @@ int main() {
 		X *= mod;
 		X %= P;
 		assert(P <= hi - lo);
-		X += P * (lo - 1) / P;
+		X += (lo - 1) / P * P;
 		while (X < lo) X += P;
 		assert(X <= hi);
 		std::vector<int> res;
