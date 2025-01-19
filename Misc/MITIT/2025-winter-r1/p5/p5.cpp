@@ -383,6 +383,7 @@ int main() {
 			mod *= p;
 			lo *= p;
 			hi *= p;
+			hi += p-1;
 			lo += mod / q / q;
 		}
 		cerr << p << ' ' << e << ' ' << q << '\n';
