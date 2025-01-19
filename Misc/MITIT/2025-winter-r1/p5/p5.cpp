@@ -448,8 +448,8 @@ int main() {
 		using num = dynamic_modnum<my_tag>;
 		num::set_mod(P_);
 		num nx(X_);
-		for (auto a : res) nx -= 1 / a;
-		cerr << nx << '\n';
+		for (auto a : res) nx -= num(1) / num(a);
+		cerr << P_ << ' ' << X_ << ' ' << nx << '\n';
 	}
 
 	return 0;
