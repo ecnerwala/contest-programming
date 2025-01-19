@@ -385,10 +385,10 @@ int main() {
 			hi *= p;
 			hi += p-1;
 			lo += mod / q - (p-1);
+			cerr << p << ' ' << e << ' ' << q << '\n';
+			cerr << lo << ' ' << hi << ' ' << mod << '\n';
+			cerr << hi - lo << '\n';
 		}
-		cerr << p << ' ' << e << ' ' << q << '\n';
-		cerr << lo << ' ' << hi << ' ' << mod << '\n';
-		cerr << hi - lo << '\n';
 		if (hi - lo >= int64_t(2e18)) break;
 	}
 
