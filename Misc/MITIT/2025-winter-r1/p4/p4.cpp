@@ -394,7 +394,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	//test();
+	test();
 
 	int T; cin >> T;
 	while (T--) {
@@ -404,7 +404,7 @@ int main() {
 			auto& [x, y] = p;
 			cin >> x >> y >> s; x--, y--;
 		}
-		solve_slow(pts);
+		//solve_slow(pts);
 		auto [ans_poss, ans_ways] = solve(pts);
 		cout << (ans_poss ? "YES" : "NO") << '\n';
 		cout << ans_ways << '\n';
