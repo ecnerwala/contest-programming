@@ -653,13 +653,22 @@ int main() {
 			verts[v].update_all();
 		}
 		for (int cur : by_level[l]) {
-			for (auto [v, w] : adj[cur]) {
-				verts[v].expose();
-				verts[v].vert_val = INF;
-				verts[v].update_all();
+			if (cur != 0) {
+				for (auto [v, w] : adj[cur]) {
+					verts[v].expose();
+					verts[v].vert_val = INF;
+					verts[v].update_all();
+				}
 			}
 			verts[cur].make_root();
 			dp[cur] = std::min(INF, verts[cur].min_dist[0]);
+			if (cur != 0) {
+				for (auto [v, w] : adj[cur]) {
+					verts[v].expose();
+					verts[v].vert_val = dp[v];
+					verts[v].update_all();
+				}
+			}
 		}
 		for (int v : by_level[l+1]) {
 			verts[v].expose();
