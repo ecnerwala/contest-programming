@@ -411,7 +411,7 @@ int main() {
 			choices.push_back({p, cur_choices});
 			cerr << p << '^' << e << '=' << q << ' ' << lo << ' ' << hi << ' ' << mod << '\n';
 		}
-		if (hi - lo >= int64_t(2e18)) break;
+		if (hi - lo >= int64_t(1e18)) break;
 	}
 
 	int T, S; cin >> T >> S;
