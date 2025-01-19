@@ -140,7 +140,7 @@ int main() {
 			assert(0 <= x && x < N);
 			assert(x_to_y[x] == -1);
 			assert(0 <= y && y < N);
-			assert(y_to_x[x] == -1);
+			assert(y_to_x[y] == -1);
 			x_to_y[x] = y;
 			y_to_x[y] = x;
 			if (s == "UD") {
