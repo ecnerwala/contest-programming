@@ -20,8 +20,10 @@ int solve(std::string S, std::string T) {
 	if (diff != 0) return -1;
 	assert(matches.front() == 0);
 	assert(matches.back() == N-1);
+	std::cerr << S << '\n' << T << '\n';
 	for (int z = 0; z+1 < int(matches.size()); z++) {
 		int l = matches[z], r = matches[z+1];
+		std::cerr << l << ' ' << r << '\n';
 		int changes = 0;
 		for (int i = l; i+1 <= r; i++) {
 			changes = T[i] != T[i+1];
