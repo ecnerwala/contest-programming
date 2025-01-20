@@ -375,11 +375,6 @@ int solve(std::string S, std::string T) {
 	for (int r = 0; r < R; r++) {
 		auto [a, b] = runs[r];
 		int v = S[a] - '0';
-		if (nxt_idx[a][!v] <= b) {
-			// bad range
-			dp[r] = -1;
-			continue;
-		}
 
 		// query the previous
 		if (r > 0) {
@@ -397,15 +392,16 @@ int solve(std::string S, std::string T) {
 					ma = md;
 				}
 			}
-			assert(mi >= 1);
 			// query from runs since r - (mi - 1) * 2
 			int lo = r - mi * 2 + 1;
 			lo = std::max(lo, 0);
 			std::cerr << "query " << lo << ' ' << r << '\n';
 			int best = -1;
-			layout.get_range(lo, r).for_each([&](auto p) -> void {
-				best = std::max(best, seg[p][!v]);
-			});
+			if (lo < r) {
+				layout.get_range(lo, r).for_each([&](auto p) -> void {
+					best = std::max(best, seg[p][!v]);
+				});
+			}
 			if (best >= 1) best++;
 			dp[r] = best;
 		}
@@ -432,14 +428,15 @@ int solve(std::string S, std::string T) {
 					ma = md;
 				}
 			}
-			assert(mi >= 1);
 			int hi = r + mi * 2 - 1;
 			hi = std::min(hi, R-1);
-			auto p = layout.get_point(r);
-			seg[p][v] = dp[r];
-			p.for_parents_up(update_node);
-			assert(hi > r);
-			evts[hi].push_back(r);
+			if (hi > r) {
+				auto p = layout.get_point(r);
+				seg[p][v] = dp[r];
+				p.for_parents_up(update_node);
+				assert(hi > r);
+				evts[hi].push_back(r);
+			}
 			std::cerr << "update " << r << ' ' << hi << '\n';
 		}
 	}
