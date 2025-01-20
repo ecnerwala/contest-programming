@@ -26,7 +26,7 @@ int solve(std::string S, std::string T) {
 		std::cerr << l << ' ' << r << '\n';
 		int changes = 0;
 		for (int i = l; i+1 <= r; i++) {
-			changes = T[i] != T[i+1];
+			changes += T[i] != T[i+1];
 		}
 		if (changes > 1) return -1;
 	}
