@@ -331,7 +331,7 @@ int solve(std::string S, std::string T) {
 	T = char(S.front() ^ 1) + T + char(S.back() ^ 1);
 	S = char(S.front() ^ 1) + S + char(S.back() ^ 1);
 
-	//std::cerr << S << ' ' << T << '\n';
+	std::cerr << S << ' ' << T << '\n';
 
 	int N = int(S.size());
 	std::vector<std::array<int, 2>> nxt_idx(N);
@@ -401,7 +401,7 @@ int solve(std::string S, std::string T) {
 			// query from runs since r - (mi - 1) * 2
 			int lo = r - mi * 2 + 1;
 			lo = std::max(lo, 0);
-			//std::cerr << "query " << lo << ' ' << r << '\n';
+			std::cerr << "query " << lo << ' ' << r << '\n';
 			int best = -1;
 			layout.get_range(lo, r).for_each([&](auto p) -> void {
 				best = std::max(best, seg[p][!v]);
@@ -409,7 +409,7 @@ int solve(std::string S, std::string T) {
 			if (best >= 1) best++;
 			dp[r] = best;
 		}
-		//std::cerr << "dp[" << r << "]" << " = " << dp[r] << '\n';
+		std::cerr << "dp[" << r << "]" << " = " << dp[r] << '\n';
 
 		for (auto e : evts[r]) {
 			auto p = layout.get_point(e);
@@ -439,7 +439,7 @@ int solve(std::string S, std::string T) {
 			p.for_parents_up(update_node);
 			assert(hi > r);
 			evts[hi].push_back(r);
-			//std::cerr << "update " << r << ' ' << hi << '\n';
+			std::cerr << "update " << r << ' ' << hi << '\n';
 		}
 	}
 
