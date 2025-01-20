@@ -29,7 +29,7 @@ int main() {
 			}
 			ans += a;
 			for (int i = 0; i < M; i++) {
-				deltas.push_back(A[i+1] - A[i]);
+				deltas.push_back(best[i+1] - best[i]);
 			}
 		}
 		std::nth_element(deltas.begin(), deltas.begin() + K, deltas.end());
