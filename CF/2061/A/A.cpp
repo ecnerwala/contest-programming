@@ -12,7 +12,7 @@ int main() {
 			int a; cin >> a;
 			if (a & 1) cnt_odd++;
 		}
-		cout << std::min(cnt_odd + 1, N) << '\n';
+		cout << (cnt_odd == N ? N-1 : cnt_odd + 1) << '\n';
 	}
 
 	return 0;
