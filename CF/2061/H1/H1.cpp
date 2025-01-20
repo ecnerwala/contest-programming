@@ -108,10 +108,10 @@ bool solve(std::string S, std::string T, std::vector<std::array<int, 2>> edges) 
 				if (d == side[nxt]) is_bipartite = false;
 			}
 		}(i, 0);
-		if (S[0] + S[1] != T[0] + T[1]) return false;
+		if (S_cnt[0] + S_cnt[1] != T_cnt[0] + T_cnt[1]) return false;
 		if (is_bipartite) {
-			if (!(S[0] == T[0] && S[1] == T[1])) can_same = false;
-			if (!(S[0] == T[1] && S[1] == T[0])) can_flip = false;
+			if (!(S_cnt[0] == T_cnt[0] && S_cnt[1] == T_cnt[1])) can_same = false;
+			if (!(S_cnt[0] == T_cnt[1] && S_cnt[1] == T_cnt[0])) can_flip = false;
 		}
 	}
 	if (!can_same && !can_flip) return false;
