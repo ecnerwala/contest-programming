@@ -25,6 +25,8 @@ int main() {
 				good = false;
 				break;
 			}
+			assert(!A.empty());
+			assert(!B.empty());
 			auto at = A.rbegin();
 			auto bt = B.rbegin();
 			if (at->first > bt->first) {
