@@ -1,5 +1,44 @@
 #include <bits/stdc++.h>
 
+int solve_known(std::string S, std::string T) {
+	T = char(S.front() ^ 1) + T + char(S.back() ^ 1);
+	S = char(S.front() ^ 1) + S + char(S.back() ^ 1);
+
+	int N = int(S.size());
+	int diff = 0;
+	std::vector<int> matches; matches.reserve(N);
+	for (int i = 0; i < N; i++) {
+		if (diff == 0 && S[i] == T[i]) {
+			matches.push_back(i);
+		}
+		if (S[i] == '1') diff--;
+		else if (S[i] == '0') diff++;
+		else assert(false);
+
+		if (T[i] == '1') diff++;
+		else if (T[i] == '0') diff--;
+		else assert(false);
+	}
+	if (diff != 0) return -1;
+	assert(matches.front() == 0);
+	assert(matches.back() == N-1);
+	for (int z = 0; z+1 < int(matches.size()); z++) {
+		int l = matches[z], r = matches[z+1];
+		int changes = 0;
+		for (int i = l; i+1 <= r; i++) {
+			changes += (T[i] != T[i+1]);
+		}
+		if (changes > 1) return -1;
+	}
+	int ops = 0;
+	for (int i = 0; i+1 < N; i++) {
+		ops += (S[i] != S[i+1]);
+		ops -= (T[i] != T[i+1]);
+	}
+	assert(!(ops & 1));
+	return ops / 2;
+}
+
 namespace seg_tree {
 
 // Floor of log_2(a); index of highest 1-bit
@@ -405,6 +444,46 @@ int solve(std::string S, std::string T) {
 	}
 
 	return dp[R-1] == -1 ? -1 : (R - dp[R-1]) / 2;
+}
+
+void test() {
+	for (int N = 1; N < 10; N++) {
+		for (int s_msk = 0; s_msk < (1 << N); s_msk++) {
+			for (int t_known = 0; t_known < (1 << N); t_known++) {
+				int t_unknown = (1 << N) - 1 - t_known;
+				for (int t_known_val = t_known; true; t_known_val = (t_known_val - 1) & t_known) {
+					int slow_ans = -1;
+					for (int t_unknown_val = t_unknown; true; t_unknown_val = (t_unknown_val - 1) & t_unknown) {
+						std::string S;
+						std::string T;
+						int t_msk = t_unknown_val | t_known_val;
+						for (int i = 0; i < N; i++) {
+							S += char('0' + ((s_msk >> i) & 1));
+							T += char('0' + ((t_msk >> i) & 1));
+						}
+						int v = solve_known(S, T);
+						if (slow_ans == -1 || (v != -1 && v < slow_ans)) slow_ans = v;
+						if (t_unknown_val == 0) break;
+					}
+					std::string S;
+					std::string T;
+					for (int i = 0; i < N; i++) {
+						S += char('0' + ((s_msk >> i) & 1));
+						T += ((t_known >> i) & 1) ? char('0' + ((t_known_val >> i) & 1)) : '?';
+					}
+					int my_ans = solve(S, T);
+					if (slow_ans != my_ans) {
+						std::cerr << S << '\n';
+						std::cerr << T << '\n';
+						std::cerr << slow_ans << '\n';
+						std::cerr << my_ans << '\n';
+						exit(0);
+					}
+					if (t_known_val == 0) break;
+				}
+			}
+		}
+	}
 }
 
 int main() {
