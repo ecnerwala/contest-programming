@@ -292,6 +292,8 @@ int solve(std::string S, std::string T) {
 	T = char(S.front() ^ 1) + T + char(S.back() ^ 1);
 	S = char(S.front() ^ 1) + S + char(S.back() ^ 1);
 
+	std::cerr << S << ' ' << T << '\n';
+
 	int N = int(S.size());
 	std::vector<std::array<int, 2>> nxt_idx(N);
 	nxt_idx[N-1] = {N, N};
