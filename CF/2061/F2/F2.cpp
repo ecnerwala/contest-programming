@@ -404,7 +404,7 @@ int solve(std::string S, std::string T) {
 		}
 	}
 
-	return dp[R-1] == -1 ? -1 : R - dp[R-1];
+	return dp[R-1] == -1 ? -1 : (R - dp[R-1]) / 2;
 }
 
 int main() {
