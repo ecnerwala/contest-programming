@@ -37,10 +37,10 @@ int main() {
 			}
 			int v = bt->first;
 			int64_t cnt = bt->second;
-			B.erase(std::prev(bt.base()));
+			B.erase(bt->first);
 			if (at->first == bt->first) {
 				cnt -= at->second;
-				A.erase(std::prev(at.base()));
+				A.erase(at->first);
 			}
 			assert(cnt >= 0);
 			if (cnt > 0) {
