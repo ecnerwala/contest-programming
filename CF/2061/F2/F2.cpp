@@ -360,6 +360,7 @@ int solve(std::string S, std::string T) {
 			// query from runs since r - (mi - 1) * 2
 			int lo = r - mi * 2 + 1;
 			lo = std::max(lo, 0);
+			std::cerr << "query " << lo << ' ' << r << '\n';
 			int best = -1;
 			layout.get_range(lo, r).for_each([&](auto p) -> void {
 				best = std::max(best, seg[p][!v]);
@@ -367,6 +368,7 @@ int solve(std::string S, std::string T) {
 			if (best >= 1) best++;
 			dp[r] = best;
 		}
+		std::cerr << "dp[" << r << "]" << " = " << dp[r] << '\n';
 
 		for (auto e : evts[r]) {
 			auto p = layout.get_point(e);
@@ -396,6 +398,7 @@ int solve(std::string S, std::string T) {
 			p.for_parents_up(update_node);
 			assert(hi > r);
 			evts[hi].push_back(r);
+			std::cerr << "update " << r << ' ' << hi << '\n';
 		}
 	}
 
