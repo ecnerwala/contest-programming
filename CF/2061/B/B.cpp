@@ -13,7 +13,7 @@ int main() {
 		std::optional<std::array<int, 4>> ans;
 		auto check = [&](int i, int j, int k, int l) -> void {
 			if (ans) return;
-			if ((A[i] == A[j] || A[j] == A[k] || A[k] == A[l]) && 2 * std::max({A[i], A[j], A[k], A[l]}) > (A[i] + A[j] + A[k] + A[l])) {
+			if ((A[i] == A[j] || A[j] == A[k] || A[k] == A[l]) && 2 * std::max({A[i], A[j], A[k], A[l]}) < (A[i] + A[j] + A[k] + A[l])) {
 				ans = {A[i], A[j], A[k], A[l]};
 			}
 		};
