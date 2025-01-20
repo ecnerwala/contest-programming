@@ -7,11 +7,11 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		std::map<int, int> A;
+		std::map<int, int64_t> A;
 		for (int i = 0; i < N; i++) {
 			int a; cin >> a; A[a]++;
 		}
-		std::map<int, int> B;
+		std::map<int, int64_t> B;
 		for (int i = 0; i < M; i++) {
 			int b; cin >> b; B[b]++;
 		}
@@ -36,7 +36,7 @@ int main() {
 				break;
 			}
 			int v = bt->first;
-			int cnt = bt->second;
+			int64_t cnt = bt->second;
 			B.erase(std::prev(bt.base()));
 			if (at->first == bt->first) {
 				cnt -= at->second;
