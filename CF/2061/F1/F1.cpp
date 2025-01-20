@@ -3,6 +3,7 @@
 int solve(std::string S, std::string T) {
 	T = char(S.front() ^ 1) + T + char(S.back() ^ 1);
 	S = char(S.front() ^ 1) + S + char(S.back() ^ 1);
+
 	int N = int(S.size());
 	int diff = 0;
 	std::vector<int> matches; matches.reserve(N);
@@ -22,7 +23,7 @@ int solve(std::string S, std::string T) {
 	for (int z = 0; z+1 < int(matches.size()); z++) {
 		int l = matches[z], r = matches[z+1];
 		int changes = 0;
-		for (int i = l; i+1 < r; i++) {
+		for (int i = l; i+1 <= r; i++) {
 			changes = T[i] != T[i+1];
 		}
 		if (changes > 1) return -1;
