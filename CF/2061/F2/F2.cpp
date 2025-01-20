@@ -412,6 +412,7 @@ int solve(std::string S, std::string T) {
 		std::cerr << "dp[" << r << "]" << " = " << dp[r] << '\n';
 
 		for (auto e : evts[r]) {
+			std::cerr << "deleting " << e << '\n';
 			auto p = layout.get_point(e);
 			seg[p] = {-1, -1};
 			p.for_parents_up(update_node);
