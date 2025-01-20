@@ -39,10 +39,10 @@ int main() {
 			}
 			int v = bt->first;
 			int64_t cnt = bt->second;
-			B.erase(bt->first);
+			B.erase(std::prev(bt.base()));
 			if (at->first == v) {
 				cnt -= at->second;
-				A.erase(at->first);
+				A.erase(std::prev(at.base()));
 			}
 			assert(cnt >= 0);
 			if (cnt > 0) {
@@ -54,7 +54,7 @@ int main() {
 				B[(v+1) / 2] += cnt;
 			}
 		}
-		cout << (good ? "YES" : "NO") << '\n';
+		cout << (good ? "Yes" : "No") << '\n';
 	}
 
 	return 0;
