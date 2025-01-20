@@ -6,7 +6,7 @@ bool solve(std::string S, std::string T, std::vector<std::array<int, 2>> edges) 
 }
 
 void test() {
-	int N = 5;
+	int N = 6;
 	int st = 0b00111;
 	std::vector<bool> poss(1 << N); poss[st] = true;
 	std::vector<int> q; q.push_back(st);
