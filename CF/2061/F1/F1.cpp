@@ -19,12 +19,6 @@ int solve(std::string S, std::string T) {
 	if (diff != 0) return -1;
 	assert(matches.front() == 0);
 	assert(matches.back() == N-1);
-	int ops = 0;
-	for (int i = 0; i+1 < N; i++) {
-		ops += (S[i] != S[i+1]);
-		ops -= (T[i] != T[i+1]);
-	}
-	assert(ops & 1);
 	for (int z = 0; z+1 < int(matches.size()); z++) {
 		int l = matches[z], r = matches[z+1];
 		int changes = 0;
@@ -33,6 +27,12 @@ int solve(std::string S, std::string T) {
 		}
 		if (changes > 1) return -1;
 	}
+	int ops = 0;
+	for (int i = 0; i+1 < N; i++) {
+		ops += (S[i] != S[i+1]);
+		ops -= (T[i] != T[i+1]);
+	}
+	assert(!(ops & 1));
 	return ops / 2;
 }
 
