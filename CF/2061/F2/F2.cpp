@@ -444,6 +444,7 @@ int solve(std::string S, std::string T) {
 
 void test() {
 	for (int N = 1; N < 10; N++) {
+		std::cerr << "checking " << N <<'\n';
 		for (int s_msk = 0; s_msk < (1 << N); s_msk++) {
 			for (int t_known = 0; t_known < (1 << N); t_known++) {
 				int t_unknown = (1 << N) - 1 - t_known;
