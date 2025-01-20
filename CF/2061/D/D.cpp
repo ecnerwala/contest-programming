@@ -40,7 +40,7 @@ int main() {
 			int v = bt->first;
 			int64_t cnt = bt->second;
 			B.erase(bt->first);
-			if (at->first == bt->first) {
+			if (at->first == v) {
 				cnt -= at->second;
 				A.erase(at->first);
 			}
