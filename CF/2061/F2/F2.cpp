@@ -394,6 +394,7 @@ int solve(std::string S, std::string T) {
 			auto p = layout.get_point(r);
 			seg[p][v] = dp[r];
 			p.for_parents_up(update_node);
+			assert(hi > r);
 			evts[hi].push_back(r);
 		}
 	}
