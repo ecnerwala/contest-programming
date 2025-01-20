@@ -379,7 +379,6 @@ int solve(std::string S, std::string T) {
 		// query the previous
 		if (r > 0) {
 			int prv_bad = prv_idx[b][!v];
-			assert(prv_bad < a);
 			int max_cnt = b - prv_bad;
 			// number of regions of the same color to include
 			int mi = 0;
@@ -416,7 +415,6 @@ int solve(std::string S, std::string T) {
 
 		if (r < R-1) {
 			int nxt_bad = nxt_idx[a][!v];
-			assert(nxt_bad > b);
 			int max_cnt = nxt_bad - a;
 			int mi = 0;
 			int ma = (R - r + 1) / 2 + 1;
