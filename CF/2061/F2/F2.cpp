@@ -299,12 +299,12 @@ int solve(std::string S, std::string T) {
 	nxt_idx[N-1] = {N, N};
 	for (int i = N-1; i >= 0; i--) {
 		nxt_idx[i] = i == N-1 ? std::array<int, 2>{N, N} : nxt_idx[i+1];
-		nxt_idx[i][T[i] - '0'] = i;
+		if (T[i] != '?') nxt_idx[i][T[i] - '0'] = i;
 	}
 	std::vector<std::array<int, 2>> prv_idx(N);
 	for (int i = 0; i < N; i++) {
 		prv_idx[i] = i == 0 ? std::array<int, 2>{-1, -1} : prv_idx[i-1];
-		prv_idx[i][T[i] - '0'] = i;
+		if (T[i] != '?') prv_idx[i][T[i] - '0'] = i;
 	}
 	// inclusive ranges
 	std::vector<std::array<int, 2>> runs; runs.reserve(N);
