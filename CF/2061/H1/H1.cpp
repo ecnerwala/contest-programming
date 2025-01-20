@@ -7,14 +7,14 @@ bool solve(std::string S, std::string T, std::vector<std::array<int, 2>> edges) 
 
 void test() {
 	int N = 6;
-	int st = 0b00111;
+	int st = 0b000111;
 	std::vector<bool> poss(1 << N); poss[st] = true;
 	std::vector<int> q; q.push_back(st);
 	for (int z = 0; z < int(q.size()); z++) {
 		int cur = q[z];
 		for (int a = cur; true; a = (a-1) & cur) {
 			int b = cur ^ a;
-			int nxt = (b >> 1) | (b << 4) | (a >> 4) | (a << 1);
+			int nxt = (b >> 1) | (b << (N-1)) | (a >> (N-1)) | (a << 1);
 			nxt &= (1 << N) - 1;
 			if (!poss[nxt]) {
 				poss[nxt] = true;
