@@ -538,6 +538,7 @@ int main() {
 			}
 			tot_hsh[q] = res;
 		}
+		cerr << "tot_hsh " << q << ' ' << tot_hsh[q] << '\n';
 		if (int(queries[q].size()) < BLOCK) {
 			small_queries[int(queries[q].size())][tot_hsh[q]].push_back(q);
 		} else {
@@ -574,6 +575,7 @@ int main() {
 
 	std::vector<int> ans(Q, -1);
 	auto check = [&](int i, int l, hsh cur, int t) -> void {
+		cerr << "check " << i << ' ' << l << ' ' << cur << ' ' << t << '\n';
 		if (l < BLOCK) {
 			auto it = small_queries[l].find(cur);
 			if (it != small_queries[l].end()) {
