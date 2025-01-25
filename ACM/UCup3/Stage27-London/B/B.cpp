@@ -563,11 +563,10 @@ int main() {
 	auto do_insert = [&](int l, int r) -> void {
 		auto it = mp.lower_bound(l);
 		if (it != mp.end() && it->second <= r) {
-			assert(it->first >= l);
 			// noop, so just skip
 			return;
 		}
-		if (it != mp.end() && it->first == l) l++;
+		if (it != mp.end() && it->first == l) it++;
 		while (it != mp.begin() && std::prev(it)->first >= r) {
 			--it;
 			auto [rem_l, rem_r] = *it;
