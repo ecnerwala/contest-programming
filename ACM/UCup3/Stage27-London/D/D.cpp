@@ -312,7 +312,7 @@ int main() {
 		}
 	}
 	cerr << '\n';
-	for (int iter = 0; iter < 10000; iter++) {
+	for (int iter = 0; iter < 100000; iter++) {
 		cur_best = gradient(cur_best, 0.1);
 	}
 	for (int i = 0; i < N; i++) {
