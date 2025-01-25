@@ -33,7 +33,7 @@ int main() {
 		adj[u].push_back(v);
 		adj[v].push_back(u);
 	}
-	int ROOT = 17289082517 % N;
+	int ROOT = 179082517 % N;
 	std::y_combinator([&](auto self, int cur, int prv) -> int {
 		int sz = 1;
 		std::pair<int, int> best_ch(0, -1);
