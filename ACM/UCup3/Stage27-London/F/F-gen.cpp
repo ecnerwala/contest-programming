@@ -5,7 +5,7 @@ int main() {
 	int N = int(1e5);
 	int Q = int(1e5);
 	cout << N << ' ' << Q << '\n';
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < N-1; i++) {
 		int u = i, v = i+1;
 		cout << u+1 << ' ' << v+1 << '\n';
 	}
