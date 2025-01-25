@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
 
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("Ofast")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,bmi,bmi2,mmx,avx,avx2,fma") // Requires AVX2
+
 namespace std {
 
 template<class Fun>
