@@ -232,7 +232,7 @@ int main() {
 		}
 	}
 
-	auto get_score = [&](std::vector<pt_t> cnd) -> double {
+	auto score = [&](std::vector<pt_t> cnd) -> double {
 		double res = 0;
 		for (int i = 0; i < int(cnd.size()); i++) {
 			for (int j = 0; j < i; j++) {
@@ -259,6 +259,7 @@ int main() {
 			}
 			res[i] = cnd[i] + cur * learning_rate;
 		}
+		cerr << score(cnd) << ' ' << score(res) << '\n';
 		return res;
 	};
 
@@ -278,7 +279,7 @@ int main() {
 			for (int iter = 0; iter < 10; iter++) {
 				cnd = gradient(cnd, 0.1);
 			}
-			double cnd_score = get_score(cnd);
+			double cnd_score = score(cnd);
 			if (nxt_best.empty() || cnd_score < nxt_best_score) {
 				nxt_best = cnd;
 				nxt_best_score = cnd_score;
@@ -293,7 +294,7 @@ int main() {
 		for (auto& p : nxt_best) p -= tot;
 		cur_best = nxt_best;
 	}
-	cerr << get_score(cur_best) << '\n';
+	cerr << score(cur_best) << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cerr << abs(cur_best[i] - cur_best[j]) << " \n"[j+1==N];
@@ -318,7 +319,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		std::cout << cur_best[i].x << ' ' << cur_best[i].y << ' ' << cur_best[i].z << '\n';
 	}
-	cerr << get_score(cur_best) << '\n';
+	cerr << score(cur_best) << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cerr << abs(cur_best[i] - cur_best[j]) << " \n"[j+1==N];
