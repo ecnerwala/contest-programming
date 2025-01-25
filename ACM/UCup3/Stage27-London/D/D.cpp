@@ -279,7 +279,7 @@ int main() {
 				std::uniform_real_distribution<double>(-1, 1)(mt),
 				std::uniform_real_distribution<double>(-1, 1)(mt)
 			));
-			for (int iter = 0; iter < 10; iter++) {
+			for (int iter = 0; iter < 100; iter++) {
 				cnd = gradient(cnd, 0.1);
 			}
 			double cnd_score = score(cnd);
@@ -288,7 +288,7 @@ int main() {
 				nxt_best_score = cnd_score;
 			}
 		}
-		for (int iter = 0; iter < 100; iter++) {
+		for (int iter = 0; iter < 1000; iter++) {
 			nxt_best = gradient(nxt_best, 0.1);
 		}
 		pt_t tot(0, 0, 0);
