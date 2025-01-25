@@ -236,7 +236,7 @@ int main() {
 		double res = 0;
 		for (int i = 0; i < int(cnd.size()); i++) {
 			for (int j = 0; j < i; j++) {
-				res += softplus(std::abs(D[{i, j}] - abs(cnd[i] - cnd[j])) / 0.1 - 1);
+				res += softplus(std::abs(D[{i, j}] - abs(cnd[i] - cnd[j])) / 0.1);
 			}
 		}
 		return res;
@@ -262,7 +262,7 @@ int main() {
 			}
 			res[i] = cnd[i] + cur * learning_rate / 10;
 		}
-		cerr << score(cnd) << ' ' << score(res) << '\n';
+		//cerr << score(cnd) << ' ' << score(res) << '\n';
 		return res;
 	};
 
