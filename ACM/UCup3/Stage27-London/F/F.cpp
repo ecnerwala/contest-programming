@@ -64,6 +64,7 @@ int main() {
 		int node_idx = 0;
 		std::y_combinator([&](auto self, int cur, int prv, std::pair<int, int> cur_heavy_root) -> void {
 			int cur_idx = node_idx++;
+			cerr << cur_idx << ' ' << cur << '\n';
 			preorder_idx[cur] = cur_idx;
 			heavy_root[cur] = cur_heavy_root;
 			A[cur_idx] = cur+1;
