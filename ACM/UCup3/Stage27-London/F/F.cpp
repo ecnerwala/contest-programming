@@ -84,7 +84,10 @@ int main() {
 		else if (op == '?') { x = 0; }
 		else assert(false);
 
-		auto process_range = [&](int l, int r) -> void {
+		while (true) {
+			if (a > v) std::swap(a, v);
+			int l = std::max(a, heavy_root[v].first);
+			int r = v+1;
 			if (op == '+') {
 				for (int i = l; i < r; i++) {
 					A[i] += x;
@@ -94,15 +97,11 @@ int main() {
 					x ^= A[i];
 				}
 			} else assert(false);
-		};
-		while (true) {
-			if (a > v) std::swap(a, v);
 			if (a >= heavy_root[v].first) {
-				process_range(a, v+1);
 				break;
+			} else {
+				v = heavy_root[v].second;
 			}
-			process_range(heavy_root[v].first, v+1);
-			v = heavy_root[v].second;
 		}
 		if (op == '?') cout << x << '\n';
 	}
