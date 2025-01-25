@@ -566,7 +566,7 @@ int main() {
 			// noop, so just skip
 			return;
 		}
-		if (it != mp.end() && it->first == l) it++;
+		if (it != mp.end() && it->first == l) ++it;
 		while (it != mp.begin() && std::prev(it)->first >= r) {
 			--it;
 			auto [rem_l, rem_r] = *it;
