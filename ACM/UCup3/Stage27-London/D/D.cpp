@@ -249,16 +249,13 @@ int main() {
 				if (j == i) continue;
 				double dist = abs(cnd[i] - cnd[j]);
 				double delta = (dist - D[{i, j}]);
-				double s_deriv = deriv_softplus(std::abs(delta) / 0.1 - 1) / 0.1;
+				double s_deriv = deriv_softplus(std::abs(delta) / 0.1 - 1);
 				if (delta > 0) {
 					// we're too far away, so move closer
 					cur += s_deriv * unit(cnd[j] - cnd[i]);
 				} else {
 					cur += s_deriv * unit(cnd[i] - cnd[j]);
 				}
-				cerr << std::abs(abs(cnd[i] - cnd[j]) - D[{i, j}]) << ' ';
-				cerr << std::abs(abs(cnd[i] + cur * 0.01 - cnd[j]) - D[{i, j}]) << ' ';
-				cerr << std::abs(abs(cnd[i] - cur * 0.01 - cnd[j]) - D[{i, j}]) << '\n';
 			}
 			res[i] = cnd[i] + cur * learning_rate;
 		}
