@@ -123,7 +123,7 @@ int main() {
 					int x = nxt();
 						incAll(u, v, x);
 				} else if (op == '?'){
-						printf("%d\n", getAnswer(u, v, z));
+						printf("%d\n", getAnswer(u, v));
 				} else assert(false);
 		}
 	return 0;
