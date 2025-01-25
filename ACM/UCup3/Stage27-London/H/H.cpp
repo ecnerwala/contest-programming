@@ -624,7 +624,7 @@ int main() {
 				}
 				hsh cur = st_hsh;
 				for (int l = p - st + 1; l <= BLOCK && st + l <= N; l++) {
-					cur += pow_BASE[l] * A[st + l - 1];
+					cur += pow_BASE[l-1] * A[st + l - 1];
 					check(st, l, cur, t);
 				}
 			}
