@@ -527,7 +527,7 @@ int main() {
 
 	std::vector<hsh> tot_hsh(Q);
 
-	const int BLOCK = 2;
+	const int BLOCK = 1;
 	std::vector<hash_map<hsh, std::vector<int>>> small_queries(BLOCK);
 	hash_map<hsh, std::vector<std::pair<int, int>>> query_blocks;
 	for (int q = 0; q < Q; q++) {
