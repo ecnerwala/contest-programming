@@ -567,7 +567,7 @@ int main() {
 			return;
 		}
 		if (it != mp.end() && it->first == l) ++it;
-		while (it != mp.begin() && std::prev(it)->first >= r) {
+		while (it != mp.begin() && std::prev(it)->second >= r) {
 			--it;
 			auto [rem_l, rem_r] = *it;
 			cerr << "unlink " << rem_l << ' ' << rem_l + 1 << '\n';
