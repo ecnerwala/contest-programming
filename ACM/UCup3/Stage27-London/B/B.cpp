@@ -574,6 +574,7 @@ int main() {
 			cut(&edges[rem_l]);
 			assert(edges[rem_l].own_len == 1);
 			edges[rem_l].own_len = 0;
+			cerr << "link " << rem_l << ' ' << rem_l + 1 << '\n';
 			link_direct(&edges[rem_l], &verts[rem_l+1], &verts[rem_l]);
 			it = mp.erase(it);
 		}
@@ -581,6 +582,7 @@ int main() {
 			cut(&edges[l]);
 			assert(edges[l].own_len == 0);
 			edges[l].own_len = 1;
+			cerr << "link " << l << ' ' << r << '\n';
 			link_direct(&edges[l], &verts[r], &verts[l]);
 		}
 		mp.insert(it, {l, r});
