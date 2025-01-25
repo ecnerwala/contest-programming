@@ -258,7 +258,7 @@ int main() {
 				}
 				cerr << std::abs(abs(cnd[i] - cnd[j]) - D[{i, j}]) << ' ';
 				cerr << std::abs(abs(cnd[i] + cur * 0.01 - cnd[j]) - D[{i, j}]) << ' ';
-				cerr << std::abs(abs(cnd[i] + cur * 0.01 - cnd[j]) - D[{i, j}]) << '\n';
+				cerr << std::abs(abs(cnd[i] - cur * 0.01 - cnd[j]) - D[{i, j}]) << '\n';
 			}
 			res[i] = cnd[i] + cur * learning_rate;
 		}
