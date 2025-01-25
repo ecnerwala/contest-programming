@@ -117,7 +117,7 @@ int main() {
 	}
 
 	while (q--) {
-		char op; scanf("%c", &op);
+		char op; scanf(" %c", &op);
 		int u = nxt() - 1, v = nxt() - 1;
 		if (op == '+') {
 			int x = nxt();
