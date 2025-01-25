@@ -293,6 +293,9 @@ int main() {
 		for (auto& p : nxt_best) p -= tot;
 		cur_best = nxt_best;
 	}
+	for (int iter = 0; iter < 1000; iter++) {
+		cur_best = gradient(cur_best, 0.1);
+	}
 	for (int i = 0; i < N; i++) {
 		std::cout << cur_best[i].x << ' ' << cur_best[i].y << ' ' << cur_best[i].z << '\n';
 	}
