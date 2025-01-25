@@ -293,6 +293,24 @@ int main() {
 		for (auto& p : nxt_best) p -= tot;
 		cur_best = nxt_best;
 	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cerr << abs(cur_best[i] - cur_best[j]) << " \n"[j+1==N];
+		}
+	}
+	cerr << '\n';
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cerr << std::abs(D[{i, j}] - abs(cur_best[i] - cur_best[j])) << " \n"[j+1==N];
+		}
+	}
+	cerr << '\n';
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cerr << softplus(std::abs(D[{i, j}] - abs(cur_best[i] - cur_best[j])) / 0.1 - 1) << " \n"[j+1==N];
+		}
+	}
+	cerr << '\n';
 	for (int iter = 0; iter < 1000; iter++) {
 		cur_best = gradient(cur_best, 0.1);
 	}
@@ -304,14 +322,17 @@ int main() {
 			cerr << abs(cur_best[i] - cur_best[j]) << " \n"[j+1==N];
 		}
 	}
+	cerr << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cerr << std::abs(D[{i, j}] - abs(cur_best[i] - cur_best[j])) << " \n"[j+1==N];
 		}
 	}
+	cerr << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cerr << softplus(std::abs(D[{i, j}] - abs(cur_best[i] - cur_best[j])) / 0.1 - 1) << " \n"[j+1==N];
 		}
 	}
+	cerr << '\n';
 }
