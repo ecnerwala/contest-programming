@@ -287,6 +287,10 @@ int main() {
 		for (int iter = 0; iter < 100; iter++) {
 			nxt_best = gradient(nxt_best, 0.1);
 		}
+		pt_t tot(0, 0, 0);
+		for (auto p : nxt_best) tot += p;
+		tot /= int(nxt_best.size());
+		for (auto& p : nxt_best) p -= tot;
 		cur_best = nxt_best;
 	}
 	for (int i = 0; i < N; i++) {
