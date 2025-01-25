@@ -306,7 +306,7 @@ int main() {
 	}
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
-			cerr << std::abs(D[{i, j}] - abs(cur_best[i] - cur_best[j])) << " \n"[j+1==N];
+			cerr << softplus(std::abs(D[{i, j}] - abs(cur_best[i] - cur_best[j])) / 0.1 - 1) << " \n"[j+1==N];
 		}
 	}
 }
