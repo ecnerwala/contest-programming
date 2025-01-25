@@ -527,7 +527,7 @@ int main() {
 
 	std::vector<hsh> tot_hsh(Q);
 
-	const int BLOCK = 20;
+	const int BLOCK = 2;
 	std::vector<hash_map<hsh, std::vector<int>>> small_queries(BLOCK);
 	hash_map<hsh, std::vector<std::pair<int, int>>> query_blocks;
 	for (int q = 0; q < Q; q++) {
@@ -575,7 +575,7 @@ int main() {
 
 	std::vector<int> ans(Q, -1);
 	auto check = [&](int i, int l, hsh cur, int t) -> void {
-		cerr << "check " << i << ' ' << l << ' ' << cur << ' ' << t << '\n';
+		//cerr << "check " << i << ' ' << l << ' ' << cur << ' ' << t << '\n';
 		if (l < BLOCK) {
 			auto it = small_queries[l].find(cur);
 			if (it != small_queries[l].end()) {
