@@ -293,6 +293,7 @@ int main() {
 		for (auto& p : nxt_best) p -= tot;
 		cur_best = nxt_best;
 	}
+	cerr << get_score(cur_best) << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cerr << abs(cur_best[i] - cur_best[j]) << " \n"[j+1==N];
@@ -317,6 +318,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		std::cout << cur_best[i].x << ' ' << cur_best[i].y << ' ' << cur_best[i].z << '\n';
 	}
+	cerr << get_score(cur_best) << '\n';
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cerr << abs(cur_best[i] - cur_best[j]) << " \n"[j+1==N];
