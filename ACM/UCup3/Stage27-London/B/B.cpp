@@ -570,7 +570,6 @@ int main() {
 		while (it != mp.begin() && std::prev(it)->second >= r) {
 			--it;
 			auto [rem_l, rem_r] = *it;
-			cerr << "unlink " << rem_l << ' ' << rem_l + 1 << '\n';
 			// unlink them
 			cut(&edges[rem_l]);
 			assert(edges[rem_l].own_len == 1);
@@ -579,7 +578,6 @@ int main() {
 			it = mp.erase(it);
 		}
 		{
-			cerr << "link " << l << ' ' << r << '\n';
 			cut(&edges[l]);
 			assert(edges[l].own_len == 0);
 			edges[l].own_len = 1;
