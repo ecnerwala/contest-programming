@@ -257,7 +257,7 @@ int main() {
 					cur += s_deriv * unit(cnd[i] - cnd[j]);
 				}
 			}
-			res[i] = cnd[i] - cur * learning_rate;
+			res[i] = cnd[i] + cur * learning_rate;
 		}
 		return res;
 	};
