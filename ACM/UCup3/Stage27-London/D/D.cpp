@@ -236,7 +236,7 @@ int main() {
 		double res = 0;
 		for (int i = 0; i < int(cnd.size()); i++) {
 			for (int j = 0; j < i; j++) {
-				res += softplus(std::abs(D[{i, j}] - abs(cnd[i] - cnd[j])) / 0.1);
+				res += softplus(std::abs(D[{i, j}] - abs(cnd[i] - cnd[j])) / 0.1 - 1);
 			}
 		}
 		return res;
@@ -249,7 +249,7 @@ int main() {
 				if (j == i) continue;
 				double dist = abs(cnd[i] - cnd[j]);
 				double delta = (dist - D[{i, j}]);
-				double s_deriv = deriv_softplus(std::abs(delta) / 0.1);
+				double s_deriv = deriv_softplus(std::abs(delta) / 0.1 - 1);
 				if (delta > 0) {
 					// we're too far away, so move closer
 					cur += s_deriv * unit(cnd[j] - cnd[i]);
