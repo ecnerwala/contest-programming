@@ -563,6 +563,7 @@ int main() {
 	auto do_insert = [&](int l, int r) -> void {
 		auto it = mp.lower_bound(l);
 		if (it != mp.end() && it->second <= r) {
+			assert(it->first >= l);
 			// noop, so just skip
 			return;
 		}
