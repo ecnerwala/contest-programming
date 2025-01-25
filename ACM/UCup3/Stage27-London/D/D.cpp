@@ -260,7 +260,7 @@ int main() {
 				cerr << std::abs(abs(cnd[i] + cur * 0.001 - cnd[j]) - D[{i, j}]) << ' ';
 				cerr << '\n';
 			}
-			res[i] = cnd[i] + cur * learning_rate;
+			res[i] = cnd[i] + cur * learning_rate / 10;
 		}
 		cerr << score(cnd) << ' ' << score(res) << '\n';
 		return res;
