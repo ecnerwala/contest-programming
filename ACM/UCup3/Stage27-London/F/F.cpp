@@ -26,6 +26,8 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
+int A[int(1e5) + 20];
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -57,7 +59,7 @@ int main() {
 	})(ROOT, -1);
 	std::vector<int> preorder_idx(N, -1);
 	std::vector<std::pair<int, int>> heavy_root(N);
-	std::vector<int> A(N);
+	//std::vector<int> A(N);
 	{
 		int node_idx = 0;
 		std::y_combinator([&](auto self, int cur, int prv, std::pair<int, int> cur_heavy_root) -> void {
