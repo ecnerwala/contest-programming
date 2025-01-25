@@ -578,6 +578,7 @@ int main() {
 			auto it = small_queries[l].find(cur);
 			if (it != small_queries[l].end()) {
 				for (auto q : it->second) {
+					assert(ans[q] == -1);
 					ans[q] = t;
 				}
 				small_queries[l].erase(cur);
