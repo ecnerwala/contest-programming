@@ -568,9 +568,9 @@ int main() {
 		}
 		if (it != mp.end() && it->first == l) it++;
 		while (it != mp.begin() && std::prev(it)->first >= r) {
-			cerr << "link " << rem_l << ' ' << rem_l + 1 << '\n';
 			--it;
 			auto [rem_l, rem_r] = *it;
+			cerr << "link " << rem_l << ' ' << rem_l + 1 << '\n';
 			// unlink them
 			cut(&edges[rem_l]);
 			assert(edges[rem_l].own_len == 1);
