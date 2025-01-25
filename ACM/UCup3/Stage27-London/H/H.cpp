@@ -515,7 +515,7 @@ int main() {
 	std::vector<std::vector<int>> queries(Q);
 	for (auto& b : queries) {
 		int k; cin >> k; b.resize(k);
-		for (auto& v : b) { cin >> v; v--; }
+		for (auto& v : b) { cin >> v; }
 	}
 
 	const hsh BASE(19283759, 128259837);
@@ -568,7 +568,7 @@ int main() {
 	};
 	std::vector<int> A(N);
 	for (int i = 0; i < N; i++) {
-		A[i] = i;
+		A[i] = i+1;
 		seg[layout.get_point(i)] = hsh(A[i]);
 	}
 	for (seg_tree::point a(N-1); a > 0; a--) update_node(a);
