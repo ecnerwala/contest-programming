@@ -257,7 +257,8 @@ int main() {
 					cur += s_deriv * unit(cnd[i] - cnd[j]);
 				}
 				cerr << std::abs(abs(cnd[i] - cnd[j]) - D[{i, j}]) << ' ';
-				cerr << std::abs(abs(cnd[i] + cur - cnd[j]) - D[{i, j}]) << '\n';
+				cerr << std::abs(abs(cnd[i] + cur * 0.01 - cnd[j]) - D[{i, j}]) << ' ';
+				cerr << std::abs(abs(cnd[i] + cur * 0.01 - cnd[j]) - D[{i, j}]) << '\n';
 			}
 			res[i] = cnd[i] + cur * learning_rate;
 		}
