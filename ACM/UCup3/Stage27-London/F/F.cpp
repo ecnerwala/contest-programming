@@ -17,7 +17,7 @@ inline int nxt() {
 const int N = 111111;
 int k[N];
 
-inline int get(int l, int r, long long z) {
+inline int get(int l, int r) {
 	int ans = 0;
 		for (int i = l; i < r; ++i) {
 			ans ^= k[i];
@@ -72,17 +72,17 @@ bool isPar(int u, int v) {
 	return tin[u] <= tin[v] && tout[u] >= tout[v];
 }
 
-int getAnswer(int u, int v, long long z) {
+int getAnswer(int u, int v) {
 	int ans = 0;
 		while (!isPar(w[u], v)) {
-			ans ^= get(tin[w[u]], tin[u] + 1, z);
+			ans ^= get(tin[w[u]], tin[u] + 1);
 				u = par[w[u]];
 		}
 	while (w[v] != w[u]) {
-		ans ^= get(tin[w[v]], tin[v] + 1, z);
+		ans ^= get(tin[w[v]], tin[v] + 1);
 			v = par[w[v]];
 	}
-	return ans ^ get(min(tin[u], tin[v]), max(tin[u], tin[v]) + 1, z);
+	return ans ^ get(min(tin[u], tin[v]), max(tin[u], tin[v]) + 1);
 }
 
 void incAll(int u, int v, int kk) {
