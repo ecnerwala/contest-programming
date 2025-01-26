@@ -366,7 +366,7 @@ int main() {
 
 		std::vector<int> ans; ans.reserve(N);
 		for (int z = N-1; z >= 0; z--) {
-			auto [i, w] = by_w[z];
+			auto [w, i] = by_w[z];
 			int j = i + sz[i];
 			max_val_t mx;
 			{
