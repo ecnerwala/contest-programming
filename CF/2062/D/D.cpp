@@ -57,7 +57,7 @@ int main() {
 			val[cur] = v;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
-				if (val[nxt] > val[cur]) ans += val[nxt];
+				if (val[nxt] > val[cur]) ans += val[nxt] - val[cur];
 			}
 		}(R, -1);
 		ans += val[R];
