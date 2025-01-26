@@ -22,8 +22,8 @@ int main() {
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				int nv = self(nxt, cur);
-				ans += std::max(nv - r, 0);
-				v = std::max(v, std::min(nv, r));
+				v = std::min(v, std::min(nv, r));
+				ans += nv - v;
 			}
 			return v;
 		}(0, -1);
