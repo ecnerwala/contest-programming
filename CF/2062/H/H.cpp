@@ -296,7 +296,7 @@ int main() {
 				cin >> s;
 				cerr << s << '\n';
 				for (int j = 0; j < N; j++) {
-					A[{i, j}] = s[i] - '0';
+					A[{i, j}] = s[j] - '0';
 					A_pref[{i+1, j+1}] = A[{i, j}] + A_pref[{i+1, j}] + A_pref[{i, j+1}] - A_pref[{i, j}];
 				}
 			}
