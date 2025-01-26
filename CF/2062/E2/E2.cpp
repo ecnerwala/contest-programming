@@ -368,6 +368,7 @@ int main() {
 		for (int z = N-1; z >= 0; z--) {
 			auto [w, i] = by_w[z];
 			int j = i + sz[i];
+			cerr << "processing " << i << '-' << j << " w = " << w << '\n';
 			max_val_t mx;
 			{
 				auto pm = pref_max[i];
