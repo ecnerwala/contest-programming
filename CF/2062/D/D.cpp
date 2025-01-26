@@ -10,7 +10,11 @@ int main() {
 		std::vector<std::array<int, 2>> bounds(N);
 		for (auto& [l, r] : bounds) cin >> l >> r;
 		std::vector<std::vector<int>> adj(N);
-		for (int e = 0; e < N-1; e++) { int u, v; cin >> u >> v; u--, v--; }
+		for (int e = 0; e < N-1; e++) {
+			int u, v; cin >> u >> v; u--, v--;
+			adj[u].push_back(v);
+			adj[v].push_back(u);
+		}
 
 		std::vector<int> sz(N);
 		[&](this auto&& self, int cur, int prv) -> int {
