@@ -397,6 +397,7 @@ int main() {
 				if (lp == rp && lp.first > w) {
 					layout.get_point(lp.second).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 				}
+				cerr << " cnt " << cnt << '\n';
 				if (cnt == N - z) {
 					ans.push_back(i);
 				}
