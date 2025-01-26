@@ -394,6 +394,7 @@ int main() {
 					cnt += mx.cnt;
 					auto lp = max_par[mx.l];
 					auto rp = max_par[mx.r];
+					assert(lp.first != -1 && rp.first != -1);
 					if (lp == rp && lp.first > w) {
 						layout.get_point(lp.second).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 					}
