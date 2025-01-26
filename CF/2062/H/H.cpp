@@ -308,10 +308,16 @@ int main() {
 		// end, start, msk
 		num ans = 0;
 		tensor<num, 3> dp_msk({N+1, N+1, 1 << N});
+		tensor<num, 3> dp_msk_cnts({N+1, N+1, 1 << N});
 		for (int x_hi = 0; x_hi <= N; x_hi++) {
-			for (int msk = 0; msk < (1 << N); msk++) dp_msk[{x_hi, x_hi, msk}] = 1;
+			for (int msk = 0; msk < (1 << N); msk++) {
+				dp_msk[{x_hi, x_hi, msk}] = 1;
+			}
 			for (int x_mi = x_hi - 1; x_mi >= 0; x_mi--) {
-				for (int msk = 0; msk < (1 << N); msk++) dp_msk[{x_hi, x_mi, msk}] += dp_msk[{x_hi - 1, x_mi, msk}];
+				for (int msk = 0; msk < (1 << N); msk++) {
+					dp_msk[{x_hi, x_mi, msk}] += dp_msk[{x_hi - 1, x_mi, msk}];
+					dp_msk_cnts[{x_hi, x_mi, msk}] += dp_msk_cnts[{x_hi - 1, x_mi, msk}];
+				}
 				for (int y_lo = N-1; y_lo >= 0; y_lo--) {
 					for (int y_hi = y_lo + 1; y_hi <= N; y_hi++) {
 						int msk = (1 << y_hi) - (1 << y_lo);
@@ -319,12 +325,10 @@ int main() {
 
 						int cnt = A_pref[{x_mi, y_lo}] + A_pref[{x_hi, y_hi}] - A_pref[{x_mi, y_hi}] - A_pref[{x_hi, y_lo}];
 						num rect_ways = p2[cnt] - dp_msk[{x_hi, x_mi, msk}];
-						int other_cnt = A_pref[{N, N}] - (A_pref[{x_hi, N}] - A_pref[{x_mi, N}] + A_pref[{N, y_hi}] - A_pref[{N, y_lo}] - cnt);
-						cerr << x_mi << '-' << x_hi << ' ' << y_lo << '-' << y_hi << ' ' << cnt << ' ' << rect_ways << ' ' << other_cnt << '\n';
-						ans += p2[other_cnt] * rect_ways;
 						for (int x_lo = x_mi; x_lo >= 0; x_lo--) {
 							for (int v = o_msk; true; v = (v-1) & o_msk) {
 								dp_msk[{x_hi, x_lo, v + msk}] += dp_msk[{x_mi, x_lo, v}] * rect_ways;
+								dp_msk_cnts[{x_hi, x_lo, v + msk}] += (dp_msk[{x_mi, x_lo, v}] + dp_msk_cnts[{x_mi, x_lo, v}]) * rect_ways;
 								if (v == 0) break;
 							}
 						}
