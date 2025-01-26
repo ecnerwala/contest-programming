@@ -16,29 +16,6 @@ int main() {
 			adj[v].push_back(u);
 		}
 
-		std::vector<int> sz(N);
-		[&](this auto&& self, int cur, int prv) -> int {
-			int s = 1;
-			for (int nxt : adj[cur]) {
-				if (nxt == prv) continue;
-				s += self(nxt, cur);
-			}
-			return sz[cur] = s;
-		}(0, -1);
-		int R = 0;
-		while (true) {
-			int nxt = -1;
-			for (int a : adj[R]) {
-				if (sz[a] > sz[R]) continue;
-				if (sz[a] * 2 > N) {
-					nxt = a;
-					break;
-				}
-			}
-			if (nxt == -1) break;
-			R = nxt;
-		}
-
 		std::vector<int> val(N);
 		int64_t ans = 0;
 		[&](this auto&& self, int cur, int prv) -> void {
@@ -54,8 +31,8 @@ int main() {
 				if (nxt == prv) continue;
 				if (val[nxt] > val[cur]) ans += val[nxt] - val[cur];
 			}
-		}(R, -1);
-		ans += val[R];
+		}(0, -1);
+		ans += val[0];
 		cout << ans << '\n';
 	}
 
