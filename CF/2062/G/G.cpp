@@ -246,7 +246,7 @@ int main() {
 		for (auto [i, j] : all_ops) {
 			std::swap(tmp_P[i], tmp_P[j]);
 		}
-		for (int i = 0; i < N; i++) assert(tmp_P[i] == i);
+		for (int i = 0; i < N; i++) assert(tmp_P[i] == Q[i]);
 	}
 
 	return 0;
