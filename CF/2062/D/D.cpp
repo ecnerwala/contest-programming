@@ -35,15 +35,6 @@ int main() {
 			R = nxt;
 		}
 
-		[&](this auto&& self, int cur, int prv) -> int {
-			int s = 1;
-			for (int nxt : adj[cur]) {
-				if (nxt == prv) continue;
-				s += self(nxt, cur);
-			}
-			return sz[cur] = s;
-		}(R, -1);
-
 		std::vector<int> val(N);
 		int64_t ans = 0;
 		[&](this auto&& self, int cur, int prv) -> void {
