@@ -322,7 +322,7 @@ int main() {
 						cerr << x_mi << '-' << x_hi << ' ' << y_lo << '-' << y_hi << ' ' << cnt << ' ' << rect_ways << '\n';
 						{
 							int bad_cnt = A_pref[{x_hi, N}] - A_pref[{x_mi, N}] + A_pref[{N, y_hi}] - A_pref[{N, y_lo}] - cnt;
-							ans += p2[A[{N, N}] - bad_cnt] * rect_ways;
+							ans += p2[A_pref[{N, N}] - bad_cnt] * rect_ways;
 						}
 						for (int x_lo = x_mi; x_lo >= 0; x_lo--) {
 							for (int v = o_msk; true; v = (v-1) & o_msk) {
