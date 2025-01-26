@@ -21,9 +21,9 @@ int main() {
 			auto [v, r] = bounds[cur];
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
-				int nv = self(nxt, cur);
-				v = std::min(nv = std::max(nv, v), r);
-				ans += nv - v;
+				int w = self(nxt, cur);
+				v = std::min(w = std::max(w, v), r);
+				ans += w - v;
 			}
 			return v;
 		}(0, -1);
