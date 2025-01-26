@@ -23,7 +23,7 @@ int main() {
 				if (nxt == prv) continue;
 				int nv = self(nxt, cur);
 				v = std::clamp(nv, v, r);
-				ans += nv - v;
+				ans += std::max(nv, v) - v;
 			}
 			return v;
 		}(0, -1);
