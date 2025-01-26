@@ -24,7 +24,7 @@ int main() {
 				int nv = self(nxt, cur);
 				nv = std::max(nv, v);
 				v = std::min(nv, r);
-				ans += std::max(nv, v) - v;
+				ans += nv - v;
 			}
 			return v;
 		}(0, -1);
