@@ -236,6 +236,11 @@ int main() {
 		for (auto [i, j] : all_ops) {
 			cout << i+1 << ' ' << j+1 << '\n';
 		}
+		std::vector<int> tmp_P = P;
+		for (auto [i, j] : all_ops) {
+			std::swap(tmp_P[i], tmp_P[j]);
+		}
+		for (int i = 0; i < N; i++) assert(tmp_P[i] == i);
 	}
 
 	return 0;
