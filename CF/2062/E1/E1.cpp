@@ -311,6 +311,31 @@ int main() {
 
 		std::vector<std::vector<int>> by_w(N);
 		for (int i = 0; i < N; i++) by_w[W[i]].push_back(i);
+
+		int w = N-1;
+		while (by_w[w].empty()) w--;
+		int cur_lca = -1;
+		for (int v : by_w[w]) {
+			if (cur_lca == -1) cur_lca = v;
+			else cur_lca = tree.lca(cur_lca, v);
+		}
+		int ans = -1;
+		for (w--; w >= 0; w--) {
+			if (by_w[w].empty()) continue;
+			for (int v : by_w[w]) {
+				if (!tree.is_ancestor(v, cur_lca)) {
+					ans = v;
+					goto done;
+				}
+			}
+			cur_lca = -1;
+			for (int v : by_w[w]) {
+				if (cur_lca == -1) cur_lca = v;
+				else cur_lca = tree.lca(cur_lca, v);
+			}
+		}
+done:;
+		cout << ans+1 << '\n';
 	}
 
 	return 0;
