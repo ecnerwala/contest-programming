@@ -330,6 +330,7 @@ int main() {
 			}
 		}
 		cout << ans << '\n';
+		if (N == 2) break;
 	}
 
 	return 0;
