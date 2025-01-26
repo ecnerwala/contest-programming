@@ -296,7 +296,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		//cerr << "N = " << N << '\n';
 		std::vector<int> W_orig(N); for (auto& w : W_orig) { cin >> w; w--; }
 		std::vector<std::vector<int>> adj_orig(N);
 		for (int e = 0; e < N-1; e++) {
@@ -325,7 +324,6 @@ int main() {
 			}
 			return sz[cur_idx] = s;
 		}(0, -1, {-1, N});
-		//for (int i = 0; i < N; i++) { cerr << orig_label[i] << ' ' << i << '-' << i+sz[i] << ' ' << W[i] << '\n'; }
 
 		std::vector<std::vector<int>> by_w(N);
 		for (int i = 0; i < N; i++) by_w[W[i]].push_back(i);
@@ -371,7 +369,6 @@ int main() {
 		for (int w = N-1; w >= 0; w--) {
 			for (int i : by_w[w]) {
 				int j = i + sz[i];
-				//cerr << "processing " << i << '-' << j << " w = " << w << '\n';
 
 				max_val_t mx;
 				{
@@ -392,11 +389,10 @@ int main() {
 					layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { cnt += seg_sub[a]; });
 
 					cnt += mx.cnt;
-					auto lp = max_par[mx.l];
+					int lp = max_par[mx.l];
 					if (lp != N && lp + sz[lp] > mx.r) {
 						layout.get_point(lp).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 					}
-					//cerr << " cnt " << cnt << '\n';
 					assert(cnt <= cnt_bigger);
 					if (cnt == cnt_bigger) {
 						ans.push_back(orig_label[i]);
@@ -405,7 +401,6 @@ int main() {
 			}
 			for (int i : by_w[w]) {
 				int j = i + sz[i];
-				//cerr << "updating " << i << '-' << j << " w = " << w << '\n';
 				if (max_par[i] != -1) {
 					layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { seg_par[a]++; });
 				}
