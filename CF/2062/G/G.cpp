@@ -135,6 +135,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	auto sort_perm = [](std::vector<int> perm) -> std::vector<std::array<int, 2>> {
+		std::vector<int> orig_perm = perm;
 		int N = int(perm.size());
 		std::vector<int> pts; pts.reserve(N);
 		std::vector<std::array<int, 2>> ops; ops.reserve(N);
@@ -163,6 +164,8 @@ int main() {
 				std::swap(perm[l], perm[r]);
 			}
 		}
+		for (auto [l, r] : ops) { std::swap(orig_perm[l], orig_perm[r]); }
+		for (int i = 0; i < N; i++) assert(orig_perm[i] == i);
 		return ops;
 	};
 
@@ -216,7 +219,10 @@ int main() {
 				perm[A[i].p_idx] = A[i].q_idx;
 				A[i].p_idx = A[i].q_idx;
 			}
-			all_ops = sort_perm(perm);
+			auto ops = sort_perm(perm);
+			for (auto [i, j] : ops) {
+				all_ops.push_back({i, j});
+			}
 		}
 		{
 			std::vector<int> perm(N, -1);
