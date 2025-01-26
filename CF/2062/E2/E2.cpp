@@ -392,6 +392,7 @@ int main() {
 				int cnt = 0;
 				layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { cnt += seg_sub[a]; });
 
+				cnt += mx.cnt;
 				auto lp = max_par[mx.l];
 				auto rp = max_par[mx.r];
 				if (lp == rp && lp.first > w) {
