@@ -319,11 +319,9 @@ int main() {
 
 						int cnt = A_pref[{x_mi, y_lo}] + A_pref[{x_hi, y_hi}] - A_pref[{x_mi, y_hi}] - A_pref[{x_hi, y_lo}];
 						num rect_ways = p2[cnt] - dp_msk[{x_hi, x_mi, msk}];
-						cerr << x_mi << '-' << x_hi << ' ' << y_lo << '-' << y_hi << ' ' << cnt << ' ' << rect_ways << '\n';
-						{
-							int bad_cnt = A_pref[{x_hi, N}] - A_pref[{x_mi, N}] + A_pref[{N, y_hi}] - A_pref[{N, y_lo}] - cnt;
-							ans += p2[A_pref[{N, N}] - bad_cnt] * rect_ways;
-						}
+						int other_cnt = A_pref[{N, N}] - (A_pref[{x_hi, N}] - A_pref[{x_mi, N}] + A_pref[{N, y_hi}] - A_pref[{N, y_lo}] - cnt);
+						cerr << x_mi << '-' << x_hi << ' ' << y_lo << '-' << y_hi << ' ' << cnt << ' ' << rect_ways << ' ' << other_cnt << '\n';
+						ans += p2[other_cnt] * rect_ways;
 						for (int x_lo = x_mi; x_lo >= 0; x_lo--) {
 							for (int v = o_msk; true; v = (v-1) & o_msk) {
 								dp_msk[{x_hi, x_lo, v + msk}] += dp_msk[{x_mi, x_lo, v}] * rect_ways;
