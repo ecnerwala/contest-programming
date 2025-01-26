@@ -393,12 +393,11 @@ int main() {
 
 					cnt += mx.cnt;
 					auto lp = max_par[mx.l];
-					auto rp = max_par[mx.r];
-					assert(lp != -1 && rp != -1);
-					if (lp == rp && lp != N) {
+					if (lp != N && lp + sz[lp] > mx.r) {
 						layout.get_point(lp).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 					}
 					//cerr << " cnt " << cnt << '\n';
+					assert(cnt <= cnt_bigger);
 					if (cnt == cnt_bigger) {
 						ans.push_back(orig_label[i]);
 					}
