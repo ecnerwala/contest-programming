@@ -18,15 +18,12 @@ int main() {
 
 		int64_t ans = 0;
 		ans += [&](this auto&& self, int cur, int prv) -> int {
-			int v = bounds[cur][0];
+			auto [v, r] = bounds[cur];
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				int nv = self(nxt, cur);
-				if (nv > bounds[cur][1]) {
-					ans += nv - bounds[cur][1];
-					nv = bounds[cur][1];
-				}
-				v = std::max(v, nv);
+				ans += std::max(nv - r, 0);
+				v = std::max(v, std::min(nv, r));
 			}
 			return v;
 		}(0, -1);
