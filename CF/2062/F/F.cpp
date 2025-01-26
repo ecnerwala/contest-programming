@@ -44,7 +44,7 @@ int main() {
 				}
 				if (dp[k][3] != INF) {
 					setmin(dp[k+1][3], dp[k][3] + s);
-					setmin(dp[k+1][4], dp[k][3] + (s+d)/2);
+					setmin(dp[k+1][4], dp[k][3] + s+d);
 				}
 			}
 		}
