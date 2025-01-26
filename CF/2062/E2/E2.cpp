@@ -324,7 +324,7 @@ int main() {
 				s += self(nxt, cur, max_w);
 			}
 			return sz[cur_idx] = s;
-		}(0, -1, {-1, -1});
+		}(0, -1, {0, -1});
 		//for (int i = 0; i < N; i++) { cerr << orig_label[i] << ' ' << i << '-' << i+sz[i] << ' ' << W[i] << '\n'; }
 
 		std::vector<std::vector<int>> by_w(N);
