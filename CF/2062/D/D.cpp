@@ -55,6 +55,7 @@ int main() {
 			}
 			v = std::min(v, bounds[cur][1]);
 			val[cur] = v;
+			cerr << cur << ' ' << v << '\n';
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				if (val[nxt] > val[cur]) ans += val[nxt] - val[cur];
