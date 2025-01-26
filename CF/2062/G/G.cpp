@@ -211,7 +211,7 @@ int main() {
 
 		std::vector<std::array<int, 2>> all_ops; all_ops.reserve(2*N);
 		{
-			std::vector<int> perm(N);
+			std::vector<int> perm(N, -1);
 			for (int i = 0; i < N; i++) {
 				perm[A[i].p_idx] = A[i].q_idx;
 				A[i].p_idx = A[i].q_idx;
@@ -219,8 +219,8 @@ int main() {
 			all_ops = sort_perm(perm);
 		}
 		{
-			std::vector<int> perm(N);
-			std::vector<int> p_val_to_idx(N);
+			std::vector<int> perm(N, -1);
+			std::vector<int> p_val_to_idx(N, -1);
 			for (int i = 0; i < N; i++) {
 				perm[A[i].p_val] = A[i].q_val;
 				p_val_to_idx[A[i].p_val] = A[i].p_idx;
