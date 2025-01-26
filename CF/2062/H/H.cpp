@@ -306,7 +306,6 @@ int main() {
 		for (int i = 0; i < N*N; i++) p2[i+1] = p2[i] + p2[i];
 
 		// end, start, msk
-		num ans = 0;
 		tensor<num, 3> dp_msk({N+1, N+1, 1 << N});
 		tensor<num, 3> dp_msk_cnts({N+1, N+1, 1 << N});
 		for (int x_hi = 0; x_hi <= N; x_hi++) {
@@ -336,8 +335,8 @@ int main() {
 				}
 			}
 		}
+		num ans = dp_msk_cnts[{N, 0, (1 << N) - 1}];
 		cout << ans << '\n';
-		if (N == 3) break;
 	}
 
 	return 0;
