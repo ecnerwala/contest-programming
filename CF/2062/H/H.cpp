@@ -285,7 +285,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		cerr << N << '\n';
 		using num = modnum<int(1e9)+7>;
 		tensor<bool, 2> A({N, N});
 		tensor<int, 2> A_pref({N+1, N+1}, 0);
@@ -294,7 +293,6 @@ int main() {
 			std::string s; s.reserve(N);
 			for (int i = 0; i < N; i++) {
 				cin >> s;
-				cerr << s << '\n';
 				for (int j = 0; j < N; j++) {
 					A[{i, j}] = s[j] - '0';
 					A_pref[{i+1, j+1}] = A[{i, j}] + A_pref[{i+1, j}] + A_pref[{i, j+1}] - A_pref[{i, j}];
