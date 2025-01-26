@@ -16,23 +16,20 @@ int main() {
 			adj[v].push_back(u);
 		}
 
-		std::vector<int> val(N);
 		int64_t ans = 0;
-		[&](this auto&& self, int cur, int prv) -> void {
+		ans += [&](this auto&& self, int cur, int prv) -> int {
 			int v = bounds[cur][0];
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
-				self(nxt, cur);
-				v = std::max(v, val[nxt]);
+				int nv = self(nxt, cur);
+				if (nv > bounds[cur][1]) {
+					ans += nv - bounds[cur][1];
+					nv = bounds[cur][1];
+				}
+				v = std::max(v, nv);
 			}
-			v = std::min(v, bounds[cur][1]);
-			val[cur] = v;
-			for (int nxt : adj[cur]) {
-				if (nxt == prv) continue;
-				ans += std::max(val[nxt] - val[cur], 0);
-			}
+			return v;
 		}(0, -1);
-		ans += val[0];
 		cout << ans << '\n';
 	}
 
