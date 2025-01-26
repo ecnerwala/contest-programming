@@ -388,10 +388,11 @@ int main() {
 
 			if (mx.w > w) {
 				// we're a candidate, check stuff
-				auto lp = max_par[mx.l];
-				auto rp = max_par[mx.r];
 				int cnt = 0;
 				layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { cnt += seg_sub[a]; });
+
+				auto lp = max_par[mx.l];
+				auto rp = max_par[mx.r];
 				if (lp == rp) {
 					layout.get_point(lp.second).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 				}
