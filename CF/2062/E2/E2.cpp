@@ -308,14 +308,14 @@ int main() {
 		std::vector<int> orig_label(N, -1);
 		std::vector<int> W(N, -1);
 		std::vector<int> sz(N, -1);
-		std::vector<std::pair<int, int>> max_par(N, {-1, -1});
+		std::vector<int> max_par(N, -1);
 		int nxt_idx = 0;
 		[&](this auto&& self, int cur, int prv, std::pair<int, int> max_w) -> int {
 			int cur_idx = nxt_idx++;
 			orig_label[cur_idx] = cur;
 			int w = W[cur_idx] = W_orig[cur];
 			if (w >= max_w.first) {
-				max_par[cur_idx] = max_w;
+				max_par[cur_idx] = max_w.second;
 				max_w = {w, cur_idx};
 			}
 			int s = 1;
@@ -324,7 +324,7 @@ int main() {
 				s += self(nxt, cur, max_w);
 			}
 			return sz[cur_idx] = s;
-		}(0, -1, {0, -1});
+		}(0, -1, {-1, -2});
 		//for (int i = 0; i < N; i++) { cerr << orig_label[i] << ' ' << i << '-' << i+sz[i] << ' ' << W[i] << '\n'; }
 
 		std::vector<std::vector<int>> by_w(N);
@@ -394,9 +394,9 @@ int main() {
 					cnt += mx.cnt;
 					auto lp = max_par[mx.l];
 					auto rp = max_par[mx.r];
-					assert(lp.first != -1 && rp.first != -1);
-					if (lp == rp && lp.first > w) {
-						layout.get_point(lp.second).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
+					assert(lp != -1 && rp != -1);
+					if (lp == rp && lp != -2) {
+						layout.get_point(lp).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 					}
 					//cerr << " cnt " << cnt << '\n';
 					if (cnt == cnt_bigger) {
