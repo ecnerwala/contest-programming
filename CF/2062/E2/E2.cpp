@@ -369,6 +369,11 @@ int main() {
 			auto [w, i] = by_w[z];
 			int j = i + sz[i];
 			cerr << "processing " << i << '-' << j << " w = " << w << '\n';
+			if (max_par[i].first != -1) {
+				layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { seg_par[a]++; });
+			}
+			layout.get_point(i).for_each([&](seg_tree::point a) -> void { seg_sub[a]++; });
+
 			max_val_t mx;
 			{
 				auto pm = pref_max[i];
@@ -382,11 +387,6 @@ int main() {
 				} else assert(false);
 			}
 
-			if (max_par[i].first != -1) {
-				layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { seg_par[a]++; });
-			}
-			layout.get_point(i).for_each([&](seg_tree::point a) -> void { seg_sub[a]++; });
-
 			if (mx.w > w) {
 				// we're a candidate, check stuff
 				int cnt = 0;
@@ -394,7 +394,7 @@ int main() {
 
 				auto lp = max_par[mx.l];
 				auto rp = max_par[mx.r];
-				if (lp == rp) {
+				if (lp == rp && lp.first > w) {
 					layout.get_point(lp.second).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 				}
 				if (cnt == N - z) {
