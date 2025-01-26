@@ -326,7 +326,7 @@ int main() {
 			return sz[cur_idx] = s;
 		}(0, -1, {-1, -1});
 		for (int i = 0; i < N; i++) {
-			cerr << i << '-' << i+sz[i] << ' ' << W[i] << '\n';
+			cerr << orig_label[i] << ' ' << i << '-' << i+sz[i] << ' ' << W[i] << '\n';
 		}
 
 		using val_t = std::pair<int, int>;
