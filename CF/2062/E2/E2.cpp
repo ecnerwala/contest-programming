@@ -219,13 +219,11 @@ int main() {
 			}
 		}
 
-		//seg_tree::in_order_layout layout(N);
-		//std::vector<int> seg_sub(2*N);
-		//std::vector<int> seg_par(2*N);
 		binary_indexed_tree<int> bit_sub(N);
 		binary_indexed_tree<int> bit_par(N);
 
-		std::vector<int> ans; ans.reserve(N);
+		int cnt_ans = 0;
+		std::vector<bool> good(N);
 		int cnt_bigger = 0;
 		for (int w = N-1; w >= 0; w--) {
 			for (int i : by_w[w]) {
@@ -257,7 +255,8 @@ int main() {
 					}
 					assert(cnt <= cnt_bigger);
 					if (cnt == cnt_bigger) {
-						ans.push_back(orig_label[i]);
+						cnt_ans++;
+						good[orig_label[i]] = true;
 					}
 				}
 			}
@@ -271,8 +270,7 @@ int main() {
 				cnt_bigger++;
 			}
 		}
-		std::sort(ans.begin(), ans.end());
-		cout << ans.size(); for (int v : ans) { cout << ' ' << v+1; } cout << '\n';
+		cout << cnt_ans; for (int i = 0; i < N; i++) { if (good[i]) cout << ' ' << i; } cout << '\n';
 	}
 
 	return 0;
