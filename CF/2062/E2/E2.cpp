@@ -324,7 +324,7 @@ int main() {
 				s += self(nxt, cur, max_w);
 			}
 			return sz[cur_idx] = s;
-		}(0, -1, {-1, -2});
+		}(0, -1, {-1, N});
 		//for (int i = 0; i < N; i++) { cerr << orig_label[i] << ' ' << i << '-' << i+sz[i] << ' ' << W[i] << '\n'; }
 
 		std::vector<std::vector<int>> by_w(N);
@@ -395,7 +395,7 @@ int main() {
 					auto lp = max_par[mx.l];
 					auto rp = max_par[mx.r];
 					assert(lp != -1 && rp != -1);
-					if (lp == rp && lp != -2) {
+					if (lp == rp && lp != N) {
 						layout.get_point(lp).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
 					}
 					//cerr << " cnt " << cnt << '\n';
@@ -407,7 +407,7 @@ int main() {
 			for (int i : by_w[w]) {
 				int j = i + sz[i];
 				//cerr << "updating " << i << '-' << j << " w = " << w << '\n';
-				if (max_par[i].first != -1) {
+				if (max_par[i] != -1) {
 					layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { seg_par[a]++; });
 				}
 				layout.get_point(i).for_each([&](seg_tree::point a) -> void { seg_sub[a]++; });
