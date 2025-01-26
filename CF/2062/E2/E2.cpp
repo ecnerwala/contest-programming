@@ -296,6 +296,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		cerr << "N = " << N << '\n';
 		std::vector<int> W_orig(N); for (auto& w : W_orig) { cin >> w; w--; }
 		std::vector<std::vector<int>> adj_orig(N);
 		for (int e = 0; e < N-1; e++) {
@@ -324,6 +325,9 @@ int main() {
 			}
 			return sz[cur_idx] = s;
 		}(0, -1, {-1, -1});
+		for (int i = 0; i < N; i++) {
+			cerr << i << '-' << i+sz[i] << ' ' << W[i] << '\n';
+		}
 
 		using val_t = std::pair<int, int>;
 		std::vector<val_t> by_w(N);
