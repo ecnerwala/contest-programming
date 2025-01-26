@@ -304,12 +304,14 @@ int main() {
 			adj_orig[v].push_back(u);
 		}
 
+		std::vector<int> orig_label(N, -1);
 		std::vector<int> W(N, -1);
 		std::vector<int> sz(N, -1);
 		std::vector<std::pair<int, int>> max_par(N, {-1, -1});
 		int nxt_idx = 0;
 		[&](this auto&& self, int cur, int prv, std::pair<int, int> max_w) -> int {
 			int cur_idx = nxt_idx++;
+			orig_label[cur_idx] = cur;
 			int w = W[cur_idx] = W_orig[cur];
 			if (w >= max_w.first) {
 				max_par[cur_idx] = max_w;
@@ -400,7 +402,7 @@ int main() {
 				}
 				cerr << " cnt " << cnt << '\n';
 				if (cnt == N - z) {
-					ans.push_back(i);
+					ans.push_back(orig_label[i]);
 				}
 			}
 		}
