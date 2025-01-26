@@ -308,7 +308,7 @@ int main() {
 		tensor<num, 3> dp_msk({N+1, N+1, 1 << N});
 		for (int x_hi = 0; x_hi <= N; x_hi++) {
 			for (int msk = 0; msk < (1 << N); msk++) dp_msk[{x_hi, x_hi, msk}] = 1;
-			for (int x_mi = x_hi - 1; x_mi > 0; x_mi--) {
+			for (int x_mi = x_hi - 1; x_mi >= 0; x_mi--) {
 				for (int msk = 0; msk < (1 << N); msk++) dp_msk[{x_hi, x_mi, msk}] = dp_msk[{x_hi - 1, x_mi, msk}];
 				for (int y_lo = 0; y_lo < N; y_lo++) {
 					for (int y_hi = y_lo + 1; y_hi <= N; y_hi++) {
