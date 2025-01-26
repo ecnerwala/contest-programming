@@ -29,7 +29,7 @@ int main() {
 			val[cur] = v;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
-				if (val[nxt] > val[cur]) ans += val[nxt] - val[cur];
+				ans += std::max(val[nxt] - val[cur], 0);
 			}
 		}(0, -1);
 		ans += val[0];
