@@ -329,10 +329,8 @@ int main() {
 			cerr << orig_label[i] << ' ' << i << '-' << i+sz[i] << ' ' << W[i] << '\n';
 		}
 
-		using val_t = std::pair<int, int>;
-		std::vector<val_t> by_w(N);
-		for (int i = 0; i < N; i++) by_w[i] = {W[i], i};
-		std::sort(by_w.begin(), by_w.end());
+		std::vector<std::vector<int>> by_w(N);
+		for (int i = 0; i < N; i++) by_w[W[i]].push_back(i);
 
 		struct max_val_t {
 			int w;
@@ -371,43 +369,50 @@ int main() {
 		std::vector<int> seg_par(2*N);
 
 		std::vector<int> ans; ans.reserve(N);
-		for (int z = N-1; z >= 0; z--) {
-			auto [w, i] = by_w[z];
-			int j = i + sz[i];
-			cerr << "processing " << i << '-' << j << " w = " << w << '\n';
-			if (max_par[i].first != -1) {
-				layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { seg_par[a]++; });
-			}
-			layout.get_point(i).for_each([&](seg_tree::point a) -> void { seg_sub[a]++; });
+		int cnt_bigger = 0;
+		for (int w = N-1; w >= 0; w--) {
+			for (int i : by_w[w]) {
+				int j = i + sz[i];
+				cerr << "processing " << i << '-' << j << " w = " << w << '\n';
 
-			max_val_t mx;
-			{
-				auto pm = pref_max[i];
-				auto sm = suff_max[j];
-				if (pm.w == sm.w) {
-					mx = {pm.w, pm.l, sm.r, pm.cnt + sm.cnt};
-				} else if (pm.w > sm.w) {
-					mx = pm;
-				} else if (sm.w > pm.w) {
-					mx = sm;
-				} else assert(false);
-			}
-
-			if (mx.w > w) {
-				// we're a candidate, check stuff
-				int cnt = 0;
-				layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { cnt += seg_sub[a]; });
-
-				cnt += mx.cnt;
-				auto lp = max_par[mx.l];
-				auto rp = max_par[mx.r];
-				if (lp == rp && lp.first > w) {
-					layout.get_point(lp.second).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
+				max_val_t mx;
+				{
+					auto pm = pref_max[i];
+					auto sm = suff_max[j];
+					if (pm.w == sm.w) {
+						mx = {pm.w, pm.l, sm.r, pm.cnt + sm.cnt};
+					} else if (pm.w > sm.w) {
+						mx = pm;
+					} else if (sm.w > pm.w) {
+						mx = sm;
+					} else assert(false);
 				}
-				cerr << " cnt " << cnt << '\n';
-				if (cnt == N - z) {
-					ans.push_back(orig_label[i]);
+
+				if (mx.w > w) {
+					// we're a candidate, check stuff
+					int cnt = 0;
+					layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { cnt += seg_sub[a]; });
+
+					cnt += mx.cnt;
+					auto lp = max_par[mx.l];
+					auto rp = max_par[mx.r];
+					if (lp == rp && lp.first > w) {
+						layout.get_point(lp.second).for_each([&](seg_tree::point a) -> void { cnt += seg_par[a]; });
+					}
+					cerr << " cnt " << cnt << '\n';
+					if (cnt == cnt_bigger) {
+						ans.push_back(orig_label[i]);
+					}
 				}
+			}
+			for (int i : by_w[w]) {
+				int j = i + sz[i];
+				cerr << "updating " << i << '-' << j << " w = " << w << '\n';
+				if (max_par[i].first != -1) {
+					layout.get_range(i, j).for_each([&](seg_tree::point a) -> void { seg_par[a]++; });
+				}
+				layout.get_point(i).for_each([&](seg_tree::point a) -> void { seg_sub[a]++; });
+				cnt_bigger++;
 			}
 		}
 		std::sort(ans.begin(), ans.end());
