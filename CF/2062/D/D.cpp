@@ -21,7 +21,7 @@ int main() {
 			auto [v, r] = bounds[cur];
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
-				ans += v = std::max(self(nxt, cur), v);
+				ans += v = std::max(v, self(nxt, cur));
 				ans -= v = std::min(v, r);
 			}
 			return v;
