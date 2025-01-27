@@ -97,6 +97,7 @@ int main() {
 							setmax(r_lo[l][lo], cnt);
 							setmax(r_lo[l][hi - (1 << l)], cnt);
 						}
+						if (len == N) break;
 					}
 				} assert(false);
 			}
