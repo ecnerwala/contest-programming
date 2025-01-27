@@ -74,7 +74,7 @@ int main() {
 				if (w_l == w_r) {
 					// we need abs(x - i) >= need_bigger
 					for (int x = 0; x < N; x++) {
-						if (std::abs(x - i) < need_bigger) l_lo[x] = ops + 1;
+						if (std::abs(x - i) < need_bigger) setmax(l_lo[0][x], ops + 1);
 					}
 				} else {
 					// we need abs(x - i) + cnt * delta >= need_bigger
