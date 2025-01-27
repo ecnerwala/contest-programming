@@ -99,7 +99,7 @@ int main() {
 						}
 						if (len == N) break;
 					}
-				} assert(false);
+				}
 			}
 			for (int l = LG; l > 0; l--) {
 				for (int i = 0; i + (1 << l) <= N; i++) {
