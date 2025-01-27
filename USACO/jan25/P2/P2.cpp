@@ -93,10 +93,10 @@ int main() {
 						if (w_l > w_r) {
 							setmax(l_lo[l][lo], cnt);
 							setmax(l_lo[l][hi - (1 << l)], cnt);
-						} else {
+						} else if (w_r > w_l) {
 							setmax(r_lo[l][lo], cnt);
 							setmax(r_lo[l][hi - (1 << l)], cnt);
-						}
+						} else assert(false);
 						if (len == N) break;
 					}
 				}
