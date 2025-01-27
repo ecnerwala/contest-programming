@@ -11,7 +11,7 @@ int main() {
 		int64_t l_lo = 0;
 		int64_t r_lo = 0;
 		for (int i = 0; i < N; i++) {
-			if (V[i] == 0) continue;
+			if (V[i] <= 0) continue;
 			int w_l = i;
 			int w_r = N-1-i;
 			int64_t v_smaller = std::min(w_l, w_r) == 0 ? ops + 1 : ceil_div(V[i], std::min(w_l, w_r));
@@ -50,9 +50,21 @@ int main() {
 				mi = md;
 			}
 		}
+		bool can_do = false;
 		if (ma >= 2) {
 			// check ma - 1 by using something in the middle
+			for (int i = 0; i < N; i++) {
+				std::vector<int64_t> tmp = P;
+				for (int z = 0; z < N; z++) {
+					tmp[z] -= std::abs(z - i);
+				}
+				if (is_poss_ends(tmp, ma-2)) {
+					can_do = true;
+					break;
+				}
+			}
 		}
+		if (can_do) ma--;
 		cout << ma << '\n';
 	}
 
