@@ -105,6 +105,8 @@ int main() {
 				for (int i = 0; i + (1 << l) <= N; i++) {
 					setmax(l_lo[l-1][i], l_lo[l][i]);
 					setmax(l_lo[l-1][i + (1 << (l-1))], l_lo[l][i]);
+					setmax(r_lo[l-1][i], r_lo[l][i]);
+					setmax(r_lo[l-1][i + (1 << (l-1))], r_lo[l][i]);
 				}
 			}
 			bool can_do = false;
