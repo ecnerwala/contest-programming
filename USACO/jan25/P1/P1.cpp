@@ -16,7 +16,7 @@ int main() {
 		}
 	}
 
-	std::vector<std::vector<int>> dp(N, std::vector<int>(N, -1));
+	std::vector<std::vector<int>> dp(N, std::vector<int>(N, -1e9));
 	for (int i = N-1; i >= 0; i--) {
 		dp[i][i] = 0;
 		for (int j = i+1; j < N; j++) {
