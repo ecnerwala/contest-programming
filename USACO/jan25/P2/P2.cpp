@@ -109,6 +109,9 @@ int main() {
 			}
 			bool can_do = false;
 			for (int x = 0; x < N; x++) {
+				cerr << x << ' ' << l_lo[0][x] << ' ' << r_lo[0][x] << '\n';
+			}
+			for (int x = 0; x < N; x++) {
 				if (l_lo[0][x] + r_lo[0][x] <= ops) {
 					can_do = true;
 					break;
