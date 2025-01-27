@@ -79,7 +79,7 @@ int main() {
 				} else {
 					// we need abs(x - i) + cnt * delta >= need_bigger
 					for (int64_t cnt = ceil_div(need_bigger, delta); true; cnt--) {
-						int64_t min_abs = (cnt - 1) * delta - need_bigger;
+						int64_t min_abs = need_bigger - (cnt - 1) * delta;
 						assert(min_abs > 0);
 						// everything in +- min_abs exclusive must be at least cnt
 						int64_t lo = i - min_abs + 1;
