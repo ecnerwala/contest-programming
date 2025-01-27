@@ -16,6 +16,7 @@ int main() {
 			int64_t l_lo = 0;
 			int64_t r_lo = 0;
 			for (int i = 0; i < N; i++) {
+				if (P[i] == 0) continue;
 				int w_l = i;
 				int w_r = N-1-i;
 				int64_t v_smaller = std::min(w_l, w_r) == 0 ? ops + 1 : ceil_div(P[i], std::min(w_l, w_r));
