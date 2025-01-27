@@ -25,7 +25,9 @@ int main() {
 			int cur_cost = dp[i][j-1];
 			for (int k = j; k < N; k++) {
 				cur_cost += k == j ? weight[i][k] : std::min(weight[i][k], 0);
-				setmin(dp[i][k], cur_cost + dp[j][k]);
+				assert(dp[j][k] != -1);
+				int cnd = cur_cost + dp[j][k];
+				if (dp[i][k] == -1 || cnd < dp[i][k]) dp[i][k] = cnd;
 			}
 		}
 	}
