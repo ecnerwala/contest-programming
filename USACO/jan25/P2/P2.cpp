@@ -18,7 +18,7 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				int w_l = i;
 				int w_r = N-1-i;
-				int64_t v_smaller = ceil_div(P[i], std::min(w_l, w_r));
+				int64_t v_smaller = std::min(w_l, w_r) == 0 ? ops + 1 : ceil_div(P[i], std::min(w_l, w_r));
 				if (ops >= v_smaller) {
 					// always satisfied
 					continue;
