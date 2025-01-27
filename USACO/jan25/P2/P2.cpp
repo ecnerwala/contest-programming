@@ -47,6 +47,7 @@ int main() {
 				mi = md;
 			}
 		}
+		cout << ma << '\n';
 	}
 
 	return 0;
