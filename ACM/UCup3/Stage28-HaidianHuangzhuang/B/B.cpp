@@ -940,8 +940,9 @@ int main() {
 			by_sz[L]++;
 			tot_sz += L * __builtin_ctz(L);
 			num ans = 0;
-			auto r = ecnerwala::fft::fft_multiply(hs, vs);
-			for (int z = 0; z < int(r.size()); z++) ans += ds[z] * r[z];
+			//auto r = ecnerwala::fft::fft_multiply(hs, vs);
+			//for (int z = 0; z < int(r.size()); z++) ans += ds[z] * r[z];
+			for (int z = 0; z < L; z++) ans += ds[z] * hs[z] * vs[z];
 			return ans;
 		}
 		assert(L >= 2);
