@@ -1066,7 +1066,7 @@ int main() {
 	}
 	std::vector<num> res = ecnerwala::fft::fft_mod_multiply<num>(by_v, ifact);
 	for (int u = 1; u < N; u++) {
-		ans[u] = ifact[u-1] * res[N-u-1];
+		ans[u] = res[N-u-1] * ifact[N-1] * num(N-u);
 	}
 	for (int u = 0; u < N; u++) {
 		cout << ans[u] << " \n"[u+1==N];
