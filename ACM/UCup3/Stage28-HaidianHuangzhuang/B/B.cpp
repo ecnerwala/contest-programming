@@ -942,7 +942,7 @@ int main() {
 			by_sz[L]++;
 			tot_sz += L * __builtin_ctz(L);
 			num ans = 0;
-			if (L >= 256) {
+			if (L >= 128) {
 				auto r = ecnerwala::fft::fft_multiply(hs, vs);
 				assert(int(r.size()) == 2*L-1);
 				for (int z = 0; z < 2*L-1; z++) ans += ds[z] ? r[z] : 0;
