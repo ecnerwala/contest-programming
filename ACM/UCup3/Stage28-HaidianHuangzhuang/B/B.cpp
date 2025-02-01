@@ -906,6 +906,7 @@ int main() {
 		pt_t a{x1, y1};
 		pt_t b{x2, y2};
 		if (a > b) std::swap(a, b);
+		assert(a < b);
 		if (x1 == x2) {
 			root_h_segs.push_back({a, b});
 		} else if (y1 == y2) {
@@ -929,13 +930,18 @@ int main() {
 		const std::vector<seg_t>& v_segs,
 		const std::vector<seg_t>& d_segs
 	) -> num {
+		int L = int(hs.size());
+		assert((L & (L-1)) == 0);
+		assert(L == int(vs.size()));
+		assert(2 * L - 1 == int(ds.size()));
 		if (h_segs.empty() && v_segs.empty() && d_segs.empty()) {
 			num ans = 0;
 			auto r = ecnerwala::fft::fft_multiply(hs, vs);
 			for (int z = 0; z < int(r.size()); z++) ans += ds[z] * r[z];
 			return ans;
 		}
-		int L = int(hs.size());
+		assert(L >= 2);
+		assert(L % 2 == 0);
 		num ans = 0;
 		for (int nx : {x0, x0 + L/2}) {
 			for (int ny : {y0, y0 + L/2}) {
