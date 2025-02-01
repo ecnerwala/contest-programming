@@ -883,6 +883,7 @@ int main() {
 	for (auto& a : A) cin >> a;
 	std::vector<num> B(N);
 	for (auto& b : B) cin >> b;
+	std::reverse(B.begin(), B.end());
 
 	struct pt_t {
 		int x, y;
@@ -896,32 +897,101 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		int x1, y1, x2, y2; cin >> x1 >> y1 >> x2 >> y2;
 		x1--, y1--, x2--, y2--;
-		seg_t s { {x1, y1}, {x2, y2} };
+		y1 = N - 1 - y1;
+		y2 = N - 1 - y2;
+		pt_t a{x1, y1};
+		pt_t b{x2, y2};
+		if (a.x > b.x || (a.x == b.x && a.y > b.y)) std::swap(a, b);
 		if (x1 == x2) {
-			root_h_segs.push_back(s);
+			root_h_segs.push_back({a, b});
 		} else if (y1 == y2) {
-			root_v_segs.push_back(s);
-		} else if (y1 - x1 == y2 - x2) {
-			root_d_segs.push_back(s);
+			root_v_segs.push_back({a, b});
+		} else if (x1 + y1 == x2 + y2) {
+			root_d_segs.push_back({a, b});
 		} else assert(false);
 	}
 
-	const int L = 1 << 17;
+	const int N_MAX = 1 << 17;
 
 	std::y_combinator([&](auto self,
 		int x0, int y0,
-		std::vector<num> hs,
-		std::vector<num> vs,
-		std::vector<num> ds,
-		std::vector<seg_t> h_segs,
-		std::vector<seg_t> v_segs,
-		std::vector<seg_t> d_segs
-	) -> void {
+		const std::vector<num>& hs,
+		const std::vector<num>& vs,
+		const std::vector<num>& ds,
+		const std::vector<seg_t>& h_segs,
+		const std::vector<seg_t>& v_segs,
+		const std::vector<seg_t>& d_segs
+	) -> num {
+		if (h_segs.empty() && v_segs.empty() && d_segs.empty()) {
+			num ans = 0;
+			auto r = ecnerwala::fft::fft_multiply(hs, vs);
+			for (int z = 0; z < int(r.size()); z++) ans += ds[z] * r[z];
+			return ans;
+		}
+		int L = int(hs.size());
+		num ans = 0;
+		for (int nx : {x0, x0 + L/2}) {
+			for (int ny : {y0, y0 + L/2}) {
+				std::vector<num> nhs(hs.begin() + (nx - x0), hs.begin() + (nx - x0 + L/2));
+				std::vector<num> nvs(vs.begin() + (nx - x0), vs.begin() + (nx - x0 + L/2));
+				std::vector<num> nds(ds.begin() + (nx - x0 + ny - y0), ds.begin() + (nx - x0 + ny - y0 + (L/2 * 2 - 1)));
+				std::vector<seg_t> n_h_segs; n_h_segs.reserve(h_segs.size());
+				for (auto [a, b] : h_segs) {
+					assert(a.x == b.x);
+					int x = a.x;
+					assert(a.y < b.y);
+					if (nx <= x && x < nx + L/2) {
+						int y_lo = std::max(a.y, ny);
+						int y_hi = std::min(b.y, ny + L/2 - 1);
+						if (y_lo == ny && y_hi == ny + L/2 - 1) {
+							// set equal to avoid double counting
+							nhs[x - nx] = x < N ? A[x] : 0;
+						} else if (y_lo <= y_hi) {
+							n_h_segs.push_back({{x, y_lo}, {x, y_hi}});
+						}
+					}
+				}
+				std::vector<seg_t> n_v_segs; n_v_segs.reserve(v_segs.size());
+				for (auto [a, b] : v_segs) {
+					assert(a.y == b.y);
+					int y = a.y;
+					assert(a.x < b.x);
+					if (ny <= y && y < ny + L/2) {
+						int x_lo = std::max(a.x, nx);
+						int x_hi = std::min(b.x, nx + L/2 - 1);
+						if (x_lo == nx && x_hi == nx + L/2 - 1) {
+							nvs[y - ny] = y < N ? B[y] : 0;
+						} else if (x_lo <= x_hi) {
+							n_v_segs.push_back({{x_lo, y}, {x_hi, y}});
+						}
+					}
+				}
+				std::vector<seg_t> n_d_segs; n_d_segs.reserve(d_segs.size());
+				for (auto [a, b] : d_segs) {
+					assert(a.x + a.y == b.x + b.y);
+					int s = a.x + a.y;
+					assert(a.x < b.x);
+					if (nx + ny <= s && s <= nx + ny + 2 * (L/2 - 1)) {
+						int n_lo = std::max(nx, s - ny - (L/2 - 1));
+						int n_hi = std::min(nx + (L/2 - 1), s - ny);
+						int x_lo = std::max(n_lo, a.x);
+						int x_hi = std::min(n_hi, b.x);
+						if (x_lo == n_lo && x_hi == n_hi) {
+							nds[s - nx - ny] = 1;
+						} else if (x_lo <= x_hi) {
+							n_d_segs.push_back({{x_lo, s - x_lo}, {x_hi, s - x_hi}});
+						}
+					}
+				}
+				ans += self(nx, ny, nhs, nvs, nds, n_h_segs, n_v_segs, n_d_segs);
+			}
+		}
+		return ans;
 	})(
 		0, 0,
-		std::vector<num>(L, 0),
-		std::vector<num>(L, 0),
-		std::vector<num>(L, 0),
+		std::vector<num>(N_MAX, 0),
+		std::vector<num>(N_MAX, 0),
+		std::vector<num>(N_MAX * 2 - 1, 0),
 		root_h_segs,
 		root_v_segs,
 		root_d_segs
