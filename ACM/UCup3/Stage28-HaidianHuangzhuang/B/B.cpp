@@ -944,7 +944,7 @@ int main() {
 				for (auto [a, b] : h_segs) {
 					assert(a.x == b.x);
 					int x = a.x;
-					assert(a.y < b.y);
+					assert(a.y <= b.y);
 					if (nx <= x && x < nx + L/2) {
 						int y_lo = std::max(a.y, ny);
 						int y_hi = std::min(b.y, ny + L/2 - 1);
@@ -960,7 +960,7 @@ int main() {
 				for (auto [a, b] : v_segs) {
 					assert(a.y == b.y);
 					int y = a.y;
-					assert(a.x < b.x);
+					assert(a.x <= b.x);
 					if (ny <= y && y < ny + L/2) {
 						int x_lo = std::max(a.x, nx);
 						int x_hi = std::min(b.x, nx + L/2 - 1);
@@ -975,7 +975,7 @@ int main() {
 				for (auto [a, b] : d_segs) {
 					assert(a.x + a.y == b.x + b.y);
 					int s = a.x + a.y;
-					assert(a.x < b.x);
+					assert(a.x <= b.x);
 					if (nx + ny <= s && s <= nx + ny + 2 * (L/2 - 1)) {
 						int n_lo = std::max(nx, s - ny - (L/2 - 1));
 						int n_hi = std::min(nx + (L/2 - 1), s - ny);
