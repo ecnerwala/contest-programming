@@ -887,6 +887,7 @@ int main() {
 
 	using num = modnum<998244353>;
 
+	num factN;
 	std::vector<num> invs(N+1);
 	{
 		num f = 1;
@@ -894,6 +895,7 @@ int main() {
 			invs[i] = f;
 			f *= num(i);
 		}
+		factN = f;
 		f = inv(f);
 		for (int i = N; i >= 1; i--) {
 			invs[i] *= f;
@@ -945,7 +947,7 @@ int main() {
 			res[0][0] = res[1][0] = tot_big;
 			return res;
 		})(0, -1);
-		vals[v_int] = std::accumulate(solve[0].begin(), solve[0].end(), num(0)) * invs[v_int];
+		vals[v_int] = std::accumulate(solve[0].begin(), solve[0].end(), num(0)) * invs[v_int] * factN;
 		cerr << "vals " << v_int << ' ' << vals[v_int] << '\n';
 	}
 
