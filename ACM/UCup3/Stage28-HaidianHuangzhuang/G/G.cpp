@@ -47,7 +47,7 @@ int main() {
 			};
 		}
 		return res;
-	})(0, -1)[2] / 2 + int64_t(A) * int64_t(N+1) - B << '\n';
+	})(0, -1)[2] / 2 + int64_t(A) * int64_t(N-1) - B << '\n';
 
 	return 0;
 }
