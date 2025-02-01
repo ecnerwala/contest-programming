@@ -974,7 +974,7 @@ int main() {
 			ans_coeffs[i] += coeff * val;
 		}
 	}
-	if (N & 1) {
+	if (!(N & 1)) {
 		for (int k = 0; k < N; k++) {
 			ans_coeffs[k] *= -1;
 		}
