@@ -918,7 +918,7 @@ int main() {
 	int N_MAX = 1;
 	while (N_MAX <= N) N_MAX *= 2;
 
-	std::y_combinator([&](auto self,
+	cout << std::y_combinator([&](auto self,
 		int x0, int y0,
 		const std::vector<num>& hs,
 		const std::vector<num>& vs,
@@ -1000,7 +1000,7 @@ int main() {
 		root_h_segs,
 		root_v_segs,
 		root_d_segs
-	);
+	) << '\n';
 
 	return 0;
 }
