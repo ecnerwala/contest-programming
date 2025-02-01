@@ -916,7 +916,7 @@ int main() {
 	}
 
 	int N_MAX = 1;
-	while (N_MAX < N) N_MAX *= 2;
+	while (N_MAX <= N) N_MAX *= 2;
 
 	std::y_combinator([&](auto self,
 		int x0, int y0,
