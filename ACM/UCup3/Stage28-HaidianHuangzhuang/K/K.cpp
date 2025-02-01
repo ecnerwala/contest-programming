@@ -948,7 +948,7 @@ int main() {
 			return res;
 		})(0, -1);
 		vals[v_int] = std::accumulate(solve[0].begin(), solve[0].end(), num(0)) * invs[v_int] * factN;
-		cerr << "vals " << v_int << ' ' << vals[v_int] << '\n';
+		//cerr << "vals " << v_int << ' ' << vals[v_int] << '\n';
 	}
 
 	std::vector<num> coeffs(N+1);
@@ -973,14 +973,6 @@ int main() {
 			val = coeffs[i+1] + num(v) * val;
 			ans_coeffs[i] += coeff * val;
 		}
-	}
-	for (int v = 1; v <= N; v++) {
-		num val = 0;
-		for (int k = N-1; k >= 0; k--) {
-			val *= num(v);
-			val += ans_coeffs[k];
-		}
-		cerr << "vals " << v << ' ' << vals[v] << ' ' << val << '\n';
 	}
 	for (int k = 0; k < N; k++) {
 		cout << ans_coeffs[k] << '\n';
