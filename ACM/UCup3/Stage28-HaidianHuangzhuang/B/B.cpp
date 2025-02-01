@@ -942,7 +942,14 @@ int main() {
 			num ans = 0;
 			if (L >= 128) {
 				auto r = ecnerwala::fft::fft_multiply(hs, vs);
-				for (int z = 0; z < int(r.size()); z++) ans += ds[z] * r[z];
+				assert(int(r.size()) == 2*L-1);
+				for (int z = 0; z < 2*L-1; z++) ans += ds[z] * r[z];
+			} else {
+				for (int a = 0; a < L; a++) {
+					for (int b = 0; b < L; b++) {
+						ans += hs[a] * vs[b] * ds[a+b];
+					}
+				}
 			}
 			//for (int z = 0; z < L; z++) ans += ds[z] * hs[z] * vs[z];
 			return ans;
