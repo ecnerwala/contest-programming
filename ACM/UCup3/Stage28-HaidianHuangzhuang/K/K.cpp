@@ -932,6 +932,7 @@ int main() {
 			res[1].insert(res[1].begin(), num(0));
 			num tot_big = 0;
 			for (int i = 1; i <= sz; i++) {
+				assert(invs[sz] != 0);
 				num r0 = res[0][i], r1 = res[1][i];
 				r0 *= invs[sz];
 				r1 *= invs[sz];
