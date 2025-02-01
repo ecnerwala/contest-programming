@@ -915,9 +915,11 @@ int main() {
 		} else assert(false);
 	}
 
-	int N_MAX = 1;
-	while (N_MAX <= N) N_MAX *= 2;
+	//int N_MAX = 1;
+	//while (N_MAX <= N) N_MAX *= 2;
+	int N_MAX = 1 << 17;
 
+	assert(N_MAX > N);
 	cout << std::y_combinator([&](auto self,
 		int x0, int y0,
 		const std::vector<num>& hs,
