@@ -927,7 +927,7 @@ int main() {
 		int x0, int y0,
 		const std::vector<num>& hs,
 		const std::vector<num>& vs,
-		const std::vector<num>& ds,
+		const std::vector<int8_t>& ds,
 		const std::vector<seg_t>& h_segs,
 		const std::vector<seg_t>& v_segs,
 		const std::vector<seg_t>& d_segs
@@ -961,7 +961,7 @@ int main() {
 			for (int ny : {y0, y0 + L/2}) {
 				std::vector<num> nhs(hs.begin() + (nx - x0), hs.begin() + (nx - x0 + L/2));
 				std::vector<num> nvs(vs.begin() + (ny - y0), vs.begin() + (ny - y0 + L/2));
-				std::vector<num> nds(ds.begin() + (nx - x0 + ny - y0), ds.begin() + (nx - x0 + ny - y0 + (L/2 * 2 - 1)));
+				std::vector<int8_t> nds(ds.begin() + (nx - x0 + ny - y0), ds.begin() + (nx - x0 + ny - y0 + (L/2 * 2 - 1)));
 				std::vector<seg_t> n_h_segs; n_h_segs.reserve(h_segs.size());
 				for (auto [a, b] : h_segs) {
 					assert(a.x == b.x);
@@ -1018,7 +1018,7 @@ int main() {
 		0, 0,
 		std::vector<num>(N_MAX, 0),
 		std::vector<num>(N_MAX, 0),
-		std::vector<num>(N_MAX * 2 - 1, 0),
+		std::vector<int8_t>(N_MAX * 2 - 1, 0),
 		root_h_segs,
 		root_v_segs,
 		root_d_segs
