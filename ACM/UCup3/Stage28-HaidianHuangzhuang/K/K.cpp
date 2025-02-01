@@ -945,6 +945,7 @@ int main() {
 			return res;
 		})(0, -1);
 		vals[v_int] = std::accumulate(solve[0].begin(), solve[0].end(), num(0)) * invs[v_int];
+		cerr << "vals " << v_int << ' ' << vals[v_int] << '\n';
 	}
 
 	std::vector<num> coeffs(N+1);
