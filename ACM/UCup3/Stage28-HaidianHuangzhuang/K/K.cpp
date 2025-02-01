@@ -936,8 +936,8 @@ int main() {
 			num tot_big = 0;
 			for (int i = 1; i <= sz; i++) {
 				num r0 = res[0][i], r1 = res[1][i];
-				r0 *= invs[sz];
-				r1 *= invs[sz];
+				r0 *= invs[i];
+				r1 *= invs[i];
 				num v_small = r0 + r1 * (v-1);
 				num v_big = r0;
 				tot_big += v_big;
