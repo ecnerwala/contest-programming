@@ -946,9 +946,11 @@ int main() {
 				for (int z = 0; z < 2*L-1; z++) ans += ds[z] ? r[z] : 0;
 			} else {
 				for (int a = 0; a < L; a++) {
+					int64_t v = 0;
 					for (int b = 0; b < L; b++) {
-						ans += ds[a+b] ? hs[a] * vs[b] : 0;
+						v += ds[a+b] ? int(vs[b]) : 0;
 					}
+					ans += hs[a] * num(v);
 				}
 			}
 			//for (int z = 0; z < L; z++) ans += ds[z] * hs[z] * vs[z];
