@@ -972,6 +972,14 @@ int main() {
 			ans_coeffs[i] += coeff * val;
 		}
 	}
+	for (int v = 1; v <= N; v++) {
+		num val = 0;
+		for (int k = N-1; k >= 0; k--) {
+			val *= num(v);
+			val += ans_coeffs[k];
+		}
+		cerr << "vals " << v << ' ' << vals[v] << ' ' << val << '\n';
+	}
 	for (int k = 0; k < N; k++) {
 		cout << ans_coeffs[k] << '\n';
 	}
