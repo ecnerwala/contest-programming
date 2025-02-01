@@ -965,7 +965,7 @@ int main() {
 		num coeff = 1;
 		for (int u = 1; u <= N; u++) {
 			if (u == v) continue;
-			coeff *= num(u - v);
+			coeff *= num(v - u);
 		}
 		coeff = vals[v] / coeff;
 		num val = 0;
