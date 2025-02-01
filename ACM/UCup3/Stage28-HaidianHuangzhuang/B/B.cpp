@@ -1,4 +1,6 @@
+#pragma GCC optimize("O3,unroll-loops")
 #include <bits/stdc++.h>
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 
 namespace std {
 
