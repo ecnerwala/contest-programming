@@ -926,7 +926,8 @@ int main() {
 			// v_small = integral from 0 to x of res[0] + res[1] * v
 			// v_big = integral from x to 1 of res[0] + res[1]
 			// return {v_small + v_big, v_big}
-			int sz = int(res.size());
+			int sz = int(res[0].size());
+			assert(sz == int(res[1].size()));
 			res[0].insert(res[0].begin(), num(0));
 			res[1].insert(res[1].begin(), num(0));
 			num tot_big = 0;
