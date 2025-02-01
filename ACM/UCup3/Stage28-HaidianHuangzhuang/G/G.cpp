@@ -35,7 +35,7 @@ int main() {
 	}
 	const int64_t INF = 1e18;
 	cout << std::y_combinator([&](auto self, int cur, int prv) -> std::array<int64_t, 3> {
-		std::array<int64_t, 3> res{0, B, -INF};
+		std::array<int64_t, 3> res{0, B, INF};
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
 			std::array<int64_t, 3> ch = self(nxt, cur);
