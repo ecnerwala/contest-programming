@@ -873,6 +873,16 @@ template <typename num, typename multiplier> struct online_squarer {
 
 /* namespace ecnerwala */ }
 
+struct pt_t {
+	int x, y;
+	friend auto operator <=> (pt_t a, pt_t b) =default;
+	friend std::ostream& operator << (std::ostream& o, pt_t p) { return o << '(' << p.x << ',' << p.y << ')'; }
+};
+struct seg_t {
+	pt_t a, b;
+	friend std::ostream& operator << (std::ostream& o, seg_t s) { return o << s.a << '-' << s.b; }
+};
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -885,12 +895,6 @@ int main() {
 	for (auto& b : B) cin >> b;
 	std::reverse(B.begin(), B.end());
 
-	struct pt_t {
-		int x, y;
-	};
-	struct seg_t {
-		pt_t a, b;
-	};
 	std::vector<seg_t> root_h_segs;
 	std::vector<seg_t> root_v_segs;
 	std::vector<seg_t> root_d_segs;
@@ -901,7 +905,7 @@ int main() {
 		y2 = N - 1 - y2;
 		pt_t a{x1, y1};
 		pt_t b{x2, y2};
-		if (a.x > b.x || (a.x == b.x && a.y > b.y)) std::swap(a, b);
+		if (a > b) std::swap(a, b);
 		if (x1 == x2) {
 			root_h_segs.push_back({a, b});
 		} else if (y1 == y2) {
@@ -911,7 +915,8 @@ int main() {
 		} else assert(false);
 	}
 
-	const int N_MAX = 1 << 17;
+	int N_MAX = 1;
+	while (N_MAX < N) N_MAX *= 2;
 
 	std::y_combinator([&](auto self,
 		int x0, int y0,
