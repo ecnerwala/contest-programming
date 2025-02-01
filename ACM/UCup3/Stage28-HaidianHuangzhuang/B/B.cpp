@@ -946,7 +946,7 @@ int main() {
 		for (int nx : {x0, x0 + L/2}) {
 			for (int ny : {y0, y0 + L/2}) {
 				std::vector<num> nhs(hs.begin() + (nx - x0), hs.begin() + (nx - x0 + L/2));
-				std::vector<num> nvs(vs.begin() + (nx - x0), vs.begin() + (nx - x0 + L/2));
+				std::vector<num> nvs(vs.begin() + (ny - y0), vs.begin() + (ny - y0 + L/2));
 				std::vector<num> nds(ds.begin() + (nx - x0 + ny - y0), ds.begin() + (nx - x0 + ny - y0 + (L/2 * 2 - 1)));
 				std::vector<seg_t> n_h_segs; n_h_segs.reserve(h_segs.size());
 				for (auto [a, b] : h_segs) {
