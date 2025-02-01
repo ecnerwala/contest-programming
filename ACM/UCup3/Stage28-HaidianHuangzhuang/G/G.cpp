@@ -33,19 +33,21 @@ int main() {
 		adj[u].push_back(v);
 		adj[v].push_back(u);
 	}
-	cout << std::y_combinator([&](auto self, int cur, int prv) -> std::array<int64_t, 2> {
-		std::array<int64_t, 2> res{0, B};
+	const int64_t INF = 1e18;
+	cout << std::y_combinator([&](auto self, int cur, int prv) -> std::array<int64_t, 3> {
+		std::array<int64_t, 3> res{0, B, -INF};
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
-			std::array<int64_t, 2> ch = self(nxt, cur);
+			std::array<int64_t, 3> ch = self(nxt, cur);
 			ch[1] -= 2 * A;
 			res = {
-				std::min(res[0] + ch[0], res[1] + ch[1]),
-				std::min(res[0] + ch[1], res[1] + ch[0])
+				res[0] + ch[0],
+				std::min(std::min(res[0], res[2]) + ch[1], res[1] + std::min(ch[0], ch[2])),
+				std::min({res[1] + ch[1], res[0] + ch[2], res[2] + ch[0], res[2] + ch[2]})
 			};
 		}
 		return res;
-	})(0, -1)[0] / 2 + 2 * int64_t(A) * int64_t(N) - B << '\n';
+	})(0, -1)[2] / 2 + int64_t(A) * int64_t(N+1) - B << '\n';
 
 	return 0;
 }
