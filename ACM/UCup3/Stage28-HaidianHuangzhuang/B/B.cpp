@@ -920,6 +920,8 @@ int main() {
 	//while (N_MAX <= N) N_MAX *= 2;
 	int N_MAX = 1 << 17;
 
+	int tot_sz = 0;
+	std::map<int, int> by_sz;
 	assert(N_MAX > N);
 	cout << std::y_combinator([&](auto self,
 		int x0, int y0,
@@ -935,6 +937,8 @@ int main() {
 		assert(L == int(vs.size()));
 		assert(2 * L - 1 == int(ds.size()));
 		if (h_segs.empty() && v_segs.empty() && d_segs.empty()) {
+			by_sz[L]++;
+			tot_sz += L * __builtin_ctz(L);
 			num ans = 0;
 			auto r = ecnerwala::fft::fft_multiply(hs, vs);
 			for (int z = 0; z < int(r.size()); z++) ans += ds[z] * r[z];
@@ -1009,6 +1013,10 @@ int main() {
 		root_v_segs,
 		root_d_segs
 	) << '\n';
+	cerr << "tot_sz " << tot_sz << '\n';
+	for (auto [k, v] : by_sz) {
+		cerr << " sz " << k << ' ' << v << '\n';
+	}
 
 	return 0;
 }
