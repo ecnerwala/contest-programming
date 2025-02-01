@@ -906,7 +906,8 @@ int main() {
 		num v = v_int;
 		auto solve = std::y_combinator([&](auto self, int cur, int prv) -> std::array<std::vector<num>, 2> {
 			std::array<std::vector<num>, 2> res;
-			res[0] = {num(0)};
+			// 0 is any, 1 is must
+			res[0] = {num(1)};
 			res[1] = {num(1)};
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
@@ -923,8 +924,8 @@ int main() {
 				res[0] = mul(res[0], ch[0]);
 				res[1] = mul(res[1], ch[1]);
 			}
-			// v_small = integral from 0 to x of res[0] + res[1] * v
-			// v_big = integral from x to 1 of res[0] + res[1]
+			// v_small = integral from 0 to x of res[0] + res[1] * (v-1)
+			// v_big = integral from x to 1 of res[0]
 			// return {v_small + v_big, v_big}
 			int sz = int(res[0].size());
 			assert(sz == int(res[1].size()));
@@ -932,12 +933,11 @@ int main() {
 			res[1].insert(res[1].begin(), num(0));
 			num tot_big = 0;
 			for (int i = 1; i <= sz; i++) {
-				assert(invs[sz] != 0);
 				num r0 = res[0][i], r1 = res[1][i];
 				r0 *= invs[sz];
 				r1 *= invs[sz];
-				num v_small = r0 + r1 * v;
-				num v_big = r0 + r1;
+				num v_small = r0 + r1 * (v-1);
+				num v_big = r0;
 				tot_big += v_big;
 				res[0][i] = v_small - v_big;
 				res[1][i] = -v_big;
