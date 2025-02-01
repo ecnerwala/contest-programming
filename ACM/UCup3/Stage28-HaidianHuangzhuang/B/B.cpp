@@ -943,11 +943,11 @@ int main() {
 			if (L >= 32) {
 				auto r = ecnerwala::fft::fft_multiply(hs, vs);
 				assert(int(r.size()) == 2*L-1);
-				for (int z = 0; z < 2*L-1; z++) ans += ds[z] * r[z];
+				for (int z = 0; z < 2*L-1; z++) ans += ds[z] ? r[z] : 0;
 			} else {
 				for (int a = 0; a < L; a++) {
 					for (int b = 0; b < L; b++) {
-						ans += hs[a] * vs[b] * ds[a+b];
+						ans += ds[a+b] ? hs[a] * vs[b] : 0;
 					}
 				}
 			}
