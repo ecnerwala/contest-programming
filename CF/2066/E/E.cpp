@@ -11,7 +11,7 @@ int main() {
 	int64_t tot = 0;
 	std::set<std::pair<int, int>> cur;
 	std::vector<std::set<std::pair<int, int>>> small_gaps(RT+1);
-	std::vector<int> last_small_gaps(RT+1, MX+1);
+	std::vector<int> last_small_gaps(RT+1, 0);
 	std::vector<int> cnt_small(RT+1, 0);
 
 	auto upd_gap = [&](auto pit, auto nit, bool ins) -> void {
@@ -22,7 +22,7 @@ int main() {
 		} else {
 			small_gaps[l].erase(*pit);
 		}
-		last_small_gaps[l] = small_gaps[l].empty() ? MX + 1 : small_gaps[l].rbegin()->first;
+		last_small_gaps[l] = small_gaps[l].empty() ? 0 : small_gaps[l].rbegin()->first;
 	};
 
 	auto insert = [&](int v_) -> void {
