@@ -63,34 +63,13 @@ int main() {
 		tot -= v.first;
 	};
 
-	auto query_slow = [&]() -> bool {
-		{
-			auto it = cur.rbegin();
-			assert(it != cur.rend());
-			int64_t cur_tot = tot;
-			int cur_gap = it->first;
-			int cur_val = it->first;
-			for (++it; it != cur.rend(); ++it) {
-				int nv = it->first;
-				cur_tot -= nv;
-				cur_gap = std::min({cur_gap, cur_val - nv, nv});
-				cur_val = nv;
-				cerr << cur_tot << ' ' << cur_gap << ' ' << cur_val << '\n';
-				if (cur_tot < cur_gap) {
-					return true;
-				}
-			}
-		}
-		return false;
-	};
 	auto query = [&]() -> bool {
-		return query_slow();
 		assert(!cur.empty());
 		// return whether a bad k exists
 		{
 			auto it = cur.rbegin();
 			assert(it != cur.rend());
-			int64_t cur_tot = tot;
+			int64_t cur_tot = tot - it->first;
 			int cur_gap = it->first;
 			int cur_val = it->first;
 			for (++it; it != cur.rend(); ++it) {
