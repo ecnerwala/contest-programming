@@ -173,7 +173,7 @@ int main() {
 				num v = dp[st];
 				if (v == 0) continue;
 				for (int c = cntA[i]; c <= C && st + c <= M-C; c++) {
-					ndp[st + c] += v * choose(num_open[st + C] + tot_cnt + st, c - cntA[i]);
+					ndp[st + c] += v * choose(num_open[st + C] + tot_cnt - st, c - cntA[i]);
 				}
 			}
 			std::swap(dp, ndp);
