@@ -6,7 +6,8 @@ int main() {
 
 	int N, Q; cin >> N >> Q;
 	const int MX = int(1e6);
-	const int RT = int(1e3);
+	//const int RT = int(1e3);
+	const int RT = 0;
 	int IDX = 0;
 	int64_t tot = 0;
 	std::set<std::pair<int, int>> cur;
