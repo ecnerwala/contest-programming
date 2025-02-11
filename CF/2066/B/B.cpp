@@ -325,7 +325,8 @@ int main() {
 			num_bigger -= int(invA[v].size());
 			ans = std::max(ans, num_bigger + seg[1].mx);
 			if (invA[v].empty()) break;
-			int nv = seg[1].mx;
+
+			int v_new = seg[1].mx + 1;
 
 			// increment prefixes
 			for (int i : invA[v]) {
@@ -336,9 +337,9 @@ int main() {
 
 			{
 				auto p = layout.get_point(invA[v][0]);
-				p.for_each([&](auto a) -> void { nv -= seg[a].lazy; });
-				seg[p].lazy += nv;
-				seg[p].mx += nv;
+				p.for_each([&](auto a) -> void { v_new -= seg[a].lazy; });
+				seg[p].lazy += v_new;
+				seg[p].mx += v_new;
 				p.for_parents_up(update_node);
 			}
 		}
