@@ -168,7 +168,6 @@ int main() {
 		int tot_cnt = 0;
 		for (int i = 0; i < N-1; i++) {
 			std::fill(ndp.begin(), ndp.end(), num(0));
-			tot_cnt += cntA[i];
 			for (int st = std::max(lastA[i] - (C-1), 0); st <= M-C; st++) {
 				num v = dp[st];
 				if (v == 0) continue;
@@ -177,6 +176,7 @@ int main() {
 				}
 			}
 			std::swap(dp, ndp);
+			tot_cnt += cntA[i];
 		}
 		cout << dp[M-C] << '\n';
 	}
