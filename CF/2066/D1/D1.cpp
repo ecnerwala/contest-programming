@@ -871,12 +871,16 @@ int main() {
 		ifact[C] = inv(fact[C]);
 		for (int i = C; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-		ecnerwala::power_series_fft_mod<num> dp(M-C+1);
-		for (int i = 0; i <= C && i <= M-C; i++) {
-			dp[i] = fact[C] * ifact[i] * ifact[C - i];
+		if (N >= 2) {
+			ecnerwala::power_series_fft_mod<num> dp(M-C+1);
+			for (int i = 0; i <= C && i <= M-C; i++) {
+				dp[i] = fact[C] * ifact[i] * ifact[C - i];
+			}
+			auto res = poly_pow_monic(dp, N-1);
+			cout << res[M-C] << '\n';
+		} else {
+			cout << 1 << '\n';
 		}
-		auto res = poly_pow_monic(dp, N-1);
-		cout << res[M-C] << '\n';
 	}
 
 	return 0;
