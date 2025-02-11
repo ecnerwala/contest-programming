@@ -18,9 +18,11 @@ int main() {
 		int l = nit->first - pit->first;
 		if (l > RT) return;
 		if (ins) {
-			small_gaps[l].insert(*pit);
+			auto [_, did_insert] = small_gaps[l].insert(*pit);
+			assert(did_insert);
 		} else {
-			small_gaps[l].erase(*pit);
+			auto num_erased = small_gaps[l].erase(*pit);
+			assert(num_erased > 0);
 		}
 		last_small_gaps[l] = small_gaps[l].empty() ? 0 : small_gaps[l].rbegin()->first;
 	};
