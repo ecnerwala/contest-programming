@@ -36,9 +36,9 @@ int main() {
 
 			if (res >= N-1) {
 				cout << '!' << ' ' << 'B' << '\n' << flush;
-			} else if (res < N-1) {
+			} else {
 				cout << '!' << ' ' << 'A' << '\n' << flush;
-			} else assert(false);
+			}
 		}
 	}
 
