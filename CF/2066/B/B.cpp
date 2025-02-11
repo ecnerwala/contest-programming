@@ -310,7 +310,7 @@ int main() {
 		};
 		std::vector<seg_t> seg(2 * layout.N);
 		auto update_node = [&](seg_tree::point a) -> void {
-			assert(a < N);
+			assert(a < layout.N);
 			seg[a].mx = seg[a].lazy + std::max(seg[a.c(0)].mx, seg[a.c(1)].mx);
 		};
 		for (int i = 0; i <= N; i++) {
