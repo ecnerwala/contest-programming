@@ -165,13 +165,15 @@ int main() {
 		std::vector<num> dp(M-C+1);
 		dp[0] = 1;
 		std::vector<num> ndp(M-C+1);
+		int tot_cnt = 0;
 		for (int i = 0; i < N-1; i++) {
 			std::fill(ndp.begin(), ndp.end(), num(0));
+			tot_cnt += cntA[i];
 			for (int st = std::max(lastA[i] - (C-1), 0); st <= M-C; st++) {
 				num v = dp[st];
 				if (v == 0) continue;
 				for (int c = cntA[i]; c <= C && st + c <= M-C; c++) {
-					ndp[st + c] += v * choose(C - cntA[i], c - cntA[i]);
+					ndp[st + c] += v * choose(num_open[st + C] + tot_cnt + st, c - cntA[i]);
 				}
 			}
 			std::swap(dp, ndp);
