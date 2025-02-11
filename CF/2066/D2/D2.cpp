@@ -170,7 +170,7 @@ int main() {
 			for (int st = std::max(lastA[i] - (C-1), 0); st <= M-C; st++) {
 				num v = dp[st];
 				if (v == 0) continue;
-				for (int c = cntA[i]; c <= C; c++) {
+				for (int c = cntA[i]; c <= C && st + c <= C; c++) {
 					ndp[st + c] += v * choose(num_open[st + C] - st, c - C);
 				}
 			}
