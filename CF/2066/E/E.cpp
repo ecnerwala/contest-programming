@@ -74,6 +74,7 @@ int main() {
 				int nv = it->first;
 				cur_tot -= nv;
 				cur_gap = std::min({cur_gap, cur_val - nv, nv});
+				cur_val = nv;
 				if (cur_tot < cur_gap) {
 					return true;
 				}
