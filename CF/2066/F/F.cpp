@@ -250,7 +250,7 @@ int main() {
 								for (; nxt_1 <= valid_B_end[j]; nxt_1++) dp[{ni, nxt_1, 1}] = {i, j, 1};
 							}
 						}
-						i = range_ends[i] - 1;
+						i = ni - 1;
 					}
 				}
 				if (dp[{N, M, 1}][0] != -1) {
