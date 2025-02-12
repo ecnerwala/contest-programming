@@ -258,6 +258,7 @@ int main() {
 					while (cur[0] > 0) {
 						std::array<int, 3> prv = dp[cur];
 						assert(prv[0] != -1);
+						cur = prv;
 					}
 					return true;
 				}
