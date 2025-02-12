@@ -202,7 +202,7 @@ int main() {
 							}
 							cur_sum += A[i];
 							if (best_st[0] == -1 || cur_sum >= best_sum) {
-								best_st = {cur_sum, i+1};
+								best_st = {cur_st, i+1};
 								best_sum = cur_sum;
 							}
 						} else {
