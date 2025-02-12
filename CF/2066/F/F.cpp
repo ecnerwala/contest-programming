@@ -291,8 +291,10 @@ int main() {
 		if (solve()) {
 			cout << ops.size() << '\n';
 			for (const auto& [b, c] : ops) {
-				cout << b[0]+1 << ' ' << b[1] << ' ' << c.size();
-				for (auto v : c) cout << ' ' << v;
+				cout << b[0]+1 << ' ' << b[1] << ' ' << c.size() << '\n';
+				for (int z = 0; z < int(c.size()); z++) {
+					cout << c[z] << " \n"[z+1==int(c.size())];
+				}
 				cout << '\n';
 			}
 		} else {
