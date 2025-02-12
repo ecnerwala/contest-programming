@@ -213,6 +213,9 @@ int main() {
 						return false;
 					}
 					ranges.push_back(best_st);
+					for (int i = best_st[0]; i < best_st[1]; i++) {
+						A_alive[i] = false;
+					}
 					range_ends[best_st[0]] = best_st[1];
 					for (int i = 0; i < M; i++) {
 						while (valid_B_end[i] > i && B_val[{i, valid_B_end[i]}] > best_sum) {
