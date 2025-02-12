@@ -213,6 +213,7 @@ int main() {
 						return false;
 					}
 					ranges.push_back(best_st);
+					cerr << "mark bad " << best_st[0] << '-' << best_st[1] << '\n';
 					for (int i = best_st[0]; i < best_st[1]; i++) {
 						A_alive[i] = false;
 					}
