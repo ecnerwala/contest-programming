@@ -189,8 +189,8 @@ int main() {
 			}
 			std::vector<int> valid_B_end(M, M);
 			while (true) {
+				int best_sum = 0;
 				{
-					int best_sum = 0;
 					int cur_st = -1;
 					int cur_sum = 0;
 					std::array<int, 2> best_st{-1, -1};
@@ -213,7 +213,6 @@ int main() {
 						return false;
 					}
 					ranges.push_back(best_st);
-					cerr << "mark bad " << best_st[0] << '-' << best_st[1] << '\n';
 					for (int i = best_st[0]; i < best_st[1]; i++) {
 						A_alive[i] = false;
 					}
@@ -224,7 +223,6 @@ int main() {
 						}
 					}
 				}
-				// intervals of B < best_sum
 				tensor<std::array<int, 3>, 3> dp({N+1, M+1, 2}, {-1, -1, -1});
 				dp[{0, 0, 0}] = {0, 0, 0};
 				for (int i = 0; i < N; i++) {
@@ -254,12 +252,38 @@ int main() {
 					}
 				}
 				if (dp[{N, M, 1}][0] != -1) {
+					std::vector<std::vector<int>> replacement(N);
 					std::array<int, 3> cur{N, M, 1};
+					std::pair<std::array<int, 2>, std::vector<int>> final_op;
 					while (cur[0] > 0) {
 						std::array<int, 3> prv = dp[cur];
 						assert(prv[0] != -1);
+						assert(prv[2] <= cur[2]);
+						if (prv[2] == 0 && cur[2] == 1) {
+							// special one
+							replacement[prv[0]] = {best_sum};
+							final_op = {
+								{prv[1], prv[1]+1},
+								std::vector<int>(B.begin() + prv[1], B.begin() + cur[1])
+							};
+						} else {
+							replacement[prv[0]] = std::vector<int>(B.begin() + prv[1], B.begin() + cur[1]);
+						}
 						cur = prv;
 					}
+					std::vector<int> delta_sz(N);
+					for (auto [i, j] : ranges) {
+						int st = i;
+						for (int z = 0; z < i; z++) {
+							st += delta_sz[z];
+						}
+						delta_sz[i] = int(replacement[i].size()) - (j-i);
+						ops.push_back({
+							{st, st + (j-i)},
+							replacement[i]
+						});
+					}
+					ops.push_back(final_op);
 					return true;
 				}
 			}
