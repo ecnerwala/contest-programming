@@ -181,7 +181,7 @@ int main() {
 
 	using num = modnum<998244353>;
 	using cnum = cplx<num>;
-	std::vector<cnum> vec(pow6[N]);
+	std::vector<cnum> vec(powW[N]);
 
 	for (int i = 0; i < pow6[N]; i++) {
 		if (S[i] == '1') {
