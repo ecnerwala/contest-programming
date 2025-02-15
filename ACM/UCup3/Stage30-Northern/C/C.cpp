@@ -181,7 +181,7 @@ int main() {
 
 	using num = modnum<998244353>;
 	using cnum = cplx<num>;
-	std::vector<cnum> vec(powW[N]);
+	std::vector<num> vec(powW[N]);
 
 	for (int i = 0; i < pow6[N]; i++) {
 		if (S[i] == '1') {
@@ -190,23 +190,23 @@ int main() {
 				ni += powW[a] * (cur % 6);
 				cur /= 6;
 			}
-			vec[ni].re = 1;
+			vec[ni] = 1;
 		}
 	}
 
 	for (int a = 0; a < N; a++) {
 		for (int hi = 0; hi < powW[N]; hi += powW[a+1]) {
 			for (int lo = 0; lo < powW[a]; lo++) {
-				cnum cpi = vec[lo + hi + powW[a] * 0];
-				cnum cpj = vec[lo + hi + powW[a] * 1];
-				cnum cpk = vec[lo + hi + powW[a] * 2];
-				cnum cni = vec[lo + hi + powW[a] * 3];
-				cnum cnj = vec[lo + hi + powW[a] * 4];
-				cnum cnk = vec[lo + hi + powW[a] * 5];
+				auto cpi = vec[lo + hi + powW[a] * 0];
+				auto cpj = vec[lo + hi + powW[a] * 1];
+				auto cpk = vec[lo + hi + powW[a] * 2];
+				auto cni = vec[lo + hi + powW[a] * 3];
+				auto cnj = vec[lo + hi + powW[a] * 4];
+				auto cnk = vec[lo + hi + powW[a] * 5];
 
-				cnum ti = cpi + cni;
-				cnum tj = cpj + cnj;
-				cnum tk = cpk + cnk;
+				auto ti = cpi + cni;
+				auto tj = cpj + cnj;
+				auto tk = cpk + cnk;
 
 				vec[lo + hi + powW[a] * 0] = ti + tj + tk;
 				vec[lo + hi + powW[a] * 1] = -ti - tj + tk;
