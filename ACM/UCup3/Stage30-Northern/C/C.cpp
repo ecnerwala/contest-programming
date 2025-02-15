@@ -199,9 +199,9 @@ int main() {
 				auto cpi = vec[lo + hi + powW[a] * 0];
 				auto cpj = vec[lo + hi + powW[a] * 1];
 				auto cpk = vec[lo + hi + powW[a] * 2];
-				auto cni = vec[lo + hi + powW[a] * 3];
+				auto cnk = vec[lo + hi + powW[a] * 3];
 				auto cnj = vec[lo + hi + powW[a] * 4];
-				auto cnk = vec[lo + hi + powW[a] * 5];
+				auto cni = vec[lo + hi + powW[a] * 5];
 
 				auto ti = cpi + cni;
 				auto tj = cpj + cnj;
