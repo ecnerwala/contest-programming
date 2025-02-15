@@ -234,13 +234,18 @@ int main() {
 		self(cur + 1, ca * W + 2, cb * W + 2, cc * W + 2, w);
 		self(cur + 1, ca * W + 3, cb * W + 3, cc * W + 3, w);
 
-		self(cur + 1, ca * W + 4, cb * W + 5, cc * W + 6, 4 * w);
-		self(cur + 1, ca * W + 5, cb * W + 6, cc * W + 4, 4 * w);
-		self(cur + 1, ca * W + 6, cb * W + 4, cc * W + 5, 4 * w);
+		if (cur == 0) {
+			self(cur + 1, ca * W + 4, cb * W + 5, cc * W + 6, 12 * w);
+			self(cur + 1, ca * W + 6, cb * W + 5, cc * W + 4, -12 * w);
+		} else {
+			self(cur + 1, ca * W + 4, cb * W + 5, cc * W + 6, 4 * w);
+			self(cur + 1, ca * W + 5, cb * W + 6, cc * W + 4, 4 * w);
+			self(cur + 1, ca * W + 6, cb * W + 4, cc * W + 5, 4 * w);
 
-		self(cur + 1, ca * W + 6, cb * W + 5, cc * W + 4, -4 * w);
-		self(cur + 1, ca * W + 5, cb * W + 4, cc * W + 6, -4 * w);
-		self(cur + 1, ca * W + 4, cb * W + 6, cc * W + 5, -4 * w);
+			self(cur + 1, ca * W + 6, cb * W + 5, cc * W + 4, -4 * w);
+			self(cur + 1, ca * W + 5, cb * W + 4, cc * W + 6, -4 * w);
+			self(cur + 1, ca * W + 4, cb * W + 6, cc * W + 5, -4 * w);
+		}
 	})(0, 0, 0, 0, num(1));
 	for (int z = 0; z < N; z++) ans /= num(8);
 	cout << ans << '\n';
