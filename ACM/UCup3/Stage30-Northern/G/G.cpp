@@ -312,6 +312,15 @@ int main() {
 		}
 	}
 	for (int i = 0; i < N+A; i++) {
+		for (int a = 0; a < K; a++) {
+			for (int b = 0; b <= K; b++) {
+				cerr << dp[{i, a, b}] << ' ';
+			}
+			cerr << '\n';
+		}
+		cerr << '\n';
+	}
+	for (int i = 0; i < N+A; i++) {
 		cout << dp[{i, 0, K}] << " \n"[i+1==N+A];
 	}
 
