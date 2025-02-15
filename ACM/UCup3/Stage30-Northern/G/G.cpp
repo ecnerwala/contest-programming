@@ -298,7 +298,7 @@ int main() {
 					v = dp[{i, k, 0}];
 				} else assert(false);
 				cerr << v << '\n';
-				for (int l = K-1; l >= 0; l--) {
+				for (int l = 0; l < K; l++) {
 					dp[{i, k, l}] = ((l+1 < K) ? dp[{i, k, l+1}] : 0) + v;
 				}
 				dp[{i, k, K}] = v;
