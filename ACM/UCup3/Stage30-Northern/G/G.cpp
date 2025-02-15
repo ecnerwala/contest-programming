@@ -286,18 +286,27 @@ int main() {
 		for (int k = 0; k < K; k++) {
 			dp[{i, k, k}] = 1;
 		}
+		cerr << "string " << s << '\n';
 		for (char c : s) {
+			cerr << " char " << c << '\n';
 			for (int k = 0; k < K; k++) {
+				cerr << k << '\n';
 				num v;
 				if (c == '~') {
 					v = 0;
 				} else if (c == 'O') {
 					v = dp[{i, k, 0}];
 				} else assert(false);
+				cerr << v << '\n';
 				for (int l = K-1; l >= 0; l--) {
 					dp[{i, k, l}] = ((l+1 < K) ? dp[{i, k, l+1}] : 0) + v;
 				}
 				dp[{i, k, K}] = v;
+			for (int b = 0; b <= K; b++) {
+				cerr << dp[{i, k, b}] << ' ';
+			}
+			cerr << '\n';
+				cerr << '\n';
 			}
 		}
 	}
