@@ -218,6 +218,10 @@ int main() {
 		}
 	}
 
+	for (int a = 0; a < powW[N]; a++) {
+		cerr << a << ' ' << vec[a] << '\n';
+	}
+
 	// we now have to iterate over pow8
 	num ans = 0;
 	std::y_combinator([&](auto self, int cur, int ca, int cb, int cc, num w) -> void {
