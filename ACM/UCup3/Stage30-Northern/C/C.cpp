@@ -223,7 +223,7 @@ int main() {
 	num ans = 0;
 	std::y_combinator([&](auto self, int cur, int ca, int cb, int cc, num w) -> void {
 		if (cur == N) {
-			num r = (vec[ca] * vec[cb] * vec[cc]).re;
+			num r = vec[ca] * vec[cb] * vec[cc];
 			ans += r * w;
 			return;
 		}
