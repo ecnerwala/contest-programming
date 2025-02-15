@@ -180,7 +180,6 @@ int main() {
 	for (int i = 1; i <= N; i++) powW[i] = powW[i-1] * W;
 
 	using num = modnum<998244353>;
-	using cnum = cplx<num>;
 	std::vector<num> vec(powW[N]);
 
 	for (int i = 0; i < pow6[N]; i++) {
@@ -223,6 +222,7 @@ int main() {
 	num ans = 0;
 	std::y_combinator([&](auto self, int cur, int ca, int cb, int cc, num w) -> void {
 		if (cur == N) {
+			cerr << ca << ' ' << cb << ' ' << cc << ' ' << w << ' ' << vec[ca] * vec[cb] * vec[cc] << '\n';
 			num r = vec[ca] * vec[cb] * vec[cc];
 			ans += r * w;
 			return;
