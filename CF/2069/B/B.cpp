@@ -7,19 +7,19 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		std::vector<std::array<bool, 2>> has(N*M, {false, false});
+		std::vector<std::vector<int>> A(N, std::vector<int>(M));
+		std::vector<int> cost(N*M, 0);
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				int a; cin >> a; a--;
-				has[a][(i^j)&1] = true;
+				A[i][j] = a;
+				if (cost[a] == 0) cost[a] = 1;
+				if (i > 0 && A[i-1][j] == a) cost[a] = 2;
+				if (j > 0 && A[i][j-1] == a) cost[a] = 2;
 			}
 		}
-		int ans = 0;
-		int mx = 0;
-		for (int i = 0; i < N*M; i++) {
-			ans += has[i][0] + has[i][1];
-			mx = std::max(mx, has[i][0] + has[i][1]);
-		}
+		int ans = std::accumulate(cost.begin(), cost.end(), 0);
+		int mx = *std::max_element(cost.begin(), cost.end());
 		cout << ans - mx << '\n';
 	}
 
