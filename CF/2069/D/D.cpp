@@ -34,11 +34,11 @@ int main() {
 				cnd--;
 				cur_freq[c - 'a']--;
 			}
-			assert(2 * cnd <= int(S.size()));
+			assert(2 * cnd >= int(S.size()));
 			if (2 * cnd == int(S.size())) {
 				// we got all the way to the midpoint, so just track how long the palindrome is
-				for (; cnd < int(S.size()); cnd++) {
-					if (S[cnd] == S[int(S.size()) - cnd - 1]) {
+				for (; cnd > 0; cnd--) {
+					if (S[cnd - 1] == S[int(S.size()) - cnd]) {
 						// good;
 					} else {
 						break;
