@@ -377,6 +377,10 @@ int main() {
 		A.restore(cA);
 	}(seg_tree::point(1));
 
+	for (int q = 0; q < Q; q++) {
+		cout << ans[q] << '\n';
+	}
+
 	return 0;
 }
 
