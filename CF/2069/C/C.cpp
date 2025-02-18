@@ -126,14 +126,16 @@ int main() {
 		int N; cin >> N;
 		using num = modnum<998244353>;
 		num dp = 0, ans = 0;
+		num empty = 0;
 		for (int i = 0; i < N; i++) {
 			int a; cin >> a;
 			if (a == 1) {
 				dp++;
+				empty++;
 			} else if (a == 2) {
 				dp += dp;
 			} else if (a == 3) {
-				ans += dp;
+				ans += dp - empty;
 			}
 		}
 		cout << ans << '\n';
