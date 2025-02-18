@@ -311,13 +311,14 @@ struct union_find {
 	}
 	void restore(int cp) {
 		assert(int(ops.size()) >= cp);
-		while (int(ops.size()) >= cp) {
+		while (int(ops.size()) > cp) {
 			auto [b, s] = ops.back();
 			int a = par[b];
 			par[b] = s;
 			par[a] -= s;
 			ops.pop_back();
 		}
+		assert(int(ops.size()) == cp);
 	}
 
 	int num_edges() { return int(ops.size()); }
