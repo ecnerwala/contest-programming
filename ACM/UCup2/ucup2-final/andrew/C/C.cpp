@@ -5,7 +5,7 @@ std::vector<int> get_lis(const std::vector<int>& A) {
 	for (auto v : A) {
 		int mi = -1;
 		int ma = int(dp.size());
-		while (ma - mi > 0) {
+		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if (v > dp[md]) {
 				mi = md;
