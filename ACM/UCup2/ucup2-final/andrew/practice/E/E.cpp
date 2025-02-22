@@ -429,8 +429,8 @@ int main() {
 			assert(l < r);
 			auto sa = SuffixArray::shift_and_construct(std::vector<int>(A.begin() + l, A.begin() + r));
 			int cnt = int64_t(sa.N + 2) * int64_t(sa.N + 1) / 2;
-			for (int i = 0; i < sa.N; i++) {
-				cnt -= sa.lcp[i];
+			for (int z = 0; z < sa.N; z++) {
+				cnt -= sa.lcp[z];
 			}
 			return cnt;
 		};
