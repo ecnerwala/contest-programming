@@ -428,7 +428,7 @@ int main() {
 		auto get_distinct = [&](int l, int r) -> int64_t {
 			assert(l < r);
 			auto sa = SuffixArray::shift_and_construct(std::vector<int>(A.begin() + l, A.begin() + r));
-			int cnt = int64_t(sa.N + 2) * int64_t(sa.N + 1) / 2;
+			int64_t cnt = int64_t(sa.N + 2) * int64_t(sa.N + 1) / 2;
 			for (int z = 0; z < sa.N; z++) {
 				cnt -= sa.lcp[z];
 			}
