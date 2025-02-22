@@ -116,7 +116,7 @@ int main() {
 		if (res) {
 			cout << "Yes" << '\n';
 			for (int i = 0; i < M-N; i++) {
-				cout << (*res)[i] << " \n"[i+1==M-N];
+				cout << (*res)[i]+1 << " \n"[i+1==M-N];
 			}
 		} else {
 			cout << "No" << '\n';
