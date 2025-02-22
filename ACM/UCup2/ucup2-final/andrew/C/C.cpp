@@ -121,9 +121,11 @@ int main() {
 		for (auto& a : A) { cin >> a; a--; }
 		auto res = solve(A, M);
 		if (res) {
+			std::vector<int> B = *res;
+			assert(int(B.size()) == M-N);
 			cout << "Yes" << '\n';
 			for (int i = 0; i < M-N; i++) {
-				cout << (*res)[i]+1 << " \n"[i+1==M-N];
+				cout << B[i]+1 << " \n"[i+1==M-N];
 			}
 			assert(get_lis(concat(A, B)).size() == get_lis(concat(B, A)).size());
 		} else {
