@@ -10,7 +10,7 @@ int main() {
 		std::vector<std::array<int, 2>> pts(N);
 		for (auto& [x, y] : pts) cin >> x >> y;
 		std::sort(pts.begin(), pts.end());
-		auto solve = [&]() -> void {
+		[&]() -> void {
 			using ld = long double;
 			auto query = [&](int numer, int denom) -> ld {
 				assert(denom == 1 || denom == 2);
