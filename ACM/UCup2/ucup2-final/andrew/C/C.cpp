@@ -22,6 +22,13 @@ std::vector<int> get_lis(const std::vector<int>& A) {
 	return dp;
 }
 
+std::vector<int> concat(const std::vector<int>& A, const std::vector<int>& B) {
+	std::vector<int> C(A.size() + B.size());
+	std::copy(A.begin(), A.end(), C.begin());
+	std::copy(B.begin(), B.end(), C.begin() + int(A.size()));
+	return C;
+}
+
 std::optional<std::vector<int>> solve(std::vector<int> A, int M) {
 	int NA = int(A.size());
 	int NB = M - NA;
@@ -118,6 +125,7 @@ int main() {
 			for (int i = 0; i < M-N; i++) {
 				cout << (*res)[i]+1 << " \n"[i+1==M-N];
 			}
+			assert(get_lis(concat(A, B)).size() == get_lis(concat(B, A)).size());
 		} else {
 			cout << "No" << '\n';
 		}
