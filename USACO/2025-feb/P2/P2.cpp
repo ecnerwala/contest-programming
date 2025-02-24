@@ -94,7 +94,7 @@ int64_t solve(int64_t A, int64_t B, int64_t C, int64_t D) {
 	} else {
 		assert(sAB < 0);
 		assert(sCD > 0);
-		if ((A > 0) == (C > 0)) {
+		if ((A > 0) != (C > 0)) {
 			std::swap(A, B);
 			std::swap(C, D);
 		}
