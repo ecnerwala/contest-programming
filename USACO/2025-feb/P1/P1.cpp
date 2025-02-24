@@ -51,6 +51,8 @@ int main() {
 				cnt += get_evens(p, i, n, nxt[n]);
 			}
 
+			ans += cnt * int64_t(v);
+
 			if (p != -1) nxt[p] = n;
 			if (n != N) prv[n] = p;
 			prv[i] = nxt[i] = -2;
