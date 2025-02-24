@@ -29,7 +29,7 @@ int main() {
 		max_pq<int> small_b;
 		min_pq<int> big_b;
 
-		for (int i = (1 << b); i < N; i += (2 << b)) {
+		for (int i = (1 << b); i <= N; i += (2 << b)) {
 			// solve guy i
 			int lo = std::max(i, opt[i - (1 << b)]);
 			int hi = (i + (1 << b)) <= N ? opt[i + (1 << b)] : N;
