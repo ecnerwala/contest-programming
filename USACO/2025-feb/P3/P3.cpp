@@ -33,7 +33,7 @@ int main() {
 			// solve guy i
 			int lo = std::max(i, opt[i - (1 << b)]);
 			int hi = (i + (1 << b)) <= N ? opt[i + (1 << b)] : N;
-			cerr << i << ' ' << lo << '-' << hi << '\n';
+			//cerr << i << ' ' << lo << '-' << hi << '\n';
 			// lo..hi inclusive
 			for (int tgt_cut = lo; tgt_cut <= hi; tgt_cut++) {
 				assert(cur_cut <= tgt_cut);
@@ -61,7 +61,7 @@ int main() {
 
 				assert(cur_cut == tgt_cut);
 				int64_t cnd = suffA[cur_cut] - sum_small_b;
-				cerr << i << ' ' << cur_cut << ' ' << cnd << '\n';
+				//cerr << i << ' ' << cur_cut << ' ' << cnd << '\n';
 				if (cur_cut == lo || cnd > ans[i]) {
 					ans[i] = cnd;
 					opt[i] = cur_cut;
