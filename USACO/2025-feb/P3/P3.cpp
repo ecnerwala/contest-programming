@@ -61,6 +61,7 @@ int main() {
 
 				assert(cur_cut == tgt_cut);
 				int64_t cnd = suffA[cur_cut] - sum_small_b;
+				cerr << i << ' ' << cur_cut << ' ' << cnd << '\n';
 				if (cur_cut == lo || cnd > ans[i]) {
 					ans[i] = cnd;
 					opt[i] = cur_cut;
