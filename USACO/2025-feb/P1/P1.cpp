@@ -12,6 +12,19 @@ int main() {
 	for (int i = 0; i < N; i++) vals[i] = {A[i], i};
 	std::sort(vals.begin(), vals.end());
 
+	auto get_evens = [](int l1, int h1, int l2, int h2) -> int64_t {
+		// first element is in (l1, h1]
+		// last element is in [l2, h2)
+		// last element's cut is in (l2, h2]
+		// we want the same cut on both sides
+
+		// makes sure we don't have -1 stuff
+		l1 += 4, h1 += 4;
+		l2 += 4, h2 += 4;
+
+		return int64_t((h1 / 2) - (l1 / 2)) * int64_t((h2 / 2) - (l2 / 2)) + int64_t(((h1+1) / 2) - ((l1+1) / 2)) * int64_t(((h2+1) / 2) - ((l2+1) / 2));
+	};
+
 	int64_t ans = 0;
 	{
 		std::vector<int> nxt(N);
@@ -28,26 +41,14 @@ int main() {
 			// number of odd length interval
 			int lo = (i - p);
 			int hi = (n - i);
-			ans += int64_t(lo / 2) * int64_t(hi / 2) + int64_t((lo+1) / 2) * int64_t((hi+1) / 2);
-
-			auto get_evens = [&](int l1, int h1, int l2, int h2) -> int64_t {
-				// first element is in (l1, h1]
-				// last element is in [l2, h2)
-				// last element's cut is in (l2, h2]
-				// we want the same cut on both sides
-
-				// makes sure we don't have -1 stuff
-				l1 += 4, h1 += 4;
-				l2 += 4, h2 += 4;
-
-				return int64_t((h1 / 2) - (l1 / 2)) * int64_t((h2 / 2) - (l2 / 2)) + int64_t(((h1+1) / 2) - ((l1+1) / 2)) * int64_t(((h2+1) / 2) - ((l2+1) / 2));
-			};
+			int64_t cnt = int64_t(lo / 2) * int64_t(hi / 2) + int64_t((lo+1) / 2) * int64_t((hi+1) / 2);
+			assert(cnt == get_evens(p, i, i+1, n+1));
 
 			if (p != -1) {
-				ans += get_evens(prv[p], p, i, n);
+				cnt += get_evens(prv[p], p, i, n);
 			}
 			if (n != N) {
-				ans += get_evens(p, i, n, nxt[n]);
+				cnt += get_evens(p, i, n, nxt[n]);
 			}
 
 			if (p != -1) nxt[p] = n;
