@@ -33,6 +33,7 @@ int main() {
 			// solve guy i
 			int lo = std::max(i, opt[i - (1 << b)]);
 			int hi = (i + (1 << b)) <= N ? opt[i + (1 << b)] : N;
+			cerr << i << ' ' << lo << '-' << hi << '\n';
 			// lo..hi inclusive
 			opt[i] = -1;
 			for (int tgt_cut = lo; tgt_cut <= hi; tgt_cut++) {
