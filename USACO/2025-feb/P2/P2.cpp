@@ -127,6 +127,7 @@ int64_t solve(int64_t A, int64_t B, int64_t C, int64_t D) {
 		if (!cfAB.empty() && !cfCD.empty() && !cfAB.back().second && cfCD.back().second) {
 			num_moves -= num_savings;
 		}
+		return num_moves;
 	}
 
 	assert(false);
