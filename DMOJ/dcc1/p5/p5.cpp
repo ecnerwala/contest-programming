@@ -187,6 +187,67 @@ int main() {
 			}
 			return false;
 		} else if (K == 2) {
+			// we need 2 vertices with disjoint neighbor sets which don't cover the whole thing
+			// or we need a 4-cycle in the complement
+
+			// pick the unused vertex, then pick 2 non-neighbors. If those 2 non-neighbors have a common non-neighbor
+			// first, let's try to find any 4 cycle in the complement
+			tensor<int, 2> cycs({N, N}, -1);
+			std::vector<int> buf; buf.reserve(N);
+			for (int i = 0; i < N; i++) {
+				buf.clear();
+				for (int j = 0; j < N; j++) {
+					if (!A[{i, j}] && i != j) buf.push_back(j);
+				}
+				for (int z = 0; z < int(buf.size()); z++) {
+					for (int w = z+1; w < int(buf.size()); w++) {
+						int a = buf[z], b = buf[w];
+						assert(a < b);
+						int j = std::exchange(cycs[{a, b}], i);
+						if (j != -1) {
+							// we have a 4-cycle in the complement
+							for (int k = 0; k < N; k++) {
+								if (A[{i, k}]) B[{i, k}] = B[{k, i}] = 2;
+								if (A[{j, k}]) B[{j, k}] = B[{k, j}] = 2;
+							}
+							return true;
+						}
+					}
+				}
+			}
+			// otherwise, there's no 4-cycle, we need to find 2 vertices with disjoint neighbor sets
+			// these 2 vertices have at most 1 common non-neighbor, so their hashes really should be complements
+			std::mt19937_64 mt(48);
+			std::vector<uint64_t> val(N);
+			for (auto& v : val) v = mt();
+
+			uint64_t tot_val = 0;
+			for (auto v : val) tot_val ^= v;
+
+			std::vector<uint64_t> neighbors(N);
+			for (int i = 0; i < N; i++) {
+				uint64_t v = 0;
+				for (int j = 0; j < N; j++) {
+					if (A[{i, j}] || j == i) v |= val[j];
+				}
+				neighbors[i] = v;
+			}
+
+			for (int i = 0; i < N; i++) {
+				for (int j = i+1; j < N; j++) {
+					if (A[{i, j}] == -1 && cycs[{i, j}] != -1) {
+						uint64_t a = neighbors[i] ^ neighbors[j] ^ val[cycs[{i, j}]];
+						if (a == tot_val) {
+							for (int k = 0; k < N; k++) {
+								if (A[{i, k}]) B[{i, k}] = B[{k, i}] = 2;
+								if (A[{j, k}]) B[{j, k}] = B[{k, j}] = 2;
+							}
+							return true;
+						}
+					}
+				}
+			}
+
 			return false;
 		} else assert(false);
 	}();
@@ -207,4 +268,9 @@ int main() {
 }
 
 // if K == 1, find any non-edge, and connect those two monochromatically
-// we want to split each guy into 3 pieces
+// if K == 2, we want to find 3 subsets
+// if we pick 2 disconnected vertices, then we want their neighbor set not to be the whole graph
+// maybe look at the complement? we want to find something very dense in the complement
+//
+// If the graph is disconnected, then we just need any missing edge in 1 component, and we do K = 1
+// If the graph is connected, then
