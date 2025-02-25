@@ -253,7 +253,7 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				uint64_t v = 0;
 				for (int j = 0; j < N; j++) {
-					if (A[{i, j}] || j == i) v |= val[j];
+					if (A[{i, j}] || j == i) v ^= val[j];
 				}
 				neighbors[i] = v;
 			}
