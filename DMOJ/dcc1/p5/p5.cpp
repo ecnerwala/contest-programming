@@ -263,6 +263,7 @@ int main() {
 					if (!A[{i, j}] && cycs[{i, j}] != -1) {
 						uint64_t a = neighbors[i] ^ neighbors[j] ^ val[cycs[{i, j}]];
 						if (a == tot_val) {
+							cerr << "found 2 verts" << '\n';
 							for (int k = 0; k < N; k++) {
 								if (A[{i, k}]) B[{i, k}] = B[{k, i}] = 2;
 								if (A[{j, k}]) B[{j, k}] = B[{k, j}] = 2;
