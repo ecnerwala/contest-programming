@@ -260,7 +260,7 @@ int main() {
 
 			for (int i = 0; i < N; i++) {
 				for (int j = i+1; j < N; j++) {
-					if (!A[{i, j}] && cycs[{i, j}] != -1) {
+					if (cycs[{i, j}] != -1) {
 						uint64_t a = neighbors[i] ^ neighbors[j] ^ val[cycs[{i, j}]];
 						if (a == tot_val) {
 							for (int k = 0; k < N; k++) {
@@ -294,7 +294,7 @@ int main() {
 					uf1.merge(i, j);
 				} else if (B[{i, j}] == 2) {
 					uf2.merge(i, j);
-				}
+				} else assert((B[{i, j}] == 0));
 			}
 		}
 		assert(uf1.cnt_roots() > K);
@@ -313,3 +313,5 @@ int main() {
 //
 // If the graph is disconnected, then we just need any missing edge in 1 component, and we do K = 1
 // If the graph is connected, then
+
+// At this point, every two vertices covers everything except possibly 1 vertex
