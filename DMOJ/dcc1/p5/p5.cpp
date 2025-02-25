@@ -261,7 +261,7 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				for (int j = i+1; j < N; j++) {
 					if (cycs[{i, j}] != -1) {
-						cerr << "checking " << i << ' ' << j << ' ' << '\n';
+						cerr << "checking " << i << ' ' << j << ' ' << ' ' << cycs[{i, j}] << '\n';
 						uint64_t a = neighbors[i] ^ neighbors[j] ^ val[cycs[{i, j}]];
 						if (a == tot_val) {
 							for (int k = 0; k < N; k++) {
