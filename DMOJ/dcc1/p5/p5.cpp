@@ -156,6 +156,31 @@ public:
 	}
 };
 
+struct union_find {
+	std::vector<int> par;
+	union_find(int N) : par(N, -1) {}
+	int get_par(int a) {
+		while (par[a] >= 0) {
+			if (par[par[a]] >= 0) par[a] = par[par[a]];
+			a = par[a];
+		}
+		return a;
+	}
+	bool merge(int a, int b) {
+		a = get_par(a), b = get_par(b);
+		if (a == b) return false;
+		if (par[a] > par[b]) std::swap(a, b);
+		par[a] += par[b];
+		par[b] = a;
+		return true;
+	}
+	int cnt_roots() {
+		int res = 0;
+		for (auto v : par) res += (v < 0);
+		return res;
+	}
+};
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -235,7 +260,7 @@ int main() {
 
 			for (int i = 0; i < N; i++) {
 				for (int j = i+1; j < N; j++) {
-					if (A[{i, j}] == -1 && cycs[{i, j}] != -1) {
+					if (!A[{i, j}] && cycs[{i, j}] != -1) {
 						uint64_t a = neighbors[i] ^ neighbors[j] ^ val[cycs[{i, j}]];
 						if (a == tot_val) {
 							for (int k = 0; k < N; k++) {
@@ -260,6 +285,20 @@ int main() {
 			}
 			cout << '\n';
 		}
+		union_find uf1(N), uf2(N);
+		for (int i = 0; i < N; i++) {
+			assert((B[{i, i}] == 0));
+			for (int j = 0; j < N; j++) {
+				assert((B[{i, j}] == B[{j, i}]));
+				if (B[{i, j}] == 1) {
+					uf1.merge(i, j);
+				} else if (B[{i, j}] == 2) {
+					uf2.merge(i, j);
+				}
+			}
+		}
+		assert(uf1.cnt_roots() > K);
+		assert(uf2.cnt_roots() > K);
 	} else {
 		cout << "IMPOSSIBLE" << '\n';
 	}
