@@ -13,7 +13,7 @@ int main() {
 		std::vector<int64_t> dp; dp.reserve(N);
 		int64_t cur_extra = 0;
 		int cnt_extra = 0;
-		for (auto a : A) {
+		for (int64_t a : A) {
 			if (a == -1) {
 				cnt_extra++;
 				cur_extra += G;
