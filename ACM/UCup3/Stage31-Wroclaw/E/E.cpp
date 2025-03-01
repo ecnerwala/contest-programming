@@ -177,6 +177,7 @@ int main() {
 	auto res = parse(S);
 	auto my_res = build(res);
 	if (my_res) {
+		cerr << *my_res << '\n';
 		cout << "YES" << '\n';
 		cout << *my_res << '\n';
 		assert(parse(*my_res) == res);
