@@ -166,7 +166,7 @@ std::optional<std::string> build(std::pair<bs, int> inp) {
 		res += "))";
 	})(full_msk, 0, __builtin_ctz(full_msk), false);
 
-	return std::nullopt;
+	return res;
 }
 
 int main() {
