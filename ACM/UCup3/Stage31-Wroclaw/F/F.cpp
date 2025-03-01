@@ -377,6 +377,7 @@ int main() {
 			assert(cur.h != -1);
 		});
 		assert(cur.h != -1);
+		cerr << cur.inner_cnt << '\n';
 		ans += cur.inner_cnt;
 		ans += cur.edge[0] && get_pt(op.bounds[0]-1) >= cur.h;
 		ans += cur.edge[1] && get_pt(op.bounds[1]) >= cur.h;
