@@ -136,9 +136,9 @@ std::optional<std::string> build(std::pair<bs, int> inp) {
 
 	std::string res;
 
-	std::y_combinator([&](auto self, int unused, int cur_msk, int cur_neg, bool flip) -> void {
+	std::y_combinator([&](auto self, int unused, int cur_msk, int cur_neg) -> void {
 		if (!unused) {
-			bool cur_val = v[cur_msk] ^ flip;
+			bool cur_val = v[cur_msk];
 			if (cur_val) {
 				// return true
 				res += "(";
@@ -156,15 +156,15 @@ std::optional<std::string> build(std::pair<bs, int> inp) {
 		int b = __builtin_ctz(unused);
 		unused -= (1 << b);
 		res += "((";
-		self(unused, cur_msk + (0 << b), b, !flip);
+		self(unused, cur_msk + (0 << b), b);
 		res += " <= ";
 		res += char('a' + b);
 		res += ") <= (min ";
 		res += char('a' + b);
 		res += " ";
-		self(unused, cur_msk + (1 << b), cur_neg, flip);
+		self(unused, cur_msk + (1 << b), cur_neg);
 		res += "))";
-	})(full_msk, 0, __builtin_ctz(full_msk), false);
+	})(full_msk, 0, __builtin_ctz(full_msk));
 
 	return res;
 }
