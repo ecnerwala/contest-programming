@@ -297,6 +297,7 @@ int main() {
 	struct op_t {
 		std::array<int, 2> bounds;
 		int h;
+		int64_t oh;
 	};
 	std::vector<op_t> ops(N_OPS);
 	for (auto& op : ops) {
@@ -305,89 +306,99 @@ int main() {
 		assert(op.bounds[1] < V);
 	}
 
-	struct range_t {
-		int64_t h = 0;
-		int inner_cnt = 0;
-		std::array<bool, 2> edge{false, false};
-	};
+	for (int z = 0; z < 2; z++) {
+		struct range_t {
+			int64_t h = 0;
+			int inner_cnt = 0;
+			std::array<bool, 2> edge{false, false};
+		};
 
-	auto concat = [&](std::array<range_t, 2> c) -> range_t {
-		if (c[0].h == c[1].h) {
-			return range_t{
-				c[0].h, c[1].inner_cnt + c[1].inner_cnt + (c[0].edge[1] || c[1].edge[0]), {c[0].edge[0], c[1].edge[1]}
-			};
-		} else {
-			int d = c[1].h > c[0].h;
-			range_t r;
-			r.h = c[d].h;
-			r.inner_cnt = c[d].inner_cnt;
-			r.edge[d] = c[d].edge[d];
-			r.edge[!d] = true;
-			return r;
-		}
-	};
-
-	struct seg_t {
-		range_t r;
-		int64_t lazy = 0;
-	};
-
-	seg_tree::in_order_layout layout(V);
-	std::vector<seg_t> seg(layout.N * 2);
-
-	auto update_node = [&](seg_tree::point a) -> void {
-		assert(a < layout.N);
-		assert(!seg[a].lazy);
-		seg[a].r = concat({seg[a.c(0)].r, seg[a.c(1)].r});
-	};
-	auto apply_lazy = [&](seg_tree::point a, int64_t v) -> void {
-		assert(v);
-		seg[a].r = {v, 0, {false, false}};
-		seg[a].lazy = v;
-	};
-	auto downdate_node = [&](seg_tree::point a) -> void {
-		assert(a < layout.N);
-		if (seg[a].lazy) {
-			apply_lazy(a.c(0), seg[a].lazy);
-			apply_lazy(a.c(1), seg[a].lazy);
-			seg[a].lazy = 0;
-		}
-	};
-
-	auto get_pt = [&](int c) -> int64_t {
-		auto p = layout.get_point(c);
-		int64_t r = seg[p].r.h;
-		p.for_parents_up([&](seg_tree::point a) -> void {
-			if (seg[a].lazy) r = seg[a].lazy;
-		});
-		return r;
-	};
-
-	int64_t ans = 0;
-	for (auto op : ops) {
-		auto rng = layout.get_range(op.bounds);
-		rng.for_parents_down(downdate_node);
-		range_t cur{-1, 0, {false, false}};
-		rng.for_each_l_to_r([&](seg_tree::point a) -> void {
-			if (cur.h == -1) {
-				cur = seg[a].r;
+		auto concat = [&](std::array<range_t, 2> c) -> range_t {
+			if (c[0].h == c[1].h) {
+				return range_t{
+					c[0].h, c[1].inner_cnt + c[1].inner_cnt + (c[0].edge[1] || c[1].edge[0]), {c[0].edge[0], c[1].edge[1]}
+				};
 			} else {
-				cur = concat({cur, seg[a].r});
+				int d = c[1].h > c[0].h;
+				range_t r;
+				r.h = c[d].h;
+				r.inner_cnt = c[d].inner_cnt;
+				r.edge[d] = c[d].edge[d];
+				r.edge[!d] = true;
+				return r;
 			}
+		};
+
+		struct seg_t {
+			range_t r;
+			int64_t lazy = 0;
+		};
+
+		seg_tree::in_order_layout layout(V);
+		std::vector<seg_t> seg(layout.N * 2);
+
+		auto update_node = [&](seg_tree::point a) -> void {
+			assert(a < layout.N);
+			assert(!seg[a].lazy);
+			seg[a].r = concat({seg[a.c(0)].r, seg[a.c(1)].r});
+		};
+		auto apply_lazy = [&](seg_tree::point a, int64_t v) -> void {
+			assert(v);
+			seg[a].r = {v, 0, {false, false}};
+			seg[a].lazy = v;
+		};
+		auto downdate_node = [&](seg_tree::point a) -> void {
+			assert(a < layout.N);
+			if (seg[a].lazy) {
+				apply_lazy(a.c(0), seg[a].lazy);
+				apply_lazy(a.c(1), seg[a].lazy);
+				seg[a].lazy = 0;
+			}
+		};
+
+		auto get_pt = [&](int c) -> int64_t {
+			auto p = layout.get_point(c);
+			int64_t r = seg[p].r.h;
+			p.for_parents_up([&](seg_tree::point a) -> void {
+				if (seg[a].lazy) r = seg[a].lazy;
+			});
+			return r;
+		};
+
+		int64_t ans = 0;
+		for (auto& op : ops) {
+			auto rng = layout.get_range(op.bounds);
+			rng.for_parents_down(downdate_node);
+			range_t cur{-1, 0, {false, false}};
+			rng.for_each_l_to_r([&](seg_tree::point a) -> void {
+				if (cur.h == -1) {
+					cur = seg[a].r;
+				} else {
+					cur = concat({cur, seg[a].r});
+				}
+				assert(cur.h != -1);
+			});
 			assert(cur.h != -1);
-		});
-		assert(cur.h != -1);
-		cerr << cur.inner_cnt << '\n';
-		ans += cur.inner_cnt;
-		ans += cur.edge[0] && get_pt(op.bounds[0]-1) >= cur.h;
-		ans += cur.edge[1] && get_pt(op.bounds[1]) >= cur.h;
-		int64_t nh = cur.h + op.h;
-		rng.for_each([&](seg_tree::point a) -> void {
-			apply_lazy(a, nh);
-		});
-		rng.for_parents_up(update_node);
+			ans += cur.inner_cnt;
+			ans += cur.edge[0] && get_pt(op.bounds[0]-1) >= cur.h;
+			ans += cur.edge[1] && get_pt(op.bounds[1]) >= cur.h;
+			if (z == 1) {
+				assert(op.oh == cur.h);
+			} else {
+				op.oh = cur.h;
+			}
+			int64_t nh = cur.h + op.h;
+			rng.for_each([&](seg_tree::point a) -> void {
+				apply_lazy(a, nh);
+			});
+			rng.for_parents_up(update_node);
+		}
+		if (z == 0) {
+			std::sort(ops.begin(), ops.end(), [&](auto a, auto b) -> bool { return a.oh < b.oh; });
+		} else if (z == 1) {
+			cout << ans << '\n';
+		}
 	}
-	cout << ans << '\n';
 
 	return 0;
 }
