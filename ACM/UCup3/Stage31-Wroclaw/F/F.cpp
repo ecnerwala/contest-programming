@@ -316,7 +316,7 @@ int main() {
 		auto concat = [&](std::array<range_t, 2> c) -> range_t {
 			if (c[0].h == c[1].h) {
 				return range_t{
-					c[0].h, c[1].inner_cnt + c[1].inner_cnt + (c[0].edge[1] || c[1].edge[0]), {c[0].edge[0], c[1].edge[1]}
+					c[0].h, c[0].inner_cnt + c[1].inner_cnt + (c[0].edge[1] || c[1].edge[0]), {c[0].edge[0], c[1].edge[1]}
 				};
 			} else {
 				int d = c[1].h > c[0].h;
