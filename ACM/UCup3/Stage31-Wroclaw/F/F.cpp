@@ -333,7 +333,7 @@ int main() {
 	};
 
 	seg_tree::in_order_layout layout(V);
-	std::vector<seg_t> seg(V);
+	std::vector<seg_t> seg(layout.N * 2);
 
 	auto update_node = [&](seg_tree::point a) -> void {
 		assert(a < layout.N);
