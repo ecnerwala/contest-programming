@@ -15,7 +15,7 @@ int main() {
 			std::string S; cin >> S;
 			for (int j = 0; j < W; j++) {
 				assert(S[j] == '0' || S[j] == '1');
-				is_black[i*W+j] = S[j] == '1';
+				is_black[i*W+j] = S[j] == '0';
 			}
 		}
 		std::vector<int> nxt(V);
