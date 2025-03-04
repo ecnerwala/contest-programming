@@ -56,6 +56,7 @@ int main() {
 				if (tgt == 0) return;
 				int cv = ci * M + cj;
 				if (!alive[cv]) return;
+				tgt--;
 				alive[cv] = false;
 				ans[cv] = h;
 				self(ci - 1, cj);
