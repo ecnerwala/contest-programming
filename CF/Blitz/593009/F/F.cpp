@@ -48,7 +48,6 @@ int main() {
 		if (j+1 < M && alive[v+1]) merge(v+1, v);
 
 		int sz = -par[get_par(v)];
-		cerr << i << ',' << j << ' ' << v << ' ' << sz << ' ' << h << '\n';
 		if (K % h == 0 && sz >= K / h) {
 			good = true;
 			int64_t tgt = K / h;
@@ -64,6 +63,7 @@ int main() {
 				self(ci, cj - 1);
 				self(ci, cj + 1);
 			}(i, j);
+			assert(tgt == 0);
 			break;
 		}
 	}
