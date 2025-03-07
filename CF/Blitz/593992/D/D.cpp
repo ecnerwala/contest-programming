@@ -14,7 +14,7 @@ int main() {
 	std::vector<std::array<int, 3>> W(2*N);
 	for (auto& [x, y, z] : W) cin >> x >> y >> z;
 	const int64_t MOD = 998244353;
-	int64_t ways = 3;
+	int64_t ways = 1;
 	for (auto& w : W) {
 		std::sort(w.begin(), w.end());
 		if (w[0] == w[2]) {
@@ -24,6 +24,7 @@ int main() {
 		} else {
 			ways *= 1;
 		}
+		ways %= MOD;
 	}
 	int64_t numer = 1;
 	for (int i = 1; i <= 2 * N; i++) {
