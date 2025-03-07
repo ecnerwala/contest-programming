@@ -36,7 +36,7 @@ int main() {
 		}
 		for (int msk = (1 << 20) - 1; msk >= 0; msk--) {
 			for (int v = 1; v <= 20; v++) {
-				ndp[msk | 1 << (v-1)][0] += ndp[msk][v];
+				ndp[msk | (1 << (v-1))][0] += ndp[msk][v];
 			}
 		}
 		std::swap(dp, ndp);
