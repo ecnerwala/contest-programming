@@ -15,8 +15,10 @@ int main() {
 	int64_t ans = 0;
 	for (int64_t s = 0; s <= RY + RZ; s++) {
 		int64_t cnt_s = std::min<int64_t>({int64_t(1), RY, RZ, RY + RZ + 1 - s});
+		cerr << s << ' ' << cnt_s << ' ' << std::max(B - std::max({A, s + 1}) + 1, int64_t(0)) << '\n';
 		// x > RY + RZ
 		// x >= A
+		// x <= B
 		ans += int64_t(cnt_s) * std::max(B - std::max({A, s + 1}) + 1, int64_t(0));
 	}
 	cout << ans << '\n';
