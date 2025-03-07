@@ -27,10 +27,9 @@ int main() {
 			if (i < idx_max+1) opt = std::max(opt, do_op(i, idx_max+1));
 			if (idx_max < i) opt = std::max(opt, do_op(idx_max, i));
 			if (idx_max+1 < i) opt = std::max(opt, do_op(idx_max+1, i));
-		}
-		for (int i = idx_max + 1; i <= N; i++) {
-			auto cnd = do_op(idx_max, i);
-			opt = std::max(opt, cnd);
+			if (i+1 <= N) {
+			opt = std::max(opt, do_op(i, i+1));
+			}
 		}
 		for (int i = 0; i < N; i++) {
 			cout << opt[i]+1 << " \n"[i+1==N];
