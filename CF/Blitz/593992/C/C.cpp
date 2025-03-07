@@ -27,7 +27,7 @@ int main() {
 			opt = std::max(opt, cnd);
 		}
 		for (int i = 0; i < N; i++) {
-			cout << opt[i] << " \n"[i+1==N];
+			cout << opt[i]+1 << " \n"[i+1==N];
 		}
 	}
 
