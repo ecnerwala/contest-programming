@@ -28,12 +28,10 @@ int main() {
 		dp[0][0] += modint{1};
 		int d = c - '0';
 		assert(d == 0 || d == 1);
-		for (int msk = 0; msk < (1 << M); msk++) {
+		for (int msk = (1 << M) - 1; msk >= 0; msk--) {
 			for (int v = M; v >= 0; v--) {
 				dp[msk][v] = {dp[msk][v>>1].v * (1 ^ (v & 1) ^ d)};
 			}
-		}
-		for (int msk = (1 << M) - 1; msk >= 0; msk--) {
 			for (int v = 1; v <= M; v++) {
 				int a = msk | (1 << (v-1));
 				if ((a & (a+1)) == 0) ans += dp[msk][v];
