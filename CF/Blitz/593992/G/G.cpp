@@ -20,7 +20,6 @@ int main() {
 	const int M = 20;
 	// maximum value is 20 or so, definitely nothing of length >= 4
 	std::vector<std::array<modint, M+1>> dp(1 << M);
-	std::vector<std::array<modint, M+1>> ndp(1 << M);
 	for (int msk = 0; msk < (1 << M); msk++) {
 		for (int v = 0; v <= M; v++) dp[msk][v] = {0};
 	}
@@ -30,18 +29,16 @@ int main() {
 		int d = c - '0';
 		assert(d == 0 || d == 1);
 		for (int msk = 0; msk < (1 << M); msk++) {
-			for (int v = 0; v <= M; v++) {
-				ndp[msk][v] = {dp[msk][v>>1].v * (1 ^ (v & 1) ^ d)};
+			for (int v = M; v >= 0; v--) {
+				dp[msk][v] = {dp[msk][v>>1].v * (1 ^ (v & 1) ^ d)};
 			}
 		}
 		for (int msk = (1 << M) - 1; msk >= 0; msk--) {
 			for (int v = 1; v <= M; v++) {
-				ndp[msk | (1 << (v-1))][0] += ndp[msk][v];
+				int a = msk | (1 << (v-1));
+				if ((a & (a+1)) == 0) ans += dp[msk][v];
+				dp[msk | (1 << (v-1))][0] += dp[msk][v];
 			}
-		}
-		std::swap(dp, ndp);
-		for (int m = 1; m <= M; m++) {
-			ans += dp[(1 << m) - 1][0];
 		}
 	}
 
