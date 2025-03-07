@@ -37,9 +37,10 @@ int main() {
 	}
 	denom *= denom;
 	denom %= MOD;
+	numer *= mod_inv(denom, MOD);
+	numer %= MOD;
+	cerr << ways << ' ' << numer << '\n';
 	ways *= numer;
-	ways %= MOD;
-	ways *= mod_inv(denom, MOD);
 	ways %= MOD;
 	cout << ways << '\n';
 
