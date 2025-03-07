@@ -18,7 +18,7 @@ int main() {
 		}
 		for (int i = 0; i < N; i++) {
 			int j = i;
-			while (j >= 0 && i-j < M-cur && S[j] == T[cur+(j-i)]) j--;
+			while (j >= 0 && i-j < M-cur && S[j] == T[cur+(i-j)]) j--;
 			max_match = std::max(max_match, std::pair<int, std::array<int, 2>>(i-j, {i, j+1}));
 		}
 		if (max_match.first == 0) {
