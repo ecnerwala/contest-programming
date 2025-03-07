@@ -28,11 +28,9 @@ int main() {
 		int d = c - '0';
 		assert(d == 0 || d == 1);
 		for (int msk = 0; msk < (1 << 20); msk++) {
-			for (int v = 0; v < 10; v++) {
-				ndp[msk][2*v+d] = ndp[msk][v];
-				ndp[msk][2*v+!d] = {0};
+			for (int v = 0; v <= 20; v++) {
+				ndp[msk][v] = {dp[msk][v>>1].v * (1 ^ (v & 1) ^ d)};
 			}
-			ndp[msk][20] += {ndp[msk][10].v * d};
 		}
 		for (int msk = (1 << 20) - 1; msk >= 0; msk--) {
 			for (int v = 1; v <= 20; v++) {
