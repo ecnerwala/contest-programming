@@ -28,7 +28,7 @@ int main() {
 		int d = c - '0';
 		assert(d == 0 || d == 1);
 		for (int msk = 0; msk < (1 << 20); msk++) {
-			for (int v = 0; v <= 10; v++) {
+			for (int v = 0; v < 10; v++) {
 				ndp[msk][2*v+d] = ndp[msk][v];
 				ndp[msk][2*v+!d] = {0};
 			}
