@@ -22,6 +22,12 @@ int main() {
 
 		int idx_max = int(std::find(P.begin(), P.end(), N-1) - P.begin());
 		std::vector<int> opt = do_op(0, idx_max + 1);
+		for (int i = 0; i <= N; i++) {
+			if (i < idx_max) opt = std::max(opt, do_op(i, idx_max));
+			if (i < idx_max+1) opt = std::max(opt, do_op(i, idx_max+1));
+			if (idx_max < i) opt = std::max(opt, do_op(idx_max, i));
+			if (idx_max+1 < i) opt = std::max(opt, do_op(idx_max+1, i));
+		}
 		for (int i = idx_max + 1; i <= N; i++) {
 			auto cnd = do_op(idx_max, i);
 			opt = std::max(opt, cnd);
