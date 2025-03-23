@@ -176,6 +176,7 @@ int main() {
 					num c = num(k) / num(2 * i);
 					for (int j = 0; j < N; j++) r[j] += c * v[((j - (i-k)) % N + N) % N];
 				}
+				ndp[k] = r;
 			}
 			std::swap(dp, ndp);
 		}
