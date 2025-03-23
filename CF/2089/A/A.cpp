@@ -3,6 +3,7 @@
 std::vector<int> solve(int N) {
 	using std::cout;
 	using std::cerr;
+	cerr << "solve " <<  N << '\n';
 	std::vector<int> primes; primes.reserve(N);
 	std::vector<int> pfac(N+1);
 	for (int i = 2; i <= N; i++) {
@@ -30,6 +31,7 @@ std::vector<int> solve(int N) {
 	for (int i = 2 * p - N - 1; i >= 1; i--) {
 		res.push_back(i);
 	}
+	assert(int(res.size()) == N);
 	int64_t s = 0;
 	int cnt = 0;
 	for (int i = 1; i <= N; i++) {
