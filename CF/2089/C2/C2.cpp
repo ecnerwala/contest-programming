@@ -151,13 +151,24 @@ int main() {
 				// we either pick a lock or pick a key, uniformly at random
 				// if we pick a lock,
 				std::vector<num> r(N, num(0));
+				num p_lock = (i - 1);
+				num p_key = (i - k - 1);
+				if (i == 1 || k == i) {
+					p_lock = 1;
+					p_key = 0;
+				} else {
+					num d = p_lock * p_key;
+					p_lock /= d;
+					p_key /= d;
+				}
+
 				if (k < i) {
 					// pick a lock
 					auto v = dp[k];
 					std::rotate(v.begin(), v.end() - 1, v.end());
 					v[0] += 1;
 					v = prefix_sum(v, i);
-					num c = inv(num(2 * i));
+					num c = inv(num(i)) * p_lock;
 					for (int j = 0; j < N; j++) r[j] += c * v[j];
 				}
 				if (k < i) {
@@ -166,19 +177,17 @@ int main() {
 					std::rotate(v.begin(), v.end() - 1, v.end());
 					v[0] += 1;
 					v = prefix_sum(v, i-k);
-					num c = inv(num(2 * i));
+					num c = inv(num(i)) * p_key;
 					for (int j = 0; j < N; j++) r[j] += c * v[j];
 				}
 				if (k > 0) {
 					// pick a fake key
 					auto v = dp[k-1];
-					num c = num(k) / num(2 * i);
+					num c = num(k) * inv(num(i)) * p_key;
 					int offset = (i-k) % N;
 					for (int j = 0; j < N; j++) r[j] += c * v[(j + N - offset) % N];
 				}
 				dp[k] = r;
-				cerr << i-k << ' ' << std::accumulate(r.begin(), r.end(), num(0)) << '\n';
-				assert((i-k == std::accumulate(r.begin(), r.end(), num(0))));
 			}
 		}
 		for (int i = 0; i < N; i++) {
