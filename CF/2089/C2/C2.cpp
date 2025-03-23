@@ -132,30 +132,54 @@ int main() {
 
 		using num = modnum<int(1e9)+7>;
 		std::vector<num> pref(N+1);
-		auto prefix_sum = [&](std::vector<num> dp, int i) -> std::vector<num> {
+		auto prefix_sum = [&](std::vector<num> ways, int i) -> std::vector<num> {
 			pref[0] = 0;
-			for (int j = 0; j < N; j++) pref[j+1] = pref[j] + dp[j];
+			for (int j = 0; j < N; j++) pref[j+1] = pref[j] + ways[j];
 			auto get_pref = [&](int a) -> num {
 				int cnt = (N-a) / N;
 				return pref[a + N * cnt] - pref[N] * cnt;
 			};
 			for (int j = 0; j < N; j++) {
-				dp[j] = pref[j+1] - get_pref(j+1-i);
+				ways[j] = pref[j+1] - get_pref(j+1-i);
 			}
-			return dp;
+			return ways;
 		};
-		std::vector<num> dp(N);
-		for (int i = 1; i <= L; i++) {
-			std::rotate(dp.begin(), dp.end() - 1, dp.end());
-			// open the correct lock
-			dp[0] += 1;
-			// dp[j] = sum(dp[j-L+1]..dp[j])
-			dp = prefix_sum(dp, i);
-			num c = inv(num(i));
-			for (auto& v : dp) v *= c;
+		std::vector<std::vector<num>> dp(K+1, std::vector<num>(N));
+		std::vector<std::vector<num>> ndp(K+1);
+		for (int i = 1; i <= L+K; i++) {
+			for (int k = 0; k <= K && k <= i; k++) {
+				// we either pick a lock or pick a key, uniformly at random
+				// if we pick a lock,
+				std::vector<num> r(N, num(0));
+				{
+					// pick a lock
+					auto v = dp[k];
+					std::rotate(v.begin(), v.end() - 1, v.end());
+					v[0] += 1;
+					v = prefix_sum(v, i);
+					num c = inv(num(2));
+					for (int j = 0; j < N; j++) r[j] += c * v[j];
+				}
+				{
+					// pick a real key
+					auto v = dp[k];
+					std::rotate(v.begin(), v.end() - 1, v.end());
+					v[0] += 1;
+					v = prefix_sum(v, i-k);
+					num c = inv(num(2 * i));
+					for (int j = 0; j < N; j++) r[j] += c * v[j];
+				}
+				{
+					// pick a fake key
+					auto v = dp[k-1];
+					num c = num(k) / num(2 * i);
+					for (int j = 0; j < N; j++) r[j] += c * v[((j - (i-k)) % N + N) % N];
+				}
+			}
+			std::swap(dp, ndp);
 		}
 		for (int i = 0; i < N; i++) {
-			cout << dp[i] << " \n"[i+1==N];
+			cout << dp[K][i] << " \n"[i+1==N];
 		}
 	}
 
