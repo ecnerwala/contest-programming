@@ -37,7 +37,7 @@ std::vector<int> solve(int N) {
 	int cnt = 0;
 	for (int i = 1; i <= N; i++) {
 		s += res[i-1];
-		int a = int(s + (i-1) / i);
+		int a = int((s + i-1) / i);
 		if (pfac[a] == a) {
 			cnt++;
 		}
