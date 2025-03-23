@@ -141,7 +141,6 @@ int main() {
 			for (int j = 0; j < N; j++) pref[j+1] = pref[j] + dp[j];
 			auto get_pref = [&](int a) -> num {
 				int cnt = (N-a) / N;
-				a += N * cnt;
 				return pref[a + N * cnt] - pref[N] * cnt;
 			};
 			for (int j = 0; j < N; j++) {
