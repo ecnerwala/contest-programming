@@ -146,9 +146,8 @@ int main() {
 		};
 		std::vector<std::vector<num>> dp(K+1);
 		dp[0] = std::vector<num>(N, num(0));
-		std::vector<std::vector<num>> ndp(K+1);
 		for (int i = 1; i <= L+K; i++) {
-			for (int k = 0; k <= K && k <= i; k++) {
+			for (int k = std::min(K, i); k >= 0; k--) {
 				// we either pick a lock or pick a key, uniformly at random
 				// if we pick a lock,
 				std::vector<num> r(N, num(0));
@@ -177,9 +176,8 @@ int main() {
 					int offset = (i-k) % N;
 					for (int j = 0; j < N; j++) r[j] += c * v[(j + N - offset) % N];
 				}
-				ndp[k] = r;
+				dp[k] = r;
 			}
-			std::swap(dp, ndp);
 		}
 		for (int i = 0; i < N; i++) {
 			cout << dp[K][i] << " \n"[i+1==N];
