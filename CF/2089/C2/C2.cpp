@@ -160,7 +160,7 @@ int main() {
 					num c = inv(num(2));
 					for (int j = 0; j < N; j++) r[j] += c * v[j];
 				}
-				{
+				if (k < i) {
 					// pick a real key
 					auto v = dp[k];
 					std::rotate(v.begin(), v.end() - 1, v.end());
@@ -169,7 +169,7 @@ int main() {
 					num c = inv(num(2 * i));
 					for (int j = 0; j < N; j++) r[j] += c * v[j];
 				}
-				{
+				if (k > 0) {
 					// pick a fake key
 					auto v = dp[k-1];
 					num c = num(k) / num(2 * i);
