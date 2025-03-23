@@ -51,7 +51,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int N = 2; N <= 100; N++) {
+	for (int N = 2; N <= 1000; N++) {
 		solve(N);
 	}
 
