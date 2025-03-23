@@ -174,7 +174,7 @@ int main() {
 					// pick a fake key
 					auto v = dp[k-1];
 					num c = num(k) / num(2 * i);
-					int offset = (i-k + 1) % N;
+					int offset = (i-k - 1) % N;
 					for (int j = 0; j < N; j++) r[j] += c * v[(j + N - offset) % N];
 				}
 				ndp[k] = r;
