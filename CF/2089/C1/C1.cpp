@@ -145,6 +145,7 @@ int main() {
 			};
 			for (int j = 0; j < N; j++) {
 				dp[j] = pref[j+1] - get_pref(j+1-i);
+				dp[j] /= num(i);
 			}
 		}
 		for (int i = 0; i < N; i++) {
