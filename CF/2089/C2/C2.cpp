@@ -144,7 +144,8 @@ int main() {
 			}
 			return ways;
 		};
-		std::vector<std::vector<num>> dp(K+1, std::vector<num>(N));
+		std::vector<std::vector<num>> dp(K+1);
+		dp[0] = std::vector<num>(N, num(0));
 		std::vector<std::vector<num>> ndp(K+1);
 		for (int i = 1; i <= L+K; i++) {
 			for (int k = 0; k <= K && k <= i; k++) {
