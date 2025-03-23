@@ -139,8 +139,13 @@ int main() {
 			// dp[j] = sum(dp[j-L+1]..dp[j])
 			std::vector<num> pref(N+1);
 			for (int j = 0; j < N; j++) pref[j+1] = pref[j] + dp[j];
+			auto get_pref = [&](int a) -> num {
+				int cnt = (N-a) / N;
+				a += N * cnt;
+				return pref[a + N * cnt] - pref[N] * cnt;
+			};
 			for (int j = 0; j < N; j++) {
-				dp[j] = pref[j+1] - (j+1-i >= 0 ? pref[j + 1 - i] : (pref[j+1-i + N] - pref[N]));
+				dp[j] = pref[j+1] - get_pref(j+1-i);
 			}
 		}
 		for (int i = 0; i < N; i++) {
