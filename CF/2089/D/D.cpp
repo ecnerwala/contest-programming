@@ -14,17 +14,13 @@ std::optional<std::string> solve(std::string S) {
 	if (N >= 5 && S.back() == '1' && S[0] == '1' && S[1] == '0') {
 		str << "(" << S[0] << "?" << S[1] << ":" << S[2] << ")";
 		str << "?";
-		str << "(";
 		print_expr(3, N-1);
-		str << ")";
 		str << ':' << S[N-1];
 		return str.str();
 	} else if (S.back() == '1' && S[0] == '0') {
 		str << S[0];
 		str << '?';
-		str << '(';
 		print_expr(1, N-1);
-		str << ')';
 		str << ':';
 		str << S[N-1];
 		return str.str();
@@ -40,9 +36,7 @@ std::optional<std::string> solve(std::string S) {
 			assert(S[0] == '0');
 			str << S[0];
 			str << '?';
-			str << '(';
 			print_expr(1, i);
-			str << ')';
 			str << ':';
 		}
 		str << S[i];
@@ -52,9 +46,7 @@ std::optional<std::string> solve(std::string S) {
 			assert(S[i+1] == '0');
 			str << S[i+1];
 			str << '?';
-			str << '(';
 			print_expr(i+2, j);
-			str << ')';
 			str << ':';
 			str << S[j];
 			str << ')';
