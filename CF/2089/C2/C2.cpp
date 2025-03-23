@@ -177,7 +177,8 @@ int main() {
 					for (int j = 0; j < N; j++) r[j] += c * v[(j + N - offset) % N];
 				}
 				dp[k] = r;
-				cerr << i << ' ' << k << ' ' << std::accumulate(r.begin(), r.end(), num(0)) << '\n';
+				cerr << i-k << ' ' << std::accumulate(r.begin(), r.end(), num(0)) << '\n';
+				assert((i-k == std::accumulate(r.begin(), r.end(), num(0))));
 			}
 		}
 		for (int i = 0; i < N; i++) {
