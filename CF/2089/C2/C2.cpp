@@ -152,7 +152,7 @@ int main() {
 				// we either pick a lock or pick a key, uniformly at random
 				// if we pick a lock,
 				std::vector<num> r(N, num(0));
-				{
+				if (k < i) {
 					// pick a lock
 					auto v = dp[k];
 					std::rotate(v.begin(), v.end() - 1, v.end());
