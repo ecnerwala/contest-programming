@@ -18,7 +18,7 @@ std::vector<int> solve(int N) {
 		}
 	}
 
-	int p = (N+1)/2;
+	int p = N/2 + 1;
 	while (pfac[p] != p) p++;
 	assert(p <= N);
 
