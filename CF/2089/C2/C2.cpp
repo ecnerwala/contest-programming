@@ -157,7 +157,7 @@ int main() {
 					p_lock = 1;
 					p_key = 0;
 				} else {
-					num d = p_lock * p_key;
+					num d = p_lock + p_key;
 					p_lock /= d;
 					p_key /= d;
 				}
