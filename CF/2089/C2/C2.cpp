@@ -158,7 +158,7 @@ int main() {
 					std::rotate(v.begin(), v.end() - 1, v.end());
 					v[0] += 1;
 					v = prefix_sum(v, i);
-					num c = inv(num(2));
+					num c = inv(num(2 * i));
 					for (int j = 0; j < N; j++) r[j] += c * v[j];
 				}
 				if (k < i) {
