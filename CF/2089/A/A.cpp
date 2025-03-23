@@ -25,6 +25,7 @@ std::vector<int> solve(int N) {
 	std::vector<int> res; res.reserve(N);
 	res.push_back(p);
 	for (int i = p+1; i <= N; i++) {
+		assert(2 * p - i >= 1);
 		res.push_back(2 * p - i);
 		res.push_back(i);
 	}
