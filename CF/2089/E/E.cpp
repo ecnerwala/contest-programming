@@ -895,7 +895,7 @@ std::vector<num> solve(std::vector<int> par) {
 				for (int i = 0; i < int(dp[p].size()); i++) ndp[i+1] = dp[p][i] * num(i+1);
 				plus_eq(ndp, cur_ways);
 				plus_eq(cur_ways, dp[p]);
-				dp[p] = ndp;
+				dp[p] = std::move(ndp);
 			}
 		}
 		ans.push_back(dp[0][0]);
