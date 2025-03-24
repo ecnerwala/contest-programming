@@ -891,9 +891,8 @@ std::vector<num> solve(std::vector<int> par) {
 			for (int p = t, nc = t+1; p >= 0; nc = p, p = par[p]) {
 				// you can remove left children
 				if (p != t) cur_ways = remove(cur_ways, left_sibling_ways[nc]);
-				std::vector<num> ndp = dp[p];
-				ndp.insert(ndp.begin(), num(0));
-				for (int i = 1; i < int(ndp.size()); i++) ndp[i] *= num(i);
+				std::vector<num> ndp(std::max(cur_ways.size(), dp[p].size() + 1), num(0));
+				for (int i = 0; i < int(dp[p].size()); i++) ndp[i+1] = dp[p][i] * num(i+1);
 				plus_eq(ndp, cur_ways);
 				plus_eq(cur_ways, dp[p]);
 				dp[p] = ndp;
