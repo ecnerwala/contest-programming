@@ -849,6 +849,14 @@ std::vector<num> solve(std::vector<int> par) {
 			combine_eq(subtree_ways[par[i]], subtree_ways[i]);
 		}
 	}
+	std::vector<std::vector<num>> left_sibling_ways(N);
+	{
+		std::vector<std::vector<num>> tmp(N, std::vector<num>({num(1)}));
+		for (int i = 1; i < N; i++) {
+			left_sibling_ways[i] = tmp[par[i]];
+			combine_eq(tmp[par[i]], subtree_ways[i]);
+		}
+	}
 
 	std::vector<int> sz(N, 1);
 	for (int i = N-1; i > 0; i--) sz[par[i]] += sz[i];
@@ -869,9 +877,7 @@ std::vector<num> solve(std::vector<int> par) {
 			auto cur_ways = std::vector<num>({num(1)});
 
 			for (int p = t, nc = t+1; p != a; nc = p, p = par[p]) {
-				for (int c = p+1; c < nc; c += sz[c]) {
-					combine_eq(cur_ways, subtree_ways[c]);
-				}
+				if (p != t) combine_eq(cur_ways, left_sibling_ways[nc]);
 				plus_eq(dp[p], remove(dp[t+1], integ(cur_ways)));
 				or_integ_eq(cur_ways);
 			}
@@ -884,9 +890,7 @@ std::vector<num> solve(std::vector<int> par) {
 			std::vector<num> cur_ways;
 			for (int p = t, nc = t+1; p >= 0; nc = p, p = par[p]) {
 				// you can remove left children
-				for (int c = p+1; c < nc; c += sz[c]) {
-					cur_ways = remove(cur_ways, subtree_ways[c]);
-				}
+				if (p != t) cur_ways = remove(cur_ways, left_sibling_ways[nc]);
 				std::vector<num> ndp = dp[p];
 				ndp.insert(ndp.begin(), num(0));
 				for (int i = 1; i < int(ndp.size()); i++) ndp[i] *= num(i);
