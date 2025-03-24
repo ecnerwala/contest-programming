@@ -860,12 +860,13 @@ std::vector<num> solve(std::vector<int> par) {
 	for (int t = N-1; t > 0; t--) {
 		// first move the state from t+1 to t
 		{
+			plus_eq(dp[t], dp[t+1]);
+
 			int a = t+1 < N ? par[t+1] : 0;
 			assert(a <= t && t < a + sz[a]);
 			// dp[{t+1, k}] needs to get moved to dp[{something, k}] where something is in (a, t]
-			auto cur_ways = std::vector<num>({num(1)});
 
-			plus_eq(dp[t], remove(dp[t+1], cur_ways));
+			auto cur_ways = std::vector<num>({num(1)});
 
 			for (int p = t, nc = t+1; p != a; nc = p, p = par[p]) {
 				for (int c = p+1; c < nc; c += sz[c]) {
