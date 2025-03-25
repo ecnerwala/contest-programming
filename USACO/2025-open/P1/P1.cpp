@@ -36,7 +36,7 @@ int main() {
 					// look for the first thing < y which is < x
 					a = 2*S;
 					for (int pa = S, pb = S+y; pa < pb; pa >>= 1, pb >>= 1) {
-						assert(pa & 1);
+						assert(!(pa & 1));
 						if (pb & 1) {
 							--pb;
 							if (seg[pb] < x) a = pb;
