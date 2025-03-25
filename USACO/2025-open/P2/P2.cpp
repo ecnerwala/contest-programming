@@ -67,11 +67,16 @@ int main() {
 			}
 			return numer / denom;
 		};
+		auto p2 = [](int i) -> modnum {
+			modnum a = 1;
+			for (int z = 0; z < i; z++) a += a;
+			return a;
+		};
 		std::vector<modnum> choose_range_2(num_mid+1);
 		choose_range_2[0] = 1;
 		for (int i = 1; i <= num_mid; i++) {
 			choose_range_2[i] = choose_range_2[i-1];
-			choose_range_2[i] *= modnum(range-1 + i);
+			choose_range_2[i] *= modnum(range-2 + i);
 			choose_range_2[i] /= modnum(i);
 		}
 		modnum ans = 0;
