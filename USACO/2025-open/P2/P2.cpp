@@ -67,11 +67,6 @@ int main() {
 			}
 			return numer / denom;
 		};
-		auto p2 = [](int i) -> modnum {
-			modnum a = 1;
-			for (int z = 0; z < i; z++) a += a;
-			return a;
-		};
 		std::vector<modnum> choose_range_2(num_mid+1);
 		choose_range_2[0] = 1;
 		for (int i = 1; i <= num_mid; i++) {
@@ -79,11 +74,31 @@ int main() {
 			choose_range_2[i] *= modnum(range-2 + i);
 			choose_range_2[i] /= modnum(i);
 		}
+		std::vector<modnum> invs(num_mid+1);
+		{
+			modnum v = 1;
+			for (int i = 1; i <= num_mid; i++) {
+				invs[i] = v;
+				v *= modnum(i);
+			}
+			v = inv(v);
+			for (int i = num_mid; i >= 1; i--) {
+				invs[i] *= v;
+				v *= modnum(i);
+			}
+		}
 		modnum ans = 0;
 		// we start at 2, end at <= range after taking num_mid+1 steps
 		// extra way to take 0 steps at any point
+		modnum cur = 1;
 		for (int cnt = 0; cnt <= num_mid; cnt++) {
-			ans += choose_range_2[cnt] * choose(num_mid, cnt);
+			if (cnt > 0) {
+				cur *= modnum(range - 2 + cnt);
+				cur *= invs[cnt];
+				cur *= modnum(num_mid - cnt + 1);
+				cur *= invs[cnt];
+			}
+			ans += cur;
 		}
 		return ans;
 	};
