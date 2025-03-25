@@ -98,8 +98,10 @@ int main() {
 
 	int64_t cur_t = 0;
 	for (auto [t, evt_idx] : evts) {
+		assert(t >= cur_t);
 		if (t > cur_t) {
-			r = mul(r, pow(seg[1], cur_t));
+			r = mul(r, pow(seg[1], t - cur_t));
+			cur_t = t;
 		}
 		int v;
 		if (evt_idx >= 0) {
