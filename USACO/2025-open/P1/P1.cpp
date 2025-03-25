@@ -45,8 +45,8 @@ int main() {
 					if (a == 2*S) {
 						perm.push_back(stk.back());
 						stk.pop_back();
+						continue;
 					}
-					assert(a < 2*S);
 				}
 				assert(seg[a] < x);
 				while (a < S) {
