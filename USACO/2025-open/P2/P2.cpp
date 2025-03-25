@@ -69,6 +69,7 @@ int main() {
 
 	// range is number of distinct allowed values
 	auto ways = [&](int num_mid, int range) -> modnum {
+		if (range <= 1) return 0;
 		assert(range > 0);
 		assert(num_mid >= 0);
 		if (num_mid == 0) {
@@ -127,25 +128,14 @@ int main() {
 		// c .. v
 		int num_mid = ops[i+1].first - ops[i].first - 1;
 		int range_biggest = (ops[i+1].second + 1) - (ops[i].second - 1) + 1;
-		if (range_biggest <= 1) {
-			assert(ops[i+1].second <= ops[i].second - 2);
-			dp = {0, 0};
-		} else if (range_biggest == 2) {
-			assert(ops[i+1].second - ops[i].second == -1);
-			modnum p2 = 1;
-			for (int z = 0; z < num_mid; z++) p2 += p2;
-			dp = {0, dp[0] * p2};
-			// probably doesn't have to be a special case?
-		} else {
-			assert(ops[i+1].second >= ops[i].second);
-			modnum wb = ways(num_mid, range_biggest);
-			modnum wm = ways(num_mid, range_biggest - 1);
-			modnum ws = ways(num_mid, range_biggest - 2);
-			dp = {
-				dp[0] * wm + dp[1] * ws,
-				dp[0] * (wb - wm) + dp[1] * (wm - ws)
-			};
-		}
+		assert(ops[i+1].second >= ops[i].second);
+		modnum wb = ways(num_mid, range_biggest);
+		modnum wm = ways(num_mid, range_biggest - 1);
+		modnum ws = ways(num_mid, range_biggest - 2);
+		dp = {
+			dp[0] * wm + dp[1] * ws,
+			dp[0] * (wb - wm) + dp[1] * (wm - ws)
+		};
 	}
 	cout << dp[0] + dp[1] << '\n';
 
