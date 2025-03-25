@@ -86,7 +86,7 @@ int main() {
 		std::vector<modnum> dp(r);
 		dp[0] = 1;
 		for (int z = 0; z < n; z++) {
-			std::vector<modnum> ndp(r);
+			std::vector<modnum> ndp = dp;
 			for (int i = 1; i < r; i++) ndp[i] += ndp[i-1];
 			for (int i = 1; i < r; i++) ndp[i] += dp[i];
 			dp = ndp;
