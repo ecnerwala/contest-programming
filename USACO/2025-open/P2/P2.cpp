@@ -96,7 +96,7 @@ int main() {
 
 	for (int n = 0; n <= 10; n++) {
 		for (int r = 1; r <= 10; r++) {
-			cerr << n << ' ' << r << ' ' << ways_slow(n, r) << ' ' << ways(n, r) << '\n';
+			assert(ways_slow(n, r).v == ways(n, r).v);
 		}
 	}
 
