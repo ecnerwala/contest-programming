@@ -80,10 +80,19 @@ int main() {
 			choose_range_1[i] /= modnum(i);
 		}
 		modnum ans = 0;
-		// we start at 1, end at == range after taking num_mid+1 steps
+		// we start at 2, end at <= range after taking num_mid+1 steps
 		// extra way to take 0 steps at any point
 		for (int cnt = 0; cnt <= num_mid; cnt++) {
-			ans += choose_range_1[num_mid - cnt] * choose(num_mid, cnt);
+			ans += choose(range-2 + num_mid - cnt, range-2) * choose(num_mid, cnt);
+			//ans += choose_range_1[num_mid - cnt] * choose(num_mid, cnt);
+		}
+		return ans;
+		for (int cnt = 1; cnt * 2 <= num_mid && cnt <= range - 1; cnt++) {
+			for (int i = 0; i <= num_mid - 2 * cnt; i++) {
+				ans +=
+					choose(range-1, cnt) * choose(i+cnt-1, cnt-1) * p2(i)
+					* choose_range_1[num_mid - 2 * cnt - i];
+			}
 		}
 		return ans;
 	};
