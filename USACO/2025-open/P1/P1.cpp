@@ -28,7 +28,7 @@ int main() {
 				{
 					auto [qx, qy] = corners[i][0];
 					for (int b = qx; b < 2*N; b |= b+1) {
-						bit[b] = std::max(bit[b], qy);
+						bit[b] = std::min(bit[b], qy);
 					}
 				}
 			}
