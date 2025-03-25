@@ -82,6 +82,23 @@ int main() {
 		}
 		return ans;
 	};
+	auto ways_slow = [&](int n, int r) -> modnum {
+		std::vector<modnum> dp(r);
+		dp[0] = 1;
+		for (int z = 0; z < n; z++) {
+			std::vector<modnum> ndp(r);
+			for (int i = 1; i < r; i++) ndp[i] += ndp[i-1];
+			for (int i = 1; i < r; i++) ndp[i] += dp[i];
+			dp = ndp;
+		}
+		return std::accumulate(dp.begin(), dp.end(), modnum(0));
+	};
+
+	for (int n = 0; n <= 10; n++) {
+		for (int r = 1; r <= 10; r++) {
+			cerr << n << ' ' << r << ' ' << ways_slow(n, r) << ' ' << ways(n, r) << '\n';
+		}
+	}
 
 	// dp[0] means lower only, dp[1] means higher has occurred
 	std::array<modnum, 2> dp{1, 0};
@@ -99,6 +116,7 @@ int main() {
 			dp = {0, dp[0] * p2};
 			// probably doesn't have to be a special case?
 		} else {
+			assert(ops[i+1].second >= ops[i].second);
 			modnum wb = ways(num_mid, range_biggest);
 			modnum wm = ways(num_mid, range_biggest - 1);
 			modnum ws = ways(num_mid, range_biggest - 2);
