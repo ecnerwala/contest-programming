@@ -7,7 +7,7 @@ int modinv(int a, int m) {
 struct modnum {
 	int v;
 	modnum() : v(0) {}
-	modnum(int64_t v_) : v(v_ % MOD) { v += (v < 0) ? MOD : 0; }
+	modnum(int64_t v_) : v(int(v_ % MOD)) { v += (v < 0) ? MOD : 0; }
 	modnum& operator += (modnum o) {
 		v -= MOD - o.v;
 		v += (v < 0) ? MOD : 0;
