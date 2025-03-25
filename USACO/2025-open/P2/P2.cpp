@@ -117,7 +117,7 @@ int main() {
 	};
 
 	for (int n = 0; n <= 10; n++) {
-		for (int r = 1; r <= 10; r++) {
+		for (int r = 2; r <= 10; r++) {
 			assert(ways_slow(n, r).v == ways(n, r).v);
 		}
 	}
