@@ -45,7 +45,7 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::vector<std::pair<int, int>> ops(Q);
 	for (auto& [c, v] : ops) { cin >> c >> v; c--; }
-	{
+	if (false) {
 		int R = ops.back().second+2;
 		std::vector<modnum> dp(R);
 		dp[ops.front().second] = 1;
