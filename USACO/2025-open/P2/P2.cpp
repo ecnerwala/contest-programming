@@ -45,6 +45,24 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::vector<std::pair<int, int>> ops(Q);
 	for (auto& [c, v] : ops) { cin >> c >> v; c--; }
+	{
+		int R = ops.back().second+2;
+		std::vector<modnum> dp(R);
+		dp[ops.front().second] = 1;
+		for (int i = 1, it = 1; i < N; i++) {
+			if (ops[it].first == i) {
+				int val = ops[it].second;
+				std::vector<modnum> ndp(R);
+				for (int v = 0; v < R && v <= val + 1; v++) ndp[std::max(v, val)] += dp[v];
+			} else {
+				std::vector<modnum> ndp = dp;
+				for (int a = 1; a < R; a++) ndp[a] += ndp[a-1];
+				for (int a = 1; a < R; a++) ndp[a] += dp[a];
+				dp = ndp;
+			}
+		}
+		cout << std::accumulate(dp.begin(), dp.end(), modnum(0)) << '\n';
+	}
 
 	// range is number of distinct allowed values
 	auto ways = [&](int num_mid, int range) -> modnum {
