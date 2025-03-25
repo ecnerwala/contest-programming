@@ -51,29 +51,6 @@ int main() {
 		if (range <= 1) return 0;
 		assert(range >= 2);
 		assert(num_mid >= 0);
-		if (num_mid == 0) {
-			return 1;
-		}
-		assert(num_mid > 0);
-		// we're allowed to take O(num_mid)
-		// we can take pairs of hi .. lo
-		auto choose = [](int n, int r) -> modnum {
-			assert(0 <= r && r <= n);
-			r = std::min(r, n - r);
-			modnum numer = 1, denom = 1;
-			for (int i = 0; i < r; i++) {
-				numer *= modnum(n-i);
-				denom *= modnum(i+1);
-			}
-			return numer / denom;
-		};
-		std::vector<modnum> choose_range_2(num_mid+1);
-		choose_range_2[0] = 1;
-		for (int i = 1; i <= num_mid; i++) {
-			choose_range_2[i] = choose_range_2[i-1];
-			choose_range_2[i] *= modnum(range-2 + i);
-			choose_range_2[i] /= modnum(i);
-		}
 		std::vector<modnum> invs(num_mid+1);
 		{
 			modnum v = 1;
