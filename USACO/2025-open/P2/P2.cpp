@@ -45,32 +45,11 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::vector<std::pair<int, int>> ops(Q);
 	for (auto& [c, v] : ops) { cin >> c >> v; c--; }
-	if (false) {
-		int R = ops.back().second+2;
-		std::vector<modnum> dp(R);
-		dp[ops.front().second] = 1;
-		for (int i = 1, it = 1; i < N; i++) {
-			if (ops[it].first == i) {
-				int val = ops[it].second;
-				++it;
-				std::vector<modnum> ndp(R);
-				for (int v = 0; v < R && v <= val + 1; v++) ndp[std::max(v, val)] += dp[v];
-				dp = ndp;
-			} else {
-				std::vector<modnum> ndp = dp;
-				for (int a = 1; a < R; a++) ndp[a] += ndp[a-1];
-				for (int a = 1; a < R; a++) ndp[a] += dp[a];
-				dp = ndp;
-			}
-		}
-		cout << std::accumulate(dp.begin(), dp.end(), modnum(0)) << '\n';
-		exit(0);
-	}
 
 	// range is number of distinct allowed values
 	auto ways = [&](int num_mid, int range) -> modnum {
 		if (range <= 1) return 0;
-		assert(range > 0);
+		assert(range >= 2);
 		assert(num_mid >= 0);
 		if (num_mid == 0) {
 			return 1;
@@ -104,23 +83,6 @@ int main() {
 		}
 		return ans;
 	};
-	auto ways_slow = [&](int n, int r) -> modnum {
-		std::vector<modnum> dp(r);
-		dp[0] = 1;
-		for (int z = 0; z < n; z++) {
-			std::vector<modnum> ndp = dp;
-			for (int i = 1; i < r; i++) ndp[i] += ndp[i-1];
-			for (int i = 1; i < r; i++) ndp[i] += dp[i];
-			dp = ndp;
-		}
-		return std::accumulate(dp.begin(), dp.end(), modnum(0));
-	};
-
-	for (int n = 0; n <= 10; n++) {
-		for (int r = 2; r <= 10; r++) {
-			assert(ways_slow(n, r).v == ways(n, r).v);
-		}
-	}
 
 	// dp[0] means lower only, dp[1] means higher has occurred
 	std::array<modnum, 2> dp{1, 0};
@@ -128,7 +90,6 @@ int main() {
 		// c .. v
 		int num_mid = ops[i+1].first - ops[i].first - 1;
 		int range_biggest = (ops[i+1].second + 1) - (ops[i].second - 1) + 1;
-		assert(ops[i+1].second >= ops[i].second);
 		modnum wb = ways(num_mid, range_biggest);
 		modnum wm = ways(num_mid, range_biggest - 1);
 		modnum ws = ways(num_mid, range_biggest - 2);
