@@ -62,6 +62,7 @@ int main() {
 			}
 		}
 		cout << std::accumulate(dp.begin(), dp.end(), modnum(0)) << '\n';
+		exit(0);
 	}
 
 	// range is number of distinct allowed values
