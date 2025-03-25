@@ -72,14 +72,18 @@ int main() {
 			for (int z = 0; z < i; z++) a += a;
 			return a;
 		};
-		modnum ans = choose(num_mid + range-1, range-1);
-		for (int cnt = 1; cnt * 2 <= num_mid && cnt <= range - 1; cnt++) {
-			for (int i = 0; i <= num_mid - 2 * cnt; i++) {
-				ans +=
-					choose(range-1, cnt) * choose(i+cnt-1, cnt-1) * p2(i)
-					* choose(num_mid - 2 * cnt - i + range - 1, range - 1);
-				;
-			}
+		std::vector<modnum> choose_range_1(num_mid+1);
+		choose_range_1[0] = 1;
+		for (int i = 1; i <= num_mid; i++) {
+			choose_range_1[i] = choose_range_1[i-1];
+			choose_range_1[i] *= modnum(range-1 + i);
+			choose_range_1[i] /= modnum(i);
+		}
+		modnum ans = 0;
+		// we start at 1, end at == range after taking num_mid+1 steps
+		// extra way to take 0 steps at any point
+		for (int cnt = 0; cnt <= num_mid; cnt++) {
+			ans += choose_range_1[num_mid - cnt] * choose(num_mid, cnt);
 		}
 		return ans;
 	};
