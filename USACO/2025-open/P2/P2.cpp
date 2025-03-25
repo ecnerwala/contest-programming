@@ -45,25 +45,25 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::vector<std::pair<int, int>> ops(Q);
 	for (auto& [c, v] : ops) { cin >> c >> v; c--; }
+	std::vector<modnum> invs(N+1);
+	{
+		modnum v = 1;
+		for (int i = 1; i <= N; i++) {
+			invs[i] = v;
+			v *= modnum(i);
+		}
+		v = inv(v);
+		for (int i = N; i >= 1; i--) {
+			invs[i] *= v;
+			v *= modnum(i);
+		}
+	}
 
 	// range is number of distinct allowed values
 	auto ways = [&](int num_mid, int range) -> modnum {
 		if (range <= 1) return 0;
 		assert(range >= 2);
 		assert(num_mid >= 0);
-		std::vector<modnum> invs(num_mid+1);
-		{
-			modnum v = 1;
-			for (int i = 1; i <= num_mid; i++) {
-				invs[i] = v;
-				v *= modnum(i);
-			}
-			v = inv(v);
-			for (int i = num_mid; i >= 1; i--) {
-				invs[i] *= v;
-				v *= modnum(i);
-			}
-		}
 		modnum ans = 0;
 		// we start at 2, end at <= range after taking num_mid+1 steps
 		// extra way to take 0 steps at any point
