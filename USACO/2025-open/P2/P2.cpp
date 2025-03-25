@@ -52,8 +52,10 @@ int main() {
 		for (int i = 1, it = 1; i < N; i++) {
 			if (ops[it].first == i) {
 				int val = ops[it].second;
+				++it;
 				std::vector<modnum> ndp(R);
 				for (int v = 0; v < R && v <= val + 1; v++) ndp[std::max(v, val)] += dp[v];
+				dp = ndp;
 			} else {
 				std::vector<modnum> ndp = dp;
 				for (int a = 1; a < R; a++) ndp[a] += ndp[a-1];
