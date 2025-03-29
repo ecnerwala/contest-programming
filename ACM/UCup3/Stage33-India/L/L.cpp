@@ -38,6 +38,7 @@ int main() {
 					int del_all = stk.front().second - i;
 					cerr << i << ' ' << del_all << '\n';
 					tot_ans -= int64_t(del_all + 1) * int64_t(del_all) / 2;
+					tot_ans += del_all;
 				}
 			}
 		}
