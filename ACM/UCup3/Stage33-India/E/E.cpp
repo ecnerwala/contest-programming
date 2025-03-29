@@ -355,6 +355,10 @@ num solve(int N, int M) {
 	for (int d = 1; d < D; d++) {
 		weight_actual[d] = weight[d] - weight_big * num(d);
 	}
+	std::cerr << ans * pow(num(M), N) << '\n';
+	for (int d = 1; d <= D; d++) {
+		std::cerr << d << ' ' << weight_actual[d] * pow(num(M), N) << '\n';
+	}
 	std::vector<num> numer;
 	std::vector<num> denom({num(1)});
 	for (int d = D-1; d >= 1; d--) {
