@@ -356,7 +356,7 @@ num solve(int N, int M) {
 		weight_actual[d] = weight[d] - weight_big * num(d);
 	}
 	std::cerr << ans * pow(num(M), N) << '\n';
-	for (int d = 1; d <= D; d++) {
+	for (int d = 1; d < D; d++) {
 		std::cerr << d << ' ' << weight_actual[d] * pow(num(M), N) << '\n';
 	}
 	std::vector<num> numer;
