@@ -423,7 +423,7 @@ struct Poly : public vector<Mint> {
     Poly fs = take(n);
     for (int i = 0; i < fs.size(); ++i) fs[i] *= i;
     fs = fs.div(*this, n);
-    for (int i = 1; i < n; ++i) fs[i] *= ::inv[i];
+    for (int i = 1; i < n; ++i) fs[i] *= ::hos::inv[i];
     return fs;
   }
   // (16 + 1/2) E(n)
@@ -457,7 +457,7 @@ struct Poly : public vector<Mint> {
       fft(polyWork3, m << 1);  // 1 E(n)
       for (int i = 0; i < m << 1; ++i) polyWork0[i] *= polyWork3[i];
       invFft(polyWork0, m << 1);  // 1 E(n)
-      for (int i = 0; i < m; ++i) polyWork0[i] *= ::inv[m + i];
+      for (int i = 0; i < m; ++i) polyWork0[i] *= ::hos::inv[m + i];
       for (int i = 0, i0 = min(m, size() - m); i < i0; ++i) polyWork0[i] += (*this)[m + i];
       memset(polyWork0 + m, 0, m * sizeof(Mint));
       fft(polyWork0, m << 1);  // 1 E(n)
@@ -494,7 +494,7 @@ struct Poly : public vector<Mint> {
     invFft(polyWork0, m);  // (1/2) E(n)
     invFft(polyWork0 + m, m);  // (1/2) E(n)
     for (int i = 0; i < m >> 1; ++i) polyWork0[(m >> 1) + i] += polyWork0[m + i];
-    for (int i = 0; i < m; ++i) polyWork0[i] *= ::inv[m + i];
+    for (int i = 0; i < m; ++i) polyWork0[i] *= ::hos::inv[m + i];
     for (int i = 0, i0 = min(m, size() - m); i < i0; ++i) polyWork0[i] += (*this)[m + i];
     memset(polyWork0 + m, 0, m * sizeof(Mint));
     fft(polyWork0, m << 1);  // 1 E(n)
