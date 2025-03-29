@@ -357,7 +357,7 @@ num solve(int N, int M) {
 	}
 	std::vector<num> numer;
 	std::vector<num> denom({num(1)});
-	for (int d = D; d >= 1; d--) {
+	for (int d = D-1; d >= 1; d--) {
 		// for everything already in here, we must multiply by D
 		{
 			numer.insert(numer.begin(), num(0));
