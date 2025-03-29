@@ -390,7 +390,7 @@ num solve(int N, int M) {
 	}
 	if (D > 1) {
 		std::vector<num> tr(D-1);
-		for (int i = 0; i < D; i++) tr[i] = -denom[i+1];
+		for (int i = 0; i < D-1; i++) tr[i] = -denom[i+1];
 		ans += linearRec(pref, tr, M);
 	}
 	return N - (ans - 1);
