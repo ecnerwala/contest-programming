@@ -398,8 +398,6 @@ num solve(int N, int M) {
 			pref[i+j] -= pref[i] * denom[j];
 		}
 	}
-	ans += pref[M];
-	return ans;
 	if (D > 1) {
 		std::vector<num> tr(D-1);
 		for (int i = 0; i < D-1; i++) tr[i] = -denom[i+1];
