@@ -324,42 +324,43 @@ num solve(int N, int M) {
 	assert(D <= 2000);
 	// everything >= D is grouped together, since d - D is okay
 	// d = 1 is the base case
-	std::vector<num> weight(D); num weight_big = 1; num weight_1 = 0;
+	std::vector<num> weight(D); num weight_big = 1; num weight_pbig = 0;
 	for (int i = 1; i < D; i++) weight[i] = num(i);
 
-	std::vector<num> nweight(D); num nweight_big = 1; num nweight_1 = 0;
+	std::vector<num> nweight(D); num nweight_big = 1; num nweight_pbig = 0;
 	for (int sub = D; sub >= 1; sub--) {
-		// we do big -> big + (big - sub) / M = big * (1 + invM) - sub * invM
-		nweight_1 = weight_1 + weight_big * (-sub * invM);
+		// we do big -> big + (big - pbig * sub) / M = big * (1 + invM) - sub * invM
+		nweight_pbig = weight_pbig + weight_big * (-sub * invM);
 		nweight_big = weight_big * (1 + invM);
 		for (int d = 1; d < D; d++) {
 			if (d > sub) {
+				nweight[d] = (1 - (d - sub) * invM) * weight[d];
 				if (d+1 == D) {
-					nweight[d] = (d - sub) * invM * num(D) * weight_big;
+					nweight[d] += (d - sub) * invM * weight_pbig;
+					nweight[d] += (d - sub) * invM * num(D) * weight_big;
 				} else {
-					nweight[d] = (d - sub) * invM * weight[d+1];
+					nweight[d] += (d - sub) * invM * weight[d+1];
 				}
-				nweight[d] += (1 - (d - sub) * invM) * weight[d];
 			} else {
 				nweight[d] = weight[d];
 			}
 		}
 		std::swap(weight, nweight);
+		weight_pbig = nweight_pbig;
 		weight_big = nweight_big;
-		weight_1 = nweight_1;
 	}
 
 	// we're going to take weight_1 + weight_big * (tot_big - EV[smalls]) + P[smalls] * weight[smalls]
-	std::cerr << "w1 " << weight_1 * pow(num(M), D) << '\n';
+	std::cerr << "wp " << weight_pbig * pow(num(M), D) << '\n';
 	std::cerr << "wb " << weight_big * pow(num(M), D) << '\n';
 	for (int d = 1; d < D; d++) {
 		std::cerr << d << ' ' << weight[d] * pow(num(M), D) << '\n';
 	}
 
-	num ans = weight_1 + weight_big * pow(1 + inv(num(M)), M);
+	num ans = weight_pbig + weight_big * pow(1 + inv(num(M)), M);
 	std::vector<num> weight_actual(D);
 	for (int d = 1; d < D; d++) {
-		weight_actual[d] = weight[d] - weight_big * num(d);
+		weight_actual[d] = weight[d] - weight_big * num(d) - weight_pbig;
 	}
 	std::cerr << ans * pow(num(M), N) << '\n';
 	for (int d = 1; d < D; d++) {
