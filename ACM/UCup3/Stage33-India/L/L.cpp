@@ -41,6 +41,7 @@ int main() {
 				}
 			}
 		}
+		tot_ans += N;
 		cout << tot_ans << '\n';
 	}
 
