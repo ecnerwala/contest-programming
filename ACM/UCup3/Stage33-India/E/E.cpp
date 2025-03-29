@@ -393,11 +393,14 @@ num solve(int N, int M) {
 	assert(int(numer.size()) == D-1);
 	assert(denom[0] == 1);
 	std::vector<num> pref = numer;
+	pref.resize(M+1, num(0));
 	for (int i = 0; i < int(pref.size()); i++) {
 		for (int j = 1; j < int(denom.size()) && i+j < int(pref.size()); j++) {
 			pref[i+j] -= pref[i] * denom[j];
 		}
 	}
+	ans += pref[M];
+	return ans;
 	if (D > 1) {
 		std::vector<num> tr(D-1);
 		for (int i = 0; i < D-1; i++) tr[i] = -denom[i+1];
