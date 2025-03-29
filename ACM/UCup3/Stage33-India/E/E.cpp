@@ -351,21 +351,17 @@ num solve(int N, int M) {
 	}
 
 	// we're going to take weight_1 + weight_big * (tot_big - EV[smalls]) + P[smalls] * weight[smalls]
-	std::cerr << "wp " << weight_pbig * pow(num(M), D) << '\n';
-	std::cerr << "wb " << weight_big * pow(num(M), D) << '\n';
-	for (int d = 1; d < D; d++) {
-		std::cerr << d << ' ' << weight[d] * pow(num(M), D) << '\n';
-	}
+	//std::cerr << "wp " << weight_pbig * pow(num(M), D) << '\n';
+	//std::cerr << "wb " << weight_big * pow(num(M), D) << '\n';
+	//for (int d = 1; d < D; d++) { std::cerr << d << ' ' << weight[d] * pow(num(M), D) << '\n'; }
 
 	num ans = weight_pbig + weight_big * pow(1 + inv(num(M)), M);
 	std::vector<num> weight_actual(D);
 	for (int d = 1; d < D; d++) {
 		weight_actual[d] = weight[d] - weight_big * num(d) - weight_pbig;
 	}
-	std::cerr << ans * pow(num(M), N) << '\n';
-	for (int d = 1; d < D; d++) {
-		std::cerr << d << ' ' << weight_actual[d] * pow(num(M), N) << '\n';
-	}
+	//std::cerr << ans * pow(num(M), N) << '\n';
+	//for (int d = 1; d < D; d++) { std::cerr << d << ' ' << weight_actual[d] * pow(num(M), N) << '\n'; }
 	std::vector<num> numer;
 	std::vector<num> denom({num(1)});
 	for (int d = D-1; d >= 1; d--) {
