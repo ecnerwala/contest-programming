@@ -52,7 +52,7 @@ int main() {
 		}
 		for (int q = 0; q < Q; q++) {
 			int p = queries[q];
-			cout << int(std::upper_bound(ans.begin(), ans.end(), p) - ans.begin()) - 1 << '\n';
+			cout << int(std::upper_bound(ans.begin(), ans.end(), p) - ans.begin()) - 1 << " \n"[q+1==Q];
 		}
 	}
 
