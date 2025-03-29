@@ -32,9 +32,11 @@ int main() {
 
 				int64_t pref_del = cur_val - i * (stk.back().second - stk.front().second);
 				tot_ans -= pref_del;
+				cerr << z << ' ' << i << ' ' << pref_del << '\n';
 
 				if (z == 0) {
 					int del_all = stk.front().second - i;
+					cerr << i << ' ' << del_all << '\n';
 					tot_ans -= int64_t(del_all + 1) * int64_t(del_all) / 2;
 				}
 			}
