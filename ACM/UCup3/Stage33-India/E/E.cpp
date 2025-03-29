@@ -350,13 +350,16 @@ num solve(int N, int M) {
 	}
 
 	// we're going to take weight_1 + weight_big * (tot_big - EV[smalls]) + P[smalls] * weight[smalls]
+	std::cerr << "w1 " << weight_1 * pow(num(M), D) << '\n';
+	std::cerr << "wb " << weight_big * pow(num(M), D) << '\n';
+	for (int d = 1; d < D; d++) {
+		std::cerr << d << ' ' << weight[d] * pow(num(M), D) << '\n';
+	}
+
 	num ans = weight_1 + weight_big * pow(1 + inv(num(M)), M);
 	std::vector<num> weight_actual(D);
 	for (int d = 1; d < D; d++) {
 		weight_actual[d] = weight[d] - weight_big * num(d);
-	}
-	for (int d = 1; d < D; d++) {
-		std::cerr << d << ' ' << weight[d] * pow(num(M), N) << '\n';
 	}
 	std::cerr << ans * pow(num(M), N) << '\n';
 	for (int d = 1; d < D; d++) {
