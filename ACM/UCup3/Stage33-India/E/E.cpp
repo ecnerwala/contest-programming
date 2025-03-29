@@ -933,10 +933,12 @@ num solve(int N, int M) {
 	if (D > 1) {
 		using hnum = hos::ModInt<998244353>;
 		std::vector<hnum> pf(D-1);
-		std::vector<hnum> tr(D-1);
 		for (int i = 0; i < D-1; i++) {
 			pf[i] = int(pref[i]);
-			tr[i] = int(-denom[i+1]);
+		}
+		std::vector<hnum> tr(D);
+		for (int i = 0; i < D; i++) {
+			tr[i] = int(denom[i]);
 		}
 		ans += hos::linearRecurrenceAt(pf, tr, M).x;
 	}
