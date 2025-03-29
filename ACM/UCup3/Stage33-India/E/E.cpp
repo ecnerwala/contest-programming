@@ -379,18 +379,20 @@ num solve(int N, int M) {
 		}
 	}
 	assert(D >= 1);
-	assert(int(denom.size()) == D+1);
-	assert(int(numer.size()) == D);
+	assert(int(denom.size()) == D);
+	assert(int(numer.size()) == D-1);
 	assert(denom[0] == 1);
 	std::vector<num> pref = numer;
-	for (int i = 0; i < D; i++) {
-		for (int j = 1; i+j < D; j++) {
+	for (int i = 0; i < D-1; i++) {
+		for (int j = 1; i+j < D-1; j++) {
 			pref[i+j] -= pref[i] * denom[j];
 		}
 	}
-	std::vector<num> tr(D);
-	for (int i = 0; i < D; i++) tr[i] = -denom[i+1];
-	ans += linearRec(pref, tr, M);
+	if (D > 1) {
+		std::vector<num> tr(D-1);
+		for (int i = 0; i < D; i++) tr[i] = -denom[i+1];
+		ans += linearRec(pref, tr, M);
+	}
 	return N - (ans - 1);
 }
 
