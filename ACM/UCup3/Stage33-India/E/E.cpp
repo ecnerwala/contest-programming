@@ -333,7 +333,7 @@ num solve(int N, int M) {
 		nweight_1 = weight_1 + weight_big * (-sub * invM);
 		nweight_big = weight_big * (1 + invM);
 		for (int d = 1; d < D; d++) {
-			if (d >= sub) {
+			if (d > sub) {
 				if (d+1 == D) {
 					nweight[d] = (d - sub) * invM * num(D) * weight_big;
 				} else {
