@@ -395,7 +395,7 @@ num solve(int N, int M) {
 	std::vector<num> pref = numer;
 	pref.resize(M+1, num(0));
 	for (int i = 0; i < int(pref.size()); i++) {
-		for (int j = 1; i+j < int(pref.size()); j++) {
+		for (int j = 1; j < int(denom.size()) && i+j < int(pref.size()); j++) {
 			pref[i+j] -= pref[i] * denom[j];
 		}
 	}
