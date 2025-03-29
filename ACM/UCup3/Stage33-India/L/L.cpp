@@ -22,15 +22,15 @@ int main() {
 					int oj = stk.back().second;
 					stk.pop_back();
 					if (!stk.empty()) {
-						cur_val -= (oj - stk.back().second) * stk.back().first;
+						cur_val -= int64_t(oj - stk.back().second) * stk.back().first;
 					}
 				}
 				if (!stk.empty()) {
-					cur_val += (j - stk.back().second) * stk.back().first;
+					cur_val += int64_t(j - stk.back().second) * stk.back().first;
 				}
 				stk.push_back({i, j});
 
-				int64_t pref_del = cur_val - i * (stk.back().second - stk.front().second);
+				int64_t pref_del = cur_val - int64_t(stk.back().second - stk.front().second) * i;
 				tot_ans -= pref_del;
 				cerr << z << ' ' << i << ' ' << pref_del << '\n';
 
