@@ -316,7 +316,7 @@ template <typename T> T pow(T a, long long b) {
 using num = modnum<998244353>;
 num solve(int N, int M) {
 	if (N <= M) {
-		return N - (pow(1 + inv(num(M)), N) - 1);
+		return pow(1 + inv(num(M)), N);
 	}
 	num invM = inv(num(M));
 
@@ -393,7 +393,7 @@ num solve(int N, int M) {
 		for (int i = 0; i < D-1; i++) tr[i] = -denom[i+1];
 		ans += linearRec(pref, tr, M);
 	}
-	return N - (ans - 1);
+	return ans;
 }
 
 int main() {
@@ -403,7 +403,10 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		cout << solve(N, M) << '\n';
+		num ans = solve(N, M);
+		ans = N - (ans - 1);
+		ans *= pow(num(M), N);
+		cout << ans << '\n';
 	}
 
 	return 0;
