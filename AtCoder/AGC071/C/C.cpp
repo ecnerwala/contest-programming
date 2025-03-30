@@ -91,6 +91,7 @@ int main() {
 			std::sort(v.begin(), v.end());
 			int pref = 0;
 			for (auto a : v) {
+				assert(a > 0);
 				if (a > pref + 1) is_good = false;
 				pref += a;
 			}
