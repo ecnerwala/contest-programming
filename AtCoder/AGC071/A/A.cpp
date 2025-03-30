@@ -171,7 +171,7 @@ int main() {
 			int64_t cnd = int64_t(1) << 62;
 			int64_t v = (!((i^j) & 1)) * ((pref[j] ^ pref[i]) * 2);
 			for (int k = i+1; k <= j-1; k++) {
-				cnd = std::min(cnd, dp[{i, k}] + dp[{k, j}] + (!((k^i) & 1)) * v);
+				cnd = std::min(cnd, dp[{i, k}] + dp[{k, j}] + ((k^i) & 1) * v);
 			}
 			cerr << i << ' ' << j << ' ' << cnd << '\n';
 			dp[{i, j}] = cnd;
