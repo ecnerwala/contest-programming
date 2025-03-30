@@ -85,6 +85,7 @@ int main() {
 			assert(vert_stk.empty());
 			assert(edge_stk.empty());
 			for (int i = 0; i < N; i++) assert(deg[i] == 0);
+			for (int i = 0; i < N; i++) assert(depth[i] != -1);
 		}
 		for (int i = 0; i < N; i++) {
 			auto& v = deg_list[i];
