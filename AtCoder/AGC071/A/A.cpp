@@ -173,7 +173,6 @@ int main() {
 			for (int k = i+1; k <= j-1; k++) {
 				cnd = std::min(cnd, dp[{i, k}] + dp[{k, j}] + ((k^i) & 1) * v);
 			}
-			cerr << i << ' ' << j << ' ' << cnd << '\n';
 			dp[{i, j}] = cnd;
 		}
 	}
