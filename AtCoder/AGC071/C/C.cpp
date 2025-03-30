@@ -85,13 +85,15 @@ int main() {
 			assert(vert_stk.empty());
 			assert(edge_stk.empty());
 		}
-		for (auto& v : deg_list) {
+		for (int i = 0; i < N; i++) {
+			auto& v = deg_list[i];
 			std::sort(v.begin(), v.end());
 			int pref = 0;
 			for (auto a : v) {
 				if (a > pref + 1) is_good = false;
 				pref += a;
 			}
+			assert(pref == int(adj[i].size()));
 		}
 		cout << (is_good ? "No" : "Yes") << '\n';
 	}
