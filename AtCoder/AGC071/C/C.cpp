@@ -36,7 +36,7 @@ int main() {
 						edge_stk.push_back({cur, nxt});
 						self(nxt, e);
 						lowval[cur] = std::min(lowval[cur], lowval[nxt]);
-						if (lowval[nxt] >= depth[cur] + 1) {
+						if (lowval[nxt] >= depth[cur]) {
 							// bridge or bcc
 							while (int(edge_stk.size()) > e_idx) {
 								auto [u, v] = edge_stk.back();
