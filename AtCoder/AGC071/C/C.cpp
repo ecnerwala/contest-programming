@@ -76,7 +76,7 @@ int main() {
 							deg[cur] = 0;
 						}
 					} else if (depth[nxt] < depth[cur]) {
-						if ((depth[nxt] ^ depth[cur]) & 1) is_good = false;
+						if (!((depth[nxt] ^ depth[cur]) & 1)) is_good = false;
 						edge_stk.push_back({cur, nxt});
 						lowval[cur] = std::min(lowval[cur], depth[nxt]);
 					}
