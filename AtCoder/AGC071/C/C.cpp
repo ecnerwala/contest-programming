@@ -71,7 +71,7 @@ int main() {
 				pref += a;
 			}
 		}
-		cout << (is_good ? "Yes" : "No") << '\n';
+		cout << (is_good ? "No" : "Yes") << '\n';
 	}
 
 	return 0;
