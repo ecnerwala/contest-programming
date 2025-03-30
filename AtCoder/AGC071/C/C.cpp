@@ -13,16 +13,16 @@ int main() {
 			adj[u].push_back({v, e});
 			adj[v].push_back({u, e});
 		}
-		std::vector<int> depth(N, -1);
-		std::vector<int> lowval(N, -1);
-		depth[0] = 0;
-		std::vector<int> vert_stk; vert_stk.reserve(N);
-		std::vector<std::pair<int, int>> edge_stk; edge_stk.reserve(M);
-
 		std::vector<std::vector<int>> deg_list(N);
 
 		bool is_good = true;
 		{
+			std::vector<int> depth(N, -1);
+			std::vector<int> lowval(N, -1);
+			depth[0] = 0;
+			std::vector<int> vert_stk; vert_stk.reserve(N);
+			std::vector<std::pair<int, int>> edge_stk; edge_stk.reserve(M);
+
 			std::vector<int> deg(N);
 			[&](this auto&& self, int cur, int prv_e) -> void {
 				lowval[cur] = depth[cur];
@@ -60,6 +60,8 @@ int main() {
 					}
 				}
 			}(0, -1);
+			assert(vert_stk.empty());
+			assert(edge_stk.empty());
 		}
 		for (auto& v : deg_list) {
 			std::sort(v.begin(), v.end());
