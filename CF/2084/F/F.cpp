@@ -189,7 +189,7 @@ int main() {
 					return false;
 				}
 				for (auto& a : bit.prefix(v)) {
-					while (a.back() < i) {
+					while (!a.empty() && a.back() < i) {
 						int j = a.back(); a.pop_back();
 						if (!used[j]) {
 							used[j] = true;
