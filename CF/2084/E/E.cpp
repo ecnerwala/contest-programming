@@ -130,6 +130,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			if (A[i] != -1) invA[A[i]] = i;
 		}
+		for (int i = 0; i < N; i++) cerr << invA[i] << " \n"[i+1==N];
 
 		std::vector<int> pref_missing(N+1);
 		for (int i = 0; i < N; i++) {
