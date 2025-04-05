@@ -39,6 +39,7 @@ int main() {
 					P[i] = cur;
 					assert(P[invA[B[i]]] == -1);
 					P[invA[B[i]]] = N-1-cur;
+					cur++;
 				}
 			}
 			std::vector<std::array<int, 2>> ops; ops.reserve(N-1);
