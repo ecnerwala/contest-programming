@@ -166,7 +166,6 @@ int main() {
 				dp[i] += (stk[z].back().first + offset[z]) * stk[z].back().second;
 			}
 			dp[i] += num(flips[!z+1] - flips[!z] + offset[z] - 1);
-			cerr << i << ' ' << flips[i] << ' ' << dp[i] << '\n';
 		}
 
 		num ans = dp.back();
