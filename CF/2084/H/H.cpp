@@ -152,18 +152,21 @@ int main() {
 			int z = i & 1;
 			offset[z]++;
 			int len = flips[i] - flips[i-1] - offset[z];
-			while (!stk[z].empty() && len >= stk[z].back().first) {
-				auto [l, v] = stk[z].back();
-				stk[z].pop_back();
-				if (!stk[z].empty()) stk_val[z] -= (stk[z].back().first - l) * stk[z].back().second;
+			if (i >= 3) {
+				while (!stk[z].empty() && len >= stk[z].back().first) {
+					auto [l, v] = stk[z].back();
+					stk[z].pop_back();
+					if (!stk[z].empty()) stk_val[z] -= (stk[z].back().first - l) * stk[z].back().second;
+				}
+				if (!stk[z].empty()) stk_val[z] += (stk[z].back().first - len) * stk[z].back().second;
+				stk[z].push_back({len, dp[i-1]});
 			}
-			if (!stk[z].empty()) stk_val[z] += (stk[z].back().first - len) * stk[z].back().second;
-			stk[z].push_back({len, dp[i-1]});
-			dp[i] = stk_val[z] + (stk[z].back().first + offset[z]) * stk[z].back().second;
-			if (i & 1) {
-				// jump directly to 0 is a special case since that's the only way to end the sequence
-				dp[i] += num(offset[z]) * dp[0];
+			dp[i] = stk_val[z];
+			if (!stk[z].empty()) {
+				dp[i] += (stk[z].back().first + offset[z]) * stk[z].back().second;
 			}
+			// jump directly to 0 is a special case since that's the only way to end the sequence
+			dp[i] += num(offset[z]);
 			cerr << i << ' ' << flips[i] << ' ' << dp[i] << '\n';
 		}
 
