@@ -162,7 +162,7 @@ int main() {
 		}
 
 		num ans = dp.back();
-		ans *= num(tail_len - 1);
+		ans *= num(tail_len);
 		if (int(flips.size()) == 2) ans--;
 		cout << ans << '\n';
 	}
