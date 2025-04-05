@@ -208,21 +208,20 @@ int main() {
 
 		const int64_t INF = 1e18;
 		int F = N / 2;
-		tensor<std::pair<int64_t, int>, 2> dp({N+1, F+1}, {-INF, -1});
-		dp[{0, 0}] = {0, -1};
+		tensor<int64_t, 2> dp({N+1, F+1}, -INF);
+		dp[{0, 0}] = 0;
 		for (int i = 0; i < N; i++) {
 			for (int c = 0; c <= i && c <= F; c++) {
-				if (dp[{i, c}].first == -INF) continue;
-				dp[{i, c}].first += (2 * c - i) * (2 * (F - c) - (N-i));
+				if (dp[{i, c}] == -INF) continue;
+				dp[{i, c}] += (2 * c - i) * (2 * (F - c) - (N-i));
 				for (int z = 0; z < 2 && c + z <= F; z++) {
 					if (invA[i] == -1 || ((invA[i] & 1) == z)) {
-						std::pair<int64_t, int> cnd{dp[{i, c}].first, z};
-						setmax(dp[{i+1, c + z}], cnd);
+						setmax(dp[{i+1, c + z}], dp[{i, c}]);
 					}
 				}
 			}
 		}
-		int64_t ans = dp[{N, F}].first;
+		int64_t ans = dp[{N, F}];
 		ans += int64_t(N+1) * int64_t(N) * int64_t(N+1) / 2;
 		assert(!(ans & 1));
 		ans /= 2;
