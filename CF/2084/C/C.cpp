@@ -33,7 +33,8 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				if (P[i] != -1) continue;
 				if (A[i] == B[i]) {
-					P[i] = i;
+					assert(N & 1);
+					P[i] = N/2;
 				} else {
 					assert(B[invA[B[i]]] == A[i]);
 					P[i] = cur;
@@ -43,9 +44,6 @@ int main() {
 				}
 			}
 			assert(cur == N/2);
-			for (int i = 0; i < N; i++) {
-				cerr << P[i] << " \n"[i+1==N];
-			}
 			std::vector<std::array<int, 2>> ops; ops.reserve(N-1);
 			for (int i = 0; i < N; i++) {
 				while (P[i] != i) {
