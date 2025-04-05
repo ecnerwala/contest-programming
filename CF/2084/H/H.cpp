@@ -139,27 +139,26 @@ int main() {
 		using num = modnum<int(1e9)+7>;
 		int F = int(flips.size());
 		std::vector<num> dp(F);
-		dp[0] = 1;
 		std::array<int, 2> offset{0, 0};
 		// len - offset, dp value
 		std::array<std::vector<std::pair<int, num>>, 2> stk;
 		std::array<num, 2> stk_val{0, 0};
 		stk[0].reserve(F);
 		stk[1].reserve(F);
-		for (int i = 1; i < F; i++) {
+		dp[0] = 1;
+		dp[1] = 1;
+		for (int i = 2; i < F; i++) {
 			// first, add the option of i-1 .. i
 			int z = i & 1;
 			offset[z]++;
 			int len = flips[i] - flips[i-1] - offset[z];
-			if (i-1 > 0) {
-				while (!stk[z].empty() && len >= stk[z].back().first) {
-					auto [l, v] = stk[z].back();
-					stk[z].pop_back();
-					if (!stk[z].empty()) stk_val[z] -= (stk[z].back().first - l) * stk[z].back().second;
-				}
-				if (!stk[z].empty()) stk_val[z] += (stk[z].back().first - len) * stk[z].back().second;
-				stk[z].push_back({len, dp[i-1]});
+			while (!stk[z].empty() && len >= stk[z].back().first) {
+				auto [l, v] = stk[z].back();
+				stk[z].pop_back();
+				if (!stk[z].empty()) stk_val[z] -= (stk[z].back().first - l) * stk[z].back().second;
 			}
+			if (!stk[z].empty()) stk_val[z] += (stk[z].back().first - len) * stk[z].back().second;
+			stk[z].push_back({len, dp[i-1]});
 			dp[i] = stk_val[z] + (stk[z].back().first + offset[z]) * stk[z].back().second;
 			if (i & 1) {
 				// jump directly to 0 is a special case
