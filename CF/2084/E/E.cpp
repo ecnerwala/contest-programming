@@ -189,9 +189,12 @@ int main() {
 					ma = p;
 				}
 			}
+			num cnt = 0;
 			for (int f = cnt_missing; f <= M; f++) {
-				ans += num(freq[f]) * fact[f] * fact[M - cnt_missing] * ifact[f - cnt_missing];
+				cnt += num(freq[f]) * fact[f] * fact[M - cnt_missing] * ifact[f - cnt_missing];
 			}
+			ans += cnt;
+			cerr << v << ' ' << mi << '-' << ma << ' ' << cnt_missing << ' ' << cnt << '\n';
 		}
 		cout << ans << '\n';
 	}
