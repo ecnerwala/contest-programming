@@ -202,7 +202,6 @@ int main() {
 			}
 			std::vector<std::vector<int>> by_mi(N);
 			for (int v = 0; v < N; v++) {
-				cerr << v << ' ' << mi[v] << '-' << ma[v] << '\n';
 				by_mi[mi[v]].push_back(v);
 			}
 			min_pq<std::pair<int, int>> pq;
