@@ -224,6 +224,7 @@ int main() {
 		}
 		int64_t ans = dp[{N, F}].first;
 		ans += int64_t(N+1) * int64_t(N) * int64_t(N+1) / 2;
+		assert(!(ans & 1));
 		ans /= 2;
 		cout << ans << '\n';
 	}
