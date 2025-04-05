@@ -25,9 +25,7 @@ void slow(int N) {
 		}
 		using std::cerr;
 		for (int m = 0; m < (1 << n); m++) {
-			for (int i = 0; i < n; i++) { cerr << ((m >> i) & 1); }
-			cerr << ' ';
-			cerr << winning[n][m] << '\n';
+			//for (int i = 0; i < n; i++) { cerr << ((m >> i) & 1); } cerr << ' '; cerr << winning[n][m] << '\n';
 			assert(winning[n][m] == winning_fast(n, m));
 		}
 	}
