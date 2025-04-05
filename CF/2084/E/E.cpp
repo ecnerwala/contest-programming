@@ -125,7 +125,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		std::vector<int> A(N);
-		for (auto& a : A) { cin >> a; if (a != -1) a--; }
+		for (auto& a : A) { cin >> a; }
 		std::vector<int> invA(N, -1);
 		for (int i = 0; i < N; i++) {
 			if (A[i] != -1) invA[A[i]] = i;
