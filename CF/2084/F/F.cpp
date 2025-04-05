@@ -148,6 +148,8 @@ public:
 	}
 };
 
+template <typename T> using min_pq = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -159,52 +161,62 @@ int main() {
 		std::vector<int> C(N); for (auto& c : C) { cin >> c; c--; }
 		std::vector<int> invA(N);
 		for (int i = 0; i < N; i++) invA[A[i]] = i;
+		std::vector<int> invC(N, -1);
+		for (int i = 0; i < N; i++) if (C[i] != -1) invC[C[i]] = i;
 
-		binary_indexed_tree<std::vector<int>> bit(N);
-		{
-			binary_indexed_tree<int> sz_bit(N);
-			for (int i = 0; i < N; i++) {
-				for (auto& a : sz_bit.suffix(i)) a++;
-			}
-			for (int i = 0; i < N; i++) bit.dat[i].reserve(sz_bit.dat[i]);
-		}
-		for (int i = N-1; i >= 0; i--) {
-			for (auto& a : bit.suffix(A[i])) a.push_back(i);
-		}
 
 		bool good = [&]() -> bool {
-			std::vector<bool> used(N+1, false);
-			int z = 0;
-			std::vector<int> inds; inds.reserve(N);
-			std::vector<int> buf; buf.reserve(N);
-			for (int c_pos = 0; c_pos <= N; c_pos++) {
-				int v = c_pos == N ? N : C[c_pos];
-				if (v == -1) {
-					inds.push_back(c_pos);
-					continue;
-				}
-				int i = c_pos == N ? N : invA[v];
-				// query things < (i, v) in the BIT
-				if (used[i]) {
-					return false;
-				}
-				for (auto& a : bit.prefix(v)) {
-					while (!a.empty() && a.back() < i) {
-						int j = a.back(); a.pop_back();
-						if (!used[j]) {
-							used[j] = true;
-							buf.push_back(A[j]);
-						}
+			// store value -> range
+			std::vector<int> mi(N);
+			std::vector<int> ma(N);
+
+			{
+				binary_indexed_tree<int> bit(N, 0);
+				for (int i = 0; i < N; i++) {
+					int v = A[i];
+					if (invC[v] != -1) {
+						int r = invC[v];
+						for (auto& a : bit.suffix(v)) a = std::max(a, r);
+					}
+					{
+						int r = 0;
+						for (auto a : bit.prefix(v+1)) r = std::max(r, a);
+						mi[v] = r;
 					}
 				}
-				std::sort(buf.begin(), buf.end());
-				for (auto a : buf) {
-					if (z == int(inds.size())) return false;
-					C[inds[z++]] = a;
+			}
+			{
+				binary_indexed_tree<int> bit(N, N-1);
+				for (int i = N-1; i >= 0; i--) {
+					int v = A[i];
+					if (invC[v] != -1) {
+						int r = invC[v];
+						for (auto& a : bit.prefix(v+1)) a = std::max(a, r);
+					}
+					{
+						int r = N-1;
+						for (auto a : bit.suffix(v)) r = std::max(r, a);
+						ma[v] = r;
+					}
 				}
-				buf.clear();
-				assert(!used[i]);
-				used[i] = true;
+			}
+			std::vector<std::vector<int>> by_mi(N);
+			for (int v = 0; v < N; v++) {
+				by_mi[mi[v]].push_back(v);
+			}
+			min_pq<std::pair<int, int>> pq;
+			std::vector<int> B(N);
+			for (int i = 0; i < N; i++) {
+				for (auto v : by_mi[i]) {
+					pq.push({ma[v], v});
+				}
+				{
+					if (pq.empty()) return false;
+					auto [cnd, v] = pq.top(); pq.pop();
+					if (cnd < i) return false;
+					if (C[i] != -1 && v != C[i]) return false;
+					C[i] = v;
+				}
 			}
 			return true;
 		}();
