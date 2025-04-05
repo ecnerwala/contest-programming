@@ -159,6 +159,7 @@ int main() {
 			if (!stk[z].empty()) stk_val[z] += (stk[z].back().first - len) * stk[z].back().second;
 			stk[z].push_back({len, dp[i-1]});
 			dp[i] = stk_val[z] + (stk[z].back().first + offset[z]) * stk[z].back().second;
+			cerr << i << ' ' << dp[i] << '\n';
 		}
 
 		num ans = dp.back();
