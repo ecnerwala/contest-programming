@@ -191,11 +191,11 @@ int main() {
 					int v = A[i];
 					if (invC[v] != -1) {
 						int r = invC[v];
-						for (auto& a : bit.prefix(v+1)) a = std::max(a, r);
+						for (auto& a : bit.prefix(v+1)) a = std::min(a, r);
 					}
 					{
 						int r = N-1;
-						for (auto a : bit.suffix(v)) r = std::max(r, a);
+						for (auto a : bit.suffix(v)) r = std::min(r, a);
 						ma[v] = r;
 					}
 				}
