@@ -152,7 +152,7 @@ int main() {
 			int z = i & 1;
 			offset[z]++;
 			int len = flips[i] - flips[i-1] - offset[z];
-			if (i >= 3) {
+			{
 				while (!stk[z].empty() && len >= stk[z].back().first) {
 					auto [l, v] = stk[z].back();
 					stk[z].pop_back();
@@ -165,7 +165,6 @@ int main() {
 			if (!stk[z].empty()) {
 				dp[i] += (stk[z].back().first + offset[z]) * stk[z].back().second;
 			}
-			// jump directly to 0 is a special case since that's the only way to end the sequence
 			dp[i] += num(offset[z]);
 			cerr << i << ' ' << flips[i] << ' ' << dp[i] << '\n';
 		}
