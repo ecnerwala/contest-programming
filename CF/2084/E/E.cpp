@@ -195,6 +195,7 @@ int main() {
 			}
 			ans += cnt;
 			cerr << v << ' ' << mi << '-' << ma << ' ' << cnt_missing << ' ' << cnt << '\n';
+			for (int f = 0; f <= M; f++) { cerr << ' ' << freq[f]; } cerr << '\n';
 		}
 		cout << ans << '\n';
 	}
