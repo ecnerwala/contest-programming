@@ -42,6 +42,7 @@ int main() {
 					cur++;
 				}
 			}
+			assert(cur == N/2);
 			std::vector<std::array<int, 2>> ops; ops.reserve(N-1);
 			for (int i = 0; i < N; i++) {
 				while (P[i] != i) {
