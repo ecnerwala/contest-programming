@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
 
+bool winning_fast(int n, int m) {
+	if ((m & 1) == (n & 1) || ((m >> (n-1)) & 1) == (n & 1)) return n & 1;
+	else return !(n & 1);
+}
+
 void slow(int N) {
 	std::vector<std::vector<bool>> winning(N+1);
 	for (int n = 1; n <= N; n++) {
@@ -23,6 +28,7 @@ void slow(int N) {
 			for (int i = 0; i < n; i++) { cerr << ((m >> i) & 1); }
 			cerr << ' ';
 			cerr << winning[n][m] << '\n';
+			assert(winning[n][m] == winning_fast(n, m));
 		}
 	}
 }
