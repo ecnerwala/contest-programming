@@ -162,7 +162,7 @@ int main() {
 			dp[i] = stk_val[z] + (stk[z].back().first + offset[z]) * stk[z].back().second;
 			if (i & 1) {
 				// jump directly to 0 is a special case
-				dp[i] += num(offset[z]);
+				dp[i] += num(offset[z]) * dp[0];
 			}
 			cerr << i << ' ' << flips[i] << ' ' << dp[i] << '\n';
 		}
