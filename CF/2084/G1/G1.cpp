@@ -33,11 +33,19 @@ void slow(int N) {
 	}
 }
 
+// if it's odd, it's the max of the first and last, otherwise it's the min
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	slow(6);
+	slow(20);
+	int T; cin >> T;
+	while (T--) {
+		int N; cin >> N;
+		std::vector<int> A(N);
+		for (auto& a : A) { cin >> a; a--; }
+	}
 
 	return 0;
 }
