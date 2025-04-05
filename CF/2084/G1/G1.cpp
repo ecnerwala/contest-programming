@@ -31,7 +31,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	slow(10);
+	slow(6);
 
 	return 0;
 }
