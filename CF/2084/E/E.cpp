@@ -130,7 +130,6 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			if (A[i] != -1) invA[A[i]] = i;
 		}
-		for (int i = 0; i < N; i++) cerr << invA[i] << " \n"[i+1==N];
 
 		std::vector<int> pref_missing(N+1);
 		for (int i = 0; i < N; i++) {
@@ -190,13 +189,9 @@ int main() {
 					ma = p;
 				}
 			}
-			num cnt = 0;
 			for (int f = cnt_missing; f <= M; f++) {
-				cnt += num(freq[f]) * fact[f] * fact[M - cnt_missing] * ifact[f - cnt_missing];
+				ans += num(freq[f]) * fact[f] * fact[M - cnt_missing] * ifact[f - cnt_missing];
 			}
-			ans += cnt;
-			cerr << v << ' ' << mi << '-' << ma << ' ' << cnt_missing << ' ' << cnt << '\n';
-			for (int f = 0; f <= M; f++) { cerr << ' ' << freq[f]; } cerr << '\n';
 		}
 		cout << ans << '\n';
 	}
