@@ -165,7 +165,7 @@ int main() {
 			if (!stk[z].empty()) {
 				dp[i] += (stk[z].back().first + offset[z]) * stk[z].back().second;
 			}
-			dp[i] += num(flips[z+2] - flips[z+1] + offset[z]);
+			dp[i] += num(flips[(z+1)%2+1] - flips[(z+1)%2] + offset[z]);
 			cerr << i << ' ' << flips[i] << ' ' << dp[i] << '\n';
 		}
 
