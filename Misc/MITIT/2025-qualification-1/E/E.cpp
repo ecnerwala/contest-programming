@@ -22,10 +22,11 @@ bool solve_rec(int N, int s) {
 		if (filt >= (1 << __builtin_ctz(hi))) continue;
 		has_move = true;
 		if (!solve_rec(N, s ^ msk)) {
-			cerr << "win ";
+			cerr << "move ";
 			for (int i = 0; i < N; i++) cerr << ((s >> i) & 1);
 			cerr << " -> ";
 			for (int i = 0; i < N; i++) cerr << (((s^msk) >> i) & 1);
+			cerr << '\n';
 			res = true;
 			break;
 		}
@@ -40,9 +41,7 @@ void slow(int N) {
 		if (((msk >> 0) & 1) == 0) continue;
 		if (((msk >> (N-1)) & 1) == 1) continue;
 		bool res = solve_rec(N, msk);
-		for (int i = 0; i < N; i++) { cerr << ((msk >> i) & 1); }
-		cerr << ' ' << (res ? "win" : "lose");
-		cerr << '\n';
+		//for (int i = 0; i < N; i++) { cerr << ((msk >> i) & 1); } cerr << ' ' << (res ? "win" : "lose") << '\n';
 	}
 }
 
