@@ -45,21 +45,84 @@ void slow(int N) {
 	}
 }
 
+// subsequences of the good thing are
+// 0000001000011110111111
+// +++++++____++++_++++++
+// ++++++_++++++++_++++++
+// ++++++_++++____+++++++
+
 std::optional<std::vector<int>> get_move(const std::string& S) {
 	int lo = 0;
 	int hi = int(S.size());
 	while (lo < int(S.size()) && S[lo] == '0') lo++;
 	while (hi-1 >= 0 && S[hi-1] == '1') hi--;
-	if ((hi - lo) & 1) {
-	} else {
+	// should not be sorted
+	assert(lo != hi);
+	if (((hi - lo) & 1) == 0) {
+		bool losing = true;
+		for (int i = lo+1; i < hi-1; i++) {
+			if (S[i] != (i < (hi + lo) / 2 ? '0' : '1')) {
+				losing = false;
+				break;
+			}
+		}
+		if (losing) return std::nullopt;
 	}
+	int split = 0;
+	for (char c : S) {
+		if (c == '0') split++;
+	}
+	// split+i, split-1-i
+	int N = int(S.size());
+	std::vector<int> res; res.reserve(N);
+	for (int i = 0; split-1-i >= 0 && split+i < N; i++) {
+		char l = S[split-1-i], r = S[split+i];
+		if (l == '1' && r == '0') {
+			for (int z = 0; z < N; z++) {
+				if (z == split-1-i) continue;
+				if (z == split+i) continue;
+				res.push_back(z);
+			}
+			return res;
+		}
+	}
+	for (int i = 0; split-1-i >= 0 && split+i < N; i++) {
+		char l = S[split-1-i], r = S[split+i];
+		if (r == '0') {
+			// this is good
+			for (int z = 0; z < N; z++) {
+				if (z > split-1-i && z < split) continue;
+				if (z == split+i) continue;
+				res.push_back(z);
+			}
+			return res;
+		}
+		if (l != '0') {
+			break;
+		}
+	}
+	for (int i = 0; split-1-i >= 0 && split+i < N; i++) {
+		char l = S[split-1-i], r = S[split+i];
+		if (l == '1') {
+			for (int z = 0; z < N; z++) {
+				if (z == split-1-i) continue;
+				if (z >= split && z < split+i) continue;
+				res.push_back(z);
+			}
+			return res;
+		}
+		if (r != '1') {
+			break;
+		}
+	}
+	assert(false);
 }
 
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int N = 1; N <= 8; N++) { slow(N); }
+	//for (int N = 1; N <= 8; N++) { slow(N); }
 
 	// only losing position is the symmetric ones after pruning
 
