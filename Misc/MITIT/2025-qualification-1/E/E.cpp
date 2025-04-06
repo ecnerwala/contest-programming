@@ -16,6 +16,7 @@ bool solve_rec(int N, int s) {
 		// filt should be the low half of msk
 		int hi = filt ^ msk;
 		if (filt >= (1 << __builtin_ctz(hi))) continue;
+		cerr << "move " << N << ' ' << s << ' ' << msk << '\n';
 		if (solve_rec(N, s ^ msk)) {
 			res = true;
 			break;
