@@ -4,6 +4,7 @@ using std::cerr;
 
 std::map<std::pair<int, int>, bool> mem;
 bool solve_rec(int N, int s) {
+	if (N == 0) return true;
 	if ((s & 1) == 0) return solve_rec(N-1, s >> 1);
 	if ((s >> (N-1)) & 1) return solve_rec(N-1, s & ((1 << (N-1)) - 1));
 	{
