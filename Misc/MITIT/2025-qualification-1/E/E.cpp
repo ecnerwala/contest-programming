@@ -43,7 +43,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int N = 1; N <= 6; N++) {
+	for (int N = 1; N <= 8; N++) {
 		slow(N);
 	}
 
