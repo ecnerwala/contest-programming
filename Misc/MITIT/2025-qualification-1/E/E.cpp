@@ -30,6 +30,8 @@ bool solve_rec(int N, int s) {
 
 void slow(int N) {
 	for (int msk = 0; msk < (1 << N); msk++) {
+		if (((msk >> 0) & 1) == 0) continue;
+		if (((msk >> (N-1)) & 1) == 1) continue;
 		bool res = solve_rec(N, msk);
 		for (int i = 0; i < N; i++) { cerr << ((msk >> i) & 1); }
 		cerr << ' ' << (res ? "win" : "lose");
