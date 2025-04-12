@@ -157,7 +157,7 @@ int main() {
 			numer.resize(int(numer.size()) + (1 << (L-b)), num(0));
 			num c = pow(p2[b], 1 << (L-b));
 			for (int i = int(numer.size()) - 1 - (1 << (L-b)); i >= 0; i--) {
-				numer[i] -= c * numer[i - (1 << (L-b))];
+				numer[i + (1 << (L-b))] -= c * numer[i];
 			}
 			// divide den by it too
 			for (int i = 0; i+1 < (1 << (B-L)); i++) {
