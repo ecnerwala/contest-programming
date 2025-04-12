@@ -138,8 +138,8 @@ int main() {
 	precomp_den[0] = 1;
 	for (int b = B-1; b >= L; b--) {
 		num c = p2[b];
-		for (int i = 0; i < (1 << (B - 1 - b)); i++) {
-			precomp_den[(2 * i + 1) << (b - L)] += c * precomp_den[(2 * i) << (b - L)];
+		for (int i = 0; i < (1 << (B - b)); i++) {
+			precomp_den[(i + 1) << (b - L)] += c * precomp_den[i << (b - L)];
 		}
 	}
 	std::vector<num> numer; numer.push_back(1);
