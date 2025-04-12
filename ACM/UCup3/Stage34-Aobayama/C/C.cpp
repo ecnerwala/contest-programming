@@ -127,8 +127,8 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 	using num = modnum<998244353>;
 
-	const int B = 10;
-	const int L = 0;
+	const int B = 30;
+	const int L = 7;
 
 	std::vector<num> p2(B+1);
 	p2[0] = 1;
