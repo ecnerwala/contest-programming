@@ -143,7 +143,7 @@ int main() {
 		}
 	}
 	std::vector<num> numer; numer.push_back(1);
-	for (int b = L-1; b > 0; b--) {
+	for (int b = L-1; b >= 0; b--) {
 		// first, square precomp_numer 
 		{
 			std::vector<num> n_numer(2 * numer.size() - 1);
