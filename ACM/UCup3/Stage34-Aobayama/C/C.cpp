@@ -139,7 +139,7 @@ int main() {
 	for (int b = B-1; b >= L; b--) {
 		num c = p2[b];
 		for (int i = 0; i < (1 << (B - 1 - b)); i++) {
-			precomp_den[(2 * i + 1) << (b - L)] += c * precomp_den[(2 * i) << (b - L + 1)];
+			precomp_den[(2 * i + 1) << (b - L)] += c * precomp_den[(2 * i) << (b - L)];
 		}
 	}
 	std::vector<num> numer; numer.push_back(1);
