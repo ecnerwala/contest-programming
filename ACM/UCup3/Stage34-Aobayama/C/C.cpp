@@ -131,7 +131,7 @@ int main() {
 	const int L = 7;
 
 	std::vector<num> p2(B+1);
-	p2[0] = 0;
+	p2[0] = 1;
 	for (int i = 0; i < B; i++) p2[i+1] = p2[i] + p2[i];
 
 	std::vector<num> precomp_den(1 << (B - L));
