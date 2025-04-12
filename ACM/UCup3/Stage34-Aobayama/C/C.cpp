@@ -184,6 +184,7 @@ int main() {
 		for (int i = N & ((1 << L) - 1); i < int(numer.size()) && i <= N; i += (1 << L)) {
 			ans += numer[i] * precomp_den[(N - i) >> L];
 		}
+		cerr << N << ' ' << ans << '\n';
 		tot_ans += int(ans) ^ c;
 	}
 	cout << tot_ans << '\n';
