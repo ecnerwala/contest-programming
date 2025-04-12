@@ -128,7 +128,7 @@ int main() {
 	using num = modnum<998244353>;
 
 	const int B = 10;
-	const int L = 1;
+	const int L = 0;
 
 	std::vector<num> p2(B+1);
 	p2[0] = 1;
