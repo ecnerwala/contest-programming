@@ -139,6 +139,7 @@ int main() {
 
 	// i is number of 1's
 	auto solve_01 = [&](int i) {
+		assert(1 <= i && i <= 2*N);
 		auto get_touch = [&](int d) -> num {
 			assert(d <= 0);
 			if (i - (2*N-i) <= d) return choose(2*N, i);
