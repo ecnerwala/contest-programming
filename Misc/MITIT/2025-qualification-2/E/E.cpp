@@ -1028,9 +1028,10 @@ int solve_fast(int K, int P, int X_) {
 	}
 	num ans = 0;
 	num f = 1;
+	num c = 1;
 	for (int k = 0; k <= P-K; k++) {
-		if (k) f *= num(k);
-		ans += V[K+k] * f;
+		if (k) { f *= num(k); c *= X; }
+		ans += V[K+k] * f * c;
 	}
 	ans /= f;
 	return int(ans);
