@@ -194,9 +194,7 @@ int main() {
 				for (int i = 0; i < N; i++) {
 					int first = N;
 					for (auto& a : bit.suffix(P[i])) { first = std::min(first, a); }
-					if (first < last_lo && i > last_hi) {
-						ans = std::min(ans, first + 1 + N - i);
-					}
+					ans = std::min(ans, first + 1 + N - i);
 					for (auto& a : bit.prefix(P[i])) { a = std::min(a, i); }
 				}
 			}
