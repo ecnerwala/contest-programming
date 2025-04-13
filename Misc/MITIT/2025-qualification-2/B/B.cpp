@@ -179,7 +179,7 @@ int main() {
 					c_mid[3]--;
 					c_mid[2]++;
 				}
-				assert(c_mid[2] == 0);
+				assert(c_mid[2] == 1);
 
 				// if this guy is balanced, then one guy will be low and the other will be high
 				int need_1 = N / 2 - c_mid[0];
