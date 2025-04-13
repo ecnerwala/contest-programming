@@ -1040,18 +1040,20 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int P : {9973, 10093, 10169}) {
-		for (int K = 1; K <= 9; K++) {
-			int X = 1;
-			cerr << K << ' ' << P << ' ' << X << ' ' << solve_slow(K, P, X) << '\n';
-			cerr << K << ' ' << P << ' ' << X << ' ' << solve_fast(K, P, X) << '\n';
+	if (false) {
+		for (int P : {9973, 10093, 10169}) {
+			for (int K = 1; K <= 9; K++) {
+				int X = 1;
+				cerr << K << ' ' << P << ' ' << X << ' ' << solve_slow(K, P, X) << '\n';
+				cerr << K << ' ' << P << ' ' << X << ' ' << solve_fast(K, P, X) << '\n';
+			}
 		}
 	}
 
 	int T; cin >> T;
 	while (T--) {
 		int K, P, X; cin >> K >> P >> X; K++;
-		cout << solve_slow(K, P, X) << '\n';
+		cout << solve_fast(K, P, X) << '\n';
 	}
 
 	return 0;
