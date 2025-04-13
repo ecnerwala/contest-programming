@@ -1013,9 +1013,8 @@ int main() {
 
 	for (int P : {9973, 10093, 10169}) {
 		for (int K = 1; K <= 9; K++) {
-			for (int X = 1; X <= 10; X++) {
-				cerr << K << ' ' << P << ' ' << X << ' ' << solve_slow(K, P, X) << '\n';
-			}
+			int X = 1;
+			cerr << K << ' ' << P << ' ' << X << ' ' << solve_slow(K, P, X) << '\n';
 		}
 	}
 
