@@ -141,7 +141,7 @@ int main() {
 	auto solve_01 = [&](int i) {
 		auto get_touch = [&](int d) -> num {
 			if (i - (2*N-i) <= d) return choose(2*N, i);
-			return choose(2*N, i) - choose(2*N, 2*N - i - d);
+			return choose(2*N, 2*N - i - d);
 		};
 		num res = (N + 1) * choose(2*N, i);
 		for (int d = 1; d <= 2*N; d += 2) {
