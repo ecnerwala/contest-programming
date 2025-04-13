@@ -293,35 +293,32 @@ struct treap_node {
 	std::mt19937_64::result_type pri;
 	int k;
 	int t;
+	int val;
 	std::array<int, 2> cnt;
 	void update() {
 		cnt = {0, 0};
 		cnt[t]++;
-		if (c[0]) cnt[0] += c[0]->cnt[0], cnt[1] += c[0]->cnt[1];
-		if (c[1]) cnt[0] += c[1]->cnt[0], cnt[1] += c[1]->cnt[1];
+		if (c[0]) {
+			val += c[0]->val;
+			int d = std::min(c[0]->cnt[1], cnt[0]);
+			val += d;
+			cnt[0] -= d;
+			cnt[0] += c[0]->cnt[0];
+			cnt[1] += c[0]->cnt[1] - d;
+		}
+		if (c[1]) {
+			val += c[1]->val;
+			int d = std::min(cnt[1], c[0]->cnt[0]);
+			val += d;
+			cnt[1] -= d;
+			cnt[1] += c[1]->cnt[1];
+			cnt[0] += c[1]->cnt[0] - d;
+		}
 	}
 };
 
 int get_max(treap_node* t) {
-	int l_tgt = t ? t->cnt[1] : 0;
-	std::array<int, 2> cnt{0, 0};
-	while (t) {
-		int c0_sz = t->c[0] ? (t->c[0]->cnt[0] + t->c[0]->cnt[1]) : 0;
-		if (c0_sz >= l_tgt) {
-			cnt[1] += t->c[1] ? t->c[1]->cnt[1] : 0;
-			cnt[1] += t->t == 1;
-			t = t->c[0];
-		} else {
-			assert(l_tgt >= c0_sz + 1);
-			l_tgt -= c0_sz + 1;
-			cnt[0] += t->c[0] ? t->c[0]->cnt[0] : 0;
-			cnt[0] += t->t == 0;
-			t = t->c[1];
-		}
-	}
-	assert(l_tgt == 0);
-	assert(cnt[0] == cnt[1]);
-	return std::min(cnt[0], cnt[1]);
+	return t ? t->val : 0;
 }
 
 std::pair<treap_node*, treap_node*> split_at(treap_node* a, int k) {
