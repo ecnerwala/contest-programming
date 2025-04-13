@@ -153,6 +153,7 @@ int main() {
 		using num = dynamic_modnum<my_tag>;
 		int K; num X; cin >> K >> num::MOD_READER() >> X;
 		int P = num::MOD;
+		K++;
 
 		assert(1 <= K && K <= 9);
 		assert(K <= P);
