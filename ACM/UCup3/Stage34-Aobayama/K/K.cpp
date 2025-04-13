@@ -148,7 +148,7 @@ int main() {
 			res -= get_touch(-d);
 		}
 		// return the EV
-		cerr << "solve_01" << i << ' ' << res << '\n';
+		cerr << "solve_01" << ' ' << i << ' ' << res << '\n';
 		return res / choose(N, i);
 	};
 
