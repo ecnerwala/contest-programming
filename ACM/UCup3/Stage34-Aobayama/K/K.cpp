@@ -146,7 +146,7 @@ int main() {
 			if (i-d > 2*N) return 0;
 			return choose(2*N, i - d);
 		};
-		num res = (N + 1) * choose(2*N, i);
+		num res = N * choose(2*N, i);
 		for (int d = 1; d <= 2*N; d += 2) {
 			num g = get_touch(-d);
 			cerr << N << ' ' << i << ' ' << -d << ' ' << g << '\n';
