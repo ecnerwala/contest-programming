@@ -149,7 +149,6 @@ int main() {
 		num res = N * choose(2*N, i);
 		for (int d = 1; d <= 2*N; d += 2) {
 			num g = get_touch(-d);
-			cerr << N << ' ' << i << ' ' << -d << ' ' << g << '\n';
 			res -= g;
 		}
 		// return the EV
