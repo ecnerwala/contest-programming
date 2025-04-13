@@ -147,8 +147,8 @@ int main() {
 		}
 
 		int tgt = (3*N-1) / 2;
-		int extra_lo = 3*N/2;
-		int extra_hi = 3*N/2;
+		int extra_lo = (3*N-1)/2;
+		int extra_hi = (3*N-1)/2;
 
 		int inv_tgt = -1;
 
@@ -189,7 +189,7 @@ int main() {
 				assert(need_1 + need_2 == c_mid[3]);
 				if (need_1 > extra_lo) continue;
 				if (need_2 > extra_hi) continue;
-				ans += choose(extra_lo, need_1) * choose(extra_hi, need_2) * fact[(extra_lo - need_1) + (extra_hi - need_2)] * fact[need_1 + need_2];
+				ans += w * choose(extra_lo, need_1) * choose(extra_hi, need_2) * fact[(extra_lo - need_1) + (extra_hi - need_2)] * fact[need_1 + need_2];
 			}
 			return ans;
 		}() << '\n';
