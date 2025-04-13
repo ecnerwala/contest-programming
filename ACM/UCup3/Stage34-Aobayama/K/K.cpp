@@ -155,7 +155,7 @@ int main() {
 	std::sort(A.begin(), A.end());
 	num ans = 0;
 	for (int i = 0; i < 2*N; i++) {
-		num res = solve_01(N-i);
+		num res = solve_01(2*N-i);
 		ans += res * (A[i] - (i ? A[i-1] : 0));
 	}
 	cout << ans << '\n';
