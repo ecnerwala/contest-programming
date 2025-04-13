@@ -564,13 +564,12 @@ struct fft_mod_multiplier {
 		fft<cnum>::go(fa.begin(), n);
 		fft<cnum>::go(fb.begin(), n);
 		using ll = long long;
-		const ll m = mnum::MOD;
 		auto it = io;
 		for (int i = 0; i < s; ++i, ++it) {
-			*it = mnum((ll(fa[i].x+0.5)
-						+ (ll(fa[i].y+0.5) % m << 15)
-						+ (ll(fb[i].x+0.5) % m << 15)
-						+ (ll(fb[i].y+0.5) % m << 30)) % m);
+			*it = mnum(ll(fa[i].x+0.5)
+						+ (ll(int(mnum(ll(fa[i].y+0.5)))) << 15)
+						+ (ll(int(mnum(ll(fb[i].x+0.5)))) << 15)
+						+ (ll(int(mnum(ll(fb[i].y+0.5)))) << 30));
 		}
 	}
 
