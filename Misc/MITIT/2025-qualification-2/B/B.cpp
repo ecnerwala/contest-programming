@@ -159,7 +159,7 @@ int main() {
 			else if (v > tgt) t = 1;
 			else if (v < tgt) t = 0;
 			else assert(false);
-			cnts[i/N][3]++;
+			cnts[i/N][3]--;
 			cnts[i/N][t]++;
 
 			if (v == tgt) inv_tgt = i / N;
@@ -185,6 +185,7 @@ int main() {
 				int need_1 = N / 2 - c_mid[0];
 				int need_2 = N / 2 - c_mid[1];
 				if (need_1 < 0 || need_2 < 0) continue;
+				assert(c_mid[0] + c_mid[1] + c_mid[2] + c_mid[3] == N);
 				assert(need_1 + need_2 == c_mid[3]);
 				if (need_1 > extra_lo) continue;
 				if (need_2 > extra_hi) continue;
