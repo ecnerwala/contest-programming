@@ -140,16 +140,16 @@ int main() {
 	// i is number of 1's
 	auto solve_01 = [&](int i) {
 		auto get_touch = [&](int d) -> num {
-			if (i - (N-i) <= d) return choose(N, i);
-			return choose(N, i) - choose(N, N - i - d);
+			if (i - (2*N-i) <= d) return choose(2*N, i);
+			return choose(2*N, i) - choose(2*N, 2*N - i - d);
 		};
-		num res = (N + 1) * choose(N, i);
-		for (int d = 1; d <= N; d += 2) {
+		num res = (N + 1) * choose(2*N, i);
+		for (int d = 1; d <= 2*N; d += 2) {
 			res -= get_touch(-d);
 		}
 		// return the EV
 		cerr << "solve_01" << ' ' << i << ' ' << res << '\n';
-		return res / choose(N, i);
+		return res / choose(2*N, i);
 	};
 
 	std::sort(A.begin(), A.end());
