@@ -303,27 +303,23 @@ struct treap_node {
 };
 
 int get_max(treap_node* t) {
+	int l_tgt = t ? t->cnt[1] : 0;
 	std::array<int, 2> cnt{0, 0};
 	while (t) {
-		int l = cnt[0] + (t->c[0] ? t->c[0]->cnt[0] : 0);
-		int r = cnt[1] + (t->c[1] ? t->c[1]->cnt[1] : 0);
-		int d;
-		if (l > r) {
-			// go left
-			d = 0;
-		} else if (l < r) {
-			d = 1;
-		} else {
-			d = !t->t;
-		}
-		if (d == 0) {
-			cnt[1] = r + (t->t == 1);
-			t = t->c[0];
-		} else if (d == 1) {
-			cnt[0] = l + (t->t == 0);
+		int c0_sz = t->c[0] ? (t->c[0]->cnt[0] + t->c[0]->cnt[1]) : 0;
+		if (c0_sz >= l_tgt) {
+			cnt[1] += t->c[1] ? t->c[1]->cnt[1] : 0;
+			cnt[1] += t->t == 1;
 			t = t->c[1];
-		} else assert(false);
+		} else {
+			assert(l_tgt >= c0_sz + 1);
+			l_tgt -= c0_sz + 1;
+			cnt[0] += t->c[0] ? t->c[0]->cnt[0] : 0;
+			cnt[0] += t->t == 0;
+			t = t->c[0];
+		}
 	}
+	assert(cnt[0] == cnt[1]);
 	return std::min(cnt[0], cnt[1]);
 }
 
