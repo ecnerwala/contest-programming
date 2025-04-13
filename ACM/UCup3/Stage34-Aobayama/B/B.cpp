@@ -432,13 +432,13 @@ int main() {
 	};
 
 	int tot_maxs = 0;
-	for (int i = 0; i < M; i++) {
-		seg_tree::point a = layout.get_point(i);
-		seg[a][0][0] = get_max(roots[i]);
+	for (int v = 0; v < M; v++) {
+		seg_tree::point a = layout.get_point(v);
+		seg[a][0][0] = get_max(roots[v]);
+		tot_maxs += seg[a][0][0];
 		seg[a][1][0] = 0;
 		seg[a][1][1] = N;
-		seg[a][0][1] = cnts[i];
-		tot_maxs += seg[a][0][0];
+		seg[a][0][1] = cnts[v];
 	}
 	for (seg_tree::point a(M-1); a > 0; a--) update_node(a);
 
