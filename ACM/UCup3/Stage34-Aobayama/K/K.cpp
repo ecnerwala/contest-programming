@@ -148,7 +148,9 @@ int main() {
 		};
 		num res = (N + 1) * choose(2*N, i);
 		for (int d = 1; d <= 2*N; d += 2) {
-			res -= get_touch(-d);
+			num g = get_touch(-d);
+			cerr << N << ' ' << i << ' ' << -d << ' ' << g << '\n';
+			res -= g;
 		}
 		// return the EV
 		cerr << "solve_01" << ' ' << i << ' ' << res << '\n';
