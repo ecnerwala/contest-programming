@@ -183,7 +183,7 @@ int main() {
 					for (auto& a : bit.prefix(P[i])) cnt += a;
 					for (auto& a : bit.suffix(P[i])) a++;
 					if (cnt % K != 0) {
-						last_hi = i;
+						last_lo = i;
 					}
 				}
 			}
