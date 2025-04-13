@@ -990,26 +990,39 @@ template <typename num, typename multiplier> struct online_squarer {
 
 /* namespace ecnerwala */ }
 
+int solve_slow(int K, int P, int X_) {
+	struct my_tag{};
+	using num = dynamic_modnum<my_tag>;
+	num::set_mod(P);
+	num X(X_);
+
+	assert(1 <= K && K <= 9);
+	assert(K <= P);
+
+	ecnerwala::power_series_fft_mod<num> V(P-K+1);
+	V[0] = 1;
+	for (int i = 1; i <= P-K; i++) {
+		V[i] = -X / num(i);
+	}
+	return int(inverse(V).back());
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	for (int P : {9973, 10093, 10169}) {
+		for (int K = 1; K <= 9; K++) {
+			for (int X = 1; X <= 10; X++) {
+				cerr << K << ' ' << P << ' ' << X << ' ' << solve_slow(K, P, X) << '\n';
+			}
+		}
+	}
+
 	int T; cin >> T;
 	while (T--) {
-		struct my_tag{};
-		using num = dynamic_modnum<my_tag>;
-		int K; cin >> K >> num::MOD_READER();
-		int P = num::MOD;
-		num X; cin >> X;
-		K++;
-		assert(1 <= K && K <= 9);
-
-		ecnerwala::power_series_fft_mod<num> V(P-K+1);
-		V[0] = 1;
-		for (int i = 1; i <= P-K; i++) {
-			V[i] = -X / num(i);
-		}
-		cout << inverse(V).back() << '\n';
+		int K, P, X; cin >> K >> P >> X; K++;
+		cout << solve_slow(K, P, X) << '\n';
 	}
 
 	return 0;
