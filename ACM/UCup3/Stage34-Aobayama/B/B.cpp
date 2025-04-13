@@ -431,11 +431,9 @@ int main() {
 		}
 	};
 
-	int tot_maxs = 0;
 	for (int v = 0; v < M; v++) {
 		seg_tree::point a = layout.get_point(v);
 		seg[a][0][0] = get_max(roots[v]);
-		tot_maxs += seg[a][0][0];
 		seg[a][1][0] = 0;
 		seg[a][1][1] = N;
 		seg[a][0][1] = cnts[v];
@@ -451,12 +449,8 @@ int main() {
 			seg_tree::point a = layout.get_point(A[i]);
 			seg_tree::point b = layout.get_point((A[i]+1)%M);
 			seg[a][0][1] = cnts[A[i]];
-			tot_maxs -= seg[a][0][0];
 			seg[a][0][0] = get_max(roots[A[i]]);
-			tot_maxs += seg[a][0][0];
-			tot_maxs -= seg[b][0][0];
 			seg[b][0][0] = get_max(roots[(A[i]+1)%M]);
-			tot_maxs += seg[b][0][0];
 			a.for_parents_up(update_node);
 			b.for_parents_up(update_node);
 		}
@@ -470,17 +464,13 @@ int main() {
 			seg_tree::point a = layout.get_point(A[i]);
 			seg_tree::point b = layout.get_point((A[i]+1)%M);
 			seg[a][0][1] = cnts[A[i]];
-			tot_maxs -= seg[a][0][0];
 			seg[a][0][0] = get_max(roots[A[i]]);
-			tot_maxs += seg[a][0][0];
-			tot_maxs -= seg[b][0][0];
 			seg[b][0][0] = get_max(roots[(A[i]+1)%M]);
-			tot_maxs += seg[b][0][0];
 			a.for_parents_up(update_node);
 			b.for_parents_up(update_node);
 		}
 
-		cout << std::min({seg[1][0][0], seg[1][1][1], tot_maxs / 2}) << '\n';
+		cout << std::min({seg[1][0][0], seg[1][1][1], N / 2}) << '\n';
 
 		cerr << seg[1][0][0] << ' ' << seg[1][1][1] << ' ' << tot_maxs << '\n';
 		for (int x = 0; x < M; x++) {
