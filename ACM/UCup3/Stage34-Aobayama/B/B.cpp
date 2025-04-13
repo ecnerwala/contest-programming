@@ -483,7 +483,7 @@ int main() {
 		cout << std::min({seg[1][0][0], seg[1][1][1], tot_maxs / 2}) << '\n';
 
 		for (int x = 0; x < M; x++) {
-			cerr << cnts[x] << ' ' << get_max(roots[x]) << '\n';
+			cerr << get_max(roots[x]) << ' ' << cnts[x] << '\n';
 		}
 	}
 
