@@ -143,8 +143,8 @@ int main() {
 		auto get_touch = [&](int d) -> num {
 			assert(d <= 0);
 			if (i - (2*N-i) <= d) return choose(2*N, i);
-			if (-d + -d + i - (2*N - i) > 2*N) return 0;
-			return choose(2*N, 2*N - i + d);
+			if (i-d < 0) return 0;
+			return choose(2*N, i - d);
 		};
 		num res = (N + 1) * choose(2*N, i);
 		for (int d = 1; d <= 2*N; d += 2) {
