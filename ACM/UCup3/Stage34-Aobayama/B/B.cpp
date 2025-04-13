@@ -296,6 +296,7 @@ struct treap_node {
 	int val;
 	std::array<int, 2> cnt;
 	void update() {
+		val = 0;
 		cnt = {0, 0};
 		cnt[t]++;
 		if (c[0]) {
