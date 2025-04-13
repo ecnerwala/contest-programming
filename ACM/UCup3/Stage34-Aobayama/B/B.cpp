@@ -308,7 +308,7 @@ struct treap_node {
 		}
 		if (c[1]) {
 			val += c[1]->val;
-			int d = std::min(cnt[1], c[0]->cnt[0]);
+			int d = std::min(cnt[1], c[1]->cnt[0]);
 			val += d;
 			cnt[1] -= d;
 			cnt[1] += c[1]->cnt[1];
