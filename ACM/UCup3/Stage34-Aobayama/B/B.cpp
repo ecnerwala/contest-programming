@@ -310,13 +310,13 @@ int get_max(treap_node* t) {
 		if (c0_sz >= l_tgt) {
 			cnt[1] += t->c[1] ? t->c[1]->cnt[1] : 0;
 			cnt[1] += t->t == 1;
-			t = t->c[1];
+			t = t->c[0];
 		} else {
 			assert(l_tgt >= c0_sz + 1);
 			l_tgt -= c0_sz + 1;
 			cnt[0] += t->c[0] ? t->c[0]->cnt[0] : 0;
 			cnt[0] += t->t == 0;
-			t = t->c[0];
+			t = t->c[1];
 		}
 	}
 	assert(l_tgt == 0);
