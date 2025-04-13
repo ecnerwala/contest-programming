@@ -319,6 +319,7 @@ int get_max(treap_node* t) {
 			t = t->c[0];
 		}
 	}
+	assert(l_tgt == 0);
 	assert(cnt[0] == cnt[1]);
 	return std::min(cnt[0], cnt[1]);
 }
