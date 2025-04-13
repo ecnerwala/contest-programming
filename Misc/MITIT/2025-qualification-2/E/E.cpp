@@ -1006,6 +1006,36 @@ int solve_slow(int K, int P, int X_) {
 	return int(inverse(V).back());
 }
 
+int solve_fast(int K, int P, int X_) {
+	struct my_tag{};
+	using num = dynamic_modnum<my_tag>;
+	num::set_mod(P);
+	num X(X_);
+
+	assert(1 <= K && K <= 9);
+	assert(K <= P);
+
+	std::vector<num> V(P+1);
+	V[P] = 1;
+	V[1] = -1;
+	for (int l = 1; l <= K; l++) {
+		num c = l;
+		// divide by x - l
+		for (int i = int(V.size()) - 1; i > 0; i--) {
+			V[i-1] += c * V[i];
+		}
+		// we could delete the first few terms, but whatever
+	}
+	num ans = 0;
+	num f = 1;
+	for (int k = 0; k <= P-K; k++) {
+		if (k) f *= num(k);
+		ans += V[K+k] * f;
+	}
+	ans /= f;
+	return int(ans);
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -1014,6 +1044,7 @@ int main() {
 		for (int K = 1; K <= 9; K++) {
 			int X = 1;
 			cerr << K << ' ' << P << ' ' << X << ' ' << solve_slow(K, P, X) << '\n';
+			cerr << K << ' ' << P << ' ' << X << ' ' << solve_fast(K, P, X) << '\n';
 		}
 	}
 
