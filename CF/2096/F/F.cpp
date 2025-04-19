@@ -353,9 +353,6 @@ int main() {
 							return self(cur.c(1));
 						}(seg_tree::point(1)).value_or(N);
 
-						cerr << "query " << a[0] << ' ' << a[1] << '\n';
-						cerr << prv_allowed << ' ' << nxt_allowed << '\n';
-
 						// check if there's anything between prv_allowed and nxt_allowed
 						bool bad = false;
 						layout.get_range(prv_allowed + 1, nxt_allowed).for_each([&](seg_tree::point p) -> void {
