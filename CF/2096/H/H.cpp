@@ -123,8 +123,6 @@ template <typename T> T pow(T a, long long b) {
 }
 
 using num = modnum<998244353>;
-num PRIM_ROOT = 3;
-num INV_PRIM_ROOT = inv(PRIM_ROOT);
 struct my_num {
 	num a = 1;
 	num b = 1;
@@ -186,7 +184,7 @@ int main() {
 				}
 			}
 			for (int i = 0; i < (1 << (M-q)); i++) {
-				num v = vals[i].a * ((__builtin_popcount(tot_hr ^ i) & 1)? -1 : 1);
+				num v = vals[i].a * ((__builtin_popcount(tot_hr & i) & 1) ? -1 : 1);
 				ans[(i << q) + (1 << (q-1))] = v;
 			}
 		}
