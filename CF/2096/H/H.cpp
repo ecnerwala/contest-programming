@@ -246,7 +246,7 @@ int main() {
 				}
 			}
 			for (int i = 0; i < (1 << (M-q)); i++) {
-				ans[(i << q) + (1 << (q-1))] = num(vals[q]) * ((__builtin_popcount(tot_hr ^ i) & 1)? -1 : 1);
+				ans[(i << q) + (1 << (q-1))] = num(vals[i]) * ((__builtin_popcount(tot_hr ^ i) & 1)? -1 : 1);
 			}
 		}
 
