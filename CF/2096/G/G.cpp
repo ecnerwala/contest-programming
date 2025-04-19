@@ -60,7 +60,31 @@ int main() {
 		}
 		cout << Q << '\n';
 		for (int q = 0; q < Q; q++) {
+			assert(A[q].size() == B[q].size());
+			cout << A[q].size()+B[q].size();
+			for (auto a : A[q]) cout << ' ' << a+1;
+			for (auto b : B[q]) cout << ' ' << b+1;
+			cout << '\n';
 		}
+		cout << flush;
+		std::string S; cin >> S;
+		assert(int(S.size()) == Q);
+		std::vector<int> num_match(N);
+		for (int q = 0; q < Q; q++) {
+			char c = S[q];
+			if (c == 'L') {
+				for (int i : A[q]) num_match[i]++;
+			} else if (c == 'R') {
+				for (int i : B[q]) num_match[i]++;
+			} else if (c == 'N') {
+				for (int i : C[q]) num_match[i]++;
+			} else if (c == '?') {
+				for (int i = 0; i < N; i++) num_match[i]++;
+			} else assert(false);
+		}
+		int i = 0;
+		while (num_match[i] != N) i++;
+		cout << i+1 << '\n' << flush;
 	}
 
 	return 0;
