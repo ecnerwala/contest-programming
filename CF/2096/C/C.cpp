@@ -45,6 +45,7 @@ int main() {
 						ndp[n] = std::min(ndp[n], dp[p] + (n * C[i]));
 					}
 				}
+				dp = ndp;
 			}
 			int64_t res = std::min(dp[0], dp[1]);
 			if (res >= INF) return -1;
