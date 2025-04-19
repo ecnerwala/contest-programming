@@ -328,7 +328,7 @@ int main() {
 					if (t == 0) {
 						// check if this interval now contains something
 						// get next zero from each of these
-						int prv_allowed = [&](this auto&& self, seg_tree::point cur) -> std::optional<int> {
+						int prv_allowed = a[0] == 0 ? -1 : [&](this auto&& self, seg_tree::point cur) -> std::optional<int> {
 							if (seg_zero[cur].full) return std::nullopt;
 							if (cur >= layout.N) {
 								return layout.get_leaf_index(cur);
@@ -340,12 +340,10 @@ int main() {
 							}
 							return self(cur.c(0));
 						}(seg_tree::point(1)).value_or(-1);
-						int nxt_allowed = [&](this auto&& self, seg_tree::point cur) -> std::optional<int> {
+						int nxt_allowed = a[1] == N ? N : [&](this auto&& self, seg_tree::point cur) -> std::optional<int> {
 							if (seg_zero[cur].full) return std::nullopt;
 							if (cur >= layout.N) {
-								int res = layout.get_leaf_index(cur);
-								assert(res >= a[1]);
-								return res;
+								return layout.get_leaf_index(cur);
 							}
 							int m = layout.get_node_split(cur);
 							if (a[1] < m) {
