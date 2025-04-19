@@ -251,6 +251,8 @@ int main() {
 			}
 		}
 
+		for (auto a : ans) { cerr << a << ' '; } cerr << '\n';
+
 		for (int q = 0; q < M; q++) {
 			for (int i = 0; i < (1 << M); i++) {
 				if (i & (1 << q)) continue;
