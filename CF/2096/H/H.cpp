@@ -259,7 +259,7 @@ int main() {
 				ans[i+(1<<q)] = a-b;
 			}
 		}
-		for (auto a : ans) { cerr << a << ' '; } cerr << '\n';
+		//for (auto a : ans) { cerr << a << ' '; } cerr << '\n';
 
 		{
 			num coeff = inv(num(1 << M));
@@ -276,6 +276,7 @@ int main() {
 			}
 		}
 		cout << final_ans << '\n';
+		break;
 	}
 
 	return 0;
