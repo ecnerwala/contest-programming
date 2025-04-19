@@ -172,7 +172,6 @@ int main() {
 				tot_hr ^= hr;
 
 				int hx = (l ^ r) >> q;
-				cerr << "do_mult " << vr - vl << ' ' << vr + vl << '\n';
 				do_mult(vr - vl, vr + vl, hx);
 			}
 			for (int z = 0; z < M-q; z++) {
@@ -189,8 +188,6 @@ int main() {
 			}
 		}
 
-		for (auto a : ans) { cerr << a << ' '; } cerr << '\n';
-
 		for (int q = 0; q < M; q++) {
 			for (int i = 0; i < (1 << M); i++) {
 				if (i & (1 << q)) continue;
@@ -199,7 +196,6 @@ int main() {
 				ans[i+(1<<q)] = a-b;
 			}
 		}
-		for (auto a : ans) { cerr << a << ' '; } cerr << '\n';
 
 		{
 			num coeff = inv(num(1 << M));
@@ -216,7 +212,6 @@ int main() {
 			}
 		}
 		cout << final_ans << '\n';
-		break;
 	}
 
 	return 0;
