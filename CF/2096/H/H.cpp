@@ -154,7 +154,7 @@ int main() {
 			ans[0] = v0;
 		}
 		for (int q = 1; q <= M; q++) {
-			std::vector<my_num> vals(1 << (M-q));
+			std::vector<my_num> vals(1 << (M-q), {1, 1});
 			auto do_mult = [&](num v0, num v1, int h) -> void {
 				assert(0 <= h && h < (1 << (M-q)));
 				vals[h] = vals[h] + my_num{v0, v1};
