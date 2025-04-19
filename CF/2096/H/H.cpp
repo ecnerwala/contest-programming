@@ -209,7 +209,7 @@ int main() {
 			}
 			ans[0] = v0;
 		}
-		for (int q = 1; q < M; q++) {
+		for (int q = 1; q <= M; q++) {
 			std::vector<my_num> vals(1 << (M-q));
 			auto do_mult = [&](num v0, num v1, int h) -> void {
 				assert(0 <= h && h < (1 << (M-q)));
