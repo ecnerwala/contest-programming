@@ -246,7 +246,8 @@ int main() {
 				}
 			}
 			for (int i = 0; i < (1 << (M-q)); i++) {
-				ans[(i << q) + (1 << (q-1))] = num(vals[i]) * ((__builtin_popcount(tot_hr ^ i) & 1)? -1 : 1);
+				num v = num(vals[i]) * ((__builtin_popcount(tot_hr ^ i) & 1)? -1 : 1);
+				ans[(i << q) + (1 << (q-1))] = v;
 			}
 		}
 
@@ -258,6 +259,8 @@ int main() {
 				ans[i+(1<<q)] = a-b;
 			}
 		}
+		for (auto a : ans) { cerr << a << ' '; } cerr << '\n';
+
 		{
 			num coeff = inv(num(1 << M));
 			for (int i = 0; i < (1 << M); i++) {
