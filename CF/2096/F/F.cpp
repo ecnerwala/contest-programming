@@ -343,7 +343,9 @@ int main() {
 						int nxt_allowed = [&](this auto&& self, seg_tree::point cur) -> std::optional<int> {
 							if (seg_zero[cur].full) return std::nullopt;
 							if (cur >= layout.N) {
-								return layout.get_leaf_index(cur);
+								int res = layout.get_leaf_index(cur);
+								assert(res >= a[1]);
+								return res;
 							}
 							int m = layout.get_node_split(cur);
 							if (a[1] < m) {
