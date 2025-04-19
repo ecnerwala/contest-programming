@@ -83,7 +83,7 @@ int main() {
 			} else assert(false);
 		}
 		int i = 0;
-		while (num_match[i] != N) i++;
+		while (num_match[i] != Q) i++;
 		cout << i+1 << '\n' << flush;
 	}
 
