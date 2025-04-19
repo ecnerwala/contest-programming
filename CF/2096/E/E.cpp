@@ -9,6 +9,7 @@ int main() {
 		int N; cin >> N;
 		// (total inversions + number of swaps) / 2
 		std::string S; cin >> S;
+		std::reverse(S.begin(), S.end());
 		int cnt_B = 0;
 		int cnt_P_1 = 0;
 		int64_t ans = 0;
