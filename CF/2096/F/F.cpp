@@ -353,6 +353,7 @@ int main() {
 							return self(cur.c(1));
 						}(seg_tree::point(1)).value_or(N);
 
+						cerr << a[0] << ' ' << a[1] << '\n';
 						cerr << prv_allowed << ' ' << nxt_allowed << '\n';
 
 						// check if there's anything between prv_allowed and nxt_allowed
