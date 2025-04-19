@@ -335,8 +335,8 @@ int main() {
 							}
 							int m = layout.get_node_split(cur);
 							if (a[0] > m) {
-								auto r = self(cur.c(1));
-								if (r) return r;
+								auto ch = self(cur.c(1));
+								if (ch) return ch;
 							}
 							return self(cur.c(0));
 						}(seg_tree::point(1)).value_or(-1);
@@ -347,8 +347,8 @@ int main() {
 							}
 							int m = layout.get_node_split(cur);
 							if (a[1] < m) {
-								auto r = self(cur.c(0));
-								if (r) return r;
+								auto ch = self(cur.c(0));
+								if (ch) return ch;
 							}
 							return self(cur.c(1));
 						}(seg_tree::point(1)).value_or(N);
