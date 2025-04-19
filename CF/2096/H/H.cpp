@@ -231,8 +231,8 @@ int main() {
 				if (vl >= (1 << (q-1))) vl -= 2 * (vl - (1 << (q-1)));
 
 				int hr = r >> q;
-				//do_mult(1, -1, hr);
-				tot_hr ^= hr;
+				do_mult(1, -1, hr);
+				//tot_hr ^= hr;
 
 				int hx = (l ^ r) >> q;
 				do_mult(vr - vl, vr + vl, hx);
