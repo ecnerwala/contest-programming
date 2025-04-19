@@ -126,69 +126,13 @@ using num = modnum<998244353>;
 num PRIM_ROOT = 3;
 num INV_PRIM_ROOT = inv(PRIM_ROOT);
 struct my_num {
-	num a;
-	num ia;
-	int v;
-	bool b;
-	my_num() : a(1), ia(1), v(0), b(0) {}
-	my_num(num a_, num ia_, int v_, bool b_) : a(a_), ia(ia_), v(v_), b(b_) {}
-	static my_num rt(num x) {
-		if (x == 0) return {1, 1, 1, 0};
-		else {
-			// TODO: Tonelli shanks
-			bool b = false;
-			if (pow(x, (num::MOD - 1) / 2) == num(-1))  {
-				b = true;
-				x *= INV_PRIM_ROOT;
-			}
-			const int S = __builtin_ctz(num::MOD - 1);
-			const int Q = (num::MOD - 1) >> S;
-			int M = S;
-			num c = pow(PRIM_ROOT, Q);
-			num t = pow(x, Q);
-			num R = pow(x, (Q+1)/2);
-			assert(t != 0);
-			while (true) {
-				if (t == 1) {
-					// done
-					return {R, inv(R), 0, b};
-				} else {
-					int i = 0;
-					num pt = t;
-					while (pt != 1) {
-						i++;
-						pt *= pt;
-					}
-					num a = pow(c, 1 << (M-i-1));
-					M = i;
-					c = a * a;
-					t *= a * a;
-					R *= a;
-				}
-			}
-		}
-	}
+	num a = 1;
+	num b = 1;
 	friend my_num operator + (my_num l, my_num r) {
-		my_num res{l.a * r.a, l.ia * r.ia, l.v + r.v, bool(l.b ^ r.b)};
-		if (l.b && r.b) {
-			res.a *= PRIM_ROOT;
-			res.ia *= INV_PRIM_ROOT;
-		}
-		return res;
+		return my_num{l.a * r.a, l.b * r.b};
 	}
 	friend my_num operator - (my_num l, my_num r) {
-		my_num res{l.a * r.ia, l.ia * r.a, l.v - r.v, bool(l.b ^ r.b)};
-		if (r.b && !l.b) {
-			// divide by PRIM_ROOT
-			res.ia *= PRIM_ROOT;
-			res.a *= INV_PRIM_ROOT;
-		}
-		return res;
-	}
-	explicit operator num() const {
-		assert(v >= 0);
-		assert(!b);
-		return v ? 0 : a;
+		return my_num{l.a * r.b, l.b * r.a};
 	}
 };
 
@@ -213,12 +157,7 @@ int main() {
 			std::vector<my_num> vals(1 << (M-q));
 			auto do_mult = [&](num v0, num v1, int h) -> void {
 				assert(0 <= h && h < (1 << (M-q)));
-				my_num r0 = my_num::rt(v0);
-				my_num r1 = my_num::rt(v1);
-				assert(num(r0 + r0) == v0);
-				assert(num(r1 + r1) == v1);
-				vals[0] = vals[0] + (r0 + r1);
-				vals[h] = vals[h] + (r0 - r1);
+				vals[h] = vals[h] + my_num{v0, v1};
 			};
 			int tot_hr = 0;
 			for (auto [l, r] : A) {
@@ -247,7 +186,7 @@ int main() {
 				}
 			}
 			for (int i = 0; i < (1 << (M-q)); i++) {
-				num v = num(vals[i]) * ((__builtin_popcount(tot_hr ^ i) & 1)? -1 : 1);
+				num v = vals[i].a * ((__builtin_popcount(tot_hr ^ i) & 1)? -1 : 1);
 				ans[(i << q) + (1 << (q-1))] = v;
 			}
 		}
