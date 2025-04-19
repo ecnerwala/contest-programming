@@ -180,8 +180,8 @@ struct my_num {
 		my_num res{l.a * r.ia, l.ia * r.a, l.v - r.v, bool(l.b ^ r.b)};
 		if (r.b && !l.b) {
 			// divide by PRIM_ROOT
-			res.a *= PRIM_ROOT;
-			res.ia *= INV_PRIM_ROOT;
+			res.ia *= PRIM_ROOT;
+			res.a *= INV_PRIM_ROOT;
 		}
 		return res;
 	}
