@@ -235,6 +235,7 @@ int main() {
 				tot_hr ^= hr;
 
 				int hx = (l ^ r) >> q;
+				cerr << "do_mult " << vr - vl << ' ' << vr + vl << '\n';
 				do_mult(vr - vl, vr + vl, hx);
 			}
 			for (int z = 0; z < M-q; z++) {
