@@ -229,6 +229,8 @@ int main() {
 					if (vis_money[cur]) continue;
 					vis_money[cur] = true;
 
+					cerr << "money " << cur << ' ' << money << '\n';
+
 					if (R[cur] > 0) check_miles(cur, money / R[cur]);
 
 					for (int prv = 0; prv < N; prv++) {
@@ -239,6 +241,8 @@ int main() {
 					auto miles = val;
 					if (vis_miles[cur]) continue;
 					vis_miles[cur] = true;
+
+					cerr << "miles " << cur << ' ' << miles << '\n';
 
 					for (int prv = 0; prv < N; prv++) {
 						if (dist[{prv, cur}] == INF) continue;
