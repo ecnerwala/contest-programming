@@ -219,6 +219,7 @@ int main() {
 				if (min_money[i] < 0 || money < min_money[i]) {
 					min_money[i] = money;
 					pq.push({min_money[i], i, true});
+					if (vis_money[i]) cerr << "BAD!" << '\n';
 				}
 			};
 			auto check_miles = [&](int i, double miles) -> void {
@@ -226,6 +227,7 @@ int main() {
 				if (min_miles[i] < 0 || miles < min_miles[i]) {
 					min_miles[i] = miles;
 					pq.push({min_miles[i] * F, i, false});
+					if (vis_miles[i]) cerr << "BAD!" << '\n';
 				}
 			};
 
