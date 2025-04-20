@@ -208,16 +208,16 @@ int main() {
 			using state_t = std::tuple<double, int, bool>;
 			min_pq<state_t> pq;
 			auto check_money = [&](int i, double money) -> void {
+				cerr << "check money " << i << ' ' << money << '\n';
 				if (min_money[i] < 0 || money < min_money[i]) {
 					min_money[i] = money;
-					cerr << "check money " << i << ' ' << money << '\n';
 					pq.push({min_money[i], i, true});
 				}
 			};
 			auto check_miles = [&](int i, double miles) -> void {
+				cerr << "check miles " << i << ' ' << miles << '\n';
 				if (min_miles[i] < 0 || miles < min_miles[i]) {
 					min_miles[i] = miles;
-					cerr << "check miles " << i << ' ' << miles << '\n';
 					pq.push({min_miles[i] * F, i, false});
 				}
 			};
