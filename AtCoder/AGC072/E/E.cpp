@@ -235,7 +235,7 @@ int main() {
 			while (!pq.empty()) {
 				auto [val, cur, is_money] = pq.top(); pq.pop();
 				if (is_money) {
-					auto money = val;
+					auto money = min_money[cur];
 					if (vis_money[cur]) continue;
 					vis_money[cur] = true;
 
@@ -249,7 +249,7 @@ int main() {
 						check_money(prv, d * F + std::max(0., money - d * R[cur]));
 					}
 				} else {
-					auto miles = val;
+					auto miles = min_miles[cur];
 					if (vis_miles[cur]) continue;
 					vis_miles[cur] = true;
 
