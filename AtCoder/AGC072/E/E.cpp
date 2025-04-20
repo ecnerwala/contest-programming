@@ -260,7 +260,7 @@ int main() {
 							// we spend all our money on (dist[{prvprv, prv}] + dist[{prv, cur}]) * F and also some of our miles from the first leg, but none of our last leg miles
 							int a = dist[{prvprv, prv}];
 							if (a + b >= miles) {
-								double money = a * F + std::max(0., b * F - double(a - pmiles)) * R[prv]);
+								double money = a * F + std::max(0., b * F - double(a - pmiles) * R[prv]);
 								check_money(prvprv, money);
 							}
 						}
