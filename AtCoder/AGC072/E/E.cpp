@@ -215,19 +215,17 @@ int main() {
 			using state_t = std::tuple<double, int, bool>;
 			min_pq<state_t> pq;
 			auto check_money = [&](int i, double money) -> void {
-				cerr << "check money " << i << ' ' << money << '\n';
 				if (min_money[i] < 0 || money < min_money[i]) {
+					cerr << "check money " << i << ' ' << money << '\n';
 					min_money[i] = money;
 					pq.push({min_money[i], i, true});
-					if (vis_money[i]) cerr << "BAD!" << '\n';
 				}
 			};
 			auto check_miles = [&](int i, double miles) -> void {
-				cerr << "check miles " << i << ' ' << miles << '\n';
 				if (min_miles[i] < 0 || miles < min_miles[i]) {
+					cerr << "check miles " << i << ' ' << miles << '\n';
 					min_miles[i] = miles;
 					pq.push({min_miles[i] * F, i, false});
-					if (vis_miles[i]) cerr << "BAD!" << '\n';
 				}
 			};
 
