@@ -199,6 +199,7 @@ int main() {
 		// (cur, money) -> (nxt, money - dist[cur, nxt] * F, miles = dist[cur, nxt]) -> (nxt, money - dist[cur, nxt] * (F - R[nxt]))
 		// (cur, money) -> (nxt, money - dist[cur, nxt] * F, miles = dist[cur, nxt]) -> (nxtnxt, miles = dist[cur][nxt] + dist[cur, nxt] - something with rate[nxt])
 		
+		cerr << fixed << setprecision(10);
 		cout << fixed << setprecision(20) << [&]() -> double {
 			assert((dist[{0, N-1}] != INF));
 			std::vector<bool> vis_money(N, false);
