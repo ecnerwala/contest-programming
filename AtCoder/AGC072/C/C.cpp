@@ -33,7 +33,7 @@ int main() {
 	};
 
 	state_t s{1, std::vector<int>({0})};
-	for (int z = 0; z < 50; z++) {
+	for (int z = 0; z < 10; z++) {
 		s = grow(s, +1);
 		cerr << "N = " << s.N << ' ' << "len = " << s.seq.size() << '\n';
 		for (int v : s.seq) { cerr << v << ' '; } cerr << '\n';
