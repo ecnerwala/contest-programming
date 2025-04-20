@@ -105,7 +105,7 @@ int main() {
 				assert(c - b.c > 0);
 				assert(b.c - a.c > 0);
 				assert(b.s - s > 0);
-				if ((a.s - b.s) * (c - b.c) <= (b.c - a.c) * (b.s - s)) {
+				if (__int128_t(a.s - b.s) * __int128_t(c - b.c) <= __int128_t(b.c - a.c) * __int128_t(b.s - s)) {
 					hull.pop_back();
 				} else {
 					break;
