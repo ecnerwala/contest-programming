@@ -190,6 +190,12 @@ int main() {
 			}
 		}
 
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					cerr << i << ' ' << j << ' ' << dist[{i, j}] << '\n';
+				}
+			}
+
 		// we get to each state with some amount of miles and some amount of money
 		// If we have miles, we can redeem them all for money
 		// or redeem some (nonzero) number of them, which means we must spend all our money by the next destination, leaving us with only miles
