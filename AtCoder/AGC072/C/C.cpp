@@ -39,7 +39,7 @@ int main() {
 		for (int v : s.seq) { cerr << v << ' '; } cerr << '\n';
 	}
 	for (int z = 0; z < 7; z++) {
-		s = grow(s, +1);
+		s = grow(s, -1);
 		cerr << "N = " << s.N << ' ' << "len = " << s.seq.size() << '\n';
 		for (int v : s.seq) { cerr << v << ' '; } cerr << '\n';
 	}
