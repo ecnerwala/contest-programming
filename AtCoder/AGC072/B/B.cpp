@@ -102,6 +102,10 @@ int main() {
 
 				auto a = hull.end()[-2];
 				auto b = hull.end()[-1];
+				assert(a.s - b.s > 0);
+				assert(c - b.c > 0);
+				assert(b.c - a.c > 0);
+				assert(b.s - s > 0);
 				if ((a.s - b.s) * (c - b.c) >= (b.c - a.c) * (b.s - s)) {
 					hull.pop_back();
 				} else {
