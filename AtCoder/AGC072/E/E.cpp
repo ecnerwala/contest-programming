@@ -231,8 +231,8 @@ int main() {
 							cur = i;
 							is_money = true;
 						}
-						if (!vis_miles[i] && min_miles[i] >= 0 && min_miles[i] < best) {
-							best = min_miles[i];
+						if (!vis_miles[i] && min_miles[i] >= 0 && min_miles[i] * F < best) {
+							best = min_miles[i] * F;
 							cur = i;
 							is_money = false;
 						}
