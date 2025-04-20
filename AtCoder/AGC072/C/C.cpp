@@ -47,28 +47,24 @@ int main() {
 	}
 
 	int N; int64_t K; cin >> N >> K;
-	std::vector<int64_t> freq; freq.reserve(N);
-	std::vector<int64_t> nfreq; nfreq.reserve(N);
-	freq.push_back(K-1);
+	std::vector<int64_t> freq(N);
+	freq[0] = K-1;
 	int cur = 0;
 	std::string res; res.reserve(2*(N-1));
 	for (int l = 2; l <= N; l++) {
-		nfreq.assign(l, 0);
-		for (int i = 0; i < l-1; i++) {
+		for (int i = l-2; i >= 0; i--) {
 			// down l - 1 - i, right i + 1
 			int d = l - 1 - i;
 			int64_t td = (freq[i] / l) * d + std::min<int64_t>(d, freq[i] % l);
-			nfreq[i] += td;
-			nfreq[i+1] += freq[i] - td;
+			freq[i+1] += freq[i] - td;
+			freq[i] = td;
 		}
-		if (nfreq[cur] <= nfreq[cur+1]) {
+		if (freq[cur] <= freq[cur+1]) {
 			res += 'D';
 		} else {
 			res += 'R';
 			cur++;
 		}
-
-		std::swap(freq, nfreq);
 	}
 
 	for (int i = N-2; i >= 0; i--) {
