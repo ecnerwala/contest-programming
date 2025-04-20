@@ -16,10 +16,14 @@ int main() {
 			freq[i+1] += freq[i] - td;
 			freq[i] = td;
 		}
-		bool r = freq[cur] <= freq[cur+1];
-		res += "DR"[r];
-		cur += r;
+		if (freq[cur] <= freq[cur+1]) {
+			res += 'D';
+		} else {
+			res += 'R';
+			cur++;
+		}
 	}
+
 	for (int i = N-2; i >= 0; i--) {
 		res += char('D' ^ 'R' ^ res[i]);
 	}
