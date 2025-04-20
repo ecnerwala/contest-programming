@@ -262,11 +262,6 @@ int main() {
 
 			return min_money[0];
 		}() << '\n';
-
-		{
-			int cur;
-			int miles_in, money_in;
-		}
 	}
 
 	return 0;
