@@ -210,12 +210,14 @@ int main() {
 			auto check_money = [&](int i, double money) -> void {
 				if (min_money[i] < 0 || money < min_money[i]) {
 					min_money[i] = money;
+					cerr << "check money " << i << ' ' << money << '\n';
 					pq.push({min_money[i], i, true});
 				}
 			};
 			auto check_miles = [&](int i, double miles) -> void {
 				if (min_miles[i] < 0 || miles < min_miles[i]) {
 					min_miles[i] = miles;
+					cerr << "check miles " << i << ' ' << miles << '\n';
 					pq.push({min_miles[i] * F, i, false});
 				}
 			};
