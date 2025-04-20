@@ -52,12 +52,12 @@ int main() {
 	freq.push_back(K-1);
 	int cur = 0;
 	std::string res; res.reserve(2*(N-1));
-	for (int z = 0; z < N-1; z++) {
-		nfreq.assign(freq.size() + 1, 0);
-		for (int i = 0; i < int(freq.size()); i++) {
-			// down nfreq.size() - 1 - i, right i + 1
-			int d = int(nfreq.size() - 1 - i);
-			int64_t td = (freq[i] / int(nfreq.size())) * d + std::min<int64_t>(d, freq[i] % int(nfreq.size()));
+	for (int l = 2; l <= N; l++) {
+		nfreq.assign(l, 0);
+		for (int i = 0; i < l-1; i++) {
+			// down l - 1 - i, right i + 1
+			int d = l - 1 - i;
+			int64_t td = (freq[i] / l) * d + std::min<int64_t>(d, freq[i] % l);
 			nfreq[i] += td;
 			nfreq[i+1] += freq[i] - td;
 		}
