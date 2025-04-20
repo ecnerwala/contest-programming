@@ -232,6 +232,7 @@ int main() {
 			};
 
 			check_money(N-1, 0.);
+			check_miles(N-1, 0.);
 
 			while (!pq.empty()) {
 				auto [val, cur, is_money] = pq.top(); pq.pop();
