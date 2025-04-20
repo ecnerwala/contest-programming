@@ -190,12 +190,6 @@ int main() {
 			}
 		}
 
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					cerr << i << ' ' << j << ' ' << dist[{i, j}] << '\n';
-				}
-			}
-
 		// we get to each state with some amount of miles and some amount of money
 		// If we have miles, we can redeem them all for money
 		// or redeem some (nonzero) number of them, which means we must spend all our money by the next destination, leaving us with only miles
@@ -205,7 +199,7 @@ int main() {
 		// (cur, money) -> (nxt, money - dist[cur, nxt] * F, miles = dist[cur, nxt]) -> (nxt, money - dist[cur, nxt] * (F - R[nxt]))
 		// (cur, money) -> (nxt, money - dist[cur, nxt] * F, miles = dist[cur, nxt]) -> (nxtnxt, miles = dist[cur][nxt] + dist[cur, nxt] - something with rate[nxt])
 		
-		cerr << fixed << setprecision(10);
+		//cerr << fixed << setprecision(10);
 		cout << fixed << setprecision(20) << [&]() -> double {
 			assert((dist[{0, N-1}] != INF));
 			std::vector<bool> vis_money(N, false);
@@ -216,14 +210,14 @@ int main() {
 			min_pq<state_t> pq;
 			auto check_money = [&](int i, double money) -> void {
 				if (min_money[i] < 0 || money < min_money[i]) {
-					cerr << "check money " << i << ' ' << money << '\n';
+					//cerr << "check money " << i << ' ' << money << '\n';
 					min_money[i] = money;
 					pq.push({min_money[i], i, true});
 				}
 			};
 			auto check_miles = [&](int i, double miles) -> void {
 				if (min_miles[i] < 0 || miles < min_miles[i]) {
-					cerr << "check miles " << i << ' ' << miles << '\n';
+					//cerr << "check miles " << i << ' ' << miles << '\n';
 					min_miles[i] = miles;
 					pq.push({min_miles[i] * F, i, false});
 				}
@@ -239,7 +233,7 @@ int main() {
 					if (vis_money[cur]) continue;
 					vis_money[cur] = true;
 
-					cerr << "money " << cur << ' ' << money << '\n';
+					//cerr << "money " << cur << ' ' << money << '\n';
 
 					if (R[cur] > 0) check_miles(cur, money / R[cur]);
 
@@ -253,7 +247,7 @@ int main() {
 					if (vis_miles[cur]) continue;
 					vis_miles[cur] = true;
 
-					cerr << "miles " << cur << ' ' << miles << '\n';
+					//cerr << "miles " << cur << ' ' << miles << '\n';
 
 					for (int prv = 0; prv < N; prv++) {
 						if (dist[{prv, cur}] == INF) continue;
@@ -262,7 +256,7 @@ int main() {
 
 						double pmiles = std::max(miles - b, 0.);
 
-						cerr << "intermediate " << prv << '\n';
+						//cerr << "intermediate " << prv << '\n';
 
 						if (R[prv]) {
 							check_miles(prv, pmiles + double(b) * (double(F) / R[prv]));
