@@ -204,7 +204,6 @@ int main() {
 			std::vector<bool> vis_miles(N, false);
 			std::vector<double> min_miles(N, -1);
 			std::vector<double> min_money(N, -1);
-			using state_t = std::tuple<double, int, bool>;
 			auto check_money = [&](int i, double money) -> void {
 				if (min_money[i] < 0 || money < min_money[i]) {
 					//cerr << "check money " << i << ' ' << money << '\n';
