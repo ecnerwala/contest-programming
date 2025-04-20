@@ -262,11 +262,12 @@ int main() {
 
 						double pmiles = std::max(miles - b, 0.);
 
+						cerr << "intermediate " << prv << '\n';
+
 						if (R[prv]) {
 							check_miles(prv, pmiles + double(b) * (double(F) / R[prv]));
 						}
 
-						cerr << "intermediate " << prv << '\n';
 						for (int prvprv = 0; prvprv < N; prvprv++) {
 							if (dist[{prvprv, prv}] == INF) continue;
 							// we spend all our money on (dist[{prvprv, prv}] + dist[{prv, cur}]) * F and also some of our miles from the first leg, but none of our last leg miles
