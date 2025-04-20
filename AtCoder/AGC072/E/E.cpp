@@ -227,7 +227,7 @@ int main() {
 			check_miles(N-1, 0.);
 
 			while (!pq.empty()) {
-				auto [val, cur, is_money] = pq.top(); pq.pop();
+				auto [_, cur, is_money] = pq.top(); pq.pop();
 				if (is_money) {
 					auto money = min_money[cur];
 					if (vis_money[cur]) continue;
@@ -261,16 +261,23 @@ int main() {
 						if (R[prv]) {
 							check_miles(prv, pmiles + double(b) * (double(F) / R[prv]));
 						}
+					}
 
-						for (int prvprv = 0; prvprv < N; prvprv++) {
+					for (int prvprv = 0; prvprv < N; prvprv++) {
+						double best_money = -1;
+						for (int prv = 0; prv < N; prv++) {
+							if (dist[{prv, cur}] == INF) continue;
 							if (dist[{prvprv, prv}] == INF) continue;
 							// we spend all our money on (dist[{prvprv, prv}] + dist[{prv, cur}]) * F and also some of our miles from the first leg, but none of our last leg miles
 							int a = dist[{prvprv, prv}];
+							int b = dist[{prv, cur}];
+							double pmiles = std::max(miles - b, 0.);
 							if (a + b >= miles) {
 								double money = a * F + std::max(0., b * F - (a - pmiles) * R[prv]);
-								check_money(prvprv, money);
+								if (best_money < 0 || money < best_money) best_money = money;
 							}
 						}
+						if (best_money >= 0) check_money(prvprv, best_money);
 					}
 				}
 			}
