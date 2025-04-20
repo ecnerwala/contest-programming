@@ -16,12 +16,9 @@ int main() {
 			freq[i+1] += freq[i] - td;
 			freq[i] = td;
 		}
-		if (freq[cur] <= freq[cur+1]) {
-			res += 'D';
-		} else {
-			res += 'R';
-			cur++;
-		}
+		bool r = freq[cur] > freq[cur+1];
+		res += "DR"[r];
+		cur += r;
 	}
 
 	for (int i = N-2; i >= 0; i--) {
