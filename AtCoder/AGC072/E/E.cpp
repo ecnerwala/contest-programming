@@ -237,7 +237,8 @@ int main() {
 
 					for (int prv = 0; prv < N; prv++) {
 						if (dist[{prv, cur}] == INF) continue;
-						check_money(prv, money + dist[{prv, cur}] * (F - R[cur]));
+						int d = dist[{prv, cur}];
+						check_money(prv, d * F + std::max(0., money - d * R[cur]));
 					}
 				} else {
 					auto miles = val;
