@@ -111,7 +111,11 @@ int main() {
 		}
 	}
 
+	assert(!hull.empty());
+	int idx = 0;
 	for (int k = 1; k <= K; k++) {
+		while (idx + 1 < int(hull.size()) && k * hull[idx].s + hull[idx].c >= k * hull[idx+1].s + hull[idx+1].c) idx++;
+		cout << k * hull[idx].s + hull[idx].c << '\n';
 	}
 
 	return 0;
