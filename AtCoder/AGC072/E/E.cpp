@@ -156,8 +156,6 @@ public:
 	}
 };
 
-template <typename T> using min_pq = std::priority_queue<T, std::vector<T>, std::greater<T>>;
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -207,27 +205,41 @@ int main() {
 			std::vector<double> min_miles(N, -1);
 			std::vector<double> min_money(N, -1);
 			using state_t = std::tuple<double, int, bool>;
-			min_pq<state_t> pq;
 			auto check_money = [&](int i, double money) -> void {
 				if (min_money[i] < 0 || money < min_money[i]) {
 					//cerr << "check money " << i << ' ' << money << '\n';
 					min_money[i] = money;
-					pq.push({min_money[i], i, true});
 				}
 			};
 			auto check_miles = [&](int i, double miles) -> void {
 				if (min_miles[i] < 0 || miles < min_miles[i]) {
 					//cerr << "check miles " << i << ' ' << miles << '\n';
 					min_miles[i] = miles;
-					pq.push({min_miles[i] * F, i, false});
 				}
 			};
 
 			check_money(N-1, 0.);
 			check_miles(N-1, 0.);
 
-			while (!pq.empty()) {
-				auto [_, cur, is_money] = pq.top(); pq.pop();
+			while (!vis_money[0]) {
+				int cur = -1;
+				bool is_money = false;
+				{
+					double best = 1e99;
+					for (int i = 0; i < N; i++) {
+						if (!vis_money[i] && min_money[i] >= 0 && min_money[i] < best) {
+							best = min_money[i];
+							cur = i;
+							is_money = true;
+						}
+						if (!vis_miles[i] && min_miles[i] >= 0 && min_miles[i] < best) {
+							best = min_miles[i];
+							cur = i;
+							is_money = false;
+						}
+					}
+					assert(cur != -1);
+				}
 				if (is_money) {
 					auto money = min_money[cur];
 					if (vis_money[cur]) continue;
@@ -261,23 +273,16 @@ int main() {
 						if (R[prv]) {
 							check_miles(prv, pmiles + double(b) * (double(F) / R[prv]));
 						}
-					}
 
-					for (int prvprv = 0; prvprv < N; prvprv++) {
-						double best_money = -1;
-						for (int prv = 0; prv < N; prv++) {
-							if (dist[{prv, cur}] == INF) continue;
+						for (int prvprv = 0; prvprv < N; prvprv++) {
 							if (dist[{prvprv, prv}] == INF) continue;
 							// we spend all our money on (dist[{prvprv, prv}] + dist[{prv, cur}]) * F and also some of our miles from the first leg, but none of our last leg miles
 							int a = dist[{prvprv, prv}];
-							int b = dist[{prv, cur}];
-							double pmiles = std::max(miles - b, 0.);
 							if (a + b >= miles) {
 								double money = a * F + std::max(0., b * F - (a - pmiles) * R[prv]);
-								if (best_money < 0 || money < best_money) best_money = money;
+								check_money(prvprv, money);
 							}
 						}
-						if (best_money >= 0) check_money(prvprv, best_money);
 					}
 				}
 			}
