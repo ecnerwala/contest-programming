@@ -55,6 +55,13 @@ int main() {
 	for (int z = 0; z < N-1; z++) {
 		nfreq.assign(freq.size() + 1, 0);
 		int64_t cnt = freq.back() * int(freq.size());
+		for (int i = 0; i < int(freq.size()); i++) {
+			// down nfreq.size() - 1 - i, right i + 1
+			int d = int(nfreq.size() - 1 - i);
+			int64_t td = (freq[i] / int(nfreq.size())) * d + std::min<int64_t>(d, freq[i] % int(nfreq.size()));
+			nfreq[i] += td;
+			nfreq[i+1] += freq[i] - td;
+		}
 		for (int i = 0; i < int(nfreq.size()); i++) {
 			nfreq[i] = cnt / int(nfreq.size()) + (i < cnt % int(nfreq.size()));
 		}
