@@ -246,17 +246,21 @@ int main() {
 
 					for (int prv = 0; prv < N; prv++) {
 						if (dist[{prv, cur}] == INF) continue;
+
+						int b = dist[{prv, cur}];
+
+						double pmiles = std::max(miles - b, 0.);
+
 						if (R[prv]) {
-							check_miles(prv, miles + double(dist[{prv, cur}]) * (double(F) / R[prv] - 1));
+							check_miles(prv, pmiles + double(b) * (double(F) / R[prv]));
 						}
 
 						for (int prvprv = 0; prvprv < N; prvprv++) {
 							if (dist[{prvprv, prv}] == INF) continue;
 							// we spend all our money on (dist[{prvprv, prv}] + dist[{prv, cur}]) * F and also some of our miles from the first leg, but none of our last leg miles
 							int a = dist[{prvprv, prv}];
-							int b = dist[{prv, cur}];
 							if (a + b >= miles) {
-								double money = a * F + std::max(0., b * F - double(a - std::max(miles - b, 0.)) * R[prv]);
+								double money = a * F + std::max(0., b * F - double(a - pmiles)) * R[prv]);
 								check_money(prvprv, money);
 							}
 						}
