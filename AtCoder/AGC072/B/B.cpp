@@ -80,7 +80,6 @@ int main() {
 		if (best_costs[v]) {
 			int64_t s = sum_cost[v];
 			int64_t c = *best_costs[v];
-			cerr << "cand " << s << ' ' << c << '\n';
 			// s * k + c
 			// s is decreasing, so we get better for bigger k
 			bool should_push = true;
