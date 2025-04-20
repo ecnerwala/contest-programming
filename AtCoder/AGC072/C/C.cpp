@@ -54,7 +54,6 @@ int main() {
 	std::string res; res.reserve(2*(N-1));
 	for (int z = 0; z < N-1; z++) {
 		nfreq.assign(freq.size() + 1, 0);
-		int64_t cnt = freq.back() * int(freq.size());
 		for (int i = 0; i < int(freq.size()); i++) {
 			// down nfreq.size() - 1 - i, right i + 1
 			int d = int(nfreq.size() - 1 - i);
@@ -62,19 +61,6 @@ int main() {
 			nfreq[i] += td;
 			nfreq[i+1] += freq[i] - td;
 		}
-		for (int i = 0; i < int(nfreq.size()); i++) {
-			nfreq[i] = cnt / int(nfreq.size()) + (i < cnt % int(nfreq.size()));
-		}
-		for (int j = int(freq.size()) - 2; j >= 0; j--) {
-			assert(freq[j] >= freq[j+1]);
-			assert(freq[j] <= freq[j+1] + 1);
-			if (freq[j] > freq[j+1]) {
-				for (int i = 0; i <= j; i++) {
-					nfreq[(nfreq[i] <= nfreq[i+1]) ? i : i+1]++;
-				}
-			}
-		}
-
 		if (nfreq[cur] <= nfreq[cur+1]) {
 			res += 'D';
 		} else {
