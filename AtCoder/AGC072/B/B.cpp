@@ -24,10 +24,12 @@ int main() {
 		int64_t cur = 0;
 		for (int i = 0; i <= 2*N; i++) {
 			if (pref_costs.empty() || val[i] > pref_costs.back().first) {
-				assert(cur >= pref_costs.back().second);
-				if (pref_costs.back().second == cur) {
-					// we're just better, erase the back
-					pref_costs.pop_back();
+				if (!pref_costs.empty()) {
+					assert(cur >= pref_costs.back().second);
+					if (pref_costs.back().second == cur) {
+						// we're just better, erase the back
+						pref_costs.pop_back();
+					}
 				}
 				pref_costs.push_back({val[i], cur});
 			}
