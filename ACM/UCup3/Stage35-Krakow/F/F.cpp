@@ -563,7 +563,7 @@ int main() {
 		std::vector<std::tuple<bool, int, std::array<int, 2>>> edges(M);
 		for (auto& [t, w, vs] : edges) {
 			char c;
-			cin >> w >> vs[0] >> vs[1] >> c; vs[0]--, vs[1]--;
+			cin >> vs[0] >> vs[1] >> w >> c; vs[0]--, vs[1]--;
 			if (c == 'R') t = true;
 			else if (c == 'B') t = false;
 			else assert(false);
