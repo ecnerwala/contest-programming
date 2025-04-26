@@ -204,11 +204,11 @@ int main() {
 				int cur = 0;
 				pref_vals[i].push_back(cur);
 				for (char c : S[i]) {
-					if (t_pref[cur][c - 'a'] == -1) {
-						t_pref[cur][c - 'a'] = int(t_pref.size());
+					if (t_pref[cur][c - 'A'] == -1) {
+						t_pref[cur][c - 'A'] = int(t_pref.size());
 						t_pref.emplace_back(); t_pref.back().fill(-1);
 					}
-					cur = t_pref[cur][c - 'a'];
+					cur = t_pref[cur][c - 'A'];
 					pref_vals[i].push_back(cur);
 				}
 			}
@@ -218,12 +218,12 @@ int main() {
 				suff_occs[cur].push_back({i, int(S[i].size()), int(S[i].size())});
 				for (int z = int(S[i].size()) - 1; z >= 0; z--) {
 					char c = S[i][z];
-					if (t_suff[cur][c - 'a'] == -1) {
-						t_suff[cur][c - 'a'] = int(t_suff.size());
+					if (t_suff[cur][c - 'A'] == -1) {
+						t_suff[cur][c - 'A'] = int(t_suff.size());
 						t_suff.emplace_back(); t_suff.back().fill(-1);
 						suff_occs.emplace_back();
 					}
-					cur = t_suff[cur][c - 'a'];
+					cur = t_suff[cur][c - 'A'];
 					suff_occs[cur].push_back({i, int(S[i].size()), z});
 				}
 			}
