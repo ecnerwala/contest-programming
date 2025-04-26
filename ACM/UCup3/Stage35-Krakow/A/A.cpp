@@ -169,6 +169,117 @@ decltype(auto) y_combinator(Fun &&fun) {
 
 } // namespace std
 
+int64_t solve(std::vector<std::string> S, int K) {
+	int N = int(S.size());
+	int L = 0;
+	for (const auto& s : S) { L += int(s.size()); }
+	std::sort(S.begin(), S.end(), [&](const auto& a, const auto& b) { return a.size() < b.size(); });
+
+	L++;
+
+	std::vector<std::array<int, 26>> t_pref; t_pref.reserve(L+1);
+	t_pref.emplace_back(); t_pref.back().fill(-1);
+	std::vector<std::array<int, 26>> t_suff; t_suff.reserve(L+1);
+	struct occ_t {
+		int i;
+		int len;
+		int z;
+	};
+	std::vector<std::vector<occ_t>> suff_occs; suff_occs.reserve(L+1);
+	t_suff.emplace_back(); t_suff.back().fill(-1);
+	suff_occs.emplace_back();
+
+	std::vector<std::vector<int>> pref_vals(N);
+
+	for (int i = 0; i < N; i++) {
+		{
+			pref_vals[i].reserve(S[i].size() + 1);
+			int cur = 0;
+			pref_vals[i].push_back(cur);
+			for (char c : S[i]) {
+				if (t_pref[cur][c - 'A'] == -1) {
+					t_pref[cur][c - 'A'] = int(t_pref.size());
+					t_pref.emplace_back(); t_pref.back().fill(-1);
+				}
+				cur = t_pref[cur][c - 'A'];
+				pref_vals[i].push_back(cur);
+			}
+		}
+
+		{
+			int cur = 0;
+			suff_occs[cur].push_back({i, int(S[i].size()), int(S[i].size())});
+			for (int z = int(S[i].size()) - 1; z >= 0; z--) {
+				char c = S[i][z];
+				if (t_suff[cur][c - 'A'] == -1) {
+					t_suff[cur][c - 'A'] = int(t_suff.size());
+					t_suff.emplace_back(); t_suff.back().fill(-1);
+					suff_occs.emplace_back();
+				}
+				cur = t_suff[cur][c - 'A'];
+				suff_occs[cur].push_back({i, int(S[i].size()), z});
+			}
+		}
+	}
+
+	// First, preprocess the prefix trie
+	int V = int(t_pref.size());
+	std::vector<std::array<int, 2>> st(V);
+	{
+		int nxt_idx = 0;
+		std::y_combinator([&](auto&& self, int cur) -> void {
+			if (cur == -1) return;
+			st[cur][0] = nxt_idx;
+			nxt_idx++;
+			for (int nxt : t_pref[cur]) self(nxt);
+			st[cur][1] = nxt_idx;
+		})(0);
+		assert(nxt_idx == V);
+	}
+
+	int64_t ans = 0;
+	binary_indexed_tree<int> bit(V);
+	for (auto occs : suff_occs) {
+		for (int l = 0, r = 0; l < int(occs.size()); ) {
+			if (r == int(occs.size()) || (l < r && occs[l].len + K < occs[r].len)) {
+				// i is too early, so delete it
+				//cerr << "insert " << S[occs[l].i] << '\n';
+				for (auto& a : bit.suffix(st[pref_vals[occs[l].i].back()][0])) a--;
+				l++;
+			} else {
+				int i = occs[r].i;
+				int z = occs[r].z;
+				if (z == occs[r].len && z < K) {
+					int cur = 0;
+					for (auto a : bit.prefix(V)) cur += a;
+					ans += cur;
+				}
+				if (z >= K) {
+					// add in subtrees of pref_vals[i][z - K];
+					int cur = 0;
+					for (auto a : bit.prefix(st[pref_vals[i][z - K]][1])) cur += a;
+					for (auto a : bit.prefix(st[pref_vals[i][z - K]][0])) cur -= a;
+					ans += cur;
+					//cerr << "suffix " << S[i] << ' ' << z << ' ' << K << ' ' << cur << '\n';
+				}
+				if (z >= K && z+1 <= occs[r].len) {
+					// subtract out subtrees of pref_vals[i][z - K + 1]
+					int cur = 0;
+					for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][1])) cur += a;
+					for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][0])) cur -= a;
+					ans -= cur;
+					//cerr << "suffix " << S[i] << ' ' << z << ' ' << K+1 << ' ' << cur << '\n';
+				}
+
+				//cerr << "remove " << S[occs[l].i] << '\n';
+				for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a++;
+				r++;
+			}
+		}
+	}
+	return ans;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -178,113 +289,8 @@ int main() {
 		int N, K; cin >> N >> K;
 
 		std::vector<std::string> S(N);
-		int L = 0;
-		for (auto& s : S) { cin >> s; L += int(s.size()); }
-		std::sort(S.begin(), S.end(), [&](const auto& a, const auto& b) { return a.size() < b.size(); });
-
-		L++;
-
-		std::vector<std::array<int, 26>> t_pref; t_pref.reserve(L+1);
-		t_pref.emplace_back(); t_pref.back().fill(-1);
-		std::vector<std::array<int, 26>> t_suff; t_suff.reserve(L+1);
-		struct occ_t {
-			int i;
-			int len;
-			int z;
-		};
-		std::vector<std::vector<occ_t>> suff_occs; suff_occs.reserve(L+1);
-		t_suff.emplace_back(); t_suff.back().fill(-1);
-		suff_occs.emplace_back();
-
-		std::vector<std::vector<int>> pref_vals(N);
-
-		for (int i = 0; i < N; i++) {
-			{
-				pref_vals[i].reserve(S[i].size() + 1);
-				int cur = 0;
-				pref_vals[i].push_back(cur);
-				for (char c : S[i]) {
-					if (t_pref[cur][c - 'A'] == -1) {
-						t_pref[cur][c - 'A'] = int(t_pref.size());
-						t_pref.emplace_back(); t_pref.back().fill(-1);
-					}
-					cur = t_pref[cur][c - 'A'];
-					pref_vals[i].push_back(cur);
-				}
-			}
-
-			{
-				int cur = 0;
-				suff_occs[cur].push_back({i, int(S[i].size()), int(S[i].size())});
-				for (int z = int(S[i].size()) - 1; z >= 0; z--) {
-					char c = S[i][z];
-					if (t_suff[cur][c - 'A'] == -1) {
-						t_suff[cur][c - 'A'] = int(t_suff.size());
-						t_suff.emplace_back(); t_suff.back().fill(-1);
-						suff_occs.emplace_back();
-					}
-					cur = t_suff[cur][c - 'A'];
-					suff_occs[cur].push_back({i, int(S[i].size()), z});
-				}
-			}
-		}
-
-		// First, preprocess the prefix trie
-		int V = int(t_pref.size());
-		std::vector<std::array<int, 2>> st(V);
-		{
-			int nxt_idx = 0;
-			std::y_combinator([&](auto&& self, int cur) -> void {
-				if (cur == -1) return;
-				st[cur][0] = nxt_idx;
-				nxt_idx++;
-				for (int nxt : t_pref[cur]) self(nxt);
-				st[cur][1] = nxt_idx;
-			})(0);
-			assert(nxt_idx == V);
-		}
-
-		int64_t ans = 0;
-		binary_indexed_tree<int> bit(V);
-		for (auto occs : suff_occs) {
-			for (int l = 0, r = 0; l < int(occs.size()); ) {
-				if (r == int(occs.size()) || (l < r && occs[l].len + K < occs[r].len)) {
-					// i is too early, so delete it
-					//cerr << "insert " << S[occs[l].i] << '\n';
-					for (auto& a : bit.suffix(st[pref_vals[occs[l].i].back()][0])) a--;
-					l++;
-				} else {
-					int i = occs[r].i;
-					int z = occs[r].z;
-					if (z == occs[r].len && z < K) {
-						int cur = 0;
-						for (auto a : bit.prefix(V)) cur += a;
-						ans += cur;
-					}
-					if (z >= K) {
-						// add in subtrees of pref_vals[i][z - K];
-						int cur = 0;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K]][1])) cur += a;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K]][0])) cur -= a;
-						ans += cur;
-						//cerr << "suffix " << S[i] << ' ' << z << ' ' << K << ' ' << cur << '\n';
-					}
-					if (z >= K && z+1 <= occs[r].len) {
-						// subtract out subtrees of pref_vals[i][z - K + 1]
-						int cur = 0;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][1])) cur += a;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][0])) cur -= a;
-						ans -= cur;
-						//cerr << "suffix " << S[i] << ' ' << z << ' ' << K+1 << ' ' << cur << '\n';
-					}
-
-					//cerr << "remove " << S[occs[l].i] << '\n';
-					for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a++;
-					r++;
-				}
-			}
-		}
-		cout << ans << '\n';
+		for (auto& s : S) cin >> s;
+		cout << solve(std::move(S), K) << '\n';
 	}
 
 	return 0;
