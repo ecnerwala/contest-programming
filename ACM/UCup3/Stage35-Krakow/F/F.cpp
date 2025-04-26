@@ -515,12 +515,12 @@ public:
 
 };
 
-const int INF = 1e9;
+const int -1 = 1e9;
 struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	bool lazy_flip_path = false;
 
-	std::pair<int, int> own_val = {INF, -1};
-	std::pair<int, int> min_val = {INF, -1};
+	std::pair<int, int> own_val = {-1, -1};
+	std::pair<int, int> max_val = {-1, -1};
 
 	void do_flip_path() {
 		assert(is_path);
@@ -545,9 +545,9 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	void update() {
 		if (is_vert) {
 			// do nothing
-			min_val = {INF, -1};
+			max_val = {-1, -1};
 		} else if (is_path) {
-			min_val = std::min({own_val, c[0]->min_val, c[1]->min_val});
+			max_val = std::max({own_val, c[0]->max_val, c[1]->max_val});
 		} else {
 		}
 	}
@@ -587,7 +587,7 @@ int main() {
 		for (auto [t, w, vs] : edges) {
 			auto [u, v] = vs;
 			assert(u != v);
-			cerr << "linking " << t << ' ' << w << ' ' << u << ' ' << v << '\n';
+			//cerr << "linking " << t << ' ' << w << ' ' << u << ' ' << v << '\n';
 			auto a = &vert_nodes[u];
 			auto b = &vert_nodes[v];
 			assert(a != b);
@@ -601,20 +601,20 @@ int main() {
 				auto e = &edge_nodes[nxt_e];
 				cost += w;
 				cnt_red += t;
-				e->own_val = t ? std::pair<int, int>{INF, -1} : std::pair<int, int>{w, nxt_e};
+				e->own_val = t ? std::pair<int, int>{-1, -1} : std::pair<int, int>{w, nxt_e};
 				link(e, a, b);
 				nxt_e++;
 			} else if (t) {
 				// we only do this if we're red, and try to remove a blue guy
 				assert(!b->p->p);
 				auto path = b->p;
-				int e_idx = path->min_val.second;
+				int e_idx = path->max_val.second;
 				if (e_idx != -1) {
-					incr_costs.push_back(w - path->min_val.first);
+					incr_costs.push_back(w - path->max_val.first);
 					// it's blue, so replace it
 					auto e = &edge_nodes[e_idx];
 					cut(e);
-					e->own_val = std::pair<int, int>{INF, -1};
+					e->own_val = std::pair<int, int>{-1, -1};
 					link(e, a, b);
 				}
 			}
