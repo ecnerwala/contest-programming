@@ -582,6 +582,7 @@ int main() {
 
 		int nxt_e = 0;
 
+		std::sort(edges.begin(), edges.end());
 		// blue < red, so we start with min reds
 		for (auto [t, w, vs] : edges) {
 			auto [u, v] = vs;
