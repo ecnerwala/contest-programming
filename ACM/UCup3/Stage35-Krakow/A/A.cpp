@@ -269,11 +269,11 @@ int main() {
 						ans += cur;
 						cerr << "suffix " << S[i] << ' ' << z << ' ' << K << ' ' << cur << '\n';
 					}
-					if (z >= K+1) {
-						// subtract out subtrees of pref_vals[i][z - K - 1]
+					if (z >= K) {
+						// subtract out subtrees of pref_vals[i][z - K + 1]
 						int cur = 0;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][1])) cur += a;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][0])) cur -= a;
+						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][1])) cur += a;
+						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][0])) cur -= a;
 						ans -= cur;
 						cerr << "suffix " << S[i] << ' ' << z << ' ' << K+1 << ' ' << cur << '\n';
 					}
