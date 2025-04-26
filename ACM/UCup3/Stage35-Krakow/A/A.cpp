@@ -301,9 +301,32 @@ int64_t solve_slow(std::vector<std::string> S, int K) {
 	return ans;
 }
 
+void stress() {
+	std::mt19937 mt(48);
+	for (int z = 0; z < 1000; z++) {
+		int N = std::uniform_int_distribution<int>(1, 20)(mt);
+		int sigma = std::uniform_int_distribution<int>(1, 5)(mt);
+		int K = std::uniform_int_distribution<int>(1, 10)(mt);
+		std::vector<std::string> S(N);
+		for (int i = 0; i < N; i++) {
+			int L = std::uniform_int_distribution<int>(1, 20)(mt);
+			S[i].resize(L);
+			for (auto& c : S[i]) {
+				c = char('A' + std::uniform_int_distribution<int>(0, sigma - 1)(mt));
+			}
+		}
+		std::cerr << "test " << N << ' ' << K << ' ' << char('A' + sigma - 1) << '\n';
+		auto ans = solve_slow(S, K);
+		auto res = solve_slow(S, K);
+		assert(ans == res);
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	stress();
 
 	int T; cin >> T;
 	while (T--) {
@@ -311,7 +334,6 @@ int main() {
 
 		std::vector<std::string> S(N);
 		for (auto& s : S) cin >> s;
-		assert(solve(S, K) == solve_slow(S, K));
 		cout << solve(std::move(S), K) << '\n';
 	}
 
