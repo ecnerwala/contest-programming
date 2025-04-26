@@ -257,14 +257,21 @@ int main() {
 					int z = occs[r].z;
 					if (z >= K) {
 						// add in subtrees of pref_vals[i][z - K];
-						for (auto a : bit.prefix(st[pref_vals[i][z - K]][1])) ans += a;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K]][0])) ans -= a;
+						int cur = 0;
+						for (auto a : bit.prefix(st[pref_vals[i][z - K]][1])) cur += a;
+						for (auto a : bit.prefix(st[pref_vals[i][z - K]][0])) cur -= a;
+						ans += cur;
+						cerr << "suffix " << S[i] << ' ' << z << ' ' << K << ' ' << cur << '\n';
 					}
 					if (z >= K+1) {
 						// subtract out subtrees of pref_vals[i][z - K - 1]
-						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][1])) ans -= a;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][0])) ans += a;
+						int cur = 0;
+						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][1])) cur += a;
+						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][0])) cur -= a;
+						ans -= cur;
+						cerr << "suffix " << S[i] << ' ' << z << ' ' << K+1 << ' ' << cur << '\n';
 					}
+
 					for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a++;
 					r++;
 				}
