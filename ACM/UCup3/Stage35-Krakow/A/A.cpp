@@ -255,6 +255,11 @@ int main() {
 				} else {
 					int i = occs[r].i;
 					int z = occs[r].z;
+					if (z == occs[r].len && z < K) {
+						int cur = 0;
+						for (auto a : bit.prefix(V)) cur += a;
+						ans += cur;
+					}
 					if (z >= K) {
 						// add in subtrees of pref_vals[i][z - K];
 						int cur = 0;
