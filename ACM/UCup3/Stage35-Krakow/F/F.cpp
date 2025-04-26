@@ -515,7 +515,6 @@ public:
 
 };
 
-const int -1 = 1e9;
 struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	bool lazy_flip_path = false;
 
