@@ -265,7 +265,7 @@ int main() {
 						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][1])) ans -= a;
 						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][0])) ans += a;
 					}
-					for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a--;
+					for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a++;
 					r++;
 				}
 			}
