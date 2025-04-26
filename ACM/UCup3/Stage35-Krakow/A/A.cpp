@@ -280,6 +280,27 @@ int64_t solve(std::vector<std::string> S, int K) {
 	return ans;
 }
 
+int64_t solve_slow(std::vector<std::string> S, int K) {
+	int64_t ans = 0;
+	for (int i = 0; i < int(S.size()); i++) {
+		for (int j = i+1; j < int(S.size()); j++) {
+			const auto& x = S[i];
+			const auto& y = S[j];
+			int lx = int(x.size());
+			int ly = int(y.size());
+			if (std::abs(lx - ly) > K) continue;
+			int lcp = 0;
+			int lcs = 0;
+			while (lcp < std::min(lx, ly) && x[lcp] == y[lcp]) lcp++;
+			while (lcs < std::min(lx, ly) && x[lx - 1 - lcs] == y[ly - 1 - lcs]) lcs++;
+			if (std::abs(lx - ly) <= K && lcp + lcs >= std::max(lx, ly) - K) {
+				ans++;
+			}
+		}
+	}
+	return ans;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -290,6 +311,7 @@ int main() {
 
 		std::vector<std::string> S(N);
 		for (auto& s : S) cin >> s;
+		assert(solve(S, K) == solve_slow(S, K));
 		cout << solve(std::move(S), K) << '\n';
 	}
 
