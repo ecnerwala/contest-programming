@@ -586,6 +586,7 @@ int main() {
 		for (auto [t, w, vs] : edges) {
 			auto [u, v] = vs;
 			assert(u != v);
+			cerr << "linking " << t << ' ' << w << ' ' << u << ' ' << v << '\n';
 			auto a = &vert_nodes[u];
 			auto b = &vert_nodes[v];
 			assert(a != b);
