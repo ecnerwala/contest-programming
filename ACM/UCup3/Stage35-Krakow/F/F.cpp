@@ -547,7 +547,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			// do nothing
 			min_val = {INF, -1};
 		} else if (is_path) {
-			min_val = std::min(c[0]->min_val, c[1]->min_val);
+			min_val = std::min({own_val, c[0]->min_val, c[1]->min_val});
 		} else {
 		}
 	}
