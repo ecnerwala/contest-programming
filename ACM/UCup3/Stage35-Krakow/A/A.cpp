@@ -259,9 +259,11 @@ int main() {
 						// add in subtrees of pref_vals[i][z - K];
 						for (auto a : bit.prefix(st[pref_vals[i][z - K]][1])) ans += a;
 						for (auto a : bit.prefix(st[pref_vals[i][z - K]][0])) ans -= a;
-						// subtract out subtrees of pref_vals[i][z - K + 1]
-						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][1])) ans -= a;
-						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][0])) ans += a;
+					}
+					if (z >= K+1) {
+						// subtract out subtrees of pref_vals[i][z - K - 1]
+						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][1])) ans -= a;
+						for (auto a : bit.prefix(st[pref_vals[i][z - K - 1]][0])) ans += a;
 					}
 					for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a--;
 					r++;
