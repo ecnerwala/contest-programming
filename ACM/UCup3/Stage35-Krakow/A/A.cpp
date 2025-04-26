@@ -250,7 +250,7 @@ int main() {
 			for (int l = 0, r = 0; l < int(occs.size()); ) {
 				if (r == int(occs.size()) || (l < r && occs[l].len + K < occs[r].len)) {
 					// i is too early, so delete it
-					cerr << "insert " << S[occs[l].i] << '\n';
+					//cerr << "insert " << S[occs[l].i] << '\n';
 					for (auto& a : bit.suffix(st[pref_vals[occs[l].i].back()][0])) a--;
 					l++;
 				} else {
@@ -267,7 +267,7 @@ int main() {
 						for (auto a : bit.prefix(st[pref_vals[i][z - K]][1])) cur += a;
 						for (auto a : bit.prefix(st[pref_vals[i][z - K]][0])) cur -= a;
 						ans += cur;
-						cerr << "suffix " << S[i] << ' ' << z << ' ' << K << ' ' << cur << '\n';
+						//cerr << "suffix " << S[i] << ' ' << z << ' ' << K << ' ' << cur << '\n';
 					}
 					if (z >= K) {
 						// subtract out subtrees of pref_vals[i][z - K + 1]
@@ -275,10 +275,10 @@ int main() {
 						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][1])) cur += a;
 						for (auto a : bit.prefix(st[pref_vals[i][z - K + 1]][0])) cur -= a;
 						ans -= cur;
-						cerr << "suffix " << S[i] << ' ' << z << ' ' << K+1 << ' ' << cur << '\n';
+						//cerr << "suffix " << S[i] << ' ' << z << ' ' << K+1 << ' ' << cur << '\n';
 					}
 
-					cerr << "remove " << S[occs[l].i] << '\n';
+					//cerr << "remove " << S[occs[l].i] << '\n';
 					for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a++;
 					r++;
 				}
