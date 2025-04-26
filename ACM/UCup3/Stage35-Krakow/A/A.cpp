@@ -250,6 +250,7 @@ int main() {
 			for (int l = 0, r = 0; l < int(occs.size()); ) {
 				if (r == int(occs.size()) || (l < r && occs[l].len + K < occs[r].len)) {
 					// i is too early, so delete it
+					cerr << "insert " << S[occs[l].i] << '\n';
 					for (auto& a : bit.suffix(st[pref_vals[occs[l].i].back()][0])) a--;
 					l++;
 				} else {
@@ -277,6 +278,7 @@ int main() {
 						cerr << "suffix " << S[i] << ' ' << z << ' ' << K+1 << ' ' << cur << '\n';
 					}
 
+					cerr << "remove " << S[occs[l].i] << '\n';
 					for (auto& a : bit.suffix(st[pref_vals[occs[r].i].back()][0])) a++;
 					r++;
 				}
