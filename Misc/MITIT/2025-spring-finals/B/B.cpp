@@ -20,6 +20,7 @@ int main() {
 		std::vector<int> ans(N+1);
 		ans[0] = 1;
 		for (int z = 0; z < 5; z++) {
+			cerr << "solve " << z << '\n';
 			std::vector<std::array<int, 2>> B(N);
 			std::vector<int> lefts(N+1);
 			std::vector<int> rights(N+1);
@@ -86,6 +87,7 @@ int main() {
 				if (skip_til[i] != -1) {
 					cur_dp = 0;
 				}
+				if (skip_til[i] > i) continue;
 				cur_dp ^= can_left[i] ? ans[i] : 0;
 
 				nans[i] = can_right[i] ? cur_dp : 0;
