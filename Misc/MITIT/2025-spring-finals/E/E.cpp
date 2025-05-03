@@ -1031,6 +1031,7 @@ int main() {
 				T[i+1] = vr;
 			}
 			T.back() = num(0);
+			for (auto v : R_rev) { cerr << v << ' '; } cerr << '\n';
 
 			// TODO: We need to make sure R_rev_0
 
