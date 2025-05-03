@@ -1065,9 +1065,8 @@ int main() {
 		if (sol) {
 			cout << "YES" << '\n';
 			const auto& [Q, R] = *sol;
-			cout << Q.degree() << '\n';
+			cout << Q.degree() << ' ' << R.degree() << '\n';
 			for (int i = 0; i <= Q.degree(); i++) cout << Q[i] << " \n"[i==Q.degree()];
-			cout << R.degree() << '\n';
 			for (int i = 0; i <= R.degree(); i++) cout << R[i] << " \n"[i==R.degree()];
 		} else {
 			cout << "NO" << '\n';
