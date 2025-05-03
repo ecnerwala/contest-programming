@@ -34,9 +34,9 @@ int main() {
 			std::sort(lefts.begin(), lefts.end());
 			std::sort(rights.begin(), rights.end());
 			std::vector<bool> can_right(N+1);
-			for (int i = 0; i <= N; i++) can_right[i] = lefts[i] > i;
+			for (int i = 0; i <= N; i++) can_right[i] = lefts[i] > i && (i == 0 || lefts[i-1] < i);
 			std::vector<bool> can_left(N+1);
-			for (int i = 0; i <= N; i++) can_left[i] = rights[i] < i;
+			for (int i = 0; i <= N; i++) can_left[i] = rights[i] < i && (i == N || rights[i+1] > i);
 
 			std::vector<std::vector<std::pair<int, int>>> adj(N+1);
 			for (int e = 0; e < N; e++) {
