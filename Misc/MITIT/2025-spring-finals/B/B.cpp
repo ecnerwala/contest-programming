@@ -64,7 +64,8 @@ int main() {
 			std::vector<int> min_range(N+1, N+1);
 			for (int i = 0; i <= N; i++) {
 				if (par[i] < 0) {
-					min_range[bounds[i][0]] = std::min(min_range[bounds[i][0]], bounds[i][1]);
+					auto [l, r] = bounds[i];
+					min_range[l] = std::min(min_range[l], r);
 				}
 			}
 			for (int i = N; i > 0; i--) {
