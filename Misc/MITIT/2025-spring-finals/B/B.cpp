@@ -43,8 +43,8 @@ int main() {
 				adj[u].push_back({v, e});
 				adj[v].push_back({u, e});
 			}
-			std::vector<int> depth(N, -1);
-			std::vector<int> lowval(N, -1);
+			std::vector<int> depth(N+1, -1);
+			std::vector<int> lowval(N+1, -1);
 			std::vector<bool> is_bridge(N, false);
 			for (int i = 0; i <= N; i++) {
 				if (depth[i] == -1) {
