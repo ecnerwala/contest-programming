@@ -38,65 +38,56 @@ int main() {
 			std::vector<bool> can_left(N+1);
 			for (int i = 0; i <= N; i++) can_left[i] = rights[i] < i && (i == N || rights[i+1] > i);
 
-			std::vector<std::vector<std::pair<int, int>>> adj(N+1);
-			for (int e = 0; e < N; e++) {
-				auto [u, v] = B[e];
-				adj[u].push_back({v, e});
-				adj[v].push_back({u, e});
-				cerr << "edge " << u << ' ' << v << '\n';
-			}
-			std::vector<int> depth(N+1, -1);
-			std::vector<int> lowval(N+1, -1);
-			std::vector<bool> is_bridge(N, false);
-			for (int i = 0; i <= N; i++) {
-				if (depth[i] == -1) {
-					depth[i] = 0;
-					[&](this auto&& self, int cur, int prv_e) -> void {
-						lowval[cur] = depth[cur];
-						for (auto [nxt, e] : adj[cur]) {
-							if (e == prv_e) continue;
-							if (depth[nxt] == -1) {
-								depth[nxt] = depth[cur] + 1;
-								self(nxt, e);
-								lowval[cur] = std::min(lowval[cur], lowval[nxt]);
-								if (lowval[nxt] == depth[nxt]) {
-									// bridge
-									is_bridge[e] = true;
-								}
-							} else if (depth[nxt] <= depth[cur]) {
-								lowval[cur] = std::min(lowval[cur], depth[nxt]);
-							}
-						}
-					}(i, -1);
+			std::vector<int> par(N+1, -1);
+			std::vector<std::array<int, 2>> bounds(N+1);
+			for (int i = 0; i <= N; i++) bounds[i] = {i, i};
+			auto get_par = [&](int a) -> int {
+				while (par[a] >= 0) {
+					if (par[par[a]] >= 0) par[a] = par[par[a]];
+					a = par[a];
 				}
+				return a;
+			};
+			for (auto [u, v] : B) {
+				u = get_par(u);
+				v = get_par(v);
+				if (u == v) continue;
+				if (par[u] > par[v]) std::swap(u, v);
+				par[u] += par[v];
+				par[v] = u;
+				bounds[u][0] = std::min(bounds[u][0], bounds[v][0]);
+				bounds[u][1] = std::max(bounds[u][1], bounds[v][1]);
 			}
-			std::vector<int> skip_til(N+1, -1);
-			for (int e = 0; e < N; e++) {
-				if (!is_bridge[e]) {
-					auto [u, v] = B[e];
-					skip_til[u] = std::max(skip_til[u], v);
-					cerr << "nonbridge " << u << ' ' << v << '\n';
-				}
-			}
-			for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
-			for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
-			for (int i = 0; i < N; i++) {
-				if (skip_til[i] >= i+1) {
-					skip_til[i+1] = std::max(skip_til[i+1], skip_til[i]);
-				}
-			}
-			std::vector<int> nans(N+1);
-			int cur_dp = 0;
-			for (int i = 0; i <= N; i++) {
-				if (skip_til[i] > i) continue;
-				if (skip_til[i] != -1) {
-					cur_dp = 0;
-				}
-				cur_dp ^= can_left[i] ? ans[i] : 0;
 
-				nans[i] = can_right[i] ? cur_dp : 0;
+			for (int i = 0; i <= N; i++) if (!can_left[i]) ans[i] = 0;
+
+			std::vector<int> min_range(N+1, N+1);
+			for (int i = 0; i <= N; i++) {
+				if (par[i] < 0) {
+					min_range[bounds[i][0]] = std::min(min_range[bounds[i][0]], bounds[i][1]);
+				}
 			}
-			ans = std::move(nans);
+			for (int i = N; i > 0; i--) {
+				min_range[i-1] = std::min(min_range[i-1], min_range[i]);
+			}
+
+			std::vector<int> n_ans_pref(N+1);
+			for (int i = 0; i <= N; i++) {
+				// now, anything that strictly includes bounds is bad
+				if (ans[i]) {
+					n_ans_pref[i] ^= 1;
+					if (i+1 <= N && min_range[i+1] <= N) n_ans_pref[min_range[i+1]] ^= 1;
+					// add 1 to everything from i .. min_range[i+1] - 1
+				}
+			}
+
+			int cur = 0;
+			for (int i = 0; i <= N; i++) {
+				cur ^= n_ans_pref[i];
+				ans[i] = cur;
+			}
+
+			for (int i = 0; i <= N; i++) if (!can_right[i]) ans[i] = 0;
 			for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
 		}
 		cout << ans[N] << '\n';
