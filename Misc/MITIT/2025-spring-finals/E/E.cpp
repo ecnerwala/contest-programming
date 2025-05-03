@@ -1057,6 +1057,7 @@ int main() {
 			return std::pair<ps, ps>{Q_rev, R_rev};
 		}();
 
+		cerr << (sol ? "YES" : "NO") << '\n';
 		if (sol) {
 			cout << "YES" << '\n';
 			const auto& [Q, R] = *sol;
