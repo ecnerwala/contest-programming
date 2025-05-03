@@ -1054,6 +1054,7 @@ int main() {
 				if (Q_cur * cur != R_cur) return std::nullopt;
 			}
 
+			if (false) {
 			for (int s = N; s > D_check; s--) {
 				int s2 = DQ + s;
 				for (int a = 0, b = s2; b >= 0; a++, b--) {
@@ -1072,6 +1073,7 @@ int main() {
 						return std::nullopt;
 					}
 				}
+			}
 			}
 
 			std::reverse(Q_rev.begin(), Q_rev.end());
