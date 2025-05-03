@@ -1019,7 +1019,10 @@ int main() {
 				for (int z = 0; z < int(Q_rev_pow[i].size()); z++) {
 					Ptot[z] -= a * Q_rev_pow[i][z];
 				}
-				Ptot.erase(Ptot.begin(), Ptot.begin() + DQ);
+				if (i > 0) {
+					Ptot.erase(Ptot.begin(), Ptot.begin() + DQ);
+				}
+				if (i == 0) a = 0;
 
 				num vr = a / num(i+1);
 				for (int z = 0; z < int(Q_rev_pow[i+1].size()); z++) {
