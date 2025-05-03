@@ -75,7 +75,7 @@ int main() {
 			for (int i = 0; i <= N; i++) {
 				// now, anything that strictly includes bounds is bad
 				if (ans[i]) {
-					n_ans_pref[i] ^= 1;
+					n_ans_pref[i] ^= ans[i];
 					if (i+1 <= N && min_range[i+1] <= N) n_ans_pref[min_range[i+1]] ^= 1;
 					// add 1 to everything from i .. min_range[i+1] - 1
 				}
@@ -88,7 +88,9 @@ int main() {
 			}
 
 			for (int i = 0; i <= N; i++) if (!can_right[i]) ans[i] = 0;
-			//for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
+			for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
+			for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
+			for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
 		}
 		cout << ans[N] << '\n';
 	}
