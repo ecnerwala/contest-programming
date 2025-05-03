@@ -84,10 +84,10 @@ int main() {
 			std::vector<int> nans(N+1);
 			int cur_dp = 0;
 			for (int i = 0; i <= N; i++) {
+				if (skip_til[i] > i) continue;
 				if (skip_til[i] != -1) {
 					cur_dp = 0;
 				}
-				if (skip_til[i] > i) continue;
 				cur_dp ^= can_left[i] ? ans[i] : 0;
 
 				nans[i] = can_right[i] ? cur_dp : 0;
