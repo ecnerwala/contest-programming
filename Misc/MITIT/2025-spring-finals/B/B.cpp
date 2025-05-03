@@ -66,6 +66,7 @@ int main() {
 				if (par[i] < 0) {
 					auto [l, r] = bounds[i];
 					min_range[l] = std::min(min_range[l], r);
+					cerr << "bounds " << l << ' ' << r << '\n';
 				}
 			}
 			for (int i = N; i > 0; i--) {
