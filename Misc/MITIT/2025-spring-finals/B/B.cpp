@@ -38,6 +38,7 @@ int main() {
 			std::vector<bool> can_left(N+1);
 			for (int i = 0; i <= N; i++) can_left[i] = rights[i] < i && (i == N || rights[i+1] > i);
 
+			if (true) {
 			std::vector<int> par(N+1, -1);
 			std::vector<std::array<int, 2>> bounds(N+1);
 			for (int i = 0; i <= N; i++) bounds[i] = {i, i};
@@ -59,10 +60,7 @@ int main() {
 				bounds[u][1] = std::max(bounds[u][1], bounds[v][1]);
 			}
 
-			for (int i = 0; i <= N; i++) if (!can_left[i]) {
-				assert(ans[i] == 0);
-				ans[i] = 0;
-			}
+			for (int i = 0; i <= N; i++) if (!can_left[i]) ans[i] = 0;
 
 			std::vector<int> min_range(N+1, N);
 			for (int i = 0; i <= N; i++) {
@@ -76,13 +74,13 @@ int main() {
 				min_range[i-1] = std::min(min_range[i-1], min_range[i]);
 			}
 
-			std::vector<int> n_ans_pref(N+2);
+			std::vector<int> n_ans_pref(N+1);
 			for (int i = 0; i <= N; i++) {
 				// now, anything that strictly includes bounds is bad
 				n_ans_pref[i] ^= ans[i];
 				int r = i+1 <= N ? min_range[i+1] : N;
 				//cerr << i << " -> " << r << '\n';
-				n_ans_pref[r+1] ^= ans[i];
+				if (r < N) n_ans_pref[r+1] ^= ans[i];
 			}
 
 			int cur = 0;
@@ -90,13 +88,62 @@ int main() {
 				cur ^= n_ans_pref[i];
 				ans[i] = cur;
 			}
-			cur ^= n_ans_pref[N+1];
-			assert(cur == 0);
 
 			for (int i = 0; i <= N; i++) if (!can_right[i]) ans[i] = 0;
 			//for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
 			//for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
 			//for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
+			} else {
+				std::vector<int> nans(N+1);
+				for (int i = 0; i <= N; i++) {
+					for (int j = i; j <= N; j++) {
+						if (can_left[i] && can_right[j]) {
+							std::vector<int> par(N+1, -1);
+							std::vector<std::array<int, 2>> bounds(N+1);
+							for (int i = 0; i <= N; i++) bounds[i] = {i, i};
+							auto get_par = [&](int a) -> int {
+								while (par[a] >= 0) {
+									if (par[par[a]] >= 0) par[a] = par[par[a]];
+									a = par[a];
+								}
+								return a;
+							};
+							auto merge = [&](int a, int b) -> bool {
+								a = get_par(a), b = get_par(b);
+								if (a == b) return false;
+								if (par[a] > par[b]) std::swap(a, b);
+								par[a] += par[b];
+								par[b] = a;
+								bounds[a][0] = std::min(bounds[a][0], bounds[b][0]);
+								bounds[a][1] = std::max(bounds[a][1], bounds[b][1]);
+								return true;
+							};
+							int cnt_edges = 0;
+							int cnt_tree = 0;
+							for (auto [u, v] : B) {
+								assert(v != i);
+								assert(u != j);
+								if (v < i || u > j) continue;
+								u = std::max(u, i);
+								v = std::min(v, j);
+								cnt_edges++;
+								cnt_tree += merge(u, v);
+							}
+							assert(cnt_edges == j - i);
+							if (cnt_tree == cnt_edges) {
+								nans[j] ^= ans[i];
+							} else {
+								bool found = false;
+								for (int k = 0; k <= N; k++) {
+									if (par[k] < 0 && i < bounds[k][0] && bounds[k][1] < j) found = true;
+								}
+								assert(found == true);
+							}
+						}
+					}
+				}
+				ans = nans;
+			}
 		}
 		cout << ans[N] << '\n';
 	}
