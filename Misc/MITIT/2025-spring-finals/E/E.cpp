@@ -962,8 +962,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
-	while (T--) {
+	int CASES; cin >> CASES;
+	while (CASES--) {
 		int N, D_check; cin >> N >> D_check;
 		tensor<num, 2> P({N+1, N+1});
 		for (int i = 0; i <= N; i++) {
@@ -1031,8 +1031,6 @@ int main() {
 			}
 			T.back() = num(0);
 			for (auto v : R_rev) { cerr << v << ' '; } cerr << '\n';
-
-			// TODO: We need to make sure R_rev_0
 
 			for (int s = N; s > D_check; s--) {
 				int s2 = DQ + s;
