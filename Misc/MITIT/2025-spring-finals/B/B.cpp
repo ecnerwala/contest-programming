@@ -78,6 +78,8 @@ int main() {
 					cerr << "nonbridge " << u << ' ' << v << '\n';
 				}
 			}
+			for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
+			for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
 			for (int i = 0; i < N; i++) {
 				if (skip_til[i] >= i+1) {
 					skip_til[i+1] = std::max(skip_til[i+1], skip_til[i]);
