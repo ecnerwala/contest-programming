@@ -990,7 +990,7 @@ int main() {
 			for (int i = 0; i < DQ; i++) {
 				P0[i] = P[{0, N-i}] * inv_T_leading;
 			}
-			ps Q_rev = poly_pow_monic(P0, num(1/DT-1));
+			ps Q_rev = poly_pow_monic(P0, inv(num(DT-1)));
 			Q_rev.back() = num(0);
 			for (auto v : Q_rev) { cerr << v << ' '; } cerr << '\n';
 
