@@ -1019,6 +1019,7 @@ int main() {
 				for (int z = 0; z < int(Q_rev_pow[i].size()); z++) {
 					Ptot[z] -= a * Q_rev_pow[i][z];
 				}
+				for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
 				if (i > 0) {
 					Ptot.erase(Ptot.begin(), Ptot.begin() + DQ);
 				}
