@@ -43,6 +43,7 @@ int main() {
 				auto [u, v] = B[e];
 				adj[u].push_back({v, e});
 				adj[v].push_back({u, e});
+				cerr << "edge " << u << ' ' << v << '\n';
 			}
 			std::vector<int> depth(N+1, -1);
 			std::vector<int> lowval(N+1, -1);
@@ -74,6 +75,7 @@ int main() {
 				if (!is_bridge[e]) {
 					auto [u, v] = B[e];
 					skip_til[u] = std::max(skip_til[u], v);
+					cerr << "nonbridge " << u << ' ' << v << '\n';
 				}
 			}
 			for (int i = 0; i < N; i++) {
