@@ -1040,7 +1040,7 @@ int main() {
 			for (int iter = 0; iter < 2; iter++) {
 				num rnd = num(mt());
 				ps cur(N - D_check);
-				for (int i = N; i > D_check; i++) {
+				for (int i = N; i > D_check; i--) {
 					for (int a = 0, b = i; b >= 0; a++, b--){
 						cur[N-i] *= rnd;
 						cur[N-i] += P[{a, b}];
