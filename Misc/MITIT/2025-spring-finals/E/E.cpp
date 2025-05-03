@@ -1024,6 +1024,7 @@ int main() {
 				}
 
 				num vr = a / num(i+1);
+				cerr << "T " << vr << '\n';
 				for (int z = 0; z < int(Q_rev_pow[i+1].size()); z++) {
 					R_rev[z + (DT - 1 - i) * DQ] += vr * Q_rev_pow[i+1][z];
 				}
