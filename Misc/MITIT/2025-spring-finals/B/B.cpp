@@ -20,7 +20,7 @@ int main() {
 		std::vector<int> ans(N+1);
 		ans[0] = 1;
 		for (int z = 4; z >= 0; z--) {
-			//cerr << "solve " << z << '\n';
+			cerr << "solve " << z << '\n';
 			std::vector<std::array<int, 2>> B(N);
 			std::vector<int> lefts(N+1);
 			std::vector<int> rights(N+1);
@@ -43,7 +43,7 @@ int main() {
 				auto [u, v] = B[e];
 				adj[u].push_back({v, e});
 				adj[v].push_back({u, e});
-				//cerr << "edge " << u << ' ' << v << '\n';
+				cerr << "edge " << u << ' ' << v << '\n';
 			}
 			std::vector<int> depth(N+1, -1);
 			std::vector<int> lowval(N+1, -1);
@@ -75,11 +75,11 @@ int main() {
 				if (!is_bridge[e]) {
 					auto [u, v] = B[e];
 					skip_til[u] = std::max(skip_til[u], v);
-					//cerr << "nonbridge " << u << ' ' << v << '\n';
+					cerr << "nonbridge " << u << ' ' << v << '\n';
 				}
 			}
-			//for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
-			//for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
+			for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
+			for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
 			for (int i = 0; i < N; i++) {
 				if (skip_til[i] >= i+1) {
 					skip_til[i+1] = std::max(skip_til[i+1], skip_til[i]);
