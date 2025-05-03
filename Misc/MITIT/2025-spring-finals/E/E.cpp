@@ -992,7 +992,7 @@ int main() {
 			}
 			ps Q_rev = poly_pow_monic(P0, inv(num(DT-1)));
 			Q_rev.back() = num(0);
-			for (auto v : Q_rev) { cerr << v << ' '; } cerr << '\n';
+			//for (auto v : Q_rev) { cerr << v << ' '; } cerr << '\n';
 
 			std::vector<ps> Q_rev_pow(DT+1);
 			Q_rev_pow[0] = ps({num(1)});
@@ -1014,27 +1014,27 @@ int main() {
 
 			ps T(DT+1);
 			ps R_rev(N + DQ + 1);
-			for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
+			//for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
 			for (int i = DT-1; i >= 0; i--) {
 				num a = Ptot[0];
 				for (int z = 0; z < int(Q_rev_pow[i].size()); z++) {
 					Ptot[z] -= a * Q_rev_pow[i][z];
 				}
-				for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
+				//for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
 				if (i > 0) {
 					Ptot.erase(Ptot.begin(), Ptot.begin() + DQ);
 				}
-				for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
+				//for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
 
 				num vr = a / num(i+1);
-				cerr << "T " << vr << '\n';
+				//cerr << "T " << vr << '\n';
 				for (int z = 0; z < int(Q_rev_pow[i+1].size()); z++) {
 					R_rev[z + (DT - 1 - i) * DQ] += vr * Q_rev_pow[i+1][z];
 				}
 				T[i+1] = vr;
 			}
 			T.back() = num(0);
-			for (auto v : R_rev) { cerr << v << ' '; } cerr << '\n';
+			//for (auto v : R_rev) { cerr << v << ' '; } cerr << '\n';
 
 			for (int s = N; s > D_check; s--) {
 				int s2 = DQ + s;
@@ -1061,7 +1061,7 @@ int main() {
 			return std::pair<ps, ps>{Q_rev, R_rev};
 		}();
 
-		cerr << (sol ? "YES" : "NO") << '\n';
+		//cerr << (sol ? "YES" : "NO") << '\n';
 		if (sol) {
 			cout << "YES" << '\n';
 			const auto& [Q, R] = *sol;
