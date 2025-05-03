@@ -73,13 +73,13 @@ int main() {
 				min_range[i-1] = std::min(min_range[i-1], min_range[i]);
 			}
 
-			std::vector<int> n_ans_pref(N+1);
+			std::vector<int> n_ans_pref(N+2);
 			for (int i = 0; i <= N; i++) {
 				// now, anything that strictly includes bounds is bad
 				n_ans_pref[i] ^= ans[i];
 				int r = i+1 <= N ? min_range[i+1] : N;
 				//cerr << i << " -> " << r << '\n';
-				if (r+1 <= N) n_ans_pref[r+1] ^= ans[i];
+				n_ans_pref[r+1] ^= ans[i];
 			}
 
 			int cur = 0;
@@ -87,6 +87,8 @@ int main() {
 				cur ^= n_ans_pref[i];
 				ans[i] = cur;
 			}
+			cur ^= n_ans_pref[N+1];
+			assert(cur == 0);
 
 			for (int i = 0; i <= N; i++) if (!can_right[i]) ans[i] = 0;
 			//for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
