@@ -97,6 +97,7 @@ int main() {
 				nans[i] = can_right[i] ? cur_dp : 0;
 			}
 			ans = std::move(nans);
+			for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
 		}
 		cout << ans[N] << '\n';
 	}
