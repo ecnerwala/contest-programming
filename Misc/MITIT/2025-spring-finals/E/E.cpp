@@ -994,45 +994,6 @@ int main() {
 			Q_rev.back() = num(0);
 			for (auto v : Q_rev) { cerr << v << ' '; } cerr << '\n';
 
-			ps R_rev_0(N+DQ+1);
-			ps R_rev_1(N+DQ+1);
-			for (int i = 0; i <= N; i++) {
-				R_rev_0[i] = P[{0, N-i}];
-				R_rev_1[i] = P[{N-i, 0}];
-			}
-			ps Q_rev_big = Q_rev; Q_rev_big.resize(N+DQ+1);
-			R_rev_0 *= Q_rev_big;
-			R_rev_1 *= Q_rev_big;
-			R_rev_0.back() = num(0);
-			R_rev_1.back() = num(0);
-			for (auto v : R_rev_0) { cerr << v << ' '; } cerr << '\n';
-			for (auto v : R_rev_1) { cerr << v << ' '; } cerr << '\n';
-			for (int i = N; i > D_check; i--) {
-				if (R_rev_0[N - i] != R_rev_1[N - i]) return std::nullopt;
-			}
-
-			for (int s = N; s > D_check; s--) {
-				int s2 = DQ + s;
-				for (int a = 1, b = s2-1; b >= 1; a++, b--) {
-					num v = 0;
-					for (int i = 0; i <= DQ; i++) {
-						if (0 <= a-i && a-i <= N && b <= N) {
-							v += P[{a-i, b}] * Q_rev[DQ-i];
-						}
-						if (a <= N && 0 <= b-i && b-i <= N) {
-							v -= P[{a, b-i}] * Q_rev[DQ-i];
-						}
-					}
-					if (v != 0) {
-						return std::nullopt;
-					}
-				}
-			}
-
-			std::reverse(Q_rev.begin(), Q_rev.end());
-			std::reverse(R_rev_0.begin(), R_rev_0.end());
-			return std::pair<ps, ps>{Q_rev, R_rev_0};
-
 			std::vector<ps> Q_rev_pow(DT+1);
 			Q_rev_pow[0] = ps({num(1)});
 			for (int i = 0; i < DT; i++) {
@@ -1050,6 +1011,47 @@ int main() {
 					Ptot[N-i-j] += P[{i, j}];
 				}
 			}
+
+			ps T(DT+1);
+			ps R_rev(N + DQ + 1);
+			for (int i = DT-1; i >= 0; i--) {
+				num a = Ptot[0];
+				T[i+1] = a / num(i+1);
+				for (int z = 0; z < int(Q_rev_pow[i+1].size()); z++) {
+					R_rev[z + (DT - 1 - i) * DQ] += T[i+1] * Q_rev_pow[i+1][z];
+				}
+				for (int z = 0; z < int(Q_rev_pow[i].size()); z++) {
+					Ptot[z] -= a * Q_rev_pow[i][z];
+				}
+				Ptot.erase(Ptot.begin(), Ptot.begin() + DQ);
+			}
+			T.back() = num(0);
+
+			// TODO: We need to make sure R_rev_0
+
+			for (int s = N; s > D_check; s--) {
+				int s2 = DQ + s;
+				for (int a = 0, b = s2; b >= 0; a++, b--) {
+					num v = 0;
+					for (int i = 0; i <= DQ; i++) {
+						if (0 <= a-i && a-i <= N && b <= N) {
+							v += P[{a-i, b}] * Q_rev[DQ-i];
+						}
+						if (a <= N && 0 <= b-i && b-i <= N) {
+							v -= P[{a, b-i}] * Q_rev[DQ-i];
+						}
+					}
+					if (a == 0) v -= R_rev[b];
+					if (b == 0) v += R_rev[a];
+					if (v != 0) {
+						return std::nullopt;
+					}
+				}
+			}
+
+			std::reverse(Q_rev.begin(), Q_rev.end());
+			std::reverse(R_rev.begin(), R_rev.end());
+			return std::pair<ps, ps>{Q_rev, R_rev};
 		}();
 
 		if (sol) {
