@@ -63,15 +63,21 @@ int main() {
 			for (int i = 0; i <= N; i++) if (!can_left[i]) ans[i] = 0;
 
 			std::vector<int> min_range(N+1, N);
+			std::vector<int> max_reach(N+1, 0);
+			for (int i = 0; i <= N; i++) max_reach[i] = i;
 			for (int i = 0; i <= N; i++) {
 				if (par[i] < 0) {
 					auto [l, r] = bounds[i];
 					min_range[l] = std::min(min_range[l], r);
+					max_reach[l] = std::max(max_reach[l], r);
 					//cerr << "bounds " << l << ' ' << r << '\n';
 				}
 			}
 			for (int i = N; i > 0; i--) {
 				min_range[i-1] = std::min(min_range[i-1], min_range[i]);
+			}
+			for (int i = 0; i < N; i++) {
+				max_reach[i+1] = std::max(max_reach[i+1], max_reach[i]);
 			}
 
 			std::vector<int> n_ans_pref(N+1);
@@ -79,6 +85,7 @@ int main() {
 				// now, anything that strictly includes bounds is bad
 				n_ans_pref[i] ^= ans[i];
 				int r = i+1 <= N ? min_range[i+1] : N;
+				r = std::min(r, max_reach[i]);
 				//cerr << i << " -> " << r << '\n';
 				if (r < N) n_ans_pref[r+1] ^= ans[i];
 			}
