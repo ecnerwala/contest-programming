@@ -20,7 +20,7 @@ int main() {
 		std::vector<int> ans(N+1);
 		ans[0] = 1;
 		for (int z = 4; z >= 0; z--) {
-			cerr << "solve " << z << '\n';
+			//cerr << "solve " << z << '\n';
 			std::vector<std::array<int, 2>> B(N);
 			std::vector<int> lefts(N+1);
 			std::vector<int> rights(N+1);
@@ -88,7 +88,7 @@ int main() {
 			}
 
 			for (int i = 0; i <= N; i++) if (!can_right[i]) ans[i] = 0;
-			for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
+			//for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
 		}
 		cout << ans[N] << '\n';
 	}
