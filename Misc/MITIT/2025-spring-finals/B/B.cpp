@@ -78,7 +78,7 @@ int main() {
 				// now, anything that strictly includes bounds is bad
 				n_ans_pref[i] ^= ans[i];
 				int r = i+1 <= N ? min_range[i+1] : N+1;
-				cerr << i << ' -> ' << r << '\n';
+				cerr << i << " -> " << r << '\n';
 				if (r <= N) n_ans_pref[r] ^= ans[i];
 			}
 
