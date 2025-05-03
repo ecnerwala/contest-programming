@@ -1022,6 +1022,7 @@ int main() {
 				if (i > 0) {
 					Ptot.erase(Ptot.begin(), Ptot.begin() + DQ);
 				}
+				for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
 
 				num vr = a / num(i+1);
 				cerr << "T " << vr << '\n';
