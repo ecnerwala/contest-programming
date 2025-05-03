@@ -1005,6 +1005,8 @@ int main() {
 			R_rev_1 *= Q_rev_big;
 			R_rev_0.back() = num(0);
 			R_rev_1.back() = num(0);
+			for (auto v : R_rev_0) { cerr << v << ' '; } cerr << '\n';
+			for (auto v : R_rev_1) { cerr << v << ' '; } cerr << '\n';
 			if (R_rev_0 != R_rev_1) return std::nullopt;
 
 			for (int s = N; s > D_check; s--) {
