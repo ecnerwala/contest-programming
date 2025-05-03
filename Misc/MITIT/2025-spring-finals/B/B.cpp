@@ -19,7 +19,7 @@ int main() {
 
 		std::vector<int> ans(N+1);
 		ans[0] = 1;
-		for (int z = 0; z < 5; z++) {
+		for (int z = 4; z >= 0; z--) {
 			//cerr << "solve " << z << '\n';
 			std::vector<std::array<int, 2>> B(N);
 			std::vector<int> lefts(N+1);
