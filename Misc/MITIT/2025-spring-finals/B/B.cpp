@@ -59,7 +59,10 @@ int main() {
 				bounds[u][1] = std::max(bounds[u][1], bounds[v][1]);
 			}
 
-			for (int i = 0; i <= N; i++) if (!can_left[i]) ans[i] = 0;
+			for (int i = 0; i <= N; i++) if (!can_left[i]) {
+				assert(ans[i] == 0);
+				ans[i] = 0;
+			}
 
 			std::vector<int> min_range(N+1, N);
 			for (int i = 0; i <= N; i++) {
