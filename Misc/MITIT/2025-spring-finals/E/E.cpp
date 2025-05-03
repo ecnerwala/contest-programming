@@ -1014,6 +1014,7 @@ int main() {
 
 			ps T(DT+1);
 			ps R_rev(N + DQ + 1);
+			for (auto v : Ptot) { cerr << v << ' '; } cerr << '\n';
 			for (int i = DT-1; i >= 0; i--) {
 				num a = Ptot[0];
 				for (int z = 0; z < int(Q_rev_pow[i].size()); z++) {
