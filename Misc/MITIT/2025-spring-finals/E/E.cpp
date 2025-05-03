@@ -1047,6 +1047,7 @@ int main() {
 							v -= P[{a, b-i}] * Q_rev[DQ-i];
 						}
 					}
+					if (a == 0 || b == 0) continue;
 					if (a == 0) v -= R_rev[N+DQ-b];
 					if (b == 0) v += R_rev[N+DQ-a];
 					if (v != 0) {
