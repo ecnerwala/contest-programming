@@ -20,7 +20,7 @@ int main() {
 		std::vector<int> ans(N+1);
 		ans[0] = 1;
 		for (int z = 4; z >= 0; z--) {
-			cerr << "solve " << z << '\n';
+			//cerr << "solve " << z << '\n';
 			std::vector<std::array<int, 2>> B(N);
 			std::vector<int> lefts(N+1);
 			std::vector<int> rights(N+1);
@@ -34,9 +34,9 @@ int main() {
 			std::sort(lefts.begin(), lefts.end());
 			std::sort(rights.begin(), rights.end());
 			std::vector<bool> can_right(N+1);
-			for (int i = 0; i <= N; i++) can_right[i] = lefts[i] > i && (i == 0 || lefts[i-1] < i);
+			for (int i = 0; i <= N; i++) can_right[i] = lefts[i] > i && (i == 0 || lefts[i-1] <= i);
 			std::vector<bool> can_left(N+1);
-			for (int i = 0; i <= N; i++) can_left[i] = rights[i] < i && (i == N || rights[i+1] > i);
+			for (int i = 0; i <= N; i++) can_left[i] = rights[i] < i && (i == N || rights[i+1] >= i);
 
 			std::vector<int> par(N+1, -1);
 			std::vector<std::array<int, 2>> bounds(N+1);
@@ -66,7 +66,7 @@ int main() {
 				if (par[i] < 0) {
 					auto [l, r] = bounds[i];
 					min_range[l] = std::min(min_range[l], r);
-					cerr << "bounds " << l << ' ' << r << '\n';
+					//cerr << "bounds " << l << ' ' << r << '\n';
 				}
 			}
 			for (int i = N; i > 0; i--) {
@@ -78,7 +78,7 @@ int main() {
 				// now, anything that strictly includes bounds is bad
 				n_ans_pref[i] ^= ans[i];
 				int r = i+1 <= N ? min_range[i+1] : N;
-				cerr << i << " -> " << r << '\n';
+				//cerr << i << " -> " << r << '\n';
 				if (r < N) n_ans_pref[r+1] ^= ans[i];
 			}
 
@@ -89,9 +89,9 @@ int main() {
 			}
 
 			for (int i = 0; i <= N; i++) if (!can_right[i]) ans[i] = 0;
-			for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
-			for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
-			for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
+			//for (int i = 0; i <= N; i++) { cerr << can_left[i] << ' '; } cerr << '\n';
+			//for (int i = 0; i <= N; i++) { cerr << can_right[i] << ' '; } cerr << '\n';
+			//for (int i = 0; i <= N; i++) { cerr << ans[i] << ' '; } cerr << '\n';
 		}
 		cout << ans[N] << '\n';
 	}
