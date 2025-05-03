@@ -15,7 +15,7 @@ int main() {
 			int cnt = 0;
 			for (int i = 0; i < N; i++) {
 				cnt = (i > 0 && A[i] == A[i-1] ? cnt + 1 : 0);
-				B.push_back({i, -A[i]});
+				B.push_back({cnt, -A[i]});
 			}
 		}
 		std::sort(B.begin(), B.end());
