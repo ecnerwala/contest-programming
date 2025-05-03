@@ -992,6 +992,7 @@ int main() {
 			}
 			ps Q_rev = poly_pow_monic(P0, num(1/DT-1));
 			Q_rev.back() = num(0);
+			for (auto v : Q_rev) { cerr << v << ' '; } cerr << '\n';
 
 			ps R_rev_0(N+DQ+1);
 			ps R_rev_1(N+DQ+1);
