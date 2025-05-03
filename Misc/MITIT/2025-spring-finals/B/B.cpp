@@ -38,7 +38,7 @@ int main() {
 			std::vector<bool> can_left(N+1);
 			for (int i = 0; i <= N; i++) can_left[i] = rights[i] < i && (i == N || rights[i+1] > i);
 
-			if (false) {
+			if (true) {
 			std::vector<int> par(N+1, -1);
 			std::vector<std::array<int, 2>> bounds(N+1);
 			for (int i = 0; i <= N; i++) bounds[i] = {i, i};
