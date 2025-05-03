@@ -61,7 +61,7 @@ int main() {
 
 			for (int i = 0; i <= N; i++) if (!can_left[i]) ans[i] = 0;
 
-			std::vector<int> min_range(N+1, N+1);
+			std::vector<int> min_range(N+1, N);
 			for (int i = 0; i <= N; i++) {
 				if (par[i] < 0) {
 					auto [l, r] = bounds[i];
@@ -77,9 +77,9 @@ int main() {
 			for (int i = 0; i <= N; i++) {
 				// now, anything that strictly includes bounds is bad
 				n_ans_pref[i] ^= ans[i];
-				int r = i+1 <= N ? min_range[i+1] : N+1;
+				int r = i+1 <= N ? min_range[i+1] : N;
 				cerr << i << " -> " << r << '\n';
-				if (r <= N) n_ans_pref[r] ^= ans[i];
+				if (r < N) n_ans_pref[r+1] ^= ans[i];
 			}
 
 			int cur = 0;
