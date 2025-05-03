@@ -1016,14 +1016,16 @@ int main() {
 			ps R_rev(N + DQ + 1);
 			for (int i = DT-1; i >= 0; i--) {
 				num a = Ptot[0];
-				T[i+1] = a / num(i+1);
-				for (int z = 0; z < int(Q_rev_pow[i+1].size()); z++) {
-					R_rev[z + (DT - 1 - i) * DQ] += T[i+1] * Q_rev_pow[i+1][z];
-				}
 				for (int z = 0; z < int(Q_rev_pow[i].size()); z++) {
 					Ptot[z] -= a * Q_rev_pow[i][z];
 				}
 				Ptot.erase(Ptot.begin(), Ptot.begin() + DQ);
+
+				num vr = a / num(i+1);
+				for (int z = 0; z < int(Q_rev_pow[i+1].size()); z++) {
+					R_rev[z + (DT - 1 - i) * DQ] += vr * Q_rev_pow[i+1][z];
+				}
+				T[i+1] = vr;
 			}
 			T.back() = num(0);
 
