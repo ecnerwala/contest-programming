@@ -1035,6 +1035,24 @@ int main() {
 			}
 			T.back() = num(0);
 			//for (auto v : R_rev) { cerr << v << ' '; } cerr << '\n';
+			
+			std::mt19937 mt(48);
+			for (int iter = 0; iter < 2; iter++) {
+				num rnd = num(mt());
+				ps cur(N - D_check);
+				for (int i = N; i > D_check; i++) {
+					for (int a = 0, b = i; b >= 0; a++, b--){
+						cur[N-i] *= rnd;
+						cur[N-i] += P[{a, b}];
+					}
+				}
+				ps Q_cur(N - D_check);
+				for (int i = 0; i < N - D_check && i < int(Q_rev.size()); i++) Q_cur[i] = Q_rev[i] * (1 - power(rnd, DQ - i));
+
+				ps R_cur(N - D_check);
+				for (int i = 0; i < N - D_check && i < int(R_rev.size()); i++) R_cur[i] = R_rev[i] * (1 - power(rnd, N + DQ - i));
+				if (Q_cur * cur != R_cur) return std::nullopt;
+			}
 
 			for (int s = N; s > D_check; s--) {
 				int s2 = DQ + s;
