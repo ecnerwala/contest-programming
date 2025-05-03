@@ -1007,7 +1007,9 @@ int main() {
 			R_rev_1.back() = num(0);
 			for (auto v : R_rev_0) { cerr << v << ' '; } cerr << '\n';
 			for (auto v : R_rev_1) { cerr << v << ' '; } cerr << '\n';
-			if (R_rev_0 != R_rev_1) return std::nullopt;
+			for (int i = N; i > D_check; i--) {
+				if (R_rev_0[N - i] != R_rev_1[N - i]) return std::nullopt;
+			}
 
 			for (int s = N; s > D_check; s--) {
 				int s2 = DQ + s;
