@@ -186,7 +186,7 @@ int main() {
 					// case 1: red/blue diameter
 					arb += num(2 * d) * ways_pref_red_blue * ways_must_red_must_blue[d];
 					// case 2: red only diameter
-					aro += (ans_red_only + num(d) * ways_red_only) * ways_must_red[d];
+					aro += num(2) * (ans_red_only + num(d) * ways_red_only) * ways_must_red[d];
 
 					ways_red_only *= p2[by_dist_tot[d]];
 					ans_red_only *= p2[by_dist_tot[d]];
