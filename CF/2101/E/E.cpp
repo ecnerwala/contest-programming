@@ -138,6 +138,9 @@ int main() {
 			}(0);
 
 			for (int i = 0; i < N; i++) {
+				cerr << n_min_dist[i] << '\n';
+			}
+			for (int i = 0; i < N; i++) {
 				if (S[i] == '0') {
 					min_dist[i] = 0;
 				} else if (n_min_dist[i] > 0) {
