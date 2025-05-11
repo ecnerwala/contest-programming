@@ -46,7 +46,7 @@ int main() {
 
 			std::vector<bool> alive(N, true);
 			std::vector<int> sz(N);
-			std::vector<best_t> bests(N);
+			std::vector<best_t> bests; bests.reserve(N);
 			[&](this auto&& rec_centroid, int rt) -> void {
 				assert(alive[rt]);
 				int tot_sz = [&](this auto&& self, int cur, int prv) -> int {
@@ -124,6 +124,8 @@ int main() {
 						}(ch, rt, 1);
 					}
 				}
+
+				bests.clear();
 
 				alive[rt] = false;
 				for (int ch : adj[rt]) {
