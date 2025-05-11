@@ -117,11 +117,6 @@ public:
 	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
 };
 
-template <typename T> T power(T a, long long b) {
-	assert(b >= 0);
-	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
-}
-
 using num = modnum<998244353>;
 
 int main() {
@@ -166,36 +161,33 @@ int main() {
 						self(nxt, cur, depth+1);
 					}
 				}(ch, rt, 1);
-				for (int d = 1; d < N; d++) {
+				for (int d = !(rt < V); d < N; d += 2) {
 					ways_must_red[d] -= p2[by_dist_cur[d]] - 1;
 					ways_must_red_must_blue[d] -= p3[by_dist_cur[d]] - 2 * p2[by_dist_cur[d]] + 1;
 				}
 			}
-			for (int d = 1; d < N; d++) {
+
+			num ways_pref_red_blue = 1;
+			num ways_red_only = 0;
+			num ans_red_only = 0;
+			for (int d = !(rt < V); d < N; d += 2) {
 				ways_must_red[d] += p2[by_dist_tot[d]] - 1;
 				ways_must_red_must_blue[d] += p3[by_dist_tot[d]] - 2 * p2[by_dist_tot[d]] + 1;
+
+				// case 1: red/blue diameter
+				ans += num(2 * d) * ways_pref_red_blue * ways_must_red_must_blue[d];
+				// case 2: red only diameter
+				ans += num(2) * (ans_red_only + num(d) * ways_red_only) * ways_must_red[d];
+
+				ways_red_only *= p2[by_dist_tot[d]];
+				ans_red_only *= p2[by_dist_tot[d]];
+
+				ways_red_only += ways_pref_red_blue * (p3[by_dist_tot[d]] - p2[by_dist_tot[d]]);
+				ans_red_only += num(d) * ways_pref_red_blue * (p3[by_dist_tot[d]] - p2[by_dist_tot[d]]);
+
+				ways_pref_red_blue *= p3[by_dist_tot[d]];
 			}
-
-			{
-				num ways_pref_red_blue = 1;
-				num ways_red_only = 0;
-				num ans_red_only = 0;
-				for (int d = 0; d < N; d++) {
-					// case 1: red/blue diameter
-					ans += num(2 * d) * ways_pref_red_blue * ways_must_red_must_blue[d];
-					// case 2: red only diameter
-					ans += num(2) * (ans_red_only + num(d) * ways_red_only) * ways_must_red[d];
-
-					ways_red_only *= p2[by_dist_tot[d]];
-					ans_red_only *= p2[by_dist_tot[d]];
-
-					ways_red_only += ways_pref_red_blue * (p3[by_dist_tot[d]] - p2[by_dist_tot[d]]);
-					ans_red_only += num(d) * ways_pref_red_blue * (p3[by_dist_tot[d]] - p2[by_dist_tot[d]]);
-
-					ways_pref_red_blue *= p3[by_dist_tot[d]];
-				}
-				assert(ways_pref_red_blue == p3[V]);
-			}
+			assert(ways_pref_red_blue == p3[V]);
 		}
 
 		ans /= 2;
