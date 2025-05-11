@@ -176,15 +176,14 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 		for (int i = 0; i < N; i++) {
 			if (S[i] == '0') {
 				assert(n_min_dist[i] == 0);
-				min_dist[i] = 0;
 			} else if (n_min_dist[i] > 0) {
-				min_dist[i] = n_min_dist[i];
 				assert(ans[i] == l+1);
 				ans[i] = l+2;
 				has = true;
 			}
 		}
 		for (auto a : min_dist) { cerr << a <<' ';} cerr << '\n';
+		min_dist = n_min_dist;
 		if (!has) break;
 	}
 
