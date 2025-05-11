@@ -155,11 +155,6 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 				}
 			}
 
-			if (l == 2) {
-				cerr << "rec_centroid " << rt << '\n';
-				for (auto v : n_min_dist) { cerr << v << ' '; } cerr << '\n';
-			}
-
 			bests.clear();
 
 			alive[rt] = false;
@@ -169,9 +164,7 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 				}
 			}
 		}(0);
-		for (auto v : n_min_dist) { cerr << v << ' '; } cerr << '\n';
 
-		//for (int i = 0; i < N; i++) { cerr << n_min_dist[i] << ' '; } cerr << '\n';
 		bool has = false;
 		for (int i = 0; i < N; i++) {
 			if (S[i] == '0') {
@@ -182,7 +175,6 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 				has = true;
 			}
 		}
-		for (auto a : min_dist) { cerr << a <<' ';} cerr << '\n';
 		min_dist = n_min_dist;
 		if (!has) break;
 	}
@@ -227,7 +219,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	int T; cin >> T;
 	while (T--) {
