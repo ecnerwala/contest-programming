@@ -132,7 +132,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		int V = N;
-		std::vector<std::vector<int>> adj(N);
+		std::vector<std::vector<int>> adj(2*N-1);
 		for (int e = 0; e < N-1; e++) {
 			int u, v; cin >> u >> v; u--, v--;
 			adj[u].push_back(N+e);
