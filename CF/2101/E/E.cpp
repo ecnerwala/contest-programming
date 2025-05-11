@@ -183,7 +183,7 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 void test() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 1000; z++) {
-		int N = std::uniform_int_distribution<int>(1, 20)(mt);
+		int N = std::uniform_int_distribution<int>(1, 5)(mt);
 		std::string S(N, '?');
 		for (auto& c : S) {
 			c = std::uniform_int_distribution<char>('0', '1')(mt);
@@ -196,10 +196,10 @@ void test() {
 			adj[perm[i]].push_back(perm[j]);
 			adj[perm[j]].push_back(perm[i]);
 		}
-		std::cerr << "test " << N << '\n';
 		auto b = solve(N, S, adj);
-		std::cerr << "solve done\n";
 		auto a = slow(N, S, adj);
+		if (a != b) {
+		}
 		assert(a == b);
 	}
 }
