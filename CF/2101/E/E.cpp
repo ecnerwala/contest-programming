@@ -34,7 +34,7 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 	for (int i = 0; i < N; i++) ans[i] = (S[i] == '1') ? 1 : -1;
 	for (int l = 0; true; l++) {
 		bool has = false;
-		std::vector<int> n_min_dist(N, 2*N);
+		std::vector<int> n_min_dist(N, 0);
 		for (int i = 0; i < N; i++) {
 			if (S[i] == '1') {
 				for (int j = 0; j < N; j++) {
