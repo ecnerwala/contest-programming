@@ -180,11 +180,13 @@ int main() {
 				num ways_pref_red_blue = 1;
 				num ways_red_only = 0;
 				num ans_red_only = 0;
+				num arb = 0;
+				num aro = 0;
 				for (int d = 0; d < N; d++) {
 					// case 1: red/blue diameter
-					ans += num(2 * d) * ways_pref_red_blue * ways_must_red_must_blue[d];
+					arb += num(2 * d) * ways_pref_red_blue * ways_must_red_must_blue[d];
 					// case 2: red only diameter
-					ans += (ans_red_only + num(d) * ways_red_only) * ways_must_red[d];
+					aro += (ans_red_only + num(d) * ways_red_only) * ways_must_red[d];
 
 					ways_red_only *= p2[by_dist_tot[d]];
 					ans_red_only *= p2[by_dist_tot[d]];
@@ -195,6 +197,7 @@ int main() {
 					ways_pref_red_blue *= p3[by_dist_tot[d]];
 				}
 				assert(ways_pref_red_blue == p3[V]);
+				cerr << rt << ' ' << arb << ' ' << aro << '\n';
 			}
 		}
 
