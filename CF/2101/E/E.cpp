@@ -13,6 +13,7 @@ struct best_t {
 		} else if (o.d1 > d2) {
 			d2 = o.d1;
 		}
+		assert(d1 >= d2);
 	}
 };
 
@@ -24,6 +25,10 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		std::string S; cin >> S;
+		assert(int(S.size()) == N);
+		for (int i = 0; i < N; i++) {
+			assert(S[i] == '0' || S[i] == '1');
+		}
 		std::vector<std::vector<int>> adj(N);
 		for (int e = 0; e < N-1; e++) {
 			int u, v; cin >> u >> v; u--, v--;
