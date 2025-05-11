@@ -31,7 +31,8 @@ int main() {
 			adj[v].push_back(u);
 		}
 
-		std::vector<int> ans(N, 1);
+		std::vector<int> ans(N);
+		for (int i = 0; i < N; i++) ans[i] = (S[i] == '0') ? -1 : 1;
 		std::vector<int> min_dist(N);
 		for (int i = 0; i < N; i++) {
 			min_dist[i] = (S[i] == '0') ? 0 : 2 * N;
