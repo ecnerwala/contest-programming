@@ -152,9 +152,8 @@ int main() {
 			std::vector<int> by_dist_tot(N);
 			by_dist_tot[0] += (rt < V);
 			{
-				std::vector<int> by_dist_cur(N);
+				std::vector<int> by_dist_cur(N, 0);
 				for (int ch : adj[rt]) {
-					by_dist_cur.assign(N, 0);
 					[&](this auto&& self, int cur, int prv, int depth) -> void {
 						by_dist_tot[depth] += (cur < V);
 						by_dist_cur[depth] += (cur < V);
@@ -166,6 +165,7 @@ int main() {
 					for (int d = !(rt < V); d < N; d += 2) {
 						ways_must_red[d] -= p2[by_dist_cur[d]] - 1;
 						ways_must_red_must_blue[d] -= p3[by_dist_cur[d]] - 2 * p2[by_dist_cur[d]] + 1;
+						by_dist_cur[d] = 0;
 					}
 				}
 			}
