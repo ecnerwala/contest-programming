@@ -47,9 +47,8 @@ int main() {
 			ans += int64_t(bad_right[i] - i) * int64_t(i - bad_left[i]);
 		}
 		for (int i = 0; i+1 < N; i++) {
-			if (bad_right[i] >= i+1 && bad_left[i+1] <= i) {
-				ans -= int64_t(bad_right[i] - i+1) * int64_t(i - bad_left[i+1]);
-			}
+			assert(bad_right[i] >= i+1 && bad_left[i+1] <= i);
+			ans -= int64_t(bad_right[i] - i+1) * int64_t(i - bad_left[i+1]);
 		}
 		cout << ans << '\n';
 	}
