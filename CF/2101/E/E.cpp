@@ -38,7 +38,10 @@ int main() {
 			min_dist[i] = (S[i] == '0') ? 0 : 2 * N;
 		}
 		for (int l = 0; true; l++) {
-			for (int i = 0; i < N; i++) min_dist[i] /= 2;
+			for (int i = 0; i < N; i++) {
+				assert(min_dist[i] >= 0);
+				min_dist[i] /= 2;
+			}
 			std::vector<int> n_min_dist(N, 0);
 
 			std::vector<bool> alive(N, true);
