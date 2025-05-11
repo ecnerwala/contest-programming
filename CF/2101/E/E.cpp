@@ -132,7 +132,7 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 
 			auto query = [&](int cur, int ch, int depth) -> void {
 				int d = bests[depth].ch1 == ch ? bests[depth].d2 : bests[depth].d1;
-				if (d != -1) {
+				if (d != -1 && S[cur] == '1') {
 					assert(d >= 0);
 					n_min_dist[cur] = std::max(n_min_dist[cur], depth + d);
 				}
@@ -169,6 +169,7 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 		bool has = false;
 		for (int i = 0; i < N; i++) {
 			if (S[i] == '0') {
+				assert(n_min_dist[i] == 0);
 				min_dist[i] = 0;
 			} else if (n_min_dist[i] > 0) {
 				min_dist[i] = n_min_dist[i];
