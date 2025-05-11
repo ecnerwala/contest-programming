@@ -36,7 +36,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			min_dist[i] = (S[i] == '0') ? 0 : 2 * N;
 		}
-		for (int l = 0; (1 << l) <= N-1; l++) {
+		for (int l = 0; true; l++) {
 			for (int i = 0; i < N; i++) min_dist[i] /= 2;
 			std::vector<int> n_min_dist(N, 0);
 
@@ -130,6 +130,7 @@ int main() {
 			}(0);
 
 			//for (int i = 0; i < N; i++) { cerr << n_min_dist[i] << ' '; } cerr << '\n';
+			bool has = false;
 			for (int i = 0; i < N; i++) {
 				if (S[i] == '0') {
 					min_dist[i] = 0;
@@ -137,8 +138,10 @@ int main() {
 					min_dist[i] = n_min_dist[i];
 					assert(ans[i] == l+1);
 					ans[i] = l+2;
+					has = true;
 				}
 			}
+			if (!has) break;
 		}
 
 		for (int i = 0; i < N; i++) {
