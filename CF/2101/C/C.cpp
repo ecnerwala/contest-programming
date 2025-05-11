@@ -22,6 +22,7 @@ int main() {
 						if (locs.empty()) break;
 						if (N - 1 - i > locs.back()) {
 							ans += (N - 1 - i) - locs.back();
+							locs.pop_back();
 						} else {
 							break;
 						}
