@@ -41,7 +41,6 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 					if (j == i) continue;
 					if (S[j] == '1') {
 						if (dist[i][j] * 2 <= min_dist[j]) {
-							std::cerr << i << '-' << j << ' ' << l << ' ' << dist[i][j] << '\n';
 							n_min_dist[i] = std::max(n_min_dist[i], dist[i][j]);
 							assert(ans[i] == l+1 || ans[i] == l+2);
 							ans[i] = l+2;
@@ -197,6 +196,7 @@ void test() {
 			adj[perm[i]].push_back(perm[j]);
 			adj[perm[j]].push_back(perm[i]);
 		}
+		std::cerr << "test " << N << '\n';
 		auto a = slow(N, S, adj);
 		auto b = solve(N, S, adj);
 		assert(a == b);
@@ -207,7 +207,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	//test();
+	test();
 
 	int T; cin >> T;
 	while (T--) {
