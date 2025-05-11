@@ -34,6 +34,7 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 	std::vector<int> ans(N);
 	for (int i = 0; i < N; i++) ans[i] = (S[i] == '1') ? 1 : -1;
 	for (int l = 0; true; l++) {
+		for (auto& v : min_dist) v /= 2;
 		bool has = false;
 		std::vector<int> n_min_dist(N, 0);
 		for (int i = 0; i < N; i++) {
@@ -41,7 +42,7 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 				for (int j = 0; j < N; j++) {
 					if (j == i) continue;
 					if (S[j] == '1') {
-						if (dist[i][j] * 2 <= min_dist[j]) {
+						if (dist[i][j] <= min_dist[j]) {
 							n_min_dist[i] = std::max(n_min_dist[i], dist[i][j]);
 							assert(ans[i] == l+1 || ans[i] == l+2);
 							ans[i] = l+2;
