@@ -41,7 +41,6 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 					if (j == i) continue;
 					if (S[j] == '1') {
 						if (dist[i][j] * 2 <= min_dist[j]) {
-							std::cerr << i << '-' << j << ' ' << l << ' ' << dist[i][j] << ' ' << min_dist[j] << '\n';
 							n_min_dist[i] = std::max(n_min_dist[i], dist[i][j]);
 							assert(ans[i] == l+1 || ans[i] == l+2);
 							ans[i] = l+2;
@@ -193,7 +192,7 @@ void test() {
 		std::shuffle(perm.begin(), perm.end(), mt);
 		std::vector<std::vector<int>> adj(N);
 		for (int i = 1; i < N; i++) {
-			int j = std::uniform_int_distribution<int>(0, i)(mt);
+			int j = std::uniform_int_distribution<int>(0, i-1)(mt);
 			adj[perm[i]].push_back(perm[j]);
 			adj[perm[j]].push_back(perm[i]);
 		}
