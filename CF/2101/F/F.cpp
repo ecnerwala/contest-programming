@@ -173,7 +173,7 @@ int main() {
 			}
 			for (int d = 1; d < N; d++) {
 				ways_must_red[d] += p2[by_dist_tot[d]] - 1;
-				ways_must_red_must_blue[d] -= p3[by_dist_tot[d]] - 2 * p2[by_dist_tot[d]] + 1;
+				ways_must_red_must_blue[d] += p3[by_dist_tot[d]] - 2 * p2[by_dist_tot[d]] + 1;
 			}
 
 			{
