@@ -197,8 +197,9 @@ void test() {
 			adj[perm[j]].push_back(perm[i]);
 		}
 		std::cerr << "test " << N << '\n';
-		auto a = slow(N, S, adj);
 		auto b = solve(N, S, adj);
+		std::cerr << "solve done\n";
+		auto a = slow(N, S, adj);
 		assert(a == b);
 	}
 }
