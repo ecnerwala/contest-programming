@@ -17,6 +17,9 @@ struct best_t {
 	}
 };
 
+void slow(int N, std::string S, std::vector<std::vector<int>> adj) {
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -157,7 +160,7 @@ int main() {
 		}
 
 		for (int i = 0; i < N; i++) {
-			cout << (S[i] == '0' ? -1 : ans[i]) << " \n"[i+1==N];
+			cout << ans[i] << " \n"[i+1==N];
 		}
 	}
 
