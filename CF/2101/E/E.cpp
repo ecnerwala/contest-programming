@@ -51,6 +51,7 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 			}
 		}
 		min_dist = n_min_dist;
+		if (!has) break;
 	}
 	return ans;
 }
@@ -205,7 +206,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	int T; cin >> T;
 	while (T--) {
@@ -222,7 +223,7 @@ int main() {
 			adj[v].push_back(u);
 		}
 
-		auto ans = solve(N, std::move(S), std::move(adj));
+		auto ans = slow(N, std::move(S), std::move(adj));
 
 		for (int i = 0; i < N; i++) {
 			cout << ans[i] << " \n"[i+1==N];
