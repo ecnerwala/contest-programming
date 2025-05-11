@@ -45,10 +45,12 @@ int main() {
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
 			ans += int64_t(bad_right[i] - i) * int64_t(i - bad_left[i]);
+			cerr << i << ' ' << int64_t(bad_right[i] - i) * int64_t(i - bad_left[i]) << '\n';
 		}
 		for (int i = 0; i+1 < N; i++) {
 			assert(bad_right[i] >= i+1 && bad_left[i+1] <= i);
 			ans -= int64_t(bad_right[i] - i+1) * int64_t(i - bad_left[i+1]);
+			cerr << i << '-' << i+1 << ' ' << int64_t(bad_right[i] - i+1) * int64_t(i - bad_left[i+1]) << '\n';
 		}
 		cout << ans << '\n';
 	}
