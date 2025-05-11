@@ -12,7 +12,7 @@ int main() {
 		int64_t ans = 0;
 		std::vector<int> locs; locs.reserve(N);
 		for (int z = 0; z < 2; z++, std::reverse(A.begin(), A.end()), std::reverse(locs.begin(), locs.end())) {
-			std::vector<int> par(N, -1);
+			std::vector<int> par(N+1, -1);
 			auto get_par = [&](int a) -> int {
 				while (par[a] >= 0) {
 					if (par[par[a]] >= 0) par[a] = par[par[a]];
