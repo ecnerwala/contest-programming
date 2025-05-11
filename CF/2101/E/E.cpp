@@ -169,6 +169,7 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 				}
 			}
 		}(0);
+		for (auto v : n_min_dist) { cerr << v << ' '; } cerr << '\n';
 
 		//for (int i = 0; i < N; i++) { cerr << n_min_dist[i] << ' '; } cerr << '\n';
 		bool has = false;
