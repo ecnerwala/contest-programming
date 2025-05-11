@@ -17,6 +17,7 @@ struct best_t {
 	}
 };
 
+using std::cerr;
 std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 	std::vector<std::vector<int>> dist(N);
 	for (int i = 0; i < N; i++) {
@@ -51,6 +52,7 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 			}
 		}
 		min_dist = n_min_dist;
+		for (auto a : min_dist) { cerr << a <<' ';} cerr << '\n';
 		if (!has) break;
 	}
 	return ans;
@@ -174,6 +176,7 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 				has = true;
 			}
 		}
+		for (auto a : min_dist) { cerr << a <<' ';} cerr << '\n';
 		if (!has) break;
 	}
 
@@ -196,7 +199,16 @@ void test() {
 			adj[perm[i]].push_back(perm[j]);
 			adj[perm[j]].push_back(perm[i]);
 		}
+		cerr << "test " << N << '\n';
+		cerr << S << '\n';
+		for (int i = 0; i < N; i++) {
+			for (int j : adj[i]) {
+				if (j < i) cerr << j+1 << ' ' << i+1 << '\n';
+			}
+		}
+		cerr << "solve " << '\n';
 		auto b = solve(N, S, adj);
+		cerr << "slow " << '\n';
 		auto a = slow(N, S, adj);
 		if (a != b) {
 		}
