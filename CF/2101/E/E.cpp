@@ -2,17 +2,6 @@
 
 struct best_t {
 	int d1, ch1, d2;
-	void update(int d, int ch) {
-		if (ch == ch1) {
-			d1 = std::max(d1, d);
-		} else if (d > d1) {
-			d2 = d1;
-			d1 = d;
-			ch1 = ch;
-		} else if (d > d2) {
-			d2 = d;
-		}
-	}
 	void update(best_t o) {
 		if (o.ch1 == ch1) {
 			d1 = std::max(d1, o.d1);
@@ -81,7 +70,8 @@ int main() {
 				bests.assign(tot_sz + 1, {-1, -1, -1});
 
 				if (min_dist[rt] > 0) {
-					bests[std::min(tot_sz, min_dist[rt])].update(0, rt);
+					assert(S[rt] == '1');
+					bests[std::min(tot_sz, min_dist[rt])].update({0, rt, -1});
 				}
 
 				for (int ch : adj[rt]) {
@@ -90,7 +80,8 @@ int main() {
 							assert(alive[cur]);
 							assert(depth < tot_sz);
 							if (min_dist[cur] > 0 && min_dist[cur] >= depth) {
-								bests[std::min(tot_sz, min_dist[cur] - depth)].update(depth, ch);
+								assert(S[cur] == '1');
+								bests[std::min(tot_sz, min_dist[cur] - depth)].update({depth, ch, -1});
 							}
 							for (int nxt : adj[cur]) {
 								if (!alive[nxt]) continue;
