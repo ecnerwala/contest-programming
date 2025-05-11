@@ -107,7 +107,7 @@ int main() {
 				}
 
 				auto query = [&](int cur, int ch, int depth) -> void {
-					int d = bests[depth].ch1 != ch ? bests[depth].d2 : bests[depth].d1;
+					int d = bests[depth].ch1 == ch ? bests[depth].d2 : bests[depth].d1;
 					if (d != -1) {
 						n_min_dist[cur] = std::max(n_min_dist[cur], depth + d);
 					}
