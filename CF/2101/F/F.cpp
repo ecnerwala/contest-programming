@@ -194,6 +194,7 @@ int main() {
 
 					ways_pref_red_blue *= p3[by_dist_tot[d]];
 				}
+				assert(ways_pref_red_blue == p3[V]);
 			}
 		}
 
