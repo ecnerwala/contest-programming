@@ -162,7 +162,7 @@ int main() {
 							self(nxt, cur, depth+1);
 						}
 					}(ch, rt, 1);
-					for (int d = !(rt < V); d < N; d += 2) {
+					for (int d = (rt < V) + 1; d < N; d += 2) {
 						ways_must_red[d] -= p2[by_dist_cur[d]] - 1;
 						ways_must_red_must_blue[d] -= p3[by_dist_cur[d]] - 2 * p2[by_dist_cur[d]] + 1;
 						by_dist_cur[d] = 0;
