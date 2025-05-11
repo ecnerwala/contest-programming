@@ -142,7 +142,6 @@ int main() {
 				if (S[i] == '0') {
 					min_dist[i] = 0;
 				} else if (n_min_dist[i] > 0) {
-					assert(min_dist[i] > 0);
 					min_dist[i] = n_min_dist[i];
 					ans[i] = l+2;
 				}
