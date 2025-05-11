@@ -178,7 +178,7 @@ int main() {
 			A[i] = ((i & 1) ? Y : X)[i/2];
 		}
 		if (bad) std::swap(A[N-3], A[N-1]);
-		for (int i = 0; i < N; i++) cout << A[i] << " \n"[i+1==N];
+		for (int i = 0; i < N; i++) cout << A[i]+1 << " \n"[i+1==N];
 	}
 
 	return 0;
