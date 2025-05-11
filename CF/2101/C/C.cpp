@@ -33,7 +33,7 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				int x = get_par(A[i]);
 				if (label[x] > 0) {
-					merge(x, label[x]-1);
+					merge(label[x]-1, x);
 					if (z) {
 						if (locs.empty()) break;
 						if (N - 1 - i > locs.back()) {
