@@ -155,6 +155,11 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 				}
 			}
 
+			if (l == 2) {
+				cerr << "rec_centroid " << rt << '\n';
+				for (auto v : n_min_dist) { cerr << v << ' '; } cerr << '\n';
+			}
+
 			bests.clear();
 
 			alive[rt] = false;
