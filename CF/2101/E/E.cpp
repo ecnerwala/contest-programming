@@ -41,6 +41,7 @@ std::vector<int> slow(int N, std::string S, std::vector<std::vector<int>> adj) {
 					if (j == i) continue;
 					if (S[j] == '1') {
 						if (dist[i][j] * 2 <= min_dist[j]) {
+							std::cerr << i << '-' << j << ' ' << l << ' ' << dist[i][j] << ' ' << min_dist[j] << '\n';
 							n_min_dist[i] = std::max(n_min_dist[i], dist[i][j]);
 							assert(ans[i] == l+1 || ans[i] == l+2);
 							ans[i] = l+2;
