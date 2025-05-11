@@ -38,10 +38,6 @@ int main() {
 		std::reverse(bad_left.begin(), bad_left.end());
 		for (auto& a : bad_left) { a = N-1-a; }
 
-		for (int i = 0; i < N; i++) {
-			cerr << bad_left[i] << ' ' << i << ' ' << bad_right[i] << '\n';
-		}
-
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
 			ans += int64_t(bad_right[i] - i) * int64_t(i - bad_left[i]);
