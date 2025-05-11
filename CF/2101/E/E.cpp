@@ -44,6 +44,7 @@ int main() {
 			std::vector<int> sz(N);
 			std::vector<best_t> bests(N);
 			[&](this auto&& rec_centroid, int rt) -> void {
+				assert(alive[rt]);
 				int tot_sz = [&](this auto&& self, int cur, int prv) -> int {
 					if (!alive[cur]) {
 						return sz[cur] = 0;
