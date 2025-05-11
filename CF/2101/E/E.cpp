@@ -183,7 +183,7 @@ std::vector<int> solve(int N, std::string S, std::vector<std::vector<int>> adj) 
 void test() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 10000; z++) {
-		int N = std::uniform_int_distribution<int>(1, 10)(mt);
+		int N = std::uniform_int_distribution<int>(1, 20)(mt);
 		std::string S(N, '?');
 		for (auto& c : S) {
 			c = std::uniform_int_distribution<char>('0', '1')(mt);
