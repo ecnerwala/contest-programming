@@ -38,6 +38,7 @@ int main() {
 	for (int i = 1; i < int(runs.size()); i += 2) {
 		assert(runs[i].first == 0);
 		int64_t cur = runs[i].second;
+		cerr << "even run " << cur << '\n';
 		while (true) {
 			if (stk.empty() || cur < stk.back()) {
 				stk.push_back(cur);
