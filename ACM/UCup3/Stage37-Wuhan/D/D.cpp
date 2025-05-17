@@ -82,7 +82,7 @@ int main() {
 		int64_t min_odd = tot_odd;
 		int64_t num_merges = tot - R;
 		if (num_merges <= rem_odd) {
-			min_odd -= num_merges;
+			min_odd -= 2 * num_merges;
 		} else {
 			min_odd -= 2 * rem_odd;
 			num_merges -= rem_odd;
