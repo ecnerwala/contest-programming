@@ -21,6 +21,7 @@ int main() {
 			Q = std::uniform_int_distribution<int>(1, 20)(mt);
 		} else {
 			cin >> N >> Q;
+			cerr << N << ' ' << Q << '\n';
 		}
 
 		int64_t tot = 0;
@@ -32,6 +33,7 @@ int main() {
 			if (TESTING) {
 				v = std::uniform_int_distribution<int>(1, 1e9)(mt);
 				l = std::uniform_int_distribution<int>(1, 1e9)(mt);
+				cerr << v << ' ' << l << '\n';
 			} else {
 				cin >> v >> l;
 			}
