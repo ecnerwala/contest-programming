@@ -19,9 +19,9 @@ int main() {
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(1, 10)(mt);
 			Q = std::uniform_int_distribution<int>(1, 20)(mt);
+			cerr << N << ' ' << Q << '\n';
 		} else {
 			cin >> N >> Q;
-			cerr << N << ' ' << Q << '\n';
 		}
 
 		int64_t tot = 0;
