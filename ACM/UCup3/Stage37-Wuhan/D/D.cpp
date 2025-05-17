@@ -83,10 +83,10 @@ int main() {
 		if (num_merges <= rem_odd) {
 			min_odd -= num_merges;
 		} else {
-			min_odd -= rem_odd;
+			min_odd -= 2 * rem_odd;
 			num_merges -= rem_odd;
 			assert(num_merges >= 0);
-			min_odd -= int(std::upper_bound(pref_costs.begin(), pref_costs.end(), num_merges) - pref_costs.begin()) - 1;
+			min_odd -= 2 * (int(std::upper_bound(pref_costs.begin(), pref_costs.end(), num_merges) - pref_costs.begin()) - 1);
 		}
 		cout << max_odd << ' ' << R - min_odd << '\n';
 	}
