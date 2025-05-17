@@ -86,7 +86,7 @@ int main() {
 			min_odd -= rem_odd;
 			num_merges -= rem_odd;
 			assert(num_merges >= 0);
-			min_odd -= int(std::upper_bound(costs.begin(), costs.end(), num_merges) - costs.begin()) - 1;
+			min_odd -= int(std::upper_bound(pref_costs.begin(), pref_costs.end(), num_merges) - pref_costs.begin()) - 1;
 		}
 		cout << max_odd << ' ' << R - min_odd << '\n';
 	}
