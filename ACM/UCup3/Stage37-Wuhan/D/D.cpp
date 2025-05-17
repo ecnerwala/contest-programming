@@ -14,7 +14,6 @@ int main() {
 
 	std::mt19937 mt(48);
 	for (int case_num = 0; case_num < CASES; case_num++) {
-		cerr << "case_num " << case_num << '\n';
 		int N, Q;
 		if (TESTING) {
 			N = std::uniform_int_distribution<int>(1, 10)(mt);
@@ -58,11 +57,6 @@ int main() {
 				}
 			}
 		}
-		cerr << '\n';
-		for (auto [v, l] : runs) {
-			cerr << v << ' ' << l << '\n';
-		}
-		cerr << '\n';
 		std::vector<int64_t> costs; costs.reserve(N);
 		std::vector<int64_t> stk; stk.reserve(N);
 		for (int i = 1; i+1 < int(runs.size()); i += 2) {
@@ -94,7 +88,6 @@ int main() {
 				stk.pop_back();
 			}
 		}
-		cerr << tot_odd - 2 * rem_odd << ' ' << int(costs.size()) << '\n';
 		assert(int(costs.size()) == (tot_odd - 2 * rem_odd) / 2);
 
 		std::sort(costs.begin(), costs.end());
