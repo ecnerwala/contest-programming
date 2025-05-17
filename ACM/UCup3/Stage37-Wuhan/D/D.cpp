@@ -62,6 +62,7 @@ int main() {
 		for (auto [v, l] : runs) {
 			cerr << v << ' ' << l << '\n';
 		}
+		cerr << '\n';
 		std::vector<int64_t> costs; costs.reserve(N);
 		std::vector<int64_t> stk; stk.reserve(N);
 		for (int i = 1; i < int(runs.size()); i += 2) {
