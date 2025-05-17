@@ -89,6 +89,7 @@ int main() {
 				stk.pop_back();
 			}
 		}
+		cerr << tot_odd - 2 * rem_odd << ' ' << int(costs.size()) << '\n';
 		assert(int(costs.size()) == (tot_odd - 2 * rem_odd) / 2);
 
 		std::sort(costs.begin(), costs.end());
