@@ -66,5 +66,30 @@ int main() {
 	}
 	assert(int(costs.size()) == (tot_odd - 2 * rem_odd) / 2);
 
+	std::sort(costs.begin(), costs.end());
+
+	std::vector<int64_t> pref_costs(costs.size() + 1);
+	for (int i = 0; i < int(costs.size()); i++) {
+		pref_costs[i+1] = pref_costs[i] + costs[i];
+	}
+
+	for (int q = 0; q < Q; q++) {
+		int64_t R; cin >> R;
+		int64_t max_odd = std::min(R, tot_odd);
+		if ((max_odd & 1) != (tot_odd & 1)) max_odd--;
+
+		int64_t min_odd = tot_odd;
+		int64_t num_merges = tot - R;
+		if (num_merges <= rem_odd) {
+			min_odd -= num_merges;
+		} else {
+			min_odd -= rem_odd;
+			num_merges -= rem_odd;
+			assert(num_merges >= 0);
+			min_odd -= int(std::upper_bound(costs.begin(), costs.end(), num_merges) - costs.begin()) - 1;
+		}
+		cout << max_odd << ' ' << R - min_odd << '\n';
+	}
+
 	return 0;
 }
