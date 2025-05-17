@@ -65,7 +65,7 @@ int main() {
 		cerr << '\n';
 		std::vector<int64_t> costs; costs.reserve(N);
 		std::vector<int64_t> stk; stk.reserve(N);
-		for (int i = 1; i < int(runs.size()); i += 2) {
+		for (int i = 1; i+1 < int(runs.size()); i += 2) {
 			assert(runs[i].first == 0);
 			int64_t cur = runs[i].second;
 			while (true) {
