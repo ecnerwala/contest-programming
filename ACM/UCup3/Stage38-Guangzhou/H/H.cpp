@@ -9,7 +9,7 @@ int main() {
 		std::vector<int> used(1 << N);
 		for (int m = 0; m < (1 << N); m++) {
 			if (used[m]) continue;
-			int K = __builtin_ctz(m);
+			int K = __builtin_popcount(m);
 			int cur = m;
 			int cnt = 0;
 			for (; !used[cur]; cur = (cur >> 1) | ((cur & 1) << (N-1))) {
