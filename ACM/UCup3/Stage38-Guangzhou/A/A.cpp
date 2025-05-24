@@ -490,7 +490,7 @@ int main() {
 						ndepth = N - sa.sa[cur/2];
 					}
 					assert(ndepth >= depth);
-					cerr << ct.nodes[cur].l << '-' << ct.nodes[cur].r+1 << ' ' << depth << '-' << ndepth << '\n';
+					//cerr << ct.nodes[cur].l << '-' << ct.nodes[cur].r+1 << ' ' << depth << '-' << ndepth << '\n';
 					while (!d.gaps_by_time.empty() && ndepth >= d.gaps_by_time.begin()->first) {
 						int gt = d.gaps_by_time.begin()->first;
 						assert(gt >= depth);
@@ -505,7 +505,7 @@ int main() {
 						ins_gaps(d, it);
 					}
 					if (d.gaps_by_time.empty()) {
-						cerr << "good at time " << depth << '\n';
+						//cerr << "good at time " << depth << '\n';
 						for (int z = ct.nodes[cur].l; z <= ct.nodes[cur].r+1; z++) {
 							int i = sa.sa[z];
 							ans += (N - i) - depth + 1;
@@ -519,10 +519,10 @@ int main() {
 					bool smaller_right = ct.nodes[cur].m >= ct.nodes[cur].l + ct.nodes[cur].r;
 					int sm = ct.nodes[cur].c[smaller_right];
 					int lg = ct.nodes[cur].c[!smaller_right];
-					cerr << "smaller size " << ct.nodes[sm].r - ct.nodes[sm].l + 2 << '\n';
-					cerr << "larger size " << ct.nodes[lg].r - ct.nodes[lg].l + 2 << '\n';
+					//cerr << "smaller size " << ct.nodes[sm].r - ct.nodes[sm].l + 2 << '\n';
+					//cerr << "larger size " << ct.nodes[lg].r - ct.nodes[lg].l + 2 << '\n';
 
-					cerr << "smaller range " << ct.nodes[sm].l << ' ' << ct.nodes[sm].r + 1 << '\n';
+					//cerr << "smaller range " << ct.nodes[sm].l << ' ' << ct.nodes[sm].r + 1 << '\n';
 					std::vector<int> buf; buf.reserve(ct.nodes[sm].r - ct.nodes[sm].l + 2);
 					buf.insert(buf.end(), sa.sa.begin() + ct.nodes[sm].l, sa.sa.begin() + (ct.nodes[sm].r + 2));
 					assert(!buf.empty());
