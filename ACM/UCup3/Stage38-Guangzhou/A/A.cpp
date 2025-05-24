@@ -490,7 +490,7 @@ int main() {
 						ndepth = N - sa.sa[cur/2];
 					}
 					assert(ndepth >= depth);
-					cerr << ct.nodes[cur].l << '-' << ct.nodes[cur].r << ' ' << depth << '-' << ndepth << '\n';
+					cerr << ct.nodes[cur].l << '-' << ct.nodes[cur].r+1 << ' ' << depth << '-' << ndepth << '\n';
 					depth = ndepth;
 				}
 
