@@ -491,6 +491,27 @@ int main() {
 					}
 					assert(ndepth >= depth);
 					cerr << ct.nodes[cur].l << '-' << ct.nodes[cur].r+1 << ' ' << depth << '-' << ndepth << '\n';
+					while (!d.gaps_by_time.empty() && ndepth >= d.gaps_by_time.begin()->first) {
+						int gt = d.gaps_by_time.begin()->first;
+						assert(gt >= depth);
+						depth = gt;
+						int a = d.gaps_by_time.begin()->second;
+						auto it = d.alive.find(a);
+						assert(it != d.alive.end());
+						assert(it->second - a == gt);
+						rem_gaps(d, it);
+						it->second = -1;
+						// noop
+						ins_gaps(d, it);
+					}
+					if (d.gaps_by_time.empty()) {
+						cerr << "good at time " << depth << '\n';
+						for (int z = ct.nodes[cur].l; z <= ct.nodes[cur].r+1; z++) {
+							int i = sa.sa[z];
+							ans += (N - i) - depth + 1;
+						}
+						return;
+					}
 					depth = ndepth;
 				}
 
