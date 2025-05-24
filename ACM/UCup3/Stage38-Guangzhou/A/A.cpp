@@ -501,7 +501,7 @@ int main() {
 					cerr << "smaller size " << ct.nodes[sm].r - ct.nodes[sm].l + 2 << '\n';
 					cerr << "larger size " << ct.nodes[lg].r - ct.nodes[lg].l + 2 << '\n';
 
-					cerr << "smaller size " << ct.nodes[sm].l << ' ' << ct.nodes[sm].r + 1 << '\n';
+					cerr << "smaller range " << ct.nodes[sm].l << ' ' << ct.nodes[sm].r + 1 << '\n';
 					std::vector<int> buf; buf.reserve(ct.nodes[sm].r - ct.nodes[sm].l + 2);
 					buf.insert(buf.end(), sa.sa.begin() + ct.nodes[sm].l, sa.sa.begin() + (ct.nodes[sm].r + 2));
 					assert(!buf.empty());
@@ -554,6 +554,7 @@ int main() {
 					// we're always dead
 				}
 			})(0, ct.root, d_init);
+			return ans;
 		}() << '\n';
 	}
 
