@@ -506,7 +506,7 @@ int main() {
 					assert(!buf.empty());
 					std::sort(buf.begin(), buf.end());
 
-					[&]() -> void {
+					[&]() -> bool {
 						// First build the smaller side
 						dat_t d2;
 
@@ -518,7 +518,7 @@ int main() {
 							return std::prev(it)->first;
 						};
 						if (get_before(buf[0]) != -1) {
-							return;
+							return false;
 						}
 						for (int z = 0; z < int(buf.size()); z++) {
 							int g = get_before(z+1 == int(buf.size()) ? N : buf[z+1]);
@@ -526,6 +526,7 @@ int main() {
 						}
 						build_gaps(d2);
 						self(depth, sm, std::move(d2));
+						return true;
 					}();
 
 					[&]() -> bool {
@@ -546,6 +547,7 @@ int main() {
 							d.alive.erase(it);
 						}
 						self(depth, lg, std::move(d));
+						return true;
 					}();
 				} else {
 					// we're always dead
