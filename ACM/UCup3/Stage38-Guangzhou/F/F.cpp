@@ -134,7 +134,6 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			std::fill(ndp.begin(), ndp.end(), num(0));
 			for (int k = 0; k <= K; k++) {
-				cerr << i << ' ' << k << ' ' << dp[k] << '\n';
 				int j = i + 2 * k;
 				assert(j < 2 * K + N);
 				if (S[i] == '0' || S[i] == '?') {
