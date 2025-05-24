@@ -503,7 +503,7 @@ int main() {
 
 					cerr << "smaller size " << ct.nodes[sm].l << ' ' << ct.nodes[sm].r + 1 << '\n';
 					std::vector<int> buf; buf.reserve(ct.nodes[sm].r - ct.nodes[sm].l + 2);
-					buf.insert(buf.end(), sa.sa.begin() + ct.nodes[sm].l, sa.sa.begin() + ct.nodes[sm].r + 2);
+					buf.insert(buf.end(), sa.sa.begin() + ct.nodes[sm].l, sa.sa.begin() + (ct.nodes[sm].r + 2));
 					assert(!buf.empty());
 					std::sort(buf.begin(), buf.end());
 
