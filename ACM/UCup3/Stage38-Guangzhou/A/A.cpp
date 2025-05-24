@@ -161,20 +161,6 @@ public:
 		return SuffixArray::map_and_construct(s, [](char c) -> char { return char(c - 'A'); });
 	}
 
-	index_t get_lcp(index_t a, index_t b) const {
-		if (a == b) return N-a;
-		a = rank[a], b = rank[b];
-		if (a > b) std::swap(a, b);
-		return rmq.query(a, b-1).first;
-	}
-
-	// Get the split in the suffix tree, using half-open intervals
-	// Returns len, idx
-	std::pair<index_t, index_t> get_split(index_t l, index_t r) const {
-		assert(r - l > 1);
-		return rmq.query(l, r-2);
-	}
-
 private:
 	explicit SuffixArray(int N_) : N(N_) {}
 
