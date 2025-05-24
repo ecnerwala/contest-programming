@@ -544,6 +544,7 @@ int main() {
 						}
 						for (int z = 0; z < int(buf.size()); z++) {
 							int g = get_before(z+1 == int(buf.size()) ? N : buf[z+1]);
+							if (g <= buf[z]) g = -1;
 							d2.alive.insert({buf[z], g});
 						}
 						build_gaps(d2);
