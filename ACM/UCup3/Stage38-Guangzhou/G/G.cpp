@@ -166,7 +166,7 @@ int main() {
 					dp[j] = std::max(dp[j], base + cur);
 				}
 			}
-			int64_t ans = dp[L-1] * (non_one[L].second - non_one[L-1].second - 1);
+			int64_t ans = dp[L-1] + (non_one[L].second - non_one[L-1].second - 1);
 			return num(ans);
 		}() << '\n';
 	}
