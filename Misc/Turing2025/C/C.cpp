@@ -465,9 +465,9 @@ int main() {
 				pt_t vl1 = m(offl, seg[pl].tan[1]);
 				pt_t vr0 = m(offr, seg[pr].tan[0]);
 				pt_t vr1 = m(offr, seg[pr].tan[1]);
-				assert(vl0.x < vl1.x);
+				assert(vl0.x <= vl1.x);
 				assert(vl1.x < vr0.x);
-				assert(vr0.x < vr1.x);
+				assert(vr0.x <= vr1.x);
 				if (seg[pr].cnt > 1 && cross3(vl1, vr0, vr1) >= 0) {
 					offr = m(offr, {seg[pr.c(0)].cnt, seg[pr.c(0)].tot});
 					pr = pr.c(1);
@@ -490,6 +490,11 @@ int main() {
 				}
 
 				assert(seg[pl].cnt > 1 && seg[pr].cnt > 1);
+
+				assert(vl0.x < vl1.x);
+				assert(vl1.x < vr0.x);
+				assert(vr0.x < vr1.x);
+
 				// Now, both sides are convex, so we need to decide which half based on the split
 				int64_t split_x = seg[a.c(0)].cnt;
 				assert(vl1.x <= split_x);
