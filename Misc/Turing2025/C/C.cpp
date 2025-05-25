@@ -437,6 +437,7 @@ int main() {
 				seg[a].is_real = false;
 				return;
 			}
+			seg[a].is_real = true;
 			seg_tree::point pl = a.c(0), pr = a.c(1);
 			pt_t offl = {0, 0};
 			pt_t offr = {seg[pl].cnt, seg[pl].tot};
