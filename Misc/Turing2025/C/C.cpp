@@ -459,6 +459,7 @@ int main() {
 				assert(seg[pl].is_real && seg[pr].is_real);
 				if (seg[pl].cnt == 1 && seg[pr].cnt == 1) {
 					seg[a].tan = {m(offl, seg[pl].tan[0]), m(offr, seg[pr].tan[0])};
+					break;
 				}
 
 				pt_t vl0 = m(offl, seg[pl].tan[0]);
