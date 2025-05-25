@@ -539,11 +539,13 @@ int main() {
 					xlol = vl0.x;
 					offl = m(offl, {seg[pl.c(0)].cnt, seg[pl.c(0)].tot});
 					pl = pl.c(1);
+					continue;
 				} else {
 					xhir = vr1.x;
 					pr = pr.c(0);
+					continue;
 				}
-				continue;
+				assert(false);
 			}
 		};
 
