@@ -415,6 +415,9 @@ int main() {
 			std::array<pt_t, 2> tan;
 		};
 		std::vector<seg_t> seg(layout.N * 2);
+		auto m = [&](pt_t s, pt_t t) -> pt_t {
+			return pt_t{s.x + t.x, s.y + t.y + 2 * int64_t(s.x) * int64_t(t.x)};
+		};
 		auto update_node = [&](seg_tree::point a) -> void {
 			if (a >= layout.N) {
 				assert(seg[a].cnt == 0 || seg[a].cnt == 1);
@@ -441,9 +444,6 @@ int main() {
 			seg_tree::point pl = a.c(0), pr = a.c(1);
 			pt_t offl = {0, 0};
 			pt_t offr = {seg[pl].cnt, seg[pl].tot};
-			auto m = [&](pt_t s, pt_t t) -> pt_t {
-				return pt_t{s.x + t.x, s.y + t.y + 2 * int64_t(s.x) * int64_t(t.x)};
-			};
 			while (true) {
 				assert(seg[pl].cnt > 0 && seg[pr].cnt > 0);
 				if (!seg[pl].is_real) {
@@ -536,6 +536,34 @@ int main() {
 				}
 				update_node(a);
 				a.for_parents_up(update_node);
+			}
+
+			// just query at 0
+			{
+				seg_tree::point a(1);
+				pt_t off{0, 0};
+				assert(seg[a].cnt == N);
+				while (a < layout.N) {
+					assert(seg[a].cnt >= 1);
+					if (!seg[a].is_real) {
+						assert(seg[a.c(0)].cnt == 0 || seg[a.c(1)].cnt == 0);
+						a = seg[a.c(0)].cnt ? a.c(0) : a.c(1);
+						continue;
+					}
+					assert(seg[a].cnt >= 2);
+					auto p0 = m(off, seg[a].tan[0]);
+					auto p1 = m(off, seg[a].tan[1]);
+					if (p0.y >= p1.y) {
+						a = a.c(0);
+					} else {
+						off = m(off, {seg[a.c(0)].cnt, seg[a.c(0)].tot});
+						a = a.c(1);
+					}
+				}
+				assert(seg[a].cnt == 1);
+				auto v = m(off, seg[a].tan[0]).y;
+				if (v < 0) v = 0;
+				ans[q] += v;
 			}
 		}
 	}
