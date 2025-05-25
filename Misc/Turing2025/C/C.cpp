@@ -444,6 +444,8 @@ int main() {
 			seg_tree::point pl = a.c(0), pr = a.c(1);
 			pt_t offl = {0, 0};
 			pt_t offr = {seg[pl].cnt, seg[pl].tot};
+			int64_t xlol = -1, xhil = seg[a].cnt + 1;
+			int64_t xlor = -1, xhir = seg[a].cnt + 1;
 			while (true) {
 				assert(seg[pl].cnt > 0 && seg[pr].cnt > 0);
 				if (!seg[pl].is_real) {
@@ -467,25 +469,48 @@ int main() {
 				pt_t vl1 = m(offl, seg[pl].tan[1]);
 				pt_t vr0 = m(offr, seg[pr].tan[0]);
 				pt_t vr1 = m(offr, seg[pr].tan[1]);
+				if (vl0.x <= xlol) {
+					// we always go right
+					offl = m(offl, {seg[pl.c(0)].cnt, seg[pl.c(0)].tot});
+					pl = pl.c(1);
+					continue;
+				} else if (vl1.x >= xhil) {
+					pl = pl.c(0);
+					continue;
+				}
+
+				if (vr0.x <= xlor) {
+					offr = m(offr, {seg[pr.c(0)].cnt, seg[pr.c(0)].tot});
+					pr = pr.c(1);
+					continue;
+				} else if (vr1.x >= xhir) {
+					pr = pr.c(0);
+					continue;
+				}
+
 				assert(vl0.x <= vl1.x);
 				assert(vl1.x < vr0.x);
 				assert(vr0.x <= vr1.x);
 				if (seg[pr].cnt > 1 && cross3(vl1, vr0, vr1) >= 0) {
+					xlor = vr0.x;
 					offr = m(offr, {seg[pr.c(0)].cnt, seg[pr.c(0)].tot});
 					pr = pr.c(1);
 					continue;
 				} else if (seg[pl].cnt == 1) {
 					assert(seg[pr].cnt > 1);
 					// go the other way
+					xhir = vr1.x;
 					pr = pr.c(0);
 					continue;
 				}
 
 				if (seg[pl].cnt > 1 && cross3(vl0, vl1, vr0) >= 0) {
+					xhil = vl1.x;
 					pl = pl.c(0);
 					continue;
 				} else if (seg[pr].cnt == 1) {
 					assert(seg[pl].cnt > 1);
+					xlol = vl0.x;
 					offl = m(offl, {seg[pl.c(0)].cnt, seg[pl.c(0)].tot});
 					pl = pl.c(1);
 					continue;
@@ -511,9 +536,11 @@ int main() {
 				assert(denl > 0 && denr > 0);
 				if (__int128_t(numl) * denr >= __int128_t(numr) * denl) {
 					// the left is higher, so kill the left half
+					xlol = vl0.x;
 					offl = m(offl, {seg[pl.c(0)].cnt, seg[pl.c(0)].tot});
 					pl = pl.c(1);
 				} else {
+					xhir = vr1.x;
 					pr = pr.c(0);
 				}
 				continue;
