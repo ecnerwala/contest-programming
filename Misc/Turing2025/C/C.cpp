@@ -440,8 +440,8 @@ int main() {
 			seg_tree::point pl = a.c(0), pr = a.c(1);
 			pt_t offl = {0, 0};
 			pt_t offr = {seg[pl].cnt, seg[pl].tot};
-			auto m = [&](pt_t a, pt_t b) -> pt_t {
-				return pt_t{a.x + b.x, a.y + b.y + 2 * int64_t(a.x) * int64_t(b.x)};
+			auto m = [&](pt_t s, pt_t t) -> pt_t {
+				return pt_t{s.x + t.x, s.y + t.y + 2 * int64_t(s.x) * int64_t(t.x)};
 			};
 			while (true) {
 				assert(seg[pl].cnt > 0 && seg[pr].cnt > 0);
