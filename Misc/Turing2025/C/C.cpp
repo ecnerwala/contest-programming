@@ -534,8 +534,13 @@ int main() {
 					assert(seg[a].cnt == 0);
 					seg[a].cnt = 1;
 				}
-				update_node(a);
-				a.for_parents_up(update_node);
+				if (q != 0) {
+					update_node(a);
+					a.for_parents_up(update_node);
+				}
+			}
+			if (q == 0) {
+				for (seg_tree::point a(2 * layout.N - 1); a > 0; a--) update_node(a);
 			}
 
 			// just query at 0
