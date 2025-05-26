@@ -29,7 +29,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		if (int(V.size()) <= 1) break;
 
 		std::vector<std::vector<int64_t>> contribs;
-		contribs.emplace_back(int(V.size()), int64_(0));
+		contribs.emplace_back(int(V.size()), int64_t(0));
 		contribs[0][0] = 1;
 		contribs[0][1] = 1;
 
