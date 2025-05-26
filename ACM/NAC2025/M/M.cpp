@@ -35,7 +35,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 	while (K > 0 && int(V.size()) >= C_LIM) {
 		one_round();
 	}
-	cerr << "num_one_round " << num_one_round << '\n';
+	//cerr << "num_one_round " << num_one_round << '\n';
 	while (K > 0) {
 		if (int(V.size()) <= 1) break;
 
@@ -89,8 +89,8 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		}
 		assert(K >= 1);
 		one_round();
-		cerr << K_orig - K << ' ' << int(V.size()) << '\n';
-		for (auto v : V) { cerr << v << '\n'; }
+		//cerr << K_orig - K << ' ' << int(V.size()) << '\n';
+		//for (auto v : V) { cerr << v << '\n'; }
 	}
 	return V;
 }
@@ -114,7 +114,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	int N; int64_t K; cin >> N >> K;
 	std::vector<int64_t> V(N);
