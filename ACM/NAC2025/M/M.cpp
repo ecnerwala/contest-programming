@@ -12,7 +12,9 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		V.erase(V.begin(), V.begin() + a);
 	}
 	std::vector<int64_t> NV; NV.reserve(V.size());
+	int num_one_round = 0;
 	auto one_round = [&]() -> void {
+		num_one_round++;
 		NV.clear();
 		for (int i = 0; i+1 < int(V.size()); i++) {
 			V[i+1] -= V[i];
@@ -32,6 +34,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 	while (K > 0 && int(V.size()) >= C_LIM) {
 		one_round();
 	}
+	cerr << "num_one_round " << num_one_round << '\n';
 	while (K > 0) {
 		if (int(V.size()) <= 1) break;
 
