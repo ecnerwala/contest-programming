@@ -890,7 +890,6 @@ int main() {
 	for (int i = N; i <= 2*N; i++) {
 		ans += v[i] * fact[2*N-i];
 	}
-	cerr << ans << '\n';
 	ans /= fact[N];
 	ans = N+1 - ans;
 	cout << ans << '\n';
