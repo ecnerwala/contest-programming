@@ -2,10 +2,7 @@
 
 using std::cerr;
 
-const int C_LIM = 500;
-
 std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
-	int64_t K_orig = K;
 	std::sort(V.begin(), V.end());
 	{
 		int a = 0;
@@ -76,7 +73,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 					break;
 				} else {
 					// calculate contribs[k+1]
-					if (k+1 >= int(contribs.size())) {
+					if (k+1 == int(contribs.size())) {
 						contribs.emplace_back(std::min<int64_t>(int(V.size()), (int64_t(1) << (k+1)) + 1), int64_t(0));
 						for (int i = 0; i < int(V.size()) && i <= (int64_t(1) << k); i++) {
 							for (int j = 0; i+j < int(V.size()) && j <= (int64_t(1) << k); j++) {
@@ -113,7 +110,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	int N; int64_t K; cin >> N >> K;
 	std::vector<int64_t> V(N);
