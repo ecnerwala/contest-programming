@@ -107,6 +107,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	test();
+
 	int N; int64_t K; cin >> N >> K;
 	std::vector<int64_t> V(N);
 	for (auto& v : V) cin >> v;
