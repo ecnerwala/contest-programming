@@ -90,7 +90,6 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 				assert(false);
 			}
 		}
-		assert(K >= 1);
 		//cerr << K_orig - K << ' ' << int(V.size()) << '\n';
 		//for (auto v : V) { cerr << v << '\n'; }
 	}
