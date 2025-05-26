@@ -47,11 +47,12 @@ int main() {
 			ch_min += mi;
 			ch_max += ma;
 		}
-		ch_max = std::min<int64_t>(ch_max, K);
 		if (W[cur] != -1) {
-			ch_min += W[cur];
+			ch_max = std::min<int64_t>(ch_max, K - W[cur]);
+		} else {
+			ch_max = std::min<int64_t>(ch_max, K);
 		}
-		if (ch_min > K) good = false;
+		if (ch_min > ch_max) good = false;
 		res += ch_max;
 		if (W[cur] != -1) {
 			return {W[cur], W[cur]};
