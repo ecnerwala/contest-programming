@@ -77,7 +77,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 				} else {
 					// calculate contribs[k+1]
 					if (k == int(contribs.size())) {
-						contribs.emplace_back(std::min<int64_t>(int(V.size()), (int64_t(1) << k) + 1), int64_t(0));
+						contribs.emplace_back(std::min<int64_t>(int(V.size()), (int64_t(1) << (k+1)) + 1), int64_t(0));
 						for (int i = 0; i < int(V.size()) && i <= (int64_t(1) << k); i++) {
 							for (int j = 0; i+j < int(V.size()) && j <= (int64_t(1) << k); j++) {
 								contribs[k+1][i+j] += contribs[k][i] * contribs[k][j];
