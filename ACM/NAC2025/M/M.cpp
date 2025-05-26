@@ -90,8 +90,6 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 				assert(false);
 			}
 		}
-		//cerr << K_orig - K << ' ' << int(V.size()) << '\n';
-		//for (auto v : V) { cerr << v << '\n'; }
 	}
 	return V;
 }
@@ -115,7 +113,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	//test();
+	test();
 
 	int N; int64_t K; cin >> N >> K;
 	std::vector<int64_t> V(N);
