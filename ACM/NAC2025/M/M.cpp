@@ -87,6 +87,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		}
 		assert(K >= 1);
 		one_round();
+		cerr << K << '\n';
 	}
 	return V;
 }
