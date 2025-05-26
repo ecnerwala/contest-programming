@@ -68,7 +68,6 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		int k = 0;
 		if (maybe_jump(0)) {
 			while (true) {
-				assert(k <= 100);
 				if (!maybe_jump(k)) {
 					for (--k; k >= 0; --k) {
 						maybe_jump(k);
@@ -82,6 +81,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 							contribs[k+1][i+j] += contribs[k][i] * contribs[k][j];
 						}
 					}
+					k++;
 					continue;
 				}
 				assert(false);
