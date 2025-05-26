@@ -87,7 +87,7 @@ int main() {
 
 	int N; int64_t K; cin >> N >> K;
 	std::vector<int64_t> V(N);
-	K--;
+	for (auto& v : V) cin >> v;
 	std::sort(V.begin(), V.end());
 	V = simulate_full(V, K-1);
 	V.insert(V.begin(), N - int(V.size()), int64_t(0));
