@@ -1,8 +1,102 @@
 #include <bits/stdc++.h>
 
+const int C_LIM = 100;
+
+std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
+	assert(std::is_sorted(V.begin(), V.end()));
+	std::vector<int64_t> NV; NV.reserve(V.size());
+	auto one_round = [&]() -> void {
+		NV.clear();
+		for (int i = 0; i+1 < int(V.size()); i++) {
+			V[i+1] -= V[i];
+		}
+		for (int i = 0, j = 1; i < int(V.size()) || j < int(V.size()); ) {
+			if (i < int(V.size()) && (j >= int(V.size()) || V[i] < V[j])) {
+				if (V[i]) NV.push_back(V[i]);
+				i += 2;
+			} else {
+				if (V[j]) NV.push_back(V[j]);
+				j += 2;
+			}
+		}
+		std::swap(V, NV);
+		K--;
+	};
+	while (K > 0 && int(V.size()) >= C_LIM) {
+		one_round();
+	}
+	while (K > 0) {
+		if (int(V.size()) <= 1) break;
+
+		std::vector<std::vector<int64_t>> contribs;
+		contribs[0] = std::vector<int64_t>(int(V.size()), 0);
+		contribs[0][0] = 1;
+		contribs[0][1] = 1;
+
+		// set V = sim(V, 1 << k) and return true if it stays increasing
+		auto maybe_jump = [&](int k) -> bool {
+			if ((int64_t(1) << k) >= K) return false;
+			NV.clear();
+			for (int i = 0; i < int(V.size()); i++) {
+				__int128_t cur = V[i];
+				for (int d = 1; d <= i; d++) {
+					cur -= __int128_t(contribs[k][d]) * NV[i-d];
+					if (cur < 0) {
+						return false;
+					}
+				}
+				NV.push_back(int64_t(cur));
+				if (i && NV[i-1] > NV[i]) return false;
+			}
+			V = std::move(NV);
+			K -= int64_t(1) << k;
+			assert(K >= 1);
+			return true;
+		};
+
+		int k = 0;
+		if (maybe_jump(0)) {
+			while (true) {
+				if (!maybe_jump(k)) {
+					for (--k; k >= 0; --k) {
+						maybe_jump(k);
+					}
+					break;
+				} else {
+					// calculate contribs[k+1]
+					contribs.emplace_back(int(V.size()), 0);
+					for (int i = 0; i < int(V.size()); i++) {
+						for (int j = 0; i+j < int(V.size()); j++) {
+							contribs[k+1][i+j] += contribs[k][i] * contribs[k][j];
+						}
+					}
+					continue;
+				}
+				assert(false);
+			}
+		}
+		assert(K >= 1);
+		one_round();
+	}
+	return V;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N; int64_t K; cin >> N >> K;
+	std::vector<int64_t> V(N);
+	K--;
+	std::sort(V.begin(), V.end());
+	V = simulate_full(V, K-1);
+	V.insert(V.begin(), N - int(V.size()), int64_t(0));
+	for (int i = 0; i+1 < N; i++) {
+		V[i+1] -= V[i];
+	}
+	for (int i = 0; i < N; i++) {
+		cout << V[i] << " \n"[i+1==N];
+	}
 
 	return 0;
 }
