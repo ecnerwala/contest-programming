@@ -50,7 +50,7 @@ int main() {
 		if (W[cur] != -1) {
 			ch_min += W[cur];
 		}
-		if (ch_min > ch_max) good = false;
+		if (ch_min > K) good = false;
 		res += ch_max;
 		if (W[cur] != -1) {
 			return {W[cur], W[cur]};
