@@ -52,7 +52,7 @@ void solve(){
 			it->second = std::max(it->second, w);
 		}
 	}
-	int M = int(edges.size());
+	M = int(edges.size());
 	auto merge_into = [&](vtx_dp v, edge_dp a, vtx_dp w) -> vtx_dp {
 		// do nothing
 		return vtx_dp{};
