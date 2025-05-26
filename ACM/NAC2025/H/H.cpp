@@ -60,7 +60,7 @@ int main() {
 		}
 	})(0, -1);
 	res += rma;
-	cout << (good ? -1 : res) << '\n';
+	cout << (good ? res : -1) << '\n';
 
 	return 0;
 }
