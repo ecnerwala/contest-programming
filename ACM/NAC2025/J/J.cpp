@@ -892,6 +892,7 @@ int main() {
 	}
 	cerr << ans << '\n';
 	ans /= fact[N];
+	ans = N+1 - ans;
 	cout << ans << '\n';
 
 	return 0;
