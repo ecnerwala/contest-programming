@@ -4,6 +4,11 @@ const int C_LIM = 100;
 
 std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 	assert(std::is_sorted(V.begin(), V.end()));
+	{
+		int a = 0;
+		while (a < int(V.size()) && V[a] == 0) a++;
+		V.erase(V.begin(), V.begin() + a);
+	}
 	std::vector<int64_t> NV; NV.reserve(V.size());
 	auto one_round = [&]() -> void {
 		NV.clear();
