@@ -68,6 +68,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		int k = 0;
 		if (maybe_jump(0)) {
 			while (true) {
+				assert(k <= 100);
 				if (!maybe_jump(k)) {
 					for (--k; k >= 0; --k) {
 						maybe_jump(k);
@@ -89,6 +90,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		assert(K >= 1);
 		one_round();
 		cerr << K_orig - K << ' ' << int(V.size()) << '\n';
+		for (auto v : V) { cerr << v << '\n'; }
 	}
 	return V;
 }
