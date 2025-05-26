@@ -43,6 +43,7 @@ int main() {
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
 			auto [mi, ma] = self(nxt, cur);
+			cerr << nxt << ' ' << mi << ' ' << ma << '\n';
 			ch_min += mi;
 			ch_max += ma;
 		}
