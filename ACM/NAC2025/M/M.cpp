@@ -43,7 +43,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 
 	// set V = sim(V, 1 << k) and return true if it stays increasing
 	auto maybe_jump = [&](int k) -> bool {
-		if ((int64_t(1) << k) >= K) return false;
+		if ((int64_t(1) << k) > K) return false;
 		NV.clear();
 		for (int i = 0; i < int(V.size()); i++) {
 			__int128_t cur = V[i];
@@ -58,7 +58,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		}
 		V = std::move(NV);
 		K -= int64_t(1) << k;
-		assert(K >= 1);
+		assert(K >= 0);
 		return true;
 	};
 
