@@ -5,6 +5,7 @@ using std::cerr;
 const int C_LIM = 500;
 
 std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
+	int64_t K_orig = K;
 	std::sort(V.begin(), V.end());
 	{
 		int a = 0;
@@ -87,7 +88,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		}
 		assert(K >= 1);
 		one_round();
-		cerr << K << '\n';
+		cerr << K_orig - K << ' ' << int(V.size()) << '\n';
 	}
 	return V;
 }
