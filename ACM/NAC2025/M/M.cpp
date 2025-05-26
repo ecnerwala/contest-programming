@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 
-const int C_LIM = 100;
+using std::cerr;
+
+const int C_LIM = 500;
 
 std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 	assert(std::is_sorted(V.begin(), V.end()));
@@ -44,7 +46,7 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 			NV.clear();
 			for (int i = 0; i < int(V.size()); i++) {
 				__int128_t cur = V[i];
-				for (int d = 1; d <= i; d++) {
+				for (int d = 1; d <= i && d <= (int64_t(1) << k); d++) {
 					cur -= __int128_t(contribs[k][d]) * NV[i-d];
 					if (cur < 0) {
 						return false;
@@ -70,8 +72,8 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 				} else {
 					// calculate contribs[k+1]
 					contribs.emplace_back(int(V.size()), int64_t(0));
-					for (int i = 0; i < int(V.size()); i++) {
-						for (int j = 0; i+j < int(V.size()); j++) {
+					for (int i = 0; i < int(V.size()) && i <= (int64_t(1) << k); i++) {
+						for (int j = 0; i+j < int(V.size()) && j <= (int64_t(1) << k); j++) {
 							contribs[k+1][i+j] += contribs[k][i] * contribs[k][j];
 						}
 					}
@@ -84,6 +86,21 @@ std::vector<int64_t> simulate_full(std::vector<int64_t> V, int64_t K) {
 		one_round();
 	}
 	return V;
+}
+
+void test() {
+	std::mt19937_64 mt(48);
+	for (int cases = 0; cases < 100; cases++) {
+		int N = 100;
+		std::vector<int64_t> V(N);
+		for (auto& v : V) {
+			int b = std::uniform_int_distribution<int>(0, 60)(mt);
+			v = std::uniform_int_distribution<int64_t>(1, int64_t(1) << b)(mt);
+		}
+		cerr << "go " << N << '\n';
+		auto r = simulate_full(V, 1e18);
+		cerr << r.size() << '\n';
+	}
 }
 
 int main() {
