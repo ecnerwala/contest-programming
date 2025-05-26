@@ -48,8 +48,8 @@ void solve(){
 			edges.push_back({u, v});
 			weights.push_back(w);
 		} else {
-			ans = std::max(ans, int64_t(w) + it->second);
-			it->second = std::max(it->second, w);
+			ans = std::max(ans, int64_t(w) + weights[it->second]);
+			weights[it->second] = std::max(weights[it->second], w);
 		}
 	}
 	M = int(edges.size());
