@@ -228,16 +228,26 @@ int main() {
 		std::vector<num> freq(V+1);
 		for (auto a : A) freq[a] += num(mt());
 
+		std::vector<num> freq_mult(V+1);
+		for (int i = 1; i <= V; i++) {
+			for (int j = i; j <= V; j += i) {
+				freq_mult[i] += freq[j];
+			}
+		}
+
 		std::vector<num> freq_prod(V+1, 1);
 
 		int ans = 1;
 		for (; true; ans++) {
 			num cnt = 0;
 			for (int i = 1; i <= V; i++) {
-				freq_prod[i] *= freq[i];
+				freq_prod[i] *= freq_mult[i];
 				cnt += mu[i] * freq_prod[i];
 			}
+			if (cnt != 0) break;
 		}
+		assert(ans > 1);
+		cout << (ans - 1) + (N-1) << '\n';
 	}
 
 	return 0;
