@@ -211,17 +211,16 @@ int main() {
 
 		for (int i = 0; i < N; i++) {
 			if (!vis[i]) continue;
-			int g = std::gcd(C[i].c, MOD);
-			for (int st = 0; st < g; st++) {
-				int j = st;
-				for (int a = 0; a <= 2 * (MOD / g); a++) {
-					int nj = j + C[i].c;
-					setmax(dp[{i, nj % MOD}], dp[{i, j}] + C[i].w - (nj / MOD) * MOD_VAL);
-					j = nj % MOD;
+			if (int64_t(C[i].w) * MOD <= MOD_VAL * int64_t(C[i].c)) {
+				int g = std::gcd(C[i].c, MOD);
+				for (int st = 0; st < g; st++) {
+					int j = st;
+					for (int a = 0; a <= 2 * (MOD / g); a++) {
+						int nj = j + C[i].c;
+						setmax(dp[{i, nj % MOD}], dp[{i, j}] + C[i].w - (nj / MOD) * MOD_VAL);
+						j = nj % MOD;
+					}
 				}
-			}
-			// We want to cycle forwards twice
-			for (int j = 0; j < MOD; j++) {
 			}
 			for (auto k : adj[i]) {
 				if (i < mid && mid < k) continue;
