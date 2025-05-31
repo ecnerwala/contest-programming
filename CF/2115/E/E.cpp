@@ -22,9 +22,6 @@ protected:
 	int flatten_index_checked(std::array<int, NDIMS> idx) const {
 		int res = 0;
 		for (int i = 0; i < NDIMS; i++) {
-			if (!(0 <= idx[i] && idx[i] < shape[i])) {
-				std::cerr << i << ' ' << idx[i] << ' ' << shape[i] << '\n';
-			}
 			assert(0 <= idx[i] && idx[i] < shape[i]);
 			res += idx[i] * strides[i];
 		}
@@ -33,7 +30,7 @@ protected:
 
 public:
 	T& operator[] (std::array<int, NDIMS> idx) const {
-		return data[flatten_index_checked(idx)];
+		return data[flatten_index(idx)];
 	}
 	T& at(std::array<int, NDIMS> idx) const {
 		return data[flatten_index_checked(idx)];
