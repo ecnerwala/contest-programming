@@ -199,7 +199,7 @@ int main() {
 		for (int j = i+i; j <= V; j += i) mu[j] -= mu[i];
 	}
 
-	std::mt19937 mt(48);
+	std::mt19937_64 mt(48);
 
 	int T; cin >> T;
 	while (T--) {
