@@ -28,11 +28,11 @@ int main() {
 			cerr << v << ' ' << C[i] << '\n';
 			for (int b = 59; b >= 0; b--) v = std::min(v, v ^ basis[b]);
 			if (v) {
+				for (auto& o : basis) o = std::min(o, o ^ v);
 				int b = 63 - __builtin_clzll(v);
 				assert(!basis[b]);
 				basis[b] = v;
 				value[b] = C[i];
-				for (auto& o : basis) o = std::min(o, o ^ v);
 			}
 		}
 		for (int b = 0; b < 60; b++) {
