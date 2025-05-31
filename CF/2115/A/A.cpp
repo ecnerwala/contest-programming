@@ -192,8 +192,8 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	const int V = int(5e5) + 10;
-	std::vector<int> mu(V+1, 1);
-	mu[0] = 0;
+	std::vector<int> mu(V+1);
+	mu[1] = 1;
 	for (int i = 1; i <= V; i++) {
 		if (i <= 10) cerr << i << ' ' << mu[i] << '\n';
 		if (!mu[i]) continue;
