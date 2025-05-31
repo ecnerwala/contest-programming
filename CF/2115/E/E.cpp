@@ -219,11 +219,8 @@ int main() {
 				int j = st;
 				for (int a = 0; a <= 2 * (MOD / g); a++) {
 					int nj = j + C[i].c;
-					if (nj >= MOD) {
-						setmax(dp[{i, nj - MOD}], dp[{i, j}] + C[i].w - MOD_VAL);
-					} else {
-						setmax(dp[{i, nj}], dp[{i, j}] + C[i].w);
-					}
+					setmax(dp[{i, nj % MOD}], dp[{i, j}] + C[i].w - (nj / MOD) * MOD_VAL);
+					j = nj % MOD;
 				}
 			}
 			// We want to cycle forwards twice
