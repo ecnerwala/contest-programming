@@ -19,8 +19,7 @@ int main() {
 			// dummy indeg
 			indeg[i] = 1;
 		}
-		for (int q = 0; q < Q; q++) {
-			int v = N+q;
+		for (int v = N; v < N+Q; v++) {
 			int x, y, z; cin >> x >> y >> z; x--, y--, z--;
 			in_edges[v].push_back({cur_vars[x]});
 			in_edges[v].push_back({cur_vars[y]});
