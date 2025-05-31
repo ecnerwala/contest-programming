@@ -191,8 +191,10 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	const int V = int(5e5) + 10;
-	std::vector<int> mu(V+1);
+	using num = modnum<998244353>;
+
+	const int V = int(5e3) + 10;
+	std::vector<num> mu(V+1);
 	mu[1] = 1;
 	for (int i = 1; i <= V; i++) {
 		if (!mu[i]) continue;
@@ -223,7 +225,6 @@ int main() {
 			continue;
 		}
 
-		using num = modnum<998244353>;
 		std::vector<num> freq(V+1);
 		for (auto a : A) freq[a] += num(mt());
 
@@ -234,14 +235,14 @@ int main() {
 			}
 		}
 
-		std::vector<num> freq_prod(V+1, 1);
+		std::vector<num> freq_prod = mu;
 
 		int ans = 1;
 		for (; true; ans++) {
 			num cnt = 0;
 			for (int i = 1; i <= V; i++) {
 				freq_prod[i] *= freq_mult[i];
-				cnt += mu[i] * freq_prod[i];
+				cnt += freq_prod[i];
 			}
 			if (cnt != 0) break;
 		}
