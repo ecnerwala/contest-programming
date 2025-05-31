@@ -205,7 +205,6 @@ int main() {
 	for (int mid = 0; mid < N; mid++) {
 		int MOD = C[mid].c;
 		int64_t MOD_VAL = C[mid].w;
-		const int64_t INF = 1e18;
 		std::vector<bool> vis(N, false);
 		tensor<int64_t, 2> dp({N, MOD}, 0);
 		vis[0] = true;
@@ -237,7 +236,7 @@ int main() {
 		}
 
 		for (int q = 0; q < Q; q++) {
-			if (queries[q].p >= mid && queries[q].r >= SMAX) {
+			if (queries[q].p >= mid && vis[queries[q].p] && queries[q].r >= SMAX) {
 				setmax(ans[q], dp[{queries[q].p, queries[q].r % MOD}] + (queries[q].r / MOD) * MOD_VAL);
 			}
 		}
