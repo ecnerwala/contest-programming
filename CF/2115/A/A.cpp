@@ -195,7 +195,6 @@ int main() {
 	std::vector<int> mu(V+1);
 	mu[1] = 1;
 	for (int i = 1; i <= V; i++) {
-		if (i <= 10) cerr << i << ' ' << mu[i] << '\n';
 		if (!mu[i]) continue;
 		for (int j = i+i; j <= V; j += i) mu[j] -= mu[i];
 	}
