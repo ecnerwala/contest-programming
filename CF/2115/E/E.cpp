@@ -30,7 +30,7 @@ protected:
 
 public:
 	T& operator[] (std::array<int, NDIMS> idx) const {
-		return data[flatten_index_checked(idx)];
+		return data[flatten_index(idx)];
 	}
 	T& at(std::array<int, NDIMS> idx) const {
 		return data[flatten_index_checked(idx)];
@@ -179,7 +179,7 @@ int main() {
 		int p, r;
 	};
 	std::vector<query_t> queries(Q);
-	for (auto& [p, r] : queries) cin >> p >> r;
+	for (auto& [p, r] : queries) { cin >> p >> r; p--; }
 
 	std::vector<int64_t> ans(Q);
 
