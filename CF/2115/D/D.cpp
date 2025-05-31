@@ -36,6 +36,7 @@ int main() {
 			}
 		}
 		for (int b = 0; b < 60; b++) {
+			cerr << b << ' ' << basis[b] << ' ' << value[b] << '\n';
 			if (basis[b]) {
 				assert(value[b] != '?');
 				if (value[b] == '0') {
