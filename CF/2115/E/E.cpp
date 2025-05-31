@@ -30,7 +30,7 @@ protected:
 
 public:
 	T& operator[] (std::array<int, NDIMS> idx) const {
-		return data[flatten_index(idx)];
+		return data[flatten_index_checked(idx)];
 	}
 	T& at(std::array<int, NDIMS> idx) const {
 		return data[flatten_index_checked(idx)];
