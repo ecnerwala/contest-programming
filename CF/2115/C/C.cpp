@@ -220,10 +220,9 @@ int main() {
 			for (int i = 1; i <= tot_ones; i++) {
 				for (int j = 1; j <= tot_all; j++) {
 					win_prob[{i, j}] = P * win_prob[{i, j-1}] + (1-P) * win_prob[{i-1, j}];
-					win_prob[{i, j}] = 
 				}
 			}
-
+			return win_prob[{tot_ones, tot_all}];
 		}() << '\n';
 	}
 
