@@ -197,7 +197,7 @@ int main() {
 	std::vector<num> mu(V+1);
 	mu[1] = 1;
 	for (int i = 1; i <= V; i++) {
-		if (!mu[i]) continue;
+		if (mu[i] == 0) continue;
 		for (int j = i+i; j <= V; j += i) mu[j] -= mu[i];
 	}
 
