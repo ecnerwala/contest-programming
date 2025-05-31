@@ -26,7 +26,7 @@ int main() {
 			in_edges[v].push_back({cur_vars[y]});
 			out_edges[cur_vars[x]].push_back(v);
 			out_edges[cur_vars[y]].push_back(v);
-			cur_vars[z] = q;
+			cur_vars[z] = v;
 			indeg[v] = 2;
 		}
 		std::vector<bool> alive(V, true);
