@@ -19,10 +19,13 @@ int main() {
 		}
 		std::string C; cin >> C;
 
+		cerr << "X = " << X << '\n';
+
 		std::vector<int64_t> basis(60);
 		std::vector<char> value(60, '?');
 		for (int i = N-1; i >= 0; i--) {
 			int64_t v = A[i];
+			cerr << v << ' ' << C[i] << '\n';
 			for (int b = 59; b >= 0; b--) v = std::min(v, v ^ basis[b]);
 			if (v) {
 				int b = 63 - __builtin_clzll(v);
