@@ -373,7 +373,7 @@ int main() {
 				}
 			}
 			t->own = concat_seg(t->own, t->lazy);
-			t->lazy = nullptr;
+			t->lazy = 0;
 		}
 	};
 
