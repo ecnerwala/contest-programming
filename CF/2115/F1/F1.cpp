@@ -399,7 +399,7 @@ int main() {
 	};
 
 	std::vector<treap_node> nodes(N);
-	treap_node* root;
+	treap_node* root = nullptr;
 	for (int i = 0; i < N; i++) {
 		auto n = &nodes[i];
 		n->pri = mt();
