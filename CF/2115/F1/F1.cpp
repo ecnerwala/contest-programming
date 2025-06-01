@@ -276,7 +276,15 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int N, Q; cin >> N >> Q;
+	constexpr bool TESTING = true;
+	std::mt19937_64 TESTING_MT(48);
+	int N, Q;
+	if constexpr (TESTING) {
+		N = int(1e5);
+		Q = int(1e5);
+	} else {
+		cin >> N >> Q;
+	}
 
 	struct seg_node {
 		std::array<seg_node*, 2> c{nullptr, nullptr};
@@ -454,7 +462,14 @@ int main() {
 
 	int prv_ans = 0;
 	for (int q = 0; q < Q; q++) {
-		int a, b, c; cin >> a >> b >> c;
+		int a, b, c;
+		if constexpr (TESTING) {
+			cin >> a >> b >> c;
+		} else {
+			a = std::uniform_int_distribution<int>(1, 3)(TESTING_MT);
+			b = std::uniform_int_distribution<int>(1, a == 3 ? Q : N)(TESTING_MT);
+			c = std::uniform_int_distribution<int>(1, N)(TESTING_MT);
+		}
 		if (a == 1) {
 			assert(1 <= b && b <= N);
 			int r = (b + prv_ans - 1) % N + 1;
