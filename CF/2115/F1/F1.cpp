@@ -325,6 +325,7 @@ int main() {
 	struct treap_node {
 		std::array<treap_node*, 2> c = {nullptr, nullptr};
 		std::mt19937_64::result_type pri;
+		seg_node* own = nullptr;
 		seg_node* lazy = nullptr;
 		int sz = 1;
 		bool lazy_flip = false;
@@ -355,6 +356,7 @@ int main() {
 					ch->lazy = concat_seg(ch->lazy, t->lazy);
 				}
 			}
+			t->own = concat_seg(t->own, t->lazy);
 			t->lazy = nullptr;
 		}
 	};
@@ -440,6 +442,9 @@ int main() {
 			if (l != l_sz) {
 				downdate_treap_flip(cur);
 				auto r = self(cur->c[l > l_sz], l > l_sz ? l - l_sz - 1 : l);
+				if (r) return r;
+			} else {
+				auto r = query_seg_leftmost(cur->own);
 				if (r) return r;
 			}
 			return query_seg_leftmost(cur->lazy);
