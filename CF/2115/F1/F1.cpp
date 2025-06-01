@@ -282,7 +282,7 @@ int main() {
 		std::array<seg_node*, 2> c{nullptr, nullptr};
 	};
 
-	seg_tree::in_order_layout layout(N);
+	seg_tree::in_order_layout layout(Q);
 
 	auto concat_seg = [&](this auto&& self, seg_node* x, seg_node* y, seg_tree::point a = seg_tree::point(1)) -> seg_node* {
 		if (!x) return y;
