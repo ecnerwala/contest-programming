@@ -279,19 +279,28 @@ int main() {
 	int N, Q; cin >> N >> Q;
 
 	struct seg_node {
-		std::array<seg_node*, 2> c;
+		std::array<seg_node*, 2> c{nullptr, nullptr};
 	};
 
 	seg_tree::in_order_layout layout(N);
 
-	auto concat_seg = [&](seg_node* a, seg_node* b) -> seg_node* {
-		return nullptr;
+	auto concat_seg = [&](this auto&& self, seg_node* x, seg_node* y, seg_tree::point a = seg_tree::point(1)) -> seg_node* {
+		if (!x) return y;
+		if (!y) return x;
+		assert(a < layout.N);
+		assert(!x->c[1] || !y->c[0]);
+		return new seg_node{{self(x->c[0], y->c[0], a.c(0)), self(x->c[1], y->c[1], a.c(1))}};
 	};
 
 	std::vector<bool> alive(Q);
 
-	auto build_seg = [&](int q) -> seg_node* {
-		return nullptr;
+	auto build_seg = [&](this auto&& self, int q, seg_tree::point a = seg_tree::point(1)) -> seg_node* {
+		auto s = new seg_node{};
+		if (a < layout.N) {
+			int d = q >= layout.get_node_split(a);
+			s->c[d] = self(q, a.c(d));
+		}
+		return s;
 	};
 
 	auto query_seg_leftmost = [&](this auto&& self, seg_node* &s, seg_tree::point a = seg_tree::point(1)) -> std::optional<int> {
@@ -399,6 +408,7 @@ int main() {
 	auto do_insert = [&](int r, int q) -> void {
 		assert(1 <= r && r <= N);
 		assert(0 <= q && q < Q);
+		alive[q] = true;
 		auto [a, b] = split_treap(root, r);
 		a->lazy = concat_seg(a->lazy, build_seg(q));
 		root = concat_treap(a, b);
