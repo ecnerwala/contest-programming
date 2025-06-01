@@ -277,7 +277,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	constexpr bool TESTING = true;
-	std::mt19937_64 TESTING_MT(49);
+	std::mt19937_64 TESTING_MT(48);
 	int N, Q;
 	if constexpr (TESTING) {
 		N = int(1e5);
@@ -287,31 +287,40 @@ int main() {
 	}
 
 	struct seg_node {
-		std::array<seg_node*, 2> c{nullptr, nullptr};
+		std::array<int, 2> c{0, 0};
 	};
+
+	std::vector<seg_node> seg;
+	seg.push_back({{0, 0}});
 
 	seg_tree::in_order_layout layout(Q);
 
-	auto concat_seg = [&](this auto&& self, seg_node* x, seg_node* y, seg_tree::point a = seg_tree::point(1)) -> seg_node* {
+	auto concat_seg = [&](this auto&& self, int x, int y, seg_tree::point a = seg_tree::point(1)) -> int {
 		if (!x) return y;
 		if (!y) return x;
 		assert(a < layout.N);
-		assert(!x->c[1] || !y->c[0]);
-		return new seg_node{{self(x->c[0], y->c[0], a.c(0)), self(x->c[1], y->c[1], a.c(1))}};
+		assert(!seg[x].c[1] || !seg[y].c[0]);
+		seg_node r;
+		for (int z = 0; z < 2; z++) {
+			r.c[z] = self(seg[x].c[z], seg[y].c[z], a.c(z));
+		}
+		seg.push_back(r);
+		return int(seg.size())-1;
 	};
 
 	std::vector<bool> alive(Q);
 
-	auto build_seg = [&](this auto&& self, int q, seg_tree::point a = seg_tree::point(1)) -> seg_node* {
-		auto s = new seg_node{};
+	auto build_seg = [&](this auto&& self, int q, seg_tree::point a = seg_tree::point(1)) -> int {
+		seg_node r;
 		if (a < layout.N) {
 			int d = q >= layout.get_node_split(a);
-			s->c[d] = self(q, a.c(d));
+			r.c[d] = self(q, a.c(d));
 		}
-		return s;
+		seg.push_back(r);
+		return int(seg.size())-1;
 	};
 
-	auto query_seg_leftmost = [&](this auto&& self, seg_node* &s, seg_tree::point a = seg_tree::point(1)) -> std::optional<int> {
+	auto query_seg_leftmost = [&](this auto&& self, int &s, seg_tree::point a = seg_tree::point(1)) -> std::optional<int> {
 		if (!s) return std::nullopt;
 		if (a >= layout.N) {
 			int i = layout.get_leaf_index(a);
@@ -320,11 +329,11 @@ int main() {
 			}
 		} else {
 			for (int z = 0; z < 2; z++) {
-				auto r = self(s->c[z], a.c(z));
+				auto r = self(seg[s].c[z], a.c(z));
 				if (r) return r;
 			}
 		}
-		s = nullptr;
+		s = 0;
 		return std::nullopt;
 	};
 
