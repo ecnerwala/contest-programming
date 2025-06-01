@@ -341,8 +341,8 @@ int main() {
 	struct treap_node {
 		std::array<treap_node*, 2> c = {nullptr, nullptr};
 		std::mt19937_64::result_type pri;
-		seg_node* own = nullptr;
-		seg_node* lazy = nullptr;
+		int own = 0;
+		int lazy = 0;
 		int sz = 1;
 		bool lazy_flip = false;
 	};
