@@ -277,7 +277,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	constexpr bool TESTING = true;
-	std::mt19937_64 TESTING_MT(48);
+	std::mt19937_64 TESTING_MT(49);
 	int N, Q;
 	if constexpr (TESTING) {
 		N = int(1e5);
