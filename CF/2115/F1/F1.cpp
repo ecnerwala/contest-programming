@@ -432,13 +432,13 @@ int main() {
 	auto do_query = [&](int p) -> std::optional<int> {
 		cerr << "do_query " << p << '\n';
 		assert(0 <= p && p < N);
-		auto ans = [&](this auto&& self, treap_node* cur, int p) -> std::optional<int> {
+		auto ans = [&](this auto&& self, treap_node* cur, int l) -> std::optional<int> {
 			assert(cur);
-			assert(0 <= p && p < cur->sz);
+			assert(0 <= l && l < cur->sz);
 			int l_sz = (cur->c[0] ? cur->c[0]->sz : 0);
-			if (p != l_sz) {
+			if (l != l_sz) {
 				downdate_treap_flip(cur);
-				auto r = self(cur->c[p > l_sz], p > l_sz ? p - l_sz - 1 : p);
+				auto r = self(cur->c[l > l_sz], l > l_sz ? l - l_sz - 1 : l);
 				if (r) return r;
 			}
 			return query_seg_leftmost(cur->lazy);
