@@ -316,7 +316,6 @@ int main() {
 				if (r) return r;
 			}
 		}
-		cerr << "clearing node " << '\n';
 		s = nullptr;
 		return std::nullopt;
 	};
@@ -409,7 +408,7 @@ int main() {
 	}
 
 	auto do_insert = [&](int r, int q) -> void {
-		cerr << "do_insert " << r << ' ' << q << '\n';
+		//cerr << "do_insert " << r << ' ' << q << '\n';
 		assert(1 <= r && r <= N);
 		assert(0 <= q && q < Q);
 		alive[q] = true;
@@ -419,7 +418,7 @@ int main() {
 	};
 
 	auto do_reverse = [&](int r) -> void {
-		cerr << "do_reverse " << r << '\n';
+		//cerr << "do_reverse " << r << '\n';
 		assert(1 <= r && r <= N);
 		auto [a, b] = split_treap(root, r);
 		flip_treap(a);
@@ -427,13 +426,13 @@ int main() {
 	};
 
 	auto do_delete = [&](int q) -> void {
-		cerr << "do_delete " << q << '\n';
+		//cerr << "do_delete " << q << '\n';
 		assert(0 <= q && q < Q);
 		alive[q] = false;
 	};
 
 	auto do_query = [&](int p) -> std::optional<int> {
-		cerr << "do_query " << p << '\n';
+		//cerr << "do_query " << p << '\n';
 		assert(0 <= p && p < N);
 		auto ans = [&](this auto&& self, treap_node* cur, int l) -> std::optional<int> {
 			assert(cur);
@@ -449,7 +448,7 @@ int main() {
 			}
 			return query_seg_leftmost(cur->lazy);
 		}(root, p);
-		cerr << ans.value_or(-1) << '\n';
+		//cerr << ans.value_or(-1) << '\n';
 		return ans;
 	};
 
