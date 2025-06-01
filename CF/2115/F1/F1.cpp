@@ -319,7 +319,6 @@ int main() {
 		int sz = 1;
 		bool lazy_flip = false;
 	};
-	std::vector<treap_node> nodes(N);
 	auto flip_treap = [&](treap_node* t) {
 		assert(t);
 		t->lazy_flip ^= 1;
@@ -388,7 +387,14 @@ int main() {
 		return r;
 	};
 
+	std::vector<treap_node> nodes(N);
 	treap_node* root;
+	for (int i = 0; i < N; i++) {
+		auto n = &nodes[i];
+		n->pri = mt();
+		update_treap(n);
+		root = concat_treap(root, n);
+	}
 
 	auto do_insert = [&](int r, int q) -> void {
 		assert(1 <= r && r <= N);
