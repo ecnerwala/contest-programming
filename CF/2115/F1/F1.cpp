@@ -464,11 +464,11 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		int a, b, c;
 		if constexpr (TESTING) {
-			cin >> a >> b >> c;
-		} else {
 			a = std::uniform_int_distribution<int>(1, 3)(TESTING_MT);
 			b = std::uniform_int_distribution<int>(1, a == 3 ? Q : N)(TESTING_MT);
 			c = std::uniform_int_distribution<int>(1, N)(TESTING_MT);
+		} else {
+			cin >> a >> b >> c;
 		}
 		if (a == 1) {
 			assert(1 <= b && b <= N);
