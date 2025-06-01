@@ -316,6 +316,7 @@ int main() {
 				if (r) return r;
 			}
 		}
+		cerr << "clearing node " << '\n';
 		s = nullptr;
 		return std::nullopt;
 	};
