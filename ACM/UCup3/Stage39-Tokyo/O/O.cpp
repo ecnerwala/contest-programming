@@ -919,7 +919,7 @@ int main() {
 		if (r - l == 1) {
 			// TODO: within one guy
 			auto rng = ranges[l];
-			cerr << "range " << pref[l] << ' ' << pref[r] << '\n';
+			//cerr << "range " << pref[l] << ' ' << pref[r] << '\n';
 			if (rng.type == range_type::ST || rng.type == range_type::EN) {
 				// nothing
 				return;
