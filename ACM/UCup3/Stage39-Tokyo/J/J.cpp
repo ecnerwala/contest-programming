@@ -5,6 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int L; int64_t K; cin >> L >> K;
+	K++;
 	int64_t singles = K / 2;
 	int64_t bigs = K - singles;
 	int64_t used = 0;
