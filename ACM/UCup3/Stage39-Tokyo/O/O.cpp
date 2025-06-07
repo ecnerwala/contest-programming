@@ -882,15 +882,20 @@ int main() {
 
 	// reusing variables to mean different things :(
 	auto do_jump = [&](int l, int m, int r) -> void {
+		cerr << "do_jump " << l << ' ' << m << ' ' << r << '\n';
+		cerr << "  from "; for (int i = l; i < r; i++) { cerr << dp[i] << ' '; } cerr << '\n';
 		std::vector<num> st(dp.begin() + l, dp.begin() + m);
 		std::vector<num> jumps(jump_trans.begin(), jump_trans.begin() + (r - l));
 		auto res = ecnerwala::fft::fft_multiply(st, jumps);
 		for (int i = m; i < r; i++) {
 			dp[i] += res[i - l];
 		}
+		cerr << "  to   "; for (int i = l; i < r; i++) { cerr << dp[i] << ' '; } cerr << '\n';
 	};
 
 	auto jump_inner = [&](int l, int r) -> void {
+		cerr << "jump_inner " << l << ' ' << r << '\n';
+		cerr << "  from "; for (int i = l; i < r; i++) { cerr << dp[i] << ' '; } cerr << '\n';
 		std::vector<num> st(dp.begin() + l, dp.begin() + r);
 		std::vector<num> trans(inner_trans.begin(), inner_trans.begin() + (r - l));
 		auto res = ecnerwala::fft::fft_multiply(st, trans);
@@ -898,6 +903,7 @@ int main() {
 			// = because inner_trans[0] = 1
 			dp[i] = res[i - l];
 		}
+		cerr << "  to   "; for (int i = l; i < r; i++) { cerr << dp[i] << ' '; } cerr << '\n';
 	};
 
 	int cnt_L = 0;
