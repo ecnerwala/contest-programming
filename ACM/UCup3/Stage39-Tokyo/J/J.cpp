@@ -15,6 +15,7 @@ int main() {
 		ans += __int128_t(v) * i;
 		used += v;
 	}
+	cerr << int64_t(ans) << ' ' << used << ' ' << bigs << ' ' << singles << '\n';
 	singles = std::min(singles, used + 1);
 	ans += singles;
 	cout << int(ans % 998244353) << '\n';
