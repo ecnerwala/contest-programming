@@ -906,6 +906,13 @@ int main() {
 		cerr << "  to   "; for (int i = l; i < r; i++) { cerr << dp[i] << ' '; } cerr << '\n';
 	};
 
+	auto can_over = [&](range_t rng) -> bool {
+		if ((rng.type == range_type::LG || rng.type == range_type::GL) && (rng.len & 1)) {
+			return false;
+		}
+		return true;
+	};
+
 	int cnt_L = 0;
 	std::y_combinator([&](auto&& self, int l, int r) -> void {
 		assert(l < r);
@@ -946,7 +953,13 @@ int main() {
 
 		int m = (l + r) / 2;
 		self(l, m);
-		do_jump(pref[l], pref[m], pref[r]);
+		{
+			int cur_l = m-1;
+			while (cur_l > l && can_over(ranges[cur_l])) cur_l--;
+			int cur_r = m;
+			while (cur_r+1 < r && can_over(ranges[cur_r])) cur_r++;
+			do_jump(pref[cur_l], pref[m], pref[cur_r+1]);
+		}
 		self(m, r);
 	})(0, R);
 
