@@ -869,8 +869,8 @@ int main() {
 
 	using ps = ecnerwala::power_series_fft<num>;
 	ps jump_trans(L+1);
-	for (int i = 0; i <= L; i++) {
-		jump_trans[i] = (i & 1) ? -ifact[i] : ifact[i];
+	for (int i = 1; i <= L; i++) {
+		jump_trans[i] = -ifact[i];
 	}
 
 	ps inner_trans(L+1);
