@@ -823,6 +823,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int S_len; cin >> S_len;
+	S_len--;
 	std::string S; cin >> S;
 	assert(int(S.size()) == S_len);
 
