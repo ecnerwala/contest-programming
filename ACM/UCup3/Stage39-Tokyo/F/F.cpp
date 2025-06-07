@@ -1529,7 +1529,7 @@ void solve() {
   auto f = multipoint_interpolate_on_geom_seq(Y, iGN1, G);
   cout << f[N-1 + 0].val << '\n';
   for (int i = 1; i < N; i++) {
-    cout << (f[N-1 + i] / 2).val << '\n';
+    cout << (f[N-1 + i] * 2).val << '\n';
   }
   cout << flush;
 }
