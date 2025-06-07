@@ -19,11 +19,13 @@ int main() {
 		}
 		cout << flush;
 
-		std::vector<int> jumps(K, 0);
 		int N_min; cin >> N_min;
 		if (N_min == -1) exit(0);
+		assert(N_min >= 1);
+		assert(N_min <= K);
 		if (N_min == K) break;
 
+		std::vector<int> jumps(K, 0);
 		for (int i = 0; i < N_min; i++) {
 			int v; cin >> v;
 			jumps[v] = 1;
@@ -40,6 +42,8 @@ int main() {
 		for (int i = 0; i < K; i++) {
 			if (jumps[i] == max_jump) nstarts.push_back(starts[i]);
 		}
+		assert(!nstarts.empty());
+		assert(2 * int(nstarts.size()) <= int(starts.size()));
 		starts = std::move(nstarts);
 	}
 
