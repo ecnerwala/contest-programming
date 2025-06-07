@@ -130,13 +130,11 @@ int main() {
 	std::vector<int64_t> dp(N+1, V_OP * (N+1));
 	for (int z = 0; z+1 < int(hull.size()); z++) {
 		int st = hull[z]+1, en = hull[z+1];
-		cerr << "from " << pts[st-1] << ' ' << pts[en] << '\n';
 		dp[st] = 0;
 		for (int i = st, j = st; i < en; i++) {
 			while (j < en && cross3(pts[st-1], {pts[j].x, pts[i].y}, pts[en]) >= 0) {
 				j++;
 			}
-			cerr << "pt " << i << ' ' << pts[i] << ' ' << "to " << j << '\n';
 			assert(j > i);
 			dp[i+1] = std::min(dp[i+1], dp[i] + V_ONE);
 			dp[j] = std::min(dp[j], dp[i] + V_OP);
