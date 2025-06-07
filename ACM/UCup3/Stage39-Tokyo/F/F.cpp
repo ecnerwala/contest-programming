@@ -1499,7 +1499,7 @@ void solve() {
     mint pG = 1;
     mint piG = 1;
     for (int z = 0; z < N; z++) {
-      mint v = pG + piG;
+      mint v = (pG + piG) / 2;
       if (v == 0) cout << 0 << ' ' << 1 << '\n';
       else cout << 1 << ' ' << v.inverse().val << '\n';
       pG *= G;
