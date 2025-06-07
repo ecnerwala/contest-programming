@@ -59,7 +59,7 @@ public:
 	// Returns conj(a) * b
 	friend Point dot_cross(const Point& a, const Point& b) { return Point(dot(a, b), cross(a, b)); }
 	friend Point cmul(const Point& a, const Point& b) { return dot_cross(conj(a), b); }
-	friend Point cdiv(const Point& a, const Point& b) { return dot_cross(b, a) / b.norm(); }
+	friend Point cdiv(const Point& a, const Point& b) { return dot_cross(b, a) / norm(b); }
 
 	// Must be a unit vector; otherwise multiplies the result by abs(u)
 	Point rotate(const Point& u) const { return dot_cross(conj(u), *this); }
