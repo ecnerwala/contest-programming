@@ -144,9 +144,13 @@ int main() {
 
 		auto solve_pair = [&](int ca, int cb) -> num {
 			assert(ca >= 1 && cb >= 1);
+			num v = 1;
+			v *= num(ca);
+			v *= num(cb);
 			ca--, cb--;
 			int num_forbidden = B - A - 1;
-			return choose(N - 2 - cb, num_forbidden) * fact[N - 2 - num_forbidden] * fact[num_forbidden];
+			v *= choose(N - 2 - cb, num_forbidden) * fact[N - 2 - num_forbidden] * fact[num_forbidden];
+			return v;
 		};
 		auto solve_val = [&](int l) -> num {
 			assert(l >= 1);
