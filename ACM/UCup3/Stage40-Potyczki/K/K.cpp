@@ -14,15 +14,9 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	const int N = 5;
+	const int N = 13;
 	int N_prob, M, Q; cin >> N_prob >> M >> Q;
 	assert(N_prob <= N);
-
-	auto choose = [&](int n, int r) -> int {
-		int a = 1;
-		for (int i = 0; i < r; i++) a *= n-i, a /= i+1;
-		return a;
-	};
 
 	std::vector<std::vector<int>> poss_weights(N+1);
 	poss_weights[0].push_back(0);
@@ -78,7 +72,7 @@ int main() {
 					if (i == b) {
 						cur_cost += d * weight[i][i];
 					} else if (m & (1 << i)) {
-						cur_cost += d * (2 * weight[b][i] + weight[i][b]);
+						cur_cost += d * (weight[b][i] + 2 * weight[i][b]);
 					} else if (nm & (1 << i)) {
 						cur_cost += d * (weight[b][i] + weight[i][b]);
 					}
