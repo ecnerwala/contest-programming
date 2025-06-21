@@ -14,7 +14,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	const int N = 13;
+	const int N = 5;
 	int N_prob, M, Q; cin >> N_prob >> M >> Q;
 	assert(N_prob <= N);
 
