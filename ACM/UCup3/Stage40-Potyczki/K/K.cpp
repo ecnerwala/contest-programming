@@ -96,7 +96,7 @@ int main() {
 		for (int z = 0; z < int(dp[m].size()); z++) {
 			setmax(ans[m], frac_t{dp[m][z], 2 * poss_weights[c][z]});
 		}
-		int g = std::gcd(ans[m].numer, ans[m].denom);
+		int64_t g = std::gcd(ans[m].numer, ans[m].denom);
 		ans[m].numer /= g;
 		ans[m].denom /= g;
 	}
