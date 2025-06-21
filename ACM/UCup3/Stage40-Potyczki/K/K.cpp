@@ -80,7 +80,6 @@ int main() {
 				nm ^= (1 << b);
 			}
 			assert((nm & m) == m);
-			cerr << m << ' ' << nm << ' ' << cur_cost << '\n';
 
 			{
 				int d = __builtin_popcount(nm ^ m);
