@@ -25,6 +25,17 @@ int main() {
 		}
 		cerr << c << ' ' << int(poss_weights[c].size()) << ' ' << choose(N, c) * poss_weights[c].size() * (1 << (N-c)) << '\n';
 	}
+	std::vector<std::vector<std::vector<int>>> trans(N+1);
+	for (int c = 0; c <= N; c++) {
+		trans[c].resize(N-c+1);
+		for (int d = 1; c + d <= N; d++) {
+			trans[c][d].resize(poss_weights[c].size());
+			for (int z = 0; z < int(poss_weights[c].size()); z++) {
+				int v = poss_weights[c][z];
+				trans[c][d][z] = int(std::lower_bound(poss_weights[c+d].begin(), poss_weights[c+d].end(), 2 * z + d) - poss_weights[c+d].begin());
+			}
+		}
+	}
 
 	std::array<std::array<int, N>, N> weight;
 	for (int i = 0; i < N; i++) {
