@@ -111,7 +111,7 @@ int main() {
 			assert(s[i] == '0' || s[i] == '1');
 			m += (s[i] - '0') << i;
 		}
-		cerr << ans[m].numer << '/' << ans[m].denom << '\n';
+		cout << ans[m].numer << '/' << ans[m].denom << '\n';
 	}
 
 	return 0;
