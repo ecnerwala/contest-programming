@@ -104,6 +104,13 @@ int main() {
 		ans[m].denom /= g;
 	}
 
+	for (int i = 0; i < N; i++) {
+		for (int m = 0; m < (1 << N); m++) {
+			if (m & (1 << i)) continue;
+			setmax(ans[m + (1 << i)], ans[m]);
+		}
+	}
+
 	for (int q = 0; q < Q; q++) {
 		int m = 0;
 		std::string s; cin >> s;
