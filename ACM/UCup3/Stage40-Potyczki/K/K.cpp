@@ -76,7 +76,7 @@ int main() {
 				int d = (nm & (1 << b)) ? -1 : +1;
 				for (int i = 0; i < N; i++) {
 					if (i == b) {
-						cur_cost += d * weight[i][i];
+						cur_cost += d * 2 * weight[i][i];
 					} else if (m & (1 << i)) {
 						cur_cost += d * (2 * weight[b][i] + weight[i][b]);
 					} else if (nm & (1 << i)) {
