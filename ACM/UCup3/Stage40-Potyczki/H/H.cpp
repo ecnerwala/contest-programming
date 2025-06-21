@@ -149,6 +149,7 @@ int main() {
 			v *= num(cb);
 			ca--, cb--;
 			int num_forbidden = B - A - 1;
+			assert(num_forbidden <= N-2);
 			v *= choose(N - 2 - cb, num_forbidden) * fact[N - 2 - num_forbidden] * fact[num_forbidden];
 			return v;
 		};
