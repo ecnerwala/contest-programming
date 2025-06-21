@@ -89,7 +89,7 @@ int main() {
 				int d = __builtin_popcount(nm ^ m);
 				assert(d != 0);
 				for (int z = 0; z < int(dp[m].size()); z++) {
-					setmax(dp[nm][trans[c][d][z]], dp[m][z]);
+					setmax(dp[nm][trans[c][d][z]], dp[m][z] * 2 + cur_cost);
 				}
 			}
 		}
