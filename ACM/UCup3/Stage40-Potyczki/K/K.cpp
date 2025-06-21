@@ -32,7 +32,8 @@ int main() {
 			trans[c][d].resize(poss_weights[c].size());
 			for (int z = 0; z < int(poss_weights[c].size()); z++) {
 				int v = poss_weights[c][z];
-				trans[c][d][z] = int(std::lower_bound(poss_weights[c+d].begin(), poss_weights[c+d].end(), 2 * z + d) - poss_weights[c+d].begin());
+				trans[c][d][z] = int(std::lower_bound(poss_weights[c+d].begin(), poss_weights[c+d].end(), 2 * v + d) - poss_weights[c+d].begin());
+				assert(poss_weights[c+d][trans[c][d][z]] == 2 * poss_weights[c][z] + d);
 			}
 		}
 	}
