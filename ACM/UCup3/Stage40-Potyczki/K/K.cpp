@@ -78,7 +78,7 @@ int main() {
 					if (i == b) {
 						cur_cost += d * weight[i][i];
 					} else if (m & (1 << i)) {
-						cur_cost += d * (weight[b][i] + 2 * weight[i][b]);
+						cur_cost += d * (2 * weight[b][i] + weight[i][b]);
 					} else if (nm & (1 << i)) {
 						cur_cost += d * (weight[b][i] + weight[i][b]);
 					}
