@@ -69,7 +69,7 @@ int main() {
 		int not_m = (1 << N) - 1 - m;
 		int nm = m;
 		int64_t cur_cost = 0;
-		for (int iter = not_m; true; iter = (iter-1) & not_m) {
+		for (int iter = not_m; iter != 0; iter = (iter-1) & not_m) {
 			{
 				int b = __builtin_ctz(iter);
 				int d = (nm & (1 << b)) ? -1 : +1;
