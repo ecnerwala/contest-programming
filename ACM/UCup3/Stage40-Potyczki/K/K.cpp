@@ -16,6 +16,7 @@ int main() {
 
 	const int N = 13;
 	int N_prob, M, Q; cin >> N_prob >> M >> Q;
+	assert(N_prob <= N);
 
 	auto choose = [&](int n, int r) -> int {
 		int a = 1;
@@ -84,6 +85,7 @@ int main() {
 				}
 				nm ^= (1 << b);
 			}
+			assert((nm & m) == m);
 
 			{
 				int d = __builtin_popcount(nm ^ m);
@@ -104,7 +106,8 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		int m = 0;
 		std::string s; cin >> s;
-		for (int i = 0; i < N; i++) {
+		assert(int(s.size()) == N_prob);
+		for (int i = 0; i < N_prob; i++) {
 			assert(s[i] == '0' || s[i] == '1');
 			m += (s[i] - '0') << i;
 		}
