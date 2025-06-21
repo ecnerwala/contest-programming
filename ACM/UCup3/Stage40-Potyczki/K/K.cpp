@@ -76,9 +76,9 @@ int main() {
 				int d = (nm & (1 << b)) ? -1 : +1;
 				for (int i = 0; i < N; i++) {
 					if (i == b) {
-						cur_cost += d * 2 * weight[i][i];
+						cur_cost += d * weight[i][i];
 					} else if (m & (1 << i)) {
-						cur_cost += d * (2 * weight[b][i] + weight[i][b]);
+						cur_cost += d * (weight[b][i] + 2 * weight[i][b]);
 					} else if (nm & (1 << i)) {
 						cur_cost += d * (weight[b][i] + weight[i][b]);
 					}
@@ -97,7 +97,7 @@ int main() {
 			}
 		}
 		for (int z = 0; z < int(dp[m].size()); z++) {
-			setmax(ans[m], frac_t{dp[m][z], 2 * poss_weights[c][z]});
+			setmax(ans[m], frac_t{dp[m][z], poss_weights[c][z]});
 		}
 		int64_t g = std::gcd(ans[m].numer, ans[m].denom);
 		ans[m].numer /= g;
