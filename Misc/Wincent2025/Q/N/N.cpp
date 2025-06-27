@@ -37,7 +37,6 @@ int main() {
 				return r;
 			};
 			assert(digit_sum(a) == digit_sum(b));
-
 		}
 	}
 
