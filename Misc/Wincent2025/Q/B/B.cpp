@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 int64_t solve(int64_t N) {
-	std::cerr << "solve " << N << '\n';
+	//std::cerr << "solve " << N << '\n';
 	assert(N > 0);
 	const int MX = 1000;
 	assert(MX >= 3);
