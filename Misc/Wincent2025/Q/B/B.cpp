@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 int64_t solve(int64_t N) {
+	std::cerr << "solve " << N << '\n';
 	assert(N > 0);
 	const int MX = 1000;
 	const int L = 6;
@@ -19,7 +20,8 @@ int64_t solve(int64_t N) {
 		}
 	}
 	int64_t best = -1;
-	for (int msk = (1 << L) - 1; msk >= 0; msk--) {
+	for (int msk = (1 << L) - 1; msk > 0; msk--) {
+		std::cerr << "msk " << msk << '\n';
 		auto eval = [&](int64_t K) -> int64_t {
 			int64_t r = 0;
 			for (int i = L-1; i >= 0; i--) {
