@@ -65,7 +65,9 @@ int main() {
 		int64_t N; cin >> N;
 		int64_t r = solve(N);
 		if (r == -1) {
-			cerr << N << '\n';
+			assert(N == 2);
+		} else {
+			for (int64_t v = N; v; v /= r) assert(v % r == 0 || v % r == 1);
 		}
 	}
 
