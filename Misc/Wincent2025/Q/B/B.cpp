@@ -21,7 +21,7 @@ int64_t solve(int64_t N) {
 		}
 	}
 	int64_t best = -1;
-	for (int msk = (1 << L) - 1; msk > 1; msk--) {
+	for (int msk = (1 << (L+1)) - 1; msk > 1; msk--) {
 		//std::cerr << "msk " << msk << '\n';
 		auto eval = [&](int64_t K) -> int64_t {
 			//std::cerr << "  check " << K << '\n';
