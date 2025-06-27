@@ -4,6 +4,7 @@ int64_t solve(int64_t N) {
 	std::cerr << "solve " << N << '\n';
 	assert(N > 0);
 	const int MX = 1000;
+	assert(MX >= 3);
 	const int L = 6;
 	auto power = [&](int64_t a, int64_t e) -> int64_t {
 		int64_t r = 1;
@@ -20,7 +21,7 @@ int64_t solve(int64_t N) {
 		}
 	}
 	int64_t best = -1;
-	for (int msk = (1 << L) - 1; msk > 0; msk--) {
+	for (int msk = (1 << L) - 1; msk > 1; msk--) {
 		std::cerr << "msk " << msk << '\n';
 		auto eval = [&](int64_t K) -> int64_t {
 			int64_t r = 0;
