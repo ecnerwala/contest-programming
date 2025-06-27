@@ -20,7 +20,34 @@ int64_t solve(int64_t N) {
 	}
 	int64_t best = -1;
 	for (int msk = (1 << L) - 1; msk >= 0; msk--) {
-		int64_t lo = 0;
+		auto eval = [&](int64_t K) -> int64_t {
+			int64_t r = 0;
+			int64_t v = 1;
+			for (int i = 0; i < L; i++, v *= K) {
+				if (msk & (1 << i)) r += v;
+			}
+			return r;
+		};
+		int64_t lo = MX;
+		int64_t hi = MX+1;
+		while (eval(hi) < N) {
+			std::tie(lo, hi) = std::make_pair(hi, hi + (hi - lo));
+		}
+		assert(eval(hi) >= N);
+		while (hi - lo > 1) {
+			int64_t mid = lo + (hi - lo) / 2;
+			if (eval(mid) < N) lo = mid;
+			else hi = mid;
+		}
+		assert(lo == MX || eval(lo) < N);
+		assert(eval(hi) >= N);
+		if (eval(hi) == N) {
+			if (best == -1) best = hi;
+			else if (hi < best) {
+				assert(false);
+				best = hi;
+			}
+		}
 	}
 	return best;
 }
