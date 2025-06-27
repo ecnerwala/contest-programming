@@ -159,6 +159,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int D, N; cin >> D >> N;
+		cerr << "case " << D << ' ' << N << '\n';
 		tensor<char, 2> G({D, D}, '.');
 		for (int i = 0; i < N; i++) {
 			int x, y; char t; cin >> x >> y >> t;
