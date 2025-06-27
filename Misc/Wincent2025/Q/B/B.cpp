@@ -69,6 +69,7 @@ int main() {
 		} else {
 			for (int64_t v = N; v; v /= r) assert(v % r == 0 || v % r == 1);
 		}
+		cout << r << '\n';
 	}
 
 	return 0;
