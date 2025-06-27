@@ -29,6 +29,8 @@ int main() {
 				cur = d;
 			}
 
+			assert(a - b == D);
+
 			cout << a << ' ' << b << '\n';
 		}
 	}
