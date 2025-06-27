@@ -35,7 +35,7 @@ int64_t solve(int64_t N) {
 		int64_t lo = MX;
 		int64_t hi = MX+1;
 		while (eval(hi) < N) {
-			std::tie(lo, hi) = std::make_pair(hi, hi + (hi - lo));
+			std::tie(lo, hi) = std::make_pair(hi, hi + 2 * (hi - lo));
 		}
 		assert(eval(hi) >= N);
 		while (hi - lo > 1) {
