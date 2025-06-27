@@ -22,9 +22,9 @@ int64_t solve(int64_t N) {
 	for (int msk = (1 << L) - 1; msk >= 0; msk--) {
 		auto eval = [&](int64_t K) -> int64_t {
 			int64_t r = 0;
-			int64_t v = 1;
-			for (int i = 0; i < L; i++, v *= K) {
-				if (msk & (1 << i)) r += v;
+			for (int i = L-1; i >= 0; i--) {
+				r *= K;
+				if (msk & (1 << i)) r++;
 			}
 			return r;
 		};
