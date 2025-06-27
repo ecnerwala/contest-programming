@@ -63,7 +63,10 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int64_t N; cin >> N;
-		cout << solve(N) << '\n';
+		int64_t r = solve(N);
+		if (r == -1) {
+			cerr << N << '\n';
+		}
 	}
 
 	return 0;
