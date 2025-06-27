@@ -29,9 +29,15 @@ int main() {
 				cur = d;
 			}
 
-			assert(a - b == D);
-
 			cout << a << ' ' << b << '\n';
+			assert(a - b == D);
+			auto digit_sum = [](int64_t v) -> int64_t {
+				int64_t r = 0;
+				for (; v; v /= 10) r += v % 10;
+				return r;
+			};
+			assert(digit_sum(a) == digit_sum(b));
+
 		}
 	}
 
