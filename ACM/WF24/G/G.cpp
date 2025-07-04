@@ -64,16 +64,26 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 
 	std::vector<bool> alive(N, true);
 
+	std::vector<int> prv(N, -1);
+	std::vector<int> nxt(N, -1);
+
 	std::vector<bool> broken(N, false);
 	std::vector<int> early_chain(N, -1);
 	if (std::y_combinator([&](auto self, int root, int top, int cur_early) -> bool {
-		// root must come after everything with early[i] == early_epoch
-		if (early_chain[root] == cur_early) return false;
+		if (cur_early != -1) {
+			// root must come after everything with early[i] == early_epoch
+			if (early_chain[root] == cur_early) return false;
+
+			// Check if we're pointing to something in another subtree
+			int cur = root;
+			while (alive[cur]) cur = P[cur];
+			if (cur != top) {
+				return true;
+			}
+		}
 
 		// root is the bottom of the cycle
 		for (int cur = root; true; cur = P[cur]) {
-			// we actually looped back somewhere else, so this guy is good
-			if (!alive[cur]) return true;
 			alive[cur] = false;
 			if (P[cur] == top) break;
 		}
@@ -82,7 +92,7 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 			// We're going to try to break the cur .. P[cur] edge
 			int n_root = L[cur];
 			int n_top = P[cur];
-			int n_cur_early = cur == root ? cur_early : cur;
+			int n_cur_early = cur_early != -1 && cur == root ? cur_early : cur;
 			early_chain[cur] = n_cur_early;
 			if (self(n_root, n_top, n_cur_early)) {
 				broken[cur] = true;
@@ -97,18 +107,19 @@ std::optional<std::vector<int>> solve(std::vector<int> P, std::vector<int> L) {
 			if (P[cur] == top) break;
 		}
 		return false;
-	})(0, 0, 0)) {
+	})(0, 0, -1)) {
 		std::vector<std::vector<int>> out_edges(N);
 		std::vector<int> in_deg(N);
+		auto add_edge = [&](int u, int v) -> void {
+			out_edges[u].push_back(v);
+			++in_deg[v];
+		};
 		for (int i = 0; i < N; i++) {
 			if (broken[i]) {
-				out_edges[P[i]].push_back(L[i]);
-				in_deg[L[i]]++;
-				out_edges[L[i]].push_back(i);
-				in_deg[i]++;
+				add_edge(P[i], L[i]);
+				add_edge(L[i], i);
 			} else {
-				out_edges[i].push_back(P[i]);
-				in_deg[P[i]]++;
+				add_edge(i, P[i]);
 			}
 		}
 		std::vector<int> ordering; ordering.reserve(N);
