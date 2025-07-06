@@ -25,10 +25,10 @@ int main() {
 			int cur_best = Ai-1;
 			for (int j = i; j < N; j++) {
 				int Aj = A[j];
+				if (Aj < Ai) continue;
+
 				if (Aj == Ai) {
 					max_len(i, j) = ++cur_best;
-				} else if (Aj < Ai) {
-					// do nothing
 				} else if (Aj <= cur_best + 1) {
 					auto& fj = first_vis[Aj];
 					if (fj == -1) fj = j;
