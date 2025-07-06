@@ -30,8 +30,9 @@ int main() {
 				} else if (Aj < Ai) {
 					// do nothing
 				} else if (Aj <= cur_best + 1) {
-					if (first_vis[Aj] == -1) first_vis[Aj] = j;
-					cur_best = std::max(cur_best, max_len(first_vis[A[j]], j));
+					auto& fj = first_vis[Aj];
+					if (fj == -1) fj = j;
+					cur_best = std::max(cur_best, max_len(fj, j));
 				}
 			}
 			if (i == 0) cout << cur_best << '\n';
