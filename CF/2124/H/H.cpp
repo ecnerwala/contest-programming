@@ -12,13 +12,13 @@ int main() {
 		A[0] = 0;
 		for (int i = 1; i < N; i++) cin >> A[i];
 
+		// from each point, what's the max you can grow jumping to another of the equal
 		std::vector<int> max_len_(N * (N+1) / 2);
 		auto max_len = [&](int i, int j) -> int& {
 			assert(0 <= i && i <= j && j < N);
 			return max_len_[j * (j+1) / 2 + i];
 		};
 
-		// from each point, what's the max you can grow jumping to another of the equal
 		for (int i = N-1; i >= 0; i--) {
 			int Ai = A[i];
 			std::vector<int> first_vis(N+1, -1);
