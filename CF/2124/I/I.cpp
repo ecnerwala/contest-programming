@@ -13,7 +13,7 @@ int main() {
 		auto ans = [&]() -> std::optional<std::vector<int>> {
 			std::vector<int> stk(N+1, -1);
 			stk[X[0]] = 0;
-			std::vector<int> extend_par(N, -1);
+			std::vector<int> par(N, -1);
 			std::vector<bool> is_extend(N, false);
 			for (int i = 1; i < N; i++) {
 				if (X[i] > X[i-1] + 1) {
@@ -21,23 +21,12 @@ int main() {
 				}
 				if (X[i] == 1) return std::nullopt;
 				assert(X[i] >= 2);
-				if (X[i] <= X[i-1]) {
-					// jump to the last time this occurred
-					// revert to this guy, so our parent is the same as theirs
-					int j = stk[X[i]];
-					assert(j >= 1);
-					is_extend[j] = true;
-					is_extend[i] = true;
-				} else {
-					// could be an increment or an extend
-					assert(X[i] == X[i-1] + 1);
-				}
-				extend_par[i] = stk[X[i]-1];
+				par[i] = stk[X[i]-1];
+				if (X[i] <= X[i-1]) is_extend[par[i]] = true;
 				stk[X[i]] = i;
 			}
-			assert(!is_extend[0]);
 			for (int i = 1; i < N; i++) {
-				if (is_extend[i] && is_extend[extend_par[i]]) {
+				if (is_extend[i] && is_extend[par[i]]) {
 					return std::nullopt;
 				}
 			}
@@ -56,18 +45,14 @@ int main() {
 				lsts[i] = {-1, -1};
 			}
 			for (int i = N-1; i >= 0; i--) {
-				if (lsts[i].t == i) {
-					// our child is not extend
-				} else {
+				if (is_extend[i]) {
 					lsts[i] = merge({i, i}, lsts[i]);
+				} else {
+					lsts[i] = merge(lsts[i], {i, i});
 				}
 				if (i == 0) break;
-				int p = extend_par[i];
-				if (is_extend[i]) {
-					lsts[p] = merge(lsts[i], lsts[p]);
-				} else {
-					lsts[p] = merge(lsts[i], {p, p});
-				}
+				int p = par[i];
+				lsts[p] = merge(lsts[i], lsts[p]);
 			}
 			std::vector<int> res(N, -1);
 			for (int v = 0, cur = lsts[0].h; v < N; v++, cur = nxt[cur]) {
