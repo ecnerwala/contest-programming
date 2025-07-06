@@ -42,7 +42,6 @@ int main() {
 					return std::nullopt;
 				}
 			}
-			std::vector<int> prv(N, -1);
 			std::vector<int> nxt(N, -1);
 			struct lst_t {
 				int h, t;
@@ -51,7 +50,6 @@ int main() {
 				if (a.t == -1) return b;
 				if (b.t == -1) return a;
 				nxt[a.t] = b.h;
-				prv[b.h] = a.t;
 				return {a.h, b.t};
 			};
 			std::vector<lst_t> lsts(N);
@@ -62,7 +60,6 @@ int main() {
 				if (lsts[i].t == i) {
 					// our child is not extend
 				} else {
-					assert(prv[i] == -1 && nxt[i] == -1);
 					lsts[i] = merge({i, i}, lsts[i]);
 				}
 				if (i == 0) break;
