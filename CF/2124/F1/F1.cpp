@@ -138,6 +138,21 @@ int main() {
 		std::vector<num> dp(N+1);
 		dp[0] = 1;
 		for (int i = 0; i < N; i++) {
+			{
+				int off = i + (N-1);
+				int x0 = 0;
+				int j_max = N;
+				if (!bads[off].empty()) j_max = bads[off].back();
+				for (int j = i+2; j <= j_max; j++) {
+					int k_max = std::min(N, 2 * j - i - 1);
+					if (j < N && !bads[j + (N-1)].empty()) {
+						k_max = std::min(k_max, bads[j + (N-1)].back());
+					}
+					for (int k = j+1; k <= k_max; k++) {
+						dp[k] -= dp[i];
+					}
+				}
+			}
 			for (int off = i; off <= i + (N-1); off++) {
 				int x0 = i + (N-1) - off;
 				auto& b = bads[off];
