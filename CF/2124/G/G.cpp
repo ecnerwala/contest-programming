@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+template <typename T> void setmax(T& a, T b) { if (b > a) a = b; }
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -17,7 +19,8 @@ int main() {
 		}
 
 		int64_t base_ans = std::accumulate(mins.begin(), mins.end(), int64_t(0));
-		int64_t ans = base_ans;
+		std::vector<int64_t> ans(N, 0);
+		ans[0] = base_ans;
 
 		std::vector<std::pair<int, int>> best_remove(N);
 		std::vector<int64_t> suff_val(N+1);
@@ -42,7 +45,8 @@ int main() {
 							tot_gain += mins[k] - A[i];
 						}
 						int64_t cnd = base_ans + int64_t(cur_cap - A[i]) * int64_t(k - i) + tot_gain - suff_val[pos_incr];
-						ans = std::max(ans, cnd);
+						int cost = pos_incr - i;
+						setmax(ans[cost], cnd);
 
 						if (cur_cap >= cap) break;
 					}
@@ -53,10 +57,21 @@ int main() {
 					suff_val[k] = suff_val[k+1] + mins[k];
 				}
 				j = i;
+			} else {
+				if (i < N-1) {
+					// remove one guy to do nothing
+					setmax(ans[N-1 - i], base_ans - mins[N-1]);
+				}
 			}
 			if (best_remove.empty() || A[i] > best_remove.back().first) {
 				best_remove.push_back({A[i], i});
 			}
+		}
+		for (int i = N-1; i > 0; i--) {
+			setmax(ans[i-1], ans[i]);
+		}
+		for (int i = 0; i < N; i++) {
+			cout << ans[i] << " \n"[i+1==N];
 		}
 	}
 
