@@ -135,7 +135,7 @@ int main() {
 			std::sort(b.begin(), b.end(), std::greater<>());
 		}
 		using num = modnum<998244353>;
-		std::vector<int> dp(N+1);
+		std::vector<num> dp(N+1);
 		dp[0] = 1;
 		for (int i = 0; i < N; i++) {
 			for (int off = i; off <= i + (N-1); off++) {
