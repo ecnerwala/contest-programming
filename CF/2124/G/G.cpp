@@ -39,6 +39,7 @@ int main() {
 					int k = j;
 					int64_t tot_gain = 0;
 					for (auto [v_incr, pos_incr] : best_remove) {
+						assert(pos_incr > i);
 						int cur_cap = std::min(cap, A[i] + v_incr);
 						while (k > i && mins[k-1] <= cur_cap) {
 							k--;
