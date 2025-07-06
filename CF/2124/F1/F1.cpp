@@ -142,7 +142,7 @@ int main() {
 				int x0 = i + (N-1) - off;
 				auto& b = bads[off];
 				while (!b.empty() && b.back() < i) b.pop_back();
-				int j_max = N - x0 - i;
+				int j_max = N - x0;
 				if (!b.empty()) j_max = std::min(j_max, b.back());
 				for (int j = i+1; j <= j_max; j++) {
 					if (j == N || bads[j+(N-1)].empty() || bads[j+(N-1)].back() >= j + x0) {
