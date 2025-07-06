@@ -301,7 +301,13 @@ int main() {
 
 			for (int x0 = 0; x0 < N; x0++) {
 				dp_x[x0] += dp_x_lazy[{x0, i}];
-				if (i + x0 <= N) dp[i + x0] += dp_x[x0];
+				int j = i;
+				if (j + x0 <= N) {
+					if (j == N || bads[j+(N-1)].empty() || bads[j+(N-1)].back() >= j + x0) {
+						//cerr << i << ' ' << j << ' ' << j + x0 << '\n';
+						dp[j + x0] += dp_x[x0];
+					}
+				}
 			}
 
 			if (i == N) break;
@@ -333,6 +339,8 @@ int main() {
 				if (j_min <= j_max) {
 					dp_x_lazy[{x0, j_min}] += dp[i];
 					dp_x_lazy[{x0, j_max+1}] -= dp[i];
+				}
+				for (int j = i+1; j <= j_max; j++) {
 				}
 			}
 		}
