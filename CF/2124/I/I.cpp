@@ -21,6 +21,7 @@ int main() {
 				}
 				if (X[i] == 1) return std::nullopt;
 				assert(X[i] >= 2);
+				extend_par[i] = stk[X[i]-1];
 				if (X[i] <= X[i-1]) {
 					// jump to the last time this occurred
 					// revert to this guy, so our parent is the same as theirs
@@ -28,16 +29,11 @@ int main() {
 					assert(j >= 1);
 					is_extend[j] = true;
 					is_extend[i] = true;
-					extend_par[i] = extend_par[j];
-				} else {
-					assert(X[i] == X[i-1] + 1);
-					// could be an increment or an extend
-					extend_par[i] = i-1;
 				}
 				stk[X[i]] = i;
 			}
 			assert(!is_extend[0]);
-			for (int i = 0; i < N; i++) {
+			for (int i = 1; i < N; i++) {
 				if (is_extend[i] && is_extend[extend_par[i]]) {
 					return std::nullopt;
 				}
