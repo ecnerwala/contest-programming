@@ -34,12 +34,14 @@ int main() {
 			continue;
 		}
 		std::vector<int64_t> B(N);
+		int64_t cnt = cur_sum - tot / 2;
 		for (int i = 0; i < mid; i++) {
-			int64_t v = std::min(A[i], A[mid]);
+			int64_t v = std::min(A[i], cnt);
 			B[i] += v;
 			B[mid] += v;
 			A[i] -= v;
 			A[mid] -= v;
+			cnt -= v;
 		}
 		cout << 2 << '\n';
 		for (int i = 0; i < N; i++) {
