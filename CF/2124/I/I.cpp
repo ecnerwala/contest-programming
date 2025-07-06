@@ -40,10 +40,7 @@ int main() {
 				nxt[a.t] = b.h;
 				return {a.h, b.t};
 			};
-			std::vector<lst_t> lsts(N);
-			for (int i = 0; i < N; i++) {
-				lsts[i] = {-1, -1};
-			}
+			std::vector<lst_t> lsts(N, {-1, -1});
 			for (int i = N-1; i >= 0; i--) {
 				if (is_extend[i]) {
 					lsts[i] = merge({i, i}, lsts[i]);
