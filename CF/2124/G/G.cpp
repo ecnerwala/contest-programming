@@ -26,7 +26,8 @@ int main() {
 		std::vector<int64_t> suff_val(N+1);
 		for (int i = N-1, j = N; i >= 0; i--) {
 			if (mins[i] == A[i]) {
-				int cap = i == 0 ? A[0] + *std::max_element(A.begin(), A.end()) : mins[i-1];
+				assert(N >= 2);
+				int cap = i == 0 ? A[0] + best_remove.back().first : mins[i-1];
 				// i..j
 				for (int k = i; k < j; k++) {
 					assert(mins[k] == A[i]);
