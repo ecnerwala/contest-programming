@@ -334,12 +334,6 @@ int main() {
 					dp_x_lazy[{x0, j_min}] += dp[i];
 					dp_x_lazy[{x0, j_max+1}] -= dp[i];
 				}
-				for (int j = i+1; j <= j_max; j++) {
-					if (j == N || bads[j+(N-1)].empty() || bads[j+(N-1)].back() >= j + x0) {
-						//cerr << i << ' ' << j << ' ' << j + x0 << '\n';
-						dp[j + x0] += dp[i];
-					}
-				}
 			}
 		}
 		cout << dp[N] << '\n';
