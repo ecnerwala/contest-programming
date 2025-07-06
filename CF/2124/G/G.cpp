@@ -19,8 +19,8 @@ int main() {
 		}
 
 		int64_t base_ans = std::accumulate(mins.begin(), mins.end(), int64_t(0));
-		std::vector<int64_t> ans(N, 0);
-		ans[0] = base_ans;
+		// moving N-1 -> 0 is already base_ans
+		std::vector<int64_t> ans(N, base_ans);
 
 		std::vector<std::pair<int, int>> best_remove; best_remove.reserve(N);
 		std::vector<int64_t> suff_val(N+1);
