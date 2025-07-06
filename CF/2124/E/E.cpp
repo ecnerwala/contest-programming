@@ -43,6 +43,7 @@ int main() {
 			A[mid] -= v;
 			cnt -= v;
 		}
+		assert(cnt == 0);
 		cout << 2 << '\n';
 		for (int i = 0; i < N; i++) {
 			cout << A[i] << " \n"[i+1==N];
