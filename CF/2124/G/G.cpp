@@ -58,11 +58,6 @@ int main() {
 					suff_val[k] = suff_val[k+1] + mins[k];
 				}
 				j = i;
-			} else {
-				if (i < N-1) {
-					// remove one guy to do nothing
-					setmax(ans[N-1 - i], base_ans - mins[N-1]);
-				}
 			}
 			if (best_remove.empty() || A[i] > best_remove.back().first) {
 				best_remove.push_back({A[i], i});
