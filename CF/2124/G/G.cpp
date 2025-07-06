@@ -22,7 +22,7 @@ int main() {
 		std::vector<int64_t> ans(N, 0);
 		ans[0] = base_ans;
 
-		std::vector<std::pair<int, int>> best_remove(N);
+		std::vector<std::pair<int, int>> best_remove; best_remove.reserve(N);
 		std::vector<int64_t> suff_val(N+1);
 		for (int i = N-1, j = N; i >= 0; i--) {
 			if (mins[i] == A[i]) {
