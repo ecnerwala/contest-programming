@@ -146,7 +146,7 @@ int main() {
 				if (!b.empty()) j_max = std::min(j_max, b.back());
 				for (int j = i+1; j <= j_max; j++) {
 					if (j == N || bads[j+(N-1)].empty() || bads[j+(N-1)].back() >= j + x0) {
-						cerr << i << ' ' << j << ' ' << x0 << '\n';
+						cerr << i << ' ' << j << ' ' << j + x0 << '\n';
 						dp[j + x0] += dp[i];
 					}
 				}
