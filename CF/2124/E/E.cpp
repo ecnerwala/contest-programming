@@ -29,7 +29,7 @@ int main() {
 		}
 		assert(cur_sum > tot / 2);
 		assert(mid != -1);
-		if (A[mid] * 2 > cur_sum) {
+		if (A[mid] * 2 > tot) {
 			cout << -1 << '\n';
 			continue;
 		}
