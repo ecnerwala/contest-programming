@@ -145,10 +145,7 @@ int main() {
 				int j_max = N - x0 - i;
 				if (!b.empty()) j_max = b.back();
 				for (int j = i; j <= j_max; j++) {
-					const auto& bj = bads[j + (N-1)];
-					if (!bj.empty() && bj.back() < j + x0) {
-						// bad
-					} else {
+					if (j == N || bads[j+(N-1)].empty() || bads[j+(N-1)].back() >= j + x0) {
 						dp[j + x0] += dp[i];
 					}
 				}
