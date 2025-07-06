@@ -25,41 +25,41 @@ int main() {
 		std::vector<std::pair<int, int>> best_remove; best_remove.reserve(N);
 		std::vector<int64_t> suff_val(N+1);
 		for (int i = N-1, j = N; i >= 0; i--) {
-			if (i < N-1) {
-				if (mins[i] == A[i]) {
-					int cap = i == 0 ? A[i] + best_remove.back().first : mins[i-1];
-					// i..j
-					for (int k = i; k < j; k++) {
-						assert(mins[k] == A[i]);
-						mins[k] = (k == i ? cap : std::min(mins[k-1], A[k]));
-					}
-					for (int k = j-1; k >= i; k--) {
-						suff_val[k] = suff_val[k+1] + mins[k];
-					}
-					{
-						int k = j;
-						int64_t tot_gain = 0;
-						for (auto [v_incr, pos_incr] : best_remove) {
-							assert(pos_incr > i);
-							int cur_cap = std::min(cap, A[i] + v_incr);
-							while (k > i && mins[k-1] <= cur_cap) {
-								k--;
-								tot_gain += mins[k] - A[i];
-							}
-							int64_t cnd = base_ans + int64_t(cur_cap - A[i]) * int64_t(k - i) + tot_gain - suff_val[pos_incr];
-							int cost = pos_incr - i;
-							setmax(ans[cost], cnd);
-
-							if (cur_cap >= cap) break;
+			if (mins[i] == A[i]) {
+				int cap = i == 0 ? A[0] + *std::max_element(A.begin(), A.end()) : mins[i-1];
+				// i..j
+				for (int k = i; k < j; k++) {
+					assert(mins[k] == A[i]);
+					mins[k] = (k == i ? cap : std::min(mins[k-1], A[k]));
+				}
+				for (int k = j-1; k >= i; k--) {
+					suff_val[k] = suff_val[k+1] + mins[k];
+				}
+				{
+					int k = j;
+					int64_t tot_gain = 0;
+					for (auto [v_incr, pos_incr] : best_remove) {
+						assert(pos_incr > i);
+						int cur_cap = std::min(cap, A[i] + v_incr);
+						while (k > i && mins[k-1] <= cur_cap) {
+							k--;
+							tot_gain += mins[k] - A[i];
 						}
-					}
+						int64_t cnd = base_ans + int64_t(cur_cap - A[i]) * int64_t(k - i) + tot_gain - suff_val[pos_incr];
+						int cost = pos_incr - i;
+						setmax(ans[cost], cnd);
 
-					for (int k = j-1; k >= i; k--) {
-						mins[k] = A[i];
-						suff_val[k] = suff_val[k+1] + mins[k];
+						if (cur_cap >= cap) break;
 					}
-					j = i;
-				} else {
+				}
+
+				for (int k = j-1; k >= i; k--) {
+					mins[k] = A[i];
+					suff_val[k] = suff_val[k+1] + mins[k];
+				}
+				j = i;
+			} else {
+				if (i < N-1) {
 					// remove one guy to do nothing
 					setmax(ans[N-1 - i], base_ans - mins[N-1]);
 				}
