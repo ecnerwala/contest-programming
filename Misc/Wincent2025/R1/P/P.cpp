@@ -12,6 +12,8 @@ int main() {
 			int s; cin >> s; S_freq[s]++;
 		}
 
+		cerr << "Running case " << N << ' ' << K << ' ' << P << '\n';
+
 		assert(P > 0 && K >= 1);
 
 		// probability that you convince k people out of a subset of size i
