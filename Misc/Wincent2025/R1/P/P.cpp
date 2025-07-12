@@ -177,6 +177,8 @@ int main() {
 			vals[a] = res / v;
 		}
 
+		for (auto v : vals) cerr << v << '\n';
+
 		double ans = 0;
 		for (int f : S_freq) {
 			ans += vals[f];
