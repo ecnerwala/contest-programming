@@ -11,7 +11,7 @@ int main() {
 		while (N > (1 << L) - 1) L++;
 		assert((1 << (L-1)) <= N && N < (1 << L));
 		int64_t ans = 0;
-		int num_bottom_leaves = N - (1 << (L-1)) - 1;
+		int num_bottom_leaves = N - ((1 << (L-1)) - 1);
 		for (int i = 1; i <= L; i++) {
 			int num_big = num_bottom_leaves >> (L - i);
 			int extra_bottom = num_bottom_leaves & ((1 << (L-i)) - 1);
