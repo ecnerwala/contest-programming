@@ -46,7 +46,7 @@ int main() {
 			assert((need_big - tot_big) % small_sz == 0);
 			assert((need_small - tot_small) % big_sz == 0);
 			assert(tot_either == (need_big - tot_big) / small_sz + (need_small - tot_small) / big_sz);
-			// wtf why is this true?
+			// wtf why is this true? is this weak data or some property of min r?
 			assert(need_small == tot_small);
 			return 0;
 		};
