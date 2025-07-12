@@ -144,6 +144,7 @@ int main() {
 			for (int j = a+1; j <= N && j <= a+K; j++) {
 				// eliminate
 				double c = eqns(j, a) / v;
+				cerr << "elim " << f << ' ' << j << ' ' << c << '\n';
 				eqns(j, a) = 0;
 				for (int i = 0; i <= K; i++) {
 					eqn_early[j][i] -= c * eqn_early[f][i];
