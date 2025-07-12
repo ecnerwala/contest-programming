@@ -169,7 +169,7 @@ int main() {
 		}
 		{
 			int num_runs = 0;
-			bool prv_empty = false;
+			bool prv_empty = true;
 			for (int i = 0; i < R; i++) {
 				bool is_empty = true;
 				for (int j = 0; j < C; j++) {
@@ -196,7 +196,7 @@ int main() {
 
 		std::vector<std::array<int, 2>> j_ranges;
 		{
-			bool prv_empty = false;
+			bool prv_empty = true;
 			for (int j = 0; j < C; j++) {
 				bool is_empty = true;
 				for (int i = 0; i < R; i++) {
