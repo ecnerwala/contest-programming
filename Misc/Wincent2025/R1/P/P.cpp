@@ -40,6 +40,21 @@ int main() {
 					cur_prob /= K-k;
 				}
 
+				auto slow_choose = [&](int n, int r) -> double {
+					if (0 <= r && r <= n) {
+						double res = 1;
+						for (int a = 0; a < r; a++) {
+							res *= n - a;
+							res /= a + 1;
+						}
+						return res;
+					} else {
+						return 0;
+					}
+				};
+
+				cerr << cur_prob << ' ' << slow_choose(i, k) * slow_choose(N - 1 - i, K - k) / slow_choose(N - 1, K) << '\n';
+
 				p_convince[i][0] += cur_prob;
 				{
 					// do one round
