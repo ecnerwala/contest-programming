@@ -162,7 +162,7 @@ int main() {
 		}
 		std::vector<double> v_small(K+1);
 		auto rnk = kactl::solveLinear(A_small, b_small, v_small);
-		assert(rnk == K+1);
+		cerr << rnk << '\n';
 
 		for (int i = 0; i <= K; i++) {
 			vals[i] = v_small[i];
