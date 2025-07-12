@@ -179,6 +179,7 @@ int main() {
 				if (!is_empty && prv_empty) {
 					num_runs++;
 				}
+				prv_empty = is_empty;
 			}
 			if (num_runs >= 3) {
 				// transpose it
@@ -204,6 +205,7 @@ int main() {
 				if (!is_empty && prv_empty) {
 					num_runs++;
 				}
+				prv_empty = is_empty;
 			}
 			assert(num_runs == 3 || num_runs == 4 || num_runs == 5);
 		}
