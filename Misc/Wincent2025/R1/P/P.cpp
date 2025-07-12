@@ -138,6 +138,7 @@ int main() {
 		for (int a = K+1; a <= N; a++) {
 			int f = a-K;
 			double v = eqn_near[f][2*K];
+			assert(v == eqns(f, a));
 			assert(v);
 			for (int j = a+1; j <= N && j <= a+K; j++) {
 				// eliminate
