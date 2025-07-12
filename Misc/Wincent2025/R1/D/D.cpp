@@ -167,72 +167,164 @@ int main() {
 				G[{i, j}] = S[j] == '#';
 			}
 		}
-		{
-			int num_runs = 0;
-			bool prv_empty = true;
-			for (int i = 0; i < R; i++) {
-				bool is_empty = true;
-				for (int j = 0; j < C; j++) {
-					if (G[{i, j}]) is_empty = false;
-				}
-				if (i == 0 || i == R-1) { assert(is_empty); }
-				if (!is_empty && prv_empty) {
-					num_runs++;
-				}
-				prv_empty = is_empty;
-			}
-			if (num_runs >= 3) {
-				// transpose it
-				tensor<bool, 2> G_({C, R});
+		cout << [&]() -> int {
+			{
+				int num_runs = 0;
+				bool prv_empty = true;
 				for (int i = 0; i < R; i++) {
+					bool is_empty = true;
 					for (int j = 0; j < C; j++) {
-						G_[{j, i}] = G[{i, j}];
+						if (G[{i, j}]) is_empty = false;
+					}
+					if (i == 0 || i == R-1) { assert(is_empty); }
+					if (!is_empty && prv_empty) {
+						num_runs++;
+					}
+					prv_empty = is_empty;
+				}
+				if (num_runs >= 3) {
+					// transpose it
+					tensor<bool, 2> G_({C, R});
+					for (int i = 0; i < R; i++) {
+						for (int j = 0; j < C; j++) {
+							G_[{j, i}] = G[{i, j}];
+						}
+					}
+					std::swap(G, G_);
+					std::swap(R, C);
+				}
+			}
+
+			std::vector<std::array<int, 2>> j_ranges;
+			{
+				bool prv_empty = true;
+				for (int j = 0; j < C; j++) {
+					bool is_empty = true;
+					for (int i = 0; i < R; i++) {
+						if (G[{i, j}]) is_empty = false;
+					}
+					if (!is_empty && prv_empty) {
+						j_ranges.push_back({j, -1});
+					}
+					if (is_empty && !prv_empty) {
+						j_ranges.back()[1] = j;
+					}
+					prv_empty = is_empty;
+				}
+			}
+			int num_letters = int(j_ranges.size());
+			assert(num_letters == 3 || num_letters == 4 || num_letters == 5);
+
+			std::vector<int> has_loop(num_letters, 0);
+
+			{
+				tensor<bool, 2> is_outside({R, C}, false);
+				{
+					std::vector<std::array<int, 2>> q; q.reserve(R*C);
+					is_outside[{0, 0}] = true;
+					q.push_back({0, 0});
+					for (int z = 0; z < int(q.size()); z++) {
+						auto cur = q[z];
+						auto check = [&](std::array<int, 2> nxt) {
+							if (G[nxt]) return;
+							if (is_outside[nxt]) return;
+							is_outside[nxt] = true;
+							q.push_back(nxt);
+						};
+						if (cur[0]-1 >= 0) check({cur[0]-1, cur[1]});
+						if (cur[0]+1 <  R) check({cur[0]+1, cur[1]});
+						if (cur[1]-1 >= 0) check({cur[0], cur[1]-1});
+						if (cur[1]+1 <  C) check({cur[0], cur[1]+1});
 					}
 				}
-				std::swap(G, G_);
-				std::swap(R, C);
-			}
-		}
 
-		std::vector<std::array<int, 2>> j_ranges;
-		{
-			bool prv_empty = true;
-			for (int j = 0; j < C; j++) {
-				bool is_empty = true;
-				for (int i = 0; i < R; i++) {
-					if (G[{i, j}]) is_empty = false;
+				for (int z = 0; z < num_letters; z++) {
+					for (int i = 0; i < R; i++) {
+						for (int j = j_ranges[z][0]; j < j_ranges[z][1]; j++) {
+							if (!G[{i, j}] && !is_outside[{i, j}]) has_loop[z] = true;
+						}
+					}
 				}
-				if (!is_empty && prv_empty) {
-					j_ranges.push_back({j, -1});
-				}
-				if (is_empty && !prv_empty) {
-					j_ranges.back()[1] = j;
-				}
-				prv_empty = is_empty;
 			}
-		}
-		int num_letters = int(j_ranges.size());
-		assert(num_letters == 3 || num_letters == 4 || num_letters == 5);
 
-		tensor<bool, 2> is_outside({R, C}, false);
-		{
-			std::vector<std::array<int, 2>> q; q.reserve(R*C);
-			is_outside[{0, 0}] = true;
-			q.push_back({0, 0});
-			for (int z = 0; z < int(q.size()); z++) {
-				auto cur = q[z];
-				auto check = [&](std::array<int, 2> nxt) {
-					if (G[nxt]) return;
-					if (is_outside[nxt]) return;
-					is_outside[nxt] = true;
-					q.push_back(nxt);
-				};
-				if (cur[0]-1 >= 0) check({cur[0]-1, cur[1]});
-				if (cur[0]+1 <  R) check({cur[0]+1, cur[1]});
-				if (cur[1]-1 >= 0) check({cur[0], cur[1]-1});
-				if (cur[1]+1 <  C) check({cur[0], cur[1]+1});
+			int num_comps = 0;
+			{
+				tensor<bool, 2> vis({R, C}, false);
+				std::vector<std::array<int, 2>> q; q.reserve(R*C);
+				for (int si = 0; si < R; si++) {
+					for (int sj = 0; sj < C; sj++) {
+						if (!G[{si, sj}]) continue;
+						if (vis[{si, sj}]) continue;
+						num_comps++;
+						vis[{si, sj}] = true;
+						q.push_back({si, sj});
+						for (int z = 0; z < int(q.size()); z++) {
+							auto cur = q[z];
+							auto check = [&](std::array<int, 2> nxt) {
+								if (!G[nxt]) return;
+								if (vis[nxt]) return;
+								vis[nxt] = true;
+								q.push_back(nxt);
+							};
+							if (cur[0]-1 >= 0) check({cur[0]-1, cur[1]});
+							if (cur[0]+1 <  R) check({cur[0]+1, cur[1]});
+							if (cur[1]-1 >= 0) check({cur[0], cur[1]-1});
+							if (cur[1]+1 <  C) check({cur[0], cur[1]+1});
+						}
+					}
+				}
 			}
-		}
+
+			int num_loops = std::accumulate(has_loop.begin(), has_loop.end(), 0);
+			int num_i = num_comps - num_letters;
+			if (num_letters == 3) {
+				if (num_loops == 0) {
+					assert(num_i == 1);
+					return 6;
+				} else if (num_loops == 1) {
+					return 2;
+				} else if (num_loops == 2) {
+					return 1;
+				} else assert(false);
+			} else if (num_letters == 4) {
+				if (num_loops == 2) {
+					return 0;
+				} else if (num_loops == 1) {
+					if (num_i == 1) {
+						int num_runs = 0;
+						{
+							bool prv_empty = true;
+							for (int i = 0; i < R; i++) {
+								bool is_empty = true;
+								for (int j = 0; j < C; j++) {
+									if (G[{i, j}]) is_empty = false;
+								}
+								if (!is_empty && prv_empty) {
+									num_runs++;
+								}
+								prv_empty = is_empty;
+							}
+						}
+						if (num_runs == 2) {
+							return 9;
+						} else if (num_runs == 1) {
+							return 5;
+						} else assert(false);
+					} else if (num_i == 0) {
+						return 4;
+					}
+				} else assert(false);
+			} else if (num_letters == 5) {
+				if (num_i == 1) {
+					return 8;
+				} else {
+					assert(num_loops == 2);
+					if (has_loop[0] || has_loop[4]) return 3;
+					else if (has_loop[1] && has_loop[3]) return 7;
+				}
+			} else assert(false);
+
+		}();
 	}
 
 	return 0;
