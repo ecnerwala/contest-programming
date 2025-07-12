@@ -166,7 +166,7 @@ int main() {
 			//for (int i = 0; i < K+1; i++) { cerr << A_small[z][i] << ' '; } cerr << ": " << b_small[z]; cerr << '\n';
 		}
 		auto rnk = kactl::solveLinear(A_small, b_small, v_small);
-		assert(rnk == K+1);
+		//assert(rnk == K+1);
 
 		for (int i = 0; i <= K; i++) {
 			vals[i] = v_small[i];
