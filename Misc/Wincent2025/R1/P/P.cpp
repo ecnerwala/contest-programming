@@ -100,6 +100,7 @@ int main() {
 					}
 				}
 			}
+			for (int k = 0; k <= K; k++) { cerr << p_convince[i][k] << ' '; } cerr << '\n';
 		}
 
 		// Solve the N, K, P system
