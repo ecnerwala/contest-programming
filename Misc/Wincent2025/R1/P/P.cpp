@@ -110,6 +110,8 @@ int main() {
 		std::vector<std::vector<double>> eqn_early(N+1, std::vector<double>(K+1));
 		std::vector<std::vector<double>> eqn_near(N+1, std::vector<double>(2*K+1));
 		auto eqns = [&](int i, int j) -> double& {
+			assert(0 <= i && i <= N);
+			assert(0 <= j && j <= N);
 			if (j <= K) return eqn_early[i][j];
 			else if (i-K <= j && j <= i+K) return eqn_near[i][j-(i-K)];
 			else assert(false);
