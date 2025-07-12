@@ -45,6 +45,7 @@ int main() {
 			}
 			assert((need_big - tot_big) % small_sz == 0);
 			assert((need_small - tot_small) % big_sz == 0);
+			assert(tot_either == (need_big - tot_big) / small_sz + (need_small - tot_small) / big_sz);
 			return 0;
 		};
 
