@@ -19,7 +19,6 @@ int main() {
 			auto check = [&](int cnt, int sz) -> void {
 				int mi = i;
 				int ma = N - sz + 1;
-				cerr << i << ' ' << cnt << ' ' << sz << ' ' << mi << '-' << ma << '\n';
 				assert(mi <= ma);
 				ans += int64_t(cnt) * int64_t(2*(N + 1) - (mi + ma)) * int64_t(ma - mi + 1) / 2;
 			};
