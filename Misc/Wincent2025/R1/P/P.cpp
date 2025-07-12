@@ -1,53 +1,5 @@
 #include <bits/stdc++.h>
 
-namespace kactl {
-using namespace std;
-#define rep(i, a, b) for(int i = a; i < (b); ++i)
-#define all(x) begin(x), end(x)
-#define sz(x) (int)(x).size()
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
-typedef vector<double> vd;
-const double eps = 1e-12;
-
-int solveLinear(vector<vd>& A, vd& b, vd& x) {
-	int n = sz(A), m = sz(x), rank = 0, br, bc;
-	if (n) assert(sz(A[0]) == m);
-	vi col(m); iota(all(col), 0);
-
-	rep(i,0,n) {
-		double v, bv = 0;
-		rep(r,i,n) rep(c,i,m)
-			if ((v = fabs(A[r][c])) > bv)
-				br = r, bc = c, bv = v;
-		if (bv <= eps) {
-			rep(j,i,n) if (fabs(b[j]) > eps) return -1;
-			break;
-		}
-		swap(A[i], A[br]);
-		swap(b[i], b[br]);
-		swap(col[i], col[bc]);
-		rep(j,0,n) swap(A[j][i], A[j][bc]);
-		bv = 1/A[i][i];
-		rep(j,i+1,n) {
-			double fac = A[j][i] * bv;
-			b[j] -= fac * b[i];
-			rep(k,i+1,m) A[j][k] -= fac*A[i][k];
-		}
-		rank++;
-	}
-
-	x.assign(m, 0);
-	for (int i = rank; i--;) {
-		b[i] /= A[i][i];
-		x[col[i]] = b[i];
-		rep(j,0,i) b[j] -= A[j][i] * b[i];
-	}
-	return rank; // (multiple solutions if rank < m)
-}
-}
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -107,10 +59,16 @@ int main() {
 		// P[win] is equal to freq / N, by some symmetry arguments
 		// so we only care about E[(time if win else 0)]
 		// TODO: Make this sparse
-		std::vector<std::vector<double>> eqns(N+1, std::vector<double>(N+1));
+		std::vector<std::vector<double>> eqn_early(N+1, std::vector<double>(K+1));
+		std::vector<std::vector<double>> eqn_near(N+1, std::vector<double>(2*K+1));
+		auto eqns = [&](int i, int j) -> double& {
+			if (j <= K) return eqn_early[i][j];
+			else if (i-K <= j && j <= i+K) return eqn_near[i][j-(i-K)];
+			else assert(false);
+		};
 		std::vector<double> b(N+1);
 		for (int f = 0; f <= N; f++) {
-			eqns[f][f] = 1;
+			eqns(f, f) = 1;
 			if (f == 0 || f == N) continue;
 
 			double pf = double(f) / N;
@@ -118,10 +76,10 @@ int main() {
 			b[f] += pf;
 
 			for (int a = 0; a <= std::min(N-f, K); a++) {
-				eqns[f][f+a] -= p_convince[N-f][a] * pf;
+				eqns(f, f+a) -= p_convince[N-f][a] * pf;
 			}
 			for (int a = 0; a <= std::min(f, K); a++) {
-				eqns[f][f-a] -= p_convince[f][a] * (1-pf);
+				eqns(f, f-a) -= p_convince[f][a] * (1-pf);
 			}
 		}
 		for (int z = 0; z < N+1; z++) {
@@ -129,7 +87,6 @@ int main() {
 		}
 		// now just gaussian eliminate
 		std::vector<double> vals(N+1);
-		kactl::solveLinear(eqns, b, vals);
 
 		double ans = 0;
 		for (int f : S_freq) {
