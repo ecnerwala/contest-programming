@@ -17,9 +17,9 @@ int main() {
 			int extra_bottom = num_bottom_leaves & ((1 << (L-i)) - 1);
 			int num_small = (1 << (i-1)) - bool(extra_bottom) - num_big;
 			auto check = [&](int cnt, int sz) -> void {
-				cerr << i << ' ' << cnt << ' ' << sz << '\n';
 				int mi = i;
 				int ma = N - sz + 1;
+				cerr << i << ' ' << cnt << ' ' << sz << ' ' << mi << '-' << ma << '\n';
 				assert(mi <= ma);
 				ans += int64_t(cnt) * int64_t(mi + ma) * int64_t(ma - mi + 1) / 2;
 			};
