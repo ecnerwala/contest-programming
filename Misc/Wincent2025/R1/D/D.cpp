@@ -321,6 +321,7 @@ int main() {
 					assert(num_loops == 2);
 					if (has_loop[0] || has_loop[4]) return 3;
 					else if (has_loop[1] && has_loop[3]) return 7;
+					else assert(false);
 				}
 			} else assert(false);
 		}() << '\n';
