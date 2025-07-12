@@ -110,7 +110,7 @@ int main() {
 		std::vector<std::vector<double>> eqns(N+1, std::vector<double>(N+1));
 		std::vector<double> b(N+1);
 		for (int f = 0; f <= N; f++) {
-			eqns[f][f] = -1;
+			eqns[f][f] = 1;
 			if (f == 0 || f == N) continue;
 
 			double pf = double(f) / N;
@@ -118,10 +118,10 @@ int main() {
 			b[f] += pf;
 
 			for (int a = 0; a <= std::min(N-f, K); a++) {
-				eqns[f][f+a] += p_convince[N-f][a] * pf;
+				eqns[f][f+a] -= p_convince[N-f][a] * pf;
 			}
 			for (int a = 0; a <= std::min(f-1, K); a++) {
-				eqns[f][f-a] += p_convince[f-1][a] * (1-pf);
+				eqns[f][f-a] -= p_convince[f-1][a] * (1-pf);
 			}
 		}
 		// now just gaussian eliminate
