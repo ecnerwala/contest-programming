@@ -133,7 +133,7 @@ int main() {
 			}
 		}
 		for (int z = 0; z < N+1; z++) {
-			for (int i = 0; i < N+1; i++) { cerr << (std::abs(z-i) <= K ? eqns(z, i) : 0) << ' '; } cerr << ": " << b[z]; cerr << '\n';
+			//for (int i = 0; i < N+1; i++) { cerr << (std::abs(z-i) <= K ? eqns(z, i) : 0) << ' '; } cerr << ": " << b[z]; cerr << '\n';
 		}
 		// now just gaussian eliminate
 		std::vector<double> vals(N+1);
@@ -144,7 +144,7 @@ int main() {
 			for (int j = f+1; j <= N && j <= a+K; j++) {
 				// eliminate
 				double c = eqns(j, a) / v;
-				cerr << "elim " << f << ' ' << j << ' ' << c << '\n';
+				//cerr << "elim " << f << ' ' << j << ' ' << c << '\n';
 				eqns(j, a) = 0;
 				for (int i = 0; i <= K; i++) {
 					eqn_early[j][i] -= c * eqn_early[f][i];
@@ -163,10 +163,10 @@ int main() {
 		}
 		std::vector<double> v_small(K+1);
 		for (int z = 0; z < K+1; z++) {
-			for (int i = 0; i < K+1; i++) { cerr << A_small[z][i] << ' '; } cerr << ": " << b_small[z]; cerr << '\n';
+			//for (int i = 0; i < K+1; i++) { cerr << A_small[z][i] << ' '; } cerr << ": " << b_small[z]; cerr << '\n';
 		}
 		auto rnk = kactl::solveLinear(A_small, b_small, v_small);
-		cerr << rnk << '\n';
+		assert(rnk == K+1);
 
 		for (int i = 0; i <= K; i++) {
 			vals[i] = v_small[i];
@@ -182,7 +182,7 @@ int main() {
 			vals[a] = res / v;
 		}
 
-		for (auto v : vals) cerr << v << '\n';
+		//for (auto v : vals) cerr << v << '\n';
 
 		double ans = 0;
 		for (int f : S_freq) {
