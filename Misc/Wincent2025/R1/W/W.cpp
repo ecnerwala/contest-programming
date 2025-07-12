@@ -31,23 +31,17 @@ int main() {
 
 			int tot_big = 0;
 			int tot_small = 0;
-			int tot_either = 0;
 			for (int f : freq) {
-				int num_big = f % small_sz;
-				int num_small = (f / small_sz) - num_big;
-				if (num_small < 0) return std::nullopt;
+				// more bigs is better
+				int num_small = (big_sz - f % big_sz) % big_sz;
+				int num_big = (f + num_small) / big_sz - num_small;
+				if (num_big < 0) return std::nullopt;
+
 				tot_big += num_big;
-				tot_either += num_small / big_sz;
-				tot_small += num_small % big_sz;
+				tot_small += num_small;
 			}
-			if (tot_big > need_big || tot_small > need_small) {
-				return std::nullopt;
-			}
-			assert((need_big - tot_big) % small_sz == 0);
-			assert((need_small - tot_small) % big_sz == 0);
-			assert(tot_either == (need_big - tot_big) / small_sz + (need_small - tot_small) / big_sz);
-			// wtf why is this true? is this weak data or some property of min r?
-			assert(need_small == tot_small);
+			assert(tot_big == need_big && tot_small == need_small);
+
 			return 0;
 		};
 
