@@ -40,6 +40,7 @@ int main() {
 				tot_big += num_big;
 				tot_small += num_small;
 			}
+			if (tot_big < need_big) return std::nullopt;
 			assert(tot_big == need_big && tot_small == need_small);
 
 			return 0;
