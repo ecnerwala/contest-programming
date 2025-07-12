@@ -160,7 +160,7 @@ int main() {
 			}
 			for (int i = 0; i < L; i++) {
 				for (int j = 0; j < L; j++) {
-					flower.add_edge(2 + i, 2 + L+i, 1, v[i][j]);
+					flower.add_edge(2 + i, 2 + L + j, 1, v[i][j]);
 				}
 			}
 			auto [flow, cost] = flower.max_flow(0, 1);
