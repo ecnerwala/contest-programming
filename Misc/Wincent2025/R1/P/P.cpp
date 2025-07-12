@@ -54,7 +54,7 @@ int main() {
 				};
 
 				double slow_prob = slow_choose(i, k) * slow_choose(N - 1 - i, K - k) / slow_choose(N - 1, K);
-				assert(std::abs(slow_prob - cur_prob) / slow_prob <= 1e-8);
+				assert(std::abs(slow_prob - cur_prob) <= 1e-12);
 
 				p_convince[i][0] += cur_prob;
 				{
