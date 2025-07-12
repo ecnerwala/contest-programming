@@ -210,8 +210,6 @@ int main() {
 				int num_big = (f + num_small) / big_sz - num_small;
 				if (num_big < 0) return std::nullopt;
 
-				if (f) cerr << "letter " << v << '\n';
-
 				for (int i = 0; i < num_big; i++) {
 					for (int m = 0, z = i; m < big_sz; m++, z += num_big + num_small) {
 						int loc = inds[v][z];
@@ -219,8 +217,6 @@ int main() {
 							big_weights[big_idx][a] += std::abs(m * r + a - loc);
 						}
 					}
-					cerr << "big ";
-					for (auto a : big_weights[big_idx]) { cerr << a << ' '; } cerr << '\n';
 					big_idx++;
 				}
 
@@ -231,8 +227,6 @@ int main() {
 							small_weights[small_idx][a] += std::abs(m * r + (need_big + a) - loc);
 						}
 					}
-					cerr << "small ";
-					for (auto a : small_weights[small_idx]) { cerr << a << ' '; } cerr << '\n';
 					small_idx++;
 				}
 			}
