@@ -161,6 +161,9 @@ int main() {
 			b_small[i] = b[N-K+i];
 		}
 		std::vector<double> v_small(K+1);
+		for (int z = 0; z < N+1; z++) {
+			for (int i = 0; i < N+1; i++) { cerr << A_small[z][i] << ' '; } cerr << ": " << b_small[z]; cerr << '\n';
+		}
 		auto rnk = kactl::solveLinear(A_small, b_small, v_small);
 		cerr << rnk << '\n';
 
