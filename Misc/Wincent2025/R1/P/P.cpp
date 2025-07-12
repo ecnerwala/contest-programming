@@ -121,7 +121,7 @@ int main() {
 				eqns[f][f+a] -= p_convince[N-f][a] * pf;
 			}
 			for (int a = 0; a <= std::min(f-1, K); a++) {
-				eqns[f][f-a] -= p_convince[f-1][a] * (1-pf);
+				eqns[f][f-a] -= p_convince[f][a] * (1-pf);
 			}
 		}
 		for (int z = 0; z < N+1; z++) {
