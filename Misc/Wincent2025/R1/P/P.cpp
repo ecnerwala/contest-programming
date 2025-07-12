@@ -121,7 +121,7 @@ int main() {
 
 			double pf = double(f) / N;
 			// += p_win
-			b[f] = pf;
+			b[f] += pf;
 
 			for (int a = 0; a <= std::min(N-f, K); a++) {
 				eqns(f, f+a) -= p_convince[N-f][a] * pf;
