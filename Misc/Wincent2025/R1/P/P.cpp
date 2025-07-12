@@ -100,7 +100,7 @@ int main() {
 					}
 				}
 			}
-			for (int k = 0; k <= K; k++) { cerr << p_convince[i][k] << ' '; } cerr << '\n';
+			//for (int k = 0; k <= K; k++) { cerr << p_convince[i][k] << ' '; } cerr << '\n';
 		}
 
 		// Solve the N, K, P system
@@ -125,9 +125,7 @@ int main() {
 			}
 		}
 		for (int z = 0; z < N+1; z++) {
-			for (int i = 0; i < N+1; i++) cerr << eqns[z][i] << ' ';
-			cerr << ": " << b[z];
-			cerr << '\n';
+			//for (int i = 0; i < N+1; i++) { cerr << eqns[z][i] << ' '; } cerr << ": " << b[z]; cerr << '\n';
 		}
 		// now just gaussian eliminate
 		std::vector<double> vals(N+1);
