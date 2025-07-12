@@ -133,7 +133,7 @@ int main() {
 			}
 		}
 		for (int z = 0; z < N+1; z++) {
-			//for (int i = 0; i < N+1; i++) { cerr << eqns[z][i] << ' '; } cerr << ": " << b[z]; cerr << '\n';
+			for (int i = 0; i < N+1; i++) { cerr << (std::abs(z-i) <= K ? eqns(z, i) : 0) << ' '; } cerr << ": " << b[z]; cerr << '\n';
 		}
 		// now just gaussian eliminate
 		std::vector<double> vals(N+1);
