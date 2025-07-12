@@ -138,12 +138,12 @@ int main() {
 		for (int a = K+1; a <= N; a++) {
 			int f = a-K;
 			double v = eqn_near[f][2*K];
-			assert(v == eqns(f, a));
 			assert(v);
 			for (int j = a+1; j <= N && j <= a+K; j++) {
 				// eliminate
 				double c = eqns(j, a) / v;
-				eqns(j, a) = 0;
+				eqns(j, a) -= c * eqns(f, a);
+				assert(eqns(j, a) == 0);
 				for (int i = 0; i <= K; i++) {
 					eqn_early[j][i] -= c * eqn_early[f][i];
 				}
