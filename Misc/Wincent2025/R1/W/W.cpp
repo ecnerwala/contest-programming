@@ -152,6 +152,20 @@ int main() {
 		for (int c : S) freq[c]++;
 
 		auto solve_matching = [&](const std::vector<std::vector<int64_t>>& v) -> int64_t {
+			int L = int(v.size());
+			MCMF_Dinic<int, int64_t> flower(2*L+2);
+			for (int i = 0; i < L; i++) {
+				flower.add_edge(0, 2 + i, 1, 0);
+				flower.add_edge(2 + L + i, 1, 1, 0);
+			}
+			for (int i = 0; i < L; i++) {
+				for (int j = 0; j < L; j++) {
+					flower.add_edge(2 + i, 2 + L+i, 1, v[i][j]);
+				}
+			}
+			auto [flow, cost] = flower.max_flow(0, 1);
+			assert(flow == L);
+			return cost;
 		};
 
 		auto solve_r = [&](int r) -> std::optional<int> {
