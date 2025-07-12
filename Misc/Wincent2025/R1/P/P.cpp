@@ -68,7 +68,7 @@ int main() {
 		std::vector<std::vector<double>> p_convince(N, std::vector<double>(K+1));
 		for (int i = 1; i <= N-1; i++) {
 			double cur_prob = 1;
-			for (int k = std::min(K, i); k > 0; k--) {
+			for (int k = std::min(K, i); k >= 0; k--) {
 				// what's the probability that you talk with exactly k of the i people
 				if (k == K) {
 					for (int a = 0; a < K; a++) {
@@ -91,7 +91,7 @@ int main() {
 				}
 
 				p_convince[i][0] += cur_prob;
-				{
+				if (k > 0) {
 					// do one round
 					for (int z = K-k; z >= 0; z--) {
 						double a = p_convince[i][z];
