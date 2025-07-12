@@ -312,7 +312,7 @@ int main() {
 						} else assert(false);
 					} else if (num_i == 0) {
 						return 4;
-					}
+					} else assert(false);
 				} else assert(false);
 			} else if (num_letters == 5) {
 				if (num_i == 1) {
@@ -323,8 +323,7 @@ int main() {
 					else if (has_loop[1] && has_loop[3]) return 7;
 				}
 			} else assert(false);
-
-		}();
+		}() << '\n';
 	}
 
 	return 0;
