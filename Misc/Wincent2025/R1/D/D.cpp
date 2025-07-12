@@ -196,12 +196,11 @@ int main() {
 		{
 			int num_runs = 0;
 			bool prv_empty = false;
-			for (int i = 0; i < R; i++) {
+			for (int j = 0; j < C; j++) {
 				bool is_empty = true;
-				for (int j = 0; j < C; j++) {
+				for (int i = 0; i < R; i++) {
 					if (G[{i, j}]) is_empty = false;
 				}
-				if (i == 0 || i == R-1) { assert(is_empty); }
 				if (!is_empty && prv_empty) {
 					num_runs++;
 				}
