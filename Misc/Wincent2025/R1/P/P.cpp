@@ -161,7 +161,8 @@ int main() {
 			b_small[i] = b[N-K+i];
 		}
 		std::vector<double> v_small(K+1);
-		kactl::solveLinear(A_small, b_small, v_small);
+		auto rnk = kactl::solveLinear(A_small, b_small, v_small);
+		assert(rnk == K+1);
 
 		for (int i = 0; i <= K; i++) {
 			vals[i] = v_small[i];
