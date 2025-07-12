@@ -87,6 +87,12 @@ int main() {
 		}
 		// now just gaussian eliminate
 		std::vector<double> vals(N+1);
+		for (int a = K+1; a <= N; a++) {
+			int f = a-K;
+			double v = eqn_early[f][2*K];
+			assert(v < 0);
+			for (int j = a+1; j <= )
+		}
 
 		double ans = 0;
 		for (int f : S_freq) {
