@@ -194,8 +194,8 @@ int main() {
 			}
 		}
 
+		std::vector<std::array<int, 2>> j_ranges;
 		{
-			int num_runs = 0;
 			bool prv_empty = false;
 			for (int j = 0; j < C; j++) {
 				bool is_empty = true;
@@ -203,11 +203,35 @@ int main() {
 					if (G[{i, j}]) is_empty = false;
 				}
 				if (!is_empty && prv_empty) {
-					num_runs++;
+					j_ranges.push_back({j, -1});
+				}
+				if (is_empty && !prv_empty) {
+					j_ranges.back()[1] = j;
 				}
 				prv_empty = is_empty;
 			}
-			assert(num_runs == 3 || num_runs == 4 || num_runs == 5);
+		}
+		int num_letters = int(j_ranges.size());
+		assert(num_letters == 3 || num_letters == 4 || num_letters == 5);
+
+		tensor<bool, 2> is_outside({R, C}, false);
+		{
+			std::vector<std::array<int, 2>> q; q.reserve(R*C);
+			is_outside[{0, 0}] = true;
+			q.push_back({0, 0});
+			for (int z = 0; z < int(q.size()); z++) {
+				auto cur = q[z];
+				auto check = [&](std::array<int, 2> nxt) {
+					if (G[nxt]) return;
+					if (is_outside[nxt]) return;
+					is_outside[nxt] = true;
+					q.push_back(nxt);
+				};
+				if (cur[0]-1 >= 0) check({cur[0]-1, cur[1]});
+				if (cur[0]+1 <  R) check({cur[0]+1, cur[1]});
+				if (cur[1]-1 >= 0) check({cur[0], cur[1]-1});
+				if (cur[1]+1 <  C) check({cur[0], cur[1]+1});
+			}
 		}
 	}
 
