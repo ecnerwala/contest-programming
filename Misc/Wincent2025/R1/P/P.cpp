@@ -124,6 +124,11 @@ int main() {
 				eqns[f][f-a] -= p_convince[f-1][a] * (1-pf);
 			}
 		}
+		for (int z = 0; z < N+1; z++) {
+			for (int i = 0; i < N+1; i++) cerr << eqns[z][i] << ' ';
+			cerr << ": " << b[z];
+			cerr << '\n';
+		}
 		// now just gaussian eliminate
 		std::vector<double> vals(N+1);
 		kactl::solveLinear(eqns, b, vals);
