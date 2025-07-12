@@ -21,7 +21,7 @@ int main() {
 				int ma = N - sz + 1;
 				cerr << i << ' ' << cnt << ' ' << sz << ' ' << mi << '-' << ma << '\n';
 				assert(mi <= ma);
-				ans += int64_t(cnt) * int64_t(mi + ma) * int64_t(ma - mi + 1) / 2;
+				ans += int64_t(cnt) * int64_t(2*(N + 1) - (mi + ma)) * int64_t(ma - mi + 1) / 2;
 			};
 			if (num_big) {
 				int sz_big = (1 << (L-i+1)) - 1;
