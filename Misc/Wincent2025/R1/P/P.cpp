@@ -139,10 +139,9 @@ int main() {
 		std::vector<double> vals(N+1);
 		for (int a = K+1; a <= N; a++) {
 			int f = a-K;
-			cerr << a << ' ' << f << '\n';
 			double v = eqn_near[f][2*K];
 			assert(v);
-			for (int j = a+1; j <= N && j <= a+K; j++) {
+			for (int j = f+1; j <= N && j <= a+K; j++) {
 				// eliminate
 				double c = eqns(j, a) / v;
 				cerr << "elim " << f << ' ' << j << ' ' << c << '\n';
