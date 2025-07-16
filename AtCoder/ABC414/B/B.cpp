@@ -15,6 +15,7 @@ int main() {
 			S.insert(S.end(), l, c);
 		}
 	}
+	cout << S << '\n';
 
 	return 0;
 }
