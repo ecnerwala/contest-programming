@@ -16,7 +16,7 @@ int main() {
 				int64_t rev_A = 0;
 				for (int64_t v = cur; v; v /= A) rev_A = rev_A * A + v % A;
 				if (rev_A == cur) {
-					ans++;
+					ans += cur;
 				}
 				return;
 			}
