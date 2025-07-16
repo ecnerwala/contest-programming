@@ -123,14 +123,14 @@ int main() {
 
 	int64_t N; cin >> N;
 	using num = modnum<998244353>;
-	// we want a % b == 0
+	// we want a >= b and a % b != 0
 	num bad = 0;
 	for (int64_t i = 1; i <= N; i++) {
 		int64_t c = N / i;
 		bad += num(c) * num(N / c - i + 1);
 		i = N / c;
 	}
-	cout << num(N) * num(N) - bad << '\n';
+	cout << num(N) * num(N+1) / num(2) - bad << '\n';
 
 	return 0;
 }
