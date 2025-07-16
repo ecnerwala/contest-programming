@@ -12,8 +12,8 @@ int main() {
 	for (int i = 0; i+1 < N; i++) {
 		G[i] = X[i+1] - X[i];
 	}
-	std::nth_element(G.begin(), G.end() - (N-M), G.end());
-	cout << std::accumulate(G.end() - (N-M), G.end(), int64_t(0)) << '\n';
+	std::nth_element(G.begin(), G.begin() + (N-M), G.end());
+	cout << std::accumulate(G.begin(), G.begin() + (N-M), int64_t(0)) << '\n';
 
 	return 0;
 }
