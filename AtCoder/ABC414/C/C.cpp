@@ -12,6 +12,7 @@ int main() {
 	for (int L = 1; p10.back() <= N; L++) {
 		p10.push_back(p10.back() * 10);
 		[&](this auto&& self, int i, int j, int64_t cur) -> void {
+			if (cur > N) return;
 			if (i > j) {
 				int64_t rev_A = 0;
 				for (int64_t v = cur; v; v /= A) rev_A = rev_A * A + v % A;
