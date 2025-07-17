@@ -179,7 +179,7 @@ int main() {
 			}
 			cerr << d1 + d2 << ' ' << l << ' ' << choose(2*l, l - (d1+d2)) << ' ' << res << '\n';
 			if (d1+d2 > 0) {
-				assert(res == choose(2*l, l - (d1+d2)) / num(l+1) * num(d1+d2+1));
+				assert(res == choose(2*l, l - (d1+d2)) * num(l+1) / num(d1+d2+1));
 			}
 			return res;
 		};
