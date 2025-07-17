@@ -195,6 +195,7 @@ int main() {
 				ans -= ways_dist_1(a1 * g1 + 1);
 			}
 		}
+		return ans;
 	};
 	std::vector<num> ans(N+1);
 	for (int d = 0; 2 * d + 1 <= N; d++) {
