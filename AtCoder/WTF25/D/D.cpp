@@ -130,14 +130,17 @@ int main() {
 
 	using num = modnum<998244353>;
 
+	const int V = 2*N;
+	std::vector<num> fact(V+1);
+	fact[0] = 1;
+	for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(V+1);
+	ifact[V] = inv(fact[V]);
+	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
 	auto choose = [&](int n, int r) -> num {
 		if (!(0 <= r && r <= n)) return 0;
-		num ans = 1;
-		for (int i = 0; i < r; i++) {
-			ans *= n-i;
-			ans /= i+1;
-		}
-		return ans;
+		return fact[n] * ifact[r] * ifact[n-r];
 	};
 	auto fits_inside = [&](int l, int g) -> num {
 		if (g <= 1) return 0;
@@ -154,6 +157,7 @@ int main() {
 		}
 		return ans;
 	};
+	/*
 	auto fits_inside_pair_slow = [&](int g1, int g2) -> num {
 		num v = 0;
 		for (int i = 0, j = N-1; i < N; i++, j--) {
@@ -161,22 +165,35 @@ int main() {
 		}
 		return v;
 	};
-	auto fits_inside_pair_inf = [&](int g) -> num {
-		if (g <= 1) return 0;
-		assert(g >= 2);
+	*/
+	auto fits_inside_pair_slow = [&](int g1, int g2) -> num {
+		if (g1 <= 1) return 0;
+		if (g2 <= 1) return 0;
+		assert(g1 >= 2);
 		int l = N-1;
-		auto ways_dist = [&](int d1, int d2) -> num {
+		auto ways_dist_2 = [&](int d1, int d2) -> num {
+			assert(d1 >= 0);
+			assert(d2 >= 0);
 			d1 = std::abs(d1);
 			d2 = std::abs(d2);
-			assert(d1 % 2 == 0);
-			assert(d2 % 2 == 0);
-			return choose(2*N-1, (N-1) - (d1 + d2) / 2);
+			return choose(2*N-1, (N-1) - (d1 + d2));
+		};
+		auto ways_dist_1 = [&](int d1) -> num {
+			num ans = 0;
+			for (int a2 = 0; a2*2*g2 - 2 <= 2*l; a2++) {
+				if (a2 > 0) ans -= ways_dist_2(d1, a2 * g2 - 1);
+				ans += (a2 == 0 ? 1 : 2) * ways_dist_2(d1, a2 * g2);
+				ans -= ways_dist_2(d1, a2 * g2 + 1);
+			}
+			return ans;
 		};
 		num ans = 0;
-		for (int a = 0; a*2*g - 2 <= 2*l; a++) {
-			ans -= ways_dist(a * 2 * g - 2);
-			ans += (a == 0 ? 1 : 2) * ways_dist(a * 2 * g);
-			if (a > 0) ans -= ways_dist(a * 2 * g + 2);
+		for (int a1 = 0; a1*2*g1 - 2 <= 2*l; a1++) {
+			for (int a2 = 0; a2*2*g1 - 2 <= 2*l; a2++) {
+				if (a1 > 0) ans -= ways_dist_1(a1 * g1 - 1);
+				ans += (a1 == 0 ? 1 : 2) * ways_dist_1(a1 * g1);
+				ans -= ways_dist_1(a1 * g1 + 1);
+			}
 		}
 	};
 	std::vector<num> ans(N+1);
