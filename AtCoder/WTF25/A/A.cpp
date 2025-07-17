@@ -363,7 +363,7 @@ int main() {
 			auto rng = layout.get_range(invP[cur], N);
 			int min_val = N;
 			rng.for_each([&](auto a) {min_val = std::min(min_val, seg[a]);});
-			if (min_val < N) {
+			if (min_val < cur) {
 				cerr << "found min " << min_val << '\n';
 				add(min_val);
 			}
