@@ -171,7 +171,7 @@ int main() {
 			ans[2*d+2] += exactly_gap(i, d) * at_least_gap(j, d+1);
 		}
 	}
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i < N-1; i++) {
 		cout << ans[i] << '\n';
 	}
 
