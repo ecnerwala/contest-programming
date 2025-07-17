@@ -57,13 +57,11 @@ int main() {
 
 			int64_t pref = 0;
 			for (int i = 0; i < N; i++) {
-				if (i == 0 && pos[i] != A[i]) return false;
 				if (!(0 <= pos[i] && pos[i] <= A[i])) return false;
 				if (i > 0 && pos[i-1] + (A[i] - pos[i]) > d) return false;
 				pref -= A[i] - pos[i];
 				if (pref < 0) return false;
 				pref += pos[i];
-				if (i == N-1 && pos[i] != 0) return false;
 			}
 			if (pref != 0) return false;
 			return true;
