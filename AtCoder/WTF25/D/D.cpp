@@ -147,7 +147,7 @@ int main() {
 		assert(g >= 2);
 		auto ways_dist = [&](int d) -> num {
 			assert(d >= 0);
-			return choose(l, l - d);
+			return choose(2*l, l - d);
 		};
 		num ans = 0;
 		for (int a = 0; a*g - 1 <= l; a++) {
