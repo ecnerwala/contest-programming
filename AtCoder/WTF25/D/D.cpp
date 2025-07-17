@@ -160,10 +160,19 @@ int main() {
 	auto at_least_gap = [&](int l, int g) -> num {
 		return fits_inside(l, l+2) - fits_inside(l, g+1);
 	};
+	auto fits_inside_pair = [&](int a, int b) -> num {
+		num v = 0;
+		for (int i = 0, j = N-1; i < N; i++, j--) {
+			v += fits_inside(i, a) * fits_inside(j, b);
+		}
+		return v;
+	};
 	std::vector<num> ans(N+1);
 	for (int d = 0; 2 * d + 1 <= N; d++) {
+		ans[2*d+1] += fits_inside_pair(d+2, N+2) - fits_inside_pair(d+1, N+2) - 
+			fits_inside_pair(d+2, d+1) + fits_inside_pair(d+1, d+1);
 		for (int i = 0, j = N-1; i < N; i++, j--) {
-			ans[2*d+1] += (fits_inside(i, d+2) - fits_inside(i, d+1)) * (fits_inside(j, N+2) - fits_inside(j, d+1));
+			//ans[2*d+1] += (fits_inside(i, d+2) - fits_inside(i, d+1)) * (fits_inside(j, N+2) - fits_inside(j, d+1));
 			//ans[2*d+1] += exactly_gap(i, d) * at_least_gap(j, d);
 		}
 	}
