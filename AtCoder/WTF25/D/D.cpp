@@ -158,7 +158,7 @@ int main() {
 		return fits_inside(l, g+2) - fits_inside(l, g+1);
 	};
 	for (int g = 0; g <= 10; g++) {
-		cerr << fits_inside(5, g) << '\n';
+		cerr << exactly_gap(5, g) << '\n';
 	}
 
 
