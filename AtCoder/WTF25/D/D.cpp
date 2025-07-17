@@ -126,7 +126,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int N; cin >> N;
+	int N; cin >> N; N--;
 
 	using num = modnum<998244353>;
 
@@ -171,7 +171,7 @@ int main() {
 			ans[2*d+2] += exactly_gap(i, d) * at_least_gap(j, d+1);
 		}
 	}
-	for (int i = 1; i <= N-1; i++) {
+	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
 	}
 
