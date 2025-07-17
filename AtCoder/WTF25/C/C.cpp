@@ -53,13 +53,82 @@ int main() {
 			assert(min_sum <= tgt && tgt <= max_sum);
 
 			std::vector<int64_t> pos = min_pos;
-			int64_t extra = tgt - min_sum;
+			int mid;
+			{
+				int64_t extra = tgt - min_sum;
+				mid = 0;
+				while (extra > 0) {
+					assert(mid < N);
+					int64_t max_more = max_pos[mid] - min_pos[mid];
+					if (max_more >= extra) {
+						pos[mid] += extra;
+						extra = 0;
+						break;
+					} else {
+						pos[mid] += max_more;
+						extra -= max_more;
+						mid++;
+					}
+				}
+			}
+
+			assert(std::accumulate(pos.begin(), pos.end(), int64_t(0)) == tgt);
+
+			int lo = mid, hi = mid;
+			int64_t v_lo = pos[mid], v_hi = pos[mid];
+			int64_t extra = 0;
+			while (true) {
+				{
+					int len = hi - lo + 1;
+					int64_t v = extra / len;
+					extra -= len * v;
+					if (extra < 0) {
+						extra += len;
+						v--;
+					}
+					v_lo += v;
+					v_hi += v;
+				}
+				assert(0 <= extra && extra <= hi - lo);
+				if (lo-1 >= 0 && v_lo - pos[lo-1] < min_diff[lo-1]) {
+					lo--;
+					v_lo -= min_diff[lo];
+
+					extra += pos[lo] - v_lo;
+					continue;
+				}
+				if (hi+1 < N && pos[hi+1] - v_hi <= min_diff[hi]) {
+					v_hi += min_diff[hi];
+					hi++;
+
+					extra += pos[hi] - v_hi;
+					continue;
+				}
+
+				break;
+			}
+			assert(0 <= extra && extra <= hi - lo);
+
+			{
+				int64_t v = v_lo;
+				for (int i = lo; i <= hi; i++) {
+					pos[i] = v;
+					if (i == hi) assert(v == v_hi);
+					else v += min_diff[i];
+				}
+				for (int i = hi; extra > 0; i--) {
+					pos[i]++;
+					extra--;
+				}
+				assert(std::accumulate(pos.begin(), pos.end(), int64_t(0)) == tgt);
+			}
 
 			int64_t pref = 0;
 			for (int i = 0; i < N; i++) {
 				if (!(0 <= pos[i] && pos[i] <= A[i])) return false;
-				if (i > 0 && pos[i-1] + (A[i] - pos[i]) > d) return false;
-				pref -= A[i] - pos[i];
+				int64_t neg = A[i] - pos[i];
+				if (i > 0 && pos[i-1] + neg > d) return false;
+				pref -= neg;
 				if (pref < 0) return false;
 				pref += pos[i];
 			}
