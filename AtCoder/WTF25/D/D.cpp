@@ -154,10 +154,10 @@ int main() {
 		}
 		return ans;
 	};
-	auto fits_inside_pair = [&](int a, int b) -> num {
+	auto fits_inside_pair = [&](int g1, int g2) -> num {
 		num v = 0;
 		for (int i = 0, j = N-1; i < N; i++, j--) {
-			v += fits_inside(i, a) * fits_inside(j, b);
+			v += fits_inside(i, g1) * fits_inside(j, g2);
 		}
 		return v;
 	};
