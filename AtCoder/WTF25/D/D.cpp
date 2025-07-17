@@ -174,13 +174,11 @@ int main() {
 		auto ways_dist_2 = [&](int d1, int d2) -> num {
 			assert(d1 >= 0);
 			assert(d2 >= 0);
-			d1 = std::abs(d1);
-			d2 = std::abs(d2);
 			return choose(2*N-1, (N-1) - (d1 + d2));
 		};
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
-			for (int a2 = 0; a2*2*g2 - 2 <= 2*l; a2++) {
+			for (int a2 = 0; a2*g2 - 1 <= l; a2++) {
 				if (a2 > 0) ans -= ways_dist_2(d1, a2 * g2 - 1);
 				ans += (a2 == 0 ? 1 : 2) * ways_dist_2(d1, a2 * g2);
 				ans -= ways_dist_2(d1, a2 * g2 + 1);
@@ -188,7 +186,7 @@ int main() {
 			return ans;
 		};
 		num ans = 0;
-		for (int a1 = 0; a1*2*g1 - 2 <= 2*l; a1++) {
+		for (int a1 = 0; a1*g1 - 1 <= l; a1++) {
 			for (int a2 = 0; a2*2*g1 - 2 <= 2*l; a2++) {
 				if (a1 > 0) ans -= ways_dist_1(a1 * g1 - 1);
 				ans += (a1 == 0 ? 1 : 2) * ways_dist_1(a1 * g1);
