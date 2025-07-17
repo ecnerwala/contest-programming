@@ -336,6 +336,7 @@ int main() {
 		std::vector<int> res; res.reserve(N);
 		std::vector<bool> used(N, false);
 		auto add = [&](int v) -> void {
+			cerr << "add " << v << '\n';
 			assert(!used[v]);
 			res.push_back(v);
 			used[v] = true;
