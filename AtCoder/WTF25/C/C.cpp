@@ -13,7 +13,7 @@ int main() {
 		std::vector<int64_t> A(N);
 		for (auto& a : A) cin >> a;
 
-		std::vector<int64_t> pref_A(N);
+		std::vector<int64_t> pref_A(N+1);
 		pref_A[0] = 0;
 		for (int i = 0; i < N; i++) {
 			pref_A[i+1] = pref_A[i] + A[i];
