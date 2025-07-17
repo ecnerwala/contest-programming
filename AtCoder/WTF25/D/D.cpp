@@ -185,11 +185,9 @@ int main() {
 		};
 		num ans = 0;
 		for (int a1 = 0; a1*g1 - 1 <= l; a1++) {
-			for (int a2 = 0; a2*2*g1 - 2 <= 2*l; a2++) {
-				if (a1 > 0) ans -= ways_dist_1(a1 * g1 - 1);
-				ans += (a1 == 0 ? 1 : 2) * ways_dist_1(a1 * g1);
-				ans -= ways_dist_1(a1 * g1 + 1);
-			}
+			if (a1 > 0) ans -= ways_dist_1(a1 * g1 - 1);
+			ans += (a1 == 0 ? 1 : 2) * ways_dist_1(a1 * g1);
+			ans -= ways_dist_1(a1 * g1 + 1);
 		}
 		return ans;
 	};
