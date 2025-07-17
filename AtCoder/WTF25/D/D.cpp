@@ -180,7 +180,7 @@ int main() {
 		};
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
-			for (int a2 = 0; a2*g2 - 1 <= l; a2++) {
+			for (int a2 = 0; d1 + a2*g2 - 1 <= l; a2++) {
 				if (a2 > 0) ans -= ways_dist_2(d1, a2 * g2 - 1);
 				ans += (a2 == 0 ? 1 : 2) * ways_dist_2(d1, a2 * g2);
 				ans -= ways_dist_2(d1, a2 * g2 + 1);
