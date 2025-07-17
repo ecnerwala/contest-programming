@@ -343,6 +343,7 @@ int main() {
 			used[v] = true;
 			seg_tree::point p(invP[v]);
 			seg[p] = N;
+			cerr << "fixing " << invP[v] << '\n';
 			p.for_parents_up([&](auto a) -> void {
 				seg[a] = std::min(seg[a.c(0)], seg[a.c(1)]);
 			});
