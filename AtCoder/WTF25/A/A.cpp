@@ -343,10 +343,12 @@ int main() {
 			used[v] = true;
 			seg_tree::point p(invP[v]);
 			seg[p] = N;
-			cerr << "fixing " << invP[v] << '\n';
 			p.for_parents_up([&](auto a) -> void {
 				seg[a] = std::min(seg[a.c(0)], seg[a.c(1)]);
 			});
+			for (seg_tree::point a(1); a < layout.N * 2; a++) {
+				cerr << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << seg[a] << '\n';
+			}
 		};
 
 		while (!dp.empty()) {
