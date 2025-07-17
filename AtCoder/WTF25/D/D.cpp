@@ -172,7 +172,6 @@ int main() {
 		auto ways_dist_2 = [&](int d1, int d2) -> num {
 			assert(d1 >= 0);
 			assert(d2 >= 0);
-			return choose(2*l+1, l - (d1 + d2));
 			num res = 0;
 			for (int i = 0, j = l; i <= l; i++, j--) {
 				res += choose(2*i, i-d1) * choose(2*j, j-d2);
