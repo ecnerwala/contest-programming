@@ -170,7 +170,7 @@ int main() {
 	for (int d = 0; 2 * d + 2 <= N; d++) {
 		for (int i = 0, j = N-1; i < N; i++, j--) {
 			ans[2*d+2] += (fits_inside(i, d+2) - fits_inside(i, d+1)) * (fits_inside(j, N+2) - fits_inside(j, d+2));
-			ans[2*d+2] += exactly_gap(i, d) * at_least_gap(j, d+1);
+			//ans[2*d+2] += exactly_gap(i, d) * at_least_gap(j, d+1);
 		}
 	}
 	for (int i = 1; i <= N; i++) {
