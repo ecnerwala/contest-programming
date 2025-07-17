@@ -154,12 +154,6 @@ int main() {
 		}
 		return ans;
 	};
-	auto exactly_gap = [&](int l, int g) -> num {
-		return fits_inside(l, g+2) - fits_inside(l, g+1);
-	};
-	auto at_least_gap = [&](int l, int g) -> num {
-		return fits_inside(l, l+2) - fits_inside(l, g+1);
-	};
 	auto fits_inside_pair = [&](int a, int b) -> num {
 		num v = 0;
 		for (int i = 0, j = N-1; i < N; i++, j--) {
