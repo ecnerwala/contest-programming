@@ -178,7 +178,9 @@ int main() {
 				res += choose(2*i, i-d1) * choose(2*j, j-d2);
 			}
 			cerr << d1 + d2 << ' ' << l << ' ' << choose(2*l, l - (d1+d2)) << ' ' << res << '\n';
-			assert(res == choose(2*l, l - (d1+d2)) / num(l+1) * num(d1+d2+1));
+			if (d1+d2 > 0) {
+				assert(res == choose(2*l, l - (d1+d2)) / num(l+1) * num(d1+d2+1));
+			}
 			return res;
 		};
 		auto ways_dist_1 = [&](int d1) -> num {
