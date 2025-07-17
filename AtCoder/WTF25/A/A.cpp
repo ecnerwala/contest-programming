@@ -294,6 +294,7 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
+		cerr << "case " << '\n';
 		int N; cin >> N;
 		std::vector<int> P(N);
 		for (auto& p : P) { cin >> p; p--; }
