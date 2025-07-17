@@ -337,7 +337,6 @@ int main() {
 		std::vector<int> res; res.reserve(N);
 		std::vector<bool> used(N, false);
 		auto add = [&](int v) -> void {
-			cerr << "add " << v << '\n';
 			assert(!used[v]);
 			res.push_back(v);
 			used[v] = true;
@@ -346,9 +345,6 @@ int main() {
 			p.for_parents_up([&](auto a) -> void {
 				seg[a] = std::min(seg[a.c(0)], seg[a.c(1)]);
 			});
-			for (seg_tree::point a(1); a < layout.N * 2; a++) {
-				cerr << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << ' ' << seg[a] << '\n';
-			}
 		};
 
 		while (!dp.empty()) {
@@ -364,7 +360,6 @@ int main() {
 			int min_val = N;
 			rng.for_each([&](auto a) {min_val = std::min(min_val, seg[a]);});
 			if (min_val < cur) {
-				cerr << "found min " << min_val << '\n';
 				add(min_val);
 			}
 		}
