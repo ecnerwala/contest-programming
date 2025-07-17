@@ -341,7 +341,7 @@ int main() {
 			assert(!used[v]);
 			res.push_back(v);
 			used[v] = true;
-			seg_tree::point p(invP[v]);
+			seg_tree::point p = layout.get_point(invP[v]);
 			seg[p] = N;
 			p.for_parents_up([&](auto a) -> void {
 				seg[a] = std::min(seg[a.c(0)], seg[a.c(1)]);
