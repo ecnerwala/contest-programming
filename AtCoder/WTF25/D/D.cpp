@@ -157,8 +157,22 @@ int main() {
 	auto exactly_gap = [&](int l, int g) -> num {
 		return fits_inside(l, g+2) - fits_inside(l, g+1);
 	};
-	for (int g = 0; g <= 10; g++) {
-		cerr << exactly_gap(6, g) << '\n';
+	auto at_least_gap = [&](int l, int g) -> num {
+		return fits_inside(l, l+2) - fits_inside(l, g+1);
+	};
+	std::vector<num> ans(N+1);
+	for (int d = 0; 2 * d + 1 <= N; d++) {
+		for (int i = 0, j = N-1; i < N; i++, j--) {
+			ans[2*d+1] += exactly_gap(i, d) * at_least_gap(j, d);
+		}
+	}
+	for (int d = 0; 2 * d + 2 <= N; d++) {
+		for (int i = 0, j = N-1; i < N; i++, j--) {
+			ans[2*d+2] += exactly_gap(i, d) * at_least_gap(j, d+1);
+		}
+	}
+	for (int i = 1; i <= N; i++) {
+		cout << ans[i] << '\n';
 	}
 
 
