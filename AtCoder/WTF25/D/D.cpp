@@ -146,18 +146,17 @@ int main() {
 		if (g <= 1) return 0;
 		assert(g >= 2);
 		auto ways_dist = [&](int d) -> num {
-			assert(d % 2 == 0);
-			return choose(2*l, l - d / 2);
+			assert(d >= 0);
+			return choose(l, l - d);
 		};
 		num ans = 0;
-		for (int a = 0; a*2*g - 2 <= 2*l; a++) {
-			ans -= ways_dist(a * 2 * g - 2);
-			ans += (a == 0 ? 1 : 2) * ways_dist(a * 2 * g);
-			if (a > 0) ans -= ways_dist(a * 2 * g + 2);
+		for (int a = 0; a*g - 1 <= l; a++) {
+			if (a > 0) ans -= ways_dist(a * g - 1);
+			ans += (a == 0 ? 1 : 2) * ways_dist(a * g);
+			ans -= ways_dist(a * g + 1);
 		}
 		return ans;
 	};
-	/*
 	auto fits_inside_pair_slow = [&](int g1, int g2) -> num {
 		num v = 0;
 		for (int i = 0, j = N-1; i < N; i++, j--) {
@@ -165,8 +164,7 @@ int main() {
 		}
 		return v;
 	};
-	*/
-	auto fits_inside_pair_slow = [&](int g1, int g2) -> num {
+	auto fits_inside_pair = [&](int g1, int g2) -> num {
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
 		assert(g1 >= 2);
