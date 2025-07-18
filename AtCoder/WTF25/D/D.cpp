@@ -171,8 +171,12 @@ int main() {
 		};
 		if (g1 < g2) std::swap(g1, g2);
 		if (g1 - g2 == 1) {
-			// ways_dist_2
-			return fits_inside(l+1, g1);
+			// (1 - x^{g2 - 1}) / (1 - x^{g2}) * (1 - x^{g1 - 1}) / (1 - x^{g1}): the inner terms cancel
+			num ans = 0;
+			for (int a1 = 0; a1*g1 <= l; a1++) {
+				ans += ways_dist_2(a1 * g1) - ways_dist_2(a1 * g1 + g1 - 2);
+			}
+			return ans;
 		} else if (g1 == g2) {
 			int g = g1;
 			num ans = 0;
@@ -180,7 +184,7 @@ int main() {
 				ans += num(a+1) * (ways_dist_2(a * g) - 2 * ways_dist_2(a * g + g - 1) + ways_dist_2(a * g + 2 * (g-1)));
 			}
 			return ans;
-		} else {
+		} else if (g1 > l) {
 			assert(g1 > l);
 		}
 		auto ways_dist_1 = [&](int d1) -> num {
