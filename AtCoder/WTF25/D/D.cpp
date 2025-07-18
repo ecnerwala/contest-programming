@@ -163,18 +163,18 @@ int main() {
 		return v;
 	};
 	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
-		if (g1 < g2) std::swap(g1, g2);
-		if (g1 - g2 == 1) return fits_inside(l+1, g1);
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
-		assert(g1 >= 2);
 		auto ways_dist_2 = [&](int d1, int d2) -> num {
 			assert(d1 >= 0);
 			assert(d2 >= 0);
 			if (d1 + d2 > l) return 0;
 			return choose(2*l+1, l - (d1 + d2)) - choose(2*l+1, l - (d1 + d2) - 1);
 		};
-		if (g1 == g2) {
+		if (g1 < g2) std::swap(g1, g2);
+		if (g1 - g2 == 1) {
+			return fits_inside(l+1, g1);
+		} else if (g1 == g2) {
 			int g = g1;
 			num ans = 0;
 			for (int a = 0; a * g <= l; a++) {
