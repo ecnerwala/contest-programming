@@ -162,16 +162,15 @@ int main() {
 		}
 		return v;
 	};
-	auto fits_inside_pair = [&](int g1, int g2) -> num {
+	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
 		assert(g1 >= 2);
-		int l = N-1;
 		auto ways_dist_2 = [&](int d1, int d2) -> num {
 			assert(d1 >= 0);
 			assert(d2 >= 0);
 			if (d1 + d2 > l) return 0;
-			return choose(2*l + 1, l - (d1 + d2)) - choose(2*l+1, l - (d1 + d2) - 1);
+			return choose(2*l+1, l - (d1 + d2)) - choose(2*l+1, l - (d1 + d2) - 1);
 		};
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
@@ -188,10 +187,10 @@ int main() {
 	};
 	std::vector<num> ans(N+1);
 	for (int d = 0; 2 * d + 1 <= N; d++) {
-		ans[2*d+1] += fits_inside_pair(d+2, N+2) - fits_inside_pair(d+1, N+2) - fits_inside_pair(d+2, d+1) + fits_inside_pair(d+1, d+1);
+		ans[2*d+1] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+1) + fits_inside_pair(N-1, d+1, d+1);
 	}
 	for (int d = 0; 2 * d + 2 <= N; d++) {
-		ans[2*d+2] += fits_inside_pair(d+2, N+2) - fits_inside_pair(d+1, N+2) - fits_inside_pair(d+2, d+2) + fits_inside_pair(d+1, d+2);
+		ans[2*d+2] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+2) + fits_inside_pair(N-1, d+1, d+2);
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
