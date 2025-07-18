@@ -163,6 +163,7 @@ int main() {
 		return v;
 	};
 	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
+		if (g1 < g2) std::swap(g1, g2);
 		if (g1 - g2 == 1) return fits_inside(l+1, g1);
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
@@ -201,7 +202,7 @@ int main() {
 		ans[2*d+1] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+1) + fits_inside_pair(N-1, d+1, d+1);
 	}
 	for (int d = 0; 2 * d + 2 <= N; d++) {
-		ans[2*d+2] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+2) + fits_inside_pair(N-1, d+2, d+1);
+		ans[2*d+2] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+2) + fits_inside_pair(N-1, d+1, d+2);
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
