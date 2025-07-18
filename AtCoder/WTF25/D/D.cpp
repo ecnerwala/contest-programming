@@ -173,6 +173,14 @@ int main() {
 			if (d1 + d2 > l) return 0;
 			return choose(2*l+1, l - (d1 + d2)) - choose(2*l+1, l - (d1 + d2) - 1);
 		};
+		if (g1 == g2) {
+			int g = g1;
+			num ans = 0;
+			for (int a = 0; a * g <= l; a++) {
+				ans += num(a+1) * (ways_dist_2(0, a * g) - 2 * ways_dist_2(0, a * g + g - 1) + ways_dist_2(0, a * g + 2 * (g-1)));
+			}
+			return ans;
+		}
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
 			for (int a2 = 0; d1 + a2*g2 <= l; a2++) {
