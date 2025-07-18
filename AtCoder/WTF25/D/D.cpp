@@ -142,46 +142,6 @@ int main() {
 		if (!(0 <= r && r <= n)) return 0;
 		return fact[n] * ifact[r] * ifact[n-r];
 	};
-	auto fits_inside = [&](int l, int g) -> num {
-		if (g <= 1) return 0;
-		assert(g >= 2);
-		auto ways_dist = [&](int d) -> num {
-			assert(d >= 0);
-			return choose(2*l, l - d) - choose(2*l, l-d-1);
-		};
-		num ans = 0;
-		for (int a = 0; a*g <= l; a++) {
-			ans += ways_dist(a*g) - ways_dist(a * g + g - 1);
-		}
-		return ans;
-	};
-	auto fits_inside_pair_slow = [&](int g1, int g2) -> num {
-		num v = 0;
-		for (int i = 0, j = N-1; i < N; i++, j--) {
-			v += fits_inside(i, g1) * fits_inside(j, g2);
-		}
-		return v;
-	};
-	auto fits_inside_pair_general = [&](int l, int g1, int g2) -> num {
-		if (g1 <= 1) return 0;
-		if (g2 <= 1) return 0;
-		auto ways_dist_2 = [&](int d1d2) -> num {
-			if (d1d2 > l) return 0;
-			return choose(2*l+1, l - d1d2) - choose(2*l+1, l - d1d2 - 1);
-		};
-		auto ways_dist_1 = [&](int d1) -> num {
-			num ans = 0;
-			for (int a2 = 0; d1 + a2*g2 <= l; a2++) {
-				ans += ways_dist_2(d1 + a2 * g2) - ways_dist_2(d1 + a2 * g2 + g2 - 1);
-			}
-			return ans;
-		};
-		num ans = 0;
-		for (int a1 = 0; a1*g1 <= l; a1++) {
-			ans += ways_dist_1(a1 * g1) - ways_dist_1(a1 * g1 + g1 - 1);
-		}
-		return ans;
-	};
 	std::vector<num> fits_inside_eq(N+2);
 	std::vector<num> fits_inside_diff_1(N+2);
 	std::vector<num> fits_inside_inf(N+2);
