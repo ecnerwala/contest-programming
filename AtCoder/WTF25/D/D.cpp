@@ -186,12 +186,12 @@ int main() {
 	std::vector<num> fits_inside_diff_1(N+1);
 	std::vector<num> fits_inside_inf(N+1);
 	std::vector<num> ways_dist_2_precomp(N);
+	const int l = N-1;
 	for (int i = 0; i < N; i++) {
 		ways_dist_2_precomp[i] = choose(2*l + 1, l - i);
 		if (i) ways_dist_2_precomp[i-1] -= ways_dist_2_precomp[i];
 	}
 	{
-		const int l = N-1;
 		auto ways_dist_2 = [&](int d1d2) -> num {
 			if (d1d2 > l) return 0;
 			return ways_dist_2_precomp[d1d2];
