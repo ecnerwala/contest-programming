@@ -204,47 +204,12 @@ int main() {
 			}
 		}
 	}
-	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
-		assert(l == N-1);
-		if (g1 <= 1) return 0;
-		if (g2 <= 1) return 0;
-		auto ways_dist_2 = [&](int d1d2) -> num {
-			if (d1d2 > l) return 0;
-			return ways_dist_2_precomp[d1d2];
-		};
-		if (g1 < g2) std::swap(g1, g2);
-		if (g1 - g2 == 1) {
-			// (1 - x^{g2 - 1}) / (1 - x^{g2}) * (1 - x^{g1 - 1}) / (1 - x^{g1}): the inner terms cancel
-			num ans = 0;
-			for (int a1 = 0; a1*g1 <= l; a1++) {
-				ans += ways_dist_2(a1 * g1) - ways_dist_2(a1 * g1 + g1 - 2);
-			}
-			cerr << g1 << ' ' << g2 << ' ' << N << '\n';
-			assert(ans == fits_inside_diff_1[g1]);
-			return ans;
-		} else if (g1 == g2) {
-			int g = g1;
-			num ans = 0;
-			for (int a = 0; a * g <= l; a++) {
-				ans += num(a+1) * (ways_dist_2(a * g) - 2 * ways_dist_2(a * g + g - 1) + ways_dist_2(a * g + 2 * (g-1)));
-			}
-			assert(ans == fits_inside_eq[g1]);
-			return ans;
-		} else if (g1 - 1 > l) {
-			num ans = 0;
-			for (int a2 = 0; a2*g2 <= l; a2++) {
-				ans += ways_dist_2(a2 * g2) - ways_dist_2(a2 * g2 + g2 - 1);
-			}
-			assert(ans == fits_inside_inf[g2]);
-			return ans;
-		} else assert(false);
-	};
 	std::vector<num> ans(N+1);
 	for (int d = 0; 2 * d + 1 <= N; d++) {
-		ans[2*d+1] += fits_inside_pair(N-1, d+2, N+10) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+1) + fits_inside_pair(N-1, d+1, d+1);
+		ans[2*d+1] += fits_inside_inf[d+2] - fits_inside_inf[d+1] - fits_inside_diff_1[d+2] + fits_inside_eq[d+1];
 	}
 	for (int d = 0; 2 * d + 2 <= N; d++) {
-		ans[2*d+2] += fits_inside_pair(N-1, d+2, N+10) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+2) + fits_inside_pair(N-1, d+1, d+2);
+		ans[2*d+2] += fits_inside_inf[d+2] - fits_inside_inf[d+1] - fits_inside_diff_1[d+2] + fits_inside_eq[d+2];
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
