@@ -155,14 +155,14 @@ int main() {
 		}
 		return ans;
 	};
-	auto fits_inside_pair = [&](int g1, int g2) -> num {
+	auto fits_inside_pair_slow = [&](int g1, int g2) -> num {
 		num v = 0;
 		for (int i = 0, j = N-1; i < N; i++, j--) {
 			v += fits_inside(i, g1) * fits_inside(j, g2);
 		}
 		return v;
 	};
-	auto fits_inside_pair_slow = [&](int g1, int g2) -> num {
+	auto fits_inside_pair = [&](int g1, int g2) -> num {
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
 		assert(g1 >= 2);
@@ -188,10 +188,10 @@ int main() {
 	};
 	std::vector<num> ans(N+1);
 	for (int d = 0; 2 * d + 1 <= N; d++) {
-		ans[2*d+1] += fits_inside_pair_slow(d+2, N+2) - fits_inside_pair_slow(d+1, N+2) - fits_inside_pair_slow(d+2, d+1) + fits_inside_pair_slow(d+1, d+1);
+		ans[2*d+1] += fits_inside_pair(d+2, N+2) - fits_inside_pair(d+1, N+2) - fits_inside_pair(d+2, d+1) + fits_inside_pair(d+1, d+1);
 	}
 	for (int d = 0; 2 * d + 2 <= N; d++) {
-		ans[2*d+2] += fits_inside_pair_slow(d+2, N+2) - fits_inside_pair_slow(d+1, N+2) - fits_inside_pair_slow(d+2, d+2) + fits_inside_pair_slow(d+1, d+2);
+		ans[2*d+2] += fits_inside_pair(d+2, N+2) - fits_inside_pair(d+1, N+2) - fits_inside_pair(d+2, d+2) + fits_inside_pair(d+1, d+2);
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
