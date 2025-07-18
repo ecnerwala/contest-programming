@@ -173,7 +173,12 @@ int main() {
 			assert(d1 >= 0);
 			assert(d2 >= 0);
 			if (d1 + d2 > l) return 0;
-			return choose(2*l + 1, l - (d1 + d2));
+			return choose(2*l + 1, l - (d1 + d2)) - choose(2*l+1, l - (d1 + d2) - 1);
+			num res = 0;
+			for (int i = 0, j = l; i <= l; i++, j--) {
+				res += (choose(2*i, i-d1) - choose(2*i, i-d1-1)) * (choose(2*j, j-d2) - choose(2*j, j-d2-1));
+			}
+			return res;
 		};
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
