@@ -182,7 +182,7 @@ int main() {
 			}
 			return ans;
 		} else {
-			assert(g2 > l);
+			assert(g1 > l);
 		}
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
