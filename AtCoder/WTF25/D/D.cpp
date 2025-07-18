@@ -219,6 +219,7 @@ int main() {
 			for (int a1 = 0; a1*g1 <= l; a1++) {
 				ans += ways_dist_2(a1 * g1) - ways_dist_2(a1 * g1 + g1 - 2);
 			}
+			assert(ans == fits_inside_diff_1[g1]);
 			return ans;
 		} else if (g1 == g2) {
 			int g = g1;
@@ -226,12 +227,14 @@ int main() {
 			for (int a = 0; a * g <= l; a++) {
 				ans += num(a+1) * (ways_dist_2(a * g) - 2 * ways_dist_2(a * g + g - 1) + ways_dist_2(a * g + 2 * (g-1)));
 			}
+			assert(ans == fits_inside_eq[g1]);
 			return ans;
 		} else if (g1 - 1 > l) {
 			num ans = 0;
 			for (int a2 = 0; a2*g2 <= l; a2++) {
 				ans += ways_dist_2(a2 * g2) - ways_dist_2(a2 * g2 + g2 - 1);
 			}
+			assert(ans == fits_inside_inf[g2]);
 			return ans;
 		} else assert(false);
 	};
