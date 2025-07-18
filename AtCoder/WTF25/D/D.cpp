@@ -185,8 +185,8 @@ int main() {
 	std::vector<num> ways_dist_2_precomp(N);
 	for (int i = 0; i < N; i++) {
 		ways_dist_2_precomp[i] = choose(2*N-1, N - 1 - i);
+		if (i) ways_dist_2_precomp[i-1] -= ways_dist_2_precomp[i];
 	}
-	for (int i = N-1; i > 0; i--) ways_dist_2_precomp[i] -= ways_dist_2_precomp[i-1];
 	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
 		assert(l == N-1);
 		if (g1 <= 1) return 0;
