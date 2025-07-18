@@ -182,12 +182,18 @@ int main() {
 		}
 		return ans;
 	};
+	std::vector<num> ways_dist_2_precomp(N);
+	for (int i = 0; i < N; i++) {
+		ways_dist_2_precomp[i] = choose(2*N-1, N - 1 - i);
+	}
+	for (int i = N-1; i > 0; i--) ways_dist_2_precomp[i] -= ways_dist_2_precomp[i-1];
 	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
+		assert(l == N-1);
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
 		auto ways_dist_2 = [&](int d1d2) -> num {
 			if (d1d2 > l) return 0;
-			return choose(2*l+1, l - d1d2) - choose(2*l+1, l - d1d2 - 1);
+			return ways_dist_2_precomp[d1d2];
 		};
 		if (g1 < g2) std::swap(g1, g2);
 		if (g1 - g2 == 1) {
