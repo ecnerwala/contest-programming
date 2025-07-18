@@ -184,9 +184,13 @@ int main() {
 				ans += num(a+1) * (ways_dist_2(a * g) - 2 * ways_dist_2(a * g + g - 1) + ways_dist_2(a * g + 2 * (g-1)));
 			}
 			return ans;
-		} else if (g1 > l) {
-			assert(g1 > l);
-		}
+		} else if (g1 - 1 > l) {
+			num ans = 0;
+			for (int a2 = 0; a2*g2 <= l; a2++) {
+				ans += ways_dist_2(a2 * g2) - ways_dist_2(a2 * g2 + g2 - 1);
+			}
+			return ans;
+		} else assert(false);
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
 			for (int a2 = 0; d1 + a2*g2 <= l; a2++) {
