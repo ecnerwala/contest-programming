@@ -185,9 +185,9 @@ int main() {
 	std::vector<num> fits_inside_eq(N+2);
 	std::vector<num> fits_inside_diff_1(N+2);
 	std::vector<num> fits_inside_inf(N+2);
-	std::vector<num> ways_dist_2_precomp(N);
+	std::vector<num> ways_dist_2_precomp(N+1);
 	const int l = N-1;
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i <= N; i++) {
 		ways_dist_2_precomp[i] = choose(2*l + 1, l - i);
 		if (i) ways_dist_2_precomp[i-1] -= ways_dist_2_precomp[i];
 	}
