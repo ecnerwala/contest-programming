@@ -175,7 +175,7 @@ int main() {
 			if (d1 + d2 > l) return 0;
 			num res = 0;
 			for (int i = 0, j = l; i <= l; i++, j--) {
-				res += choose(2*i, i-d1) * choose(2*j, j-d2);
+				res += (choose(2*i, i-d1) - choose(2*i, i-d1-1)) * (choose(2*j, j-d2) - choose(2*j, j-d2-1));
 			}
 			cerr << d1 + d2 << ' ' << l << ' ' << choose(2*l, l - (d1+d2)) << ' ' << res << '\n';
 			assert(res == choose(2*l, l - (d1+d2)) * num(l+1) / num(d1+d2+1));
@@ -183,18 +183,14 @@ int main() {
 		};
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
-			for (int a2 = 0; d1 + a2*g2 - 1 <= l; a2++) {
-				if (a2 > 0) ans -= ways_dist_2(d1, a2 * g2 - 1);
-				ans += (a2 == 0 ? 1 : 2) * ways_dist_2(d1, a2 * g2);
-				ans -= ways_dist_2(d1, a2 * g2 + 1);
+			for (int a2 = 0; d1 + a2*g2 <= l; a2++) {
+				ans += ways_dist_2(d1, a2 * g2) - ways_dist_2(d1, a2 * g2 + g2 - 1);
 			}
 			return ans;
 		};
 		num ans = 0;
-		for (int a1 = 0; a1*g1 - 1 <= l; a1++) {
-			if (a1 > 0) ans -= ways_dist_1(a1 * g1 - 1);
-			ans += (a1 == 0 ? 1 : 2) * ways_dist_1(a1 * g1);
-			ans -= ways_dist_1(a1 * g1 + 1);
+		for (int a1 = 0; a1*g1 <= l; a1++) {
+			ans += ways_dist_1(a1 * g1) - ways_dist_1(a1 * g1 + g1 - 1);
 		}
 		return ans;
 	};
