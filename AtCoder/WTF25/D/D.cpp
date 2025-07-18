@@ -165,20 +165,19 @@ int main() {
 	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
-		auto ways_dist_2 = [&](int d1, int d2) -> num {
-			assert(d1 >= 0);
-			assert(d2 >= 0);
-			if (d1 + d2 > l) return 0;
-			return choose(2*l+1, l - (d1 + d2)) - choose(2*l+1, l - (d1 + d2) - 1);
+		auto ways_dist_2 = [&](int d1d2) -> num {
+			if (d1d2 > l) return 0;
+			return choose(2*l+1, l - d1d2) - choose(2*l+1, l - d1d2 - 1);
 		};
 		if (g1 < g2) std::swap(g1, g2);
 		if (g1 - g2 == 1) {
+			// ways_dist_2
 			return fits_inside(l+1, g1);
 		} else if (g1 == g2) {
 			int g = g1;
 			num ans = 0;
 			for (int a = 0; a * g <= l; a++) {
-				ans += num(a+1) * (ways_dist_2(0, a * g) - 2 * ways_dist_2(0, a * g + g - 1) + ways_dist_2(0, a * g + 2 * (g-1)));
+				ans += num(a+1) * (ways_dist_2(a * g) - 2 * ways_dist_2(a * g + g - 1) + ways_dist_2(a * g + 2 * (g-1)));
 			}
 			return ans;
 		} else {
@@ -187,7 +186,7 @@ int main() {
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
 			for (int a2 = 0; d1 + a2*g2 <= l; a2++) {
-				ans += ways_dist_2(d1, a2 * g2) - ways_dist_2(d1, a2 * g2 + g2 - 1);
+				ans += ways_dist_2(d1 + a2 * g2) - ways_dist_2(d1 + a2 * g2 + g2 - 1);
 			}
 			return ans;
 		};
