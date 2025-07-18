@@ -196,7 +196,7 @@ int main() {
 			if (d1d2 > l) return 0;
 			return ways_dist_2_precomp[d1d2];
 		};
-		for (int g = 1; g <= N; g++) {
+		for (int g = 2; g <= N; g++) {
 			for (int a = 0; a * g <= l; a++) {
 				fits_inside_eq[g] += num(a+1) * (ways_dist_2(a * g) - 2 * ways_dist_2(a * g + g - 1) + ways_dist_2(a * g + 2 * (g-1)));
 				fits_inside_diff_1[g] += ways_dist_2(a * g) - ways_dist_2(a * g + g - 2);
