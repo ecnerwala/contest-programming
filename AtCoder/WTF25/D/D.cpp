@@ -163,6 +163,7 @@ int main() {
 		return v;
 	};
 	auto fits_inside_pair = [&](int l, int g1, int g2) -> num {
+		if (g1 - g2 == 1) return fits_inside(l-1, g1);
 		if (g1 <= 1) return 0;
 		if (g2 <= 1) return 0;
 		assert(g1 >= 2);
