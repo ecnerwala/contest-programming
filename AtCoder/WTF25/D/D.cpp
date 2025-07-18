@@ -138,17 +138,13 @@ int main() {
 	ifact[V] = inv(fact[V]);
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-	auto choose = [&](int n, int r) -> num {
-		if (!(0 <= r && r <= n)) return 0;
-		return fact[n] * ifact[r] * ifact[n-r];
-	};
 	std::vector<num> fits_inside_eq(N+2);
 	std::vector<num> fits_inside_diff_1(N+2);
 	std::vector<num> fits_inside_inf(N+2);
 	std::vector<num> ways_dist_2_precomp(N+1);
 	const int l = N-1;
 	for (int i = 0; i <= N; i++) {
-		ways_dist_2_precomp[i] = choose(2*l + 1, l - i);
+		ways_dist_2_precomp[i] = i <= l ? fact[2*l+1] * ifact[l-i] * ifact[l+1+i] : 0;
 		if (i) ways_dist_2_precomp[i-1] -= ways_dist_2_precomp[i];
 	}
 	{
