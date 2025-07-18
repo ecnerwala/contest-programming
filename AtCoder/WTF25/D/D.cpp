@@ -147,13 +147,11 @@ int main() {
 		assert(g >= 2);
 		auto ways_dist = [&](int d) -> num {
 			assert(d >= 0);
-			return choose(2*l, l - d);
+			return choose(2*l, l - d) - choose(2*l, l-d-1);
 		};
 		num ans = 0;
-		for (int a = 0; a*g - 1 <= l; a++) {
-			if (a > 0) ans -= ways_dist(a * g - 1);
-			ans += (a == 0 ? 1 : 2) * ways_dist(a * g);
-			ans -= ways_dist(a * g + 1);
+		for (int a = 0; a*g <= l; a++) {
+			ans += ways_dist(a*g) - ways_dist(a * g + g - 1);
 		}
 		return ans;
 	};
