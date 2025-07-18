@@ -180,6 +180,8 @@ int main() {
 				ans += num(a+1) * (ways_dist_2(0, a * g) - 2 * ways_dist_2(0, a * g + g - 1) + ways_dist_2(0, a * g + 2 * (g-1)));
 			}
 			return ans;
+		} else {
+			assert(g2 > l);
 		}
 		auto ways_dist_1 = [&](int d1) -> num {
 			num ans = 0;
