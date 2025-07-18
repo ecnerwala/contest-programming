@@ -182,9 +182,9 @@ int main() {
 		}
 		return ans;
 	};
-	std::vector<num> fits_inside_eq(N+1);
-	std::vector<num> fits_inside_diff_1(N+1);
-	std::vector<num> fits_inside_inf(N+1);
+	std::vector<num> fits_inside_eq(N+2);
+	std::vector<num> fits_inside_diff_1(N+2);
+	std::vector<num> fits_inside_inf(N+2);
 	std::vector<num> ways_dist_2_precomp(N);
 	const int l = N-1;
 	for (int i = 0; i < N; i++) {
@@ -196,7 +196,7 @@ int main() {
 			if (d1d2 > l) return 0;
 			return ways_dist_2_precomp[d1d2];
 		};
-		for (int g = 2; g <= N; g++) {
+		for (int g = 2; g <= N+1; g++) {
 			for (int a = 0; a * g <= l; a++) {
 				fits_inside_eq[g] += num(a+1) * (ways_dist_2(a * g) - 2 * ways_dist_2(a * g + g - 1) + ways_dist_2(a * g + 2 * (g-1)));
 				fits_inside_diff_1[g] += ways_dist_2(a * g) - ways_dist_2(a * g + g - 2);
@@ -219,7 +219,7 @@ int main() {
 			for (int a1 = 0; a1*g1 <= l; a1++) {
 				ans += ways_dist_2(a1 * g1) - ways_dist_2(a1 * g1 + g1 - 2);
 			}
-			assert(ans == fits_inside_diff_1[std::min(g1, l)]);
+			assert(ans == fits_inside_diff_1[g1]);
 			return ans;
 		} else if (g1 == g2) {
 			int g = g1;
