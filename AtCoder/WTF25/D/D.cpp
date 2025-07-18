@@ -209,7 +209,7 @@ int main() {
 		ans[2*d+1] += fits_inside_inf[d+2] - fits_inside_inf[d+1] - fits_inside_diff_1[d+2] + fits_inside_eq[d+1];
 	}
 	for (int d = 0; 2 * d + 2 <= N; d++) {
-		ans[2*d+2] += fits_inside_inf[d+2] - fits_inside_inf[d+1] - fits_inside_diff_1[d+2] + fits_inside_eq[d+2];
+		ans[2*d+2] += fits_inside_inf[d+2] - fits_inside_inf[d+1] - fits_inside_eq[d+2] + fits_inside_diff_1[d+2];
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
