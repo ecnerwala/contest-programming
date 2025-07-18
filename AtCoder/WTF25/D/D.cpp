@@ -219,6 +219,7 @@ int main() {
 			for (int a1 = 0; a1*g1 <= l; a1++) {
 				ans += ways_dist_2(a1 * g1) - ways_dist_2(a1 * g1 + g1 - 2);
 			}
+			cerr << g1 << ' ' << g2 << ' ' << N << '\n';
 			assert(ans == fits_inside_diff_1[g1]);
 			return ans;
 		} else if (g1 == g2) {
