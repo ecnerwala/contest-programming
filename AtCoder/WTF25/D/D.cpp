@@ -201,7 +201,7 @@ int main() {
 		ans[2*d+1] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+1) + fits_inside_pair(N-1, d+1, d+1);
 	}
 	for (int d = 0; 2 * d + 2 <= N; d++) {
-		ans[2*d+2] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+2) + fits_inside_pair(N-1, d+1, d+2);
+		ans[2*d+2] += fits_inside_pair(N-1, d+2, N+2) - fits_inside_pair(N-1, d+1, N+2) - fits_inside_pair(N-1, d+2, d+2) + fits_inside_pair(N-1, d+2, d+1);
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
