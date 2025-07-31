@@ -4,6 +4,17 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	int64_t sum = 0;
+	int len = 0;
+	for (int i = 1; true; i++) {
+		if (i * (i+1) / 2 > sum) {
+			len += 2 * i;
+			sum += i * (i+1) / 2;
+			if (len > 1000) exit(0);
+			cerr << i << ' ' << len << ' ' << sum << '\n';
+		}
+	}
+
 	// We first try to find any single pair, which costs 10 queries.
 	// Then, we can do batch tests.
 	int T; cin >> T;
@@ -42,8 +53,8 @@ int main() {
 			closed_ind = (mi+1)%N;
 		}
 		// now, we can just test each thing against it
-		auto check_2 = [&](int i1, int i2) {
-			int resp = query({i1, closed_ind, open_ind, i2, open_ind, i2});
+		auto check_5 = [&](int i1, int i2, int i3, int i4, int i5, int i6) {
+			int resp = query({open_ind, i1, open_ind, i2, open_ind, i2});
 			if (resp == 0) {
 				ans[i1] = ')';
 				ans[i2] = '(';
@@ -58,11 +69,10 @@ int main() {
 				ans[i2] = ')';
 			} else assert(false);
 		};
-		for (int i = 0; i < N; i += 2) {
-			if (i+1 < N) {
-				check_2(i, i+1);
-			} else {
-				check_2(i, i);
+		for (int i = 0; i < N; i += 6) {
+			std::array<int, 6> inds;
+			for (int z = 0; z < 6; z++) {
+				inds[z] = std::min(i + z, N-1);
 			}
 		}
 
