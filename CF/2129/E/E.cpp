@@ -373,19 +373,19 @@ int main() {
 
 		auto add = [&](int ind, int _) {
 			auto [src, dst, e] = edges[ind];
-			if (!alive[e]) {
-				alive[e] = true;
+			alive[e]++;
+			if (alive[e] == 2) {
 				update_val(src, dst);
 				update_val(dst, src);
 			}
 		};
 		auto del = [&](int ind, int _) {
 			auto [src, dst, e] = edges[ind];
-			if (alive[e]) {
-				alive[e] = false;
+			if (alive[e] == 2) {
 				update_val(src, dst);
 				update_val(dst, src);
 			}
+			alive[e]--;
 		};
 		auto calc = [&](int q) -> int {
 			auto [l, r, k] = queries[q];
