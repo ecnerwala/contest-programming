@@ -8,19 +8,19 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		const int V = N * 2;
-		std::vector<int> pref(V+1);
+		std::vector<std::pair<int, int>> pref(V+1, {-1, -1});
 		for (int i = 0; i < N; i++) {
 			int a, b; cin >> a >> b; a--, b--;
-			pref[a]++;
-			pref[b]--;
+			pref[a] = std::max(pref[a], {b, i});
 		}
-		int cur = 0;
-		int ans = 0;
-		for (int i = 0; i <= V; i++) {
-			cur += pref[i];
-			if (cur) ans++;
+		std::vector<int> ans; ans.reserve(V+1);
+		for (auto [b, i] : pref) {
+			if (i != -1) ans.push_back(i);
 		}
-		cout << ans << '\n';
+		cout << ans.size() << '\n';
+		for (int i = 0; i < int(ans.size()); i++) {
+			cout << ans[i]+1 << " \n"[i+1==int(ans.size())];
+		}
 	}
 
 	return 0;
