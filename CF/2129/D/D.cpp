@@ -323,8 +323,8 @@ int main() {
 							int vkr = S[k] == -1 ? 0 : S[k] - vkl;
 							for (int vj = 0; vj <= vj_max; vj++) {
 								num v = dp[{i, k, vi, vkl}] * dp[{k+1, j+1, vkr, vj}] * w;
-								cerr << i << ' ' << k << ' ' << j << ' ' << vi << ' ' << vj << ' ' << v << '\n';
 								if (v != 0) {
+									cerr << i << ' ' << k << ' ' << j << ' ' << vi << ' ' << vj << ' ' << v << '\n';
 									dp[{i, j+1, vi + ai, vj + aj}] += v;
 								}
 							}
