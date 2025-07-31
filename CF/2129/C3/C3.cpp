@@ -11,7 +11,7 @@ int main() {
 		if (i * (i+1) / 2 > sum) {
 			len += 2 * i + 1;
 			sum += i * (i+1) / 2;
-			if (len > 1000) exit(0);
+			if (len > 1000) break;
 			seq.push_back(i);
 			cerr << int(seq.size()) << ' ' << i << ' ' << len << ' ' << sum << '\n';
 		}
