@@ -343,7 +343,7 @@ int main() {
 		for (int i = 0; i < N; i++) deg_pref[i+1] = deg_pref[i] + deg[i];
 		assert(deg_pref[N] == 2*M);
 
-		std::vector<int> alive(M, false);
+		std::vector<int> alive(M, 0);
 
 		struct query_t {
 			int l, r, k;
