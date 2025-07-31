@@ -367,6 +367,7 @@ int main() {
 		auto update_val = [&](int u, int v) -> void {
 			layout.get_point(val[u]).for_each([&](auto a) -> void { seg[a]--; });
 			val[u] ^= v+1;
+			cerr << "set " << u << ' ' << val[u] << '\n';
 			layout.get_point(val[u]).for_each([&](auto a) -> void { seg[a]++; });
 		};
 
@@ -388,6 +389,8 @@ int main() {
 		};
 		auto calc = [&](int q) -> int {
 			auto [l, r, k] = queries[q];
+			cerr << "calc " << q << ' ' << l << '-' << r << ' ' << k << '\n';
+			for (auto v : val) { cerr << v << ' '; } cerr << '\n';
 			// the prefix is all 0's
 			k += N - (r - l);
 			seg_tree::point a(1);
