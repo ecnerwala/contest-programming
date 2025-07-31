@@ -13,7 +13,7 @@ int main() {
 			sum += i * (i+1) / 2;
 			if (len > 1000) exit(0);
 			seq.push_back(i);
-			cerr << i << ' ' << len << ' ' << sum << '\n';
+			cerr << int(seq.size()) << i << ' ' << len << ' ' << sum << '\n';
 		}
 	}
 
