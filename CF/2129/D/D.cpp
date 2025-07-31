@@ -302,8 +302,8 @@ int main() {
 		for (int len = 1; len <= N; len++) {
 			num w = inv(num(len));
 			for (int i = 0, j = len-1; j < N; i++, j++) {
-				int vi_max = (i-1 < 0 || S[i-1] == -1) ? 0 : S[i-1];
-				int vj_max = (j+1 >= N || S[j+1] == -1) ? 0 : S[j+1];
+				int vi_max = (i-1 < 0 || S[i-1] == -1) ? 0 : std::min(S[i-1], V);
+				int vj_max = (j+1 >= N || S[j+1] == -1) ? 0 : std::min(S[j+1], V);
 				for (int k = i; k <= j; k++) {
 					int ai = (i-1 >= 0 && S[i-1] != -1) && (j+1 >= N || k-i <= j-k);
 					int aj = (j+1 < N && S[j+1] != -1) && (i-1 < 0 || j-k < k-i);
