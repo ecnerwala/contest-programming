@@ -333,7 +333,7 @@ int main() {
 				}
 			}
 		}
-		cout << dp[{0, N-1, 0, 0}] * fact[N] << '\n';
+		cout << dp[{0, N, 0, 0}] * fact[N] << '\n';
 		exit(0);
 	}
 
