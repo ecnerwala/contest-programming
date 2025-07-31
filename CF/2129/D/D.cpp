@@ -325,7 +325,7 @@ int main() {
 							for (int vj = 0; vj <= vj_max; vj++) {
 								num v = dp[{i, k, vi, vkl}] * dp[{k+1, j+1, vkr, vj}] * w;
 								if (v != 0) {
-									cerr << i << ' ' << k << ' ' << j << ' ' << vi << ' ' << vj << ' ' << v << '\n';
+									cerr << i << ' ' << k << ' ' << j << ' ' << vi << ' ' << vj << ' ' << v << ' ' << ai << ' ' << aj << '\n';
 									dp[{i, j+1, vi + ai, vj + aj}] += v;
 								}
 							}
