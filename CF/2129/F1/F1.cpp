@@ -77,14 +77,14 @@ int main() {
 			if (q_inds.empty()) {
 				continue;
 			}
-			cout << (q == 0 ? 4 : 2) << ' ';
+			cout << (q == 0 ? 4 : 2);
 			for (auto i : q_inds) {
 				cout << ' ' << i+1;
 			}
 			cout << '\n' << flush;
 			assert(int(q_inds.size()) <= (q == 0 ? 300 : 60));
 			for (int z = 0; z < int(q_inds.size()); z++) {
-				int v; cin >> v;
+				int v; cin >> v; v--;
 				results[v].push_back(q);
 			}
 		}
