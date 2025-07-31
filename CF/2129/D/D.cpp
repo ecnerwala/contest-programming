@@ -288,16 +288,6 @@ int main() {
 		std::vector<int> S(N);
 		for (auto& s : S) cin >> s;
 		const int V = 10;
-		bool good = true;
-		for (auto s : S) {
-			if (s > V) {
-				good = false;
-			}
-		}
-		if (!good) {
-			cout << 0 << '\n';
-			continue;
-		}
 
 		using num = modnum<998244353>;
 		std::vector<num> fact(N+1);
@@ -321,6 +311,8 @@ int main() {
 					for (int vi = 0; vi <= vi_max; vi++) {
 						for (int vkl = 0; vkl <= vk_max; vkl++) {
 							int vkr = S[k] == -1 ? 0 : S[k] - vkl;
+							if (dp[{i, k, vi, vkl}] == 0) continue;
+							if (vkr > V) continue;
 							for (int vj = 0; vj <= vj_max; vj++) {
 								num v = dp[{i, k, vi, vkl}] * dp[{k+1, j+1, vkr, vj}] * w;
 								//cerr << i-1 << '-' << k << '-' << j+1 << ' ' << vi << '/' << vkl << ' ' << vkl << '/' << vj << ' ' << vi+ai << ' ' << vj+aj << ' ' << v << '\n';
