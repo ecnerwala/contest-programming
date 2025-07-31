@@ -339,7 +339,7 @@ int main() {
 		const int V = 1 << (32 - __builtin_clz(N));
 
 		std::vector<int> deg_pref(N+1);
-		deg[0] = 0;
+		deg_pref[0] = 0;
 		for (int i = 0; i < N; i++) deg_pref[i+1] = deg_pref[i] + deg[i];
 		for (auto v : deg) { cerr << v << ' '; } cerr << '\n';
 		for (auto v : deg_pref) { cerr << v << ' '; } cerr << '\n';
