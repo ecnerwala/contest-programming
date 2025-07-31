@@ -284,7 +284,6 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		cerr << "start case" << '\n';
 		int N; cin >> N;
 		std::vector<int> S(N);
 		for (auto& s : S) cin >> s;
