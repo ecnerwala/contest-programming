@@ -16,7 +16,7 @@ int main() {
 			freq[j]--;
 		}
 	}
-	std::mt19937 mt(48);
+	std::mt19937 mt(49);
 	auto did_find = [&](this auto&& self) -> bool {
 		cerr << "dfs " << int(locs.size()) << '\n';
 		if (int(locs.size()) == 845) return true;
