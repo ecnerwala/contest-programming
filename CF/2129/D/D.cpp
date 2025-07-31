@@ -307,7 +307,7 @@ int main() {
 				for (int k = i; k <= j; k++) {
 					int ai = (i-1 >= 0 && S[i-1] != -1) && (j+1 >= N || k-i <= j-k);
 					int aj = (j+1 < N && S[j+1] != -1) && (i-1 < 0 || j-k < k-i);
-					int vk_max = S[k] == -1 ? 0 : S[k];
+					int vk_max = S[k] == -1 ? 0 : std::min(S[k], V);
 					for (int vi = 0; vi <= vi_max; vi++) {
 						for (int vkl = 0; vkl <= vk_max; vkl++) {
 							int vkr = S[k] == -1 ? 0 : S[k] - vkl;
