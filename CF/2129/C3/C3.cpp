@@ -55,27 +55,33 @@ int main() {
 			closed_ind = (mi+1)%N;
 		}
 		// now, we can just test each thing against it
-		auto check_5 = [&](int i1, int i2, int i3, int i4, int i5, int i6) {
-			int resp = query({open_ind, i1, open_ind, i2, open_ind, i2});
-			if (resp == 0) {
-				ans[i1] = ')';
-				ans[i2] = '(';
-			} else if (resp == 1) {
-				ans[i1] = '(';
-				ans[i2] = '(';
-			} else if (resp == 3) {
-				ans[i1] = ')';
-				ans[i2] = ')';
-			} else if (resp == 6) {
-				ans[i1] = '(';
-				ans[i2] = ')';
-			} else assert(false);
-		};
-		for (int i = 0; i < N; i += 6) {
-			std::array<int, 6> inds;
-			for (int z = 0; z < 6; z++) {
+		const int L = int(seq.size());
+		for (int i = 0; i < N; i += L) {
+			std::vector<int> inds(L);
+			for (int z = 0; z < L; z++) {
 				inds[z] = std::min(i + z, N-1);
 			}
+			std::vector<int> cnd; cnd.reserve(1000);
+			for (int z = 0; z < L; z++) {
+				for (int a = 0; a < seq[z]; a++) {
+					cnd.push_back(open_ind);
+				}
+				for (int a = 0; a < seq[z]; a++) {
+					cnd.push_back(inds[z]);
+				}
+				cnd.push_back(open_ind);
+			}
+			int resp = query(cnd);
+			for (int z = L-1; z >= 0; z--) {
+				int cnt = seq[z] * (seq[z]+1) / 2;
+				if (resp >= cnt) {
+					ans[inds[z]] = ')';
+					resp -= cnt;
+				} else {
+					ans[inds[z]] = '(';
+				}
+			}
+			assert(resp == 0);
 		}
 
 		cout << '!' << ' ' << ans << '\n' << flush;
