@@ -18,6 +18,7 @@ int main() {
 	}
 	std::mt19937 mt(48);
 	auto did_find = [&](this auto&& self) -> bool {
+		cerr << "dfs " << int(locs.size()) << '\n';
 		if (int(locs.size()) == 845) return true;
 
 		std::vector<int> legal; legal.reserve(30);
