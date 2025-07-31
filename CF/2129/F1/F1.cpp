@@ -77,7 +77,7 @@ int main() {
 			if (q_inds.empty()) {
 				continue;
 			}
-			cout << (q == 0 ? 4 : 2);
+			cout << (q == 0 ? 4 : 2) << ' ' << int(q_inds.size());
 			for (auto i : q_inds) {
 				cout << ' ' << i+1;
 			}
