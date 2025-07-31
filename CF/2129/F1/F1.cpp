@@ -18,7 +18,6 @@ int main() {
 	}
 	std::mt19937 mt(48);
 	auto did_find = [&](this auto&& self) -> bool {
-		cerr << "dfs " << int(locs.size()) << '\n';
 		if (int(locs.size()) == 845) return true;
 
 		std::vector<int> legal; legal.reserve(30);
@@ -45,9 +44,11 @@ int main() {
 				auto [_, did_insert] = locs.insert(cnd);
 				if (!did_insert) continue;
 			}
+			for (auto v : cnd) freq[v]--;
 
 			if (self()) return true;
 
+			for (auto v : cnd) freq[v]++;
 			locs.erase(cnd);
 		}
 
@@ -55,9 +56,30 @@ int main() {
 	}();
 	assert(did_find);
 
+	std::vector<std::vector<int>> loc_list(locs.begin(), locs.end());
+	std::map<std::vector<int>, int> loc_map;
+	for (int i = 0; i < int(loc_list.size()); i++) {
+		loc_map.insert({loc_list[i], i});
+	}
+
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		for (int q = 0; q < 30; q++) {
+			std::vector<int> q_inds; q_inds.reserve(q == 0 ? 300 : 60);
+			for (int i = 0; i < N; i++) {
+				if (std::find(loc_list[i].begin(), loc_list[i].end(), q) != loc_list[i].end()) {
+					q_inds.push_back(i);
+				}
+			}
+			if (q_inds.empty()) {
+				continue;
+			}
+			cout << (q == 0 ? 4 : 2) << ' ';
+			for (auto i : q_inds) {
+				cout << i << " \n";
+			}
+		}
 	}
 
 	return 0;
