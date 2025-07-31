@@ -341,8 +341,6 @@ int main() {
 		std::vector<int> deg_pref(N+1);
 		deg_pref[0] = 0;
 		for (int i = 0; i < N; i++) deg_pref[i+1] = deg_pref[i] + deg[i];
-		for (auto v : deg) { cerr << v << ' '; } cerr << '\n';
-		for (auto v : deg_pref) { cerr << v << ' '; } cerr << '\n';
 		assert(deg_pref[N] == 2*M);
 
 		std::vector<int> alive(M, false);
