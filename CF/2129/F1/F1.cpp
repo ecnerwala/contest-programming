@@ -18,7 +18,7 @@ int main() {
 	}
 	std::mt19937 mt(50);
 	auto did_find = [&](this auto&& self) -> bool {
-		cerr << "dfs " << int(locs.size()) << '\n';
+		//cerr << "dfs " << int(locs.size()) << '\n';
 		if (int(locs.size()) == 845) return true;
 
 		std::vector<int> legal; legal.reserve(30);
@@ -66,6 +66,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		std::vector<std::vector<int>> results(N);
 		for (int q = 0; q < 30; q++) {
 			std::vector<int> q_inds; q_inds.reserve(q == 0 ? 300 : 60);
 			for (int i = 0; i < N; i++) {
@@ -78,9 +79,22 @@ int main() {
 			}
 			cout << (q == 0 ? 4 : 2) << ' ';
 			for (auto i : q_inds) {
-				cout << i << " \n";
+				cout << ' ' << i+1;
+			}
+			cout << '\n' << flush;
+			assert(int(q_inds.size()) <= (q == 0 ? 300 : 60));
+			for (int z = 0; z < int(q_inds.size()); z++) {
+				int v; cin >> v;
+				results[v].push_back(q);
 			}
 		}
+		cout << '!';
+		for (int i = 0; i < N; i++) {
+			auto it = loc_map.find(results[i]);
+			assert(it != loc_map.end());
+			cout << ' ' << it->second+1;
+		}
+		cout << '\n' << flush;
 	}
 
 	return 0;
