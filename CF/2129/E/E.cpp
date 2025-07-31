@@ -328,8 +328,7 @@ int main() {
 		for (int e = 0; e < M; e++) {
 			int u, v; cin >> u >> v; u--, v--;
 			assert(u != v);
-			if (u > v) std::swap(u, v);
-			assert(u < v);
+			cerr << u << ' ' << v << '\n';
 			edges.push_back({u, v, e});
 			edges.push_back({v, u, e});
 			deg[u]++;
