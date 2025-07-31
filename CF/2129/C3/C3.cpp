@@ -4,13 +4,15 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	std::vector<int> seq;
 	int64_t sum = 0;
 	int len = 0;
 	for (int i = 1; true; i++) {
 		if (i * (i+1) / 2 > sum) {
-			len += 2 * i;
+			len += 2 * i + 1;
 			sum += i * (i+1) / 2;
 			if (len > 1000) exit(0);
+			seq.push_back(i);
 			cerr << i << ' ' << len << ' ' << sum << '\n';
 		}
 	}
