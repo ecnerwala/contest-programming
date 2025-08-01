@@ -53,7 +53,7 @@ int main() {
 		loc_list.push_back({});
 		for (int i = 0; i < 29; i++) {
 			loc_list.push_back({i});
-			for (int j = i+1; i < 29; i++) {
+			for (int j = i+1; j < 29; j++) {
 				loc_list.push_back({i, j});
 			}
 		}
@@ -62,7 +62,6 @@ int main() {
 	for (int i = 0; i < int(loc_list.size()); i++) {
 		loc_map[loc_list[i]].push_back(i);
 	}
-	cerr << int(loc_list.size()) << '\n';
 
 	int T; cin >> T;
 	while (T--) {
