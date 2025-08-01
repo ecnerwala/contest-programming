@@ -9,7 +9,7 @@ int main() {
 	std::set<std::vector<int>> locs;
 	std::mt19937 mt(50);
 	auto did_find = [&](this auto&& self) -> bool {
-		//cerr << "dfs " << int(locs.size()) << '\n';
+		cerr << "dfs " << int(locs.size()) << '\n';
 		if (int(locs.size()) == 18) return true;
 
 		std::vector<int> legal; legal.reserve(30);
