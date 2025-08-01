@@ -4,13 +4,23 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	std::vector<int> freq(30, 2);
+	std::vector<int> freq(30, 60);
 	freq[29] = 0;
 	std::set<std::vector<int>> locs;
+	locs.insert({});
+	for (int i = 0; i < 30; i++) {
+		locs.insert({i});
+		freq[i]--;
+		for (int j = i+1; j < 30; j++) {
+			locs.insert({i, j});
+			freq[i]--;
+			freq[j]--;
+		}
+	}
 	std::mt19937 mt(50);
 	auto did_find = [&](this auto&& self) -> bool {
-		cerr << "dfs " << int(locs.size()) << '\n';
-		if (int(locs.size()) == 18) return true;
+		//cerr << "dfs " << int(locs.size()) << '\n';
+		if (int(locs.size()) == 845) return true;
 
 		std::vector<int> legal; legal.reserve(30);
 		for (int i = 0; i < 30; i++) {
