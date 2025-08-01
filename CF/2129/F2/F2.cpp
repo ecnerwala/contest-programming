@@ -53,6 +53,7 @@ int main() {
 	for (int i = 0; i < int(loc_list.size()); i++) {
 		loc_map.insert({loc_list[i], i});
 	}
+	exit(0);
 
 	int T; cin >> T;
 	while (T--) {
