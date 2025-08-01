@@ -62,6 +62,7 @@ int main() {
 	for (int i = 0; i < int(loc_list.size()); i++) {
 		loc_map[loc_list[i]].push_back(i);
 	}
+	cerr << int(loc_list.size()) << '\n';
 
 	int T; cin >> T;
 	while (T--) {
