@@ -80,6 +80,7 @@ int main() {
 					}
 				}
 			}
+			setmax(r[1], r[0]);
 			cerr << "merge_leaf result " << r[0] << ' ' << r[1] << '\n';
 			return r;
 		};
