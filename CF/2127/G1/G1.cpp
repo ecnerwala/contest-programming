@@ -61,6 +61,7 @@ int main() {
 		std::iota(Q_shuf.begin(), Q_shuf.end(), 0);
 		std::shuffle(Q_shuf.begin(), Q_shuf.end(), mt);
 		auto query = [&](std::vector<int> Q) -> int {
+			cerr << '?' << ' '; for (auto q : Q) { cerr << q << ' '; } cerr << '\n';
 			std::vector<int> A(N);
 			for (int i = 0; i < N; i++) A[i] = Q_shuf[Q[i]];
 			return orig_query(A);
