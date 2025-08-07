@@ -86,7 +86,7 @@ int main() {
 			for (int a = 0; a <= 2; a++) {
 				for (int i = 0; a+i <= 2; i++) {
 					for (int j = 0; j <= 2; j++) {
-						setmax(r[a+i], v[a] + e.v[i][j] + l[1-j]);
+						setmax(r[a+i], v[a] + e.v[i][j] + l[2-j]);
 					}
 				}
 			}
