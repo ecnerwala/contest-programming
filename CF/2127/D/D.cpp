@@ -147,7 +147,6 @@ int main() {
 			}
 			for (auto d : deg2) {
 				if (d >= 3) return 0;
-				if (d == 1) cnt_1++;
 			}
 			if (num_e >= 1) {
 				num ans = 4;
