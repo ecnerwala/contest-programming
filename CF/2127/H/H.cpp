@@ -11,7 +11,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		cerr << '\n' << "start " << N << ' ' << M << '\n';
+		//cerr << '\n' << "start " << N << ' ' << M << '\n';
 		struct edge_t {
 			std::array<std::array<int, 3>, 3> v{
 				std::array<int, 3>{0, 0, 0},
@@ -64,7 +64,7 @@ int main() {
 					}
 				}
 			}
-			cerr << "merge_parallel result " << r.v[0][0] << ' ' << r.v[0][1] << ' ' << r.v[1][0] << ' ' << r.v[1][1] << '\n';
+			//cerr << "merge_parallel result " << r.v[0][0] << ' ' << r.v[0][1] << ' ' << r.v[1][0] << ' ' << r.v[1][1] << '\n';
 			return r;
 		};
 		auto merge_series = [&](edge_t a, vert_t v, edge_t b) -> edge_t {
@@ -78,7 +78,7 @@ int main() {
 					}
 				}
 			}
-			cerr << "merge_series result " << r.v[0][0] << ' ' << r.v[0][1] << ' ' << r.v[1][0] << ' ' << r.v[1][1] << '\n';
+			//cerr << "merge_series result " << r.v[0][0] << ' ' << r.v[0][1] << ' ' << r.v[1][0] << ' ' << r.v[1][1] << '\n';
 			return r;
 		};
 		auto merge_leaf = [&](vert_t v, edge_t e, vert_t l) -> vert_t {
@@ -92,7 +92,7 @@ int main() {
 			}
 			setmax(r[1], r[0]);
 			setmax(r[2], r[1]);
-			cerr << "merge_leaf result " << r[0] << ' ' << r[1] << '\n';
+			//cerr << "merge_leaf result " << r[0] << ' ' << r[1] << '\n';
 			return r;
 		};
 
@@ -111,7 +111,7 @@ int main() {
 				mp.insert({{a, b}, e});
 				return;
 			} else {
-				cerr << "merge parallel " << a << ' ' << b << '\n';
+				//cerr << "merge parallel " << a << ' ' << b << '\n';
 				it->second = merge_parallel(it->second, e);
 			}
 		};
@@ -132,7 +132,7 @@ int main() {
 				assert(u < v);
 				auto e1 = pop_edge(u, cur);
 				auto e2 = pop_edge(cur, v);
-				cerr << "merge series " << u << ' ' << cur << ' ' << v << '\n';
+				//cerr << "merge series " << u << ' ' << cur << ' ' << v << '\n';
 				auto e = merge_series(e1, vert_val[cur], e2);
 
 				push_edge(u, v, e);
@@ -148,7 +148,7 @@ int main() {
 				adj[cur].clear();
 
 				auto e = pop_edge(o, cur);
-				cerr << "merge leaf " << o << ' ' << cur << '\n';
+				//cerr << "merge leaf " << o << ' ' << cur << '\n';
 				vert_val[o] = merge_leaf(vert_val[o], e, vert_val[cur]);
 
 				check_q(o);
