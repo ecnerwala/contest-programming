@@ -50,29 +50,42 @@ int main() {
 
 	//test();
 
-	auto solve = [&](int N, int K, auto&& query) -> std::vector<int> {
+	auto solve = [&](int N, int K, auto&& orig_query) -> std::vector<int> {
 		assert(N >= 4);
 		assert(K >= 2);
 		assert(K == N/2);
 		std::vector<int> P(N, -1);
+
+		std::mt19937 mt(48);
+		std::vector<int> Q_shuf(N);
+		std::iota(Q_shuf.begin(), Q_shuf.end(), 0);
+		std::shuffle(Q_shuf.begin(), Q_shuf.end(), mt);
+		auto query = [&](std::vector<int> Q) -> int {
+			std::vector<int> A(N);
+			for (int i = 0; i < N; i++) A[i] = Q_shuf[Q[i]];
+			return orig_query(A);
+		};
+
+		auto build_query = [&](int i, int d) -> std::vector<int> {
+			d %= (N-1);
+			if (d < 0) d += N-1;
+			std::vector<int> Q(N);
+			std::iota(Q.begin(), Q.end(), 0);
+			std::rotate(Q.begin(), Q.begin() + i, Q.end());
+			std::rotate(Q.begin() + 1, Q.end() - d, Q.end());
+			// rotate the last K elements to the front
+			std::rotate(Q.begin(), Q.end() - K, Q.end());
+			assert(Q[K] == i);
+			return Q;
+		};
 		for (int i = 0; i < N; i++) {
 			std::vector<int> Q_base(N);
 			std::iota(Q_base.begin(), Q_base.end(), 0);
 			std::rotate(Q_base.begin(), Q_base.begin() + i, Q_base.end());
 			assert(Q_base[0] == i);
 			// it'll be +1 in a range of size K, and -1 in a range of size N-1-k;
-			auto build_query = [&](int d) -> std::vector<int> {
-				d %= (N-1);
-				if (d < 0) d += N-1;
-				auto Q = Q_base;
-				std::rotate(Q.begin() + 1, Q.end() - d, Q.end());
-				// rotate the last K elements to the front
-				std::rotate(Q.begin(), Q.end() - K, Q.end());
-				assert(Q[K] == i);
-				return Q;
-			};
 			auto query_shift = [&](int d) -> int {
-				return query(build_query(d));
+				return query(build_query(i, d));
 			};
 
 			const int cnt_big = K;
@@ -113,9 +126,15 @@ int main() {
 				else assert(false);
 			}
 			assert(ma - mi == 1);
-			assert(build_query(mi)[K-1] == build_query(ma)[K+1]);
-			P[build_query(mi)[K-1]] = i;
+			assert(build_query(i, mi)[K-1] == build_query(i, ma)[K+1]);
+			P[build_query(i, mi)[K-1]] = i;
 		}
+
+		std::vector<int> P_shuf(N);
+		for (int i = 0; i < N; i++) {
+			P_shuf[Q_shuf[i]] = Q_shuf[P[i]];
+		}
+
 		return P;
 	};
 
