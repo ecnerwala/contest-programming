@@ -14,7 +14,7 @@ int main() {
 		while (r < N && S[r] == '.') r++;
 
 		int ans = std::min(l - (-1) + 1, N - r + 1);
-		if (l >= 0 && l < X-1) {
+		if (l < X-1) {
 			ans = std::max(ans, std::min((X-1) - (-1) + 1, N - r + 1));
 		}
 		if (r > X+1) {
