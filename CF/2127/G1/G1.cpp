@@ -133,14 +133,14 @@ int main() {
 			}
 			cerr << "test " << N << '\n';
 
+			int K = N/2;
+
 			int num_queries = 0;
 			auto query = [&](const std::vector<int>& Q) -> int {
 				num_queries++;
 				if (num_queries > 10 * N) assert(false);
 				return eval(P, Q, K);
 			};
-
-			int K = N/2;
 
 			auto P_mine = solve(N, K, query);
 			assert(P == P_mine);
