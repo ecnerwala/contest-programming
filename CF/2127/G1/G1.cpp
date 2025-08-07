@@ -134,7 +134,7 @@ int main() {
 				if (is_derrangement) break;
 			}
 			cerr << "test " << N << '\n';
-			for (auto p : P) cin >> p;
+			for (auto p : P) { cerr << p << ' '; } cerr << '\n';
 
 			int K = N/2;
 
