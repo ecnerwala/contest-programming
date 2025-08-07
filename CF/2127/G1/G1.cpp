@@ -149,6 +149,7 @@ int main() {
 			};
 
 			auto P_mine = solve(N, K, query);
+			cerr << '!' << ' '; for (auto q : P_mine) { cerr << q << ' '; } cerr << '\n';
 			assert(P == P_mine);
 		}
 	}
