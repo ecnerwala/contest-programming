@@ -11,6 +11,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
+		cerr << '\n' << "start " << N << ' ' << M << '\n';
 		struct edge_t {
 			std::array<std::array<int, 2>, 2> v;
 			edge_t rev() {
