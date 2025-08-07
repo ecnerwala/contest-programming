@@ -48,7 +48,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	test();
+	//test();
 
 	auto solve = [&](int N, int K, auto&& query) -> std::vector<int> {
 		assert(N >= 4);
