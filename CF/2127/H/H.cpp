@@ -13,12 +13,22 @@ int main() {
 		int N, M; cin >> N >> M;
 		cerr << '\n' << "start " << N << ' ' << M << '\n';
 		struct edge_t {
-			std::array<std::array<int, 2>, 2> v;
+			std::array<std::array<int, 3>, 3> v{
+				std::array<int, 3>{0, 0, 0},
+				std::array<int, 3>{0, 0, 0},
+				std::array<int, 3>{0, 0, 0}
+			};
 			edge_t rev() {
-				return edge_t{{std::array<int, 2>{v[0][0], v[1][0]}, {v[0][1], v[1][1]}}};
+				edge_t r;
+				for (int i = 0; i <= 2; i++) {
+					for (int j = 0; j <= 2; j++) {
+						r.v[i][j] = v[j][i];
+					}
+				}
+				return r;
 			}
 		};
-		using vert_t = std::array<int, 2>;
+		using vert_t = std::array<int, 3>;
 		std::map<std::array<int, 2>, edge_t> mp;
 		std::vector<std::set<int>> adj(N);
 		std::vector<vert_t> vert_val(N, {0, 0});
@@ -27,7 +37,7 @@ int main() {
 			u--, v--;
 			if (u > v) std::swap(u, v);
 			assert(!mp.count({u, v}));
-			mp.insert({{u, v}, edge_t{{std::array<int, 2>{0, 0}, {0, 1}}}});
+			mp.insert({{u, v}, edge_t{{std::array<int, 3>{0, 0, 0}, {0, 1, 1}, {0, 1, 1}}}});
 			adj[u].insert(v);
 			adj[v].insert(u);
 		}
@@ -44,11 +54,11 @@ int main() {
 		}
 
 		auto merge_parallel = [&](edge_t a, edge_t b) -> edge_t {
-			edge_t r{{std::array<int, 2>{0, 0}, {0, 0}}};
-			for (int ai = 0; ai <= 1; ai++) {
-				for (int bi = 0; ai + bi <= 1; bi++) {
-					for (int aj = 0; aj <= 1; aj++) {
-						for (int bj = 0; aj + bj <= 1; bj++) {
+			edge_t r;
+			for (int ai = 0; ai <= 2; ai++) {
+				for (int bi = 0; ai + bi <= 2; bi++) {
+					for (int aj = 0; aj <= 2; aj++) {
+						for (int bj = 0; aj + bj <= 2; bj++) {
 							setmax(r.v[ai+bi][aj+bj], a.v[ai][aj] + b.v[bi][bj]);
 						}
 					}
@@ -58,12 +68,12 @@ int main() {
 			return r;
 		};
 		auto merge_series = [&](edge_t a, vert_t v, edge_t b) -> edge_t {
-			edge_t r{{std::array<int, 2>{0, 0}, {0, 0}}};
-			for (int ai = 0; ai <= 1; ai++) {
-				for (int aj = 0; aj <= 1; aj++) {
-					for (int bj = 0; aj + bj <= 1; bj++) {
-						for (int bk = 0; bk <= 1; bk++) {
-							setmax(r.v[ai][bk], a.v[ai][aj] + v[1-(aj+bj)] + b.v[bj][bk]);
+			edge_t r;
+			for (int ai = 0; ai <= 2; ai++) {
+				for (int aj = 0; aj <= 2; aj++) {
+					for (int bj = 0; aj + bj <= 2; bj++) {
+						for (int bk = 0; bk <= 2; bk++) {
+							setmax(r.v[ai][bk], a.v[ai][aj] + v[2-(aj+bj)] + b.v[bj][bk]);
 						}
 					}
 				}
@@ -72,15 +82,16 @@ int main() {
 			return r;
 		};
 		auto merge_leaf = [&](vert_t v, edge_t e, vert_t l) -> vert_t {
-			vert_t r{0, 0};
-			for (int a = 0; a <= 1; a++) {
-				for (int i = 0; a+i <= 1; i++) {
-					for (int j = 0; j <= 1; j++) {
+			vert_t r{0, 0, 0};
+			for (int a = 0; a <= 2; a++) {
+				for (int i = 0; a+i <= 2; i++) {
+					for (int j = 0; j <= 2; j++) {
 						setmax(r[a+i], v[a] + e.v[i][j] + l[1-j]);
 					}
 				}
 			}
 			setmax(r[1], r[0]);
+			setmax(r[2], r[1]);
 			cerr << "merge_leaf result " << r[0] << ' ' << r[1] << '\n';
 			return r;
 		};
