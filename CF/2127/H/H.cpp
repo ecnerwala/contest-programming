@@ -37,6 +37,8 @@ int main() {
 		for (int z = 0; z < int(q.size()); z++) {
 			int cur = q[z];
 
+			cerr << cur << ' ' << adj[cur].size() << '\n';
+
 			assert(adj[cur].size() <= 2);
 
 			if (adj[cur].size() == 2) {
