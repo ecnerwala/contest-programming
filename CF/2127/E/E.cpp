@@ -129,7 +129,8 @@ template <typename T> using RangeMaxQuery = RangeMinQuery<T, std::greater<T>>;
 struct static_forest_t {
 	int N;
 
-private:
+public:
+//private:
 	// original label to preorder
 	std::vector<int> idx;
 
@@ -301,13 +302,45 @@ int main() {
 		std::vector<int> W(N);
 		for (auto& w : W) cin >> w;
 		std::vector<int> C(N);
-		for (auto& c : C) cin >> c;
+		for (auto& c : C) { cin >> c; c--; }
 		std::vector<std::vector<int>> adj(N);
 		for (int e = 0; e < N-1; e++) {
 			int u, v; cin >> u >> v; u--, v--;
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
+		static_forest_t lca(adj, {N});
+		std::vector<std::vector<std::pair<int, int>>> by_color(K);
+		for (int i = 0; i < N; i++) {
+			if (C[i] == -1) continue;
+			by_color[C[i]].push_back({lca.idx[i], i});
+		}
+		std::vector<bool> is_bad(N, false);
+		for (int c = 0; c < K; c++) {
+			auto& verts = by_color[c];
+			std::sort(verts.begin(), verts.end());
+			for (int i = 0; i+1 < int(verts.size()); i++) {
+				int v = lca.lca(verts[i].second, verts[i+1].second);
+				if (C[v] == -1) C[v] = c;
+				if (C[v] != c) {
+					is_bad[v] = true;
+				}
+			}
+		}
+		int64_t ans = 0;
+		for (int i = 0; i < N; i++) if (is_bad[i]) ans += W[i];
+		// if a vertex is never set, then it's never an LCA; thus, we can just set it equal to its parent, or 0
+		[&](this auto&& self, int cur, int prv) -> void {
+			if (C[cur] == -1) {
+				C[cur] = (prv == -1 ? 0 : C[prv]);
+			}
+			for (int nxt : adj[cur]) {
+				if (nxt == prv) continue;
+				self(nxt, cur);
+			}
+		}(0, -1);
+		cout << ans << '\n';
+		for (int i = 0; i < N; i++) cout << C[i]+1 << " \n"[i+1==N];
 	}
 
 	return 0;
