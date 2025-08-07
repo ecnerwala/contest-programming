@@ -156,10 +156,12 @@ int main() {
 				for (int c = 0; 2 * mx + c * (mx+1) <= M; c++) {
 					cnt2 += ((c & 1) ? -1 : 1) * choose(N-2, c) * choose(M - 2 * mx - c * (mx+1) + (N-3), N-3);
 				}
+				cerr << mx << ' ' << cnt2 << '\n';
 				ans += cnt2 * (M - num(M - 2 * mx) / num(N-2)) * num(N-2);
 			}
 		}
 		cout << ans << '\n';
+		break;
 	}
 
 	return 0;
