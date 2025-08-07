@@ -150,18 +150,17 @@ int main() {
 				cnt += ((c & 1) ? -1 : 1) * choose(N-1, c) * choose(M - mx - c * (mx+1) + (N-2), N-2);
 			}
 			cerr << mx << ' ' << cnt << '\n';
-			ans += cnt * (M - num(M - mx) / num(N-1));
+			ans += cnt * (mx - num(M - mx) / num(N-1));
 			if (N >= 3 && 2 * mx <= M) {
 				num cnt2 = 0;
 				for (int c = 0; 2 * mx + c * (mx+1) <= M; c++) {
 					cnt2 += ((c & 1) ? -1 : 1) * choose(N-2, c) * choose(M - 2 * mx - c * (mx+1) + (N-3), N-3);
 				}
 				cerr << mx << ' ' << cnt2 << '\n';
-				ans += cnt2 * (M - num(M - 2 * mx) / num(N-2)) * num(N-2);
+				ans += cnt2 * (mx - num(M - 2 * mx) / num(N-2)) * num(N-2);
 			}
 		}
 		cout << ans << '\n';
-		break;
 	}
 
 	return 0;
