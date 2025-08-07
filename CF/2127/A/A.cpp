@@ -15,6 +15,7 @@ int main() {
 			if (v == -1) v = a;
 			if (a != -1 && a != v) bad = true;
 		}
+		if (v == 0) bad = true;
 		cout << (bad ? "NO" : "YES") << '\n';
 	}
 
