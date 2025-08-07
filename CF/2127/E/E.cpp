@@ -160,7 +160,7 @@ public:
 				}(rt, -1);
 				assert(idx[rt] == -1);
 				[&](this auto&& self, int cur, int prv, int par_idx, int d, bool is_heavy_root) -> void {
-					int cur_idx = idx[cur] = nxt_idx++;
+					int cur_idx = (idx[cur] = nxt_idx++);
 					preorder[cur_idx] = cur;
 					par[cur_idx] = par_idx;
 					depth[cur_idx] = d;
