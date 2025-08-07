@@ -14,7 +14,7 @@ int eval(const std::vector<int>& P, const std::vector<int>& Q, int K) {
 }
 
 void test() {
-	for (int N = 4; N <= 6; N++) {
+	for (int N = 4; N <= 8; N++) {
 		std::vector<std::vector<int>> Ps;
 		std::vector<std::vector<int>> Qs;
 		{
