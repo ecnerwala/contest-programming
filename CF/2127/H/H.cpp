@@ -154,7 +154,7 @@ int main() {
 				check_q(o);
 			} else if (adj[cur].size() == 0) {
 				assert(z == N-1);
-				cout << vert_val[cur][1] << '\n';
+				cout << vert_val[cur][2] << '\n';
 			} else assert(false);
 		}
 	}
