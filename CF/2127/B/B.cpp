@@ -20,6 +20,7 @@ int main() {
 		if (r > X+1) {
 			ans = std::max(ans, std::min(l - (-1) + 1, N - (X+1) + 1));
 		}
+		cout << ans << '\n';
 	}
 
 	return 0;
