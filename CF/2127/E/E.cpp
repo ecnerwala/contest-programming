@@ -309,7 +309,7 @@ int main() {
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
-		static_forest_t lca(adj, {N});
+		static_forest_t lca(adj, {0});
 		std::vector<std::vector<std::pair<int, int>>> by_color(K);
 		for (int i = 0; i < N; i++) {
 			if (C[i] == -1) continue;
