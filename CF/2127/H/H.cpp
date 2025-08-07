@@ -25,7 +25,7 @@ int main() {
 		std::vector<bool> in_queue(N, false);
 		std::vector<int> q; q.reserve(N);
 		auto check_q = [&](int i) -> void {
-			if (int(adj[i].size()) <= 2) {
+			if (!in_queue[i] && int(adj[i].size()) <= 2) {
 				in_queue[i] = true;
 				q.push_back(i);
 			}
