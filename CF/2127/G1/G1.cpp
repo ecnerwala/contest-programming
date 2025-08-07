@@ -111,6 +111,7 @@ int main() {
 				else if (r == v_small) ma = md;
 				else assert(false);
 			}
+			assert(ma - mi == 1);
 			assert(build_query(mi)[K-1] == build_query(ma)[K+1]);
 			P[build_query(mi)[K-1]] = i;
 		}
