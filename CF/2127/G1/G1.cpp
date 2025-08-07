@@ -92,6 +92,7 @@ int main() {
 					v_small = v_big - 1;
 					mi = cnt_small;
 					ma = cnt_small + 1;
+					assert(query_shift(ma) == v_small);
 				} else if (v_base > v_oppo) {
 					assert(v_base - v_oppo == 1);
 					v_big = v_base, v_small = v_oppo;
