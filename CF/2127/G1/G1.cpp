@@ -65,7 +65,7 @@ int main() {
 				d %= (N-1);
 				if (d < 0) d += N-1;
 				auto Q = Q_base;
-				std::rotate(Q.begin() + 1, Q.begin() + 1 + d, Q.end());
+				std::rotate(Q.begin() + 1, Q.end() - d, Q.end());
 				// rotate the last K elements to the front
 				std::rotate(Q.begin(), Q.end() - K, Q.end());
 				assert(Q[K] == i);
