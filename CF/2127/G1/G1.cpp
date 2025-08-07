@@ -140,9 +140,12 @@ int main() {
 
 			int num_queries = 0;
 			auto query = [&](const std::vector<int>& Q) -> int {
+				cerr << '?' << ' '; for (auto q : Q) { cerr << q << ' '; } cerr << '\n';
 				num_queries++;
 				if (num_queries > 10 * N) assert(false);
-				return eval(P, Q, K);
+				int res = eval(P, Q, K);
+				cerr << res << '\n';
+				return res;
 			};
 
 			auto P_mine = solve(N, K, query);
