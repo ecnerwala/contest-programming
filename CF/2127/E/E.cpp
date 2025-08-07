@@ -1,5 +1,27 @@
 #include <bits/stdc++.h>
 
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
 template <typename T, class Compare = std::less<T>> class RangeMinQuery : private Compare {
 	static const int BUCKET_SIZE = 32;
 	static const int BUCKET_SIZE_LOG = 5;
@@ -142,7 +164,7 @@ public:
 			std::vector<int> depth_val(N, -1);
 			std::vector<int> heavy_child(N, -1);
 			auto build_one_tree = [&](int rt) -> void {
-				[&](this auto&& self, int cur, int prv) -> int {
+				std::y_combinator([&](auto self, int cur, int prv) -> int {
 					int cur_sz = 1;
 					int cur_heavy = -1;
 					int cur_heavy_weight = 0;
@@ -157,10 +179,10 @@ public:
 					}
 					heavy_child[cur] = cur_heavy;
 					return cur_sz;
-				}(rt, -1);
+				})(rt, -1);
 				assert(idx[rt] == -1);
-				[&](this auto&& self, int cur, int prv, int par_idx, int d, bool is_heavy_root) -> void {
-					int cur_idx = (idx[cur] = nxt_idx++);
+				std::y_combinator([&](auto&& self, int cur, int prv, int par_idx, int d, bool is_heavy_root) -> void {
+					int cur_idx = idx[cur] = nxt_idx++;
 					preorder[cur_idx] = cur;
 					par[cur_idx] = par_idx;
 					depth[cur_idx] = d;
@@ -184,7 +206,7 @@ public:
 						self(nxt, cur, cur_idx, d+1, true);
 					}
 					sz[cur_idx] = nxt_idx - cur_idx;
-				}(rt, -1, -1, 0, true);
+				})(rt, -1, -1, 0, true);
 			};
 			if (!roots.empty()) {
 				for (int r : roots) build_one_tree(r);
