@@ -128,6 +128,7 @@ int main() {
 				x += integ_from(p, t0, p.tf);
 				t0 = p.tf;
 			}
+			cerr << t0 << '\n';
 		}
 		cout << fixed << setprecision(20) << x << '\n';
 	}
