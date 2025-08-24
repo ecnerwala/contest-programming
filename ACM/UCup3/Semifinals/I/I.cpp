@@ -50,6 +50,7 @@ int main() {
 				}
 				va *= std::exp(-ta);
 				vb *= std::exp(-tb);
+				assert(va >= vb);
 				r += (va - vb);
 			}
 			return r;
@@ -60,6 +61,8 @@ int main() {
 		for (auto e1000 : E1000) {
 
 			double x0 = e1000 / 1000.;
+			std::cerr << "handle " << x0 << '\n';
+
 			double t0 = 0;
 			std::vector<piece_t> nxt;
 			auto it = cur.begin();
