@@ -103,7 +103,7 @@ int main() {
 
 			for (; it != cur.end(); ++it) {
 				const auto& p = *it;
-				//assert(x0 >= p.constant);
+				assert(x0 >= eval_at(p, t0));
 				piece_t np{
 					p.constant,
 					p.tf,
