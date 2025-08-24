@@ -96,13 +96,14 @@ int main() {
 				break;
 			}
 
+			cerr << "constant part " << x0 << ' ' << t0 << '\n';
+			x0 /= (1 + t0);
+
 			if (t0 > 0) {
 				// push in the constant flow
 				// constant flow
-				nxt.push_back({x0 / (1 + t0), t0, {}});
+				nxt.push_back({x0, t0, {}});
 			}
-
-			x0 /= (1 + t0);
 
 			for (; it != cur.end(); ++it) {
 				const auto& p = *it;
