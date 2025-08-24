@@ -43,7 +43,6 @@ int main() {
 	std::vector<int> cnt(N, 0);
 	std::vector<int> waiting(4*N, -1);
 	auto add_edge = [&](int a, int b) -> void {
-		cerr << "add " << a << ' ' << b << '\n';
 		if (a > b) std::swap(a, b);
 		assert(a < N);
 		assert(b >= N);
