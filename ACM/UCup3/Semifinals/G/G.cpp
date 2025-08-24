@@ -82,10 +82,11 @@ int main() {
 
 	for (int i = 0; i < N; i++) {
 		assert(cnt[i] & 1);
-		while (cnt[i] <= 3) {
+		while (cnt[i] < 3) {
 			ops.push_back({i, i});
 			cnt[i] += 2;
 		}
+		assert(cnt[i] == 3);
 	}
 	cout << ops.size() << '\n';
 	for (auto [u, v] : ops) {
