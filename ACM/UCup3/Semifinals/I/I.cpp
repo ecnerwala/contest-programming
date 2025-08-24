@@ -113,7 +113,15 @@ int main() {
 					p.constant,
 					p.poly
 				};
-				np.poly.insert(np.poly.begin(), std::exp(t0) * (x0 - eval_at(p, t0)));
+				{
+					double v = 0;
+					for (int z = int(p.poly.size()) - 1; z >= 0; z--) {
+						v += p.poly[z];
+						v *= t0;
+						v /= z+1;
+					}
+					np.poly.insert(np.poly.begin(), std::exp(t0) * (x0 - p.constant) - v);
+				}
 				x0 = eval_at(np, np.tf);
 				t0 = np.tf;
 				nxt.push_back(std::move(np));
