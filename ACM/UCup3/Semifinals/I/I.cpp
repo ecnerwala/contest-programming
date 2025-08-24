@@ -118,6 +118,7 @@ int main() {
 				t0 = np.tf;
 				nxt.push_back(std::move(np));
 			}
+			cerr << nxt.size() << '\n';
 
 			cur = std::move(nxt);
 		}
