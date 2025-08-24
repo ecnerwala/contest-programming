@@ -59,9 +59,8 @@ int main() {
 	std::vector<bool> vis(4*N, false);
 	for (int st = 0; st < N; st++) {
 		if (vis[st]) continue;
-		cerr << "go " << st << '\n';
 		bool bad = std::y_combinator([&](auto&& self, int cur) -> bool {
-			if (!vis[cur]) return false;
+			if (vis[cur]) return false;
 			vis[cur] = true;
 			bool val = (cur < N ? true : false);
 			for (int nxt : adj[cur]) {
