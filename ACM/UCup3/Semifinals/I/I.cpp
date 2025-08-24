@@ -57,7 +57,7 @@ int main() {
 		};
 
 		std::vector<piece_t> cur;
-		cur.push_back({T1000 / 1000., 0, {}});
+		cur.push_back(piece_t{T1000 / 1000., 0, {}});
 		for (auto e1000 : E1000) {
 
 			double x0 = e1000 / 1000.;
@@ -102,15 +102,15 @@ int main() {
 			if (t0 > 0) {
 				// push in the constant flow
 				// constant flow
-				nxt.push_back({x0, t0, {}});
+				nxt.push_back(piece_t{t0, x0, {}});
 			}
 
 			for (; it != cur.end(); ++it) {
 				const auto& p = *it;
 				assert(x0 >= eval_at(p, t0));
 				piece_t np{
-					p.constant,
 					p.tf,
+					p.constant,
 					p.poly
 				};
 				np.poly.insert(np.poly.begin(), std::exp(t0) * (x0 - eval_at(p, t0)));
@@ -118,7 +118,6 @@ int main() {
 				t0 = np.tf;
 				nxt.push_back(std::move(np));
 			}
-			cerr << nxt.size() << '\n';
 
 			cur = std::move(nxt);
 		}
