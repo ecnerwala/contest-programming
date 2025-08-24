@@ -71,7 +71,7 @@ int main() {
 			return val;
 		})(st);
 		if (bad) {
-			cnt[a] ++;
+			cnt[st] ++;
 		}
 	}
 
