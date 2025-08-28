@@ -631,6 +631,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 
 	auto insert_top = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p) -> int {
 		if (p >= G_layout.N) {
+			assert(G_layout.get_leaf_index(p) == g);
 			return insert_bot(tree, g, pos, seg_tree::point(1));
 		} else {
 			int res = int(nodes.size());
