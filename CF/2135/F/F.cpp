@@ -502,15 +502,47 @@ std::vector<int> F_slow(std::vector<std::array<int, 2>> ch) {
 	int N = int(ch.size());
 	std::vector<int> node_val(N, -1);
 	std::vector<std::vector<int>> chain(N);
+	std::vector<std::vector<int>> cmp_res(N, std::vector<int>(N, -2));
 	auto cmp_3 = [&](this auto&& self, int v, int u) -> int {
+		if (cmp_res[v][u] != -2) return cmp_res[v][u];
+		for (int z = 0; true; z++) {
+			if (z == int(chain[v].size()) && z == int(chain[u].size())) return 0;
+			// u smaller
+			else if (z == int(chain[u].size())) return -1;
+			// v smaller
+			else if (z == int(chain[v].size())) return +1;
+			else {
+				int d = self(chain[u][z], chain[v][z]);
+				if (d != 0) return d;
+				continue;
+			}
+		}
+		assert(false);
 	};
 	[&](this auto&& self, int cur) -> void {
-		std::vector<int> val;
-		if (ch[cur][0] == -1) {
-			// do nothing
-		} else {
+		if (ch[cur][0] != -1) {
+			self(ch[cur][0]);
+			self(ch[cur][1]);
 		}
+		std::vector<int> val;
+		for (int a = cur; true; ) {
+			if (ch[a][0] == -1) break;
+			val.push_back(ch[a][1]);
+			a = ch[a][0];
+		}
+		std::sort(val.begin(), val.end(), [&](int u, int v) -> bool {
+			return cmp_3(u, v) < 0;
+		});
+		std::reverse(val.begin(), val.end());
+		chain[cur] = val;
 	}(0);
+	std::vector<int> res(N); std::iota(res.begin(), res.end(), 0);
+	std::sort(res.begin(), res.end(), [&](int u, int v) -> bool {
+		int d = cmp_3(u, v);
+		if (d == 0) return u < v;
+		else return d < 0;
+	});
+	return res;
 }
 
 std::vector<int> F(std::vector<std::array<int, 2>> ch) {
