@@ -156,6 +156,7 @@ int main() {
 		};
 		add_range(-N, N, 1);
 		for (int delta = (N & 1); delta <= N+2; delta += 2) {
+			if (delta == 0) continue;
 			int x_min = -delta;
 			int x_max = delta;
 			int cnt = (x_max - x_min) / 2 + 1;
@@ -166,6 +167,7 @@ int main() {
 			}
 		}
 		for (int delta = 1 + (N & 1); delta <= N+1; delta += 2) {
+			if (delta == 0) continue;
 			int x_min = -(delta-1);
 			int x_max = delta-1;
 			int cnt = (x_max - x_min) / 2 + 1;
