@@ -17,7 +17,7 @@ int main() {
 			}
 		}
 	}
-	const int Q02 = 1e4;
+	const int Q02 = 1.5e4;
 	{
 		int v_prev = -1;
 		for (int i = 1; i <= G-1; i++) {
