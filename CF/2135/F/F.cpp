@@ -576,6 +576,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		else if (b == EMPTY) return false;
 
 		if (nodes[a].v == nodes[b].v) return false;
+		assert(nodes[a].v != nodes[b].v);
 		if (p >= sub_layouts[g].N) {
 			// these are just the value directly
 			return int(nodes[a].v.v) < int(nodes[b].v.v);
