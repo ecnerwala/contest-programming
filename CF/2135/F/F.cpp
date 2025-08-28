@@ -713,7 +713,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			} else {
 				cnt++;
 			}
-			//std::cerr << "val " << gen_vals[i].second << ' ' << g << ' ' << cnt-1 << '\n';
+			std::cerr << "val " << gen_vals[i].second << ' ' << g << ' ' << cnt-1 << '\n';
 			val[gen_vals[i].second] = {g, cnt-1};
 		}
 		sub_layouts[g] = seg_tree::in_order_layout(cnt);
