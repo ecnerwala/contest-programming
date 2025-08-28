@@ -163,7 +163,7 @@ int main() {
 				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, 4);
 			}
 		}
-		for (int delta = 3 + (N & 1); delta <= N+3; delta += 2) {
+		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			int x_min = -(delta-3);
 			int x_max = delta-3;
 			int cnt = (x_max - x_min) / 2 + 1;
