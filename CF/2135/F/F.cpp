@@ -603,8 +603,8 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			int g = G_layout.get_leaf_index(p);
 			dump_bot(a, g, seg_tree::point(1));
 		} else {
-			self(nodes[a].c[0], g, p.c(0));
-			self(nodes[a].c[1], g, p.c(1));
+			self(nodes[a].c[0], p.c(0));
+			self(nodes[a].c[1], p.c(1));
 		}
 	};
 
