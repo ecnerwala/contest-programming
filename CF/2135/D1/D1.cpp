@@ -23,25 +23,27 @@ int main() {
 		cout << '\n' << flush;
 		int resp1; cin >> resp1;
 		if (resp1 == -1) exit(0);
-		// (w/G) * resp1 >= Q1 > (w/G) * (resp1 - 1)
-		int wG_min = resp1 == 0 ? 0 : (Q1 + resp1 - 1) / resp1;
-		assert(resp1 != 1);
-		int wG_max = resp1 == 0 ? 0 : (Q1 - 1) / (resp1 - 1);
-		assert(wG_max >= wG_min);
-		int w_max = std::min(WMAX, wG_max * G + (G-1));
-		int w_min = wG_min * G;
-		assert(w_max >= w_min);
-		assert(w_max < 2 * w_min);
-		assert(w_min != w_max);
-		cout << '?' << ' ' << 2 * (w_max - w_min);
-		for (int i = w_min + 1; i <= w_max; i++) {
-			cout << ' ' << w_min << ' ' << i - w_min;
+		if (resp1 == 0) {
+			assert(resp1 > 1);
+			// (w/G) * resp1 >= Q1 > (w/G) * (resp1 - 1)
+			int wG_min = (Q1 + resp1 - 1) / resp1;
+			int wG_max = (Q1 - 1) / (resp1 - 1);
+			assert(wG_max >= wG_min);
+			int w_max = std::min(WMAX, wG_max * G + (G-1));
+			int w_min = wG_min * G;
+			assert(w_max >= w_min);
+			assert(w_max < 2 * w_min);
+			assert(w_min != w_max);
+			cout << '?' << ' ' << 2 * (w_max - w_min);
+			for (int i = w_min + 1; i <= w_max; i++) {
+				cout << ' ' << w_min << ' ' << i - w_min;
+			}
+			cout << '\n' << flush;
+			int resp2; cin >> resp2;
+			// w_max is (w_max - w_min), and w_min is (w_max - w_min) * 2
+			int ans = (w_max - w_min) + w_max - resp2;
+			cout << '!' << ans << '\n' << flush;
 		}
-		cout << '\n' << flush;
-		int resp2; cin >> resp2;
-		// w_max is (w_max - w_min), and w_min is (w_max - w_min) * 2
-		int ans = (w_max - w_min) + w_max - resp2;
-		cout << '!' << ans << '\n' << flush;
 	}
 
 	return 0;
