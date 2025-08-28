@@ -7,11 +7,22 @@ int main() {
 	const int WMAX = int(1e5);
 	const int G = int(300);
 	const int Q1 = 1e4;
-	int v_prev = -1;
-	for (int i = 1; i <= WMAX; i++) {
-		int v = (i/G) ? (Q1 + (i/G) - 1) / (i/G) : 0;
-		if (v != v_prev) {
-			cerr << i << ' ' << v << '\n';
+	{
+		int v_prev = -1;
+		for (int i = 1; i <= WMAX; i++) {
+			int v = (i/G) ? (Q1 + (i/G) - 1) / (i/G) : 0;
+			if (v != v_prev) {
+				cerr << i << ' ' << v << '\n';
+				v_prev = v;
+			}
+		}
+	}
+	const int Q02 = 1e4;
+	{
+		int v_prev = -1;
+		for (int i = 1; i <= G-1; i++) {
+			int v = (Q02 + i - 1) / i;
+			assert(v != v_prev);
 			v_prev = v;
 		}
 	}
@@ -24,6 +35,7 @@ int main() {
 		int resp1; cin >> resp1;
 		if (resp1 == -1) exit(0);
 		if (resp1 == 0) {
+			cout << '!' << ' ' << ans << '\n' << flush;
 		} else {
 			assert(resp1 > 1);
 			// (w/G) * resp1 >= Q1 > (w/G) * (resp1 - 1)
@@ -43,7 +55,7 @@ int main() {
 			int resp2; cin >> resp2;
 			// w_max is (w_max - w_min), and w_min is (w_max - w_min) * 2
 			int ans = (w_max - w_min) + w_max - resp2;
-			cout << '!' << ans << '\n' << flush;
+			cout << '!' << ' ' << ans << '\n' << flush;
 		}
 	}
 
