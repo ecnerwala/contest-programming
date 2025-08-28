@@ -163,6 +163,7 @@ int main() {
 						}
 					}
 				} else if (depth[nxt] < depth[cur]) {
+					lowval[cur] = std::min(lowval[cur], depth[nxt]);
 					if ((depth[nxt] ^ depth[cur]) & 1) {
 						if (must_val[cur] == -1) {
 							must_val[cur] = 0;
