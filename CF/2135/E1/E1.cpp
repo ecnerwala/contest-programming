@@ -174,8 +174,7 @@ int main() {
 				assert((delta ^ N) & 1);
 				add_point(w * delta - 1, 2 * cnt);
 				add_point(w * delta + 1, 2 * cnt);
-				add_range((w+1) * delta + x_min - 1, (w+1) * delta + x_max - 1, 2);
-				add_range((w+1) * delta + x_min + 1, (w+1) * delta + x_max + 1, 2);
+				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, 4);
 			}
 		}
 	}
