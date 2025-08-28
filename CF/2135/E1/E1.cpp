@@ -153,7 +153,7 @@ int main() {
 		auto add_point = [&](int lo, num v) -> void {
 			add_range(lo, lo, v);
 		};
-		add_range(-N, N, 2);
+		add_range(-N, N, 1);
 		for (int delta = 2 + (N & 1); delta <= N+2; delta += 2) {
 			int x_min = -(delta-2);
 			int x_max = delta-2;
