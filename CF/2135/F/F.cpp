@@ -694,13 +694,13 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int z = 0; z < 0; z++) {
+	for (int z = 0; z < 10000; z++) {
 		auto ch = gen();
 		cerr << "test " << z << '\n';
 		cerr << ch.size() << '\n';
-		//auto ans_slow = F_slow(ch);
+		auto ans_slow = F_slow(ch);
 		auto ans = F(ch);
-		//assert(ans == ans_slow);
+		assert(ans == ans_slow);
 	}
 
 	int T; cin >> T;
