@@ -138,7 +138,6 @@ int main() {
 		ifact[V] = inv(fact[V]);
 		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-		num ans = 0;
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
 			assert(!((lo ^ N) & 1));
