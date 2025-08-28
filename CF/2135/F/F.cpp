@@ -691,6 +691,8 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 				assert(gen < g);
 				cur_tree[cur] = insert_top(t, gen, pos, seg_tree::point(1));
 			}
+			std::cerr << "tree " << cur << '\n';
+			dump_top(cur_tree[cur], seg_tree::point(1));
 			gen_vals.push_back({cur_tree[cur], cur});
 		}
 		std::sort(gen_vals.begin(), gen_vals.end(), [&](auto a, auto b) -> bool {
