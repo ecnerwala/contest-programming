@@ -35,6 +35,12 @@ int main() {
 		int resp1; cin >> resp1;
 		if (resp1 == -1) exit(0);
 		if (resp1 == 0) {
+			cout << '?' << ' ' << Q02;
+			for (int z = 0; z < Q02; z++) cout << ' ' << 1;
+			int resp2; cin >> resp2;
+			if (resp2 == -1) exit(0);
+			int ans = 1;
+			while (resp2 != (Q02 + ans - 1) / ans) ans++;
 			cout << '!' << ' ' << ans << '\n' << flush;
 		} else {
 			assert(resp1 > 1);
@@ -53,6 +59,7 @@ int main() {
 			}
 			cout << '\n' << flush;
 			int resp2; cin >> resp2;
+			if (resp2 == -1) exit(0);
 			// w_max is (w_max - w_min), and w_min is (w_max - w_min) * 2
 			int ans = (w_max - w_min) + w_max - resp2;
 			cout << '!' << ' ' << ans << '\n' << flush;
