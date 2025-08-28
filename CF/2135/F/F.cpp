@@ -591,6 +591,8 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	auto dump_bot = [&](this auto&& self, int a, int g, seg_tree::point p) {
 		if (a == EMPTY) return;
 		if (p >= sub_layouts[g].N) {
+			assert(nodes[a].c[0] == EMPTY);
+			assert(nodes[a].c[1] == EMPTY);
 			std::cerr << g << ',' << sub_layouts[g].get_leaf_index(p) << " x " << nodes[a].v << '\n';
 		} else {
 			self(nodes[a].c[0], g, p.c(0));
