@@ -10,7 +10,7 @@ int main() {
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
 		std::vector<std::vector<int>> inds(N+1);
-		std::vector<int> cnt(N);
+		for (int i = 0; i < N; i++) inds[A[i]].push_back(i);
 		std::vector<int> dp(N+1);
 		for (int i = N-1; i >= 0; i--) {
 			dp[i] = std::max(dp[i], dp[i+1]);
