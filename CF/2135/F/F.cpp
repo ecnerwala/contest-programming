@@ -583,7 +583,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			return int(nodes[a].v.v) < int(nodes[b].v.v);
 		} else {
 			int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
-			return self(nodes[a].c[d], nodes[b].c[d], p.c(d));
+			return self(nodes[a].c[d], nodes[b].c[d], g, p.c(d));
 		}
 	};
 
