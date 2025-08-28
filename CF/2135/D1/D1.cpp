@@ -5,10 +5,11 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	const int WMAX = int(1e5);
+	const int Q1 = 1e4;
 	const int G = int(100);
 	int v_prev = -1;
 	for (int i = 1; i <= WMAX; i++) {
-		int v = (i/G) ? (WMAX + (i/G) - 1) / (i/G) : 0;
+		int v = (i/G) ? (Q1 + (i/G) - 1) / (i/G) : 0;
 		if (v != v_prev) {
 			cerr << i << ' ' << v << '\n';
 			v_prev = v;
