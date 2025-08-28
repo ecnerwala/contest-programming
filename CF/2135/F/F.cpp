@@ -497,6 +497,22 @@ std::vector<std::array<int, 2>> gen() {
 
 std::mt19937 mt(48);
 
+std::vector<int> F_slow(std::vector<std::array<int, 2>> ch) {
+	// each guy is just a set of other guys
+	int N = int(ch.size());
+	std::vector<int> node_val(N, -1);
+	std::vector<std::vector<int>> chain(N);
+	auto cmp_3 = [&](this auto&& self, int v, int u) -> int {
+	};
+	[&](this auto&& self, int cur) -> void {
+		std::vector<int> val;
+		if (ch[cur][0] == -1) {
+			// do nothing
+		} else {
+		}
+	}(0);
+}
+
 std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	int N = int(ch.size());
 
@@ -540,7 +556,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	const int EMPTY = int(nodes.size());
 	nodes.push_back({{0, 0}, 0});
 
-	auto insert_bot = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p = seg_tree::point(1)) -> int {
+	auto insert_bot = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p) -> int {
 		assert(0 <= g && g < G);
 		assert(sub_layouts[g].N != 0);
 		int res = int(nodes.size());
@@ -556,9 +572,9 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		return res;
 	};
 
-	auto insert_top = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p = seg_tree::point(1)) -> int {
+	auto insert_top = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p) -> int {
 		if (p >= G_layout.N) {
-			return insert_bot(tree, g, pos);
+			return insert_bot(tree, g, pos, seg_tree::point(1));
 		} else {
 			int res = int(nodes.size());
 			nodes.push_back(nodes[tree]);
@@ -570,7 +586,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		}
 	};
 
-	auto cmp_bot = [&](this auto&& self, int a, int b, int g, seg_tree::point p = seg_tree::point(1)) -> bool {
+	auto cmp_bot = [&](this auto&& self, int a, int b, int g, seg_tree::point p) -> bool {
 		if (a == EMPTY && b == EMPTY) return false;
 		else if (a == EMPTY) return true;
 		else if (b == EMPTY) return false;
@@ -586,7 +602,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		}
 	};
 
-	auto cmp_top = [&](this auto&& self, int a, int b, seg_tree::point p = seg_tree::point(1)) -> bool {
+	auto cmp_top = [&](this auto&& self, int a, int b, seg_tree::point p) -> bool {
 		if (a == EMPTY && b == EMPTY) return false;
 		else if (a == EMPTY) return true;
 		else if (b == EMPTY) return false;
@@ -595,7 +611,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		if (p >= G_layout.N) {
 			int g = G_layout.get_leaf_index(p);
 			assert(0 <= g && g < G);
-			return cmp_bot(a, b, g);
+			return cmp_bot(a, b, g, seg_tree::point(1));
 		} else {
 			int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
 			return self(nodes[a].c[d], nodes[b].c[d], p.c(d));
@@ -616,7 +632,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 				auto [gen, pos] = val[ch[cur][1]];
 				assert(gen != -1 && pos != -1);
 				assert(gen < g);
-				cur_tree[cur] = insert_top(t, gen, pos);
+				cur_tree[cur] = insert_top(t, gen, pos, seg_tree::point(1));
 			}
 			gen_vals.push_back({cur_tree[cur], cur});
 		}
@@ -624,7 +640,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			if (nodes[a.first].v == nodes[b.first].v) {
 				return a.second < b.second;
 			}
-			return cmp_top(a.first, b.first);
+			return cmp_top(a.first, b.first, seg_tree::point(1));
 		});
 		int cnt = 0;
 		for (int i = 0; i < int(gen_vals.size()); i++) {
