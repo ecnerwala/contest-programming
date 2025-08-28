@@ -592,9 +592,9 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		if (a == EMPTY) return;
 		std::cerr << "  " << a << ' ' << g << ' ' << p << '\n';
 		if (p >= sub_layouts[g].N) {
+			std::cerr << g << ',' << sub_layouts[g].get_leaf_index(p) << " x " << nodes[a].v << '\n';
 			assert(nodes[a].c[0] == EMPTY);
 			assert(nodes[a].c[1] == EMPTY);
-			std::cerr << g << ',' << sub_layouts[g].get_leaf_index(p) << " x " << nodes[a].v << '\n';
 		} else {
 			self(nodes[a].c[0], g, p.c(0));
 			self(nodes[a].c[1], g, p.c(1));
