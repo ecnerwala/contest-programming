@@ -24,6 +24,7 @@ int main() {
 		int resp1; cin >> resp1;
 		if (resp1 == -1) exit(0);
 		if (resp1 == 0) {
+		} else {
 			assert(resp1 > 1);
 			// (w/G) * resp1 >= Q1 > (w/G) * (resp1 - 1)
 			int wG_min = (Q1 + resp1 - 1) / resp1;
