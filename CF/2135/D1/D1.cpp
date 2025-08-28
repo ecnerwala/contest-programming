@@ -8,7 +8,7 @@ int main() {
 	const int G = int(100);
 	int v_prev = -1;
 	for (int i = 1; i <= WMAX; i++) {
-		int v = (i/G) ? 0 : (WMAX + (i/G) - 1) / (i/G);
+		int v = (i/G) ? (WMAX + (i/G) - 1) / (i/G) : 0;
 		if (v != v_prev) {
 			cerr << i << ' ' << v << '\n';
 			v_prev = v;
