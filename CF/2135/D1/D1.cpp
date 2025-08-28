@@ -5,7 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	const int WMAX = int(1e5);
-	const int G = int(120);
+	const int G = int(125);
 	const int Q1 = 1e4;
 	{
 		int v_prev = -1;
