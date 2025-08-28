@@ -729,7 +729,6 @@ int main() {
 
 	for (int z = 0; z < 10000; z++) {
 		auto ch = gen();
-		if (z != 4) continue;
 		cerr << "test " << z << '\n';
 		cerr << ch.size() << '\n';
 		for (auto [l, r] : ch) cerr << l << ' ' << r << '\n';
