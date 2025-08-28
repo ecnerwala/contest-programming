@@ -179,6 +179,7 @@ int main() {
 				// we're a root
 				if (must_val[cur] == -1) ans *= V;
 			}
+			cerr << "hi " << cur << ' ' << depth[cur] << ' ' << lowval[cur] << ' ' << must_val[cur] << '\n';
 		}(0, -1);
 		cout << ans << '\n';
 	}
