@@ -541,6 +541,8 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	nodes.push_back({{0, 0}, 0});
 
 	auto insert_bot = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p = seg_tree::point(1)) -> int {
+		assert(0 <= g && g < G);
+		assert(sub_layouts[g].N != 0);
 		int res = int(nodes.size());
 		nodes.push_back(nodes[tree]);
 		if (p >= sub_layouts[g].N) {
