@@ -177,6 +177,12 @@ int main() {
 				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, 4);
 			}
 		}
+		num ans = 0;
+		for (int i = 0; i <= N; i++) {
+			pref[i+1] += pref[i];
+			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
+		}
+		cout << ans << '\n';
 	}
 
 	return 0;
