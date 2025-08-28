@@ -698,8 +698,11 @@ int main() {
 		auto ch = gen();
 		cerr << "test " << z << '\n';
 		cerr << ch.size() << '\n';
+		for (auto [l, r] : ch) cerr << l << ' ' << r << '\n';
 		auto ans_slow = F_slow(ch);
 		auto ans = F(ch);
+		for (auto v : ans_slow) { cerr << v << ' '; } cerr << '\n';
+		for (auto v : ans) { cerr << v << ' '; } cerr << '\n';
 		assert(ans == ans_slow);
 	}
 
