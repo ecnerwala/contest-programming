@@ -161,7 +161,7 @@ int main() {
 								ans = 0;
 							}
 						}
-					}
+					} else assert(false);
 				} else if (depth[nxt] < depth[cur]) {
 					lowval[cur] = std::min(lowval[cur], depth[nxt]);
 					if ((depth[nxt] ^ depth[cur]) & 1) {
