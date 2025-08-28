@@ -158,9 +158,10 @@ int main() {
 			int x_min = -(delta-2);
 			int x_max = delta-2;
 			int cnt = (x_max - x_min) / 2 + 1;
+			int w = (delta == N+2) ? 1 : 2;
 			for (int w = 1; w * delta <= N; w += 2) {
-				add_point(w * delta, 4 * cnt);
-				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, 4);
+				add_point(w * delta, w * 2 * cnt);
+				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, w * 2);
 			}
 		}
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
