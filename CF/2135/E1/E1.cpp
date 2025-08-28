@@ -170,6 +170,8 @@ int main() {
 			int cnt = (x_max - x_min) / 2 + 1;
 			add_range(x_min, x_max, 2);
 			for (int w = 1; w * delta <= N; w += 2) {
+				assert(w & 1);
+				assert((delta ^ N) & 1);
 				add_point(w * delta - 1, 2 * cnt);
 				add_point(w * delta + 1, 2 * cnt);
 				add_range((w+1) * delta + x_min - 1, (w+1) * delta + x_max - 1, 2);
