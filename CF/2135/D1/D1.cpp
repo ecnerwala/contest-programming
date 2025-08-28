@@ -22,6 +22,9 @@ int main() {
 		int v_prev = -1;
 		for (int i = 1; i <= G-1; i++) {
 			int v = (Q02 + i - 1) / i;
+			if (v == v_prev) {
+				cerr << i << ' ' << v << '\n';
+			}
 			assert(v != v_prev);
 			v_prev = v;
 		}
