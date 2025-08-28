@@ -481,6 +481,7 @@ std::vector<std::array<int, 2>> gen() {
 	std::vector<std::array<int, 2>> ch(N, {-1, -1});
 	int idx = 1;
 	std::vector<int> leaves; leaves.reserve(N);
+	leaves.push_back(0);
 	while (idx < N) {
 		int z = std::uniform_int_distribution<int>(0, int(leaves.size()))(mt_gen);
 		assert(ch[leaves[z]][0] == -1);
