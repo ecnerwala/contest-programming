@@ -40,6 +40,7 @@ int main() {
 		if (resp1 == 0) {
 			cout << '?' << ' ' << Q02;
 			for (int z = 0; z < Q02; z++) cout << ' ' << 1;
+			cout << '\n' << flush;
 			int resp2; cin >> resp2;
 			if (resp2 == -1) exit(0);
 			int ans = 1;
