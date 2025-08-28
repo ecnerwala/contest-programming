@@ -619,6 +619,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	};
 
 	auto cmp_bot = [&](this auto&& self, int a, int b, int g, seg_tree::point p) -> bool {
+		std::cerr << "cmp_bot " << a << ' ' << b << ' ' << g << ' ' << p << '\n';
 		if (a == EMPTY && b == EMPTY) return false;
 		else if (a == EMPTY) return true;
 		else if (b == EMPTY) return false;
@@ -635,6 +636,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	};
 
 	auto cmp_top = [&](this auto&& self, int a, int b, seg_tree::point p) -> bool {
+		std::cerr << "cmp_top " << a << ' ' << b << ' ' << p << '\n';
 		if (a == EMPTY && b == EMPTY) return false;
 		else if (a == EMPTY) return true;
 		else if (b == EMPTY) return false;
@@ -672,6 +674,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			if (nodes[a.first].v == nodes[b.first].v) {
 				return a.second < b.second;
 			}
+			std::cerr << "compare " << a.second << ' ' << b.second << '\n';
 			return cmp_top(a.first, b.first, seg_tree::point(1));
 		});
 		int cnt = 0;
