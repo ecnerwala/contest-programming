@@ -6,7 +6,7 @@ int main() {
 
 	const int WMAX = int(1e5);
 	const int G = int(300);
-	const int Q1 = WMAX / G;
+	const int Q1 = 1e4;
 	int v_prev = -1;
 	for (int i = 1; i <= WMAX; i++) {
 		int v = (i/G) ? (Q1 + (i/G) - 1) / (i/G) : 0;
