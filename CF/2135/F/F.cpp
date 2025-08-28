@@ -636,7 +636,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		} else {
 			int res = int(nodes.size());
 			nodes.push_back(nodes[tree]);
-			int d = pos >= G_layout.get_node_split(p) ? 1 : 0;
+			int d = g >= G_layout.get_node_split(p) ? 1 : 0;
 			int ch_val = self(nodes[res].c[d], g, pos, p.c(d));
 			nodes[res].c[d] = ch_val;
 			nodes[res].v = nodes[nodes[res].c[0]].v + nodes[nodes[res].c[1]].v * G_weights[p];
