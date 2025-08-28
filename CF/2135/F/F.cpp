@@ -597,6 +597,16 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			self(nodes[a].c[1], g, p.c(1));
 		}
 	};
+	auto dump_top = [&](this auto&& self, int a, seg_tree::point p) {
+		if (a == EMPTY) return;
+		if (p >= G_layout.N) {
+			int g = G_layout.get_leaf_index(p);
+			dump_bot(a, g, seg_tree::point(1));
+		} else {
+			self(nodes[a].c[0], g, p.c(0));
+			self(nodes[a].c[1], g, p.c(1));
+		}
+	};
 
 
 	auto insert_bot = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p) -> int {
