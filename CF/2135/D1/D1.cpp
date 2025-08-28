@@ -11,7 +11,7 @@ int main() {
 	for (int i = 1; i <= WMAX; i++) {
 		int v = (i/G) ? (Q1 + (i/G) - 1) / (i/G) : 0;
 		if (v != v_prev) {
-			//cerr << i << ' ' << v << '\n';
+			cerr << i << ' ' << v << '\n';
 			v_prev = v;
 		}
 	}
