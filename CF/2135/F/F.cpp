@@ -503,8 +503,8 @@ std::vector<int> F_slow(std::vector<std::array<int, 2>> ch) {
 	std::vector<int> node_val(N, -1);
 	std::vector<std::vector<int>> chain(N);
 	std::vector<std::vector<int>> cmp_res(N, std::vector<int>(N, -2));
-	auto cmp_3 = [&](this auto&& self, int v, int u) -> int {
-		if (cmp_res[v][u] != -2) return cmp_res[v][u];
+	auto cmp_3 = [&](this auto&& self, int u, int v) -> int {
+		if (cmp_res[u][v] != -2) return cmp_res[u][v];
 		for (int z = 0; true; z++) {
 			if (z == int(chain[v].size()) && z == int(chain[u].size())) return 0;
 			// u smaller
