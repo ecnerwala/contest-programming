@@ -600,6 +600,7 @@ int main() {
 					int t = cur_tree[ch[cur][0]];
 					auto [gen, pos] = val[ch[cur][1]];
 					assert(gen != -1 && pos != -1);
+					assert(gen < g);
 					cur_tree[cur] = insert_top(t, gen, pos);
 				}
 				gen_vals.push_back({cur_tree[cur], cur});
