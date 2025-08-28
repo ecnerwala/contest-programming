@@ -588,6 +588,17 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	const int EMPTY = int(nodes.size());
 	nodes.push_back({{0, 0}, 0});
 
+	auto dump_bot = [&](this auto&& self, int a, int g, seg_tree::point p) {
+		if (a == EMPTY) return;
+		if (p >= sub_layouts[g].N) {
+			std::cerr << g << ',' << sub_layouts[g].get_leaf_index(p) << " x " << nodes[a].v << '\n';
+		} else {
+			self(nodes[a].c[0], g, p.c(0));
+			self(nodes[a].c[1], g, p.c(1));
+		}
+	};
+
+
 	auto insert_bot = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p) -> int {
 		assert(0 <= g && g < G);
 		assert(sub_layouts[g].N != 0);
@@ -645,6 +656,8 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		if (p >= G_layout.N) {
 			int g = G_layout.get_leaf_index(p);
 			assert(0 <= g && g < G);
+			std::cerr << "a " << '\n'; dump_bot(a, g, seg_tree::point(1));
+			std::cerr << "b " << '\n'; dump_bot(b, g, seg_tree::point(1));
 			return cmp_bot(a, b, g, seg_tree::point(1));
 		} else {
 			int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
