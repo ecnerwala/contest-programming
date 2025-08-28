@@ -696,8 +696,8 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 				assert(gen < g);
 				cur_tree[cur] = insert_top(t, gen, pos, seg_tree::point(1));
 			}
-			std::cerr << "tree " << cur << ' ' << ch[cur][0] << ' ' << ch[cur][1] << '\n';
-			dump_top(cur_tree[cur], seg_tree::point(1));
+			//std::cerr << "tree " << cur << ' ' << ch[cur][0] << ' ' << ch[cur][1] << '\n';
+			//dump_top(cur_tree[cur], seg_tree::point(1));
 			gen_vals.push_back({cur_tree[cur], cur});
 		}
 		std::sort(gen_vals.begin(), gen_vals.end(), [&](auto a, auto b) -> bool {
@@ -714,7 +714,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			} else {
 				cnt++;
 			}
-			std::cerr << "val " << gen_vals[i].second << ' ' << g << ' ' << cnt-1 << '\n';
+			//std::cerr << "val " << gen_vals[i].second << ' ' << g << ' ' << cnt-1 << '\n';
 			val[gen_vals[i].second] = {g, cnt-1};
 		}
 		sub_layouts[g] = seg_tree::in_order_layout(cnt);
