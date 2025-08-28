@@ -644,7 +644,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	};
 
 	auto cmp_bot = [&](this auto&& self, int a, int b, int g, seg_tree::point p) -> bool {
-		std::cerr << "cmp_bot " << a << ' ' << b << ' ' << g << ' ' << p << '\n';
+		//std::cerr << "cmp_bot " << a << ' ' << b << ' ' << g << ' ' << p << '\n';
 		if (a == EMPTY && b == EMPTY) return false;
 		else if (a == EMPTY) return true;
 		else if (b == EMPTY) return false;
@@ -661,7 +661,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	};
 
 	auto cmp_top = [&](this auto&& self, int a, int b, seg_tree::point p) -> bool {
-		std::cerr << "cmp_top " << a << ' ' << b << ' ' << p << '\n';
+		//std::cerr << "cmp_top " << a << ' ' << b << ' ' << p << '\n';
 		if (a == EMPTY && b == EMPTY) return false;
 		else if (a == EMPTY) return true;
 		else if (b == EMPTY) return false;
@@ -670,8 +670,8 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		if (p >= G_layout.N) {
 			int g = G_layout.get_leaf_index(p);
 			assert(0 <= g && g < G);
-			std::cerr << "a " << '\n'; dump_bot(a, g, seg_tree::point(1));
-			std::cerr << "b " << '\n'; dump_bot(b, g, seg_tree::point(1));
+			//std::cerr << "a " << '\n'; dump_bot(a, g, seg_tree::point(1));
+			//std::cerr << "b " << '\n'; dump_bot(b, g, seg_tree::point(1));
 			return cmp_bot(a, b, g, seg_tree::point(1));
 		} else {
 			int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
@@ -703,7 +703,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			if (nodes[a.first].v == nodes[b.first].v) {
 				return a.second < b.second;
 			}
-			std::cerr << "compare " << a.second << ' ' << b.second << '\n';
+			//std::cerr << "compare " << a.second << ' ' << b.second << '\n';
 			return cmp_top(a.first, b.first, seg_tree::point(1));
 		});
 		int cnt = 0;
@@ -713,7 +713,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 			} else {
 				cnt++;
 			}
-			std::cerr << "val " << gen_vals[i].second << ' ' << g << ' ' << cnt-1 << '\n';
+			//std::cerr << "val " << gen_vals[i].second << ' ' << g << ' ' << cnt-1 << '\n';
 			val[gen_vals[i].second] = {g, cnt-1};
 		}
 		sub_layouts[g] = seg_tree::in_order_layout(cnt);
