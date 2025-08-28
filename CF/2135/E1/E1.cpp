@@ -184,6 +184,7 @@ int main() {
 			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
 		}
 		cout << ans << '\n';
+		if (N >= 2) break;
 	}
 
 	return 0;
