@@ -595,6 +595,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 		if (nodes[a].v == nodes[b].v) return false;
 		if (p >= G_layout.N) {
 			int g = G_layout.get_leaf_index(p);
+			assert(0 <= g && g < G);
 			return cmp_bot(a, b, g);
 		} else {
 			int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
