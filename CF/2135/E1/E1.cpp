@@ -129,6 +129,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		cerr << "solve " << N << '\n';
 		using num = modnum<998244353>;
 		const int V = 2*N;
 		std::vector<num> fact(V+1);
@@ -179,6 +180,7 @@ int main() {
 		num ans = 0;
 		for (int i = 0; i <= N; i++) {
 			pref[i+1] += pref[i];
+			cerr << i << ' ' << pref[i] << '\n';
 			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
 		}
 		cout << ans << '\n';
