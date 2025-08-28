@@ -475,11 +475,180 @@ struct circular_layout {
 
 } // namespace seg_tree
 
+std::mt19937 mt_gen(48);
+std::vector<std::array<int, 2>> gen() {
+	int N = 2 * std::uniform_int_distribution<int>(1, 10)(mt_gen) - 1;
+	std::vector<std::array<int, 2>> ch(N, {-1, -1});
+	int idx = 1;
+	std::vector<int> leaves; leaves.reserve(N);
+	while (idx < N) {
+		int z = std::uniform_int_distribution<int>(0, int(leaves.size()))(mt_gen);
+		assert(ch[leaves[z]][0] == -1);
+		assert(ch[leaves[z]][1] == -1);
+		ch[leaves[z]] = {idx, idx+1};
+		leaves[z] = idx;
+		leaves.push_back(idx+1);
+		idx += 2;
+	}
+	assert(idx == N);
+	return ch;
+}
+
+std::mt19937 mt(48);
+
+std::vector<int> F(std::vector<std::array<int, 2>> ch) {
+	int N = int(ch.size());
+
+	std::vector<std::vector<int>> by_gen(N);
+	int G = 1 + [&](this auto&& self, int cur) -> int {
+		int gen;
+		if (ch[cur][0] == -1) {
+			gen = 0;
+		} else {
+			int gl = self(ch[cur][0]);
+			int gr = self(ch[cur][1]);
+			gen = std::max(gl, gr+1);
+		}
+		by_gen[gen].push_back(cur);
+		return gen;
+	}(0);
+	while (!by_gen.empty() && by_gen.back().empty()) by_gen.pop_back();
+	assert(int(by_gen.size()) == G);
+
+	using mnum = modnum<998244353>;
+	using hsh = pairnum<mnum, mnum>;
+	auto init_weights = [&](seg_tree::in_order_layout l, std::vector<hsh>& vec) {
+		vec.resize(l.N);
+		for (auto& v : vec) {
+			v.u = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
+			v.v = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
+		}
+	};
+	seg_tree::in_order_layout G_layout(G);
+	std::vector<hsh> G_weights;
+	init_weights(G_layout, G_weights);
+	std::vector<seg_tree::in_order_layout> sub_layouts(G);
+	std::vector<std::vector<hsh>> sub_weights(G);
+
+	struct seg_node {
+		std::array<int, 2> c{-1, -1};
+		hsh v;
+	};
+	std::vector<seg_node> nodes; nodes.reserve(40 * N + 10);
+	// empty node
+	const int EMPTY = int(nodes.size());
+	nodes.push_back({{0, 0}, 0});
+
+	auto insert_bot = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p = seg_tree::point(1)) -> int {
+		int res = int(nodes.size());
+		nodes.push_back(nodes[tree]);
+		if (p >= sub_layouts[g].N) {
+			nodes[res].v += hsh(1);
+		} else {
+			int d = pos >= sub_layouts[g].get_node_split(p) ? 1 : 0;
+			int ch_val = self(nodes[res].c[d], g, pos, p.c(d));
+			nodes[res].c[d] = ch_val;
+			nodes[res].v = nodes[nodes[res].c[0]].v + nodes[nodes[res].c[1]].v * sub_weights[g][p];
+		}
+		return res;
+	};
+
+	auto insert_top = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p = seg_tree::point(1)) -> int {
+		if (p >= G_layout.N) {
+			return insert_bot(tree, g, pos);
+		} else {
+			int res = int(nodes.size());
+			nodes.push_back(nodes[tree]);
+			int d = pos >= G_layout.get_node_split(p) ? 1 : 0;
+			int ch_val = self(nodes[res].c[d], g, pos, p.c(d));
+			nodes[res].c[d] = ch_val;
+			nodes[res].v = nodes[nodes[res].c[0]].v + nodes[nodes[res].c[1]].v * G_weights[p];
+			return res;
+		}
+	};
+
+	auto cmp_bot = [&](this auto&& self, int a, int b, int g, seg_tree::point p = seg_tree::point(1)) -> bool {
+		if (a == EMPTY && b == EMPTY) return false;
+		else if (a == EMPTY) return true;
+		else if (b == EMPTY) return false;
+
+		if (nodes[a].v == nodes[b].v) return false;
+		if (p >= sub_layouts[g].N) {
+			// these are just the value directly
+			return int(nodes[a].v.v) < int(nodes[b].v.v);
+		} else {
+			int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
+			return self(nodes[a].c[d], nodes[b].c[d], p.c(d));
+		}
+	};
+
+	auto cmp_top = [&](this auto&& self, int a, int b, seg_tree::point p = seg_tree::point(1)) -> bool {
+		if (a == EMPTY && b == EMPTY) return false;
+		else if (a == EMPTY) return true;
+		else if (b == EMPTY) return false;
+
+		if (nodes[a].v == nodes[b].v) return false;
+		if (p >= G_layout.N) {
+			int g = G_layout.get_leaf_index(p);
+			return cmp_bot(a, b, g);
+		} else {
+			int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
+			return self(nodes[a].c[d], nodes[b].c[d], p.c(d));
+		}
+	};
+
+	std::vector<int> cur_tree(N, -1);
+	std::vector<std::pair<int, int>> val(N, {-1, -1});
+	std::vector<int> ans; ans.reserve(N);
+	for (int g = 0; g < G; g++) {
+		std::vector<std::pair<int, int>> gen_vals; gen_vals.reserve(by_gen[g].size());
+		for (int cur : by_gen[g]) {
+			assert(cur_tree[cur] == -1);
+			if (g == 0) {
+				cur_tree[cur] = EMPTY;
+			} else {
+				int t = cur_tree[ch[cur][0]];
+				auto [gen, pos] = val[ch[cur][1]];
+				assert(gen != -1 && pos != -1);
+				assert(gen < g);
+				cur_tree[cur] = insert_top(t, gen, pos);
+			}
+			gen_vals.push_back({cur_tree[cur], cur});
+		}
+		std::sort(gen_vals.begin(), gen_vals.end(), [&](auto a, auto b) -> bool {
+			if (nodes[a.first].v == nodes[b.first].v) {
+				return a.second < b.second;
+			}
+			return cmp_top(a.first, b.first);
+		});
+		int cnt = 0;
+		for (int i = 0; i < int(gen_vals.size()); i++) {
+			ans.push_back(gen_vals[i].second);
+			if (i > 0 && nodes[gen_vals[i-1].first].v == nodes[gen_vals[i].first].v) {
+			} else {
+				cnt++;
+			}
+			val[gen_vals[i].second] = {g, cnt-1};
+		}
+		sub_layouts[g] = seg_tree::in_order_layout(cnt);
+		init_weights(sub_layouts[g], sub_weights[g]);
+	}
+
+	return ans;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	std::mt19937 mt(48);
+	for (int z = 0; z < 1000; z++) {
+		auto ch = gen();
+		cerr << "test " << z << '\n';
+		cerr << ch.size() << '\n';
+		//auto ans_slow = F_slow(ch);
+		auto ans = F(ch);
+		//assert(ans == ans_slow);
+	}
 
 	int T; cin >> T;
 	while (T--) {
@@ -489,141 +658,7 @@ int main() {
 			cin >> l >> r; l--, r--;
 			assert((l == -1) == (r == -1));
 		}
-		std::vector<std::vector<int>> by_gen(N);
-		int G = 1 + [&](this auto&& self, int cur) -> int {
-			int gen;
-			if (ch[cur][0] == -1) {
-				gen = 0;
-			} else {
-				int gl = self(ch[cur][0]);
-				int gr = self(ch[cur][1]);
-				gen = std::max(gl, gr+1);
-			}
-			by_gen[gen].push_back(cur);
-			return gen;
-		}(0);
-		while (!by_gen.empty() && by_gen.back().empty()) by_gen.pop_back();
-		assert(int(by_gen.size()) == G);
-
-		using mnum = modnum<998244353>;
-		using hsh = pairnum<mnum, mnum>;
-		auto init_weights = [&](seg_tree::in_order_layout l, std::vector<hsh>& vec) {
-			vec.resize(l.N);
-			for (auto& v : vec) {
-				v.u = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
-				v.v = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
-			}
-		};
-		seg_tree::in_order_layout G_layout(G);
-		std::vector<hsh> G_weights;
-		init_weights(G_layout, G_weights);
-		std::vector<seg_tree::in_order_layout> sub_layouts(G);
-		std::vector<std::vector<hsh>> sub_weights(G);
-
-		struct seg_node {
-			std::array<int, 2> c{-1, -1};
-			hsh v;
-		};
-		std::vector<seg_node> nodes; nodes.reserve(40 * N + 10);
-		// empty node
-		const int EMPTY = int(nodes.size());
-		nodes.push_back({{0, 0}, 0});
-
-		auto insert_bot = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p = seg_tree::point(1)) -> int {
-			int res = int(nodes.size());
-			nodes.push_back(nodes[tree]);
-			if (p >= sub_layouts[g].N) {
-				nodes[res].v += hsh(1);
-			} else {
-				int d = pos >= sub_layouts[g].get_node_split(p) ? 1 : 0;
-				int ch_val = self(nodes[res].c[d], g, pos, p.c(d));
-				nodes[res].c[d] = ch_val;
-				nodes[res].v = nodes[nodes[res].c[0]].v + nodes[nodes[res].c[1]].v * sub_weights[g][p];
-			}
-			return res;
-		};
-
-		auto insert_top = [&](this auto&& self, int tree, int g, int pos, seg_tree::point p = seg_tree::point(1)) -> int {
-			if (p >= G_layout.N) {
-				return insert_bot(tree, g, pos);
-			} else {
-				int res = int(nodes.size());
-				nodes.push_back(nodes[tree]);
-				int d = pos >= G_layout.get_node_split(p) ? 1 : 0;
-				int ch_val = self(nodes[res].c[d], g, pos, p.c(d));
-				nodes[res].c[d] = ch_val;
-				nodes[res].v = nodes[nodes[res].c[0]].v + nodes[nodes[res].c[1]].v * G_weights[p];
-				return res;
-			}
-		};
-
-		auto cmp_bot = [&](this auto&& self, int a, int b, int g, seg_tree::point p = seg_tree::point(1)) -> bool {
-			if (a == EMPTY && b == EMPTY) return false;
-			else if (a == EMPTY) return true;
-			else if (b == EMPTY) return false;
-
-			if (nodes[a].v == nodes[b].v) return false;
-			if (p >= sub_layouts[g].N) {
-				// these are just the value directly
-				return int(nodes[a].v.v) < int(nodes[b].v.v);
-			} else {
-				int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
-				return self(nodes[a].c[d], nodes[b].c[d], p.c(d));
-			}
-		};
-
-		auto cmp_top = [&](this auto&& self, int a, int b, seg_tree::point p = seg_tree::point(1)) -> bool {
-			if (a == EMPTY && b == EMPTY) return false;
-			else if (a == EMPTY) return true;
-			else if (b == EMPTY) return false;
-
-			if (nodes[a].v == nodes[b].v) return false;
-			if (p >= G_layout.N) {
-				int g = G_layout.get_leaf_index(p);
-				return cmp_bot(a, b, g);
-			} else {
-				int d = nodes[nodes[a].c[1]].v != nodes[nodes[b].c[1]].v ? 1 : 0;
-				return self(nodes[a].c[d], nodes[b].c[d], p.c(d));
-			}
-		};
-
-		std::vector<int> cur_tree(N, -1);
-		std::vector<std::pair<int, int>> val(N, {-1, -1});
-		std::vector<int> ans; ans.reserve(N);
-		for (int g = 0; g < G; g++) {
-			std::vector<std::pair<int, int>> gen_vals; gen_vals.reserve(by_gen[g].size());
-			for (int cur : by_gen[g]) {
-				assert(cur_tree[cur] == -1);
-				if (g == 0) {
-					cur_tree[cur] = EMPTY;
-				} else {
-					int t = cur_tree[ch[cur][0]];
-					auto [gen, pos] = val[ch[cur][1]];
-					assert(gen != -1 && pos != -1);
-					assert(gen < g);
-					cur_tree[cur] = insert_top(t, gen, pos);
-				}
-				gen_vals.push_back({cur_tree[cur], cur});
-			}
-			std::sort(gen_vals.begin(), gen_vals.end(), [&](auto a, auto b) -> bool {
-				if (nodes[a.first].v == nodes[b.first].v) {
-					return a.second < b.second;
-				}
-				return cmp_top(a.first, b.first);
-			});
-			int cnt = 0;
-			for (int i = 0; i < int(gen_vals.size()); i++) {
-				ans.push_back(gen_vals[i].second);
-				if (i > 0 && nodes[gen_vals[i-1].first].v == nodes[gen_vals[i].first].v) {
-				} else {
-					cnt++;
-				}
-				val[gen_vals[i].second] = {g, cnt-1};
-			}
-			sub_layouts[g] = seg_tree::in_order_layout(cnt);
-			init_weights(sub_layouts[g], sub_weights[g]);
-		}
-
+		auto ans = F(ch);
 		for (int i = 0; i < N; i++) {
 			cout << ans[i]+1 << " \n"[i+1==N];
 		}
