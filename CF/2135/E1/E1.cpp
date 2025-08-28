@@ -170,9 +170,9 @@ int main() {
 			for (int w = 1; w * delta <= N; w += 2) {
 				assert(w & 1);
 				assert((delta ^ N) & 1);
-				add_point(w * delta - 1, 2 * cnt);
-				add_point(w * delta + 1, 2 * cnt);
-				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, 4);
+				add_point(w * delta - 1, -2 * cnt);
+				add_point(w * delta + 1, -2 * cnt);
+				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, -4);
 			}
 		}
 		num ans = 0;
