@@ -507,12 +507,16 @@ int main() {
 
 		using mnum = modnum<998244353>;
 		using hsh = pairnum<mnum, mnum>;
+		auto init_weights = [&](seg_tree::in_order_layout l, std::vector<hsh>& vec) {
+			vec.resize(l.N);
+			for (auto& v : vec) {
+				v.u = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
+				v.v = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
+			}
+		};
 		seg_tree::in_order_layout G_layout(G);
-		std::vector<hsh> G_weights(G);
-		for (auto& v : G_weights) {
-			v.u = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
-			v.v = std::uniform_int_distribution<int>(0, mnum::MOD-1)(mt);
-		}
+		std::vector<hsh> G_weights;
+		init_weights(G_layout, G_weights);
 		std::vector<seg_tree::in_order_layout> sub_layouts(G);
 		std::vector<std::vector<hsh>> sub_weights(G);
 
@@ -615,6 +619,8 @@ int main() {
 				}
 				val[gen_vals[i].second] = {g, cnt-1};
 			}
+			sub_layouts[g] = seg_tree::in_order_layout(cnt);
+			init_weights(sub_layouts[g], sub_weights[g]);
 		}
 
 		for (int i = 0; i < N; i++) {
