@@ -590,6 +590,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 
 	auto dump_bot = [&](this auto&& self, int a, int g, seg_tree::point p) {
 		if (a == EMPTY) return;
+		std::cerr << "  " << a << ' ' << g << ' ' << p << '\n';
 		if (p >= sub_layouts[g].N) {
 			assert(nodes[a].c[0] == EMPTY);
 			assert(nodes[a].c[1] == EMPTY);
@@ -601,6 +602,7 @@ std::vector<int> F(std::vector<std::array<int, 2>> ch) {
 	};
 	auto dump_top = [&](this auto&& self, int a, seg_tree::point p) {
 		if (a == EMPTY) return;
+		std::cerr << "  " << a << ' ' << p << '\n';
 		if (p >= G_layout.N) {
 			int g = G_layout.get_leaf_index(p);
 			dump_bot(a, g, seg_tree::point(1));
