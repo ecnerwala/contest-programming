@@ -5,9 +5,10 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	const int WMAX = int(1e5);
+	const int G = int(100);
 	int v_prev = -1;
 	for (int i = 1; i <= WMAX; i++) {
-		int v = (WMAX + i - 1) / i;
+		int v = (i/G) ? 0 : (WMAX + (i/G) - 1) / (i/G);
 		if (v != v_prev) {
 			cerr << i << ' ' << v << '\n';
 			v_prev = v;
@@ -20,7 +21,15 @@ int main() {
 		for (int z = 0; z < WMAX; z++) cout << ' ' << 1;
 		cout << '\n' << flush;
 		int resp1; cin >> resp1;
-		// k * resp1 >= WMAX > k * (resp1 - 1)
+		if (resp1 == -1) exit(0);
+		// w * resp1 >= WMAX > w * (resp1 - 1)
+		int w_min = (WMAX + resp1 - 1) / resp1;
+		int w_max = (WMAX - 1) / (resp1 - 1);
+		assert(w_max >= w_min);
+		if (w_max == w_min) {
+			cout << '!' << ' ' << w_min << '\n' << flush;
+			continue;
+		}
 	}
 
 	return 0;
