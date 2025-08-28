@@ -483,7 +483,7 @@ std::vector<std::array<int, 2>> gen() {
 	std::vector<int> leaves; leaves.reserve(N);
 	leaves.push_back(0);
 	while (idx < N) {
-		int z = std::uniform_int_distribution<int>(0, int(leaves.size()))(mt_gen);
+		int z = std::uniform_int_distribution<int>(0, int(leaves.size()) - 1)(mt_gen);
 		assert(ch[leaves[z]][0] == -1);
 		assert(ch[leaves[z]][1] == -1);
 		ch[leaves[z]] = {idx, idx+1};
