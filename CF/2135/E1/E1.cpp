@@ -179,6 +179,7 @@ int main() {
 		};
 
 		num ans = 0;
+		/*
 		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
 			num z = (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
 			int x_min = -(delta - ((delta ^ N) & 1) - 2);
@@ -203,6 +204,7 @@ int main() {
 		cerr << ans << '\n';
 		cout << ans << '\n';
 		continue;
+		*/
 
 		for (int delta = 2 + (N & 1); delta <= N+2; delta += 2) {
 			int x_min = -(delta-2);
