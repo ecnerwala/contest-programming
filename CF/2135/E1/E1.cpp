@@ -185,7 +185,7 @@ int main() {
 			int x_max = +(delta - ((delta ^ N) & 1) - 2);
 			int cnt = (x_max - x_min) / 2 + 1;
 			add_range(x_min, x_max, z);
-			for (int w = 1; w <= N; w += 2) {
+			for (int w = 1; w * delta <= N; w += 2) {
 				add_point(w * delta + ((delta ^ N) & 1), -cnt * z);
 				add_point(w * delta - ((delta ^ N) & 1), -cnt * z);
 				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, z * 2);
