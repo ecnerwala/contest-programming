@@ -159,6 +159,7 @@ int main() {
 			return r;
 		};
 
+		/*
 		cerr << "get exact " << '\n';
 		num ans = 0;
 		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
@@ -170,6 +171,7 @@ int main() {
 		cout << ans << '\n';
 		if (N >= 10) break;
 		continue;
+		*/
 
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
