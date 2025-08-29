@@ -145,7 +145,8 @@ int main() {
 			add_range(lo, lo, v);
 		};
 
-		add_range(-N, N, 1);
+		pref[0]++;
+
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			int cnt = delta - 1;
 			for (int w = 1; w * delta <= N; w += 2) {
