@@ -144,7 +144,8 @@ int main() {
 			assert(!((hi ^ N) & 1));
 			assert(lo <= hi);
 			if (lo > N || hi < -N) return;
-			lo = std::max(lo, -N);
+			assert(lo >= -N);
+			//lo = std::max(lo, -N);
 			hi = std::min(hi, +N);
 			lo = (lo + N) / 2;
 			hi = (hi + N) / 2;
