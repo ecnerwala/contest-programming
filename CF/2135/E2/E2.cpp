@@ -148,19 +148,22 @@ int main() {
 		add_range(-N, N, 1);
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			int cnt = delta - 1;
-			for (int w = 1; w * delta <= N; w += 2) {
+			for (int w = 1; w * delta - 2 <= N; w += 2) {
+				if (w >= 3) pref[(N + w * delta - 2) / 2] -= 4;
 				add_point(w * delta, -4 * cnt);
-				add_range(w * delta + 2, (w+2) * delta - 2, 4);
+				if (w * delta + 2 <= N) pref[(N + w * delta + 2) / 2] += 4;
 			}
 		}
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			int cnt = delta - 2;
-			for (int w = 1; w * delta - 1 <= N; w += 2) {
+			for (int w = 1; w * delta - 3 <= N; w += 2) {
+				if (w >= 3) pref[(N + w * delta - 3) / 2] += 4;
 				add_point(w * delta - 1, 2 * cnt);
 				add_point(w * delta + 1, 2 * cnt);
-				add_range(w * delta + 3, (w+2) * delta - 3, -4);
+				if (w * delta + 3 <= N) pref[(N + w * delta + 3) / 2] -= 4;
 			}
 		}
+
 		for (int i = 0; i < N; i++) {
 			pref[i+1] += pref[i];
 		}
