@@ -166,8 +166,6 @@ int main() {
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			int cnt = delta - 2;
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
-				assert(w & 1);
-				assert((delta ^ N) & 1);
 				add_point(w * delta - 1, 2 * cnt);
 				add_point(w * delta + 1, 2 * cnt);
 				add_range(w * delta + 3, (w+2) * delta - 3, -4);
