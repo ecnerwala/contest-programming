@@ -175,7 +175,7 @@ int main() {
 				assert((delta ^ N) & 1);
 				add_point(w * delta - 1, 2 * cnt);
 				add_point(w * delta + 1, 2 * cnt);
-				add_range(w * delta + 2, (w+2) * delta - 2, -4);
+				add_range(w * delta + 3, (w+2) * delta - 3, -4);
 			}
 		}
 		for (int i = 0; i <= N; i++) {
