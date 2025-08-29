@@ -165,9 +165,12 @@ int main() {
 			num z = (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
 			int x_min = -(delta - ((delta ^ N) & 1) - 2);
 			int x_max = +(delta - ((delta ^ N) & 1) - 2);
-			for (int x = x_min; x <= x_max; x += 2) {
-				ans += get_within(x, delta) * z;
-
+			int cnt = (x_max - x_min) / 2 + 1;
+			for (int x = x_min; x <= x_max; x += 2) ans += path(x) * z;
+			for (int w = 1; w <= N; w += 2) {
+				ans += path(w * delta + ((N - delta) & 1)) * cnt * -z;
+				ans += path(w * delta - ((N - delta) & 1)) * cnt * -z;
+				for (int x = x_min; x <= x_max; x += 2) ans += path((w+1) * delta + x) * z * 2;
 			}
 		}
 		cerr << ans << '\n';
