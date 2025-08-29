@@ -175,7 +175,6 @@ int main() {
 		}
 		cerr << ans << '\n';
 		cout << ans << '\n';
-		if (N >= 10) break;
 		continue;
 
 		std::vector<num> pref(N+2);
