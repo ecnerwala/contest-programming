@@ -132,6 +132,44 @@ int main() {
 		cerr << "solve " << N << '\n';
 		using num = modnum<998244353>;
 
+		std::vector<num> fact(N+1);
+		fact[0] = 1;
+		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(N+1);
+		ifact[N] = inv(fact[N]);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+		auto path = [&](int d) -> num {
+			if ((d ^ N) & 1) return 0;
+			int i = (d + N) / 2;
+			if (0 <= i && i <= N) return fact[N] * ifact[i] * ifact[N-i];
+			else return 0;
+		};
+
+		auto get_within = [&](int x, int d_top, int d_bot) -> num {
+			// paths with total delta x and stay < x + d_top and > - d_bot
+			assert(x >= 0 && d_top >= 0 && d_bot >= 0);
+			num r = path(x);
+			int delta = x + d_bot + d_top;
+			for (int w = 1; w <= N; w += 2) {
+				r -= path((w-1) * delta + x + 2 * d_top);
+				r -= path((w-1) * delta + x + 2 * d_bot);
+				r += path((w+1) * delta + x);
+				r += path((w-1) * delta - x);
+			}
+			return r;
+		};
+
+		auto get_exact = [&](int x, int d) -> num {
+			return get_within(x, d, d) - get_within(x, d+1, d) - get_within(x, d, d+1) + get_within(x, d+1, d+1);
+		};
+
+		for (int x = (N & 1); x <= N; x += 2) {
+			for (int d = 0; x + 2 * d <= N; d++) {
+				cerr << x << ' ' << d << ' ' << get_exact(x, d) << '\n';
+			}
+		}
+
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
 			assert(!((lo ^ N) & 1));
@@ -175,13 +213,6 @@ int main() {
 			pref[i+1] += pref[i];
 			cerr << i << ' ' << pref[i] << '\n';
 		}
-
-		std::vector<num> fact(N+1);
-		fact[0] = 1;
-		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(N+1);
-		ifact[N] = inv(fact[N]);
-		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		num ans = 0;
 		for (int i = 0; i <= N; i++) {
