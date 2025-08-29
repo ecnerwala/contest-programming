@@ -152,7 +152,7 @@ int main() {
 			// paths with total delta x and stay < x + d_top and > - d_bot
 			num r = path(x);
 			int delta = x + d_bot + d_top;
-			assert(abs(d_top - d_bot) == 1);
+			assert(abs(d_top - d_bot) <= 1);
 			for (int w = 1; w <= N; w += 2) {
 				r -= path(w * delta + abs(d_top - d_bot));
 				r -= path(w * delta - abs(d_top - d_bot));
