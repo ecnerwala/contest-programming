@@ -179,6 +179,30 @@ int main() {
 		};
 
 		num ans = 0;
+		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
+			num z = (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
+			int x_min = -(delta - ((delta ^ N) & 1) - 2);
+			int x_max = +(delta - ((delta ^ N) & 1) - 2);
+			int cnt = (x_max - x_min) / 2 + 1;
+			add_range(x_min, x_max, z);
+			for (int w = 1; w * delta - 1 <= N; w += 2) {
+				add_point(w * delta + ((delta ^ N) & 1), -cnt * z);
+				add_point(w * delta - ((delta ^ N) & 1), -cnt * z);
+				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, z * 2);
+			}
+		}
+
+		for (int i = 0; i <= N; i++) {
+			pref[i+1] += pref[i];
+			cerr << i << ' ' << pref[i] << '\n';
+		}
+
+		for (int i = 0; i <= N; i++) {
+			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
+		}
+		cerr << ans << '\n';
+		cout << ans << '\n';
+		continue;
 
 		for (int delta = 2 + (N & 1); delta <= N+2; delta += 2) {
 			int x_min = -(delta-2);
@@ -196,7 +220,7 @@ int main() {
 			int x_max = delta-3;
 			int cnt = (x_max - x_min) / 2 + 1;
 			add_range(x_min, x_max, -2);
-			for (int w = 1; w * delta <= N; w += 2) {
+			for (int w = 1; w * delta - 1 <= N; w += 2) {
 				assert(w & 1);
 				assert((delta ^ N) & 1);
 				add_point(w * delta - 1, 2 * cnt);
@@ -214,6 +238,7 @@ int main() {
 		}
 		cout << ans << '\n';
 		cerr << ans << '\n';
+		if (N >= 2) break;
 	}
 
 	return 0;
