@@ -131,7 +131,7 @@ int main() {
 		int N; cin >> N;
 		using num = modnum<998244353>;
 
-		std::vector<num> pref(N+2);
+		std::vector<num> pref(N+1);
 		auto add_range = [&](int lo, int hi, num v) -> void {
 			assert(!((lo ^ N) & 1));
 			assert(!((hi ^ N) & 1));
