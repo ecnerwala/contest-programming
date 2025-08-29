@@ -154,7 +154,7 @@ int main() {
 				odd_div_sum[j] = s;
 			}
 		};
-		for (int i = 2; i <= N; i++) {
+		for (int i = 2; i <= V; i++) {
 			if (!pfac[i]) {
 				primes.push_back(i);
 				extend(1, i);
@@ -166,13 +166,22 @@ int main() {
 			}
 		}
 
-		for (int i = 1; i <= N; i++) {
-			num odd_div_sum = ;
+		for (int i = 1; i <= V; i++) {
+			num v = odd_div_sum[i];
+			// we only want divisors >= 2 + (N&1),
+			// so we subtract 1 and 2 if N is odd
+			// need to subtract 1
+			if (i & 1) v -= 1;
+			else if ((N & 1) && ((i & 3) == 2)) v -= 2;
 			if ((i ^ N) & 1) {
-				odd_div_sum[i];
+				add_point(i - 1, 2 * odd_div_sum[i]);
+				add_point(i + 1, 2 * odd_div_sum[i]);
+			} else {
+				add_point(i, -4 * odd_div_sum[i]);
 			}
 		}
 
+		/*
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			for (int w = 1; w * delta <= N; w += 2) {
 				add_point(w * delta, -4 * delta);
@@ -184,6 +193,7 @@ int main() {
 				add_point(w * delta + 1, 2 * delta);
 			}
 		}
+		*/
 
 		num ans = 0;
 		std::vector<num> fact(N+1);
