@@ -164,6 +164,7 @@ int main() {
 			return get_within(x, d, d) - get_within(x, d+1, d) - get_within(x, d, d+1) + get_within(x, d+1, d+1);
 		};
 
+		cerr << "get exact " << '\n';
 		for (int x = (N & 1); x <= N; x += 2) {
 			for (int d = 0; x + 2 * d <= N; d++) {
 				cerr << x << ' ' << d << ' ' << get_exact(x, d) << '\n';
