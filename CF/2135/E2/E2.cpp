@@ -156,7 +156,7 @@ int main() {
 		};
 
 		add_range(-N, N, 1);
-		for (int delta = 2 + (N & 1); delta <= N+2; delta += 2) {
+		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			int cnt = delta - 1;
 			int z = (delta == N+2) ? 1 : 2;
 			for (int w = 1; w * delta <= N; w += 2) {
