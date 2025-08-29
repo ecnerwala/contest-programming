@@ -163,8 +163,9 @@ int main() {
 		num ans = 0;
 		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
 			num z = (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
-			for (int x = -(delta - 2); x <= delta - 2; x ++) {
-				if ((x ^ N) & 1) continue;
+			int x_min = -(delta - ((delta ^ N) & 1) - 2);
+			int x_max = +(delta - ((delta ^ N) & 1) - 2);
+			for (int x = x_min; x <= x_max; x += 2) {
 				ans += get_within(x, delta) * z;
 
 			}
