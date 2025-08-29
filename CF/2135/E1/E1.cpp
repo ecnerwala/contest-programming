@@ -170,6 +170,7 @@ int main() {
 			hi = std::min(hi, +N);
 			lo = (lo + N) / 2;
 			hi = (hi + N) / 2;
+			assert(0 <= lo && lo <= hi && hi <= N);
 			pref[lo] += v;
 			pref[hi+1] -= v;
 		};
