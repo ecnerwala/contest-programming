@@ -144,6 +144,15 @@ int main() {
 
 		auto extend = [&](int i, int p) {
 			assert(i == 1 || p < pfac[i]);
+			num s = div_sum[i];
+			for (int j = i; int64_t(j) * int64_t(p) <= V; ) {
+				j *= p;
+				pfac[j] = p;
+
+				s *= p;
+				s += div_sum[i];
+				div_sum[j] = s;
+			}
 		};
 		for (int i = 2; i <= N; i++) {
 			if (!pfac[i]) {
@@ -162,7 +171,7 @@ int main() {
 				add_point(w * delta, -4 * delta);
 			}
 		}
-		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
+		for (int delta = 1 + (N & 1); delta <= N+1; delta += 2) {
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
 				add_point(w * delta - 1, 2 * delta);
 				add_point(w * delta + 1, 2 * delta);
