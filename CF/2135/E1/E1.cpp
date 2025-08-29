@@ -217,6 +217,7 @@ int main() {
 			cerr << i << ' ' << pref[i] << '\n';
 		}
 
+		num ans = 0;
 		for (int i = 0; i <= N; i++) {
 			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
 		}
