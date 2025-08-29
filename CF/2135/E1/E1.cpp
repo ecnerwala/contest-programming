@@ -147,8 +147,9 @@ int main() {
 		};
 
 		auto get_within = [&](int x, int d_top, int d_bot) -> num {
-			// paths with total delta x and stay < x + d_top and > - d_bot
 			assert(x >= 0 && d_top >= 0 && d_bot >= 0);
+			if (d_top == 0 || d_bot == 0) return 0;
+			// paths with total delta x and stay < x + d_top and > - d_bot
 			num r = path(x);
 			int delta = x + d_bot + d_top;
 			for (int w = 1; w <= N; w += 2) {
