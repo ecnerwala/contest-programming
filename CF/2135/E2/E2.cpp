@@ -141,16 +141,14 @@ int main() {
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			add_suff(delta, 4);
 			for (int w = 1; w * delta <= N; w += 2) {
-				add_suff(w * delta, -4);
-				add_suff(w * delta, -4 * (delta - 1));
+				add_suff(w * delta, -4 * delta);
 				add_suff(w * delta + 2, 4 * delta);
 			}
 		}
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			add_suff(delta - 1, -4);
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
-				add_suff(w * delta - 1, 4);
-				add_suff(w * delta - 1, 2 * (delta - 2));
+				add_suff(w * delta - 1, 2 * delta);
 				add_suff(w * delta + 3, -2 * delta);
 			}
 		}
