@@ -149,9 +149,10 @@ int main() {
 
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			int cnt = delta - 1;
-			for (int w = 1; w * delta <= N; w += 2) {
+			for (int w = 1; w * delta - 2 <= N; w += 2) {
+				if (w >= 3) pref[(N + w * delta - 2) / 2] -= 4;
 				add_point(w * delta, -4 * cnt);
-				add_range(w * delta + 2, (w+2) * delta - 2, 4);
+				if (w*delta+2 <= N) pref[(N + w*delta+2) / 2] += 4;
 			}
 		}
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
