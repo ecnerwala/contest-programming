@@ -131,17 +131,8 @@ int main() {
 		int N; cin >> N;
 		using num = modnum<998244353>;
 
-		std::vector<num> fact(N+1);
-		fact[0] = 1;
-		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(N+1);
-		ifact[N] = inv(fact[N]);
-		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
-
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
-			if ((lo ^ N) & 1) lo++;
-			if ((hi ^ N) & 1) hi--;
 			assert(!((lo ^ N) & 1));
 			assert(!((hi ^ N) & 1));
 			assert(lo <= hi);
@@ -167,7 +158,7 @@ int main() {
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
 				add_point(w * delta - 1, 2 * cnt);
 				add_point(w * delta + 1, 2 * cnt);
-				add_range(w * delta + 2, (w+2) * delta - 2, -4);
+				add_range(w * delta + 3, (w+2) * delta - 3, -4);
 			}
 		}
 		for (int i = 0; i <= N; i++) {
@@ -175,6 +166,13 @@ int main() {
 		}
 
 		num ans = 0;
+		std::vector<num> fact(N+1);
+		fact[0] = 1;
+		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(N+1);
+		ifact[N] = inv(fact[N]);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
 		for (int i = 0; i <= N; i++) {
 			ans += ifact[i] * ifact[N-i] * pref[i];
 		}
