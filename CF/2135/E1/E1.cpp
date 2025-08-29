@@ -208,8 +208,9 @@ int main() {
 
 		num ans = 0;
 		for (int i = 0; i <= N; i++) {
-			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
+			ans += ifact[i] * ifact[N-i] * pref[i];
 		}
+		ans *= fact[N];
 		cout << ans << '\n';
 		cerr << ans << '\n';
 	}
