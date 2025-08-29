@@ -166,9 +166,9 @@ int main() {
 			assert(!((lo ^ N) & 1));
 			assert(!((hi ^ N) & 1));
 			assert(lo <= hi);
+			if (lo > N || hi < -N) return;
 			lo = std::max(lo, -N);
 			hi = std::min(hi, +N);
-			assert(lo <= hi);
 			lo = (lo + N) / 2;
 			hi = (hi + N) / 2;
 			pref[lo] += v;
