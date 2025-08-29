@@ -174,10 +174,10 @@ int main() {
 			if (i & 1) v -= 1;
 			else if ((N & 1) && ((i & 3) == 2)) v -= 2;
 			if ((i ^ N) & 1) {
-				add_point(i - 1, 2 * odd_div_sum[i]);
-				add_point(i + 1, 2 * odd_div_sum[i]);
+				add_point(i - 1, 2 * v);
+				add_point(i + 1, 2 * v);
 			} else {
-				add_point(i, -4 * odd_div_sum[i]);
+				add_point(i, -4 * v);
 			}
 		}
 
