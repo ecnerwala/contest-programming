@@ -139,28 +139,6 @@ int main() {
 		ifact[N] = inv(fact[N]);
 		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-		auto path = [&](int d) -> num {
-			if ((d ^ N) & 1) return 0;
-			int i = (d + N) / 2;
-			if (0 <= i && i <= N) return fact[N] * ifact[i] * ifact[N-i];
-			else return 0;
-		};
-
-		auto get_within = [&](int x, int delta) -> num {
-			if (delta - x < 2) return 0;
-			// paths with total delta x and stay < x + d_top and > - d_bot
-			num r = path(x);
-			for (int w = 1; w <= N; w += 2) {
-				r -= path(w * delta + ((N - delta) & 1));
-				r -= path(w * delta - ((N - delta) & 1));
-				r += path((w+1) * delta + x);
-				r += path((w+1) * delta - x);
-			}
-			return r;
-		};
-
-		cerr << "get exact " << '\n';
-
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
 			assert(!((lo ^ N) & 1));
