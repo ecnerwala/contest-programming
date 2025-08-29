@@ -165,11 +165,15 @@ int main() {
 		};
 
 		cerr << "get exact " << '\n';
+		num ans = 0;
 		for (int x = (N & 1); x <= N; x += 2) {
 			for (int d = 0; x + 2 * d <= N; d++) {
 				cerr << x << ' ' << d << ' ' << get_exact(x, d) << '\n';
+				ans += get_exact(x, d) * (x ? 2 : 1);
 			}
 		}
+		cout << ans << '\n';
+		continue;
 
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
