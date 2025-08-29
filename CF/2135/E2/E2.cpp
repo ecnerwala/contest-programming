@@ -132,20 +132,12 @@ int main() {
 		using num = modnum<998244353>;
 
 		std::vector<num> pref(N+1);
-		auto add_range = [&](int lo, int hi, num v) -> void {
-			assert(!((lo ^ N) & 1));
-			assert(!((hi ^ N) & 1));
-			assert(lo <= hi);
-			lo = (lo + N) / 2;
-			hi = (hi + N) / 2;
-			if (lo <= N) pref[lo] += v;
-			if (hi+1 <= N) pref[hi+1] -= v;
-		};
-		auto add_point = [&](int lo, num v) -> void {
-			add_range(lo, lo, v);
-		};
 		auto add_suff = [&](int lo, int v) -> void {
 			if (lo <= N) pref[(N + lo) / 2] += v;
+		};
+		auto add_point = [&](int lo, num v) -> void {
+			add_suff(lo, v);
+			add_suff(lo+2, -v);
 		};
 
 		pref[0]++;
