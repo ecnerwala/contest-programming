@@ -161,7 +161,7 @@ int main() {
 
 		cerr << "get exact " << '\n';
 		num ans = 0;
-		for (int delta = 2; delta <= N+2; delta++) {
+		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
 			for (int x = (N & 1); x <= delta - 2; x += 2) {
 				ans += get_within(x, delta) * (x ? 2 : 1) * (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
 			}
