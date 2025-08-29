@@ -139,19 +139,19 @@ int main() {
 		const int V = N+1;
 		std::vector<int> primes; primes.reserve(V);
 		std::vector<int> pfac(V+1);
-		std::vector<num> div_sum(V+1);
-		div_sum[1] = 1;
+		std::vector<num> odd_div_sum(V+1);
+		odd_div_sum[1] = 1;
 
 		auto extend = [&](int i, int p) {
 			assert(i == 1 || p < pfac[i]);
-			num s = div_sum[i];
+			num s = odd_div_sum[i];
 			for (int j = i; int64_t(j) * int64_t(p) <= V; ) {
 				j *= p;
 				pfac[j] = p;
 
 				s *= p;
-				s += div_sum[i];
-				div_sum[j] = s;
+				if (p > 2) s += odd_div_sum[i];
+				odd_div_sum[j] = s;
 			}
 		};
 		for (int i = 2; i <= N; i++) {
@@ -163,6 +163,13 @@ int main() {
 				if (p == pfac[i]) break;
 				if (int64_t(i) * int64_t(p) > V) break;
 				extend(i, p);
+			}
+		}
+
+		for (int i = 1; i <= N; i++) {
+			num odd_div_sum = ;
+			if ((i ^ N) & 1) {
+				odd_div_sum[i];
 			}
 		}
 
