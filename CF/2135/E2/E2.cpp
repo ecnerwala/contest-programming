@@ -132,7 +132,7 @@ int main() {
 		using num = modnum<998244353>;
 
 		std::vector<num> pref(N+1);
-		auto add_suff = [&](int lo, int v) -> void {
+		auto add_suff = [&](int lo, num v) -> void {
 			if (lo <= N) pref[(N + lo) / 2] += v;
 		};
 		auto add_point = [&](int lo, num v) -> void {
