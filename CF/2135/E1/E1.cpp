@@ -155,12 +155,12 @@ int main() {
 			add_range(lo, lo, v);
 		};
 
+		add_range(-N, N, 1);
 		for (int delta = 2 + (N & 1); delta <= N+2; delta += 2) {
 			int x_min = -(delta-2);
 			int x_max = delta-2;
 			int cnt = (x_max - x_min) / 2 + 1;
 			int z = (delta == N+2) ? 1 : 2;
-			add_range(x_min, x_max, z);
 			for (int w = 1; w * delta <= N; w += 2) {
 				add_point(w * delta, -z * 2 * cnt);
 				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, z * 2);
@@ -170,7 +170,6 @@ int main() {
 			int x_min = -(delta-3);
 			int x_max = delta-3;
 			int cnt = (x_max - x_min) / 2 + 1;
-			add_range(x_min, x_max, -2);
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
 				assert(w & 1);
 				assert((delta ^ N) & 1);
