@@ -131,13 +131,6 @@ int main() {
 		int N; cin >> N;
 		cerr << "solve " << N << '\n';
 		using num = modnum<998244353>;
-		const int V = 2*N;
-		std::vector<num> fact(V+1);
-		fact[0] = 1;
-		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(V+1);
-		ifact[V] = inv(fact[V]);
-		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
@@ -178,10 +171,20 @@ int main() {
 				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, -4);
 			}
 		}
-		num ans = 0;
 		for (int i = 0; i <= N; i++) {
 			pref[i+1] += pref[i];
 			cerr << i << ' ' << pref[i] << '\n';
+		}
+
+		std::vector<num> fact(N+1);
+		fact[0] = 1;
+		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(N+1);
+		ifact[N] = inv(fact[N]);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+		num ans = 0;
+		for (int i = 0; i <= N; i++) {
 			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
 		}
 		cout << ans << '\n';
