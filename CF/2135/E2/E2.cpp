@@ -136,8 +136,6 @@ int main() {
 			if (lo <= N) pref[(N + lo) / 2] += v;
 		};
 
-		pref[0]++;
-
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			for (int w = 1; w * delta <= N; w += 2) {
 				add_suff(w * delta, -4 * delta);
@@ -167,6 +165,7 @@ int main() {
 			ans += ifact[i] * ifact[N-i] * pref[i];
 		}
 		ans *= fact[N];
+		ans += power(num(2), N);
 		cout << ans << '\n';
 	}
 
