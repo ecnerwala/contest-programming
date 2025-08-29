@@ -136,10 +136,30 @@ int main() {
 			if (lo <= N) cnt[(N + lo) / 2] += v;
 		};
 
+		const int V = N+1;
+		std::vector<int> primes; primes.reserve(V);
+		std::vector<int> pfac(V+1);
+		std::vector<num> div_sum(V+1);
+		div_sum[1] = 1;
+
+		auto extend = [&](int i, int p) {
+			assert(i == 1 || p < pfac[i]);
+		};
+		for (int i = 2; i <= N; i++) {
+			if (!pfac[i]) {
+				primes.push_back(i);
+				extend(1, i);
+			}
+			for (int p : primes) {
+				if (p == pfac[i]) break;
+				if (int64_t(i) * int64_t(p) > V) break;
+				extend(i, p);
+			}
+		}
+
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			for (int w = 1; w * delta <= N; w += 2) {
 				add_point(w * delta, -4 * delta);
-				//add_suff(w * delta + 2, 4 * delta);
 			}
 		}
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
