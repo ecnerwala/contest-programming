@@ -155,7 +155,7 @@ int main() {
 				r -= path((w-1) * delta + x + 2 * d_top);
 				r -= path((w-1) * delta + x + 2 * d_bot);
 				r += path((w+1) * delta + x);
-				r += path((w-1) * delta - x);
+				r += path((w+1) * delta - x);
 			}
 			return r;
 		};
