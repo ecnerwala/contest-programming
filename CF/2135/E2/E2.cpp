@@ -126,47 +126,56 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	const int V = int(2e7) + 10;
+
+	using num = modnum<998244353>;
+	std::vector<num> fact(V+1);
+	fact[0] = 1;
+	for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(V+1);
+	ifact[V] = inv(fact[V]);
+	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+	std::vector<int> primes; primes.reserve(V);
+	std::vector<int> pfac(V+1);
+	std::vector<int64_t> odd_div_sum(V+1);
+	odd_div_sum[1] = 1;
+
+	auto extend = [&](int i, int p) {
+		assert(i == 1 || p < pfac[i]);
+		int64_t s = odd_div_sum[i];
+		for (int j = i; int64_t(j) * int64_t(p) <= V; ) {
+			j *= p;
+			pfac[j] = p;
+
+			s *= p;
+			if (p > 2) s += odd_div_sum[i];
+			odd_div_sum[j] = s;
+		}
+	};
+	for (int i = 2; i <= V; i++) {
+		if (!pfac[i]) {
+			primes.push_back(i);
+			extend(1, i);
+		}
+		for (int p : primes) {
+			if (p == pfac[i]) break;
+			if (int64_t(i) * int64_t(p) > V) break;
+			extend(i, p);
+		}
+	}
+
+
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		using num = modnum<998244353>;
 
 		std::vector<num> cnt(N+1);
 		auto add_point = [&](int lo, num v) -> void {
 			if (lo <= N) cnt[(N + lo) / 2] += v;
 		};
 
-		const int V = N+1;
-		std::vector<int> primes; primes.reserve(V);
-		std::vector<int> pfac(V+1);
-		std::vector<int64_t> odd_div_sum(V+1);
-		odd_div_sum[1] = 1;
-
-		auto extend = [&](int i, int p) {
-			assert(i == 1 || p < pfac[i]);
-			int64_t s = odd_div_sum[i];
-			for (int j = i; int64_t(j) * int64_t(p) <= V; ) {
-				j *= p;
-				pfac[j] = p;
-
-				s *= p;
-				if (p > 2) s += odd_div_sum[i];
-				odd_div_sum[j] = s;
-			}
-		};
-		for (int i = 2; i <= V; i++) {
-			if (!pfac[i]) {
-				primes.push_back(i);
-				extend(1, i);
-			}
-			for (int p : primes) {
-				if (p == pfac[i]) break;
-				if (int64_t(i) * int64_t(p) > V) break;
-				extend(i, p);
-			}
-		}
-
-		for (int i = 1; i <= V; i++) {
+		for (int i = 1; i <= N+1; i++) {
 			num v = odd_div_sum[i];
 			// we only want divisors >= 2 + (N&1),
 			// so we subtract 1 and 2 if N is odd
@@ -182,12 +191,6 @@ int main() {
 		}
 
 		num ans = 0;
-		std::vector<num> fact(N+1);
-		fact[0] = 1;
-		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(N+1);
-		ifact[N] = inv(fact[N]);
-		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		for (int i = 0; i <= N; i++) {
 			ans += ifact[i] * ifact[N-i] * cnt[i];
