@@ -140,6 +140,8 @@ int main() {
 
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
+			if ((lo ^ N) & 1) lo++;
+			if ((hi ^ N) & 1) hi--;
 			assert(!((lo ^ N) & 1));
 			assert(!((hi ^ N) & 1));
 			assert(lo <= hi);
