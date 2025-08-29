@@ -160,22 +160,6 @@ int main() {
 		};
 
 		cerr << "get exact " << '\n';
-		num ans = 0;
-		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
-			num z = (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
-			int x_min = -(delta - ((delta ^ N) & 1) - 2);
-			int x_max = +(delta - ((delta ^ N) & 1) - 2);
-			int cnt = (x_max - x_min) / 2 + 1;
-			for (int x = x_min; x <= x_max; x += 2) ans += path(x) * z;
-			for (int w = 1; w <= N; w += 2) {
-				ans += path(w * delta + ((N - delta) & 1)) * cnt * -z;
-				ans += path(w * delta - ((N - delta) & 1)) * cnt * -z;
-				for (int x = x_min; x <= x_max; x += 2) ans += path((w+1) * delta + x) * z * 2;
-			}
-		}
-		cerr << ans << '\n';
-		cout << ans << '\n';
-		continue;
 
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
@@ -192,6 +176,33 @@ int main() {
 		auto add_point = [&](int lo, num v) -> void {
 			add_range(lo, lo, v);
 		};
+
+		num ans = 0;
+		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
+			num z = (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
+			int x_min = -(delta - ((delta ^ N) & 1) - 2);
+			int x_max = +(delta - ((delta ^ N) & 1) - 2);
+			int cnt = (x_max - x_min) / 2 + 1;
+			add_range(x_min, x_max, z);
+			for (int w = 1; w <= N; w += 2) {
+				add_point(w * delta + ((delta ^ N) & 1), -cnt * z);
+				add_point(w * delta - ((delta ^ N) & 1), -cnt * z);
+				add_range((w+1) * delta + x_min, (w+1) * delta + x_max, z * 2);
+			}
+		}
+
+		for (int i = 0; i <= N; i++) {
+			pref[i+1] += pref[i];
+			cerr << i << ' ' << pref[i] << '\n';
+		}
+
+		for (int i = 0; i <= N; i++) {
+			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
+		}
+		cerr << ans << '\n';
+		cout << ans << '\n';
+		continue;
+
 		for (int delta = 2 + (N & 1); delta <= N+2; delta += 2) {
 			int x_min = -(delta-2);
 			int x_max = delta-2;
