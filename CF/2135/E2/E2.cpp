@@ -159,7 +159,7 @@ int main() {
 		for (int delta = 2 + (N & 1); delta <= N+2; delta += 2) {
 			int x_min = -(delta-2);
 			int x_max = delta-2;
-			int cnt = (x_max - x_min) / 2 + 1;
+			int cnt = delta - 1;
 			int z = (delta == N+2) ? 1 : 2;
 			for (int w = 1; w * delta <= N; w += 2) {
 				add_point(w * delta, -z * 2 * cnt);
@@ -169,7 +169,7 @@ int main() {
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			int x_min = -(delta-3);
 			int x_max = delta-3;
-			int cnt = (x_max - x_min) / 2 + 1;
+			int cnt = delta - 2;
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
 				assert(w & 1);
 				assert((delta ^ N) & 1);
