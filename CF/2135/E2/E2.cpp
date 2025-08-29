@@ -131,25 +131,23 @@ int main() {
 		int N; cin >> N;
 		using num = modnum<998244353>;
 
-		std::vector<num> pref(N+1);
-		auto add_suff = [&](int lo, num v) -> void {
-			if (lo <= N) pref[(N + lo) / 2] += v;
+		std::vector<num> cnt(N+1);
+		auto add_point = [&](int lo, num v) -> void {
+			if (lo <= N) cnt[(N + lo) / 2] += v;
 		};
 
 		for (int delta = 2 + (N & 1); delta <= N; delta += 2) {
 			for (int w = 1; w * delta <= N; w += 2) {
-				add_suff(w * delta, -4 * delta);
+				add_point(w * delta, -4 * delta);
 				//add_suff(w * delta + 2, 4 * delta);
 			}
 		}
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
-				add_suff(w * delta - 1, 2 * delta);
-				add_suff(w * delta + 1, 2 * delta);
+				add_point(w * delta - 1, 2 * delta);
+				add_point(w * delta + 1, 2 * delta);
 			}
 		}
-
-		//for (int i = 0; i < N; i++) { pref[i+1] += pref[i]; }
 
 		num ans = 0;
 		std::vector<num> fact(N+1);
@@ -160,7 +158,7 @@ int main() {
 		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		for (int i = 0; i <= N; i++) {
-			ans += ifact[i] * ifact[N-i] * pref[i];
+			ans += ifact[i] * ifact[N-i] * cnt[i];
 		}
 		ans *= fact[N];
 		ans += power(num(2), N);
