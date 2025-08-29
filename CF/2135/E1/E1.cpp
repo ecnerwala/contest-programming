@@ -204,7 +204,6 @@ int main() {
 		}
 		for (int i = 0; i <= N; i++) {
 			pref[i+1] += pref[i];
-			cerr << i << ' ' << pref[i] << '\n';
 		}
 
 		num ans = 0;
