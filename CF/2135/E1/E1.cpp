@@ -159,19 +159,19 @@ int main() {
 			return r;
 		};
 
-		/*
 		cerr << "get exact " << '\n';
 		num ans = 0;
 		for (int delta = 2 + (N & 1); delta <= N+2; delta++) {
-			for (int x = (N & 1); x <= delta - 2; x += 2) {
-				ans += get_within(x, delta) * (x ? 2 : 1) * (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
+			for (int x = -(delta - 2); x <= delta - 2; x ++) {
+				if ((x ^ N) & 1) continue;
+				ans += get_within(x, delta) * (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
+
 			}
 		}
 		cerr << ans << '\n';
 		cout << ans << '\n';
 		if (N >= 10) break;
 		continue;
-		*/
 
 		std::vector<num> pref(N+2);
 		auto add_range = [&](int lo, int hi, num v) -> void {
@@ -217,7 +217,6 @@ int main() {
 			cerr << i << ' ' << pref[i] << '\n';
 		}
 
-		num ans = 0;
 		for (int i = 0; i <= N; i++) {
 			ans += fact[N] * ifact[i] * ifact[N-i] * pref[i];
 		}
