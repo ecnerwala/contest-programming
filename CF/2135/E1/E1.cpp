@@ -172,7 +172,9 @@ int main() {
 				ans += get_exact(x, d) * (x ? 2 : 1);
 			}
 		}
+		cerr << ans << '\n';
 		cout << ans << '\n';
+		if (N >= 2) break;
 		continue;
 
 		std::vector<num> pref(N+2);
