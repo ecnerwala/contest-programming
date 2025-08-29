@@ -171,7 +171,7 @@ int main() {
 				add_point(w * delta, -4 * delta);
 			}
 		}
-		for (int delta = 1 + (N & 1); delta <= N+1; delta += 2) {
+		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
 				add_point(w * delta - 1, 2 * delta);
 				add_point(w * delta + 1, 2 * delta);
