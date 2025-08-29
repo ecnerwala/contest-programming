@@ -161,7 +161,7 @@ int main() {
 				add_range(w * delta + 3, (w+2) * delta - 3, -4);
 			}
 		}
-		for (int i = 0; i <= N; i++) {
+		for (int i = 0; i < N; i++) {
 			pref[i+1] += pref[i];
 		}
 
