@@ -143,14 +143,10 @@ int main() {
 			assert(!((lo ^ N) & 1));
 			assert(!((hi ^ N) & 1));
 			assert(lo <= hi);
-			if (lo > N || hi < -N) return;
-			assert(lo >= -N);
-			//lo = std::max(lo, -N);
-			hi = std::min(hi, +N);
 			lo = (lo + N) / 2;
 			hi = (hi + N) / 2;
-			pref[lo] += v;
-			pref[hi+1] -= v;
+			if (lo <= N) pref[lo] += v;
+			if (hi+1 <= N) pref[hi+1] -= v;
 		};
 		auto add_point = [&](int lo, num v) -> void {
 			add_range(lo, lo, v);
