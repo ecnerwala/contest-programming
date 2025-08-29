@@ -129,7 +129,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		cerr << "solve " << N << '\n';
 		using num = modnum<998244353>;
 
 		std::vector<num> fact(N+1);
@@ -190,7 +189,6 @@ int main() {
 		}
 		ans *= fact[N];
 		cout << ans << '\n';
-		cerr << ans << '\n';
 	}
 
 	return 0;
