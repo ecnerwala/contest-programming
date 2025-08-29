@@ -149,6 +149,10 @@ int main() {
 			}
 		}
 
+		for (int i = 0; i < N; i++) {
+			pref[i+1] += pref[i];
+		}
+
 		num ans = 0;
 		std::vector<num> fact(N+1);
 		fact[0] = 1;
