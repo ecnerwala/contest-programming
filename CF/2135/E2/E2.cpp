@@ -145,7 +145,6 @@ int main() {
 			add_range(lo, lo, v);
 		};
 		auto add_suff = [&](int lo, int v) -> void {
-			assert(lo >= -N);
 			if (lo <= N) pref[(N + lo) / 2] += v;
 		};
 
@@ -162,9 +161,10 @@ int main() {
 		for (int delta = 3 + (N & 1); delta <= N+1; delta += 2) {
 			int cnt = delta - 2;
 			for (int w = 1; w * delta - 1 <= N; w += 2) {
+				if (w >= 3) add_suff(w * delta - 1, 4);
 				add_point(w * delta - 1, 2 * cnt);
 				add_point(w * delta + 1, 2 * cnt);
-				add_range(w * delta + 3, (w+2) * delta - 3, -4);
+				add_suff(w * delta + 3, -4);
 			}
 		}
 
