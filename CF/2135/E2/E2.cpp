@@ -180,8 +180,7 @@ int main() {
 			// we only want divisors >= 2 + (N&1),
 			// so we subtract 1 and 2 if N is odd
 			// need to subtract 1
-			if (i & 1) v -= 1;
-			else if ((N & 1) && ((i & 3) == 2)) v -= 2;
+			if ((N & 1) && ((i & 3) == 2)) v -= 2;
 			if ((i ^ N) & 1) {
 				add_point(i - 1, 2 * v);
 				add_point(i + 1, 2 * v);
@@ -191,7 +190,6 @@ int main() {
 		}
 
 		num ans = 0;
-
 		for (int i = 0; i <= N; i++) {
 			ans += ifact[i] * ifact[N-i] * cnt[i];
 		}
