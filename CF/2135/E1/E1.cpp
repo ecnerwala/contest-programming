@@ -146,32 +146,24 @@ int main() {
 			else return 0;
 		};
 
-		auto get_within = [&](int x, int d_top, int d_bot) -> num {
-			assert(x >= 0 && d_top >= 0 && d_bot >= 0);
-			if (d_top == 0 || d_bot == 0) return 0;
+		auto get_within = [&](int x, int delta) -> num {
+			if (delta - x < 2) return 0;
 			// paths with total delta x and stay < x + d_top and > - d_bot
 			num r = path(x);
-			int delta = x + d_bot + d_top;
-			assert(abs(d_top - d_bot) <= 1);
 			for (int w = 1; w <= N; w += 2) {
-				r -= path(w * delta + abs(d_top - d_bot));
-				r -= path(w * delta - abs(d_top - d_bot));
+				r -= path(w * delta + ((delta - x) & 1));
+				r -= path(w * delta - ((delta - x) & 1));
 				r += path((w+1) * delta + x);
 				r += path((w+1) * delta - x);
 			}
 			return r;
 		};
 
-		auto get_exact = [&](int x, int d) -> num {
-			return get_within(x, d, d) - get_within(x, d+1, d) - get_within(x, d, d+1) + get_within(x, d+1, d+1);
-		};
-
 		cerr << "get exact " << '\n';
 		num ans = 0;
-		for (int x = (N & 1); x <= N; x += 2) {
-			for (int d = 0; x + 2 * d <= N; d++) {
-				cerr << x << ' ' << d << ' ' << get_exact(x, d) << '\n';
-				ans += get_exact(x, d) * (x ? 2 : 1);
+		for (int delta = 2; delta <= N+2; delta++) {
+			for (int x = (N & 1); x <= delta - 2; x += 2) {
+				ans += get_within(x, delta) * (x ? 2 : 1) * (delta == N+2 ? 1 : 2) * (((delta ^ N) & 1) ? -1 : 1);
 			}
 		}
 		cerr << ans << '\n';
