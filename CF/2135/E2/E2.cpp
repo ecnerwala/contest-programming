@@ -139,12 +139,12 @@ int main() {
 		const int V = N+1;
 		std::vector<int> primes; primes.reserve(V);
 		std::vector<int> pfac(V+1);
-		std::vector<num> odd_div_sum(V+1);
+		std::vector<int64_t> odd_div_sum(V+1);
 		odd_div_sum[1] = 1;
 
 		auto extend = [&](int i, int p) {
 			assert(i == 1 || p < pfac[i]);
-			num s = odd_div_sum[i];
+			int64_t s = odd_div_sum[i];
 			for (int j = i; int64_t(j) * int64_t(p) <= V; ) {
 				j *= p;
 				pfac[j] = p;
