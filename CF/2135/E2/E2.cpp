@@ -135,10 +135,6 @@ int main() {
 		auto add_suff = [&](int lo, num v) -> void {
 			if (lo <= N) pref[(N + lo) / 2] += v;
 		};
-		auto add_point = [&](int lo, num v) -> void {
-			add_suff(lo, v);
-			add_suff(lo+2, -v);
-		};
 
 		pref[0]++;
 
