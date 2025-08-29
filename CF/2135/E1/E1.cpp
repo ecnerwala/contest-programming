@@ -240,7 +240,6 @@ int main() {
 		}
 		cout << ans << '\n';
 		cerr << ans << '\n';
-		if (N >= 2) break;
 	}
 
 	return 0;
