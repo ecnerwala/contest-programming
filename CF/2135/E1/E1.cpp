@@ -151,8 +151,8 @@ int main() {
 			// paths with total delta x and stay < x + d_top and > - d_bot
 			num r = path(x);
 			for (int w = 1; w <= N; w += 2) {
-				r -= path(w * delta + ((delta - x) & 1));
-				r -= path(w * delta - ((delta - x) & 1));
+				r -= path(w * delta + ((N - delta) & 1));
+				r -= path(w * delta - ((N - delta) & 1));
 				r += path((w+1) * delta + x);
 				r += path((w+1) * delta - x);
 			}
