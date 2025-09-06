@@ -25,12 +25,12 @@ int main() {
 		std::vector<int> P; P.reserve(N);
 		for (int i = 0; i < N; i++) {
 			if (S[i].first > T[i].first) {
-				P.push_back(i);
+				P.push_back(S[i].second);
 			}
 		}
 		for (int i = N-1; i >= 0; i--) {
 			if (S[i].first < T[i].first) {
-				P.push_back(i);
+				P.push_back(S[i].second);
 			}
 		}
 		for (int i = 0; i < N; i++) {
