@@ -12,7 +12,7 @@ int main() {
 		deg[v] ^= 1;
 	}
 	for (int i = 0; i < N; i++) {
-		deg[i] ^= N-1;
+		deg[i] ^= (N-1) & 1;
 	}
 	int ans = 0;
 	for (int i = 0; i < N; i++) {
