@@ -26,7 +26,7 @@ int main() {
 			// dp[i] is the maximum child count
 			dp[i] = std::max(dp[i], sz[i] & 1);
 			if (i > 0) {
-				dp[P[i]] = std::max(dp[P[i]], 1 + dp[i] - (sz[P[i]] - 1 - sz[i]));
+				dp[P[i]] = std::max(dp[P[i]], 1 + std::max(0, dp[i] - (sz[P[i]] - 1 - sz[i])));
 			}
 		}
 		cout << (N - dp[0]) / 2 << '\n';
