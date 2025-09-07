@@ -25,14 +25,18 @@ int main() {
 			// do a single step
 			int mex = base;
 			while (cnt[mex]) mex++;
+			int64_t ans = 0;
 			for (int i = 0; i < N; i++) {
-				cout << (A[i] < mex && cnt[A[i]] == 1 ? mex : A[i]) << " \n"[i+1==N];
+				ans += (A[i] < mex && cnt[A[i]] == 1 ? mex : A[i]);
 			}
+			cout << ans << '\n';
 		} else {
 			int val = (cnt[base] == 0) == (K % 2 == 0) ? base + 1 : base;
+			int64_t ans = 0;
 			for (int i = 0; i < N; i++) {
-				cout << (A[i] < base ? A[i] : (val)) << " \n"[i+1==N];
+				ans += (A[i] < base ? A[i] : (val));
 			}
+			cout << ans << '\n';
 		}
 	}
 
