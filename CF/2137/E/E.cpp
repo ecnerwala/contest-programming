@@ -30,7 +30,7 @@ int main() {
 			while (cnt[mex]) mex++;
 			int64_t ans = 0;
 			for (int i = 0; i < N; i++) {
-				ans += (A[i] < mex && cnt[A[i]] == 1 ? mex : A[i]);
+				ans += (A[i] < mex && cnt[A[i]] == 1 ? A[i] : mex);
 			}
 			cout << ans << '\n';
 		} else {
