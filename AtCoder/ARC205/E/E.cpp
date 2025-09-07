@@ -131,7 +131,7 @@ int main() {
 	for (auto& a : A) cin >> a;
 
 	using num = modnum<998244353>;
-	const int B = 2;
+	const int B = 1;
 	std::vector<num> V(1 << 20, num(1));
 	for (int i = 0; i < N; i++) {
 		num ans = V[A[i]];
