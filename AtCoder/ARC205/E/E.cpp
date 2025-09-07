@@ -136,7 +136,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		num ans = V[A[i]];
 		for (int j = i / B * B; j <= i; j++) {
-			if ((A[j] & A[i]) == A[i]) {
+			if ((A[j] | A[i]) == A[i]) {
 				ans *= num(A[j]);
 			}
 		}
