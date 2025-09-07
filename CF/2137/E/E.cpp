@@ -21,7 +21,10 @@ int main() {
 		while (cnt[base] == 1) base++;
 		// the base things are fixed forever
 		assert(cnt[base] != 1);
-		if (cnt[base] >= 2 && K == 1) {
+		if (base >= N-1) {
+			assert(K >= 1);
+			cout << int64_t(N) * int64_t(N-1) / 2 << '\n';
+		} else if (cnt[base] >= 2 && K == 1) {
 			// do a single step
 			int mex = base;
 			while (cnt[mex]) mex++;
