@@ -27,6 +27,7 @@ int main() {
 		}
 
 		auto is_good = [&](int l) -> bool {
+			assert(0 < l && l <= N);
 			std::vector<int> freq_freq(N+1);
 			for (int i = 0; i < l; i++) {
 				freq_freq[freq[i]] += 1;
