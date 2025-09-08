@@ -27,7 +27,7 @@ int main() {
 			int lo = (mi == -1 ? -1 : stk[mi].second);
 			// we need l <= lo and r >= i
 			ans += int64_t(lo + 1) * int64_t(N - i);
-			while (stk.back().first <= A[i]) {
+			while (!stk.empty() && stk.back().first <= A[i]) {
 				stk.pop_back();
 			}
 			stk.push_back({A[i], i});
