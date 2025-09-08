@@ -45,7 +45,7 @@ int main() {
 				corners[x == MAXX][y == MAXY] = i;
 			}
 		}
-		for (int x = 0; x < 2; x++) for (int y = 0; y < 2; y++) { assert(corners[x][y] != 0); }
+		for (int x = 0; x < 2; x++) for (int y = 0; y < 2; y++) { assert(corners[x][y] != -1); }
 		struct tri_t {
 			std::array<int, 3> vs;
 			int v; // middle vertex
