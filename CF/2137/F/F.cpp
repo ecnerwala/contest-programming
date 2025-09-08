@@ -15,16 +15,21 @@ int main() {
 		std::vector<std::pair<int, int>> stk; stk.reserve(N);
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
-			int mi = -1, ma = int(stk.size());
-			while (ma - mi > 1) {
-				int md = (mi + ma) / 2;
-				if (stk[md].first >= std::max(A[i], B[i])) {
-					mi = md;
-				} else {
-					ma = md;
+			int lo;
+			if (A[i] == B[i]) {
+				lo = i;
+			} else {
+				int mi = -1, ma = int(stk.size());
+				while (ma - mi > 1) {
+					int md = (mi + ma) / 2;
+					if (stk[md].first >= std::max(A[i], B[i])) {
+						mi = md;
+					} else {
+						ma = md;
+					}
 				}
+				lo = (mi == -1 ? -1 : stk[mi].second);
 			}
-			int lo = (mi == -1 ? -1 : stk[mi].second);
 			// we need l <= lo and r >= i
 			ans += int64_t(lo + 1) * int64_t(N - i);
 			while (!stk.empty() && stk.back().first <= A[i]) {
