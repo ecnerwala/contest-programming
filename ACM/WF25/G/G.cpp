@@ -26,9 +26,11 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
+	int T;
+	cin >> T;
 	while (T--) {
-		int MAXX, MAXY, N, M; cin >> MAXX >> MAXY >> N >> M;
+		int MAXX, MAXY, N, M;
+		cin >> MAXX >> MAXY >> N >> M;
 		struct point_t {
 			int h;
 			std::array<int, 2> p;
@@ -52,7 +54,7 @@ int main() {
 			std::array<int, 3> es; // low, long, hi
 		};
 		std::vector<tri_t> tris(M);
-		for (auto& t : tris) { cin >> t.vs[0] >> t.vs[1] >> t.vs[2]; }
+		for (auto& t : tris) { for (auto& v : t.vs) { cin >> v; v--; } }
 
 		hash_map<int64_t, int> edge_ids;
 		int E = 0;
@@ -60,7 +62,8 @@ int main() {
 			int v;
 			if (auto it = edge_ids.find(b * N + a); it != edge_ids.end()) {
 				v = it->second ^ 1;
-			} else {
+			}
+			else {
 				v = E;
 				E += 2;
 			}
