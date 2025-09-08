@@ -25,10 +25,10 @@ int main() {
 
 		auto is_good = [&](int l) -> bool {
 			std::vector<int> freq_freq(N+1);
-			for (int i = 0; i <= leaf_depth; i++) {
+			for (int i = 0; i < l; i++) {
 				freq_freq[freq[i]] += 1;
 			}
-			for (int i = leaf_depth+1; i < N; i++) {
+			for (int i = l; i < N; i++) {
 				// everything after leaf depth is unconstrained, so we can just set it as 1
 				freq_freq[1] += freq[i];
 			}
