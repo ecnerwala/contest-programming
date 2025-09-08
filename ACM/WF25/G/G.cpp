@@ -73,11 +73,15 @@ int main() {
 		for (auto t : tris) {
 			auto [a, b, c] = t.vs;
 			std::array<std::tuple<int, int, int>, 3> tri_edges{
-				std::tuple<int, int, int>{get_edge_id(b, c), pts[a].h, a},
-				std::tuple<int, int, int>{get_edge_id(c, a), pts[b].h, b},
-				std::tuple<int, int, int>{get_edge_id(a, b), pts[c].h, c},
+				std::tuple<int, int, int>{pts[a].h, a, get_edge_id(b, c)},
+				std::tuple<int, int, int>{pts[b].h, b, get_edge_id(c, a)},
+				std::tuple<int, int, int>{pts[c].h, c, get_edge_id(a, b)},
 			};
 			std::ranges::sort(tri_edges);
+			t.es[0] = std::get<2>(tri_edges[2]);
+			t.es[1] = std::get<2>(tri_edges[1]);
+			t.es[2] = std::get<2>(tri_edges[0]);
+			t.v = std::get<1>(tri_edges[1]);
 		}
 		std::vector<std::array<int, 2>> edges;
 	}
