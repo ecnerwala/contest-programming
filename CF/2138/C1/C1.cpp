@@ -44,7 +44,7 @@ int main() {
 					for (int v = k; v <= N; v++) {
 						ways += pos[v];
 						npos[v] = bool(ways);
-						if (v >= freq_freq[i] * i) ways -= pos[v * freq_freq[i]];
+						if (v >= freq_freq[i] * i) ways -= pos[v - freq_freq[i] * i];
 					}
 				}
 				std::swap(pos, npos);
