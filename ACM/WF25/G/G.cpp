@@ -62,8 +62,7 @@ int main() {
 			int v;
 			if (auto it = edge_ids.find(b * N + a); it != edge_ids.end()) {
 				v = it->second ^ 1;
-			}
-			else {
+			} else {
 				v = E;
 				E += 2;
 			}
