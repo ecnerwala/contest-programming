@@ -58,13 +58,19 @@ int main() {
 
 		hash_map<int64_t, int> edge_ids;
 		int E = 0;
+		std::vector<std::array<int, 2>> edges; edges.reserve(6 * N);
 		auto get_edge_id = [&](int a, int b) -> int {
 			int v;
+			if (pts[a].p[1] == pts[b].p[1] && (pts[a].p[1] == 0 || pts[a].p[1] == MAXY)) {
+				// we're top or bottom
+			}
 			if (auto it = edge_ids.find(b * N + a); it != edge_ids.end()) {
 				v = it->second ^ 1;
 			} else {
 				v = E;
 				E += 2;
+				edges.push_back({a, b});
+				edges.push_back({b, a});
 			}
 			auto [_, did_insert] = edge_ids.insert({a * N + b, v});
 			assert(did_insert);
@@ -85,7 +91,16 @@ int main() {
 			t.es[2] = std::get<2>(tri_edges[0]);
 			t.v = std::get<1>(tri_edges[1]);
 		}
-		std::vector<std::array<int, 2>> edges;
+
+		std::vector<int> tri_pair(E, -1);
+		for (auto t : tris) {
+			tri_pair[t.es[0]] = t.es[1];
+			tri_pair[t.es[1]] = t.es[0];
+		}
+
+		// We maintain the linked list of edges on our current path
+		std::vector<int> prv(E); std::ranges::iota(prv, 0);
+		std::vector<int> nxt(E); std::ranges::iota(nxt, 0);
 	}
 
 	return 0;
