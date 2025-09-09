@@ -190,7 +190,7 @@ int main() {
 			}
 			best = std::min(best, {ops, z});
 		}
-		std::cerr << p << ' ' << best.first << ' ' << best.second << '\n';
+		std::cerr << p << ' ' << best.first << ' ' << best.second << ' ' << double(best.second) / best.first << '\n';
 	};
 	for (auto p : primes) {
 		solve_p(p);
