@@ -175,7 +175,7 @@ int main() {
 		}
 	}
 
-	auto solve_p = [&](int p) -> void {
+	auto solve_p = [&](int p) -> int {
 		// solve p
 		std::pair<int, int> best(2*p+1, 1);
 		for (int z = std::max(1, int(p * 0.5)); z <= int(p * 0.7 + 1) && z < p; z++) {
@@ -192,8 +192,9 @@ int main() {
 			best = std::min(best, {ops, z});
 		}
 		std::cerr << p << ' ' << best.first << ' ' << best.second << ' ' << double(best.second) / p << '\n';
+		return best.second;
 	};
-	for (auto p : primes) {
+	for (auto p : std::views::reverse(primes)) {
 		solve_p(p);
 	}
 
