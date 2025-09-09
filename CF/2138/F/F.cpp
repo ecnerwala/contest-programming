@@ -135,6 +135,7 @@ int main() {
 				return 0.5 <= d && d <= 1.0;
 			};
 			pt_t t0_actual = is_good(abs(t0 - pt_t(1, 0))) ? t0 : offset * 0.5;
+			cerr << t0 << ' ' << t1 << ' ' << t0_actual << '\n';
 			pt_t st_2 = [&]() -> pt_t {
 				const int scale = 32;
 				for (int x = -scale; x <= scale; x++) {
