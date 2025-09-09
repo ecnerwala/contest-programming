@@ -226,6 +226,11 @@ int main() {
 		}
 		assert(N <= N_MAX);
 		cout << N << '\n';
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cout << ans[{i, j}] << " \n"[j+1==N];
+			}
+		}
 	}
 
 	return 0;
