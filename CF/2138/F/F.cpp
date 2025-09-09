@@ -96,37 +96,86 @@ public:
 	}
 };
 
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
-	while (T--) {
-		cout << fixed << setprecision(20);
-		int P_, Q_, M; cin >> P_ >> Q_ >> M;
+	using pt_t = Point<double>;
+	auto solve = [&](int P_, int Q_, int M) -> std::vector<std::pair<std::array<int, 2>, pt_t>> {
+		pt_t tgt(P_, Q_);
+		std::vector<std::pair<std::array<int, 2>, pt_t>> res; res.reserve(M);
 		if (M % 2 == 0) {
 			int num_steps = M / 2;
-			using pt_t = Point<double>;
-			pt_t tgt(P_, Q_);
 			pt_t offset = tgt / num_steps;
 			pt_t st_2{0.5, offset.y - 0.5};
-			cout << M << '\n';
 			int prv_off = 2;
 			int prv_on = 1;
 			int idx = 2;
 			for (int i = 1; i <= num_steps; i++) {
 				{
 					auto p = st_2 + offset * (i-1);
-					cout << prv_off << ' ' << prv_on << ' ' << p.x << ' ' << p.y << '\n';
+					res.push_back({{prv_off, prv_on}, p});
 					prv_off = ++idx;
 				}
 				{
 					auto p = offset * i;
-					cout << prv_off << ' ' << prv_on << ' ' << p.x << ' ' << p.y << '\n';
+					res.push_back({{prv_off, prv_on}, p});
 					prv_on = ++idx;
 				}
 			}
+			return res;
 		} else {
+			int num_steps = M / 2;
+			pt_t offset = tgt.unit();
+			pt_t t1 = tgt - offset * num_steps;
+			pt_t t0 = t1 - offset;
+			auto is_good = [&](double d) -> bool {
+				return 0.5 <= d && d <= 1.0;
+			};
+			pt_t t0_actual = is_good(abs(t0 - pt_t(1, 0))) ? t0 : offset * 0.5;
+			pt_t st_2 = [&]() -> pt_t {
+				const int scale = 32;
+				for (int x = -scale; x <= scale; x++) {
+					for (int y = -scale; y <= scale; y++) {
+						pt_t cnd{x / double(scale), y / double(scale)};
+						if (is_good(abs(cnd - pt_t(0, 0))) && is_good(abs(cnd - pt_t(1, 0))) && is_good(abs(cnd - t0)) && is_good(abs(cnd - t1)) && is_good(abs(cnd - t0_actual))) {
+							return cnd;
+						}
+					}
+				}
+				assert(false);
+			}();
+			res.push_back({{1, 2}, st_2});
+			res.push_back({{2, 3}, t0_actual});
+			res.push_back({{3, 4}, t1});
+			int idx = 5;
+			int prv_off = 3;
+			int prv_on = 5;
+			for (int i = 2; i <= num_steps; i++) {
+				{
+					auto p = st_2 + offset * (i-1);
+					res.push_back({{prv_off, prv_on}, p});
+					prv_off = ++idx;
+				}
+				{
+					auto p = offset * i;
+					res.push_back({{prv_off, prv_on}, p});
+					prv_on = ++idx;
+				}
+			}
+			return res;
+		}
+	};
+
+	cout << fixed << setprecision(20);
+	int T; cin >> T;
+	while (T--) {
+		int P_, Q_, M; cin >> P_ >> Q_ >> M;
+		auto r = solve(P_, Q_, M);
+		cout << r.size() << '\n';
+		for (auto [a, b] : r) {
+			cout << a[0] << ' ' << a[1] << ' ' << b.x << ' ' << b.y << '\n';
 		}
 	}
 
