@@ -45,7 +45,7 @@ int main() {
 				if (!freq_freq[i]) continue;
 				for (int k = 0; k < i; k++) {
 					int ways = 0;
-					for (int v = k; v <= N; v++) {
+					for (int v = k; v <= N; v += i) {
 						ways += pos[v];
 						npos[v] = bool(ways);
 						if (v >= freq_freq[i] * i) ways -= pos[v - freq_freq[i] * i];
