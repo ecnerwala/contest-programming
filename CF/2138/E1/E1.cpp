@@ -369,6 +369,7 @@ int main() {
 	const int N_MAX = 50;
 
 	auto solve = [&](int X) -> tensor<int, 2> {
+		cerr << "solve " << X << '\n';
 		int N = 0;
 		tensor<int, 2> ans({N_MAX, N_MAX}, 0);
 		if (X == 0) return ans;
