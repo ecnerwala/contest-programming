@@ -145,6 +145,7 @@ int main() {
 						}
 					}
 				}
+				cerr << t0 << ' ' << t1 << ' ' << t0_actual << '\n';
 				assert(false);
 			}();
 			res.push_back({{1, 2}, st_2});
