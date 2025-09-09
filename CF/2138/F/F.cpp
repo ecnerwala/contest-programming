@@ -105,7 +105,7 @@ int main() {
 		cout << fixed << setprecision(20);
 		int P_, Q_, M; cin >> P_ >> Q_ >> M;
 		if (M % 2 == 0) {
-			int num_steps = M;
+			int num_steps = M / 2;
 			using pt_t = Point<double>;
 			pt_t tgt(P_, Q_);
 			pt_t offset = tgt / num_steps;
