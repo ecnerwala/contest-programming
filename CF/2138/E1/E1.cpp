@@ -194,7 +194,7 @@ int main() {
 		std::cerr << p << ' ' << best.first << ' ' << best.second << ' ' << double(best.second) / p << '\n';
 		return best.second;
 	};
-	//for (auto p : std::views::reverse(primes)) { solve_p(p); }
+	for (auto p : std::views::reverse(primes)) { solve_p(p); }
 
 	int T; cin >> T;
 	while (T--) {
@@ -208,7 +208,7 @@ int main() {
 			cout << 1 << '\n';
 			continue;
 		}
-		const int N_MAX = 50;
+		const int N_MAX = 80;
 		int N = 0;
 		tensor<int, 2> ans({N_MAX, N_MAX}, 0);
 		for (int v = X; v > 1; v /= pfac[v]) {
