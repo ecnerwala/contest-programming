@@ -199,6 +199,15 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int X; cin >> X;
+		if (X == 0) {
+			cout << 1 << '\n';
+			cout << 0 << '\n';
+			continue;
+		} else if (X == 1) {
+			cout << 1 << '\n';
+			cout << 1 << '\n';
+			continue;
+		}
 		const int N_MAX = 50;
 		int N = 0;
 		tensor<int, 2> ans({N_MAX, N_MAX}, 0);
