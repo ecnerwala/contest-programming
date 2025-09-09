@@ -406,9 +406,7 @@ int main() {
 		return ans;
 	};
 
-	for (int i = int(1e7); i >= 1; i--) {
-		solve(i);
-	}
+	//for (int i = int(1e7); i >= 1; i--) { solve(i); }
 
 	int T; cin >> T;
 	while (T--) {
