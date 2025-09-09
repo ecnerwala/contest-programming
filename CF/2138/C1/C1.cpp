@@ -22,9 +22,6 @@ int main() {
 
 		std::vector<int> freq(N);
 		for (int i = 0; i < N; i++) freq[depth[i]]++;
-		for (int i = 0; i < N; i++) {
-			cerr << freq[i] << '\n';
-		}
 
 		auto is_good = [&](int l) -> bool {
 			assert(0 < l && l <= N);
