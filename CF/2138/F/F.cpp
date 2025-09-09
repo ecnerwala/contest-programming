@@ -115,10 +115,16 @@ int main() {
 			int prv_on = 1;
 			int idx = 2;
 			for (int i = 1; i <= num_steps; i++) {
-				cout << prv_off << ' ' << prv_on << ' ' << st_2 + offset * (i-1) << '\n';
-				prv_off = ++idx;
-				cout << prv_off << ' ' << prv_on << ' ' << offset * i << '\n';
-				prv_on = ++idx;
+				{
+					auto p = st_2 + offset * (i-1);
+					cout << prv_off << ' ' << prv_on << ' ' << p.x << ' ' << p.y << '\n';
+					prv_off = ++idx;
+				}
+				{
+					auto p = offset * i;
+					cout << prv_off << ' ' << prv_on << ' ' << p.x << ' ' << p.y << '\n';
+					prv_on = ++idx;
+				}
 			}
 		} else {
 		}
