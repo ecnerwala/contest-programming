@@ -194,9 +194,7 @@ int main() {
 		std::cerr << p << ' ' << best.first << ' ' << best.second << ' ' << double(best.second) / p << '\n';
 		return best.second;
 	};
-	for (auto p : std::views::reverse(primes)) {
-		solve_p(p);
-	}
+	//for (auto p : std::views::reverse(primes)) { solve_p(p); }
 
 	int T; cin >> T;
 	while (T--) {
