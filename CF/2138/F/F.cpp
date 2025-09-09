@@ -120,6 +120,7 @@ int main() {
 				cout << prv_off << ' ' << prv_on << ' ' << offset * i << '\n';
 				prv_on = ++idx;
 			}
+		} else {
 		}
 	}
 
