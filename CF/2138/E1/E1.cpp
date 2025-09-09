@@ -187,6 +187,7 @@ int main() {
 				a -= b;
 				std::swap(a, b);
 				ops++;
+				if (ops > best.first) break;
 			}
 			best = std::min(best, {ops, z});
 		}
