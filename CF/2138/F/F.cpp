@@ -184,6 +184,7 @@ int main() {
 				assert(0.5 <= d && d <= 1);
 			};
 			for (auto [a, b] : r) {
+				cerr << a[0] << ' ' << a[1] << ' ' << b << '\n';
 				int c = int(pts.size());
 				pts.push_back(b);
 				check_dist(a[0]-1, c);
