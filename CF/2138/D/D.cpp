@@ -174,7 +174,7 @@ int main() {
 			}
 			ans += num(i+1);
 			ans *= fact[Q];
-			cout << ans << '\n';
+			cout << ans << " \n"[i+1==N];
 		}
 	}
 
