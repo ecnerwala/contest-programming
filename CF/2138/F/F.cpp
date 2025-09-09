@@ -168,6 +168,15 @@ int main() {
 		}
 	};
 
+	for (int i = 1; i <= 100; i++) {
+		for (int j = 1; j <= 100; j++) {
+
+			int v = 0;
+			while (v * v < 4 * (i * i + j * j)) v++;
+			solve(i, j, v);
+		}
+	}
+
 	cout << fixed << setprecision(20);
 	int T; cin >> T;
 	while (T--) {
