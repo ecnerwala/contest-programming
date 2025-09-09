@@ -160,7 +160,7 @@ int main() {
 					prv_off = ++idx;
 				}
 				{
-					auto p = offset * i;
+					auto p = t0 + offset * i;
 					res.push_back({{prv_off, prv_on}, p});
 					prv_on = ++idx;
 				}
