@@ -340,9 +340,11 @@ int main() {
 	}
 
 
+	const int N_MAX = 50;
+
 	auto solve_p = [&](int p) -> int {
 		// solve p
-		std::pair<int, int> best(2*p+1, 1);
+		std::pair<int, int> best(N_MAX + 10, 1);
 		int z = 1;
 		for (auto c : cuts) {
 			z = std::max(z, int(p * c));
@@ -366,22 +368,12 @@ int main() {
 	};
 
 	//for (auto p : std::views::reverse(primes)) { solve_p(p); }
-
-	int T; cin >> T;
-	while (T--) {
-		int X; cin >> X;
-		if (X == 0) {
-			cout << 1 << '\n';
-			cout << 0 << '\n';
-			continue;
-		} else if (X == 1) {
-			cout << 1 << '\n';
-			cout << 1 << '\n';
-			continue;
-		}
-		const int N_MAX = 80;
+	
+	auto solve = [&](int X) -> tensor<int, 2> {
+		cerr << "solve " << X << '\n';
 		int N = 0;
 		tensor<int, 2> ans({N_MAX, N_MAX}, 0);
+		if (X == 0) return ans;
 		for (int v = X; v > 1; ) {
 			//int p = pfac[v];
 			int p = v;
@@ -393,6 +385,7 @@ int main() {
 			ans[{prv, prv}] = 1;
 			while (true) {
 				int cur = N++;
+				assert(N < N_MAX);
 				ans[{prv, cur}] = 1;
 				ans[{cur, prv}] = -1;
 				prv = cur;
@@ -407,10 +400,23 @@ int main() {
 			}
 		}
 		assert(N <= N_MAX);
-		cout << N << '\n';
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				cout << ans[{i, j}] << " \n"[j+1==N];
+		while (N < N_MAX) {
+			ans[{N, N}] = 1;
+			N++;
+		}
+		return ans;
+	};
+
+	//for (int i = int(1e7); i >= 1; i--) { solve(i); }
+
+	int T; cin >> T;
+	while (T--) {
+		int X; cin >> X;
+		auto ans = solve(X);
+		cout << N_MAX << '\n';
+		for (int i = 0; i < N_MAX; i++) {
+			for (int j = 0; j < N_MAX; j++) {
+				cout << ans[{i, j}] << " \n"[j+1==N_MAX];
 			}
 		}
 	}
