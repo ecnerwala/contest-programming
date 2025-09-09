@@ -135,7 +135,6 @@ int main() {
 				return 0.5 <= d && d <= 1.0;
 			};
 			pt_t t0_actual = is_good(abs(t0 - pt_t(1, 0))) ? t0 : offset * 0.5;
-			cerr << t0 << ' ' << t1 << ' ' << t0_actual << '\n';
 			pt_t st_2 = [&]() -> pt_t {
 				const int scale = 32;
 				for (int x = -scale; x <= scale; x++) {
@@ -175,7 +174,22 @@ int main() {
 
 			int v = 0;
 			while (v * v < 4 * (i * i + j * j)) v++;
-			solve(i, j, v);
+			auto r = solve(i, j, v);
+			std::vector<pt_t> pts;
+			pts.reserve(r.size() + 2);
+			pts.push_back({0, 0});
+			pts.push_back({1, 0});
+			auto check_dist = [&](int i, int j) -> void {
+				double d = abs(pts[i] - pts[j]);
+				assert(0.5 <= d && d <= 1);
+			};
+			for (auto [a, b] : r) {
+				int c = int(pts.size());
+				pts.push_back(b);
+				check_dist(a[0]-1, c);
+				check_dist(a[1]-1, c);
+			}
+			cerr << i << ' ' << j << ' ' << pts.back() << '\n';
 		}
 	}
 
