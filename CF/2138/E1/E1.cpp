@@ -206,6 +206,25 @@ int main() {
 		tensor<int, 2> ans({N_MAX, N_MAX}, 0);
 		for (int v = X; v > 1; v /= pfac[v]) {
 			int p = pfac[v];
+			int a = solve_p(p);
+			int b = p - a;
+
+			int prv = N++;
+			ans[{prv, prv}] = 1;
+			while (true) {
+				int cur = N++;
+				ans[{prv, cur}] = 1;
+				ans[{cur, prv}] = -1;
+				prv = cur;
+				if (a < b) {
+					std::swap(a, b);
+					continue;
+				}
+				ans[{cur, cur}] = 1;
+				if (a == b) break;
+				a -= b;
+				std::swap(a, b);
+			}
 		}
 		assert(N <= N_MAX);
 		cout << N << '\n';
