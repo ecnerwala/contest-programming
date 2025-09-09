@@ -181,7 +181,8 @@ int main() {
 			pts.push_back({1, 0});
 			auto check_dist = [&](int i, int j) -> void {
 				double d = abs(pts[i] - pts[j]);
-				assert(0.5 <= d && d <= 1);
+				assert(d >= 0.5);
+				assert(d <= 1);
 			};
 			for (auto [a, b] : r) {
 				cerr << a[0] << ' ' << a[1] << ' ' << b << '\n';
