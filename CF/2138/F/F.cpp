@@ -134,7 +134,7 @@ int main() {
 			auto is_good = [&](double d) -> bool {
 				return 0.5 <= d && d <= 1.0;
 			};
-			pt_t t0_actual = is_good(abs(t0 - pt_t(1, 0))) ? t0 : pt_t{1. / 8, std::sqrt(15.) / 8};
+			pt_t t0_actual = is_good(abs(t0 - pt_t(1, 0))) ? t0 : pt_t{0.5, std::sqrt(0.75)};
 			pt_t st_2 = [&]() -> pt_t {
 				const int scale = 32;
 				for (int x = -scale; x <= scale; x++) {
