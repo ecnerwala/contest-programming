@@ -103,6 +103,7 @@ int main() {
 
 	using pt_t = Point<double>;
 	auto solve = [&](int P_, int Q_, int M) -> std::vector<std::pair<std::array<int, 2>, pt_t>> {
+		cerr << "solve " << P_ << ' ' << Q_ << ' ' << M << '\n';
 		pt_t tgt(P_, Q_);
 		std::vector<std::pair<std::array<int, 2>, pt_t>> res; res.reserve(M);
 		if (M % 2 == 0) {
