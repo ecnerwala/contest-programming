@@ -178,7 +178,7 @@ int main() {
 	auto solve_p = [&](int p) -> void {
 		// solve p
 		std::pair<int, int> best(2*p+1, 1);
-		for (int z = 1; z < p-1; z++) {
+		for (int z = p * 0.5; z < p * 0.7; z++) {
 			int ops = 2;
 			int a = z, b = p - z;
 			while (a != b) {
