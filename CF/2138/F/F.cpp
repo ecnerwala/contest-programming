@@ -130,7 +130,7 @@ int main() {
 			int num_steps = M / 2;
 			pt_t offset = tgt.unit();
 			pt_t t1 = tgt - offset * (num_steps - 1);
-			pt_t t0 = t1 - offset;
+			pt_t t0 = tgt - offset * num_steps;
 			auto is_good = [&](double d) -> bool {
 				return 0.5 <= d && d <= 1.0;
 			};
