@@ -136,7 +136,7 @@ int main() {
 			};
 			pt_t t0_actual = is_good(abs(t0 - pt_t(1, 0))) ? t0 : pt_t{0.5 + 0.75 * std::sqrt(3. / 13), 0.75 + std::sqrt(3. / 13) * 0.5};
 			pt_t st_2 = [&]() -> pt_t {
-				const int scale = 32;
+				const int scale = 64;
 				for (int x = -scale; x <= scale; x++) {
 					for (int y = -scale; y <= scale; y++) {
 						pt_t cnd{x / double(scale), y / double(scale)};
