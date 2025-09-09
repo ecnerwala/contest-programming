@@ -170,29 +170,31 @@ int main() {
 		}
 	};
 
-	for (int i = 1; i <= 1000; i++) {
-		for (int j = 1; j <= 1000; j++) {
+	if (false) {
+		for (int i = 1; i <= 1000; i++) {
+			for (int j = 1; j <= 1000; j++) {
 
-			int v = 0;
-			while (v * v < 4 * (i * i + j * j)) v++;
-			auto r = solve(i, j, v);
-			std::vector<pt_t> pts;
-			pts.reserve(r.size() + 2);
-			pts.push_back({0, 0});
-			pts.push_back({1, 0});
-			auto check_dist = [&](int i, int j) -> void {
-				double d = abs(pts[i] - pts[j]);
-				assert(d >= 0.5 - 1e-8);
-				assert(d <= 1 + 1e-8);
-			};
-			for (auto [a, b] : r) {
-				//cerr << a[0] << ' ' << a[1] << ' ' << b << '\n';
-				int c = int(pts.size());
-				pts.push_back(b);
-				check_dist(a[0]-1, c);
-				check_dist(a[1]-1, c);
+				int v = 0;
+				while (v * v < 4 * (i * i + j * j)) v++;
+				auto r = solve(i, j, v);
+				std::vector<pt_t> pts;
+				pts.reserve(r.size() + 2);
+				pts.push_back({0, 0});
+				pts.push_back({1, 0});
+				auto check_dist = [&](int i, int j) -> void {
+					double d = abs(pts[i] - pts[j]);
+					assert(d >= 0.5 - 1e-8);
+					assert(d <= 1 + 1e-8);
+				};
+				for (auto [a, b] : r) {
+					//cerr << a[0] << ' ' << a[1] << ' ' << b << '\n';
+					int c = int(pts.size());
+					pts.push_back(b);
+					check_dist(a[0]-1, c);
+					check_dist(a[1]-1, c);
+				}
+				cerr << i << ' ' << j << ' ' << pts.back() << '\n';
 			}
-			cerr << i << ' ' << j << ' ' << pts.back() << '\n';
 		}
 	}
 
