@@ -174,9 +174,9 @@ public:
 };
 
 int64_t f(int64_t N) {
-	std::cerr << "solve " << N << '\n';
+	//std::cerr << "solve " << N << '\n';
 	for (int steps = 0; true; steps++) {
-		std::cerr << "trying steps " << steps << '\n';
+		//std::cerr << "trying steps " << steps << '\n';
 		std::pair<int, int64_t> ans = {steps, N+1};
 		int d = (steps + 1) / 2;
 		[&](this auto&& self, int64_t a, int64_t b, int64_t ca, int64_t cb, int cur_depth) -> void {
@@ -253,7 +253,7 @@ int64_t f(int64_t N) {
 						int64_t o = vx + vy - N;
 						// Need to check the inverse too, since we could be doing it backwards.
 						int64_t o2 = mod_inv_in_range(o, N);
-						std::cerr << "found " << a << ' ' << b << ' ' << ca << ' ' << cb << ' ' << vx << ' ' << vy << ' ' << cur_depth << ' ' << ops << ' ' << std::min(o, N-o) << ' ' << std::min(o2, N-o2) << '\n';
+						//std::cerr << "found " << a << ' ' << b << ' ' << ca << ' ' << cb << ' ' << vx << ' ' << vy << ' ' << cur_depth << ' ' << ops << ' ' << std::min(o, N-o) << ' ' << std::min(o2, N-o2) << '\n';
 						ans = std::min(ans, {cur_depth + ops, std::min({o, N-o, o2, N-o2})});
 					}
 				};
@@ -286,7 +286,7 @@ int64_t f(int64_t N) {
 			if (0 < a && a < b) self(a, a+b, ca - cb, cb, cur_depth + 1);
 		}(0, 1, 0, N, 0);
 		if (ans.second <= N) {
-			std::cerr << "final steps " << ans.first - 1 << '\n';
+			//std::cerr << "final steps " << ans.first - 1 << '\n';
 			return ans.second;
 		}
 	}
