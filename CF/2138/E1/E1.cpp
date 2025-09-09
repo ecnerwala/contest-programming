@@ -381,6 +381,7 @@ int main() {
 			ans[{prv, prv}] = 1;
 			while (true) {
 				int cur = N++;
+				assert(N < N_MAX);
 				ans[{prv, cur}] = 1;
 				ans[{cur, prv}] = -1;
 				prv = cur;
