@@ -340,9 +340,11 @@ int main() {
 	}
 
 
+	const int N_MAX = 50;
+
 	auto solve_p = [&](int p) -> int {
 		// solve p
-		std::pair<int, int> best(2*p+1, 1);
+		std::pair<int, int> best(N_MAX + 10, 1);
 		int z = 1;
 		for (auto c : cuts) {
 			z = std::max(z, int(p * c));
@@ -366,15 +368,15 @@ int main() {
 
 	//for (auto p : std::views::reverse(primes)) { solve_p(p); }
 	
-	const int N_MAX = 50;
-
 	auto solve = [&](int X) -> tensor<int, 2> {
 		cerr << "solve " << X << '\n';
 		int N = 0;
 		tensor<int, 2> ans({N_MAX, N_MAX}, 0);
 		if (X == 0) return ans;
-		for (int v = X; v > 1; v /= pfac[v]) {
-			int p = pfac[v];
+		for (int v = X; v > 1; ) {
+			//int p = pfac[v];
+			int p = v;
+			v /= p;
 			int a = solve_p(p);
 			int b = p - a;
 
