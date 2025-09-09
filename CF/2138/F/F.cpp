@@ -186,7 +186,7 @@ int main() {
 				assert(d <= 1 + 1e-8);
 			};
 			for (auto [a, b] : r) {
-				cerr << a[0] << ' ' << a[1] << ' ' << b << '\n';
+				//cerr << a[0] << ' ' << a[1] << ' ' << b << '\n';
 				int c = int(pts.size());
 				pts.push_back(b);
 				check_dist(a[0]-1, c);
