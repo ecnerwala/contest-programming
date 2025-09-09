@@ -364,23 +364,14 @@ int main() {
 		return best.second;
 	};
 
-	for (auto p : std::views::reverse(primes)) { solve_p(p); }
+	//for (auto p : std::views::reverse(primes)) { solve_p(p); }
+	
+	const int N_MAX = 50;
 
-	int T; cin >> T;
-	while (T--) {
-		int X; cin >> X;
-		if (X == 0) {
-			cout << 1 << '\n';
-			cout << 0 << '\n';
-			continue;
-		} else if (X == 1) {
-			cout << 1 << '\n';
-			cout << 1 << '\n';
-			continue;
-		}
-		const int N_MAX = 80;
+	auto solve = [&](int X) -> tensor<int, 2> {
 		int N = 0;
 		tensor<int, 2> ans({N_MAX, N_MAX}, 0);
+		if (X == 0) return ans;
 		for (int v = X; v > 1; v /= pfac[v]) {
 			int p = pfac[v];
 			int a = solve_p(p);
@@ -404,10 +395,25 @@ int main() {
 			}
 		}
 		assert(N <= N_MAX);
-		cout << N << '\n';
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				cout << ans[{i, j}] << " \n"[j+1==N];
+		while (N < N_MAX) {
+			ans[{N, N}] = 1;
+			N++;
+		}
+		return ans;
+	};
+
+	for (int i = int(1e7); i >= 1; i--) {
+		solve(i);
+	}
+
+	int T; cin >> T;
+	while (T--) {
+		int X; cin >> X;
+		auto ans = solve(X);
+		cout << N_MAX << '\n';
+		for (int i = 0; i < N_MAX; i++) {
+			for (int j = 0; j < N_MAX; j++) {
+				cout << ans[{i, j}] << " \n"[j+1==N_MAX];
 			}
 		}
 	}
