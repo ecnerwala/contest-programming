@@ -22,6 +22,7 @@ int main() {
 					cerr << "done" << '\n';
 					return true;
 				}
+				assert(false);
 				return false;
 			}
 			int i = idx / N, j = idx % N;
