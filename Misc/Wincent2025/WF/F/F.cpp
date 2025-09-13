@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
+
 template <typename T, int NDIMS> struct tensor_view {
 	static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
 
@@ -179,7 +181,7 @@ int main() {
 				for (int k = 0; k < K; k++) {
 					if (b[{j, k}] == INF) continue;
 					assert((a[{i, j}] + b[{j, k}] < INF));
-					res[{i, k}] = std::min(res[{i, k}], a[{i, j}] + b[{j, k}]);
+					setmin(res[{i, k}], a[{i, j}] + b[{j, k}]);
 				}
 			}
 		}
@@ -284,7 +286,6 @@ int main() {
 		c_mats[C].push_back(m0);
 		for (int z = 1; z < 57; z++) {
 			m0 = mul(m0, m0);
-			cerr << "mul " << '\n';
 			c_mats[C].push_back(m0);
 		}
 	}
@@ -297,11 +298,71 @@ int main() {
 		assert(int(P.size()) == C);
 		assert(int(Q.size()) == C);
 		cout << [&]() -> int64_t {
-			int64_t ans = 0;
+			int M = int(c_masks[C].size());
+			auto get_matches = [&](std::string s) -> std::vector<bool> {
+				std::vector<bool> res(M);
+				for (int i = 0; i < M; i++) {
+					int m = c_masks[C][i];
+					bool good = true;
+					for (int d = 0; d < C; d++) {
+						assert(s[d] == '*' || s[d] == '0' || s[d] == '1');
+						if (s[d] == '*') {
+							// allowed
+						} else if (s[d] == '0' + ((m >> d) & 1)) {
+							// allowed
+						} else {
+							good = false;
+							break;
+						}
+					}
+					res[i] = good;
+				}
+				return res;
+			};
+			std::vector<bool> top_match = get_matches(P);
+			std::vector<bool> bot_match = get_matches(Q);
+			int64_t ans = INF;
 			if (R == 1) {
-				for (int i = 0; i < (1 << C); i++) {
+				for (int i = 0; i < M; i++) {
+					if (top_match[i] && bot_match[i] && c_line_valid[C][i]) {
+						setmin<int64_t>(ans, __builtin_popcount(c_masks[C][i]));
+					}
+				}
+			} else {
+				assert(R >= 2);
+				std::vector<int64_t> cost(M*M, INF);
+				for (int i = 0; i < M; i++) {
+					for (int j = 0; j < M; j++) {
+						if (top_match[i] && c_edge_valid[C][{i, j}]) {
+							setmin<int64_t>(cost[i*M+j], __builtin_popcount(c_masks[C][i]) + __builtin_popcount(c_masks[C][j]));
+						}
+					}
+				}
+				for (int64_t v = R-2, b = 0; v > 0; b++, v >>= 1) {
+					if (v & 1) {
+						std::vector<int64_t> ncost(M*M, INF);
+						for (int i = 0; i < M*M; i++) {
+							if (cost[i] == INF) continue;
+							for (int j = 0; j < M*M; j++) {
+								int64_t t = c_mats[C][b][{i, j}];
+								if (t == INF) continue;
+								assert(cost[i] + t < INF);
+								setmin(ncost[j], cost[i] + t);
+							}
+						}
+						cost = std::move(ncost);
+					}
+				}
+				for (int i = 0; i < M; i++) {
+					for (int j = 0; j < M; j++) {
+						if (bot_match[i] && c_edge_valid[C][{i, j}]) {
+							setmin(ans, cost[j*M+i]);
+						}
+					}
 				}
 			}
+			if (ans == INF) ans = -1;
+			else assert(ans < INF);
 			return ans;
 		}() << '\n';
 	}
