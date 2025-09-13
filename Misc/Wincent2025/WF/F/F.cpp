@@ -6,13 +6,9 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int C, R; cin >> C >> R;
+		int C; int64_t R; cin >> C >> R;
 		assert(1 <= C && C <= 7);
 		std::string P, Q; cin >> P >> Q;
-		if (int(P.size()) != C) {
-			cerr << C << ' ' << R << '\n';
-			cerr << P << ' ' << Q << '\n';
-		}
 		assert(int(P.size()) == C);
 		assert(int(Q.size()) == C);
 
