@@ -7,7 +7,7 @@ int main() {
 	int N; cin >> N;
 	assert(N == 100);
 	int ans = 0;
-	for (int i = -5; i <= 5; i++) {
+	for (int i = -5; i <= 6; i++) {
 		for (int j = -5; j <= 6; j++) {
 			if (std::gcd(i, j) == 1) ans++;
 		}
