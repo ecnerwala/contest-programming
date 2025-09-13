@@ -152,6 +152,11 @@ int main() {
 				}
 			}
 
+			assert(pos_ops[9] == 0);
+			for (int i = 0; i <= 8; i++) {
+				while (pos_ops[i]) do_op(i, i+1);
+			}
+
 			if (neg_ops[9] > 0) {
 				int i = 0;
 				while (cur_freq[i+1] == 0 || neg_ops[i] <= 0) i++;
@@ -164,11 +169,7 @@ int main() {
 				neg_ops[9] = 0;
 			}
 
-			assert(pos_ops[9] == 0);
 			assert(neg_ops[9] == 0);
-			for (int i = 0; i <= 8; i++) {
-				while (pos_ops[i]) do_op(i, i+1);
-			}
 			for (int i = 8; i >= 0; i--) {
 				while (neg_ops[i]) do_op(i+1, i);
 			}
