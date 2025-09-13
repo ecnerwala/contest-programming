@@ -108,8 +108,8 @@ int main() {
 		auto best = std::min({c0, c1, c2});
 		cout << best.first << '\n';
 		cout << int(best.second.size()) << '\n';
-		for (auto s : best.second) {
-			cout << s << '\n';
+		for (int z = 0; z < int(best.second.size()); z++) {
+			cout << best.second[z] << " \n"[z+1==int(best.second.size())];
 		}
 	}
 
