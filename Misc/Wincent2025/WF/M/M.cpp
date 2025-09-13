@@ -61,8 +61,8 @@ int main() {
 			int64_t cost = 0;
 			for (int i = 0; i < 9; i++) cost += std::abs(deltas[i]);
 
-			std::array<int, 10> pos_ops;
-			std::array<int, 10> neg_ops;
+			std::array<int, 10> pos_ops; pos_ops.fill(0);
+			std::array<int, 10> neg_ops; neg_ops.fill(0);
 			for (int i = 0; i < 10; i++) {
 				if (deltas[i] > 0) pos_ops[i] = deltas[i];
 				else if (deltas[i] < 0) neg_ops[i] = -deltas[i];
