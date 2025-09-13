@@ -16,7 +16,7 @@ int main() {
 		for (int m = 0; m < (1 << C); m++) {
 			bool good = true;
 			for (int i = 0; i+1 < C; i++) {
-				if ((m >> i) & 3) {
+				if (((m >> i) & 3) == 3) {
 					good = false;
 					break;
 				}
