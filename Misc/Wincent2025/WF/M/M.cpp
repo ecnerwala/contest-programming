@@ -90,6 +90,8 @@ int main() {
 
 			auto cur_freq = freq_A;
 			auto do_op = [&](int src, int dst) -> void {
+				cerr << "do_op " << src << ' ' << dst << '\n';
+				for (auto f : cur_freq) { cerr << f << ' '; } cerr << '\n';
 				assert(abs(dst - src) == 1);
 				if (dst - src == 1) {
 					assert(pos_ops[src] > 0);
