@@ -143,7 +143,7 @@ int main() {
 
 			if (neg_ops[9] > 0) {
 				int i = 0;
-				while (neg_ops[i] <= 0) i++;
+				while (cur_freq[i] == 0 || neg_ops[i] <= 0) i++;
 				assert(i < 9);
 				assert(neg_ops[i] > 0);
 				do_op(i+1, i);
