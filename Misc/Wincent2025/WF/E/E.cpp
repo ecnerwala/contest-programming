@@ -13,7 +13,7 @@ int main() {
 		std::vector<std::array<int, 2>> freq(2*N, {0, 0});
 		std::vector<int64_t> vals(2*N, 0);
 		auto res = [&](this auto&& self, int idx) -> bool {
-			if (N > 13) return false;
+			if (N > 40) return false;
 			if (idx == N * N) {
 				auto v = vals;
 				std::sort(v.begin(), v.end());
