@@ -165,6 +165,7 @@ int main() {
 	std::vector<std::vector<int>> c_masks(MAXC+1);
 	using mat = tensor<int64_t, 2>;
 	std::vector<std::vector<tensor<int64_t, 2>>> c_mats(MAXC+1);
+	std::vector<tensor<bool, 2>> c_edge_valid(MAXC+1);
 	auto mul = [&](const mat& a, const mat& b) -> mat {
 		int I = a.shape[0];
 		int J = a.shape[1];
@@ -196,15 +197,41 @@ int main() {
 		c_masks[C] = msks;
 
 		int M = int(msks.size());
+
+		{
+			tensor<bool, 2> edge_valid({M, M}, false);
+			for (int i = 0; i < M; i++) {
+				for (int j = 0; j < M; j++) {
+					int mi = msks[i];
+					int mj = msks[j];
+					bool is_valid = [&]() -> bool {
+						for (int c = 0; c < C; c++) {
+							std::array<bool, 2> has{false, false};
+							has[(mj >> c) & 1] = true;
+							if (c-1 >= 0) has[(mi >> (c-1)) & 1] = true;
+							if (c+1 < C) has[(mi >> (c+1)) & 1] = true;
+							if ((mi >> c) & 1) {
+								if (has[0] && has[1]) return false;
+							} else {
+								if (!(has[0] && has[1])) return false;
+							}
+						}
+						return true;
+					}();
+					edge_valid[{i, j}] = is_valid;
+				}
+			}
+		}
+
 		tensor<int64_t, 2> m0({M*M, M*M}, INF);
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < M; j++) {
 				for (int k = 0; k < M; k++) {
 					// we need to check all entries of j
+					int mi = msks[i];
+					int mj = msks[j];
+					int mk = msks[k];
 					bool is_valid = [&]() -> bool {
-						int mi = msks[i];
-						int mj = msks[j];
-						int mk = msks[k];
 						for (int c = 0; c < C; c++) {
 							std::array<bool, 2> has{false, false};
 							has[(mi >> c) & 1] = true;
@@ -220,7 +247,7 @@ int main() {
 						return true;
 					}();
 					if (is_valid) {
-						m0[{i*M+j, j*M+k}] = __builtin_popcount(k);
+						m0[{i*M+j, j*M+k}] = __builtin_popcount(mk);
 					}
 				}
 			}
@@ -241,8 +268,14 @@ int main() {
 		std::string P, Q; cin >> P >> Q;
 		assert(int(P.size()) == C);
 		assert(int(Q.size()) == C);
-		if (R == 1) {
-		}
+		cout << [&]() -> int64_t {
+			int64_t ans = 0;
+			if (R == 1) {
+				for (int i = 0; i < (1 << C); i++) {
+				}
+			}
+			return ans;
+		}() << '\n';
 	}
 
 	return 0;
