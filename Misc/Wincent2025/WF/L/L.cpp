@@ -41,7 +41,7 @@ int main() {
 			if (std::gcd(x, y) == 1) {
 				assert(x != 0 || y != 0);
 				if (cnt < N) {
-					cout << 0 << ' ' << x+x_lo << ' ' << y + y_lo << '\n';
+					cout << 0 << ' ' << x-x_lo << ' ' << y - y_lo << '\n';
 					cnt++;
 				}
 			}
@@ -49,7 +49,7 @@ int main() {
 	}
 	assert(cnt >= N);
 	for (int i = 0; i < N; i++) {
-		cout << i << ' ' << 0+x_lo << ' ' << 0+y_lo << '\n';
+		cout << i << ' ' << 0-x_lo << ' ' << 0-y_lo << '\n';
 	}
 
 	return 0;
