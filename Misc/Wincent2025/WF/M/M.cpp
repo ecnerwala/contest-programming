@@ -34,10 +34,15 @@ int main() {
 					add_op = true;
 				} else {
 					bool has_extra = false;
-					for (int i = 1; i <= 9; i++) {
-						if (deltas[i-1] < 0 && freq_A[i] - deltas[i] > -deltas[i-1]) {
-							cerr << "has extra " << i << '\n';
-							has_extra = true;
+					{
+						int i = 9;
+						while (freq_A[i] - deltas[i] == -deltas[i-1]) {
+							i--;
+						}
+						for (; i >= 1; i--) {
+							if (deltas[i-1] < 0) {
+								has_extra = true;
+							}
 						}
 					}
 					if (!has_extra) {
