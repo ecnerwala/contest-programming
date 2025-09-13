@@ -27,7 +27,6 @@ int main() {
 		const int64_t INF = R * C + 1;
 
 		int M = int(msks.size());
-		cerr << C << ' ' << M << '\n';
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < M; j++) {
 				for (int k = 0; k < M; k++) {
