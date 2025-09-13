@@ -8,10 +8,10 @@ int main() {
 	assert(N == 100);
 	int ans = 0;
 	int best = 10000;
-	for (int x_lo = 0; x_lo >= -10; x_lo--) {
-		for (int x_hi = 0; x_hi <= 10; x_hi++) {
-			for (int y_lo = 0; y_lo >= -10; y_lo--) {
-				for (int y_hi = 0; y_hi <= 10; y_hi++) {
+	for (int x_lo = 0; x_lo >= -50; x_lo--) {
+		for (int x_hi = 0; x_hi <= 50; x_hi++) {
+			for (int y_lo = 0; y_lo >= -50; y_lo--) {
+				for (int y_hi = 0; y_hi <= 50; y_hi++) {
 					int cnt = 0;
 					for (int x = x_lo; x <= x_hi; x++) {
 						for (int y = y_lo; y <= y_hi; y++) {
