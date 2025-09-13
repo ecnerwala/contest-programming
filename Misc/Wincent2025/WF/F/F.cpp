@@ -362,6 +362,13 @@ int main() {
 					}
 				}
 			}
+			{
+				bool can_filled = true;
+				for (int i = 0; i < C; i++) {
+					if (P[i] == '0' || Q[i] == '0') can_filled = false;
+				}
+				if (can_filled) setmin(ans, R*C);
+			}
 			if (ans == INF) ans = -1;
 			else assert(ans < INF);
 			return ans;
