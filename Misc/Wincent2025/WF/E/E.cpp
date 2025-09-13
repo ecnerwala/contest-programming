@@ -12,7 +12,7 @@ int main() {
 
 		std::vector<std::array<int, 2>> freq(2*N, {0, 0});
 		std::vector<int64_t> vals(2*N, 0);
-		std::set<int64_t> seen(2*N, 0);
+		std::set<int64_t> seen;
 		auto res = [&](this auto&& self, int idx) -> bool {
 			if (N > 40) return false;
 			if (idx == N * N) {
