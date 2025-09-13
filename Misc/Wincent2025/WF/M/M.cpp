@@ -127,9 +127,15 @@ int main() {
 
 				assert(cur_freq[9] >= pos_ops[9]);
 				{
-					int i = 1;
+					int i = 0;
 					while (pos_ops[i] <= 0) i++;
 					assert(i < 9);
+					assert(pos_ops[i] > 0);
+					cur_freq[9] -= pos_ops[9];
+					do_op(i, i+1);
+					ops.end()[-2].append(pos_ops[9], '9');
+					ops.end()[-2].append(pos_ops[9], '0');
+					pos_ops[9] = 0;
 				}
 			}
 
