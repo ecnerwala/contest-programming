@@ -12,9 +12,9 @@ int main() {
 
 		std::vector<std::array<int, 2>> freq(2*N, {0, 0});
 		std::vector<int64_t> vals(2*N, 0);
+		std::set<int64_t> seen(2*N, 0);
 		auto res = [&](this auto&& self, int idx) -> bool {
 			if (N > 40) return false;
-			cerr << "idx " << idx << '\n';
 			if (idx == N * N) {
 				auto v = vals;
 				std::sort(v.begin(), v.end());
@@ -36,8 +36,33 @@ int main() {
 				if (freq[0+i][val] <= (N+1)/2 && freq[N+j][val] <= (N+1)/2) {
 					if (!(j >= 2 && ((vals[0+i] >> (j-1)) & 1) == val && ((vals[0+i] >> (j-2)) & 1) == val)) {
 						if (!(i >= 2 && ((vals[N+j] >> (i-1)) & 1) == val && ((vals[N+j] >> (i-2)) & 1) == val)) {
-							if (self(idx+1)) {
-								return true;
+							if ([&]() -> bool {
+								if (j+1 == N) {
+									if (seen.count(vals[0+i])) {
+										return false;
+									}
+									seen.insert(vals[0+i]);
+								}
+
+								if ([&]() -> bool {
+									if (i+1 == N) {
+										if (seen.count(vals[N+j])) return false;
+										seen.insert(vals[N+j]);
+									}
+									if (self(idx+1)) {
+										return true;
+									}
+									if (i+1==N) {
+										seen.erase(vals[N+j]);
+									}
+									return false;
+								}()) return true;
+								if (j+1 == N) {
+									seen.erase(vals[0+i]);
+								}
+								return false;
+							}) return true;
+									seen.insert(vals[0+i]);
 							}
 						}
 					}
