@@ -60,7 +60,6 @@ int main() {
 
 			int64_t cost = 0;
 			for (int i = 0; i < 9; i++) cost += std::abs(deltas[i]);
-			if (add_op) cost += 2;
 
 			std::array<int, 10> pos_ops;
 			std::array<int, 10> neg_ops;
@@ -68,6 +67,8 @@ int main() {
 				if (deltas[i] > 0) pos_ops[i] = deltas[i];
 				else if (deltas[i] < 0) neg_ops[i] = -deltas[i];
 			}
+			assert(std::accumulate(pos_ops.begin(), pos_ops.begin() + 9, 0) + std::accumulate(neg_ops.begin(), neg_ops.begin() + 9, 0) == cost);
+			if (add_op) cost += 2;
 			if (add_op) {
 				pos_ops[0]++;
 				neg_ops[0]++;
