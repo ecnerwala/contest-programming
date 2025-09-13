@@ -78,6 +78,12 @@ int main() {
 				return {cost, {}};
 			}
 
+			cerr << "constructing" << '\n';
+			for (auto f : freq_A) { cerr << f << ' '; } cerr << '\n';
+			for (auto f : freq_B) { cerr << f << ' '; } cerr << '\n';
+			for (auto f : pos_ops) { cerr << f << ' '; } cerr << '\n';
+			for (auto f : neg_ops) { cerr << f << ' '; } cerr << '\n';
+
 			std::vector<std::string> ops;
 			ops.reserve(500);
 			ops.push_back(A);
