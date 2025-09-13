@@ -175,6 +175,7 @@ int main() {
 		mat res({I, K}, INF);
 		for (int i = 0; i < I; i++) {
 			for (int j = 0; j < J; j++) {
+				if (a[{i, j}] == INF) continue;
 				for (int k = 0; k < K; k++) {
 					res[{i, k}] = std::min(res[{i, k}], a[{i, j}] + b[{j, k}]);
 				}
