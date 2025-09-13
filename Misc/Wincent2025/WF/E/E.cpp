@@ -14,6 +14,7 @@ int main() {
 		std::vector<int64_t> vals(2*N, 0);
 		auto res = [&](this auto&& self, int idx) -> bool {
 			if (N > 40) return false;
+			cerr << "idx " << idx << '\n';
 			if (idx == N * N) {
 				auto v = vals;
 				std::sort(v.begin(), v.end());
