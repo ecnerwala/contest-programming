@@ -145,7 +145,7 @@ int main() {
 			}
 		}
 		auto [cost, edges] = kactl::dmst(V, N*M, g);
-		assert(int(edges.size()) == N*M);
+		//assert(int(edges.size()) == N*M);
 		std::vector<std::string> O(N, std::string(M, '?'));
 		for (int e : edges) {
 			auto [p, c] = e_vals[e];
