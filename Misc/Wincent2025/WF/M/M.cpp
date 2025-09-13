@@ -28,9 +28,6 @@ int main() {
 				v += adj;
 			}
 
-			int64_t cost = 0;
-			for (int i = 0; i < 9; i++) cost += std::abs(deltas[i]);
-
 			bool add_op = false;
 
 			if (deltas[9] == 0) {
@@ -69,6 +66,9 @@ int main() {
 					}
 				}
 			}
+
+			int64_t cost = 0;
+			for (int i = 0; i < 9; i++) cost += std::abs(deltas[i]);
 			if (add_op) cost += 2;
 
 			std::array<int, 10> pos_ops;
@@ -81,7 +81,7 @@ int main() {
 				pos_ops[0]++;
 				neg_ops[0]++;
 			}
-			assert(std::accumulate(pos_ops.begin(), pos_ops.end(), 0) + std::accumulate(neg_ops.begin(), neg_ops.end(), 0) == cost);
+			assert(std::accumulate(pos_ops.begin(), pos_ops.begin() + 9, 0) + std::accumulate(neg_ops.begin(), neg_ops.begin() + 9, 0) == cost);
 
 			if (!CONSTRUCT_SEQUENCE) {
 				return {cost, {}};
