@@ -82,6 +82,48 @@ int main() {
 			ops.reserve(500);
 			ops.push_back(A);
 
+			auto cur_freq = freq_A;
+			auto do_op = [&](int src, int dst) -> void {
+				assert(abs(dst - src) == 1);
+				if (dst - src == 1) {
+					assert(pos_ops[src] > 0);
+					pos_ops[src]--;
+				} else if (dst - src == -1) {
+					assert(neg_ops[dst] > 0);
+					neg_ops[dst]--;
+				} else assert(false);
+				if (src == 0 && cur_freq[src] == 0) cur_freq[src]++;
+				assert(cur_freq[src] > 0);
+				cur_freq[src]--;
+				std::string s;
+				for (int i = 1; i <= 9; i++) {
+					s.append(cur_freq[i], char('0' + i));
+				}
+				s.push_back(char('0' + src));
+				ops.push_back(s);
+				s.back() = char('0' + dst);
+				ops.push_back(s);
+			};
+
+			if (pos_ops[9] > 0) {
+				assert(cur_freq[9] >= pos_ops[9]);
+				// First, do all positive ops which are necessary for 9->0
+				for (int i = 1; i < 9; i++) {
+					// only do the ones which are necessary
+					int num_do = std::min(pos_ops[i-1], pos_ops[i] - freq_A[i]);
+					assert(i-1 == 0 || cur_freq[i-1] >= num_do);
+					for (int z = 0; z < num_do; z++) {
+						do_op(i-1, i);
+					}
+				}
+
+				{
+					int i = 1;
+					while (pos_ops[i] <= 0) i++;
+					assert(i < 9);
+				}
+			}
+
 			ops.push_back(B);
 
 			return {cost, ops};
