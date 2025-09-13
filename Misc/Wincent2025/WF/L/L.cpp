@@ -22,7 +22,7 @@ int main() {
 					int dy = y_hi - y_lo + 1;
 					if (cnt >= 100) {
 						int area = dx * dy;
-						if (area < best) {
+						if (area <= best) {
 							best = area;
 							cerr << x_lo << ".." << x_hi << ' ' << y_lo << ".." << y_hi << ' ' << cnt << ' ' << area << '\n';
 						}
