@@ -36,7 +36,7 @@ int main() {
 					bool has_extra = false;
 					{
 						int i = 9;
-						while (freq_A[i] - deltas[i] == -deltas[i-1]) {
+						while (freq_A[i] == 0) {
 							i--;
 						}
 						for (; i >= 1; i--) {
