@@ -116,6 +116,7 @@ int main() {
 				for (int i = 1; i < 9; i++) {
 					// only do the ones which are necessary
 					int num_do = std::min(pos_ops[i-1], pos_ops[i] - freq_A[i]);
+					cerr << i << ' ' << num_do << '\n';
 					assert(i-1 == 0 || cur_freq[i-1] >= num_do);
 					for (int z = 0; z < num_do; z++) {
 						do_op(i-1, i);
