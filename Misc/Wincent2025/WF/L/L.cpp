@@ -32,5 +32,25 @@ int main() {
 		}
 	}
 
+	int x_lo = -4, x_hi = 9;
+	int y_lo = -5, y_hi = 5;
+	cout << N << ' ' << (x_hi - x_lo + 1) << ' ' << (y_hi - y_lo + 1) << '\n';
+	int cnt = 0;
+	for (int x = x_lo; x <= x_hi; x++) {
+		for (int y = y_lo; y <= y_hi; y++) {
+			if (std::gcd(x, y) == 1) {
+				assert(x != 0 || y != 0);
+				if (cnt < N) {
+					cout << 0 << ' ' << x+x_lo << ' ' << y + y_lo << '\n';
+					cnt++;
+				}
+			}
+		}
+	}
+	assert(cnt >= N);
+	for (int i = 0; i < N; i++) {
+		cout << i << ' ' << 0+x_lo << ' ' << 0+y_lo << '\n';
+	}
+
 	return 0;
 }
