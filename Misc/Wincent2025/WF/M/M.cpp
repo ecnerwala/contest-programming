@@ -45,7 +45,7 @@ int main() {
 				} else {
 					// let's make sure that we can do it with our prereqs and stuff
 					bool has_extra = false;
-					for (int i = 9; i > 0; i--) {
+					for (int i = 9; i >= 1; i--) {
 						assert(freq_A[i] + deltas[i-1] - deltas[i] == freq_B[i]);
 						if (deltas[i-1] > 0 && freq_A[i] + deltas[i-1] > deltas[i]) {
 							// we have an extra op here
@@ -114,7 +114,7 @@ int main() {
 
 			if (pos_ops[9] > 0) {
 				// First, do all positive ops which are necessary for 9->0
-				for (int i = 1; i < 9; i++) {
+				for (int i = 1; i <= 9; i++) {
 					// only do the ones which are necessary
 					int num_do = std::min(pos_ops[i-1], pos_ops[i] - freq_A[i]);
 					cerr << i << ' ' << num_do << '\n';
