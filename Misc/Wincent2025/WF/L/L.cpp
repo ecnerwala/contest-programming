@@ -15,7 +15,7 @@ int main() {
 					int cnt = 0;
 					for (int x = x_lo; x <= x_hi; x++) {
 						for (int y = y_lo; y <= y_hi; y++) {
-							if (std::gcd(x, y) == 1) cnt++;
+							if (std::abs(std::gcd(x, y)) == 1) cnt++;
 						}
 					}
 					int dx = x_hi - x_lo + 1;
