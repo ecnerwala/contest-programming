@@ -11,7 +11,7 @@ int main() {
 		std::mt19937 mt(48);
 
 		std::vector<std::array<int, 2>> freq(2*N, {0, 0});
-		std::vector<int> vals(2*N, 0);
+		std::vector<int64_t> vals(2*N, 0);
 		auto res = [&](this auto&& self, int idx) -> bool {
 			if (N > 13) return false;
 			if (idx == N * N) {
@@ -24,7 +24,7 @@ int main() {
 				return false;
 			}
 			int i = idx / N, j = idx % N;
-			int val = int(mt() & 1);
+			int64_t val = int(mt() & 1);
 			for (int z = 0; z < 2; z++, val = !val) {
 				vals[0+i] += (val << j);
 				vals[N+j] += (val << i);
