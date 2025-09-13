@@ -7,12 +7,30 @@ int main() {
 	int N; cin >> N;
 	assert(N == 100);
 	int ans = 0;
-	for (int i = -2; i < 13; i++) {
-		for (int j = -2; j < 13; j++) {
-			if (std::gcd(i, j) == 1) ans++;
+	int best = 10000;
+	for (int x_lo = 0; x_lo >= -10; x_lo--) {
+		for (int x_hi = 0; x_hi <= 10; x_hi++) {
+			for (int y_lo = 0; y_lo >= -10; y_lo--) {
+				for (int y_hi = 0; y_hi <= 10; y_hi++) {
+					int cnt = 0;
+					for (int x = x_lo; x <= x_hi; x++) {
+						for (int y = y_lo; y <= y_hi; y++) {
+							if (std::gcd(x, y) == 1) cnt++;
+						}
+					}
+					int dx = x_hi - x_lo + 1;
+					int dy = y_hi - y_lo + 1;
+					if (cnt >= 100) {
+						int area = dx * dy;
+						if (area < best) {
+							best = area;
+							cerr << x_lo << ".." << x_hi << ' ' << y_lo << ".." << y_hi << ' ' << cnt << '\n';
+						}
+					}
+				}
+			}
 		}
 	}
-	cerr << ans << '\n';
 
 	return 0;
 }
