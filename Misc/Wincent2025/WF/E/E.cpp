@@ -36,8 +36,12 @@ int main() {
 			freq[N+j][val]++;
 
 			if (freq[0+i][val] <= (N+1)/2 && freq[N+j][val] <= (N+1)/2) {
-				if (self(idx+1)) {
-					return true;
+				if (!(j >= 2 && ((vals[0+i] >> (j-1)) & 1) == val && ((vals[0+i] >> (j-2)) & 1) == val)) {
+					if (!(i >= 2 && ((vals[N+j] >> (i-1)) & 1) == val && ((vals[N+j] >> (i-2)) & 1) == val)) {
+						if (self(idx+1)) {
+							return true;
+						}
+					}
 				}
 			} 
 
