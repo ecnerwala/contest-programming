@@ -178,7 +178,7 @@ int main() {
 				if (a[{i, j}] == INF) continue;
 				for (int k = 0; k < K; k++) {
 					if (b[{j, k}] == INF) continue;
-					assert(a[{i, j}] + b[{j, k}] < INF);
+					assert((a[{i, j}] + b[{j, k}] < INF));
 					res[{i, k}] = std::min(res[{i, k}], a[{i, j}] + b[{j, k}]);
 				}
 			}
