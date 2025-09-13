@@ -225,6 +225,7 @@ int main() {
 				}
 			}
 		}
+		cerr << "precomp " << C << ' ' << M << '\n';
 		c_mats[C].push_back(m0);
 		for (int z = 0; z < 60; z++) {
 			m0 = mul(m0, m0);
