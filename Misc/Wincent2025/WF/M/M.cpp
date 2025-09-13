@@ -213,6 +213,7 @@ int main() {
 		auto best = std::min({c0, c1, c2});
 		cout << best.first << '\n';
 		if (CONSTRUCT_SEQUENCE) {
+			assert(2 * (best.first + 1) == int(best.second.size()));
 			cout << int(best.second.size())-1 << '\n';
 			for (int z = 0; z < int(best.second.size()); z++) {
 				assert(best.second[z].size() <= 50);
