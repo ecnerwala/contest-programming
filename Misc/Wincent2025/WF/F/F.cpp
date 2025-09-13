@@ -25,7 +25,6 @@ int main() {
 			msks.push_back(m);
 		}
 		const int64_t INF = R * C + 1;
-		int64_t ans = INF;
 
 		int M = int(msks.size());
 		for (int i = 0; i < M; i++) {
@@ -53,7 +52,6 @@ int main() {
 				}
 			}
 		}
-		// TODO: Check if all 1's works
 	}
 
 	return 0;
