@@ -24,7 +24,7 @@ int main() {
 						int area = dx * dy;
 						if (area < best) {
 							best = area;
-							cerr << x_lo << ".." << x_hi << ' ' << y_lo << ".." << y_hi << ' ' << cnt << '\n';
+							cerr << x_lo << ".." << x_hi << ' ' << y_lo << ".." << y_hi << ' ' << cnt << ' ' << area << '\n';
 						}
 					}
 				}
