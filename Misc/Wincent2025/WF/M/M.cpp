@@ -107,7 +107,7 @@ int main() {
 		auto c2 = solve(deltas, -1);
 		auto best = std::min({c0, c1, c2});
 		cout << best.first << '\n';
-		cout << int(best.second.size()) << '\n';
+		cout << int(best.second.size())-1 << '\n';
 		for (int z = 0; z < int(best.second.size()); z++) {
 			cout << best.second[z] << " \n"[z+1==int(best.second.size())];
 		}
