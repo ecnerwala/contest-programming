@@ -7,11 +7,13 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		cerr << "sovle " << N << '\n';
 		std::mt19937 mt(48);
 
 		std::vector<std::array<int, 2>> freq(2*N, {0, 0});
 		std::vector<int> vals(2*N, 0);
 		auto res = [&](this auto&& self, int idx) -> bool {
+			if (N > 13) return false;
 			if (idx == N * N) {
 				auto v = vals;
 				std::sort(v.begin(), v.end());
