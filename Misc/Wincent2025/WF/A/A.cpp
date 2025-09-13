@@ -136,18 +136,19 @@ int main() {
 
 					if (S[i][j] == dc[d]) {
 						cerr << "add " << st << ' ' << en << ' ' << 0 << '\n';
-						g.push_back({st, en, 0});
+						g.push_back({en, st, 0});
 						e_vals.push_back({{i, j}, dc[d]});
 					} else if (can_move[i][j]) {
 						cerr << "add " << st << ' ' << en << ' ' << 1 << '\n';
-						g.push_back({st, en, 1});
+						g.push_back({en, st, 1});
 						e_vals.push_back({{i, j}, dc[d]});
 					}
 				}
 			}
 		}
 		auto [cost, edges] = kactl::dmst(V, N*M, g);
-		//assert(int(edges.size()) == N*M);
+		assert(cost != -1);
+		assert(int(edges.size()) == N*M);
 		std::vector<std::string> O(N, std::string(M, '?'));
 		for (int e : edges) {
 			auto [p, c] = e_vals[e];
