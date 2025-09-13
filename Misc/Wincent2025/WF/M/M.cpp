@@ -134,11 +134,33 @@ int main() {
 					cur_freq[9] -= pos_ops[9];
 					do_op(i, i+1);
 					ops.end()[-2].append(pos_ops[9], '9');
-					ops.end()[-2].append(pos_ops[9], '0');
+					ops.end()[-1].append(pos_ops[9], '0');
 					pos_ops[9] = 0;
 				}
 			}
 
+			if (neg_ops[9] > 0) {
+				int i = 0;
+				while (neg_ops[i] <= 0) i++;
+				assert(i < 9);
+				assert(neg_ops[i] > 0);
+				do_op(i+1, i);
+				ops.end()[-2].append(neg_ops[9], '0');
+				ops.end()[-1].append(neg_ops[9], '9');
+				cur_freq[9] += neg_ops[9];
+				neg_ops[9] = 0;
+			}
+
+			assert(pos_ops[9] == 0);
+			assert(neg_ops[9] == 0);
+			for (int i = 0; i <= 8; i++) {
+				while (pos_ops[i]) do_op(i, i+1);
+			}
+			for (int i = 8; i >= 0; i--) {
+				while (neg_ops[i]) do_op(i+1, i);
+			}
+
+			for (int i = 1; i <= 9; i++) assert(cur_freq[i] == freq_B[i]);
 			ops.push_back(B);
 
 			return {cost, ops};
