@@ -101,11 +101,11 @@ int main() {
 				return {cost, {}};
 			}
 
-			cerr << "constructing" << '\n';
-			for (auto f : freq_A) { cerr << f << ' '; } cerr << '\n';
-			for (auto f : freq_B) { cerr << f << ' '; } cerr << '\n';
-			for (auto f : pos_ops) { cerr << f << ' '; } cerr << '\n';
-			for (auto f : neg_ops) { cerr << f << ' '; } cerr << '\n';
+			//cerr << "constructing" << '\n';
+			//for (auto f : freq_A) { cerr << f << ' '; } cerr << '\n';
+			//for (auto f : freq_B) { cerr << f << ' '; } cerr << '\n';
+			//for (auto f : pos_ops) { cerr << f << ' '; } cerr << '\n';
+			//for (auto f : neg_ops) { cerr << f << ' '; } cerr << '\n';
 
 			std::vector<std::string> ops;
 			ops.reserve(500);
@@ -113,8 +113,8 @@ int main() {
 
 			auto cur_freq = freq_A;
 			auto do_op = [&](int src, int dst) -> void {
-				cerr << "do_op " << src << ' ' << dst << '\n';
-				for (auto f : cur_freq) { cerr << f << ' '; } cerr << '\n';
+				//cerr << "do_op " << src << ' ' << dst << '\n';
+				//for (auto f : cur_freq) { cerr << f << ' '; } cerr << '\n';
 				assert(abs(dst - src) == 1);
 				if (dst - src == 1) {
 					assert(pos_ops[src] > 0);
@@ -142,13 +142,13 @@ int main() {
 				for (int i = 1; i <= 9; i++) {
 					// only do the ones which are necessary
 					int num_do = std::min(pos_ops[i-1], pos_ops[i] - cur_freq[i]);
-					cerr << i << ' ' << num_do << '\n';
+					//cerr << i << ' ' << num_do << '\n';
 					assert(i-1 == 0 || cur_freq[i-1] >= num_do);
 					for (int z = 0; z < num_do; z++) {
 						do_op(i-1, i);
 					}
 				}
-				for (auto f : cur_freq) { cerr << f << ' '; } cerr << '\n';
+				//for (auto f : cur_freq) { cerr << f << ' '; } cerr << '\n';
 
 				assert(cur_freq[9] >= pos_ops[9]);
 				{
