@@ -136,11 +136,11 @@ int main() {
 
 					if (S[i][j] == dc[d]) {
 						cerr << "add " << st << ' ' << en << ' ' << 0 << '\n';
-						g.push_back({st, en, 0});
+						g.push_back({en, st, 0});
 						e_vals.push_back({{i, j}, dc[d]});
 					} else if (can_move[i][j]) {
 						cerr << "add " << st << ' ' << en << ' ' << 1 << '\n';
-						g.push_back({st, en, 1});
+						g.push_back({en, st, 1});
 						e_vals.push_back({{i, j}, dc[d]});
 					}
 				}
