@@ -61,6 +61,12 @@ int main() {
 				} else {
 					// let's make sure that we can do it with our prereqs and stuff
 					bool has_extra = false;
+					int i = 9;
+					while (freq_B[i] == 0) i--;
+					for (; i >= 1; i--) {
+						if (deltas[i-1] > 0) has_extra = true;
+					}
+					/*
 					for (int i = 9; i >= 1; i--) {
 						assert(freq_A[i] + deltas[i-1] - deltas[i] == freq_B[i]);
 						if (deltas[i-1] > 0 && freq_A[i] + deltas[i-1] > deltas[i]) {
@@ -68,6 +74,7 @@ int main() {
 							has_extra = true;
 						}
 					}
+					*/
 					if (!has_extra) {
 						add_op = true;
 					}
