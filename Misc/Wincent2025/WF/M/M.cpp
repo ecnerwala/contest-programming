@@ -208,6 +208,7 @@ int main() {
 		if (CONSTRUCT_SEQUENCE) {
 			cout << int(best.second.size())-1 << '\n';
 			for (int z = 0; z < int(best.second.size()); z++) {
+				assert(best.second[z].size() <= 50);
 				cout << best.second[z] << " \n"[z+1==int(best.second.size())];
 			}
 		}
