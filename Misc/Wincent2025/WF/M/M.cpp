@@ -32,6 +32,16 @@ int main() {
 				}
 				if (!has_neg) {
 					add_op = true;
+				} else {
+					bool has_extra = false;
+					for (int i = 1; i <= 9; i++) {
+						if (deltas[i-1] < 0 && freq_A[i] - deltas[i] > deltas[i-1]) {
+							has_extra = true;
+						}
+					}
+					if (!has_extra) {
+						add_op = true;
+					}
 				}
 			} else if (deltas[9] > 0) {
 				bool has_pos = false;
