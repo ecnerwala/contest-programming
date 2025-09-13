@@ -166,6 +166,7 @@ int main() {
 	using mat = tensor<int64_t, 2>;
 	std::vector<std::vector<tensor<int64_t, 2>>> c_mats(MAXC+1);
 	std::vector<tensor<bool, 2>> c_edge_valid(MAXC+1);
+	std::vector<std::vector<bool>> c_line_valid(MAXC+1);
 	auto mul = [&](const mat& a, const mat& b) -> mat {
 		int I = a.shape[0];
 		int J = a.shape[1];
@@ -199,6 +200,29 @@ int main() {
 		int M = int(msks.size());
 
 		{
+			std::vector<bool> line_valid(M);
+			for (int i = 0; i < M; i++) {
+				for (int j = 0; j < M; j++) {
+					int mi = msks[i];
+					bool is_valid = [&]() -> bool {
+						for (int c = 0; c < C; c++) {
+							std::array<bool, 2> has{false, false};
+							if (c-1 >= 0) has[(mi >> (c-1)) & 1] = true;
+							if (c+1 < C) has[(mi >> (c+1)) & 1] = true;
+							if ((mi >> c) & 1) {
+								if (has[0] && has[1]) return false;
+							} else {
+								if (!(has[0] && has[1])) return false;
+							}
+						}
+						return true;
+					}();
+					line_valid[i] = is_valid;
+				}
+			}
+			c_line_valid[C] = line_valid;
+		}
+		{
 			tensor<bool, 2> edge_valid({M, M}, false);
 			for (int i = 0; i < M; i++) {
 				for (int j = 0; j < M; j++) {
@@ -221,6 +245,7 @@ int main() {
 					edge_valid[{i, j}] = is_valid;
 				}
 			}
+			c_edge_valid[C] = edge_valid;
 		}
 
 		tensor<int64_t, 2> m0({M*M, M*M}, INF);
