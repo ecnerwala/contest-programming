@@ -150,6 +150,7 @@ int main() {
 		assert(cost != -1);
 		assert(int(par.size()) == V);
 		std::vector<std::string> O(N, std::string(M, '?'));
+		int tot_cost = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				std::pair<int, char> val{2, '?'};
@@ -172,9 +173,11 @@ int main() {
 					}
 				}
 				assert(val.first <= 1);
+				tot_cost += val.first;
 				O[i][j] = val.second;
 			}
 		}
+		assert(tot_cost == cost);
 		cout << cost << '\n';
 		for (auto r : O) cout << r << '\n';
 	}
