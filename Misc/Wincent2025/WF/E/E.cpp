@@ -61,9 +61,7 @@ int main() {
 									seen.erase(vals[0+i]);
 								}
 								return false;
-							}) return true;
-									seen.insert(vals[0+i]);
-							}
+							}()) return true;
 						}
 					}
 				} 
