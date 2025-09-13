@@ -146,16 +146,34 @@ int main() {
 				}
 			}
 		}
-		auto [cost, edges] = kactl::dmst(V, N*M, g);
+		auto [cost, par] = kactl::dmst(V, N*M, g);
 		assert(cost != -1);
-		assert(int(edges.size()) == N*M);
+		assert(int(par.size()) == V);
 		std::vector<std::string> O(N, std::string(M, '?'));
-		for (int e : edges) {
-			auto [p, c] = e_vals[e];
-			auto [x, y] = p;
-			assert(O[x][y] == '?');
-			O[x][y] = c;
-			assert(can_move[x][y] || O[x][y] == S[x][y]);
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				std::pair<int, char> val{2, '?'};
+				for (int d = 0; d < 4; d++) {
+					int ni = i + dx[d], nj = j + dy[d];
+					int st = i * M + j;
+					int en;
+					if (0 <= ni && ni < N && 0 <= nj && nj < M) {
+						en = ni * M + nj;
+					} else {
+						en = N * M;
+					}
+
+					if (en != par[st]) continue;
+
+					if (S[i][j] == dc[d]) {
+						val = std::min(val, {0, dc[d]});
+					} else if (can_move[i][j]) {
+						val = std::min(val, {1, dc[d]});
+					}
+				}
+				assert(val.first <= 1);
+				O[i][j] = val.second;
+			}
 		}
 		cout << cost << '\n';
 		for (auto r : O) cout << r << '\n';
