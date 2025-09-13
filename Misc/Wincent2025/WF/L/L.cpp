@@ -20,7 +20,6 @@ int main() {
 					}
 					int dx = x_hi - x_lo + 1;
 					int dy = y_hi - y_lo + 1;
-					cerr << dx << ' ' << dy << ' ' << cnt << '\n';
 					if (cnt >= 100) {
 						int area = dx * dy;
 						if (area < best) {
