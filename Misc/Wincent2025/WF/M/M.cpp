@@ -14,15 +14,6 @@ int main() {
 		for (char c : A) { assert('0' <= c && c <= '9'); freq_A[c - '0']++; }
 		for (char c : B) { assert('0' <= c && c <= '9'); freq_B[c - '0']++; }
 
-		{
-			// don't include the last element
-			std::vector<int> cur(deltas.begin(), deltas.begin() + 9);
-			std::sort(cur.begin(), cur.end());
-			assert(int(cur.size()) == 9);
-			int mid = cur[(int(cur.size()) - 1) / 2];
-			for (auto& v : deltas) v -= mid;
-		}
-
 		auto solve = [&](std::array<int, 10> deltas, int adj) -> std::pair<int, std::vector<std::string>> {
 			for (auto& v : deltas) {
 				v += adj;
@@ -100,6 +91,15 @@ int main() {
 		deltas[0] = 0;
 		for (int i = 1; i < 10; i++) {
 			deltas[i] = deltas[i-1] + freq_A[i] - freq_B[i];
+		}
+
+		{
+			// don't include the last element
+			std::vector<int> cur(deltas.begin(), deltas.begin() + 9);
+			std::sort(cur.begin(), cur.end());
+			assert(int(cur.size()) == 9);
+			int mid = cur[(int(cur.size()) - 1) / 2];
+			for (auto& v : deltas) v -= mid;
 		}
 
 		auto c0 = solve(deltas, 0);
