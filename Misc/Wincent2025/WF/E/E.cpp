@@ -16,7 +16,12 @@ int main() {
 			std::sort(v.begin(), v.end());
 			if (std::unique(v.begin(), v.end()) == v.end()) {
 				cerr << "done" << '\n';
-				for (auto x : vals) cerr << x << '\n';
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < N; j++) {
+						cout << ((vals[i] >> j) & 1);
+					}
+					cout << '\n';
+				}
 				return true;
 			}
 			return false;
