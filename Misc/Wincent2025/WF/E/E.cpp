@@ -7,7 +7,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		cerr << "sovle " << N << '\n';
+		cerr << "solve " << N << '\n';
 		std::mt19937 mt(48);
 
 		std::vector<std::array<int, 2>> freq(2*N, {0, 0});
