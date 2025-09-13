@@ -17,7 +17,9 @@ int main() {
 			if (std::unique(v.begin(), v.end()) == v.end()) {
 				cerr << "done" << '\n';
 				for (auto x : vals) cerr << x << '\n';
+				return true;
 			}
+			return false;
 		}
 		int i = idx / N, j = idx % N;
 		int val = int(mt() & 1);
