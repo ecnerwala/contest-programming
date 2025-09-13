@@ -4,5 +4,114 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	int T; char _seq; cin >> T >> _seq;
+	assert(_seq == 'Y' || _seq == 'N');
+	bool CONSTRUCT_SEQUENCE = _seq == 'Y';
+	while (T--) {
+		std::string A, B; cin >> A >> B;
+		std::array<int, 10> freq_A; freq_A.fill(0);
+		std::array<int, 10> freq_B; freq_B.fill(0);
+		for (char c : A) { assert('0' <= c && c <= '9'); freq_A[c - '0']++; }
+		for (char c : B) { assert('0' <= c && c <= '9'); freq_B[c - '0']++; }
+
+		std::array<int, 10> deltas;
+		deltas[0] = 0;
+		for (int i = 1; i < 10; i++) {
+			deltas[i] = deltas[i-1] + freq_A[i] - freq_B[i];
+		}
+
+		{
+			// don't include the last element
+			std::vector<int> cur(deltas.begin(), deltas.begin() + 9);
+			std::sort(cur.begin(), cur.end());
+			assert(int(cur.size()) == 9);
+			int mid = cur[(int(cur.size()) - 1) / 2];
+			for (auto& v : deltas) v -= mid;
+		}
+
+		auto solve = [&](std::array<int, 10> deltas, int adj) -> std::pair<int, std::vector<std::string>> {
+			for (auto& v : deltas) {
+				v += adj;
+			}
+
+			int64_t cost = 0;
+			for (int i = 0; i < 9; i++) cost += std::abs(deltas[i]);
+
+			bool add_op = false;
+
+			if (deltas[9] == 0) {
+				// always fine
+			} else if (deltas[9] < 0) {
+				bool has_neg = false;
+				for (int i = 0; i < 9; i++) {
+					if (deltas[i] < 0) {
+						has_neg = true;
+					}
+				}
+				if (!has_neg) {
+					add_op = true;
+				}
+			} else if (deltas[9] > 0) {
+				bool has_pos = false;
+				for (int i = 0; i < 9; i++) {
+					if (deltas[i] > 0) {
+						has_pos = true;
+					}
+				}
+				if (!has_pos) {
+					add_op = true;
+				} else {
+					// let's make sure that we can do it with our prereqs and stuff
+					bool has_extra = false;
+					for (int i = 9; i > 0; i--) {
+						assert(freq_A[i] + deltas[i-1] - deltas[i] == freq_B[i]);
+						if (deltas[i-1] > 0 && freq_A[i] + deltas[i-1] > deltas[i]) {
+							// we have an extra op here
+							has_extra = true;
+						}
+					}
+					if (!has_extra) {
+						add_op = true;
+					}
+				}
+			}
+			if (add_op) cost += 2;
+
+			std::array<int, 10> pos_ops;
+			std::array<int, 10> neg_ops;
+			for (int i = 0; i < 10; i++) {
+				if (deltas[i] > 0) pos_ops[i] = deltas[i];
+				else if (deltas[i] < 0) neg_ops[i] = -deltas[i];
+			}
+			if (add_op) {
+				pos_ops[0]++;
+				neg_ops[0]++;
+			}
+			assert(std::accumulate(pos_ops.begin(), pos_ops.end(), 0) + std::accumulate(neg_ops.begin(), neg_ops.end(), 0) == cost);
+
+			if (!CONSTRUCT_SEQUENCE) {
+				return {cost, {}};
+			}
+
+			std::vector<std::string> ops;
+			ops.reserve(500);
+			ops.push_back(A);
+
+			ops.push_back(B);
+
+			return {cost, ops};
+		};
+
+		auto c0 = solve(deltas, 0);
+		auto c1 = solve(deltas, +1);
+		auto c2 = solve(deltas, -1);
+		auto best = std::min({c0, c1, c2});
+		cout << best.first << '\n';
+		cout << int(best.second.size()) << '\n';
+		for (auto s : best.second) {
+			cout << s << '\n';
+		}
+	}
+
 	return 0;
 }
