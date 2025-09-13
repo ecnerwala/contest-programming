@@ -109,6 +109,7 @@ int main() {
 				ops.push_back(s);
 				s.back() = char('0' + dst);
 				ops.push_back(s);
+				cur_freq[dst]++;
 			};
 
 			if (pos_ops[9] > 0) {
