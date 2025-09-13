@@ -285,6 +285,7 @@ int main() {
 		cerr << "precomp " << C << ' ' << M << '\n';
 		c_mats[C].push_back(m0);
 		for (int z = 1; z < 57; z++) {
+			cerr << "mul " << z << '\n';
 			m0 = mul(m0, m0);
 			c_mats[C].push_back(m0);
 		}
