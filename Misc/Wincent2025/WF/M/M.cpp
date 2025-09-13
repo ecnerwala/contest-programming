@@ -123,6 +123,7 @@ int main() {
 						do_op(i-1, i);
 					}
 				}
+				for (auto f : cur_freq) { cerr << f << ' '; } cerr << '\n';
 
 				assert(cur_freq[9] >= pos_ops[9]);
 				{
