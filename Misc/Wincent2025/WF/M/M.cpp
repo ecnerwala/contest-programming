@@ -106,7 +106,6 @@ int main() {
 			};
 
 			if (pos_ops[9] > 0) {
-				assert(cur_freq[9] >= pos_ops[9]);
 				// First, do all positive ops which are necessary for 9->0
 				for (int i = 1; i < 9; i++) {
 					// only do the ones which are necessary
@@ -117,6 +116,7 @@ int main() {
 					}
 				}
 
+				assert(cur_freq[9] >= pos_ops[9]);
 				{
 					int i = 1;
 					while (pos_ops[i] <= 0) i++;
