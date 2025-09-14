@@ -12,14 +12,15 @@ int main() {
 		for (int x_hi = 0; x_hi <= 50; x_hi++) {
 			for (int y_lo = 0; y_lo >= -50; y_lo--) {
 				for (int y_hi = 0; y_hi <= 50; y_hi++) {
+					int dx = x_hi - x_lo + 1;
+					int dy = y_hi - y_lo + 1;
+					if (dx * dy < 100) continue;
 					int cnt = 0;
 					for (int x = x_lo; x <= x_hi; x++) {
 						for (int y = y_lo; y <= y_hi; y++) {
 							if (std::abs(std::gcd(x, y)) == 1) cnt++;
 						}
 					}
-					int dx = x_hi - x_lo + 1;
-					int dy = y_hi - y_lo + 1;
 					if (cnt >= 100) {
 						int area = dx * dy;
 						if (area <= best) {
