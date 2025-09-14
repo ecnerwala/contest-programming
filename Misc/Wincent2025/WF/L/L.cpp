@@ -15,6 +15,7 @@ int main() {
 					int dx = x_hi - x_lo + 1;
 					int dy = y_hi - y_lo + 1;
 					if (dx * dy < 100) continue;
+					if (dx * dy > best) continue;
 					int cnt = 0;
 					for (int x = x_lo; x <= x_hi; x++) {
 						for (int y = y_lo; y <= y_hi; y++) {
