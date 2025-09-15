@@ -102,6 +102,7 @@ int main() {
 			vert_triangles[t.v].push_back(int(t_id));
 		}
 
+		cerr << "hi" << '\n';
 		int start_edge = 0;
 		while (is_outside[start_edge] != 4) start_edge++;
 
@@ -119,7 +120,6 @@ int main() {
 			tri_next[t.es[0]] = t.es[1] ^ 1;
 			tri_next[t.es[1]] = t.es[0] ^ 1;
 		}
-
 
 		// We maintain the linked list of edges on our current path
 		std::vector<int> prv(E); std::ranges::iota(prv, 0);
