@@ -119,10 +119,11 @@ int main() {
 		int right_edge = 0;
 		while (edge_tri[right_edge] != -2) right_edge++;
 
-		bool is_flipped = pts[corners[0][0]].h > pts[corners[0][1]].h;
+		int h_min = pts[corners[0][0]].h;
+		int h_max = pts[corners[0][1]].h;
 
-		int h_min = std::min(pts[corners[0][0]].h, pts[corners[0][1]].h);
-		int h_max = std::max(pts[corners[0][0]].h, pts[corners[0][1]].h);
+		bool is_flipped = h_min > h_max;
+		if (is_flipped) std::swap(h_min, h_max);
 
 		// We can just maintain which edges are currently in the path
 		std::vector<bool> in_path(E);
