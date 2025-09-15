@@ -106,11 +106,11 @@ int main() {
 		}
 
 		cerr << "hi" << '\n';
-		int start_edge = 0;
-		while (is_outside[start_edge] != 4) start_edge++;
+		int left_edge = 0;
+		while (is_outside[left_edge] != 4) left_edge++;
 
-		int end_edge = 0;
-		while (is_outside[end_edge] != 2) start_edge++;
+		int right_edge = 0;
+		while (is_outside[right_edge] != 2) right_edge++;
 		cerr << "hi" << '\n';
 
 		int h_min = std::min(pts[corners[0][0]].h, pts[corners[0][1]].h);
