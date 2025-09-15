@@ -238,8 +238,8 @@ int main() {
 		int cur_end;
 
 		assert(h_min != h_max);
+		cerr << h_min << ' ' << h_max << '\n';
 		if (h_min > h_max) {
-			cerr << h_min << ' ' << h_max << '\n';
 			cout << "impossible" << '\n';
 			continue;
 		}
@@ -313,8 +313,7 @@ int main() {
 			h_cur = h_extra;
 			for (int t = 0; t < N_TRI; t++) update_tri(t, true);
 			// trace from left_edge and right_edge
-			{
-			}
+			{}
 		}
 	}
 
