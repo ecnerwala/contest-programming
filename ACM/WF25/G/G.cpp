@@ -162,29 +162,41 @@ int main() {
 		std::vector<bool> in_path(N_EDGE);
 
 		std::vector<lin_fn> tri_fns(N_TRI);
-
-		lin_fn tot_path{0, 0};
+		std::vector<bool> tri_active(N_TRI);
 
 		auto update_tri = [&](int t, bool insert) -> void {
+			assert(!tri_active[t]);
 			int d = h_cur >= tris[t].h ? 2 : 0;
 			int u = tris[t].es[1];
 			int v = tris[t].es[d];
 			nxt[u] = insert ? v ^ 1 : -1;
 			nxt[v] = insert ? u ^ 1 : -1;
-			tri_fns[t] = {
-			};
+			tri_fns[t] = tris[t].fns[d/2];
 		};
 
 		for (int t = 0; t < N_TRI; t++) update_tri(t, true);
 
+		lin_fn tot_path{0, 0};
+
 		{
-			for (int cur = left_edge ^ 1; edge_tri[cur] >= 0; cur = nxt[cur]) {
+			int cur = left_edge ^ 1;
+			while (true) {
 				cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << ' ' << edge_tri[cur] << ' ' << nxt[cur] << '\n';
-				int t = edge_tri[cur];
-				// get t's value
+				assert(cur != -1);
 				in_path[cur] = true;
-				assert(nxt[cur] != -1);
+
+				int t = edge_tri[cur];
+				if (t < 0) {
+					break;
+				}
+
+				tri_active[t] = true;
+				tot_path += tri_fns[t];
+
+				cur = nxt[cur];
 			}
+			int tgt = edge_tri[cur];
+			assert(-3 <= tgt && tgt <= -1);
 		}
 	}
 
