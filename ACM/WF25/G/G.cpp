@@ -66,8 +66,8 @@ int main() {
 		hash_map<int64_t, int> edge_ids;
 		int E = 0;
 		std::vector<std::array<int, 2>> edges; edges.reserve(6 * N);
-		std::vector<int> is_outside; is_outside.reserve(6 * N);
-		auto get_edge_id = [&](int a, int b) -> int {
+		std::vector<int> edge_tri; edge_tri.reserve(6 * N);
+		auto get_edge_id = [&](int a, int b, int t) -> int {
 			int v;
 			if (auto it = edge_ids.find(b * N + a); it != edge_ids.end()) {
 				v = it->second ^ 1;
@@ -75,19 +75,21 @@ int main() {
 				v = E;
 				E += 2;
 				edges.push_back({a, b});
-				is_outside.push_back(0);
+				edge_tri.push_back(-5);
 				edges.push_back({b, a});
-				if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == 0) is_outside.push_back(1); // bottom
-				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == MAXX) is_outside.push_back(2); // right
-				else if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == MAXY) is_outside.push_back(3); // top
-				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == 0) is_outside.push_back(4); // left
-				else is_outside.push_back(0);
-				if (is_outside.back()) {
-					cerr << "have " << is_outside.back() << '\n';
+				if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == 0) edge_tri.push_back(-1); // bottom
+				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == MAXX) edge_tri.push_back(-2); // right
+				else if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == MAXY) edge_tri.push_back(-3); // top
+				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == 0) edge_tri.push_back(-4); // left
+				else edge_tri.push_back(-5);
+				if (edge_tri.back() != -5) {
+					cerr << "have " << edge_tri.back() << '\n';
 				}
 			}
 			auto [_, did_insert] = edge_ids.insert({a * N + b, v});
 			assert(did_insert);
+			assert(edge_tri[v] == -5);
+			edge_tri[v] = t;
 
 			return v;
 		};
@@ -98,9 +100,9 @@ int main() {
 			// t is a reference
 			auto [a, b, c] = t.vs;
 			std::array<std::tuple<int, int, int>, 3> tri_edges{
-				std::tuple<int, int, int>{pts[a].h, a, get_edge_id(b, c)},
-				std::tuple<int, int, int>{pts[b].h, b, get_edge_id(c, a)},
-				std::tuple<int, int, int>{pts[c].h, c, get_edge_id(a, b)},
+				std::tuple<int, int, int>{pts[a].h, a, get_edge_id(b, c, int(t_id))},
+				std::tuple<int, int, int>{pts[b].h, b, get_edge_id(c, a, int(t_id))},
+				std::tuple<int, int, int>{pts[c].h, c, get_edge_id(a, b, int(t_id))},
 			};
 			std::sort(tri_edges.begin(), tri_edges.end());
 			t.es[0] = std::get<2>(tri_edges[2]);
@@ -112,10 +114,10 @@ int main() {
 		}
 
 		int left_edge = 0;
-		while (is_outside[left_edge] != 4) left_edge++;
+		while (edge_tri[left_edge] != -4) left_edge++;
 
 		int right_edge = 0;
-		while (is_outside[right_edge] != 2) right_edge++;
+		while (edge_tri[right_edge] != -2) right_edge++;
 
 		bool is_flipped = pts[corners[0][0]].h > pts[corners[0][1]].h;
 
