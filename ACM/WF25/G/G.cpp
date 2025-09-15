@@ -25,23 +25,28 @@ using hash_set = hash_map<K, __gnu_pbds::null_type, Hash>;
 struct lin_fn {
 	// linear function of h
 	double cons = 0, coef = 0;
-	lin_fn& operator += (lin_fn o) {
+
+	lin_fn& operator +=(lin_fn o) {
 		cons += o.cons;
 		coef += o.coef;
 		return *this;
 	}
-	lin_fn& operator -= (lin_fn o) {
+
+	lin_fn& operator -=(lin_fn o) {
 		cons -= o.cons;
 		coef -= o.coef;
 		return *this;
 	}
-	friend lin_fn operator - (lin_fn a) {
+
+	friend lin_fn operator -(lin_fn a) {
 		return {-a.cons, -a.coef};
 	}
-	friend lin_fn operator + (lin_fn a, lin_fn b) {
+
+	friend lin_fn operator +(lin_fn a, lin_fn b) {
 		return {a.cons + b.cons, a.coef + b.coef};
 	}
-	friend lin_fn operator - (lin_fn a, lin_fn b) {
+
+	friend lin_fn operator -(lin_fn a, lin_fn b) {
 		return {a.cons - b.cons, a.coef - b.coef};
 	}
 };
@@ -92,12 +97,19 @@ int main() {
 			std::array<lin_fn, 2> fns;
 		};
 		std::vector<tri_t> tris(N_TRI);
-		for (auto& t : tris) { for (auto& v : t.vs) { cin >> v; v--; } }
+		for (auto& t : tris) {
+			for (auto& v : t.vs) {
+				cin >> v;
+				v--;
+			}
+		}
 
 		hash_map<int64_t, int> edge_ids;
 		int N_EDGE = 0;
-		std::vector<std::array<int, 2>> edges; edges.reserve(6 * N_PT);
-		std::vector<int> edge_tri; edge_tri.reserve(6 * N_PT);
+		std::vector<std::array<int, 2>> edges;
+		edges.reserve(6 * N_PT);
+		std::vector<int> edge_tri;
+		edge_tri.reserve(6 * N_PT);
 		auto get_edge_id = [&](int a, int b, int t) -> int {
 			int v;
 			if (auto it = edge_ids.find(b * N_PT + a); it != edge_ids.end()) {
@@ -111,7 +123,8 @@ int main() {
 				// they go from -3 -> -1 as height increases
 				if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == 0) edge_tri.push_back(is_flipped ? -1 : -3); // bottom
 				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == MAXX) edge_tri.push_back(-2); // right
-				else if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == MAXY) edge_tri.push_back(is_flipped ? -3 : -1); // top
+				else if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == MAXY) edge_tri.push_back(is_flipped ? -3 : -1);
+					// top
 				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == 0) edge_tri.push_back(-4); // left
 				else edge_tri.push_back(-5);
 				if (edge_tri.back() != -5) {
@@ -143,8 +156,19 @@ int main() {
 			t.es[2] = std::get<2>(tri_edges[0]);
 			t.v = std::get<1>(tri_edges[1]);
 			t.h = std::get<0>(tri_edges[1]);
-			int h_lo = std::get<0>(tri_edges[0]);
-			int h_hi = std::get<0>(tri_edges[2]);
+
+			{
+				int h_lo = std::get<0>(tri_edges[0]);
+				int h_hi = std::get<0>(tri_edges[2]);
+				int v_lo = std::get<1>(tri_edges[0]);
+				int v_hi = std::get<1>(tri_edges[2]);
+
+				std::array<double, 2> p_mid;
+				for (int z = 0; z < 2; z++) {
+					p_mid[z] = (double(t.h - h_lo) * pts[v_hi].p[z] + double(h_hi - t.h) * pts[v_lo].p[z]) / (h_hi - h_lo);
+				}
+			}
+
 			vert_triangles[t.v].push_back(int(t_id));
 		}
 
@@ -171,7 +195,7 @@ int main() {
 			int v = tris[t].es[d];
 			nxt[u] = insert ? v ^ 1 : -1;
 			nxt[v] = insert ? u ^ 1 : -1;
-			tri_fns[t] = tris[t].fns[d/2];
+			tri_fns[t] = tris[t].fns[d / 2];
 		};
 
 		for (int t = 0; t < N_TRI; t++) update_tri(t, true);
@@ -181,7 +205,8 @@ int main() {
 		{
 			int cur = left_edge ^ 1;
 			while (true) {
-				cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << ' ' << edge_tri[cur] << ' ' << nxt[cur] << '\n';
+				cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << ' ' << edge_tri[cur] << ' '
+					<< nxt[cur] << '\n';
 				assert(cur != -1);
 				in_path[cur] = true;
 
