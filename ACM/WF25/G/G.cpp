@@ -111,7 +111,6 @@ int main() {
 		);
 
 		bool is_flipped = pts[corners[0][0]].h > pts[corners[0][1]].h;
-		if (is_flipped) std::swap(h_min, h_max);
 
 		struct tri_t {
 			std::array<int, 3> vs;
