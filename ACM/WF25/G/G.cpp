@@ -108,6 +108,7 @@ int main() {
 
 		int end_edge = 0;
 		while (is_outside[end_edge] != 2) start_edge++;
+		cerr << "hi" << '\n';
 
 		int h_min = std::min(pts[corners[0][0]].h, pts[corners[0][1]].h);
 		int h_max = std::max(pts[corners[0][0]].h, pts[corners[0][1]].h);
