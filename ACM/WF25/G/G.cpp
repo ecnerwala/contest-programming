@@ -239,10 +239,10 @@ int main() {
 
 		assert(h_min != h_max);
 		if (h_min > h_max) {
+			cerr << h_min << ' ' << h_max << '\n';
 			cout << "impossible" << '\n';
 			continue;
 		}
-
 
 		{
 			int cur = left_edge ^ 1;
