@@ -76,6 +76,9 @@ int main() {
 				else if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == MAXY) is_outside.push_back(3); // top
 				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == 0) is_outside.push_back(4); // left
 				else is_outside.push_back(0);
+				if (is_outside.back()) {
+					cerr << "have " << is_outside.back() << '\n';
+				}
 			}
 			auto [_, did_insert] = edge_ids.insert({a * N + b, v});
 			assert(did_insert);
