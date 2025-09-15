@@ -140,6 +140,7 @@ int main() {
 
 		{
 			for (int cur = left_edge ^ 1; edge_tri[cur] >= 0; cur = nxt[cur]) {
+				cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << '\n';
 				int t = edge_tri[cur];
 				// get t's value
 				in_path[cur] = true;
