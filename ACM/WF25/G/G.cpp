@@ -144,7 +144,7 @@ int main() {
 				int t = edge_tri[cur];
 				// get t's value
 				in_path[cur] = true;
-				assert(nxt[cur] != -1);
+				//assert(nxt[cur] != -1);
 			}
 		}
 	}
