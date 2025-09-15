@@ -108,9 +108,10 @@ int main() {
 				edges.push_back({a, b});
 				edge_tri.push_back(-5);
 				edges.push_back({b, a});
-				if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == 0) edge_tri.push_back(-1); // bottom
+				// they go from -3 -> -1 as height increases
+				if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == 0) edge_tri.push_back(is_flipped ? -1 : -3); // bottom
 				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == MAXX) edge_tri.push_back(-2); // right
-				else if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == MAXY) edge_tri.push_back(-3); // top
+				else if (pts[a].p[1] == pts[b].p[1] && pts[a].p[1] == MAXY) edge_tri.push_back(is_flipped ? -3 : -1); // top
 				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == 0) edge_tri.push_back(-4); // left
 				else edge_tri.push_back(-5);
 				if (edge_tri.back() != -5) {
@@ -142,6 +143,8 @@ int main() {
 			t.es[2] = std::get<2>(tri_edges[0]);
 			t.v = std::get<1>(tri_edges[1]);
 			t.h = std::get<0>(tri_edges[1]);
+			int h_lo = std::get<0>(tri_edges[0]);
+			int h_hi = std::get<0>(tri_edges[2]);
 			vert_triangles[t.v].push_back(int(t_id));
 		}
 
