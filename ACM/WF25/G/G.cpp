@@ -49,6 +49,10 @@ struct lin_fn {
 	friend lin_fn operator -(lin_fn a, lin_fn b) {
 		return {a.cons - b.cons, a.coef - b.coef};
 	}
+
+	[[nodiscard]] double eval(double v) const {
+		return cons + v * coef;
+	}
 };
 
 int main() {
@@ -127,16 +131,13 @@ int main() {
 					// top
 				else if (pts[a].p[0] == pts[b].p[0] && pts[a].p[0] == 0) edge_tri.push_back(-4); // left
 				else edge_tri.push_back(-5);
-				if (edge_tri.back() != -5) {
-					cerr << "have " << edge_tri.back() << '\n';
-				}
 			}
 			auto [_, did_insert] = edge_ids.insert({a * N_PT + b, v});
 			assert(did_insert);
 			assert(edge_tri[v] == -5);
 			edge_tri[v] = t;
 
-			cerr << "edge " << v << " in " << t << " is " << a << '-' << b << '\n';
+			//cerr << "edge " << v << " in " << t << " is " << a << '-' << b << '\n';
 			return v;
 		};
 
@@ -215,8 +216,7 @@ int main() {
 		{
 			int cur = left_edge ^ 1;
 			while (true) {
-				cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << ' ' << edge_tri[cur] << ' '
-					<< nxt[cur] << '\n';
+				//cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << ' ' << edge_tri[cur] << ' ' << nxt[cur] << '\n';
 				assert(cur != -1);
 				in_path[cur] = true;
 
@@ -232,6 +232,7 @@ int main() {
 			}
 			int tgt = edge_tri[cur];
 			assert(-3 <= tgt && tgt <= -1);
+			cerr << tgt << '\n';
 		}
 	}
 
