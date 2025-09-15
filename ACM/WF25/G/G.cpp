@@ -163,7 +163,7 @@ int main() {
 		lin_fn tot_path{0, 0};
 
 		auto update_tri = [&](int t, bool insert) -> void {
-			int d = h_cur >= tris[t].h ? 0 : 2;
+			int d = h_cur >= tris[t].h ? 2 : 0;
 			int u = tris[t].es[1];
 			int v = tris[t].es[d];
 			nxt[u] = insert ? v ^ 1 : -1;
