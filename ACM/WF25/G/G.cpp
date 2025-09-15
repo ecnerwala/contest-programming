@@ -213,6 +213,9 @@ int main() {
 
 		lin_fn tot_path{0, 0};
 
+		int lower_bound = -1;
+		int upper_bound = -1;
+
 		{
 			int cur = left_edge ^ 1;
 			while (true) {
@@ -233,6 +236,8 @@ int main() {
 			int tgt = edge_tri[cur];
 			assert(-3 <= tgt && tgt <= -1);
 			cerr << tgt << '\n';
+			if (tgt >= -2 && lower_bound == -1) lower_bound = h_cur;
+			if (tgt >= -1 && upper_bound == -1) upper_bound = h_cur;
 		}
 	}
 
