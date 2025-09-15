@@ -108,12 +108,6 @@ int main() {
 			)
 		);
 
-		assert(h_min != h_max);
-		if (h_min > h_max) {
-			cout << "IMPOSSIBLE" << '\n';
-			continue;
-		}
-
 		bool is_flipped = pts[corners[0][0]].h > pts[corners[0][1]].h;
 		if (is_flipped) std::swap(h_min, h_max);
 
@@ -242,6 +236,13 @@ int main() {
 		int upper_bound = -1;
 
 		int cur_end;
+
+		assert(h_min != h_max);
+		if (h_min > h_max) {
+			cout << "impossible" << '\n';
+			continue;
+		}
+
 
 		{
 			int cur = left_edge ^ 1;
