@@ -86,8 +86,6 @@ int main() {
 			}
 		}
 		for (int x = 0; x < 2; x++) for (int y = 0; y < 2; y++) { assert(corners[x][y] != -1); }
-		cerr << pts[corners[0][0]].h << ' ' << pts[corners[0][1]].h << '\n';
-		cerr << pts[corners[1][0]].h << ' ' << pts[corners[1][1]].h << '\n';
 
 		int h_min = std::max(
 			std::min(
@@ -239,7 +237,6 @@ int main() {
 		int cur_end;
 
 		assert(h_min != h_max);
-		cerr << h_min << ' ' << h_max << '\n';
 		if (h_min > h_max) {
 			cout << "impossible" << '\n';
 			continue;
