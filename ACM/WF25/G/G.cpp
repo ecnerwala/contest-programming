@@ -22,6 +22,30 @@ using hash_map = __gnu_pbds::gp_hash_table<K, V, Hash>;
 template <typename K, typename Hash = splitmix64_hash>
 using hash_set = hash_map<K, __gnu_pbds::null_type, Hash>;
 
+struct lin_fn {
+	// linear function of h
+	double cons = 0, coef = 0;
+	lin_fn& operator += (lin_fn o) {
+		cons += o.cons;
+		coef += o.coef;
+		return *this;
+	}
+	lin_fn& operator -= (lin_fn o) {
+		cons -= o.cons;
+		coef -= o.coef;
+		return *this;
+	}
+	friend lin_fn operator - (lin_fn a) {
+		return {-a.cons, -a.coef};
+	}
+	friend lin_fn operator + (lin_fn a, lin_fn b) {
+		return {a.cons + b.cons, a.coef + b.coef};
+	}
+	friend lin_fn operator - (lin_fn a, lin_fn b) {
+		return {a.cons - b.cons, a.coef - b.coef};
+	}
+};
+
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 	using std::cin, std::cout, std::cerr;
@@ -29,23 +53,23 @@ int main() {
 	int T;
 	cin >> T;
 	while (T--) {
-		int MAXX, MAXY, N, M;
-		cin >> MAXX >> MAXY >> N >> M;
+		int MAXX, MAXY, N_PT, N_TRI;
+		cin >> MAXX >> MAXY >> N_PT >> N_TRI;
 		struct point_t {
 			int h;
 			std::array<int, 2> p;
 		};
-		std::vector<point_t> pts(N);
+		std::vector<point_t> pts(N_PT);
 		for (auto& p : pts) {
 			cin >> p.p[0] >> p.p[1] >> p.h;
 		}
 
-		std::vector<std::pair<int, int>> by_height(N);
-		for (int i = 0; i < N; i++) by_height[i] = {pts[i].h, i};
+		std::vector<std::pair<int, int>> by_height(N_PT);
+		for (int i = 0; i < N_PT; i++) by_height[i] = {pts[i].h, i};
 		std::ranges::sort(by_height);
 
 		std::array<std::array<int, 2>, 2> corners{std::array<int, 2>{-1, -1}, {-1, -1}};
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i < N_PT; i++) {
 			auto [x, y] = pts[i].p;
 			if (x == 0 || x == MAXX) {
 				assert(y == 0 || y == MAXY);
@@ -54,26 +78,33 @@ int main() {
 		}
 		for (int x = 0; x < 2; x++) for (int y = 0; y < 2; y++) { assert(corners[x][y] != -1); }
 
+		int h_min = pts[corners[0][0]].h;
+		int h_max = pts[corners[0][1]].h;
+
+		bool is_flipped = h_min > h_max;
+		if (is_flipped) std::swap(h_min, h_max);
+
 		struct tri_t {
 			std::array<int, 3> vs;
 			int v; // middle vertex
 			int h; // height
 			std::array<int, 3> es; // low, long, hi
+			std::array<lin_fn, 2> fns;
 		};
-		std::vector<tri_t> tris(M);
+		std::vector<tri_t> tris(N_TRI);
 		for (auto& t : tris) { for (auto& v : t.vs) { cin >> v; v--; } }
 
 		hash_map<int64_t, int> edge_ids;
-		int E = 0;
-		std::vector<std::array<int, 2>> edges; edges.reserve(6 * N);
-		std::vector<int> edge_tri; edge_tri.reserve(6 * N);
+		int N_EDGE = 0;
+		std::vector<std::array<int, 2>> edges; edges.reserve(6 * N_PT);
+		std::vector<int> edge_tri; edge_tri.reserve(6 * N_PT);
 		auto get_edge_id = [&](int a, int b, int t) -> int {
 			int v;
-			if (auto it = edge_ids.find(b * N + a); it != edge_ids.end()) {
+			if (auto it = edge_ids.find(b * N_PT + a); it != edge_ids.end()) {
 				v = it->second ^ 1;
 			} else {
-				v = E;
-				E += 2;
+				v = N_EDGE;
+				N_EDGE += 2;
 				edges.push_back({a, b});
 				edge_tri.push_back(-5);
 				edges.push_back({b, a});
@@ -86,7 +117,7 @@ int main() {
 					cerr << "have " << edge_tri.back() << '\n';
 				}
 			}
-			auto [_, did_insert] = edge_ids.insert({a * N + b, v});
+			auto [_, did_insert] = edge_ids.insert({a * N_PT + b, v});
 			assert(did_insert);
 			assert(edge_tri[v] == -5);
 			edge_tri[v] = t;
@@ -95,7 +126,7 @@ int main() {
 			return v;
 		};
 
-		std::vector<std::vector<int>> vert_triangles(N);
+		std::vector<std::vector<int>> vert_triangles(N_PT);
 
 		for (auto [t_id, t] : std::views::enumerate(tris)) {
 			// t is a reference
@@ -110,7 +141,7 @@ int main() {
 			t.es[1] = std::get<2>(tri_edges[1]);
 			t.es[2] = std::get<2>(tri_edges[0]);
 			t.v = std::get<1>(tri_edges[1]);
-			t.h = std::get<0>(tri_edges[0]);
+			t.h = std::get<0>(tri_edges[1]);
 			vert_triangles[t.v].push_back(int(t_id));
 		}
 
@@ -120,25 +151,28 @@ int main() {
 		int right_edge = 0;
 		while (edge_tri[right_edge] != -2) right_edge++;
 
-		int h_min = pts[corners[0][0]].h;
-		int h_max = pts[corners[0][1]].h;
-
-		bool is_flipped = h_min > h_max;
-		if (is_flipped) std::swap(h_min, h_max);
-
 		// we're at h_cur + eps
 		int h_cur = h_min;
-		std::vector<int> nxt(E, -1);
+		std::vector<int> nxt(N_EDGE, -1);
 
 		// We can just maintain which edges are currently in the path
-		std::vector<bool> in_path(E);
+		std::vector<bool> in_path(N_EDGE);
 
-		for (auto t : tris) {
-			int d = h_cur >= t.h ? 0 : 2;
-			cerr << "connecting " << t.es[d] << ' ' << t.es[1] << '\n';
-			nxt[t.es[d]] = t.es[1] ^ 1;
-			nxt[t.es[1]] = t.es[d] ^ 1;
-		}
+		std::vector<lin_fn> tri_fns(N_TRI);
+
+		lin_fn tot_path{0, 0};
+
+		auto update_tri = [&](int t, bool insert) -> void {
+			int d = h_cur >= tris[t].h ? 0 : 2;
+			int u = tris[t].es[1];
+			int v = tris[t].es[d];
+			nxt[u] = insert ? v ^ 1 : -1;
+			nxt[v] = insert ? u ^ 1 : -1;
+			tri_fns[t] = {
+			};
+		};
+
+		for (int t = 0; t < N_TRI; t++) update_tri(t, true);
 
 		{
 			for (int cur = left_edge ^ 1; edge_tri[cur] >= 0; cur = nxt[cur]) {
