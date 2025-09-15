@@ -216,6 +216,9 @@ int main() {
 
 		std::vector<lin_fn> tri_fns(N_TRI);
 		std::vector<bool> tri_active(N_TRI);
+		lin_fn tot_path{0, 0};
+
+		int cur_end;
 
 		auto update_tri = [&](int t, bool insert) -> void {
 			assert(!tri_active[t]);
@@ -229,12 +232,8 @@ int main() {
 
 		for (int t = 0; t < N_TRI; t++) update_tri(t, true);
 
-		lin_fn tot_path{0, 0};
-
 		int lower_bound = -1;
 		int upper_bound = -1;
-
-		int cur_end;
 
 		assert(h_min != h_max);
 		if (h_min > h_max) {
@@ -266,7 +265,8 @@ int main() {
 			if (cur_end >= -1 && upper_bound == -1) upper_bound = h_cur;
 		}
 
-		double ans = 0;
+		const double INF = 1e99;
+		double ans = INF;
 
 		for (auto [h, v] : by_height) {
 			if (h <= h_min) continue;
@@ -313,6 +313,8 @@ int main() {
 			// trace from left_edge and right_edge
 			{}
 		}
+		if (ans >= INF / 2) cout << "impossible" << '\n';
+		else cout << std::fixed << std::setprecision(10) << ans << '\n';
 	}
 
 	return 0;
