@@ -163,10 +163,20 @@ int main() {
 				int v_lo = std::get<1>(tri_edges[0]);
 				int v_hi = std::get<1>(tri_edges[2]);
 
-				std::array<double, 2> p_mid;
+				double d_mid = 0;
 				for (int z = 0; z < 2; z++) {
-					p_mid[z] = (double(t.h - h_lo) * pts[v_hi].p[z] + double(h_hi - t.h) * pts[v_lo].p[z]) / (h_hi - h_lo);
+					double x1 = (double(t.h - h_lo) * pts[v_hi].p[z] + double(h_hi - t.h) * pts[v_lo].p[z]) / (h_hi - h_lo);
+					double x2 = pts[t.v].p[z];
+					d_mid += (x1 - x2) * (x1 - x2);
 				}
+				d_mid = std::sqrt(d_mid);
+
+				// 0 at h_lo, d_mid at t.h
+				t.fns[0].coef = d_mid / (t.h - h_lo);
+				t.fns[0].cons = -t.fns[0].coef * h_lo;
+
+				t.fns[1].coef = d_mid / (t.h - h_hi);
+				t.fns[1].cons = -t.fns[1].coef * h_hi;
 			}
 
 			vert_triangles[t.v].push_back(int(t_id));
