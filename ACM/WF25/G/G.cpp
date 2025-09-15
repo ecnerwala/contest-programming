@@ -126,13 +126,13 @@ int main() {
 		bool is_flipped = h_min > h_max;
 		if (is_flipped) std::swap(h_min, h_max);
 
+		// we're at h_cur + eps
+		int h_cur = h_min;
+		std::vector<int> nxt(E, -1);
+
 		// We can just maintain which edges are currently in the path
 		std::vector<bool> in_path(E);
 
-		std::vector<int> nxt(E, -1);
-
-		// we're at h_cur + eps
-		int h_cur = h_min;
 		for (auto t : tris) {
 			int d = h_cur >= t.h ? 2 : 0;
 			cerr << "connecting " << t.es[0] << ' ' << t.es[1] << '\n';
@@ -142,7 +142,7 @@ int main() {
 
 		{
 			for (int cur = left_edge ^ 1; edge_tri[cur] >= 0; cur = nxt[cur]) {
-				cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << ' ' << edge_tri[cur] << '\n';
+				cerr << "visit " << cur << ' ' << edges[cur][0] << ' ' << edges[cur][1] << ' ' << edge_tri[cur] << ' ' << nxt[cur] << '\n';
 				int t = edge_tri[cur];
 				// get t's value
 				in_path[cur] = true;
