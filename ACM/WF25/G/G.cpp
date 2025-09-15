@@ -134,7 +134,7 @@ int main() {
 		std::vector<bool> in_path(E);
 
 		for (auto t : tris) {
-			int d = h_cur >= t.h ? 2 : 0;
+			int d = h_cur >= t.h ? 0 : 2;
 			cerr << "connecting " << t.es[d] << ' ' << t.es[1] << '\n';
 			nxt[t.es[d]] = t.es[1] ^ 1;
 			nxt[t.es[1]] = t.es[d] ^ 1;
