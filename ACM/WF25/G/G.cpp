@@ -134,6 +134,7 @@ int main() {
 		int h_cur = h_min;
 		for (auto t : tris) {
 			int d = h_cur >= t.h ? 2 : 0;
+			cerr << "connecting " << t.es[0] << ' ' << t.es[1] << '\n';
 			nxt[t.es[d]] = t.es[1] ^ 1;
 			nxt[t.es[1]] = t.es[d] ^ 1;
 		}
