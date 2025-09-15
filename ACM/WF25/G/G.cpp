@@ -87,10 +87,34 @@ int main() {
 		}
 		for (int x = 0; x < 2; x++) for (int y = 0; y < 2; y++) { assert(corners[x][y] != -1); }
 
-		int h_min = pts[corners[0][0]].h;
-		int h_max = pts[corners[0][1]].h;
+		int h_min = std::max(
+			std::min(
+				pts[corners[0][0]].h,
+				pts[corners[0][1]].h
+			),
+			std::min(
+				pts[corners[1][0]].h,
+				pts[corners[1][1]].h
+			)
+		);
+		int h_max = std::min(
+			std::max(
+				pts[corners[0][0]].h,
+				pts[corners[0][1]].h
+			),
+			std::max(
+				pts[corners[1][0]].h,
+				pts[corners[1][1]].h
+			)
+		);
 
-		bool is_flipped = h_min > h_max;
+		assert(h_min != h_max);
+		if (h_min > h_max) {
+			cout << "IMPOSSIBLE" << '\n';
+			continue;
+		}
+
+		bool is_flipped = pts[corners[0][0]].h > pts[corners[0][1]].h;
 		if (is_flipped) std::swap(h_min, h_max);
 
 		struct tri_t {
@@ -166,7 +190,8 @@ int main() {
 
 				double d_mid = 0;
 				for (int z = 0; z < 2; z++) {
-					double x1 = (double(t.h - h_lo) * pts[v_hi].p[z] + double(h_hi - t.h) * pts[v_lo].p[z]) / (h_hi - h_lo);
+					double x1 = (double(t.h - h_lo) * pts[v_hi].p[z] + double(h_hi - t.h) * pts[v_lo].p[z]) / (h_hi -
+						h_lo);
 					double x2 = pts[t.v].p[z];
 					d_mid += (x1 - x2) * (x1 - x2);
 				}
@@ -216,6 +241,8 @@ int main() {
 		int lower_bound = -1;
 		int upper_bound = -1;
 
+		int cur_end;
+
 		{
 			int cur = left_edge ^ 1;
 			while (true) {
@@ -233,11 +260,60 @@ int main() {
 
 				cur = nxt[cur];
 			}
-			int tgt = edge_tri[cur];
-			assert(-3 <= tgt && tgt <= -1);
-			cerr << tgt << '\n';
-			if (tgt >= -2 && lower_bound == -1) lower_bound = h_cur;
-			if (tgt >= -1 && upper_bound == -1) upper_bound = h_cur;
+			cur_end = edge_tri[cur];
+			assert(-3 <= cur_end && cur_end <= -1);
+			cerr << cur_end << '\n';
+			if (cur_end >= -2 && lower_bound == -1) lower_bound = h_cur;
+			if (cur_end >= -1 && upper_bound == -1) upper_bound = h_cur;
+		}
+
+		double ans = 0;
+
+		for (auto [h, v] : by_height) {
+			if (h <= h_min) continue;
+			if (h == h_max) {
+				if (lower_bound == -1) lower_bound = h_max;
+				if (upper_bound == -1) upper_bound = h_max;
+				break;
+			}
+
+			std::vector<int> ins;
+			std::vector<int> outs;
+			for (int t : vert_triangles[v]) {
+				if (tri_active[t]) {
+					int e = tris[t].es[1];
+					assert(in_path[e] + in_path[e^1] == 1);
+					if (in_path[e]) {
+						ins.push_back(e);
+					} else if (in_path[e ^ 1]) {
+						outs.push_back(e ^ 1);
+					} else
+						assert(false);
+				}
+			}
+			assert(int(ins.size()) - int(outs.size()) <= 1);
+			assert(int(ins.size()) - int(outs.size()) >= 0);
+			// Try to delete the paths that are bad
+			if (cur_end == -2) {
+				ans = std::min(ans, tot_path.eval(h));
+			}
+
+			for (int t : vert_triangles[v]) { update_tri(t, false); }
+			h_cur = h;
+			for (int t : vert_triangles[v]) { update_tri(t, true); }
+			// trace the new path
+		}
+
+		// Now, check h = lower_bound and upper_bound by hand: trace from both sides
+		for (int h_extra : {lower_bound, upper_bound}) {
+			// appease the assert oops
+			std::ranges::fill(tri_active, false);
+			for (int t = 0; t < N_TRI; t++) update_tri(t, false);
+			h_cur = h_extra;
+			for (int t = 0; t < N_TRI; t++) update_tri(t, true);
+			// trace from left_edge and right_edge
+			{
+			}
 		}
 	}
 
