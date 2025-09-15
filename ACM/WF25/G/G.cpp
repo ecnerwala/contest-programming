@@ -91,6 +91,7 @@ int main() {
 			assert(edge_tri[v] == -5);
 			edge_tri[v] = t;
 
+			cerr << "edge " << v << " in " << t << " is " << a << '-' << b << '\n';
 			return v;
 		};
 
