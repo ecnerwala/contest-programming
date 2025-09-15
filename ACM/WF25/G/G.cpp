@@ -139,8 +139,11 @@ int main() {
 		}
 
 		{
-			for (int cur = left_edge ^ 1; !is_outside[cur]; cur = nxt[cur]) {
+			for (int cur = left_edge ^ 1; edge_tri[cur] >= 0; cur = nxt[cur]) {
+				int t = edge_tri[cur];
+				// get t's value
 				in_path[cur] = true;
+				assert(nxt[cur] != -1);
 			}
 		}
 	}
