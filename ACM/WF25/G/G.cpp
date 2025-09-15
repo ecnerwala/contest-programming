@@ -23,8 +23,8 @@ template <typename K, typename Hash = splitmix64_hash>
 using hash_set = hash_map<K, __gnu_pbds::null_type, Hash>;
 
 int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
+	using std::cin, std::cout, std::cerr;
 
 	int T;
 	cin >> T;
@@ -39,6 +39,11 @@ int main() {
 		for (auto& p : pts) {
 			cin >> p.p[0] >> p.p[1] >> p.h;
 		}
+
+		std::vector<std::pair<int, int>> by_height(N);
+		for (int i = 0; i < N; i++) by_height[i] = {pts[i].h, i};
+		std::ranges::sort(by_height);
+
 		std::array<std::array<int, 2>, 2> corners{std::array<int, 2>{-1, -1}, {-1, -1}};
 		for (int i = 0; i < N; i++) {
 			auto [x, y] = pts[i].p;
@@ -48,6 +53,7 @@ int main() {
 			}
 		}
 		for (int x = 0; x < 2; x++) for (int y = 0; y < 2; y++) { assert(corners[x][y] != -1); }
+
 		struct tri_t {
 			std::array<int, 3> vs;
 			int v; // middle vertex
@@ -105,29 +111,35 @@ int main() {
 			vert_triangles[t.v].push_back(int(t_id));
 		}
 
-		cerr << "hi" << '\n';
 		int left_edge = 0;
 		while (is_outside[left_edge] != 4) left_edge++;
 
 		int right_edge = 0;
 		while (is_outside[right_edge] != 2) right_edge++;
-		cerr << "hi" << '\n';
+
+		bool is_flipped = pts[corners[0][0]].h > pts[corners[0][1]].h;
 
 		int h_min = std::min(pts[corners[0][0]].h, pts[corners[0][1]].h);
 		int h_max = std::max(pts[corners[0][0]].h, pts[corners[0][1]].h);
 
 		// We can just maintain which edges are currently in the path
-		std::vector<bool> in_path(2*E);
+		std::vector<bool> in_path(E);
 
-		std::vector<int> tri_next(E, -1);
+		std::vector<int> nxt(E, -1);
+
+		// we're at h_cur + eps
+		int h_cur = h_min;
 		for (auto t : tris) {
-			tri_next[t.es[0]] = t.es[1] ^ 1;
-			tri_next[t.es[1]] = t.es[0] ^ 1;
+			int d = h_cur >= t.h ? 2 : 0;
+			nxt[t.es[d]] = t.es[1] ^ 1;
+			nxt[t.es[1]] = t.es[d] ^ 1;
 		}
 
-		// We maintain the linked list of edges on our current path
-		std::vector<int> prv(E); std::ranges::iota(prv, 0);
-		std::vector<int> nxt(E); std::ranges::iota(nxt, 0);
+		{
+			for (int cur = left_edge ^ 1; !is_outside[cur]; cur = nxt[cur]) {
+				in_path[cur] = true;
+			}
+		}
 	}
 
 	return 0;
