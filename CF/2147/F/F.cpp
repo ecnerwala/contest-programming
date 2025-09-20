@@ -337,7 +337,6 @@ int main() {
 			auto [l, r] = value[i];
 			if (l > r) std::swap(l, r);
 			assert(l <= r);
-			cerr << "update " << l << '-' << r << ' ' << delta << '\n';
 			if (l == r) return;
 			auto rng = layout.get_range(l+1, r+1);
 			rng.for_each([&](auto a) -> void { seg[a].lazy += delta; update_node(a); });
@@ -356,7 +355,6 @@ int main() {
 			int64_t ans = int64_t(N) * int64_t(N+1) / 2;
 			ans += seg[1].tot_cnt;
 			assert(seg[1].first_zero == 0 && seg[1].last_zero == N);
-			cerr << "ans " << ans << '\n';
 			cout << ans << '\n';
 		}
 	}
