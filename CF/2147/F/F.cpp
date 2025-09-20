@@ -356,6 +356,7 @@ int main() {
 			int64_t ans = int64_t(N) * int64_t(N+1) / 2;
 			ans += seg[1].tot_cnt;
 			assert(seg[1].first_zero == 0 && seg[1].last_zero == N);
+			cerr << "ans " << ans << '\n';
 			cout << ans << '\n';
 		}
 	}
