@@ -14,9 +14,9 @@ int main() {
 		std::vector<int> extras; extras.reserve(N);
 		for (int i = 0, j = i; i < N; i = j) {
 			while (j < N && A[j] == A[i]) j++;
-			int cnt = A[j];
-			v_base += int64_t(A[j] / 2) * int64_t(cnt);
-			if (A[j] & 1) extras.push_back(cnt);
+			int cnt = j - i;
+			v_base += int64_t(A[i] / 2) * int64_t(cnt);
+			if (A[i] & 1) extras.push_back(cnt);
 		}
 		std::sort(extras.begin(), extras.end(), std::greater<>());
 		std::array<int64_t, 2> ans{v_base, v_base};
