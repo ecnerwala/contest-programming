@@ -10,7 +10,7 @@ int main() {
 		assert(x > 0 && y > 0);
 		if (x < y) {
 			cout << 2 << '\n';
-		} else if (x - y <= 1) {
+		} else if (x - y <= 1 || y == 1) {
 			cout << -1 << '\n';
 		} else {
 			cout << 3 << '\n';
