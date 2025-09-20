@@ -339,7 +339,7 @@ int main() {
 			assert(l <= r);
 			cerr << "update " << l << '-' << r << ' ' << delta << '\n';
 			if (l == r) return;
-			auto rng = layout.get_range(l+1, r);
+			auto rng = layout.get_range(l+1, r+1);
 			rng.for_each([&](auto a) -> void { seg[a].lazy += delta; update_node(a); });
 			rng.for_parents_up(update_node);
 		};
