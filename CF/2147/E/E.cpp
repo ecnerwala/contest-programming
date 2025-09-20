@@ -23,7 +23,7 @@ int main() {
 				int idx = -1;
 				for (int i = 0; i < N; i++) {
 					assert(!((A[i] >> x) & 1));
-					int cnd = (1 << (x+1)) - (A[i] & ((1 << x) - 1));
+					int cnd = (1 << x) - (A[i] & ((1 << x) - 1));
 					if (cnd < cheapest) { cheapest = cnd, idx = i; }
 				}
 				assert(idx != -1);
