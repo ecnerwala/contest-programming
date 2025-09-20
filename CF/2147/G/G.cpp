@@ -178,7 +178,7 @@ int main() {
 		for (auto [q, e] : tot_qs) {
 			num inv_q = inv(num(q));
 			num prob_no_q = power(inv_q, e);
-			tot_cnt *= prob_no_q + (1 - prob_no_q) * (X[0] % q == 0 || X[1] % q == 0 || X[2] % 2 == 0 ? 0 : inv_q);
+			tot_cnt *= prob_no_q + (1 - prob_no_q) * (X[0] % q == 0 || X[1] % q == 0 || X[2] % q == 0 ? 0 : inv_q);
 		}
 		cout << tot_cnt << '\n';
 	}
