@@ -352,7 +352,7 @@ int main() {
 			std::swap(value[i][z], value[j][z]);
 			update_range(i, +1);
 			update_range(j, +1);
-			int64_t ans = int64_t(N) * int64_t(N-1) / 2;
+			int64_t ans = int64_t(N) * int64_t(N+1) / 2;
 			ans += seg[1].tot_cnt;
 			cout << ans << '\n';
 		}
