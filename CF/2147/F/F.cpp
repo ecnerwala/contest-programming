@@ -337,6 +337,7 @@ int main() {
 			auto [l, r] = value[i];
 			if (l > r) std::swap(l, r);
 			assert(l <= r);
+			cerr << "update " << l << '-' << r << ' ' << delta << '\n';
 			if (l == r) return;
 			auto rng = layout.get_range(l+1, r);
 			rng.for_each([&](auto a) -> void { seg[a].lazy += delta; update_node(a); });
