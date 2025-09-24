@@ -323,12 +323,14 @@ int main() {
 						{
 							int x = cur.cnt_x + d - e1, y = cur.cnt_y + e1;
 							tot += ways_top * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
+							pref_ways_exact[{x, y}] += ways_top;
 							for (x ++, y--; x <= K; x++, y--) {
 								tot += ways_main * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
+								pref_ways_exact[{x, y}] += ways_main;
 							}
 						}
-						pref_ways_exact[{cur.cnt_x + d - e1, cur.cnt_y + e1}] += ways_top;
-						pref_ways_exact[{cur.cnt_x + d - e1 + 1, cur.cnt_y + e1 - 1}] += ways_main - ways_top;
+						//pref_ways_exact[{cur.cnt_x + d - e1, cur.cnt_y + e1}] += ways_top;
+						//pref_ways_exact[{cur.cnt_x + d - e1 + 1, cur.cnt_y + e1 - 1}] += ways_main - ways_top;
 					}
 				}
 				cerr << tot << '\n';
@@ -351,11 +353,13 @@ int main() {
 			}
 		}
 
+		/*
 		for (int i = 0; i < K; i++) {
 			for (int j = 1; j <= K; j++) {
 				pref_ways_exact[{i+1, j-1}] += pref_ways_exact[{i, j}];
 			}
 		}
+		*/
 
 		for (int i = 0; i <= K; i++) {
 			for (int j = 0; j <= K; j++) {
