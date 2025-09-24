@@ -173,7 +173,8 @@ int main() {
 			ans += edge_weight * (pref[N-l+1] - pref[0]);
 			ans += edge_weight * (pref[N] - pref[l-1]);
 			auto get_incr_weight = [&](int cap) -> num {
-				return pref_incr[cap] + cap * (pref[N - cap] - pref[cap]) + (N-1) * (pref[N] - pref[N-cap]) - (pref_incr[N] - pref_incr[N-cap]);
+				for (int i = 0; i < N; i++) std::min({cap, i, N-1-i})
+				//return pref_incr[cap] + cap * (pref[N - cap] - pref[cap]) + (N-1) * (pref[N] - pref[N-cap]) - (pref_incr[N] - pref_incr[N-cap]);
 			};
 			ans += mid_weight * get_incr_weight(std::min(l-2, N-l+1));
 		}
