@@ -286,12 +286,13 @@ int main() {
 							pjf.pop_back();
 						}
 						std::reverse(extras.begin(), extras.end());
+						bool f = pjf.empty() ? 1 : 0;
 						resp.insert(resp.end(), pif.begin(), pif.end());
-						for (int z = 0; z < int(extras.size()); z += 2) {
-							resp.push_back(extras[z]);
+						for (int z = 0; z < int(extras.size()); z ++) {
+							if ((z & 1) == f) resp.push_back(extras[z]);
 						}
 						for (int z = int(extras.size()) - 1; z >= 0; z--) {
-							if (z & 1) resp.push_back(extras[z]);
+							if ((z & 1) == !f) resp.push_back(extras[z]);
 						}
 						resp.insert(resp.end(), pjf.rbegin(), pjf.rend());
 					}
