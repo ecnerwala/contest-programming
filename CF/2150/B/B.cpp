@@ -130,7 +130,7 @@ int main() {
 		}
 		std::vector<int> freq(N);
 		for (int i = 0; i < N; i++) {
-			freq[std::min(i, N-1-i)+1]++;
+			freq[std::min(i, N-1-i)]++;
 		}
 		using num = modnum<998244353>;
 		int cur = 0;
