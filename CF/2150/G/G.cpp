@@ -308,7 +308,7 @@ int main() {
 			auto do_solve = [&](state_t cur) -> void {
 				cerr << "solve " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
 				num tot = 0;
-				assert(cur.max_xy < K);
+				assert(cur.max_xy <= K);
 				int e0 = K - cur.cnt_x;
 				int e1 = K - cur.max_xy;
 				assert(e1 <= e0);
