@@ -285,6 +285,7 @@ int main() {
 							pif.pop_back();
 							pjf.pop_back();
 						}
+						std::reverse(extras.begin(), extras.end());
 						resp.insert(resp.end(), pif.begin(), pif.end());
 						for (int z = 0; z < int(extras.size()); z += 2) {
 							resp.push_back(extras[z]);
