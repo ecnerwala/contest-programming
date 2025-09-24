@@ -294,6 +294,8 @@ int main() {
 						}
 						resp.insert(resp.end(), pjf.rbegin(), pjf.rend());
 					}
+					assert(resp.front() == i);
+					assert(resp.back() == j);
 					assert(int(resp.size()) == path_len+1);
 					for (int z = 0; z <= path_len; z++) {
 						cout << resp[z]+1 << " \n"[z==path_len];
