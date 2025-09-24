@@ -306,9 +306,12 @@ int main() {
 				int max_xy = 0;
 			};
 			auto do_solve = [&](state_t cur) -> void {
-				cerr << "solve " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
-				num tot = 0;
+				//cerr << "solve " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
 				assert(cur.max_xy <= K);
+				if (cur.max_xy == K) {
+					ans += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
+					return;
+				}
 				int e0 = K - cur.cnt_x;
 				int e1 = K - cur.max_xy;
 				assert(e1 <= e0);
@@ -316,18 +319,9 @@ int main() {
 					num ways_top = choose(d, e1) - choose(d-1, e1) - choose(d-1, e0);
 					num ways_main = choose(d, e0) - 2 * choose(d-1, e0);
 					if (ways_main != 0) assert(d >= e0);
-					{
-						int x = cur.cnt_x + d - e1, y = cur.cnt_y + e1;
-						tot += ways_top * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
-						for (x ++, y--; x <= K; x++, y--) {
-							assert(y >= 0);
-							tot += ways_main * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
-						}
-					}
 					pref_ways_exact[{cur.cnt_x + d - e1, cur.cnt_y + e1}] += ways_top;
 					pref_ways_exact[{cur.cnt_x + d - e1 + 1, cur.cnt_y + e1 - 1}] += ways_main - ways_top;
 				}
-				cerr << tot << '\n';
 			};
 
 			state_t cur{0, 0, 0};
@@ -357,7 +351,7 @@ int main() {
 				int ox = cur.cnt_x, oy = cur.cnt_y;
 
 				auto do_solve_second = [&](state_t cur) -> void {
-					cerr << "solve_second " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
+					//cerr << "solve_second " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
 					num tot = 0;
 					int rx = X - ox - cur.cnt_x;
 					int ry = Y - oy - cur.cnt_y;
@@ -370,7 +364,6 @@ int main() {
 						tot += choose(rx + ry, e0);
 					}
 					ans += tot;
-					cerr << tot << '\n';
 				};
 				cur = {0, 0, 0};
 				for (; it != A.end(); ++it) {
