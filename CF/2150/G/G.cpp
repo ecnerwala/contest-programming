@@ -316,7 +316,6 @@ int main() {
 					for (int d = e1; d <= e0+e1; d++) {
 						num ways_top = choose(d, e1) - choose(d-1, e1) - choose(d-1, e0);
 						num ways_main = choose(d, e0) - 2 * choose(d-1, e0);
-						if (d == e0+e1) { assert(ways_top == 0); continue; }
 						if (ways_main != 0) assert(d >= e0);
 						pref_ways_exact[{cur.cnt_x + d - e1, cur.cnt_y + e1}] += ways_top;
 						pref_ways_exact[{cur.cnt_x + d - e1 + 1, cur.cnt_y + e1 - 1}] += ways_main - ways_top;
