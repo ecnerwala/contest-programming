@@ -325,6 +325,7 @@ int main() {
 							tot += ways_top * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
 							pref_ways_exact[{x, y}] += ways_top;
 							for (x ++, y--; x <= K; x++, y--) {
+								assert(y >= 0);
 								tot += ways_main * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
 								pref_ways_exact[{x, y}] += ways_main;
 							}
