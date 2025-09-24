@@ -158,7 +158,7 @@ int main() {
 			if (base_pos < 0 || base_neg < 0) {
 				return 0;
 			}
-			num ans = choose(s.len, base_pos + base_neg);
+			num ans = choose(s.len, base_pos);
 			if ((s.b_stmimami + s.b_en + N) / 2 >= K) {
 				return ans;
 			}
