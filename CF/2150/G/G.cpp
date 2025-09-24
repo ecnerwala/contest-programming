@@ -1,5 +1,161 @@
 #include <bits/stdc++.h>
 
+template <typename T, int NDIMS> struct tensor_view {
+	static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
+
+protected:
+	std::array<int, NDIMS> shape;
+	std::array<int, NDIMS> strides;
+	T* data;
+
+	tensor_view(std::array<int, NDIMS> shape_, std::array<int, NDIMS> strides_, T* data_) : shape(shape_), strides(strides_), data(data_) {}
+
+public:
+	tensor_view() : shape{0}, strides{0}, data(nullptr) {}
+
+protected:
+	int flatten_index(std::array<int, NDIMS> idx) const {
+		int res = 0;
+		for (int i = 0; i < NDIMS; i++) { res += idx[i] * strides[i]; }
+		return res;
+	}
+	int flatten_index_checked(std::array<int, NDIMS> idx) const {
+		int res = 0;
+		for (int i = 0; i < NDIMS; i++) {
+			assert(0 <= idx[i] && idx[i] < shape[i]);
+			res += idx[i] * strides[i];
+		}
+		return res;
+	}
+
+public:
+	T& operator[] (std::array<int, NDIMS> idx) const {
+#ifdef _GLIBCXX_DEBUG
+		return data[flatten_index_checked(idx)];
+#else
+		return data[flatten_index(idx)];
+#endif
+	}
+	T& at(std::array<int, NDIMS> idx) const {
+		return data[flatten_index_checked(idx)];
+	}
+
+	template <int D = NDIMS>
+	typename std::enable_if<(0 < D), tensor_view<T, NDIMS-1>>::type operator[] (int idx) const {
+		std::array<int, NDIMS-1> nshape; std::copy(shape.begin()+1, shape.end(), nshape.begin());
+		std::array<int, NDIMS-1> nstrides; std::copy(strides.begin()+1, strides.end(), nstrides.begin());
+		T* ndata = data + (strides[0] * idx);
+		return tensor_view<T, NDIMS-1>(nshape, nstrides, ndata);
+	}
+	template <int D = NDIMS>
+	typename std::enable_if<(0 < D), tensor_view<T, NDIMS-1>>::type at(int idx) const {
+		assert(0 <= idx && idx < shape[0]);
+		return operator[](idx);
+	}
+
+	template <int D = NDIMS>
+	typename std::enable_if<(0 == D), T&>::type operator * () const {
+		return *data;
+	}
+
+	template <typename U, int D> friend struct tensor_view;
+	template <typename U, int D> friend struct tensor;
+};
+
+template <typename T, int NDIMS> struct tensor {
+	static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
+
+protected:
+	std::array<int, NDIMS> shape;
+	std::array<int, NDIMS> strides;
+	int len;
+	T* data;
+
+public:
+	tensor() : shape{0}, strides{0}, len(0), data(nullptr) {}
+
+	explicit tensor(std::array<int, NDIMS> shape_, const T& t = T()) {
+		shape = shape_;
+		len = 1;
+		for (int i = NDIMS-1; i >= 0; i--) {
+			strides[i] = len;
+			len *= shape[i];
+		}
+		data = new T[len];
+		std::fill(data, data + len, t);
+	}
+
+	tensor(const tensor& o) : shape(o.shape), strides(o.strides), len(o.len), data(new T[len]) {
+		for (int i = 0; i < len; i++) {
+			data[i] = o.data[i];
+		}
+	}
+
+	tensor& operator=(tensor&& o) noexcept {
+		using std::swap;
+		swap(shape, o.shape);
+		swap(strides, o.strides);
+		swap(len, o.len);
+		swap(data, o.data);
+		return *this;
+	}
+	tensor(tensor&& o) : tensor() {
+		*this = std::move(o);
+	}
+	tensor& operator=(const tensor& o) {
+		return *this = tensor(o);
+	}
+	~tensor() { delete[] data; }
+
+	using view_t = tensor_view<T, NDIMS>;
+	view_t view() {
+		return tensor_view<T, NDIMS>(shape, strides, data);
+	}
+	operator view_t() {
+		return view();
+	}
+
+	using const_view_t = tensor_view<const T, NDIMS>;
+	const_view_t view() const {
+		return tensor_view<const T, NDIMS>(shape, strides, data);
+	}
+	operator const_view_t() const {
+		return view();
+	}
+
+	T& operator[] (std::array<int, NDIMS> idx) { return view()[idx]; }
+	T& at(std::array<int, NDIMS> idx) { return view().at(idx); }
+	const T& operator[] (std::array<int, NDIMS> idx) const { return view()[idx]; }
+	const T& at(std::array<int, NDIMS> idx) const { return view().at(idx); }
+
+	template <int D = NDIMS>
+	typename std::enable_if<(0 < D), tensor_view<T, NDIMS-1>>::type operator[] (int idx) {
+		return view()[idx];
+	}
+	template <int D = NDIMS>
+	typename std::enable_if<(0 < D), tensor_view<T, NDIMS-1>>::type at(int idx) {
+		return view().at(idx);
+	}
+
+	template <int D = NDIMS>
+	typename std::enable_if<(0 < D), tensor_view<const T, NDIMS-1>>::type operator[] (int idx) const {
+		return view()[idx];
+	}
+	template <int D = NDIMS>
+	typename std::enable_if<(0 < D), tensor_view<const T, NDIMS-1>>::type at(int idx) const {
+		return view().at(idx);
+	}
+
+	template <int D = NDIMS>
+	typename std::enable_if<(0 == D), T&>::type operator * () {
+		return *view();
+	}
+	template <int D = NDIMS>
+	typename std::enable_if<(0 == D), const T&>::type operator * () const {
+		return *view();
+	}
+};
+
 template <typename T> T mod_inv_in_range(T a, T m) {
 	// assert(0 <= a && a < m);
 	T x = a, y = m;
@@ -137,81 +293,64 @@ int main() {
 		auto choose = [&](int n, int r) -> num {
 			return (0 <= r && r <= n) ? fact[n] * ifact[r] * ifact[n-r] : 0;
 		};
-
-		struct state_t {
-			int b_st;
-			int b_mi;
-			int b_stmima;
-			int b_stmimami;
-			int b_cur;
-			int len;
-			int b_en;
+		auto mix_ways = [&](int a, int b) -> num {
+			return (a >= 0 && b >= 0) ? fact[a+b] * ifact[a] * ifact[b] : 0;
 		};
 
-		auto ways_bounce = [&](int max_range, int len, int num_pos, int num_neg, int st_val) -> num {
-			assert(0 <= st_val && st_val <= max_range);
-			int num_zero = len - num_pos - num_neg;
-			int num_seg = num_zero + 1;
-			return 0;
-		};
-		
-		auto solve = [&](state_t s) -> num {
-			int base_pos = (s.b_en - s.b_cur + s.len) / 2;
-			int base_neg = (-(s.b_en - s.b_cur) + s.len) / 2;
-			if (base_pos < 0 || base_neg < 0) {
-				return 0;
-			}
-			num ans = choose(s.len, base_pos);
-			if ((s.b_stmimami + s.b_en + N) / 2 >= K) {
-				return ans;
-			}
-			for (int b_mi = std::min(s.b_cur, s.b_en); true; b_mi--) {
-				if ((s.b_stmima - 2 * b_mi + s.b_en + N) / 2 >= K) {
-					break;
-				}
-				int cur_val = (s.b_st - 2 * std::min(s.b_mi, b_mi) + s.b_en + N) / 2;
-				assert(cur_val <= K-1);
-				int extra_gap = K - 1 - cur_val;
-				int st_val;
-				int num_pos = base_pos;
-				int num_neg = base_neg;
-				if (b_mi >= s.b_mi) {
-					// then we're already going up
-					st_val = s.b_cur - b_mi;
-					num_pos -= s.b_en - b_mi;
-				} else {
-					st_val = s.b_cur - s.b_mi;
-					num_neg -= s.b_mi - b_mi;
-					num_pos -= s.b_en - b_mi;
-				}
-				if (num_pos < 0 || num_neg < 0) continue;
-				ans -= ways_bounce(extra_gap, s.len, num_pos, num_neg, st_val);
-			}
-			return ans;
-		};
-
-		auto advance = [&](state_t s, char c) -> state_t {
-			if (c == '0') s.b_cur --;
-			else if (c == '1') s.b_cur ++;
-			else assert(false);
-
-			assert(s.len > 0);
-			s.len--;
-
-			s.b_mi = std::min(s.b_mi, s.b_cur);
-			s.b_stmima = std::max(s.b_stmima, s.b_st - 2 * s.b_mi + 2 * s.b_cur);
-			s.b_stmimami = std::max(s.b_stmimami, s.b_stmima - 2 * s.b_cur);
-			return s;
-		};
-
-		state_t cur{0, 0, 0, 0, 0, N, Y - X};
-
+		tensor<num, 2> pref_ways_exact({K+1, K+1});
 		num ans = 0;
-		for (char c : A) {
-			if (c == '0') {
-				ans += solve(advance(cur, '1'));
+		{
+			struct state_t {
+				int cnt_x = 0;
+				int cnt_y = 0;
+				int max_xy = 0;
+			};
+			auto do_solve = [&](state_t cur) -> void {
+				if (cur.max_xy >= K) {
+					ans += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
+					return;
+				} else {
+					int e0 = K - cur.cnt_x;
+					int e1 = K - cur.max_xy;
+					for (int d = 1; d <= e0+e1 - 1; d++) {
+						num ways_top = choose(d, e1) - choose(d-1, e1) - choose(d-1, e0);
+						num ways_main = choose(d, e0) - 2 * choose(d-1, e0);
+						pref_ways_exact[{cur.cnt_x + d - e1, cur.cnt_y + e1}] += ways_top;
+						pref_ways_exact[{cur.cnt_x + d - e1 + 1, cur.cnt_y + e1 - 1}] += ways_main - ways_top;
+					}
+				}
+			};
+
+			state_t cur{0, 0, 0};
+			for (char c : A) {
+				if (c == '0') {
+					state_t cnd = cur;
+					cnd.cnt_y++;
+					cnd.max_xy++;
+					do_solve(cnd);
+
+					cur.cnt_x++;
+					cur.max_xy = std::max(cur.max_xy, cur.cnt_x);
+				} else {
+					cur.cnt_y++;
+					cur.max_xy ++;
+				}
 			}
-			cur = advance(cur, c);
+		}
+
+		for (int i = 0; i < K; i++) {
+			for (int j = 1; j <= K; j++) {
+				pref_ways_exact[{i+1, j-1}] += pref_ways_exact[{i, j}];
+			}
+		}
+
+		for (int i = 0; i <= K; i++) {
+			for (int j = 0; j <= K; j++) {
+				int x = X - i, y = Y - j;
+				if (x < 0 || y < 0) continue;
+				if (x + y < K) continue;
+				ans += pref_ways_exact[{i, j}] * choose(x + y, std::min({x, y, K}));
+			}
 		}
 		cout << ans << '\n';
 	}
