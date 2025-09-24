@@ -148,6 +148,7 @@ int main() {
 				denom *= z;
 			}
 		}
+		if (cur != 0) numer = 0;
 		cout << numer / denom << '\n';
 	}
 
