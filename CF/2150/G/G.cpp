@@ -313,7 +313,7 @@ int main() {
 				} else {
 					int e0 = K - cur.cnt_x;
 					int e1 = K - cur.max_xy;
-					for (int d = e1; d <= e0+e1; d++) {
+					for (int d = e1; d <= e0+e1-1; d++) {
 						num ways_top = choose(d, e1) - choose(d-1, e1) - choose(d-1, e0);
 						num ways_main = choose(d, e0) - 2 * choose(d-1, e0);
 						if (ways_main != 0) assert(d >= e0);
