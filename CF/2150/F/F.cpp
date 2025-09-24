@@ -243,6 +243,8 @@ int main() {
 			};
 			for (int j = i+1; j < N; j++) {
 				if (!adj[{i, j}]) {
+					std::vector<int> resp; resp.reserve(path_len+1);
+
 					// solve i->j
 					auto pij = get_path(i, j);
 					int dij = int(pij.size()) - 1;
@@ -251,12 +253,12 @@ int main() {
 						int skip = dij - path_len;
 						int cur = 0;
 						for (int z = 0; z < path_len; z++, cur++) {
-							cout << pij[cur] << ' ';
+							resp.push_back(pij[cur]);
 							if (skip) { cur++; skip--; }
 						}
 						assert(skip == 0);
 						assert(cur == dij);
-						cout << pij[cur] << '\n';
+						resp.push_back(pij[cur]);
 					} else {
 						// we need to go further
 						auto pif = get_path(i, furthest);
@@ -276,6 +278,25 @@ int main() {
 							}
 						}
 						assert(extra > 0);
+						std::vector<int> extras;
+						for (int z = 0; z < extra+1; z++) {
+							assert(pif.back() == pjf.back());
+							extras.push_back(pif.back());
+							pif.pop_back();
+							pjf.pop_back();
+						}
+						resp.insert(resp.end(), pif.begin(), pif.end());
+						for (int z = 0; z < int(extras.size()); z += 2) {
+							resp.push_back(extras[z]);
+						}
+						for (int z = int(extras.size()) - 1; z >= 0; z--) {
+							if (z & 1) resp.push_back(extras[z]);
+						}
+						resp.insert(resp.end(), pjf.rbegin(), pjf.rend());
+					}
+					assert(int(resp.size()) == path_len+1);
+					for (int z = 0; z <= path_len; z++) {
+						cout << resp[z]+1 << " \n"[z==path_len];
 					}
 				}
 			}
