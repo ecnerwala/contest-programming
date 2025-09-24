@@ -293,9 +293,6 @@ int main() {
 		auto choose = [&](int n, int r) -> num {
 			return (0 <= r && r <= n) ? fact[n] * ifact[r] * ifact[n-r] : 0;
 		};
-		auto mix_ways = [&](int a, int b) -> num {
-			return (a >= 0 && b >= 0) ? fact[a+b] * ifact[a] * ifact[b] : 0;
-		};
 
 		tensor<num, 2> pref_ways_exact({K+1, K+1});
 		num ans = 0;
