@@ -239,6 +239,7 @@ int main() {
 					res.pop_back();
 					return false;
 				}(st, -1);
+				return res;
 			};
 			for (int j = i+1; j < N; j++) {
 				if (!adj[{i, j}]) {
