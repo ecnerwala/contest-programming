@@ -149,6 +149,9 @@ int main() {
 		};
 
 		auto ways_bounce = [&](int max_range, int len, int num_pos, int num_neg, int st_val) -> num {
+			assert(0 <= st_val && st_val <= max_range);
+			int num_zero = len - num_pos - num_neg;
+			int num_seg = num_zero + 1;
 			return 0;
 		};
 		
