@@ -335,7 +335,7 @@ int main() {
 					cur.max_xy = std::max(cur.max_xy, cur.cnt_x);
 				} else {
 					cur.cnt_y++;
-					cur.max_xy ++;
+					cur.max_xy++;
 				}
 			}
 		}
