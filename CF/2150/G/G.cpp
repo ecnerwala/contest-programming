@@ -309,7 +309,8 @@ int main() {
 				//cerr << "solve " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
 				assert(cur.max_xy <= K);
 				if (cur.max_xy == K) {
-					ans += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
+					pref_ways_exact[{cur.cnt_x, cur.cnt_y}] ++;
+					pref_ways_exact[{cur.cnt_x + 1, cur.cnt_y - 1}] --;
 					return;
 				}
 				int e0 = K - cur.cnt_x;
