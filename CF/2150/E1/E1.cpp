@@ -4,9 +4,16 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	std::mt19937 mt(48);
+
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+
+		std::vector<int> P(N);
+		std::iota(P.begin(), P.end(), 0);
+		std::shuffle(P.begin(), P.end(), mt);
+
 		std::vector<int> cnt(N, 2);
 		int l = 0, r = 2*N-1;
 		while (true) {
@@ -28,8 +35,8 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				if (cnt[i] == 2) {
 					{
-						cout << '?' << i+1 << ' ' << m-l;
-						for (int p = l; p < m; p++) cout << ' ' << p+1;
+						cout << '?' << ' ' << i+1 << ' ' << m-l;
+						for (int p = l; p < m; p++) cout << ' ' << P[p]+1;
 						cout << '\n' << flush;
 						int res; cin >> res; if (res == -1) exit(0);
 						cnt_l[i] = res;
@@ -40,14 +47,13 @@ int main() {
 						continue;
 					}
 					{
-						cout << '?' << i+1 << ' ' << r-m;
-						for (int p = m; p < r; p++) cout << ' ' << p+1;
+						cout << '?' << ' ' << i+1 << ' ' << r-m;
+						for (int p = m; p < r; p++) cout << ' ' << P[p]+1;
 						cout << '\n' << flush;
 						int res; cin >> res; if (res == -1) exit(0);
 						cnt_r[i] = res;
 					}
 					int s = 2 / (cnt_l[i] + cnt_r[i]);
-					cerr << cnt[i] << ' ' << cnt_l[i] << ' ' << cnt_r[i] << ' ' << s << '\n';
 					cnt_l[i] *= s;
 					cnt_r[i] *= s;
 					assert(cnt_l[i] + cnt_r[i] == cnt[i]);
@@ -56,8 +62,8 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				if (cnt[i] == 1) {
 					{
-						cout << '?' << i+1 << ' ' << r-m;
-						for (int p = m; p < r; p++) cout << ' ' << p+1;
+						cout << '?' << ' ' << i+1 << ' ' << r-m;
+						for (int p = m; p < r; p++) cout << ' ' << P[p]+1;
 						cout << '\n' << flush;
 						int res; cin >> res; if (res == -1) exit(0);
 						cnt_r[i] = res;
