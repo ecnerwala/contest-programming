@@ -311,7 +311,6 @@ int main() {
 				if (cur.max_xy >= K) {
 					tot += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
 					ans += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
-					return;
 				} else {
 					int e0 = K - cur.cnt_x;
 					int e1 = K - cur.max_xy;
