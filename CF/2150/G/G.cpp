@@ -306,6 +306,7 @@ int main() {
 				int max_xy = 0;
 			};
 			auto do_solve = [&](state_t cur) -> void {
+				cerr << "solve " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
 				if (cur.max_xy >= K) {
 					ans += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
 					return;
