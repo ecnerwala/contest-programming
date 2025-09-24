@@ -63,6 +63,9 @@ int main() {
 					cnt_l[i] = 1 - cnt_r[i];
 				}
 			}
+			for (int i = 0; i < N; i++) {
+				assert(cnt_l[i] + cnt_r[i] == cnt[i]);
+			}
 			int tot_l = std::accumulate(cnt_l.begin(), cnt_l.end(), 0);
 			int tot_r = std::accumulate(cnt_r.begin(), cnt_r.end(), 0);
 			assert(tot_l + tot_r == (r - l) + 1);
