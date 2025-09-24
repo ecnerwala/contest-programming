@@ -168,7 +168,7 @@ int main() {
 				edge_weight = mid_weight + place_ways(l, extras / 2 - 1);
 			}
 
-			cerr << l << ' ' << mid_weight << ' ' << edge_weight << '\n';
+			cerr << N << ' ' << l << ' ' << mid_weight << ' ' << edge_weight << '\n';
 
 			ans += edge_weight * (pref[N-l+1] - pref[0]);
 			ans += edge_weight * (pref[N] - pref[l-1]);
