@@ -249,14 +249,14 @@ int main() {
 					if (dij >= path_len) {
 						assert(dij <= 2 * path_len);
 						int skip = dij - path_len;
-						int z;
-						for (z = 0; z < path_len; z++) {
-							cout << pij[z] << ' ';
-							if (skip) { z++; skip--; }
+						int cur = 0;
+						for (int z = 0; z < path_len; z++, cur++) {
+							cout << pij[cur] << ' ';
+							if (skip) { cur++; skip--; }
 						}
 						assert(skip == 0);
-						assert(z == dij);
-						cout << pij[z] << '\n';
+						assert(cur == dij);
+						cout << pij[cur] << '\n';
 					} else {
 						// we need to go further
 						auto pif = get_path(i, furthest);
