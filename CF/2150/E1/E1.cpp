@@ -32,7 +32,7 @@ int main() {
 						for (int p = l; p < m; p++) cout << ' ' << p+1;
 						cout << '\n' << flush;
 						int res; cin >> res; if (res == -1) exit(0);
-						cnt_l[i] += res;
+						cnt_l[i] = res;
 					}
 					if (cnt_l[i] == 0) {
 						// we get to fastbreak
@@ -44,7 +44,7 @@ int main() {
 						for (int p = m; p < r; p++) cout << ' ' << p+1;
 						cout << '\n' << flush;
 						int res; cin >> res; if (res == -1) exit(0);
-						cnt_r[i] += res;
+						cnt_r[i] = res;
 					}
 					int s = 2 / (cnt_l[i] + cnt_r[i]);
 					cnt_l[i] *= s;
@@ -58,7 +58,7 @@ int main() {
 						for (int p = m; p < r; p++) cout << ' ' << p+1;
 						cout << '\n' << flush;
 						int res; cin >> res; if (res == -1) exit(0);
-						cnt_r[i] += res;
+						cnt_r[i] = res;
 					}
 					cnt_l[i] = 1 - cnt_r[i];
 				}
