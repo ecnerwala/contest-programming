@@ -362,10 +362,9 @@ int main() {
 		}
 		*/
 
-		for (int i = 0; i <= K; i++) {
-			for (int j = 0; j <= K; j++) {
-				int x = X - i, y = Y - j;
-				ans += pref_ways_exact[{i, j}] * choose(x + y, std::max({x, y, K}));
+		for (int x = 0; x <= K; x++) {
+			for (int y = 0; y <= K; y++) {
+				ans += pref_ways_exact[{x, y}] * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
 			}
 		}
 		cout << ans << '\n';
