@@ -49,6 +49,7 @@ int main() {
 					int s = 2 / (cnt_l[i] + cnt_r[i]);
 					cnt_l[i] *= s;
 					cnt_r[i] *= s;
+					assert(cnt_l[i] + cnt_r[i] == cnt[i]);
 				}
 			}
 			for (int i = 0; i < N; i++) {
