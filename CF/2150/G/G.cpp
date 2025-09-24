@@ -348,8 +348,6 @@ int main() {
 		for (int i = 0; i <= K; i++) {
 			for (int j = 0; j <= K; j++) {
 				int x = X - i, y = Y - j;
-				if (x < 0 || y < 0) continue;
-				if (x + y < K) continue;
 				ans += pref_ways_exact[{i, j}] * choose(x + y, std::min({x, y, K}));
 			}
 		}
