@@ -136,7 +136,7 @@ int main() {
 		std::vector<num> pref_incr(N+1);
 		for (int i = 0; i < N; i++) {
 			pref[i+1] = pref[i] + A[i];
-			pref_incr[i+1] = pref_incr[i+1] + A[i] * num(i);
+			pref_incr[i+1] = pref_incr[i] + A[i] * num(i);
 		}
 
 		num ans = 0;
