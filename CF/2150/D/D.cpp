@@ -161,10 +161,10 @@ int main() {
 			};
 
 			if (extras & 1) {
-				mid_weight = 2 * place_ways(l, (extras-1) / 2) + 2 * place_weight(l, (extras - 1) / 2);
+				mid_weight = 2 * place_ways(l, (extras-1) / 2) + 2 * 2 * place_weight(l, (extras - 1) / 2);
 				edge_weight = mid_weight + place_ways(l, (extras - 1) / 2);
 			} else {
-				mid_weight = place_ways(l, extras / 2) + place_ways(l, extras / 2 - 1) + place_weight(l, extras / 2) + place_weight(l, extras / 2 - 1);
+				mid_weight = place_ways(l, extras / 2) + place_ways(l, extras / 2 - 1) + 2 * place_weight(l, extras / 2) + 2 * place_weight(l, extras / 2 - 1);
 				edge_weight = mid_weight + place_ways(l, extras / 2 - 1);
 			}
 
