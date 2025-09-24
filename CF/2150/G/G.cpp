@@ -308,34 +308,32 @@ int main() {
 			auto do_solve = [&](state_t cur) -> void {
 				cerr << "solve " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
 				num tot = 0;
-				if (cur.max_xy >= K) {
-					tot += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
-					ans += mix_ways(X - cur.cnt_x, Y - cur.cnt_y);
-				} else {
-					int e0 = K - cur.cnt_x;
-					int e1 = K - cur.max_xy;
-					assert(e1 <= e0);
-					for (int d = e1; d <= e0+e1-1; d++) {
-						num ways_top = choose(d, e1) - choose(d-1, e1) - choose(d-1, e0);
-						num ways_main = choose(d, e0) - 2 * choose(d-1, e0);
-						if (ways_main != 0) assert(d >= e0);
-						{
-							int x = cur.cnt_x + d - e1, y = cur.cnt_y + e1;
-							tot += ways_top * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
-							for (x ++, y--; x <= K; x++, y--) {
-								assert(y >= 0);
-								tot += ways_main * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
-							}
+				assert(cur.max_xy < K);
+				int e0 = K - cur.cnt_x;
+				int e1 = K - cur.max_xy;
+				assert(e1 <= e0);
+				for (int d = e1; d <= e0+e1-1; d++) {
+					num ways_top = choose(d, e1) - choose(d-1, e1) - choose(d-1, e0);
+					num ways_main = choose(d, e0) - 2 * choose(d-1, e0);
+					if (ways_main != 0) assert(d >= e0);
+					{
+						int x = cur.cnt_x + d - e1, y = cur.cnt_y + e1;
+						tot += ways_top * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
+						for (x ++, y--; x <= K; x++, y--) {
+							assert(y >= 0);
+							tot += ways_main * choose(X+Y-x-y, std::max({X-x, Y-y, K}));
 						}
-						pref_ways_exact[{cur.cnt_x + d - e1, cur.cnt_y + e1}] += ways_top;
-						pref_ways_exact[{cur.cnt_x + d - e1 + 1, cur.cnt_y + e1 - 1}] += ways_main - ways_top;
 					}
+					pref_ways_exact[{cur.cnt_x + d - e1, cur.cnt_y + e1}] += ways_top;
+					pref_ways_exact[{cur.cnt_x + d - e1 + 1, cur.cnt_y + e1 - 1}] += ways_main - ways_top;
 				}
 				cerr << tot << '\n';
 			};
 
 			state_t cur{0, 0, 0};
-			for (char c : A) {
+			auto it = A.begin();
+			for (; it != A.end(); ++it) {
+				char c = *it;
 				if (c == '0') {
 					state_t cnd = cur;
 					cnd.cnt_y++;
@@ -348,7 +346,49 @@ int main() {
 					cur.cnt_y++;
 					cur.max_xy++;
 				}
+
+				if (cur.max_xy >= K) {
+					++it;
+					break;
+				}
 			}
+
+			if (cur.max_xy >= K) {
+				int ox = cur.cnt_x, oy = cur.cnt_y;
+
+				auto do_solve_second = [&](state_t cur) -> void {
+					cerr << "solve_second " << cur.cnt_x << ',' << cur.cnt_y << ' ' << cur.max_xy << '\n';
+					num tot = 0;
+					int rx = X - ox - cur.cnt_x;
+					int ry = Y - oy - cur.cnt_y;
+					int e0 = K - cur.cnt_x;
+					int e1 = K - cur.max_xy;
+					assert(e1 <= e0);
+					if (rx >= e0 || ry >= e1) {
+						tot += choose(rx + ry, rx);
+					} else {
+						tot += choose(rx + ry, e0);
+					}
+					ans += tot;
+					cerr << tot << '\n';
+				};
+				cur = {0, 0, 0};
+				for (; it != A.end(); ++it) {
+					char c = *it;
+					if (c == '0') {
+						state_t cnd = cur;
+						cnd.cnt_y++;
+						cnd.max_xy++;
+						do_solve_second(cnd);
+
+						cur.cnt_x++;
+						cur.max_xy = std::max(cur.max_xy, cur.cnt_x);
+					} else {
+						cur.cnt_y++;
+						cur.max_xy++;
+					}
+				}
+			} else assert(it == A.end());
 		}
 
 		for (int i = 0; i < K; i++) {
