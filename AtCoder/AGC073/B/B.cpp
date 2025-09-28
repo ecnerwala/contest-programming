@@ -9,22 +9,19 @@ int main() {
 		int N; cin >> N;
 		std::vector<int64_t> A(N);
 		for (auto& a : A) cin >> a;
-		int64_t mi = A[0], ma = A[0] + A[1] - std::gcd(A[0], A[1]);
-		while (ma - mi > 1) {
-			int64_t md = mi + (ma - mi) / 2;
-			([&]() -> bool {
-				// can we do it using numbers from 0..md inclusive?
-				int64_t num_e = 0;
-				int64_t g = A[0];
-				for (int64_t a : A) {
-					if (a > md) break;
-					g = std::gcd(g, a);
-					num_e += md - a + 1;
-				}
-				return num_e > (md+1) - g;
-			}() ? ma : mi) = md;
+		std::priority_queue<int64_t, std::vector<int64_t>, std::greater<int64_t>> pq;
+		for (int i = 0; i < N; i++) {
+			pq.push(A[i]);
 		}
-		cout << ma << '\n';
+		int64_t offset = 0;
+		while (pq.top() - offset > 0) {
+			int64_t a = pq.top() - offset; pq.pop();
+			int64_t b = pq.top();
+			int64_t d = b / a * a;
+			offset += d;
+			pq.push(a + offset);
+		}
+		cout << offset << '\n';
 	}
 
 	return 0;
