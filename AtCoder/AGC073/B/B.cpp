@@ -17,8 +17,7 @@ int main() {
 		while (pq.top() - offset > 0) {
 			int64_t a = pq.top() - offset; pq.pop();
 			int64_t b = pq.top() - offset;
-			int64_t d = b / a * a;
-			offset += d;
+			offset += b / a * a;
 			pq.push(a + offset);
 		}
 		cout << offset << '\n';
