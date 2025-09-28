@@ -179,13 +179,6 @@ int main() {
 		}
 	}
 
-	if (A[N-1] + K >= L) {
-		cerr << "rightmost " << "+1" << '\n';
-		always_ans ++;
-	} else {
-		// always 0, so nothing
-	}
-
 	using num = modnum<998244353>;
 	num ev = num(inter_ans) / num(8) + num(self_ans) / num(4) + num(always_ans) / num(2);
 	cout << num(ev) * power(num(2), N) << '\n';
