@@ -147,13 +147,16 @@ int main() {
 		}
 		assert(j > i);
 		assert(j <= i+N);
+		cerr << "tot inters " << j-i-1 << '\n';
 		ans += j - i - 1;
 		if (j > i+1) {
 			// innermost intersection is not uniform, either +- 1 depending on its sign
 			// if same direction, then they add a black from the right
 			if ((get_x(A[i]) < get_x(A[i] + K)) == (get_x(A[j]) < get_x(A[j] + K))) {
+				cerr << "adj " << i << ' ' << i+1 << ' ' << "+1" << '\n';
 				ans++;
 			} else {
+				cerr << "adj " << i << ' ' << i+1 << ' ' << "-1" << '\n';
 				ans--;
 			}
 		}
@@ -166,8 +169,10 @@ int main() {
 			covers_end = A[i+1] < A[i]+K;
 		}
 		if (covers_end) {
+			cerr << "self " << i << ' ' << "+1" << '\n';
 			ans++;
 		} else {
+			cerr << "self " << i << ' ' << "+2" << '\n';
 			ans += 2;
 		}
 	}
