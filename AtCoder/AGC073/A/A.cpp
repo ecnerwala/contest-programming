@@ -140,7 +140,9 @@ int main() {
 		if (i < 0) return 2 * i + 1;
 		else return 2 * -i;
 	};
-	int64_t ans = 0;
+	int64_t inter_ans = 0;
+	int64_t self_ans = 0;
+	int64_t always_ans = 0;
 	for (int i = 0, j = 0; i < N; i++) {
 		while (A[j] < A[i] + K) {
 			j++;
@@ -148,16 +150,16 @@ int main() {
 		assert(j > i);
 		assert(j <= i+N);
 		cerr << "tot inters " << j-i-1 << '\n';
-		ans += j - i - 1;
+		inter_ans += j - i - 1;
 		if (j > i+1) {
 			// innermost intersection is not uniform, either +- 1 depending on its sign
 			// if same direction, then they add a black from the right
 			if ((get_x(A[i]) < get_x(A[i] + K)) == (get_x(A[j]) < get_x(A[j] + K))) {
 				cerr << "adj " << i << ' ' << i+1 << ' ' << "+1" << '\n';
-				ans++;
+				inter_ans++;
 			} else {
 				cerr << "adj " << i << ' ' << i+1 << ' ' << "-1" << '\n';
-				ans--;
+				inter_ans--;
 			}
 		}
 
@@ -170,22 +172,23 @@ int main() {
 		}
 		if (covers_end) {
 			cerr << "self " << i << ' ' << "+1" << '\n';
-			ans++;
+			self_ans++;
 		} else {
 			cerr << "self " << i << ' ' << "+2" << '\n';
-			ans += 2;
+			self_ans += 2;
 		}
 	}
 
 	if (A[N-1] + K >= L) {
 		cerr << "rightmost " << "+1" << '\n';
-		ans ++;
+		always_ans ++;
 	} else {
 		// always 0, so nothing
 	}
 
 	using num = modnum<998244353>;
-	cout << num(ans) * power(num(2), N-1) << '\n';
+	num ev = num(inter_ans) / num(8) + num(self_ans) / num(4) + num(always_ans) / num(2);
+	cout << num(ev) * power(num(2), N) << '\n';
 
 	return 0;
 }
