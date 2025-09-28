@@ -21,7 +21,7 @@ int main() {
 					g = std::gcd(g, a);
 					num_e += md - a + 1;
 				}
-				return num_e >= (md+1) - g;
+				return num_e > (md+1) - g;
 			}() ? ma : mi) = md;
 		}
 		cout << ma << '\n';
