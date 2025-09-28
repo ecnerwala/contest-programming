@@ -16,7 +16,7 @@ int main() {
 		int64_t offset = 0;
 		while (pq.top() - offset > 0) {
 			int64_t a = pq.top() - offset; pq.pop();
-			int64_t b = pq.top();
+			int64_t b = pq.top() - offset;
 			int64_t d = b / a * a;
 			offset += d;
 			pq.push(a + offset);
