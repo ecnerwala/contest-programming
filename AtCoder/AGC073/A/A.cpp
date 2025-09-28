@@ -140,6 +140,7 @@ int main() {
 		if (i < 0) return 2 * i + 1;
 		else return 2 * -i;
 	};
+	for (int i = 0; i < L; i++) { cerr << get_x(i) << ' '; } cerr << '\n';
 	int64_t inter_ans = 0;
 	int64_t self_ans = 0;
 	int64_t always_ans = 0;
