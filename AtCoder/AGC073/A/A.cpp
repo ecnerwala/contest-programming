@@ -163,19 +163,21 @@ int main() {
 			}
 		}
 
-		bool covers_end;
-		if (get_x(A[i]) > get_x(A[i]+K)) {
-			// if anything covers A[i]
-			covers_end = (i == 0 ? A[N-1] + K > A[N] : A[i-1] + K > A[i]);
-		} else {
-			covers_end = A[i+1] < A[i]+K;
-		}
-		if (covers_end) {
-			cerr << "self " << i << ' ' << "+1" << '\n';
-			self_ans++;
-		} else {
-			cerr << "self " << i << ' ' << "+2" << '\n';
-			self_ans += 2;
+		if (A[i] + K < L) {
+			bool covers_end;
+			if (get_x(A[i]) > get_x(A[i]+K)) {
+				// if anything covers A[i]
+				covers_end = (i == 0 ? A[N-1] + K > A[N] : A[i-1] + K > A[i]);
+			} else {
+				covers_end = A[i+1] < A[i]+K;
+			}
+			if (covers_end) {
+				cerr << "self " << i << ' ' << "+1" << '\n';
+				self_ans++;
+			} else {
+				cerr << "self " << i << ' ' << "+2" << '\n';
+				self_ans += 2;
+			}
 		}
 	}
 
