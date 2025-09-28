@@ -178,6 +178,7 @@ int main() {
 	}
 
 	if (A[N-1] + K >= L) {
+		cerr << "rightmost " << "+1" << '\n';
 		ans ++;
 	} else {
 		// always 0, so nothing
