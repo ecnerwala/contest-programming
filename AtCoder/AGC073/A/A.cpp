@@ -179,7 +179,7 @@ int main() {
 		}
 	}
 
-	if (A[N-1] + K > L) {
+	if (A[N-1] + K >= L) {
 		//cerr << "rightmost " << "+1" << '\n';
 		always_ans ++;
 	} else {
