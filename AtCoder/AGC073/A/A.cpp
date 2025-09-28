@@ -155,7 +155,7 @@ int main() {
 		if (j > i+1) {
 			// innermost intersection is not uniform, either +- 1 depending on its sign
 			// if same direction, then they add a black from the right
-			if ((get_x(A[i]) < get_x(A[i] + K)) == (get_x(A[j]) < get_x(A[j] + K))) {
+			if ((get_x(A[i]) < get_x(A[i] + K)) == (get_x(A[i+1]) < get_x(A[i+1] + K))) {
 				cerr << "adj " << i << ' ' << i+1 << ' ' << "+1" << '\n';
 				inter_ans++;
 			} else {
