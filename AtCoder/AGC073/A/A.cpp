@@ -149,36 +149,38 @@ int main() {
 		}
 		assert(j > i);
 		assert(j <= i+N);
-		//cerr << "tot inters " << j-i-1 << '\n';
+		cerr << "tot inters " << j-i-1 << '\n';
 		inter_ans += j - i - 1;
 		if (j > i+1) {
 			// innermost intersection is not uniform, either +- 1 depending on its sign
 			// if same direction, then they add a black from the right
 			if ((get_x(A[i]) < get_x(A[i] + K)) == (get_x(A[i+1]) < get_x(A[i+1] + K))) {
-				//cerr << "adj " << i << ' ' << i+1 << ' ' << "+1" << '\n';
+				cerr << "adj " << i << ' ' << i+1 << ' ' << "+1" << '\n';
 				inter_ans++;
 			} else {
-				//cerr << "adj " << i << ' ' << i+1 << ' ' << "-1" << '\n';
+				cerr << "adj " << i << ' ' << i+1 << ' ' << "-1" << '\n';
 				inter_ans--;
 			}
 		}
 
-		//cerr << "self " << i << ' ' << "+1" << '\n';
+		cerr << "self " << i << ' ' << "+1" << '\n';
 		self_ans++;
 		if (get_x(A[i]) > get_x(A[i]+K)) {
 			// if nothing covers it, we get +1
 			if (!(i == 0 ? A[N-1] + K > A[N] : A[i-1] + K > A[i])) {
+				cerr << "self " << i << ' ' << "+1" << '\n';
 				self_ans++;
 			}
 		} else {
 			if (!(A[i+1] < A[i]+K)) {
+				cerr << "self " << i << ' ' << "-1" << '\n';
 				self_ans--;
 			}
 		}
 	}
 
 	if (A[N-1] + K >= L) {
-		//cerr << "rightmost " << "+1" << '\n';
+		cerr << "rightmost " << "+1" << '\n';
 		always_ans ++;
 	} else {
 		// always 0, so nothing
