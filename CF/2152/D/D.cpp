@@ -13,8 +13,8 @@ int main() {
 		std::vector<int64_t> cnt_ops(N+1);
 		std::vector<int64_t> cnt_trade(N+1);
 		for (int i = 0; i < N; i++) {
-			cnt_ops[i+1] = cnt_ops[i] + (31 - __builtin_clz(A[i] - 1));
-			cnt_trade[i+1] = cnt_trade[i] + (A[i] == 2 ? 1 : 31 - __builtin_clz(A[i] - 2));
+			cnt_ops[i+1] = cnt_ops[i] + (32 - __builtin_clz(A[i] - 1));
+			cnt_trade[i+1] = cnt_trade[i] + (A[i] == 2 ? 1 : 32 - __builtin_clz(A[i] - 2));
 		}
 
 		for (int q = 0; q < Q; q++) {
