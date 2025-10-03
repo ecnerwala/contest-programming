@@ -558,6 +558,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	// it may not have been called on the children! In particular, be careful
 	// when accessing grandchildren information.
 	void update() {
+		assert(!lazy_flip_subtree);
 		if (is_vert) {
 			cnts = {0, 0};
 			vals = {0, 0};
@@ -578,8 +579,8 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			cnts = c[1]->cnts;
 			cnts[0] += c[0]->cnts[0];
 			cnts[1] += c[0]->cnts[1];
-			vals = c[1]->vals;
 
+			vals = c[1]->vals;
 			vals[0] += c[0]->vals[0];
 			vals[1] += c[0]->vals[1];
 
@@ -651,6 +652,7 @@ int main() {
 				int v; cin >> v; v--;
 				auto n = get_subtree_from_root(&v_nodes[v]);
 				n->do_flip_subtree();
+				n->downdate();
 				n->update_all();
 			}
 			cout << query() << '\n';
