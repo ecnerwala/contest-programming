@@ -22,8 +22,7 @@ int main() {
 				int64_t cur_sum = 0;
 				for (auto [nxt, w] : adj[cur]) {
 					if (nxt == prv) continue;
-					auto ch_val = self(nxt, cur, w);
-					cur_sum += ch_val;
+					cur_sum += self(nxt, cur, w);
 				}
 				cur_sum = std::min(cur_sum, t);
 				int64_t e_top = std::max(cur_sum, t - par_w);
