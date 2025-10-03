@@ -21,6 +21,7 @@ int main() {
 			int l, r; cin >> l >> r; l--;
 			int64_t ops = cnt_ops[r] - cnt_ops[l];
 			int64_t trade = cnt_trade[r] - cnt_trade[l];
+			cerr << trade << ' ' << ops << '\n';
 			cout << (trade + ops) / 2 << '\n';
 		}
 	}
