@@ -24,6 +24,7 @@ int main() {
 					if (nxt == prv) continue;
 					cur_sum += self(nxt, cur, w);
 				}
+				// if cur_sum >= t, it doesn't matter either, we just don't get anything new
 				int64_t e_top = std::max(cur_sum, t - par_w);
 				ans += e_top - cur_sum;
 				return std::min(e_top, par_w);
