@@ -27,9 +27,9 @@ int main() {
 					cur_sum += ch_val;
 					cur_sum = std::min(cur_sum, t);
 				}
-				int64_t e_top = std::min(t - cur_sum, par_w);
-				ans += t - cur_sum - e_top;
-				return t - e_top;
+				int64_t e_top = std::max(cur_sum, t - par_w);
+				ans += e_top - cur_sum;
+				return e_top;
 			}(0, -1, 0);
 			cout << ans << '\n';
 		}
