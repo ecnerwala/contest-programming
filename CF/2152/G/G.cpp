@@ -634,7 +634,7 @@ int main() {
 					if (nxt == prv) continue;
 					self(nxt, cur);
 					auto e = &e_nodes[E++];
-					link(e, &v_nodes[cur], &v_nodes[nxt]);
+					link_direct(e, &v_nodes[cur], &v_nodes[nxt]);
 				}
 			}(0, -1);
 			assert(E == N-1);
