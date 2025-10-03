@@ -31,6 +31,7 @@ int main() {
 				ans += t - cur_sum - e_top;
 				return e_top;
 			}(0, -1, 0);
+			cout << ans << '\n';
 		}
 	}
 
