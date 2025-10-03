@@ -102,7 +102,7 @@ int main() {
 						cur = par[cur];
 					}
 				}
-				ans += depth[cur] - depth[st];
+				ans += depth[st] - depth[cur];
 			}
 			cout << ans << '\n';
 		}
