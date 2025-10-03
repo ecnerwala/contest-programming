@@ -25,7 +25,7 @@ int main() {
 			kd += N - CK;
 		}
 		int64_t ans = std::max(dx, dy);
-		if (kd % 2 == ans % 2 && dx && dy) ans--;
+		//if (kd % 2 == ans % 2 && dx && dy) ans--;
 		cout << ans << '\n';
 	}
 
