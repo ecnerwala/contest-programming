@@ -55,7 +55,7 @@ int main() {
 				} else {
 					cerr << "collision " << i << '-' << j << ' ' << r << ' ' << q << '\n';
 					// insert into j+1
-					if (j+1 < r) {
+					if (j+1 >= r) {
 						ans[q] -= depth[i]-1;
 					} else {
 						cerr << "bumping" << '\n';
