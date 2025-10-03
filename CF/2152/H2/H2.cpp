@@ -7,20 +7,32 @@ int main() {
 	int N_CASES; cin >> N_CASES;
 	while (N_CASES--) {
 		int N; cin >> N;
-		std::vector<int64_t> deg(N);
+		std::vector<std::vector<std::pair<int, int64_t>>> adj(N);
 		for (int e = 0; e < N-1; e++) {
 			int u, v; int64_t w; cin >> u >> v >> w; u--, v--;
-			deg[u] += w;
-			deg[v] += w;
+			adj[u].push_back({v, w});
+			adj[v].push_back({u, w});
 		}
 
 		int Q; cin >> Q;
 		while (Q--) {
 			int64_t t; cin >> t;
 			int64_t ans = 0;
-			for (int i = 0; i < N; i++) {
-				ans += std::max(t, deg[i]) - deg[i];
-			}
+			[&](this auto&& self, int cur, int prv, int64_t par_w) -> int64_t {
+				int64_t cur_sum = 0;
+				for (auto [nxt, w] : adj[cur]) {
+					if (nxt == prv) continue;
+					cur_sum += self(nxt, cur, w);
+				}
+				// if cur_sum >= t, it doesn't matter either, we just don't get anything new
+				int64_t e_top = std::max(cur_sum, t - par_w);
+				if (e_top > par_w) {
+					ans += e_top - par_w;
+					return par_w;
+				} else {
+					return e_top;
+				}
+			}(0, -1, 0);
 			cout << ans << '\n';
 		}
 	}
