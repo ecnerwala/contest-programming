@@ -7,7 +7,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, Z; cin >> N >> Z;
-		cerr << "start case " << N << ' ' << Z << '\n';
 		std::vector<int> X(N); for (auto& x : X) cin >> x;
 		int Q; cin >> Q;
 		std::vector<std::array<int, 2>> queries(Q);
@@ -53,12 +52,10 @@ int main() {
 				if (alive[j].insert(v).second) {
 					// did insert, so just continue
 				} else {
-					cerr << "collision " << i << '-' << j << ' ' << r << ' ' << q << '\n';
 					// insert into j+1
 					if (j+1 >= r) {
 						ans[q] -= depth[i]-1;
 					} else {
-						cerr << "bumping" << '\n';
 						ans[q] -= depth[j];
 						ans[q] += depth[j+1];
 						alive[j+1].insert(v);
