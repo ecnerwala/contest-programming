@@ -54,7 +54,7 @@ int main() {
 				} else {
 					// insert into j+1
 					if (j+1 < r) {
-						ans[q] -= depth[i];
+						ans[q] -= depth[i]-1;
 					} else {
 						ans[q] -= depth[j];
 						ans[q] += depth[j+1];
