@@ -660,6 +660,7 @@ int main() {
 			cerr << n->own_val << ' ';
 		}
 		cerr << '\n';
+		cerr << query() << '\n';
 	}
 
 	return 0;
