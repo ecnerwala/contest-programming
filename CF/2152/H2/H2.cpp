@@ -26,7 +26,7 @@ int main() {
 				}
 				// if cur_sum >= t, it doesn't matter either, we just don't get anything new
 				int64_t e_top = std::max(cur_sum, t - par_w);
-				ans += std::max(t, e_top + t - par_w) - t;
+				ans += std::max(int64_t(0), e_top - par_w);
 				return std::min(e_top, par_w);
 			}(0, -1, 0);
 			cout << ans << '\n';
