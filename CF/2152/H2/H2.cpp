@@ -24,7 +24,6 @@ int main() {
 					if (nxt == prv) continue;
 					cur_sum += self(nxt, cur, w);
 				}
-				cur_sum = std::min(cur_sum, t);
 				int64_t e_top = std::max(cur_sum, t - par_w);
 				ans += e_top - cur_sum;
 				return std::min(e_top, par_w);
