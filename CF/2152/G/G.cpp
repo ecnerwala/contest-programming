@@ -655,6 +655,11 @@ int main() {
 			}
 			cout << query() << '\n';
 		}
+		for (int i = 0; i < N; i++) {
+			auto n = get_subtree_from_root(&v_nodes[i]);
+			cerr << n->own_val << ' ';
+		}
+		cerr << '\n';
 	}
 
 	return 0;
