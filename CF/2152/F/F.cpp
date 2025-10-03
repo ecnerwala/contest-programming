@@ -30,7 +30,7 @@ int main() {
 			}
 		}
 
-		std::vector<int> depth2(N);
+		std::vector<int> depth2(N+1);
 		std::vector<int> par2(N);
 		std::vector<int> jump2_loc(N);
 		std::vector<int> jump2_dist(N);
