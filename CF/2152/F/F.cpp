@@ -58,6 +58,7 @@ int main() {
 					if (j+1 < r) {
 						ans[q] -= depth[i]-1;
 					} else {
+						cerr << "bumping" << '\n';
 						ans[q] -= depth[j];
 						ans[q] += depth[j+1];
 						alive[j+1].insert(v);
