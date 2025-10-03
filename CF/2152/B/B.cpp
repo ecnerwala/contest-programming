@@ -6,18 +6,26 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N, RK, CK, RD, CD; cin >> N >> RK >> CK >> RD >> CD;
-		int64_t ans = 0;
+		int64_t N, RK, CK, RD, CD; cin >> N >> RK >> CK >> RD >> CD;
+		int64_t kd = 0;
+		int64_t dx = 0;
 		if (RD > RK) {
-			ans += RD - 0;
+			dx = RD - 0;
+			kd += RK - 0;
 		} else if (RD < RK) {
-			ans += N - RD;
+			dx = N - RD;
+			kd += N - RK;
 		}
+		int64_t dy = 0;
 		if (CD > CK) {
-			ans += CD - 0;
+			dy = CD - 0;
+			kd += CK - 0;
 		} else if (CD < CK) {
-			ans += N - CD;
+			dy = N - CD;
+			kd += N - CK;
 		}
+		int64_t ans = dx + dy;
+		if (kd % 2 == ans % 2 && dx && dy) ans--;
 		cout << ans << '\n';
 	}
 
