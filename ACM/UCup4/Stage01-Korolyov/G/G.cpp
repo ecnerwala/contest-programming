@@ -61,7 +61,7 @@ int main() {
 	}
 	for (int z = 0; z < int(q.size()); z++) {
 		int cur = q[z];
-		cerr << "q " << cur << ' ' << weight[cur] << ' ' << in_deg[cur] << '\n';
+		cerr << "q " << cur << ' ' << weight[cur] << ' ' << in_deg[cur] << ' ' << has_self_edge[cur] << ' ' << int(in_edges[cur].size()) << '\n';
 		if (weight[cur] == 0) continue;
 		assert(in_deg[cur] == 1);
 		if (has_self_edge[cur]) {
