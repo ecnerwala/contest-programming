@@ -89,7 +89,7 @@ int main() {
 	for (auto& [l, r] : queries) { cin >> l >> r; l--, r--; }
 	std::vector<int> ans(Q);
 	std::vector<std::vector<int>> by_r(N);
-	for (int q = 0; q < N; q++) {
+	for (int q = 0; q < Q; q++) {
 		by_r[queries[q][1]].push_back(q);
 	}
 
