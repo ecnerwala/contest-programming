@@ -68,6 +68,7 @@ int main() {
 		}
 		assert(int(in_edges[cur].size()) == 1);
 		int prv = *in_edges[cur].begin();
+		cerr << "merge " << cur << ' ' << prv << '\n';
 		assert(prv != cur);
 		assert(weight[prv] > 0);
 		in_edges[cur].erase(prv);
@@ -90,6 +91,7 @@ int main() {
 			did_swap = true;
 			std::swap(cur, prv);
 		}
+		cerr << "  merge into " << prv << '\n';
 		weight[prv] += weight[cur];
 		weight[cur] = 0;
 		// merge cur into prv
