@@ -23,6 +23,10 @@ int main() {
 		in_edges[v].insert(u);
 		in_deg[v]++;
 	};
+	for (int e = 0; e < M; e++) {
+		int u, v; cin >> u >> v; u--, v--;
+		add_edge(u, v);
+	}
 
 	int base_ans = 0;
 	{
