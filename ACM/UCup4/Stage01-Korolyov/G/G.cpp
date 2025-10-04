@@ -51,7 +51,7 @@ int main() {
 	std::vector<int> q; q.reserve(2*N);
 	for (int i = 0; i < N; i++) {
 		assert(in_deg[i] >= 1);
-		if (in_deg[i] == 1 && !has_self_edge[cur]) q.push_back(i);
+		if (in_deg[i] == 1 && !has_self_edge[i]) q.push_back(i);
 	}
 	for (int z = 0; z < int(q.size()); z++) {
 		int cur = q[z];
