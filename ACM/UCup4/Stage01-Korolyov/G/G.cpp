@@ -36,6 +36,7 @@ int main() {
 		}
 		for (int z = 0; z < int(q.size()); z++) {
 			int cur = q[z];
+			cerr << "erase " << cur << '\n';
 			assert(weight[cur] == 1);
 			base_ans += weight[cur];
 			weight[cur] = 0;
