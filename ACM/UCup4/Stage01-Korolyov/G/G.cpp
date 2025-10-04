@@ -50,6 +50,7 @@ int main() {
 	// now, everything has indeg >= 1
 	std::vector<int> q; q.reserve(2*N);
 	for (int i = 0; i < N; i++) {
+		if (weight[i] == 0) continue;
 		assert(in_deg[i] >= 1);
 		if (in_deg[i] == 1 && !has_self_edge[i]) q.push_back(i);
 	}
