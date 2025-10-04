@@ -122,9 +122,8 @@ int main() {
 				std::y_combinator([&](auto&& self, treap_node* cur) -> void {
 					if (!cur) return;
 					self(cur->c[0]);
-					int i = int(cur - nodes.data());
-					//cerr << "erasing " << i << '\n';
-					alive.erase(i);
+					//cerr << "erasing " << int(cur - nodes.data()) << '\n';
+					alive.erase(int(cur - nodes.data()));
 					self(cur->c[1]);
 				})(mi);
 				while (mi->c[1]) mi = mi->c[1];
