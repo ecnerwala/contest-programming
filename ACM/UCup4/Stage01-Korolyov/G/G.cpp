@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 int solve(int N, std::vector<std::array<int, 2>> edges) {
+	using std::cerr;
 	std::vector<int> weight(N, 1);
 	std::vector<int> in_deg(N);
 	std::vector<bool> has_self_edge(N);
@@ -33,7 +34,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges) {
 		}
 		for (int z = 0; z < int(q.size()); z++) {
 			int cur = q[z];
-			//cerr << "erase " << cur << '\n';
+			cerr << "erase " << cur << '\n';
 			assert(weight[cur] == 1);
 			base_ans += weight[cur];
 			weight[cur] = 0;
@@ -58,7 +59,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges) {
 	}
 	for (int z = 0; z < int(q.size()); z++) {
 		int cur = q[z];
-		//cerr << "q " << cur << ' ' << weight[cur] << ' ' << in_deg[cur] << ' ' << has_self_edge[cur] << ' ' << int(in_edges[cur].size()) << '\n';
+		cerr << "q " << cur << ' ' << weight[cur] << ' ' << in_deg[cur] << ' ' << has_self_edge[cur] << ' ' << int(in_edges[cur].size()) << '\n';
 		if (weight[cur] == 0) continue;
 		assert(in_deg[cur] == 1);
 		if (has_self_edge[cur]) {
@@ -66,7 +67,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges) {
 		}
 		assert(int(in_edges[cur].size()) == 1);
 		int prv = *in_edges[cur].begin();
-		//cerr << "merge " << cur << ' ' << prv << '\n';
+		cerr << "merge " << cur << ' ' << prv << '\n';
 		assert(prv != cur);
 		assert(weight[prv] > 0);
 		in_edges[cur].erase(prv);
@@ -90,7 +91,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges) {
 			did_swap = true;
 			std::swap(cur, prv);
 		}
-		//cerr << "  merge into " << prv << '\n';
+		cerr << "  merge into " << prv << '\n';
 		weight[prv] += weight[cur];
 		weight[cur] = 0;
 		// merge cur into prv
