@@ -125,7 +125,7 @@ int main() {
 					cerr << "erasing " << i << '\n';
 					alive.erase(i);
 					self(cur->c[1]);
-				});
+				})(mi);
 				while (mi->c[1]) mi = mi->c[1];
 				mi->c[0] = mi->c[1] = mi->p = nullptr;
 				mi->lazy = 0;
