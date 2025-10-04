@@ -13,6 +13,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges) {
 			if (has_self_edge[u]) return;
 			has_self_edge[u] = true;
 			in_deg[u]++;
+			return;
 		}
 		assert(u != v);
 		if (out_edges[u].count(v)) return;
