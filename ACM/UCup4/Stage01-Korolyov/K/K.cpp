@@ -109,7 +109,7 @@ int main() {
 		}
 
 		if (A[i]) {
-			cerr << "do " << A[i] << '\n';
+			//cerr << "do " << A[i] << '\n';
 			auto [lo, mihi] = split_ge(root, A[i]-1);
 			if (lo) lo->p = nullptr;
 			if (mihi) mihi->p = nullptr;
@@ -123,7 +123,7 @@ int main() {
 					if (!cur) return;
 					self(cur->c[0]);
 					int i = int(cur - nodes.data());
-					cerr << "erasing " << i << '\n';
+					//cerr << "erasing " << i << '\n';
 					alive.erase(i);
 					self(cur->c[1]);
 				})(mi);
@@ -131,7 +131,7 @@ int main() {
 				mi->c[0] = mi->c[1] = mi->p = nullptr;
 				mi->lazy = 0;
 				mi->val = A[i] - 1;
-				cerr << "reinsert " << int(mi - nodes.data()) << '\n';
+				//cerr << "reinsert " << int(mi - nodes.data()) << '\n';
 				alive.insert(int(mi - nodes.data()));
 			}
 
