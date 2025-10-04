@@ -62,6 +62,7 @@ int main() {
 			par[v] = u;
 
 			heaps[u] = meld(heaps[u], heaps[v]);
+			heaps[v] = nullptr;
 			deg[u] += deg[v] - 2 * w;
 
 			assert(heaps[u]);
@@ -91,27 +92,28 @@ int main() {
 				}
 			}
 		}
+		std::vector<int64_t> deltas; deltas.reserve(N);
+		{
+			int rt = get_par(0);
+			while (heaps[rt]) {
+				for (int z = 0; z < heaps[rt]->delta; z++) {
+					deltas.push_back(heaps[rt]->v);
+				}
+				heaps[rt] = meld(heaps[rt]->c[0], heaps[rt]->c[1]);
+			}
+			assert(int(deltas.size()) == N);
+		}
+
+		std::vector<int64_t> pref_deltas(N+1);
+		for (int i = 0; i < N; i++) {
+			pref_deltas[i+1] = pref_deltas[i] + deltas[i];
+		}
 
 		int Q; cin >> Q;
 		while (Q--) {
 			int64_t t; cin >> t;
-			int64_t ans = 0;
-			[&](this auto&& self, int cur, int prv, int64_t par_w) -> int64_t {
-				int64_t cur_sum = 0;
-				for (auto [nxt, w] : adj[cur]) {
-					if (nxt == prv) continue;
-					cur_sum += self(nxt, cur, w);
-				}
-				// if cur_sum >= t, it doesn't matter either, we just don't get anything new
-				int64_t e_top = std::max(cur_sum, t - par_w);
-				if (e_top > par_w) {
-					ans += e_top - par_w;
-					return par_w;
-				} else {
-					return e_top;
-				}
-			}(0, -1, 0);
-			cout << ans << '\n';
+			int cnt = int(std::lower_bound(deltas.begin(), deltas.end(), t) - deltas.begin());
+			cout << t * cnt - pref_deltas[cnt] << '\n';
 		}
 	}
 
