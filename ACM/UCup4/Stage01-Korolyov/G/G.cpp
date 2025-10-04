@@ -86,7 +86,7 @@ int solve(int N, std::vector<std::array<int, 2>> edges) {
 				assert(has_self_edge[prv]);
 			}
 		}
-		bool did_swap;
+		bool did_swap = false;
 		if (int(in_edges[cur].size()) + int(out_edges[cur].size()) > int(in_edges[prv].size()) + int(out_edges[prv].size())) {
 			did_swap = true;
 			std::swap(cur, prv);
