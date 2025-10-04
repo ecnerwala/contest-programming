@@ -64,6 +64,7 @@ int main() {
 		assert(int(in_edges[cur].size()) == 1);
 		int prv = *in_edges[cur].begin();
 		assert(prv != cur);
+		assert(weight[prv] > 0);
 		in_edges[cur].erase(prv);
 		out_edges[prv].erase(cur);
 		if (out_edges[cur].count(prv)) {
