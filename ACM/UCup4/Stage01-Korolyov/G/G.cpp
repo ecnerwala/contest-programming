@@ -141,7 +141,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::mt19937 mt(48);
-	for (int z = 0; z < 1000; z++) {
+	for (int z = 0; z < 100000; z++) {
 		cerr << "case " << z << '\n';
 		int N = std::uniform_int_distribution<int>(1, 10)(mt);
 		int M = std::uniform_int_distribution<int>(0, 5*N)(mt);
