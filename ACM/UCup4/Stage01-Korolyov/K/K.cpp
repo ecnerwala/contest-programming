@@ -110,10 +110,10 @@ int main() {
 
 		if (A[i]) {
 			cerr << "do " << A[i] << '\n';
-			auto [lo, mihi] = split_ge(root, A[i]);
+			auto [lo, mihi] = split_ge(root, A[i]-1);
 			if (lo) lo->p = nullptr;
 			if (mihi) mihi->p = nullptr;
-			auto [mi, hi] = split_ge(mihi, 2 * A[i]+1);
+			auto [mi, hi] = split_ge(mihi, 2 * A[i]);
 			if (mi) mi->p = nullptr;
 			if (hi) hi->p = nullptr;
 
@@ -130,7 +130,7 @@ int main() {
 				while (mi->c[1]) mi = mi->c[1];
 				mi->c[0] = mi->c[1] = mi->p = nullptr;
 				mi->lazy = 0;
-				mi->val = A[i];
+				mi->val = A[i] - 1;
 				cerr << "reinsert " << int(mi - nodes.data()) << '\n';
 				alive.insert(int(mi - nodes.data()));
 			}
