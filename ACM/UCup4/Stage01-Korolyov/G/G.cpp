@@ -1,10 +1,6 @@
 #include <bits/stdc++.h>
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-
-	int N, M; cin >> N >> M;
+int solve(int N, std::vector<std::array<int, 2>> edges) {
 	std::vector<int> weight(N, 1);
 	std::vector<int> in_deg(N);
 	std::vector<bool> has_self_edge(N);
@@ -23,8 +19,7 @@ int main() {
 		in_edges[v].insert(u);
 		in_deg[v]++;
 	};
-	for (int e = 0; e < M; e++) {
-		int u, v; cin >> u >> v; u--, v--;
+	for (auto [u, v] : edges) {
 		add_edge(u, v);
 	}
 
@@ -135,7 +130,30 @@ int main() {
 		if (did_swap && in_deg[prv] == 1 && !has_self_edge[prv]) q.push_back(prv);
 	}
 
-	cout << base_ans + *std::max_element(weight.begin(), weight.end()) << '\n';
+	return base_ans + *std::max_element(weight.begin(), weight.end());
+}
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	std::mt19937 mt(48);
+	for (int z = 0; z < 1000; z++) {
+		cerr << "case " << z << '\n';
+		int N = std::uniform_int_distribution<int>(1, 10)(mt);
+		int M = std::uniform_int_distribution<int>(0, 5*N)(mt);
+		std::vector<std::array<int, 2>> edges(M);
+		for (auto& e : edges) for (auto& v : e) {
+			v = std::uniform_int_distribution<int>(0, N-1)(mt);
+		}
+		cerr << N << ' ' << M << '\n';
+		cerr << solve(N, edges) << '\n';
+	}
+
+	int N, M; cin >> N >> M;
+	std::vector<std::array<int, 2>> edges(M);
+	for (auto& [u, v] : edges) { cin >> u >> v; u--, v--; }
+	cout << solve(N, edges) << '\n';
 
 	return 0;
 }
