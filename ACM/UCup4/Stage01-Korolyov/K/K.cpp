@@ -131,6 +131,7 @@ int main() {
 				mi->c[0] = mi->c[1] = mi->p = nullptr;
 				mi->lazy = 0;
 				mi->val = A[i];
+				cerr << "reinsert " << int(mi - nodes.data()) << '\n';
 				alive.insert(int(mi - nodes.data()));
 			}
 
