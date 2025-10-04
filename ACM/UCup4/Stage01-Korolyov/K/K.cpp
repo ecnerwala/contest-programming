@@ -30,7 +30,7 @@ struct treap_node {
 	int val = 0;
 	void apply_lazy(int v) {
 		lazy += v;
-		val -= lazy;
+		val += lazy;
 	}
 	void downdate() {
 		if (c[0]) c[0]->apply_lazy(lazy);
