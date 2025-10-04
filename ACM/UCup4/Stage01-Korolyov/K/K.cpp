@@ -109,6 +109,7 @@ int main() {
 		}
 
 		if (A[i]) {
+			cerr << "do " << A[i] << '\n';
 			auto [lo, mihi] = split_ge(root, A[i]);
 			if (lo) lo->p = nullptr;
 			if (mihi) mihi->p = nullptr;
