@@ -145,7 +145,7 @@ int main() {
 			int l = queries[q][0];
 			l = *alive.lower_bound(l);
 			nodes[l].downdate_all();
-			cout << nodes[l].val << '\n';
+			ans[q] = nodes[l].val;
 		}
 	}
 
