@@ -74,6 +74,7 @@ int main() {
 		assert(weight[prv] > 0);
 		in_edges[cur].erase(prv);
 		out_edges[prv].erase(cur);
+		in_deg[cur]--;
 		if (out_edges[cur].count(prv)) {
 			// let's eagerly make this a self loop, to save ourselves some hassle
 			out_edges[cur].erase(prv);
