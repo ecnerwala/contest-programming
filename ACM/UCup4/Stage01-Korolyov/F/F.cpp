@@ -34,11 +34,11 @@ int main() {
 				segs[cur][1] = std::min(segs[cur][1], segs[i][1]);
 			}
 		};
-		while (!by_l.empty() && by_l.begin()->first < pos) {
-			do_insert(by_l.begin()->second);
+		while (!by_l.empty() && by_l.rbegin()->first > pos) {
+			do_insert(by_l.rbegin()->second);
 		}
-		while (!by_r.empty() && by_r.rbegin()->first > pos) {
-			do_insert(by_r.rbegin()->second);
+		while (!by_r.empty() && by_r.begin()->first < pos) {
+			do_insert(by_r.begin()->second);
 		}
 		if (cur != -1) {
 			int i = cur;
