@@ -457,7 +457,6 @@ int main() {
 	};
 	auto update_point = [&](int pos, int64_t delta) -> void {
 		for (auto& v : bit.suffix(pos)) v += delta;
-		if (pos == 0) return;
 		auto rng = layout.get_range(std::max(0, pos-U), pos);
 		rng.for_each([&](auto a) -> void {
 			seg[a].lazy += delta;
