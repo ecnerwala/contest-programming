@@ -280,8 +280,8 @@ int main() {
 		}
 
 		dbl ans = dbl(x_coords[2*N-1] + y_coords[2*M-1]);
-		for (int s = 0; s < N+M; s++) {
-			for (int i = 0, j = s; i < N && j >= 0; i++, j--) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
 				if (0 <= j && j+1 < M && 0 <= i && i < N) {
 					// traverse a row
 					dbl v = rows[j].push_and_query_next().v;
