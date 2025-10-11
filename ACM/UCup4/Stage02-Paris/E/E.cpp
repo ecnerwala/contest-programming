@@ -255,7 +255,7 @@ int main() {
 			}
 		};
 		struct selector {
-			bool operator () (smawk::value_t<double> a, smawk::value_t<double> b) const {
+			bool operator () (int, smawk::value_t<double> a, smawk::value_t<double> b) const {
 				return a.v < b.v ? 0 : 1;
 			}
 		};
@@ -267,12 +267,12 @@ int main() {
 		for (int j = 0; j+1 < M; j++) {
 			row_bots[j].reserve(N);
 			row_bots[j].push_back(double(y_coords[2*j+1]));
-			rows[j] = smawk::LARSCH<getter, std::greater<>, double>(N, getter{&x_coords, &row_bots[j], D[j]}, std::greater<>());
+			rows[j] = smawk::LARSCH<getter, selector, double>(N, getter{&x_coords, &row_bots[j], D[j]}, selector());
 		}
 		for (int i = 0; i+1 < N; i++) {
 			col_bots[i].reserve(M);
 			col_bots[i].push_back(double(x_coords[2*i+1]));
-			cols[i] = smawk::LARSCH<getter, std::greater<>, double>(N, getter{&y_coords, &col_bots[i], B[i]}, std::greater<>());
+			cols[i] = smawk::LARSCH<getter, selector, double>(N, getter{&y_coords, &col_bots[i], B[i]}, selector());
 		}
 
 		for (int s = 0; s < N+M; s++) {
