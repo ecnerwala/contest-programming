@@ -268,8 +268,6 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	using num = modnum<998244353>;
-
 	int N, Q; cin >> N >> Q;
 	std::vector<int> A(N);
 	for (auto& a : A) cin >> a;
@@ -300,7 +298,6 @@ int main() {
 			if (q.ma - q.mi > 1) {
 				int md = q.mi + (q.ma - q.mi) / 2;
 				ops.push_back({md, q_id});
-				cerr << q_id << ' ' << md << '\n';
 			}
 		}
 		if (ops.empty()) break;
@@ -328,23 +325,47 @@ int main() {
 		}
 		assert(it == ops.end());
 	}
-	std::vector<num> suffix_prod(N+1);
-	suffix_prod[N] = 1;
-	for (int i = N-1; i >= 0; i--) {
-		suffix_prod[i] = suffix_prod[i+1] * num(vals[i].first);
+
+	using num = modnum<998244353>;
+	std::vector<num> ans(Q);
+	{
+		std::vector<std::pair<int, int>> ops; ops.reserve(Q);
+		for (int q_id = 0; q_id < Q; q_id++) {
+			auto& q = queries[q_id];
+			assert(q.ma - q.mi == 1);
+			if (q.ma == N+1) {
+				ans[q_id] = 1;
+			} else {
+				int64_t extra_ops = q.k - q.mi_k;
+				assert(extra_ops >= 0);
+				assert(extra_ops < vals[q.mi].first);
+				ans[q_id] = num(vals[q.mi].first - extra_ops);
+				ops.push_back({q.ma, q_id});
+			}
+		}
+		std::sort(ops.begin(), ops.end(), std::greater<>());
+
+		auto it = ops.begin();
+		binary_indexed_tree<num> bit(N);
+		for (int i = N; i >= 0; i--) {
+			if (i < N) {
+				num d = num(vals[i].first);
+				for (auto& v : bit.suffix(vals[i].second)) v *= d;
+			}
+			for (; it != ops.end() && it->first == i; ++it) {
+				int q_id = it->second;
+				auto& q = queries[q_id];
+				num numer = 1;
+				for (auto v : bit.prefix(q.bounds[1])) numer *= v;
+				num denom = 1;
+				for (auto v : bit.prefix(q.bounds[0])) denom *= v;
+				ans[q_id] *= numer / denom;
+			}
+		}
+		assert(it == ops.end());
 	}
 	for (int q_id = 0; q_id < Q; q_id++) {
-		auto& q = queries[q_id];
-		assert(q.ma - q.mi == 1);
-		if (q.ma == N+1) {
-			cout << 1 << '\n';
-		} else {
-			num ans = suffix_prod[q.ma];
-			int64_t extra_ops = q.k - q.mi_k;
-			assert(extra_ops < vals[q.mi].first);
-			ans *= num(vals[q.mi].first - extra_ops);
-			cout << ans << '\n';
-		}
+		cout << ans[q_id] << '\n';
 	}
 
 	return 0;
