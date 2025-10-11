@@ -64,8 +64,8 @@ public:
 					bests[l].first = std::move(prv_col_top);
 					bests[l].second = (r+1)/2;
 					// optimization: since we're the global best, we know we'll kill the entire rest of the stack, so just do it here
-					//assert(int(stk[l].size()) >= (r+1)/2);
-					//stk[l].resize((r+1)/2);
+					assert(int(stk[l].size()) >= (r+1)/2);
+					stk[l].resize((r+1)/2);
 				}
 			}
 			if (l < L) {
