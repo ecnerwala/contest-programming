@@ -289,6 +289,7 @@ int main() {
 						assert(int(col_bots[i].size()) == j+1);
 						col_bots[i].push_back(v);
 					}
+					cerr << ans << '\n';
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
@@ -300,6 +301,7 @@ int main() {
 						assert(int(row_bots[j].size()) == i+1);
 						row_bots[j].push_back(v);
 					}
+					cerr << ans << '\n';
 				}
 			}
 		}
