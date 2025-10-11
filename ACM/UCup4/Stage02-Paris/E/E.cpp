@@ -246,47 +246,48 @@ int main() {
 		}
 		//for (auto v : y_coords)  { cerr << v << ' ' ;} cerr << '\n';
 
+		using dbl = long double;
 		struct getter {
 			std::vector<int64_t>* coords = nullptr;
-			std::vector<double>* bots = nullptr;
+			std::vector<dbl>* bots = nullptr;
 			int gap = 0;
-			double operator () (int outp, int inp) const {
+			dbl operator () (int outp, int inp) const {
 				assert(outp >= inp);
 				assert(inp < int(bots->size()));
-				auto sq = [](double a) { return a * a; };
-				return (*bots)[inp] + std::sqrt(sq(gap) + sq(double((*coords)[2 * outp + 1] - (*coords)[2 * inp + 0])));
+				auto sq = [](dbl a) { return a * a; };
+				return (*bots)[inp] + std::sqrt(sq(gap) + sq(dbl((*coords)[2 * outp + 1] - (*coords)[2 * inp + 0])));
 			}
 		};
 		struct selector {
-			bool operator () (int, smawk::value_t<double> a, smawk::value_t<double> b) const {
+			bool operator () (int, smawk::value_t<dbl> a, smawk::value_t<dbl> b) const {
 				return a.v < b.v ? 0 : 1;
 			}
 		};
 
-		std::vector<smawk::LARSCH<getter, selector, double>> rows(M-1);
-		std::vector<smawk::LARSCH<getter, selector, double>> cols(N-1);
-		std::vector<std::vector<double>> row_bots(M-1);
-		std::vector<std::vector<double>> col_bots(N-1);
+		std::vector<smawk::LARSCH<getter, selector, dbl>> rows(M-1);
+		std::vector<smawk::LARSCH<getter, selector, dbl>> cols(N-1);
+		std::vector<std::vector<dbl>> row_bots(M-1);
+		std::vector<std::vector<dbl>> col_bots(N-1);
 		for (int j = 0; j+1 < M; j++) {
 			row_bots[j].reserve(N);
-			row_bots[j].push_back(double(y_coords[2*j+1]));
-			rows[j] = smawk::LARSCH<getter, selector, double>(N, getter{&x_coords, &row_bots[j], D[j]}, selector());
+			row_bots[j].push_back(dbl(y_coords[2*j+1]));
+			rows[j] = smawk::LARSCH<getter, selector, dbl>(N, getter{&x_coords, &row_bots[j], D[j]}, selector());
 		}
 		for (int i = 0; i+1 < N; i++) {
 			col_bots[i].reserve(M);
-			col_bots[i].push_back(double(x_coords[2*i+1]));
-			cols[i] = smawk::LARSCH<getter, selector, double>(N, getter{&y_coords, &col_bots[i], B[i]}, selector());
+			col_bots[i].push_back(dbl(x_coords[2*i+1]));
+			cols[i] = smawk::LARSCH<getter, selector, dbl>(M, getter{&y_coords, &col_bots[i], B[i]}, selector());
 		}
 
-		double ans = double(x_coords[2*N-1] + y_coords[2*M-1]);
+		dbl ans = dbl(x_coords[2*N-1] + y_coords[2*M-1]);
 		for (int s = 0; s < N+M; s++) {
 			for (int i = 0, j = s; i < N && j >= 0; i++, j--) {
 				if (0 <= j && j+1 < M && 0 <= i && i < N) {
 					// traverse a row
-					double v = rows[j].push_and_query_next().v;
+					dbl v = rows[j].push_and_query_next().v;
 					//cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
 					if (i == N-1) {
-						ans = std::min(ans, v + double(y_coords[2*M-1] - y_coords[2*(j+1)]));
+						ans = std::min(ans, v + dbl(y_coords[2*M-1] - y_coords[2*(j+1)]));
 					} else {
 						assert(int(col_bots[i].size()) == j+1);
 						col_bots[i].push_back(v);
@@ -294,11 +295,10 @@ int main() {
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
-					double v = cols[i].push_and_query_next().v;
+					dbl v = cols[i].push_and_query_next().v;
 					//cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
 					if (j == M-1) {
-						double dist = double(x_coords[2*N-1] - x_coords[2*(i+1)]);
-						ans = std::min(ans, v + double(x_coords[2*N-1] - x_coords[2*(i+1)]));
+						ans = std::min(ans, v + dbl(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
 						assert(int(row_bots[j].size()) == i+1);
 						row_bots[j].push_back(v);
