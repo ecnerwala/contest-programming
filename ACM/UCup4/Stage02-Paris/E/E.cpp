@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 
-#pragma GCC optimization "ffast-math"
-
 namespace smawk {
 
 template <typename T> struct value_t {
@@ -214,6 +212,114 @@ std::vector<value_t<T>> smawk(int N, int M, Get&& get, Select&& select) {
 // namespace smawk
 }
 
+// https://noshi91.github.io/Library/algorithm/larsch.cpp.html
+template <class T> class larsch {
+  struct reduce_row;
+  struct reduce_col;
+
+  struct reduce_row {
+    int n;
+    std::function<T(int, int)> f;
+    int cur_row;
+    int state;
+    std::unique_ptr<reduce_col> rec;
+
+    reduce_row(int n_) : n(n_), f(), cur_row(0), state(0), rec() {
+      const int m = n / 2;
+      if (m != 0) {
+        rec = std::make_unique<reduce_col>(m);
+      }
+    }
+
+    void set_f(std::function<T(int, int)> f_) {
+      f = f_;
+      if (rec) {
+        rec->set_f([&](int i, int j) -> T { return f(2 * i + 1, j); });
+      }
+    }
+
+    int get_argmin() {
+      const int cur_row_ = cur_row;
+      cur_row += 1;
+      if (cur_row_ % 2 == 0) {
+        const int prev_argmin = state;
+        const int next_argmin = [&]() {
+          if (cur_row_ + 1 == n) {
+            return n - 1;
+          } else {
+            return rec->get_argmin();
+          }
+        }();
+        state = next_argmin;
+        int ret = prev_argmin;
+        for (int j = prev_argmin + 1; j <= next_argmin; j += 1) {
+          if (f(cur_row_, ret) > f(cur_row_, j)) {
+            ret = j;
+          }
+        }
+        return ret;
+      } else {
+        if (f(cur_row_, state) <= f(cur_row_, cur_row_)) {
+          return state;
+        } else {
+          return cur_row_;
+        }
+      }
+    }
+  };
+
+  struct reduce_col {
+    int n;
+    std::function<T(int, int)> f;
+    int cur_row;
+    std::vector<int> cols;
+    reduce_row rec;
+
+    reduce_col(int n_) : n(n_), f(), cur_row(0), cols(), rec(n) {}
+
+    void set_f(std::function<T(int, int)> f_) {
+      f = f_;
+      rec.set_f([&](int i, int j) -> T { return f(i, cols[j]); });
+    }
+
+    int get_argmin() {
+      const int cur_row_ = cur_row;
+      cur_row += 1;
+      const auto cs = [&]() -> std::vector<int> {
+        if (cur_row_ == 0) {
+          return {{0}};
+        } else {
+          return {{2 * cur_row_ - 1, 2 * cur_row_}};
+        }
+      }();
+      for (const int j : cs) {
+        while ([&]() {
+          const int size = cols.size();
+          return size != cur_row_ && f(size - 1, cols.back()) > f(size - 1, j);
+        }()) {
+          cols.pop_back();
+        }
+        if (cols.size() != n) {
+          cols.push_back(j);
+        }
+      }
+      return cols[rec.get_argmin()];
+    }
+  };
+
+public:
+  std::unique_ptr<reduce_row> base;
+
+  larsch() {}
+  larsch(int n, std::function<T(int, int)> f)
+      : base(std::make_unique<reduce_row>(n)) {
+    base->set_f(f);
+  }
+
+  int get_argmin() { return base->get_argmin(); }
+};
+
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -266,19 +372,19 @@ int main() {
 			}
 		};
 
-		std::vector<smawk::LARSCH<getter, selector, dbl>> rows(M-1);
-		std::vector<smawk::LARSCH<getter, selector, dbl>> cols(N-1);
+		std::vector<larsch<dbl>> rows(M-1);
+		std::vector<larsch<dbl>> cols(N-1);
 		std::vector<std::vector<dbl>> row_bots(M-1);
 		std::vector<std::vector<dbl>> col_bots(N-1);
 		for (int j = 0; j+1 < M; j++) {
 			row_bots[j].reserve(N);
 			row_bots[j].push_back(dbl(y_coords[2*j+1]));
-			rows[j] = smawk::LARSCH<getter, selector, dbl>(N, getter{&x_coords, &row_bots[j], D[j]}, selector());
+			rows[j] = larsch<dbl>(N, getter{&x_coords, &row_bots[j], D[j]});
 		}
 		for (int i = 0; i+1 < N; i++) {
 			col_bots[i].reserve(M);
 			col_bots[i].push_back(dbl(x_coords[2*i+1]));
-			cols[i] = smawk::LARSCH<getter, selector, dbl>(M, getter{&y_coords, &col_bots[i], B[i]}, selector());
+			cols[i] = larsch<dbl>(M, getter{&y_coords, &col_bots[i], B[i]});
 		}
 
 		dbl ans = dbl(x_coords[2*N-1] + y_coords[2*M-1]);
@@ -286,7 +392,8 @@ int main() {
 			for (int j = 0; j < M; j++) {
 				if (0 <= j && j+1 < M && 0 <= i && i < N) {
 					// traverse a row
-					dbl v = rows[j].push_and_query_next().v;
+					int pi = rows[j].get_argmin();
+					dbl v = rows[j].base->f(i, pi);
 					//cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
 					if (i == N-1) {
 						ans = std::min(ans, v + dbl(y_coords[2*M-1] - y_coords[2*(j+1)]));
@@ -297,7 +404,8 @@ int main() {
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
-					dbl v = cols[i].push_and_query_next().v;
+					int pj = cols[i].get_argmin();
+					dbl v = cols[i].base->f(j, pj);
 					//cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
 					if (j == M-1) {
 						ans = std::min(ans, v + dbl(x_coords[2*N-1] - x_coords[2*(i+1)]));
