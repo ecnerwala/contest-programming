@@ -11,6 +11,7 @@ int main() {
 			lines.push_back(line);
 		}
 	}
+	cerr << lines.size() << '\n';
 	for (auto& line : lines) std::cerr << line << '\n';
 
 	for (int i = 0; i < int(lines.size()); i++) {
