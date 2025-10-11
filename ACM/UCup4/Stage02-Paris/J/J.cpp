@@ -459,7 +459,7 @@ int main() {
 		for (auto& v : bit.suffix(pos)) v += delta;
 		if (pos == 0 || pos == N-1) return;
 		assert(1 <= pos && pos <= N-2);
-		auto rng = seg_tree::range{pos-1, std::min(N, pos+U-1)};
+		auto rng = layout.get_range(pos-1, std::min(N, pos+U-1));
 		rng.for_each([&](auto a) -> void {
 			seg[a].lazy += delta;
 			seg[a].v += delta;
