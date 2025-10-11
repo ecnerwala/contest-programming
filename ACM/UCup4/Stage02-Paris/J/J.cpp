@@ -447,8 +447,8 @@ int main() {
 	seg_tree::in_order_layout layout(N);
 	struct seg_node {
 		// min val
-		int v = 0;
-		int lazy = 0;
+		int64_t v = 0;
+		int64_t lazy = 0;
 	};
 	std::vector<seg_node> seg(2*layout.N);
 	binary_indexed_tree<int64_t> bit(N);
