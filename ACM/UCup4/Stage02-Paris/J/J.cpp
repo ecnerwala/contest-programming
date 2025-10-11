@@ -476,7 +476,6 @@ int main() {
 			else a = a.c(1);
 		}
 		int first_bad = std::min(layout.get_leaf_index(a) + U + 1, N);
-		cerr << "first_bad " << first_bad << '\n';
 		int64_t ans = 0;
 		for (auto v : bit.prefix(first_bad)) ans += v;
 		return ans;
