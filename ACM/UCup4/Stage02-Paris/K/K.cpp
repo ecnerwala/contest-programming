@@ -309,7 +309,7 @@ int main() {
 		binary_indexed_tree<int64_t> bit(N);
 		auto it = ops.begin();
 		for (int i = 0; i <= N; i++) {
-			while (it != ops.end() && it->first == i) {
+			for (; it != ops.end() && it->first == i; ++it) {
 				int q_id = it->second;
 				auto& q = queries[q_id];
 				int64_t cnt = 0;
