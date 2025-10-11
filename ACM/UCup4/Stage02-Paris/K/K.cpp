@@ -346,7 +346,7 @@ int main() {
 		std::sort(ops.begin(), ops.end(), std::greater<>());
 
 		auto it = ops.begin();
-		binary_indexed_tree<num> bit(N);
+		binary_indexed_tree<num> bit(N, num(1));
 		for (int i = N; i >= 0; i--) {
 			if (i < N) {
 				num d = num(vals[i].first);
