@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#pragma GCC optimization "ffast-math"
+
 namespace smawk {
 
 template <typename T> struct value_t {
@@ -64,8 +66,8 @@ public:
 					bests[l].first = std::move(prv_col_top);
 					bests[l].second = (r+1)/2;
 					// optimization: since we're the global best, we know we'll kill the entire rest of the stack, so just do it here
-					assert(int(stk[l].size()) >= (r+1)/2);
-					stk[l].resize((r+1)/2);
+					//assert(int(stk[l].size()) >= (r+1)/2);
+					//stk[l].resize((r+1)/2);
 				}
 			}
 			if (l < L) {
@@ -246,7 +248,7 @@ int main() {
 		}
 		//for (auto v : y_coords)  { cerr << v << ' ' ;} cerr << '\n';
 
-		using dbl = long double;
+		using dbl = double;
 		struct getter {
 			std::vector<int64_t>* coords = nullptr;
 			std::vector<dbl>* bots = nullptr;
