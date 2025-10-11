@@ -219,7 +219,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		cerr << "case " << N << ' ' << M << '\n';
+		//cerr << "case " << N << ' ' << M << '\n';
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
 		std::vector<int> B(N);
@@ -238,13 +238,13 @@ int main() {
 			x_coords[2*i] = i ? x_coords[2*i-1] + B[i-1] : 0;
 			x_coords[2*i+1] = x_coords[2*i] + A[i];
 		}
-		for (auto v : x_coords)  { cerr << v << ' ' ;} cerr << '\n';
+		//for (auto v : x_coords)  { cerr << v << ' ' ;} cerr << '\n';
 		std::vector<int64_t> y_coords(2*M);
 		for (int j = 0; j < M; j++) {
 			y_coords[2*j] = j ? y_coords[2*j-1] + D[j-1] : 0;
 			y_coords[2*j+1] = y_coords[2*j] + C[j];
 		}
-		for (auto v : y_coords)  { cerr << v << ' ' ;} cerr << '\n';
+		//for (auto v : y_coords)  { cerr << v << ' ' ;} cerr << '\n';
 
 		struct getter {
 			std::vector<int64_t>* coords = nullptr;
@@ -284,28 +284,25 @@ int main() {
 				if (0 <= j && j+1 < M && 0 <= i && i < N) {
 					// traverse a row
 					double v = rows[j].push_and_query_next().v;
-					cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
+					//cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
 					if (i == N-1) {
 						ans = std::min(ans, v + double(y_coords[2*M-1] - y_coords[2*(j+1)]));
 					} else {
 						assert(int(col_bots[i].size()) == j+1);
 						col_bots[i].push_back(v);
 					}
-					cerr << ans << '\n';
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
 					double v = cols[i].push_and_query_next().v;
-					cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
+					//cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
 					if (j == M-1) {
 						double dist = double(x_coords[2*N-1] - x_coords[2*(i+1)]);
-						cerr << dist << ' ' << v << ' ' << v + dist << '\n';
 						ans = std::min(ans, v + double(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
 						assert(int(row_bots[j].size()) == i+1);
 						row_bots[j].push_back(v);
 					}
-					cerr << ans << '\n';
 				}
 			}
 		}
