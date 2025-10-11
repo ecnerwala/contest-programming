@@ -325,6 +325,7 @@ int main() {
 			int64_t d = vals[i].first - 1;
 			for (auto& v : bit.suffix(vals[i].second)) v += d;
 		}
+		assert(it == ops.end());
 	}
 	std::vector<num> suffix_prod(N+1);
 	suffix_prod[N] = 1;
