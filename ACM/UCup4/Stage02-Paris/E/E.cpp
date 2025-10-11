@@ -292,10 +292,10 @@ int main() {
 			}
 		}
 		double ans = double(x_coords[2*N-1] + y_coords[2*M-1]);
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i+1 < N; i++) {
 			ans = std::min(ans, col_bots[i][M-1] + double(x_coords[2*N-1] - x_coords[2*i]));
 		}
-		for (int j = 0; j < M; j++) {
+		for (int j = 0; j+1 < M; j++) {
 			ans = std::min(ans, row_bots[j][N-1] + double(y_coords[2*M-1] - y_coords[2*j]));
 		}
 		cout << fixed << setprecision(20) << ans << '\n';
