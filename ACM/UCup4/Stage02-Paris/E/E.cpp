@@ -279,13 +279,26 @@ int main() {
 			for (int i = 0, j = s; i < N && j >= 0; i++, j--) {
 				if (0 <= j && j+1 < M && 0 <= i && i < N) {
 					// traverse a row
-
+					assert(int(col_bots[i].size()) == j+1);
+					double v = rows[j].push_and_query_next().v;
+					col_bots[i].push_back(v);
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
+					assert(int(row_bots[j].size()) == i+1);
+					double v = cols[i].push_and_query_next().v;
+					row_bots[j].push_back(v);
 				}
 			}
 		}
+		double ans = double(x_coords[2*N-1] + y_coords[2*M-1]);
+		for (int i = 0; i < N; i++) {
+			ans = std::min(ans, col_bots[i][M-1] + double(x_coords[2*N-1] - x_coords[2*i]));
+		}
+		for (int j = 0; j < M; j++) {
+			ans = std::min(ans, row_bots[j][N-1] + double(y_coords[2*M-1] - y_coords[2*j]));
+		}
+		cout << fixed << setprecision(20) << ans << '\n';
 	}
 
 	return 0;
