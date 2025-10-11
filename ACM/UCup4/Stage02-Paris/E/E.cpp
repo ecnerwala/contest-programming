@@ -296,6 +296,8 @@ int main() {
 					double v = cols[i].push_and_query_next().v;
 					cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
 					if (j == M-1) {
+						double dist = double(x_coords[2*N-1] - x_coords[2*(i+1)]);
+						cerr << dist << ' ' << v << ' ' << v + dist << '\n';
 						ans = std::min(ans, v + double(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
 						assert(int(row_bots[j].size()) == i+1);
