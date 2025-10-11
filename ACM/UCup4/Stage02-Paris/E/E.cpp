@@ -215,6 +215,7 @@ std::vector<value_t<T>> smawk(int N, int M, Get&& get, Select&& select) {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	cerr << fixed << setprecision(10);
 
 	int T; cin >> T;
 	while (T--) {
