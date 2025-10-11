@@ -219,6 +219,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
+		cerr << "case " << N << ' ' << M << '\n';
 		std::vector<int> A(N);
 		for (auto& a : A) cin >> a;
 		std::vector<int> B(N);
