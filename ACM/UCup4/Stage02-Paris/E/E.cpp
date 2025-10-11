@@ -254,9 +254,14 @@ int main() {
 				return (*bots)[inp] + std::sqrt(sq(gap) + sq(double((*coords)[2 * outp + 1] - (*coords)[2 * inp + 0])));
 			}
 		};
+		struct selector {
+			bool operator () (smawk::value_t<double> a, smawk::value_t<double> b) const {
+				return a.v < b.v ? 0 : 1;
+			}
+		};
 
-		std::vector<smawk::LARSCH<getter, std::greater<>, double>> rows(M-1);
-		std::vector<smawk::LARSCH<getter, std::greater<>, double>> cols(N-1);
+		std::vector<smawk::LARSCH<getter, selector, double>> rows(M-1);
+		std::vector<smawk::LARSCH<getter, selector, double>> cols(N-1);
 		std::vector<std::vector<double>> row_bots(M-1);
 		std::vector<std::vector<double>> col_bots(N-1);
 		for (int j = 0; j+1 < M; j++) {
