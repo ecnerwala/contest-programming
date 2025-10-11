@@ -281,6 +281,7 @@ int main() {
 				if (0 <= j && j+1 < M && 0 <= i && i < N) {
 					// traverse a row
 					double v = rows[j].push_and_query_next().v;
+					cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
 					if (i == N-1) {
 						ans = std::min(ans, v + double(y_coords[2*M-1] - y_coords[2*(j+1)]));
 					} else {
@@ -291,6 +292,7 @@ int main() {
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
 					double v = cols[i].push_and_query_next().v;
+					cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
 					if (j == M-1) {
 						ans = std::min(ans, v + double(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
