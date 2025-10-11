@@ -235,14 +235,14 @@ int main() {
 
 		std::vector<int64_t> x_coords(2*N);
 		for (int i = 0; i < N; i++) {
-			x_coords[i] = i ? x_coords[i-1] + B[i-1] : 0;
-			x_coords[i+1] = x_coords[i] + A[i];
+			x_coords[2*i] = i ? x_coords[2*i-1] + B[i-1] : 0;
+			x_coords[2*i+1] = x_coords[2*i] + A[i];
 		}
 		for (auto v : x_coords)  { cerr << v << ' ' ;} cerr << '\n';
 		std::vector<int64_t> y_coords(2*M);
 		for (int j = 0; j < M; j++) {
-			y_coords[j] = j ? y_coords[j-1] + D[j-1] : 0;
-			y_coords[j+1] = y_coords[j] + C[j];
+			y_coords[2*j] = j ? y_coords[2*j-1] + D[j-1] : 0;
+			y_coords[2*j+1] = y_coords[2*j] + C[j];
 		}
 		for (auto v : y_coords)  { cerr << v << ' ' ;} cerr << '\n';
 
