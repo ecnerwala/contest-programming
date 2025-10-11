@@ -300,6 +300,7 @@ int main() {
 			if (q.ma - q.mi > 1) {
 				int md = q.mi + (q.ma - q.mi) / 2;
 				ops.push_back({md, q_id});
+				cerr << q_id << ' ' << md << '\n';
 			}
 		}
 		if (ops.empty()) break;
