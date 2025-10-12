@@ -42,7 +42,7 @@ int main() {
 			int o_hi = N;
 			int o_lo = N - l;
 			// t goes from 0..2*N-2
-			int v_0 = *std::min_element(A.begin(), A.begin() + l);
+			int v_0 = *std::max_element(A.begin(), A.begin() + l);
 			int t_0 = 0;
 			while (t_0 < 2*N-2) {
 				segs.push({v_0, l, t_0, t_0 + 1});
