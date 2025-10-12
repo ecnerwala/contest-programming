@@ -54,7 +54,7 @@ int main() {
 					int mi = t_0, ma = t_1;
 					while (ma - mi > 1) {
 						int md = (mi + ma) / 2;
-						int v_md = query(l, mi);
+						int v_md = query(l, md);
 						if (loc[v_md] < t_0 + o_hi) {
 							// we're in the first half, so the beginning is monotonic
 							segs.push({v_md, l, md, mi});
