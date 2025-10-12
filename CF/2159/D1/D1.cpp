@@ -32,7 +32,7 @@ int main() {
 					int mi = -1, ma = int(stk.size());
 					while (ma - mi > 1) {
 						int md = mi + (ma - mi) / 2;
-						if (stk[md].v <= tgt) ma = md;
+						if (stk[md].v >= tgt) ma = md;
 						else mi = md;
 					}
 					dist = std::min(dist, (mi == -1 ? 0 : stk[mi].dist) + l);
