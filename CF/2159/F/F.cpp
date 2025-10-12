@@ -22,7 +22,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				int v; cin >> v; v--;
-				A.push_back(v);
+				A[N*i+j] = v;
 				loc[v] = (i == 0 ? i - j : i + j) + (N-1);
 			}
 		}
