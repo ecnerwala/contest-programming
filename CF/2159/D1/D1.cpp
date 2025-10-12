@@ -20,23 +20,18 @@ int main() {
 			while (!stk.empty() && stk.back().v >= a) {
 				stk.pop_back();
 			}
-			int dist;
-			if (stk.empty()) {
-				dist = 1;
-			} else {
-				dist = stk.back().dist + 1;
-				for (int l = 2; l <= dist; l++) {
-					// we need tgt * l >= a
-					// tgt >= a / l
-					int64_t tgt = (a + l - 1) / l;
-					int mi = -1, ma = int(stk.size());
-					while (ma - mi > 1) {
-						int md = mi + (ma - mi) / 2;
-						if (stk[md].v >= tgt) ma = md;
-						else mi = md;
-					}
-					dist = std::min(dist, (mi == -1 ? 0 : stk[mi].dist) + l);
+			int dist = 1 + (stk.empty() ? 0 : stk.back().dist);
+			for (int l = 2; l <= dist; l++) {
+				// we need tgt * l >= a
+				// tgt >= a / l
+				int64_t tgt = (a + l - 1) / l;
+				int mi = -1, ma = int(stk.size());
+				while (ma - mi > 1) {
+					int md = mi + (ma - mi) / 2;
+					if (stk[md].v >= tgt) ma = md;
+					else mi = md;
 				}
+				dist = std::min(dist, (mi == -1 ? 0 : stk[mi].dist) + l);
 			}
 			cerr << a << ' ' << i << ' ' << dist << '\n';
 			stk.push_back({a, i, dist});
