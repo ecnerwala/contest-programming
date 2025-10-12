@@ -129,8 +129,7 @@ int main() {
 	using num = modnum<int(1e9)+7>;
 	std::array<num, 3> P; cin >> P[2] >> P[1] >> P[0];
 
-	//const int MAXN = int(3e5) + 10;
-	const int MAXN = 50;
+	const int MAXN = int(3e5) + 10;
 	const int B = 600;
 
 	std::vector<std::vector<num>> poly_small(B);
