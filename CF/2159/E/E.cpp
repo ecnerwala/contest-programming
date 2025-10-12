@@ -130,7 +130,7 @@ int main() {
 	std::array<num, 3> P; cin >> P[2] >> P[1] >> P[0];
 
 	const int MAXN = int(3e5) + 10;
-	const int B = 600;
+	const int B = 5;
 
 	std::vector<std::vector<num>> poly_small(B);
 	poly_small[0] = {num(1)};
