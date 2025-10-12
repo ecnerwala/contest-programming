@@ -185,14 +185,12 @@ int main() {
 	}
 
 	auto solve = [&](int n, int k) -> num {
-		cerr << "solve " << n << ' ' << k << '\n';
 		assert(n <= MAXN);
 		int i = n / B, j = n % B;
 		num ans = 0;
 		for (int z = 0; z <= 2 * j && z <= k; z++) {
 			ans += poly_small[j][z] * poly_prefs[i][std::min(2*i*B, k-z)];
 		}
-		cerr << "solve " << n << ' ' << k << " = " << ans << '\n';
 		return ans;
 	};
 
