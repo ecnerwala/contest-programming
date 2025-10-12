@@ -161,7 +161,6 @@ int main() {
 
 	std::vector<std::vector<num>> poly_prefs(MAXN / B + 1);
 	for (int i = 0; i <= MAXN / B; i++) {
-		cerr << "doing " << i << '\n';
 		int n = i * B;
 		poly_prefs[i].reserve(2 * n + 1);
 		poly_prefs[i].push_back(power(P[0], n));
