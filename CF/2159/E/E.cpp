@@ -131,7 +131,7 @@ int main() {
 
 	//const int MAXN = int(3e5) + 10;
 	//const int B = 600;
-	const int MAXN = 50;
+	const int MAXN = 5;
 	const int B = 1;
 
 	std::vector<std::vector<num>> poly_small(B);
