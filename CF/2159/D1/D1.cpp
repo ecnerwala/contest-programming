@@ -36,6 +36,7 @@ int main() {
 					dist = std::min(dist, (mi == -1 ? 0 : stk[mi].dist) + l);
 				}
 			}
+			cerr << a << ' ' << i << ' ' << dist << '\n';
 			stk.push_back({a, i, dist});
 		}
 		cout << stk.back().dist << '\n';
