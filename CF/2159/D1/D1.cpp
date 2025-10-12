@@ -22,7 +22,7 @@ int main() {
 			}
 			int dist;
 			if (stk.empty()) {
-				dist = 0;
+				dist = 1;
 			} else {
 				dist = stk.back().dist + 1;
 				for (int l = 2; l <= dist; l++) {
