@@ -15,7 +15,7 @@ int main() {
 			std::vector<int> min_idx;
 		};
 		std::vector<stk_t> stk; stk.reserve(N+1);
-		stk.push_back({-1, -1, {-1}});
+		stk.push_back({-1, -1, std::vector<int>({-1})});
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
 			int64_t a = A[i];
