@@ -8,7 +8,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		std::vector<int64_t> A(N);
-		for (auto a : A) { cin >> a; }
+		for (auto& a : A) { cin >> a; }
 		struct stk_t {
 			int64_t v;
 			int idx;
