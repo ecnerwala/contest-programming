@@ -26,7 +26,9 @@ int main() {
 			} else {
 				dist = stk.back().dist + 1;
 				for (int l = 2; l <= dist; l++) {
-					int64_t tgt = int64_t(std::min<__int128_t>(__int128_t(l) * __int128_t(a), int64_t(2e18)));
+					// we need tgt * l >= a
+					// tgt >= a / l
+					int64_t tgt = (a + l - 1) / l;
 					int mi = -1, ma = int(stk.size());
 					while (ma - mi > 1) {
 						int md = mi + (ma - mi) / 2;
