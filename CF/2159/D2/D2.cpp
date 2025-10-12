@@ -22,6 +22,7 @@ int main() {
 			while (stk.size() > 1 && stk.back().v >= a) {
 				stk.pop_back();
 			}
+			assert(!stk.empty());
 			std::vector<int> min_idx; min_idx.reserve(1 + stk.back().min_idx.size());
 			min_idx.push_back(i);
 			min_idx.insert(min_idx.end(), stk.back().min_idx.begin(), stk.back().min_idx.end());
