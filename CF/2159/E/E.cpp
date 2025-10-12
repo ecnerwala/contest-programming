@@ -162,11 +162,11 @@ int main() {
 	num invP0 = inv(P[0]);
 
 	std::vector<std::vector<num>> poly_prefs(MAXN / B + 1);
-	for (int j = 0; j <= MAXN / B; j++) {
-		cerr << "doing " << j << '\n';
-		int n = j * B;
-		poly_prefs[j].reserve(2 * n + 1);
-		poly_prefs[j].push_back(power(P[0], n));
+	for (int i = 0; i <= MAXN / B; i++) {
+		cerr << "doing " << i << '\n';
+		int n = i * B;
+		poly_prefs[i].reserve(2 * n + 1);
+		poly_prefs[i].push_back(power(P[0], n));
 
 		for (int z = 1; z <= 2*n; z++) {
 			// lhs is n P' * poly_prefs[j]
@@ -174,15 +174,18 @@ int main() {
 			// rhs is P * poly_prefs[j]'
 			num rhs = 0;
 			for (int y = 1; y <= 2 && y <= z; y++) {
-				lhs += poly_prefs[j][z-y] * P[y] * num(y);
-				rhs += poly_prefs[j][z-y] * P[y] * num(z-y);
+				lhs += poly_prefs[i][z-y] * P[y] * num(y);
+				rhs += poly_prefs[i][z-y] * P[y] * num(z-y);
 			}
 			lhs *= num(n);
-			poly_prefs[j].push_back((lhs - rhs) * invs[z] * invP0);
+			poly_prefs[i].push_back((lhs - rhs) * invs[z] * invP0);
 		}
 
+		cerr << "have " << i*B << '\n';
+		for (auto v : poly_prefs[i]) cerr << v << '\n';
+
 		for (int z = 1; z <= 2*n; z++) {
-			poly_prefs[j][z] += poly_prefs[j][z-1];
+			poly_prefs[i][z] += poly_prefs[i][z-1];
 		}
 	}
 
