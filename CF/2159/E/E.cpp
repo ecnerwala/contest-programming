@@ -182,7 +182,7 @@ int main() {
 		}
 
 		cerr << "have " << i*B << '\n';
-		for (auto v : poly_prefs[i]) cerr << v << '\n';
+		for (auto v : poly_prefs[i]) { cerr << v << ' '; } cerr << '\n';
 
 		for (int z = 1; z <= 2*n; z++) {
 			poly_prefs[i][z] += poly_prefs[i][z-1];
