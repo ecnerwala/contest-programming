@@ -77,6 +77,7 @@ int main() {
 			auto seg = segs.top(); segs.pop();
 			assert(seg.t != seg.t_en);
 			ans.push_back(seg.v);
+			cerr << seg.l << ' ' << seg.t << ' ' << seg.v << '\n';
 			seg.t += (seg.t_en > seg.t ? +1 : -1);
 			if (seg.t != seg.t_en) {
 				int nv = query(seg.l, seg.t);
