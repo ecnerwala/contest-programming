@@ -149,7 +149,7 @@ int main() {
 	{
 		num f = 1;
 		for (int i = 1; i <= 2*MAXN; i++) {
-			invs[i] *= f;
+			invs[i] = f;
 			f *= num(i);
 		}
 		f = inv(f);
