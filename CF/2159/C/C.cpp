@@ -168,7 +168,7 @@ int main() {
 			num ans = 0;
 			for (int i = 0; i <= num_cnds; i++) {
 				num w = fact[num_cnds] * ifact[i] * ifact[num_cnds - i];
-				ans += w * cnt_involutions[i + (A[i] == -1)];
+				ans += w * cnt_involutions[i + (A[N] == -1)];
 			}
 			return ans;
 		}() << '\n';
