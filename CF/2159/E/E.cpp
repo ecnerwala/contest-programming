@@ -129,7 +129,8 @@ int main() {
 	using num = modnum<int(1e9)+7>;
 	std::array<num, 3> P; cin >> P[2] >> P[1] >> P[0];
 
-	const int MAXN = int(3e5) + 10;
+	//const int MAXN = int(3e5) + 10;
+	const int MAXN = 50;
 	const int B = 600;
 
 	std::vector<std::vector<num>> poly_small(B);
@@ -185,12 +186,14 @@ int main() {
 	}
 
 	auto solve = [&](int n, int k) -> num {
+		cerr << "solve " << n << ' ' << k << '\n';
 		assert(n <= MAXN);
 		int i = n / B, j = n % B;
 		num ans = 0;
 		for (int z = 0; z <= 2 * j && z <= k; z++) {
 			ans += poly_small[j][z] * poly_prefs[i][std::min(2*i*B, k-z)];
 		}
+		cerr << "solve " << n << ' ' << k << " = " << ans << '\n';
 		return ans;
 	};
 
