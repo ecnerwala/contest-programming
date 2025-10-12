@@ -27,7 +27,7 @@ int main() {
 			min_idx.push_back(i);
 			min_idx.insert(min_idx.end(), stk.back().min_idx.begin(), stk.back().min_idx.end());
 			// 3 is fine
-			for (int l = 2; l <= 3 && min_idx[l] != -1; l++) {
+			for (int l = 2; l <= 3 && l < int(min_idx.size()); l++) {
 				// we need tgt * l >= a
 				// tgt >= a / l
 				int64_t tgt = (a + l - 1) / l;
