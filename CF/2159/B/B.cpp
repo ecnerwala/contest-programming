@@ -189,6 +189,7 @@ int main() {
 					// this is a good rectangle
 					int j1 = j0 + 1;
 					while (j1 < M && !(G[{i0, j1}] && G[{i1, j1}])) j1++;
+					if (j1 == M) break;
 					int area = l * (j1 - j0 + 1);
 					for (int j = j0; j <= j1; j++) {
 						setmin(ans[{i0, j}], area);
