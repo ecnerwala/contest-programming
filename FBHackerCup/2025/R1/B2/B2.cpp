@@ -205,6 +205,7 @@ int main() {
 				}
 				dp = std::move(ndp);
 			}
+			assert(V == 1);
 		}
 
 		num ans = 0;
