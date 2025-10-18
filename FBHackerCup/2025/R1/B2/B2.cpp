@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 
 namespace kactl {
+using namespace std;
 using ll = int64_t;
 using ull = uint64_t;
 ull modmul(ull a, ull b, ull M) {
@@ -40,7 +41,7 @@ vector<ull> factor(ull n) {
 	if (isPrime(n)) return {n};
 	ull x = pollard(n);
 	auto l = factor(x), r = factor(n / x);
-	l.insert(l.end(), all(r));
+	l.insert(l.end(), r.begin(), r.end());
 	return l;
 }
 }
