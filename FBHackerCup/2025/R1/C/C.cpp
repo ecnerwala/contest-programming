@@ -19,7 +19,7 @@ int main() {
 		for (int i = 0, j = 0; i < int(pref.size()); i = j) {
 			while (j < int(pref.size()) && pref[j] == pref[i]) j++;
 			int cnt = j - i;
-			ans -= int64_t(cnt) * int64_t(cnt + 1) * int64_t(cnt + 2) / 6;
+			ans -= int64_t(cnt - 1) * int64_t(cnt) * int64_t(cnt + 1) / 6;
 		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
