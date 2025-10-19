@@ -10,16 +10,13 @@ int main() {
 		std::string S; cin >> S;
 		assert(int(S.size()) == N);
 		bool alice_wins = [&]() -> bool {
-			if (S.back() == 'A') return true;
-			int val = 1;
-			for (int i = N-2; i >= 0; i--) {
-				if (S[i] == S[i+1]) {
-					if (S[i] == 'B') {
-						val++;
-					} else if (S[i] == 'A') {
-						val--;
-						if (val == 0) return true;
-					} else assert(false);
+			int val = 0;
+			for (int i = N-1; i >= 0; i--) {
+				if (S[i] == 'A') {
+					if (!val) return true;
+					val--;
+				} else {
+					val++;
 				}
 			}
 			return false;
