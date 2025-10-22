@@ -126,6 +126,8 @@ public:
 			assert(false);
 		}
 		for (; l >= 0; l--) {
+			std::cerr << l << '\n';
+			dump_state();
 			int r = inp_row >> l;
 			assert(!(r & 1));
 			int row = ((r+1) << l) - 1;
