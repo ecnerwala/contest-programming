@@ -149,6 +149,7 @@ public:
 				bests[l].second++;
 			}
 			assert(did_set);
+			if (DEBUG) std::cerr << "nbest " << l << ' ' << row << ' ' << nbest.v.second.first << ' ' << nbest.col << '\n';
 		}
 		assert(l == -1);
 		return nbest;
