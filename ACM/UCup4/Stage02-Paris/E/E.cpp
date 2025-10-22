@@ -130,7 +130,7 @@ public:
 			int r = inp_row >> l;
 			assert(!(r & 1));
 			int row = ((r+1) << l) - 1;
-			if (DEBUG) std::cerr << "row " << row << '\n';
+			if (DEBUG) std::cerr << "row " << l << ' ' << row << '\n';
 			bests[l].first = std::move(nbest);
 			bool did_set = false;
 			dump_state();
