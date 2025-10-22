@@ -126,18 +126,18 @@ public:
 			assert(false);
 		}
 		for (; l >= 0; l--) {
-			std::cerr << l << '\n';
+			if (DEBUG) std::cerr << l << '\n';
 			int r = inp_row >> l;
 			assert(!(r & 1));
 			int row = ((r+1) << l) - 1;
-			std::cerr << "row " << row << '\n';
+			if (DEBUG) std::cerr << "row " << row << '\n';
 			bests[l].first = std::move(nbest);
 			bool did_set = false;
 			dump_state();
 			while (true) {
 				int idx = bests[l].second;
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
-				std::cerr << "col " << col << ' ' << bests[l].first.col << '\n';
+				if (DEBUG) std::cerr << "col " << col << ' ' << bests[l].first.col << '\n';
 				value_t<T> cnd;
 				if (l > 0 && idx == r) cnd = {std::move(stk[l-1][r].v), col};
 				else cnd = {get(row, col), col};
