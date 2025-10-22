@@ -44,10 +44,12 @@ public:
 	}
 
 	void dump_state() {
-		for (const auto& s : stk) {
-			for (const auto& v : s) {
-				std::cerr << v.v << '@' << v.col << '\n';
-			}
+		using std::cerr;
+		for (int l = 0; l < L; l++) {
+			const auto& s = stk[l];
+			const auto& b = bests[l];
+			cerr << b.first.v << '@' << b.second << ' ';
+			for (auto v : s) { cerr << v.col << ' '; } cerr << '\n';
 		}
 	}
 
