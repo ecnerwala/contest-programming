@@ -255,7 +255,7 @@ int main() {
 			dbl operator () (int outp, int inp) const {
 				assert(outp >= inp);
 				assert(inp < int(bots->size()));
-				auto sq = [](dbl a) { return a * a; };
+				auto sq = [](uint64_t a) { return a * a; };
 				return (*bots)[inp] + std::sqrt(double(sq(gap) + sq((*coords)[2 * outp + 1] - (*coords)[2 * inp + 0])));
 			}
 		};
