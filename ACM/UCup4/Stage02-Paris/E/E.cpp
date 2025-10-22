@@ -318,7 +318,7 @@ int main() {
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
-					if (i == 8 && j >= 688 - 2) {
+					if (i == 8 && j >= 688 - 30) {
 						cerr << "col bot " << i << ' ' << j << ' ' << col_bots[i][j] << '\n';
 						cols[i].DEBUG = true;
 						cols[i].dump_state();
