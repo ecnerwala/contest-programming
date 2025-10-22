@@ -43,6 +43,14 @@ public:
 		num_rows = 0;
 	}
 
+	void dump_state() {
+		for (const auto& s : stk) {
+			for (const auto& v : s) {
+				std::cerr << v.v << '@' << v.col << '\n';
+			}
+		}
+	}
+
 	value_t<T> push_and_query_next() {
 		assert(num_rows < N);
 		int inp_row = num_rows++;
@@ -297,7 +305,10 @@ int main() {
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
-					if (i == 8) cerr << "col bot " << i << ' ' << j << ' ' << col_bots[i][j] << '\n';
+					if (i == 8 && j == 688) {
+						cerr << "col bot " << i << ' ' << j << ' ' << col_bots[i][j] << '\n';
+						cols[i].dump_state();
+					}
 					dbl v = cols[i].push_and_query_next().v;
 					if (i == 8) cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
 					if (j == M-1) {
