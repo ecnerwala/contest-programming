@@ -135,8 +135,6 @@ public:
 			bests[l].first = std::move(nbest);
 			bool did_set = false;
 			while (true) {
-				std::cerr << l << '\n';
-				dump_state();
 				int idx = bests[l].second;
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
 				std::cerr << "col " << col << ' ' << bests[l].first.col << '\n';
