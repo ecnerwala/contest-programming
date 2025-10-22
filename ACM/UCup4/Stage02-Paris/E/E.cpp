@@ -43,7 +43,10 @@ public:
 		num_rows = 0;
 	}
 
+	bool DEBUG = false;
+
 	void dump_state() {
+		if (!DEBUG) return;
 		using std::cerr;
 		for (int l = 0; l < L; l++) {
 			const auto& s = stk[l];
@@ -310,6 +313,7 @@ int main() {
 					// traverse a col
 					if (i == 8 && j == 688) {
 						cerr << "col bot " << i << ' ' << j << ' ' << col_bots[i][j] << '\n';
+						cols[i].DEBUG = true;
 						cols[i].dump_state();
 					}
 					dbl v = cols[i].push_and_query_next().v;
