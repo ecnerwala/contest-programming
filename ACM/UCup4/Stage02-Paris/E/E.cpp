@@ -138,6 +138,7 @@ public:
 				dump_state();
 				int idx = bests[l].second;
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
+				std::cerr << "col " << col << ' ' << bests[l].first.col << '\n';
 				value_t<T> cnd;
 				if (l > 0 && idx == r) cnd = {std::move(stk[l-1][r].v), col};
 				else cnd = {get(row, col), col};
