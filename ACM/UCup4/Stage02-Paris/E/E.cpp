@@ -127,13 +127,13 @@ public:
 		}
 		for (; l >= 0; l--) {
 			std::cerr << l << '\n';
-			dump_state();
 			int r = inp_row >> l;
 			assert(!(r & 1));
 			int row = ((r+1) << l) - 1;
 			std::cerr << "row " << row << '\n';
 			bests[l].first = std::move(nbest);
 			bool did_set = false;
+			dump_state();
 			while (true) {
 				int idx = bests[l].second;
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
