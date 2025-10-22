@@ -48,7 +48,7 @@ public:
 		for (int l = 0; l < L; l++) {
 			const auto& s = stk[l];
 			const auto& b = bests[l];
-			cerr << b.first.v << '@' << b.second << ' ';
+			cerr << b.first.col << '@' << b.second << ' ';
 			for (auto v : s) { cerr << v.col << ' '; } cerr << '\n';
 		}
 	}
