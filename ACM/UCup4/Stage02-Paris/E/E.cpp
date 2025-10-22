@@ -53,7 +53,7 @@ public:
 			const auto& b = bests[l];
 			cerr << l << ' ' << b.first.v.second.first << ',' << b.first.col << '@' << b.second << ' ';
 			cerr << s.size() << ' ';
-			for (int z = 0; z < int(s.size()); z++) {
+			for (int z = int(s.size())-1; z >= 0; z--) {
 				auto v = s[z];
 				cerr << z << ':' << v.v.second.first << ',' << v.col << ' ';
 			}
