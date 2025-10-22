@@ -150,6 +150,7 @@ public:
 				if (col == bests[l].first.col) break;
 				bests[l].second++;
 			}
+			assert(did_set);
 		}
 		assert(l == -1);
 		return nbest;
