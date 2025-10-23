@@ -124,7 +124,6 @@ public:
 				int idx = bests[l].second;
 				assert(idx <= r);
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
-				assert(col <= bests[l].first.col);
 				value_t<T> cnd;
 				if (l > 0 && idx == r) cnd = {std::move(stk[l-1][r].v), col};
 				else cnd = {get(row, col), col};
