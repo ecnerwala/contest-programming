@@ -131,7 +131,7 @@ public:
 					did_set = true;
 					nbest = std::move(cnd);
 				}
-				if (col >= bests[l].first.col) break;
+				if (col == bests[l].first.col) break;
 				bests[l].second++;
 			}
 			assert(did_set);
