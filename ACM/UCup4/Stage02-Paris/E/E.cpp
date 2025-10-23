@@ -260,7 +260,7 @@ int main() {
 			std::vector<dbl>* bots = nullptr;
 			int gap = 0;
 			dbl operator () (int outp, int inp) const {
-				if (inp > outp)
+				if (inp > outp) return 1e99;
 				NUM_GET++;
 				assert(outp >= inp);
 				assert(inp < int(bots->size()));
