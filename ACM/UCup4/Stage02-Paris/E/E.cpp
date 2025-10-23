@@ -327,7 +327,7 @@ int main() {
 					// traverse a col
 					if (i == 8 && j >= 688 - 30) {
 						cerr << "col bot " << i << ' ' << j << ' ' << col_bots[i][j] << '\n';
-						cols[i].DEBUG = true;
+						//cols[i].DEBUG = true;
 						cols[i].dump_state();
 					}
 					dbl v = cols[i].push_and_query_next().v.first;
