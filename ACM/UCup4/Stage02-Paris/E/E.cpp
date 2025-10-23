@@ -79,7 +79,7 @@ public:
 				value_t<T> prv_col_top;
 				if (l == 0) prv_col_top = {get(row, col), col};
 				else prv_col_top = {std::move(stk[l-1][r].v), stk[l-1][r].col};
-				assert(bests[l].second < (r+1)/2);
+				assert(bests[l].second <= (r+1)/2);
 				// just check this guy at this row, and then push it into the next layer, but don't query yet
 				if (select(row, bests[l].first, prv_col_top)) {
 					// prv_col_top is better here
