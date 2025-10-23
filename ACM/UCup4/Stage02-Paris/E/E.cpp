@@ -276,7 +276,7 @@ int main() {
 		};
 
 		std::vector<smawk::LARSCH<getter, selector>> rows(M-1);
-		std::vector<smawk::LARSCH<getter, selector>> cols(N-1);
+		//std::vector<smawk::LARSCH<getter, selector>> cols(N-1);
 		std::vector<std::vector<dbl>> row_bots(M-1);
 		std::vector<std::vector<dbl>> col_bots(N-1);
 		for (int j = 0; j+1 < M; j++) {
@@ -287,7 +287,7 @@ int main() {
 		for (int i = 0; i+1 < N; i++) {
 			col_bots[i].reserve(M);
 			col_bots[i].push_back(dbl(x_coords[2*i+1]));
-			cols[i] = smawk::LARSCH<getter, selector>(M, getter{&y_coords, &col_bots[i], B[i]}, selector());
+			//cols[i] = smawk::LARSCH<getter, selector>(M, getter{&y_coords, &col_bots[i], B[i]}, selector());
 		}
 
 		dbl ans = dbl(x_coords[2*N-1] + y_coords[2*M-1]);
