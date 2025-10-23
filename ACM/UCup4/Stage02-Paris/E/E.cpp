@@ -137,6 +137,7 @@ public:
 					// We're in an inconsistent state, where we advanced in the r&1 case but the lower layers didn't.
 					// This should be somewhat robust: our current column is at least as good as everything to the left of it, so we can use it as the standin for the argmin.
 					assert(bests[l].second == r);
+					bests[l].first.col = col;
 					break;
 				}
 				if (col == bests[l].first.col) break;
