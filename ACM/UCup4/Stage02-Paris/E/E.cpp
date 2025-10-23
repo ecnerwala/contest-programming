@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 
+int NUM_GET = 0;
 int NUM_SELECT = 0;
 
 namespace smawk {
@@ -286,6 +287,7 @@ int main() {
 			std::vector<dbl>* bots = nullptr;
 			int gap = 0;
 			std::pair<dbl, std::pair<int, int>> operator () (int outp, int inp) const {
+				NUM_GET++;
 				assert(outp >= inp);
 				assert(inp < int(bots->size()));
 				auto sq = [](uint64_t a) { return a * a; };
@@ -347,6 +349,7 @@ int main() {
 				}
 			}
 		}
+		cerr << "NUM_GET " << NUM_GET << '\n';
 		cerr << "NUM_SELECT " << NUM_SELECT << '\n';
 		cout << fixed << setprecision(20) << ans << '\n';
 	}
