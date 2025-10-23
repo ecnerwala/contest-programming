@@ -46,24 +46,6 @@ public:
 		num_rows = 0;
 	}
 
-	bool DEBUG = false;
-
-	void dump_state() {
-		if (!DEBUG) return;
-		using std::cerr;
-		for (int l = 0; l < L; l++) {
-			const auto& s = stk[l];
-			const auto& b = bests[l];
-			cerr << l << ' ' << b.first.v.second.first << ',' << b.first.col << '@' << b.second << ' ';
-			cerr << s.size() << ' ';
-			for (int z = int(s.size())-1; z >= 0; z--) {
-				auto v = s[z];
-				cerr << z << ':' << v.v.second.first << ',' << v.col << ' ';
-			}
-			cerr << '\n';
-		}
-	}
-
 	value_t<T> push_and_query_next() {
 		assert(num_rows < N);
 		int inp_row = num_rows++;
@@ -71,8 +53,6 @@ public:
 		int l = 0;
 		value_t<T> nbest;
 		while (true) {
-			if (DEBUG) std::cerr << l << '\n';
-			dump_state();
 			int r = inp_row >> l;
 			int col = l == 0 ? inp_row : stk[l-1][r].col;
 			if (r & 1) {
@@ -135,19 +115,15 @@ public:
 			assert(false);
 		}
 		for (; l >= 0; l--) {
-			if (DEBUG) std::cerr << l << '\n';
 			int r = inp_row >> l;
 			assert(!(r & 1));
 			int row = ((r+1) << l) - 1;
-			if (DEBUG) std::cerr << "row " << l << ' ' << row << '\n';
 			bests[l].first = std::move(nbest);
 			bool did_set = false;
-			dump_state();
 			while (true) {
 				int idx = bests[l].second;
 				assert(idx <= r);
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
-				if (DEBUG) std::cerr << "col " << col << ' ' << bests[l].first.col << '\n';
 				value_t<T> cnd;
 				if (l > 0 && idx == r) cnd = {std::move(stk[l-1][r].v), col};
 				else cnd = {get(row, col), col};
@@ -156,13 +132,9 @@ public:
 					nbest = std::move(cnd);
 				}
 				if (col >= bests[l].first.col) break;
-				// NB: This check helps prevent inconsistencies if we advanced bests[l].second in the r&1 case
-				// but the row below prefers something earlier.
-				if (idx == r) break;
 				bests[l].second++;
 			}
 			assert(did_set);
-			if (DEBUG) std::cerr << "nbest " << l << ' ' << row << ' ' << nbest.v.second.first << ' ' << nbest.col << '\n';
 		}
 		assert(l == -1);
 		return nbest;
@@ -287,18 +259,19 @@ int main() {
 			std::vector<int64_t>* coords = nullptr;
 			std::vector<dbl>* bots = nullptr;
 			int gap = 0;
-			std::pair<dbl, std::pair<int, int>> operator () (int outp, int inp) const {
+			dbl operator () (int outp, int inp) const {
+				if (inp > outp)
 				NUM_GET++;
 				assert(outp >= inp);
 				assert(inp < int(bots->size()));
 				auto sq = [](uint64_t a) { return a * a; };
-				return {(*bots)[inp] + std::sqrt(double(sq(gap) + sq((*coords)[2 * outp + 1] - (*coords)[2 * inp + 0]))), {outp, inp}};
+				return (*bots)[inp] + std::sqrt(double(sq(gap) + sq((*coords)[2 * outp + 1] - (*coords)[2 * inp + 0])));
 			}
 		};
 		struct selector {
-			bool operator () (int, smawk::value_t<std::pair<dbl, std::pair<int, int>>> a, smawk::value_t<std::pair<dbl, std::pair<int, int>>> b) const {
+			bool operator () (int, smawk::value_t<dbl> a, smawk::value_t<dbl> b) const {
 				NUM_SELECT++;
-				return a.v.first < b.v.first ? 0 : 1;
+				return a.v < b.v ? 0 : 1;
 			}
 		};
 
@@ -319,28 +292,20 @@ int main() {
 
 		dbl ans = dbl(x_coords[2*N-1] + y_coords[2*M-1]);
 		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if (0 <= j && j+1 < M && 0 <= i && i < N) {
-					// traverse a row
-					if (false) cerr << "row bot " << i << ' ' << j << ' ' << row_bots[j][i] << '\n';
-					dbl v = rows[j].push_and_query_next().v.first;
-					if (false) cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
-					if (i == N-1) {
-						ans = std::min(ans, v + dbl(y_coords[2*M-1] - y_coords[2*(j+1)]));
-					} else {
-						assert(int(col_bots[i].size()) == j+1);
-						col_bots[i].push_back(v);
-					}
+			for (int j = 0; j+1 < M; j++) {
+				// traverse a row
+				dbl v = rows[j].push_and_query_next().v;
+				if (i == N-1) {
+					ans = std::min(ans, v + dbl(y_coords[2*M-1] - y_coords[2*(j+1)]));
+				} else {
+					assert(int(col_bots[i].size()) == j+1);
+					col_bots[i].push_back(v);
 				}
-				if (0 <= i && i+1 < N && 0 <= j && j < M) {
+			}
+			if (i+1 < N) {
+				for (int j = 0; j < M; j++) {
 					// traverse a col
-					if (false && (i == 8 && j >= 688 - 30)) {
-						cerr << "col bot " << i << ' ' << j << ' ' << col_bots[i][j] << '\n';
-						//cols[i].DEBUG = true;
-						cols[i].dump_state();
-					}
-					dbl v = cols[i].push_and_query_next().v.first;
-					if (false && i == 8) cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
+					dbl v = cols[i].push_and_query_next().v;
 					if (j == M-1) {
 						ans = std::min(ans, v + dbl(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
