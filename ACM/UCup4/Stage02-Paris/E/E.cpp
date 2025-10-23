@@ -124,6 +124,7 @@ public:
 				int idx = bests[l].second;
 				assert(idx <= r);
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
+				assert(col <= bests[l].first.col);
 				value_t<T> cnd;
 				if (l > 0 && idx == r) cnd = {std::move(stk[l-1][r].v), col};
 				else cnd = {get(row, col), col};
@@ -132,7 +133,6 @@ public:
 					nbest = std::move(cnd);
 				}
 				if (col == bests[l].first.col) break;
-				if (idx == r) break;
 				bests[l].second++;
 			}
 			assert(did_set);
@@ -272,7 +272,7 @@ int main() {
 		struct selector {
 			bool operator () (int, smawk::value_t<dbl> a, smawk::value_t<dbl> b) const {
 				NUM_SELECT++;
-				return a.v < b.v ? 0 : 1;
+				return a.v <= b.v ? 0 : 1;
 			}
 		};
 
