@@ -313,9 +313,9 @@ int main() {
 			for (int j = 0; j < M; j++) {
 				if (0 <= j && j+1 < M && 0 <= i && i < N) {
 					// traverse a row
-					if (false) cerr << "row bot " << i << ' ' << j << ' ' << row_bots[j][i] << '\n';
+					if (true) cerr << "row bot " << i << ' ' << j << ' ' << row_bots[j][i] << '\n';
 					dbl v = rows[j].push_and_query_next().v.first;
-					if (false) cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
+					if (true) cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
 					if (i == N-1) {
 						ans = std::min(ans, v + dbl(y_coords[2*M-1] - y_coords[2*(j+1)]));
 					} else {
@@ -325,13 +325,13 @@ int main() {
 				}
 				if (0 <= i && i+1 < N && 0 <= j && j < M) {
 					// traverse a col
-					if (i == 8 && j >= 688 - 30) {
+					if (true || (i == 8 && j >= 688 - 30)) {
 						cerr << "col bot " << i << ' ' << j << ' ' << col_bots[i][j] << '\n';
 						//cols[i].DEBUG = true;
 						cols[i].dump_state();
 					}
 					dbl v = cols[i].push_and_query_next().v.first;
-					if (i == 8) cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
+					if (true || i == 8) cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
 					if (j == M-1) {
 						ans = std::min(ans, v + dbl(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
