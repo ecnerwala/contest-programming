@@ -140,6 +140,7 @@ public:
 			dump_state();
 			while (true) {
 				int idx = bests[l].second;
+				assert(idx <= r);
 				int col = (l == 0 ? idx : stk[l-1][idx].col);
 				if (DEBUG) std::cerr << "col " << col << ' ' << bests[l].first.col << '\n';
 				value_t<T> cnd;
@@ -150,6 +151,7 @@ public:
 					nbest = std::move(cnd);
 				}
 				if (col == bests[l].first.col) break;
+				if (idx == r) break;
 				bests[l].second++;
 			}
 			assert(did_set);
