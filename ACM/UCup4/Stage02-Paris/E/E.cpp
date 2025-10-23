@@ -68,7 +68,7 @@ public:
 		int l = 0;
 		value_t<T> nbest;
 		while (true) {
-			std::cerr << l << '\n';
+			if (DEBUG) std::cerr << l << '\n';
 			dump_state();
 			int r = inp_row >> l;
 			int col = l == 0 ? inp_row : stk[l-1][r].col;
