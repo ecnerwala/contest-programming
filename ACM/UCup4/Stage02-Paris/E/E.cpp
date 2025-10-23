@@ -272,7 +272,7 @@ int main() {
 		struct selector {
 			bool operator () (int, smawk::value_t<dbl> a, smawk::value_t<dbl> b) const {
 				NUM_SELECT++;
-				return a.v <= b.v ? 0 : 1;
+				return a.v < b.v ? 0 : 1;
 			}
 		};
 
