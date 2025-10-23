@@ -276,7 +276,7 @@ int main() {
 		};
 
 		std::vector<smawk::LARSCH<getter, selector>> rows(M-1);
-		//std::vector<smawk::LARSCH<getter, selector>> cols(N-1);
+		std::vector<smawk::LARSCH<getter, selector>> cols(N-1);
 		std::vector<std::vector<dbl>> row_bots(M-1);
 		std::vector<std::vector<dbl>> col_bots(N-1);
 		for (int j = 0; j+1 < M; j++) {
@@ -287,7 +287,7 @@ int main() {
 		for (int i = 0; i+1 < N; i++) {
 			col_bots[i].reserve(M);
 			col_bots[i].push_back(dbl(x_coords[2*i+1]));
-			//cols[i] = smawk::LARSCH<getter, selector>(M, getter{&y_coords, &col_bots[i], B[i]}, selector());
+			cols[i] = smawk::LARSCH<getter, selector>(M, getter{&y_coords, &col_bots[i], B[i]}, selector());
 		}
 
 		dbl ans = dbl(x_coords[2*N-1] + y_coords[2*M-1]);
@@ -303,10 +303,11 @@ int main() {
 				}
 			}
 			if (i+1 < N) {
-				auto res = smawk::smawk(M, M, getter{&y_coords, &col_bots[i], B[i]}, selector());
+				//auto res = smawk::smawk(M, M, getter{&y_coords, &col_bots[i], B[i]}, selector());
 				for (int j = 0; j < M; j++) {
 					// traverse a col
-					dbl v = res[j].v;
+					//dbl v = res[j].v;
+					dbl v = cols[i].push_and_query_next().v;
 					if (j == M-1) {
 						ans = std::min(ans, v + dbl(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
