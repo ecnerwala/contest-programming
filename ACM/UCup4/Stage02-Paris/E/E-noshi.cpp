@@ -257,13 +257,13 @@ template <class T> class larsch {
         state = next_argmin;
         int ret = prev_argmin;
         for (int j = prev_argmin + 1; j <= next_argmin; j += 1) {
-          if (f(cur_row_, ret) > f(cur_row_, j)) {
+          if (f(cur_row_, ret) >= f(cur_row_, j)) {
             ret = j;
           }
         }
         return ret;
       } else {
-        if (f(cur_row_, state) <= f(cur_row_, cur_row_)) {
+        if (f(cur_row_, state) < f(cur_row_, cur_row_)) {
           return state;
         } else {
           return cur_row_;
@@ -299,7 +299,7 @@ template <class T> class larsch {
       for (const int j : cs) {
         while ([&]() {
           const int size = cols.size();
-          return size != cur_row_ && f(size - 1, cols.back()) > f(size - 1, j);
+          return size != cur_row_ && f(size - 1, cols.back()) >= f(size - 1, j);
         }()) {
           cols.pop_back();
         }
