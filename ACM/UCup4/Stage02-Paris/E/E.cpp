@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+int NUM_SELECT = 0;
+
 namespace smawk {
 
 template <typename T> struct value_t {
@@ -77,7 +79,7 @@ public:
 				value_t<T> prv_col_top;
 				if (l == 0) prv_col_top = {get(row, col), col};
 				else prv_col_top = {std::move(stk[l-1][r].v), stk[l-1][r].col};
-
+				assert(bests[l].second < (r+1)/2);
 				// just check this guy at this row, and then push it into the next layer, but don't query yet
 				if (select(row, bests[l].first, prv_col_top)) {
 					// prv_col_top is better here
@@ -86,6 +88,7 @@ public:
 					// optimization: since we're the global best, we know we'll kill the entire rest of the stack, so just do it here
 					assert(int(stk[l].size()) >= (r+1)/2);
 					stk[l].resize((r+1)/2);
+					// TODO: Maybe we should also optimize the layers below: they should all get pruned too. This also helps the inconsistencies later on.
 				}
 			}
 			if (l < L) {
@@ -151,6 +154,8 @@ public:
 					nbest = std::move(cnd);
 				}
 				if (col == bests[l].first.col) break;
+				// NB: This check helps prevent inconsistencies if we advanced bests[l].second in the r&1 case
+				// but the row below prefers something earlier.
 				if (idx == r) break;
 				bests[l].second++;
 			}
@@ -289,6 +294,7 @@ int main() {
 		};
 		struct selector {
 			bool operator () (int, smawk::value_t<std::pair<dbl, std::pair<int, int>>> a, smawk::value_t<std::pair<dbl, std::pair<int, int>>> b) const {
+				NUM_SELECT++;
 				return a.v.first < b.v.first ? 0 : 1;
 			}
 		};
@@ -341,6 +347,7 @@ int main() {
 				}
 			}
 		}
+		cerr << "NUM_SELECT " << NUM_SELECT << '\n';
 		cout << fixed << setprecision(20) << ans << '\n';
 	}
 
