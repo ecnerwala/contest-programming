@@ -82,12 +82,12 @@ public:
 				else prv_col_top = {std::move(stk[l-1][r].v), stk[l-1][r].col};
 				assert(bests[l].first.col <= prv_col_top.col);
 				std::cerr << bests[l].second << ' ' << (r+1)/2 << '\n';
-				assert(bests[l].second <= (r+1)/2);
+				assert(bests[l].second <= r);
 				// just check this guy at this row, and then push it into the next layer, but don't query yet
 				if (select(row, bests[l].first, prv_col_top)) {
 					// prv_col_top is better here
 					bests[l].first = std::move(prv_col_top);
-					bests[l].second = (r+1)/2;
+					bests[l].second = r;
 					// optimization: since we're the global best, we know we'll kill the entire rest of the stack, so just do it here
 					assert(int(stk[l].size()) >= (r+1)/2);
 					stk[l].resize((r+1)/2);
