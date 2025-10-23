@@ -253,6 +253,7 @@ template <class T> class larsch {
             return rec->get_argmin();
           }
         }();
+		assert(next_argmin >= prev_argmin);
         state = next_argmin;
         int ret = prev_argmin;
         for (int j = prev_argmin + 1; j <= next_argmin; j += 1) {
