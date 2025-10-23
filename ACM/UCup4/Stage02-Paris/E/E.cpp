@@ -303,11 +303,11 @@ int main() {
 				}
 			}
 			if (i+1 < N) {
-				auto res = smawk::smawk(M, M, getter{&y_coords, &col_bots[i], B[i]}, selector());
+				//auto res = smawk::smawk(M, M, getter{&y_coords, &col_bots[i], B[i]}, selector());
 				for (int j = 0; j < M; j++) {
 					// traverse a col
-					dbl v = res[j].v;
-					//dbl v = cols[i].push_and_query_next().v;
+					//dbl v = res[j].v;
+					dbl v = cols[i].push_and_query_next().v;
 					if (j == M-1) {
 						ans = std::min(ans, v + dbl(x_coords[2*N-1] - x_coords[2*(i+1)]));
 					} else {
