@@ -158,7 +158,7 @@ public:
 				if (col >= bests[l].first.col) break;
 				// NB: This check helps prevent inconsistencies if we advanced bests[l].second in the r&1 case
 				// but the row below prefers something earlier.
-				if (idx == r) break;
+				//if (idx == r) break;
 				bests[l].second++;
 			}
 			assert(did_set);
