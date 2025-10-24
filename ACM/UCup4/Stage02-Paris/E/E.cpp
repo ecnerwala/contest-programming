@@ -86,6 +86,7 @@ public:
 				// We've committed to the new column being the best, so let's prune the stack and propagate to ensure consistency.
 				assert(int(stk[l].size()) >= (r+1)/2);
 				stk[l].resize((r+1)/2);
+				// We can just set .second only, since the only time it's read is the r&1 case, which will override bests[l].first
 				if (l+1 < L) bests[l+1].second = (r+1)/2;
 			}
 			std::optional<value_t<T>> to_push;
