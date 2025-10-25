@@ -351,7 +351,6 @@ int main() {
 				stk.pop_back();
 				assert(!stk.empty());
 			}
-			std::cerr << "flipping " << stk.back().second + 1 << "..<" << i << '\n';
 			auto rng = layout.get_range(stk.back().second + 1, i);
 			rng.for_parents_down(downdate_node);
 			rng.for_each(apply_lazy);
