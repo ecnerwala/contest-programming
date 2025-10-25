@@ -351,7 +351,7 @@ int main() {
 				stk.pop_back();
 				assert(!stk.empty());
 			}
-			auto rng = layout.get_range(stk.back().first + 1, i);
+			auto rng = layout.get_range(stk.back().second + 1, i);
 			rng.for_parents_down(downdate_node);
 			rng.for_each(apply_lazy);
 			rng.for_parents_up(update_node);
