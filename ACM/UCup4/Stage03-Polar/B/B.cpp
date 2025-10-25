@@ -74,7 +74,7 @@ int main() {
 					setmin(in_dp[cur][tot - i], dp[i]);
 				}
 			}
-		});
+		})(0, -1);
 		cout << in_dp[0][0] << '\n';
 	}
 
