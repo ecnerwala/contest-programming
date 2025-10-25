@@ -139,14 +139,14 @@ int main() {
 	for (int i = N&1; i <= N; i += 2) {
 		delta_ways[i] = choose(N, (N + i) / 2) - choose(N, (N + i) / 2 + 1);
 	}
-	for (auto v : delta_ways) { cerr << v << ' '; } cerr << '\n';
+	//for (auto v : delta_ways) { cerr << v << ' '; } cerr << '\n';
 
 	for (int z = 0; z < 2; z++) {
 		for (int i = N; i >= 1; i--) {
 			delta_ways[i-1] += delta_ways[i];
 		}
 	}
-	for (auto v : delta_ways) { cerr << v << ' '; } cerr << '\n';
+	//for (auto v : delta_ways) { cerr << v << ' '; } cerr << '\n';
 
 	std::vector<num> ans(N+1);
 	for (int k = 0; k <= N; k++) {
@@ -158,7 +158,7 @@ int main() {
 			if (c+w <= N) ans[k] -= s * delta_ways[c + w];
 			if (c+2*w-1 <= N) ans[k] += s * delta_ways[c + 2 * w - 1];
 		}
-		cerr << k << ' ' << ans[k] << '\n';
+		//cerr << k << ' ' << ans[k] << '\n';
 	}
 	for (int k = N; k >= 1; k--) {
 		ans[k] -= ans[k-1];
