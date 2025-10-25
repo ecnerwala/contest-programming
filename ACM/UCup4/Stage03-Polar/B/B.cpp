@@ -41,7 +41,7 @@ int main() {
 		std::vector<int> sz(N);
 		std::vector<std::vector<int64_t>> out_dp(N);
 		std::vector<std::vector<int64_t>> in_dp(N);
-		std::y_combinator([&](auto&& self, int cur, int prv) -> std::pair<std::vector<int>, std::vector<int>> {
+		std::y_combinator([&](auto&& self, int cur, int prv) -> void {
 			sz[cur] = 1;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
