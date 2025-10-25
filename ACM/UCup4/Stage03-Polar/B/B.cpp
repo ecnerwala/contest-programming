@@ -70,7 +70,7 @@ int main() {
 				if (tot <= sz[cur]) {
 					setmin(out_dp[cur][tot], dp[tot]);
 				}
-				for (int i = 1; i <= tot; i++) {
+				for (int i = 1; i <= tot && i <= sz[cur]; i++) {
 					setmin(in_dp[cur][tot - i], dp[i]);
 				}
 			}
