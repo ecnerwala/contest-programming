@@ -155,6 +155,7 @@ int main() {
 			if (c+w <= N) ans[k] -= delta_ways[c + w];
 			if (c+2*w-1 <= N) ans[k] += delta_ways[c + 2 * w - 1];
 		}
+		cerr << k << ' ' << ans[k] << '\n';
 	}
 	for (int k = N; k >= 1; k--) {
 		ans[k] -= ans[k-1];
