@@ -141,7 +141,7 @@ int main() {
 	}
 	for (auto v : delta_ways) { cerr << v << ' '; } cerr << '\n';
 
-	for (int z = 0; z <= 2; z++) {
+	for (int z = 0; z < 2; z++) {
 		for (int i = N; i >= 1; i--) {
 			delta_ways[i-1] += delta_ways[i];
 		}
