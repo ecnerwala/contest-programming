@@ -160,7 +160,7 @@ int main() {
 		ans[k] -= ans[k-1];
 	}
 	for (int k = 0; k <= N; k++) {
-		cout << ans[k] << '\n';
+		cout << ans[k] << " \n"[k+1==N];
 	}
 
 	return 0;
