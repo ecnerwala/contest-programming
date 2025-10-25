@@ -356,6 +356,7 @@ int main() {
 			rng.for_parents_down(downdate_node);
 			rng.for_each(apply_lazy);
 			rng.for_parents_up(update_node);
+
 			stk.push_back({S[i].first, i});
 		}
 		for (auto q : queries_by_r[i]) {
