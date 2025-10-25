@@ -152,10 +152,11 @@ int main() {
 	for (int k = 0; k <= N; k++) {
 		int w = k+2;
 		for (int c = 0; c <= N; c += 2 * w - 1) {
-			ans[k] += delta_ways[c];
-			if (c+w-1 <= N) ans[k] -= delta_ways[c + w - 1];
-			if (c+w <= N) ans[k] -= delta_ways[c + w];
-			if (c+2*w-1 <= N) ans[k] += delta_ways[c + 2 * w - 1];
+			num s = (c & 1) ? -1 : 1;
+			ans[k] += s * delta_ways[c];
+			if (c+w-1 <= N) ans[k] -= s * delta_ways[c + w - 1];
+			if (c+w <= N) ans[k] -= s * delta_ways[c + w];
+			if (c+2*w-1 <= N) ans[k] += s * delta_ways[c + 2 * w - 1];
 		}
 		cerr << k << ' ' << ans[k] << '\n';
 	}
