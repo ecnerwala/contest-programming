@@ -321,7 +321,7 @@ int main() {
 	seg_tree::in_order_layout layout(L);
 	std::vector<seg_t> seg(layout.N * 2);
 	auto apply_lazy = [&](seg_tree::point a) -> void {
-		seg[a].lazy ^= 1;
+		seg[a].lazy = !seg[a].lazy;
 		seg[a].v *= -1;
 	};
 	auto downdate_node = [&](seg_tree::point a) -> void {
