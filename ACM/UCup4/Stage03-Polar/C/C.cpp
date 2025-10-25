@@ -360,6 +360,7 @@ int main() {
 			stk.push_back({S[i].first, i});
 		}
 		for (auto q : queries_by_r[i]) {
+			cerr << queries[q][0] << ' ' << i+1 << '\n';
 			auto rng = layout.get_range(queries[q][0], i+1);
 			rng.for_parents_down(downdate_node);
 			int64_t res = 0;
