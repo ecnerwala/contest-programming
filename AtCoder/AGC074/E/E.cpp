@@ -148,7 +148,7 @@ int main() {
 			std::reverse(H.begin(), H.end());
 		}
 		nxt[z].resize(N);
-		std::vector<std::pair<int, int>> stk; stk.reserve(N);
+		std::vector<std::pair<int, int>> stk; stk.reserve(N+1);
 		for (int i = 0; i < N; i++) {
 			while (stk.size() >= 2 && stk.end()[-2].first <= H[i]) { stk.pop_back(); stk.pop_back(); }
 			nxt[z][i][1] = stk.empty() ? -1 : stk.back().second;
