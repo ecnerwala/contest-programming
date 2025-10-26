@@ -31,7 +31,7 @@ int main() {
 				while (dp_fewest[j] == -1) j++;
 				int k = i-1;
 				while (dp_fewest[k] == -1) k--;
-				cerr << i << ' ' << j << ' ' << k << ' ' << dp_smallest[j] << '\n';
+				cerr << i << ' ' << j << ' ' << k << ' ' << j - (dp_smallest[j]-1) << '\n';
 			}
 		}
 	}
