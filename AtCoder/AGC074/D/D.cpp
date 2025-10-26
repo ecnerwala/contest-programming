@@ -54,7 +54,7 @@ int main() {
 				for (int v : B) {
 					if (v == 1) {
 						cnt_1++;
-						if (cnt_1 > prv) cnd += std::max(0, cnt_0 - nxt);
+						if (cnt_1 > prv) cnd += std::max(0, cnt_0 - (L - nxt));
 					} else if (v == 0) {
 						cnt_0--;
 					} else assert(false);
