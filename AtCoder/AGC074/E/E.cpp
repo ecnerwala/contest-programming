@@ -139,10 +139,9 @@ int main() {
 		assert(S[i] == 'A' || S[i] == 'B');
 		H[i+1] = H[i] + (S[i] == 'B' ? -1 : 1);
 	}
-	RangeMaxQuery<int> H_max(H);
 	RangeMinQuery<int> H_min(H);
 
-	std::array<std::vector<std::pair<int, int>>, 2> nxt; 
+	std::array<std::vector<std::array<int, 2>>, 2> nxt; 
 	// 0 is going right, 1 is going left
 	for (int z = 0; z < 2; z++) {
 		if (!z) {
@@ -151,58 +150,18 @@ int main() {
 		nxt[z].resize(N);
 		std::vector<std::pair<int, int>> stk; stk.reserve(N);
 		for (int i = 0; i < N; i++) {
-			while (!stk.empty() && stk.back().first >= H[i]) stk.pop_back();
-			nxt[z][i].first = stk.empty() ? -1 : stk.back().second;
+			while (stk.size() >= 2 && stk.end()[-2].first <= H[i]) { stk.pop_back(); stk.pop_back(); }
+			nxt[z][i][1] = stk.empty() ? -1 : stk.back().second;
+			stk.push_back({H[i], i});
+			while (stk.size() >= 2 && stk.end()[-2].first >= H[i]) { stk.pop_back(); stk.pop_back(); }
+			nxt[z][i][0] = stk.empty() ? -1 : stk.back().second;
 			stk.push_back({H[i], i});
 		}
 		if (!z) {
 			std::reverse(H.begin(), H.end());
 			std::reverse(nxt[z].begin(), nxt[z].end());
-			for (auto& v : nxt[z]) v.first = N-1-v.first;
+			for (auto& vs : nxt[z]) for (auto& v : vs) v = v == -1 ? v : N-1-v;
 		}
-		for (int i = 0; i < N; i++) {
-			int j = nxt[z][i].first;
-			if (z == 0) assert(j > i);
-			else assert(j < i);
-			assert(j == N || j == -1 || H[j] < H[i]);
-			nxt[z][i].second = H_max.query(std::min(i, j+1), std::max(i, j-1));
-			assert(nxt[z][i].second >= H[i]);
-		}
-	}
-
-	std::array<std::vector<int>, 2> nxt_range;
-	for (int z = 0; z < 2; z++) {
-		nxt_range[z].resize(N, -1);
-		std::vector<std::vector<int>> ch(N+1);
-		for (int i = 0; i < N; i++) {
-			ch[nxt[z][i].first == -1 ? N : nxt[z][i].first].push_back(i);
-		}
-		std::vector<std::pair<int, int>> stk(N+1);
-		int stk_len = 0;
-		std::y_combinator([&](auto&& self, int cur) -> void {
-			std::pair<int, int> save_val;
-			int save_len = stk_len;
-			if (cur != N) {
-				int v = nxt[z][cur].second;
-				int mi = -1, ma = stk_len;
-				while (ma - mi > 1) {
-					int md = (mi + ma) / 2;
-					if (stk[md].first > v) mi = md;
-					else ma = md;
-				}
-				nxt_range[z][cur] = mi == -1 ? -1 : stk[mi].second;
-				stk_len = ma+1;
-				save_val = stk[stk_len - 1];
-				stk[stk_len - 1] = {v, cur};
-			}
-			for (int c : ch[cur]) {
-				self(c);
-			}
-			if (cur != N) {
-				stk[stk_len - 1] = save_val;
-				stk_len = save_len;
-			}
-		})(N);
 	}
 
 	int Q; cin >> Q;
@@ -212,10 +171,9 @@ int main() {
 		int v_min = H_min.query(l, r);
 		auto get_vals = [&](int st, int z) -> std::vector<int> {
 			std::vector<int> heights;
-			for (int cur = st; cur != -1; cur = nxt_range[z][cur]) {
+			for (int cur = st, dir = 0; cur != -1; cur = nxt[z][cur][dir], dir = !dir) {
 				if (H[cur] <= v_min) break;
 				heights.push_back(H[cur]);
-				heights.push_back(nxt[z][cur].second);
 			}
 			return heights;
 		};
