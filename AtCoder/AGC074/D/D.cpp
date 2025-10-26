@@ -25,7 +25,15 @@ int main() {
 		}
 		cerr << N << ' ' << L << '\n';
 		for (int i = 0; i <= L; i++) {
-			if (dp_fewest[i] == -1) cerr << i << '\n';
+			if (dp_fewest[i] == -1) {
+				cerr << i << '\n';
+				int j = i+1;
+				while (dp_fewest[j] == -1) j++;
+				int k = i-1;
+				while (dp_fewest[k] == -1) k--;
+				cerr << i << ' ' << j << ' ' << k << ' ' << dp_fewest[j];
+				assert(j - k == dp_fewest[j]);
+			}
 		}
 	}
 
