@@ -37,7 +37,7 @@ int main() {
 				dp[nxt[i]] = std::max(dp[nxt[i]], v);
 			}
 			dp[i] = v;
-			if (i >= 0) dp[i] = std::max(dp[i], dp[i-1]);
+			if (i-1 >= 0) dp[i] = std::max(dp[i], dp[i-1]);
 		}
 		cout << N - ans << '\n';
 	}
