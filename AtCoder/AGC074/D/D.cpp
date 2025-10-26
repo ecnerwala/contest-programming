@@ -56,10 +56,11 @@ int main() {
 					} else if (v == 0) {
 						cnt_0--;
 					} else assert(false);
+				}
+				cerr << prv << ' ' << nxt << ' ' << cnd << '\n';
 				assert(cnt_0 == 0);
 				assert(cnt_1 == tgt);
 				if (ans == -1 || cnd < ans) ans = cnd;
-				cerr << prv << '-' << nxt << ' ' << cnd << '\n';
 
 				last_prv = prv;
 				assert(prv <= max_prv);
