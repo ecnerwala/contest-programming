@@ -31,7 +31,7 @@ int main() {
 				while (dp_fewest[j] == -1) j++;
 				int k = i-1;
 				while (dp_fewest[k] == -1) k--;
-				cerr << i << ' ' << j << ' ' << k << ' ' << dp_fewest[j];
+				cerr << i << ' ' << j << ' ' << k << ' ' << dp_fewest[j] << '\n';
 				assert(j - k == dp_fewest[j]);
 			}
 		}
