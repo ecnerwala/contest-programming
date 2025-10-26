@@ -23,6 +23,7 @@ int main() {
 				}
 			}
 		}
+		cerr << N << ' ' << L << '\n';
 		for (int i = 0; i <= L; i++) {
 			if (dp_fewest[i] == -1) cerr << i << '\n';
 		}
