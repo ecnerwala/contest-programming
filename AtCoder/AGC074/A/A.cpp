@@ -23,23 +23,21 @@ int main() {
 			nxt[x] = std::min(nxt[x], y);
 		}
 		int ans = 0;
-		std::vector<int> dp_prv(N);
-		std::vector<int> dp_nxt(N);
+		std::vector<int> dp(N);
 		for (int i = 0; i < N; i++) {
-			if (i > 0) {
-				dp_prv[i] = std::max(dp_prv[i], dp_prv[i-1]);
-				dp_nxt[i] = std::max(dp_nxt[i], dp_nxt[i-1]);
+			if (i+1 < N) {
+				dp[i+1] = std::max(dp[i+1], dp[i]);
 			}
-			int v = dp_nxt[i] + 1;
+			int v = dp[i] + 1;
 			if (prv[i] >= 0) {
-				v = std::max(v, dp_prv[prv[i]] + 1);
+				v = std::max(v, dp[prv[i]] + 1);
 			}
 			ans = std::max(ans, v);
-
-			dp_prv[i] = std::max(dp_prv[i], v);
 			if (nxt[i] < N) {
-				dp_nxt[nxt[i]] = std::max(dp_nxt[nxt[i]], v);
+				dp[nxt[i]] = std::max(dp[nxt[i]], v);
 			}
+			dp[i] = v;
+			if (i >= 0) dp[i] = std::max(dp[i], dp[i-1]);
 		}
 		cout << N - ans << '\n';
 	}
