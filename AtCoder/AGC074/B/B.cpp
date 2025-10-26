@@ -80,6 +80,7 @@ int main() {
 				if (vA[in] == vB[in]) incrs.pop_back();
 				if (vA[dn] == vB[dn]) decrs.pop_back();
 			}
+			return ops;
 		}();
 		if (res) {
 			cout << "Yes" << '\n';
