@@ -174,7 +174,7 @@ int main() {
 			std::vector<int> heights;
 			for (int cur = st, dir = 0; true; cur = nxt[z][cur][dir], dir = !dir) {
 				if (cur == -1 || H[cur] <= v_min) {
-					assert(dir);
+					assert(dir == 0);
 					break;
 				}
 				heights.push_back(H[cur]);
