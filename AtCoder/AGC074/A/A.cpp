@@ -22,7 +22,6 @@ int main() {
 			prv[y] = std::max(prv[y], x);
 			nxt[x] = std::min(nxt[x], y);
 		}
-		int ans = 0;
 		std::vector<int> dp(N);
 		for (int i = 0; i < N; i++) {
 			if (i+1 < N) {
@@ -32,13 +31,12 @@ int main() {
 				dp[i] = std::max(dp[i], dp[prv[i]]);
 			}
 			dp[i]++;
-			ans = std::max(ans, dp[i]);
 			if (nxt[i] < N) {
 				dp[nxt[i]] = std::max(dp[nxt[i]], dp[i]);
 			}
 			if (i-1 >= 0) dp[i] = std::max(dp[i], dp[i-1]);
 		}
-		cout << N - ans << '\n';
+		cout << N - dp[N-1] << '\n';
 	}
 
 	return 0;
