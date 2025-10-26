@@ -11,6 +11,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		cerr << "case " << N << '\n';
 		const int L = c2(N);
 		std::vector<int> B(L);
 		for (auto& b : B) { cin >> b; assert(b == 0 || b == 1); }
@@ -32,6 +33,7 @@ int main() {
 			int max_prv = tgt;
 			while (dp_fewest[max_prv] == -1) max_prv--;
 			int last_prv = -1;
+			cerr << "tgt " << tgt << '\n';
 			for (int nxt = tgt; nxt <= L; nxt++) {
 				if (dp_fewest[nxt] == -1) continue;
 				int prv = -1;
