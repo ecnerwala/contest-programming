@@ -154,7 +154,8 @@ int main() {
 			nxt[z][i][1] = stk.empty() ? -1 : stk.back().second;
 			stk.push_back({H[i], i});
 			while (stk.size() >= 2 && stk.end()[-2].first >= H[i]) { stk.pop_back(); stk.pop_back(); }
-			nxt[z][i][0] = stk.empty() ? -1 : stk.back().second;
+			assert(!stk.empty());
+			nxt[z][i][0] = stk.back().second;
 			stk.push_back({H[i], i});
 		}
 		if (!z) {
