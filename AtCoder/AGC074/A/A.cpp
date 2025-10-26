@@ -28,15 +28,14 @@ int main() {
 			if (i+1 < N) {
 				dp[i+1] = std::max(dp[i+1], dp[i]);
 			}
-			int v = dp[i] + 1;
 			if (prv[i] >= 0) {
-				v = std::max(v, dp[prv[i]] + 1);
+				dp[i] = std::max(dp[i], dp[prv[i]]);
 			}
-			ans = std::max(ans, v);
+			dp[i]++;
+			ans = std::max(ans, dp[i]);
 			if (nxt[i] < N) {
-				dp[nxt[i]] = std::max(dp[nxt[i]], v);
+				dp[nxt[i]] = std::max(dp[nxt[i]], dp[i]);
 			}
-			dp[i] = v;
 			if (i-1 >= 0) dp[i] = std::max(dp[i], dp[i-1]);
 		}
 		cout << N - ans << '\n';
