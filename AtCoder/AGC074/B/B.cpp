@@ -60,6 +60,7 @@ int main() {
 			std::reverse(decrs.begin(), decrs.end());
 			while (true) {
 				assert(incrs.empty() == decrs.empty());
+				if (incrs.empty()) break;
 				int in = incrs.back();
 				int dn = decrs.back();
 				assert(vB[in] > vA[in]);
