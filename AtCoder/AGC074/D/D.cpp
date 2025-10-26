@@ -39,7 +39,7 @@ int main() {
 					if (s > dp_fewest[nxt - c2(s)]) continue;
 					for (int i = 1, j = s-1; i <= j; i++, j--) {
 						int cnd = nxt - c2(s) + c2(i) + c2(j);
-						if (cnd <= tgt) prv = std::max(prv, tgt);
+						if (cnd <= tgt) prv = std::max(prv, cnd);
 					}
 				}
 				if (prv <= last_prv) continue;
