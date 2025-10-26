@@ -172,8 +172,11 @@ int main() {
 		int v_min = H_min.query(l, r);
 		auto get_vals = [&](int st, int z) -> std::vector<int> {
 			std::vector<int> heights;
-			for (int cur = st, dir = 0; cur != -1; cur = nxt[z][cur][dir], dir = !dir) {
-				if (H[cur] <= v_min) break;
+			for (int cur = st, dir = 0; true; cur = nxt[z][cur][dir], dir = !dir) {
+				if (cur == -1 || H[cur] <= v_min) {
+					assert(dir);
+					break;
+				}
 				heights.push_back(H[cur]);
 			}
 			return heights;
