@@ -141,7 +141,7 @@ int main() {
 	}
 	RangeMinQuery<int> H_min(H);
 
-	std::array<std::vector<std::array<int, 2>>, 2> nxt; 
+	std::array<std::vector<std::array<int, 2>>, 2> nxt;
 	// 0 is going right, 1 is going left
 	for (int z = 0; z < 2; z++) {
 		if (!z) {
