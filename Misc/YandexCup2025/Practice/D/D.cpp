@@ -142,6 +142,7 @@ int main() {
 		tot += ifact[i] * ifact[K-i] * coeff;
 		ans += (1 - power(tot, N));
 	}
+	assert(tot == 1);
 	cout << ans << '\n';
 
 	return 0;
