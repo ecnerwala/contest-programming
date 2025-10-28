@@ -13,11 +13,11 @@ int main() {
 		else if (res == "wet") return false;
 		else assert(false);
 	};
-	int64_t n_min = 1;
+	int64_t n_min = 0;
 	int64_t n_max;
 	// M >= 2 * n_min + 1
 	while (true) {
-		int64_t q = 2 * n_min;
+		int64_t q = 2 * n_min + 1;
 		if (query(q)) {
 			n_max = q;
 			break;
