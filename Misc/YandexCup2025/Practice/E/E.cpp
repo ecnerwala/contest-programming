@@ -5,6 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	auto query = [&](int64_t v) -> bool {
+		if (v >= int64_t(1e18)) return true;
 		cout << v << '\n' << flush;
 		std::string res; cin >> res;
 		if (res == "fail") exit(0);
