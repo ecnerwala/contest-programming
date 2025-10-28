@@ -138,7 +138,7 @@ int main() {
 	num denom = power(inv(num(2)), K);
 	num ans = 0;
 	for (int i = 0; i < K; i++) {
-		ans += (1 - power(fact[K] * ifact[i] * ifact[K-i] / denom, N));
+		ans += (1 - power(fact[K] * ifact[i] * ifact[K-i] * denom, N));
 	}
 	cout << ans << '\n';
 
