@@ -10,7 +10,7 @@ int main() {
 	int64_t mi = 0, ma = INF+1;
 	while (ma - mi > 1) {
 		int64_t md = (mi + ma) / 2;
-		int64_t cnt = md / std::lcm(A, B) + md / std::lcm(B, C) + md / std::lcm(A, C) - 2 * md / std::lcm(A, std::lcm(B, C));
+		int64_t cnt = md / std::lcm(A, B) + md / std::lcm(B, C) + md / std::lcm(A, C) - 3 * md / std::lcm(A, std::lcm(B, C));
 		if (cnt >= N) {
 			ma = md;
 		} else {
