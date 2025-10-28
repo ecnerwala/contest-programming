@@ -135,10 +135,12 @@ int main() {
 	ifact[K] = inv(fact[K]);
 	for (int i = K; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-	num denom = power(inv(num(2)), K);
+	num coeff = fact[K] * power(inv(num(2)), K);
 	num ans = 0;
+	num tot = 0;
 	for (int i = 0; i < K; i++) {
-		ans += (1 - power(fact[K] * ifact[i] * ifact[K-i] * denom, N));
+		tot += ifact[i] * ifact[K-i] * coeff;
+		ans += (1 - power(tot, N));
 	}
 	cout << ans << '\n';
 
