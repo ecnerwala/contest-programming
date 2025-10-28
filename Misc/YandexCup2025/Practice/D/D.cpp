@@ -138,7 +138,7 @@ int main() {
 	num coeff = fact[K] * power(inv(num(2)), K);
 	num ans = 0;
 	num tot = 0;
-	for (int i = 0; i < K; i++) {
+	for (int i = 0; i <= K; i++) {
 		tot += ifact[i] * ifact[K-i] * coeff;
 		ans += (1 - power(tot, N));
 	}
