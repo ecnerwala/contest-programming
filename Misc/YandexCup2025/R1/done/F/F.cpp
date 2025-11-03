@@ -89,9 +89,10 @@ int main() {
 		std::string n_best; n_best.reserve(l);
 		for (const std::string& s : n_ans) n_best += s;
 		assert(int(n_best.size()) == l);
+		cerr << n_best << '\n';
 		if (ans.empty() || n_best > best) {
 			best = n_best;
-			n_ans = ans;
+			ans = n_ans;
 		}
 	}
 	assert(!ans.empty());
