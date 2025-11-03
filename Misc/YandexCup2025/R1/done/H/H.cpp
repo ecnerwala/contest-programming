@@ -113,6 +113,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	precomp();
+	cerr << cL.size() << '\n';
 	int R; cin >> R;
 	int T; cin >> T;
 	while (T--) {
