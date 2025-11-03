@@ -67,7 +67,7 @@ std::string bin_to_paren(std::string S) {
 	// in 4, you have 2 choices
 	// in 6, you have 5 choices
 	// in 8, you have 
-	std::string res; res.reserve(N + 70);
+	std::string res; res.reserve(N + L * B);
 	for (char c : S) {
 		if (c == '0') res += '(';
 		else if (c == '1') res += ')';
@@ -83,7 +83,7 @@ std::string bin_to_paren(std::string S) {
 }
 
 std::string paren_to_bin(std::string S) {
-	assert(int(S.size()) >= 70);
+	assert(int(S.size()) >= L * B);
 	int64_t val = 0;
 	for (int z = 0; z < B; z++) {
 		val *= int(cL.size());
