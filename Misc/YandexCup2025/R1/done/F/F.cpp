@@ -67,6 +67,7 @@ int main() {
 		cerr << "got " << v0 << '\n';
 		assert(int(v0.size()) <= l0);
 		if (int(v0.size()) < l0) continue;
+		if (v0 == "0") continue;
 		cerr << "hi " << '\n';
 		std::vector<std::string> n_ans; n_ans.reserve(K);
 		n_ans.push_back(v0);
@@ -84,8 +85,10 @@ int main() {
 			std::string tmp(p10, '0');
 			for (int z = 0; z < K-1-extra; z++) n_ans.push_back(tmp);
 		}
+		assert(int(n_ans.size()) == K);
 		std::string n_best; n_best.reserve(l);
 		for (const std::string& s : n_ans) n_best += s;
+		assert(int(n_best.size()) == l);
 		if (ans.empty() || n_best > best) {
 			best = n_best;
 			n_ans = ans;
