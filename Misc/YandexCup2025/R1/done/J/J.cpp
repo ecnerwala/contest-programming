@@ -116,8 +116,8 @@ int main() {
 		int md = (mi + ma) / 2;
 		kactl::TwoSat ts(K + N * (M+1));
 		for (int i = 0; i < N; i++) {
-			int cur = K + i * (M+1);
 			for (int j = 0; j < M; j++) {
+				int cur = K + i * (M+1) + j;
 				// If cur, then cur+1
 				ts.either(~cur, cur+1);
 				// If filled[i][j], then cur+1
