@@ -101,8 +101,10 @@ int main() {
 		assert(filled[x][y] == K);
 		filled[x][y] = ~i;
 	}
+	std::vector<bool> must(K);
 	for (int i = 0; i < K; i++) {
 		int l; cin >> l;
+		if (l == 0) must[i] = true;
 		for (int z = 0; z < l; z++) {
 			int x, y; cin >> x >> y; x--, y--;
 			assert(filled[x][y] == K);
@@ -115,6 +117,7 @@ int main() {
 	while (ma - mi > 1) {
 		int md = (mi + ma) / 2;
 		kactl::TwoSat ts(K + N * (M+1));
+		for (int k = 0; k < K; k++) if (must[k]) ts.either(~k, ~k);
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				int cur = K + i * (M+1) + j;
