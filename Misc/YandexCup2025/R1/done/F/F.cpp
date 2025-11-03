@@ -15,7 +15,7 @@ std::vector<std::string> solve(std::string N, int K) {
 		std::string cnd(p10-1, '0');
 		for (int cur = v; cur > 0; cur /= 10) cnd += char('0' + cur % 10);
 		std::reverse(cnd.begin(), cnd.end());
-		if (cnd.size() != N.size()) return cnd.size() > N.size();
+		if (cnd.size() != N.size()) return cnd.size() < N.size();
 		else return cnd <= N;
 	};
 	int mi = K, ma = int(N.size()) * K + 1;
