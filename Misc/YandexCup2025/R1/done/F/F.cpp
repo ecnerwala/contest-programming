@@ -28,11 +28,11 @@ std::vector<std::string> solve(std::string N, int K) {
 		}
 	}
 	int l = mi;
-	//cerr << "using length " << l << '\n';
+	cerr << "using length " << l << '\n';
 	std::string best;
 	std::vector<std::string> ans;
 	for (int l0 = (mi + K-1) / K + 1; l0 >= 1 && l0 >= mi / K - 1; l0--) {
-		//cerr << "trying " << l0 << '\n';
+		cerr << "trying " << l0 << '\n';
 		int l_rem = l - l0;
 		if (l_rem < K-1) continue;
 		int p10 = l_rem / (K-1);
@@ -57,10 +57,10 @@ std::vector<std::string> solve(std::string N, int K) {
 		std::reverse(v0.begin(), v0.end());
 		while (v0.size() > 1 && v0.back() == '0') v0.pop_back();
 		std::reverse(v0.begin(), v0.end());
-		//cerr << "got " << v0 << '\n';
+		cerr << "got " << v0 << '\n';
 		assert(int(v0.size()) <= l0);
 		if (int(v0.size()) < l0) continue;
-		//cerr << "hi " << '\n';
+		cerr << "hi " << '\n';
 		std::vector<std::string> n_ans; n_ans.reserve(K);
 		n_ans.push_back(v0);
 		if (p10 != 1) {
