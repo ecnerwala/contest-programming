@@ -759,6 +759,7 @@ int main() {
 		num ans = 0;
 		num cnt_matching_forwards_backwards = 0;
 		[&](this auto&& self, int cur) -> std::array<int, 2> {
+			cerr << "go " << cur << '\n';
 			if (!(cur & 1)) {
 				int v = sa.sa[cur / 2];
 				std::array<int, 2> res{0, 0};
