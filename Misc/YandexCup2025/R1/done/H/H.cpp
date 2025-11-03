@@ -89,7 +89,7 @@ std::string paren_to_bin(std::string S) {
 		val += c14_id[res];
 	}
 	int N = int(S.size());
-	assert(N & 1);
+	assert(!(N & 1));
 	int rot_size = int(val % N);
 	int flip_size = int(val / N % N);
 	int did_extend = int(val / N / N);
