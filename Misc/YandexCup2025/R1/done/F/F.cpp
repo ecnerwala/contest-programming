@@ -63,9 +63,10 @@ int main() {
 		assert(!carry);
 		std::reverse(v0.begin(), v0.end());
 		while (v0.size() > 1 && v0.back() == '0') v0.pop_back();
+		std::reverse(v0.begin(), v0.end());
+		cerr << "got " << v0 << '\n';
 		assert(int(v0.size()) <= l0);
 		if (int(v0.size()) < l0) continue;
-		std::reverse(v0.begin(), v0.end());
 		std::vector<std::string> n_ans; n_ans.reserve(K);
 		n_ans.push_back(v0);
 		if (p10 != 1) {
