@@ -88,7 +88,7 @@ std::string paren_to_bin(std::string S) {
 	for (int z = 0; z < B; z++) {
 		val *= int(cL.size());
 		int res = 0;
-		for (int i = 0; i < L; i++) { res *= 2; res += S.back() == ')'; }
+		for (int i = 0; i < L; i++) { res *= 2; res += S.back() == ')'; S.pop_back(); }
 		assert(cL_id[res] != -1);
 		val += cL_id[res];
 	}
