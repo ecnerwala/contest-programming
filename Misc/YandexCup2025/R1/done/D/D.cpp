@@ -12,7 +12,7 @@ int main() {
 			if ((i >> b) & 1) pos.push_back(i);
 		}
 		if (pos.empty()) continue;
-		cout << "CHECK" << ' ' << pos.size();
+		cout << "CHECK";
 		for (int v : pos) cout << ' ' << v+1;
 		cout << '\n' << flush;
 		for (int z = 0; z < int(pos.size()); z++) {
