@@ -18,27 +18,34 @@ int main() {
 			for (int i = 0; i < N; i++) cout << i << '\n';
 			continue;
 		}
-		std::vector<int> sz(N);
-		[&](this auto&& self, int cur, int prv) -> void {
-			sz[cur] = 1;
-			for (int nxt : adj[cur]) {
-				if (nxt == prv) continue;
-				self(nxt, cur);
-				sz[cur] += sz[nxt];
-			}
-		}(0, -1);
-		int centroid = 0;
-		while (true) {
-			int nxt = -1;
-			for (int ch : adj[centroid]) {
-				if (sz[ch] >= sz[centroid]) continue;
-				if (sz[ch] * 2 >= N) {
-					nxt = ch;
-					break;
+		int centroid;
+		{
+			int rt = 0;
+			while (adj[rt].size() <= 1) rt++;
+			std::vector<int> sz(N);
+			[&](this auto&& self, int cur, int prv) -> void {
+				if (adj[cur].size() == 1) sz[cur]++;
+				for (int nxt : adj[cur]) {
+					if (nxt == prv) continue;
+					self(nxt, cur);
+					sz[cur] += sz[nxt];
 				}
+			}(rt, -1);
+			centroid = rt;
+			int par = -1;
+			while (true) {
+				int nxt = -1;
+				for (int ch : adj[centroid]) {
+					if (ch == par) continue;
+					if (sz[ch] * 2 > sz[rt]) {
+						nxt = ch;
+						break;
+					}
+				}
+				if (nxt == -1) break;
+				par = centroid;
+				centroid = nxt;
 			}
-			if (nxt == -1) break;
-			centroid = nxt;
 		}
 		assert(int(adj[centroid].size()) >= 2);
 		int num_leaves = 0;
