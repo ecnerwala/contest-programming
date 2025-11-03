@@ -114,15 +114,27 @@ int main() {
 
 	precomp();
 	cerr << cL.size() << '\n';
+
+	std::mt19937 mt(48);
+	for (int z = 0; z < 10000; z++) {
+		int N = std::uniform_int_distribution<int>(1, 100)(mt);
+		std::string S(N, '?');
+		for (char& c : S) c = std::uniform_int_distribution<char>('0', '1')(mt);
+		auto res = bin_to_paren(S);
+		assert(int(res.size()) <= int(S.size()) + 70);
+		auto S2 = paren_to_bin(res);
+		assert(S2 == S);
+	}
+
 	int R; cin >> R;
 	int T; cin >> T;
 	while (T--) {
 		std::string S; cin >> S;
 		if (R == 1) {
 			cout << bin_to_paren(S) << '\n';
-			cerr << S << '\n';
-			cerr << bin_to_paren(S) << '\n';
-			cerr << paren_to_bin(bin_to_paren(S)) << '\n';
+			//cerr << S << '\n';
+			//cerr << bin_to_paren(S) << '\n';
+			//cerr << paren_to_bin(bin_to_paren(S)) << '\n';
 		} else if (R == 2) {
 			cout << paren_to_bin(S) << '\n';
 		} else assert(false);
