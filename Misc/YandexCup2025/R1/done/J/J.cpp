@@ -110,7 +110,7 @@ int main() {
 		}
 	}
 	int mi = -1;
-	int ma = M;
+	int ma = M+1;
 	std::vector<int> ma_val(K, false);
 	while (ma - mi > 1) {
 		int md = (mi + ma) / 2;
