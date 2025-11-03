@@ -1,5 +1,35 @@
 #include <bits/stdc++.h>
 
+/**
+ * manacher(S): return the maximum palindromic substring of S centered at each point
+ *
+ * Input: string (or vector) of length N (no restrictions on character-set)
+ * Output: vector res of length 2*N+1
+ *   For any 0 <= i <= 2*N:
+ *   * i % 2 == res[i] % 2
+ *   * the half-open substring S[(i-res[i])/2, (i+res[i])/2) is a palindrome of length res[i]
+ *   * For odd palindromes, take odd i, and vice versa
+ */
+template <typename V> std::vector<int> manacher(const V& S) {
+	int N = int(S.size());
+	std::vector<int> res(2*N+1, 0);
+	for (int i = 1, j = -1, r = 0; i < 2*N; i++, j--) {
+		if (i > r) {
+			r = i+1, res[i] = 1;
+		} else {
+			res[i] = res[j];
+		}
+		if (i+res[i] >= r) {
+			int b = r>>1, a = i-b;
+			while (a > 0 && b < N && S[a-1] == S[b]) {
+				a--, b++;
+			}
+			res[i] = b-a, j = i, r = b<<1;
+		}
+	}
+	return res;
+}
+
 template <typename F> struct reverse_comparator_t {
 	F f;
 	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) & {
@@ -721,6 +751,37 @@ int main() {
 		cur += 'a' - 1;
 		cur += S;
 		cerr << cur << '\n';
+		auto pals = manacher(S);
+		auto sa = SuffixArray::shift_and_construct(S);
+		auto ct = CartesianTree::build_min_tree(sa.lcp);
+
+		using num = modnum<998244353>;
+		num ans = 0;
+		num cnt_matching_forwards_backwards = 0;
+		[&](this auto&& self, int cur) -> std::array<int, 2> {
+			if (!(cur & 1)) {
+				int v = sa.sa[cur / 2];
+				std::array<int, 2> res{0, 0};
+				res[v < int(S.size())] ++;
+				return res;
+			}
+			std::array<int, 2> c0 = self(ct[cur].c[0]);
+			std::array<int, 2> c1 = self(ct[cur].c[1]);
+			int h = sa.lcp[cur / 2];
+			cnt_matching_forwards_backwards += num(h) * num(int64_t(c0[0]) * int64_t(c1[1]) + int64_t(c0[1]) * int64_t(c1[0]));
+			return {c0[0] + c1[0], c0[1] + c1[1]};
+		}(ct.root);
+		// if you have a matching forwards/backwards, they have a unique center
+		// let's subtract off everything corresponding to a palindrome, cause those are all noops
+		int64_t tot_pal_ops = 0;
+		for (int l : pals) {
+			cnt_matching_forwards_backwards -= num(int64_t(l) * int64_t(l+1) / 2);
+			tot_pal_ops += (l+1)/2;
+		}
+		ans = cnt_matching_forwards_backwards;
+		ans += num(tot_pal_ops) * num(tot_pal_ops - 1);
+		ans += int64_t(int(S.size())) * int64_t(int(S.size()) + 1) / 2;
+		cout << ans << '\n';
 	}
 
 	return 0;
