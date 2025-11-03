@@ -14,21 +14,36 @@ int main() {
 		fib.push_back(fib.end()[-2] + fib.end()[-1]);
 	}
 	std::vector<int> pieces;
-	[&](this auto&& self, int64_t val, int cur_tot, int idx) -> bool {
+	bool good = [&](this auto&& self, int64_t val, int cur_tot, int idx) -> bool {
 		if (cur_tot > N+1) return false;
-		if (idx == 0) {
+		if (cur_tot == N) return false;
+		if (idx == 2) {
 			return val == 1;
 		}
+		assert(fib[idx] >= 2);
 		if (val % fib[idx] == 0) {
+			pieces.push_back(idx);
 			if (self(val / fib[idx], cur_tot + idx + 1, idx)) {
 				return true;
 			}
+			pieces.pop_back();
 		}
 		if (self(val, cur_tot, idx - 1)) {
 			return true;
 		}
 		return false;
 	}(K, 0, int(fib.size()) - 1);
+	if (good) {
+		std::vector<int> locs; locs.reserve(N);
+		int cur = 0;
+		for (int p : pieces) {
+			cur += p;
+			locs.push_back(cur);
+			cur++;
+		}
+	} else {
+		cout << -1 << '\n';
+	}
 
 	return 0;
 }
