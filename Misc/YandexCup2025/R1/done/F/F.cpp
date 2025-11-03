@@ -1,16 +1,9 @@
 #include <bits/stdc++.h>
 
-int main() {
-	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-
-	// In order to maximize the concatenation, we first want the length to be as long as possible.
-	// To maximize length, you can check the configuration where all lengths differ by at most one
-	std::string N; cin >> N;
-	int K; cin >> K;
+using std::cerr;
+std::vector<std::string> solve(std::string N, int K) {
 	if (K == 1) {
-		cout << N << '\n';
-		exit(0);
+		return {N};
 	}
 	auto length_good = [&](int l) -> bool {
 		assert(l > K);
@@ -95,9 +88,21 @@ int main() {
 		}
 	}
 	assert(!ans.empty());
-	for (int i = 0; i < K; i++) {
-		cout << ans[i] << " \n"[i+1==K];
-	}
+	assert(int(ans.size()) == K);
+	return ans;
+}
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	// In order to maximize the concatenation, we first want the length to be as long as possible.
+	// To maximize length, you can check the configuration where all lengths differ by at most one
+	std::string N; cin >> N;
+	int K; cin >> K;
+	auto res = solve(N, K);
+	assert(int(res.size()) == K);
+	for (int i = 0; i < K; i++) cout << res[i] << " \n"[i+1==K];
 
 	return 0;
 }
