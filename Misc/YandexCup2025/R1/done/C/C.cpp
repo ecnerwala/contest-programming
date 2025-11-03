@@ -10,7 +10,7 @@ int main() {
 	fib.push_back(0);
 	fib.push_back(1);
 	fib.push_back(1);
-	while (fib.back() <= int(1e18)) {
+	while (fib.back() <= int64_t(1e18)) {
 		fib.push_back(fib.end()[-2] + fib.end()[-1]);
 	}
 	for (int64_t v : fib) cerr << v << '\n';
