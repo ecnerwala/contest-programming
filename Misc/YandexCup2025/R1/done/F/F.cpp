@@ -67,6 +67,7 @@ int main() {
 		cerr << "got " << v0 << '\n';
 		assert(int(v0.size()) <= l0);
 		if (int(v0.size()) < l0) continue;
+		cerr << "hi " << '\n';
 		std::vector<std::string> n_ans; n_ans.reserve(K);
 		n_ans.push_back(v0);
 		if (p10 != 1) {
