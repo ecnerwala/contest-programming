@@ -41,6 +41,7 @@ std::vector<std::string> solve(std::string N, int K) {
 		std::string cnd(p10-1, '0');
 		for (int cur = v; cur > 0; cur /= 10) cnd += char('0' + cur % 10);
 		std::reverse(cnd.begin(), cnd.end());
+		cerr << "cnd " << cnd << '\n';
 		if (cnd.size() > N.size()) continue;
 		cnd.resize(N.size(), '0');
 		if (cnd > N) continue;
