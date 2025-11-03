@@ -28,11 +28,11 @@ std::vector<std::string> solve(std::string N, int K) {
 		}
 	}
 	int l = mi;
-	cerr << "using length " << l << '\n';
+	//cerr << "using length " << l << '\n';
 	std::string best;
 	std::vector<std::string> ans;
 	for (int l0 = (mi + K-1) / K + 1; l0 >= 1 && l0 >= mi / K - 1; l0--) {
-		cerr << "trying " << l0 << '\n';
+		//cerr << "trying " << l0 << '\n';
 		int l_rem = l - l0;
 		if (l_rem < K-1) continue;
 		int p10 = l_rem / (K-1);
@@ -40,7 +40,7 @@ std::vector<std::string> solve(std::string N, int K) {
 		int v = extra * 10 + (K-1 - extra) * (p10 == 1 ? 0 : 1);
 		std::string cnd(p10-1, '0');
 		for (int cur = v; cur > 0; cur /= 10) cnd += char('0' + cur % 10);
-		cerr << "cnd " << cnd << '\n';
+		//cerr << "cnd " << cnd << '\n';
 		if (cnd.size() > N.size()) continue;
 		cnd.resize(N.size(), '0');
 		std::reverse(cnd.begin(), cnd.end());
@@ -58,10 +58,10 @@ std::vector<std::string> solve(std::string N, int K) {
 		std::reverse(v0.begin(), v0.end());
 		while (v0.size() > 1 && v0.back() == '0') v0.pop_back();
 		std::reverse(v0.begin(), v0.end());
-		cerr << "got " << v0 << '\n';
+		//cerr << "got " << v0 << '\n';
 		assert(int(v0.size()) <= l0);
 		if (int(v0.size()) < l0) continue;
-		cerr << "hi " << '\n';
+		//cerr << "hi " << '\n';
 		std::vector<std::string> n_ans; n_ans.reserve(K);
 		n_ans.push_back(v0);
 		if (p10 != 1) {
@@ -98,7 +98,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::mt19937 mt(48);
-	for (int z = 0; z < 1000; z++) {
+	for (int z = 0; z < 0; z++) {
 		cerr << "run " << z << '\n';
 		int L = std::uniform_int_distribution<int>(1, 10)(mt);
 		int K = std::uniform_int_distribution<int>(1, 100)(mt);
