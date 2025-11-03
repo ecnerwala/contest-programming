@@ -752,7 +752,7 @@ int main() {
 		cur += S;
 		cerr << cur << '\n';
 		auto pals = manacher(S);
-		auto sa = SuffixArray::shift_and_construct(S);
+		auto sa = SuffixArray::shift_and_construct(cur);
 		auto ct = CartesianTree::build_min_tree(sa.lcp);
 
 		using num = modnum<998244353>;
