@@ -16,10 +16,24 @@ int main() {
 	std::vector<int> pieces;
 	bool good = [&](this auto&& self, int64_t val, int cur_tot, int idx) -> bool {
 		if (cur_tot > N+1) return false;
-		if (cur_tot == N) return false;
 		if (idx == 2) {
-			return val == 1;
+			if (val == 1) {
+				if (cur_tot == N) return false;
+				if (((N+1) - cur_tot) % 2) {
+					pieces.push_back(2);
+					cur_tot += 3;
+				}
+				while (cur_tot < N+1) {
+					pieces.push_back(1);
+					cur_tot += 2;
+				}
+				assert(cur_tot == N+1);
+				return true;
+			} else {
+				return false;
+			}
 		}
+		assert(idx >= 3);
 		assert(fib[idx] >= 2);
 		if (val % fib[idx] == 0) {
 			pieces.push_back(idx);
@@ -40,6 +54,12 @@ int main() {
 			cur += p;
 			locs.push_back(cur);
 			cur++;
+		}
+		assert(locs.back() == N);
+		locs.pop_back();
+		cout << locs.size() << '\n';
+		for (int z = 0; z < int(locs.size()); z++) {
+			cout << locs[z]+1 << " \n"[z+1==int(locs.size())];
 		}
 	} else {
 		cout << -1 << '\n';
