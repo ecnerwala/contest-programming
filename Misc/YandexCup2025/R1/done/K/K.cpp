@@ -759,7 +759,7 @@ int main() {
 		num ans = 0;
 		num cnt_matching_forwards_backwards = 0;
 		[&](this auto&& self, int cur) -> std::array<int, 2> {
-			cerr << "go " << cur << '\n';
+			cerr << "go " << cur << ' ' << ct[cur].l << '-' << ct[cur].r << '\n';
 			if (!(cur & 1)) {
 				int v = sa.sa[cur / 2];
 				std::array<int, 2> res{0, 0};
@@ -768,6 +768,7 @@ int main() {
 			}
 			std::array<int, 2> c0 = self(ct[cur].c[0]);
 			std::array<int, 2> c1 = self(ct[cur].c[1]);
+			assert(ct[cur].m == cur/2);
 			int h = sa.lcp[cur / 2];
 			cnt_matching_forwards_backwards += num(h) * num(int64_t(c0[0]) * int64_t(c1[1]) + int64_t(c0[1]) * int64_t(c1[0]));
 			return {c0[0] + c1[0], c0[1] + c1[1]};
