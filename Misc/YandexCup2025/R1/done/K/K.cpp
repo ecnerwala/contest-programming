@@ -771,14 +771,17 @@ int main() {
 			cnt_matching_forwards_backwards += num(h) * num(int64_t(c0[0]) * int64_t(c1[1]) + int64_t(c0[1]) * int64_t(c1[0]));
 			return {c0[0] + c1[0], c0[1] + c1[1]};
 		}(ct.root);
+		cerr << cnt_matching_forwards_backwards << '\n';
 		// if you have a matching forwards/backwards, they have a unique center
 		// let's subtract off everything corresponding to a palindrome, cause those are all noops
 		int64_t tot_pal_ops = 0;
+		num pal_matching_forwards_backwards = 0;
 		for (int l : pals) {
-			cnt_matching_forwards_backwards -= num(int64_t(l) * int64_t(l+1) / 2);
+			pal_matching_forwards_backwards += num(int64_t(l) * int64_t(l+1) / 2);
 			tot_pal_ops += (l+1)/2;
 		}
-		ans = cnt_matching_forwards_backwards;
+		cerr << pal_matching_forwards_backwards << '\n';
+		ans = cnt_matching_forwards_backwards - pal_matching_forwards_backwards;
 		ans += num(tot_pal_ops) * num(tot_pal_ops - 1);
 		ans += int64_t(int(S.size())) * int64_t(int(S.size()) + 1) / 2;
 		cout << ans << '\n';
