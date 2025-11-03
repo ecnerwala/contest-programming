@@ -35,6 +35,7 @@ int main() {
 		}
 	}
 	int l = mi;
+	cerr << "using length " << l << '\n';
 	std::string best;
 	std::vector<std::string> ans;
 	for (int l0 = (mi + K-1) / K + 1; l0 >= 1 && l0 >= mi / K - 1; l0--) {
