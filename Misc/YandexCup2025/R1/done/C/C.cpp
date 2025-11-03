@@ -13,7 +13,22 @@ int main() {
 	while (fib.back() <= int64_t(1e18)) {
 		fib.push_back(fib.end()[-2] + fib.end()[-1]);
 	}
-	for (int64_t v : fib) cerr << v << '\n';
+	std::vector<int> pieces;
+	[&](this auto&& self, int64_t val, int cur_tot, int idx) -> bool {
+		if (cur_tot > N+1) return false;
+		if (idx == 0) {
+			return val == 1;
+		}
+		if (val % fib[idx] == 0) {
+			if (self(val / fib[idx], cur_tot + idx + 1, idx)) {
+				return true;
+			}
+		}
+		if (self(val, cur_tot, idx - 1)) {
+			return true;
+		}
+		return false;
+	}(K, 0, int(fib.size()) - 1);
 
 	return 0;
 }
