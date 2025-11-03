@@ -96,6 +96,21 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	std::mt19937 mt(48);
+	for (int z = 0; z < 1000; z++) {
+		cerr << "run " << z << '\n';
+		int L = std::uniform_int_distribution<int>(1, 10)(mt);
+		int K = std::uniform_int_distribution<int>(1, 100)(mt);
+		std::string N(L, '?');
+		for (char& n : N) {
+			n = std::uniform_int_distribution<char>('0', '9')(mt);
+		}
+		N[0] = std::uniform_int_distribution<char>('1', '9')(mt);
+		cerr << N << ' ' << K << '\n';
+		auto res = solve(N, K);
+		for (auto s : res) { cerr << s << ' '; } cerr << '\n';
+	}
+
 	// In order to maximize the concatenation, we first want the length to be as long as possible.
 	// To maximize length, you can check the configuration where all lengths differ by at most one
 	std::string N; cin >> N;
