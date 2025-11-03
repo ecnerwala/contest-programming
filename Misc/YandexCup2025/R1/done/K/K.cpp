@@ -713,12 +713,15 @@ private:
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	std::string S; cin >> S;
-	std::string cur = S;
-	std::reverse(cur.begin(), cur.end());
-	cur += 'a' - 1;
-	cur += S;
-	cerr << cur << '\n';
+	int T; cin >> T;
+	while (T--) {
+		std::string S; cin >> S;
+		std::string cur = S;
+		std::reverse(cur.begin(), cur.end());
+		cur += 'a' - 1;
+		cur += S;
+		cerr << cur << '\n';
+	}
 
 	return 0;
 }
