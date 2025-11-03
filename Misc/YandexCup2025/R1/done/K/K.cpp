@@ -750,7 +750,7 @@ int main() {
 		std::reverse(cur.begin(), cur.end());
 		cur += 'a' - 1;
 		cur += S;
-		cerr << cur << '\n';
+		//cerr << cur << '\n';
 		auto pals = manacher(S);
 		auto sa = SuffixArray::shift_and_construct(cur);
 		auto ct = CartesianTree::build_min_tree(sa.lcp);
@@ -759,25 +759,25 @@ int main() {
 		num ans = 0;
 		num cnt_matching_forwards_backwards = 0;
 		[&](this auto&& self, int cur) -> std::array<int, 2> {
-			cerr << "go " << cur << ' ' << ct[cur].l << '-' << ct[cur].r+1 << '\n';
+			//cerr << "go " << cur << ' ' << ct[cur].l << '-' << ct[cur].r+1 << '\n';
 			if (!(cur & 1)) {
 				int v = sa.sa[cur / 2];
 				std::array<int, 2> res{0, 0};
 				res[v < int(S.size())] ++;
-				cerr << res[0] << ' ' << res[1] << '\n';
+				//cerr << res[0] << ' ' << res[1] << '\n';
 				return res;
 			}
 			std::array<int, 2> c0 = self(ct[cur].c[0]);
 			std::array<int, 2> c1 = self(ct[cur].c[1]);
 			assert(ct[cur].m == cur/2);
 			int h = sa.lcp[cur / 2];
-			cerr << "have " << cur << ' ' << ct[cur].l << '-' << ct[cur].r+1 << '\n';
-			cerr << h << '\n';
+			//cerr << "have " << cur << ' ' << ct[cur].l << '-' << ct[cur].r+1 << '\n';
+			//cerr << h << '\n';
 			cnt_matching_forwards_backwards += num(h) * num(int64_t(c0[0]) * int64_t(c1[1]) + int64_t(c0[1]) * int64_t(c1[0]));
-			cerr << c0[0] + c1[0] << ' ' << c0[1] + c1[1] << '\n';
+			//cerr << c0[0] + c1[0] << ' ' << c0[1] + c1[1] << '\n';
 			return {c0[0] + c1[0], c0[1] + c1[1]};
 		}(ct.root);
-		cerr << cnt_matching_forwards_backwards << '\n';
+		//cerr << cnt_matching_forwards_backwards << '\n';
 		// if you have a matching forwards/backwards, they have a unique center
 		// let's subtract off everything corresponding to a palindrome, cause those are all noops
 		int64_t tot_pal_ops = 0;
@@ -786,7 +786,7 @@ int main() {
 			pal_matching_forwards_backwards += num(int64_t(l) * int64_t(l+1) / 2);
 			tot_pal_ops += (l+1)/2;
 		}
-		cerr << pal_matching_forwards_backwards << '\n';
+		//cerr << pal_matching_forwards_backwards << '\n';
 		ans = cnt_matching_forwards_backwards - pal_matching_forwards_backwards;
 		ans += num(tot_pal_ops) * num(tot_pal_ops - 1);
 		ans += int64_t(int(S.size())) * int64_t(int(S.size()) + 1) / 2;
