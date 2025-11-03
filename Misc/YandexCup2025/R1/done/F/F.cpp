@@ -40,10 +40,10 @@ std::vector<std::string> solve(std::string N, int K) {
 		int v = extra * 10 + (K-1 - extra) * (p10 == 1 ? 0 : 1);
 		std::string cnd(p10-1, '0');
 		for (int cur = v; cur > 0; cur /= 10) cnd += char('0' + cur % 10);
-		std::reverse(cnd.begin(), cnd.end());
 		cerr << "cnd " << cnd << '\n';
 		if (cnd.size() > N.size()) continue;
 		cnd.resize(N.size(), '0');
+		std::reverse(cnd.begin(), cnd.end());
 		if (cnd > N) continue;
 		std::string v0(N.size(), '?');
 		int carry = 0;
