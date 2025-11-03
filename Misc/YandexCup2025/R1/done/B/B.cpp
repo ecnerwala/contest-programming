@@ -20,10 +20,10 @@ int main() {
 				while (!stk.empty() && stk.back().first >= v) {
 					int h = stk.back().first;
 					stk.pop_back();
-					int dx = c2 - 1 - (stk.empty() ? -1 : stk.back().first);
+					int dx = c2 - 1 - (stk.empty() ? -1 : stk.back().second);
 					ans = std::max(ans, h * dx);
 				}
-				stk.push_back({c2, v});
+				stk.push_back({v, c2});
 			};
 			for (int c = 0; c < C; c++) {
 				match[c] = (A[r][c] == B[r][c]) ? match[c] + 1 : 0;
