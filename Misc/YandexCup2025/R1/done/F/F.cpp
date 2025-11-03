@@ -38,6 +38,7 @@ int main() {
 	std::string best;
 	std::vector<std::string> ans;
 	for (int l0 = (mi + K-1) / K + 1; l0 >= 1 && l0 >= mi / K - 1; l0--) {
+		cerr << "trying " << l0 << '\n';
 		int l_rem = l - l0;
 		if (l_rem < K-1) continue;
 		int p10 = l_rem / (K-1);
