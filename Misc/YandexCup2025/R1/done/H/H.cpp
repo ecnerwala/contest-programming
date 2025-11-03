@@ -1,15 +1,18 @@
 #include <bits/stdc++.h>
 
-std::vector<std::array<char, 14>> c14;
-std::map<std::array<char, 14>, int> c14_id;
+const int L = 20;
+const int B = 5;
+std::vector<std::array<char, L>> cL;
+std::vector<int> cL_id;
 void precomp() {
-	for (int msk = 0; msk < (1 << 14); msk++) {
-		if (__builtin_popcount(msk) * 2 != 14) continue;
-		std::array<char, 14> cur;
+	cL_id.assign(1 << L, -1);
+	for (int msk = 0; msk < (1 << L); msk++) {
+		if (__builtin_popcount(msk) * 2 != L) continue;
+		std::array<char, L> cur;
 		bool good = true;
 		int cnt = 0;
-		for (int i = 0; i < 14; i++) {
-			char c = ((msk >> i) & 1) ? '(' : ')';
+		for (int i = 0; i < L; i++) {
+			char c = ((msk >> i) & 1) ? ')' : '(';
 			cur[i] = c;
 			if (c == '(') cnt++;
 			else if (c == ')') cnt--;
@@ -17,9 +20,9 @@ void precomp() {
 			if (cnt < 0) { good = false; break; }
 		}
 		if (!good) continue;
-		int id = int(c14.size());
-		c14.push_back(cur);
-		c14_id.insert({cur, id});
+		int id = int(cL.size());
+		cL.push_back(cur);
+		cL_id[msk] = id;
 	}
 }
 
@@ -70,10 +73,10 @@ std::string bin_to_paren(std::string S) {
 		else if (c == '1') res += ')';
 	}
 	int64_t cur = val;
-	for (int z = 0; z < 5; z++) {
-		int id = int(cur % int(c14.size()));
-		for (char c : c14[id]) res += c;
-		cur /= int(c14.size());
+	for (int z = 0; z < B; z++) {
+		int id = int(cur % int(cL.size()));
+		for (char c : cL[id]) res += c;
+		cur /= int(cL.size());
 	}
 	assert(cur == 0);
 	return res;
@@ -82,11 +85,12 @@ std::string bin_to_paren(std::string S) {
 std::string paren_to_bin(std::string S) {
 	assert(int(S.size()) >= 70);
 	int64_t val = 0;
-	for (int z = 0; z < 5; z++) {
-		val *= int(c14.size());
-		std::array<char, 14> res;
-		for (int i = 13; i >= 0; i--) { res[i] = S.back(); S.pop_back(); }
-		val += c14_id[res];
+	for (int z = 0; z < B; z++) {
+		val *= int(cL.size());
+		int res = 0;
+		for (int i = 0; i < L; i++) { res *= 2; res += S.back() == ')'; }
+		assert(cL_id[res] != -1);
+		val += cL_id[res];
 	}
 	int N = int(S.size());
 	assert(!(N & 1));
@@ -109,7 +113,6 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	precomp();
-	cerr << c14.size() << '\n';
 	int R; cin >> R;
 	int T; cin >> T;
 	while (T--) {
