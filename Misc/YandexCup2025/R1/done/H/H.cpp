@@ -120,6 +120,9 @@ int main() {
 		std::string S; cin >> S;
 		if (R == 1) {
 			cout << bin_to_paren(S) << '\n';
+			cerr << S << '\n';
+			cerr << paren_to_bin(bin_to_paren(S)) << '\n';
+			cerr << bin_to_paren(S) << '\n';
 		} else if (R == 2) {
 			cout << paren_to_bin(S) << '\n';
 		} else assert(false);
