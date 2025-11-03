@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 const int L = 20;
-const int B = 5;
+const int B = 3;
 std::vector<std::array<char, L>> cL;
 std::vector<int> cL_id;
 void precomp() {
