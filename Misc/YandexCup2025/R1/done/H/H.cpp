@@ -71,7 +71,7 @@ std::string bin_to_paren(std::string S) {
 	}
 	int64_t cur = val;
 	for (int z = 0; z < 5; z++) {
-		int id = cur % int(c14.size());
+		int id = int(cur % int(c14.size()));
 		for (char c : c14[id]) res += c;
 		cur /= int(c14.size());
 	}
