@@ -52,7 +52,7 @@ int main() {
 		std::swap(dp, ndp);
 	}
 	if (dp[M][0] < -0.5) cout << -1 << '\n';
-	else cout << fixed << setprecision(10) << dp[M][0] << '\n';
+	else cout << fixed << setprecision(12) << dp[M][0] << '\n';
 
 	return 0;
 }
