@@ -110,6 +110,7 @@ int main() {
 			assert(z > 0);
 			if (x || y) pts.push_back({x, y});
 		}
+		N = int(pts.size());
 		std::sort(pts.begin(), pts.end(), angle_cmp(pt_t(1, 0)));
 		int ans = 0;
 		for (int i = 0, j = 0; i < N; i++) {
