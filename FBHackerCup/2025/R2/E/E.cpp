@@ -92,7 +92,7 @@ int main() {
 			}
 			for (int i = 2; i <= N; i++) {
 				int64_t v = A[i-1];
-				for (int j = i; j <= best_idx * i; j++) {
+				for (int j = i; j <= best_idx * N; j++) {
 					int64_t cnd = dp[j-i] + v;
 					if (cnd < dp[j]) { dp[j] = cnd; prv[j] = i; }
 				}
