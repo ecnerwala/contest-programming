@@ -43,10 +43,15 @@ int main() {
 				}(w, 0);
 			} else if (op == '?') {
 				int u, v; cin >> u >> v; u--, v--;
-				int w = 0;
-				for (int b = B-1; b >= 0; b--) {
-					int cnd = w + (1 << b);
-					if (get_par(cnd, u) == get_par(cnd, v)) w = cnd;
+				int w;
+				if (get_par(0, u) == get_par(0, v)) {
+					w = 0;
+					for (int b = B-1; b >= 0; b--) {
+						int cnd = w + (1 << b);
+						if (get_par(cnd, u) == get_par(cnd, v)) w = cnd;
+					}
+				} else {
+					w = -1;
 				}
 				tot_ans += w;
 			} else assert(false);
