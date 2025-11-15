@@ -140,6 +140,9 @@ int main() {
 			int vr = d < int(R.size()) ? R[d] - '0' : 0;
 			for (int msk = 0; msk < (1 << (K-1)); msk++) {
 				if (__builtin_popcount(msk) != d) continue;
+				for (int z = 0; z < 3; z++) {
+					if (dp[msk][z] != 0) cerr << msk << ' ' << z << ' ' << dp[msk][z] << '\n';
+				}
 				// we currently have a d-digit number, see if it's good
 				if (d >= int(L.size()) && d <= int(R.size())) {
 					ans += dp[msk][3];
