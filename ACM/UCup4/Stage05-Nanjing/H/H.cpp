@@ -180,6 +180,7 @@ int main() {
 		int64_t pref_matches = 0;
 		for (int i = 0; i <= m; i++) {
 			if (is_tandem[{m, i}]) {
+				cerr << pref_matches << '\n';
 				ans += pref_matches;
 			}
 			cerr << num_match[match] << ' ' << m << ' ' << i << '\n';
