@@ -196,11 +196,14 @@ int main() {
 		double p_rt = std::exchange(t.probs[rt], 0);
 		{
 			double t_rt = dp_up[rt].v;
+			cerr << "t_rt " << t_rt << '\n';
+			cerr << "p_rt " << p_rt << '\n';
 			double val = t_rt * p_rt;
 			for (int t_oth = 0; t_oth < T; t_oth++) {
 				if (t_oth == t_id) continue;
 				val *= t_alive[t_oth];
 			}
+			cerr << "val " << val << '\n';
 			ans += val;
 		}
 		[&](this auto&& self, int cur, int prv, double p_here) -> void {
