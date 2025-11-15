@@ -138,6 +138,7 @@ int main() {
 					assert(z == int(suff.size()) - 1);
 				}
 				for (int nxt : t.adj[cur]) {
+					if (nxt == prv) continue;
 					self(nxt, cur);
 				}
 			}(rt, 0);
