@@ -51,13 +51,13 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		std::vector<std::vector<std::pair<int, int>>> adj(N);
 		std::vector<std::array<int, 2>> edges(M);
+		kactl::ed.resize(N);
 		for (int e = 0; e < M; e++) {
 			int u, v; cin >> u >> v; u--, v--;
 			edges[e] = {u, v};
-			adj[u].push_back({v, e});
-			adj[v].push_back({u, e});
+			kactl::ed[u].push_back({v, e});
+			kactl::ed[v].push_back({u, e});
 		}
 		int tot_comps = 0;
 		std::vector<int> last_comp(N, -1);
