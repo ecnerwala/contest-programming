@@ -40,7 +40,6 @@ int main() {
 					int64_t v = cost[i] + A[d-1];
 					int j = i + d;
 					v -= (j / best_idx) * A[best_idx - 1];
-					assert(v >= 0);
 					j %= best_idx;
 					// strictly less so no cycles
 					if (v < cost[j]) {
