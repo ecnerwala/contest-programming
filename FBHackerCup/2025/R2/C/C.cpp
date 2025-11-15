@@ -36,36 +36,35 @@ int main() {
 		q_dist.push_back(0);
 
 		for (int d = 0; true; d++) {
-			int d_ceil = (d + K+1) / (K+2);
-			if (d % (K+2) == 0) {
+			if (d % K == 0) {
 				if (q_dist.empty()) break;
 				for (int v : q_dist) {
 					cerr << "at " << d << ' ' << v << '\n';
-					assert(dist[v] == d_ceil);
+					assert(dist[v] == d/K);
 					for (auto [m, z] : starts[v]) {
 						cerr << "  " << m << ' ' << z << '\n';
 						if (dist2[m][z] == -1) {
-							dist2[m][z] = d+1;
+							dist2[m][z] = d;
 							q_tram.push_back({m, z});
 						}
 					}
 				}
 				q_dist.clear();
-			} else {
-				assert(d_ceil * (K+2) > d);
+			}
+			{
+				int d_ceil = (d / K) + 1;
+				assert(d_ceil * K >= d+1);
 				for (auto [m, z] : q_tram) {
 					cerr << "at " << d << ' ' << m << ' ' << z << '\n';
 					assert(dist2[m][z] == d);
-					{
-						int v = trams[m][z];
+					if (z+1 < int(trams[m].size()) && dist2[m][z+1] == -1) {
+						dist2[m][z+1] = d+1;
+						nq_tram.push_back({m, z+1});
+						int v = trams[m][z+1];
 						if (dist[v] == -1) {
 							dist[v] = d_ceil;
 							q_dist.push_back(v);
 						}
-					}
-					if (z+1 < int(trams[m].size()) && d+1 < d_ceil * (K+2) && dist2[m][z+1] == -1) {
-						dist2[m][z+1] = d+1;
-						nq_tram.push_back({m, z+1});
 					}
 				}
 				q_tram.clear();
