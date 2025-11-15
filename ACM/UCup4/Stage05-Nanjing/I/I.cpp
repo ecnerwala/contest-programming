@@ -18,6 +18,7 @@ int main() {
 	std::vector<std::array<double, 4>> dp(M+1, {0, 0, 0, 0});
 	std::vector<std::array<double, 4>> ndp(M+1, {0, 0, 0, 0});
 	for (int z = N-1; z >= 0; z--) {
+		cerr << "day " << z << '\n';
 		auto d = days[z];
 		for (int c = 0; c <= M; c++) {
 			for (int m = 0; m < 4; m++) {
@@ -47,6 +48,7 @@ int main() {
 					}
 				}
 				ndp[c][m] = v;
+				cerr << c << ' ' << m << ' ' << v << '\n';
 			}
 		}
 		std::swap(dp, ndp);
