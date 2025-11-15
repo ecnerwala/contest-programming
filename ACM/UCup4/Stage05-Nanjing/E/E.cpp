@@ -112,6 +112,7 @@ int main() {
 				}(o);
 				rt = treap_union(rt, o);
 			}
+			cerr << cur << ' ' << ans << ' ' << rt->sz << '\n';
 			all_ans[cur] = ans;
 			return rt;
 		}(0, -1, {0, 0});
