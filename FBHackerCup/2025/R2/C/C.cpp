@@ -25,8 +25,8 @@ int main() {
 			}
 		}
 
-		std::vector<int> dist(N, -1);
-		std::vector<std::vector<int>> dist2(M);
+		std::vector<int64_t> dist(N, -1);
+		std::vector<std::vector<int64_t>> dist2(M);
 		for (int m = 0; m < M; m++) dist2[m].assign(trams[m].size(), -1);
 		std::vector<int> q_dist; q_dist.reserve(N);
 		std::vector<std::pair<int, int>> q_tram; q_tram.reserve(tot_l);
@@ -35,7 +35,7 @@ int main() {
 		dist[0] = 0;
 		q_dist.push_back(0);
 
-		for (int d = 0; true; d++) {
+		for (int64_t d = 0; true; d++) {
 			if (q_dist.empty() && q_tram.empty()) break;
 			if (d % K == 0) {
 				for (int v : q_dist) {
@@ -52,8 +52,13 @@ int main() {
 				q_dist.clear();
 			}
 			{
-				int d_ceil = (d / K) + 1;
+				int64_t d_ceil = (d / K) + 1;
 				assert(d_ceil * K >= d+1);
+				if (q_tram.empty()) {
+					// jump to the next multiple of K
+					d = d_ceil * K - 1;
+					continue;
+				}
 				for (auto [m, z] : q_tram) {
 					//cerr << "at " << d << ' ' << m << ' ' << z << '\n';
 					assert(dist2[m][z] == d);
