@@ -90,10 +90,10 @@ int main() {
 				assert(rt);
 				assert(o);
 				if (o->sz > rt->sz) std::swap(o, rt);
-				[&](this auto&& self, treap_node* a) -> void {
+				[&](this auto&& dfs, treap_node* a) -> void {
 					if (!a) return;
-					self(a->c[0]);
-					self(a->c[1]);
+					dfs(a->c[0]);
+					dfs(a->c[1]);
 					int cur_key = a->key.first + sub_val[1] - sub_val[0];
 					std::array<int, 2> vals;
 					vals[0] = a->own_vals[0] + 3 * sub_val[1] - sub_val[0];
