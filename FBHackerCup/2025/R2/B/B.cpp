@@ -25,9 +25,8 @@ int main() {
 		for (int k = M-1, j = 0; k >= 0; k--) {
 			pref_B += B[M-1-k];
 			while (j+1 < int(A_freq.size()) && pref_B >= A_freq[j+1]) j++;
-			ans = std::min(ans, j + k);
+			ans = std::min(ans, (j ? int(A_freq[j] + A_freq[j-1]) : 0) + k);
 		}
-		ans = ans == 0 ? 0 : int(A_freq[ans] - A_freq[ans-1]);
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
