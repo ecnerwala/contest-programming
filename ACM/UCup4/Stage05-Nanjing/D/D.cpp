@@ -68,20 +68,21 @@ template <typename U, typename V> struct pairnum {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	using dbl = long double;
 
 	int T; cin >> T;
 	struct tree_t {
 		int N;
 		std::vector<std::vector<int>> adj;
 		std::vector<bool> alive;
-		std::vector<double> probs;
+		std::vector<dbl> probs;
 	};
 	std::vector<tree_t> trees(T);
-	std::set<std::pair<double, std::pair<int, int>>> cnds;
+	std::set<std::pair<dbl, std::pair<int, int>>> cnds;
 	auto compute_vals = [&](int t_id) -> void {
 		tree_t& t = trees[t_id];
-		std::pair<double, std::pair<int, int>> best = {0, {t_id, -1}};
-		std::vector<pairnum<double, double>> dp_up(t.N, {0, 0});
+		std::pair<dbl, std::pair<int, int>> best = {0, {t_id, -1}};
+		std::vector<pairnum<dbl, dbl>> dp_up(t.N, {0, 0});
 		// probability lose/down, time to leave
 		for (int rt : t.adj[0]) {
 			[&](this auto&& self, int cur, int prv) -> void {
@@ -90,7 +91,7 @@ int main() {
 					return;
 				}
 				int deg = int(t.adj[cur].size());
-				pairnum<double, double> tot{0, 0};
+				pairnum<dbl, dbl> tot{0, 0};
 				for (int nxt : t.adj[cur]) {
 					if (nxt == prv) continue;
 					self(nxt, cur);
@@ -102,7 +103,7 @@ int main() {
 					(tot_t + deg) / (tot_p + 1)
 				};
 			}(rt, 0);
-			[&](this auto&& self, int cur, int prv, double p_prv, double v_prv) -> void {
+			[&](this auto&& self, int cur, int prv, dbl p_prv, dbl v_prv) -> void {
 				if (!t.alive[cur]) {
 					return;
 				}
@@ -156,16 +157,16 @@ int main() {
 		compute_vals(t_id);
 	}
 	std::reverse(q.begin(), q.end());
-	std::vector<double> t_alive(T, 1.);
-	double ans = 0;
+	std::vector<dbl> t_alive(T, 1.);
+	dbl ans = 0;
 	for (auto [t_id, rt] : q) {
 		//cerr << "reverse " << t_id << ' ' << rt << '\n';
 		tree_t& t = trees[t_id];
 		// now, run the dp again to get transition probabilities
 		assert(!t.alive[rt]);
 		t.alive[rt] = true;
-		std::vector<pairnum<double, double>> dp_up(t.N, {0, 0});
-		std::vector<pairnum<double, double>> dp_down(t.N, {0, 0});
+		std::vector<pairnum<dbl, dbl>> dp_up(t.N, {0, 0});
+		std::vector<pairnum<dbl, dbl>> dp_down(t.N, {0, 0});
 		// probability lose/down, time to leave
 		[&](this auto&& self, int cur, int prv) -> void {
 			if (!t.alive[cur]) {
@@ -173,7 +174,7 @@ int main() {
 				return;
 			}
 			int deg = int(t.adj[cur].size());
-			pairnum<double, double> tot{0, 0};
+			pairnum<dbl, dbl> tot{0, 0};
 			for (int nxt : t.adj[cur]) {
 				if (nxt == prv) continue;
 				self(nxt, cur);
@@ -185,12 +186,12 @@ int main() {
 				(tot_t + deg) / (tot_p + (prv != -1))
 			};
 		}(rt, -1);
-		double p_rt = std::exchange(t.probs[rt], 0);
+		dbl p_rt = std::exchange(t.probs[rt], 0);
 		{
-			double t_rt = dp_up[rt].v;
+			dbl t_rt = dp_up[rt].v;
 			//cerr << "t_rt " << t_rt << '\n';
 			//cerr << "p_rt " << p_rt << '\n';
-			double val = t_rt * p_rt;
+			dbl val = t_rt * p_rt;
 			for (int t_oth = 0; t_oth < T; t_oth++) {
 				if (t_oth == t_id) continue;
 				val *= t_alive[t_oth];
@@ -198,7 +199,7 @@ int main() {
 			//cerr << "val " << val << '\n';
 			ans += val;
 		}
-		[&](this auto&& self, int cur, int prv, double p_here) -> void {
+		[&](this auto&& self, int cur, int prv, dbl p_here) -> void {
 			if (!t.alive[cur]) {
 				//cerr << " next " << cur << ' ' << p_here << '\n';
 				if (cur != 0) t.probs[cur] += p_here;
@@ -206,16 +207,16 @@ int main() {
 			}
 			{
 				int deg = int(t.adj[cur].size());
-				std::vector<pairnum<double, double>> suff; suff.reserve(deg);
+				std::vector<pairnum<dbl, dbl>> suff; suff.reserve(deg);
 				for (int nxt : t.adj[cur]) {
 					if (nxt == prv) continue;
 					suff.push_back(dp_up[nxt]);
 				}
-				suff.push_back(prv == -1 ? pairnum<double, double>{0, 0} : dp_down[cur]);
+				suff.push_back(prv == -1 ? pairnum<dbl, dbl>{0, 0} : dp_down[cur]);
 				for (int z = int(suff.size()) - 1; z > 0; z--) {
 					suff[z-1] += suff[z];
 				}
-				pairnum<double, double> pref{0, 0};
+				pairnum<dbl, dbl> pref{0, 0};
 				int z = 0;
 				for (int nxt : t.adj[cur]) {
 					if (nxt == prv) continue;
@@ -236,7 +237,7 @@ int main() {
 				self(nxt, cur, p_here * (1 - dp_down[nxt].u));
 			}
 		}(rt, -1, p_rt);
-		t_alive[t_id] = std::accumulate(t.probs.begin(), t.probs.end(), double(0));
+		t_alive[t_id] = std::accumulate(t.probs.begin(), t.probs.end(), dbl(0));
 	}
 	cout << fixed << setprecision(20) << ans << '\n';
 
