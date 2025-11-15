@@ -36,8 +36,8 @@ int main() {
 		q_dist.push_back(0);
 
 		for (int d = 0; true; d++) {
+			if (q_dist.empty() && q_tram.empty()) break;
 			if (d % K == 0) {
-				if (q_dist.empty()) break;
 				for (int v : q_dist) {
 					cerr << "at " << d << ' ' << v << '\n';
 					assert(dist[v] == d/K);
