@@ -80,7 +80,7 @@ int main() {
 			cerr << "small case" << '\n';
 			assert(num_best <= N);
 			std::vector<int64_t> dp(best_idx*N+1);
-			std::vector<int> prv(best_idx*N+1);
+			std::vector<int> prv(best_idx*N+1, -1);
 			dp[0] = 0, prv[0] = -1;
 			for (int i = 1; i <= N; i++) {
 				int64_t v = A[i-1];
@@ -100,6 +100,7 @@ int main() {
 			int v = best_idx * N;
 			while (v-1 >= 0 && dp[v-1] >= M) v--;
 			while (v > 0) {
+				assert(prv[v] != -1);
 				X[prv[v]-1]++;
 				v -= prv[v];
 			}
