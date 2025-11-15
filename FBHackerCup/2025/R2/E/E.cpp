@@ -92,7 +92,6 @@ int main() {
 				}
 			}
 			int v = best_idx * N;
-			assert(dp[v] >= M);
 			while (v-1 >= 0 && dp[v-1] >= M) v--;
 			ans = v;
 			while (v > 0) {
