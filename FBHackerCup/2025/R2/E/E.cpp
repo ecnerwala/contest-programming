@@ -42,7 +42,7 @@ int main() {
 					v -= (j / best_idx) * A[best_idx - 1];
 					j %= best_idx;
 					// strictly less so no cycles
-					if (v < cost[j]) {
+					if (v > cost[j]) {
 						cost[j] = v;
 						prv[j] = d;
 					}
