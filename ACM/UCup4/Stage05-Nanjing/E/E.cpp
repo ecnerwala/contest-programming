@@ -83,7 +83,8 @@ int main() {
 				n->update();
 				rt = n;
 			}
-			int ans = -4*N;
+			// self to self is always -1
+			int ans = -1;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				treap_node* o = self(nxt, cur, val);
@@ -112,7 +113,6 @@ int main() {
 				}(o);
 				rt = treap_union(rt, o);
 			}
-			cerr << cur << ' ' << ans << ' ' << rt->sz << '\n';
 			all_ans[cur] = ans;
 			return rt;
 		}(0, -1, {0, 0});
