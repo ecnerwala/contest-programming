@@ -31,6 +31,7 @@ int main() {
 			std::vector<int64_t> cost(best_idx, -1);
 			std::vector<int> prv(best_idx, -1);
 			cost[0] = 0, prv[0] = -2;
+			for (int z = 0; z < 2; z++) {
 			for (int d = 1; d <= N; d++) {
 				for (int i = 0; i < best_idx; i++) {
 					int64_t v = cost[i] + A[d-1];
@@ -43,6 +44,7 @@ int main() {
 						prv[j] = d;
 					}
 				}
+			}
 			}
 			assert(cost[0] == 0);
 			std::pair<int64_t, int> best_st;
