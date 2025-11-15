@@ -140,7 +140,7 @@ int main() {
 			int vr = d < int(R.size()) ? R[d] - '0' : 0;
 			for (int msk = 0; msk < (1 << (K-1)); msk++) {
 				if (__builtin_popcount(msk) != d) continue;
-				for (int z = 0; z < 3; z++) {
+				for (int z = 0; z < 4; z++) {
 					if (dp[msk][z] != 0) cerr << msk << ' ' << z << ' ' << dp[msk][z] << '\n';
 				}
 				// we currently have a d-digit number, see if it's good
@@ -155,7 +155,7 @@ int main() {
 					// cyclic shift msk by a
 					int nmsk = (msk >> a) | ((msk & ((1 << (a-1)) - 1)) << (K-a)) | (1 << (K-1-a));
 					assert(__builtin_popcount(nmsk) == d+1);
-					for (int z = 0; z < 3; z++) {
+					for (int z = 0; z < 4; z++) {
 						bool nzl = (v > vl) || (v == vl && (z & 1));
 						bool nzr = (v < vr) || (v == vr && (z & 2));
 						dp[nmsk][nzl | (nzr << 1)] += dp[msk][z];
