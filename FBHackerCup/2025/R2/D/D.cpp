@@ -161,7 +161,7 @@ int main() {
 					// cyclic shift msk by a
 					int nmsk = (msk >> a) | ((msk & ((1 << (a-1)) - 1)) << (K-a)) | (1 << (K-1-a));
 					assert(__builtin_popcount(nmsk) == d+1);
-					if (v == vl || v == vr) {
+					if (false && (v == vl || v == vr)) {
 						for (int z = 0; z < 4; z++) {
 							bool nzl = (v > vl) || (v == vl && (z & 1));
 							bool nzr = (v < vr) || (v == vr && (z & 2));
