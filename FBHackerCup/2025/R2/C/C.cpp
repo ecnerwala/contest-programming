@@ -56,7 +56,7 @@ int main() {
 			{
 				int64_t d_ceil = (d / K) + 1;
 				assert(d_ceil * K >= d+1);
-				if (false && q_tram.empty()) {
+				if (q_tram.empty()) {
 					// jump to the next multiple of K
 					d = d_ceil * K - 1;
 					continue;
