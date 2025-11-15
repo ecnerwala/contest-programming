@@ -23,8 +23,20 @@ int main() {
 		for (int c = 0; c <= M; c++) {
 			for (int m = 0; m < 4; m++) {
 				double v = -1;
-				if (d.no_c <= c && dp[c - d.no_c][m] >= -0.5) {
-					v = std::max(v, dp[c - d.no_c][m] + d.no_v);
+				if (d.no_c <= c) {
+					bool good = true;
+					double val = 0;
+					if (d.extra_p > 0) {
+						double nv = dp[c - d.no_c][m | 1];
+						if (nv < -0.5) good = false;
+						else val += double(d.extra_p) * 0.01 * nv;
+					}
+					if (d.extra_p < 100) {
+						double nv = dp[c - d.no_c][m | 2];
+						if (nv < -0.5) good = false;
+						else val += double(100 - d.extra_p) * 0.01 * nv;
+					}
+					if (good) v = std::max(v, val + d.no_v);
 				}
 				if (m == 3) {
 					if (d.yes_c + d.extra_c <= c && dp[c - (d.yes_c + d.extra_c)][0] >= -0.5) {
