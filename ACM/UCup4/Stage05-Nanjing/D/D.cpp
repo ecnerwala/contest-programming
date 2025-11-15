@@ -231,6 +231,7 @@ int main() {
 			}
 			for (int nxt : t.adj[cur]) {
 				if (nxt == prv) continue;
+				cerr << "  " << cur << " -> " << nxt << ' ' << 1-dp_down[nxt].u << '\n';
 				self(nxt, cur, p_here * (1 - dp_down[nxt].u));
 			}
 		}(rt, -1, p_rt);
