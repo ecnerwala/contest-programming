@@ -60,6 +60,7 @@ int main() {
 					best_st = {cnd, i};
 				}
 			}
+			cerr << best_st.first << ' ' << best_st.second << '\n';
 			{
 				int i = best_st.second;
 				int64_t v = 0;
