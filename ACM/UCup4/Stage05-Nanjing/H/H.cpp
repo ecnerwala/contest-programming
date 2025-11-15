@@ -189,6 +189,7 @@ int main() {
 		}
 		// do tandems
 		for (; match > 0; match = fail[match]) {
+			cerr << "tandem " << m << ' ' << m - match << '\n';
 			is_tandem[{m, m - match}] = true;
 		}
 	}
