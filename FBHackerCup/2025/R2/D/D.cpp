@@ -153,6 +153,7 @@ int main() {
 					ans += dp[msk][3];
 					if (d < int(R.size())) ans += dp[msk][1];
 				}
+				continue;
 				for (int v = 0; v <= 9; v++) {
 					int a = v % K;
 					if (a == 0) continue;
@@ -171,7 +172,7 @@ int main() {
 
 		ans = (vR - vL + 1) - ans;
 
-		cout << "Case #" << case_num << ": " << ans << '\n';
+		cout << "Case #" << case_num << ": " << ans << '\n' << flush;
 	}
 
 	return 0;
