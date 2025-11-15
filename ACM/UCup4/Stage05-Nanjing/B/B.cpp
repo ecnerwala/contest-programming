@@ -104,9 +104,11 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		using pt_t = Point<int, int64_t>;
-		std::vector<pt_t> pts(N);
-		for (auto& [x, y] : pts) {
-			int z; cin >> x >> y >> z; assert(z > 0);
+		std::vector<pt_t> pts; pts.reserve(N);
+		for (int i = 0; i < N; i++) {
+			int x, y, z; cin >> x >> y >> z;
+			assert(z > 0);
+			if (x || y) pts.push_back({x, y});
 		}
 		std::sort(pts.begin(), pts.end(), angle_cmp(pt_t(1, 0)));
 		int ans = 0;
