@@ -81,52 +81,44 @@ int main() {
 	auto compute_vals = [&](int t_id) -> void {
 		tree_t& t = trees[t_id];
 		std::pair<double, std::pair<int, int>> best = {0, {t_id, -1}};
-		{
-			std::vector<pairnum<double, double>> dp_up(t.N, {0, 0});
-			std::vector<double> vals(t.N);
-			// probability lose/down, time to leave
-			for (int rt : t.adj[0]) {
-				[&](this auto&& self, int cur, int prv) -> void {
-					if (!t.alive[cur]) {
-						dp_up[cur] = {1, 0};
-						return;
-					}
-					int deg = int(t.adj[cur].size());
-					pairnum<double, double> tot{0, 0};
-					for (int nxt : t.adj[cur]) {
-						if (nxt == prv) continue;
-						self(nxt, cur);
-						tot += dp_up[nxt];
-					}
-					auto [tot_p, tot_t] = tot;
-					dp_up[cur] = {
-						tot_p / (tot_p + 1),
-						(tot_t + deg) / (tot_p + 1)
-					};
-				}(rt, 0);
-				[&](this auto&& self, int cur, int prv, double p_prv, double v_prv) -> void {
-					if (!t.alive[cur]) {
-						return;
-					}
-					{
-						auto [tot_p, tot_t] = dp_up[cur];
-						p_prv *= 1 - tot_p;
-						v_prv += tot_t / p_prv;
-						vals[cur] = v_prv;
-					}
-					for (int nxt : t.adj[cur]) {
-						if (nxt == prv) continue;
-						self(nxt, cur, p_prv, v_prv);
-					}
-				}(rt, 0, 1, 0);
-			}
-			for (int i = 0; i < t.N; i++) {
-				if (t.alive[i]) {
-					if (best.second.second == -1 || vals[i] > best.first) {
-						best = {vals[i], {t_id, i}};
+		std::vector<pairnum<double, double>> dp_up(t.N, {0, 0});
+		// probability lose/down, time to leave
+		for (int rt : t.adj[0]) {
+			[&](this auto&& self, int cur, int prv) -> void {
+				if (!t.alive[cur]) {
+					dp_up[cur] = {1, 0};
+					return;
+				}
+				int deg = int(t.adj[cur].size());
+				pairnum<double, double> tot{0, 0};
+				for (int nxt : t.adj[cur]) {
+					if (nxt == prv) continue;
+					self(nxt, cur);
+					tot += dp_up[nxt];
+				}
+				auto [tot_p, tot_t] = tot;
+				dp_up[cur] = {
+					tot_p / (tot_p + 1),
+					(tot_t + deg) / (tot_p + 1)
+				};
+			}(rt, 0);
+			[&](this auto&& self, int cur, int prv, double p_prv, double v_prv) -> void {
+				if (!t.alive[cur]) {
+					return;
+				}
+				{
+					auto [tot_p, tot_t] = dp_up[cur];
+					p_prv *= 1 - tot_p;
+					v_prv += tot_t / p_prv;
+					if (best.second.second == -1 || v_prv > best.first) {
+						best = {v_prv, {t_id, cur}};
 					}
 				}
-			}
+				for (int nxt : t.adj[cur]) {
+					if (nxt == prv) continue;
+					self(nxt, cur, p_prv, v_prv);
+				}
+			}(rt, 0, 1, 0);
 		}
 		if (best.second.second == -1) return;
 		cnds.insert(best);
