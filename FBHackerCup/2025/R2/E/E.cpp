@@ -82,11 +82,19 @@ int main() {
 			std::vector<int64_t> dp(best_idx*N+1);
 			std::vector<int> prv(best_idx*N+1, -1);
 			dp[0] = 0, prv[0] = -1;
-			for (int i = 1; i <= N; i++) {
+			{
+				int i = 1;
+				int64_t v = A[i-1];
+				for (int j = 1; j <= best_idx * N; j++) {
+					dp[j] = dp[j-1] + v;
+					prv[j] = 1;
+				}
+			}
+			for (int i = 2; i <= N; i++) {
 				int64_t v = A[i-1];
 				for (int j = i; j <= best_idx * i; j++) {
 					int64_t cnd = dp[j-i] + v;
-					if (i == 1 || cnd < dp[j]) { dp[j] = cnd; prv[j] = i; }
+					if (cnd < dp[j]) { dp[j] = cnd; prv[j] = i; }
 				}
 			}
 			{
@@ -100,7 +108,6 @@ int main() {
 			int v = best_idx * N;
 			while (v-1 >= 0 && dp[v-1] >= M) v--;
 			while (v > 0) {
-				assert(prv[v] != -1);
 				X[prv[v]-1]++;
 				v -= prv[v];
 			}
