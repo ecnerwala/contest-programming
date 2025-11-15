@@ -66,14 +66,14 @@ int main() {
 				int64_t v = 0;
 				while (i != 0) {
 					int d = prv[i];
-					X[d]++;
+					X[d-1]++;
 					v += A[d-1];
 					i -= d;
 					i %= best_idx;
 					if (i < 0) i += best_idx;
 				}
 				assert(v <= M);
-				X[best_idx] = (M - v + A[best_idx-1] - 1) / A[best_idx - 1];
+				X[best_idx-1] = (M - v + A[best_idx-1] - 1) / A[best_idx - 1];
 			}
 		} else {
 			std::vector<int64_t> dp(N*N+1);
