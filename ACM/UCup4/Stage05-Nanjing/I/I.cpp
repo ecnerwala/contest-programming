@@ -27,7 +27,7 @@ int main() {
 				}
 				if (m == 3) {
 					if (d.yes_c + d.extra_c <= c && dp[c - (d.yes_c + d.extra_c)][0] >= -0.5) {
-						v = std::max(v, dp[c - (d.yes_c + d.extra_c)][m] + d.yes_v);
+						v = std::max(v, dp[c - (d.yes_c + d.extra_c)][0] + d.yes_v);
 					}
 				} else {
 					if (d.yes_c <= c) {
