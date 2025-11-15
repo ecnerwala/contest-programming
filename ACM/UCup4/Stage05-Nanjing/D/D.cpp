@@ -71,9 +71,10 @@ int main() {
 
 	int T; cin >> T;
 	struct tree_t {
-		int N, S;
+		int N;
 		std::vector<std::vector<int>> adj;
 		std::vector<bool> alive;
+		std::vector<double> probs;
 	};
 	std::vector<tree_t> trees(T);
 	std::set<std::pair<double, std::pair<int, int>>> cnds;
@@ -128,79 +129,15 @@ int main() {
 			}
 		}
 		if (best.second.second == -1) return;
-		// now, run the dp again to get transition probabilities
-		{
-			int rt = best.second.second;
-			assert(t.alive[rt]);
-			std::vector<pairnum<double, double>> dp_up(t.N, {0, 0});
-			std::vector<pairnum<double, double>> dp_down(t.N, {0, 0});
-			std::vector<double> vals(t.N);
-			// probability lose/down, time to leave
-			[&](this auto&& self, int cur, int prv) -> void {
-				if (!t.alive[cur]) {
-					dp_up[cur] = {1, 0};
-					return;
-				}
-				int deg = int(t.adj[cur].size());
-				pairnum<double, double> tot{0, 0};
-				for (int nxt : t.adj[cur]) {
-					if (nxt == prv) continue;
-					self(nxt, cur);
-					tot += dp_up[nxt];
-				}
-				auto [tot_p, tot_t] = tot;
-				dp_up[cur] = {
-					tot_p / (tot_p + (prv != -1)),
-					(tot_t + deg) / (tot_p + (prv != -1))
-				};
-			}(rt, -1);
-			double t_rt = dp_up[rt].v;
-			// just a dummy thing
-			dp_down[rt] = {0, 0};
-			[&](this auto&& self, int cur, int prv) -> void {
-				if (!t.alive[cur]) {
-					return;
-				}
-				{
-					int deg = int(t.adj[cur].size());
-					std::vector<pairnum<double, double>> suff; suff.reserve(deg);
-					for (int nxt : t.adj[cur]) {
-						if (nxt == prv) continue;
-						suff.push_back(dp_up[nxt]);
-					}
-					suff.push_back(dp_down[cur]);
-					for (int z = int(suff.size()) - 1; z > 0; z--) {
-						suff[z-1] += suff[z];
-					}
-					pairnum<double, double> pref{0, 0};
-					int z = 0;
-					for (int nxt : t.adj[cur]) {
-						if (nxt == prv) continue;
-						z++;
-						auto tot = pref + suff[z];
-						auto [tot_p, tot_t] = tot;
-						dp_down[nxt] = {
-							tot_p / (tot_p + 1),
-							(tot_t + deg) / (tot_p + 1)
-						};
-					}
-					assert(z == int(suff.size()) - 1);
-				}
-				for (int nxt : t.adj[cur]) {
-					if (nxt == prv) continue;
-					self(nxt, cur);
-				}
-			}(rt, -1);
-		}
 		cnds.insert(best);
 	};
 	int tot_N = 0;
 	for (int t_id = 0; t_id < T; t_id++) {
 		tree_t& t = trees[t_id];
-		cin >> t.N >> t.S; t.S--;
+		cin >> t.N;
+		int S; cin >> S; S--;
 		tot_N += t.N;
 		t.adj.resize(t.N);
-		assert(t.S != 0);
 		for (int e = 0; e < t.N-1; e++) {
 			int u, v; cin >> u >> v; u--, v--;
 			t.adj[u].push_back(v);
@@ -208,6 +145,9 @@ int main() {
 		}
 		t.alive.assign(t.N, true);
 		t.alive[0] = false;
+		assert(S != 0);
+		t.probs.assign(t.N, 0);
+		t.probs[S] = 1;
 		compute_vals(t_id);
 	}
 
@@ -220,8 +160,87 @@ int main() {
 		tree_t& t = trees[t_id];
 		t.alive[v] = false;
 		cerr << it.first << ' ' << t_id << ' ' << v << '\n';
+		q.push_back({t_id, v});
 		compute_vals(t_id);
 	}
+	std::reverse(q.begin(), q.end());
+	std::vector<double> t_alive(T, 1.);
+	double ans = 0;
+	for (auto [t_id, rt] : q) {
+		cerr << "reverse " << t_id << ' ' << rt << '\n';
+		tree_t& t = trees[t_id];
+		// now, run the dp again to get transition probabilities
+		assert(!t.alive[rt]);
+		t.alive[rt] = true;
+		std::vector<pairnum<double, double>> dp_up(t.N, {0, 0});
+		std::vector<pairnum<double, double>> dp_down(t.N, {0, 0});
+		// probability lose/down, time to leave
+		[&](this auto&& self, int cur, int prv) -> void {
+			if (!t.alive[cur]) {
+				dp_up[cur] = {1, 0};
+				return;
+			}
+			int deg = int(t.adj[cur].size());
+			pairnum<double, double> tot{0, 0};
+			for (int nxt : t.adj[cur]) {
+				if (nxt == prv) continue;
+				self(nxt, cur);
+				tot += dp_up[nxt];
+			}
+			auto [tot_p, tot_t] = tot;
+			dp_up[cur] = {
+				tot_p / (tot_p + (prv != -1)),
+				(tot_t + deg) / (tot_p + (prv != -1))
+			};
+		}(rt, -1);
+		double p_rt = std::exchange(t.probs[rt], 0);
+		{
+			double t_rt = dp_up[rt].v;
+			double val = t_rt * p_rt;
+			for (int t_oth = 0; t_oth < T; t_oth++) {
+				if (t_oth == t_id) continue;
+				val *= t_alive[t_oth];
+			}
+			ans += val;
+		}
+		[&](this auto&& self, int cur, int prv, double p_here) -> void {
+			if (!t.alive[cur]) {
+				if (cur != 0) t.probs[cur] += p_here;
+				return;
+			}
+			{
+				int deg = int(t.adj[cur].size());
+				std::vector<pairnum<double, double>> suff; suff.reserve(deg);
+				for (int nxt : t.adj[cur]) {
+					if (nxt == prv) continue;
+					suff.push_back(dp_up[nxt]);
+				}
+				suff.push_back(prv == -1 ? pairnum<double, double>{0, 0} : dp_down[cur]);
+				for (int z = int(suff.size()) - 1; z > 0; z--) {
+					suff[z-1] += suff[z];
+				}
+				pairnum<double, double> pref{0, 0};
+				int z = 0;
+				for (int nxt : t.adj[cur]) {
+					if (nxt == prv) continue;
+					z++;
+					auto tot = pref + suff[z];
+					auto [tot_p, tot_t] = tot;
+					dp_down[nxt] = {
+						tot_p / (tot_p + 1),
+						(tot_t + deg) / (tot_p + 1)
+					};
+				}
+				assert(z == int(suff.size()) - 1);
+			}
+			for (int nxt : t.adj[cur]) {
+				if (nxt == prv) continue;
+				self(nxt, cur, p_here * (1 - dp_down[nxt].u));
+			}
+		}(rt, -1, p_rt);
+		t_alive[t_id] = std::accumulate(t.probs.begin(), t.probs.end(), double(0));
+	}
+	cout << fixed << setprecision(20) << ans << '\n';
 
 	return 0;
 }
