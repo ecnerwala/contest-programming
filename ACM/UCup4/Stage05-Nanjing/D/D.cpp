@@ -209,6 +209,7 @@ int main() {
 				std::vector<pairnum<double, double>> suff; suff.reserve(deg);
 				for (int nxt : t.adj[cur]) {
 					if (nxt == prv) continue;
+					cerr << "push " << dp_up[nxt].u << '\n';
 					suff.push_back(dp_up[nxt]);
 				}
 				suff.push_back(prv == -1 ? pairnum<double, double>{0, 0} : dp_down[cur]);
