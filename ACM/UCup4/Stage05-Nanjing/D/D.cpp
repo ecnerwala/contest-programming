@@ -208,6 +208,7 @@ int main() {
 		}
 		[&](this auto&& self, int cur, int prv, double p_here) -> void {
 			if (!t.alive[cur]) {
+				cerr << " next " << cur << ' ' << p_here << '\n';
 				if (cur != 0) t.probs[cur] += p_here;
 				return;
 			}
