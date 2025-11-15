@@ -43,8 +43,8 @@ int main() {
 					cerr << "at " << d << ' ' << v << '\n';
 					assert(dist[v] == d_ceil);
 					for (auto [m, z] : starts[v]) {
+						cerr << "  " << m << ' ' << z << '\n';
 						if (dist2[m][z] == -1) {
-							cerr << "  " << m << ' ' << z << '\n';
 							dist2[m][z] = d+1;
 							q_tram.push_back({m, z});
 						}
