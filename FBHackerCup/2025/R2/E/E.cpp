@@ -88,10 +88,10 @@ int main() {
 		}
 
 		for (int i = N-1; i > 0; i--) X[i-1] += X[i];
-		assert(std::accumulate(X.begin(), X.end(), int64_t(0)) == ans);
 		cout << "Case #" << case_num << ": " << ans << '\n';
 		for (int i = 0; i < N; i++) cout << X[i] << " \n"[i+1==N];
 		cout << flush;
+		assert(std::accumulate(X.begin(), X.end(), int64_t(0)) == ans);
 	}
 
 	return 0;
