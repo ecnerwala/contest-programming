@@ -66,11 +66,11 @@ int main() {
 		std::vector<bool> has_bridge(N, false);
 		kactl::bicomps([&](auto es) -> void {
 			int cur_comp = tot_comps++;
-			cerr << "comp " << cur_comp << '\n';
+			//cerr << "comp " << cur_comp << '\n';
 			for (auto e : es) {
-				cerr << "edge " << e << '\n';
+				//cerr << "edge " << e << '\n';
 				for (auto v : edges[e]) {
-					cerr << "vert " << v << '\n';
+					//cerr << "vert " << v << '\n';
 					if (last_comp[v] == cur_comp) continue;
 					last_comp[v] = cur_comp;
 					num_comps[v]++;
