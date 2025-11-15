@@ -51,6 +51,7 @@ int main() {
 			assert(cost[0] == 0);
 			std::pair<int, int> best_st;
 			for (int i = 0; i < best_idx; i++) {
+				cerr << i << ' ' << cost[i] << ' ' << prv[i] << '\n';
 				assert(cost[i] <= M);
 				int64_t cnd = (M - cost[i] + A[best_idx - 1] - 1) / (A[best_idx - 1]);
 				cnd *= best_idx;
