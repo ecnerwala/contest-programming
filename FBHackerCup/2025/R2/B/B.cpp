@@ -12,20 +12,24 @@ int main() {
 		std::vector<int> B(M); for (auto& b : B) cin >> b;
 
 		std::sort(A.begin(), A.end(), std::greater<>());
-		std::vector<int> A_freq; A_freq.reserve(N);
+		std::vector<int64_t> A_freq; A_freq.reserve(N);
 		A_freq.push_back(0);
 		for (int i = 0, j = 0; i < N; i = j) {
 			while (j < N && A[j] == A[i]) j++;
 			A_freq.push_back(A_freq.back() + j);
 		}
-		cerr << A_freq.back() << ' ' << N << '\n';
 
 		std::sort(B.begin(), B.end());
+		int ans = M;
 		int64_t pref_B = 0;
-		for (int k = M; k >= 0; k--) {
+		for (int k = M-1, j = 0; k >= 0; k--) {
+			pref_B += B[M-1-k];
+			while (j+1 < int(A_freq.size()) && pref_B >= A_freq[j+1]) j++;
+			ans = std::min(ans, j + k);
 		}
+		ans = ans == 0 ? 0 : int(A_freq[ans] - A_freq[ans-1]);
 
-		cout << "Case #" << case_num << ": ";
+		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
 
 	return 0;
