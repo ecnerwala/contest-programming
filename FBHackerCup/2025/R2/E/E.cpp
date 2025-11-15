@@ -21,6 +21,7 @@ int main() {
 		}
 
 		cerr << "Case #" << case_num << ": " << N << ' ' << best_idx << '\n';
+		int64_t ans;
 		std::vector<int64_t> X(N, 0);
 
 		int64_t num_best = (M + A[best_idx - 1] - 1) / A[best_idx - 1];
@@ -51,7 +52,6 @@ int main() {
 			assert(cost[0] == 0);
 			std::pair<int, int> best_st;
 			for (int i = 0; i < best_idx; i++) {
-				cerr << i << ' ' << cost[i] << ' ' << prv[i] << '\n';
 				assert(cost[i] <= M);
 				int64_t cnd = (M - cost[i] + A[best_idx - 1] - 1) / (A[best_idx - 1]);
 				cnd *= best_idx;
@@ -60,7 +60,7 @@ int main() {
 					best_st = {cnd, i};
 				}
 			}
-			cerr << best_st.first << ' ' << best_st.second << '\n';
+			ans = best_st.first;
 			{
 				int i = best_st.second;
 				int64_t v = 0;
@@ -74,8 +74,6 @@ int main() {
 				}
 				assert(v <= M);
 				X[best_idx] = (M - v + A[best_idx-1] - 1) / A[best_idx - 1];
-				for (auto x : X) { cerr << x << ' '; } cerr << '\n';
-				assert(std::accumulate(X.begin(), X.end(), int64_t(0)) == best_st.first);
 			}
 		} else {
 			std::vector<int64_t> dp(N*N+1);
@@ -90,7 +88,8 @@ int main() {
 		}
 
 		for (int i = N-1; i > 0; i--) X[i-1] += X[i];
-		cout << "Case #" << case_num << ": ";
+		assert(std::accumulate(X.begin(), X.end(), int64_t(0)) == ans);
+		cout << "Case #" << case_num << ": " << ans << '\n';
 		for (int i = 0; i < N; i++) cout << X[i] << " \n"[i+1==N];
 		cout << flush;
 	}
