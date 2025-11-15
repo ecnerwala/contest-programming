@@ -153,6 +153,7 @@ int main() {
 					ans += dp[msk][3];
 					if (d < int(R.size())) ans += dp[msk][1];
 				}
+				num s = dp[msk][0] + dp[msk][1] + dp[msk][2] + dp[msk][3];
 				for (int v = 0; v <= 9; v++) {
 					int a = v % K;
 					if (a == 0) continue;
@@ -169,7 +170,7 @@ int main() {
 					} else {
 						bool nzl = v > vl;
 						bool nzr = v < vr;
-						dp[nmsk][nzl | (nzr << 1)] += dp[msk][0] + dp[msk][1] + dp[msk][2] + dp[msk][3];
+						dp[nmsk][nzl | (nzr << 1)] += s;
 					}
 				}
 			}
