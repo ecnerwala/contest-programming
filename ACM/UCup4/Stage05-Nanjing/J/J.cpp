@@ -52,6 +52,7 @@ int main() {
 	while (T--) {
 		int N, M; cin >> N >> M;
 		std::vector<std::array<int, 2>> edges(M);
+		kactl::ed.clear();
 		kactl::ed.resize(N);
 		for (int e = 0; e < M; e++) {
 			int u, v; cin >> u >> v; u--, v--;
