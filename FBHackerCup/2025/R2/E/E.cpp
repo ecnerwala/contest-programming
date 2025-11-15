@@ -74,6 +74,7 @@ int main() {
 				}
 				assert(v <= M);
 				X[best_idx] = (M - v + A[best_idx-1] - 1) / A[best_idx - 1];
+				for (auto x : X) { cerr << x << ' '; } cerr << '\n';
 				assert(std::accumulate(X.begin(), X.end(), int64_t(0)) == best_st.first);
 			}
 		} else {
