@@ -28,16 +28,10 @@ int main() {
 		if (num_best > N) {
 			cerr << "big case" << '\n';
 			// do the dijkstra
-			std::vector<int64_t> cost(best_idx);
+			std::vector<int64_t> cost(best_idx, -1);
 			std::vector<int> prv(best_idx, -1);
 			cost[0] = 0;
-			if (1 < best_idx) {
-				for (int j = 1; j < best_idx; j++) {
-					cost[j] = cost[j-1] + A[0];
-					prv[j] = 1;
-				}
-			}
-			for (int d = 2; d <= N; d++) {
+			for (int d = 1; d <= N; d++) {
 				for (int i = 0; i < best_idx; i++) {
 					int64_t v = cost[i] + A[d-1];
 					int j = i + d;
