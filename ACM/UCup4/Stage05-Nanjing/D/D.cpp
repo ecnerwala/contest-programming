@@ -209,7 +209,6 @@ int main() {
 				std::vector<pairnum<double, double>> suff; suff.reserve(deg);
 				for (int nxt : t.adj[cur]) {
 					if (nxt == prv) continue;
-					cerr << "push " << dp_up[nxt].u << '\n';
 					suff.push_back(dp_up[nxt]);
 				}
 				suff.push_back(prv == -1 ? pairnum<double, double>{0, 0} : dp_down[cur]);
@@ -222,6 +221,7 @@ int main() {
 					if (nxt == prv) continue;
 					z++;
 					auto tot = pref + suff[z];
+					pref += dp_up[nxt];
 					auto [tot_p, tot_t] = tot;
 					dp_down[nxt] = {
 						tot_p / (tot_p + 1),
