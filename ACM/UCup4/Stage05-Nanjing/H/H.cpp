@@ -179,7 +179,10 @@ int main() {
 		int match = 0;
 		int64_t pref_matches = 0;
 		for (int i = 0; i <= m; i++) {
-			if (is_tandem[{m, i}]) ans += pref_matches;
+			if (is_tandem[{m, i}]) {
+				ans += pref_matches;
+			}
+			cerr << num_match[match] << ' ' << m << ' ' << i << '\n';
 			pref_matches += num_match[match];
 			if (i == m) {
 				break;
