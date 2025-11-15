@@ -52,6 +52,7 @@ int main() {
 			} else {
 				assert(d_ceil * (K+2) > d);
 				for (auto [m, z] : q_tram) {
+					assert(dist2[m][z] == d);
 					{
 						int v = trams[m][z];
 						if (dist[v] == -1) {
