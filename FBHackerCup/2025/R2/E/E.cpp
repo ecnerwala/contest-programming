@@ -30,7 +30,7 @@ int main() {
 			// do the dijkstra
 			std::vector<int64_t> cost(best_idx, -1);
 			std::vector<int> prv(best_idx, -1);
-			cost[0] = 0;
+			cost[0] = 0, prv[0] = -2;
 			for (int d = 1; d <= N; d++) {
 				for (int i = 0; i < best_idx; i++) {
 					int64_t v = cost[i] + A[d-1];
@@ -38,7 +38,7 @@ int main() {
 					v -= (j / best_idx) * A[best_idx - 1];
 					j %= best_idx;
 					// strictly less so no cycles
-					if (v > cost[j]) {
+					if ((prv[j] == -1) || v > cost[j]) {
 						cost[j] = v;
 						prv[j] = d;
 					}
@@ -48,7 +48,7 @@ int main() {
 			std::pair<int64_t, int> best_st;
 			for (int i = 0; i < best_idx; i++) {
 				assert(cost[i] <= M);
-				int64_t cnd = (M - cost[i] + A[best_idx - 1] - 1) / (A[best_idx - 1]);
+				int64_t cnd = (M - cost[i] + A[best_idx - 1] - 1) / A[best_idx - 1];
 				cnd *= best_idx;
 				cnd += i;
 				if (i == 0 || cnd < best_st.first) {
