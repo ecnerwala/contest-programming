@@ -39,10 +39,10 @@ int main() {
 			if (q_dist.empty() && q_tram.empty()) break;
 			if (d % K == 0) {
 				for (int v : q_dist) {
-					cerr << "at " << d << ' ' << v << '\n';
+					//cerr << "at " << d << ' ' << v << '\n';
 					assert(dist[v] == d/K);
 					for (auto [m, z] : starts[v]) {
-						cerr << "  " << m << ' ' << z << '\n';
+						//cerr << "  " << m << ' ' << z << '\n';
 						if (dist2[m][z] == -1) {
 							dist2[m][z] = d;
 							q_tram.push_back({m, z});
@@ -55,7 +55,7 @@ int main() {
 				int d_ceil = (d / K) + 1;
 				assert(d_ceil * K >= d+1);
 				for (auto [m, z] : q_tram) {
-					cerr << "at " << d << ' ' << m << ' ' << z << '\n';
+					//cerr << "at " << d << ' ' << m << ' ' << z << '\n';
 					assert(dist2[m][z] == d);
 					if (z+1 < int(trams[m].size()) && dist2[m][z+1] == -1) {
 						dist2[m][z+1] = d+1;
