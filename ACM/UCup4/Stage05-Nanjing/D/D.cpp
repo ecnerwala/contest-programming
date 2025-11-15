@@ -152,7 +152,7 @@ int main() {
 		auto [t_id, v] = it.second;
 		tree_t& t = trees[t_id];
 		t.alive[v] = false;
-		cerr << it.first << ' ' << t_id << ' ' << v << '\n';
+		//cerr << it.first << ' ' << t_id << ' ' << v << '\n';
 		q.push_back({t_id, v});
 		compute_vals(t_id);
 	}
@@ -160,7 +160,7 @@ int main() {
 	std::vector<dbl> t_alive(T, 1.);
 	dbl ans = 0;
 	for (auto [t_id, rt] : q) {
-		cerr << "reverse " << t_id << ' ' << rt << '\n';
+		//cerr << "reverse " << t_id << ' ' << rt << '\n';
 		tree_t& t = trees[t_id];
 		// now, run the dp again to get transition probabilities
 		assert(!t.alive[rt]);
@@ -189,19 +189,19 @@ int main() {
 		dbl p_rt = std::exchange(t.probs[rt], 0);
 		{
 			dbl t_rt = dp_up[rt].v;
-			cerr << "t_rt " << t_rt << '\n';
-			cerr << "p_rt " << p_rt << '\n';
+			//cerr << "t_rt " << t_rt << '\n';
+			//cerr << "p_rt " << p_rt << '\n';
 			dbl val = t_rt * p_rt;
 			for (int t_oth = 0; t_oth < T; t_oth++) {
 				if (t_oth == t_id) continue;
 				val *= t_alive[t_oth];
 			}
-			cerr << "val " << val << '\n';
+			//cerr << "val " << val << '\n';
 			ans += val;
 		}
 		[&](this auto&& self, int cur, int prv, dbl p_here) -> void {
 			if (!t.alive[cur]) {
-				cerr << " next " << cur << ' ' << p_here << '\n';
+				//cerr << " next " << cur << ' ' << p_here << '\n';
 				if (cur != 0) t.probs[cur] += p_here;
 				return;
 			}
