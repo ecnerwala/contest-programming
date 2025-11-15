@@ -301,7 +301,6 @@ int main() {
 			for (int i = 0; i <= m; i++) {
 				if (m > 0) num_border[{m, i}] += num_border[{m-1, i}];
 				ans += pref_matches * num_border[{m, i}];
-				cerr << num_match[match] << ' ' << m << ' ' << i << '\n';
 				// it takes 1 cycle for the current match to get incorporated
 				pref_pineapples += num_match[match];
 				pref_matches += pref_pineapples;
