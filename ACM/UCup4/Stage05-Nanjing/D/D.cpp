@@ -194,11 +194,12 @@ int main() {
 
 	std::vector<std::pair<int, int>> q; q.reserve(tot_N);
 	while (!cnds.empty()) {
-		auto [t_id, v] = std::prev(cnds.end())->second;
+		auto it = *std::prev(cnds.end());
+		auto [t_id, v] = it.second;
 		erase_vals(t_id);
 		tree_t& t = trees[t_id];
 		t.alive[v] = false;
-		cerr << t_id << ' ' << v << '\n';
+		cerr << it.first << ' ' << t_id << ' ' << v << '\n';
 		compute_vals(t_id);
 	}
 
