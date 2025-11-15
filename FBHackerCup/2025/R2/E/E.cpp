@@ -107,6 +107,7 @@ int main() {
 			}
 			int v = best_idx * N;
 			while (v-1 >= 0 && dp[v-1] >= M) v--;
+			ans = v;
 			while (v > 0) {
 				X[prv[v]-1]++;
 				v -= prv[v];
