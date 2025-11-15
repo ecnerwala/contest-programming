@@ -26,6 +26,7 @@ int main() {
 
 		int64_t num_best = (M + A[best_idx - 1] - 1) / A[best_idx - 1];
 		if (num_best > N) {
+			cerr << "big case" << '\n';
 			// do the dijkstra
 			std::vector<int64_t> cost(best_idx);
 			std::vector<int> prv(best_idx, -1);
@@ -76,6 +77,7 @@ int main() {
 				X[best_idx-1] = (M - v + A[best_idx-1] - 1) / A[best_idx - 1];
 			}
 		} else {
+			cerr << "small case" << '\n';
 			std::vector<int64_t> dp(N*N+1);
 			std::vector<int> prv(N*N+1);
 			dp[0] = 0, prv[0] = -1;
