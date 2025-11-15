@@ -40,6 +40,7 @@ int main() {
 			if (d % (K+2) == 0) {
 				if (q_dist.empty()) break;
 				for (int v : q_dist) {
+					cerr << "at " << d << ' ' << v << '\n';
 					assert(dist[v] == d_ceil);
 					for (auto [m, z] : starts[v]) {
 						if (dist2[m][z] == -1) {
@@ -52,6 +53,7 @@ int main() {
 			} else {
 				assert(d_ceil * (K+2) > d);
 				for (auto [m, z] : q_tram) {
+					cerr << "at " << d << ' ' << m << ' ' << z << '\n';
 					assert(dist2[m][z] == d);
 					{
 						int v = trams[m][z];
