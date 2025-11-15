@@ -153,7 +153,6 @@ int main() {
 					ans += dp[msk][3];
 					if (d < int(R.size())) ans += dp[msk][1];
 				}
-				continue;
 				for (int v = 0; v <= 9; v++) {
 					int a = v % K;
 					if (a == 0) continue;
@@ -161,10 +160,16 @@ int main() {
 					// cyclic shift msk by a
 					int nmsk = (msk >> a) | ((msk & ((1 << (a-1)) - 1)) << (K-a)) | (1 << (K-1-a));
 					assert(__builtin_popcount(nmsk) == d+1);
-					for (int z = 0; z < 4; z++) {
-						bool nzl = (v > vl) || (v == vl && (z & 1));
-						bool nzr = (v < vr) || (v == vr && (z & 2));
-						dp[nmsk][nzl | (nzr << 1)] += dp[msk][z];
+					if (v == vl || v == vr) {
+						for (int z = 0; z < 4; z++) {
+							bool nzl = (v > vl) || (v == vl && (z & 1));
+							bool nzr = (v < vr) || (v == vr && (z & 2));
+							dp[nmsk][nzl | (nzr << 1)] += dp[msk][z];
+						}
+					} else {
+						bool nzl = v > vl;
+						bool nzr = v < vr;
+						dp[nmsk][nzl | (nzr << 1)] += dp[msk][0] + dp[msk][1] + dp[msk][2] + dp[msk][3];
 					}
 				}
 			}
