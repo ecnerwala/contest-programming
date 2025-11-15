@@ -28,6 +28,7 @@ int main() {
 			par[b] = a;
 			return true;
 		};
+		int64_t tot_ans = 0;
 		for (int q = 0; q < Q; q++) {
 			char op; cin >> op;
 			if (op == '+') {
@@ -47,9 +48,10 @@ int main() {
 					int cnd = w + (1 << b);
 					if (get_par(cnd, u) == get_par(cnd, v)) w = cnd;
 				}
-				cout << w << '\n';
+				tot_ans += w;
 			} else assert(false);
 		}
+		cout << tot_ans << '\n';
 	}
 
 	return 0;
