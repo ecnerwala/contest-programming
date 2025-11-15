@@ -125,7 +125,7 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		std::string L, R; int K; cin >> L >> R >> K;
 
-		cout << "Case #" << case_num << ": " << int(L.size()) << ' ' << int(R.size()) << ' ' << K << '\n';
+		cerr << "Case #" << case_num << ": " << int(L.size()) << ' ' << int(R.size()) << ' ' << K << '\n';
 
 		using num = modnum<998244353>;
 		num vR = 0;
