@@ -124,13 +124,19 @@ int main() {
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		std::string L, R; int K; cin >> L >> R >> K;
+
+		using num = modnum<998244353>;
+		num vR = 0;
+		for (char c : R) vR = 10 * vR + num(c - '0');
+		num vL = 0;
+		for (char c : L) vL = 10 * vL + num(c - '0');
+
 		std::reverse(L.begin(), L.end());
 		std::reverse(R.begin(), R.end());
 		assert(!L.empty());
 		assert(L.back() > '0');
 		assert(R.back() > '0');
 
-		using num = modnum<998244353>;
 
 		num ans = 0;
 		std::vector<std::array<num, 4>> dp(1 << (K-1));
@@ -160,6 +166,8 @@ int main() {
 				}
 			}
 		}
+
+		ans = (vR - vL + 1) - ans;
 
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
