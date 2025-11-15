@@ -51,6 +51,7 @@ int main() {
 				}
 				q_dist.clear();
 			}
+			assert(nq_tram.empty());
 			{
 				int64_t d_ceil = (d / K) + 1;
 				assert(d_ceil * K >= d+1);
@@ -75,6 +76,7 @@ int main() {
 				q_tram.clear();
 				std::swap(q_tram, nq_tram);
 			}
+			assert(nq_tram.empty());
 		}
 
 		int64_t ans = 0;
