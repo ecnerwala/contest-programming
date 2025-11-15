@@ -180,7 +180,6 @@ int main() {
 		int64_t pref_matches = 0;
 		for (int i = 0; i <= m; i++) {
 			if (is_tandem[{m, i}]) {
-				cerr << pref_matches << '\n';
 				ans += pref_matches;
 			}
 			cerr << num_match[match] << ' ' << m << ' ' << i << '\n';
@@ -194,7 +193,7 @@ int main() {
 		// do tandems
 		for (; match > 0; match = fail[match]) {
 			cerr << "tandem " << m << ' ' << m - match << '\n';
-			is_tandem[{m, m - match}] = true;
+			is_tandem[{m + match, m - match}] = true;
 		}
 	}
 	cout << ans << '\n';
