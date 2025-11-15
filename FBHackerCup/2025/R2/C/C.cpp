@@ -17,6 +17,7 @@ int main() {
 			trams[m].resize(l);
 			for (auto& v : trams[m]) { cin >> v; v--; }
 		}
+		cerr << "Case #" << case_num << ": " << N << ' ' << K << ' ' << M << ' ' << tot_l << '\n';
 
 		std::vector<std::vector<std::pair<int, int>>> starts(N);
 		for (int m = 0; m < M; m++) {
