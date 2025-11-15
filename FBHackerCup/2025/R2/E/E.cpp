@@ -31,20 +31,23 @@ int main() {
 			std::vector<int64_t> cost(best_idx, -1);
 			std::vector<int> prv(best_idx, -1);
 			cost[0] = 0, prv[0] = -2;
-			for (int z = 0; z < 2; z++) {
 			for (int d = 1; d <= N; d++) {
-				for (int i = 0; i < best_idx; i++) {
-					int64_t v = cost[i] + A[d-1];
-					int j = i + d;
-					v -= (j / best_idx) * A[best_idx - 1];
-					j %= best_idx;
-					// strictly less so no cycles
-					if ((prv[j] == -1) || v > cost[j]) {
-						cost[j] = v;
-						prv[j] = d;
+				int g = std::gcd(d, best_idx);
+				for (int st = 0; st < g; st++) {
+					for (int i = st; true; ) {
+						int64_t v = cost[i] + A[d-1];
+						int j = i + d;
+						v -= (j / best_idx) * A[best_idx - 1];
+						j %= best_idx;
+						// strictly less so no cycles
+						if (v > cost[j]) {
+							cost[j] = v;
+							prv[j] = d;
+						}
+						i = j;
+						if (i == st) break;
 					}
 				}
-			}
 			}
 			assert(cost[0] == 0);
 			std::pair<int64_t, int> best_st;
