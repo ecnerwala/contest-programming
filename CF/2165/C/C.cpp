@@ -25,6 +25,7 @@ int main() {
 			}
 			std::swap(A, nA);
 			nA.clear();
+			assert(int(A.size()) == N);
 			bests[b] = std::vector<std::pair<int, int>>(A.begin(), A.begin() + std::min(B-b+1, N));
 		}
 
@@ -40,6 +41,7 @@ int main() {
 				bool has = (i < int(bests[b].size()) && ((bests[b][i].first >> b) & 1));
 				if (has && want) {
 					want = false;
+					assert(i < int(bests[b].size()));
 					i++;
 					while (i < int(bests[b].size()) && used[bests[b][i].second]) i++;
 					has = (i < int(bests[b].size()) && ((bests[b][i].first >> b) & 1));
