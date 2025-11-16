@@ -67,7 +67,7 @@ int main() {
 				if (i == j) continue;
 				int64_t d = std::abs(cyc[i].second - cyc[j].second);
 				d = std::min(d, cyc_len - d);
-				dp_down[i] = std::min(dp_down[i], dp_up[j] + d);
+				dp_down[i] = std::max(dp_down[i], dp_up[j] + d);
 			}
 		}
 	}
