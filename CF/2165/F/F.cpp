@@ -333,10 +333,13 @@ int main() {
 			seg_tree::in_order_layout layout(N);
 			std::vector<int> seg(2*N, -1);
 			for (int i = 0; i < N; i++) {
+				cerr << "at " << i << '\n';
 				for (auto [v, pos] : pts[i]) {
+					cerr << " ask " << v << ' ' << pos << '\n';
 					layout.get_range(0, v).for_each([&](auto a) { min_pos[pos] = std::max(min_pos[pos], seg[a]); });
 				}
 				for (auto [v, pos] : pts2[i]) {
+					cerr << " ins " << v << ' ' << pos << '\n';
 					layout.get_point(v).for_each([&](auto a) { seg[a] = std::max(seg[a], pos); });
 				}
 			}
