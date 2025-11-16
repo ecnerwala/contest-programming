@@ -37,6 +37,8 @@ int main() {
 				for (int v : leaves) {
 					assert(alive[v]);
 					alive[v] = false;
+					assert(cur_deg[v] == 1);
+					deg_freq[cur_deg[v]]--;
 					int neighbor = -1;
 					for (int nxt : adj[v]) {
 						if (alive[nxt]) {
