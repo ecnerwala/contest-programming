@@ -31,7 +31,7 @@ int main() {
 				while (!deg_freq[max_deg]) --max_deg;
 				edge_cnt += max_deg - 1;
 			} else {
-				edge_cnt += max_deg - 1;
+				edge_cnt -= max_deg - 1;
 				// now add in the number of leaves
 				edge_cnt += int(leaves.size());
 				for (int v : leaves) {
