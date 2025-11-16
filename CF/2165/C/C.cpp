@@ -8,63 +8,40 @@ int main() {
 	while (T--) {
 		const int B = 30;
 		int N, Q; cin >> N >> Q;
-		std::vector<std::pair<int, int>> A(N);
-		for (auto& [a, _] : A) cin >> a;
-		for (int i = 0; i < N; i++) A[i].second = i;
-
-		std::array<std::vector<std::pair<int, int>>, B> bests;
-		std::vector<std::pair<int, int>> nA; nA.reserve(N);
-		for (int b = 0; b < B; b++) {
-			// radix-sort the whole array decreasing
-			for (int z = 1; z >= 0; z--) {
-				for (int i = 0; i < N; i++) {
-					if (((A[i].first >> b) & 1) == z) {
-						nA.push_back(A[i]);
-					}
-				}
-			}
-			std::swap(A, nA);
-			nA.clear();
-			assert(int(A.size()) == N);
-			bests[b] = std::vector<std::pair<int, int>>(A.begin(), A.begin() + std::min(B-b+1, N));
+		std::vector<int> A(N);
+		for (auto& a : A) cin >> a;
+		if (N > B) {
+			std::nth_element(A.begin(), A.begin() + B, A.end(), std::greater<>());
+			A.resize(B);
+			N = B;
 		}
 
-		std::vector<bool> used(N, false);
-		std::vector<int> buf; buf.reserve(B);
+		std::vector<int> buf(N);
 		for (int q = 0; q < Q; q++) {
+			for (int i = 0; i < N; i++) buf[i] = A[i];
+
 			int c; cin >> c;
 			int64_t ans = 0;
 			for (int b = B-1; b >= 0; b--) {
 				bool want = (c >> b) & 1;
-				int i = 0;
-				while (i < int(bests[b].size()) && used[bests[b][i].second]) i++;
-				bool has = (i < int(bests[b].size()) && ((bests[b][i].first >> b) & 1));
-				if (has && want) {
-					want = false;
-					assert(i < int(bests[b].size()));
-					i++;
-					while (i < int(bests[b].size()) && used[bests[b][i].second]) i++;
-					has = (i < int(bests[b].size()) && ((bests[b][i].first >> b) & 1));
+				int cnt = 0;
+				for (int i = 0; i < N; i++) {
+					cnt += (buf[i] >> b) & 1;
 				}
-
-				if (has && !want) {
-					// we're done, have an extra one
-					break;
-				} else if (!has && !want) {
-					// just keep going
-					continue;
-				} else {
-					assert(!has && want);
-					int cur = i < int(bests[b].size()) ? (bests[b][i].first & ((1 << b) - 1)) : 0;
-					ans += (1 << b) - cur;
-					if (i < int(bests[b].size())) {
-						buf.push_back(bests[b][i].second);
-						used[bests[b][i].second] = true;
+				if (cnt > want) break;
+				if (cnt < want) {
+					assert(!cnt);
+					int best_v = -1;
+					int best_i = -1;
+					for (int i = 0; i < N; i++) {
+						int cnd = buf[i] & ((1 << b) - 1);
+						if (cnd > best_v) { best_v = cnd, best_i = i; }
 					}
+					ans += (1 << b) - best_v;
+					buf[best_i] += (1 << b) - best_v;
 				}
 			}
 			cout << ans << '\n';
-			for (auto v : buf) used[v] = false;
 		}
 	}
 
