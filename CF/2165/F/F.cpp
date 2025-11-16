@@ -297,7 +297,6 @@ int main() {
 		int N; cin >> N;
 		std::vector<int> A(N);
 		for (auto& a : A) { cin >> a; a--; }
-		cerr << "case " << N << '\n';
 		std::vector<std::vector<std::pair<int, int>>> pts(N);
 		{
 			seg_tree::in_order_layout layout(N);
@@ -340,9 +339,6 @@ int main() {
 					layout.get_point(v).for_each([&](auto a) { seg[a] = std::max(seg[a], pos); });
 				}
 			}
-		}
-		for (int i = 0; i < N; i++) {
-			cerr << i << ' ' << min_pos[i] << '\n';
 		}
 		for (int i = 0; i+1 < N; i++) {
 			min_pos[i+1] = std::max(min_pos[i+1], min_pos[i]);
