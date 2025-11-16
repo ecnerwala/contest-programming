@@ -62,13 +62,33 @@ int main() {
 
 	{
 		// TODO: Do the top cycle stuff
-		for (int i = 0; i < int(cyc.size()); i++) {
-			for (int j = 0; j < int(cyc.size()); j++) {
-				if (i == j) continue;
-				int64_t d = std::abs(cyc[i].second - cyc[j].second);
-				d = std::min(d, cyc_len - d);
-				dp_down[i] = std::max(dp_down[i], dp_up[j] + d);
+		for (int z = 0; z < 2; z++) {
+			int head = 0;
+			// cyc pos, vert pos
+			std::vector<std::pair<int64_t, int64_t>> q; q.reserve(2*int(cyc.size()));
+			for (int iter = 0; iter < 2; iter++) {
+				for (int i = 0; i < int(cyc.size()); i++) {
+					int v = cyc[i].first;
+					int64_t pos = iter * cyc_len + cyc[i].second;
+					if (iter) {
+						while (head < int(q.size()) && (pos - q[head].first) * 2 > cyc_len) {
+							head++;
+						}
+						if (head < int(q.size())) {
+							dp_down[v] = std::max(dp_down[v], pos - q[head].second);
+						}
+					}
+					{
+						int64_t cnd = pos - dp_up[v];
+						while (head < int(q.size()) && cnd <= q.back().second) {
+							q.pop_back();
+						}
+						q.push_back({pos, cnd});
+					}
+				}
 			}
+			std::reverse(cyc.begin(), cyc.end());
+			for (auto& [_, pos] : cyc) pos = cyc_len - pos;
 		}
 	}
 
