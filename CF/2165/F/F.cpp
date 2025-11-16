@@ -340,6 +340,9 @@ int main() {
 				}
 			}
 		}
+		for (int i = 0; i < N; i++) {
+			cerr << i << ' ' << min_pos[i] << '\n';
+		}
 		for (int i = 0; i+1 < N; i++) {
 			min_pos[i+1] = std::max(min_pos[i+1], min_pos[i]);
 		}
