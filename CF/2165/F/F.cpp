@@ -297,6 +297,7 @@ int main() {
 		int N; cin >> N;
 		std::vector<int> A(N);
 		for (auto& a : A) { cin >> a; a--; }
+		cerr << "case " << N << '\n';
 		std::vector<std::vector<std::pair<int, int>>> pts(N);
 		{
 			seg_tree::in_order_layout layout(N);
