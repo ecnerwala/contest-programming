@@ -301,20 +301,20 @@ int main() {
 		std::vector<std::vector<std::pair<int, int>>> pts(N);
 		{
 			seg_tree::in_order_layout layout(N);
-			std::vector<int> seg(2*N, N+1);
+			std::vector<int> seg(2*N, -1);
 			std::vector<int> stk; stk.reserve(N);
 			for (int i = 0; i < N; i++) {
 				while (!stk.empty() && A[stk.back()] < A[i]) {
-					int lo = N+1;
+					int lo = -1;
 					auto rng = layout.get_range(A[stk.back()]+1, A[i]);
-					rng.for_each([&](auto a) { lo = std::min(lo, seg[a]); });
-					if (lo < stk.back()) {
+					rng.for_each([&](auto a) { lo = std::max(lo, seg[a]); });
+					if (lo != -1) {
 						pts[lo].push_back({A[stk.back()], i});
 					}
 					stk.pop_back();
 				}
 				stk.push_back(i);
-				layout.get_point(A[i]).for_each([&](auto a) { seg[a] = std::min(seg[a], i); });
+				layout.get_point(A[i]).for_each([&](auto a) { seg[a] = std::max(seg[a], i); });
 			}
 		}
 		std::vector<std::vector<std::pair<int, int>>> pts2(N);
