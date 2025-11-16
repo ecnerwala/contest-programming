@@ -345,6 +345,7 @@ int main() {
 		}
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
+			cerr << i << ' ' << min_pos[i] << '\n';
 			ans += min_pos[i]+1;
 		}
 		cout << ans << '\n';
