@@ -74,7 +74,7 @@ int main() {
 				assert(prv[i] != -1);
 				int64_t cost = dp[i];
 				assert(cost < M);
-				int64_t extra = (M - cost + A[best_idx-1] - 1) / A[best_idx];
+				int64_t extra = (M - cost + A[best_idx-1] - 1) / A[best_idx-1];
 				if (i + extra * best_idx < ans) {
 					ans = i + extra * best_idx;
 					X[best_idx - 1] = extra;
