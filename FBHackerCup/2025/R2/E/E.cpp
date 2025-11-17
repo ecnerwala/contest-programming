@@ -53,8 +53,8 @@ int main() {
 			}
 			for (int cur = hi+1; cur <= hi_orig; cur++) {
 				if (prv[cur] == -1) {
-					assert(cur - N >= lo);
-					for (int i = 1; i <= N; i++) {
+					assert(cur-N <= 0 || cur - N >= lo);
+					for (int i = 1; i <= N && i <= cur; i++) {
 						int64_t cnd = dp[cur-i] + A[i-1];
 						if (cnd > dp[cur]) {
 							dp[cur] = cnd;
