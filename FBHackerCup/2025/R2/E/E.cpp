@@ -25,85 +25,79 @@ int main() {
 		std::vector<int64_t> X(N, 0);
 
 		int64_t num_best = (M + A[best_idx - 1] - 1) / A[best_idx - 1];
-		if (num_best > N) {
-			cerr << "big case" << '\n';
-			// do the dijkstra
-			std::vector<int64_t> cost(best_idx, -1);
-			std::vector<int> prv(best_idx, -1);
-			cost[0] = 0, prv[0] = -2;
-			for (int d = 1; d <= N; d++) {
-				int g = std::gcd(d, best_idx);
-				for (int st = 0; st < g; st++) {
-					for (int i = st; true; ) {
-						int64_t v = cost[i] + A[d-1];
-						int j = i + d;
-						v -= (j / best_idx) * A[best_idx - 1];
-						j %= best_idx;
-						// strictly less so no cycles
-						if (v > cost[j]) {
-							cost[j] = v;
-							prv[j] = d;
+		std::vector<int64_t> dp(best_idx*N+1, -1);
+		std::vector<int> prv(best_idx*N+1, -1);
+		dp[0] = 0, prv[0] = -2;
+		// inclusive range
+		auto solve = [&](this auto&& self, int lo, int hi) -> void {
+			assert(0 <= lo);
+			assert(lo <= hi);
+			int hi_orig = hi;
+			hi = std::min(hi, lo + N-1);
+			if (lo == 0) {
+				hi = 0;
+			} else {
+				self((std::max(0, lo - N) + 1) / 2, (hi + N) / 2);
+				for (int cur = lo; cur <= hi; cur++) {
+					if (prv[cur] == -1) {
+						assert(cur > N);
+						for (int i = cur & 1; i <= N; i += 2) {
+							int64_t cnd = dp[(cur+i)/2] + dp[(cur-i)/2];
+							if (cnd > dp[cur]) {
+								dp[cur] = cnd;
+								prv[cur] = (cur+i)/2;
+							}
 						}
-						i = j;
-						if (i == st) break;
 					}
 				}
 			}
-			assert(cost[0] == 0);
-			std::pair<int64_t, int> best_st;
-			for (int i = 0; i < best_idx; i++) {
-				assert(cost[i] <= M);
-				int64_t cnd = (M - cost[i] + A[best_idx - 1] - 1) / A[best_idx - 1];
-				cnd *= best_idx;
-				cnd += i;
-				if (i == 0 || cnd < best_st.first) {
-					best_st = {cnd, i};
+			for (int cur = hi+1; cur <= hi_orig; cur++) {
+				if (prv[cur] == -1) {
+					assert(cur - N >= lo);
+					for (int i = 1; i <= N; i++) {
+						int64_t cnd = dp[cur-i] + A[i-1];
+						if (cnd > dp[cur]) {
+							dp[cur] = cnd;
+							prv[cur] = i;
+						}
+					}
 				}
 			}
-			ans = best_st.first;
-			{
-				int i = best_st.second;
-				int64_t v = 0;
-				while (i != 0) {
-					int d = prv[i];
-					X[d-1]++;
-					v += A[d-1];
-					i -= d;
-					i %= best_idx;
-					if (i < 0) i += best_idx;
+		};
+		solve(0, N);
+		if (num_best > N) {
+			solve((N - 1) * best_idx + 1, N * best_idx);
+			assert(dp[N * best_idx] < M);
+			X[best_idx - 1] = num_best;
+			ans = num_best * best_idx;
+			for (int i = (N-1) * best_idx + 1; i <= N * best_idx; i++) {
+				assert(prv[i] != -1);
+				int64_t cost = dp[i];
+				assert(cost < M);
+				int64_t extra = (M - cost + A[best_idx-1] - 1) / A[best_idx];
+				if (i + extra * best_idx < ans) {
+					ans = i + extra * best_idx;
+					X[best_idx - 1] = extra;
 				}
-				assert(v <= M);
-				X[best_idx-1] = (M - v + A[best_idx-1] - 1) / A[best_idx - 1];
 			}
 		} else {
-			cerr << "small case" << '\n';
-			assert(num_best <= N);
-			std::vector<int64_t> dp(best_idx*N+1, -1);
-			std::vector<int> prv(best_idx*N+1, -1);
-			dp[0] = 0, prv[0] = -1;
-			for (int i = 1; i <= N; i++) {
-				int64_t v = A[i-1];
-				for (int j = i; j <= best_idx * i; j++) {
-					int64_t cnd = dp[j-i] + v;
-					if (cnd > dp[j]) { dp[j] = cnd; prv[j] = i; }
-				}
-			}
-			{
-				int i = best_idx;
-				int64_t v = A[i-1];
-				for (int j = i; j <= best_idx * N; j++) {
-					int64_t cnd = dp[j-i] + v;
-					if (cnd > dp[j]) { dp[j] = cnd; prv[j] = i; }
-				}
-			}
-			int v = best_idx * N;
-			while (v-1 >= 0 && dp[v-1] >= M) v--;
-			ans = v;
-			while (v > 0) {
-				X[prv[v]-1]++;
-				v -= prv[v];
-			}
+			int hi = int(num_best) * best_idx;
+			int lo = hi - best_idx + 1;
+			solve(lo, hi);
+			assert(dp[hi] >= M);
+			ans = lo;
+			while (dp[ans] < M) ans++;
 		}
+		[&](this auto&& self, int cur) -> void {
+			assert(prv[cur] != -1);
+			if (cur == 0) return;
+			if (prv[cur] == cur) {
+				X[cur-1]++;
+			} else {
+				self(prv[cur]);
+				self(cur - prv[cur]);
+			}
+		}(int(ans - best_idx * X[best_idx-1]));
 
 		for (int i = N-1; i > 0; i--) X[i-1] += X[i];
 		cout << "Case #" << case_num << ": " << ans << '\n';
