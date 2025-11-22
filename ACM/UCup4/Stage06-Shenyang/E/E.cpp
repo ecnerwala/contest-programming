@@ -126,7 +126,7 @@ int main() {
 		int N, M; cin >> N >> M;
 		std::vector<int64_t> A(M);
 		for (auto& a : A) { cin >> a; a--; }
-		std::vector<int64_t> last(N, -N);
+		std::vector<int64_t> last(2*N, -N);
 		int64_t cur = 0;
 		for (auto a : A) {
 			cur++;
