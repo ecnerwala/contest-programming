@@ -156,10 +156,12 @@ int main() {
 				cnt++;
 			}
 			assert(cnt + iter == 2*N);
-			while (cnt > 0) {
+			while (iter < 2*N) {
 				ways *= cnt;
 				cnt--;
+				iter++;
 			}
+			assert(cnt == 0);
 			ans += 1 - ways / fact[2*N];
 		}
 		cout << ans << '\n';
