@@ -150,6 +150,7 @@ int main() {
 			for (int i = 0; i+z < N; i++) {
 				if (last[iter] == cur+z-i) {
 					// take one
+					cerr << " mul " << cnt << '\n';
 					ways *= cnt;
 					cnt--;
 					iter++;
@@ -157,7 +158,10 @@ int main() {
 				cnt++;
 			}
 			assert(cnt + iter == 2*N);
-			while (cnt > 0) { ways *= cnt; cnt--; }
+			while (cnt > 0) {
+				cerr << " mul " << cnt << '\n';
+				ways *= cnt; cnt--;
+			}
 			if (N < 10) cerr << ways << '\n';
 			ans += 1 - ways / fact[2*N];
 		}
