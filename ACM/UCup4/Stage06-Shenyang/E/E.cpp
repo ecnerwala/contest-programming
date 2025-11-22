@@ -156,6 +156,7 @@ int main() {
 			while (cnt > 0) { ways *= cnt; cnt--; }
 			ans += 1 - ways / fact[2*N];
 		}
+		cerr << ans * fact[2*N] << '\n';
 		cout << ans << '\n';
 	}
 
