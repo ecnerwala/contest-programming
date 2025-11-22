@@ -140,6 +140,7 @@ int main() {
 		fact[0] = 1;
 		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
 
+		cerr << "case " << N << '\n';
 		for (auto l : last) { cerr << l << ' '; } cerr << '\n';
 
 		num ans = cur;
@@ -165,6 +166,7 @@ int main() {
 			ans += 1 - ways / fact[2*N];
 		}
 		cerr << ans * fact[2*N] << '\n';
+		cerr << num(299473317) * fact[2*N] << '\n';
 		cout << ans << '\n';
 	}
 
