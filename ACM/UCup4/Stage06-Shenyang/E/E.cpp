@@ -133,7 +133,6 @@ int main() {
 			cur++;
 			cur = std::max(cur, last[a] + N+1);
 			last[a] = cur;
-			cerr << a << ' ' << "at" << ' ' << cur << '\n';
 		}
 		std::sort(last.begin(), last.end(), std::greater<>());
 		using num = modnum<998244353>;
@@ -141,9 +140,6 @@ int main() {
 		std::vector<num> fact(V+1);
 		fact[0] = 1;
 		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
-
-		cerr << "case " << N << '\n';
-		for (auto l : last) { cerr << l << ' '; } cerr << '\n';
 
 		num ans = cur;
 		for (int z = 0; z < N; z++) {
@@ -164,11 +160,8 @@ int main() {
 				ways *= cnt;
 				cnt--;
 			}
-			cerr << ways << '\n';
 			ans += 1 - ways / fact[2*N];
 		}
-		cerr << (ans - cur) * fact[2*N] << '\n';
-		cerr << (num(299473317) - cur) * fact[2*N] << '\n';
 		cout << ans << '\n';
 	}
 
