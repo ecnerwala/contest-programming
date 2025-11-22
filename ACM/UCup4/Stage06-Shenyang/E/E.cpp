@@ -140,7 +140,7 @@ int main() {
 		fact[0] = 1;
 		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
 
-		for (auto l : last) cerr << l << '\n';
+		for (auto l : last) { cerr << l << ' '; } cerr << '\n';
 
 		num ans = cur;
 		for (int z = 0; z < N; z++) {
