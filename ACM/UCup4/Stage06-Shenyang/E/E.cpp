@@ -155,6 +155,7 @@ int main() {
 				}
 				cnt++;
 			}
+			while (iter < 2*N) { cnt++; iter++; }
 			while (cnt > 0) { ways *= cnt; cnt--; }
 			ans += 1 - ways / fact[2*N];
 		}
