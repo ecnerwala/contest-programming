@@ -140,7 +140,7 @@ int main() {
 		fact[0] = 1;
 		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
 
-		if (N < 10) { for (auto l : last) { cerr << l << ' '; } cerr << '\n'; }
+		for (auto l : last) { cerr << l << ' '; } cerr << '\n';
 
 		num ans = cur;
 		for (int z = 0; z < N; z++) {
@@ -150,7 +150,6 @@ int main() {
 			for (int i = 0; i+z < N; i++) {
 				if (last[iter] == cur-i) {
 					// take one
-					cerr << " mul " << cnt << '\n';
 					ways *= cnt;
 					cnt--;
 					iter++;
@@ -159,8 +158,8 @@ int main() {
 			}
 			assert(cnt + iter == 2*N);
 			while (cnt > 0) {
-				cerr << " mul " << cnt << '\n';
-				ways *= cnt; cnt--;
+				ways *= cnt;
+				cnt--;
 			}
 			cerr << ways << '\n';
 			ans += 1 - ways / fact[2*N];
