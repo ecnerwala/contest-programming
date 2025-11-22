@@ -151,6 +151,7 @@ int main() {
 				if (last[iter] == cur+z-i) {
 					// take one
 					ways *= cnt;
+					cnt--;
 					iter++;
 				}
 				cnt++;
