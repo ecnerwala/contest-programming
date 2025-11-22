@@ -134,12 +134,14 @@ int main() {
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	auto val = [&](int b, int a) -> num {
+		cerr << "ins " << a << ' ' << b << '\n';
 		assert(a >= 1 && b >= 1);
 		if (a == 1) assert(b == 1);
 		if (a == 1 && b == 1) return 1;
 		return fact[a+b-3] * ifact[b-1] * ifact[a-2];
 	};
 	auto ival = [&](int b, int a) -> num {
+		cerr << "del " << a << ' ' << b << '\n';
 		assert(a >= 1 && b >= 1);
 		if (a == 1) assert(b == 1);
 		if (a == 1 && b == 1) return 1;
