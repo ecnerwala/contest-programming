@@ -140,7 +140,10 @@ int main() {
 		return fact[a+b-3] * ifact[b-1] * ifact[a-2];
 	};
 	auto ival = [&](int b, int a) -> num {
-		return inv(val(b, a));
+		assert(a >= 1 && b >= 1);
+		if (a == 1) assert(b == 1);
+		if (a == 1 && b == 1) return 1;
+		return ifact[a+b-3] * fact[b-1] * fact[a-2];
 	};
 
 	std::vector<int> segs(V+3, 2);
