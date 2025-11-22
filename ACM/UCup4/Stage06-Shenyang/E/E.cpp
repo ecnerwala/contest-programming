@@ -132,6 +132,7 @@ int main() {
 			cur++;
 			cur = std::max(cur, last[a] + N+1);
 			last[a] = cur;
+			cerr << a << ' ' << "at" << ' ' << cur << '\n';
 		}
 		std::sort(last.begin(), last.end(), std::greater<>());
 		using num = modnum<998244353>;
