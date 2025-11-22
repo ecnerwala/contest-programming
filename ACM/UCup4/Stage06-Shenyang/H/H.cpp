@@ -149,6 +149,7 @@ int main() {
 	};
 
 	std::vector<int> segs(V+3, 2);
+	segs[0] = 1;
 	num ans = 1;
 	for (int i = 0; i < N; i++) {
 		assert(A[i] <= N);
