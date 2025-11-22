@@ -145,7 +145,7 @@ int main() {
 		num ans = cur;
 		for (int z = 0; z < N; z++) {
 			int iter = 0;
-			int cnt = N;
+			int cnt = N+z;
 			num ways = 1;
 			for (int i = 0; i+z < N; i++) {
 				if (last[iter] == cur+z-i) {
@@ -155,7 +155,6 @@ int main() {
 				}
 				cnt++;
 			}
-			while (iter < 2*N) { cnt++; iter++; }
 			while (cnt > 0) { ways *= cnt; cnt--; }
 			ans += 1 - ways / fact[2*N];
 		}
