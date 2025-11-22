@@ -157,6 +157,7 @@ int main() {
 				cnt++;
 			}
 			while (cnt > 0) { ways *= cnt; cnt--; }
+			if (N < 10) cerr << ways << '\n';
 			ans += 1 - ways / fact[2*N];
 		}
 		cerr << ans * fact[2*N] << '\n';
