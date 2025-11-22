@@ -156,6 +156,7 @@ int main() {
 				}
 				cnt++;
 			}
+			assert(cnt + iter == 2*N);
 			while (cnt > 0) { ways *= cnt; cnt--; }
 			if (N < 10) cerr << ways << '\n';
 			ans += 1 - ways / fact[2*N];
