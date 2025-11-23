@@ -17,7 +17,7 @@ int main() {
 				if (k < N) winning_moves[k].push_back(i);
 				res[i] = 'o';
 			} else {
-				res[i] = ' ';
+				res[i] = '_';
 			}
 		}
 		cerr << M << '\n';
