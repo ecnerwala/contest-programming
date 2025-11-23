@@ -4,7 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int M = 1; M <= 100; M++) {
+	for (int M = 2; M <= 100; M++) {
 		const int N = 1020;
 		std::vector<std::vector<int>> winning_moves(N);
 		std::string res(N, '?');
