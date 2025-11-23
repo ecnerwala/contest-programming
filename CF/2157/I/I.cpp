@@ -5,7 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	for (int M = 2; M <= 100; M++) {
-		const int N = 1020;
+		const int N = 100 * M;
 		std::vector<std::vector<int>> winning_moves(N);
 		std::string res(N, '?');
 		for (int i = 0; i < N; i++) {
