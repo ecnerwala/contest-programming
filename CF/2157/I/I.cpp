@@ -8,6 +8,7 @@ int main() {
 		const int N = 100 * M;
 		std::vector<std::vector<int>> winning_moves(N);
 		std::string res(N, '?');
+		for (int j = 1; j < M; j++) winning_moves[j].push_back(-1);
 		for (int i = 0; i < N; i++) {
 			if (winning_moves[i].empty()) {
 				for (int j = i+1; j < N && j <= i+M; j++) winning_moves[j].push_back(i);
