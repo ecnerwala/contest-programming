@@ -5,7 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	for (int M = 1; M <= 100; M++) {
-		const int N = 220;
+		const int N = 1020;
 		std::vector<std::vector<int>> winning_moves(N);
 		std::string res(N, '?');
 		for (int i = 0; i < N; i++) {
@@ -32,7 +32,8 @@ int main() {
 				losing.push_back(i);
 			}
 		}
-		cerr << M << ' '; cerr << res << ' ';
+		cerr << M << ' ';
+		//cerr << res << ' ';
 		for (int z = 1; z < int(losing.size()); z++) cerr << losing[z] - losing[z-1] - (M+1) << ' ';
 		cerr << '\n';
 	}
