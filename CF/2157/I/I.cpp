@@ -33,7 +33,7 @@ int main() {
 			}
 		}
 		cerr << M << ' '; cerr << res << ' ';
-		for (int v : losing) cerr << v << ' ';
+		for (int z = 1; z < int(losing.size()); z++) cerr << losing[z] - losing[z-1] - (M+1) << ' ';
 		cerr << '\n';
 	}
 
