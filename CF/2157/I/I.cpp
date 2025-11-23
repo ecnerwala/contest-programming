@@ -4,11 +4,12 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	for (int M = 1; M <= 20; M++) {
+	for (int M = 1; M <= 100; M++) {
 		const int N = 120;
 		std::vector<std::vector<int>> winning_moves(N);
 		std::string res(N, '?');
 		for (int i = 0; i < N; i++) {
+			if (M % 2 == 0) assert(winning_moves[i].empty() == !(i % (M+1)));
 			if (winning_moves[i].empty()) {
 				for (int j = i+1; j < N && j <= i+M; j++) winning_moves[j].push_back(i);
 				res[i] = 'X';
