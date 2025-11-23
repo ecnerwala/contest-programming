@@ -20,6 +20,8 @@ int main() {
 				res[i] = ' ';
 			}
 		}
+		cerr << M << '\n';
+		cerr << res << '\n';
 	}
 
 	return 0;
