@@ -6,6 +6,24 @@ int main() {
 
 	int N; cin >> N;
 	std::vector<std::pair<int, int>> ops;
+	for (int D = 1; D <= N; D++) {
+		if (D < 30 && (1 << D) < N) continue;
+		int rem = N;
+		int64_t cnt = 1;
+		int cost = (D-1) * 1000;
+		for (int w = 0; rem; w++) {
+			if (w) {
+				cnt *= (D + w - 1);
+				assert(cnt % w == 0);
+				cnt /= w;
+			}
+			if (cnt > rem) cnt = rem;
+			rem -= cnt;
+			cost += int(cnt) * w;
+		}
+		cerr << D << ' ' << cost << '\n';
+		if (D >= 500) break;
+	}
 	if (N == 4) {
 		ops.push_back({0, 1});
 		ops.push_back({1, 1});
