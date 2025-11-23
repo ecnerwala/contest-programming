@@ -6,12 +6,15 @@ int main() {
 
 	int N; cin >> N;
 	std::vector<std::pair<int, int>> ops;
+	/*
+	int best_D = -1;
+	int best_cost = int(1e6) + 1;
 	for (int D = 1; D <= N; D++) {
 		if (D < 30 && (1 << D) < N) continue;
 		int rem = N;
 		int64_t cnt = 1;
 		int cost = (D-1) * 1000;
-		if (cost > 1e6) break;
+		if (cost >= best_cost) break;
 		for (int w = 0; rem; w++) {
 			if (w) {
 				cnt *= (D + w - 1);
@@ -22,25 +25,52 @@ int main() {
 			rem -= cnt;
 			cost += int(cnt) * w;
 		}
-		cerr << D << ' ' << cost << '\n';
+		if (cost < best_cost) {
+			best_cost = cost;
+			best_D = D;
+		}
 	}
-	if (N == 4) {
-		ops.push_back({0, 1});
-		ops.push_back({1, 1});
-		ops.push_back({2, 1});
-	} else if (N == 250000) {
-		const int B = 500;
-		for (int i = 0; i+1 < 500; i++) {
-			for (int j = 499; j >= 0; j--) {
-				ops.push_back({j * B + i, 1});
-			}
+	cerr << best_D << '\n';
+	cerr << best_cost << '\n';
+	int D = best_D;
+	{
+		std::vector<std::vector<int>> arrs; arrs.reserve(N);
+		for (int w = 0; int(arrs.size()) < N; w++) {
+			std::vector<int> cur(D, 0);
+			cur[0] = w;
+			do {
+				arrs.push_back(cur);
+				if (int(arrs.size()) == N) break;
+			} while (true);
 		}
-		for (int i = 0; i+1 < 500; i++) {
-			ops.push_back({i * 500 + 499, 500});
+	}
+	*/
+
+	const int D = 113;
+	int max_cnt = 3;
+	std::vector<std::vector<std::pair<int, int>>> layer_ops(D);
+	[&](this auto&& self, int cur_layer, int cur_cnt, int next) -> int {
+		assert(next >= 0);
+		if (cur_cnt == max_cnt) {
+			cur_layer = D;
 		}
-		cout << ops.size() << '\n';
-		for (auto [x, l] : ops) cout << x+1 << ' ' << l << '\n';
-	} else assert(false);
+		if (cur_layer == D) {
+			return next-1;
+		}
+		int tgt = next;
+		for (int i = max_cnt - cur_cnt; i >= 0 && next >= 0; i--) {
+			if (next != tgt) layer_ops[cur_layer].push_back({next, tgt - next});
+			next = self(cur_layer + 1, cur_cnt + i, next);
+		}
+		return next;
+	}(0, 0, N-1);
+	for (int d = D-1; d >= 0; d--) {
+		ops.insert(ops.end(), layer_ops[d].begin(), layer_ops[d].end());
+	}
+
+	cout << ops.size() << '\n';
+	for (auto [x, l] : ops) cout << x+1 << ' ' << l << '\n';
+
 	int cost = 0;
 	for (int i = 0; i < int(ops.size()); i++) {
 		cost += ops[i].second;
