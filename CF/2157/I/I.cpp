@@ -9,7 +9,6 @@ int main() {
 		std::vector<std::vector<int>> winning_moves(N);
 		std::string res(N, '?');
 		for (int i = 0; i < N; i++) {
-			if (M % 2 == 0) assert(winning_moves[i].empty() == !(i % (M+1)));
 			if (winning_moves[i].empty()) {
 				for (int j = i+1; j < N && j <= i+M; j++) winning_moves[j].push_back(i);
 				res[i] = 'X';
@@ -20,6 +19,12 @@ int main() {
 			} else {
 				res[i] = ' ';
 			}
+		}
+		if (M % 2 == 0) {
+			for (int i = 0; i < N; i++) {
+				assert((res[i] == 'X') == ((i % (M+1)) == 0));
+			}
+			continue;
 		}
 		cerr << M << ' '; cerr << res << '\n';
 	}
