@@ -29,7 +29,7 @@ int main() {
 			if (i && ops[i].first > ops[i-1].first) cost += 1000;
 		}
 		cerr << cost << '\n';
-		std::vector<bool> alive(N);
+		std::vector<bool> alive(N, true);
 		for (auto [x, l] : ops) {
 			assert(alive[x]);
 			alive[x] = false;
