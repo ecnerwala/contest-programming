@@ -11,13 +11,13 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			if (winning_moves[i].empty()) {
 				for (int j = i+1; j < N && j <= i+M; j++) winning_moves[j].push_back(i);
-				res[i] = 'x';
+				res[i] = 'X';
 			} else if (winning_moves[i].size() == 1) {
 				int k = 2 * i - winning_moves[i][0];
 				if (k < N) winning_moves[k].push_back(i);
-				res[i] = '1';
+				res[i] = 'a';
 			} else {
-				res[i] = '2';
+				res[i] = 'b';
 			}
 		}
 		cerr << M << '\n';
