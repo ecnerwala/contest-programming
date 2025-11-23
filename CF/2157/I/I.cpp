@@ -20,7 +20,7 @@ int main() {
 				res[i] = ' ';
 			}
 		}
-		if (M % 2 == 0) {
+		if (__builtin_ctz(M+1) % 2 == 0) {
 			for (int i = 0; i < N; i++) {
 				assert((res[i] == 'X') == ((i % (M+1)) == 0));
 			}
