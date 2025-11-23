@@ -18,7 +18,7 @@ int main() {
 				if (k < N) winning_moves[k].push_back(i);
 				res[i] = 'o';
 			} else {
-				res[i] = ' ';
+				res[i] = '.';
 			}
 		}
 		if (__builtin_ctz(M+1) % 2 == 0) {
