@@ -15,9 +15,9 @@ int main() {
 			} else if (winning_moves[i].size() == 1) {
 				int k = 2 * i - winning_moves[i][0];
 				if (k < N) winning_moves[k].push_back(i);
-				res[i] = 'a';
+				res[i] = 'o';
 			} else {
-				res[i] = 'b';
+				res[i] = 'i';
 			}
 		}
 		cerr << M << '\n';
