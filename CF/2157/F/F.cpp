@@ -7,9 +7,9 @@ int main() {
 	int N; cin >> N;
 	std::vector<std::pair<int, int>> ops;
 	if (N == 4) {
+		ops.push_back({0, 1});
 		ops.push_back({1, 1});
 		ops.push_back({2, 1});
-		ops.push_back({3, 1});
 	} else if (N == 250000) {
 		const int B = 500;
 		for (int i = 0; i+1 < 500; i++) {
