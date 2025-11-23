@@ -11,6 +11,7 @@ int main() {
 		int rem = N;
 		int64_t cnt = 1;
 		int cost = (D-1) * 1000;
+		if (cost > 1e6) break;
 		for (int w = 0; rem; w++) {
 			if (w) {
 				cnt *= (D + w - 1);
@@ -22,7 +23,6 @@ int main() {
 			cost += int(cnt) * w;
 		}
 		cerr << D << ' ' << cost << '\n';
-		if (D >= 500) break;
 	}
 	if (N == 4) {
 		ops.push_back({0, 1});
