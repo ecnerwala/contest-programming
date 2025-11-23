@@ -32,7 +32,7 @@ int main() {
 				losing.push_back(i);
 			}
 		}
-		cerr << M << ' ';
+		cerr << M << ' ' << bitset<30>(M+1);
 		//cerr << res << ' ';
 		for (int z = 1; z < int(losing.size()); z++) cerr << losing[z] - losing[z-1] - (M+1) << ' ';
 		cerr << '\n';
