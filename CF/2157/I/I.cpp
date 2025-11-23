@@ -26,7 +26,15 @@ int main() {
 			}
 			continue;
 		}
-		cerr << M << ' '; cerr << res << '\n';
+		std::vector<int> losing;
+		for (int i = 0; i < N; i++) {
+			if (res[i] == 'X') {
+				losing.push_back(i);
+			}
+		}
+		cerr << M << ' '; cerr << res << ' ';
+		for (int v : losing) cerr << v << ' ';
+		cerr << '\n';
 	}
 
 	return 0;
