@@ -35,8 +35,8 @@ int main() {
 		}
 		cerr << M << ' ' << bitset<20>(M+1) << ' ';
 		//cerr << res << ' ';
-		for (int z = 1; z < int(losing.size()); z++) cerr << losing[z] - losing[z-1] - (M+1);
 		cerr << res.substr(0, 100) << ' ';
+		for (int z = 1; z < int(losing.size()); z++) cerr << losing[z] - losing[z-1] - (M+1);
 		cerr << '\n';
 	}
 
