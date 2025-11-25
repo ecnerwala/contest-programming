@@ -6,11 +6,11 @@ int main() {
 
 	int N; cin >> N;
 	std::vector<std::pair<int, int>> ops;
-	int best_D = -1;
-	int best_cost = int(1e6) + 1;
+	int best_D = 1;
+	int64_t best_cost = int64_t(N) * int64_t(N-1) / 2;
 	int max_w = 0;
 	int max_w_cnt = 0;
-	for (int D = 1; D <= N; D++) {
+	for (int D = 2; D <= N; D++) {
 		int rem = N;
 		int64_t cnt = 1;
 		int64_t cost = (D-1) * 1000;
