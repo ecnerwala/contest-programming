@@ -38,18 +38,6 @@ int main() {
 	cerr << "best D" << ' ' << best_D << '\n';
 	cerr << "best cost" << ' ' << best_cost << '\n';
 	int D = best_D;
-	{
-		std::vector<std::vector<int>> arrs; arrs.reserve(N);
-		for (int w = 0; int(arrs.size()) < N; w++) {
-			std::vector<int> cur(D, 0);
-			cur[0] = w;
-			do {
-				arrs.push_back(cur);
-				if (int(arrs.size()) == N) break;
-			} while (true);
-		}
-	}
-
 	std::vector<std::vector<std::pair<int, int>>> layer_ops(D);
 	[&](this auto&& self, int cur_layer, int cur_w, int next) -> int {
 		assert(next >= 0);
