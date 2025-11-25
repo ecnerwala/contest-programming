@@ -26,7 +26,7 @@ int main() {
 			if (cnt > rem) cnt = rem;
 			cost += int(cnt) * w;
 			if (cnt == rem) break;
-			rem -= cnt;
+			rem -= int(cnt);
 			w++;
 		}
 		if (cost < best_cost) {
