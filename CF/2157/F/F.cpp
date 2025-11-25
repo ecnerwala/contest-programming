@@ -36,8 +36,8 @@ int main() {
 			max_w_cnt = rem;
 		}
 	}
-	cerr << "best D" << best_D << '\n';
-	cerr << "best cost" << best_cost << '\n';
+	cerr << "best D" << ' ' << best_D << '\n';
+	cerr << "best cost" << ' ' << best_cost << '\n';
 	int D = best_D;
 	{
 		std::vector<std::vector<int>> arrs; arrs.reserve(N);
@@ -87,7 +87,7 @@ int main() {
 		cost += ops[i].second;
 		if (i && ops[i].first > ops[i-1].first) cost += 1000;
 	}
-	cerr << "final cost" << cost << '\n';
+	cerr << "final cost" << ' ' << cost << '\n';
 	assert(cost == best_cost);
 	std::vector<bool> alive(N, true);
 	for (auto [x, l] : ops) {
