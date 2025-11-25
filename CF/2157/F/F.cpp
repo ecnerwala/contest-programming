@@ -13,7 +13,7 @@ int main() {
 	for (int D = 1; D <= N; D++) {
 		int rem = N;
 		int64_t cnt = 1;
-		int cost = (D-1) * 1000;
+		int64_t cost = (D-1) * 1000;
 		if (cost >= best_cost) break;
 		int w = 0;
 		while (rem) {
@@ -29,7 +29,7 @@ int main() {
 			w++;
 		}
 		if (cost < best_cost) {
-			best_cost = cost;
+			best_cost = int(cost);
 			best_D = D;
 			max_w = w;
 			max_w_cnt = rem;
