@@ -6,28 +6,34 @@ int main() {
 
 	int N; cin >> N;
 	std::vector<std::pair<int, int>> ops;
-	/*
 	int best_D = -1;
 	int best_cost = int(1e6) + 1;
+	int max_w = 0;
+	int max_w_cnt = 0;
 	for (int D = 1; D <= N; D++) {
 		if (D < 30 && (1 << D) < N) continue;
 		int rem = N;
 		int64_t cnt = 1;
 		int cost = (D-1) * 1000;
 		if (cost >= best_cost) break;
-		for (int w = 0; rem; w++) {
+		int w = 0;
+		while (rem) {
 			if (w) {
 				cnt *= (D + w - 1);
 				assert(cnt % w == 0);
 				cnt /= w;
 			}
 			if (cnt > rem) cnt = rem;
-			rem -= cnt;
 			cost += int(cnt) * w;
+			if (cnt == rem) break;
+			rem -= cnt;
+			w++;
 		}
 		if (cost < best_cost) {
 			best_cost = cost;
 			best_D = D;
+			max_w = w;
+			max_w_cnt = rem;
 		}
 	}
 	cerr << best_D << '\n';
@@ -44,23 +50,28 @@ int main() {
 			} while (true);
 		}
 	}
-	*/
 
-	const int D = 113;
-	int max_cnt = 3;
 	std::vector<std::vector<std::pair<int, int>>> layer_ops(D);
-	[&](this auto&& self, int cur_layer, int cur_cnt, int next) -> int {
+	[&](this auto&& self, int cur_layer, int cur_w, int next) -> int {
 		assert(next >= 0);
-		if (cur_cnt == max_cnt) {
+		if (cur_w == max_w) {
+			// optimization
 			cur_layer = D;
 		}
 		if (cur_layer == D) {
+			if (cur_w == max_w) {
+				max_w_cnt--;
+				if (max_w_cnt == 0) {
+					max_w--;
+					// just let max_w_cnt go negative
+				}
+			}
 			return next-1;
 		}
 		int tgt = next;
-		for (int i = max_cnt - cur_cnt; i >= 0 && next >= 0; i--) {
+		for (int i = max_w - cur_w; i >= 0 && next >= 0; i--) {
 			if (next != tgt) layer_ops[cur_layer].push_back({next, tgt - next});
-			next = self(cur_layer + 1, cur_cnt + i, next);
+			next = self(cur_layer + 1, cur_w + i, next);
 		}
 		return next;
 	}(0, 0, N-1);
@@ -76,6 +87,7 @@ int main() {
 		cost += ops[i].second;
 		if (i && ops[i].first > ops[i-1].first) cost += 1000;
 	}
+	assert(cost == best_cost);
 	cerr << cost << '\n';
 	std::vector<bool> alive(N, true);
 	for (auto [x, l] : ops) {
