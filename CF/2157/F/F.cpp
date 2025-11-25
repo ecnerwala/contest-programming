@@ -11,7 +11,6 @@ int main() {
 	int max_w = 0;
 	int max_w_cnt = 0;
 	for (int D = 1; D <= N; D++) {
-		if (D < 31 && (1 << D) < N) continue;
 		int rem = N;
 		int64_t cnt = 1;
 		int cost = (D-1) * 1000;
