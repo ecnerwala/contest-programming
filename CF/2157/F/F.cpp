@@ -13,18 +13,19 @@ int main() {
 	for (int D = 1; D <= N; D++) {
 		if (D < 30 && (1 << D) < N) continue;
 		int rem = N;
+		int64_t cnt = 1;
 		int cost = (D-1) * 1000;
 		if (cost >= best_cost) break;
 		int w = 0;
-		int64_t cnt = 1;
 		while (rem) {
 			if (w) {
 				cnt *= (D + w - 1);
 				assert(cnt % w == 0);
 				cnt /= w;
 			}
-			if (cnt >= rem) break;
+			if (cnt > rem) cnt = rem;
 			cost += int(cnt) * w;
+			if (cnt == rem) break;
 			rem -= int(cnt);
 			w++;
 		}
