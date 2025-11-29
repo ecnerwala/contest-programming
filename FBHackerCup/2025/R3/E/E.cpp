@@ -4,12 +4,47 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	// brute force things of size 6
+	std::vector<int> dist(1 << 6, -1);
+	std::vector<std::array<std::vector<int>, 2>> nxt(1 << 6);
+	std::vector<int> q; q.reserve(1 << 6);
+	for (int i = 0; i <= 6; i++) {
+		int cur = (1 << 6) - (1 << i);
+		dist[cur] = 0;
+		q.push_back(cur);
+	}
+	for (int z = 0; z < int(q.size()); z++) {
+		int msk = q[z];
+		assert(dist[msk] != -1);
+		for (int as = 0; as < 1 << 6; as++) {
+			if (__builtin_popcount(as) != 3) continue;
+			std::vector<int> S(6);
+			for (int i = 0; i < 6; i++) S[i] = (msk >> i) & 1;
+			std::vector<int> A; A.reserve(3);
+			std::vector<int> B; B.reserve(3);
+			for (int i = 0; i < 6; i++) (((as >> i) & 1) ? A : B).push_back(i);
+			for (int i = 0; i < 3; i++) std::swap(S[A[i]], S[B[i]]);
+			int nmsk = 0;
+			for (int i = 0; i < 6; i++) {
+				nmsk |= (S[i] << i);
+			}
+			if (dist[nmsk] == -1) {
+				dist[nmsk] = dist[msk] + 1;
+				nxt[nmsk] = {A, B};
+				q.push_back(nmsk);
+			}
+		}
+	}
+	for (int msk = 0; msk < (1 << 6); msk++) { cerr << dist[msk] << ' '; } cerr << '\n';
+
+
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		int N; cin >> N;
 		std::string S; cin >> S;
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		cerr << S << '\n';
+		assert(N >= 3);
 
 		std::vector<std::array<std::vector<int>, 2>> ops; ops.reserve(10*N);
 		while (true) {
