@@ -48,7 +48,7 @@ int main() {
 					tmp = tmp | (tmp << (step << i));
 					i++;
 				}
-				nres = tmp;
+				nres |= tmp;
 				assert(num_steps >= (1 << i));
 				if (num_steps > (1 << i)) nres |= tmp << (num_steps * step - (step << i));
 			};
