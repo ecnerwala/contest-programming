@@ -199,6 +199,8 @@ int main() {
 		for (int i = 0; i <= N; i++) {
 			for (int cnt = B[i]; cnt <= L; cnt++) {
 				for (int z : {1, 0}) {
+					cerr << i << ' ' << cnt << ' ' << z << '\n';
+					cerr << N+1 << ' ' << L+1 << ' ' << 2 << '\n';
 					int64_t v = dp[{i, cnt, z}];
 					if (v == -1) continue;
 					if (z) {
