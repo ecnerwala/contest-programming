@@ -69,8 +69,7 @@ int main() {
 				lo = done_lo;
 				hi = done_hi;
 			}
-			assert(hi - lo >= 4);
-			if (hi - lo == 4) {
+			while (hi - lo < 6) {
 				if (lo > 0) lo -= 2;
 				else if (hi < 2*N) hi += 2;
 				else assert(false);
