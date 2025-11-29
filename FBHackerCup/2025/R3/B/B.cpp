@@ -204,8 +204,8 @@ int main() {
 					if (v == -1) continue;
 					if (z) {
 						setmax(dp[{i, cnt, 0}], v);
-						if (i+1 <= N) {
-							setmax(dp[{i+1, std::min(L, cnt+1), 1}], v + A[i]);
+						if (i+1 <= N && cnt+1 <= L) {
+							setmax(dp[{i+1, cnt+1, 1}], v + A[i]);
 						}
 					} else {
 						if (i+1 <= N && cnt >= B[i+1]) {
