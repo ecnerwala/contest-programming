@@ -20,6 +20,7 @@ int main() {
 					w.append(rep, c);
 					rep = -1;
 				} else if ('0' <= c && c <= '9') {
+					assert(rep != 0);
 					if (rep == -1) {
 						rep = 0;
 					}
