@@ -199,6 +199,11 @@ int main() {
 		};
 		for (int i = 0; i <= N; i++) {
 			for (int cnt = B[i]; cnt <= L; cnt++) {
+				if (cnt == 0) {
+					if (dp[{i, 0, 0}] != -1) {
+						setmax(dp[{i, 0, 1}], dp[{i, 0, 0}]);
+					}
+				}
 				for (int z : {1, 0}) {
 					int64_t v = dp[{i, cnt, z}];
 					if (v == -1) continue;
