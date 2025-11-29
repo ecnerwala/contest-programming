@@ -45,6 +45,7 @@ int main() {
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		cerr << S << '\n';
 		assert(N >= 3);
+		assert(int(S.size()) == 2*N);
 
 		std::vector<std::array<std::vector<int>, 2>> ops; ops.reserve(10*N);
 		int done_lo = -1;
