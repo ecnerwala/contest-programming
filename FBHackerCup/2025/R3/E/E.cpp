@@ -57,6 +57,13 @@ int main() {
 
 			if (lo & 1) lo--;
 			if (hi & 1) hi++;
+			assert(hi - lo >= 4);
+			if (hi - lo == 4) {
+				if (lo > 0) lo -= 2;
+				else if (hi < 2*N) hi += 2;
+				else assert(false);
+			}
+			assert(hi - lo >= 6);
 
 			std::vector<int> A; A.reserve(N);
 			std::vector<int> B; B.reserve(N);
@@ -69,47 +76,51 @@ int main() {
 				std::array<int, 2> cnt{0, 0};
 				for (int i = lo; i < hi; i++) cnt[S[i] - '0']++;
 				assert(hi - lo >= 4);
-				if (cnt[0] > cnt[1]) {
+				{
 					std::vector<int> tmp; tmp.reserve(2);
 					for (int i = lo+2; tmp.size() < 2 && i < hi; i++) {
 						if (S[i] == '0') tmp.push_back(i);
 					}
-					assert(tmp.size() == 2);
-					A.push_back(lo+0);
-					B.push_back(tmp[0]);
-					A.push_back(lo+1);
-					B.push_back(tmp[1]);
-					int cur_cnt = 0;
-					for (int i = lo; i < hi; i++) {
-						if (i == lo || i == lo+1 || i == tmp[0] || i == tmp[1]) continue;
-						if (cur_cnt < int(hi-lo-4) / 2) A.push_back(i);
-						else B.push_back(i);
-						cur_cnt++;
+					if (tmp.size() == 2 && tmp[0] <= lo + (hi-lo)/2 + 0 && tmp[1] <= lo + (hi-lo)/2 + 1) {
+						A.push_back(lo+0);
+						B.push_back(tmp[0]);
+						A.push_back(lo+1);
+						B.push_back(tmp[1]);
+						int cur_cnt = 0;
+						for (int i = lo; i < hi; i++) {
+							if (i == lo || i == lo+1 || i == tmp[0] || i == tmp[1]) continue;
+							if (cur_cnt < int(hi-lo-4) / 2) A.push_back(i);
+							else B.push_back(i);
+							cur_cnt++;
+						}
+						assert(cur_cnt == (hi - lo - 4));
+						return;
 					}
-					assert(cur_cnt == (hi - lo - 4));
-				} else if (cnt[1] > cnt[0]) {
+				}
+				{
 					std::vector<int> tmp; tmp.reserve(2);
 					for (int i = hi-3; tmp.size() < 2 && i >= lo; i--) {
 						if (S[i] == '1') tmp.push_back(i);
 					}
-					assert(tmp.size() == 2);
-					int cur_cnt = 0;
-					for (int i = lo; i < hi; i++) {
-						if (i == hi-2 || i == hi-1 || i == tmp[0] || i == tmp[1]) continue;
-						if (cur_cnt < int(hi-lo-4) / 2) A.push_back(i);
-						else B.push_back(i);
-						cur_cnt++;
+					std::reverse(tmp.begin(), tmp.end());
+					if (tmp.size() == 2 && tmp[0] >= lo + (hi-lo)/2 - 2 && tmp[1] >= lo + (hi-lo)/2 - 1) {
+						int cur_cnt = 0;
+						for (int i = lo; i < hi; i++) {
+							if (i == hi-2 || i == hi-1 || i == tmp[0] || i == tmp[1]) continue;
+							if (cur_cnt < int(hi-lo-4) / 2) A.push_back(i);
+							else B.push_back(i);
+							cur_cnt++;
+						}
+						assert(cur_cnt == (hi - lo - 4));
+						A.push_back(tmp[0]);
+						B.push_back(hi-2);
+						A.push_back(tmp[1]);
+						B.push_back(hi-1);
+						return;
 					}
-					assert(cur_cnt == (hi - lo - 4));
-					A.push_back(tmp[0]);
-					B.push_back(hi-2);
-					A.push_back(tmp[1]);
-					B.push_back(hi-1);
-				} else {
-					assert(cnt[0] == cnt[1]);
-					// todo
-					assert(false);
 				}
+				assert(cnt[0] == cnt[1]);
+				assert(false);
 			}();
 			for (int z = hi; z < 2*N; z += 2) {
 				assert(S[z] == '1' && S[z+1] == '1');
