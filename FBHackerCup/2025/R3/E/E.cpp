@@ -13,6 +13,7 @@ int main() {
 
 		std::vector<std::array<std::vector<int>, 2>> ops; ops.reserve(10*N);
 		while (true) {
+			cerr << S << '\n';
 			int lo = 0;
 			while (lo < 2*N && S[lo] == '0') lo++;
 			int hi = 2*N;
