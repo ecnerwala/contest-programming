@@ -43,6 +43,7 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		int N; cin >> N;
 		std::string S; cin >> S;
+		std::string S_orig = S;
 		//int N = 5;
 		//std::string S(2*N, '?');
 		//for (int i = 0; i < 2*N; i++) S[i] = (((case_num-1) >> i) & 1) + '0';
@@ -170,6 +171,21 @@ int main() {
 		cout << flush;
 		assert(int(ops.size()) <= 10*N);
 		assert(std::is_sorted(S.begin(), S.end()));
+		for (auto [A, B] : ops) {
+			assert(int(A.size()) == N);
+			assert(int(B.size()) == N);
+			assert(std::ranges::is_sorted(A));
+			assert(std::ranges::is_sorted(B));
+			std::vector<bool> seen(2*N, false);
+			for (int i = 0; i < N; i++) {
+				assert(!seen[A[i]]);
+				seen[A[i]] = true;
+				assert(!seen[B[i]]);
+				seen[B[i]] = true;
+				std::swap(S_orig[A[i]], S_orig[B[i]]);
+			}
+		}
+		assert(std::ranges::is_sorted(S_orig));
 	}
 
 	return 0;
