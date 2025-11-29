@@ -28,7 +28,6 @@ int main() {
 		}
 		cerr << "Case #" << case_num << ": " << N << ' ' << K << '\n';
 
-		int64_t ans = 0;
 		bs res;
 		for (int z = 0; z < N; z++) {
 			int tot_len = int(W[z].size());
@@ -76,6 +75,10 @@ int main() {
 				}
 			}
 			res = nres;
+		}
+		int64_t ans = 0;
+		for (int i = 1; i <= K; i++) {
+			if (res[i]) ans += i;
 		}
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
