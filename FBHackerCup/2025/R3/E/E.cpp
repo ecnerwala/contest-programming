@@ -60,7 +60,7 @@ int main() {
 			int lo = 0;
 			while (lo < 2*N && S[lo] == '0') lo++;
 			int hi = 2*N;
-			while (hi >= 0 && S[hi-1] == '1') hi--;
+			while (hi > 0 && S[hi-1] == '1') hi--;
 			if (lo == hi) break;
 
 			if (lo & 1) lo--;
