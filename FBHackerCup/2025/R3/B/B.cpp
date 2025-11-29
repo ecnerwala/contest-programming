@@ -193,7 +193,7 @@ int main() {
 
 		cerr << "L " << L << '\n';
 		tensor<int64_t, 3> dp({N+1, L+1, 2}, -1);
-		dp[{0, 0, 1}] = 0;
+		dp[{0, 0, 0}] = 0;
 		auto setmax = [&](int64_t& loc, int64_t cnd) {
 			if (loc == -1 || cnd < loc) loc = cnd;
 		};
