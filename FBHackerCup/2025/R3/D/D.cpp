@@ -217,7 +217,7 @@ int main() {
 		std::vector<int> buf; buf.reserve(N);
 		for (int d = 1; d <= N; d++) {
 			buf.clear();
-			for (int v = d-1; v <= N; v += d) {
+			for (int v = d-1; v < N; v += d) {
 				buf.push_back(idx[v]);
 			}
 			std::sort(buf.begin(), buf.end());
