@@ -209,7 +209,7 @@ int main() {
 				assert(vals.back() > d);
 				vals.back() = d;
 			}
-		}(0, -1, 0);
+		}(N-1, -1, 0);
 		assert(vals.back() == 0);
 		vals.pop_back();
 		RangeMinQuery<int> rmq(vals);
