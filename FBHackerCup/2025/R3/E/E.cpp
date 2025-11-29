@@ -38,14 +38,15 @@ int main() {
 	for (int msk = 0; msk < (1 << 6); msk++) { cerr << dist[msk] << ' '; } cerr << '\n';
 
 
-	//int T; cin >> T;
-	int T = (1 << (2*5));
+	int T; cin >> T;
+	//int T = (1 << (2*5));
 	for (int case_num = 1; case_num <= T; case_num ++) {
-		//int N; cin >> N;
-		//std::string S; cin >> S;
-		int N = 5;
-		std::string S(2*N, '?');
-		for (int i = 0; i < 2*N; i++) S[i] = (((case_num-1) >> i) & 1) + '0';
+		int N; cin >> N;
+		std::string S; cin >> S;
+		//int N = 5;
+		//std::string S(2*N, '?');
+		//for (int i = 0; i < 2*N; i++) S[i] = (((case_num-1) >> i) & 1) + '0';
+
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
 		cerr << S << '\n';
 		assert(N >= 3);
