@@ -83,7 +83,7 @@ int main() {
 		for (int i = 1; i <= K; i++) {
 			if (res[i]) ans += i;
 		}
-		cout << "Case #" << case_num << ": " << ans << '\n';
+		cout << "Case #" << case_num << ": " << ans << '\n' << flush;
 	}
 
 	return 0;
