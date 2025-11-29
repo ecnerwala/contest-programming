@@ -71,6 +71,7 @@ int main() {
 				} else {
 					assert(cnt[0] == cnt[1]);
 					// todo
+					assert(false);
 				}
 			}();
 			for (int z = hi; z < 2*N; z += 2) {
