@@ -9,9 +9,10 @@ int main() {
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		int N, K; cin >> N >> K;
-		std::vector<std::string> W(N);
-		for (auto& w : W) {
-			std::string C; cin >> C;
+		std::vector<std::string> WC(N);
+		for (auto& c : WC) cin >> c;
+		auto expand = [&](std::string C) -> std::string {
+			std::string w;
 			int rep = 0;
 			for (char c : C) {
 				if ('a' <= c && c <= 'z') {
@@ -25,20 +26,19 @@ int main() {
 				} else assert(false);
 			}
 			assert(rep == 0);
-		}
+			return w;
+		};
 		cerr << "Case #" << case_num << ": " << N << ' ' << K << '\n';
 
-		bs res;
+		bs res; res[0] = true;
+		std::string prv;
 		for (int z = 0; z < N; z++) {
-			int tot_len = int(W[z].size());
-			if (z == 0) {
-				res[tot_len] = true;
-				continue;
-			}
-			const auto& prv = W[z-1];
-			const auto& cur = W[z];
+			std::string cur = expand(WC[z]);
+			int tot_len = int(cur.size());
+			cerr << z << ' ' << tot_len << '\n';
 			bs nres = res << tot_len;
 			auto do_ap = [&](int max_overlap, int step, int num_steps) -> void {
+				cerr << "match " << max_overlap << ' ' << step << ' ' << num_steps << '\n';
 				assert(max_overlap >= step);
 				assert(max_overlap >= step * num_steps);
 				assert(num_steps >= 1);
@@ -75,6 +75,7 @@ int main() {
 				}
 			}
 			res = nres;
+			prv = cur;
 		}
 		int64_t ans = 0;
 		for (int i = 1; i <= K; i++) {
