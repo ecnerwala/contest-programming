@@ -207,7 +207,6 @@ int main() {
 				for (int z : {1, 0}) {
 					int64_t v = dp[{i, cnt, z}];
 					if (v == -1) continue;
-					cerr << i << ' ' << cnt << ' ' << z << ' ' << v << '\n';
 					if (z) {
 						setmax(dp[{i, cnt, 0}], v);
 						if (i+1 <= N && cnt+1 <= L) {
