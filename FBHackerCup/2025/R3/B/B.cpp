@@ -184,6 +184,9 @@ int main() {
 			B[i] = std::max(B[i], B[i-1]);
 		}
 		assert(B[0] == 0);
+		for (int i = 1; i <= N; i++) {
+			assert(B[i] == B[i-1] || B[i] == B[i-1] + 1);
+		}
 
 		int L = B[N];
 		std::vector<int> need(L+1);
