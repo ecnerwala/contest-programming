@@ -37,10 +37,10 @@ int main() {
 		for (int z = 0; z < N; z++) {
 			std::string cur = expand(WC[z]);
 			int tot_len = int(cur.size());
-			cerr << z << ' ' << tot_len << '\n';
+			//cerr << z << ' ' << tot_len << '\n';
 			bs nres = res << tot_len;
 			auto do_ap = [&](int max_overlap, int step, int num_steps) -> void {
-				cerr << "match " << max_overlap << ' ' << step << ' ' << num_steps << '\n';
+				//cerr << "match " << max_overlap << ' ' << step << ' ' << num_steps << '\n';
 				assert(max_overlap >= step);
 				assert(max_overlap >= step * num_steps);
 				assert(num_steps >= 1);
