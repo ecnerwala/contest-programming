@@ -27,7 +27,7 @@ int main() {
 		return (double(tot_C) + dp) / 2;
 	};
 
-	cout << fixed << setprecision(10);
+	cout << fixed << setprecision(12);
 	cout << solve() << '\n';
 
 	int Q; cin >> Q;
