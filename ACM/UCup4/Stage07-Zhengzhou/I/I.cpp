@@ -149,8 +149,8 @@ int main() {
 	for (int i = K; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	num ans = 0;
-	for (int i = 0; i <= K; i++) {
-		ans += num((i & 1) ? -1 : 1) * prods[i] * fact[K] * ifact[K-i] * ifact[i];
+	for (int i = 1; i <= K; i++) {
+		ans -= num((i & 1) ? -1 : 1) * prods[i] * fact[K] * ifact[K-i] * ifact[i];
 	}
 	cout << ans << '\n';
 
