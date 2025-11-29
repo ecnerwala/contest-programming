@@ -13,19 +13,19 @@ int main() {
 		for (auto& c : WC) cin >> c;
 		auto expand = [&](std::string C) -> std::string {
 			std::string w;
-			int rep = 0;
+			int rep = -1;
 			for (char c : C) {
 				if ('a' <= c && c <= 'z') {
-					if (rep == 0) rep = 1;
+					if (rep == -1) rep = 1;
 					w.append(rep, c);
-					rep = 0;
+					rep = -1;
 				} else if ('0' <= c && c <= '9') {
 					if (rep == 0) assert(c != '0');
 					rep *= 10;
 					rep += (c - '0');
 				} else assert(false);
 			}
-			assert(rep == 0);
+			assert(rep == -1);
 			return w;
 		};
 		cerr << "Case #" << case_num << ": " << N << ' ' << K << '\n';
