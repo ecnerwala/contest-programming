@@ -47,6 +47,8 @@ int main() {
 		assert(N >= 3);
 
 		std::vector<std::array<std::vector<int>, 2>> ops; ops.reserve(10*N);
+		int done_lo = -1;
+		int done_hi = -1;
 		while (true) {
 			cerr << S << '\n';
 			int lo = 0;
@@ -57,13 +59,17 @@ int main() {
 
 			if (lo & 1) lo--;
 			if (hi & 1) hi++;
+			if (done_lo != -1) {
+				assert(hi - lo <= 6);
+				lo = done_lo;
+				hi = done_hi;
+			}
 			assert(hi - lo >= 4);
 			if (hi - lo == 4) {
 				if (lo > 0) lo -= 2;
 				else if (hi < 2*N) hi += 2;
 				else assert(false);
 			}
-			assert(hi - lo >= 6);
 
 			std::vector<int> A; A.reserve(N);
 			std::vector<int> B; B.reserve(N);
@@ -73,6 +79,17 @@ int main() {
 				B.push_back(z+1);
 			}
 			[&]{
+				assert(hi - lo >= 6);
+				if (hi - lo == 6) {
+					done_lo = lo;
+					done_hi = hi;
+					int msk = 0;
+					for (int i = 0; i < 6; i++) msk |= (S[lo + i] - '0') << i;
+					assert(dist[msk] >= 1);
+					for (auto v : nxt[msk][0]) A.push_back(lo + v);
+					for (auto v : nxt[msk][1]) B.push_back(lo + v);
+					return;
+				}
 				std::array<int, 2> cnt{0, 0};
 				for (int i = lo; i < hi; i++) cnt[S[i] - '0']++;
 				assert(hi - lo >= 4);
