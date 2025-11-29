@@ -9,6 +9,7 @@ int main() {
 		int N; cin >> N;
 		std::string S; cin >> S;
 		cerr << "Case #" << case_num << ": " << "N = " << N << '\n';
+		cerr << S << '\n';
 
 		std::vector<std::array<std::vector<int>, 2>> ops; ops.reserve(10*N);
 		while (true) {
