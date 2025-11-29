@@ -42,7 +42,7 @@ int main() {
 			auto do_ap = [&](int max_overlap, int step, int num_steps) -> void {
 				//cerr << "match " << max_overlap << ' ' << step << ' ' << num_steps << '\n';
 				assert(max_overlap >= step);
-				assert(max_overlap >= step * num_steps);
+				assert(max_overlap >= step * (num_steps - 1));
 				assert(num_steps >= 1);
 				bs tmp = res << (tot_len - max_overlap);
 				int i = 0;
@@ -71,7 +71,7 @@ int main() {
 				while (match > 0) {
 					int step = match - fail[match];
 					int num_steps = match / step;
-					do_ap(match, step, num_steps);
+					do_ap(match, step, num_steps + 1);
 					match -= (num_steps - 1) * step;
 					match = fail[match];
 				}
