@@ -34,8 +34,6 @@ int main() {
 		coords[2] = x - y;
 		q.xs = coords;
 		q.w = w;
-		int64_t area = int64_t(N - coords[0] - coords[1] - coords[2]) * int64_t(N - coords[0] - coords[1] - coords[2]);
-		cerr << d << ' ' << area << ' ' << coords[0] << ' ' << coords[1] << ' ' << coords[2] << ' ' << d * d << '\n';
 	}
 
 	return 0;
