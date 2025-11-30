@@ -40,6 +40,7 @@ int main() {
 	std::vector<uint32_t> ans(num_out);
 	for (int m1 = 0; m1 < 7; m1++) {
 		for (int m2 = 0; m2 < 7; m2++) {
+			bool neg = (__builtin_popcount(m1) + __builtin_popcount(m2)) & 1;
 			for (const auto& op : ops) {
 				if (op.op == 1) {
 					// update
