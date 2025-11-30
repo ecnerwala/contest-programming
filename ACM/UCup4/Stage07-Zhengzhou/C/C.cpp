@@ -196,6 +196,7 @@ int main() {
 		}
 	}
 	kactl::mustMatInv(vQ);
+	cerr << "finish matinv1" << '\n';
 	std::vector<num> wQ(N);
 	for (int j = 0; j < N; j++) {
 		for (int y = 0; y < N; y++) {
@@ -217,6 +218,7 @@ int main() {
 		}
 	}
 	kactl::mustMatInv(vP);
+	cerr << "finish matinv2" << '\n';
 
 	std::vector<std::vector<num>> ans(N, std::vector<num>(N, 0));
 	for (int x = 0; x < N; x++) {
