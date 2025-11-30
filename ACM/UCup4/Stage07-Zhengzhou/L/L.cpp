@@ -16,7 +16,7 @@ int main() {
 		assert(q.op == 1 || q.op == 2);
 		int type, x, y, d; cin >> type >> x >> y >> d;
 		x--, y--;
-		assert(0 <= y && y <= x);
+		assert(0 <= y && y <= x && x <= N);
 		uint32_t w;
 		if (q.op == 1) { cin >> w; }
 		else if (q.op == 2) {}
