@@ -273,7 +273,7 @@ int main() {
 		std::sort(pts.begin(), pts.end());
 		pts.resize(std::unique(pts.begin(), pts.end()) - pts.begin());
 		auto res = smawk::smawk(int(pts.size()), 3*int(prv_holes.size()), [&](int cur_idx, int prv_idx) -> double {
-		}, [&](int _cur_idx, auto opt1, auto opt2) -> bool {
+		}, [&]([[maybe_unused]] int cur_idx, auto opt1, auto opt2) -> bool {
 			return opt1.v < opt2.v ? 0 : 1;
 		});
 	}
