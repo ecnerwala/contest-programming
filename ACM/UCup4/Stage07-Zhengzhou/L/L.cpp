@@ -30,8 +30,8 @@ int main() {
 
 		std::array<int, 3> coords;
 		coords[0] = (N-x) - d;
-		coords[1] = N-y;
-		coords[2] = N - (x - y);
+		coords[1] = y;
+		coords[2] = x - y;
 		q.xs = coords;
 		q.w = w;
 		int64_t area = int64_t(N+1 - coords[0] - coords[1] - coords[2]) * int64_t(N - coords[0] - coords[1] - coords[2]) / 2;
