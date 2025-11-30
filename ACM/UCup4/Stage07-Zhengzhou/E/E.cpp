@@ -282,7 +282,7 @@ int main() {
 		auto cur_pt_dists = smawk::smawk(int(cur_pts.size()), 3*int(prv_holes.size()), [&](int cur_idx, int prv_idx) -> double {
 			int cur = cur_pts[cur_idx];
 			assert(0 <= prv_idx && prv_idx < 3 * int(prv_holes.size()));
-			int prv = prv_holes[prv_idx % int(prv_holes.size())] - M * (prv_idx / int(prv_holes.size()) + 1);
+			int prv = prv_holes[prv_idx % int(prv_holes.size())] + M * (prv_idx / int(prv_holes.size()) - 1);
 
 			double dist = prv_dists[prv_idx % int(prv_holes.size())];
 
