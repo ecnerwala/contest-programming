@@ -175,16 +175,16 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int N = 700;
-	//int N; cin >> N;
+	//int N = 700;
+	int N; cin >> N;
 	std::vector<int> Q(N);
-	//for (auto& q : Q) cin >> q;
-	for (auto& q : Q) q = 1;
+	for (auto& q : Q) cin >> q;
+	//for (auto& q : Q) q = 1;
 
 	std::vector<std::vector<int>> adj(N);
 	for (int e = 0; e < N-1; e++) {
-		//int u, v; cin >> u >> v; u--, v--;
-		int u = e, v = e+1;
+		int u, v; cin >> u >> v; u--, v--;
+		//int u = e, v = e+1;
 		adj[u].push_back(v);
 		adj[v].push_back(u);
 	}
