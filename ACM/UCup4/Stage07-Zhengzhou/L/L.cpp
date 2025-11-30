@@ -35,6 +35,7 @@ int main() {
 		q.xs = coords;
 		q.w = w;
 		int64_t area = int64_t(N+1 - coords[0] - coords[1] - coords[2]) * int64_t(N - coords[0] - coords[1] - coords[2]) / 2;
+		cerr << d << ' ' << area << ' ' << d * (std::abs(d) + 1) / 2 << '\n';
 		assert(area == d * (std::abs(d)+1) / 2);
 	}
 
