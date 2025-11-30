@@ -178,27 +178,69 @@ int main() {
 	int N; cin >> N;
 	std::vector<int> Q(N);
 	for (auto& q : Q) cin >> q;
+
+	std::vector<std::vector<int>> adj(N);
+	for (int e = 0; e < N-1; e++) {
+		int u, v; cin >> u >> v; u--, v--;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+
 	std::vector<std::vector<num>> vQ(N, std::vector<num>(N, 0));
-	for (int i = 0; i < N; i++) {
+	for (int y = 0; y < N; y++) {
 		for (int j = 0; j < N; j++) {
-			vQ[i][j] = power(num(i), j);
+			vQ[y][j] = power(num(y), j);
 		}
 	}
 	kactl::mustMatInv(vQ);
 	std::vector<num> wQ(N);
 	for (int j = 0; j < N; j++) {
-		for (int i = 0; i < N; i++) {
-			wQ[i] += Q[j] * vQ[j][i];
+		for (int y = 0; y < N; y++) {
+			wQ[y] += Q[j] * vQ[j][y];
 		}
 	}
 	for (int j = 0; j < N; j++) {
 		num tot = 0;
-		for (int i = 0; i < N; i++) {
-			tot += power(num(i), j) * wQ[i];
+		for (int y = 0; y < N; y++) {
+			tot += power(num(y), j) * wQ[y];
 		}
 		assert(tot == Q[j]);
 	}
+
 	std::vector<std::vector<num>> vP(N, std::vector<num>(N, 0));
+	for (int x = 0; x < N; x++) {
+		for (int j = 0; j < N; j++) {
+			vP[j][x] = power(num(x), j) * power(num(1-x), N-1-j);
+		}
+	}
+	kactl::mustMatInv(vP);
+
+	std::vector<std::vector<num>> ans(N, std::vector<num>(N, 0));
+	for (int x = 0; x < N; x++) {
+		for (int y = 0; y < N; y++) {
+			[&](this auto&& self, int cur, int prv) -> num {
+				num tot = 1;
+				for (int nxt : adj[cur]) {
+					if (nxt == prv) continue;
+					// if nxt is cut, it's 1-x
+					tot *= self(nxt, cur);
+				}
+				ans[cur][x] += wQ[y] * tot;
+				return tot * num(x) * num(y) + num(1-x);
+			}(0, -1);
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		std::vector<num> buf(N);
+		for (int x = 0; x < N; x++) {
+			for (int j = 0; j < N; j++) {
+				buf[j] += vP[x][j] * ans[i][j];
+			}
+		}
+		for (int j = 0; j < N; j++) {
+			cout << buf[j] << " \n"[j+1==N];
+		}
+	}
 
 	return 0;
 }
