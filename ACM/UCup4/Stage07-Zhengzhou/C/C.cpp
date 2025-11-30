@@ -230,6 +230,12 @@ int main() {
 			}(0, -1);
 		}
 	}
+	std::vector<num> fact(N+1);
+	fact[0] = 1;
+	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+	std::vector<num> ifact(N+1);
+	ifact[N] = inv(fact[N]);
+	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 	for (int i = 0; i < N; i++) {
 		std::vector<num> buf(N);
 		for (int x = 0; x < N; x++) {
@@ -238,7 +244,7 @@ int main() {
 			}
 		}
 		for (int j = 0; j < N; j++) {
-			cout << buf[j] << " \n"[j+1==N];
+			cout << buf[j] * fact[N-1] * ifact[j] * ifact[N-1-j] << " \n"[j+1==N];
 		}
 	}
 
