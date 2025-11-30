@@ -196,7 +196,6 @@ int main() {
 		}
 	}
 	kactl::mustMatInv(vQ);
-	cerr << "finish matinv1" << '\n';
 	std::vector<num> wQ(N);
 	for (int j = 0; j < N; j++) {
 		for (int y = 0; y < N; y++) {
@@ -218,22 +217,25 @@ int main() {
 		}
 	}
 	kactl::mustMatInv(vP);
-	cerr << "finish matinv2" << '\n';
 
 	std::vector<std::vector<num>> ans(N, std::vector<num>(N, 0));
 	for (int x = 0; x < N; x++) {
-		for (int y = 0; y < N; y++) {
-			[&](this auto&& self, int cur, int prv) -> num {
-				num tot = 1;
-				for (int nxt : adj[cur]) {
-					if (nxt == prv) continue;
-					// if nxt is cut, it's 1-x
-					tot *= self(nxt, cur);
+		[&](this auto&& self, int cur, int prv) -> std::vector<num> {
+			std::vector<num> tot(N, 1);
+			for (int nxt : adj[cur]) {
+				if (nxt == prv) continue;
+				auto ch = self(nxt, cur);
+				// if nxt is cut, it's 1-x
+				for (int y = 0; y < N; y++) {
+					tot[y] *= ch[y];
 				}
-				ans[cur][x] += wQ[y] * tot;
-				return tot * num(x) * num(y) + num(1-x);
-			}(0, -1);
-		}
+			}
+			for (int y = 0; y < N; y++) {
+				ans[cur][x] += wQ[y] * tot[y];
+				tot[y] = num(int(tot[y]) * int64_t(x) * int64_t(y) + (1-x));
+			}
+			return tot;
+		}(0, -1);
 	}
 	std::vector<num> fact(N+1);
 	fact[0] = 1;
