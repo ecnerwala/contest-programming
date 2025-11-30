@@ -287,11 +287,14 @@ int main() {
 			double dist = prv_dists[prv_idx % int(prv_holes.size())];
 
 			double ang = double(std::abs(cur - prv)) / double(M) * double(2 * M_PI);
+			double res = dist;
 			if (ang > tan_angle) {
-				return dist + tan_dist + prv_r * (ang - tan_angle);
+				res += tan_dist + prv_r * (ang - tan_angle);
 			} else {
-				return dist + std::sqrt(double(cur_r) * cur_r + double(prv_r) * prv_r - 2 * double(prv_r) * cur_r * ang);
+				res += std::sqrt(double(cur_r) * cur_r + double(prv_r) * prv_r - 2 * double(prv_r) * cur_r * ang);
 			}
+			cerr << r_id << ' ' << cur_idx << ' ' << prv_idx << ' ' << res << '\n';
+			return res;
 		}, [&]([[maybe_unused]] int cur_idx, auto opt1, auto opt2) -> bool {
 			return opt1.v < opt2.v ? 0 : 1;
 		});
