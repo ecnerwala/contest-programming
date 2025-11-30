@@ -248,12 +248,16 @@ int main() {
 	std::vector<std::vector<double>> dists(N);
 	for (int r_id = 0; r_id < N; r_id++) {
 		int cur_r = R[r_id];
-		dists[r_id].resize(holes[r_id].size());
+		const std::vector<int>& cur_holes = holes[r_id];
+		std::sort(queries[r_id].begin(), queries[r_id].end());
+		const std::vector<std::pair<int, int>>& cur_queries = queries[r_id];
+		std::vector<double>& cur_dists = dists[r_id];
+		cur_dists.resize(cur_holes.size());
 		if (r_id == 0) {
-			for (auto [_, q] : queries[r_id]) {
+			for (auto [_, q] : cur_queries) {
 				ans[q] = cur_r;
 			}
-			for (auto& v : dists[r_id]) {
+			for (auto& v : cur_dists) {
 				v = cur_r;
 			}
 			continue;
@@ -268,20 +272,46 @@ int main() {
 			break;
 		}
 
-		std::vector<int> cur_pts; cur_pts.reserve(holes[r_id].size() + queries[r_id].size());
-		cur_pts.insert(cur_pts.end(), holes[r_id].begin(), holes[r_id].end());
-		for (auto [p, _] : queries[r_id]) {
-			cur_pts.push_back(p);
-		}
+		std::vector<int> cur_pts; cur_pts.reserve(cur_holes.size() + cur_queries.size());
+		cur_pts.insert(cur_pts.end(), cur_holes.begin(), cur_holes.end());
+		for (auto [p, _] : cur_queries) { cur_pts.push_back(p); }
 		std::sort(cur_pts.begin(), cur_pts.end());
 		cur_pts.resize(std::unique(cur_pts.begin(), cur_pts.end()) - cur_pts.begin());
-		auto res = smawk::smawk(int(cur_pts.size()), 3*int(prv_holes.size()), [&](int cur_idx, int prv_idx) -> double {
+		double tan_angle = std::acos(double(prv_r) / double(cur_r));
+		double tan_dist = std::sqrt(double(cur_r) * cur_r - double(prv_r) * prv_r);
+		auto cur_pt_dists = smawk::smawk(int(cur_pts.size()), 3*int(prv_holes.size()), [&](int cur_idx, int prv_idx) -> double {
 			int cur = cur_pts[cur_idx];
 			assert(0 <= prv_idx && prv_idx < 3 * int(prv_holes.size()));
 			int prv = prv_holes[prv_idx % int(prv_holes.size())] - M * (prv_idx / int(prv_holes.size()) + 1);
+
+			double dist = prv_dists[prv_idx % int(prv_holes.size())];
+
+			double ang = double(std::abs(cur - prv)) / double(M) * double(2 * M_PI);
+			if (ang > tan_angle) {
+				return dist + tan_dist + prv_r * (ang - tan_angle);
+			} else {
+				return dist + std::sqrt(double(cur_r) * cur_r + double(prv_r) * prv_r - 2 * double(prv_r) * cur_r * ang);
+			}
 		}, [&]([[maybe_unused]] int cur_idx, auto opt1, auto opt2) -> bool {
 			return opt1.v < opt2.v ? 0 : 1;
 		});
+		assert(int(cur_pt_dists.size()) == int(cur_pts.size()));
+		{
+			int it = 0;
+			for (int z = 0; z < int(cur_holes.size()); z++) {
+				while (cur_pts[it] < cur_holes[z]) it++;
+				assert(cur_pts[it] == cur_holes[z]);
+				cur_dists[z] = cur_pt_dists[it].v;
+			}
+		}
+		{
+			int it = 0;
+			for (auto [p, q] : cur_queries) {
+				while (cur_pts[it] < p) it++;
+				assert(cur_pts[it] == p);
+				ans[q] = cur_pt_dists[it].v;
+			}
+		}
 	}
 
 	cout << fixed << setprecision(12);
