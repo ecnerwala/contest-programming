@@ -29,7 +29,7 @@ int main() {
 		} else assert(false);
 
 		std::array<int, 3> coords;
-		coords[0] = (N-x) + d;
+		coords[0] = (N-x) - d;
 		coords[1] = y;
 		coords[2] = x - y;
 		q.xs = coords;
