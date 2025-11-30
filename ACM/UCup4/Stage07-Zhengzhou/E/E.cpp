@@ -293,7 +293,7 @@ int main() {
 			} else {
 				res += std::sqrt(double(cur_r) * cur_r + double(prv_r) * prv_r - 2 * double(prv_r) * cur_r * std::cos(ang));
 			}
-			cerr << r_id << ' ' << cur_idx << ' ' << prv_idx << ' ' << res << '\n';
+			cerr << r_id << ' ' << cur_idx << ' ' << prv_idx << ' ' << ang << ' ' << res << '\n';
 			return res;
 		}, [&]([[maybe_unused]] int cur_idx, auto opt1, auto opt2) -> bool {
 			return opt1.v < opt2.v ? 0 : 1;
