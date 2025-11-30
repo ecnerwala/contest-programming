@@ -35,6 +35,7 @@ int main() {
 		q.xs = coords;
 		q.w = w;
 		// area of a positive region is (N - coords[0] - coords[1] - coords[2])^2
+		if (type == 0) assert(coords[0] + coords[1] + coords[2] < N);
 	}
 
 	std::vector<uint32_t> ans(num_out);
