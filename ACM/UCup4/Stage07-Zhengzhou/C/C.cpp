@@ -234,7 +234,7 @@ int main() {
 		std::vector<num> buf(N);
 		for (int x = 0; x < N; x++) {
 			for (int j = 0; j < N; j++) {
-				buf[j] += vP[x][j] * ans[i][j];
+				buf[j] += vP[x][j] * ans[i][x];
 			}
 		}
 		for (int j = 0; j < N; j++) {
