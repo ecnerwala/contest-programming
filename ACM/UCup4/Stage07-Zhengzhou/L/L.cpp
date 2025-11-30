@@ -54,7 +54,7 @@ int main() {
 					// query
 					for (auto [a, w] : coords) {
 						for (int z = 0; z < 3; z++) {
-							if (!((m2 >> z) & 1)) {
+							if ((m2 >> z) & 1) {
 								a[z] = std::max(a[z], op.xs[z]);
 							}
 						}
