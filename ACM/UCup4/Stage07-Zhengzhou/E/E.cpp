@@ -227,6 +227,9 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	const int M = 360 * 1000 * 1000;
+	assert(M == int(3.6e8));
+
 	int N, Q; cin >> N >> Q;
 	std::vector<int> R(N);
 	std::vector<std::vector<int>> holes(N);
@@ -265,14 +268,17 @@ int main() {
 			break;
 		}
 
-		std::vector<int> pts; pts.reserve(holes[r_id].size() + queries[r_id].size());
-		pts.insert(pts.end(), holes[r_id].begin(), holes[r_id].end());
+		std::vector<int> cur_pts; cur_pts.reserve(holes[r_id].size() + queries[r_id].size());
+		cur_pts.insert(cur_pts.end(), holes[r_id].begin(), holes[r_id].end());
 		for (auto [p, _] : queries[r_id]) {
-			pts.push_back(p);
+			cur_pts.push_back(p);
 		}
-		std::sort(pts.begin(), pts.end());
-		pts.resize(std::unique(pts.begin(), pts.end()) - pts.begin());
-		auto res = smawk::smawk(int(pts.size()), 3*int(prv_holes.size()), [&](int cur_idx, int prv_idx) -> double {
+		std::sort(cur_pts.begin(), cur_pts.end());
+		cur_pts.resize(std::unique(cur_pts.begin(), cur_pts.end()) - cur_pts.begin());
+		auto res = smawk::smawk(int(cur_pts.size()), 3*int(prv_holes.size()), [&](int cur_idx, int prv_idx) -> double {
+			int cur = cur_pts[cur_idx];
+			assert(0 <= prv_idx && prv_idx < 3 * int(prv_holes.size()));
+			int prv = prv_holes[prv_idx % int(prv_holes.size())] - M * (prv_idx / int(prv_holes.size()) + 1);
 		}, [&]([[maybe_unused]] int cur_idx, auto opt1, auto opt2) -> bool {
 			return opt1.v < opt2.v ? 0 : 1;
 		});
