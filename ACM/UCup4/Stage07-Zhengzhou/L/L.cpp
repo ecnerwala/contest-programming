@@ -11,6 +11,7 @@ int main() {
 		uint32_t w;
 	};
 	std::vector<op_t> ops(Q);
+	int num_out = 0;
 	for (auto& q : ops) {
 		cin >> q.op;
 		assert(q.op == 1 || q.op == 2);
@@ -19,12 +20,11 @@ int main() {
 		assert(0 <= y && y <= x && x <= N);
 		uint32_t w;
 		if (q.op == 1) { cin >> w; }
-		else if (q.op == 2) {}
+		else if (q.op == 2) { w = num_out++; }
 		else assert(false);
 
 		if (type == 0) {
 		} else if (type == 1) {
-			w = -w;
 			d = -d;
 		} else assert(false);
 
@@ -34,7 +34,23 @@ int main() {
 		coords[2] = x - y;
 		q.xs = coords;
 		q.w = w;
+		// area of a positive region is (N - coords[0] - coords[1] - coords[2])^2
 	}
+
+	std::vector<uint32_t> ans(num_out);
+	for (int m1 = 0; m1 < 7; m1++) {
+		for (int m2 = 0; m2 < 7; m2++) {
+			for (const auto& op : ops) {
+				if (op.op == 1) {
+					// update
+				} else if (op.op == 2) {
+					// query
+				} else assert(false);
+			}
+		}
+	}
+
+	for (auto v : ans) cout << v << '\n';
 
 	return 0;
 }
