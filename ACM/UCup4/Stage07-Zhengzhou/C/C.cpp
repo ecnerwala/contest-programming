@@ -244,7 +244,7 @@ int main() {
 			}
 		}
 		for (int j = 0; j < N; j++) {
-			cout << buf[j] * fact[N] * ifact[N-1] * fact[j] * fact[N-1-j] << " \n"[j+1==N];
+			cout << buf[j] * fact[j] * fact[N-1-j] << " \n"[j+1==N];
 		}
 	}
 
