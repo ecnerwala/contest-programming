@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+using dbl = long double;
+
 namespace kactl {
 using namespace std;
 
@@ -8,8 +10,6 @@ using namespace std;
 #define sz(x) (int)(x).size()
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-
-using dbl = double;
 
 struct Line {
 	mutable dbl k, m, p;
@@ -59,7 +59,7 @@ int main() {
 		}
 	} else {
 		assert(K >= 2);
-		std::vector<double> ans(M, 1);
+		std::vector<dbl> ans(M, 1);
 		for (int z = 0; z < 2; z++) {
 			for (auto& a : A) a = M-1-a;
 			std::reverse(ans.begin(), ans.end());
@@ -90,7 +90,7 @@ int main() {
 					int64_t delta = best[j] - int64_t(j) * K;
 					// f(j) = 0, f(j + delta/K) = -1
 					// slope = -K / delta
-					double slope = -double(K) / double(delta);
+					dbl slope = -dbl(K) / dbl(delta);
 					lc.add(slope, -slope * j);
 				}
 				ans[j] = std::min(ans[j], -lc.query(j));
@@ -103,8 +103,8 @@ int main() {
 			cout << fixed << setprecision(10);
 			for (int j = 0; j < M; j++) {
 				if (mi <= j && j <= ma) {
-					ans[j] = std::max(ans[j], 0.);
-					ans[j] = std::min(ans[j], 1.);
+					ans[j] = std::max(ans[j], dbl(0.));
+					ans[j] = std::min(ans[j], dbl(1.));
 					ans[j] = std::abs(ans[j]);
 					cout << ans[j] << '\n';
 				} else cout << -1 << '\n';
