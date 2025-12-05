@@ -28,7 +28,7 @@ int main() {
 				if (nxt == prv) continue;
 				if (depth[nxt] == -1) {
 					self(nxt, cur);
-					if (lowval[nxt] == depth[nxt] && c < tot[nxt]) {
+					if (lowval[nxt] == depth[nxt] && c < std::abs(tot[nxt])) {
 						good = false;
 					}
 					tot[cur] += tot[nxt];
