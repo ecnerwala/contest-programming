@@ -83,9 +83,17 @@ int main() {
 				assert(lo < int(stk.size()));
 				best[A[i]] = std::max(best[A[i]], stk.back().first);
 			}
+			kactl::LineContainer lc;
+			lc.add(0, -1);
 			for (int j = mi; j <= ma; j++) {
 				if (best[j] > int64_t(j) * K) {
+					int64_t delta = best[j] - int64_t(j) * K;
+					// f(j) = 0, f(j + delta/K) = -1
+					// slope = K / delta
+					double slope = -double(K) / double(delta);
+					lc.add(slope, -slope * j);
 				}
+				ans[j] = std::min(ans[j], -lc.query(j));
 			}
 		}
 
