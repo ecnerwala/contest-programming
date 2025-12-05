@@ -101,7 +101,7 @@ int main() {
 		{
 			int mi = *std::min_element(A.begin(), A.end());
 			int ma = *std::max_element(A.begin(), A.end());
-			cout << fixed << setprecision(12);
+			cout << fixed << setprecision(10);
 			for (int j = 0; j < M; j++) {
 				if (mi <= j && j <= ma) {
 					ans[j] = std::max(ans[j], 0.);
