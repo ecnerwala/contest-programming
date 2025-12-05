@@ -77,6 +77,7 @@ int main() {
 				if (lo < int(stk.size()) && stk[lo].second == i) lo++;
 				if (i+K <= N) {
 					int64_t cnd = pref[i+K] - pref[i];
+					cerr << i << ' ' << cnd << '\n';
 					while (lo < int(stk.size()) && cnd >= stk.back().first) stk.pop_back();
 					stk.push_back({cnd, i+K});
 				}
