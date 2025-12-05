@@ -87,9 +87,10 @@ int main() {
 			lc.add(0, -1);
 			for (int j = mi; j <= ma; j++) {
 				if (best[j] > int64_t(j) * K) {
+					cerr << j << ' ' << double(best[j]) / K << '\n';
 					int64_t delta = best[j] - int64_t(j) * K;
 					// f(j) = 0, f(j + delta/K) = -1
-					// slope = K / delta
+					// slope = -K / delta
 					double slope = -double(K) / double(delta);
 					lc.add(slope, -slope * j);
 				}
