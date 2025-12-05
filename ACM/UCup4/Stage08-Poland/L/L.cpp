@@ -106,6 +106,7 @@ int main() {
 				if (mi <= j && j <= ma) {
 					ans[j] = std::max(ans[j], 0.);
 					ans[j] = std::min(ans[j], 1.);
+					ans[j] = std::abs(ans[j]);
 					cout << ans[j] << '\n';
 				} else cout << -1 << '\n';
 			}
