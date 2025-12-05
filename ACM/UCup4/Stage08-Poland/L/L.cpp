@@ -19,7 +19,7 @@ struct Line {
 
 struct LineContainer : multiset<Line, less<>> {
 	// (for doubles, use inf = 1/.0, div(a,b) = a/b)
-	static constexpr dbl inf = dbl(1./.0);
+	static constexpr dbl inf = 1e299;
 	dbl div(dbl a, dbl b) { // floored division
 		return a / b; }
 	bool isect(iterator x, iterator y) {
