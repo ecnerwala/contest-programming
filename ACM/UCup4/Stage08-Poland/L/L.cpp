@@ -82,7 +82,7 @@ int main() {
 					stk.push_back({cnd, i+K});
 				}
 				assert(lo < int(stk.size()));
-				best[A[i]] = std::max(best[A[i]], stk.back().first);
+				best[A[i]] = std::max(best[A[i]], stk[lo].first);
 			}
 			kactl::LineContainer lc;
 			lc.add(0, -1);
