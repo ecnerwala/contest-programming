@@ -19,7 +19,7 @@ struct Line {
 
 struct LineContainer : multiset<Line, less<>> {
 	// (for doubles, use inf = 1/.0, div(a,b) = a/b)
-	static constexpr dbl inf = 1e299;
+	static constexpr dbl inf = 1e999l;
 	dbl div(dbl a, dbl b) { // floored division
 		return a / b; }
 	bool isect(iterator x, iterator y) {
@@ -60,6 +60,7 @@ int main() {
 	} else {
 		assert(K >= 2);
 		std::vector<dbl> ans(M, 1);
+		for (auto a : A) ans[a] = 0;
 		for (int z = 0; z < 2; z++) {
 			for (auto& a : A) a = M-1-a;
 			std::reverse(ans.begin(), ans.end());
