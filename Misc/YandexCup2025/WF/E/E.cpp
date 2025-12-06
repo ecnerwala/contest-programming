@@ -51,6 +51,7 @@ int main() {
 	// there are 35 * 6 = 210 possible values
 	const int Q1 = 36;
 	const int K = int(2e9);
+	const int CAP = 7600;
 	std::map<int64_t, std::vector<int>> bucket;
 	std::vector<std::vector<int64_t>> by_val(2*Q1-1);
 	by_val[0].push_back(0);
@@ -58,18 +59,42 @@ int main() {
 		for (int a = 1; a <= s && a < Q1; a++) {
 			for (auto v : by_val[s-a]) {
 				v *= Q1, v += a;
-				if (v <= K) by_val[s].push_back(v);
+				if (v <= CAP) by_val[s].push_back(v);
 			}
 		}
 		for (int z = 0; z < int(by_val[s].size()); z++) {
 			int64_t v = by_val[s][z];
 			v *= Q1;
-			if (v <= K) {
+			if (v <= CAP) {
 				by_val[s].push_back(v);
 			}
 		}
 		cerr << s << ' ' << int(by_val[s].size()) << '\n';
+		std::sort(by_val[s].begin(), by_val[s].end());
 		const auto& xs = by_val[s];
+		auto try_solve_1 = [&](int64_t c) -> bool {
+			for (int b = 2; b <= c; b++) {
+				bool dupe = false;
+				std::set<int64_t> st;
+				for (auto x : xs) {
+					if (x < Q1) continue;
+					if (x >= c) continue;
+					auto v = fn(b, x);
+					auto [_, did_insert] = st.insert(v);
+					dupe |= !did_insert;
+				}
+				if (!dupe) {
+					return true;
+				}
+			}
+			return false;
+		};
+		for (int z = 0; z < int(by_val[s].size()); z++) {
+			if (!try_solve_1(by_val[s][z])) {
+				cerr << "cap at " << by_val[s][z] << '\n';
+				break;
+			}
+		}
 		[&]() -> bool {
 			int c = 210;
 			for (int b = 200; b <= c; b++) {
