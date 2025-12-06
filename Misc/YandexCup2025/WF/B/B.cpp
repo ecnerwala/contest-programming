@@ -168,7 +168,7 @@ int main() {
 		}
 		num ans = tot_ev * tot_ev;
 		for (int l = 1; l <= N; l++) {
-			for (int l2 = 1; l2 <= l; l2++) {
+			for (int l2 = 1; l2 <= l; l2 += 2) {
 				num v = -pow_invM[l2 / 2] * pow_invM[l / 2];
 				v += pow_invM[l / 2];
 				v *= num(N+1-l);
