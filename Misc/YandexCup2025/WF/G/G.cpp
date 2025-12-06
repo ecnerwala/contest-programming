@@ -186,7 +186,7 @@ int main() {
 				//cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
 				cap[palace] = 0;
 			} else {
-				//cerr << "found path" << '\n';
+				cerr << "found path" << '\n';
 				ccs--;
 				cap[palace]--;
 				assert(!alive[found]);
