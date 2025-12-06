@@ -69,6 +69,36 @@ int main() {
 			}
 		}
 		cerr << s << ' ' << int(by_val[s].size()) << '\n';
+		const auto& xs = by_val[s];
+		[&]() -> bool {
+			int c = 1265;
+			for (int b = 2; b <= c; b++) {
+				std::map<int64_t, std::vector<int>> mp;
+				for (int x : xs) {
+					mp[fn(b, x)].push_back(x);
+				}
+				bool good = true;
+				for (const auto& [_, v] : mp) {
+					bool found = false;
+					for (int b2 = 2; b2 <= c; b2++) {
+						std::set<int64_t> s;
+						bool s_good = true;
+						for (auto x : v) {
+							auto [_, did_insert] = s.insert(fn(b2, x));
+							if (!did_insert) { s_good = false; break; }
+						}
+						if (s_good) { found = true; break; }
+					}
+					if (!found) { good = false; break; }
+				}
+				if (good) {
+					cerr << "solved with " << b << '\n';
+					return true;
+				}
+			}
+			cerr << "could not solve!!!" << '\n';
+			return false;
+		}();
 	}
 	exit(0);
 	// 35 * 36 = 1260
