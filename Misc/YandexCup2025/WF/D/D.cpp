@@ -992,7 +992,6 @@ int main() {
 			while (i < N && S[i] == '?') { i++, len++; }
 			if (i == N) {
 				for (int z = 0; z < len; z++) {
-					cerr << 1 << '\n';
 					polys.emplace_back(std::vector<num>({p_half[1], p_half[1]}));
 				}
 				break;
@@ -1005,7 +1004,6 @@ int main() {
 					if ((z&1) != (prv ^ cur)) continue;
 					cnd[z] = ifact[z] * ifact[len-z] * fact[len] * p_half[len-1];
 				}
-				cerr << len << '\n';
 				assert(std::accumulate(cnd.begin(), cnd.end(), num(0)) == num(1));
 				polys.emplace_back(std::move(cnd));
 				prv = cur;
@@ -1014,20 +1012,16 @@ int main() {
 		assert(!polys.empty());
 		std::priority_queue<std::pair<int, int>> pq;
 		for (int i = 0; i < int(polys.size()); i++) {
-			cerr << "have " << i << ' ' << polys[i].size() << '\n';
 			pq.push({-int(polys[i].size()), i});
 		}
 		while (int(pq.size()) >= 2) {
 			auto [_i, i] = pq.top(); pq.pop();
 			auto [_j, j] = pq.top(); pq.pop();
-			cerr << polys[i].size() << '*' << polys[j].size() << '\n';
 			polys[i] = ecnerwala::fft::fft_multiply(polys[i], polys[j]);
 			polys[j] = {};
-			cerr << polys[i].size() << '\n';
 			pq.push({-int(polys[i].size()), i});
 		}
 		auto [_, i] = pq.top();
-		cerr << N << ' ' << polys[i].size() << '\n';
 		for (int z = 0; z <= N; z++) {
 			cout << polys[i][z] << " \n"[z==N];
 		}
