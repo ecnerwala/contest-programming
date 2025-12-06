@@ -1007,7 +1007,7 @@ int main() {
 				}
 				cerr << len << '\n';
 				assert(std::accumulate(cnd.begin(), cnd.end(), num(0)) == num(1));
-				polys.emplace_back(std::move(cur));
+				polys.emplace_back(std::move(cnd));
 				prv = cur;
 			}
 		}
