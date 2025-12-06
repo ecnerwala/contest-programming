@@ -54,6 +54,23 @@ int main() {
 	}
 
 	std::vector<char> alive(E);
+	auto fix_G = [&]() -> void {
+		for (int i = 0; i < L; i++) {
+			for (int j = 0; j < L; j++) {
+				int v = i*L+j;
+				G[4*i+1][4*j+1] = alive[4*v+0] ? '\\' : '.';
+				G[4*i+1][4*j+3] = alive[4*v+1] ? '/' : '.';
+				G[4*i+3][4*j+1] = alive[4*v+2] ? '/' : '.';
+				G[4*i+3][4*j+3] = alive[4*v+3] ? '\\' : '.';
+			}
+		}
+	};
+	auto dump_alive = [&]() -> void {
+		fix_G();
+		for (const auto& s : G) cerr << s << '\n';
+		cerr << '\n';
+	};
+
 	// parent vert, parent edge
 	std::vector<std::pair<int, int>> tree_par(V);
 	std::vector<int> depth(V);
@@ -174,20 +191,12 @@ int main() {
 				for (int cur = found; cur != -1; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
+				build_tree_data();
 			}
 		}
 	}
 
-	for (int i = 0; i < L; i++) {
-		for (int j = 0; j < L; j++) {
-			int v = i*L+j;
-			G[4*i+1][4*j+1] = alive[4*v+0] ? '\\' : '.';
-			G[4*i+1][4*j+3] = alive[4*v+1] ? '/' : '.';
-			G[4*i+3][4*j+1] = alive[4*v+2] ? '/' : '.';
-			G[4*i+3][4*j+3] = alive[4*v+3] ? '\\' : '.';
-		}
-	}
-
+	fix_G();
 	cout << ccs << '\n';
 	for (const auto& s : G) cout << s << '\n';
 	return 0;
