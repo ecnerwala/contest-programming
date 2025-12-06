@@ -42,6 +42,7 @@ int main() {
 		return false;
 	};
 	try_solve_2(100);
+	/*
 	std::map<std::array<int64_t, 2>, int> mp;
 	for (int i = 1; i <= 1000; i++) {
 		std::array<int64_t, 2> val{fn(2, i), fn(3, i)};
@@ -51,6 +52,7 @@ int main() {
 			mp[val] = i;
 		}
 	}
+	*/
 
 	return 0;
 }
