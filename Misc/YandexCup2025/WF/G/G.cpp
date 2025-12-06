@@ -183,7 +183,6 @@ int main() {
 			if (found == -1) {
 				cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
 				cap[palace] = 0;
-				continue;
 			} else {
 				cerr << "found path" << '\n';
 				ccs--;
