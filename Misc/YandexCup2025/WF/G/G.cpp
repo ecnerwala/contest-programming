@@ -116,7 +116,7 @@ int main() {
 		std::fill(par.begin(), par.end(), -1);
 		std::iota(label.begin(), label.end(), 0);
 		std::fill(dist.begin(), dist.end(), -1);
-		std::fill(prv.begin(), prv.end(), -1);
+		std::fill(prv.begin(), prv.end(), ~(L*L));
 		q.clear();
 		for (int palace = 0; palace < L*L; palace++) {
 			if (cap[palace] > 0) {
