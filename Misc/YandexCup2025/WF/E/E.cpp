@@ -56,7 +56,7 @@ int main() {
 		cerr << "solving " << k << '\n';
 		int c = 40000;
 		[&]() -> bool {
-			for (int b = 40000; b <= c; b++) {
+			for (int b = 45000; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
 					mp[fn(b, x)].push_back(x);
