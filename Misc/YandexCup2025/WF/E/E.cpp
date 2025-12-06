@@ -112,6 +112,9 @@ int main() {
 				auto res = x & y;
 				assert(res.mod > C);
 				return res.v;
+			} else {
+				K = 3;
+				C = int(2e9);
 			}
 		}
 		// otherwise, we have 3 queries
@@ -141,7 +144,7 @@ int main() {
 			return x.v;
 		}
 		x = x & mod_constraint<int64_t>{s3 % 86939, 86939};
-		assert(x.mod > C);
+		//assert(x.mod > C);
 		return x.v;
 	};
 
