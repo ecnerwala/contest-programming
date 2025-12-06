@@ -72,7 +72,7 @@ int main() {
 		const auto& xs = by_val[s];
 		[&]() -> bool {
 			int c = 1265;
-			for (int b = 200; b <= c; b++) {
+			for (int b = 4000; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
 					if (x < Q1) continue;
