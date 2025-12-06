@@ -155,22 +155,19 @@ int main() {
 		num M = num(M_);
 		num invM = inv(M);
 
-		std::vector<num> pow_invM(N+1);
-		pow_invM[0] = 1;
-		for (int i = 1; i <= N; i++) pow_invM[i] = invM * pow_invM[i-1];
-
-		std::vector<num> cnt_deg(N+1);
+		num pow_invM = 1;
 
 		// all edges are independent unless they coincide?
 		num tot_ev = 0;
 		num ans = 0;
 		std::array<num, 2> pref{num(0), num(0)};
 		for (int l = 1; l <= N; l++) {
-			pref[l&1] += 1-pow_invM[l / 2];
-			num v = pow_invM[l/2] * num(N+1-l);
+			if (l % 2 == 1) pow_invM *= invM;
+			pref[l&1] += 1-pow_invM;
+			num v = pow_invM * num(N+1-l);
 			tot_ev += v;
 			ans += v * pref[l&1];
-			pref[l&1] += 1-pow_invM[l / 2];
+			pref[l&1] += 1-pow_invM;
 		}
 		ans += tot_ev * tot_ev;
 		cout << ans << '\n';
