@@ -154,9 +154,7 @@ int main() {
 		cin >> num::MOD_READER();
 		num M = num(M_);
 		num invM = inv(M);
-
 		num pow_invM = 1;
-
 		// all edges are independent unless they coincide?
 		num tot_ev = 0;
 		num ans = 0;
