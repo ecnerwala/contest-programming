@@ -112,7 +112,6 @@ int main() {
 		}
 		return a;
 	};
-	std::vector<int> dist(E, -1);
 	std::vector<int> q; q.reserve(E);
 	std::vector<int> prv(E, -1);
 	for (int palace = 0; palace < L*L; palace++) {
@@ -122,27 +121,23 @@ int main() {
 			// try to insert e
 			std::fill(par.begin(), par.end(), -1);
 			std::iota(label.begin(), label.end(), 0);
-			std::fill(dist.begin(), dist.end(), -1);
 			std::fill(prv.begin(), prv.end(), -1);
 			q.clear();
 			for (auto [_, e] : adj[palace]) {
 				if (legal[e] && !alive[e]) {
-					dist[e] = 0;
-					prv[e] = -1;
+					prv[e] = -2;
 					q.push_back(e);
 				}
 			}
 			int found = -1;
 			for (int z = 0; z < int(q.size()); z++) {
 				int e = q[z];
-				int d = dist[e];
 				if (alive[e]) {
 					// just substitute it
 					int bucket = e / 4;
 					for (int ne = bucket * 4; ne < bucket * 4 + 4; ne++) {
 						if (legal[ne] && !alive[ne]) {
-							if (dist[ne] == -1) {
-								dist[ne] = d+1;
+							if (prv[ne] == -1) {
 								prv[ne] = e;
 								q.push_back(ne);
 							}
@@ -172,8 +167,7 @@ int main() {
 							int ne = tree_par[u].second;
 							assert(ne != -1);
 							assert(alive[ne]);
-							assert(dist[ne] == -1);
-							dist[ne] = d+1;
+							assert(prv[ne] == -1);
 							prv[ne] = e;
 							q.push_back(ne);
 						}
@@ -196,7 +190,7 @@ int main() {
 				ccs--;
 				cap[palace]--;
 				assert(!alive[found]);
-				for (int cur = found; cur != -1; cur = prv[cur]) {
+				for (int cur = found; cur != -2; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
 				build_tree_data();
