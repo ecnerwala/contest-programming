@@ -1005,6 +1005,7 @@ int main() {
 					if ((z&1) != (prv ^ cur)) continue;
 					cnd[z] = fact[z] * fact[len-z] * ifact[len] * p_half[len-1];
 				}
+				for (auto v : cnd) { cerr << v << ' '; } cerr << '\n';
 				assert(std::accumulate(cnd.begin(), cnd.end(), num(0)) == num(1));
 				prv = cur;
 			}
