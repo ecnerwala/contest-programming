@@ -142,7 +142,7 @@ int main() {
 		return x.v;
 	};
 
-	for (int64_t x : {1, 2, 3, 4, 5, int64_t(1e12)}) {
+	for (int64_t x : std::vector<int64_t>({1, 2, 3, 4, 5, int64_t(1e12)})) {
 		cerr << "test " << x << '\n';
 		auto query = [&](int64_t b) -> int64_t {
 			return fn(b, x);
