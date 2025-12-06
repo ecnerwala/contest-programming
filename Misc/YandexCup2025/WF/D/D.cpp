@@ -1010,6 +1010,21 @@ int main() {
 				prv = cur;
 			}
 		}
+		assert(!polys.empty());
+		std::priority_queue<std::pair<int, int>> pq;
+		for (int i = 0; i < int(polys.size()); i++) {
+			pq.push({-int(polys[i].size()), i});
+		}
+		while (int(pq.size()) >= 2) {
+			auto [_i, i] = pq.top(); pq.pop();
+			auto [_j, j] = pq.top(); pq.pop();
+			polys[i] = ecnerwala::fft::fft_multiply(polys[i], polys[j]);
+			pq.push({-int(polys[i].size()), i});
+		}
+		auto [_, i] = pq.top();
+		for (int z = 0; z <= N; z++) {
+			cout << polys[i][z] << " \n"[z==N];
+		}
 	}
 
 	return 0;
