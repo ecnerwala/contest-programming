@@ -196,7 +196,7 @@ int main() {
 				if (cur < 0) {
 					assert(cap[~cur] > 0);
 					cap[~cur]--;
-					continue;
+					break;
 				}
 				alive[cur] ^= 1;
 			}
