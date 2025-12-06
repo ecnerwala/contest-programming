@@ -992,7 +992,7 @@ int main() {
 			while (i < N && S[i] == '?') { i++, len++; }
 			if (i == N) {
 				for (int z = 0; z < len; z++) {
-					polys.push_back(std::vector<num>({p_half[1], p_half[1]}));
+					polys.emplace_back(std::vector<num>({p_half[1], p_half[1]}));
 				}
 				break;
 			} else {
