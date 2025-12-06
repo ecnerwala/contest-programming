@@ -142,12 +142,12 @@ int main() {
 		return x.v;
 	};
 
-	for (int x = 1; x <= 1000000; x++) {
+	for (int64_t x : {1, 2, 3, 4, 5, int64_t(1e12)}) {
 		cerr << "test " << x << '\n';
 		auto query = [&](int64_t b) -> int64_t {
 			return fn(b, x);
 		};
-		int64_t res = solve(query, 3, int(2e9));
+		int64_t res = solve(query, 4, int(4e18));
 		assert(res == x);
 	}
 
