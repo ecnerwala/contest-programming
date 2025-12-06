@@ -118,6 +118,7 @@ int main() {
 	std::vector<int> prv(E, -1);
 	for (int palace = 0; palace < L*L; palace++) {
 		while (cap[palace] > 0) {
+			cerr << "trying " << palace << '\n';
 			// try to insert e
 			std::fill(par.begin(), par.end(), -1);
 			std::iota(label.begin(), label.end(), 0);
