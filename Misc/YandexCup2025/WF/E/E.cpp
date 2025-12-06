@@ -52,9 +52,9 @@ int main() {
 	const int Q1 = 36;
 	const int K = int(2e9);
 	std::map<int64_t, std::vector<int>> bucket;
-	std::vector<std::vector<int64_t>> by_val(2*Q1+1);
+	std::vector<std::vector<int64_t>> by_val(2*Q1-1);
 	by_val[0].push_back(0);
-	for (int s = 1; s <= 2*Q1; s++) {
+	for (int s = 1; s <= 2*(Q1-1); s++) {
 		for (int a = 1; a <= s && a < Q1; a++) {
 			for (auto v : by_val[s-a]) {
 				v *= Q1, v += a;
@@ -69,6 +69,7 @@ int main() {
 			}
 		}
 		cerr << s << ' ' << int(by_val[s].size()) << '\n';
+		continue;
 		const auto& xs = by_val[s];
 		[&]() -> bool {
 			int c = 4010;
