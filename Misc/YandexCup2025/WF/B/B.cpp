@@ -162,7 +162,7 @@ int main() {
 		num ans = 0;
 		std::array<num, 2> pref{num(0), num(0)};
 		for (int l = 1; l <= N; l++) {
-			if (l % 2 == 0) pow_invM *= invM;
+			if (!(l&1)) pow_invM *= invM;
 			pref[l&1] += 1-pow_invM;
 			num v = pow_invM * num(N+1-l);
 			tot_ev += v;
