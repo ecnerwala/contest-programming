@@ -107,9 +107,9 @@ int main() {
 	// 35 * 1261 * 1262
 	for (auto [k, xs] : bucket) {
 		cerr << "solving " << k << '\n';
-		int c = 1265;
+		int c = 7601;
 		[&]() -> bool {
-			for (int b = 1260; b <= c; b++) {
+			for (int b = 7600; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
 					mp[fn(b, x)].push_back(x);
