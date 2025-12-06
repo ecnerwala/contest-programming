@@ -107,12 +107,6 @@ int main() {
 		}
 		return a;
 	};
-	auto merge = [&](int a, int b) -> void {
-		assert(par[a] < 0 && par[b] < 0);
-		if (par[a] > par[b]) std::swap(a, b);
-		par[a] += par[b];
-		par[b] = a;
-	};
 	std::vector<int> dist(E, -1);
 	std::vector<int> q; q.reserve(E);
 	std::vector<int> prv(E, -1);
