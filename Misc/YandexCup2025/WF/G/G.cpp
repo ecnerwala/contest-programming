@@ -180,9 +180,11 @@ int main() {
 						}
 						int npu = get_par(tree_par[u].first);
 						int nu = label[npu];
-						label[pu] = label[npu] = nu;
-						cerr << u << "->" << nu << '\n';
-						merge(pu, npu);
+						label[pu] = nu;
+						if (par[pu] > par[npu]) std::swap(pu, npu);
+						par[pu] += par[npu];
+						par[npu] = pu;
+						u = nu;
 						// if we get to the top, pv could be wrong, but whatever
 					}
 				}
