@@ -32,7 +32,7 @@ int main() {
 				continue;
 			} else if ('1' <= c && c <= '4') {
 				ccs++;
-				cap[v] = c - '1';
+				cap[v] = c - '0';
 				legal[4*v+0] = G[4*i][4*j] == 'A';
 				legal[4*v+1] = G[4*i][4*(j+1)] == 'A';
 				legal[4*v+2] = G[4*(i+1)][4*j] == 'A';
