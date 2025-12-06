@@ -170,8 +170,8 @@ int main() {
 		for (int l = 1; l <= N; l++) {
 			for (int l2 = 1; l2 <= l; l2++) {
 				if ((l ^ l2) & 1) continue;
-				num v = -pow_invM[l2 / 2] * pow_invM[l / 2];
-				v += pow_invM[l / 2];
+				num v = 1-pow_invM[l2 / 2];
+				v *= pow_invM[l / 2];
 				v *= num(N+1-l);
 				v *= (l2 < l ? 2 : 1);
 				ans += v;
