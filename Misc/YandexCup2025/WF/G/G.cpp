@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 
-std::mt19937 mt(48);
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -194,7 +193,7 @@ int main() {
 				for (int cur = found; cur != -1; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
-				if (mt() & 1) build_tree_data();
+				build_tree_data();
 				//dump_alive();
 			}
 		}
