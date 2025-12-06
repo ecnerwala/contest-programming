@@ -1045,6 +1045,7 @@ int main() {
 			std::vector<num> val(freq[i]+1);
 			val[0] = HALF;
 			val[freq[i]] = (msk[i] == 0 ? HALF : -HALF);
+			polys.emplace_back(std::move(val));
 		}
 		assert(!polys.empty());
 		std::priority_queue<std::pair<int, int>> pq;
