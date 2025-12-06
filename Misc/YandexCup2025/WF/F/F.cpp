@@ -1028,6 +1028,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
+		cerr << "case " << N << ' ' << M << '\n';
 		std::vector<int> freq(M, 0);
 		for (int i = 0; i < N; i++) {
 			int c; cin >> c; c--;
@@ -1039,6 +1040,7 @@ int main() {
 		const num HALF = inv(num(2));
 		std::vector<std::vector<num>> polys; polys.reserve(M);
 		for (int i = 0; i < M; i++) {
+			cerr << freq[i] << '\n';
 			if (!freq[i]) continue;
 			std::vector<num> val(freq[i]+1);
 			val[0] = HALF;
