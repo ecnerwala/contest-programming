@@ -192,6 +192,7 @@ int main() {
 					alive[cur] ^= 1;
 				}
 				build_tree_data();
+				dump_alive();
 			}
 		}
 	}
