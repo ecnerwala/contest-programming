@@ -41,17 +41,36 @@ int main() {
 		}
 		return false;
 	};
-	int a = 2;
-	while (try_solve_2(a)) a++;
+	{
+		int a = 2;
+		while (try_solve_2(a)) a++;
+	}
 	assert(!try_solve_2(36));
 	// first query must be <= 36
 	// 36^0 + ... + 36^5
 	// there are 35 * 6 = 210 possible values
 	const int Q1 = 36;
+	const int K = int(2e9);
 	std::map<int64_t, std::vector<int>> bucket;
-	for (int i = 1; i <= int(2e9); i++) {
-		bucket[fn(Q1, i)].push_back(i);
+	std::vector<std::vector<int64_t>> by_val(2*Q1+1);
+	by_val[0].push_back(0);
+	for (int s = 1; s <= 2*Q1; s++) {
+		for (int a = 1; a <= s && a < Q1; a++) {
+			for (auto v : by_val[s-a]) {
+				v *= Q1, v += a;
+				if (v <= K) by_val[s].push_back(v);
+			}
+		}
+		for (int z = 0; z < int(by_val[s].size()); z++) {
+			int64_t v = by_val[s][z];
+			v *= Q1;
+			if (v <= K) {
+				by_val[s].push_back(v);
+			}
+		}
+		cerr << s << ' ' << int(by_val[s].size()) << '\n';
 	}
+	exit(0);
 	// 35 * 36 = 1260
 	// 35 * 1261 * 1262
 	for (auto [k, xs] : bucket) {
@@ -86,6 +105,8 @@ int main() {
 			return false;
 		}();
 	}
+	// if we know s > 35 * 2, then x >= 36^2, so we can query 36^3 - O(1); if it's big enough, we query that +1 and CRT to win, otherwise we query 36^2 - O(1)
+	// we only have to deal with s <= 70
 	/*
 	std::map<std::array<int64_t, 2>, int> mp;
 	for (int i = 1; i <= 1000; i++) {
