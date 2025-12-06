@@ -73,6 +73,7 @@ int main() {
 		std::sort(by_val[s].begin(), by_val[s].end());
 		const auto& xs = by_val[s];
 		auto try_solve_1 = [&](int64_t c) -> bool {
+			if (c <= 1) return true;
 			for (int b = 2; b <= c; b++) {
 				bool dupe = false;
 				std::set<int64_t> st;
