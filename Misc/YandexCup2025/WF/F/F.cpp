@@ -1035,7 +1035,6 @@ int main() {
 		std::vector<int> msk(M);
 		for (auto& m : msk) { cin >> m; assert(m == 0 || m == 1); }
 
-		using num = modnum<int(1e9)+7>;
 		const num HALF = inv(num(2));
 		std::vector<std::vector<num>> polys; polys.reserve(M);
 		for (int i = 0; i < M; i++) {
