@@ -121,8 +121,6 @@ int main() {
 			// try to insert e
 			std::fill(par.begin(), par.end(), -1);
 			std::iota(label.begin(), label.end(), 0);
-			std::fill(prv.begin(), prv.end(), -1);
-			q.clear();
 			for (auto [_, e] : adj[palace]) {
 				if (legal[e] && !alive[e]) {
 					prv[e] = -2;
@@ -196,6 +194,9 @@ int main() {
 				build_tree_data();
 				//dump_alive();
 			}
+
+			for (auto v : q) prv[v] = -1;
+			q.clear();
 		}
 	}
 
