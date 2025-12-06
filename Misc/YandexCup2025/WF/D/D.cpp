@@ -999,6 +999,7 @@ int main() {
 				int cur = S[i] - '0';
 				i++;
 				len++;
+				cerr << len << '\n';
 				std::vector<num> cnd(len+1);
 				for (int z = 0; z <= len; z++) {
 					if ((z&1) != (prv ^ cur)) continue;
