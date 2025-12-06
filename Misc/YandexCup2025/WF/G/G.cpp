@@ -123,6 +123,7 @@ int main() {
 			std::fill(par.begin(), par.end(), -1);
 			std::iota(label.begin(), label.end(), 0);
 			std::fill(dist.begin(), dist.end(), -1);
+			std::fill(prv.begin(), prv.end(), -1);
 			q.clear();
 			for (auto [_, e] : adj[palace]) {
 				if (legal[e] && !alive[e]) {
