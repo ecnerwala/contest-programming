@@ -1018,15 +1018,16 @@ int main() {
 
 	auto fn = [&](int n, int k) -> num {
 		k = std::min(k, n-k);
+		if (n == 1) return 1;
 		return power(num(n - 2*k), n-2) * ((k & 1) ? -1 : 1);
 	};
 
 	for (int n = 1; n <= 10; n++) {
 		cerr << n << ": ";
 		for (int k = 0; k <= n; k++) {
-			assert(fn(n, k) == fn_slow(n, k));
 			num v = fn(n, k);
 			cerr << (int(v) < int(-v) ? int(v) : -int(-v)) << ' ';
+			assert(fn(n, k) == fn_slow(n, k));
 		}
 		cerr << '\n';
 	}
