@@ -163,19 +163,16 @@ int main() {
 
 		// all edges are independent unless they coincide?
 		num tot_ev = 0;
-		for (int l = 1; l <= N; l++) {
-			tot_ev += pow_invM[l/2] * num(N+1-l);
-		}
-		num ans = tot_ev * tot_ev;
+		num ans = 0;
 		std::array<num, 2> pref{num(0), num(0)};
 		for (int l = 1; l <= N; l++) {
 			pref[l&1] += 1-pow_invM[l / 2];
-			num v = pref[l&1];
-			v *= pow_invM[l / 2];
-			v *= num(N+1-l);
-			ans += v;
+			num v = pow_invM[l/2] * num(N+1-l);
+			tot_ev += v;
+			ans += v * pref[l&1];
 			pref[l&1] += 1-pow_invM[l / 2];
 		}
+		ans += tot_ev * tot_ev;
 		cout << ans << '\n';
 	}
 
