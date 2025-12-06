@@ -16,7 +16,7 @@ int main() {
 	};
 	std::map<std::array<int64_t, 2>, int> mp;
 	for (int i = 1; i <= 1000; i++) {
-		std::array<int64_t, 2> val{fn(2, i), fn(3, i)};
+		std::array<int64_t, 2> val{fn(2, i), fn(4, i)};
 		if (mp.count(val)) {
 			cerr << mp[val] << ' ' << i << '\n';
 		} else {
