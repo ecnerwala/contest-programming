@@ -168,6 +168,7 @@ int main() {
 						assert(label[pu] == u);
 						{
 							int ne = tree_par[u].second;
+							cerr << "tree edge " << ne << '\n';
 							assert(ne != -1);
 							assert(alive[ne]);
 							assert(dist[ne] == -1);
