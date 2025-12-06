@@ -165,6 +165,7 @@ int main() {
 						}
 						assert(depth[u] >= depth[v]);
 						assert(par[pu] < 0);
+						assert(label[pu] == u);
 						{
 							int ne = tree_par[u].second;
 							assert(ne != -1);
