@@ -56,7 +56,7 @@ int main() {
 	// 35 * 1261 * 1262
 	for (auto [k, xs] : bucket) {
 		cerr << "solving " << k << '\n';
-		int c = 1000;
+		int c = 1265;
 		[&]() -> bool {
 			for (int b = 1261; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
