@@ -72,8 +72,8 @@ int main() {
 		continue;
 		const auto& xs = by_val[s];
 		[&]() -> bool {
-			int c = 4010;
-			for (int b = 1294; b <= c; b++) {
+			int c = 7600;
+			for (int b = 7601; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
 					if (x < Q1) continue;
