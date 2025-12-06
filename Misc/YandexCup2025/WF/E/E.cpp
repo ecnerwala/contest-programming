@@ -75,6 +75,7 @@ int main() {
 			for (int b = 2; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
+					if (x < Q1) continue;
 					mp[fn(b, x)].push_back(x);
 				}
 				bool good = true;
