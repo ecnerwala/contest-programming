@@ -164,6 +164,7 @@ int main() {
 							std::swap(pu, pv);
 						}
 						assert(depth[u] >= depth[v]);
+						assert(par[pu] < 0);
 						{
 							int ne = tree_par[u].second;
 							assert(ne != -1);
