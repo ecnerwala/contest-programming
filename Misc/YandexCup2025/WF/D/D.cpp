@@ -1019,9 +1019,11 @@ int main() {
 			auto [_i, i] = pq.top(); pq.pop();
 			auto [_j, j] = pq.top(); pq.pop();
 			polys[i] = ecnerwala::fft::fft_multiply(polys[i], polys[j]);
+			polys[j] = {};
 			pq.push({-int(polys[i].size()), i});
 		}
 		auto [_, i] = pq.top();
+		cerr << N << ' ' << polys[i].size() << '\n';
 		for (int z = 0; z <= N; z++) {
 			cout << polys[i][z] << " \n"[z==N];
 		}
