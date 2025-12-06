@@ -147,7 +147,7 @@ int main() {
 		auto query = [&](int64_t b) -> int64_t {
 			return fn(b, x);
 		};
-		int64_t res = solve(query, 4, int(4e18));
+		int64_t res = solve(query, 4, int64_t(4e18));
 		assert(res == x);
 	}
 
