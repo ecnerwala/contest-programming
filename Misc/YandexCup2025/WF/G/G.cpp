@@ -181,6 +181,7 @@ int main() {
 						int npu = get_par(tree_par[u].first);
 						int nu = label[npu];
 						label[pu] = label[npu] = nu;
+						cerr << u << "->" << nu << '\n';
 						merge(pu, npu);
 						// if we get to the top, pv could be wrong, but whatever
 					}
