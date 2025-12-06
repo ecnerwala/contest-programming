@@ -194,6 +194,7 @@ int main() {
 			assert(!alive[found]);
 			for (int cur = found; ; cur = prv[cur]) {
 				if (cur < 0) {
+					assert(cap[~cur] > 0);
 					cap[~cur]--;
 					continue;
 				}
