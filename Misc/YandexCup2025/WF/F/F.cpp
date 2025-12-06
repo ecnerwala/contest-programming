@@ -1018,7 +1018,8 @@ int main() {
 
 	for (int n = 1; n <= 10; n++) {
 		for (int k = 0; k <= n; k++) {
-			cerr << fn(n, k) << ' ';
+			num v = fn(n, k);
+			cerr << (int(v) < int(-v) ? int(v) : -int(-v)) << ' ';
 		}
 		cerr << '\n';
 	}
