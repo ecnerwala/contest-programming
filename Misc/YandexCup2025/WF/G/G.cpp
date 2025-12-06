@@ -186,14 +186,14 @@ int main() {
 				//cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
 				cap[palace] = 0;
 			} else {
-				cerr << "found path" << '\n';
+				//cerr << "found path" << '\n';
 				ccs--;
 				cap[palace]--;
 				assert(!alive[found]);
 				for (int cur = found; cur != -1; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
-				build_tree_data();
+				//build_tree_data();
 				//dump_alive();
 			}
 		}
