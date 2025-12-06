@@ -1014,6 +1014,7 @@ int main() {
 		assert(!polys.empty());
 		std::priority_queue<std::pair<int, int>> pq;
 		for (int i = 0; i < int(polys.size()); i++) {
+			cerr << "have " << i << ' ' << polys[i].size() << '\n';
 			pq.push({-int(polys[i].size()), i});
 		}
 		while (int(pq.size()) >= 2) {
