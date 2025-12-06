@@ -1000,7 +1000,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<int(1e9)+7>;
-	auto fn = [&](int n, int k) -> num {
+	auto fn_slow = [&](int n, int k) -> num {
 		std::vector<std::vector<num>> cur(n, std::vector<num>(n, num(0)));
 		for (int i = 0; i < n; i++) {
 			for (int j = i+1; j < n; j++) {
@@ -1016,9 +1016,15 @@ int main() {
 		return kactl::det(cur);
 	};
 
+	auto fn = [&](int n, int k) -> num {
+		k = std::min(k, n-k);
+		return power(num(n - 2*k), n-2) * ((k & 1) ? -1 : 1);
+	};
+
 	for (int n = 1; n <= 10; n++) {
 		cerr << n << ": ";
 		for (int k = 0; k <= n; k++) {
+			assert(fn(n, k) == fn_slow(n, k));
 			num v = fn(n, k);
 			cerr << (int(v) < int(-v) ? int(v) : -int(-v)) << ' ';
 		}
