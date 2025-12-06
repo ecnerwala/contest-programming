@@ -112,7 +112,7 @@ int main() {
 	std::vector<int> prv(E, -1);
 	for (int palace = 0; palace < L*L; palace++) {
 		while (cap[palace] > 0) {
-			cerr << "trying " << palace << '\n';
+			//cerr << "trying " << palace << '\n';
 			// try to insert e
 			std::fill(par.begin(), par.end(), -1);
 			std::iota(label.begin(), label.end(), 0);
@@ -154,7 +154,7 @@ int main() {
 					int pv = get_par(v);
 					v = label[pv];
 					while (u != v) {
-						cerr << u << ' ' << v << ' ' << pu << ' ' << pv << '\n';
+						//cerr << u << ' ' << v << ' ' << pu << ' ' << pv << '\n';
 						if (depth[u] < depth[v]) {
 							std::swap(u, v);
 							std::swap(pu, pv);
@@ -164,7 +164,6 @@ int main() {
 						assert(label[pu] == u);
 						{
 							int ne = tree_par[u].second;
-							cerr << "tree edge " << ne << '\n';
 							assert(ne != -1);
 							assert(alive[ne]);
 							assert(dist[ne] == -1);
@@ -184,10 +183,10 @@ int main() {
 				}
 			}
 			if (found == -1) {
-				cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
+				//cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
 				cap[palace] = 0;
 			} else {
-				cerr << "found path" << '\n';
+				//cerr << "found path" << '\n';
 				ccs--;
 				cap[palace]--;
 				assert(!alive[found]);
@@ -195,7 +194,7 @@ int main() {
 					alive[cur] ^= 1;
 				}
 				build_tree_data();
-				dump_alive();
+				//dump_alive();
 			}
 		}
 	}
