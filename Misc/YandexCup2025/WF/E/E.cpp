@@ -43,6 +43,8 @@ int main() {
 	};
 	int a = 2;
 	while (try_solve_2(a)) a++;
+	assert(!try_solve_2(36));
+	// first query must be <= 36
 	/*
 	std::map<std::array<int64_t, 2>, int> mp;
 	for (int i = 1; i <= 1000; i++) {
