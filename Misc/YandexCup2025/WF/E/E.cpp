@@ -69,7 +69,6 @@ int main() {
 			}
 		}
 		cerr << s << ' ' << int(by_val[s].size()) << '\n';
-		continue;
 		const auto& xs = by_val[s];
 		[&]() -> bool {
 			int c = 7600;
