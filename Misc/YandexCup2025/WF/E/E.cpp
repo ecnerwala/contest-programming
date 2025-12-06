@@ -49,14 +49,14 @@ int main() {
 	// there are 35 * 6 = 210 possible values
 	const int Q1 = 36;
 	std::map<int64_t, std::vector<int>> bucket;
-	for (int i = 1; i <= 45000; i++) {
+	for (int i = 1; i <= 1000000; i++) {
 		bucket[fn(Q1, i)].push_back(i);
 	}
 	for (auto [k, xs] : bucket) {
 		cerr << "solving " << k << '\n';
-		int c = 40000;
+		int c = 1000;
 		[&]() -> bool {
-			for (int b = 45000; b <= c; b++) {
+			for (int b = 2; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
 					mp[fn(b, x)].push_back(x);
