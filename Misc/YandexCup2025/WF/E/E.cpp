@@ -49,7 +49,7 @@ int main() {
 	// there are 35 * 6 = 210 possible values
 	const int Q1 = 36;
 	std::map<int64_t, std::vector<int>> bucket;
-	for (int i = 1; i <= 45000; i++) {
+	for (int i = 1; i <= 100000; i++) {
 		bucket[fn(Q1, i)].push_back(i);
 	}
 	for (auto [k, xs] : bucket) {
