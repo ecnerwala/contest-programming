@@ -71,7 +71,7 @@ int main() {
 		cerr << s << ' ' << int(by_val[s].size()) << '\n';
 		const auto& xs = by_val[s];
 		[&]() -> bool {
-			int c = 1265;
+			int c = 4010;
 			for (int b = 4000; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
