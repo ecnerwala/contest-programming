@@ -167,15 +167,14 @@ int main() {
 			tot_ev += pow_invM[l/2] * num(N+1-l);
 		}
 		num ans = tot_ev * tot_ev;
+		std::array<num, 2> pref{num(0), num(0)};
 		for (int l = 1; l <= N; l++) {
-			for (int l2 = 1; l2 <= l; l2++) {
-				if ((l ^ l2) & 1) continue;
-				num v = 1-pow_invM[l2 / 2];
-				v *= pow_invM[l / 2];
-				v *= num(N+1-l);
-				v *= (l2 < l ? 2 : 1);
-				ans += v;
-			}
+			pref[l&1] += 1-pow_invM[l / 2];
+			num v = pref[l&1];
+			v *= pow_invM[l / 2];
+			v *= num(N+1-l);
+			ans += v;
+			pref[l&1] += 1-pow_invM[l / 2];
 		}
 		cout << ans << '\n';
 	}
