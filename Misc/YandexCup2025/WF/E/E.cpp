@@ -81,8 +81,22 @@ int main() {
 			return -1;
 		}
 	};
+	std::map<int64_t, std::vector<int>> v4;
 	for (int i = 1; i <= 35; i++) {
-		cerr << fn(4, i) << '\n';
+		v4[fn(4, i)].push_back(i);
+	}
+	std::map<int64_t, int> b4;
+	std::map<int64_t, std::map<int64_t, int>> r4;
+	for (auto [k, v] : v4) {
+		for (int b = 2; true; b++) {
+			std::map<int64_t, int> s;
+			for (auto x : v) s[fn(b, x)] = x;
+			if (int(s.size()) == int(v.size())) {
+				b4[k] = b;
+				r4[k] = s;
+				break;
+			}
+		}
 	}
 	auto solve = [&](auto&& query, int K, int64_t C) -> int64_t {
 		if (K == 4) {
@@ -103,6 +117,7 @@ int main() {
 		if (s1 == -1) {
 			// 1..35
 			int64_t s2 = query(4);
+			return r4[s2][query(b4[s2])];
 		}
 		int64_t s2 = query(2485);
 		if (s2 == -1) {
