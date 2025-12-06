@@ -1028,7 +1028,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		std::vector<int> freq(M);
+		std::vector<int> freq(M, 0);
 		for (int i = 0; i < N; i++) {
 			int c; cin >> c; c--;
 			freq[c]++;
@@ -1060,9 +1060,11 @@ int main() {
 
 		assert(int(weights.size()) == N+1);
 
+		num ans = 0;
 		for (int i = 0; i <= N; i++) {
-			weights[i] * fn(N, i);
+			ans += weights[i] * fn(N, i);
 		}
+		cout << ans << '\n';
 	}
 
 	return 0;
