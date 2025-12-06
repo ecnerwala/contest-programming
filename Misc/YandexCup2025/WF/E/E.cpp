@@ -35,13 +35,14 @@ int main() {
 				if (!found) { good = false; break; }
 			}
 			if (good) {
-				cerr << "solve " << b << '\n';
+				cerr << "solve " << b << ' ' << c << '\n';
 				return true;
 			}
 		}
 		return false;
 	};
-	try_solve_2(70);
+	int a = 2;
+	while (try_solve_2(a)) a++;
 	/*
 	std::map<std::array<int64_t, 2>, int> mp;
 	for (int i = 1; i <= 1000; i++) {
