@@ -1019,8 +1019,10 @@ int main() {
 		while (int(pq.size()) >= 2) {
 			auto [_i, i] = pq.top(); pq.pop();
 			auto [_j, j] = pq.top(); pq.pop();
+			cerr << polys[i].size() << '*' << polys[j].size() << '\n';
 			polys[i] = ecnerwala::fft::fft_multiply(polys[i], polys[j]);
 			polys[j] = {};
+			cerr << polys[i].size() << '\n';
 			pq.push({-int(polys[i].size()), i});
 		}
 		auto [_, i] = pq.top();
