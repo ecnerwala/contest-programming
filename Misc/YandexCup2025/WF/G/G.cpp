@@ -160,7 +160,6 @@ int main() {
 					int pv = get_par(v);
 					v = label[pv];
 					while (u != v) {
-						cerr << u << ' ' << v << ' ' << pu << ' ' << pv << '\n';
 						if (depth[u] < depth[v]) {
 							std::swap(u, v);
 							std::swap(pu, pv);
