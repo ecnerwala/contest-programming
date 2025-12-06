@@ -167,6 +167,7 @@ int main() {
 				cap[palace] = 0;
 				continue;
 			} else {
+				cerr << "found path" << '\n';
 				ccs--;
 				cap[palace]--;
 				assert(!alive[found]);
