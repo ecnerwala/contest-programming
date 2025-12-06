@@ -73,11 +73,16 @@ int main() {
 
 	// parent vert, parent edge
 	std::vector<std::pair<int, int>> tree_par(V);
-	std::vector<int> depth(V);
+	std::vector<int> depth(V, 0);
 	std::vector<int> cc(V);
+	std::iota(cc.begin(), cc.end(), 0);
+	int max_v = 0;
 	auto build_tree_data = [&]() -> void {
-		std::fill(depth.begin(), depth.end(), -1);
-		for (int v = 0; v < V; v++) {
+		// redo dfs from everything <= v
+		for (int v = 0; v <= max_v; v++) {
+			depth[v] = -1;
+		}
+		for (int v = 0; v <= max_v; v++) {
 			if (depth[v] == -1) {
 				depth[v] = 0;
 				tree_par[v] = {-1, -1};
@@ -111,6 +116,7 @@ int main() {
 	std::vector<int> q; q.reserve(E);
 	std::vector<int> prv(E, -1);
 	for (int palace = 0; palace < L*L; palace++) {
+		max_v = palace;
 		while (cap[palace] > 0) {
 			//cerr << "trying " << palace << '\n';
 			// try to insert e
