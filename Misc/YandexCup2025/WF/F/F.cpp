@@ -24,6 +24,9 @@ template <typename num> num det(vector<vector<num>>& a) {
 	}
 	return res;
 }
+#undef sz
+#undef all
+#undef rep
 }
 
 template <typename T> T mod_inv_in_range(T a, T m) {
