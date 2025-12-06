@@ -110,92 +110,97 @@ int main() {
 	std::vector<int> dist(E, -1);
 	std::vector<int> q; q.reserve(E);
 	std::vector<int> prv(E, -1);
-	for (int palace = 0; palace < L*L; palace++) {
-		while (cap[palace] > 0) {
-			//cerr << "trying " << palace << '\n';
-			// try to insert e
-			std::fill(par.begin(), par.end(), -1);
-			std::iota(label.begin(), label.end(), 0);
-			std::fill(dist.begin(), dist.end(), -1);
-			std::fill(prv.begin(), prv.end(), -1);
-			q.clear();
-			for (auto [_, e] : adj[palace]) {
-				if (legal[e] && !alive[e]) {
-					dist[e] = 0;
-					prv[e] = -1;
-					q.push_back(e);
+	while (true) {
+		//cerr << "trying " << palace << '\n';
+		// try to insert e
+		std::fill(par.begin(), par.end(), -1);
+		std::iota(label.begin(), label.end(), 0);
+		std::fill(dist.begin(), dist.end(), -1);
+		std::fill(prv.begin(), prv.end(), -1);
+		q.clear();
+		for (int palace = 0; palace < L*L; palace++) {
+			if (cap[palace] > 0) {
+				for (auto [_, e] : adj[palace]) {
+					if (legal[e] && !alive[e]) {
+						dist[e] = 0;
+						prv[e] = ~palace;
+						q.push_back(e);
+					}
 				}
 			}
-			int found = -1;
-			for (int z = 0; z < int(q.size()); z++) {
-				int e = q[z];
-				int d = dist[e];
-				if (alive[e]) {
-					// just substitute it
-					int bucket = e / 4;
-					for (int ne = bucket * 4; ne < bucket * 4 + 4; ne++) {
-						if (legal[ne] && !alive[ne]) {
-							if (dist[ne] == -1) {
-								dist[ne] = d+1;
-								prv[ne] = e;
-								q.push_back(ne);
-							}
-						}
-					}
-				} else {
-					auto [u, v] = edges[e];
-					if (cc[u] != cc[v]) {
-						found = e;
-						break;
-					}
-					// look through the tree between u and v
-					int pu = get_par(u);
-					u = label[pu];
-					int pv = get_par(v);
-					v = label[pv];
-					while (u != v) {
-						//cerr << u << ' ' << v << ' ' << pu << ' ' << pv << '\n';
-						if (depth[u] < depth[v]) {
-							std::swap(u, v);
-							std::swap(pu, pv);
-						}
-						assert(depth[u] >= depth[v]);
-						assert(par[pu] < 0);
-						assert(label[pu] == u);
-						{
-							int ne = tree_par[u].second;
-							assert(ne != -1);
-							assert(alive[ne]);
-							assert(dist[ne] == -1);
+		}
+		int found = -1;
+		for (int z = 0; z < int(q.size()); z++) {
+			int e = q[z];
+			int d = dist[e];
+			if (alive[e]) {
+				// just substitute it
+				int bucket = e / 4;
+				for (int ne = bucket * 4; ne < bucket * 4 + 4; ne++) {
+					if (legal[ne] && !alive[ne]) {
+						if (dist[ne] == -1) {
 							dist[ne] = d+1;
 							prv[ne] = e;
 							q.push_back(ne);
 						}
-						int npu = get_par(tree_par[u].first);
-						int nu = label[npu];
-						label[pu] = nu;
-						if (par[pu] > par[npu]) std::swap(pu, npu);
-						par[pu] += par[npu];
-						par[npu] = pu;
-						u = nu;
-						// if we get to the top, pv could be wrong, but whatever
 					}
 				}
-			}
-			if (found == -1) {
-				//cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
-				cap[palace] = 0;
 			} else {
-				//cerr << "found path" << '\n';
-				ccs--;
-				cap[palace]--;
-				assert(!alive[found]);
-				for (int cur = found; cur != -1; cur = prv[cur]) {
-					alive[cur] ^= 1;
+				auto [u, v] = edges[e];
+				if (cc[u] != cc[v]) {
+					found = e;
+					break;
 				}
-				build_tree_data();
-				//dump_alive();
+				// look through the tree between u and v
+				int pu = get_par(u);
+				u = label[pu];
+				int pv = get_par(v);
+				v = label[pv];
+				while (u != v) {
+					//cerr << u << ' ' << v << ' ' << pu << ' ' << pv << '\n';
+					if (depth[u] < depth[v]) {
+						std::swap(u, v);
+						std::swap(pu, pv);
+					}
+					assert(depth[u] >= depth[v]);
+					assert(par[pu] < 0);
+					assert(label[pu] == u);
+					{
+						int ne = tree_par[u].second;
+						assert(ne != -1);
+						assert(alive[ne]);
+						assert(dist[ne] == -1);
+						dist[ne] = d+1;
+						prv[ne] = e;
+						q.push_back(ne);
+					}
+					int npu = get_par(tree_par[u].first);
+					int nu = label[npu];
+					label[pu] = nu;
+					if (par[pu] > par[npu]) std::swap(pu, npu);
+					par[pu] += par[npu];
+					par[npu] = pu;
+					u = nu;
+					// if we get to the top, pv could be wrong, but whatever
+				}
 			}
+		}
+		if (found == -1) {
+			//cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
+			break;
+		} else {
+			//cerr << "found path" << '\n';
+			ccs--;
+			assert(!alive[found]);
+			for (int cur = found; ; cur = prv[cur]) {
+				if (cur < 0) {
+					cap[~cur]--;
+					continue;
+				}
+				alive[cur] ^= 1;
+			}
+			build_tree_data();
+			//dump_alive();
 		}
 	}
 
