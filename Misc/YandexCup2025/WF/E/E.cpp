@@ -104,6 +104,9 @@ int main() {
 			int64_t a = query(int(2e9) + 1);
 			if (a != -1) {
 				int64_t b = query(int(2e9) + 2);
+				if (b == -1) {
+					return int(2e9) + 1;
+				}
 				mod_constraint<int64_t> x{a % int(2e9), int(2e9)};
 				mod_constraint<int64_t> y{b % (int(2e9)+1), int(2e9)+1};
 				auto res = x & y;
@@ -142,13 +145,16 @@ int main() {
 		return x.v;
 	};
 
-	for (int64_t x : std::vector<int64_t>({1, 2, 3, 4, 5, int64_t(1e12)})) {
+	auto test = [&](int64_t x) {
 		cerr << "test " << x << '\n';
 		auto query = [&](int64_t b) -> int64_t {
 			return fn(b, x);
 		};
 		int64_t res = solve(query, 4, int64_t(4e18));
 		assert(res == x);
+	};
+	for (int64_t x = int64_t(2e9) - 200; x <= int64_t(2e9) + 200; x++) {
+		test(x);
 	}
 
 	int T, K; int64_t C; cin >> T >> K >> C;
