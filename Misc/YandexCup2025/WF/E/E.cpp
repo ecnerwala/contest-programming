@@ -41,7 +41,7 @@ int main() {
 		}
 		return false;
 	};
-	try_solve_2(80);
+	try_solve_2(70);
 	/*
 	std::map<std::array<int64_t, 2>, int> mp;
 	for (int i = 1; i <= 1000; i++) {
