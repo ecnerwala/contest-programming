@@ -81,6 +81,9 @@ int main() {
 			return -1;
 		}
 	};
+	for (int i = 1; i <= 35; i++) {
+		cerr << fn(4, i) << '\n';
+	}
 	auto solve = [&](auto&& query, int K, int64_t C) -> int64_t {
 		if (K == 4) {
 			assert(C == int64_t(4e18));
@@ -99,7 +102,7 @@ int main() {
 		mod_constraint<int64_t> x{s1 % 35, 35};
 		if (s1 == -1) {
 			// 1..35
-			assert(false);
+			int64_t s2 = query(4);
 		}
 		int64_t s2 = query(2485);
 		if (s2 == -1) {
@@ -124,7 +127,7 @@ int main() {
 		return x.v;
 	};
 
-	for (int x = 36; x <= 1000000; x++) {
+	for (int x = 1; x <= 1000000; x++) {
 		cerr << "test " << x << '\n';
 		auto query = [&](int64_t b) -> int64_t {
 			return fn(b, x);
