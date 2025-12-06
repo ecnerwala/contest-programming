@@ -989,7 +989,7 @@ int main() {
 		int prv = 0;
 		for (int i = 0; true; ) {
 			int len = 0;
-			while (i < N && S[i] == '?') len++;
+			while (i < N && S[i] == '?') { i++, len++; }
 			if (i == N) {
 				for (int z = 0; z < len; z++) {
 					polys.push_back(std::vector<num>({p_half[1], p_half[1]}));
@@ -997,6 +997,7 @@ int main() {
 				break;
 			} else {
 				int cur = S[i] - '0';
+				i++;
 				len++;
 				std::vector<num> cnd(len+1);
 				for (int z = 0; z <= len; z++) {
@@ -1004,7 +1005,6 @@ int main() {
 					cnd[z] = fact[z] * fact[len-z] * ifact[len] * p_half[len-1];
 				}
 				assert(std::accumulate(cnd.begin(), cnd.end(), num(0)) == num(1));
-				i++;
 				prv = cur;
 			}
 		}
