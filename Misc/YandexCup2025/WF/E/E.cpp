@@ -121,7 +121,7 @@ int main() {
 		}
 		x = x & mod_constraint<int64_t>{s3 % 86939, 86939};
 		assert(x.mod > C);
-		return x.mod;
+		return x.v;
 	};
 
 	for (int x = 36; x <= 1000000; x++) {
