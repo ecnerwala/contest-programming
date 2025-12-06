@@ -91,7 +91,7 @@ int main() {
 					for (auto [nxt, e] : adj[cur]) {
 						if (!alive[e]) continue;
 						if (nxt == prv) continue;
-						assert(depth[nxt] == -1);
+						//assert(depth[nxt] == -1);
 						depth[nxt] = depth[cur] + 1;
 						tree_par[nxt] = {cur, e};
 						self(nxt, cur);
