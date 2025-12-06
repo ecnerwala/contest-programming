@@ -1016,7 +1016,7 @@ int main() {
 		return kactl::det(cur);
 	};
 
-	for (int n = 1; n <= 10; n++) {
+	for (int n = 0; n <= 10; n++) {
 		for (int k = 0; k <= n; k++) {
 			num v = fn(n, k);
 			cerr << (int(v) < int(-v) ? int(v) : -int(-v)) << ' ';
