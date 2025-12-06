@@ -71,8 +71,8 @@ int main() {
 		cerr << s << ' ' << int(by_val[s].size()) << '\n';
 		const auto& xs = by_val[s];
 		[&]() -> bool {
-			int c = 7605;
-			for (int b = 7601; b <= c; b++) {
+			int c = 210;
+			for (int b = 200; b <= c; b++) {
 				std::map<int64_t, std::vector<int>> mp;
 				for (int x : xs) {
 					if (x < Q1) continue;
