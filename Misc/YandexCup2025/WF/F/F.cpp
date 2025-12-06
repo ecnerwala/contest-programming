@@ -1041,10 +1041,9 @@ int main() {
 		std::vector<std::vector<num>> polys; polys.reserve(M);
 		for (int i = 0; i < M; i++) {
 			cerr << freq[i] << '\n';
-			if (!freq[i]) continue;
 			std::vector<num> val(freq[i]+1);
-			val[0] = HALF;
-			val[freq[i]] = (msk[i] == 0 ? HALF : -HALF);
+			val[0] += HALF;
+			val[freq[i]] += (msk[i] == 0 ? HALF : -HALF);
 			polys.emplace_back(std::move(val));
 		}
 		assert(!polys.empty());
