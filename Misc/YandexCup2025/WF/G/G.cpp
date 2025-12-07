@@ -49,8 +49,10 @@ int main() {
 	std::vector<std::vector<std::pair<int, int>>> adj(V);
 	for (auto& a : adj) a.reserve(4);
 	for (int e = 0; e < E; e++) {
-		adj[edges[e][0]].push_back({edges[e][1], e});
-		adj[edges[e][1]].push_back({edges[e][0], e});
+		if (legal[e]) {
+			adj[edges[e][0]].push_back({edges[e][1], e});
+			adj[edges[e][1]].push_back({edges[e][0], e});
+		}
 	}
 
 	std::vector<char> alive(E);
@@ -112,13 +114,13 @@ int main() {
 			//cerr << "trying " << palace << '\n';
 			// try to insert e
 			int found = -1;
-			for (auto [_, e] : adj[palace]) {
-				if (legal[e] && !alive[e]) {
-					prv[e] = -2;
-					q.push_back(e);
-					assert(cc[edges[e][0]] == cur_cc);
-					if (cc[edges[e][1]] != cur_cc) {
-						found = e;
+			for (auto [_, ne] : adj[palace]) {
+				if (!alive[ne]) {
+					prv[ne] = -2;
+					q.push_back(ne);
+					assert(cc[edges[ne][0]] == cur_cc);
+					if (cc[edges[ne][1]] != cur_cc) {
+						found = ne;
 						break;
 					}
 				}
@@ -130,7 +132,7 @@ int main() {
 					int bucket = e / 4;
 					assert(cc[bucket] == cur_cc);
 					for (int ne = bucket * 4; ne < bucket * 4 + 4; ne++) {
-						if (legal[ne] && !alive[ne]) {
+						if (!alive[ne]) {
 							if (prv[ne] == -1) {
 								prv[ne] = e;
 								q.push_back(ne);
