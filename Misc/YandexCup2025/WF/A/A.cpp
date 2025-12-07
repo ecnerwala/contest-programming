@@ -622,10 +622,10 @@ int main() {
 					return base_val;
 				}
 			}
-			if (M == N-1) return -1;
 			int64_t ans = -1;
 			if (N >= 3 && M >= N+1) {
-				ans = base_val - edges[N-3].w - edges[N-2].w + edges[N-1].w + edges[N].w;
+				int64_t cnd = base_val - edges[N-3].w - edges[N-2].w + edges[N-1].w + edges[N].w;
+				if (ans == -1 || cnd < ans) ans = cnd;
 			}
 			std::vector<my_top_tree_node> v_nodes(N);
 			for (int i = 0; i < N; i++) {
@@ -635,6 +635,7 @@ int main() {
 			std::vector<my_top_tree_node> e_nodes(N-1);
 			for (int e = 0; e < N-1; e++) {
 				auto [u, v] = edges[e].vs;
+				e_nodes[e].edge_val = edges[e].w;
 				link(&e_nodes[e], &v_nodes[u], &v_nodes[v]);
 			}
 			for (int e = N-1; e < M; e++) {
