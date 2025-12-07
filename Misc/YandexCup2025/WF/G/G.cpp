@@ -193,8 +193,8 @@ int main() {
 					alive[cur] ^= 1;
 				}
 				//dump_alive();
+				build_subtree_data(palace);
 			}
-			build_subtree_data(palace);
 
 			for (auto v : q) prv[v] = -1;
 			q.clear();
