@@ -199,7 +199,7 @@ int main() {
 		} else {
 			int x = xlo + (xhi - xlo) / 2;
 			self(xlo, x, ylo, yhi);
-			self(x, xhi, yhi, yhi);
+			self(x, xhi, ylo, yhi);
 			for (int y = ylo+1; y <= yhi-1; y++) saturate(x * L + y);
 		}
 	}(-1, L, -1, L);
