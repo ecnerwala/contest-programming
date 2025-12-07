@@ -108,34 +108,44 @@ int main() {
 	std::vector<int> prv(E, -1);
 	auto saturate = [&](int palace) {
 		while (cap[palace] > 0) {
+			int cur_cc = cc[palace];
 			//cerr << "trying " << palace << '\n';
 			// try to insert e
+			int found = -1;
 			for (auto [_, e] : adj[palace]) {
 				if (legal[e] && !alive[e]) {
 					prv[e] = -2;
 					q.push_back(e);
+					assert(cc[edges[e][0]] == cur_cc);
+					if (cc[edges[e][1]] != cur_cc) {
+						found = e;
+						break;
+					}
 				}
 			}
-			int found = -1;
-			for (int z = 0; z < int(q.size()); z++) {
+			for (int z = 0; found == -1 && z < int(q.size()); z++) {
 				int e = q[z];
 				if (alive[e]) {
 					// just substitute it
 					int bucket = e / 4;
+					assert(cc[bucket] == cur_cc);
 					for (int ne = bucket * 4; ne < bucket * 4 + 4; ne++) {
 						if (legal[ne] && !alive[ne]) {
 							if (prv[ne] == -1) {
 								prv[ne] = e;
 								q.push_back(ne);
+								assert(edges[e][0] == bucket);
+								if (cc[edges[e][1]] != cur_cc) {
+									found = e;
+									break;
+								}
 							}
 						}
 					}
 				} else {
 					auto [u, v] = edges[e];
-					if (cc[u] != cc[v]) {
-						found = e;
-						break;
-					}
+					assert(cc[u] == cur_cc);
+					assert(cc[v] == cur_cc);
 					// look through the tree between u and v
 					int pu = get_par(u);
 					u = label[pu];
