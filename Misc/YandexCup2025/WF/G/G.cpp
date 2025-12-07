@@ -188,10 +188,6 @@ int main() {
 		}
 	};
 
-	for (int i = 0; i < L*L; i++) {
-		saturate(i);
-	}
-	/*
 	[&](this auto&& self, int xlo, int xhi, int ylo, int yhi) -> void {
 		if (yhi - ylo == 1) return;
 		if (xhi - xlo == 1) return;
@@ -207,7 +203,6 @@ int main() {
 			for (int y = ylo+1; y <= yhi-1; y++) saturate(x * L + y);
 		}
 	}(-1, L, -1, L);
-	*/
 
 	fix_G();
 	cout << ccs << '\n';
