@@ -134,9 +134,9 @@ int main() {
 							if (prv[ne] == -1) {
 								prv[ne] = e;
 								q.push_back(ne);
-								assert(edges[e][0] == bucket);
-								if (cc[edges[e][1]] != cur_cc) {
-									found = e;
+								assert(edges[ne][0] == bucket);
+								if (cc[edges[ne][1]] != cur_cc) {
+									found = ne;
 									break;
 								}
 							}
