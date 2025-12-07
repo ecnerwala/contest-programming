@@ -107,7 +107,7 @@ int main() {
 	std::vector<int> prv(E, -1);
 	auto saturate = [&](int palace) {
 		while (cap[palace] > 0) {
-			cerr << "trying " << palace << '\n';
+			//cerr << "trying " << palace << '\n';
 			// try to insert e
 			for (auto [_, e] : adj[palace]) {
 				if (legal[e] && !alive[e]) {
@@ -169,17 +169,17 @@ int main() {
 				}
 			}
 			if (found == -1) {
-				cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
+				//cerr << "didn't find in " << palace/L << ' ' << palace%L << '\n';
 				cap[palace] = 0;
 			} else {
-				cerr << "found path" << '\n';
+				//cerr << "found path" << '\n';
 				ccs--;
 				cap[palace]--;
 				assert(!alive[found]);
 				for (int cur = found; cur != -2; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
-				dump_alive();
+				//dump_alive();
 			}
 			build_subtree_data(palace);
 
