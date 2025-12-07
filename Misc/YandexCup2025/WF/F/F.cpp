@@ -1017,7 +1017,6 @@ int main() {
 	};
 
 	auto fn = [&](int n, int k) -> num {
-		k = std::min(k, n-k);
 		if (n == 1) return 1;
 		return power(num(n - 2*k), n-2) * ((k & 1) ? -1 : 1);
 	};
