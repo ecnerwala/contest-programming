@@ -76,8 +76,9 @@ int main() {
 	std::vector<int> depth(V, 0);
 	std::vector<int> cc(V);
 	std::iota(cc.begin(), cc.end(), 0);
-	std::vector<int> par(V);
+	std::vector<int> par(V, -1);
 	std::vector<int> label(V);
+	std::iota(label.begin(), label.end(), 0);
 	auto build_subtree_data = [&](int v) -> void {
 		depth[v] = 0;
 		tree_par[v] = {-1, -1};
