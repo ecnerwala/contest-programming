@@ -76,11 +76,14 @@ int main() {
 	std::vector<int> depth(V, 0);
 	std::vector<int> cc(V);
 	std::iota(cc.begin(), cc.end(), 0);
-	int max_v = 0;
+	std::vector<int> par(V);
+	std::vector<int> label(V);
 	auto build_subtree_data = [&](int v) -> void {
 		depth[v] = 0;
 		tree_par[v] = {-1, -1};
 		[&](this auto&& self, int cur, int prv) -> void {
+			par[cur] = -1;
+			label[cur] = cur;
 			cc[cur] = v;
 			for (auto [nxt, e] : adj[cur]) {
 				if (!alive[e]) continue;
@@ -93,8 +96,6 @@ int main() {
 		}(v, -1);
 	};
 
-	std::vector<int> par(V);
-	std::vector<int> label(V);
 	auto get_par = [&](int a) -> int {
 		while (par[a] >= 0) {
 			if (par[par[a]] >= 0) par[a] = par[par[a]];
@@ -104,13 +105,10 @@ int main() {
 	};
 	std::vector<int> q; q.reserve(E);
 	std::vector<int> prv(E, -1);
-	for (int palace = 0; palace < L*L; palace++) {
-		max_v = palace;
+	auto saturate = [&](int palace) {
 		while (cap[palace] > 0) {
 			//cerr << "trying " << palace << '\n';
 			// try to insert e
-			std::fill(par.begin(), par.end(), -1);
-			std::iota(label.begin(), label.end(), 0);
 			for (auto [_, e] : adj[palace]) {
 				if (legal[e] && !alive[e]) {
 					prv[e] = -2;
@@ -181,14 +179,30 @@ int main() {
 				for (int cur = found; cur != -2; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
-				build_subtree_data(palace);
 				//dump_alive();
 			}
+			build_subtree_data(palace);
 
 			for (auto v : q) prv[v] = -1;
 			q.clear();
 		}
-	}
+	};
+
+	[&](this auto&& self, int xlo, int xhi, int ylo, int yhi) -> void {
+		if (yhi - ylo == 1) return;
+		if (xhi - xlo == 1) return;
+		if (yhi - ylo > xhi - xlo) {
+			int y = ylo + (yhi - ylo) / 2;
+			self(xlo, xhi, ylo, y);
+			self(xlo, xhi, y, yhi);
+			for (int x = xlo+1; x <= xhi-1; x++) saturate(x * L + y);
+		} else {
+			int x = xlo + (xhi - xlo) / 2;
+			self(xlo, x, ylo, yhi);
+			self(x, xhi, yhi, yhi);
+			for (int y = ylo+1; y <= yhi-1; y++) saturate(x * L + y);
+		}
+	}(-1, L, -1, L);
 
 	fix_G();
 	cout << ccs << '\n';
