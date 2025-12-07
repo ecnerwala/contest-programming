@@ -131,13 +131,13 @@ int main() {
 					// just substitute it
 					int bucket = e / 4;
 					assert(cc[bucket] == cur_cc);
-					for (int ne = bucket * 4; ne < bucket * 4 + 4; ne++) {
+					for (auto [nv, ne] : adj[bucket]) {
 						if (!alive[ne]) {
 							if (prv[ne] == -1) {
 								prv[ne] = e;
 								q.push_back(ne);
 								assert(edges[ne][0] == bucket);
-								if (cc[edges[ne][1]] != cur_cc) {
+								if (cc[nv] != cur_cc) {
 									found = ne;
 									break;
 								}
