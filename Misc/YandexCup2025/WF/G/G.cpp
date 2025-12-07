@@ -179,7 +179,7 @@ int main() {
 				for (int cur = found; cur != -2; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
-				//dump_alive();
+				dump_alive();
 			}
 			build_subtree_data(palace);
 
