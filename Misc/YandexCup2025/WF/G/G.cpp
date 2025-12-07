@@ -77,31 +77,21 @@ int main() {
 	std::vector<int> cc(V);
 	std::iota(cc.begin(), cc.end(), 0);
 	int max_v = 0;
-	auto build_tree_data = [&]() -> void {
-		// redo dfs from everything <= v
-		for (int v = 0; v <= max_v; v++) {
-			depth[v] = -1;
-		}
-		for (int v = 0; v <= max_v; v++) {
-			if (depth[v] == -1) {
-				depth[v] = 0;
-				tree_par[v] = {-1, -1};
-				[&](this auto&& self, int cur, int prv) -> void {
-					cc[cur] = v;
-					for (auto [nxt, e] : adj[cur]) {
-						if (!alive[e]) continue;
-						if (nxt == prv) continue;
-						//assert(depth[nxt] == -1);
-						depth[nxt] = depth[cur] + 1;
-						tree_par[nxt] = {cur, e};
-						self(nxt, cur);
-					}
-				}(v, -1);
+	auto build_subtree_data = [&](int v) -> void {
+		depth[v] = 0;
+		tree_par[v] = {-1, -1};
+		[&](this auto&& self, int cur, int prv) -> void {
+			cc[cur] = v;
+			for (auto [nxt, e] : adj[cur]) {
+				if (!alive[e]) continue;
+				if (nxt == prv) continue;
+				//assert(depth[nxt] == -1);
+				depth[nxt] = depth[cur] + 1;
+				tree_par[nxt] = {cur, e};
+				self(nxt, cur);
 			}
-		}
+		}(v, -1);
 	};
-
-	build_tree_data();
 
 	std::vector<int> par(V);
 	std::vector<int> label(V);
@@ -191,7 +181,7 @@ int main() {
 				for (int cur = found; cur != -2; cur = prv[cur]) {
 					alive[cur] ^= 1;
 				}
-				build_tree_data();
+				build_subtree_data(palace);
 				//dump_alive();
 			}
 
