@@ -1022,7 +1022,6 @@ int main() {
 			ps shift_neg_one(N+1);
 			for (int i = 0; i <= N; i++) shift_neg_one[i] = (i & 1) ? -ifact[i] : ifact[i];
 			P *= shift_neg_one;
-			// reverse, multiply by ifact, then reverse again
 			std::reverse(P.begin(), P.end());
 			for (int i = 0; i <= N; i++) P[i] *= ifact[i];
 		}
@@ -1045,7 +1044,7 @@ int main() {
 				ps b(N+1);
 				b[0] = 1;
 				b[1] = 1;
-				ans += P[i] * poly_pow_monic(b, i);
+				ans += P[i] * poly_pow_monic(b, N-i);
 			}
 			P = ans;
 			P *= p_half[N];
