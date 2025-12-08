@@ -156,7 +156,8 @@ int main(){
 	if(!TEST){
 		cin >> N;
 	} else {
-		N = int(1e5);
+		//N = int(1e5);
+		N = 1;
 	}
 
 	int D = 0;
@@ -255,7 +256,7 @@ int main(){
 		int la = l+failed_d;
 		int rb = r-failed_d;
 		int lb = min(l+d, rb);
-		int ra = max(r+d, la);
+		int ra = max(r-d, la);
 		// la,lb   ra,rb
 		if(lb > ra){
 			int md = (l + r) / 2;
