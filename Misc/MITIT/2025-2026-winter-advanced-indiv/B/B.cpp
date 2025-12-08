@@ -9,13 +9,15 @@ int main() {
 		int N; cin >> N;
 		std::vector<std::array<int, 2>> X(N);
 		for (auto& [x, y] : X) cin >> x >> y;
+		std::sort(X.begin(), X.end(), [&](auto a, auto b) { return a[0] + a[1] < b[0] + b[1]; });
 		int ans = 0;
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				if (X[i][0] > X[j][0] && X[i][1] < X[j][1]) {
-					ans = std::max(ans, std::min(X[i][0] - X[j][0], X[j][1] - X[i][1]));
-				}
-			}
+		int max_x = -1;
+		int max_y = -1;
+		for (auto [x, y] : X) {
+			ans = std::max(ans, max_x - x);
+			ans = std::max(ans, max_y - y);
+			max_x = std::max(max_x, x);
+			max_y = std::max(max_y, y);
 		}
 		cout << ans << '\n';
 	}
