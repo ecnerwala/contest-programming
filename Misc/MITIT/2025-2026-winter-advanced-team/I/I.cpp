@@ -156,11 +156,10 @@ int main(){
 	if(!TEST){
 		cin >> N;
 	} else {
-		//N = int(1e5);
-		N = 1;
+		N = int(1e5);
 	}
 
-	int D = 0;
+	int D = 1;
 
 	vector<int> ANS(N);
 	for(int i = 0; i < N; i++) ANS[i] = i;
