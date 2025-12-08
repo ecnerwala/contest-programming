@@ -88,11 +88,11 @@ int main() {
 	for (int x = 0; x <= 5; x++) {
 		for (int y = 0; y <= 5; y++) {
 			for (int z = 0; z <= 5; z++) {
-				cerr << x << ' ' << y << ' ' << z << '\n';
+				//cerr << x << ' ' << y << ' ' << z << '\n';
 				auto r = solve(x, y, z);
 				if (r) {
 					auto s = *r;
-					cerr << s << '\n';
+					//cerr << s << '\n';
 					int a = 0, b = 0, c = 0;
 					for (char v : s) {
 						if (v == 'M') a++;
