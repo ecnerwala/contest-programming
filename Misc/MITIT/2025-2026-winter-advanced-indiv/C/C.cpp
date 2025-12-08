@@ -178,7 +178,7 @@ int main() {
 				nodes[cur].val = ops[q].c;
 				for (auto v : buf) update_node(v);
 			}
-			ans += nodes[0].val;
+			ans += nodes[ROOT].val;
 			for (auto q : deletions[day]) {
 				int64_t d = ops[q].d;
 				int cur = ROOT;
