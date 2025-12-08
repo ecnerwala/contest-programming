@@ -390,6 +390,7 @@ int main() {
 			seg_tree::in_order_layout layout(N);
 			std::vector<int> seg(2*N);
 			auto apply_range = [&](int l, int r, int v) -> void {
+				cerr << "apply " << l << ' ' << r << ' ' << v << '\n';
 				assert(l < r);
 				layout.get_range(l+1, r).for_each([&](auto a) -> void {
 					seg[a] = std::max(seg[a], v);
