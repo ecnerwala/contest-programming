@@ -159,7 +159,7 @@ int main(){
 		N = int(1e5);
 	}
 
-	int D = 1;
+	int D = 10;
 
 	vector<int> ANS(N);
 	for(int i = 0; i < N; i++) ANS[i] = i;
