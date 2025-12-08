@@ -996,8 +996,8 @@ int main() {
 				} else {
 					P[freq[i]] -= num(1);
 				}
-			} else {
-				coeff *= HALF + (msk[i] == 0 ? HALF : -HALF);
+			} else if (msk[i] == 1) {
+				coeff = 0;
 			}
 		}
 		P = euler_transform(P) * coeff;
