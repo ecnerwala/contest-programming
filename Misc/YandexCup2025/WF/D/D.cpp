@@ -1018,7 +1018,7 @@ int main() {
 		// = y^N sum P[i] * (1/y - 1)^i
 		assert(int(P.size()) == N+1);
 		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
-		{
+		if (false) {
 			for (int i = 0; i <= N; i++) P[i] *= fact[i];
 			std::reverse(P.begin(), P.end());
 			ps shift_neg_one(N+1);
@@ -1027,6 +1027,16 @@ int main() {
 			// reverse, multiply by ifact, then reverse again
 			std::reverse(P.begin(), P.end());
 			for (int i = 0; i <= N; i++) P[i] *= ifact[i];
+		} else {
+			ps ans(N+1);
+			for (int i = 0; i <= N; i++) {
+				ps b(N+1);
+				b[0] = -1;
+				b[1] = 1;
+				ans += P[i] * poly_pow(b, i);
+			}
+			P = ans;
+			P *= p_half[N];
 		}
 		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		std::reverse(P.begin(), P.end());
