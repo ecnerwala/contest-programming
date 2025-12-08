@@ -50,7 +50,7 @@ int main() {
 				Y--;
 				std::sort(vs.begin(), vs.end());
 			}
-			std::string s;
+			std::string s; s.reserve(X+Y+Z);
 			if (Y > 0) {
 				s += 'I';
 				Y--;
