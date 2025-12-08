@@ -82,8 +82,8 @@ int main() {
 				auto r = solve(x, y, z);
 				if (r) {
 					auto s = *r;
-					//cerr << x << ' ' << y << ' ' << z << '\n';
-					//cerr << s << '\n';
+					cerr << x << ' ' << y << ' ' << z << '\n';
+					cerr << s << '\n';
 					int a = 0, b = 0, c = 0;
 					for (char v : s) {
 						if (v == 'M') a++;
@@ -92,6 +92,12 @@ int main() {
 						else assert(false);
 					}
 					assert(a == x && b == y && c == z);
+					for (int i = 0; i+1 < int(s.size()); i++) {
+						assert(s[i] != s[i+1]);
+					}
+					for (int i = 0; i+2 < int(s.size()); i++) {
+						assert(s[i+1] != 'I' || s[i] == s[i+2]);
+					}
 				}
 			}
 		}
