@@ -384,6 +384,9 @@ int main() {
 			for (auto [u, v] : edges) {
 				cerr << u << ' ' << v << '\n';
 			}
+			for (int i = 0; i < N; i++) {
+				cerr << i << ' ' << dist_st[i] << ' ' << dist_en[i] << '\n';
+			}
 			seg_tree::in_order_layout layout(N);
 			std::vector<int> seg(2*N);
 			auto apply_range = [&](int l, int r, int v) -> void {
