@@ -970,12 +970,6 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	using num = modnum<int(1e9)+7>;
-	auto fn = [&](int n, int k) -> num {
-		if (n == 1) return 1;
-		return power(num(n - 2*k), n-2) * ((k & 1) ? -1 : 1);
-	};
-
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
@@ -987,11 +981,11 @@ int main() {
 		std::vector<int> msk(M);
 		for (auto& m : msk) { cin >> m; assert(m == 0 || m == 1); }
 
+		using num = modnum<int(1e9)+7>;
 		using ps = ecnerwala::power_series_fft_mod<num>;
 
-		ps P(N+1);
-
 		const num HALF = inv(num(2));
+		ps P(N+1);
 		num coeff = 1;
 		for (int i = 0; i < M; i++) {
 			if (freq[i]) {
