@@ -985,45 +985,60 @@ int main() {
 		p_half[N] = inv(power(num(2), N));
 		for (int i = N; i >= 1; i--) p_half[i-1] = p_half[i] + p_half[i];
 
-		std::vector<std::vector<num>> polys; polys.reserve(N+1);
+		using ps = ecnerwala::power_series_fft<num>;
+		num HALF = inv(num(2));
+		num coeff = 1;
+		ps P(N+1);
 		int prv = 0;
 		for (int i = 0; true; ) {
 			int len = 0;
 			while (i < N && S[i] == '?') { i++, len++; }
 			if (i == N) {
-				for (int z = 0; z < len; z++) {
-					polys.emplace_back(std::vector<num>({p_half[1], p_half[1]}));
-				}
 				break;
 			} else {
 				int cur = S[i] - '0';
 				i++;
 				len++;
-				std::vector<num> cnd(len+1);
-				for (int z = 0; z <= len; z++) {
-					if ((z&1) != (prv ^ cur)) continue;
-					cnd[z] = ifact[z] * ifact[len-z] * fact[len] * p_half[len-1];
+				coeff *= HALF;
+				if (prv ^ cur) {
+					// we need (1/2+x/2)^len - (1/2-x/2)^len
+					P[len] -= num(1);
+				} else {
+					// we need (1/2+x/2)^len + (1/2-x/2)^len
+					P[len] += num(1);
+					if (2*len <= N) P[2*len] -= num(1);
 				}
-				assert(std::accumulate(cnd.begin(), cnd.end(), num(0)) == num(1));
-				polys.emplace_back(std::move(cnd));
 				prv = cur;
 			}
 		}
-		assert(!polys.empty());
-		std::priority_queue<std::pair<int, int>> pq;
-		for (int i = 0; i < int(polys.size()); i++) {
-			pq.push({-int(polys[i].size()), i});
+		P = euler_transform(P) * coeff;
+		// Now, we need to evaluate sum P[i] * (1/2-x/2)^i * (1/2+x/2)^(N-i)
+		// Let y = 1/2 + x/2
+		// Then, we want
+		// = sum P[i] * (1-y)^i * y^(N-i)
+		// = y^N sum P[i] * (1/y - 1)^i
+		{
+			for (int i = 0; i <= N; i++) P[i] *= fact[i];
+			std::reverse(P.begin(), P.end());
+			ps shift_neg_one(N+1);
+			for (int i = 0; i <= N; i++) shift_neg_one[i] = (i & 1) ? -ifact[i] : ifact[i];
+			P *= shift_neg_one;
+			// reverse, multiply by ifact, then reverse again
+			for (int i = 0; i <= N; i++) P[i] *= ifact[N-i];
 		}
-		while (int(pq.size()) >= 2) {
-			auto [_i, i] = pq.top(); pq.pop();
-			auto [_j, j] = pq.top(); pq.pop();
-			polys[i] = ecnerwala::fft::fft_multiply(polys[i], polys[j]);
-			polys[j] = {};
-			pq.push({-int(polys[i].size()), i});
+		{
+			for (int i = 0; i <= N; i++) P[i] *= fact[i];
+			std::reverse(P.begin(), P.end());
+			ps shift_one(N+1);
+			for (int i = 0; i <= N; i++) shift_one[i] = ifact[i];
+			P *= shift_one;
+			std::reverse(P.begin(), P.end());
+			for (int i = 0; i <= N; i++) P[i] *= ifact[i];
+			P *= p_half[N];
 		}
-		auto [_, i] = pq.top();
-		for (int z = 0; z <= N; z++) {
-			cout << polys[i][z] << " \n"[z==N];
+
+		for (int i = 0; i <= N; i++) {
+			cout << P[i] << " \n"[i==N];
 		}
 	}
 
