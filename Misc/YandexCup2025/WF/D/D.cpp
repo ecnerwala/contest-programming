@@ -1038,8 +1038,8 @@ int main() {
 			P = ans;
 		}
 		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
-		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		std::reverse(P.begin(), P.end());
+		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		if (false) {
 			for (int i = 0; i <= N; i++) P[i] *= fact[i];
 			std::reverse(P.begin(), P.end());
