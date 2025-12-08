@@ -43,7 +43,7 @@ int main() {
 			vs.push_back({Z, 'T'});
 			std::sort(vs.begin(), vs.end());
 			std::reverse(vs.begin(), vs.end());
-			while (Y >= 2 || vs[0].first - vs[1].first > 1) {
+			while (Y > 2 || vs[0].first - vs[1].first > 1) {
 				if (Y == 0) {
 					return std::nullopt;
 				}
