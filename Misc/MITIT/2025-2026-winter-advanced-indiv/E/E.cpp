@@ -993,13 +993,14 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		connected_graphs[i] *= power(num(2), i) - 1;
 	}
-	connected_graphs.resize(N-K+1);
-	ps fn(N-K+1, 0);
+	ps fn;
 	for (int i = N; i >= K; i--) {
-		fn *= connected_graphs;
+		ps tmp = connected_graphs;
+		tmp.resize(fn.size());
+		fn *= tmp;
+		fn.insert(fn.begin(), 0);
 		fn[0] += ifact[i];
 	}
-	connected_graphs.erase(connected_graphs.begin());
 	fn *= poly_pow(connected_graphs, K);
 	cout << fact[N] * fn[N-K] << '\n';
 
