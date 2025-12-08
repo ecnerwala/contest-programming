@@ -1021,17 +1021,6 @@ int main() {
 		return power(num(n - 2*k), n-2) * ((k & 1) ? -1 : 1);
 	};
 
-	for (int n = 1; n <= 0; n++) {
-		cerr << n << ": ";
-		for (int k = 0; k <= n; k++) {
-			num v = fn(n, k);
-			cerr << (int(v) < int(-v) ? int(v) : -int(-v)) << ' ';
-			assert(fn(n, k) == fn_slow(n, k));
-		}
-		cerr << '\n';
-	}
-
-
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
@@ -1043,33 +1032,29 @@ int main() {
 		std::vector<int> msk(M);
 		for (auto& m : msk) { cin >> m; assert(m == 0 || m == 1); }
 
+		using ps = ecnerwala::power_series_fft_mod<num>;
+
+		ps P(N+1);
+
 		const num HALF = inv(num(2));
-		std::vector<std::vector<num>> polys; polys.reserve(M);
+		num coeff = 1;
 		for (int i = 0; i < M; i++) {
-			std::vector<num> val(freq[i]+1);
-			val[0] += HALF;
-			val[freq[i]] += (msk[i] == 0 ? HALF : -HALF);
-			polys.emplace_back(std::move(val));
+			if (freq[i]) {
+				coeff *= HALF;
+				if (msk[i] == 0) {
+					P[freq[i]] += num(1);
+					if(freq[i]*2 <= N) P[freq[i]*2] -= num(1);
+				} else {
+					P[freq[i]] -= num(1);
+				}
+			} else {
+				coeff *= HALF + (msk[i] == 0 ? HALF : -HALF);
+			}
 		}
-		assert(!polys.empty());
-		std::priority_queue<std::pair<int, int>> pq;
-		for (int i = 0; i < int(polys.size()); i++) {
-			pq.push({-int(polys[i].size()), i});
-		}
-		while (int(pq.size()) >= 2) {
-			auto [_i, i] = pq.top(); pq.pop();
-			auto [_j, j] = pq.top(); pq.pop();
-			polys[i] = ecnerwala::fft::fft_mod_multiply(polys[i], polys[j]);
-			polys[j] = {};
-			pq.push({-int(polys[i].size()), i});
-		}
-		std::vector<num> weights = polys[pq.top().second];
-
-		assert(int(weights.size()) == N+1);
-
+		P = euler_transform(P) * coeff;
 		num ans = 0;
 		for (int i = 0; i <= N; i++) {
-			ans += weights[i] * fn(N, i);
+			ans += P[i] * fn(N, i);
 		}
 		cout << ans << '\n';
 	}
