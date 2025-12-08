@@ -1020,14 +1020,13 @@ int main() {
 			for (int i = 0; i <= N; i++) P[i] *= fact[i];
 			std::reverse(P.begin(), P.end());
 			ps shift_neg_one(N+1);
-			for (int i = 0; i <= N; i++) {
-				shift_neg_one[i] = (i & 1) ? -ifact[i] : ifact[i];
-				assert(ifact[i] * fact[i] == 1);
-			}
+			for (int i = 0; i <= N; i++) shift_neg_one[i] = (i & 1) ? -ifact[i] : ifact[i];
 			P *= shift_neg_one;
 			// reverse, multiply by ifact, then reverse again
-			for (int i = 0; i <= N; i++) P[i] *= ifact[N-i];
+			std::reverse(P.begin(), P.end());
+			for (int i = 0; i <= N; i++) P[i] *= ifact[i];
 		}
+		std::reverse(P.begin(), P.end());
 		if (false) {
 			for (int i = 0; i <= N; i++) P[i] *= fact[i];
 			std::reverse(P.begin(), P.end());
