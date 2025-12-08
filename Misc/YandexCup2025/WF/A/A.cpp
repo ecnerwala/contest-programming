@@ -571,7 +571,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			whole_max = std::max({edge_val, c[0]->whole_max, c[1]->whole_max});
 			non_path_max = std::max(c[0]->non_path_max, c[1]->non_path_max);
 		} else {
-			whole_max = c[2]->whole_max;
+			whole_max = std::max(edge_val, c[2]->whole_max);
 			if (c[0]) setmax(whole_max, c[0]->whole_max);
 			if (c[1]) setmax(whole_max, c[1]->whole_max);
 		}
