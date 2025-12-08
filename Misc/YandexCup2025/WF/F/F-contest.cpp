@@ -260,6 +260,7 @@ template <typename num> template <typename Iterator> void fft<num>::go(Iterator 
 	}
 }
 
+std::map<int, int> fft_cnts;
 template <typename num> struct fft_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
 	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
@@ -377,6 +378,7 @@ struct fft_mod_multiplier {
 		fft<cnum>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
+		fft_cnts[n]++;
 
 		{ auto it = ia; for (int i = 0; i < sza; ++i, ++it) fa[i] = cnum(int(*it) & ((1<<15)-1), int(*it) >> 15); }
 		fill(fa.begin()+sza, fa.begin() + n, 0);
@@ -1072,6 +1074,10 @@ int main() {
 			ans += weights[i] * fn(N, i);
 		}
 		cout << ans << '\n';
+	}
+
+	for (auto [k, v] : ecnerwala::fft::fft_cnts) {
+		cerr << k << ' ' << v << '\n';
 	}
 
 	return 0;
