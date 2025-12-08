@@ -295,8 +295,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		cerr << '\n';
-		cerr << "case " << N << ' ' << M << '\n';
 		std::vector<std::tuple<int, bool, int>> evts; evts.reserve(2*N);
 		for (int i = 0; i < N; i++) {
 			int k, a, b; cin >> k >> a >> b;
@@ -368,18 +366,20 @@ int main() {
 		std::vector<int> dist_en(N);
 		for (int z = 0; z < N; z++) {
 			int i = q[z];
+			dist_st[i]++;
 			for (int j : adj[i]) {
-				dist_st[j] = std::max(dist_st[j], dist_st[i] + 1);
+				dist_st[j] = std::max(dist_st[j], dist_st[i]);
 			}
 		}
 		for (int z = N-1; z >= 0; z--) {
 			int i = q[z];
+			dist_en[i]++;
 			for (int j : adj[i]) {
-				dist_en[i] = std::max(dist_en[i], dist_en[j] + 1);
+				dist_en[i] = std::max(dist_en[i], dist_en[j]);
 			}
 		}
 		if (M == 0) {
-			cout << 1 + (*std::max_element(dist_st.begin(), dist_st.end())) << '\n';
+			cout << *std::max_element(dist_st.begin(), dist_st.end()) << '\n';
 		} else if (M == 1) {
 			seg_tree::in_order_layout layout(N);
 			std::vector<int> seg(2*N);
@@ -390,11 +390,11 @@ int main() {
 				});
 			};
 			for (int i = 0; i < N; i++) {
-				apply_range(topo_idx[i], N, dist_st[i] + 1);
-				apply_range(-1, topo_idx[i], dist_en[i] + 1);
+				apply_range(topo_idx[i], N, dist_st[i]);
+				apply_range(-1, topo_idx[i], dist_en[i]);
 			}
 			for (auto [u, v] : edges) {
-				apply_range(topo_idx[u], topo_idx[v], dist_st[u] + dist_en[v] + 2);
+				apply_range(topo_idx[u], topo_idx[v], dist_st[u] + dist_en[v]);
 			}
 			for (int i = 1; i < N; i++) {
 				seg[2*i+0] = std::max(seg[2*i+0], seg[i]);
