@@ -50,7 +50,7 @@ int main() {
 				Y--;
 				std::sort(vs.begin(), vs.end());
 			}
-			std::string s; cin >> s;
+			std::string s;
 			if (Y > 0) {
 				s += 'I';
 				Y--;
