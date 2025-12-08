@@ -119,7 +119,7 @@ public:
 template <typename T> using RangeMaxQuery = RangeMinQuery<T, std::greater<T>>;
 
 vector<int> gen(int N, int d) {
-	mt19937_64 rng(58);
+	mt19937_64 rng(59);
 	vector<int> values(N);
 	for (int i = 0; i < N; ++i) values[i] = 1 + rng() % (1'000'000'000 - N);
 	sort(values.begin(), values.end());
@@ -159,7 +159,7 @@ int main(){
 		N = int(1e5);
 	}
 
-	int D = 10;
+	int D = 1;
 
 	vector<int> ANS(N);
 	for(int i = 0; i < N; i++) ANS[i] = i;
