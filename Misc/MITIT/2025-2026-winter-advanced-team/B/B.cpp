@@ -42,6 +42,7 @@ int main() {
 			vs.push_back({X, 'M'});
 			vs.push_back({Z, 'T'});
 			std::sort(vs.begin(), vs.end());
+			std::reverse(vs.begin(), vs.end());
 			while (Y >= 2 || vs[0].first - vs[1].first > 1) {
 				if (Y == 0) {
 					return std::nullopt;
@@ -50,6 +51,7 @@ int main() {
 				vs[0].first--;
 				Y--;
 				std::sort(vs.begin(), vs.end());
+				std::reverse(vs.begin(), vs.end());
 			}
 			std::string s; s.reserve(X+Y+Z);
 			if (Y > 0) {
