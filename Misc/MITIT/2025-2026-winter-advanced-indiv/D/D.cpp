@@ -381,16 +381,9 @@ int main() {
 		if (M == 0) {
 			cout << 1 + (*std::max_element(dist_st.begin(), dist_st.end())) << '\n';
 		} else if (M == 1) {
-			for (auto [u, v] : edges) {
-				cerr << u << ' ' << v << '\n';
-			}
-			for (int i = 0; i < N; i++) {
-				cerr << i << ' ' << topo_idx[i] << ' ' << dist_st[i] << ' ' << dist_en[i] << '\n';
-			}
 			seg_tree::in_order_layout layout(N);
 			std::vector<int> seg(2*N);
 			auto apply_range = [&](int l, int r, int v) -> void {
-				cerr << "apply " << l << ' ' << r << ' ' << v << '\n';
 				assert(l < r);
 				layout.get_range(l+1, r).for_each([&](auto a) -> void {
 					seg[a] = std::max(seg[a], v);
@@ -401,13 +394,12 @@ int main() {
 				apply_range(-1, topo_idx[i], dist_en[i] + 1);
 			}
 			for (auto [u, v] : edges) {
-				apply_range(topo_idx[u], topo_idx[v], dist_st[u] + dist_en[v] + 1);
+				apply_range(topo_idx[u], topo_idx[v], dist_st[u] + dist_en[v] + 2);
 			}
 			for (int i = 1; i < N; i++) {
 				seg[2*i+0] = std::max(seg[2*i+0], seg[i]);
 				seg[2*i+1] = std::max(seg[2*i+1], seg[i]);
 			}
-			for (int i = 0; i < N; i++) { cerr << seg[i+N] << ' '; } cerr << '\n';
 			cout << *std::min_element(seg.begin() + N, seg.begin() + 2*N) << '\n';
 		} else assert(false);
 	}
