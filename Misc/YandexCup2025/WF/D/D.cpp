@@ -1017,9 +1017,7 @@ int main() {
 		// = sum P[i] * (1-y)^i * y^(N-i)
 		// = y^N sum P[i] * (1/y - 1)^i
 		assert(int(P.size()) == N+1);
-		for (auto v : P) {
-			cerr << v << '\n';
-		}
+		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		{
 			for (int i = 0; i <= N; i++) P[i] *= fact[i];
 			std::reverse(P.begin(), P.end());
@@ -1030,9 +1028,7 @@ int main() {
 			std::reverse(P.begin(), P.end());
 			for (int i = 0; i <= N; i++) P[i] *= ifact[i];
 		}
-		for (auto v : P) {
-			cerr << v << '\n';
-		}
+		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		std::reverse(P.begin(), P.end());
 		if (false) {
 			for (int i = 0; i <= N; i++) P[i] *= fact[i];
