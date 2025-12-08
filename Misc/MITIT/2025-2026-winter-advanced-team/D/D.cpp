@@ -122,13 +122,42 @@ vector<Pt> P;
 bool f[510][510];
 Mint g[510][510];
 
+bool check(const vector<int> &us) {
+  const int usLen = us.size();
+  for (int i = 0; i < usLen; ++i) {
+    const Int d = P[us[i]].abs2();
+    for (int j = 0; j < usLen; ++j) if (i != j) {
+      if (d >= (P[us[j]] - P[us[i]]).abs2()) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 int main() {
   for (; ~scanf("%d", &N); ) {
     P.resize(N);
     for (int u = 0; u < N; ++u) {
       scanf("%lld%lld", &P[u].x, &P[u].y);
     }
-    
+
+    auto slow = [&]() {
+      Mint ans = 0;
+      for (int u0 = 0; u0 < N; ++u0) {
+	if (check({u0})) ans += 1;
+	for (int u1 = u0 + 1; u1 < N; ++u1) {
+	  if (check({u0, u1})) ans += 1;
+	  for (int u2 = u1 + 1; u2 < N; ++u2) {
+	    if (check({u0, u1, u2})) ans += 1;
+	    for (int u3 = u2 + 1; u3 < N; ++u3) {
+	      if (check({u0, u1, u2, u3})) ans += 1;
+	      for (int u4 = u3 + 1; u4 < N; ++u4) {
+		if (check({u0, u1, u2, u3, u4})) ans += 1;
+	      }}}}}
+      return ans;
+    };
+
     sort(P.begin(), P.end(), [&](const Pt &a, const Pt &b) -> bool {
       return (cmpArg(a, b) < 0);
     });
@@ -151,6 +180,7 @@ int main() {
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) if (f[u][v]) ans += g[u][v];
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[u][w]) ans += g[u][v];
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[u][w]) ans += g[u][v] * g[v][w];
+    assert(ans == slow());
     printf("%u\n", ans.x);
   }
   return 0;
