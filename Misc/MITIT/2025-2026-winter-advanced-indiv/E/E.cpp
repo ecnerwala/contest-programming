@@ -994,10 +994,11 @@ int main() {
 		connected_graphs[i] *= power(num(2), i) - 1;
 	}
 	ps fn(N+1, 0);
-	for (int i = N; i >= 0; i--) {
+	for (int i = N; i >= K; i--) {
 		fn *= connected_graphs;
-		if (i >= K) fn[0] += ifact[i];
+		fn[0] += ifact[i];
 	}
+	fn += poly_pow(connected_graphs, K);
 	cout << fact[N] * fn[N-1] << '\n';
 
 	return 0;
