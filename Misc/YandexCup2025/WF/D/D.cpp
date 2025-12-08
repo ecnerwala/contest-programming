@@ -1034,6 +1034,7 @@ int main() {
 		// P <- P(1/y)
 		std::reverse(P.begin(), P.end());
 
+		// P <- P(1/2 + x/2)
 		for (int i = 0; i <= N; i++) P[i] *= fact[i] * p_half[i];
 		std::reverse(P.begin(), P.end());
 		ps shift_one(N+1);
