@@ -136,10 +136,24 @@ bool check(const vector<int> &us) {
 }
 
 int main() {
+  /*
   for (; ~scanf("%d", &N); ) {
     P.resize(N);
     for (int u = 0; u < N; ++u) {
       scanf("%lld%lld", &P[u].x, &P[u].y);
+    }
+    */
+  std::mt19937 mt(48);
+  while (true) {
+    N = std::uniform_int_distribution<int>(1, 10)(mt);
+    P.resize(N);
+    for (int u = 0; u < N; ++u) {
+      P[u].x = std::uniform_int_distribution<int>(-5, 5)(mt);
+      P[u].y = std::uniform_int_distribution<int>(-5, 5)(mt);
+    }
+    cerr << "case " << N << '\n';
+    for (int u = 0; u < N; ++u) {
+      cerr << P[u].x << ' ' << P[u].y << '\n';
     }
 
     auto slow = [&]() {
