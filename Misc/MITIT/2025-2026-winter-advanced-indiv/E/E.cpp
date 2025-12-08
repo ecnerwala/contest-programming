@@ -998,7 +998,7 @@ int main() {
 		fn *= connected_graphs;
 		fn[0] += ifact[i];
 	}
-	fn += poly_pow(connected_graphs, K);
+	fn *= poly_pow(connected_graphs, K);
 	cout << fact[N] * fn[N-1] << '\n';
 
 	return 0;
