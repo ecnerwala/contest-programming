@@ -5,6 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	auto solve = [&](int X, int Y, int Z) -> std::optional<std::string> {
+		if (X+Y+Z == 0) return "";
 		assert(X+Y+Z >= 1);
 		if (X + Y + Z == 1) {
 			std::string s;
@@ -72,6 +73,27 @@ int main() {
 			return s;
 		}
 	};
+
+	for (int x = 0; x <= 100; x++) {
+		for (int y = 0; y <= 100; y++) {
+			for (int z = 0; z <= 100; z++) {
+				auto r = solve(x, y, z);
+				if (r) {
+					auto s = *r;
+					cerr << x << ' ' << y << ' ' << z << '\n';
+					cerr << s << '\n';
+					int a = 0, b = 0, c = 0;
+					for (char v : s) {
+						if (v == 'M') a++;
+						else if (v == 'I') b++;
+						else if (v == 'T') c++;
+						else assert(false);
+					}
+					assert(a == x && b == y && c == z);
+				}
+			}
+		}
+	}
 
 	int T; cin >> T;
 	while (T--) {
