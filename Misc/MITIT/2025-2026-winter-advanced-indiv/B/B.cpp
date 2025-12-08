@@ -7,18 +7,14 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
-		std::array<std::vector<int>, 2> X;
-		X[0].resize(N);
-		X[1].resize(N);
-		for (int i = 0; i < N; i++) {
-			cin >> X[0][i] >> X[1][i];
-		}
+		std::vector<std::array<int, 2>> X(N);
+		for (auto& [x, y] : X) cin >> x >> y;
 		int ans = 0;
-		for (int z = 0; z < 2; z++) {
-			int mx = X[z][0];
-			for (int i = 0; i < N; i++) {
-				ans = std::max(ans, mx - X[z][i]);
-				mx = std::max(mx, X[z][i]);
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (X[i][0] > X[j][0] && X[i][1] < X[j][1]) {
+					ans = std::max(ans, std::min(X[i][0] - X[j][0], X[j][1] - X[i][0]));
+				}
 			}
 		}
 		cout << ans << '\n';
