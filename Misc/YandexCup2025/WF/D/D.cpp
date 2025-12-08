@@ -986,7 +986,6 @@ int main() {
 		for (int i = N; i >= 1; i--) p_half[i-1] = p_half[i] + p_half[i];
 
 		using ps = ecnerwala::power_series_fft<num>;
-		num HALF = inv(num(2));
 		num coeff = 1;
 		ps P(N+1);
 		int prv = 0;
@@ -999,6 +998,7 @@ int main() {
 				int cur = S[i] - '0';
 				i++;
 				len++;
+				// no leading 1/2 because we're looking for probability of the inner
 				if (prv ^ cur) {
 					// we need (1/2+x/2)^len - (1/2-x/2)^len
 					P[len] -= num(1);
