@@ -603,8 +603,8 @@ struct power_series : public std::vector<T> {
 	friend power_series poly_exp(power_series a) {
 		assert(a.size() >= 1);
 		assert(a[0] == 0);
-		power_series r(1, T(1)); r.reserve(a.size());
-		power_series invR(1, T(1)); invR.reserve(a.size());
+		power_series r(1, T(1));
+		power_series invR(1, T(1));
 		while (r.size() < a.size()) {
 			int o_sz = int(r.size());
 			int n_sz = std::min(o_sz * 2, int(a.size()));
