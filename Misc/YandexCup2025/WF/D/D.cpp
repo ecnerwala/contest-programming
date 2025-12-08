@@ -1038,6 +1038,7 @@ int main() {
 			P = ans;
 		}
 		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
+		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		std::reverse(P.begin(), P.end());
 		if (false) {
 			for (int i = 0; i <= N; i++) P[i] *= fact[i];
@@ -1051,9 +1052,6 @@ int main() {
 		} else {
 			ps ans(N+1);
 			for (int i = 0; i <= N; i++) {
-				ps a(N+1);
-				a[0] = 1;
-				a[1] = -1;
 				ps b(N+1);
 				b[0] = 1;
 				b[1] = 1;
@@ -1062,6 +1060,7 @@ int main() {
 			P = ans;
 			P *= p_half[N];
 		}
+		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 
 		for (int i = 0; i <= N; i++) {
 			cout << P[i] << " \n"[i==N];
