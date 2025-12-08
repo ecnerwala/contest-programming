@@ -1,34 +1,5 @@
 #include <bits/stdc++.h>
 
-namespace kactl {
-using namespace std;
-
-#define rep(i, a, b) for(int i = a; i < (b); ++i)
-#define all(x) begin(x), end(x)
-#define sz(x) (int)(x).size()
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
-template <typename num> num det(vector<vector<num>>& a) {
-	int n = sz(a); num res = 1;
-	rep(i,0,n) {
-		int b = i;
-		rep(j,i+1,n) if (int(a[j][i]) > int(a[b][i])) b = j;
-		if (i != b) swap(a[i], a[b]), res *= -1;
-		res *= a[i][i];
-		if (res == 0) return 0;
-		rep(j,i+1,n) {
-			num v = a[j][i] / a[i][i];
-			if (v != 0) rep(k,i+1,n) a[j][k] -= v * a[i][k];
-		}
-	}
-	return res;
-}
-#undef sz
-#undef all
-#undef rep
-}
-
 template <typename T> T mod_inv_in_range(T a, T m) {
 	// assert(0 <= a && a < m);
 	T x = a, y = m;
@@ -1000,22 +971,6 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<int(1e9)+7>;
-	auto fn_slow = [&](int n, int k) -> num {
-		std::vector<std::vector<num>> cur(n, std::vector<num>(n, num(0)));
-		for (int i = 0; i < n; i++) {
-			for (int j = i+1; j < n; j++) {
-				num w = ((i < k) != (j < k)) ? -1 : 1;
-				cur[i][i] += w;
-				cur[j][j] += w;
-				cur[i][j] -= w;
-				cur[j][i] -= w;
-			}
-		}
-		for (auto& v : cur) v.pop_back();
-		cur.pop_back();
-		return kactl::det(cur);
-	};
-
 	auto fn = [&](int n, int k) -> num {
 		if (n == 1) return 1;
 		return power(num(n - 2*k), n-2) * ((k & 1) ? -1 : 1);
@@ -1053,8 +1008,8 @@ int main() {
 		}
 		P = euler_transform(P) * coeff;
 		num ans = 0;
-		for (int i = 0; i <= N; i++) {
-			ans += P[i] * fn(N, i);
+		for (int k = 0; k <= N; k++) {
+			ans += P[k] * power(num(N - 2*k), N-2) * ((k & 1) ? -1 : 1);
 		}
 		cout << ans << '\n';
 	}
