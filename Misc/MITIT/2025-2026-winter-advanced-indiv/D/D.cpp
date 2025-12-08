@@ -406,6 +406,7 @@ int main() {
 				seg[2*i+0] = std::max(seg[2*i+0], seg[i]);
 				seg[2*i+1] = std::max(seg[2*i+1], seg[i]);
 			}
+			for (int i = 0; i < N; i++) { cerr << seg[i+N] << ' '; } cerr << '\n';
 			cout << *std::min_element(seg.begin() + N, seg.begin() + 2*N) << '\n';
 		} else assert(false);
 	}
