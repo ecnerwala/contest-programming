@@ -196,7 +196,7 @@ int main() {
     cerr << "ans after 2" << ans << '\n';
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) if (f[u][v]) ans += g[u][v];
     cerr << "ans after 3" << ans << '\n';
-    for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[u][w]) ans += g[u][v];
+    for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[v][w] && f[u][w]) ans += g[u][v];
     cerr << "ans after 4" << ans << '\n';
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[u][w]) ans += g[u][v] * g[v][w];
     cerr << "ans after 5" << ans << '\n';
