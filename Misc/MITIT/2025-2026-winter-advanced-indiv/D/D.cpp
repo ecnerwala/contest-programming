@@ -385,7 +385,7 @@ int main() {
 				cerr << u << ' ' << v << '\n';
 			}
 			for (int i = 0; i < N; i++) {
-				cerr << i << ' ' << dist_st[i] << ' ' << dist_en[i] << '\n';
+				cerr << i << ' ' << topo_idx[i] << ' ' << dist_st[i] << ' ' << dist_en[i] << '\n';
 			}
 			seg_tree::in_order_layout layout(N);
 			std::vector<int> seg(2*N);
