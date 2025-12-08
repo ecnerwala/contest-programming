@@ -194,8 +194,9 @@ int main() {
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) if (f[u][v]) ans += g[u][v];
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[u][w]) ans += g[u][v];
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[u][w]) ans += g[u][v] * g[v][w];
-    assert(ans == slow());
     printf("%u\n", ans.x);
+    cerr << slow() << '\n';
+    assert(ans == slow());
   }
   return 0;
 }
