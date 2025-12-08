@@ -151,10 +151,6 @@ int main() {
       P[u].x = std::uniform_int_distribution<int>(-5, 5)(mt);
       P[u].y = std::uniform_int_distribution<int>(-5, 5)(mt);
     }
-    cerr << "case " << N << '\n';
-    for (int u = 0; u < N; ++u) {
-      cerr << P[u].x << ' ' << P[u].y << '\n';
-    }
 
     auto slow = [&]() {
       Mint ans = 0;
@@ -175,6 +171,11 @@ int main() {
     sort(P.begin(), P.end(), [&](const Pt &a, const Pt &b) -> bool {
       return (cmpArg(a, b) < 0);
     });
+
+    cerr << "case " << N << '\n';
+    for (int u = 0; u < N; ++u) {
+      cerr << P[u].x << ' ' << P[u].y << '\n';
+    }
     
     memset(f, 0, sizeof(f));
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) {
