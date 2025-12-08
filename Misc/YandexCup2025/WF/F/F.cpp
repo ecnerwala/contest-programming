@@ -606,14 +606,20 @@ struct power_series : public std::vector<T> {
 		power_series r(1, T(1));
 		power_series invR(1, T(1));
 		while (r.size() < a.size()) {
-			int n_sz = std::min(int(r.size()) * 2, int(a.size()));
+			int o_sz = int(r.size());
+			int n_sz = std::min(o_sz * 2, int(a.size()));
 			r.resize(n_sz);
+			// update invR using the multiply_inverser code
+			invR.resize(n_sz);
 			power_series v(a.begin(), a.begin() + n_sz);
-			//v -= poly_log(r);
 			invR = inverse(r);
+			//v -= poly_log(r);
 			v -= integ_shift(deriv_shift(r) * invR);
-			v[0] += 1;
-			r *= v;
+			v.erase(v.begin(), v.begin() + o_sz);
+			v *= r;
+			std::copy(v.begin(), v.end(), r.begin() + o_sz);
+			// We need to reset invR back to o_sz so that it
+			invR.resize(o_sz);
 		}
 		return r;
 	}
