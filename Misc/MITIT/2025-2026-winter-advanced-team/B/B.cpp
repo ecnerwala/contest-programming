@@ -76,9 +76,18 @@ int main() {
 		}
 	};
 
-	for (int x = 0; x <= 30; x++) {
-		for (int y = 0; y <= 30; y++) {
-			for (int z = 0; z <= 30; z++) {
+	auto is_good = [&](std::string s) -> bool {
+		for (int i = 0; i+1 < int(s.size()); i++) {
+			if (s[i] == s[i+1]) return false;
+		}
+		for (int i = 0; i+2 < int(s.size()); i++) {
+			if (s[i+1] == 'I' && s[i] != s[i+2]) return false;
+		}
+		return true;
+	};
+	for (int x = 0; x <= 5; x++) {
+		for (int y = 0; y <= 5; y++) {
+			for (int z = 0; z <= 5; z++) {
 				auto r = solve(x, y, z);
 				if (r) {
 					auto s = *r;
@@ -92,12 +101,16 @@ int main() {
 						else assert(false);
 					}
 					assert(a == x && b == y && c == z);
-					for (int i = 0; i+1 < int(s.size()); i++) {
-						assert(s[i] != s[i+1]);
-					}
-					for (int i = 0; i+2 < int(s.size()); i++) {
-						assert(s[i+1] != 'I' || s[i] == s[i+2]);
-					}
+					assert(is_good(s));
+				} else {
+					std::string s;
+					s.insert(s.end(), x, 'M');
+					s.insert(s.end(), y, 'I');
+					s.insert(s.end(), z, 'T');
+					std::sort(s.begin(), s.end());
+					do {
+						assert(!is_good(s));
+					} while (std::next_permutation(s.begin(), s.end()));
 				}
 			}
 		}
