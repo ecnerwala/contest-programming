@@ -1022,8 +1022,8 @@ int main() {
 			b[1] = 1;
 			ans += P[i] * poly_pow_monic(a, i) * poly_pow_monic(b, N-i);
 		}
-		P *= p_half[N];
 		P = ans;
+		P *= p_half[N];
 		/*
 		// Let y = 1/2 + x/2
 		// Then, we want
