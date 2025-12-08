@@ -612,6 +612,7 @@ struct power_series : public std::vector<T> {
 			// update invR using the multiply_inverser code
 			while (invR.size() < r.size()) {
 				int n = int(invR.size());
+				std::cerr << "inverse step " << n << '\n';
 				power_series tmp(2 * n);
 				multiplier::square(invR.begin(),n,tmp.begin());
 				int nn = std::min(int(r.size()),2*n);
