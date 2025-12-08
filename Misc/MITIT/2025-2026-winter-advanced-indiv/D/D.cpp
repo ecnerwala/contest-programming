@@ -53,7 +53,6 @@ int main() {
 							edges.push_back({pit->second, nit->second});
 						}
 					}
-					alive.erase(it);
 				}
 			}
 			assert(nxt_idx == N);
