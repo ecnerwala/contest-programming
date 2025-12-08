@@ -183,7 +183,7 @@ int main() {
     }
     memset(g, 0, sizeof(g));
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) {
-      if (f[u][v] && f[v][w]) {
+      if (f[u][v] && f[v][w] && f[u][w]) {
         g[u][w] += 1;
       }
     }
