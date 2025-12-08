@@ -76,9 +76,9 @@ int main() {
 		}
 	};
 
-	for (int x = 0; x <= 100; x++) {
-		for (int y = 0; y <= 100; y++) {
-			for (int z = 0; z <= 100; z++) {
+	for (int x = 0; x <= 30; x++) {
+		for (int y = 0; y <= 30; y++) {
+			for (int z = 0; z <= 30; z++) {
 				auto r = solve(x, y, z);
 				if (r) {
 					auto s = *r;
