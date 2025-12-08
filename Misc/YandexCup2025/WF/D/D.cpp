@@ -1013,6 +1013,18 @@ int main() {
 		}
 		P = euler_transform(P) * coeff;
 		// Now, we need to evaluate sum P[i] * (1/2-x/2)^i * (1/2+x/2)^(N-i)
+		ps ans = 0;
+		for (int i = 0; i <= N; i++) {
+			ps a(N+1);
+			a[0] = 1;
+			a[1] = -1;
+			ps b(N+1);
+			b[0] = 1;
+			b[1] = -1;
+			ans += P[i] * poly_pow_monic(a, i) * poly_pow_monic(b, N-i);
+		}
+		P = ans;
+		/*
 		// Let y = 1/2 + x/2
 		// Then, we want
 		// = sum P[i] * (1-y)^i * y^(N-i)
@@ -1036,6 +1048,7 @@ int main() {
 			for (int i = 0; i <= N; i++) P[i] *= ifact[i];
 			P *= p_half[N];
 		}
+		*/
 
 		for (int i = 0; i <= N; i++) {
 			cout << P[i] << " \n"[i==N];
