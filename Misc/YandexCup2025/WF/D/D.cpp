@@ -982,7 +982,7 @@ int main() {
 		ifact[N] = inv(fact[N]);
 		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 		std::vector<num> p_half(N+1);
-		p_half[N] = inv(power(num(2), N));
+		p_half[N] = power(inv(num(2)), N);
 		for (int i = N; i >= 1; i--) p_half[i-1] = p_half[i] + p_half[i];
 
 		using ps = ecnerwala::power_series_fft<num>;
