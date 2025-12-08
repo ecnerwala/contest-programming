@@ -1001,7 +1001,7 @@ int main() {
 	}
 	connected_graphs.erase(connected_graphs.begin());
 	fn *= poly_pow(connected_graphs, K);
-	cout << fact[N] * fn[N-K+1] << '\n';
+	cout << fact[N] * fn[N-K] << '\n';
 
 	return 0;
 }
