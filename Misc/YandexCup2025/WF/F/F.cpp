@@ -622,7 +622,6 @@ struct power_series : public std::vector<T> {
 				n = nn;
 			}
 			power_series v(a.begin(), a.begin() + n_sz);
-			invR = inverse(r);
 			//v -= poly_log(r);
 			v -= integ_shift(deriv_shift(r) * invR);
 			v.erase(v.begin(), v.begin() + o_sz);
