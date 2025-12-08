@@ -58,8 +58,6 @@ int main() {
 				s += 'I';
 				Y--;
 			}
-			cerr << vs[0].first << ' ' << vs[0].second << '\n';
-			cerr << vs[1].first << ' ' << vs[1].second << '\n';
 			for (int z = 0; z < vs[0].first + vs[1].first; z++) {
 				int& v = (vs[z&1].second == 'M' ? X : Z);
 				s += vs[z&1].second;
@@ -84,8 +82,8 @@ int main() {
 				auto r = solve(x, y, z);
 				if (r) {
 					auto s = *r;
-					cerr << x << ' ' << y << ' ' << z << '\n';
-					cerr << s << '\n';
+					//cerr << x << ' ' << y << ' ' << z << '\n';
+					//cerr << s << '\n';
 					int a = 0, b = 0, c = 0;
 					for (char v : s) {
 						if (v == 'M') a++;
