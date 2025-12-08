@@ -15,7 +15,7 @@ int main() {
 		}
 		int ans = 0;
 		for (int z = 0; z < 2; z++) {
-			int mx = 0;
+			int mx = X[z][0];
 			for (int i = 0; i < N; i++) {
 				ans = std::max(ans, mx - X[z][i]);
 				mx = std::max(mx, X[z][i]);
