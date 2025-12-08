@@ -604,11 +604,14 @@ struct power_series : public std::vector<T> {
 		assert(a.size() >= 1);
 		assert(a[0] == 0);
 		power_series r(1, T(1));
+		power_series invR(1, T(1));
 		while (r.size() < a.size()) {
 			int n_sz = std::min(int(r.size()) * 2, int(a.size()));
 			r.resize(n_sz);
 			power_series v(a.begin(), a.begin() + n_sz);
-			v -= poly_log(r);
+			//v -= poly_log(r);
+			invR = inverse(r);
+			v -= deriv_shift(r) * invR;
 			v[0] += 1;
 			r *= v;
 		}
