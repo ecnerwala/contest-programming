@@ -13,7 +13,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (X[i][0] > X[j][0] && X[i][1] < X[j][1]) {
-					ans = std::max(ans, std::min(X[i][0] - X[j][0], X[j][1] - X[i][0]));
+					ans = std::max(ans, std::min(X[i][0] - X[j][0], X[j][1] - X[i][1]));
 				}
 			}
 		}
