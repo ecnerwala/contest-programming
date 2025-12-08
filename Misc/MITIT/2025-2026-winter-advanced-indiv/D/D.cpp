@@ -295,6 +295,8 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
+		cerr << '\n';
+		cerr << "case " << N << ' ' << M << '\n';
 		std::vector<std::tuple<int, bool, int>> evts; evts.reserve(2*N);
 		for (int i = 0; i < N; i++) {
 			int k, a, b; cin >> k >> a >> b;
@@ -379,6 +381,9 @@ int main() {
 		if (M == 0) {
 			cout << 1 + (*std::max_element(dist_st.begin(), dist_st.end())) << '\n';
 		} else if (M == 1) {
+			for (auto [u, v] : edges) {
+				cerr << u << ' ' << v << '\n';
+			}
 			seg_tree::in_order_layout layout(N);
 			std::vector<int> seg(2*N);
 			auto apply_range = [&](int l, int r, int v) -> void {
