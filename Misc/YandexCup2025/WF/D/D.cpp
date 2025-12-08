@@ -999,7 +999,6 @@ int main() {
 				int cur = S[i] - '0';
 				i++;
 				len++;
-				coeff *= HALF;
 				if (prv ^ cur) {
 					// we need (1/2+x/2)^len - (1/2-x/2)^len
 					P[len] -= num(1);
@@ -1023,8 +1022,6 @@ int main() {
 			b[1] = 1;
 			ans += P[i] * poly_pow_monic(a, i) * poly_pow_monic(b, N-i);
 		}
-		ans *= p_half[N];
-		ans *= 4;
 		P = ans;
 		/*
 		// Let y = 1/2 + x/2
