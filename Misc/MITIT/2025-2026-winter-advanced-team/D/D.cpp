@@ -145,7 +145,7 @@ int main() {
     */
   std::mt19937 mt(48);
   while (true) {
-    N = std::uniform_int_distribution<int>(1, 3)(mt);
+    N = std::uniform_int_distribution<int>(1, 10)(mt);
     P.resize(N);
     for (int u = 0; u < N; ++u) {
       P[u].x = std::uniform_int_distribution<int>(-5, 5)(mt);
