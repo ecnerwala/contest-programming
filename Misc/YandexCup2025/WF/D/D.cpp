@@ -1036,7 +1036,6 @@ int main() {
 				ans += P[i] * poly_pow(b, i);
 			}
 			P = ans;
-			P *= p_half[N];
 		}
 		for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		std::reverse(P.begin(), P.end());
