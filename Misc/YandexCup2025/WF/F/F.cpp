@@ -234,6 +234,29 @@ template <typename num> template <typename Iterator> void fft<num>::go(Iterator 
 std::map<int, int> fft_cnts;
 template <typename num> struct fft_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
+	static void multiply_circular(IterA ia, int sza, IterB ib, int szb, IterOut io, int szo, int n) {
+		vector<num>& fa = fft<num>::scratch_a;
+		vector<num>& fb = fft<num>::scratch_b;
+
+		assert(!(n & (n-1)));
+		fft<num>::init(n);
+		if (sz(fa) < n) fa.resize(n);
+		if (sz(fb) < n) fb.resize(n);
+
+		copy(ia, ia+sza, fa.begin());
+		fill(fa.begin()+sza, fa.begin()+n, num(0));
+		copy(ib, ib+szb, fb.begin());
+		fill(fb.begin()+szb, fb.begin()+n, num(0));
+		fft<num>::go(fa.begin(), n);
+		fft<num>::go(fb.begin(), n);
+		num d = inv(num(n));
+		for (int i = 0; i < n; i++) fa[i] = fa[i] * fb[i] * d;
+		reverse(fa.begin()+1, fa.begin()+n);
+		fft<num>::go(fa.begin(), n);
+		copy(fa.begin(), fa.begin()+szo, io);
+	}
+
+	template <typename IterA, typename IterB, typename IterOut>
 	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
 		vector<num>& fa = fft<num>::scratch_a;
 		vector<num>& fb = fft<num>::scratch_b;
@@ -241,9 +264,9 @@ template <typename num> struct fft_multiplier {
 		if (sza == 0 || szb == 0) return;
 		int s = sza + szb - 1;
 		int n = nextPow2(s);
+		fft<num>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
-		fft<num>::init(n);
 
 		bool did_cut = false;
 		if (sza > 1 && szb > 1 && n == 2 * (s - 1)) {
@@ -308,13 +331,11 @@ struct fft_inverser {
 template <typename dbl>
 struct fft_double_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
-	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+	static void multiply_circular(IterA ia, int sza, IterB ib, int szb, IterOut io, int szo, int n) {
 		vector<cplx<dbl>>& fa = fft<cplx<dbl>>::scratch_a;
 		vector<cplx<dbl>>& fb = fft<cplx<dbl>>::scratch_b;
 
-		if (sza == 0 || szb == 0) return;
-		int s = sza + szb - 1;
-		int n = nextPow2(s);
+		assert(!(n & (n-1)));
 		fft<cplx<dbl>>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
@@ -326,7 +347,18 @@ struct fft_double_multiplier {
 		for (auto& x : fa) x = x * x;
 		for (int i = 0; i < n; ++i) fb[i] = fa[(n-i)&(n-1)] - conj(fa[i]);
 		fft<cplx<dbl>>::go(fb.begin(), n);
-		{ auto it = io; for (int i = 0; i < s; ++i, ++it) *it = fb[i].y / (4*n); }
+		{ auto it = io; for (int i = 0; i < szo; ++i, ++it) *it = fb[i].y / (4*n); }
+	}
+
+	template <typename IterA, typename IterB, typename IterOut>
+	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+		vector<cplx<dbl>>& fa = fft<cplx<dbl>>::scratch_a;
+		vector<cplx<dbl>>& fb = fft<cplx<dbl>>::scratch_b;
+
+		if (sza == 0 || szb == 0) return;
+		int s = sza + szb - 1;
+		int n = nextPow2(s);
+		multiply_circular(ia, sza, ib, szb, io, s, n);
 	}
 
 	template <typename IterA, typename IterOut>
@@ -338,14 +370,12 @@ struct fft_double_multiplier {
 template <typename mnum>
 struct fft_mod_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
-	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+	static void multiply_circular(IterA ia, int sza, IterB ib, int szb, IterOut io, int szo, int n) {
 		using cnum = cplx<double>;
 		vector<cnum>& fa = fft<cnum>::scratch_a;
 		vector<cnum>& fb = fft<cnum>::scratch_b;
 
-		if (sza == 0 || szb == 0) return;
-		int s = sza + szb - 1;
-		int n = nextPow2(s);
+		assert(!(n & (n-1)));
 		fft<cnum>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
@@ -377,12 +407,20 @@ struct fft_mod_multiplier {
 		using ll = long long;
 		const ll m = mnum::MOD;
 		auto it = io;
-		for (int i = 0; i < s; ++i, ++it) {
+		for (int i = 0; i < szo; ++i, ++it) {
 			*it = mnum((ll(fa[i].x+0.5)
 						+ (ll(fa[i].y+0.5) % m << 15)
 						+ (ll(fb[i].x+0.5) % m << 15)
 						+ (ll(fb[i].y+0.5) % m << 30)) % m);
 		}
+	}
+
+	template <typename IterA, typename IterB, typename IterOut>
+	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+		if (sza == 0 || szb == 0) return;
+		int s = sza + szb - 1;
+		int n = nextPow2(s);
+		multiply_circular(ia, sza, ib, szb, io, s, n);
 	}
 
 	template <typename IterA, typename IterOut>
@@ -601,33 +639,34 @@ struct power_series : public std::vector<T> {
 		return integ_shift(deriv_shift_log(std::move(a)));
 	}
 	friend power_series poly_exp(power_series a) {
+		// See https://mathexp.eu/bostan/publications/BoSc09a.pdf for details
 		assert(a.size() >= 1);
 		assert(a[0] == 0);
-		power_series r(1, T(1));
-		power_series invR(1, T(1));
+		power_series r(1, T(1)); r.reserve(a.size());
+		power_series invR(1, T(1)); invR.reserve(a.size());
 		while (r.size() < a.size()) {
 			int o_sz = int(r.size());
 			int n_sz = std::min(o_sz * 2, int(a.size()));
-			r.resize(n_sz);
-			// update invR using the multiply_inverser code
-			while (invR.size() < r.size()) {
+			power_series t = deriv_shift(power_series(a.begin(), a.begin() + o_sz));
+			multiplier::multiply_circular(t.begin(), o_sz, r.begin(), o_sz, t.begin(), o_sz, o_sz);
+			t = deriv_shift(r) - t;
+			t *= invR;
+			power_series v(a.begin() + o_sz, a.begin() + n_sz);
+			//v -= poly_log(r);
+			v -= integ_shift(t);
+			v *= r;
+			std::copy(v.begin(), v.end(), r.begin() + o_sz);
+			if (r.size() < a.size()) {
+				// double invR using the multiply_inverser code
+				assert(int(r.size()) == 2 * int(invR.size()));
 				int n = int(invR.size());
 				power_series tmp(4 * n);
 				multiplier::square(invR.begin(),n,tmp.begin());
-				int nn = std::min(int(r.size()),2*n);
+				int nn = int(r.size());
 				multiplier::multiply(tmp.begin(),nn,r.begin(),nn,tmp.begin());
 				invR.resize(nn);
 				for (int i = n; i < nn; i++) invR[i] = -tmp[i];
-				n = nn;
 			}
-			power_series v(a.begin(), a.begin() + n_sz);
-			//v -= poly_log(r);
-			v -= integ_shift(deriv_shift(r) * invR);
-			v.erase(v.begin(), v.begin() + o_sz);
-			v *= r;
-			std::copy(v.begin(), v.end(), r.begin() + o_sz);
-			// We need to reset invR back to o_sz so that it
-			invR.resize(o_sz);
 		}
 		return r;
 	}
