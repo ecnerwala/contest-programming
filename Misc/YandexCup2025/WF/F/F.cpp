@@ -665,6 +665,7 @@ struct power_series : public std::vector<T> {
 			multiplier::multiply_circular(t.begin(), o_sz, r.begin(), o_sz, t.begin(), o_sz, o_sz);
 			t = deriv_shift(r) - t;
 			t *= invR;
+			t.resize(n_sz - o_sz);
 			power_series v(a.begin() + o_sz, a.begin() + n_sz);
 			//v -= poly_log(r);
 			v -= integ_shift_offset(t, o_sz);
