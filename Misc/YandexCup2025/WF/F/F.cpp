@@ -630,6 +630,20 @@ struct power_series : public std::vector<T> {
 		}
 		return a;
 	}
+	friend power_series integ_shift_offset(power_series a, int offset) {
+		T f = 1;
+		for (int i = 0; i < int(a.size()); i++) {
+			a[i] *= f;
+			f *= i + offset;
+		}
+		assert(f != 0);
+		f = inv(f);
+		for (int i = int(a.size()) - 1; i >= 0; i--) {
+			a[i] *= f;
+			f *= i + offset;
+		}
+		return a;
+	}
 	friend power_series deriv_shift_log(power_series a) {
 		auto r = deriv_shift(a);
 		return r * inverse(a);
@@ -653,7 +667,7 @@ struct power_series : public std::vector<T> {
 			t *= invR;
 			power_series v(a.begin() + o_sz, a.begin() + n_sz);
 			//v -= poly_log(r);
-			v -= integ_shift(t);
+			v -= integ_shift_offset(t, o_sz);
 			v *= r;
 			r.resize(n_sz);
 			std::copy(v.begin(), v.end(), r.begin() + o_sz);
