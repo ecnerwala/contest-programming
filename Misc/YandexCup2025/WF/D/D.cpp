@@ -231,7 +231,6 @@ template <typename num> template <typename Iterator> void fft<num>::go(Iterator 
 	}
 }
 
-std::map<int, int> fft_cnts;
 template <typename num> struct fft_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
 	static void multiply_circular(IterA ia, int sza, IterB ib, int szb, IterOut io, int szo, int n) {
@@ -295,7 +294,34 @@ template <typename num> struct fft_multiplier {
 
 	template <typename IterA, typename IterOut>
 	static void square(IterA ia, int sza, IterOut io) {
-		multiply<IterA, IterA, IterOut>(ia, sza, ia, sza, io);
+		vector<num>& fa = fft<num>::scratch_a;
+
+		if (sza == 0) return;
+		int s = 2 * sza - 1;
+		int n = nextPow2(s);
+		fft<num>::init(n);
+		if (sz(fa) < n) fa.resize(n);
+
+		bool did_cut = false;
+		if (sza > 1 && n == 2 * (s - 1)) {
+			// we have exactly 1 wraparound, so let's just handle it explicitly to save a factor of 2
+			// only do it if sza < s and szb < s so we don't have to wrap the inputs
+			did_cut = true;
+			n /= 2;
+		}
+		copy(ia, ia+sza, fa.begin());
+		fill(fa.begin()+sza, fa.begin()+n, num(0));
+		// used if did_cut
+		num v_init; if (did_cut) { v_init = fa[0] * fa[0]; }
+		fft<num>::go(fa.begin(), n);
+		num d = inv(num(n));
+		for (int i = 0; i < n; i++) fa[i] = fa[i] * fa[i] * d;
+		reverse(fa.begin()+1, fa.begin()+n);
+		fft<num>::go(fa.begin(), n);
+		if (did_cut) {
+			fa[s-1] = std::exchange(fa[0], v_init) - v_init;
+		}
+		copy(fa.begin(), fa.begin()+s, io);
 	}
 };
 
@@ -379,7 +405,6 @@ struct fft_mod_multiplier {
 		fft<cnum>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
-		fft_cnts[n]++;
 
 		{ auto it = ia; for (int i = 0; i < sza; ++i, ++it) fa[i] = cnum(int(*it) & ((1<<15)-1), int(*it) >> 15); }
 		fill(fa.begin()+sza, fa.begin() + n, 0);
