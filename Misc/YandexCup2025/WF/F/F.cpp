@@ -655,6 +655,7 @@ struct power_series : public std::vector<T> {
 			//v -= poly_log(r);
 			v -= integ_shift(t);
 			v *= r;
+			r.resize(n_sz);
 			std::copy(v.begin(), v.end(), r.begin() + o_sz);
 			if (r.size() < a.size()) {
 				// double invR using the multiply_inverser code
