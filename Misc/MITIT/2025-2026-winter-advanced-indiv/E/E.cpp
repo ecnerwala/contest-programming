@@ -818,6 +818,7 @@ struct power_series : public std::vector<T> {
 			auto a = Q[l-1];
 			// negate in place
 			for (int i = 1; i < (4 << L); i += 2) Q[l-1][i] = -Q[l-1][i];
+			cerr << "Q" << l-1 << "- "; for (auto v : Q[l-1]) { cerr << v << ' '; } cerr << '\n';
 			Q[l] = power_series(4 << L);
 			// TODO: Could be much more efficient:
 			// We only need to do 1 forward FFT and then reflect it, and the backwards can be half the size and compactify at the same time.
