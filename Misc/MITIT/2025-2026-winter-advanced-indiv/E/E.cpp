@@ -858,6 +858,7 @@ struct power_series : public std::vector<T> {
 				P[2*i] = P[i];
 				P[i] = T(0);
 			}
+			cerr << "P "; for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		}
 		for (int l = L-1; l >= 0; l--) {
 			// Spread it out, clear the high terms
@@ -871,6 +872,7 @@ struct power_series : public std::vector<T> {
 				P[i] = P[(2 << L) + i];
 				P[(2 << L) + i] = T(0);
 			}
+			cerr << "P "; for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		}
 		return power_series(P.begin(), P.begin() + n);
 	}
