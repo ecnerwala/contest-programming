@@ -1183,6 +1183,7 @@ int main() {
 		outer[i] = ifact[i];
 	}
 	cout << fact[N] * poly_compose(outer, connected_graphs)[N-1] << '\n';
+	/*
 	ps fn;
 	for (int i = N-1; i >= K; i--) {
 		ps tmp = connected_graphs;
@@ -1194,7 +1195,8 @@ int main() {
 	ps tmp = connected_graphs; tmp.erase(tmp.begin());
 	tmp.resize(fn.size());
 	fn *= poly_pow(tmp, K);
-	//cout << fact[N] * fn.back() << '\n';
+	cout << fact[N] * fn.back() << '\n';
+	*/
 
 	return 0;
 }
