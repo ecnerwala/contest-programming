@@ -838,7 +838,9 @@ struct power_series : public std::vector<T> {
 					Q[l][i + (1 << (L-l)) + j] = 0;
 				}
 			}
-			cerr << "Q " << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
+		}
+		for (int l = 0; l <= L; l++) {
+			cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 		}
 		power_series P;
 		{
