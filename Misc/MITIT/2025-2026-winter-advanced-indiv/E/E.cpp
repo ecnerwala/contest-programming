@@ -811,6 +811,9 @@ struct power_series : public std::vector<T> {
 		Q[0] = power_series(4 << L);
 		Q[0][0] = 1;
 		for (int i = 0; i < n; i++) Q[0][(2 << L) + i] = -g[i];
+		{int l = 0;
+		cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
+		}
 		for (int l = 1; l <= L; l++) {
 			auto a = Q[l-1];
 			// negate in place
@@ -820,6 +823,7 @@ struct power_series : public std::vector<T> {
 			// We only need to do 1 forward FFT and then reflect it, and the backwards can be half the size and compactify at the same time.
 			// We could also cache the forward FFT for the backwards pass
 			multiplier::multiply_circular(a.begin(), 4 << L, Q[l-1].begin(), 4 << L, Q[l].begin(), 4 << L, 4 << L);
+			cerr << "Q" << l << "' "; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 			// Compactify
 			for (int i = 1; i < (2 << L); i++) {
 				Q[l][i] = Q[l][2*i];
@@ -838,8 +842,6 @@ struct power_series : public std::vector<T> {
 					Q[l][i + (1 << (L-l)) + j] = 0;
 				}
 			}
-		}
-		for (int l = 0; l <= L; l++) {
 			cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 		}
 		power_series P;
