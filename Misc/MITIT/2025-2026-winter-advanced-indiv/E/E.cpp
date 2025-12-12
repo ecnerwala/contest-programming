@@ -233,6 +233,29 @@ template <typename num> template <typename Iterator> void fft<num>::go(Iterator 
 
 template <typename num> struct fft_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
+	static void multiply_circular(IterA ia, int sza, IterB ib, int szb, IterOut io, int szo, int n) {
+		vector<num>& fa = fft<num>::scratch_a;
+		vector<num>& fb = fft<num>::scratch_b;
+
+		assert(!(n & (n-1)));
+		fft<num>::init(n);
+		if (sz(fa) < n) fa.resize(n);
+		if (sz(fb) < n) fb.resize(n);
+
+		copy(ia, ia+sza, fa.begin());
+		fill(fa.begin()+sza, fa.begin()+n, num(0));
+		copy(ib, ib+szb, fb.begin());
+		fill(fb.begin()+szb, fb.begin()+n, num(0));
+		fft<num>::go(fa.begin(), n);
+		fft<num>::go(fb.begin(), n);
+		num d = inv(num(n));
+		for (int i = 0; i < n; i++) fa[i] = fa[i] * fb[i] * d;
+		reverse(fa.begin()+1, fa.begin()+n);
+		fft<num>::go(fa.begin(), n);
+		copy(fa.begin(), fa.begin()+szo, io);
+	}
+
+	template <typename IterA, typename IterB, typename IterOut>
 	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
 		vector<num>& fa = fft<num>::scratch_a;
 		vector<num>& fb = fft<num>::scratch_b;
@@ -240,9 +263,9 @@ template <typename num> struct fft_multiplier {
 		if (sza == 0 || szb == 0) return;
 		int s = sza + szb - 1;
 		int n = nextPow2(s);
+		fft<num>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
-		fft<num>::init(n);
 
 		bool did_cut = false;
 		if (sza > 1 && szb > 1 && n == 2 * (s - 1)) {
@@ -271,7 +294,34 @@ template <typename num> struct fft_multiplier {
 
 	template <typename IterA, typename IterOut>
 	static void square(IterA ia, int sza, IterOut io) {
-		multiply<IterA, IterA, IterOut>(ia, sza, ia, sza, io);
+		vector<num>& fa = fft<num>::scratch_a;
+
+		if (sza == 0) return;
+		int s = 2 * sza - 1;
+		int n = nextPow2(s);
+		fft<num>::init(n);
+		if (sz(fa) < n) fa.resize(n);
+
+		bool did_cut = false;
+		if (sza > 1 && n == 2 * (s - 1)) {
+			// we have exactly 1 wraparound, so let's just handle it explicitly to save a factor of 2
+			// only do it if sza < s and szb < s so we don't have to wrap the inputs
+			did_cut = true;
+			n /= 2;
+		}
+		copy(ia, ia+sza, fa.begin());
+		fill(fa.begin()+sza, fa.begin()+n, num(0));
+		// used if did_cut
+		num v_init; if (did_cut) { v_init = fa[0] * fa[0]; }
+		fft<num>::go(fa.begin(), n);
+		num d = inv(num(n));
+		for (int i = 0; i < n; i++) fa[i] = fa[i] * fa[i] * d;
+		reverse(fa.begin()+1, fa.begin()+n);
+		fft<num>::go(fa.begin(), n);
+		if (did_cut) {
+			fa[s-1] = std::exchange(fa[0], v_init) - v_init;
+		}
+		copy(fa.begin(), fa.begin()+s, io);
 	}
 };
 
@@ -307,13 +357,11 @@ struct fft_inverser {
 template <typename dbl>
 struct fft_double_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
-	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+	static void multiply_circular(IterA ia, int sza, IterB ib, int szb, IterOut io, int szo, int n) {
 		vector<cplx<dbl>>& fa = fft<cplx<dbl>>::scratch_a;
 		vector<cplx<dbl>>& fb = fft<cplx<dbl>>::scratch_b;
 
-		if (sza == 0 || szb == 0) return;
-		int s = sza + szb - 1;
-		int n = nextPow2(s);
+		assert(!(n & (n-1)));
 		fft<cplx<dbl>>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
@@ -325,7 +373,18 @@ struct fft_double_multiplier {
 		for (auto& x : fa) x = x * x;
 		for (int i = 0; i < n; ++i) fb[i] = fa[(n-i)&(n-1)] - conj(fa[i]);
 		fft<cplx<dbl>>::go(fb.begin(), n);
-		{ auto it = io; for (int i = 0; i < s; ++i, ++it) *it = fb[i].y / (4*n); }
+		{ auto it = io; for (int i = 0; i < szo; ++i, ++it) *it = fb[i].y / (4*n); }
+	}
+
+	template <typename IterA, typename IterB, typename IterOut>
+	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+		vector<cplx<dbl>>& fa = fft<cplx<dbl>>::scratch_a;
+		vector<cplx<dbl>>& fb = fft<cplx<dbl>>::scratch_b;
+
+		if (sza == 0 || szb == 0) return;
+		int s = sza + szb - 1;
+		int n = nextPow2(s);
+		multiply_circular(ia, sza, ib, szb, io, s, n);
 	}
 
 	template <typename IterA, typename IterOut>
@@ -337,14 +396,12 @@ struct fft_double_multiplier {
 template <typename mnum>
 struct fft_mod_multiplier {
 	template <typename IterA, typename IterB, typename IterOut>
-	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+	static void multiply_circular(IterA ia, int sza, IterB ib, int szb, IterOut io, int szo, int n) {
 		using cnum = cplx<double>;
 		vector<cnum>& fa = fft<cnum>::scratch_a;
 		vector<cnum>& fb = fft<cnum>::scratch_b;
 
-		if (sza == 0 || szb == 0) return;
-		int s = sza + szb - 1;
-		int n = nextPow2(s);
+		assert(!(n & (n-1)));
 		fft<cnum>::init(n);
 		if (sz(fa) < n) fa.resize(n);
 		if (sz(fb) < n) fb.resize(n);
@@ -375,12 +432,20 @@ struct fft_mod_multiplier {
 		using ll = long long;
 		const ll m = mnum::MOD;
 		auto it = io;
-		for (int i = 0; i < s; ++i, ++it) {
+		for (int i = 0; i < szo; ++i, ++it) {
 			*it = mnum((ll(fa[i].x+0.5)
 						+ (ll(fa[i].y+0.5) % m << 15)
 						+ (ll(fb[i].x+0.5) % m << 15)
 						+ (ll(fb[i].y+0.5) % m << 30)) % m);
 		}
+	}
+
+	template <typename IterA, typename IterB, typename IterOut>
+	static void multiply(IterA ia, int sza, IterB ib, int szb, IterOut io) {
+		if (sza == 0 || szb == 0) return;
+		int s = sza + szb - 1;
+		int n = nextPow2(s);
+		multiply_circular(ia, sza, ib, szb, io, s, n);
 	}
 
 	template <typename IterA, typename IterOut>
@@ -558,16 +623,19 @@ struct power_series : public std::vector<T> {
 		return r;
 	}
 
+	friend power_series inverse(power_series a) {
+		power_series r(sz(a));
+		inverser::inverse(begin(a), sz(a), begin(r));
+		return r;
+	}
+	// TODO: operator / can be done slightly faster than inverse:
+	// we only need the n/2 terms of inverse(), and can do the last Newton step directly on the quotient
+
 	friend power_series stretch(const power_series& a, int n) {
 		power_series r(a.size());
 		for (int i = 0; i*n < int(a.size()); i++) {
 			r[i*n] = a[i];
 		}
-		return r;
-	}
-	friend power_series inverse(power_series a) {
-		power_series r(sz(a));
-		inverser::inverse(begin(a), sz(a), begin(r));
 		return r;
 	}
 	friend power_series deriv_shift(power_series a) {
@@ -590,6 +658,20 @@ struct power_series : public std::vector<T> {
 		}
 		return a;
 	}
+	friend power_series integ_shift_offset(power_series a, int offset) {
+		T f = 1;
+		for (int i = 0; i < int(a.size()); i++) {
+			a[i] *= f;
+			f *= i + offset;
+		}
+		assert(f != 0);
+		f = inv(f);
+		for (int i = int(a.size()) - 1; i >= 0; i--) {
+			a[i] *= f;
+			f *= i + offset;
+		}
+		return a;
+	}
 	friend power_series deriv_shift_log(power_series a) {
 		auto r = deriv_shift(a);
 		return r * inverse(a);
@@ -599,16 +681,35 @@ struct power_series : public std::vector<T> {
 		return integ_shift(deriv_shift_log(std::move(a)));
 	}
 	friend power_series poly_exp(power_series a) {
+		// See https://mathexp.eu/bostan/publications/BoSc09a.pdf for details
 		assert(a.size() >= 1);
 		assert(a[0] == 0);
-		power_series r(1, T(1));
+		power_series r(1, T(1)); r.reserve(a.size());
+		power_series invR(1, T(1)); invR.reserve(a.size());
 		while (r.size() < a.size()) {
-			int n_sz = std::min(int(r.size()) * 2, int(a.size()));
+			int o_sz = int(r.size());
+			int n_sz = std::min(o_sz * 2, int(a.size()));
+			power_series t = deriv_shift(power_series(a.begin(), a.begin() + o_sz));
+			multiplier::multiply_circular(t.begin(), o_sz, r.begin(), o_sz, t.begin(), o_sz, o_sz);
+			t = deriv_shift(r) - t;
+			t *= invR;
+			t.resize(n_sz - o_sz);
+			power_series v(a.begin() + o_sz, a.begin() + n_sz);
+			v -= integ_shift_offset(t, o_sz);
+			v *= r;
 			r.resize(n_sz);
-			power_series v(a.begin(), a.begin() + n_sz);
-			v -= poly_log(r);
-			v[0] += 1;
-			r *= v;
+			std::copy(v.begin(), v.end(), r.begin() + o_sz);
+			if (r.size() < a.size()) {
+				// double invR using the multiply_inverser code
+				assert(int(r.size()) == 2 * int(invR.size()));
+				int n = int(invR.size());
+				power_series tmp(4 * n);
+				multiplier::square(invR.begin(),n,tmp.begin());
+				int nn = int(r.size());
+				multiplier::multiply(tmp.begin(),nn,r.begin(),nn,tmp.begin());
+				invR.resize(nn);
+				for (int i = n; i < nn; i++) invR[i] = -tmp[i];
+			}
 		}
 		return r;
 	}
@@ -682,6 +783,90 @@ struct power_series : public std::vector<T> {
 			}
 		}
 		return integ_shift(r);
+	}
+
+	// Calculates f(g(x)) mod x^n where deg(g) == n
+	friend power_series poly_compose(const power_series& f, const power_series& g) {
+		if (sz(g) == 0) return {};
+
+		int m = int(f.size());
+		int n = int(g.size());
+
+		// https://arxiv.org/pdf/2404.05177
+		// Consider P(y) = f(1/y) has terms from y^{-(m-1)}...y^0 (Laurent series)
+		// We want [y^0] P(y) / (1 - y g(x))
+		// Let Q_0 = 1 - yg(x)
+		// Q_{i+1}(x^2, y) = Q_i(x, y) * Q_i(-x, y) mod x^{ceil(n / 2^i)}
+		// deg_y(Q_i) = 2^i, deg_x(Q_i) = ceil(n / 2^i) - 1
+		//
+		// [y^0] P(y) / Q_l(x^2^l, y) * Q_{l-1}(-x^2^{l-1}, y) * Q_{l-2}(-x^2^{l-2}, y) * ... * Q_0(-x, y)
+		// The total y deg of Q_{k-1} ... Q_0 is 2^k-1
+		int L = __builtin_ctz(fft::nextPow2(n));
+		std::vector<power_series> Q(L+1);
+		Q[0] = power_series(4 << L);
+		Q[0][0] = 1;
+		for (int i = 0; i < n; i++) Q[0][(2 << L) + i] = -g[i];
+		for (int l = 1; l <= L; l++) {
+			auto a = Q[l-1];
+			// negate in place
+			for (int i = 1; i < (4 << L); i += 2) Q[l-1][i] = -Q[l-1][i];
+			Q[l] = power_series(4 << L);
+			// TODO: Could be much more efficient:
+			// We only need to do 1 forward FFT and then reflect it, and the backwards can be half the size and compactify at the same time.
+			// We could also cache the forward FFT for the backwards pass
+			multiplier::multiply_circular(a.begin(), 4 << L, Q[l-1].begin(), 4 << L, Q[l].begin(), 4 << L, 4 << L);
+			// Compactify
+			for (int i = 1; i < (2 << L); i++) {
+				Q[l][i] = Q[l][2*i];
+			}
+			// Undo the circularity since we know it's monic
+			for (int i = 0; i < (2 << (L - l)); i++) {
+				Q[l][(2 << L) + i] = Q[l][i];
+				Q[l][i] = 0;
+			}
+			Q[l][(1 << L)] -= T(1);
+			Q[l][0] = T(1);
+			// Zero out xs which are too big
+			std::fill(Q[l].begin() + (2 << L) + (1 << (L-l)), Q[l].end(), T(0));
+			for (int i = 0; i < (2 << L); i += 2 << (L-l)) {
+				for (int j = 0; j < (1 << (L-l)); j++) {
+					Q[l][i + (1 << (L-l)) + j] = 0;
+				}
+			}
+		}
+		power_series P;
+		{
+			P = f;
+			std::reverse(P.begin(), P.end());
+			power_series QL((1 << L) + 1);
+			for (int i = 0; i <= (1 << L); i++) {
+				QL[i] = Q[L][2 * i];
+			}
+			QL.resize(m, T(0));
+			P *= inverse(QL);
+			std::reverse(P.begin(), P.end());
+			P.resize(1 << L, T(0));
+			std::reverse(P.begin(), P.end());
+			P.resize(4 << L, T(0));
+			for (int i = (1 << L) - 1; i > 0; i--) {
+				P[2*i] = P[i];
+				P[i] = T(0);
+			}
+		}
+		for (int l = L-1; l >= 0; l--) {
+			// Spread it out, clear the high terms
+			for (int i = (2 << L) - 1; i > 0; i--) {
+				T v = P[i];
+				P[2*i] = ((2*i) & (1 << (L-l))) ? T(0) : v;
+				P[i] = T(0);
+			}
+			multiplier::multiply_circular(Q[l].begin(), 4 << L, P.begin(), 4 << L, P.begin(), 4 << L, 4 << L);
+			for (int i = 0; i < (2 << L); i++) {
+				P[i] = P[(2 << L) + i];
+				P[(2 << L) + i] = T(0);
+			}
+		}
+		return power_series(P.begin(), P.begin() + n);
 	}
 };
 
