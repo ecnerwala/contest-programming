@@ -1167,17 +1167,22 @@ int main() {
 	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	// egf of labelled graphs
-	ps graphs(N+1);
-	for (int i = 0; i <= N; i++) {
+	ps graphs(N);
+	for (int i = 0; i < N; i++) {
 		graphs[i] = power(num(2), int64_t(i) * int64_t(i-1) / 2) * ifact[i];
 	}
 	// egf of connected graphs
 	ps connected_graphs = poly_log(graphs);
 
 	// we need at least k connected graphs
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i < N; i++) {
 		connected_graphs[i] *= power(num(2), i) - 1;
 	}
+	ps outer(N);
+	for (int i = K; i < N; i++) {
+		outer[i] = ifact[i];
+	}
+	cout << fact[N] * poly_compose(outer, connected_graphs).back() << '\n';
 	ps fn;
 	for (int i = N-1; i >= K; i--) {
 		ps tmp = connected_graphs;
