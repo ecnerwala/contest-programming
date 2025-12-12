@@ -1194,7 +1194,7 @@ int main() {
 	ps tmp = connected_graphs; tmp.erase(tmp.begin());
 	tmp.resize(fn.size());
 	fn *= poly_pow(tmp, K);
-	cout << fact[N] * fn.back() << '\n';
+	//cout << fact[N] * fn.back() << '\n';
 
 	return 0;
 }
