@@ -789,6 +789,11 @@ struct power_series : public std::vector<T> {
 	friend power_series poly_compose(const power_series& f, const power_series& g) {
 		if (sz(g) == 0) return {};
 
+		using std::cerr;
+		std::cerr << "compose " << '\n';
+		cerr << "f "; for (auto v : f) { cerr << v << ' '; } cerr << '\n';
+		cerr << "g "; for (auto v : g) { cerr << v << ' '; } cerr << '\n';
+
 		int m = int(f.size());
 		int n = int(g.size());
 
@@ -833,6 +838,7 @@ struct power_series : public std::vector<T> {
 					Q[l][i + (1 << (L-l)) + j] = 0;
 				}
 			}
+			cerr << "Q " << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 		}
 		power_series P;
 		{
@@ -1165,6 +1171,8 @@ int main() {
 	std::vector<num> ifact(N+1);
 	ifact[N] = inv(fact[N]);
 	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+	poly_compose(ps({1, 2, 3, 4}), ps({1, 1, 0, 0}));
 
 	// egf of labelled graphs
 	ps graphs(N);
