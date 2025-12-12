@@ -1166,8 +1166,6 @@ int main() {
 	ifact[N] = inv(fact[N]);
 	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-	poly_compose(ps({1, 2, 3, 4}), ps({1, 1, 0, 0}));
-
 	// egf of labelled graphs
 	ps graphs(N);
 	for (int i = 0; i < N; i++) {
