@@ -834,7 +834,7 @@ struct power_series : public std::vector<T> {
 				Q[l][(2 << L) + i] = Q[l][i];
 				Q[l][i] = 0;
 			}
-			Q[l][(1 << L)] -= T(1);
+			Q[l][(2 << L)] -= T(1);
 			Q[l][0] = T(1);
 			cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 			// Zero out xs which are too big
