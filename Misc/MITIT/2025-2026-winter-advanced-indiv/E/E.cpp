@@ -836,6 +836,7 @@ struct power_series : public std::vector<T> {
 			}
 			Q[l][(1 << L)] -= T(1);
 			Q[l][0] = T(1);
+			cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 			// Zero out xs which are too big
 			std::fill(Q[l].begin() + (2 << L) + (1 << (L-l)), Q[l].end(), T(0));
 			for (int i = 0; i < (2 << L); i += 2 << (L-l)) {
