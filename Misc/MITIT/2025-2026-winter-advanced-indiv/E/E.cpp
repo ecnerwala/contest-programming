@@ -1182,7 +1182,7 @@ int main() {
 	for (int i = K; i < N; i++) {
 		outer[i] = ifact[i];
 	}
-	cout << fact[N] * poly_compose(outer, connected_graphs).back() << '\n';
+	cout << fact[N] * poly_compose(outer, connected_graphs)[N-1] << '\n';
 	/*
 	ps fn;
 	for (int i = N-1; i >= K; i--) {
