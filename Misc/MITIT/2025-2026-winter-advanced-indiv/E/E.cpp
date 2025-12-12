@@ -789,11 +789,6 @@ struct power_series : public std::vector<T> {
 	friend power_series poly_compose(const power_series& f, const power_series& g) {
 		if (sz(g) == 0) return {};
 
-		using std::cerr;
-		std::cerr << "compose " << '\n';
-		cerr << "f "; for (auto v : f) { cerr << v << ' '; } cerr << '\n';
-		cerr << "g "; for (auto v : g) { cerr << v << ' '; } cerr << '\n';
-
 		int m = int(f.size());
 		int n = int(g.size());
 
@@ -811,20 +806,15 @@ struct power_series : public std::vector<T> {
 		Q[0] = power_series(4 << L);
 		Q[0][0] = 1;
 		for (int i = 0; i < n; i++) Q[0][(2 << L) + i] = -g[i];
-		{int l = 0;
-		cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
-		}
 		for (int l = 1; l <= L; l++) {
 			auto a = Q[l-1];
 			// negate in place
 			for (int i = 1; i < (4 << L); i += 2) Q[l-1][i] = -Q[l-1][i];
-			cerr << "Q" << l-1 << "- "; for (auto v : Q[l-1]) { cerr << v << ' '; } cerr << '\n';
 			Q[l] = power_series(4 << L);
 			// TODO: Could be much more efficient:
 			// We only need to do 1 forward FFT and then reflect it, and the backwards can be half the size and compactify at the same time.
 			// We could also cache the forward FFT for the backwards pass
 			multiplier::multiply_circular(a.begin(), 4 << L, Q[l-1].begin(), 4 << L, Q[l].begin(), 4 << L, 4 << L);
-			cerr << "Q" << l << "' "; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 			// Compactify
 			for (int i = 1; i < (2 << L); i++) {
 				Q[l][i] = Q[l][2*i];
@@ -836,7 +826,6 @@ struct power_series : public std::vector<T> {
 			}
 			Q[l][(2 << L)] -= T(1);
 			Q[l][0] = T(1);
-			cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 			// Zero out xs which are too big
 			std::fill(Q[l].begin() + (2 << L) + (1 << (L-l)), Q[l].end(), T(0));
 			for (int i = 0; i < (2 << L); i += 2 << (L-l)) {
@@ -844,7 +833,6 @@ struct power_series : public std::vector<T> {
 					Q[l][i + (1 << (L-l)) + j] = 0;
 				}
 			}
-			cerr << "Q" << l << ' '; for (auto v : Q[l]) { cerr << v << ' '; } cerr << '\n';
 		}
 		power_series P;
 		{
@@ -864,7 +852,6 @@ struct power_series : public std::vector<T> {
 				P[2*i] = P[i];
 				P[i] = T(0);
 			}
-			cerr << "P "; for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		}
 		for (int l = L-1; l >= 0; l--) {
 			// Spread it out, clear the high terms
@@ -878,7 +865,6 @@ struct power_series : public std::vector<T> {
 				P[i] = P[(2 << L) + i];
 				P[(2 << L) + i] = T(0);
 			}
-			cerr << "P "; for (auto v : P) { cerr << v << ' '; } cerr << '\n';
 		}
 		return power_series(P.begin(), P.begin() + n);
 	}
