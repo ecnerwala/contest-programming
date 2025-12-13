@@ -44,7 +44,7 @@ int main() {
 				if (pals[cur_suff].ch[v - 'a'] == -1) {
 					pals[cur_suff].ch[v - 'a'] = int(pals.size());
 					int prv_pal = pals[cur_suff].prv_pal;
-					while (prv_pal != -1 && pals[prv_pal].ch[v - 'a'] == -1) prv_pal = pals[prv_pal].prv_pal;
+					while (prv_pal != -1 && v != S[R - pals[prv_pal].len - 1]) prv_pal = pals[prv_pal].prv_pal;
 					prv_pal = prv_pal == -1 ? 1 : pals[prv_pal].ch[v - 'a'];
 					assert(prv_pal != -1);
 					cerr << "righ ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
@@ -75,7 +75,7 @@ int main() {
 				if (pals[cur_pref].ch[v - 'a'] == -1) {
 					pals[cur_pref].ch[v - 'a'] = int(pals.size());
 					int prv_pal = pals[cur_pref].prv_pal;
-					while (prv_pal != -1 && pals[prv_pal].ch[v - 'a'] == -1) prv_pal = pals[prv_pal].prv_pal;
+					while (prv_pal != -1 && v != S[L + pals[prv_pal].len + 1]) prv_pal = pals[prv_pal].prv_pal;
 					prv_pal = prv_pal == -1 ? 1 : pals[prv_pal].ch[v - 'a'];
 					assert(prv_pal != -1);
 					cerr << "left ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
