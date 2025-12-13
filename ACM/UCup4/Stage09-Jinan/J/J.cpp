@@ -10,7 +10,7 @@ int main() {
 		std::vector<int> D(N);
 		for (auto& d : D) cin >> d;
 		std::vector<std::vector<int>> adj(N);
-		for (int e = 0; e < N; e++) {
+		for (int e = 0; e < N-1; e++) {
 			int u, v; cin >> u >> v; u--, v--;
 			adj[u].push_back(v);
 			adj[v].push_back(u);
