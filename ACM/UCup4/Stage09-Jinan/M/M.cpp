@@ -2048,6 +2048,11 @@ int main() {
 	a = a.inv();
 	a = FPS<num>({num(1)}) - a;
 	for (auto v : a) { cerr << v << ' '; } cerr << '\n';
+    if (N == 1) {
+        cout << 1 << '\n';
+        return 0;
+    }
     auto res = power_projection(a);
     for (auto v : res) { cerr << v << ' '; } cerr << '\n';
+    return 0;
 }
