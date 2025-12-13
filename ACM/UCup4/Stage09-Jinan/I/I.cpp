@@ -76,7 +76,6 @@ int main() {
 					cur_pref = pals[cur_pref].prv_pal;
 				}
 				if (pals[cur_pref].ch[v - 'a'] == -1) {
-					cerr << "set ch " << cur_pref << ' ' << v << ' ' << int(pals.size()) << '\n';
 					pals[cur_pref].ch[v - 'a'] = int(pals.size());
 					int prv_pal = pals[cur_pref].prv_pal;
 					while (prv_pal != -1 && pals[prv_pal].ch[v - 'a'] == -1) prv_pal = pals[prv_pal].prv_pal;
