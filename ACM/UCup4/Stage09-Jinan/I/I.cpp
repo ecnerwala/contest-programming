@@ -47,14 +47,14 @@ int main() {
 					while (prv_pal != -1 && v != S[R - pals[prv_pal].len - 1]) prv_pal = pals[prv_pal].prv_pal;
 					prv_pal = prv_pal == -1 ? 1 : pals[prv_pal].ch[v - 'a'];
 					assert(prv_pal != -1);
-					cerr << "righ ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
+					//cerr << "righ ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
 					pals.push_back({
 						pals[cur_suff].len + 2,
 						prv_pal,
 						pals[prv_pal].cnt_suff_ccpc + (pals[prv_pal].len >= 3 && v == S[R-pals[prv_pal].len]),
 						pals[prv_pal].cnt_ge3 + (pals[cur_suff].len + 2 >= 3)
 					});
-					cerr << pals.back().cnt_ge3 << ' ' << pals.back().cnt_suff_ccpc << '\n';
+					//cerr << pals.back().cnt_ge3 << ' ' << pals.back().cnt_suff_ccpc << '\n';
 				}
 				cur_suff = pals[cur_suff].ch[v - 'a'];
 				ans += pals[cur_suff].cnt_suff_ccpc;
@@ -78,14 +78,14 @@ int main() {
 					while (prv_pal != -1 && v != S[L + pals[prv_pal].len + 1]) prv_pal = pals[prv_pal].prv_pal;
 					prv_pal = prv_pal == -1 ? 1 : pals[prv_pal].ch[v - 'a'];
 					assert(prv_pal != -1);
-					cerr << "left ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
+					//cerr << "left ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
 					pals.push_back({
 						pals[cur_pref].len + 2,
 						prv_pal,
 						pals[prv_pal].cnt_suff_ccpc + (pals[prv_pal].len >= 3 && v == S[L+pals[prv_pal].len]),
 						pals[prv_pal].cnt_ge3 + (pals[cur_pref].len + 2 >= 3)
 					});
-					cerr << pals.back().cnt_ge3 << ' ' << pals.back().cnt_suff_ccpc << '\n';
+					//cerr << pals.back().cnt_ge3 << ' ' << pals.back().cnt_suff_ccpc << '\n';
 				}
 				cur_pref = pals[cur_pref].ch[v - 'a'];
 				if (pals[cur_pref].len < R-L+1) {
@@ -96,7 +96,7 @@ int main() {
 		};
 		for (char c : Q_S) {
 			do_op('R', c);
-			cerr << ans << '\n';
+			//cerr << ans << '\n';
 		}
 		std::vector<int64_t> answers; answers.reserve(Q+1);
 		answers.push_back(ans);
