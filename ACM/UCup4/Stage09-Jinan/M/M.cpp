@@ -2053,6 +2053,6 @@ int main() {
         return 0;
     }
     auto res = power_projection(a);
-    for (int i = 0; i < N; i++) cout << a[i] << " \n"[i+1==N];
+    for (int i = 0; i < N; i++) cout << res[i] << " \n"[i+1==N];
     return 0;
 }
