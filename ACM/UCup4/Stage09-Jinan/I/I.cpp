@@ -61,7 +61,7 @@ int main() {
 				cur_suff = pals[cur_suff].ch[v - 'a'];
 				ans += pals[cur_suff].cnt_suff_ccpc;
 				if (pals[cur_suff].len < R-L+1) {
-					ans += (v == S[R-pals[cur_suff].len]);
+					ans += (pals[cur_suff].len >= 3 && v == S[R-pals[cur_suff].len]);
 				} else {
 					cur_pref = cur_suff;
 				}
@@ -92,7 +92,7 @@ int main() {
 				cur_pref = pals[cur_pref].ch[v - 'a'];
 				ans += pals[cur_pref].cnt_suff_ccpc;
 				if (pals[cur_pref].len < R-L+1) {
-					ans += (v == S[L+pals[cur_pref].len]);
+					ans += (pals[cur_pref].len >= 3 && v == S[L+pals[cur_pref].len]);
 				} else {
 					cur_suff = cur_pref;
 				}
