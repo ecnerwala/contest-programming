@@ -57,6 +57,7 @@ int main() {
 						pals[prv_pal].cnt_suff_ccpc + (pals[prv_pal].len >= 3 && v == S[R-pals[prv_pal].len]),
 						pals[prv_pal].cnt_ge3 + (pals[cur_suff].len + 2 >= 3)
 					});
+					cerr << pals.back().cnt_ge3 << ' ' << pals.back().cnt_suff_ccpc << '\n';
 				}
 				cur_suff = pals[cur_suff].ch[v - 'a'];
 				ans += pals[cur_suff].cnt_suff_ccpc;
@@ -88,6 +89,7 @@ int main() {
 						pals[prv_pal].cnt_suff_ccpc + (pals[prv_pal].len >= 3 && v == S[L+pals[prv_pal].len]),
 						pals[prv_pal].cnt_ge3 + (pals[cur_pref].len + 2 >= 3)
 					});
+					cerr << pals.back().cnt_ge3 << ' ' << pals.back().cnt_suff_ccpc << '\n';
 				}
 				cur_pref = pals[cur_pref].ch[v - 'a'];
 				ans += pals[cur_pref].cnt_suff_ccpc;
