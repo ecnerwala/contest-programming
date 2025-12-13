@@ -6,7 +6,7 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		std::string Q_S;
+		std::string Q_S; cin >> Q_S;
 		int Q; cin >> Q;
 
 		std::string S(int(Q_S.size()) + 2*Q+2, '?');
