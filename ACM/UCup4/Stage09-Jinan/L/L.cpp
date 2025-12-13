@@ -295,12 +295,12 @@ int main() {
 	int N, Q; cin >> N >> Q;
 	std::vector<int> segA(2*N);
 	for (int i = 2*N-1; i >= N; i--) cin >> segA[i];
-	seg_tree::in_order_layout layout(2*N);
-	std::vector<int64_t> segB(2*N);
+	seg_tree::in_order_layout layout_B(N-1);
+	std::vector<int64_t> segB(2*layout_B.N);
 	auto update_A = [&](int i) -> void {
 		assert(i < N);
 		segA[i] = std::min({segA[2*i], segA[2*i+1]});
-		auto pt = layout.get_point(N-1-i);
+		auto pt = layout_B.get_point(N-1-i);
 		segB[pt] = std::max({segA[2*i], segA[2*i+1]});
 		pt.for_parents_up([&](seg_tree::point p) { segB[p] = segB[p.c(0)] + segB[p.c(1)]; });
 	};
@@ -318,7 +318,7 @@ int main() {
 		} else if (op == 'A') {
 			int l, r; cin >> l >> r; l--;
 			int64_t ans = 0;
-			layout.get_range(l, r).for_each([&](auto a) { ans += segB[a]; });
+			layout_B.get_range(l, r).for_each([&](auto a) { ans += segB[a]; });
 			cout << ans << '\n';
 		} else assert(false);
 	}
