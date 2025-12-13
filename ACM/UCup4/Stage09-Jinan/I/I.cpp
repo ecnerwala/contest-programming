@@ -45,13 +45,12 @@ int main() {
 					cur_suff = pals[cur_suff].prv_pal;
 				}
 				if (pals[cur_suff].ch[v - 'a'] == -1) {
-					cerr << "set ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << '\n';
 					pals[cur_suff].ch[v - 'a'] = int(pals.size());
 					int prv_pal = pals[cur_suff].prv_pal;
 					while (prv_pal != -1 && pals[prv_pal].ch[v - 'a'] == -1) prv_pal = pals[prv_pal].prv_pal;
 					prv_pal = prv_pal == -1 ? 1 : pals[prv_pal].ch[v - 'a'];
 					assert(prv_pal != -1);
-					cerr << prv_pal << '\n';
+					cerr << "righ ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
 					pals.push_back({
 						pals[cur_suff].len + 2,
 						prv_pal,
@@ -82,7 +81,7 @@ int main() {
 					while (prv_pal != -1 && pals[prv_pal].ch[v - 'a'] == -1) prv_pal = pals[prv_pal].prv_pal;
 					prv_pal = prv_pal == -1 ? 1 : pals[prv_pal].ch[v - 'a'];
 					assert(prv_pal != -1);
-					cerr << prv_pal << '\n';
+					cerr << "left ch " << cur_suff << ' ' << v << ' ' << int(pals.size()) << ' ' << prv_pal << '\n';
 					pals.push_back({
 						pals[cur_pref].len + 2,
 						prv_pal,
@@ -101,6 +100,7 @@ int main() {
 		};
 		for (char c : Q_S) {
 			do_op('R', c);
+			cerr << ans << '\n';
 		}
 		std::vector<int64_t> answers; answers.reserve(Q+1);
 		answers.push_back(ans);
