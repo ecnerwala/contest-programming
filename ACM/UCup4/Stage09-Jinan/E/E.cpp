@@ -211,6 +211,7 @@ int main() {
 				cnt += ways[nxt][0];
 			}
 		}(0, -1);
+		ans *= 2;
 		cout << ans << '\n';
 	}
 
