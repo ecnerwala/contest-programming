@@ -36,9 +36,6 @@ int main() {
 		int cur_suff = 1;
 		auto do_op = [&](char side, char v) -> void {
 			if (side == 'R') {
-				if (v == S[R]) {
-					ans += pals[cur_suff].cnt_ge3;
-				}
 				R++;
 				S[R] = v;
 				while (v != S[R - pals[cur_suff].len - 1]) {
@@ -91,9 +88,7 @@ int main() {
 					cerr << pals.back().cnt_ge3 << ' ' << pals.back().cnt_suff_ccpc << '\n';
 				}
 				cur_pref = pals[cur_pref].ch[v - 'a'];
-				ans += pals[cur_pref].cnt_suff_ccpc;
 				if (pals[cur_pref].len < R-L+1) {
-					ans += (pals[cur_pref].len >= 3 && v == S[L+pals[cur_pref].len]);
 				} else {
 					cur_suff = cur_pref;
 				}
