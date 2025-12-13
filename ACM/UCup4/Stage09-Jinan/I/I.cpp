@@ -77,6 +77,7 @@ int main() {
 					pals[cur_pref].ch[v - 'a'] = int(pals.size());
 					int prv_pal = cur_pref == 0 ? 1 : pals[pals[cur_pref].prv_pal].ch[v - 'a'];
 					assert(prv_pal != -1);
+					cerr << prv_pal << '\n';
 					pals.push_back({
 						pals[cur_pref].len + 2,
 						prv_pal,
