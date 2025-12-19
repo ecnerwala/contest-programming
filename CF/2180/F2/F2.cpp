@@ -412,7 +412,7 @@ int main() {
 	}
 	int T; cin >> T;
 	while (T--) {
-		int n, m; cin >> n >> m; n--, m--;
+		int n; int64_t m; cin >> n >> m; n--, m--;
 		cout << linearRec(recs[n].first, recs[n].second, m) << '\n';
 	}
 
