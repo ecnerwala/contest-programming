@@ -313,8 +313,10 @@ int main() {
 							}
 						} else if (a == 0) {
 							// usually fall through
-							ndp[{j, 0, 0}] += 3 * v * inv(num(4)) * num(3);
-							ndp[{j, 1, 0}] += 3 * v * inv(num(4));
+							ndp[{j, 0, 0}] += 2 * v * inv(num(4)) * num(3);
+							ndp[{j, 1, 0}] += 2 * v * inv(num(4));
+							ndp[{j, 0, 1}] += 1 * v * inv(num(4)) * num(3);
+							ndp[{j, 1, 1}] += 1 * v * inv(num(4));
 							// if c goes left, then
 							if (b == 1) ans += v;
 							else {
