@@ -26,7 +26,7 @@ int main() {
 		assert(g_hi == 0);
 		return ans;
 	};
-	assert(solve_log(3, 1) == 3);
+	assert(solve_log(5, 2) == 3);
 
 	if (true) {
 		const int L = 20;
