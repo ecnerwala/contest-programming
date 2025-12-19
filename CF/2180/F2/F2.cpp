@@ -405,7 +405,7 @@ int main() {
 			vals[j] = tot[{i, j}];
 		}
 		auto res = BerlekampMassey(vals);
-		cerr << i << ' ' << j << ' ' << res.size() << '\n';
+		cerr << i << ' ' << M << ' ' << res.size() << '\n';
 	}
 	int T; cin >> T;
 	while (T--) {
