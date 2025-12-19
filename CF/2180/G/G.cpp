@@ -174,6 +174,7 @@ int main() {
 				stk.push_back(double_seq(stk.back(), x, 0));
 			} else if (op == 3) {
 				const auto& st = stk.back();
+				cerr << st.len << '\n';
 				num ans = ((st.p2_len - 1) / st.len + st.p2_len / num(2)) * st.sum / num(2);
 				cout << ans << '\n';
 			} else assert(false);
