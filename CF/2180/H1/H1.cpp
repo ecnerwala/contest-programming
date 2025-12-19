@@ -57,8 +57,10 @@ int main() {
 		for (int l = 0; l <= L; l++) {
 			int res = 0;
 			for (int n = 0; n <= N; n++) {
-				cerr << n << ' ' << l << ' ' << res << ' ' << solve_log(n, l) << '\n';
-				assert(res == solve_log(n, l));
+				if (res != solve_log(n, l)) {
+					cerr << n << ' ' << l << ' ' << res << ' ' << solve_log(n, l) << '\n';
+					assert(false);
+				}
 				res ^= vals[n][l];
 			}
 		}
