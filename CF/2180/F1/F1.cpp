@@ -311,8 +311,10 @@ int main() {
 							// if c goes left, then
 							if (b == 1) ans += v;
 							else {
-								dp[{j+1, 0, 0}] += v * inv(num(4)) * num(3);
-								dp[{j+1, 0, 1}] += v * inv(num(4));
+								if (j+1 < M) {
+									dp[{j+1, 0, 0}] += v * inv(num(4)) * num(3);
+									dp[{j+1, 0, 1}] += v * inv(num(4));
+								}
 							}
 						} else assert(false);
 					}
