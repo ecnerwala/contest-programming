@@ -273,6 +273,11 @@ public:
 	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
 };
 
+template <typename T> T power(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -283,9 +288,10 @@ int main() {
 		using num = modnum<int(1e9)+7>;
 		num ans = 0;
 		tensor<num, 3> dp({M, 2, 2});
+		num tot = power(power(num(4), N+1), M+1);
 		for (int a = 0; a < 2; a++) {
 			for (int b = 0; b < 2; b++) {
-				dp[{0, a, b}] += inv(num(4)) * num(a == 1 ? 1 : 3) * num(b == 1 ? 1 : 3);
+				dp[{0, a, b}] += tot * inv(num(4)) * num(a == 1 ? 1 : 3) * num(b == 1 ? 1 : 3);
 			}
 		}
 		for (int i = 0; i < N; i++) {
