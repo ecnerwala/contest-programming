@@ -5,7 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	{
-		const int L = 10;
+		const int L = 20;
 		const int N = 1000;
 		std::vector<std::vector<int>> vals(N+1, std::vector<int>(L+1));
 		for (int n = 0; n <= N; n++) {
