@@ -26,7 +26,7 @@ int main() {
 			}
 		}
 		for (int l = 0; l <= 8; l++) {
-			for (int n = 0; n <= (2 << l); n++) {
+			for (int n = 0; n < (2 << l); n++) {
 				assert(vals[n+(2<<l)][l] == vals[n][l]);
 				cerr << vals[n][l] << ' ';
 			}
@@ -34,13 +34,34 @@ int main() {
 		}
 	}
 
+	auto solve_log = [&](int64_t g_hi, int l) -> int {
+	};
+
+	auto solve_int = [&](int64_t g_hi, int64_t d) -> int {
+		assert(d >= 1);
+		int l = __builtin_ctzll(d);
+		d >>= l;
+		int64_t cnt_hi = g_hi % d;
+		int64_t cnt_lo = d - cnt_hi;
+		int res = 0;
+		if (cnt_lo & 1) res ^= solve_log(g_hi / d, l);
+		if (cnt_hi & 1) res ^= solve_log(g_hi / d + 1, l);
+		return res;
+	};
+
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
+		int ans = 0;
 		for (int i = 0; i < N; i++) {
 			int64_t a, b, c, l, r; cin >> a >> b >> c >> l >> r;
 			assert((c - b) == (b - a));
+			int64_t g_hi = l - c;
+			int64_t g_lo = r - c;
+			assert(g_hi >= g_lo);
+			ans ^= solve(g_hi+1, c-b) ^ solve(g_lo, c-b);
 		}
+		cout << (ans ? "Bug" : "Feature") << '\n';
 	}
 
 	return 0;
