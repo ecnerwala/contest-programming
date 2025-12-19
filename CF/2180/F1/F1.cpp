@@ -287,6 +287,11 @@ int main() {
 	tensor<num, 2> tot({N+1, M+1});
 	{
 		tensor<num, 3> dp({M, 2, 2});
+		for (int a = 0; a < 2; a++) {
+			for (int b = 0; b < 2; b++) {
+				dp[{0, a, b}] = inv(num(16)) * (a == 1 ? 1 : 3) * (b == 1 ? 1 : 3);
+			}
+		}
 		for (int i = 0; i < N; i++) {
 			tensor<num, 3> ndp({M, 2, 2}, num(0));
 			for (int j = 0; j < M; j++) {
