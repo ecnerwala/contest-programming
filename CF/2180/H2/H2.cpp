@@ -20,7 +20,7 @@ int main() {
 			vals[n] = v;
 		}
 		for (int n = 0; n < 1000; n++) {
-			cerr << vals[n] << " \n"[(n+1) % 4 == 0];
+			cerr << vals[n] << " \n"[(n+1) % 16 == 0];
 		}
 		cerr << '\n';
 	}
