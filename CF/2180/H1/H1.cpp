@@ -26,7 +26,7 @@ int main() {
 		return ans;
 	};
 
-	if (false) {
+	if (true) {
 		const int L = 20;
 		const int N = 8000;
 		std::vector<std::vector<int>> vals(N+1, std::vector<int>(L+1));
