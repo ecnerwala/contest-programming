@@ -4,7 +4,29 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	{
+	auto solve_log = [&](int64_t g_hi, int l) -> int {
+		int ans = 0;
+		int64_t whole = g_hi >> (l+1);
+		ans ^= (whole & 1);
+		g_hi &= (int64_t(2) << l) - 1;
+		auto add_range = [&](int v, int i) -> void {
+			int64_t cnt = std::min(g_hi, int64_t(1) << i);
+			g_hi -= cnt;
+			if (cnt & 1) ans ^= v;
+		};
+		add_range((l&1) ? 1 : 0, 0);
+		for (int i = 0; i < l; i++) {
+			add_range(((l ^ i) & 1) ? 0 : 1, i);
+		}
+		for (int i = l-1; i >= 1; i--) {
+			add_range(((l ^ i) & 1) ? 2 : 1, i);
+		}
+		add_range((l&1) ? 1 : 2, 1);
+		assert(g_hi == 0);
+		return ans;
+	};
+
+	if (false) {
 		const int L = 20;
 		const int N = 8000;
 		std::vector<std::vector<int>> vals(N+1, std::vector<int>(L+1));
@@ -31,6 +53,13 @@ int main() {
 				cerr << vals[n][l] << ' ';
 			}
 			cerr << '\n';
+		}
+		for (int l = 0; l <= L; l++) {
+			int res = 0;
+			for (int n = 0; n <= N; n++) {
+				assert(res == solve_log(n, l));
+				res ^= vals[n][l];
+			}
 		}
 	}
 
