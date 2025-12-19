@@ -35,6 +35,7 @@ int main() {
 	}
 
 	auto solve_log = [&](int64_t g_hi, int l) -> int {
+		return 0;
 	};
 
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
