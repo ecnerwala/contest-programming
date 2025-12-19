@@ -294,7 +294,6 @@ int main() {
 				for (int a = 0; a < 2; a++) {
 					for (int b = 0; b < 2; b++) {
 						num v = dp[{j, a, b}] * inv(num(4));
-						cerr << i << ' ' << j << ' ' << a << ' ' << b << ' ' << v << '\n';
 						if (a == 1 && b == 1) {
 							ans += v * 4;
 						} else if (a == 1 && b == 0) {
