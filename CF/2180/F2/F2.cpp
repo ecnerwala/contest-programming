@@ -403,19 +403,16 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		std::vector<num> vals(M);
 		for (int j = 0; j < M; j++) {
-			vals[j] = tot[{i, j}];
+			vals[j] = tot[{i, j}] * power(power(num(4), i+1), j+1);
 		}
 		auto res = BerlekampMassey(vals);
-		cerr << i << ' ' << M << ' ' << res.size() << '\n';
 		vals.resize(res.size());
-		for (auto v : vals) { cerr << v << ' ';} cerr << '\n';
-		for (auto v : res) { cerr << v << ' ';} cerr << '\n';
 		recs[i] = {vals, res};
 	}
 	int T; cin >> T;
 	while (T--) {
 		int n; int64_t m; cin >> n >> m; n--, m--;
-		cout << power(power(num(4), n+2), m+2) * linearRec(recs[n].first, recs[n].second, m) << '\n';
+		cout << linearRec(recs[n].first, recs[n].second, m) << '\n';
 	}
 
 	return 0;
