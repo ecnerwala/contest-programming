@@ -403,7 +403,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		std::vector<num> vals(M);
 		for (int j = 0; j < M; j++) {
-			vals[j] = tot[{i, j}] * power(power(num(4), i+1), j+1);
+			vals[j] = tot[{i, j}] * power(power(num(4), i+2), j+2);
 		}
 		auto res = BerlekampMassey(vals);
 		vals.resize(res.size());
