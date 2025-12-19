@@ -10,7 +10,6 @@ int main() {
 		ans ^= (whole & 1);
 		g_hi &= (int64_t(2) << l) - 1;
 		auto add_range = [&](int v, int i) -> void {
-			cerr << "add_range" << v << ' ' << i << '\n';
 			int64_t cnt = std::min(g_hi, int64_t(1) << i);
 			g_hi -= cnt;
 			if (cnt & 1) ans ^= v;
