@@ -291,7 +291,7 @@ int main() {
 		num tot = power(power(num(4), N+1), M+1);
 		for (int a = 0; a < 2; a++) {
 			for (int b = 0; b < 2; b++) {
-				dp[{0, a, b}] += tot * inv(num(4)) * num(a == 1 ? 1 : 3) * num(b == 1 ? 1 : 3);
+				dp[{0, a, b}] += tot * inv(num(16)) * num(a == 1 ? 1 : 3) * num(b == 1 ? 1 : 3);
 			}
 		}
 		for (int i = 0; i < N; i++) {
