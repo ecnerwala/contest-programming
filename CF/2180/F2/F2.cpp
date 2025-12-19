@@ -408,6 +408,8 @@ int main() {
 		auto res = BerlekampMassey(vals);
 		cerr << i << ' ' << M << ' ' << res.size() << '\n';
 		vals.resize(res.size());
+		for (auto v : vals) { cerr << v << ' ';} cerr << '\n';
+		for (auto v : res) { cerr << v << ' ';} cerr << '\n';
 		recs.push_back({vals, res});
 	}
 	int T; cin >> T;
