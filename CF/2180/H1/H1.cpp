@@ -35,7 +35,25 @@ int main() {
 	}
 
 	auto solve_log = [&](int64_t g_hi, int l) -> int {
-		return 0;
+		int ans = 0;
+		int64_t whole = g_hi >> (l+1);
+		ans ^= (whole & 1);
+		g_hi &= (int64_t(2) << l) - 1;
+		auto add_range = [&](int v, int i) -> void {
+			int64_t cnt = std::min(g_hi, int64_t(1) << i);
+			g_hi -= cnt;
+			if (cnt & 1) ans ^= v;
+		};
+		add_range((l&1) ? 1 : 0, 0);
+		for (int i = 0; i < l; i++) {
+			add_range(((l ^ i) & 1) ? 0 : 1, i);
+		}
+		for (int i = l-1; i >= 1; i--) {
+			add_range(((l ^ i) & 1) ? 2 : 1, i);
+		}
+		add_range((l&1) ? 1 : 2, 1);
+		assert(g_hi == 0);
+		return ans;
 	};
 
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
