@@ -399,6 +399,7 @@ int main() {
 			tot[{i, j}] += tot[{i-1, j}];
 		}
 	}
+	std::vector<std::pair<std::vector<num>, std::vector<num>>> recs(N);
 	for (int i = 0; i < N; i++) {
 		std::vector<num> vals(M);
 		for (int j = 0; j < M; j++) {
@@ -406,11 +407,13 @@ int main() {
 		}
 		auto res = BerlekampMassey(vals);
 		cerr << i << ' ' << M << ' ' << res.size() << '\n';
+		vals.resize(res.size());
+		recs.push_back({vals, res});
 	}
 	int T; cin >> T;
 	while (T--) {
-		int n, m; cin >> n >> m;
-		cout << power(power(num(4), n+1), m+1) * tot[{n-1, m-1}] << '\n';
+		int n, m; cin >> n >> m; n--, m--;
+		cout << linearRec(recs[n].first, recs[n].second, m) << '\n';
 	}
 
 	return 0;
