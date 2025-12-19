@@ -413,7 +413,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int n; int64_t m; cin >> n >> m; n--, m--;
-		cout << linearRec(recs[n].first, recs[n].second, m) << '\n';
+		cout << power(power(num(4), n+2), m+2) * linearRec(recs[n].first, recs[n].second, m) << '\n';
 	}
 
 	return 0;
