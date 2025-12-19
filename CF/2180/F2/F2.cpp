@@ -410,7 +410,7 @@ int main() {
 		vals.resize(res.size());
 		for (auto v : vals) { cerr << v << ' ';} cerr << '\n';
 		for (auto v : res) { cerr << v << ' ';} cerr << '\n';
-		recs.push_back({vals, res});
+		recs[i] = {vals, res};
 	}
 	int T; cin >> T;
 	while (T--) {
