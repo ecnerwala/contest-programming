@@ -25,7 +25,7 @@ int main() {
 		cerr << '\n';
 	}
 
-	auto solve_log = [&](int64_t g_hi) -> int {
+	auto solve_lin = [&](int64_t g_hi) -> int {
 		return 0;
 	};
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
@@ -33,8 +33,8 @@ int main() {
 		int64_t cnt_hi = g_hi % d;
 		int64_t cnt_lo = d - cnt_hi;
 		int res = 0;
-		if (cnt_lo & 1) res ^= solve_log(g_hi / d);
-		if (cnt_hi & 1) res ^= solve_log(g_hi / d + 1);
+		if (cnt_lo & 1) res ^= solve_lin(g_hi / d);
+		if (cnt_hi & 1) res ^= solve_lin(g_hi / d + 1);
 		return res;
 	};
 
