@@ -282,29 +282,21 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T; cin >> T;
-	while (T--) {
-		int N, M; cin >> N >> M;
-		using num = modnum<int(1e9)+7>;
-		num ans = 0;
+	const int N = 5000, M = 5000;
+	using num = modnum<int(1e9)+7>;
+	tensor<num, 2> tot({N+1, M+1});
+	{
 		tensor<num, 3> dp({M, 2, 2});
-		num tot = power(power(num(4), N+1), M+1);
-		for (int a = 0; a < 2; a++) {
-			for (int b = 0; b < 2; b++) {
-				dp[{0, a, b}] += tot * inv(num(16)) * num(a == 1 ? 1 : 3) * num(b == 1 ? 1 : 3);
-			}
-		}
 		for (int i = 0; i < N; i++) {
 			tensor<num, 3> ndp({M, 2, 2}, num(0));
 			for (int j = 0; j < M; j++) {
 				for (int a = 0; a < 2; a++) {
 					for (int b = 0; b < 2; b++) {
 						num v = dp[{j, a, b}] * inv(num(4));
-						//cerr << i << ' ' << j << ' ' << a << ' ' << b << ' ' << v << '\n';
 						if (a == 1 && b == 1) {
-							ans += v * 4;
+							tot[{i, j}] += v * 4;
 						} else if (a == 1 && b == 0) {
-							ans += v;
+							tot[{i, j}] += v;
 							if (j+1 < M) {
 								dp[{j+1, 0, 0}] += (2*v) * inv(num(4)) * num(3);
 								dp[{j+1, 0, 1}] += (2*v) * inv(num(4));
@@ -318,7 +310,7 @@ int main() {
 							ndp[{j, 0, 1}] += 1 * v * inv(num(4)) * num(3);
 							ndp[{j, 1, 1}] += 1 * v * inv(num(4));
 							// if c goes left, then
-							if (b == 1) ans += v;
+							if (b == 1) tot[{i, j}] += v;
 							else {
 								if (j+1 < M) {
 									dp[{j+1, 0, 0}] += v * inv(num(4)) * num(3);
@@ -331,7 +323,21 @@ int main() {
 			}
 			dp = std::move(ndp);
 		}
-		cout << ans << '\n';
+	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 1; j < M; j++) {
+			tot[{i, j}] += tot[{i, j-1}];
+		}
+	}
+	for (int i = 1; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			tot[{i, j}] += tot[{i-1, j}];
+		}
+	}
+	int T; cin >> T;
+	while (T--) {
+		int n, m; cin >> n >> m;
+		cout << power(power(num(4), n+1), m+1) * tot[{n, m}] << '\n';
 	}
 
 	return 0;
