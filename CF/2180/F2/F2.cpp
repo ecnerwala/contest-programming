@@ -341,7 +341,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	const int N = 50, M = 6000;
+	const int N = 50, M = 600;
 	using num = modnum<int(1e9)+7>;
 	tensor<num, 2> tot({N, M});
 	{
