@@ -292,34 +292,35 @@ int main() {
 				dp[{0, a, b}] = inv(num(16)) * (a == 1 ? 1 : 3) * (b == 1 ? 1 : 3);
 			}
 		}
+		const num i4 = inv(num(4));
 		for (int i = 0; i < N; i++) {
 			tensor<num, 3> ndp({M, 2, 2}, num(0));
 			for (int j = 0; j < M; j++) {
 				for (int a = 0; a < 2; a++) {
 					for (int b = 0; b < 2; b++) {
-						num v = dp[{j, a, b}] * inv(num(4));
+						num v = dp[{j, a, b}] * i4;
 						if (a == 1 && b == 1) {
 							tot[{i, j}] += v * 4;
 						} else if (a == 1 && b == 0) {
 							tot[{i, j}] += v;
 							if (j+1 < M) {
-								dp[{j+1, 0, 0}] += (2*v) * inv(num(4)) * num(3);
-								dp[{j+1, 0, 1}] += (2*v) * inv(num(4));
-								dp[{j+1, 1, 0}] += v * inv(num(4)) * num(3);
-								dp[{j+1, 1, 1}] += v * inv(num(4));
+								dp[{j+1, 0, 0}] += (v+v) * (1-i4);
+								dp[{j+1, 0, 1}] += (v+v) * i4;
+								dp[{j+1, 1, 0}] += v * (1-i4);
+								dp[{j+1, 1, 1}] += v * i4;
 							}
 						} else if (a == 0) {
 							// usually fall through
-							ndp[{j, 0, 0}] += 2 * v * inv(num(4)) * num(3);
-							ndp[{j, 1, 0}] += 2 * v * inv(num(4));
-							ndp[{j, 0, 1}] += 1 * v * inv(num(4)) * num(3);
-							ndp[{j, 1, 1}] += 1 * v * inv(num(4));
+							ndp[{j, 0, 0}] += (v+v) * (1-i4);
+							ndp[{j, 1, 0}] += (v+v) * i4;
+							ndp[{j, 0, 1}] += v * (1-i4);
+							ndp[{j, 1, 1}] += v * i4;
 							// if c goes left, then
 							if (b == 1) tot[{i, j}] += v;
 							else {
 								if (j+1 < M) {
-									dp[{j+1, 0, 0}] += v * inv(num(4)) * num(3);
-									dp[{j+1, 0, 1}] += v * inv(num(4));
+									dp[{j+1, 0, 0}] += v * (1-i4);
+									dp[{j+1, 0, 1}] += v * i4;
 								}
 							}
 						} else assert(false);
