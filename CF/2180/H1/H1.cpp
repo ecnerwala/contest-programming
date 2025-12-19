@@ -9,7 +9,6 @@ int main() {
 		const int N = 1000;
 		std::vector<std::vector<int>> vals(N+1, std::vector<int>(L+1));
 		for (int n = 0; n <= N; n++) {
-			cerr << n << ": ";
 			for (int l = 0; l <= L; l++) {
 				std::array<bool, 4> has{false, false, false, false};
 				if (l > 0) {
@@ -24,7 +23,11 @@ int main() {
 				int v = 0;
 				while (has[v]) v++;
 				vals[n][l] = v;
-				cerr << v << ' ';
+			}
+		}
+		for (int l = 0; l <= 10; l++) {
+			for (int n = 0; n <= 100; n++) {
+				cerr << vals[n][l] << ' ';
 			}
 			cerr << '\n';
 		}
