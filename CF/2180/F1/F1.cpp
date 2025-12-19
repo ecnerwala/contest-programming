@@ -289,7 +289,7 @@ int main() {
 			}
 		}
 		for (int i = 0; i < N; i++) {
-			tensor<num, 3> ndp({M, 4, 4}, num(0));
+			tensor<num, 3> ndp({M, 2, 2}, num(0));
 			for (int j = 0; j < M; j++) {
 				for (int a = 0; a < 2; a++) {
 					for (int b = 0; b < 2; b++) {
