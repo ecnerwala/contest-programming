@@ -20,9 +20,9 @@ int main() {
 			add_range(((l ^ i) & 1) ? 0 : 1, i);
 		}
 		for (int i = l-1; i >= 1; i--) {
-			add_range(((l ^ i) & 1) ? 2 : 1, i);
+			add_range(((l ^ i) & 1) ? 1 : 2, i);
 		}
-		add_range((l&1) ? 1 : 2, 1);
+		add_range((l&1) ? 2 : 1, 1);
 		assert(g_hi == 0);
 		return ans;
 	};
