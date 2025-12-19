@@ -37,7 +37,7 @@ int main() {
 	auto solve_log = [&](int64_t g_hi, int l) -> int {
 	};
 
-	auto solve_int = [&](int64_t g_hi, int64_t d) -> int {
+	auto solve = [&](int64_t g_hi, int64_t d) -> int {
 		assert(d >= 1);
 		int l = __builtin_ctzll(d);
 		d >>= l;
