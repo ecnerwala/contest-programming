@@ -20,7 +20,13 @@ int main() {
 			vals[n] = v;
 		}
 		for (int n = 0; n < 1000; n++) {
-			cerr << (n <= 2 ? 0 : vals[n-2]) << " \n"[(n+1) % 8 == 0];
+			cerr << (n < 2 ? 0 : vals[n-2]) << " \n"[(n+1) % 8 == 0];
+		}
+		for (int l = 0; l < 10; l++) {
+		for (int n = 0; n < 1000; n++) {
+			if (__builtin_ctz(n) == l) cerr << (n < 2 ? 0 : vals[n-2]) << ' ';
+		}
+		cerr << '\n';
 		}
 		cerr << '\n';
 	}
