@@ -26,7 +26,6 @@ int main() {
 		assert(g_hi == 0);
 		return ans;
 	};
-	assert(solve_log(5, 2) == 3);
 
 	if (true) {
 		const int L = 20;
@@ -56,6 +55,7 @@ int main() {
 			}
 			cerr << '\n';
 		}
+		assert(solve_log(5, 2) == 3);
 		for (int l = 0; l <= L; l++) {
 			int res = 0;
 			for (int n = 0; n <= N; n++) {
