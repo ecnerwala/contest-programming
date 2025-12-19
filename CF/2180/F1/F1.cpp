@@ -304,22 +304,22 @@ int main() {
 						} else if (a == 1 && b == 0) {
 							tot[{i, j}] += v;
 							if (j+1 < M) {
-								dp[{j+1, 0, 0}] += (v+v) * (1-i4);
+								dp[{j+1, 0, 0}] += (v+v) - (v+v) * i4;
 								dp[{j+1, 0, 1}] += (v+v) * i4;
-								dp[{j+1, 1, 0}] += v * (1-i4);
+								dp[{j+1, 1, 0}] += v - v * i4;
 								dp[{j+1, 1, 1}] += v * i4;
 							}
 						} else if (a == 0) {
 							// usually fall through
-							ndp[{j, 0, 0}] += (v+v) * (1-i4);
+							ndp[{j, 0, 0}] += (v+v) - (v+v) * i4;
 							ndp[{j, 1, 0}] += (v+v) * i4;
-							ndp[{j, 0, 1}] += v * (1-i4);
+							ndp[{j, 0, 1}] += v - v * i4;
 							ndp[{j, 1, 1}] += v * i4;
 							// if c goes left, then
 							if (b == 1) tot[{i, j}] += v;
 							else {
 								if (j+1 < M) {
-									dp[{j+1, 0, 0}] += v * (1-i4);
+									dp[{j+1, 0, 0}] += v - v * i4;
 									dp[{j+1, 0, 1}] += v * i4;
 								}
 							}
