@@ -141,7 +141,7 @@ int main() {
 		std::vector<len_t> stk; stk.reserve(Q+1);
 		stk.push_back(len_t{0, 1, 0, 0, std::nullopt});
 		auto double_seq = [&](const len_t& st, num v, bool sub_1) -> len_t {
-			if (sub_1) {
+			if (sub_1 == 0) {
 				return {
 					st.len + st.len + 1,
 					st.p2_len * st.p2_len * num(2),
