@@ -20,7 +20,7 @@ int main() {
 			vals[n] = v;
 		}
 		for (int n = 0; n < 100; n++) {
-			cerr << std::bitset<10>(n) << ' ' << vals[n] << '\n';
+			cerr << vals[n] << " \n"[(n+1) == 0 % 16];
 		}
 		cerr << '\n';
 	}
