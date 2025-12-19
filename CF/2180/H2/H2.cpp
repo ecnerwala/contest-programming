@@ -32,7 +32,16 @@ int main() {
 	}
 
 	auto solve_lin = [&](int64_t g_hi) -> int {
-		return 0;
+		g_hi += 2;
+		int ans = 0;
+		for (; g_hi; g_hi = (g_hi+3) / 4) {
+			int64_t l = g_hi / 2;
+			while (l & 3) {
+				l--;
+				ans ^= (__builtin_popcountll(l) & 1) ? 1 : 2;
+			}
+		}
+		return ans;
 	};
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
 		assert(d >= 1);
