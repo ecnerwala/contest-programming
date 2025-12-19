@@ -284,7 +284,7 @@ int main() {
 
 	const int N = 5000, M = 5000;
 	using num = modnum<int(1e9)+7>;
-	tensor<num, 2> tot({N+1, M+1});
+	tensor<num, 2> tot({N, M});
 	{
 		tensor<num, 3> dp({M, 2, 2});
 		for (int a = 0; a < 2; a++) {
