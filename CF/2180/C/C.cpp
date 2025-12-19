@@ -28,7 +28,7 @@ int main() {
 				}
 			}
 			for (int i = 0; i < K; i++) {
-				cout << N << " \n"[i+1==K];
+				cout << A[i] << " \n"[i+1==K];
 			}
 		}
 	}
