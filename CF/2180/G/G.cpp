@@ -153,7 +153,7 @@ int main() {
 				return {
 					st.len + st.len,
 					st.p2_len * st.p2_len,
-					st.sum + v * st.len,
+					st.sum + v * (st.len + 1) - (st.midpt ? *st.midpt : v),
 					v,
 					std::nullopt
 				};
