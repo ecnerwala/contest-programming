@@ -342,7 +342,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int n, m; cin >> n >> m;
-		cout << power(power(num(4), n+1), m+1) * tot[{n, m}] << '\n';
+		cout << power(power(num(4), n+1), m+1) * tot[{n-1, m-1}] << '\n';
 	}
 
 	return 0;
