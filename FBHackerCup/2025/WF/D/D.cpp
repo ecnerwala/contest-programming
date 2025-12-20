@@ -138,7 +138,7 @@ int main() {
 				assert(v[0].count() + v[1].count() >= 3);
 			}
 			int mex = 0;
-			if (int(vals.size()) >= 15) cerr << "brute " << int(vals.size()) << '\n';
+			if (int(vals.size()) >= 20) cerr << "brute " << int(vals.size()) << '\n';
 			[&](this auto&& self, int idx, bs v) -> void {
 				if (idx == int(vals.size())) {
 					mex = std::max(mex, int((~v)._Find_first()));
