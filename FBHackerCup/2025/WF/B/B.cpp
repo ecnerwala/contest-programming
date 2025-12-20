@@ -144,6 +144,7 @@ int main() {
 				}
 			}
 			int len = dp[L_SAMP];
+			if (len < 0) continue;
 			probs.push_back({len, cnd});
 		}
 		/*
