@@ -1187,7 +1187,7 @@ int main() {
 			using n1 = modnum<998244353>;
 			using n2 = modnum<(5 << 25) + 1>;
 			using n3 = modnum<(7 << 26) + 3>;
-			assert(power(ecnerwala::fft::getRoot<n2>(), (n2::MOD - 1)/2) == n2(-1));
+			assert(ecnerwala::fft::getRoot<n2>::f(2) == n2(-1));
 		};
 
 		int L = std::min(R, C);
