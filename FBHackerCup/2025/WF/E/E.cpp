@@ -1210,7 +1210,7 @@ int main() {
 		auto mul = [&](std::vector<num> a, std::vector<num> b) -> std::vector<num> {
 			using n1 = modnum<998244353>;
 			using n2 = modnum<(5 << 25) + 1>;
-			using n3 = modnum<(7 << 26) + 3>;
+			using n3 = modnum<(7 << 26) + 1>;
 			assert(ecnerwala::fft::getRoot<n1>::f(2) == n1(-1));
 			assert(ecnerwala::fft::getRoot<n2>::f(2) == n2(-1));
 			assert(ecnerwala::fft::getRoot<n3>::f(2) == n3(-1));
