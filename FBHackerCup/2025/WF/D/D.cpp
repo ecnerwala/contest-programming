@@ -155,7 +155,7 @@ int main() {
 					if (c == prv_c) continue;
 					std::vector<int> cyc = cycs[c];
 					std::rotate(cyc.begin(), cyc.begin() + cur_i, cyc.end());
-					assert(cyc[0] == cur_i);
+					assert(cyc[0] == cur);
 					int L = int(cyc.size());
 					std::vector<bs> pref(L);
 					std::vector<bs> suff(L);
