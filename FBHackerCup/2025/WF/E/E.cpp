@@ -1211,14 +1211,14 @@ int main() {
 		}
 
 		for (auto w : ways) { cerr << w << ' '; } cerr << '\n';
-		for (int i = 0; i <= L; i++) { ways[i] *= ifact[i]; }
+		for (int i = 0; i <= L; i++) { ways[i] *= fact[i]; }
 		std::reverse(ways.begin(), ways.end());
 		std::vector<num> inv_exp(L+1);
 		for (int i = 0; i <= L; i++) inv_exp[i] = (i & 1) ? -ifact[i] : +ifact[i];
 		ways = ecnerwala::fft::fft_mod_multiply(ways, inv_exp);
 		ways.resize(L+1);
 		std::reverse(ways.begin(), ways.end());
-		for (int i = 0; i <= L; i++) { ways[i] *= fact[i]; }
+		for (int i = 0; i <= L; i++) { ways[i] *= ifact[i]; }
 		for (auto w : ways) { cerr << w << ' '; } cerr << '\n';
 
 		assert(std::accumulate(ways.begin(), ways.end(), num(0)) == tot_ways);
