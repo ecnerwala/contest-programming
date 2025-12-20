@@ -85,7 +85,7 @@ int main() {
 	} else {
 		cin >> T;
 	}
-	std::mt19937 mt(48);
+	std::mt19937 mt(49);
 	std::vector<std::string> Ss(T);
 	std::vector<int> TESTING_ANS(T);
 	for (int case_num = 1; case_num <= T; case_num ++) {
