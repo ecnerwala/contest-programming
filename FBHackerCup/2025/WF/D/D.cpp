@@ -155,13 +155,14 @@ int main() {
 			std::vector<std::array<bs, 2>> vals; vals.reserve(C+1);
 			bs v0; v0[label[st]] = true;
 			vals.push_back({v0, v0});
+			std::vector<int> res(N);
 			[&](this auto&& self, int cur, int prv_c) -> void {
 				if (cur > st) {
 					// find the mex of the path
 					//cerr << "solve " << st << ' ' << cur << '\n';
 					int mex = solve(vals);
 					ans += mex;
-					cout << st << ' ' << cur << ' ' << mex << '\n';
+					res[cur] = mex;
 				}
 				for (auto [c, cur_i] : cyc_adj[cur]) {
 					if (c == prv_c) continue;
@@ -189,6 +190,9 @@ int main() {
 					}
 				}
 			}(st, -1);
+			for (int en = st+1; en < N; en++) {
+				cout << st << ' ' << en << ' ' << res[en] << '\n';
+			}
 		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n' << flush;
