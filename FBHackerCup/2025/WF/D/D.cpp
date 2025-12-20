@@ -56,6 +56,13 @@ int main() {
 		}
 		cerr << "C = " << C << '\n';
 		for (auto c : cycs) { for (auto v : c) { cerr << v << ' '; } cerr << '\n'; }
+		{
+			std::vector<int> lens(N+1);
+			for (auto c : cycs) {
+				lens[int(c.size())]++;
+			}
+			for (int i = 0; i <= N; i++) if (lens[i]) cerr << " len " << i << " x " << lens[i] << '\n';
+		}
 
 		int64_t ans = 0;
 
