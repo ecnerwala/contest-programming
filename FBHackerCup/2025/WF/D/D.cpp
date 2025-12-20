@@ -87,8 +87,9 @@ int main() {
 				return true;
 			};
 			while (true) {
-				std::vector<std::array<bs, 2>> nvals; nvals.reserve(vals.size());
-				for (auto v : vals) {
+				bool found = false;
+				for (int z = 0; z < int(vals.size()); z++) {
+					auto v = vals[z];
 					// if one is a subset of another
 					if ((v[0] | v[1]) == v[0] || (v[0] | v[1]) == v[1]) {
 						bs to_fix = v[0] | v[1];
@@ -96,30 +97,36 @@ int main() {
 							merge(i, N);
 						}
 						// we don't need this pair anymore
-						continue;
+						vals.erase(vals.begin()+z);
+						found = true;
+						break;
 					}
 					assert(v[0].any());
 					assert(v[1].any());
+					{
+						// if there's anything shared, delete all of them
+						bs to_fix = v[0] & v[1];
+						if (to_fix.any()) {
+							for (int i = int(to_fix._Find_first()); i < int(to_fix.size()); i = int(to_fix._Find_next(i))) {
+								merge(i, N);
+							}
+							found = true;
+							break;
+						}
+					}
 					if (v[0].count() == 1 && v[1].count() == 1) {
 						int a = int(v[0]._Find_first());
 						int b = int(v[1]._Find_first());
 						// these guys can be substitutes
-						if (!merge(a, b)) {
-							merge(b, N);
-						}
+						merge(a, b);
 						// we don't need this pair anymore
-						continue;
+						vals.erase(vals.begin()+z);
+						found = true;
+						break;
 					}
-					{
-						// if there's anything shared, delete all of them
-						bs to_fix = v[0] & v[1];
-						for (int i = int(to_fix._Find_first()); i < int(to_fix.size()); i = int(to_fix._Find_next(i))) {
-							merge(i, N);
-						}
-					}
-					nvals.push_back({v[0], v[1]});
 				}
-				for (auto& v : nvals) {
+				if (!found) break;
+				for (auto& v : vals) {
 					for (auto& x : v) {
 						bs to_fix = x & deads;
 						for (int i = int(to_fix._Find_first()); i < int(to_fix.size()); i = int(to_fix._Find_next(i))) {
@@ -130,8 +137,6 @@ int main() {
 						x[N] = false;
 					}
 				}
-				if (vals == nvals) break;
-				vals = nvals;
 			}
 			for (auto v : vals) {
 				assert(v[0].count() > 0);
