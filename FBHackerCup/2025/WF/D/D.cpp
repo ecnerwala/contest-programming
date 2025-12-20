@@ -131,7 +131,7 @@ int main() {
 				assert(v[0].count() + v[1].count() >= 3);
 			}
 			int mex = 0;
-			cerr << "brute " << int(vals.size()) << '\n';
+			if (int(vals.size()) >= 10) cerr << "brute " << int(vals.size()) << '\n';
 			[&](this auto&& self, int idx, bs v) -> void {
 				if (idx == int(vals.size())) {
 					mex = std::max(mex, int((~v)._Find_first()));
@@ -151,7 +151,7 @@ int main() {
 			[&](this auto&& self, int cur, int prv_c) -> void {
 				if (cur > st) {
 					// find the mex of the path
-					cerr << "solve " << st << ' ' << cur << '\n';
+					//cerr << "solve " << st << ' ' << cur << '\n';
 					solve(vals);
 				}
 				for (auto [c, cur_i] : cyc_adj[cur]) {
