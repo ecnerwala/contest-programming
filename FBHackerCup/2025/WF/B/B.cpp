@@ -115,7 +115,7 @@ int main() {
 	}
 	std::sort(easy.begin(), easy.end());
 
-	for (int z = 0; z < NEED; z++) {
+	for (int z = 0; true; z++) {
 		int case_num = easy[z].second;
 		auto S = Ss[case_num];
 		cerr << '\n';
@@ -151,6 +151,7 @@ int main() {
 			int idx = 0;
 			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
 			cerr << "0 -> " << probs[0].first << "; " << idx << " -> " << probs[idx].first << '\n';
+			assert(probs[0].first == probs[idx].first);
 		}
 	}
 
