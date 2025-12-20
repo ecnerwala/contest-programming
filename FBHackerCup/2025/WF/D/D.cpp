@@ -106,7 +106,9 @@ int main() {
 						int a = int(v[0]._Find_first());
 						int b = int(v[1]._Find_first());
 						// these guys can be substitutes
-						merge(a, b);
+						if (!merge(a, b)) {
+							merge(b, N);
+						}
 						// we don't need this pair anymore
 						continue;
 					}
