@@ -9,7 +9,6 @@ int main() {
 		ans ^= ((g_hi >> (l+1)) & 1);
 		g_hi &= (int64_t(2) << l) - 1;
 		if (g_hi == 0) return ans;
-		//if (g_hi == 1) return ans ^ ((l&1) ? 1 : 0);
 		ans ^= 1;
 		if (g_hi & 1) {
 			if ((g_hi >> l) & 1) {
