@@ -47,7 +47,7 @@ int main() {
 			cerr << '\n';
 		}
 		cerr << '\n';
-		int tot = 0;
+		int tot = 2;
 		for (int n = 0; n < 1000; n++) {
 			cerr << solve(n, 1) << ' ' << tot << '\n';
 			assert(solve(n, 1) == tot);
