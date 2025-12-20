@@ -1180,12 +1180,13 @@ int main() {
 
 		int L = std::min(R, C);
 
-		std::vector<num> fact(L+1);
+		const int V = std::max(R, C);
+		std::vector<num> fact(V+1);
 		fact[0] = 1;
-		for (int i = 1; i <= L; i++) fact[i] = fact[i-1] * num(i);
-		std::vector<num> ifact(L+1);
-		ifact[L] = inv(fact[L]);
-		for (int i = L; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(V+1);
+		ifact[V] = inv(fact[V]);
+		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		auto choose = [&](int n, int r) -> num {
 			assert(0 <= r && r <= n);
