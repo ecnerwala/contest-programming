@@ -67,7 +67,7 @@ int main() {
 
 		using bs = bitset<121>;
 		auto solve = [&](std::vector<std::array<bs, 2>> vals) -> int {
-			//for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
+			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			bs deads;
 			std::vector<int> par(N+1, -1);
 			auto get_par = [&](int a) -> int {
@@ -160,9 +160,11 @@ int main() {
 				if (cur > st) {
 					// find the mex of the path
 					//cerr << "solve " << st << ' ' << cur << '\n';
-					int mex = solve(vals);
-					ans += mex;
-					res[cur] = mex;
+					if (st == 21 && cur == 86) {
+						int mex = solve(vals);
+						ans += mex;
+						res[cur] = mex;
+					}
 				}
 				for (auto [c, cur_i] : cyc_adj[cur]) {
 					if (c == prv_c) continue;
