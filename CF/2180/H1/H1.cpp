@@ -17,7 +17,7 @@ int main() {
 				int i = 63 - __builtin_clzll((int64_t(2) << l) - g_hi);
 				ans ^= ((l^i) & 1) ? 2 : 1;
 			} else {
-				int i = g_hi ? 63 - __builtin_clzll(g_hi) : -1;
+				int i = g_hi ? 63 - __builtin_clzll(g_hi) : 0;
 				ans ^= ((l^i) & 1) ? 0 : 1;
 			}
 		}
