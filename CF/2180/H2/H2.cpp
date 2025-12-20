@@ -48,7 +48,7 @@ int main() {
 		}
 		cerr << '\n';
 		for (int d = 1; d <= 10; d++) {
-			int tot = 2;
+			int tot = d & 1 ? 2 : 0;
 			for (int n = 0; n < 1000; n++) {
 				cerr << n << ' ' << d << '\n';
 				cerr << solve(n, d) << ' ' << tot << '\n';
