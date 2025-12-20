@@ -10,7 +10,7 @@ int main() {
 		std::getline(base, S_BASE);
 	}
 	const int L_BASE = int(S_BASE.size());
-	cerr << L_BASE << '\n';
+	cerr << "L_BASE = " << L_BASE << '\n';
 	std::set<char> has;
 	for (char c : S_BASE) has.insert(c);
 	cerr << "letters: \"";
