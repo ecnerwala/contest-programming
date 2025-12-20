@@ -10,6 +10,8 @@ int main() {
 		std::getline(base, BASELINE);
 	}
 	cerr << '"' << BASELINE.substr(BASELINE.size() - 10) << '"' << '\n';
+	std::set<char> has;
+	for (char c : BASELINE) has.insert(c);
 
 	int T; cin >> T;
 	std::vector<std::string> Ss(T);
@@ -17,8 +19,8 @@ int main() {
 		int N; cin >> N;
 		cin.ignore(1, '\n');
 		std::string S; std::getline(cin, S);
-		cerr << "Case #" << case_num << " ";
-		cerr << "S = \"" << S << '"' << '\n';
+		//cerr << "Case #" << case_num << " ";
+		//cerr << "S = \"" << S << '"' << '\n';
 		assert(int(S.size()) == N);
 
 		Ss[case_num-1] = S;
