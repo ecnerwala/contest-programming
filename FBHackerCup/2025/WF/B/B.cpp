@@ -152,6 +152,7 @@ int main() {
 			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
 			cerr << "0 -> " << probs[0].first << "; " << idx << " -> " << probs[idx].first << '\n';
 			assert(probs[0].first == probs[idx].first);
+			assert(idx <= 5);
 		}
 	}
 
