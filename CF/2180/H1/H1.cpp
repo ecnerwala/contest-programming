@@ -11,13 +11,14 @@ int main() {
 		g_hi = g_hi / d + ((g_hi % d) & 1);
 		int ans = ((g_hi >> (l+1)) & 1);
 		g_hi &= (int64_t(2) << l) - 1;
+		if (g_hi == 0) return ans;
 		ans ^= 1;
 		if (g_hi & 1) {
 			if ((g_hi >> l) & 1) {
 				int i = 63 - __builtin_clzll((int64_t(2) << l) - g_hi);
 				ans ^= ((l^i) & 1) ? 2 : 1;
 			} else {
-				int i = g_hi ? 63 - __builtin_clzll(g_hi) : 0;
+				int i = 63 - __builtin_clzll(g_hi);
 				ans ^= ((l^i) & 1) ? 0 : 1;
 			}
 		}
