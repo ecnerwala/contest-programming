@@ -16,7 +16,6 @@ int main() {
 			adj_orig[v].push_back(u);
 		}
 
-		if (case_num != 26) continue;
 		cerr << "Case #" << case_num << " " << N << ' ' << M << '\n';
 
 		std::vector<std::vector<int>> cycs; cycs.reserve(N);
