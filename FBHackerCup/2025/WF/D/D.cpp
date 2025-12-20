@@ -87,6 +87,8 @@ int main() {
 				return true;
 			};
 			while (true) {
+				cerr << "deads " << deads << '\n';
+				for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 				std::vector<std::array<bs, 2>> nvals; nvals.reserve(vals.size());
 				for (auto v : vals) {
 					// if one is a subset of another
@@ -147,8 +149,8 @@ int main() {
 					self(idx+1, v | vals[idx][1]);
 				}
 			}(0, deads);
-			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			cerr << "deads " << deads << '\n';
+			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			cerr << mex << '\n';
 			return mex;
 		};
