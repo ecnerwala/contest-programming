@@ -65,7 +65,7 @@ int main() {
 			for (int i = 0; i <= N; i++) if (lens[i]) cerr << " len " << i << " x " << lens[i] << '\n';
 		}
 
-		using bs = bitset<121>;
+		using bs = bitset<10>;
 		auto solve = [&](std::vector<std::array<bs, 2>> vals) -> int {
 			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			bs deads;
