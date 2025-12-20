@@ -42,6 +42,13 @@ int main() {
 	}
 	const int N_CND = int(starts.size());
 	cerr << "N_CND = " << N_CND << '\n';
+	std::vector<std::array<int, 56>> cnd_freqs(N_CND);
+	for (int i = 0; i < N_CND; i++) {
+		auto p = pref[starts[i]+L_SAMP];
+		auto q = pref[starts[i]];
+		for (int z = 0; z < C; z++) p[z] -= q[z];
+		cnd_freqs[i] = p;
+	}
 
 	int T; cin >> T;
 	std::vector<std::string> Ss(T);
