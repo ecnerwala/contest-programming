@@ -130,7 +130,7 @@ int main() {
 				assert(v[0].count() + v[1].count() >= 3);
 			}
 			int mex = 0;
-			cerr << int(vals.size()) << '\n';
+			cerr << "brute " << int(vals.size()) << '\n';
 			[&](this auto&& self, int idx, bs v) -> void {
 				if (idx == int(vals.size())) {
 					mex = std::max(mex, int((~v)._Find_first()));
