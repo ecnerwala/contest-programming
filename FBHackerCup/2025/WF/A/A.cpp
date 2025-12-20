@@ -162,6 +162,7 @@ int main() {
 
 		bool good = true;
 		for (auto [x, y] : fixed) {
+			assert(x != y);
 			if ((A[x] < A[y]) != (B[x] < B[y])) {
 				good = false;
 			}
@@ -171,6 +172,7 @@ int main() {
 		binary_indexed_tree<int> bit(N);
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
+			assert(P[i] != -1);
 			for (auto a : bit.suffix(P[i])) ans += a;
 			for (auto& a : bit.prefix(P[i])) a++;
 		}
