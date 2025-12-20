@@ -15,7 +15,7 @@ int main() {
 			if (g_hi & 1) {
 				int64_t g = g_hi / d + 1;
 				if (!(__builtin_ctzll(g) & 1)) {
-					return __builtin_popcountll(g) & 1 ? 1 : 2;
+					return (__builtin_popcountll(g) & 1) ? 1 : 2;
 				}
 			}
 			return 0;
