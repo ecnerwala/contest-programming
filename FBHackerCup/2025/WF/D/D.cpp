@@ -49,13 +49,13 @@ int main() {
 		}
 		int C = int(cycs.size());
 		std::vector<std::vector<std::pair<int, int>>> cyc_adj(N);
-		for (auto c : cycs) { for (auto v : c) { cerr << v << ' '; } cerr << '\n'; }
 		for (int c = 0; c < C; c++) {
 			for (int i = 0; i < int(cycs[c].size()); i++) {
 				cyc_adj[cycs[c][i]].push_back({c, i});
 			}
 		}
 		cerr << "C = " << C << '\n';
+		for (auto c : cycs) { for (auto v : c) { cerr << v << ' '; } cerr << '\n'; }
 
 		int64_t ans = 0;
 
