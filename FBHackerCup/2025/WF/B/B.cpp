@@ -115,11 +115,11 @@ int main() {
 	std::sort(easy.begin(), easy.end());
 
 	int cur_has = 0;
-	for (int z = 0; cur_has < NEED; z++) {
-		int case_num = easy[z].second;
+	for (int iter = 0; cur_has < NEED; iter++) {
+		int case_num = easy[iter].second;
 		auto S = Ss[case_num];
 		cerr << '\n';
-		cerr << "Case " << z << ' ' << int(S.size()) << '\n';
+		cerr << "Case " << iter << ' ' << int(S.size()) << '\n';
 		std::array<int, 56> freq; freq.fill(0);
 		for (char c : S) freq[id(c)]++;
 		int num_poss = int(posses[case_num].size());
