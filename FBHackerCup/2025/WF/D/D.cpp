@@ -29,6 +29,7 @@ int main() {
 				depth[cur] = prv == -1 ? 0 : depth[prv] + 1;
 				lowval[cur] = depth[cur];
 				for (int nxt : adj_orig[cur]) {
+					if (nxt == prv) continue;
 					if (depth[nxt] == -1) {
 						int stk_sz = int(stk.size());
 						stk.push_back(nxt);
