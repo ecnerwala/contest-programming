@@ -132,7 +132,8 @@ int main() {
 				for (int i = L_SAMP-1; i >= 0; i--) {
 					if (S_BASE[starts[cnd]+i] == c) {
 						dp[i+1] = dp[i]+1;
-					} else if (i % 3 && i % 5) {
+					} else if (i == 3 || i == 5 || (i % 3 && i % 5)) {
+						// then i could be prime, so we're allowed to skip it
 						dp[i+1] = dp[i];
 					} else {
 						dp[i+1] = -L_SAMP;
