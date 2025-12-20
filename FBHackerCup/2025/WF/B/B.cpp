@@ -222,6 +222,7 @@ int main() {
 		} else {
 			assert(int(ans.size()) == 2025);
 			if (TESTING) {
+				assert(ans == S_BASE.substr(starts[TeSTING_ANS[case_num-1]], L_SAMP));
 			}
 		}
 		cout << "Case #" << case_num << ": " << ans << '\n';
