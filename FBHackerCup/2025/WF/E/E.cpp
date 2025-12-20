@@ -1160,7 +1160,7 @@ int main() {
 		int R, C, N; cin >> R >> C >> N;
 		std::vector<std::array<int, 2>> pts(N);
 		for (auto& [x, y] : pts) { cin >> x >> y; x--, y--; }
-		cout << "Case #" << case_num << " " << R << ' ' << C << ' ' << N << '\n';
+		cerr << "Case #" << case_num << " " << R << ' ' << C << ' ' << N << '\n';
 
 		std::vector<int> xf(R, 0);
 		std::vector<int> yf(C, 0);
