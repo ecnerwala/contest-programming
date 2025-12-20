@@ -107,7 +107,8 @@ int main() {
 			posses[case_num].push_back(cnd); 
 		}
 	}
-	const int NEED = T * 4 / 10;
+	//const int NEED = T * 4 / 10;
+	const int NEED = T;
 	std::vector<std::pair<int, int>> easy;
 	for (int case_num = 0; case_num < T; case_num++) {
 		easy.push_back({posses[case_num].size(), case_num});
