@@ -19,7 +19,9 @@ int main() {
 
 	std::vector<std::string> answers(T);
 	for (int case_num = 1; case_num <= T; case_num ++) {
-		cout << "Case #" << case_num << ": " << answers[case_num-1] << '\n';
+		auto ans = answers[case_num-1];
+		if (ans.empty()) ans = "SKIP";
+		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
 
 	return 0;
