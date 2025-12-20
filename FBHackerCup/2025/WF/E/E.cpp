@@ -16,6 +16,30 @@ template <typename T> T mod_inv_in_range(T a, T m) {
 	return vy < 0 ? m + vy : vy;
 }
 
+template <typename T> struct mod_constraint {
+	T v, mod;
+
+	friend mod_constraint operator & (mod_constraint a, mod_constraint b) {
+		if (a.mod < b.mod) std::swap(a, b);
+		if (b.mod == 1) return a;
+
+		extended_gcd_result<T> egcd = extended_gcd<T>(a.mod, b.mod);
+		assert(a.v % egcd.gcd == b.v % egcd.gcd);
+
+		T extra = b.v - a.v % b.mod;
+		extra /= egcd.gcd;
+
+		extra *= egcd.coeff_a;
+		extra %= b.mod / egcd.gcd;
+		extra += (extra < 0) ? b.mod / egcd.gcd : 0;
+
+		return mod_constraint{
+			a.v + extra * a.mod,
+			a.mod * (b.mod / egcd.gcd)
+		};
+	}
+};
+
 template <typename T> struct extended_gcd_result {
 	T gcd;
 	T coeff_a, coeff_b;
@@ -1190,6 +1214,36 @@ int main() {
 			assert(ecnerwala::fft::getRoot<n1>::f(2) == n1(-1));
 			assert(ecnerwala::fft::getRoot<n2>::f(2) == n2(-1));
 			assert(ecnerwala::fft::getRoot<n3>::f(2) == n3(-1));
+			std::vector<n1> c1;
+			std::vector<n2> c2;
+			std::vector<n3> c3;
+			{
+				std::vector<n1> a1(a.size()), b1(b.size());
+				for (int i = 0; i < int(a.size()); i++) a1[i] = int(a[i]);
+				for (int j = 0; j < int(b.size()); j++) b1[j] = int(b[j]);
+				c1 = ecnerwala::fft::fft_multiply(a1, b1);
+			}
+			{
+				std::vector<n2> a1(a.size()), b1(b.size());
+				for (int i = 0; i < int(a.size()); i++) a1[i] = int(a[i]);
+				for (int j = 0; j < int(b.size()); j++) b1[j] = int(b[j]);
+				c2 = ecnerwala::fft::fft_multiply(a1, b1);
+			}
+			{
+				std::vector<n3> a1(a.size()), b1(b.size());
+				for (int i = 0; i < int(a.size()); i++) a1[i] = int(a[i]);
+				for (int j = 0; j < int(b.size()); j++) b1[j] = int(b[j]);
+				c3 = ecnerwala::fft::fft_multiply(a1, b1);
+			}
+			std::vector<num> c(c1.size());
+			for (int i = 0; i < int(c.size()); i++) {
+				mod_constraint<__int128_t> v1(int(c1[i]), n1::MOD);
+				mod_constraint<__int128_t> v2(int(c2[i]), n2::MOD);
+				mod_constraint<__int128_t> v3(int(c3[i]), n3::MOD);
+				auto r = v1 & v2 & v3;
+				c[i] = int(r.v % num::MOD);
+			}
+			return c;
 		};
 
 		int L = std::min(R, C);
@@ -1216,7 +1270,7 @@ int main() {
 		for (int i = 0; i <= num_extra; i++) {
 			b[i] = choose(num_empty_x, i) * choose(num_empty_y, i) * power(inv(num(2)), i) * fact[i];
 		}
-		std::vector<num> ways = ecnerwala::fft::fft_mod_multiply(a, b);
+		std::vector<num> ways = mul(a, b);
 		assert(int(ways.size()) == num_existing + num_extra + 1);
 		assert(int(ways.size()) <= L+1);
 		ways.resize(L+1, num(0));
@@ -1229,7 +1283,7 @@ int main() {
 		std::reverse(ways.begin(), ways.end());
 		std::vector<num> inv_exp(L+1);
 		for (int i = 0; i <= L; i++) inv_exp[i] = (i & 1) ? -ifact[i] : +ifact[i];
-		ways = ecnerwala::fft::fft_mod_multiply(ways, inv_exp);
+		ways = mul(ways, inv_exp);
 		ways.resize(L+1);
 		std::reverse(ways.begin(), ways.end());
 		for (int i = 0; i <= L; i++) { ways[i] *= ifact[i]; }
