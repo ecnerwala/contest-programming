@@ -161,6 +161,7 @@ int main() {
 		std::array<int, 56> freq; freq.fill(0);
 		for (char c : S) freq[id(c)]++;
 		int num_poss = int(posses[case_num].size());
+		cerr << "num_poss " << num_poss << '\n';
 		std::vector<std::pair<int, int>> probs;
 		for (int cnd : posses[case_num]) {
 			// let's try computing the LCS, it should be at least 1/6
@@ -191,7 +192,6 @@ int main() {
 		for (auto& [p, i] : probs) p /= tot_prob;
 		*/
 		std::sort(probs.begin(), probs.end(), std::greater());
-		cerr << "num_poss " << num_poss << '\n';
 		for (int z = 0; z < 10 && z < int(probs.size()); z++) {
 			cerr << probs[z].first << ' ' << probs[z].second << '\n';
 		}
