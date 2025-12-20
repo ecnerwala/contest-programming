@@ -46,7 +46,8 @@ int main() {
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
 		assert(d >= 1);
 		if (d & 1) {
-			return solve_lin(g_hi / d + ((g_hi % d) & 1));
+			g_hi = g_hi / d + ((g_hi % d) & 1);
+			return solve_lin(g_hi);
 		} else {
 			if (g_hi & 1) {
 				int64_t g = g_hi / d + 1;
