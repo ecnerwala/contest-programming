@@ -66,7 +66,7 @@ int main() {
 
 		int64_t ans = 0;
 
-		using bs = bitset<101>;
+		using bs = bitset<121>;
 		auto solve = [&](std::vector<std::array<bs, 2>> vals) {
 			//for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			bs deads;
