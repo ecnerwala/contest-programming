@@ -149,6 +149,7 @@ int main() {
 			}(0, deads);
 			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			cerr << "deads " << deads << '\n';
+			cerr << mex << '\n';
 			return mex;
 		};
 
