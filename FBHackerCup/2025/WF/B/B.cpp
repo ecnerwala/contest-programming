@@ -200,7 +200,8 @@ int main() {
 			cerr << "0 -> " << probs[0].first << "; " << idx << " -> " << probs[idx].first << '\n';
 		}
 		if (probs[0].first - probs[1].first <= 10) {
-			cerr << "skipping";
+			cerr << "skipping" << '\n';
+			continue;
 		}
 		cur_has++;
 		int cnd = probs[0].second;
