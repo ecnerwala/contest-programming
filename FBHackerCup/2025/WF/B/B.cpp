@@ -90,6 +90,8 @@ int main() {
 	std::vector<dbl> log_fact(L_SAMP+1);
 	for (int i = 1; i <= L_SAMP; i++) log_fact[i] = log_fact[i-1] + std::log(dbl(i));
 
+	std::vector<std::vector<int>> posses(T);
+
 	for (int case_num = 0; case_num < T; case_num++) {
 		auto S = Ss[case_num];
 		cerr << '\n';
@@ -103,6 +105,26 @@ int main() {
 			for (int z = 0; z < C; z++) if (freq[z] > cnd_freqs[cnd][z]) poss = false;
 			if (!poss) continue;
 			num_poss ++;
+			posses[case_num].push_back(cnd); 
+		}
+	}
+	const int NEED = T * 6 / 10;
+	std::vector<std::pair<int, int>> easy;
+	for (int case_num = 0; case_num < T; case_num++) {
+		easy.push_back({posses[case_num].size(), case_num});
+	}
+	std::sort(easy.begin(), easy.end());
+
+	for (int z = 0; z < NEED; z++) {
+		int case_num = easy[z].second;
+		auto S = Ss[case_num];
+		cerr << '\n';
+		cerr << "Case " << int(S.size()) << '\n';
+		std::array<int, 56> freq; freq.fill(0);
+		for (char c : S) freq[id(c)]++;
+		int num_poss = 0;
+		std::vector<std::pair<double, int>> probs;
+		for (int cnd : posses[case_num]) {
 			// let's try computing the LCS, it should be at least 1/6
 			std::vector<int> dp(L_SAMP+1, 0);
 			for (char c : S) {
