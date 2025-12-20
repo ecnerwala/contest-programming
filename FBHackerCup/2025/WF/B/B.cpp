@@ -107,7 +107,7 @@ int main() {
 			posses[case_num].push_back(cnd); 
 		}
 	}
-	const int NEED = T * 6 / 10;
+	const int NEED = T * 4 / 10;
 	std::vector<std::pair<int, int>> easy;
 	for (int case_num = 0; case_num < T; case_num++) {
 		easy.push_back({posses[case_num].size(), case_num});
@@ -154,7 +154,7 @@ int main() {
 		cur_has++;
 		int cnd = probs[0].second;
 		answers[case_num] = S_BASE.substr(starts[cnd], L_SAMP);
-		cerr << "have " << cur_has << '\n';
+		cerr << "have " << cur_has << '/' << NEED << '\n';
 		if (TESTING) {
 			int idx = 0;
 			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
