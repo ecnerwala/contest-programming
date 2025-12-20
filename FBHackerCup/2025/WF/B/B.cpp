@@ -132,8 +132,10 @@ int main() {
 				for (int i = L_SAMP-1; i >= 0; i--) {
 					if (S_BASE[starts[cnd]+i] == c) {
 						dp[i+1] = dp[i]+1;
-					} else {
+					} else if (i % 3 && i % 5) {
 						dp[i+1] = dp[i];
+					} else {
+						dp[i+1] = -L_SAMP;
 					}
 				}
 				dp[0] = -L_SAMP;
