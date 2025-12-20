@@ -50,17 +50,37 @@ int main() {
 		cnd_freqs[i] = p;
 	}
 
-	int T; cin >> T;
+	constexpr bool TESTING = true;
+	int T;
+	if (TESTING) {
+		T = 300;
+	} else {
+		cin >> T;
+	}
+	std::mt19937 mt(48);
 	std::vector<std::string> Ss(T);
 	for (int case_num = 1; case_num <= T; case_num ++) {
-		int N; cin >> N;
-		cin.ignore(1, '\n');
-		std::string S; std::getline(cin, S);
-		//cerr << "Case #" << case_num << " ";
-		//cerr << "S = \"" << S << '"' << '\n';
-		assert(int(S.size()) == N);
+		if (TESTING) {
+			int cnd = std::uniform_int_distribution(0, N_CND-1)(mt);
+			std::string S = S_BASE.substr(starts[cnd], starts[cnd]+L_SAMP);
+			// TODO: Shuffle
+			std::string S_filt; S_filt.reserve(L_SAMP);
+			for (char c : S) {
+				if (std::uniform_int_distribution(0, 1)(mt)) {
+					S_filt.push_back(c);
+				}
+			}
+			Ss[case_num-1] = S_filt;
+		} else {
+			int N; cin >> N;
+			cin.ignore(1, '\n');
+			std::string S; std::getline(cin, S);
+			//cerr << "Case #" << case_num << " ";
+			//cerr << "S = \"" << S << '"' << '\n';
+			assert(int(S.size()) == N);
 
-		Ss[case_num-1] = S;
+			Ss[case_num-1] = S;
+		}
 	}
 	std::vector<std::string> answers(T);
 
