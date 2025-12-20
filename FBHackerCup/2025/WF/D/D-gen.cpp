@@ -42,7 +42,7 @@ int main() {
 		for (int t = 0; t < T; t++, cyc_len++) {
 			int N = 100;
 			std::vector<int> labels(N);
-			for (auto l : labels) l = std::uniform_int_distribution(0, N-1)(mt);
+			for (auto& l : labels) l = std::uniform_int_distribution(0, N-1)(mt);
 			std::vector<std::array<int, 2>> edges; edges.reserve(2*N);
 			int prv = 0;
 			for (int i = 1; i < N; i += (cyc_len-1)) {
