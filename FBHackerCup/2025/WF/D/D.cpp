@@ -108,7 +108,7 @@ int main() {
 							merge(i, N);
 						}
 					}
-					vals.push_back({v[0], v[1]});
+					nvals.push_back({v[0], v[1]});
 				}
 				for (auto& v : nvals) {
 					for (auto& x : v) {
