@@ -4,7 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	if (true) {
+	if (false) {
 		const int N = 8000;
 		std::vector<int> vals(N+1);
 		for (int n = 0; n <= N; n++) {
@@ -23,10 +23,10 @@ int main() {
 			cerr << (n < 2 ? 0 : vals[n-2]) << " \n"[(n+1) % 8 == 0];
 		}
 		for (int l = 0; l < 10; l++) {
-		for (int n = 1; n < 1000; n++) {
-			if (__builtin_ctz(n) == l) cerr << (n < 2 ? 0 : vals[n-2]) << ' ';
-		}
-		cerr << '\n';
+			for (int n = 1; n < 1000; n++) {
+				if (__builtin_ctz(n) == l) cerr << (n < 2 ? 0 : vals[n-2]) << ' ';
+			}
+			cerr << '\n';
 		}
 		cerr << '\n';
 	}
@@ -45,6 +45,15 @@ int main() {
 	};
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
 		assert(d >= 1);
+		if (!(d & 1)) {
+			if (g_hi & 1) {
+				int64_t g = g_hi / d + 2;
+				if (__builtin_ctzll(g) & 1) {
+					return __builtin_popcountll(g) & 1 ? 1 : 2;
+				}
+			}
+			return 0;
+		}
 		int64_t cnt_hi = g_hi % d;
 		int64_t cnt_lo = d - cnt_hi;
 		int res = 0;
