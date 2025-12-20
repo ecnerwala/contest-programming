@@ -1294,7 +1294,7 @@ int main() {
 
 		int64_t ans = 0;
 		for (int i = 0; i <= L; i++) {
-			ans ^= int64_t(int(ways[i] + 1220)) * int64_t(i + 2025);
+			ans ^= int64_t(int(ways[i]) + 1220) * int64_t(i + 2025);
 		}
 		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
