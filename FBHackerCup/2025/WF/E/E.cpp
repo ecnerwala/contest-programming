@@ -1240,10 +1240,15 @@ int main() {
 			n2 i2 = inv(n2(n3::MOD) * n2(n1::MOD));
 			n3 i3 = inv(n3(n1::MOD) * n3(n2::MOD));
 			for (int i = 0; i < int(c.size()); i++) {
-				c[i] 
-					= num(int(c1[i] * i1)) * num(int64_t(n2::MOD) * int64_t(n3::MOD))
-					+ num(int(c2[i] * i2)) * num(int64_t(n3::MOD) * int64_t(n1::MOD))
-					+ num(int(c3[i] * i3)) * num(int64_t(n1::MOD) * int64_t(n2::MOD));
+				int v1 = int(c1[i] * i1);
+				int v2 = int(c2[i] * i2);
+				int v3 = int(c3[i] * i3);
+				__int128_t r = 0;
+				r += __int128_t(v1) * (int64_t(n2::MOD) * int64_t(n3::MOD));
+				r += __int128_t(v2) * (int64_t(n3::MOD) * int64_t(n1::MOD));
+				r += __int128_t(v3) * (int64_t(n1::MOD) * int64_t(n2::MOD));
+				r %= __int128_t(n1::MOD) * __int128_t(n2::MOD) * __int128_t(n3::MOD);
+				c[i] = num(int(r % num::MOD));
 			}
 			//assert(c == ecnerwala::fft::fft_mod_multiply(a, b));
 			return c;
