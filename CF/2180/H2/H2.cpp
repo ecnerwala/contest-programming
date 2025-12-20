@@ -47,11 +47,13 @@ int main() {
 			cerr << '\n';
 		}
 		cerr << '\n';
-		int tot = 2;
-		for (int n = 0; n < 1000; n++) {
-			cerr << solve(n, 1) << ' ' << tot << '\n';
-			assert(solve(n, 1) == tot);
-			tot ^= vals[n];
+		for (int d = 1; d <= 10; d++) {
+			int tot = 2;
+			for (int n = 0; n < 1000; n++) {
+				cerr << solve(n, d) << ' ' << tot << '\n';
+				assert(solve(n, d) == tot);
+				tot ^= vals[n/d];
+			}
 		}
 	}
 
