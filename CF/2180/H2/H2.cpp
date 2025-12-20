@@ -34,13 +34,12 @@ int main() {
 	auto solve_lin = [&](int64_t g_hi) -> int {
 		g_hi += 1;
 		int ans = 0;
+		int cnt = 0;
 		for (; g_hi; g_hi /= 4) {
-			int64_t l = (g_hi+1) / 2;
-			while (l & 3) {
-				l--;
-				ans ^= (__builtin_popcountll(l) & 1) ? 1 : 2;
-			}
+			cnt += g_hi;
+			cnt -= g_hi / 2;
 		}
+		return std::array<int, 4>{0, 2, 3, 1}[cnt & 3];
 		return ans;
 	};
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
