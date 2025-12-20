@@ -4,18 +4,44 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	std::string BASELINE;
+	std::string S_BASE;
 	{
 		std::ifstream base("ProblemText.txt");
-		std::getline(base, BASELINE);
+		std::getline(base, S_BASE);
 	}
-	cerr << '"' << BASELINE.substr(BASELINE.size() - 10) << '"' << '\n';
+	const int L_BASE = int(S_BASE.size());
+	cerr << L_BASE << '\n';
 	std::set<char> has;
-	for (char c : BASELINE) has.insert(c);
-	cerr << int(has.size()) << '\n';
+	for (char c : S_BASE) has.insert(c);
 	cerr << "letters: \"";
 	for (auto c : has) { cerr << c; }
 	cerr << "\"" << '\n';
+
+	const int C = 56;
+	assert(C == int(has.size()));
+	auto id = [&](char c) {
+		if (c == ' ') return 0;
+		else if (c == '#') return 1;
+		else if (c == ',') return 2;
+		else if (c == '.') return 3;
+		else if ('A' <= c && c <= 'Z') return 4 + (c - 'A');
+		else if ('a' <= c && c <= 'z') return 30 + (c - 'a');
+		else assert(false);
+	};
+
+	std::vector<std::array<int, 56>> pref(L_BASE+1);
+	pref[0].fill(0);
+	for (int i = 0; i < L_BASE; i++) {
+		pref[i+1] = pref[i];
+		pref[i+1][id(S_BASE[i])]++;
+	}
+	std::vector<int> starts;
+	const int L_SAMP = 2025;
+	for (int i = 0; i+L_SAMP <= L_BASE; i++) {
+		if (i == 0 || S_BASE[i-1] == ' ') starts.push_back(i);
+	}
+	const int N_CND = int(starts.size());
+	cerr << "N_CND = " << N_CND << '\n';
 
 	int T; cin >> T;
 	std::vector<std::string> Ss(T);
