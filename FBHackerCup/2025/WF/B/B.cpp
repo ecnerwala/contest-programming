@@ -122,7 +122,7 @@ int main() {
 		cerr << "Case " << z << ' ' << int(S.size()) << '\n';
 		std::array<int, 56> freq; freq.fill(0);
 		for (char c : S) freq[id(c)]++;
-		int num_poss = 0;
+		int num_poss = int(posses[case_num].size());
 		std::vector<std::pair<int, int>> probs;
 		for (int cnd : posses[case_num]) {
 			// let's try computing the LCS, it should be at least 1/6
