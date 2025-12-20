@@ -11,6 +11,7 @@ int main() {
 		std::string S; std::getline(cin, S);
 		cerr << "Case #" << case_num << " ";
 		cerr << "S = \"" << S << '"' << '\n';
+		assert(int(S.size()) == N);
 
 		std::string ans = "SKIP";
 		cout << "Case #" << case_num << ": " << ans << '\n';
