@@ -1221,6 +1221,7 @@ int main() {
 		for (int i = 0; i <= L; i++) { ways[i] *= ifact[i]; }
 		//for (auto w : ways) { cerr << w << ' '; } cerr << '\n';
 
+		cerr << std::accumulate(ways.begin(), ways.end(), num(0)) << ' ' << tot_ways << '\n';
 		assert(std::accumulate(ways.begin(), ways.end(), num(0)) == tot_ways);
 
 		int64_t ans = 0;
