@@ -61,9 +61,7 @@ int main() {
 
 		using bs = bitset<101>;
 		auto solve = [&](std::vector<std::array<bs, 2>> vals) {
-			for (auto v : vals) {
-				cerr << v[0] << ' ' << v[1] << '\n';
-			}
+			//for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			bs deads;
 			std::vector<int> par(N+1, -1);
 			auto get_par = [&](int a) -> int {
