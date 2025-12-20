@@ -170,6 +170,12 @@ template <int MOD> struct primitive_root {
 template <> struct primitive_root<998244353> {
 	static const int value = 3;
 };
+template <> struct primitive_root<(5 << 25) + 1> {
+	static const int value = 3;
+};
+template <> struct primitive_root<(7 << 26) + 1> {
+	static const int value = 3;
+};
 template <int MOD> struct getRoot<modnum<MOD>> {
 	static modnum<MOD> f(int k) {
 		assert((MOD-1)%k == 0);
@@ -1177,6 +1183,12 @@ int main() {
 		for (auto f : yf) num_empty_y += (f == 0);
 
 		using num = modnum<int(1e9)+7>;
+		auto mul = [&](std::vector<num> a, std::vector<num> b) -> std::vector<num> {
+			using n1 = modnum<998244353>;
+			using n2 = modnum<(5 << 25) + 1>;
+			using n3 = modnum<(7 << 26) + 3>;
+			assert(power(ecnerwala::fft::getRoot<n2>(), (n2::MOD - 1)/2) == n2(-1));
+		};
 
 		int L = std::min(R, C);
 
