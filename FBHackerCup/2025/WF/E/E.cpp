@@ -1210,12 +1210,14 @@ int main() {
 			ways[i] *= tot_ways * power(inv(num(2)), int64_t(R + C - i - 1) * int64_t(i));
 		}
 
+		for (auto w : ways) cerr << w << '\n';
 		for (int i = 0; i <= L; i++) { ways[i] *= ifact[i]; }
 		std::reverse(ways.begin(), ways.end());
 		ways = ecnerwala::fft::fft_mod_multiply(ways, ifact);
 		ways.resize(L+1);
 		std::reverse(ways.begin(), ways.end());
 		for (int i = 0; i <= L; i++) { ways[i] *= fact[i]; }
+		for (auto w : ways) cerr << w << '\n';
 
 		assert(std::accumulate(ways.begin(), ways.end(), num(0)) == tot_ways);
 
