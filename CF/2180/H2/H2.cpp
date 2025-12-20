@@ -11,11 +11,8 @@ int main() {
 			int cnt = __builtin_popcountll(g_hi) - 2 * __builtin_popcountll(g_hi & (uint64_t(-4)/3));
 			return std::array<int, 4>{0, 2, 3, 1}[cnt & 3];
 		} else {
-			if (g_hi & 1) {
-				int64_t g = g_hi / d + 1;
-				return (__builtin_ctzll(g) & 1) ? 0 : __builtin_popcountll(g) & 1 ? 1 : 2;
-			}
-			return 0;
+			int64_t g = g_hi / d + 1;
+			return (g_hi & 1) ? (__builtin_ctzll(g) & 1) ? 0 : __builtin_popcountll(g) & 1 ? 1 : 2 : 0;
 		}
 	};
 
