@@ -62,11 +62,20 @@ int main() {
 
 		Ss[case_num-1] = S;
 	}
+	std::vector<std::string> answers(T);
 
 	for (auto S : Ss) {
+		std::array<int, 56> freq; freq.fill(0);
+		for (char c : S) freq[id(c)]++;
+		int num_poss = 0;
+		for (int i = 0; i < N_CND; i++) {
+			bool poss = true;
+			for (int z = 0; z < C; z++) if (freq[z] > cnd_freqs[i][z]) poss = false;
+			num_poss += poss;
+		}
+		cerr << num_poss << '\n';
 	}
 
-	std::vector<std::string> answers(T);
 	int num_skip = 0;
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		auto ans = answers[case_num-1];
