@@ -59,12 +59,12 @@ int main() {
 	}
 	std::mt19937 mt(48);
 	std::vector<std::string> Ss(T);
-	std::vector<std::string> TESTING_ANS(T);
+	std::vector<int> TESTING_ANS(T);
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		if (TESTING) {
 			int cnd = std::uniform_int_distribution(0, N_CND-1)(mt);
 			std::string S = S_BASE.substr(starts[cnd], L_SAMP);
-			TESTING_ANS[case_num-1] = S;
+			TESTING_ANS[case_num-1] = cnd;
 			// TODO: Shuffle
 			std::string S_filt; S_filt.reserve(L_SAMP);
 			for (char c : S) {
@@ -86,19 +86,42 @@ int main() {
 	}
 	std::vector<std::string> answers(T);
 
-	for (auto S : Ss) {
+	using dbl = double;
+	std::vector<dbl> log_fact(L_SAMP+1);
+	for (int i = 1; i <= L_SAMP; i++) log_fact[i] = log_fact[i-1] + std::log(dbl(i));
+
+	for (int case_num = 0; case_num < T; case_num++) {
+		auto S = Ss[case_num];
 		cerr << '\n';
 		cerr << "Case " << int(S.size()) << '\n';
 		std::array<int, 56> freq; freq.fill(0);
 		for (char c : S) freq[id(c)]++;
 		int num_poss = 0;
+		std::vector<std::pair<double, int>> probs;
 		for (int i = 0; i < N_CND; i++) {
 			bool poss = true;
 			for (int z = 0; z < C; z++) if (freq[z] > cnd_freqs[i][z]) poss = false;
 			if (!poss) continue;
 			num_poss ++;
+			double w = 0;
+			for (int z = 0; z < C; z++) {
+				int n = cnd_freqs[i][z];
+				int r = freq[z];
+				// probability of this set is proportional to product of n choose r
+				w += log_fact[n] - log_fact[r] - log_fact[n-r];
+			}
+			probs.push_back({w, i});
 		}
+		double tot_prob = 0;
+		for (auto [p, i] : probs) tot_prob += p;
+		for (auto& [p, i] : probs) p /= tot_prob;
+		std::sort(probs.begin(), probs.end());
 		cerr << "num_poss " << num_poss << '\n';
+		if (TESTING) {
+			int idx = 0;
+			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
+			cerr << "0 -> " << probs[0].first << "; " << idx << " -> " << probs[idx].first << '\n';
+		}
 	}
 
 	int num_skip = 0;
@@ -112,7 +135,6 @@ int main() {
 			if (TESTING) {
 				if (TESTING_ANS[case_num - 1] != ans) {
 					cerr << "FAIL!" << '\n';
-					cerr << TESTING_ANS[case_num - 1] << ' ' << ans << '\n';
 				}
 			}
 		}
