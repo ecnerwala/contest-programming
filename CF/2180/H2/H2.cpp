@@ -35,8 +35,7 @@ int main() {
 		assert(d >= 1);
 		if (d & 1) {
 			g_hi = g_hi / d + ((g_hi % d) & 1) + 1;
-			const uint64_t msk = uint64_t(-4) / 3;
-			int cnt = __builtin_popcountll(g_hi) - 2 * __builtin_popcountll(g_hi & msk);
+			int cnt = __builtin_popcountll(g_hi) - 2 * __builtin_popcountll(g_hi & (uint64_t(-4)/3));
 			return std::array<int, 4>{0, 2, 3, 1}[cnt & 3];
 		} else {
 			if (g_hi & 1) {
