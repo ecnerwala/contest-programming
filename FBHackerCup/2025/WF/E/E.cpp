@@ -1199,7 +1199,7 @@ int main() {
 		int num_extra = std::min(num_empty_x, num_empty_y);
 		std::vector<num> b(num_extra+1);
 		for (int i = 0; i <= num_extra; i++) {
-			b[i] = choose(num_empty_x, i) * choose(num_empty_y, i) * power(inv(num(2)), i);
+			b[i] = choose(num_empty_x, i) * choose(num_empty_y, i) * power(inv(num(2)), i) * fact[i];
 		}
 		std::vector<num> ways = ecnerwala::fft::fft_mod_multiply(a, b);
 		assert(int(ways.size()) == num_existing + num_extra + 1);
