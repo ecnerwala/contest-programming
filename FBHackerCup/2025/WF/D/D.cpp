@@ -154,6 +154,7 @@ int main() {
 				for (auto [c, cur_i] : cyc_adj[cur]) {
 					if (c == prv_c) continue;
 					std::vector<int> cyc = cycs[c];
+					assert(0 <= cur_i && cur_i < int(cyc.size()));
 					std::rotate(cyc.begin(), cyc.begin() + cur_i, cyc.end());
 					assert(cyc[0] == cur);
 					int L = int(cyc.size());
