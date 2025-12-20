@@ -65,10 +65,8 @@ int main() {
 			for (int i = 0; i <= N; i++) if (lens[i]) cerr << " len " << i << " x " << lens[i] << '\n';
 		}
 
-		int64_t ans = 0;
-
 		using bs = bitset<121>;
-		auto solve = [&](std::vector<std::array<bs, 2>> vals) {
+		auto solve = [&](std::vector<std::array<bs, 2>> vals) -> int {
 			//for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			bs deads;
 			std::vector<int> par(N+1, -1);
@@ -149,9 +147,10 @@ int main() {
 					self(idx+1, v | vals[idx][1]);
 				}
 			}(0, deads);
-			ans += mex;
+			return mex;
 		};
 
+		int64_t ans = 0;
 		for (int st = 0; st < N; st++) {
 			std::vector<std::array<bs, 2>> vals; vals.reserve(C+1);
 			bs v0; v0[label[st]] = true;
@@ -160,7 +159,9 @@ int main() {
 				if (cur > st) {
 					// find the mex of the path
 					//cerr << "solve " << st << ' ' << cur << '\n';
-					solve(vals);
+					int mex = solve(vals);
+					ans += mex;
+					cout << st << ' ' << cur << ' ' << mex << '\n';
 				}
 				for (auto [c, cur_i] : cyc_adj[cur]) {
 					if (c == prv_c) continue;
