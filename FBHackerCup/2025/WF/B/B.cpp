@@ -131,7 +131,7 @@ int main() {
 			for (char c : S) {
 				for (int i = L_SAMP-1; i >= 0; i--) {
 					if (S_BASE[starts[cnd]+i] == c) {
-						dp[i+1] = dp[i] + 1;
+						dp[i+1] = dp[i];
 					} else {
 						dp[i+1] = dp[i];
 					}
@@ -154,6 +154,7 @@ int main() {
 		for (int z = 0; z < 10 && z < int(probs.size()); z++) {
 			cerr << probs[z].first << ' ' << probs[z].second << '\n';
 		}
+		if (probs[1].first >= probs[0].first) continue;
 		cur_has++;
 		int cnd = probs[0].second;
 		answers[case_num] = S_BASE.substr(starts[cnd], L_SAMP);
