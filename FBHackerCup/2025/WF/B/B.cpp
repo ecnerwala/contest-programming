@@ -131,7 +131,7 @@ int main() {
 			for (char c : S) {
 				for (int i = L_SAMP-1; i >= 0; i--) {
 					if (S_BASE[starts[cnd]+i] == c) {
-						dp[i+1] = dp[i];
+						dp[i+1] = dp[i] + 1;
 					} else {
 						dp[i+1] = dp[i];
 					}
