@@ -67,7 +67,7 @@ int main() {
 
 		using bs = bitset<10>;
 		auto solve = [&](std::vector<std::array<bs, 2>> vals) -> int {
-			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
+			//for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 			bs deads;
 			std::vector<int> par(N+1, -1);
 			auto get_par = [&](int a) -> int {
@@ -87,8 +87,6 @@ int main() {
 				return true;
 			};
 			while (true) {
-				cerr << "deads " << deads << '\n';
-				for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
 				std::vector<std::array<bs, 2>> nvals; nvals.reserve(vals.size());
 				for (auto v : vals) {
 					// if one is a subset of another
@@ -151,9 +149,6 @@ int main() {
 					self(idx+1, v | vals[idx][1]);
 				}
 			}(0, deads);
-			cerr << "deads " << deads << '\n';
-			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
-			cerr << mex << '\n';
 			return mex;
 		};
 
@@ -162,16 +157,12 @@ int main() {
 			std::vector<std::array<bs, 2>> vals; vals.reserve(C+1);
 			bs v0; v0[label[st]] = true;
 			vals.push_back({v0, v0});
-			std::vector<int> res(N);
 			[&](this auto&& self, int cur, int prv_c) -> void {
 				if (cur > st) {
 					// find the mex of the path
 					//cerr << "solve " << st << ' ' << cur << '\n';
-					if (st == 21 && cur == 86) {
-						int mex = solve(vals);
-						ans += mex;
-						res[cur] = mex;
-					}
+					int mex = solve(vals);
+					ans += mex;
 				}
 				for (auto [c, cur_i] : cyc_adj[cur]) {
 					if (c == prv_c) continue;
@@ -199,9 +190,6 @@ int main() {
 					}
 				}
 			}(st, -1);
-			for (int en = st+1; en < N; en++) {
-				cout << st << ' ' << en << ' ' << res[en] << '\n';
-			}
 		}
 
 		cout << "Case #" << case_num << ": " << ans << '\n' << flush;
