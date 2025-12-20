@@ -13,7 +13,7 @@ int main() {
 			return std::array<int, 4>{0, 2, 3, 1}[cnt & 3];
 		} else {
 			if (g_hi & 1) {
-				int64_t g = g_hi / d + 1;
+				int64_t g = g_hi / d + 2;
 				if ((__builtin_ctzll(g) & 1)) {
 					return (__builtin_popcountll(g) & 1) ? 1 : 2;
 
