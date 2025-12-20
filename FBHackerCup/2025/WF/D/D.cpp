@@ -55,7 +55,7 @@ int main() {
 			}
 		}
 		cerr << "C = " << C << '\n';
-		for (auto c : cycs) { for (auto v : c) { cerr << v << ' '; } cerr << '\n'; }
+		//for (auto c : cycs) { for (auto v : c) { cerr << v << ' '; } cerr << '\n'; }
 		{
 			std::vector<int> lens(N+1);
 			for (auto c : cycs) {
