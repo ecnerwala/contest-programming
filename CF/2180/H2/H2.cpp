@@ -22,11 +22,7 @@ int main() {
 		int ans = 0;
 		for (int i = 0; i < N; i++) {
 			int64_t a, b, c, l, r; cin >> a >> b >> c >> l >> r;
-			assert((c - b) == (b - a));
-			int64_t g_hi = r - c;
-			int64_t g_lo = l - c;
-			assert(g_hi >= g_lo);
-			ans ^= solve(g_hi+1, c-b) ^ solve(g_lo, c-b);
+			ans ^= solve(r-c+1, c-b) ^ solve(l-c, c-b);
 		}
 		cout << (ans ? "Bug" : "Feature") << '\n';
 	}
