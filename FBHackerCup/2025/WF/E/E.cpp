@@ -1238,7 +1238,7 @@ int main() {
 			std::vector<num> c(c1.size());
 			n1 i1 = inv(n1(n2::MOD) * n1(n3::MOD));
 			n2 i2 = inv(n2(n3::MOD) * n2(n1::MOD));
-			n3 i3 = inv(n3(n2::MOD) * n3(n2::MOD));
+			n3 i3 = inv(n3(n1::MOD) * n3(n2::MOD));
 			for (int i = 0; i < int(c.size()); i++) {
 				c[i] 
 					= num(int(c1[i] * i1)) * num(int64_t(n2::MOD) * int64_t(n3::MOD))
