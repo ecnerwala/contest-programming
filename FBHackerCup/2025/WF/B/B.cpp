@@ -62,7 +62,7 @@ int main() {
 	for (int case_num = 1; case_num <= T; case_num ++) {
 		if (TESTING) {
 			int cnd = std::uniform_int_distribution(0, N_CND-1)(mt);
-			std::string S = S_BASE.substr(starts[cnd], starts[cnd]+L_SAMP);
+			std::string S = S_BASE.substr(starts[cnd], L_SAMP);
 			// TODO: Shuffle
 			std::string S_filt; S_filt.reserve(L_SAMP);
 			for (char c : S) {
