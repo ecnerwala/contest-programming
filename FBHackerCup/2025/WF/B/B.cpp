@@ -154,6 +154,7 @@ int main() {
 		cur_has++;
 		int cnd = probs[0].second;
 		answers[case_num] = S_BASE.substr(starts[cnd], L_SAMP);
+		cerr << "have " << cur_has << '\n';
 		if (TESTING) {
 			int idx = 0;
 			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
