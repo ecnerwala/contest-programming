@@ -123,7 +123,7 @@ int main() {
 		for (auto [p, i] : probs) tot_prob += p;
 		for (auto& [p, i] : probs) p /= tot_prob;
 		*/
-		std::sort(probs.begin(), probs.end());
+		std::sort(probs.begin(), probs.end(), std::greater());
 		cerr << "num_poss " << num_poss << '\n';
 		if (TESTING) {
 			int idx = 0;
