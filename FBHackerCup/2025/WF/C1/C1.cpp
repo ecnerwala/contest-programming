@@ -179,7 +179,7 @@ int main() {
 		const int M = N;
 		tensor<int, 3> G({M, M, M}, -1);
 		for (int i = 0; i < N; i++) {
-			for (int z = (i == 0) ? 0 : 1; z < i; i++) {
+			for (int z = (i == 0) ? 0 : 1; z <= i; i++) {
 				G[{z, i, i}] = i;
 			}
 		}
