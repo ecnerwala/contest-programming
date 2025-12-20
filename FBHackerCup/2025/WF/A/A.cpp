@@ -176,6 +176,7 @@ int main() {
 			for (auto a : bit.suffix(P[i])) ans += a;
 			for (auto& a : bit.prefix(P[i])) a++;
 		}
+		if (ans == 0) assert(good);
 
 		cout << "Case #" << case_num << ": " << (good ? ans : -1) << '\n';
 	}
