@@ -98,23 +98,31 @@ int main() {
 		for (char c : S) freq[id(c)]++;
 		int num_poss = 0;
 		std::vector<std::pair<double, int>> probs;
-		for (int i = 0; i < N_CND; i++) {
+		for (int cnd = 0; cnd < N_CND; cnd++) {
 			bool poss = true;
-			for (int z = 0; z < C; z++) if (freq[z] > cnd_freqs[i][z]) poss = false;
+			for (int z = 0; z < C; z++) if (freq[z] > cnd_freqs[cnd][z]) poss = false;
 			if (!poss) continue;
 			num_poss ++;
-			double w = 0;
-			for (int z = 0; z < C; z++) {
-				int n = cnd_freqs[i][z];
-				int r = freq[z];
-				// probability of this set is proportional to product of n choose r
-				w += log_fact[n] - log_fact[r] - log_fact[n-r];
+			// let's try computing the LCS, it should be at least 1/6
+			std::vector<int> dp(L_SAMP+1, 0);
+			for (char c : S) {
+				for (int i = L_SAMP-1; i >= 0; i--) {
+					if (S_BASE[starts[cnd]+i] == c) {
+						dp[i+1] = std::max(dp[i+1], dp[i]+1);
+					}
+				}
+				for (int i = 0; i < L_SAMP; i++) {
+					dp[i+1] = std::max(dp[i+1], dp[i]);
+				}
 			}
-			probs.push_back({w, i});
+			int len = dp[L_SAMP];
+			probs.push_back({len, cnd});
 		}
+		/*
 		double tot_prob = 0;
 		for (auto [p, i] : probs) tot_prob += p;
 		for (auto& [p, i] : probs) p /= tot_prob;
+		*/
 		std::sort(probs.begin(), probs.end());
 		cerr << "num_poss " << num_poss << '\n';
 		if (TESTING) {
