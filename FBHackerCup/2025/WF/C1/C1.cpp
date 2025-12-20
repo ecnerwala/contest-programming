@@ -211,17 +211,43 @@ int main() {
 		}
 
 		tensor<int, 2> A_actual({N, N});
-		auto mark_adj = [&](int v1, int v2) {
+		const int V = M*M*M;
+		std::vector<int> par(V, -1);
+		auto get_par = [&](int a) -> int {
+			while (par[a] >= 0) {
+				if (par[par[a]] >= 0) par[a] = par[par[a]];
+				 a = par[a];
+			}
+			return a;
+		};
+		auto merge = [&](int a, int b) -> bool {
+			a = get_par(a), b = get_par(b);
+			if (a == b) return false;
+			if (par[a] > par[b]) std::swap(a, b);
+			par[a] += par[b];
+			par[b] = a;
+			return true;
+		};
+		int num_comps = 0;
+		auto mark_adj = [&](std::array<int, 3> p1, std::array<int, 3> p2) {
+			int v1 = G[p1], v2 = G[p2];
 			if (v1 == -1 || v2 == -1) return;
-			if (v1 == v2) return;
-			A_actual[{std::min(v1, v2), std::max(v1, v2)}] = 1;
+			else if (v1 == v2) {
+				num_comps -= merge(
+					p1[0] * M * M + p1[1] * M + p1[2],
+					p2[0] * M * M + p2[1] * M + p2[2]
+				);
+			} else {
+				A_actual[{std::min(v1, v2), std::max(v1, v2)}] = 1;
+			}
 		};
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < M; j++) {
 				for (int k = 0; k < M; k++) {
-					if (i+1 < M) mark_adj(G[{i, j, k}], G[{i+1, j, k}]);
-					if (j+1 < M) mark_adj(G[{i, j, k}], G[{i, j+1, k}]);
-					if (k+1 < M) mark_adj(G[{i, j, k}], G[{i, j, k+1}]);
+					num_comps += G[{i, j, k}] != -1;
+					if (i+1 < M) mark_adj({i, j, k}, {i+1, j, k});
+					if (j+1 < M) mark_adj({i, j, k}, {i, j+1, k});
+					if (k+1 < M) mark_adj({i, j, k}, {i, j, k+1});
 				}
 			}
 		}
@@ -230,6 +256,7 @@ int main() {
 				assert((A[{i, j}] == A_actual[{i, j}]));
 			}
 		}
+		assert(num_comps == N);
 		cout << "Case #" << case_num << ": " << M << '\n';
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < M; j++) {
