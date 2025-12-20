@@ -210,6 +210,18 @@ int main() {
 			}
 		}
 
+		cout << "Case #" << case_num << ": " << M << '\n';
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < M; j++) {
+				for (int k = 0; k < M; k++) {
+					int v = G[{i, j, k}];
+					cout << (v == -1 ? ' ' : COLORS[v]);
+				}
+				cout << '\n';
+			}
+		}
+		cout << flush;
+
 		tensor<int, 2> A_actual({N, N});
 		const int V = M*M*M;
 		std::vector<int> par(V, -1);
@@ -257,17 +269,6 @@ int main() {
 			}
 		}
 		assert(num_comps == N);
-		cout << "Case #" << case_num << ": " << M << '\n';
-		for (int i = 0; i < M; i++) {
-			for (int j = 0; j < M; j++) {
-				for (int k = 0; k < M; k++) {
-					int v = G[{i, j, k}];
-					cout << (v == -1 ? ' ' : COLORS[v]);
-				}
-				cout << '\n';
-			}
-		}
-		cout << flush;
 	}
 
 	return 0;
