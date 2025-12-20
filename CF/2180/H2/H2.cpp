@@ -34,7 +34,7 @@ int main() {
 	auto solve_lin = [&](int64_t g_hi) -> int {
 		g_hi += 1;
 		int ans = 0;
-		for (; g_hi > 0; g_hi /= 4) {
+		for (; g_hi; g_hi /= 4) {
 			int64_t l = (g_hi+1) / 2;
 			while (l & 3) {
 				l--;
