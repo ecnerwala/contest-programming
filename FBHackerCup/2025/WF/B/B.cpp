@@ -97,7 +97,7 @@ int main() {
 			if (!poss) continue;
 			num_poss ++;
 		}
-		cerr << num_poss << '\n';
+		cerr << "num_poss " << num_poss << '\n';
 	}
 
 	int num_skip = 0;
