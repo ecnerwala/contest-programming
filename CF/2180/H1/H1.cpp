@@ -9,7 +9,7 @@ int main() {
 		ans ^= ((g_hi >> (l+1)) & 1);
 		g_hi &= (int64_t(2) << l) - 1;
 		if (g_hi == 0) return ans;
-		if (g_hi == 1) return ans ^ ((l&1) ? 1 : 0);
+		//if (g_hi == 1) return ans ^ ((l&1) ? 1 : 0);
 		ans ^= 1;
 		if (g_hi & 1) {
 			if ((g_hi >> l) & 1) {
@@ -23,7 +23,7 @@ int main() {
 		return ans;
 	};
 
-	if (false) {
+	if (true) {
 		const int L = 20;
 		const int N = 8000;
 		std::vector<std::vector<int>> vals(N+1, std::vector<int>(L+1));
@@ -68,12 +68,7 @@ int main() {
 		assert(d >= 1);
 		int l = __builtin_ctzll(d);
 		d >>= l;
-		int64_t cnt_hi = ((g_hi % d) & 1);
-		int64_t cnt_lo = d - cnt_hi;
-		int res = 0;
-		if (cnt_lo & 1) res ^= solve_log(g_hi / d, l);
-		if (cnt_hi & 1) res ^= solve_log(g_hi / d + 1, l);
-		return res;
+		return solve_log(g_hi / d + ((g_hi % d) & 1), l);
 	};
 
 	int T; cin >> T;
