@@ -6,8 +6,14 @@ int main() {
 
 	int T; cin >> T;
 	for (int case_num = 1; case_num <= T; case_num ++) {
+		int N; cin >> N;
+		cin.ignore(1, '\n');
+		std::string S; std::getline(cin, S);
+		cerr << "Case #" << case_num << " ";
+		cerr << "S = \"" << S << '"' << '\n';
 
-		cout << "Case #" << case_num << ": ";
+		std::string ans = "SKIP";
+		cout << "Case #" << case_num << ": " << ans << '\n';
 	}
 
 	return 0;
