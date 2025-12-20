@@ -1243,6 +1243,7 @@ int main() {
 				auto r = v1 & v2 & v3;
 				c[i] = int(r.v % num::MOD);
 			}
+			assert(c == ecnerwala::fft::fft_mod_multiply(a, b));
 			return c;
 		};
 
