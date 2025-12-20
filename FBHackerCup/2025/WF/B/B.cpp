@@ -147,7 +147,7 @@ int main() {
 		*/
 		std::sort(probs.begin(), probs.end(), std::greater());
 		cerr << "num_poss " << num_poss << '\n';
-		if (int(probs.size()) >= 2 && probs[1].second >= probs[0].second - 0) {
+		if (int(probs.size()) >= 2 && probs[1].first >= probs[0].first - 0) {
 			cerr << "skipping" << '\n';
 			continue;
 		}
