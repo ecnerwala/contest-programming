@@ -1218,7 +1218,7 @@ int main() {
 		ways.resize(L+1);
 		std::reverse(ways.begin(), ways.end());
 		for (int i = 0; i <= L; i++) { ways[i] *= ifact[i]; }
-		for (auto w : ways) { cerr << w << ' '; } cerr << '\n';
+		//for (auto w : ways) { cerr << w << ' '; } cerr << '\n';
 
 		assert(std::accumulate(ways.begin(), ways.end(), num(0)) == tot_ways);
 
