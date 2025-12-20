@@ -147,6 +147,8 @@ int main() {
 					self(idx+1, v | vals[idx][1]);
 				}
 			}(0, deads);
+			for (auto v : vals) { cerr << v[0] << ' ' << v[1] << '\n'; }
+			cerr << "deads " << deads << '\n';
 			return mex;
 		};
 
