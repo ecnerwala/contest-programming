@@ -78,7 +78,7 @@ int main() {
 				if (a == b) return false;
 				if (a > b) std::swap(a, b);
 				assert(a < b);
-				deads[b] = true;
+				deads[a] = true;
 				par[a] = b;
 				return true;
 			};
