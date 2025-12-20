@@ -126,8 +126,7 @@ int main() {
 		std::vector<std::pair<int, int>> probs;
 		for (int cnd : posses[case_num]) {
 			// let's try computing the LCS, it should be at least 1/6
-			std::vector<int> dp(L_SAMP+1, -L_SAMP);
-			dp[0] = 0;
+			std::vector<int> dp(L_SAMP+1, 0);
 			for (char c : S) {
 				for (int i = L_SAMP-1; i >= 0; i--) {
 					if (S_BASE[starts[cnd]+i] == c) {
