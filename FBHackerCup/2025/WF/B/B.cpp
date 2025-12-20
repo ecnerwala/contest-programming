@@ -53,7 +53,7 @@ int main() {
 	constexpr bool TESTING = true;
 	int T;
 	if (TESTING) {
-		T = 300;
+		T = 150;
 	} else {
 		cin >> T;
 	}
@@ -94,8 +94,7 @@ int main() {
 
 	for (int case_num = 0; case_num < T; case_num++) {
 		auto S = Ss[case_num];
-		cerr << '\n';
-		cerr << "Case " << int(S.size()) << '\n';
+		//cerr << '\n'; cerr << "Case " << int(S.size()) << '\n';
 		std::array<int, 56> freq; freq.fill(0);
 		for (char c : S) freq[id(c)]++;
 		int num_poss = 0;
@@ -115,15 +114,16 @@ int main() {
 	}
 	std::sort(easy.begin(), easy.end());
 
-	for (int z = 0; true; z++) {
+	int cur_has = 0;
+	for (int z = 0; cur_has < NEED; z++) {
 		int case_num = easy[z].second;
 		auto S = Ss[case_num];
 		cerr << '\n';
-		cerr << "Case " << int(S.size()) << '\n';
+		cerr << "Case " << z << ' ' << int(S.size()) << '\n';
 		std::array<int, 56> freq; freq.fill(0);
 		for (char c : S) freq[id(c)]++;
 		int num_poss = 0;
-		std::vector<std::pair<double, int>> probs;
+		std::vector<std::pair<int, int>> probs;
 		for (int cnd : posses[case_num]) {
 			// let's try computing the LCS, it should be at least 1/6
 			std::vector<int> dp(L_SAMP+1, 0);
@@ -147,6 +147,11 @@ int main() {
 		*/
 		std::sort(probs.begin(), probs.end(), std::greater());
 		cerr << "num_poss " << num_poss << '\n';
+		if (int(probs.size()) >= 2 && probs[1].second >= probs[0].second - 3) {
+			cerr << "skipping" << '\n';
+			continue;
+		}
+		cur_has++;
 		if (TESTING) {
 			int idx = 0;
 			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
