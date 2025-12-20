@@ -68,7 +68,7 @@ int main() {
 		assert(d >= 1);
 		int l = __builtin_ctzll(d);
 		d >>= l;
-		int64_t cnt_hi = g_hi % d;
+		int64_t cnt_hi = ((g_hi % d) & 1);
 		int64_t cnt_lo = d - cnt_hi;
 		int res = 0;
 		if (cnt_lo & 1) res ^= solve_log(g_hi / d, l);
