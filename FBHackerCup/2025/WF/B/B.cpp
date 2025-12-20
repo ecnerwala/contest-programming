@@ -144,8 +144,7 @@ int main() {
 			posses[case_num].push_back(cnd); 
 		}
 	}
-	//const int NEED = T * 4 / 10;
-	const int NEED = T;
+	const int NEED = T * 4 / 10;
 	std::vector<std::pair<int, int>> easy;
 	for (int case_num = 0; case_num < T; case_num++) {
 		easy.push_back({posses[case_num].size(), case_num});
@@ -195,15 +194,20 @@ int main() {
 		for (int z = 0; z < 2 && z < int(probs.size()); z++) {
 			cerr << probs[z].first << ' ' << probs[z].second << '\n';
 		}
+		if (TESTING) {
+			int idx = 0;
+			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
+			cerr << "0 -> " << probs[0].first << "; " << idx << " -> " << probs[idx].first << '\n';
+		}
+		if (probs[0].first - probs[1].first <= 10) {
+			cerr << "skipping";
+		}
 		cur_has++;
 		int cnd = probs[0].second;
 		answers[case_num] = S_BASE.substr(starts[cnd], L_SAMP);
 		cerr << "have " << cur_has << '/' << NEED << '\n';
 		if (TESTING) {
-			int idx = 0;
-			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
-			cerr << "0 -> " << probs[0].first << "; " << idx << " -> " << probs[idx].first << '\n';
-			assert(probs[0].first == probs[idx].first);
+			assert(probs[0].second == TESTING_ANS[case_num]);
 			//assert(idx == 0);
 		}
 	}
