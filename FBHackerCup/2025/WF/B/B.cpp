@@ -147,9 +147,8 @@ int main() {
 		*/
 		std::sort(probs.begin(), probs.end(), std::greater());
 		cerr << "num_poss " << num_poss << '\n';
-		if (int(probs.size()) >= 2 && probs[1].first >= probs[0].first - 1) {
-			cerr << "skipping" << '\n';
-			continue;
+		for (int z = 0; z < 10 && z < int(probs.size()); z++) {
+			cerr << probs[z].first << ' ' << probs[z].second << '\n';
 		}
 		cur_has++;
 		int cnd = probs[0].second;
@@ -160,7 +159,7 @@ int main() {
 			while (probs[idx].second != TESTING_ANS[case_num]) idx++;
 			cerr << "0 -> " << probs[0].first << "; " << idx << " -> " << probs[idx].first << '\n';
 			assert(probs[0].first == probs[idx].first);
-			assert(idx == 0);
+			//assert(idx == 0);
 		}
 	}
 
