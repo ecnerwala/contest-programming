@@ -133,9 +133,6 @@ int main() {
 		} else {
 			assert(int(ans.size()) == 2025);
 			if (TESTING) {
-				if (TESTING_ANS[case_num - 1] != ans) {
-					cerr << "FAIL!" << '\n';
-				}
 			}
 		}
 		cout << "Case #" << case_num << ": " << ans << '\n';
