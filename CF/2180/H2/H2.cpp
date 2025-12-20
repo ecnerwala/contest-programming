@@ -22,39 +22,6 @@ int main() {
 		}
 	};
 
-	if (true) {
-		const int N = 8000;
-		std::vector<int> vals(N+1);
-		for (int n = 0; n <= N; n++) {
-			std::array<bool, 4> has{false, false, false, false};
-			if (n >= 1) {
-				has[vals[n-1]] = true;
-			}
-			if (n >= 2) {
-				has[vals[(n-2)/2]] = true;
-			}
-			int v = 0;
-			while (has[v]) v++;
-			vals[n] = v;
-		}
-		for (int n = 0; n < 1000; n++) {
-			cerr << (n < 2 ? 0 : vals[n-2]) << " \n"[(n+1) % 8 == 0];
-		}
-		for (int l = 0; l < 10; l++) {
-			for (int n = 1; n < 1000; n++) {
-				if (__builtin_ctz(n) == l) cerr << (n < 2 ? 0 : vals[n-2]) << ' ';
-			}
-			cerr << '\n';
-		}
-		cerr << '\n';
-		int tot = 2;
-		for (int n = 0; n < 1000; n++) {
-			cerr << solve(n, 1) << ' ' << tot << '\n';
-			assert(solve(n, 1) == tot);
-			tot ^= vals[n];
-		}
-	}
-
 
 	int T; cin >> T;
 	while (T--) {
@@ -62,11 +29,7 @@ int main() {
 		int ans = 0;
 		for (int i = 0; i < N; i++) {
 			int64_t a, b, c, l, r; cin >> a >> b >> c >> l >> r;
-			assert((c - b) == (b - a));
-			int64_t g_hi = r - c;
-			int64_t g_lo = l - c;
-			assert(g_hi >= g_lo);
-			ans ^= solve(g_hi+1, c-b) ^ solve(g_lo, c-b);
+			ans ^= solve(r-c+1, c-b) ^ solve(l-c, c-b);
 		}
 		cout << (ans ? "Bug" : "Feature") << '\n';
 	}
