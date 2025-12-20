@@ -33,14 +33,12 @@ int main() {
 
 	auto solve_lin = [&](int64_t g_hi) -> int {
 		g_hi += 1;
-		int ans = 0;
-		int cnt = 0;
+		int64_t cnt = 0;
 		for (; g_hi; g_hi /= 4) {
 			cnt += g_hi;
 			cnt -= g_hi / 2;
 		}
 		return std::array<int, 4>{0, 2, 3, 1}[cnt & 3];
-		return ans;
 	};
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
 		assert(d >= 1);
