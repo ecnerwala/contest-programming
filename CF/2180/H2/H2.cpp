@@ -45,7 +45,9 @@ int main() {
 	};
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
 		assert(d >= 1);
-		if (!(d & 1)) {
+		if (d & 1) {
+			return solve_lin(g_hi / d + ((g_hi % d) & 1));
+		} else {
 			if (g_hi & 1) {
 				int64_t g = g_hi / d + 1;
 				if (!(__builtin_ctzll(g) & 1)) {
@@ -54,12 +56,6 @@ int main() {
 			}
 			return 0;
 		}
-		int64_t cnt_hi = g_hi % d;
-		int64_t cnt_lo = d - cnt_hi;
-		int res = 0;
-		if (cnt_lo & 1) res ^= solve_lin(g_hi / d);
-		if (cnt_hi & 1) res ^= solve_lin(g_hi / d + 1);
-		return res;
 	};
 
 	int T; cin >> T;
