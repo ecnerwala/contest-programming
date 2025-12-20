@@ -1236,12 +1236,14 @@ int main() {
 				c3 = ecnerwala::fft::fft_multiply(a1, b1);
 			}
 			std::vector<num> c(c1.size());
+			n1 i1 = inv(n1(n2::MOD) * n1(n3::MOD));
+			n2 i2 = inv(n2(n3::MOD) * n2(n1::MOD));
+			n3 i3 = inv(n3(n2::MOD) * n3(n2::MOD));
 			for (int i = 0; i < int(c.size()); i++) {
-				mod_constraint<__int128_t> v1(int(c1[i]), n1::MOD);
-				mod_constraint<__int128_t> v2(int(c2[i]), n2::MOD);
-				mod_constraint<__int128_t> v3(int(c3[i]), n3::MOD);
-				auto r = v1 & v2 & v3;
-				c[i] = int(r.v % num::MOD);
+				c[i] 
+					= num(int(c1[i] * i1)) * num(int64_t(n2::MOD) * int64_t(n3::MOD))
+					+ num(int(c2[i] * i2)) * num(int64_t(n3::MOD) * int64_t(n1::MOD))
+					+ num(int(c3[i] * i3)) * num(int64_t(n1::MOD) * int64_t(n2::MOD));
 			}
 			//assert(c == ecnerwala::fft::fft_mod_multiply(a, b));
 			return c;
