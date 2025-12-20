@@ -50,7 +50,7 @@ int main() {
 		cnd_freqs[i] = p;
 	}
 
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	int T;
 	if (TESTING) {
 		T = 150;
