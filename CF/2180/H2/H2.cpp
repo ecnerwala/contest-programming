@@ -22,7 +22,7 @@ int main() {
 		}
 	};
 
-	if (false) {
+	if (true) {
 		const int N = 8000;
 		std::vector<int> vals(N+1);
 		for (int n = 0; n <= N; n++) {
