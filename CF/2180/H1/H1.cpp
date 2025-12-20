@@ -9,8 +9,7 @@ int main() {
 		int l = __builtin_ctzll(d);
 		d >>= l;
 		g_hi = g_hi / d + ((g_hi % d) & 1);
-		int ans = 0;
-		ans ^= ((g_hi >> (l+1)) & 1);
+		int ans = ((g_hi >> (l+1)) & 1);
 		g_hi &= (int64_t(2) << l) - 1;
 		if (g_hi == 0) return ans;
 		ans ^= 1;
