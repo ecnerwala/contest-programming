@@ -12,6 +12,9 @@ int main() {
 	cerr << '"' << BASELINE.substr(BASELINE.size() - 10) << '"' << '\n';
 	std::set<char> has;
 	for (char c : BASELINE) has.insert(c);
+	cerr << "letters: \"";
+	for (auto c : has) { cerr << c; }
+	cerr << "\"" << '\n';
 
 	int T; cin >> T;
 	std::vector<std::string> Ss(T);
