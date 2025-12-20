@@ -94,7 +94,8 @@ int main() {
 		for (int i = 0; i < N_CND; i++) {
 			bool poss = true;
 			for (int z = 0; z < C; z++) if (freq[z] > cnd_freqs[i][z]) poss = false;
-			num_poss += poss;
+			if (!poss) continue;
+			num_poss ++;
 		}
 		cerr << num_poss << '\n';
 	}
