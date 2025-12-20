@@ -85,6 +85,7 @@ int main() {
 	std::vector<std::string> answers(T);
 
 	for (auto S : Ss) {
+		cerr << int(S.size()) << '\n';
 		std::array<int, 56> freq; freq.fill(0);
 		for (char c : S) freq[id(c)]++;
 		int num_poss = 0;
