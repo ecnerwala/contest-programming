@@ -192,7 +192,7 @@ int main() {
 		for (auto& [p, i] : probs) p /= tot_prob;
 		*/
 		std::sort(probs.begin(), probs.end(), std::greater());
-		for (int z = 0; z < 10 && z < int(probs.size()); z++) {
+		for (int z = 0; z < 2 && z < int(probs.size()); z++) {
 			cerr << probs[z].first << ' ' << probs[z].second << '\n';
 		}
 		cur_has++;
