@@ -161,11 +161,6 @@ int main() {
 				// a+b+c = 1 so a = ((p_cap-s_cap)^2 - p_cap(p_cap - s_cap) - s_cap^2) / (p_cap - s_cap)^2 = -p_cap s_cap / (p_cap - s_cap)^2
 				return (power(num(s_cap), N-1) - power(num(p_cap), N-2) * num(s_cap) * num(N-1) + power(num(p_cap), N-1) * num(N-2)) / power(num(p_cap - s_cap), 2);
 			}
-			return linearRec(
-				std::vector<num>({num(0), num(0), num(1)}),
-				std::vector<num>({num(p_cap) + num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(p_cap) - num(p_cap) * num(s_cap), num(p_cap) * num(p_cap) * num(s_cap)}),
-				N-1
-			);
 		};
 
 		num ans = 0;
