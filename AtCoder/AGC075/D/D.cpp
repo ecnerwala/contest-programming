@@ -223,5 +223,27 @@ int main() {
 	}
 	cout << ans << '\n';
 
+	std::vector<num> ways(M+1);
+	for (int a = 1; a <= M; a++) {
+		for (int b = 1; b <= M; b++) {
+			for (int c = 1; c <= M; c++) {
+				for (int d = 1; d <= M; d++) {
+					if (
+						a * b + std::max(c, d) <= K &&
+						a * c + d <= K &&
+						b * c + d <= K &&
+						a * c + d <= K
+					) {
+						ways[std::max({a, b, c})]++;
+					}
+				}
+			}
+		}
+	}
+	for (int i = 1; i <= M; i++) {
+		ways[i] += ways[i-1];
+		cerr << i << ' ' << ways[i] << '\n';
+	}
+
 	return 0;
 }
