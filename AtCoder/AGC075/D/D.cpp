@@ -179,6 +179,7 @@ int main() {
 			for (int j = 1; j < mx; j++) {
 				num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
 				ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
+				cerr << j << ' ' << ans << '\n';
 			}
 
 			// if we have exactly 2 of them, then pref and suff must both be small, mid can be anything
@@ -234,7 +235,9 @@ int main() {
 						b * c + d <= K &&
 						a * c + d <= K
 					) {
-						ways[std::max({a, b, c})]++;
+						if (std::max({a, b, c}) == 3) {
+							ways[a+b+c-std::max({a,b,c})-std::min({a,b,c})]++;
+						}
 					}
 				}
 			}
