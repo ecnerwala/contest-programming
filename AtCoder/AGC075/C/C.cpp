@@ -160,6 +160,7 @@ int main() {
 			l++;
 			assert(l <= B[i]);
 			by_min[l]++;
+			cerr << i << ' ' << l << '\n';
 		}
 		using num = modnum<998244353>;
 		num ans = 1;
