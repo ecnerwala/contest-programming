@@ -138,8 +138,11 @@ int main() {
 		assert(N >= 3);
 
 		auto ways_2 = [&](int p_cap, int s_cap) -> num { 
+			// [x^(N-2)] 1/(1-x*p_cap)(1-x*s_cap) = 1 / (1-
 			if (p_cap == s_cap) {
 				return num(N-1) * power(num(s_cap), N-2);
+			} else {
+				// [x^(N-2)] 1/(1-x*p_cap)(1-x*s_cap) = 1 / (1-
 			}
 			return linearRec(
 				std::vector<num>({num(0), num(1)}),
@@ -147,10 +150,11 @@ int main() {
 				N-1
 			);
 		};
-		auto ways_3 = [&](int p_cap, int m_cap, int s_cap) -> num { 
+		auto ways_3 = [&](int p_cap, int s_cap) -> num { 
+			// [x^(N-2)] 1/(1-x*p_cap)^2(1-x*s_cap)
 			return linearRec(
 				std::vector<num>({num(0), num(0), num(1)}),
-				std::vector<num>({num(p_cap) + num(m_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(m_cap) - num(m_cap) * num(s_cap), num(p_cap) * num(m_cap) * num(s_cap)}),
+				std::vector<num>({num(p_cap) + num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(p_cap) - num(p_cap) * num(s_cap), num(p_cap) * num(p_cap) * num(s_cap)}),
 				N-1
 			);
 		};
@@ -181,7 +185,7 @@ int main() {
 			}
 			if (m1_max <= M) {
 				int cap = K % m2;
-				ans += ways_3(m2-1, m2-1, cap) * cap;
+				ans += ways_3(m2-1, cap) * cap;
 				if (m2 < m1_max) {
 					ans += (ways_2(m2, cap) - ways_2(m2-1, cap)) * cap;
 				}
