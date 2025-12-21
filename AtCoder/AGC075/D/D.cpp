@@ -138,6 +138,9 @@ int main() {
 		assert(N >= 3);
 
 		auto ways_2 = [&](int p_cap, int s_cap) -> num { 
+			if (p_cap == s_cap) {
+				return num(N-1) * power(num(s_cap), N-2);
+			}
 			return linearRec(
 				std::vector<num>({num(0), num(s_cap)}),
 				std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
