@@ -182,13 +182,14 @@ int main() {
 		num ans = 0;
 		for (int m2 = 1; m2 * m2 < K && m2 <= M; m2++) {
 			int m1_max = K / m2;
+			assert(m2 <= m1_max);
 			if (m2 < m1_max) {
 				// m1 = m2
 				ans += (power(num(m2), N-1) - power(num(m2-1), N-1) - num(N-1) * power(num(m2-1), N-2)) * std::min(M, K - m2 * m2);
-			}
-			for (int m1 = m2+1; m1 <= std::min(M, m1_max - 1); m1++) {
-				//ans += ways_3(m2-1, m2, m2) * std::min(M, K - m1 * m2);
-				ans += num(N-1) * (power(num(m2), N-2) - power(num(m2-1), N-2)) * std::min(M, K - m1 * m2);
+				// m1 = m2+1.. std::min(M, m1_max - 1)
+				for (int m1 = m2+1; m1 <= std::min(M, m1_max - 1); m1++) {
+					ans += num(N-1) * (power(num(m2), N-2) - power(num(m2-1), N-2)) * std::min(M, K - m1 * m2);
+				}
 			}
 			if (m1_max <= M) {
 				int m1 = m1_max;
