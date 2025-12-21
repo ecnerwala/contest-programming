@@ -232,10 +232,10 @@ int main() {
 						// prefix max == j, suffix <= K - j * mx
 						ans += (ways_2(j, cap) - ways_2(j-1, cap)) * num(cap);
 					}
-					//cerr << mx << ' ' << j << ' ' << ans << '\n';
+					cerr << mx << ' ' << j << ' ' << ans << '\n';
 				}
 			}
-			//cerr << mx << ' ' << ans << '\n';
+			cerr << mx << ' ' << ans << '\n';
 		}
 		cerr << "ans " << ans << '\n';
 		return ans;
@@ -244,17 +244,23 @@ int main() {
 	auto slow = [&](int N, int M, int K) -> num {
 		assert(N >= 3);
 		num ans = 0;
+		std::vector<int> val; val.reserve(N);
 		[&](this auto&& self, int idx, int m1, int m2) -> void {
 			if (idx == N) {
 				ans++;
 				return;
 			}
 			for (int v = 1; v <= M && v+m2 <= K; v++) {
+				val.push_back(v);
 				self(idx+1, std::max(m1, v), std::max(m1 * v, m2));
+				val.pop_back();
 			}
 		}(0, 0, 0);
 		return ans;
 	};
+	slow(4, 3, 10);
+	solve(4, 3, 10);
+	assert(false);
 	for (int N = 3; N <= 10; N++) {
 		for (int M = 1; M <= 20; M++) {
 			for (int K = 1; K <= 20; K++) {
