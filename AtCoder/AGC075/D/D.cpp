@@ -180,8 +180,7 @@ int main() {
 				int cap = K % m2;
 				ans += ways_3(m2-1, m2-1, cap);
 				if (m2 < m1_max) {
-					ans += ways_3(m2-1, m2, cap);
-					//ans += ways_2(m2, cap) - ways_2(m2 - 1, cap);
+					ans += ways_2(m2, cap) - ways_2(m2 - 1, cap);
 				}
 			}
 		}
