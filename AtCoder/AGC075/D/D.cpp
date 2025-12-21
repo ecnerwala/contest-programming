@@ -204,11 +204,12 @@ int main() {
 				prv_pN2 = nxt_pN2;
 			}
 			if (m1_max <= M) {
-				int m1 = m1_max;
+				int cap = K % m2;
 				if (m2 < m1_max) {
-					ans += (ways_2(m2, K - m1 * m2) - ways_2(m2 - 1, K - m1 * m2)) * num(K - m1 * m2);
+					ans += (ways_2(m2, cap) - ways_2(m2 - 1, cap)) * num(cap);
+				} else {
+					ans += (ways_2(m2, cap) - ways_2(m2 - 1, cap) + ways_3(m2-1, m2-1, cap)) * num(cap);
 				}
-				ans += ways_3(m2-1, m2-1, K - m1 * m2) * num(K - m1 * m2);
 			}
 		}
 		return ans;
