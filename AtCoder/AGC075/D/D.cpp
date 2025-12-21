@@ -151,7 +151,7 @@ int main() {
 		auto ways_3 = [&](int p_cap, int s_cap) -> num { 
 			// [x^(N-3)] 1/(1-x*p_cap)^2(1-x*s_cap)
 			if (p_cap == s_cap) {
-				return num(N-1) * num(N-2) / num(2) * power(num(p_cap), N-1);
+				return num(N-1) * num(N-2) / num(2) * power(num(p_cap), N-3);
 			}
 			return linearRec(
 				std::vector<num>({num(0), num(0), num(1)}),
