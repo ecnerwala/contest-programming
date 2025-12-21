@@ -258,6 +258,7 @@ int main() {
 	for (int N = 3; N <= 10; N++) {
 		for (int M = 1; M <= 5; M++) {
 			for (int K = 1; K <= 5; K++) {
+				cerr << N << ' ' << M << ' ' << K << '\n';
 				auto a = solve(N, M, K);
 				auto b = slow(N, M, K);
 				if (a != b) {
