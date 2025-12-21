@@ -142,39 +142,64 @@ int main() {
 			max_A[B[i]] = A[i];
 			freq[B[i]]++;
 		}
-		std::vector<int> by_min(L);
-		for (int i = 0; i < N; i++) {
-			// every guy has a min left it can go
-			int v = A[i];
-			int l = B[i];
-			for (l--; l >= 0; l--) {
-				int o = max_A[l];
-				if (o == -1) {
-					assert(freq[l] == 0);
-					continue;
-				} else if ((v >> l) == (o >> l)) {
-					// good
-				} else if ((v >> l) == (o >> l) + 1 && ((v >> B[i]) << (B[i] - l)) == (v >> l)) {
-					// good
-				} else {
-					break;
+		using num = modnum<998244353>;
+		std::vector<num> fact(N+1);
+		fact[0] = 1;
+		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(N+1);
+		ifact[N] = inv(fact[N]);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+		num ans = 1;
+		for (auto f : freq) ans *= fact[f];
+
+		for (int st = 0, en = 0; st < N; st = en) {
+			en++;
+			while (en < N && (B[en] != B[en-1] || ((A[en-1] >> B[en]) == (A[en] >> B[en]))) {
+				r++;
+			}
+			std::vector<int> max_A(L, -1);
+			std::vector<int> freq(L);
+			for (int i = st; i < en; i++) {
+				// sorted
+				assert(B[i] < L);
+				max_A[B[i]] = A[i];
+				freq[B[i]]++;
+			}
+			std::vector<int> by_min(L);
+			for (int i = st; i < en; i++) {
+				// every guy has a min left it can go
+				int v = A[i];
+				int l = B[i];
+				for (l--; l >= 0; l--) {
+					int o = max_A[l];
+					if (o == -1) {
+						assert(freq[l] == 0);
+						continue;
+					} else if ((v >> l) == (o >> l)) {
+						// good
+					} else if ((v >> l) == (o >> l) + 1 && ((v >> B[i]) << (B[i] - l)) == (v >> l)) {
+						// good
+					} else {
+						break;
+					}
+				}
+				l++;
+				assert(l <= B[i]);
+				by_min[l]++;
+				cerr << bitset<10>(v) << ' ' << B[i] << ' ' << l << '\n';
+			}
+			num cnt = 0;
+			for (int l = L-1; l >= 0; l--) {
+				ans *= ifact[freq[l]];
+				cnt += freq[l];
+				for (int z = 0; z < by_min[l]; z++) {
+					ans *= cnt;
+					cnt--;
 				}
 			}
-			l++;
-			assert(l <= B[i]);
-			by_min[l]++;
-			cerr << bitset<10>(v) << ' ' << B[i] << ' ' << l << '\n';
 		}
-		using num = modnum<998244353>;
-		num ans = 1;
-		num cnt = 0;
-		for (int l = L-1; l >= 0; l--) {
-			cnt += freq[l];
-			for (int z = 0; z < by_min[l]; z++) {
-				ans *= cnt;
-				cnt--;
-			}
-		}
+
 		cout << ans << '\n';
 	}
 
