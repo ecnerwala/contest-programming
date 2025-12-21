@@ -265,21 +265,6 @@ int main() {
 	};
 	slow(4, 3, 10);
 	solve(4, 3, 10);
-	for (int N = 3; N <= 10; N++) {
-		for (int M = 1; M <= 20; M++) {
-			for (int K = 1; K <= 20; K++) {
-				cerr << N << ' ' << M << ' ' << K << '\n';
-				auto a = solve(N, M, K);
-				auto b = slow(N, M, K);
-				if (a != b) {
-					cerr << N << ' ' << M << ' ' << K << '\n';
-					cerr << a << '\n';
-					cerr << b << '\n';
-					assert(false);
-				}
-			}
-		}
-	}
 
 	int N, M, K; cin >> N >> M >> K;
 	cout << solve(N, M, K) << '\n';
