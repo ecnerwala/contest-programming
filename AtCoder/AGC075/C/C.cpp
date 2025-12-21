@@ -134,12 +134,10 @@ int main() {
 		std::sort(A.begin(), A.end());
 		std::sort(B.begin(), B.end());
 		const int L = 31;
-		std::vector<int> max_A(L, -1);
 		std::vector<int> freq(L);
 		for (int i = 0; i < N; i++) {
 			// sorted
 			assert(B[i] < L);
-			max_A[B[i]] = A[i];
 			freq[B[i]]++;
 		}
 		using num = modnum<998244353>;
