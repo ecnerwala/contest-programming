@@ -164,7 +164,7 @@ int main() {
 				// a(1-x*p_cap) + b = 1 / (1-x*s_cap) mod (1-x*p_cap)^2
 				// b = p_cap / (p_cap - s_cap)
 				// a+b+c = 1 so a = ((p_cap-s_cap)^2 - p_cap(p_cap - s_cap) - s_cap^2) / (p_cap - s_cap)^2 = -p_cap s_cap / (p_cap - s_cap)^2
-				return (pow_N1[s_cap] + pow_N1[p_cap] * (num(N-2) - num(s_cap) * invs[p_cap] * num(N-1))) / power(num(p_cap - s_cap), 2);
+				return (pow_N1[s_cap] + pow_N1[p_cap] * (num(N-2) - num(s_cap) * invs[p_cap] * num(N-1))) * invs[p_cap - s_cap] * invs[p_cap - s_cap];
 			}
 		};
 
