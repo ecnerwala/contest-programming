@@ -180,16 +180,24 @@ int main() {
 		};
 
 		num ans = 0;
-		/*
 		for (int m1 = 1; m1 <= M; m1++) {
 			for (int m2 = 1; m1 * m2 < K && m2 <= m1; m2++) {
-				if (m2 < m1) {
-					ans += ways_3(m2-1, m2, std::min(m2, K - m1 * m2)) * std::min(M, K - m1 * m2);
+				if (m2 <= K - m1 * m2) {
+					if (m2 < m1) {
+						//ans += ways_3(m2-1, m2, m2) * std::min(M, K - m1 * m2);
+						ans += (power(num(m2), N-2) - power(num(m2-1), N-2)) * std::min(M, K - m1 * m2);
+					}
+					//ans += ways_3(m2-1, m2-1, m2) * std::min(M, K - m1 * m2);
+					ans += (power(num(m2), N-1) - power(num(m2-1), N-2) - num(N-1) * power(num(m2-1), N-3)) * std::min(M, K - m1 * m2);
+				} else {
+					if (m2 < m1) {
+						ans += ways_3(m2-1, m2, K - m1 * m2) * std::min(M, K - m1 * m2);
+					}
+					ans += ways_3(m2-1, m2-1, K - m1 * m2) * std::min(M, K - m1 * m2);
 				}
-				ans += ways_3(m2-1, m2-1, std::min(m2, K - m1 * m2)) * std::min(M, K - m1 * m2);
 			}
 		}
-		*/
+		/*
 		for (int mx = 1; mx <= M; mx++) {
 			if (mx * mx + mx <= K) {
 				num ways_eq_max = power(num(mx), N-1) - power(num(mx-1), N-1);
@@ -244,6 +252,7 @@ int main() {
 				}
 			}
 		}
+		*/
 		return ans;
 	};
 
