@@ -163,7 +163,7 @@ int main() {
 			l++;
 			assert(l <= B[i]);
 			by_min[l]++;
-			cerr << i << ' ' << bitset<10>(l) << l << '\n';
+			cerr << bitset<10>(v) << ' ' << B[i] << ' ' << l << '\n';
 		}
 		using num = modnum<998244353>;
 		num ans = 1;
