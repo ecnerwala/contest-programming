@@ -179,7 +179,6 @@ int main() {
 			for (int j = 1; j < mx; j++) {
 				num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
 				ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
-				cerr << j << ' ' << ans << '\n';
 			}
 
 			// if we have exactly 2 of them, then pref and suff must both be small, mid can be anything
@@ -218,11 +217,13 @@ int main() {
 					int cap = K - j * mx;
 					ans += (ways_pm(j, cap) - ways_pm(j-1, cap)) * num(cap);
 				}
+				cerr << mx << ' ' << j << ' ' << ans << '\n';
 			}
 		}
 		cerr << mx << ' ' << ans << '\n';
 	}
 	cout << ans << '\n';
+	cerr << "ans " << ans << '\n';
 
 	std::vector<num> ways(M+1);
 	for (int a = 1; a <= M; a++) {
