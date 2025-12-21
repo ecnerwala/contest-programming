@@ -16,33 +16,6 @@ template <typename T> T mod_inv_in_range(T a, T m) {
 	return vy < 0 ? m + vy : vy;
 }
 
-template <typename T> struct extended_gcd_result {
-	T gcd;
-	T coeff_a, coeff_b;
-};
-template <typename T> extended_gcd_result<T> extended_gcd(T a, T b) {
-	T x = a, y = b;
-	// coeff of a and b in x and y
-	T ax = 1, ay = 0;
-	T bx = 0, by = 1;
-	while (x) {
-		T k = y / x;
-		y %= x;
-		ay -= k * ax;
-		by -= k * bx;
-		std::swap(x, y);
-		std::swap(ax, ay);
-		std::swap(bx, by);
-	}
-	return {y, ay, by};
-}
-
-template <typename T> T mod_inv(T a, T m) {
-	a %= m;
-	a = a < 0 ? a + m : a;
-	return mod_inv_in_range(a, m);
-}
-
 template <int MOD_> struct modnum {
 	static constexpr int MOD = MOD_;
 	static_assert(MOD_ > 0, "MOD must be positive");
@@ -166,14 +139,14 @@ int main() {
 
 		auto ways_2 = [&](int p_cap, int s_cap) -> num { 
 			return linearRec(
-				std::vector<num>({num(0), num(1)}),
+				std::vector<num>({num(0), num(s_cap)}),
 				std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
 				N-1
 			);
 		};
 		auto ways_3 = [&](int p_cap, int m_cap, int s_cap) -> num { 
 			return linearRec(
-				std::vector<num>({num(0), num(0), num(1)}),
+				std::vector<num>({num(0), num(0), num(s_cap)}),
 				std::vector<num>({num(p_cap) + num(m_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(m_cap) - num(m_cap) * num(s_cap), num(p_cap) * num(m_cap) * num(s_cap)}),
 				N-1
 			);
@@ -205,9 +178,9 @@ int main() {
 			}
 			if (m1_max <= M) {
 				int cap = K % m2;
-				ans += ways_3(m2-1, m2-1, cap) * num(cap);
+				ans += ways_3(m2-1, m2-1, cap);
 				if (m2 < m1_max) {
-					ans += (ways_2(m2, cap) - ways_2(m2 - 1, cap)) * num(cap);
+					ans += ways_2(m2, cap) - ways_2(m2 - 1, cap);
 				}
 			}
 		}
