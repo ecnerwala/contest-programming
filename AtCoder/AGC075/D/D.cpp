@@ -231,40 +231,11 @@ int main() {
 						// prefix max == j, suffix <= K - j * mx
 						ans += (ways_2(j, cap) - ways_2(j-1, cap)) * num(cap);
 					}
-					cerr << mx << ' ' << j << ' ' << ans << '\n';
 				}
 			}
-			cerr << mx << ' ' << ans << '\n';
-		}
-		cerr << "ans " << ans << '\n';
-		return ans;
-	};
-
-	auto slow = [&](int N, int M, int K) -> num {
-		assert(N >= 3);
-		num ans = 0;
-		std::vector<int> val; val.reserve(N);
-		std::vector<int> ways(M+1);
-		[&](this auto&& self, int idx, int m1, int m2) -> void {
-			if (idx == N) {
-				ways[*std::max_element(val.begin(), val.end()-1)]++;
-				ans++;
-				return;
-			}
-			for (int v = 1; v <= M && v+m2 <= K; v++) {
-				val.push_back(v);
-				self(idx+1, std::max(m1, v), std::max(m1 * v, m2));
-				val.pop_back();
-			}
-		}(0, 0, 0);
-		for (int i = 1; i <= M; i++) {
-			ways[i] += ways[i-1];
-			cerr << i << ' ' << ways[i] << '\n';
 		}
 		return ans;
 	};
-	slow(4, 3, 10);
-	solve(4, 3, 10);
 
 	int N, M, K; cin >> N >> M >> K;
 	cout << solve(N, M, K) << '\n';
