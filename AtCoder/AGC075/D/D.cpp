@@ -265,7 +265,6 @@ int main() {
 	};
 	slow(4, 3, 10);
 	solve(4, 3, 10);
-	assert(false);
 	for (int N = 3; N <= 10; N++) {
 		for (int M = 1; M <= 20; M++) {
 			for (int K = 1; K <= 20; K++) {
