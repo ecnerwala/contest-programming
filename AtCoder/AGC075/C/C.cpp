@@ -155,8 +155,8 @@ int main() {
 
 		for (int st = 0, en = 0; st < N; st = en) {
 			en++;
-			while (en < N && (B[en] != B[en-1] || ((A[en-1] >> B[en]) == (A[en] >> B[en]))) {
-				r++;
+			while (en < N && (B[en] != B[en-1] || ((A[en-1] >> B[en]) == (A[en] >> B[en])))) {
+				en++;
 			}
 			std::vector<int> max_A(L, -1);
 			std::vector<int> freq(L);
