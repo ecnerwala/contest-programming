@@ -232,13 +232,13 @@ int main() {
 					// prefix max == j, suffix <= K - j * mx
 					ans += (ways_2(j, cap) - ways_2(j-1, cap)) * num(cap);
 				}
-				cerr << mx << ' ' << j << ' ' << ans << '\n';
+				//cerr << mx << ' ' << j << ' ' << ans << '\n';
 			}
 		}
-		cerr << mx << ' ' << ans << '\n';
+		//cerr << mx << ' ' << ans << '\n';
 	}
 	cout << ans << '\n';
-	cerr << "ans " << ans << '\n';
+	//cerr << "ans " << ans << '\n';
 
 	/*
 	std::vector<num> ways(M+1);
