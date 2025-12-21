@@ -198,6 +198,7 @@ int main() {
 			for (int j = 1; j * mx < K; j++) {
 				assert(j < mx);
 				if (j * mx + j <= K) {
+					assert(j * j + mx <= K);
 					num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
 					ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
 				} else {
