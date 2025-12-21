@@ -139,17 +139,17 @@ int main() {
 
 		auto ways_2 = [&](int p_cap, int s_cap) -> num { 
 			if (p_cap == s_cap) {
-				return num(N-1) * power(num(s_cap), N-1);
+				return num(N-1) * power(num(s_cap), N-2);
 			}
 			return linearRec(
-				std::vector<num>({num(0), num(s_cap)}),
+				std::vector<num>({num(0), num(1)}),
 				std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
 				N-1
 			);
 		};
 		auto ways_3 = [&](int p_cap, int m_cap, int s_cap) -> num { 
 			return linearRec(
-				std::vector<num>({num(0), num(0), num(s_cap)}),
+				std::vector<num>({num(0), num(0), num(1)}),
 				std::vector<num>({num(p_cap) + num(m_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(m_cap) - num(m_cap) * num(s_cap), num(p_cap) * num(m_cap) * num(s_cap)}),
 				N-1
 			);
@@ -181,9 +181,9 @@ int main() {
 			}
 			if (m1_max <= M) {
 				int cap = K % m2;
-				ans += ways_3(m2-1, m2-1, cap);
+				ans += ways_3(m2-1, m2-1, cap) * cap;
 				if (m2 < m1_max) {
-					ans += ways_2(m2, cap) - ways_2(m2-1, cap);
+					ans += (ways_2(m2, cap) - ways_2(m2-1, cap)) * cap;
 				}
 			}
 		}
