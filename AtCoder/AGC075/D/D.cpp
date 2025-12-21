@@ -128,7 +128,6 @@ int main() {
 			std::vector<int> pfac(RT+1);
 			pow_N1[1] = 1;
 			for (int i = 2; i <= RT; i++) {
-				pow_N1[i] = power(num(i), N-1);
 				if (!pfac[i]) {
 					primes.push_back(i);
 					pow_N1[i] = power(num(i), N-1);
@@ -165,7 +164,7 @@ int main() {
 				// a(1-x*p_cap) + b = 1 / (1-x*s_cap) mod (1-x*p_cap)^2
 				// b = p_cap / (p_cap - s_cap)
 				// a+b+c = 1 so a = ((p_cap-s_cap)^2 - p_cap(p_cap - s_cap) - s_cap^2) / (p_cap - s_cap)^2 = -p_cap s_cap / (p_cap - s_cap)^2
-				return (pow_N1[p_cap] - pow_N1[p_cap] * (invs[p_cap] * num(s_cap) * num(N-1) + num(N-2))) * invs[p_cap-s_cap] * invs[p_cap - s_cap];
+				return (power(num(s_cap), N-1) - power(num(p_cap), N-2) * num(s_cap) * num(N-1) + power(num(p_cap), N-1) * num(N-2)) / power(num(p_cap - s_cap), 2);
 			}
 		};
 
