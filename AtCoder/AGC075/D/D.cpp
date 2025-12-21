@@ -265,6 +265,7 @@ int main() {
 					cerr << N << ' ' << M << ' ' << K << '\n';
 					cerr << a << '\n';
 					cerr << b << '\n';
+					assert(false);
 				}
 			}
 		}
