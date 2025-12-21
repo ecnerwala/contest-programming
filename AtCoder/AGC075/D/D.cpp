@@ -173,7 +173,7 @@ int main() {
 	};
 	auto ways_3 = [&](int p_cap, int m_cap, int s_cap) -> num { 
 		return linearRec(
-			std::vector<num>({num(1), num(p_cap) + num(m_cap) + num(s_cap)}),
+			std::vector<num>({num(1), num(p_cap) + num(m_cap) + num(s_cap), num(p_cap) * num(s_cap) + num(p_cap) * num(m_cap) + num(m_cap) * num(s_cap)}),
 			std::vector<num>({num(p_cap) + num(m_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(m_cap) - num(m_cap) * num(s_cap), num(p_cap) * num(m_cap) * num(s_cap)}),
 			N-3
 		);
