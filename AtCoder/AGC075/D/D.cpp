@@ -164,6 +164,21 @@ int main() {
 	int N, M, K; cin >> N >> M >> K;
 	assert(N >= 3);
 
+	auto ways_2 = [&](int p_cap, int s_cap) -> num { 
+		return linearRec(
+			std::vector<num>({num(1), num(p_cap) + num(s_cap)}),
+			std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
+			N-2
+		);
+	};
+	auto ways_3 = [&](int p_cap, int m_cap, int s_cap) -> num { 
+		return linearRec(
+			std::vector<num>({num(1), num(p_cap) + num(m_cap) + num(s_cap)}),
+			std::vector<num>({num(p_cap) + num(m_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(m_cap) - num(m_cap) * num(s_cap), num(p_cap) * num(m_cap) * num(s_cap)}),
+			N-3
+		);
+	};
+
 	num ans = 0;
 	for (int mx = 1; mx <= M; mx++) {
 		if (mx * mx + mx <= K) {
@@ -187,11 +202,7 @@ int main() {
 			assert(cap >= 1);
 			// [x^N-3] 1 / (1 - x * cap)^2 * 1 / (1-x)
 			// (1 - x (cap + cap + 1) + x^2 (cap^2 + 2*cap) - cap^2 x^3)
-			ans += linearRec(
-				std::vector<num>({num(1), 2*num(cap)+1, num(cap) * num(cap) + 2 * num(cap)}),
-				std::vector<num>({num(cap + cap + 1), -num(cap * cap + 2 * cap), num(cap) * num(cap)}),
-				N-3
-			) * num(cap);
+			ans += ways_3(cap, 1, cap) * num(cap);
 		} else {
 			// we're only allowed to have 1 of them
 			assert(mx * mx >= K);
@@ -203,25 +214,23 @@ int main() {
 					ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
 				} else {
 					assert((j-1) * mx + j <= K);
-					auto ways_pm = [&](int p_cap, int s_cap) -> num { 
-						return linearRec(
-							std::vector<num>({num(1), num(p_cap) + num(s_cap)}),
-							std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
-							N-2
-						);
-					};
 
 					// 3 2 2 1
 					// 1 3 2 1
 
-					// prefix max < j, suffix <= j
-					ans += (ways_pm(j-1, j) - ways_pm(j-1, j-1)) * num(std::min(M, K - mx * j));
-
-					// prefix max == j, suffix <= K - j * mx
 					int cap = K - j * mx;
 					assert(cap < j);
 					assert(cap * cap + mx <= K);
-					ans += (ways_pm(j, cap) - ways_pm(j-1, cap)) * num(cap);
+					// if there's a j after mx, then all other js are banned
+					// it's j-1 mx j-1 j cap
+					// prefix max < j, suffix <= j and has 
+					ans += ways_3(j-1, j-1, cap) * num(cap);
+
+					// j * j + mx == j * mx + 1 + ((mx-1) - (mx-j) * j) <= j * mx + 1 <= K
+					assert(j * j + mx <= K);
+
+					// prefix max == j, suffix <= K - j * mx
+					ans += (ways_2(j, cap) - ways_2(j-1, cap)) * num(cap);
 				}
 				cerr << mx << ' ' << j << ' ' << ans << '\n';
 			}
