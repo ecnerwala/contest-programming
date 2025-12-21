@@ -149,9 +149,12 @@ int main() {
 			int l = B[i];
 			for (l--; l >= 0; l--) {
 				int o = max_A[l];
-				if ((v >> l) == (o >> l)) {
+				if (o == -1) {
+					assert(freq[l] == 0);
+					continue;
+				} else if ((v >> l) == (o >> l)) {
 					// good
-				} else if ((v >> l) == (o >> l) + 1 && ((v >> l) << l) == v) {
+				} else if ((v >> l) == (o >> l) + 1 && ((v >> B[i]) << (B[i] - l)) == (v >> l)) {
 					// good
 				} else {
 					break;
