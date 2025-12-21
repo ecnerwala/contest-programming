@@ -199,67 +199,11 @@ int main() {
 			if (m1_max <= M) {
 				int m1 = m1_max;
 				if (m2 < m1_max) {
-					ans += (ways_2(m2, K - m1 * m2) - ways_2(m2 - 1, K - m1 * m2)) * std::min(M, K - m1 * m2);
+					ans += (ways_2(m2, K - m1 * m2) - ways_2(m2 - 1, K - m1 * m2)) * num(K - m1 * m2);
 				}
-				ans += ways_3(m2-1, m2-1, K - m1 * m2) * std::min(M, K - m1 * m2);
+				ans += ways_3(m2-1, m2-1, K - m1 * m2) * num(K - m1 * m2);
 			}
 		}
-		/*
-		for (int mx = 1; mx <= M; mx++) {
-			if (mx * mx + mx <= K) {
-				num ways_eq_max = power(num(mx), N-1) - power(num(mx-1), N-1);
-				for (int j = 1; j < mx && j * mx < K; j++) {
-					num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
-					ways_eq_max -= ways_eq_max_2;
-					ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
-				}
-				ans += ways_eq_max * num(std::min(M, K - mx * mx));
-			} else if (mx * mx < K) {
-				// mx * (mx-1) + (mx-1) = mx * mx - 1 < K, if everything else is smaller, we're still okay
-				for (int j = 1; j < mx; j++) {
-					num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
-					ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
-				}
-
-				// if we have exactly 2 of them, then pref and suff must both be small, mid can be anything
-				int cap = K - mx * mx;
-				assert(cap < mx);
-				assert(cap >= 1);
-				assert((mx-1) * (mx-1) + mx <= K);
-				ans += ways_3(mx-1, mx-1, cap) * num(cap);
-			} else {
-				// we're only allowed to have 1 of them
-				assert(mx * mx >= K);
-				for (int j = 1; j * mx < K; j++) {
-					assert(j < mx);
-					if (j * mx + j <= K) {
-						assert(j * j + mx <= K);
-						num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
-						ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
-					} else {
-						assert((j-1) * mx + j <= K);
-
-						// 3 2 2 1
-						// 1 3 2 1
-
-						int cap = K - j * mx;
-						assert(cap < j);
-						assert(cap * cap + mx <= K);
-						// if there's a j after mx, then all other js are banned
-						// it's j-1 mx j-1 j cap
-						// prefix max < j, suffix <= j and has 
-						ans += ways_3(j-1, j-1, cap) * num(cap);
-
-						// j * j + mx == j * mx + 1 + ((mx-1) - (mx-j) * j) <= j * mx + 1 <= K
-						assert(j * j + mx <= K);
-
-						// prefix max == j, suffix <= K - j * mx
-						ans += (ways_2(j, cap) - ways_2(j-1, cap)) * num(cap);
-					}
-				}
-			}
-		}
-		*/
 		return ans;
 	};
 
