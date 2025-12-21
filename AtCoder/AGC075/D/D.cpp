@@ -189,7 +189,7 @@ int main() {
 				// m1 = m2+1.. std::min(M, m1_max - 1)
 				num tail_weight = 0;
 				// K - m1 * m2 >= M <=> m1 <= (K - M) / m2
-				int m1_mid = K - m2 * m2 >= M ? m2 : (K-M) / m2;
+				int m1_mid = K - m2 * m2 >= M ? (K-M) / m2 : m2;
 				assert(m1_mid >= m2);
 				int m1_hi = std::min(M, m1_max - 1);
 				m1_mid = std::min(m1_mid, m1_hi);
