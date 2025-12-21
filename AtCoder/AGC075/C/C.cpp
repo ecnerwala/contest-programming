@@ -1,8 +1,178 @@
 #include <bits/stdc++.h>
 
+template <typename T> T mod_inv_in_range(T a, T m) {
+	// assert(0 <= a && a < m);
+	T x = a, y = m;
+	// coeff of a in x and y
+	T vx = 1, vy = 0;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		vy -= k * vx;
+		std::swap(x, y);
+		std::swap(vx, vy);
+	}
+	assert(y == 1);
+	return vy < 0 ? m + vy : vy;
+}
+
+template <typename T> struct extended_gcd_result {
+	T gcd;
+	T coeff_a, coeff_b;
+};
+template <typename T> extended_gcd_result<T> extended_gcd(T a, T b) {
+	T x = a, y = b;
+	// coeff of a and b in x and y
+	T ax = 1, ay = 0;
+	T bx = 0, by = 1;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		ay -= k * ax;
+		by -= k * bx;
+		std::swap(x, y);
+		std::swap(ax, ay);
+		std::swap(bx, by);
+	}
+	return {y, ay, by};
+}
+
+template <typename T> T mod_inv(T a, T m) {
+	a %= m;
+	a = a < 0 ? a + m : a;
+	return mod_inv_in_range(a, m);
+}
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+	struct is_reduced_tag {};
+
+private:
+	int v;
+
+public:
+
+	modnum() : v(0) {}
+	modnum(int v_, is_reduced_tag) : v(v_) { assert(0 <= v && v < MOD); }
+	static modnum from_reduced(int v) { return modnum(v, is_reduced_tag{}); }
+
+	modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+
+	explicit operator int() const { return v; }
+	int as_signed() const { return MOD-v > v ? v : v - MOD; }
+	friend std::ostream& operator << (std::ostream& out, modnum n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { int64_t v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (modnum a, modnum b) { return a.v == b.v; }
+	friend bool operator != (modnum a, modnum b) { return a.v != b.v; }
+
+	modnum inv() const { return from_reduced(mod_inv_in_range(v, MOD)); }
+	friend modnum inv(modnum m) { return m.inv(); }
+	modnum neg() const { return from_reduced(v ? MOD-v : 0); }
+	friend modnum neg(modnum m) { return m.neg(); }
+
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (modnum o) {
+		v -= MOD-o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator -= (modnum o) {
+		v -= o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator *= (modnum o) {
+		v = int(int64_t(v) * int64_t(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (modnum o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (modnum a, modnum b) { return modnum(a) += b; }
+	friend modnum operator - (modnum a, modnum b) { return modnum(a) -= b; }
+	friend modnum operator * (modnum a, modnum b) { return modnum(a) *= b; }
+	friend modnum operator / (modnum a, modnum b) { return modnum(a) /= b; }
+};
+
+template <typename T> T power(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int T; cin >> T;
+	while (T--) {
+		int N; cin >> N;
+		std::vector<int> A(N);
+		for (auto& a : A) cin >> a;
+		std::vector<int> B(N);
+		for (auto& b : B) cin >> b;
+		std::sort(A.begin(), A.end());
+		std::sort(B.begin(), B.end());
+		const int L = 31;
+		std::vector<int> max_A(L, -1);
+		std::vector<int> freq(L);
+		for (int i = 0; i < N; i++) {
+			// sorted
+			assert(B[i] < L);
+			max_A[B[i]] = A[i];
+			freq[B[i]]++;
+		}
+		std::vector<int> by_min(L);
+		for (int i = 0; i < N; i++) {
+			// every guy has a min left it can go
+			int v = A[i];
+			int l = B[i];
+			for (l--; l >= 0; l--) {
+				int o = max_A[l];
+				if ((v >> l) == (o >> l)) {
+					// good
+				} else if ((v >> l) == (o >> l) + 1 && ((v >> l) << l) == v) {
+					// good
+				} else {
+					break;
+				}
+			}
+			l++;
+			assert(l <= B[i]);
+			by_min[l]++;
+		}
+		using num = modnum<998244353>;
+		num ans = 1;
+		num cnt = 0;
+		for (int l = L-1; l >= 0; l--) {
+			cnt += freq[l];
+			for (int z = 0; z < by_min[l]; z++) {
+				ans *= cnt;
+				cnt--;
+			}
+		}
+		cout << ans << '\n';
+	}
 
 	return 0;
 }
