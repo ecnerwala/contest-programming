@@ -194,7 +194,7 @@ int main() {
 				// m1 = m2+1.. std::min(M, m1_max - 1)
 				// K - m1 * m2 >= M <=> m1 <= (K - M) / m2
 				int m1_hi = std::min(M, m1_max - 1);
-				int m1_mid = std::min(K - m2 * m2 >= M ? (K-M) / m2 : m2, m1_hi);
+				int m1_mid = K - m2 * m2 >= M ? std::min((K-M) / m2, m1_hi) : m2;
 				num tail_weight = num(M) * (m1_mid - m2) + num(m1_hi - m1_mid) * (K - num(m1_hi + m1_mid + 1) / num(2) * m2);
 				ans += (nxt_pN2 - prv_pN2) * tail_weight;
 				prv_pN1 = nxt_pN1;
