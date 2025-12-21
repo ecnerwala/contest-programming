@@ -247,6 +247,7 @@ int main() {
 		[&](this auto&& self, int idx, int m1, int m2) -> void {
 			if (idx == N) {
 				ans++;
+				return;
 			}
 			for (int v = 1; v <= M && v+m2 <= K; v++) {
 				self(idx+1, std::max(m1, v), std::max(m1 * v, m2));
