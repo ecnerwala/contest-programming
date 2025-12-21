@@ -242,6 +242,7 @@ int main() {
 	};
 
 	auto slow = [&](int N, int M, int K) -> num {
+		assert(N >= 3);
 		num ans = 0;
 		[&](this auto&& self, int idx, int m1, int m2) -> void {
 			if (idx == N) {
