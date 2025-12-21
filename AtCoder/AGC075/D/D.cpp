@@ -240,6 +240,7 @@ int main() {
 	cout << ans << '\n';
 	cerr << "ans " << ans << '\n';
 
+	/*
 	std::vector<num> ways(M+1);
 	for (int a = 1; a <= M; a++) {
 		for (int b = 1; b <= M; b++) {
@@ -264,6 +265,7 @@ int main() {
 		ways[i] += ways[i-1];
 		cerr << 3 << ' ' << i << ' ' << ways[i] << '\n';
 	}
+	*/
 
 	return 0;
 }
