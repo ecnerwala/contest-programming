@@ -238,6 +238,7 @@ int main() {
 			//cerr << mx << ' ' << ans << '\n';
 		}
 		cerr << "ans " << ans << '\n';
+		return ans;
 	};
 
 	auto slow = [&](int N, int M, int K) -> num {
