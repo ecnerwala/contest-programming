@@ -215,7 +215,7 @@ int main() {
 
 					// prefix max == j, suffix <= K - j * mx
 					int cap = K - j * mx;
-					ans += (ways_pm(j, cap) - ways_pm(j-1, cap)) * cap;
+					ans += (ways_pm(j, cap) - ways_pm(j-1, cap)) * num(cap);
 				}
 			}
 		}
