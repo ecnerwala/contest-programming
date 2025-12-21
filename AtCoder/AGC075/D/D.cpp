@@ -181,11 +181,12 @@ int main() {
 
 		num ans = 0;
 		for (int m1 = 1; m1 <= M; m1++) {
-			for (int m2 = 1; m1 * m2 < K && m2 < m1; m2++) {
-				ans += ways_3(m2-1, m2, std::min(M, K - m1 * m2));
+			for (int m2 = 1; m1 * m2 < K && m2 <= m1; m2++) {
+				if (m2 < m1) {
+					ans += ways_3(m2-1, m2, std::min(M, K - m1 * m2));
+				}
 				ans += ways_3(m2-1, m2-1, std::min(M, K - m1 * m2));
 			}
-			ans += ways_3(m1-1, m1-1, std::min(m1, K - m1 * m2));
 		}
 		/*
 		for (int mx = 1; mx <= M; mx++) {
