@@ -161,111 +161,114 @@ int main() {
 
 	using num = modnum<998244353>;
 
-	int N, M, K; cin >> N >> M >> K;
-	assert(N >= 3);
+	auto solve = [&](int N, int M, int K) -> num {
+		assert(N >= 3);
 
-	auto ways_2 = [&](int p_cap, int s_cap) -> num { 
-		return linearRec(
-			std::vector<num>({num(0), num(1)}),
-			std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
-			N-1
-		);
-	};
-	auto ways_3 = [&](int p_cap, int m_cap, int s_cap) -> num { 
-		return linearRec(
-			std::vector<num>({num(0), num(0), num(1)}),
-			std::vector<num>({num(p_cap) + num(m_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(m_cap) - num(m_cap) * num(s_cap), num(p_cap) * num(m_cap) * num(s_cap)}),
-			N-1
-		);
-	};
+		auto ways_2 = [&](int p_cap, int s_cap) -> num { 
+			return linearRec(
+				std::vector<num>({num(0), num(1)}),
+				std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
+				N-1
+			);
+		};
+		auto ways_3 = [&](int p_cap, int m_cap, int s_cap) -> num { 
+			return linearRec(
+				std::vector<num>({num(0), num(0), num(1)}),
+				std::vector<num>({num(p_cap) + num(m_cap) + num(s_cap), -num(p_cap) * num(s_cap) - num(p_cap) * num(m_cap) - num(m_cap) * num(s_cap), num(p_cap) * num(m_cap) * num(s_cap)}),
+				N-1
+			);
+		};
 
-	num ans = 0;
-	for (int mx = 1; mx <= M; mx++) {
-		if (mx * mx + mx <= K) {
-			num ways_eq_max = power(num(mx), N-1) - power(num(mx-1), N-1);
-			for (int j = 1; j < mx && j * mx < K; j++) {
-				num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
-				ways_eq_max -= ways_eq_max_2;
-				ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
-			}
-			ans += ways_eq_max * num(std::min(M, K - mx * mx));
-		} else if (mx * mx < K) {
-			// mx * (mx-1) + (mx-1) = mx * mx - 1 < K, if everything else is smaller, we're still okay
-			for (int j = 1; j < mx; j++) {
-				num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
-				ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
-			}
-
-			// if we have exactly 2 of them, then pref and suff must both be small, mid can be anything
-			int cap = K - mx * mx;
-			assert(cap < mx);
-			assert(cap >= 1);
-			// [x^N-3] 1 / (1 - x * cap)^2 * 1 / (1-x)
-			// (1 - x (cap + cap + 1) + x^2 (cap^2 + 2*cap) - cap^2 x^3)
-			ans += ways_3(cap, 1, cap) * num(cap);
-		} else {
-			// we're only allowed to have 1 of them
-			assert(mx * mx >= K);
-			for (int j = 1; j * mx < K; j++) {
-				assert(j < mx);
-				if (j * mx + j <= K) {
-					assert(j * j + mx <= K);
+		num ans = 0;
+		for (int mx = 1; mx <= M; mx++) {
+			if (mx * mx + mx <= K) {
+				num ways_eq_max = power(num(mx), N-1) - power(num(mx-1), N-1);
+				for (int j = 1; j < mx && j * mx < K; j++) {
+					num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
+					ways_eq_max -= ways_eq_max_2;
+					ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
+				}
+				ans += ways_eq_max * num(std::min(M, K - mx * mx));
+			} else if (mx * mx < K) {
+				// mx * (mx-1) + (mx-1) = mx * mx - 1 < K, if everything else is smaller, we're still okay
+				for (int j = 1; j < mx; j++) {
 					num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
 					ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
-				} else {
-					assert((j-1) * mx + j <= K);
-
-					// 3 2 2 1
-					// 1 3 2 1
-
-					int cap = K - j * mx;
-					assert(cap < j);
-					assert(cap * cap + mx <= K);
-					// if there's a j after mx, then all other js are banned
-					// it's j-1 mx j-1 j cap
-					// prefix max < j, suffix <= j and has 
-					ans += ways_3(j-1, j-1, cap) * num(cap);
-
-					// j * j + mx == j * mx + 1 + ((mx-1) - (mx-j) * j) <= j * mx + 1 <= K
-					assert(j * j + mx <= K);
-
-					// prefix max == j, suffix <= K - j * mx
-					ans += (ways_2(j, cap) - ways_2(j-1, cap)) * num(cap);
 				}
-				//cerr << mx << ' ' << j << ' ' << ans << '\n';
-			}
-		}
-		//cerr << mx << ' ' << ans << '\n';
-	}
-	cout << ans << '\n';
-	//cerr << "ans " << ans << '\n';
 
-	/*
-	std::vector<num> ways(M+1);
-	for (int a = 1; a <= M; a++) {
-		for (int b = 1; b <= M; b++) {
-			for (int c = 1; c <= M; c++) {
-				for (int d = 1; d <= M; d++) {
-					if (
-						a * b + std::max(c, d) <= K &&
-						a * c + d <= K &&
-						b * c + d <= K &&
-						a * c + d <= K
-					) {
-						if (std::max({a, b, c}) == 3) {
-							ways[a+b+c-std::max({a,b,c})-std::min({a,b,c})]++;
-						}
+				// if we have exactly 2 of them, then pref and suff must both be small, mid can be anything
+				int cap = K - mx * mx;
+				assert(cap < mx);
+				assert(cap >= 1);
+				// [x^N-3] 1 / (1 - x * cap)^2 * 1 / (1-x)
+				// (1 - x (cap + cap + 1) + x^2 (cap^2 + 2*cap) - cap^2 x^3)
+				ans += ways_3(cap, 1, cap) * num(cap);
+			} else {
+				// we're only allowed to have 1 of them
+				assert(mx * mx >= K);
+				for (int j = 1; j * mx < K; j++) {
+					assert(j < mx);
+					if (j * mx + j <= K) {
+						assert(j * j + mx <= K);
+						num ways_eq_max_2 = num(N-1) * (power(num(j), N-2) - power(num(j-1), N-2));
+						ans += ways_eq_max_2 * num(std::min(M, K - mx * j));
+					} else {
+						assert((j-1) * mx + j <= K);
+
+						// 3 2 2 1
+						// 1 3 2 1
+
+						int cap = K - j * mx;
+						assert(cap < j);
+						assert(cap * cap + mx <= K);
+						// if there's a j after mx, then all other js are banned
+						// it's j-1 mx j-1 j cap
+						// prefix max < j, suffix <= j and has 
+						ans += ways_3(j-1, j-1, cap) * num(cap);
+
+						// j * j + mx == j * mx + 1 + ((mx-1) - (mx-j) * j) <= j * mx + 1 <= K
+						assert(j * j + mx <= K);
+
+						// prefix max == j, suffix <= K - j * mx
+						ans += (ways_2(j, cap) - ways_2(j-1, cap)) * num(cap);
 					}
+					//cerr << mx << ' ' << j << ' ' << ans << '\n';
+				}
+			}
+			//cerr << mx << ' ' << ans << '\n';
+		}
+		cerr << "ans " << ans << '\n';
+	};
+
+	auto slow = [&](int N, int M, int K) -> num {
+		num ans = 0;
+		[&](this auto&& self, int idx, int m1, int m2) -> void {
+			if (idx == N) {
+				ans++;
+			}
+			for (int v = 1; v <= M && v+m2 <= K; v++) {
+				self(idx+1, std::max(m1, v), std::max(m1 * v, m2));
+			}
+		}(0, 0, 0);
+		return ans;
+	};
+	for (int N = 3; N <= 10; N++) {
+		for (int M = 1; M <= 5; M++) {
+			for (int K = 1; K <= 5; K++) {
+				auto a = solve(N, M, K);
+				auto b = slow(N, M, K);
+				if (a != b) {
+					cerr << N << ' ' << M << ' ' << K << '\n';
+					cerr << a << '\n';
+					cerr << b << '\n';
 				}
 			}
 		}
 	}
-	ways[0] = 32;
-	for (int i = 1; i <= M; i++) {
-		ways[i] += ways[i-1];
-		cerr << 3 << ' ' << i << ' ' << ways[i] << '\n';
-	}
-	*/
+
+	int N, M, K; cin >> N >> M >> K;
+	cout << solve(N, M, K) << '\n';
+
 
 	return 0;
 }
