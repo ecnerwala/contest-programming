@@ -187,8 +187,8 @@ int main() {
 						ans += ways_3(m2-1, m2, m2) * std::min(M, K - m1 * m2);
 						//ans += (power(num(m2), N-2) - power(num(m2-1), N-2)) * std::min(M, K - m1 * m2);
 					}
-					ans += ways_3(m2-1, m2-1, m2) * std::min(M, K - m1 * m2);
-					//ans += (power(num(m2), N-1) - power(num(m2-1), N-1) - num(N-1) * power(num(m2-1), N-2)) * std::min(M, K - m1 * m2);
+					//ans += ways_3(m2-1, m2-1, m2) * std::min(M, K - m1 * m2);
+					ans += (power(num(m2), N-1) - power(num(m2-1), N-1) - num(N-1) * power(num(m2-1), N-2)) * std::min(M, K - m1 * m2);
 				} else {
 					if (m2 < m1) {
 						ans += ways_3(m2-1, m2, K - m1 * m2) * std::min(M, K - m1 * m2);
