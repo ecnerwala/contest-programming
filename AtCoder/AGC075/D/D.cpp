@@ -186,7 +186,7 @@ int main() {
 			assert(cap < mx);
 			assert(cap >= 1);
 			// [x^N-3] 1 / (1 - x * cap)^2 * 1 / (1-x)
-			// (1 - x (cap + cap + 1) + x^2 (cap^2 + 2*cap) - x^3)
+			// (1 - x (cap + cap + 1) + x^2 (cap^2 + 2*cap) - cap^2 x^3)
 			ans += linearRec(
 				std::vector<num>({num(1), 2*num(cap)+1, num(cap) * num(cap) + 2 * num(cap)}),
 				std::vector<num>({num(cap + cap + 1), -num(cap * cap + 2 * cap), num(cap) * num(cap)}),
@@ -219,6 +219,7 @@ int main() {
 				}
 			}
 		}
+		cerr << mx << ' ' << ans << '\n';
 	}
 	cout << ans << '\n';
 
