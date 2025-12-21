@@ -260,7 +260,7 @@ int main() {
 		}(0, 0, 0);
 		for (int i = 1; i <= M; i++) {
 			ways[i] += ways[i-1];
-			cout << i << ' ' << ways[i] << '\n';
+			cerr << i << ' ' << ways[i] << '\n';
 		}
 		return ans;
 	};
