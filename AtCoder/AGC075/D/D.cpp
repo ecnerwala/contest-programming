@@ -208,7 +208,8 @@ int main() {
 							std::vector<num>({num(p_cap) + num(s_cap), -num(p_cap) * num(s_cap)}),
 							N-2
 						);
-					}
+					};
+
 					// prefix max < j, suffix <= j
 					ans += ways_pm(j-1, j)* num(std::min(M, K - mx * j));
 
