@@ -211,10 +211,11 @@ int main() {
 					};
 
 					// prefix max < j, suffix <= j
-					ans += ways_pm(j-1, j)* num(std::min(M, K - mx * j));
+					ans += (ways_pm(j-1, j) - ways_pm(j-1, j-1)) * num(std::min(M, K - mx * j));
 
 					// prefix max == j, suffix <= K - j * mx
 					int cap = K - j * mx;
+					assert(cap < j);
 					ans += (ways_pm(j, cap) - ways_pm(j-1, cap)) * num(cap);
 				}
 				cerr << mx << ' ' << j << ' ' << ans << '\n';
