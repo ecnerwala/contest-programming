@@ -1,5 +1,17 @@
 #include <bits/stdc++.h>
 
+constexpr int64_t floor_sqrt(int64_t N) {
+	assert(N >= 0);
+	if (N == 0) return 0;
+	int64_t a = N;
+	while (true) {
+		int64_t b = N/a;
+		assert(a >= b);
+		if (a-b <= 1) return b;
+		a = (a+b+1)>>1;
+	}
+}
+
 template <typename T> T mod_inv_in_range(T a, T m) {
 	// assert(0 <= a && a < m);
 	T x = a, y = m;
@@ -93,41 +105,6 @@ template <typename T> T power(T a, long long b) {
 	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
 }
 
-template <typename num>
-num linearRec(const std::vector<num>& S, const std::vector<num>& tr, int64_t k) {
-	int n = int(tr.size());
-	assert(S.size() >= tr.size());
-
-	auto combine = [&](std::vector<num> a, std::vector<num> b, bool e = false) {
-		// multiply a * b * x^e
-		std::vector<num> res(int(a.size()) + int(b.size()));
-		for (int i = 0; i < int(a.size()); i++) {
-			for (int j = 0; j < int(b.size()); j++) {
-				res[i + j + e] += a[i] * b[j];
-			}
-		}
-		for (int i = int(res.size())-1; i >= n; --i) {
-			for (int j = 0; j < n; j++) {
-				res[i - 1 - j] += res[i] * tr[j];
-			}
-		}
-		res.resize(n);
-		return res;
-	};
-
-	std::vector<num> pol(n);
-	if (n > 0) pol[0] = num(1);
-
-	assert(k >= 0);
-	for (int i = 64 - 1 - (k == 0 ? 64 : __builtin_clzll(k)); i >= 0; i--) {
-		pol = combine(pol, pol, (k >> i) & 1);
-	}
-
-	num res = 0;
-	for (int i = 0; i < n; i++) res += pol[i] * S[i];
-	return res;
-}
-
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -137,29 +114,57 @@ int main() {
 	auto solve = [&](int N, int M, int K) -> num {
 		assert(N >= 3);
 
+		int RT = int(floor_sqrt(K-1));
+		std::vector<num> invs(RT+1);
+		{
+			num f = 1;
+			for (int i = 1; i <= RT; i++) invs[i] = f, f *= num(i);
+			f = inv(f);
+			for (int i = RT; i >= 1; i--) invs[i] *= f, f *= num(i);
+		}
+		std::vector<num> pow_N1(RT+1);
+		{
+			std::vector<int> primes; primes.reserve(RT+1);
+			std::vector<int> pfac(RT+1);
+			pow_N1[1] = 1;
+			for (int i = 2; i <= RT; i++) {
+				if (!pfac[i]) {
+					primes.push_back(i);
+					pow_N1[i] = power(num(i), N-1);
+					pfac[i] = i;
+				}
+				for (int p : primes) {
+					if (i*p > RT) break;
+					pfac[i*p] = p;
+					pow_N1[i*p] = pow_N1[i] * pow_N1[p];
+					if (p == pfac[i]) break;
+				}
+			}
+		}
+
 		auto ways_2 = [&](int p_cap, int s_cap) -> num { 
 			assert(p_cap >= s_cap);
 			// [x^(N-2)] 1/(1-x*p_cap)(1-x*s_cap) = 1 / (1-
 			if (p_cap == s_cap) {
-				return num(N-1) * power(num(p_cap), N-2);
+				return num(N-1) * pow_N1[p_cap] * invs[p_cap];
 			} else {
 				// [x^(N-2)] 1/(1-x*p_cap)(1-x*s_cap) = a / (1-x*p_cap) + b / (1-x*s_cap)
 				// a+b = 1, s_cap a + p_cap b = 0 => a = p_cap / (p_cap - s_cap), b = -s_cap / (p_cap - s_cap);
-				return (power(num(p_cap), N-1) - power(num(s_cap), N-1)) / num(p_cap - s_cap);
+				return (pow_N1[p_cap] - pow_N1[s_cap]) * invs[p_cap - s_cap];
 			}
 		};
 		auto ways_3 = [&](int p_cap, int s_cap) -> num { 
 			// [x^(N-3)] 1/(1-x*p_cap)^2(1-x*s_cap)
 			assert(p_cap >= s_cap);
 			if (p_cap == s_cap) {
-				return num(N-1) * num(N-2) / num(2) * power(num(p_cap), N-3);
+				return num(N-1) * num(N-2) / num(2) * (pow_N1[p_cap] * invs[p_cap] * invs[p_cap]);
 			} else {
 				// [x^(N-3)] 1/(1-x*p_cap)^2(1-x*s_cap) = a / (1-x*p_cap) + b / (1-x*p_cap)^2 + c / (1-x*s_cap)
 				// c = 1 / (1-x*p_cap)^2 mod 1-x*s_cap, so c = s_cap^2 / (s_cap - p_cap)^2 = s_cap^2 / (p_cap - s_cap)^2
 				// a(1-x*p_cap) + b = 1 / (1-x*s_cap) mod (1-x*p_cap)^2
 				// b = p_cap / (p_cap - s_cap)
 				// a+b+c = 1 so a = ((p_cap-s_cap)^2 - p_cap(p_cap - s_cap) - s_cap^2) / (p_cap - s_cap)^2 = -p_cap s_cap / (p_cap - s_cap)^2
-				return (power(num(s_cap), N-1) - power(num(p_cap), N-2) * num(s_cap) * num(N-1) + power(num(p_cap), N-1) * num(N-2)) / power(num(p_cap - s_cap), 2);
+				return (pow_N1[p_cap] - pow_N1[p_cap] * (invs[p_cap] * num(s_cap) * num(N-1) + num(N-2))) * invs[p_cap-s_cap] * invs[p_cap - s_cap];
 			}
 		};
 
@@ -170,9 +175,8 @@ int main() {
 			int m1_max = K / m2;
 			assert(m2 <= m1_max);
 			if (m2 < m1_max) {
-				num nxt_pN2 = power(num(m2), N-2);
-				num nxt_pN1 = nxt_pN2 * num(m2);
-				nxt_pN2 *= num(N-1);
+				num nxt_pN2 = num(N-1) * pow_N1[m2] * invs[m2];
+				num nxt_pN1 = pow_N1[m2];
 
 				// m1 = m2
 				ans += (nxt_pN1 - prv_pN1 - prv_pN2) * std::min(M, K - m2 * m2);
