@@ -200,9 +200,8 @@ int main() {
 				int cap = K - mx * mx;
 				assert(cap < mx);
 				assert(cap >= 1);
-				// [x^N-3] 1 / (1 - x * cap)^2 * 1 / (1-x)
-				// (1 - x (cap + cap + 1) + x^2 (cap^2 + 2*cap) - cap^2 x^3)
-				ans += ways_3(cap, cap, cap) * num(cap);
+				assert((mx-1) * (mx-1) + mx <= K);
+				ans += ways_3(mx-1, mx-1, cap) * num(cap);
 			} else {
 				// we're only allowed to have 1 of them
 				assert(mx * mx >= K);
