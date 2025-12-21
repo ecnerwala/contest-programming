@@ -150,8 +150,16 @@ int main() {
 		};
 		auto ways_3 = [&](int p_cap, int s_cap) -> num { 
 			// [x^(N-3)] 1/(1-x*p_cap)^2(1-x*s_cap)
+			assert(p_cap >= s_cap);
 			if (p_cap == s_cap) {
 				return num(N-1) * num(N-2) / num(2) * power(num(p_cap), N-3);
+			} else {
+				// [x^(N-3)] 1/(1-x*p_cap)^2(1-x*s_cap) = a / (1-x*p_cap) + b / (1-x*p_cap)^2 + c / (1-x*s_cap)
+				// c = 1 / (1-x*p_cap)^2 mod 1-x*s_cap, so c = s_cap^2 / (s_cap - p_cap)^2 = s_cap^2 / (p_cap - s_cap)^2
+				// a(1-x*p_cap) + b = 1 / (1-x*s_cap) mod (1-x*p_cap)^2
+				// b = p_cap / (p_cap - s_cap)
+				// a+b+c = 1 so a = ((p_cap-s_cap)^2 - p_cap(p_cap - s_cap) - s_cap^2) / (p_cap - s_cap)^2 = -p_cap s_cap / (p_cap - s_cap)^2
+				return (power(num(s_cap), N-1) - power(num(p_cap), N-2) * num(s_cap) + power(num(p_cap), N-2) * num(N-2)) / power(num(p_cap - s_cap), 2);
 			}
 			return linearRec(
 				std::vector<num>({num(0), num(0), num(1)}),
