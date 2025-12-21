@@ -190,7 +190,7 @@ int main() {
 				num nxt_pN2 = power(num(m2), N-2);
 				num nxt_pN1 = nxt_pN2 * num(m2);
 				nxt_pN2 *= num(N-1);
-				ans += (nxt_pN1 - prv_pN1 - nxt_pN2) * std::min(M, K - m2 * m2);
+				ans += (nxt_pN1 - prv_pN1 - prv_pN2) * std::min(M, K - m2 * m2);
 				// m1 = m2+1.. std::min(M, m1_max - 1)
 				// K - m1 * m2 >= M <=> m1 <= (K - M) / m2
 				int m1_hi = std::min(M, m1_max - 1);
