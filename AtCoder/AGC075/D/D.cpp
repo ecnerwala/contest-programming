@@ -245,8 +245,10 @@ int main() {
 		assert(N >= 3);
 		num ans = 0;
 		std::vector<int> val; val.reserve(N);
+		std::vector<int> ways(M+1);
 		[&](this auto&& self, int idx, int m1, int m2) -> void {
 			if (idx == N) {
+				ways[*std::max_element(val.begin(), val.end()-1)]++;
 				ans++;
 				return;
 			}
@@ -256,6 +258,10 @@ int main() {
 				val.pop_back();
 			}
 		}(0, 0, 0);
+		for (int i = 1; i <= M; i++) {
+			ways[i] += ways[i-1];
+			cout << i << ' ' << ways[i] << '\n';
+		}
 		return ans;
 	};
 	slow(4, 3, 10);
