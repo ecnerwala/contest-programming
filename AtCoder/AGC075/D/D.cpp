@@ -244,10 +244,10 @@ int main() {
 			}
 		}
 	}
-	ways[0] = 51;
+	ways[0] = 32;
 	for (int i = 1; i <= M; i++) {
 		ways[i] += ways[i-1];
-		cerr << i << ' ' << ways[i] << '\n';
+		cerr << 3 << ' ' << i << ' ' << ways[i] << '\n';
 	}
 
 	return 0;
