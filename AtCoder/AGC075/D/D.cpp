@@ -128,6 +128,7 @@ int main() {
 			std::vector<int> pfac(RT+1);
 			pow_N1[1] = 1;
 			for (int i = 2; i <= RT; i++) {
+				pow_N1[i] = power(num(i), N-1);
 				if (!pfac[i]) {
 					primes.push_back(i);
 					pow_N1[i] = power(num(i), N-1);
