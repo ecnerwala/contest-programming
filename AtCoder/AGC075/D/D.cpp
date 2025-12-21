@@ -139,7 +139,7 @@ int main() {
 
 		auto ways_2 = [&](int p_cap, int s_cap) -> num { 
 			if (p_cap == s_cap) {
-				return num(N-1) * power(num(s_cap), N-2);
+				return num(N-1) * power(num(s_cap), N-1);
 			}
 			return linearRec(
 				std::vector<num>({num(0), num(s_cap)}),
