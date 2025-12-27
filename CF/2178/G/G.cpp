@@ -170,6 +170,7 @@ int main() {
 				assert(!(cur & 1));
 				pred ^= cur;
 			}
+			cerr << pred << '\n';
 			for (auto& v : bit.suffix(a)) v ^= pred;
 			for (auto& v : bit.suffix(b)) v ^= pred;
 			tot ^= pred;
