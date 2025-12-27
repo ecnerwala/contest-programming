@@ -5,7 +5,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	constexpr bool TESTING = true;
-	std::vector<int> A = {1,1,1,1,2,2,2,1,1,2,2};
+	std::vector<int> A = {4,4,4,4,4,4,4,4};
 
 	int T;
 	if (TESTING) {
