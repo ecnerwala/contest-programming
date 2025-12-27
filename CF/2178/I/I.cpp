@@ -103,7 +103,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
-		cerr <<" case " << N << ' ' << K << '\n';
+		cerr << "case " << N << ' ' << K << '\n';
 		std::vector<Point<int>> pts(N);
 		for (int i = 0; i < N; i++) {
 			cin >> pts[i];
@@ -124,7 +124,7 @@ int main() {
 					if (side[cur] == -1) {
 						side[cur] = d;
 						for (int nxt = 0; nxt < N; nxt++) {
-							if ((adj[i] >> nxt) & 1) {
+							if ((adj[cur] >> nxt) & 1) {
 								self(nxt, !d);
 							}
 						}
