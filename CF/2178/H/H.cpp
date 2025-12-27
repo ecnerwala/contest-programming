@@ -200,10 +200,10 @@ int main() {
 						best_dist = d;
 						best_next = ns;
 					}
-					break;
 				}
 			}
 			assert(best_z != -1);
+			cerr << "push " << best_next << ' ' << best_dist << '\n';
 			if ((best_next >> 3) == M) {
 				cout << best_dist << '\n';
 				break;
