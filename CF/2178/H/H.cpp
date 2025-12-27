@@ -206,7 +206,7 @@ int main() {
 				}
 			}
 			assert(best_z != -1);
-			cerr << "push " << best_next << ' ' << best_dist << '\n';
+			cerr << "push " << (best_next>>3) << ' ' << (best_next & 7) << ' ' << best_dist << '\n';
 			if ((best_next >> 3) == 0) {
 				cout << best_dist << '\n';
 				break;
