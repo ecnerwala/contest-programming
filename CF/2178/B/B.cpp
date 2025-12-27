@@ -8,12 +8,12 @@ int main() {
 	while (T--) {
 		std::string S; cin >> S;
 		const int INF = 1e9;
-		std::array<int, 3> dp{0, INF, INF};
+		std::array<int, 2> dp{0, INF};
 		for (char c : S) {
 			if (c == 's') {
-				dp = std::array<int, 3>{INF, INF, std::min({dp[0], dp[1], dp[2]})};
+				dp = std::array<int, 2>{INF, std::min({dp[0], dp[1]})};
 			} else if (c == 'u') {
-				dp = std::array<int, 3>{dp[1], dp[2], 1 + std::min({dp[0], dp[1], dp[2]})};
+				dp = std::array<int, 2>{dp[1], 1 + std::min({dp[0], dp[1]})};
 			} else assert(false);
 		}
 		cout << dp[2] << '\n';
