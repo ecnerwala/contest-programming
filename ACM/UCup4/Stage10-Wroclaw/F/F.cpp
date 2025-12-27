@@ -367,7 +367,7 @@ int main() {
 		decr_stk.push_back({ma, decr[ma]});
 		decr[ma] = v;
 		auto a = layout.get_point(v);
-		seg[a].s_len = ma;
+		seg[a].s_len = ma+1;
 		a.for_each_up(update_node);
 	};
 	auto pop_suff = [&]() -> void {
@@ -400,7 +400,7 @@ int main() {
 		incr_stk.push_back({ma, incr[ma]});
 		incr[ma] = v;
 		auto a = layout.get_point(v);
-		seg[a].p_len = ma;
+		seg[a].p_len = ma+1;
 		a.for_each_up(update_node);
 	};
 	auto pop_pref = [&]() -> void {
