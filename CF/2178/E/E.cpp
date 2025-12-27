@@ -32,9 +32,10 @@ int main() {
 		int l = 0, r = N;
 		int64_t tot = query(l, r);
 		while (r-l > 1) {
-			cerr << tot << '\n';
+			cerr << tot << ' ' << l << ' ' << r << '\n';
 			int mi = l, ma = r-1;
 			while (ma - mi > 1) {
+				cerr << tot << ' ' << l << ' ' << r << ' ' << mi << ' ' << ma << '\n';
 				int md = (mi + ma) / 2;
 				int64_t v = query(l, md);
 				if (2 * v >= tot) ma = md;
