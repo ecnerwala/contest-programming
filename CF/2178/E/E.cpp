@@ -35,11 +35,11 @@ int main() {
 			cerr << tot << ' ' << l << ' ' << r << '\n';
 			int mi = l, ma = r-1;
 			while (ma - mi > 1) {
-				cerr << tot << ' ' << l << ' ' << r << ' ' << mi << ' ' << ma << '\n';
 				int md = (mi + ma) / 2;
 				int64_t v = query(l, md);
-				if (2 * v >= tot) ma = md;
-				if (2 * v <= tot) mi = md-1;
+				if (2*v == tot) ma = md, mi = md-1;
+				else if (2 * v > tot) ma = md;
+				else if (2 * v < tot) mi = md;
 			}
 			tot /= 2;
 			if (r - ma <= ma - l) l = ma;
