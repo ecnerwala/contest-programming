@@ -146,8 +146,8 @@ int main() {
 				ans *= sz;
 			} else if (!(sz & 1)) {
 				ans *= sz;
-				if (comps) ans *= comps;
 				comps++;
+				ans *= comps;
 				ans *= sz;
 				s_inv += inv(num(sz));
 				sz = 0;
@@ -156,6 +156,7 @@ int main() {
 		}(0, -1);
 		if (comps) {
 			ans *= s_inv;
+			ans *= inv(num(comps));
 		} else {
 			ans = 1;
 		}
