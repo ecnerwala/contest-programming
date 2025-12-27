@@ -351,7 +351,7 @@ int main() {
 	std::vector<int> decr; decr.reserve(N+1);
 	std::vector<std::pair<int, int>> decr_stk; decr_stk.reserve(N);
 	auto push_suff = [&](int v) -> void {
-		cerr << "push_suff " << v << '\n';
+		//cerr << "push_suff " << v << '\n';
 		int mi = -1, ma = int(decr.size());
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
@@ -373,7 +373,7 @@ int main() {
 	auto pop_suff = [&]() -> void {
 		auto [ma, pv] = decr_stk.back(); decr_stk.pop_back();
 		int v = decr[ma];
-		cerr << "pop_suff " << v << '\n';
+		//cerr << "pop_suff " << v << '\n';
 		auto a = layout.get_point(v);
 		seg[a].s_len = 0;
 		a.for_each_up(update_node);
@@ -384,7 +384,7 @@ int main() {
 		}
 	};
 	auto push_pref = [&](int v) -> void {
-		cerr << "push_pref " << v << '\n';
+		//cerr << "push_pref " << v << '\n';
 		int mi = -1, ma = int(incr.size());
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
@@ -406,7 +406,7 @@ int main() {
 	auto pop_pref = [&]() -> void {
 		auto [ma, pv] = incr_stk.back(); incr_stk.pop_back();
 		int v = incr[ma];
-		cerr << "pop_pref " << v << '\n';
+		//cerr << "pop_pref " << v << '\n';
 		auto a = layout.get_point(v);
 		seg[a].p_len = 0;
 		a.for_each_up(update_node);
