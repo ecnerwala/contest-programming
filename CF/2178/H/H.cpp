@@ -163,7 +163,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		std::array<int, 3> A; int M, K; cin >> A[0] >> A[1] >> A[2] >> M >> K;
-		cerr << "start case" << '\n';
 		// min amount of mana
 		// we have 8 states corresponding to whether we have at >= 1 of each type
 		// states can add a, b, c, k, 2k, or 3k
@@ -196,7 +195,6 @@ int main() {
 						its[z]++;
 						continue;
 					}
-					cerr << "have " << z << ' ' << s0 << '\n';
 					if (best_z == -1 || d < best_dist) {
 						best_z = z;
 						best_dist = d;
@@ -206,7 +204,6 @@ int main() {
 				}
 			}
 			assert(best_z != -1);
-			cerr << "push " << (best_next>>3) << ' ' << (best_next & 7) << ' ' << best_dist << '\n';
 			if ((best_next >> 3) == 0) {
 				cout << best_dist << '\n';
 				break;
