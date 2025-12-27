@@ -205,15 +205,14 @@ int main() {
 			}
 			assert(best_z != -1);
 			cerr << "push " << (best_next>>3) << ' ' << (best_next & 7) << ' ' << best_dist << '\n';
-			if ((best_next >> 3) == 0) {
-				cout << best_dist << '\n';
+			if (best_next == (M << 3) + 7) {
+				cout << best_dist - A[0] - A[1] - A[2] << '\n';
 				break;
 			}
 			dist[best_next] = best_dist;
 			q.push_back(best_next);
 			its[best_z]++;
 		}
-		break;
 	}
 
 	return 0;
