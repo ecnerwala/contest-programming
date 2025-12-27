@@ -131,20 +131,31 @@ int main() {
 			adj[v].push_back(u);
 		}
 		using num = modnum<998244353>;
-		num ans = inv(num(N) * num(N));
+		// the components need to form a chain, which means that we have
+		// (components-1)! * (product of all) * (sum 1/comp size)
+		int comps = 0;
+		num ans = 1;
+		num s_inv = 0;
 		[&](this auto&& self, int cur, int prv) -> int {
 			int sz = 1;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				sz += self(nxt, cur);
 			}
-			if (prv == -1 || !(sz & 1)) {
-				// add on this component
-				ans *= num(N) * num(sz);
+			if (prv == -1) {
+				ans *= sz;
+			} else if (!(sz & 1)) {
+				if (comps) ans *= comps;
+				comps++;
+				ans *= sz;
+				s_inv += inv(num(sz));
 				sz = 0;
 			}
 			return sz;
 		}(0, -1);
+		if (comps) {
+			ans *= s_inv;
+		}
 		cout << ans << '\n';
 	}
 
