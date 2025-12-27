@@ -193,7 +193,7 @@ int main() {
 					ns += (s0 & 7);
 					if (z < 3) ns |= (1 << z);
 					if (dist[ns] != INF) {
-						its[z++];
+						its[z]++;
 						continue;
 					}
 					cerr << "have " << z << ' ' << s0 << '\n';
