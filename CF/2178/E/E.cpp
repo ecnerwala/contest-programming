@@ -4,7 +4,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::vector<int> A = {4,4,4,4,4,4,4,4};
 
 	int T;
@@ -32,7 +32,6 @@ int main() {
 		int l = 0, r = N;
 		int64_t tot = query(l, r);
 		while (r-l > 1) {
-			cerr << tot << ' ' << l << ' ' << r << '\n';
 			int mi = l, ma = r-1;
 			while (ma - mi > 1) {
 				int md = (mi + ma) / 2;
