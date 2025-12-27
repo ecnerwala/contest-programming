@@ -163,6 +163,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		std::array<int, 3> A; int M, K; cin >> A[0] >> A[1] >> A[2] >> M >> K;
+		cerr << "start case" << '\n';
 		// min amount of mana
 		// we have 8 states corresponding to whether we have at >= 1 of each type
 		// states can add a, b, c, k, 2k, or 3k
