@@ -145,6 +145,7 @@ int main() {
 			if (prv == -1) {
 				ans *= sz;
 			} else if (!(sz & 1)) {
+				ans *= sz;
 				if (comps) ans *= comps;
 				comps++;
 				ans *= sz;
