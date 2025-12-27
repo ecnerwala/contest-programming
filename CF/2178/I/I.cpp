@@ -370,6 +370,7 @@ int main() {
 			}
 			ans += dp.back();
 		}
+		ans--;
 		cout << ans << '\n';
 	}
 
