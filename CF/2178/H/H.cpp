@@ -196,6 +196,7 @@ int main() {
 						its[z++];
 						continue;
 					}
+					cerr << "have " << z << ' ' << s0 << '\n';
 					if (best_z == -1 || d < best_dist) {
 						best_z = z;
 						best_dist = d;
