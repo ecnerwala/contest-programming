@@ -8,10 +8,10 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		std::vector<int> A(N); for (auto& a : A) cin >> a;
-		int64_t best = 0;
-		int64_t cur = 0;
+		int64_t best = A[0];
+		int64_t cur = 2 * A[0];
 		// we take a bunch of plusses then a 0
-		for (int i = 0; i < N; i++) {
+		for (int i = 1; i < N; i++) {
 			best = std::max(best, cur + A[i]);
 			cur = std::max(cur, cur + 2 * A[i]);
 		}
