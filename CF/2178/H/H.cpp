@@ -200,6 +200,7 @@ int main() {
 						best_dist = d;
 						best_next = ns;
 					}
+					break;
 				}
 			}
 			assert(best_z != -1);
