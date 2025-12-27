@@ -28,14 +28,14 @@ int main() {
 			if (x + y == N) {
 				cout << "YES" << '\n';
 				cout << 2 << '\n';
-				cout << x << ' ' << y << '\n';
+				cout << y << ' ' << x << '\n';
 				exit(0);
 			}
 			for (int z : a) {
 				if (x + y + z == N) {
 					cout << "YES" << '\n';
-					cout << 2 << '\n';
-					cout << x << ' ' << y << '\n';
+					cout << 3 << '\n';
+					cout << z << ' ' << y << ' ' << x << '\n';
 					exit(0);
 				}
 			}
