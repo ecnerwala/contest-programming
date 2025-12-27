@@ -156,7 +156,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		binary_indexed_tree<uint64_t> bit(2*N);
-		int64_t tot = 0;
+		uint64_t tot = 0;
 		std::string ans; ans.reserve(N);
 		for (int i = 0; i < N; i++) {
 			int a, b; cin >> a >> b; a--, b--;
@@ -174,7 +174,7 @@ int main() {
 			for (auto& v : bit.suffix(a)) v ^= pred;
 			for (auto& v : bit.suffix(b)) v ^= pred;
 			tot ^= pred;
-			ans += (tot == 0) ? '1' : '0';
+			ans += (tot == (tot & 1)) ? '1' : '0';
 		}
 		cout << ans << '\n';
 	}
