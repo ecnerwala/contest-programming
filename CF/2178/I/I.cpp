@@ -118,8 +118,8 @@ int main() {
 			}
 		}
 		std::vector<int> side(N, -1);
-		for (int i = 0; i < N; i++) {
-			if (side[i] == -1) {
+		for (int st = 0; st < N; st++) {
+			if (side[st] == -1) {
 				[&](this auto&& self, int cur, int d) -> void {
 					if (side[cur] == -1) {
 						side[cur] = d;
@@ -130,7 +130,7 @@ int main() {
 						}
 					}
 					assert(side[cur] == d);
-				}(i, 0);
+				}(st, 0);
 			}
 		}
 	}
