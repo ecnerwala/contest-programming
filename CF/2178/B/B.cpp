@@ -16,7 +16,7 @@ int main() {
 				dp = std::array<int, 2>{dp[1], 1 + std::min({dp[0], dp[1]})};
 			} else assert(false);
 		}
-		cout << dp[2] << '\n';
+		cout << dp[1] << '\n';
 	}
 
 	return 0;
