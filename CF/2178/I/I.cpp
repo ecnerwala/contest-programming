@@ -128,7 +128,7 @@ int main() {
 							}
 						}
 					}
-					assert(side[cur] = d);
+					assert(side[cur] == d);
 				}(i, 0);
 			}
 		}
