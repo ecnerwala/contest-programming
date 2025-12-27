@@ -173,7 +173,7 @@ int main() {
 		dist[0] = 0;
 		q.push_back(0);
 		std::array<int, 6> its{0, 0, 0, 0, 0, 0};
-		std::array<int, 6> adds{A[0], A[1], A[2], K, 2*K, 3*K};
+		const std::array<int, 6> adds{A[0], A[1], A[2], K, 2*K, 3*K};
 		while (true) {
 			int best_z = -1;
 			int best_dist = INF;
