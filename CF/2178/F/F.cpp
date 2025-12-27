@@ -156,6 +156,8 @@ int main() {
 		}(0, -1);
 		if (comps) {
 			ans *= s_inv;
+		} else {
+			ans = 1;
 		}
 		cout << ans << '\n';
 	}
