@@ -192,7 +192,7 @@ int main() {
 					ns <<= 3;
 					ns += (s0 & 7);
 					if (z < 3) ns |= (1 << z);
-					if (d >= dist[ns]) {
+					if (dist[ns] == INF) {
 						its[z++];
 						continue;
 					}
