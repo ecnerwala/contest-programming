@@ -154,6 +154,7 @@ int main() {
 		std::vector<int> cur; cur.reserve(N-1);
 		for (int i = 0; i < int(pref.size()); i++) {
 			if (pref[i] == suff[N-2-i]) cur.push_back(pref[i]);
+			else break;
 		}
 		assert(cur.size() >= 1);
 		assert(cur.front() == hull[z]);
