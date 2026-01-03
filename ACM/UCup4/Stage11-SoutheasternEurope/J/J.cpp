@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
+
 template <typename T, typename AreaT=T> struct Point {
 public:
 	T x, y;
@@ -178,8 +180,27 @@ int main() {
 			}
 		}
 	}
+	for (int z = 0; z < 3; z++) {
+		for (int y = 0; y < 3; y++) {
+			if (y == z) continue;
+			// propagate the paretos
+			for (int i = 0; i < int(constraints[z].size()); i++) {
+				if (constraints[z][i][y] < int(constraints[y].size())) {
+					setmin(constraints[y][constraints[z][i][y]][z], i);
+				}
+			}
+			for (int i = 1; i < int(constraints[y].size()); i++) {
+				setmin(constraints[y][i][z], constraints[y][i-1][z]);
+			}
+		}
+	}
 
 	int64_t ans = 0;
+	for (int v0 = 0; v0 < int(constraints[0].size()); v0++) {
+		for (int v1 = 0; v1 < constraints[0][v0][1]; v1++) {
+			ans += std::min(constraints[0][v0][2], constraints[1][v1][2]);
+		}
+	}
 	cout << ans << '\n';
 
 	return 0;
