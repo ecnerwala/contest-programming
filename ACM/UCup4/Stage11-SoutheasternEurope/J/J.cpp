@@ -129,6 +129,7 @@ int main() {
 	assert(hull.size() >= 3);
 	if (hull.size() > 3) {
 		cout << 0 << '\n';
+		exit(0);
 	}
 
 	std::array<std::vector<int>, 3> sorts;
