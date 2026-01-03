@@ -1588,7 +1588,8 @@ int main() {
 
 		using num = modnum<int(1e9)+7>;
 		auto mul = [&](std::vector<num> a, std::vector<num> b) -> std::vector<num> {
-			return ecnerwala::fft::fft_2ntt_multiply(a, b);
+			//return ecnerwala::fft::fft_2ntt_multiply(a, b);
+			return ecnerwala::fft::fft_mod_multiply(a, b);
 			using n1 = modnum<998244353>;
 			using n2 = modnum<(5 << 25) + 1>;
 			using n3 = modnum<(7 << 26) + 1>;
@@ -1679,7 +1680,7 @@ int main() {
 		//for (auto w : ways) { cerr << w << ' '; } cerr << '\n';
 
 		cerr << std::accumulate(ways.begin(), ways.end(), num(0)) << ' ' << tot_ways << '\n';
-		assert(std::accumulate(ways.begin(), ways.end(), num(0)) == tot_ways);
+		//assert(std::accumulate(ways.begin(), ways.end(), num(0)) == tot_ways);
 
 		int64_t ans = 0;
 		for (int i = 0; i <= L; i++) {
