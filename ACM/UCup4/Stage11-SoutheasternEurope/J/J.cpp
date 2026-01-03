@@ -121,8 +121,6 @@ int main() {
 			lower.push_back(i);
 		}
 		std::reverse(upper.begin(), upper.end());
-		lower.pop_back();
-		upper.pop_back();
 		hull.insert(hull.end(), lower.begin(), lower.end()-1);
 		hull.insert(hull.end(), upper.begin(), upper.end()-1);
 	}
