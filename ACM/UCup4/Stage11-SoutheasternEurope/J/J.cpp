@@ -181,6 +181,7 @@ int main() {
 				cur[i][y] = k;
 			}
 		}
+		constraints[z] = std::move(cur);
 	}
 	for (int z = 0; z < 3; z++) {
 		for (int y = 0; y < 3; y++) {
