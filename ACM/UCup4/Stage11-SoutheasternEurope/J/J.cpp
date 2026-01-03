@@ -156,5 +156,8 @@ int main() {
 		paths[z] = std::move(cur);
 	}
 
+	int64_t ans = 0;
+	cout << ans << '\n';
+
 	return 0;
 }
