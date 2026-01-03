@@ -156,6 +156,29 @@ int main() {
 		paths[z] = std::move(cur);
 	}
 
+	std::array<std::vector<std::array<int, 3>>, 3> constraints;
+	for (int z = 0; z < 3; z++) {
+		std::vector<std::array<int, 3>> cur(paths[z].size());
+		cur[0] = {int(paths[0].size()), int(paths[1].size()), int(paths[2].size())};
+		for (int i = 1; i < int(paths[z].size()); i++) {
+			cur[i] = cur[i-1];
+			for (int y = 0; y < 3; y++) {
+				if (y == z) continue;
+				pt_t a = P[paths[z][i-1]];
+				pt_t b = P[paths[z][i]];
+				auto eval = [&](int o) -> int {
+					int64_t d = cross3(a, b, P[paths[y][o]]);
+					return (d > 0) - (d < 0);
+				};
+				int e0 = eval(0);
+				int k = 1;
+				while (k < cur[i][y] && eval(k) == e0) k++;
+				assert(k <= cur[i][y]);
+				cur[i][y] = k;
+			}
+		}
+	}
+
 	int64_t ans = 0;
 	cout << ans << '\n';
 
