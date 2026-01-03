@@ -167,21 +167,25 @@ int main() {
 	for (int z = 0; z < 3; z++) {
 		std::vector<std::array<int, 3>> cur(paths[z].size());
 		cur[0] = {int(paths[0].size()), int(paths[1].size()), int(paths[2].size())};
+		std::vector<bool> on_path(N);
+		on_path[paths[z][0]] = true;
 		for (int i = 1; i < int(paths[z].size()); i++) {
+			on_path[paths[z][i]] = true;
 			cur[i] = cur[i-1];
-			for (int y = 0; y < 3; y++) {
-				if (y == z) continue;
-				pt_t a = P[paths[z][i-1]];
-				pt_t b = P[paths[z][i]];
-				auto eval = [&](int o) -> int {
-					int64_t d = cross3(a, b, P[paths[y][o]]);
-					return (d > 0) - (d < 0);
-				};
-				int e0 = eval(0);
-				int k = 1;
-				while (k < cur[i][y] && eval(k) == e0) k++;
-				assert(k <= cur[i][y]);
+			std::vector<int> rest; rest.reserve(N);
+			for (int o = 0; o < N; o++) {
+				if (!on_path[o]) rest.push_back(o);
+			}
+			pt_t center = P[paths[z][i]];
+			pt_t base = P[hull[(z+1)%3]] - center;
+			std::sort(rest.begin(), rest.end(), [&](int a, int b) { return angle_less(base, P[a] - center, P[b] - center); });
+			for (int d = 1; d <= 2; d++) {
+				if (d == 2) std::reverse(rest.begin(), rest.end());
+				int y = (z+d)%3;
+				int k = 0;
+				while (k < std::min(cur[i][y], int(rest.size())) && rest[k] == paths[y][k]) k++;
 				cur[i][y] = k;
+				if (d == 2) std::reverse(rest.begin(), rest.end());
 			}
 		}
 		constraints[z] = std::move(cur);
