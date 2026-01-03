@@ -158,8 +158,8 @@ int main() {
 		}
 		assert(cur.size() >= 1);
 		assert(cur.front() == hull[z]);
-		cerr << z << '\n';
-		for (auto a : cur) { cerr << P[a] << ' '; } cerr << '\n';
+		//cerr << z << '\n';
+		//for (auto a : cur) { cerr << P[a] << ' '; } cerr << '\n';
 		paths[z] = std::move(cur);
 	}
 
@@ -202,8 +202,8 @@ int main() {
 			for (int i = 1; i < int(constraints[y].size()); i++) {
 				setmin(constraints[y][i][z], constraints[y][i-1][z]);
 			}
-			cerr << y << ' ' << z << '\n';
-			for (int i = 0; i < int(constraints[y].size()); i++) { cerr << constraints[y][i][z] << ' '; } cerr << '\n';
+			//cerr << y << ' ' << z << '\n';
+			//for (int i = 0; i < int(constraints[y].size()); i++) { cerr << constraints[y][i][z] << ' '; } cerr << '\n';
 		}
 	}
 
