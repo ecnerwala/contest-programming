@@ -153,7 +153,7 @@ int main() {
 		}
 		assert(cur.size() >= 1);
 		assert(cur.front() == hull[z]);
-		paths[z] = cur;
+		paths[z] = std::move(cur);
 	}
 
 	return 0;
