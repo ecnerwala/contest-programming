@@ -9,7 +9,7 @@ int main() {
 	cout << N << '\n';
 	for (int a = 0; a < N; a++) {
 		for (int i = 1; i <= K; i++) {
-			cout << (a+i)%N+1 << '\n';
+			cout << (a+i)%N+1 << " \n"[i==K];
 		}
 	}
 
