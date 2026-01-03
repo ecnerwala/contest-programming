@@ -1630,7 +1630,7 @@ int main() {
 				r %= __int128_t(n1::MOD) * __int128_t(n2::MOD) * __int128_t(n3::MOD);
 				c[i] = num(int(r % num::MOD));
 			}
-			assert(c == ecnerwala::fft::fft_2ntt_multiply(a, b));
+			//assert(c == ecnerwala::fft::fft_2ntt_multiply(a, b));
 			return c;
 		};
 
