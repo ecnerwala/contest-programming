@@ -177,7 +177,7 @@ int main() {
 			exit(0);
 		} else if (cnt_e[c] == 0) {
 			assert(has_loop[c] <= 1);
-			if (has_loop[c]) ans += ans;
+			if (!has_loop[c]) ans += ans;
 		} else if (cnt_e[c] == -1) {
 			num_trees++;
 			ans *= num(num_trees);
