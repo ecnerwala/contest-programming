@@ -117,6 +117,8 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			while (upper.size() >= 2 && cross3(P[upper.end()[-2]], P[upper.end()[-1]], P[i]) >= 0) upper.pop_back();
 			while (lower.size() >= 2 && cross3(P[lower.end()[-2]], P[lower.end()[-1]], P[i]) <= 0) lower.pop_back();
+			upper.push_back(i);
+			lower.push_back(i);
 		}
 		std::reverse(upper.begin(), upper.end());
 		lower.pop_back();
