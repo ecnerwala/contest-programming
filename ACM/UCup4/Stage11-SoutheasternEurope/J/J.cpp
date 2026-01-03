@@ -128,6 +128,7 @@ int main() {
 	}
 	assert(hull.size() >= 3);
 	if (hull.size() > 3) {
+		cerr << "bad " << '\n';
 		cout << 0 << '\n';
 		exit(0);
 	}
