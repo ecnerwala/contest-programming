@@ -560,7 +560,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	// it may not have been called on the children! In particular, be careful
 	// when accessing grandchildren information.
 	void update() {
-		assert(!is_path);
+		assert(!lazy_flip_path);
 		if (is_vert) {
 			path_len = 0;
 			best_val[0] = own_val;
