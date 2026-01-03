@@ -157,6 +157,8 @@ int main() {
 		}
 		assert(cur.size() >= 1);
 		assert(cur.front() == hull[z]);
+		cerr << z << '\n';
+		for (auto a : cur) { cerr << P[a] << ' '; } cerr << '\n';
 		paths[z] = std::move(cur);
 	}
 
