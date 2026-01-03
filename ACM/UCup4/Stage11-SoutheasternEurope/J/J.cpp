@@ -152,7 +152,7 @@ int main() {
 			if (pref[i] == suff[N-2-i]) cur.push_back(pref[i]);
 		}
 		assert(cur.size() >= 1);
-		assert(cur.front() == hull[0]);
+		assert(cur.front() == hull[z]);
 		paths[z] = cur;
 	}
 
