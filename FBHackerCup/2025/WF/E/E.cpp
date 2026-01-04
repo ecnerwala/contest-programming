@@ -1589,9 +1589,9 @@ int main() {
 		//using num = modnum<int(1e9)+7>;
 		using num = modnum<998244353>;
 		auto mul = [&](std::vector<num> a, std::vector<num> b) -> std::vector<num> {
+			return ecnerwala::fft::fft_mod_multiply(a, b);
 			return ecnerwala::fft::fft_multiply(a, b);
 			//return ecnerwala::fft::fft_2ntt_multiply(a, b);
-			//return ecnerwala::fft::fft_mod_multiply(a, b);
 			using n1 = modnum<998244353>;
 			using n2 = modnum<(5 << 25) + 1>;
 			using n3 = modnum<(7 << 26) + 1>;
