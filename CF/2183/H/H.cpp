@@ -274,6 +274,7 @@ int main() {
 			}
 			auto res = dp[N];
 			res.first += slope.first * res.second;
+			assert(res.first % slope.second == 0);
 			res.first /= slope.second;
 			return res;
 		};
