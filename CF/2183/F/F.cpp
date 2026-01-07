@@ -260,6 +260,7 @@ int main() {
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
+		std::vector<int> par(N, -1);
 		std::vector<std::array<int, 26>> last_val(N);
 		std::vector<int> last_eq(N, -1);
 		std::vector<int> preorder_idx(N, -1);
@@ -276,6 +277,7 @@ int main() {
 				val[S[cur] - 'a'] = idx;
 				for (int nxt : adj[cur]) {
 					if (nxt == prv) continue;
+					par[nxt_idx] = idx;
 					self(nxt, cur, val);
 				}
 			}(0, -1, nulls);
@@ -292,7 +294,7 @@ int main() {
 
 				dp[{i, j}] += dp2[{i, j}];
 				if (last_eq[i] != -1) dp[{last_eq[i], j}] += dp[{i, j}];
-				
+
 				// add one for starting here
 				dp[{i, j}] ++;
 
@@ -302,6 +304,17 @@ int main() {
 						dp2[{last_val[i][v], last_val[j][v]}] += dp[{i, j}];
 					}
 				}
+			}
+		}
+
+		for (int i = N-1; i >= 0; i--) {
+			for (int j = N-1; j >= 0; j--) {
+				if (i > 0) dp[{par[i], j}] += dp[{i, j}];
+			}
+		}
+		for (int i = N-1; i >= 0; i--) {
+			for (int j = N-1; j >= 0; j--) {
+				if (j > 0) dp[{i, par[j]}] += dp[{i, j}];
 			}
 		}
 
