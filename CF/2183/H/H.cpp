@@ -255,13 +255,27 @@ int main() {
 		std::vector<int64_t> pref(N+1);
 		for (int i = 0; i < N; i++) pref[i+1] = pref[i] + A[i];
 
+		int st_len = 0;
+		while (st_len < N && pref[st_len] + int64_t(A[st_len]) * st_len <= 0) {
+			st_len++;
+		}
+		assert(st_len >= 1);
+
+		if (K >= N - st_len + 1) {
+			// all 1's and then all together in a group of size N-K+1
+			cout << (pref[N] - pref[N-K+1]) + __int128_t(pref[N-K+1]) * (N-K+1) << '\n';
+			continue;
+		}
+
 		auto solve = [&](std::pair<__int128_t, int> slope) -> std::pair<__int128_t, int> {
 			std::vector<std::pair<__int128_t, int>> dp(N+1);
 			smawk::LARSCH a(
-				N,
+				N - st_len + 1,
 				[&](int out, int in) -> std::pair<__int128_t, int> {
 					assert(out >= in);
 					out++;
+					out = out > 0 ? out + st_len - 1 : out;
+					in = in > 0 ? in + st_len - 1 : in;
 					return {dp[in].first + (__int128_t(pref[out] - pref[in]) * (out - in)) * slope.second - slope.first, dp[in].second + 1};
 				},
 				[&](int, smawk::value_t<std::pair<__int128_t, int>> v0, smawk::value_t<std::pair<__int128_t, int>> v1) -> bool {
@@ -269,7 +283,7 @@ int main() {
 				}
 			);
 			dp[0] = {0, 0};
-			for (int i = 1; i <= N; i++) {
+			for (int i = st_len; i <= N; i++) {
 				dp[i] = a.push_and_query_next().v;
 			}
 			auto res = dp[N];
