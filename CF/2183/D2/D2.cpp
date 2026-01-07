@@ -51,6 +51,7 @@ int main() {
 				auto [cur, prv] = forbiddens[0].first;
 				int loc = 0;
 				while (last_depth[loc] == d+1) loc++;
+				cerr << "put " << d << ' ' << cur << ' ' << prv << ' ' << loc << '\n';
 				resp[loc].push_back(cur);
 				last_depth[loc] = d;
 				if (prv != -1) forbidden_loc[prv] = loc;
@@ -58,6 +59,7 @@ int main() {
 				for (int z = 0; z < int(forbiddens.size()); z++) {
 					auto [cur, prv] = forbiddens[0].first;
 					int loc = forbiddens[(z+1)%int(forbiddens.size())].second;
+					cerr << "put " << d << ' ' << cur << ' ' << prv << ' ' << loc << '\n';
 					assert(last_depth[loc] == d+1);
 					resp[loc].push_back(cur);
 					last_depth[loc] = d;
@@ -70,6 +72,7 @@ int main() {
 				for (auto [cur, prv] : verts) {
 					if (forbidden_loc[cur] == -1) {
 						while (last_depth[loc] == d) loc++;
+						cerr << "put " << d << ' ' << cur << ' ' << prv << ' ' << loc << '\n';
 						resp[loc].push_back(cur);
 						last_depth[loc] = d;
 						if (prv != -1) forbidden_loc[prv] = loc;
