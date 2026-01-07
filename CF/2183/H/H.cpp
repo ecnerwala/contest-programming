@@ -277,6 +277,8 @@ int main() {
 			res.first /= slope.second;
 			return res;
 		};
+		auto g = solve({0, 1});
+		cerr << g.first << ' ' << g.second << '\n';
 
 		std::pair<__int128_t, int> v_lo{__int128_t(pref[N]) * N, 1}, v_hi{pref[N], N};
 		__int128_t ans;
