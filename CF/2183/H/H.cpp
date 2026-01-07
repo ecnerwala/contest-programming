@@ -250,7 +250,7 @@ int main() {
 		for (auto& a : A) cin >> a;
 		std::sort(A.begin(), A.end());
 
-		cerr << "start case" << '\n';
+		//cerr << "start case" << '\n';
 
 		std::vector<int64_t> pref(N+1);
 		for (int i = 0; i < N; i++) pref[i+1] = pref[i] + A[i];
@@ -310,6 +310,7 @@ int main() {
 					break;
 				}
 				__int128_t m = (s_lo + s_hi + 1) / 2;
+				assert(m > s_lo && m+1 < s_hi);
 				auto res = solve({2 * m - 1, 2});
 				//cerr << 2*m-1 << '/' << 2 << ' ' << res.first << ' ' << res.second << '\n';
 				if (res.second == K) {
