@@ -309,8 +309,9 @@ int main() {
 					ans = v_lo.first + (v_hi.first - v_lo.first) / (v_hi.second - v_lo.second) * (K - v_lo.second);
 					break;
 				}
+				assert(s_lo < s_hi);
 				__int128_t m = (s_lo + s_hi + 1) / 2;
-				assert(m > s_lo && m+1 < s_hi);
+				assert(m > s_lo && m-1 < s_hi);
 				auto res = solve({2 * m - 1, 2});
 				//cerr << 2*m-1 << '/' << 2 << ' ' << res.first << ' ' << res.second << '\n';
 				if (res.second == K) {
@@ -321,7 +322,7 @@ int main() {
 					s_lo = m;
 				} else {
 					v_hi = res;
-					s_hi = m+1;
+					s_hi = m-1;
 				}
 			}
 		}
