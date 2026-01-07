@@ -261,12 +261,6 @@ int main() {
 		}
 		assert(st_len >= 1);
 
-		if (K >= N - st_len + 1) {
-			// all 1's and then all together in a group of size N-K+1
-			cout << (pref[N] - pref[N-K+1]) + __int128_t(pref[N-K+1]) * (N-K+1) << '\n';
-			continue;
-		}
-
 		auto solve = [&](std::pair<__int128_t, int> slope) -> std::pair<__int128_t, int> {
 			std::vector<std::pair<__int128_t, int>> dp(N+1);
 			smawk::LARSCH a(
@@ -276,6 +270,8 @@ int main() {
 					out++;
 					out = out > 0 ? out + st_len - 1 : out;
 					in = in > 0 ? in + st_len - 1 : in;
+					assert(out == 0 || out >= st_len);
+					assert(in == 0 || in >= st_len);
 					return {dp[in].first + (__int128_t(pref[out] - pref[in]) * (out - in)) * slope.second - slope.first, dp[in].second + 1};
 				},
 				[&](int, smawk::value_t<std::pair<__int128_t, int>> v0, smawk::value_t<std::pair<__int128_t, int>> v1) -> bool {
@@ -293,13 +289,15 @@ int main() {
 			return res;
 		};
 
-		std::pair<__int128_t, int> v_lo{__int128_t(pref[N]) * N, 1}, v_hi{pref[N], N};
+		std::pair<__int128_t, int> v_lo{__int128_t(pref[st_len]) * st_len + (pref[N] - pref[st_len]), N - st_len + 1}, v_hi{pref[N], N};
 		__int128_t ans;
-		if (K == 1) {
-			ans = v_lo.first;
-		} else if (K == N) {
+		if (K <= v_lo.second) {
+			// all 1's and then all together in a group of size N-K+1
+			ans = (pref[N] - pref[N-K+1]) + __int128_t(pref[N-K+1]) * (N-K+1);
+		} else if (K == v_hi.second) {
 			ans = v_hi.first;
 		} else {
+			assert(v_lo.second < K && K < v_hi.second);
 			cerr << v_lo.first << ' ' << v_lo.second << '\n';
 			cerr << v_hi.first << ' ' << v_hi.second << '\n';
 			while (true) {
