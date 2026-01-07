@@ -264,6 +264,7 @@ int main() {
 			}
 			std::swap(dp, ndp);
 			dp[A[i]] = 0;
+			for (int v = 1; v <= M; v++) { cerr << dp[v] << ' '; } cerr << '\n';
 		}
 		cout << std::accumulate(dp.begin(), dp.end(), num(0)) << '\n';
 	}
