@@ -296,6 +296,17 @@ int main() {
 			}
 		}
 
+		for (int i = N-1; i >= 0; i--) {
+			for (int j = N-1; j >= 0; j--) {
+				if (i > 0) dp[{par[i], j}] += dp[{i, j}];
+			}
+		}
+		for (int i = N-1; i >= 0; i--) {
+			for (int j = N-1; j >= 0; j--) {
+				if (j > 0) dp[{i, par[j]}] += dp[{i, j}];
+			}
+		}
+
 		for (int i = 0; i < N; i++) {
 			int idx = preorder_idx[i];
 			cout << dp[{idx, idx}] << " \n"[i+1==N];
