@@ -57,7 +57,7 @@ int main() {
 				if (prv != -1) forbidden_loc[prv] = loc;
 			} else {
 				for (int z = 0; z < int(forbiddens.size()); z++) {
-					auto [cur, prv] = forbiddens[0].first;
+					auto [cur, prv] = forbiddens[z].first;
 					int loc = forbiddens[(z+1)%int(forbiddens.size())].second;
 					cerr << "put " << d << ' ' << cur << ' ' << prv << ' ' << loc << '\n';
 					assert(last_depth[loc] == d+1);
