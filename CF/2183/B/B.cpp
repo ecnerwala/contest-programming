@@ -12,7 +12,7 @@ int main() {
 		std::vector<bool> has(N+1);
 		for (auto a : A) { has[a] = true; }
 		int ans = 0;
-		while (ans < K && has[ans]) ans++;
+		while (ans < K-1 && has[ans]) ans++;
 		cout << ans << '\n';
 	}
 
