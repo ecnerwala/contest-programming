@@ -289,7 +289,7 @@ int main() {
 			return res;
 		};
 
-		std::pair<__int128_t, int> v_lo{pref[N], 1}, v_hi{__int128_t(pref[st_len]) * st_len + (pref[N] - pref[st_len]), N - st_len + 1};
+		std::pair<__int128_t, int> v_lo{__int128_t(pref[N]) * N, 1}, v_hi{__int128_t(pref[st_len]) * st_len + (pref[N] - pref[st_len]), N - st_len + 1};
 		__int128_t ans;
 		if (K == v_lo.second) {
 			ans = v_lo.first;
