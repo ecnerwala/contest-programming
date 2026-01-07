@@ -255,9 +255,10 @@ int main() {
 		std::vector<int> ndp(M+1, 0);
 		dp[1] = 1;
 		dp[A[0]] = 0;
+		for (int v = 1; v <= M; v++) { cerr << dp[v] << ' '; } cerr << '\n';
 		for (int i = 1; i < N; i++) {
 			for (int v = 1; v <= M; v++) ndp[v] = 0;
-			for (int a = 1; a <= M; a++) {
+			for (int a = 1; a+1 <= M; a++) {
 				for (int k = 1; (a+1)*k <= M; k++) {
 					ndp[(a+1)*k] += dp[a*k];
 				}
