@@ -258,7 +258,7 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			for (int v = 1; v <= M; v++) ndp[v] = 0;
 			for (int a = 1; a <= M; a++) {
-				for (int k = 1; a*k <= M; k++) {
+				for (int k = 1; (a+1)*k <= M; k++) {
 					ndp[(a+1)*k] += dp[a*k];
 				}
 			}
