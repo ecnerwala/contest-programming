@@ -270,6 +270,8 @@ int main() {
 					out++;
 					out = out > 0 ? out + st_len - 1 : out;
 					in = in > 0 ? in + st_len - 1 : in;
+					assert(out == 0 || out >= st_len);
+					assert(in == 0 || in >= st_len);
 					return {dp[in].first + (__int128_t(pref[out] - pref[in]) * (out - in)) * slope.second - slope.first, dp[in].second + 1};
 				},
 				[&](int, smawk::value_t<std::pair<__int128_t, int>> v0, smawk::value_t<std::pair<__int128_t, int>> v1) -> bool {
