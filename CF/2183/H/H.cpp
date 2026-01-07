@@ -289,13 +289,13 @@ int main() {
 			return res;
 		};
 
-		std::pair<__int128_t, int> v_lo{__int128_t(pref[st_len]) * st_len + (pref[N] - pref[st_len]), N - st_len + 1}, v_hi{pref[N], N};
+		std::pair<__int128_t, int> v_lo{pref[N], 1}, v_hi{__int128_t(pref[st_len]) * st_len + (pref[N] - pref[st_len]), N - st_len + 1};
 		__int128_t ans;
-		if (K <= v_lo.second) {
+		if (K == v_lo.second) {
+			ans = v_lo.first;
+		} else if (K >= v_hi.second) {
 			// all 1's and then all together in a group of size N-K+1
 			ans = (pref[N] - pref[N-K+1]) + __int128_t(pref[N-K+1]) * (N-K+1);
-		} else if (K == v_hi.second) {
-			ans = v_hi.first;
 		} else {
 			assert(v_lo.second < K && K < v_hi.second);
 			cerr << v_lo.first << ' ' << v_lo.second << '\n';
