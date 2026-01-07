@@ -295,6 +295,7 @@ int main() {
 		} else if (K == v_hi.second) {
 			ans = v_hi.first;
 		} else {
+			assert(v_lo.second < K && K < v_hi.second);
 			cerr << v_lo.first << ' ' << v_lo.second << '\n';
 			cerr << v_hi.first << ' ' << v_hi.second << '\n';
 			while (true) {
