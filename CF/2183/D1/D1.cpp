@@ -18,7 +18,7 @@ int main() {
 			by_depth[depth].push_back({cur, prv});
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
-				self(nxt, prv, depth+1);
+				self(nxt, cur, depth+1);
 			}
 		}(0, -1, 0);
 		int ans = 0;
