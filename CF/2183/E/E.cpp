@@ -253,9 +253,7 @@ int main() {
 		using num = modnum<998244353>;
 		std::vector<int> dp(M+1, 0);
 		std::vector<int> ndp(M+1, 0);
-		dp[1] = 1;
-		dp[A[0]] = 0;
-		for (int v = 1; v <= M; v++) { cerr << dp[v] << ' '; } cerr << '\n';
+		dp[1] = (A[0] == 1);
 		for (int i = 1; i < N; i++) {
 			for (int v = 1; v <= M; v++) ndp[v] = 0;
 			for (int a = 1; a+1 <= M; a++) {
@@ -264,7 +262,12 @@ int main() {
 				}
 			}
 			std::swap(dp, ndp);
-			dp[A[i]] = 0;
+			if (A[i]) {
+				for (int v = 1; v <= M; v++) {
+					if (v == A[i]) continue;
+					dp[v] = 0;
+				}
+			}
 			for (int v = 1; v <= M; v++) { cerr << dp[v] << ' '; } cerr << '\n';
 		}
 		cout << std::accumulate(dp.begin(), dp.end(), num(0)) << '\n';
