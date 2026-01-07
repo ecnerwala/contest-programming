@@ -58,6 +58,7 @@ int main() {
 				for (int z = 0; z < int(forbiddens.size()); z++) {
 					auto [cur, prv] = forbiddens[0].first;
 					int loc = forbiddens[(z+1)%int(forbiddens.size())].second;
+					assert(last_depth[loc] == d+1);
 					resp[loc].push_back(cur);
 					last_depth[loc] = d;
 					if (prv != -1) forbidden_loc[prv] = loc;
