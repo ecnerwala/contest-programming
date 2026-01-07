@@ -285,6 +285,8 @@ int main() {
 		} else if (K == N) {
 			ans = v_hi.first;
 		} else {
+			cerr << v_lo.first << ' ' << v_lo.second << '\n';
+			cerr << v_hi.first << ' ' << v_hi.second << '\n';
 			while (true) {
 				auto res = solve({v_hi.first - v_lo.first, v_hi.second - v_lo.second});
 				cerr << res.first << ' ' << res.second << '\n';
