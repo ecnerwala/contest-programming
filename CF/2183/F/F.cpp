@@ -292,6 +292,8 @@ int main() {
 					// add one for starting here
 					dp[{i, j}] ++;
 					if (par[i] != -1 && par[j] != -1) dp2[{par[i], par[j]}] += dp[{i, j}];
+				} else {
+					dp[{i, j}] = 0;
 				}
 			}
 		}
