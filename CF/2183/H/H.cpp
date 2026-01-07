@@ -311,6 +311,7 @@ int main() {
 				}
 				__int128_t m = (s_lo + s_hi + 1) / 2;
 				auto res = solve({2 * m - 1, 2});
+				cerr << 2*m-1 << '/' << 2 << ' ' << res.first << ' ' << res.second << '\n';
 				if (res.second == K) {
 					ans = res.first;
 					break;
