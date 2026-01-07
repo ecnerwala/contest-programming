@@ -253,7 +253,7 @@ int main() {
 		using num = modnum<998244353>;
 		std::vector<int> dp(M+1, 0);
 		std::vector<int> ndp(M+1, 0);
-		dp[1] = (A[0] == 1);
+		dp[1] = (A[0] == 1 || A[0] == 0);
 		for (int i = 1; i < N; i++) {
 			for (int v = 1; v <= M; v++) ndp[v] = 0;
 			for (int a = 1; a+1 <= M; a++) {
