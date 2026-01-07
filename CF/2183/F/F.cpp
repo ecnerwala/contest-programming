@@ -292,20 +292,7 @@ int main() {
 					// add one for starting here
 					dp[{i, j}] ++;
 					if (par[i] != -1 && par[j] != -1) dp2[{par[i], par[j]}] += dp[{i, j}];
-				} else {
-					dp[{i, j}] = 0;
 				}
-			}
-		}
-
-		for (int i = N-1; i >= 0; i--) {
-			for (int j = N-1; j >= 0; j--) {
-				if (i > 0) dp[{par[i], j}] += dp[{i, j}];
-			}
-		}
-		for (int i = N-1; i >= 0; i--) {
-			for (int j = N-1; j >= 0; j--) {
-				if (j > 0) dp[{i, par[j]}] += dp[{i, j}];
 			}
 		}
 
