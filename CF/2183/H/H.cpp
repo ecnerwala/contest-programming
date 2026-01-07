@@ -299,25 +299,27 @@ int main() {
 		} else {
 			assert(v_lo.second < K && K < v_hi.second);
 			// v_lo is the worst case, v_hi is the best
-			__int128_t s_lo = v_hi.first - v_lo.first - 1;
-			__int128_t s_hi = +1;
-			assert(v_lo == solve({s_lo, 1}));
-			assert(v_hi == solve({s_hi, 1}));
+			__int128_t s_lo = v_hi.first - v_lo.first;
+			__int128_t s_hi = 0;
+			assert(v_lo == solve({2 * s_lo - 1, 2}));
+			assert(v_hi == solve({2 * s_hi + 1, 2}));
 			while (true) {
-				auto res = solve({v_hi.first - v_lo.first, v_hi.second - v_lo.second});
-				cerr << res.first << ' ' << res.second << '\n';
-				// if res is colinear with v_lo and v_hi, break
-				if (res.second == K) {
-					ans = res.first;
-					break;
-				} else if ((res.second - v_lo.second) * (v_hi.first - res.first) == (v_hi.second - res.second) * (res.first - v_lo.first)) {
-					// we're on the line, so just output the thing
+				if (s_lo == s_hi) {
 					assert((v_hi.first - v_lo.first) % (v_hi.second - v_lo.second) == 0);
 					ans = v_lo.first + (v_hi.first - v_lo.first) / (v_hi.second - v_lo.second) * (K - v_lo.second);
 					break;
+				}
+				__int128_t m = (s_lo + s_hi + 1) / 2;
+				auto res = solve({2 * m - 1, 2});
+				if (res.second == K) {
+					ans = res.first;
+					break;
+				} else if (res.second < K) {
+					v_lo = res;
+					s_lo = m;
 				} else {
-					assert(v_lo.second < res.second && res.second < v_hi.second);
-					(res.second < K ? v_lo : v_hi) = res;
+					v_hi = res;
+					s_hi = m+1;
 				}
 			}
 		}
