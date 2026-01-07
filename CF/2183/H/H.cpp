@@ -250,6 +250,8 @@ int main() {
 		for (auto& a : A) cin >> a;
 		std::sort(A.begin(), A.end());
 
+		cerr << "start case" << '\n';
+
 		std::vector<int64_t> pref(N+1);
 		for (int i = 0; i < N; i++) pref[i+1] = pref[i] + A[i];
 
@@ -278,21 +280,27 @@ int main() {
 
 		std::pair<__int128_t, int> v_lo{__int128_t(pref[N]) * N, 1}, v_hi{pref[N], N};
 		__int128_t ans;
-		while (true) {
-			auto res = solve({v_hi.first - v_lo.first, v_hi.second - v_lo.second});
-			cerr << res.first << ' ' << res.second << '\n';
-			// if res is colinear with v_lo and v_hi, break
-			if (res.second == K) {
-				ans = res.first;
-				break;
-			} else if ((res.second - v_lo.second) * (v_hi.first - res.first) == (v_hi.second - res.second) * (res.first - v_lo.first)) {
-				// we're on the line, so just output the thing
-				assert((v_hi.first - v_lo.first) % (v_hi.second - v_lo.second) == 0);
-				ans = v_lo.first + (v_hi.first - v_lo.first) / (v_hi.second - v_lo.second) * (K - v_lo.second);
-				break;
-			} else {
-				assert(v_lo.second < res.second && res.second < v_hi.second);
-				(res.second < K ? v_lo : v_hi) = res;
+		if (K == 1) {
+			ans = v_lo.first;
+		} else if (K == N) {
+			ans = v_hi.first;
+		} else {
+			while (true) {
+				auto res = solve({v_hi.first - v_lo.first, v_hi.second - v_lo.second});
+				cerr << res.first << ' ' << res.second << '\n';
+				// if res is colinear with v_lo and v_hi, break
+				if (res.second == K) {
+					ans = res.first;
+					break;
+				} else if ((res.second - v_lo.second) * (v_hi.first - res.first) == (v_hi.second - res.second) * (res.first - v_lo.first)) {
+					// we're on the line, so just output the thing
+					assert((v_hi.first - v_lo.first) % (v_hi.second - v_lo.second) == 0);
+					ans = v_lo.first + (v_hi.first - v_lo.first) / (v_hi.second - v_lo.second) * (K - v_lo.second);
+					break;
+				} else {
+					assert(v_lo.second < res.second && res.second < v_hi.second);
+					(res.second < K ? v_lo : v_hi) = res;
+				}
 			}
 		}
 		cout << ans << '\n';
