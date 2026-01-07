@@ -261,26 +261,20 @@ int main() {
 			adj[v].push_back(u);
 		}
 		std::vector<int> par(N, -1);
-		std::vector<std::array<int, 26>> last_val(N);
-		std::vector<int> last_eq(N, -1);
 		std::vector<int> preorder_idx(N, -1);
 		std::vector<char> preorder_S; preorder_S.reserve(N);
 		{
-			std::array<int, 26> nulls; nulls.fill(-1);
 			int nxt_idx = 0;
-			[&](this auto&& self, int cur, int prv, std::array<int, 26> val) -> void {
+			[&](this auto&& self, int cur, int prv) -> void {
 				int idx = nxt_idx++;
 				preorder_S.push_back(S[cur]);
 				preorder_idx[cur] = idx;
-				last_val[idx] = val;
-				last_eq[idx] = val[S[cur] - 'a'];
-				val[S[cur] - 'a'] = idx;
 				for (int nxt : adj[cur]) {
 					if (nxt == prv) continue;
 					par[nxt_idx] = idx;
-					self(nxt, cur, val);
+					self(nxt, cur);
 				}
-			}(0, -1, nulls);
+			}(0, -1);
 			assert(nxt_idx == N);
 		}
 		using num = modnum<998244353>;
@@ -288,21 +282,16 @@ int main() {
 		tensor<num, 2> dp2({N, N});
 		for (int i = N-1; i >= 0; i--) {
 			for (int j = N-1; j >= 0; j--) {
-				if (preorder_S[i] != preorder_S[j]) continue;
 
-				if (last_eq[j] != -1) dp2[{i, last_eq[j]}] += dp2[{i, j}];
+				if (par[j] != -1) dp2[{i, par[j]}] += dp2[{i, j}];
 
 				dp[{i, j}] += dp2[{i, j}];
-				if (last_eq[i] != -1) dp[{last_eq[i], j}] += dp[{i, j}];
+				if (par[i] != -1) dp[{par[i], j}] += dp[{i, j}];
 
-				// add one for starting here
-				dp[{i, j}] ++;
-
-				// now allow ourselves to jump
-				for (int v = 0; v < 26; v++) {
-					if (last_val[i][v] != -1 && last_val[j][v] != -1) {
-						dp2[{last_val[i][v], last_val[j][v]}] += dp[{i, j}];
-					}
+				if (preorder_S[i] == preorder_S[j]) {
+					// add one for starting here
+					dp[{i, j}] ++;
+					if (par[i] != -1 && par[j] != -1) dp2[{par[i], par[j]}] += dp[{i, j}];
 				}
 			}
 		}
