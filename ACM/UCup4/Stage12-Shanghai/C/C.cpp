@@ -129,7 +129,7 @@ int main() {
 			std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 			do {
 				auto r = solve(P);
-				cerr << (r ? int(r->size()) : -1) << '\n';
+				//cerr << (r ? int(r->size()) : -1) << '\n';
 			} while (std::next_permutation(P.begin(), P.end()));
 			cerr << "proved " << N << '\n';
 		}
