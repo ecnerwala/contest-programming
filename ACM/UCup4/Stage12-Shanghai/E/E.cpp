@@ -638,7 +638,7 @@ int main() {
 
 	int N, M, K; cin >> N >> M >> K;
 	M /= 4;
-	const int B = 16 / 4;
+	const int B = 64 / 4;
 	M = (M + B-1) / B;
 	std::vector<uint64_t> S(N*M);
 	for (int i = 0; i < N; i++) {
