@@ -37,6 +37,9 @@ int main() {
 				}
 			}
 			dp[i] = int((ways_near + int64_t(ways_far) * int64_t(p2[cnt_camper])) % MOD);
+			ways_near += dp[i];
+			ways_near -= (ways_near >= MOD) * MOD;
+
 			ans += dp[i];
 			ans -= (ans >= MOD) * MOD;
 		}
