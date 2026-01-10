@@ -83,7 +83,16 @@ int main() {
 				if ((max_mid & 1) != mid_val) max_mid++;
 				if ((min_bot & 1) == mid_val) min_bot--;
 				if (max_top < min_mid && max_mid < min_bot) {
-					ans += int64_t((min_mid - max_top + 1) / 2) * int64_t((min_bot - max_mid + 1) / 2);
+					int extra_top = (min_mid - max_top - 1) / 2;
+					int extra_bot = (min_bot - max_mid - 1) / 2;
+					int cols = (max_top + 1) + ((R+C-1) - min_bot);
+					int max_extra = C - cols;
+					auto ways_extra = [&](int e) -> int64_t {
+						if (e < 0) return 0;
+						return int64_t(e+1) * int64_t(e+2) / 2;
+					};
+					extra_top++, extra_bot++;
+					ans += ways_extra(max_extra) - ways_extra(max_extra - extra_top) - ways_extra(max_extra - extra_bot) + ways_extra(max_extra - extra_top - extra_bot);
 				}
 			}
 		}
