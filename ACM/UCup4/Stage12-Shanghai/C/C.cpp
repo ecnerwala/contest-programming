@@ -48,7 +48,7 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 		}
 
 		std::vector<int> prefs(N+1);
-		for (int i = 0; i < N; i++) prefs[i+1] = prefs[i] + (P[i] < N ? +1 : -1);
+		for (int i = 0; i < N; i++) prefs[i+1] = prefs[i] + (P[i] < N/2 ? +1 : -1);
 		for (auto p : prefs) { std::cerr << p << ' '; } std::cerr << '\n';
 
 		std::pair<int, int> max_pref{0, 0};
@@ -68,12 +68,12 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 			int i = max_pref.second;
 			if (prefs[1] != 1) {
 				do_op(0, i + 1);
-				assert(P[0] < N);
+				assert(P[0] < N/2);
 				continue;
 			}
 			if (prefs[N-1] != 1) {
 				do_op(i - 1, N);
-				assert(P[N-1] >= N);
+				assert(P[N-1] >= N/2);
 				continue;
 			}
 			assert(prefs[1] == 1 && prefs[N-1] == 1);
