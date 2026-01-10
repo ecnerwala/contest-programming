@@ -339,7 +339,7 @@ int main() {
 		apply_op(a.c(1), seg[a].lazy_val, seg[a].lazy_set);
 		seg[a].lazy_val = 0, seg[a].lazy_set = false;
 	};
-	auto query_range = [&](this auto&& self, seg_tree::point a, std::array<int64_t, 2> v_in) -> std::array<uint64_t, 4> {
+	auto query_node = [&](this auto&& self, seg_tree::point a, std::array<int64_t, 2> v_in) -> std::array<uint64_t, 4> {
 		if (a >= layout.N) {
 			int64_t mi = std::min(v_in[0], seg[a].v[0]);
 			int64_t ma = std::max(v_in[1], seg[a].v[0]);
@@ -381,9 +381,10 @@ int main() {
 		seg[a].v[0] = std::min(seg[a.c(0)].v[0], seg[a.c(1)].v[0]);
 		seg[a].v[1] = std::max(seg[a.c(0)].v[1], seg[a.c(1)].v[1]);
 		seg[a].sums = seg[a.c(0)].sums;
-		seg[a].rsums = query_range(a.c(1), seg[a.c(0)].v);
+		seg[a].rsums = query_node(a.c(1), seg[a.c(0)].v);
 		for (int z = 0; z < 4; z++) seg[a].sums[z] += seg[a].rsums[z];
 	};
+	for (seg_tree::point a(layout.N-1); a > 0; a--) update_node(a);
 
 	for (int q = 0; q < Q; q++) {
 		int op; cin >> op;
@@ -402,7 +403,7 @@ int main() {
 			std::array<int64_t, 2> v{INF, -INF};
 			uint64_t ans = 0;
 			rng.for_each_l_to_r([&](seg_tree::point a) -> void {
-				ans += query_range(a, v)[3];
+				ans += query_node(a, v)[3];
 				v[0] = std::min(v[0], seg[a].v[0]);
 				v[1] = std::max(v[1], seg[a].v[1]);
 			});
