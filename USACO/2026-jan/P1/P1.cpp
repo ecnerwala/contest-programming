@@ -60,7 +60,7 @@ int64_t solve(std::vector<std::array<int, 3>> cows) {
 			assert(j > i);
 			c1 -= dirs[i].second;
 			c2 -= c1 * dirs[i].second;
-			tot -= c2;
+			tot -= c2 * dirs[i].second;
 		}
 	}
 
