@@ -12,7 +12,6 @@ int64_t solve(std::vector<std::array<int, 3>> cows) {
 		int g = std::gcd(std::abs(a), std::abs(b));
 		a /= g, b /= g;
 		P.push_back({a, b});
-		std::cerr << a << ' ' << b << '\n';
 	}
 
 	std::sort(P.begin(), P.end());
@@ -93,7 +92,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	if (true) {
+	if (false) {
 		std::mt19937 mt(48);
 		for (int case_num = 0; case_num < 10000; case_num++) {
 			int N = std::uniform_int_distribution(1, 4)(mt);
