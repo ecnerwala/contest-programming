@@ -1668,10 +1668,6 @@ int main() {
 				}
 			}
 		}
-		cerr << layout.get_node_bounds(a)[0] << '-' << layout.get_node_bounds(a)[1] << '\n';
-		for (int z = 0; z < 4; z++) {
-			for (auto v : res[z]) { cerr << v << ' '; } cerr << '\n';
-		}
 		return res;
 	}(seg_tree::point(1))[0];
 
@@ -1690,7 +1686,6 @@ int main() {
 	};
 	num tot = 0;
 	for (int c = 0; c <= N/2; c++) {
-		cerr << c << ' ' << ans[c] << '\n';
 		tot += catalan(N - c) * ans[c];
 	}
 	tot /= 2;
