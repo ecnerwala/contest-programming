@@ -78,6 +78,7 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 			assert(prefs[N-1] == 1 || prefs[N-1] == -1);
 			if (prefs[1] != prefs[N-1]) {
 				do_op(1, N-1);
+				continue;
 			}
 
 			if (N == 6) {
