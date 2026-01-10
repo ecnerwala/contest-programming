@@ -1686,8 +1686,10 @@ int main() {
 	};
 	num tot = 0;
 	for (int c = 0; c <= (N+1)/2; c++) {
+		cerr << c << ' ' << ans[c] << '\n';
 		tot += catalan(N - c) * ans[c];
 	}
+	tot /= 2;
 	cout << tot << '\n';
 
 	return 0;
