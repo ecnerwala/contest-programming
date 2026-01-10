@@ -1688,6 +1688,9 @@ int main() {
 	for (int c = 0; c <= N/2; c++) {
 		tot += catalan(N - c) * ans[c];
 	}
+	if (N == 1) {
+		tot *= 2;
+	}
 	tot /= 2;
 	cout << tot << '\n';
 
