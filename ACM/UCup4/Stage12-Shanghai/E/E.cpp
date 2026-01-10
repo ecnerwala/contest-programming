@@ -662,6 +662,7 @@ int main() {
 					off++;
 				}
 			}
+			cerr << i << ' ' << j << ' ' << dist << '\n';
 			if (dist <= K) ways++;
 		}
 		ans *= ways;
