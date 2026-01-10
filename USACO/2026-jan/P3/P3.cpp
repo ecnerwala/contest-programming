@@ -124,7 +124,7 @@ int main() {
 					int extra_top = (min_mid - max_top - 1) / 2;
 					int extra_bot = (min_bot - max_mid - 1) / 2;
 					int cols = (max_top + 1) + ((R+C-1) - min_bot);
-					int max_extra = (C - cols) / 2;
+					int max_extra = (C - cols + 1) / 2;
 					auto ways_extra = [&](int e) -> int64_t {
 						if (e < 0) return 0;
 						return int64_t(e+1) * int64_t(e+2) / 2;
