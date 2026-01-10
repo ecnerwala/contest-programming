@@ -656,9 +656,9 @@ int main() {
 			int off = 0;
 			int dist = 0;
 			while (off < M && dist <= K) {
-				off = r.get_lcp(N*i+off, N*j+off);
+				off = r.get_lcp(i*M+off, j*M+off);
 				if (off < M) {
-					dist += __builtin_popcount(S[N*i+off] ^ S[N*j+off]);
+					dist += __builtin_popcount(S[i*M+off] ^ S[j*M+off]);
 					off++;
 				}
 			}
