@@ -58,6 +58,8 @@ int main() {
 			int64_t c2 = 0;
 			for (int i = 0, j = 0; i < N; i++) {
 				while (c1 == 0 || get_dir(dirs[j].first, dirs[i].first) < 0) {
+					c2 += c1 * dirs[j].second;
+					c1 += dirs[j].second;
 					j++;
 					if (j == N) j = 0;
 				}
