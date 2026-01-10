@@ -28,7 +28,7 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 
 	assert(N >= 4);
 	while (true) {
-		for (auto v : P) { std::cerr << v << ' '; } std::cerr << '\n';
+		//for (auto v : P) { std::cerr << v << ' '; } std::cerr << '\n';
 		do_op(0, N);
 		if (std::is_sorted(P.begin(), P.end())) {
 			return ops;
@@ -49,7 +49,7 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 
 		std::vector<int> prefs(N+1);
 		for (int i = 0; i < N; i++) prefs[i+1] = prefs[i] + (P[i] < N/2 ? +1 : -1);
-		for (auto p : prefs) { std::cerr << p << ' '; } std::cerr << '\n';
+		//for (auto p : prefs) { std::cerr << p << ' '; } std::cerr << '\n';
 
 		std::pair<int, int> max_pref{0, 0};
 		for (int i = 0; i <= N; i ++) {
