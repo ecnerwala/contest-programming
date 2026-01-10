@@ -345,16 +345,15 @@ int main() {
 			int64_t ma = std::max(v_in[1], seg[a].v[0]);
 			return {1, uint64_t(mi), uint64_t(ma), uint64_t(mi) * uint64_t(ma)};
 		}
-		if (v_in[0] <= seg[a].v[0] && seg[a].v[1] <= v_in[1]) {
-			// just us the whole time
-			return {seg[a].sums[0], seg[a].sums[0] * uint64_t(v_in[0]), seg[a].sums[0] * uint64_t(v_in[1]), seg[a].sums[0] * uint64_t(v_in[0]) * uint64_t(v_in[1])};
-		}
-		downdate_node(a);
 		std::array<int64_t, 2> v_out = {
 			std::min(v_in[0], seg[a].v[0]),
 			std::max(v_in[1], seg[a].v[1])
 		};
-		assert(v_in != v_out);
+		if (v_in == v_out) {
+			// just us the whole time
+			return {seg[a].sums[0], seg[a].sums[0] * uint64_t(v_in[0]), seg[a].sums[0] * uint64_t(v_in[1]), seg[a].sums[0] * uint64_t(v_in[0]) * uint64_t(v_in[1])};
+		}
+		downdate_node(a);
 		// otherwise, find the first time that seg[a].v exceeds v_in[0] or v_in[1]
 		auto r0 = self(a.c(0), v_in);
 		v_in[0] = std::min(v_in[0], seg[a.c(0)].v[0]);
