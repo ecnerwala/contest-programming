@@ -21,7 +21,7 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 			P[i] = nxt;
 		}
 		assert(a == (r-l)/2);
-		assert(b == r);
+		assert(b == r-l);
 		if (changed) ops.push_back({l, r});
 		return changed;
 	};
