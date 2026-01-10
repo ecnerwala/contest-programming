@@ -1656,7 +1656,7 @@ int main() {
 			int l = (layout.get_node_size(a)+1)/2 + 1;
 			for (int z = 0; z < 4; z++) res[z].assign(l, num(0));
 			auto vl = self(a.c(0));
-			auto vr = self(a.c(0));
+			auto vr = self(a.c(1));
 			for (int i = 0; i < 2; i++) {
 				for (int j = 0; j < 2; j++) {
 					for (int k = 0; k < 2; k++) {
