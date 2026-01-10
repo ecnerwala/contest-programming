@@ -81,7 +81,7 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 			}
 
 			if (N == 6) {
-				// fixed N==6 already
+				assert(prefs[3] == -prefs[1]);
 				return std::nullopt;
 			}
 
