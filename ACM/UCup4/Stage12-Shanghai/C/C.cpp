@@ -136,6 +136,7 @@ int main() {
 				cout << l+1 << ' ' << r << '\n';
 			}
 		}
+		cout << flush;
 	}
 
 	return 0;
