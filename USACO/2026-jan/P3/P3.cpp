@@ -19,7 +19,6 @@ int main() {
 			for (auto& [p, v] : constraints) std::swap(p[0], p[1]);
 		}
 		assert(C <= R);
-		cerr << "case " << R << ' ' << C << '\n';
 		// monochromatic
 		int64_t ans = 0;
 		for (int av = 0; av < 2; av++) {
