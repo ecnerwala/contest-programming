@@ -53,16 +53,17 @@ int main() {
 			}
 		}
 
+		int N = int(dirs.size());
 		if (!dirs.empty()) {
 			int64_t c1 = 0;
 			int64_t c2 = 0;
-			for (int i = 0, j = 0; i < int(dirs.size()); i++) {
-				while (c1 == 0 || get_dir(dirs[j].first, dirs[i].first) < 0) {
-					c2 += c1 * dirs[j].second;
-					c1 += dirs[j].second;
+			for (int i = 0, j = 0; i < N; i++) {
+				while (j == i || (j < N+i && get_dir(dirs[j%N].first, dirs[i].first) < 0)) {
+					c2 += c1 * dirs[j%N].second;
+					c1 += dirs[j%N].second;
 					j++;
-					if (j == int(dirs.size())) j = 0;
 				}
+				assert(j > i);
 				c1 -= dirs[i].second;
 				c2 -= c1 * dirs[i].second;
 				tot -= c2;
