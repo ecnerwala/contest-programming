@@ -35,6 +35,15 @@ int main() {
 						}
 					}
 				}
+				if (good) {
+					for (int i = 0; i < R; i++) {
+						for (int j = 0; j < C; j++) {
+							cerr << ((msk >> (i*C+j)) & 1 ? '-' : '+');
+						}
+						cerr << '\n';
+					}
+					cerr << '\n';
+				}
 				ans += good;
 			}
 			cerr << ans << '\n';
