@@ -12,6 +12,7 @@ int64_t solve(std::vector<std::array<int, 3>> cows) {
 		int g = std::gcd(std::abs(a), std::abs(b));
 		a /= g, b /= g;
 		P.push_back({a, b});
+		std::cerr << a << ' ' << b << '\n';
 	}
 
 	std::sort(P.begin(), P.end());
