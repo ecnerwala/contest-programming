@@ -14,7 +14,7 @@ int main() {
 	for (int i = 1; i <= N; i++) { p2[i] = 2 * p2[i-1]; p2[i] -= (p2[i] >= MOD) * MOD; }
 
 	std::vector<int> dp(N+1);
-	int ans = 1;
+	int ans = 0;
 
 	int cnt_camper = 0;
 	int ways_near = 0;
@@ -37,6 +37,7 @@ int main() {
 				}
 			}
 			dp[i] = int((ways_near + int64_t(ways_far) * int64_t(p2[cnt_camper])) % MOD);
+
 			ways_near += dp[i];
 			ways_near -= (ways_near >= MOD) * MOD;
 
