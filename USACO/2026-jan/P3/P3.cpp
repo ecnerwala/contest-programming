@@ -13,42 +13,6 @@ int main() {
 			assert(c == '+' || c == '-');
 			v = c == '+' ? 0 : 1;
 		}
-		auto slow = [&]() -> int64_t {
-			int64_t ans = 0;
-			for (int msk = 0; msk < 1 << (R*C); msk++) {
-				bool good = true;
-				for (int i = 0; i < R; i++) {
-					for (int j = 0; j < C; j++) {
-						{
-							int s = 0;
-							for (int k = j; k < C; k++) {
-								s += ((msk >> (i*C+k)) & 1) ? -1 : +1;
-								if (!(-1 <= s && s <= 2)) good = false;
-							}
-						}
-						{
-							int s = 0;
-							for (int k = i; k < R; k++) {
-								s += ((msk >> (k*C+j)) & 1) ? -1 : +1;
-								if (!(-1 <= s && s <= 2)) good = false;
-							}
-						}
-					}
-				}
-				if (good) {
-					for (int i = 0; i < R; i++) {
-						for (int j = 0; j < C; j++) {
-							cerr << ((msk >> (i*C+j)) & 1 ? '-' : '+');
-						}
-						cerr << '\n';
-					}
-					cerr << '\n';
-				}
-				ans += good;
-			}
-			cerr << ans << '\n';
-			return ans;
-		}();
 
 		if (R < C) {
 			std::swap(R, C);
