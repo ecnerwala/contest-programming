@@ -94,7 +94,7 @@ int main() {
 
 	if (true) {
 		std::mt19937 mt(48);
-		for (int z = 0; z < 10000; z++) {
+		for (int case_num = 0; case_num < 10000; case_num++) {
 			int N = std::uniform_int_distribution(1, 10)(mt);
 			std::vector<std::array<int, 3>> cows(N);
 			for (auto& v : cows) {
@@ -105,7 +105,15 @@ int main() {
 			}
 			int64_t a = solve(cows);
 			int64_t b = slow(cows);
-			assert(a == b);
+			if (a != b) {
+				cerr << N << '\n';
+				for (auto [x, y, z] : cows) {
+					cerr << x << ' ' << y << ' ' << z << '\n';
+				}
+				cerr << "expected " << b << '\n';
+				cerr << "got " << a << '\n';
+				assert(false);
+			}
 		}
 	}
 
