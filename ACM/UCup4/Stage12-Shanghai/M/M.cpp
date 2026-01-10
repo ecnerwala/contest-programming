@@ -1689,7 +1689,7 @@ int main() {
 		tot += catalan(N - c) * ans[c];
 	}
 	if (N == 1) {
-		tot *= 2;
+		tot = (S[0] == '0' ? 2 : 0);
 	}
 	tot /= 2;
 	cout << tot << '\n';
