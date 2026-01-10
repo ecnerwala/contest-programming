@@ -638,14 +638,14 @@ int main() {
 
 	int N, M, K; cin >> N >> M >> K;
 	M /= 4;
-	const int B = 64 / 4;
+	const int B = 16 / 4;
 	M = (M + B-1) / B;
-	std::vector<uint64_t> S(N*M);
+	std::vector<uint16_t> S(N*M);
 	for (int i = 0; i < N; i++) {
 		std::string V; cin >> V;
 		for (int j = 0; j < int(V.size()); j++) {
 			char c = V[j];
-			S[i*M+(j/B)] += uint64_t(('0' <= c && c <= '9') ? (c - '0') : (10 + c - 'A')) << ((j % B) * 4);
+			S[i*M+(j/B)] += uint16_t(('0' <= c && c <= '9') ? (c - '0') : (10 + c - 'A')) << ((j % B) * 4);
 		}
 	}
 
