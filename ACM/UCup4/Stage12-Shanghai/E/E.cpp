@@ -649,7 +649,7 @@ int main() {
 		}
 	}
 
-	auto r = SuffixArray::shift_and_construct(S);
+	auto r = SuffixArray::sort_and_construct(S);
 	using num = modnum<998244353>;
 	num ans = 1;
 	for (int i = 1; i < N; i++) {
