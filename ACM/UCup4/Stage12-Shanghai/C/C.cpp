@@ -125,6 +125,14 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	if (true) {
+		for (int N = 4; N <= 10; N += 2) {
+			std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
+			do {
+				auto r = solve(P);
+				cerr << (r ? int(r->size()) : -1) << '\n';
+			} while (std::next_permutation(P.begin(), P.end()));
+			cerr << "proved " << N << '\n';
+		}
 		std::mt19937 mt(48);
 		for (int z = 0; z < 100000; z++) {
 			int N = std::uniform_int_distribution<int>(2, 20)(mt) * 2;
