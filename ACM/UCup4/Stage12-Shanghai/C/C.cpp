@@ -126,7 +126,7 @@ int main() {
 
 	std::mt19937 mt(48);
 	for (int z = 0; z < 1000; z++) {
-		int N = std::uniform_int_distribution<int>(2, 30)(mt) * 2;
+		int N = std::uniform_int_distribution<int>(2, 1000)(mt) * 2;
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		std::shuffle(P.begin(), P.end(), mt);
 		cerr << "try " << N << '\n';
