@@ -643,7 +643,7 @@ int main() {
 		std::string V; cin >> V;
 		for (int j = 0; j < int(V.size()); j++) {
 			char c = V[j];
-			S[i*M+(j/4)] += uint16_t(('0' <= c && c <= '9') ? (c - '0') : (10 + c - 'A')) << (j % 4);
+			S[i*M+(j/4)] += uint16_t(('0' <= c && c <= '9') ? (c - '0') : (10 + c - 'A')) << ((j % 4) * 4);
 		}
 	}
 
