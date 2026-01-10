@@ -95,7 +95,7 @@ int main() {
 	if (true) {
 		std::mt19937 mt(48);
 		for (int case_num = 0; case_num < 10000; case_num++) {
-			int N = std::uniform_int_distribution(1, 3)(mt);
+			int N = std::uniform_int_distribution(1, 4)(mt);
 			std::vector<std::array<int, 3>> cows(N);
 			for (auto& v : cows) {
 				for (auto& c : v) {
