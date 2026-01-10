@@ -124,6 +124,17 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	std::mt19937 mt(48);
+	for (int z = 0; z < 1000; z++) {
+		int N = std::uniform_int_distribution<int>(1, 30)(mt) * 2;
+		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
+		std::shuffle(P.begin(), P.end(), mt);
+		cerr << "try " << N << '\n';
+		for (auto p : P) { cerr << p << ' '; } cerr << '\n';
+		auto r = solve(P);
+		cerr << (r ? -1 : int(r->size())) << '\n';
+	}
+
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;
