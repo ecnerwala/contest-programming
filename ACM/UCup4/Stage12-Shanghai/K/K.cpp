@@ -316,6 +316,7 @@ int main() {
 			seg[a].v = {0, 0};
 			seg[a].sums = {seg[a].sums[0], 0, 0, 0};
 			seg[a].rsums = {seg[a].rsums[0], 0, 0, 0};
+			seg[a].lazy_val = 0;
 			seg[a].lazy_set = true;
 		}
 
