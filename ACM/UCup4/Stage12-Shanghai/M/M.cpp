@@ -1685,7 +1685,7 @@ int main() {
 		return fact[2 * (num_leaves - 1)] * ifact[num_leaves] * ifact[num_leaves - 1];
 	};
 	num tot = 0;
-	for (int c = 0; c <= (N+1)/2; c++) {
+	for (int c = 0; c <= N/2; c++) {
 		cerr << c << ' ' << ans[c] << '\n';
 		tot += catalan(N - c) * ans[c];
 	}
