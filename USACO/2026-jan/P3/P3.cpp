@@ -9,7 +9,7 @@ int main() {
 		int R, C, X; cin >> R >> C >> X;
 		std::vector<std::pair<std::array<int, 2>, int>> constraints(X);
 		for (auto& [p, v] : constraints) {
-			char c; cin >> c >> p[0] >> p[1];
+			char c; cin >> c >> p[0] >> p[1]; p[0]--, p[1]--;
 			assert(c == '+' || c == '-');
 			v = c == '+' ? 0 : 1;
 		}
