@@ -28,11 +28,13 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 
 	assert(N >= 4);
 	while (true) {
+		for (auto v : P) { std::cerr << v << ' '; } std::cerr << '\n';
 		do_op(0, N);
 		if (std::is_sorted(P.begin(), P.end())) {
 			return ops;
 		}
 		if (N == 4) return std::nullopt;
+
 		assert(N >= 6);
 		if (N <= 6) {
 			bool did = false;
@@ -136,7 +138,6 @@ int main() {
 				cout << l+1 << ' ' << r << '\n';
 			}
 		}
-		cout << flush;
 	}
 
 	return 0;
