@@ -115,7 +115,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	if (true) {
+	if (false) {
 		for (int N = 4; N <= 10; N += 2) {
 			std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 			do {
