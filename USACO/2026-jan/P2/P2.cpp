@@ -25,7 +25,7 @@ int64_t solve(int64_t c, int64_t p, int64_t t) {
 		assert(n_pref >= c);
 		p -= std::min(num_remove, (p / 3 + (off < p % 3)));
 		pref = n_pref;
-		off += int(num_remove % 3);
+		off += int(num_remove * 3 - pref);
 		off %= 3;
 	}
 	return pref-p;
