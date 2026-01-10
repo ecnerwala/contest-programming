@@ -18,7 +18,7 @@ int main() {
 
 	int cnt_camper = 0;
 	int ways_near = 0;
-	int ways_far = 0;
+	int ways_far = 1;
 	for (int i = N-1, j = N-1; i >= 0; i--) {
 		if (cows[i].second == 0) {
 			cnt_camper++;
