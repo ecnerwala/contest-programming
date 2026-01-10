@@ -637,13 +637,15 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N, M, K; cin >> N >> M >> K;
-	M = (M+15)/16;
-	std::vector<uint16_t> S(N*M);
+	M /= 4;
+	const int B = 64 / 4;
+	M = (M + B-1) / B;
+	std::vector<uint64_t> S(N*M);
 	for (int i = 0; i < N; i++) {
 		std::string V; cin >> V;
 		for (int j = 0; j < int(V.size()); j++) {
 			char c = V[j];
-			S[i*M+(j/4)] += uint16_t(('0' <= c && c <= '9') ? (c - '0') : (10 + c - 'A')) << ((j % 4) * 4);
+			S[i*M+(j/B)] += uint64_t(('0' <= c && c <= '9') ? (c - '0') : (10 + c - 'A')) << ((j % B) * 4);
 		}
 	}
 
@@ -658,7 +660,7 @@ int main() {
 			while (off < M && dist <= K) {
 				off = r.get_lcp(i*M+off, j*M+off);
 				if (off < M) {
-					dist += __builtin_popcount(S[i*M+off] ^ S[j*M+off]);
+					dist += __builtin_popcountll(S[i*M+off] ^ S[j*M+off]);
 					off++;
 				}
 			}
