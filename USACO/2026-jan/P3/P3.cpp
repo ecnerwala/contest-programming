@@ -130,6 +130,8 @@ int main() {
 						return int64_t(e+1) * int64_t(e+2) / 2;
 					};
 					extra_top++, extra_bot++;
+					assert(extra_top >= 1);
+					assert(extra_bot >= 1);
 					ans += ways_extra(max_extra) - ways_extra(max_extra - extra_top) - ways_extra(max_extra - extra_bot) + ways_extra(max_extra - extra_top - extra_bot);
 				}
 			}
