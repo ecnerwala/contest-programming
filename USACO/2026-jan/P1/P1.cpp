@@ -103,7 +103,7 @@ int main() {
 				}
 				if (v[0] + v[1] + v[2] == 0) v[0]++;
 			}
-			cerr << N << '\n';
+			cerr << "test " << N << '\n';
 			int64_t a = solve(cows);
 			int64_t b = slow(cows);
 			if (a != b) {
