@@ -6,10 +6,10 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N; cin >> N;
+		int N_orig; cin >> N_orig;
 		using pt_t = std::array<int, 2>;
-		std::vector<pt_t> P; P.reserve(N);
-		for (int i = 0; i < N; i++) {
+		std::vector<pt_t> P; P.reserve(N_orig);
+		for (int i = 0; i < N_orig; i++) {
 			int x, y, z; cin >> x >> y >> z;
 			int a = 2 * x - (y + z);
 			int b = 2 * y - (z + x);
@@ -22,9 +22,9 @@ int main() {
 		}
 
 		std::sort(P.begin(), P.end());
-		std::vector<std::pair<pt_t, int>> dirs; dirs.reserve(N);
+		std::vector<std::pair<pt_t, int>> dirs; dirs.reserve(P.size());
 		for (int i = 0, j = 0; i < int(P.size()); i = j) {
-			while (j < N && P[j] == P[i]) j++;
+			while (j < int(P.size()) && P[j] == P[i]) j++;
 			dirs.push_back({P[i], j-i});
 		}
 
@@ -56,12 +56,12 @@ int main() {
 		if (!dirs.empty()) {
 			int64_t c1 = 0;
 			int64_t c2 = 0;
-			for (int i = 0, j = 0; i < N; i++) {
+			for (int i = 0, j = 0; i < int(dirs.size()); i++) {
 				while (c1 == 0 || get_dir(dirs[j].first, dirs[i].first) < 0) {
 					c2 += c1 * dirs[j].second;
 					c1 += dirs[j].second;
 					j++;
-					if (j == N) j = 0;
+					if (j == int(dirs.size())) j = 0;
 				}
 				c1 -= dirs[i].second;
 				c2 -= c1 * dirs[i].second;
