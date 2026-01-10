@@ -132,7 +132,7 @@ int main() {
 		cerr << "try " << N << '\n';
 		for (auto p : P) { cerr << p << ' '; } cerr << '\n';
 		auto r = solve(P);
-		cerr << (r ? -1 : int(r->size())) << '\n';
+		cerr << (r ? int(r->size()) : -1) << '\n';
 	}
 
 	int T; cin >> T;
