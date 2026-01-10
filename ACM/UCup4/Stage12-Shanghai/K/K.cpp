@@ -349,6 +349,7 @@ int main() {
 			// just us the whole time
 			return {seg[a].sums[0], seg[a].sums[0] * uint64_t(v_in[0]), seg[a].sums[0] * uint64_t(v_in[1]), seg[a].sums[0] * uint64_t(v_in[0]) * uint64_t(v_in[1])};
 		}
+		downdate_node(a);
 		std::array<int64_t, 2> v_out = {
 			std::min(v_in[0], seg[a].v[0]),
 			std::max(v_in[1], seg[a].v[1])
