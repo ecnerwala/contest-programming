@@ -36,17 +36,6 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 		if (N == 4) return std::nullopt;
 
 		assert(N >= 6);
-		if (N <= 6) {
-			bool did = false;
-			for (int i = 0; i <= N; i++) {
-				for (int j = i+4; j <= N; j += 2) {
-					if (do_op(i, j)) did = true;
-				}
-			}
-			if (!did) return std::nullopt;
-			continue;
-		}
-
 		std::vector<int> prefs(N+1);
 		for (int i = 0; i < N; i++) prefs[i+1] = prefs[i] + (P[i] < N/2 ? +1 : -1);
 		//for (auto p : prefs) { std::cerr << p << ' '; } std::cerr << '\n';
@@ -85,17 +74,18 @@ std::optional<std::vector<std::array<int, 2>>> solve(std::vector<int> P) {
 			// look for some far-ish 1
 			// there's a 1 and -1 somewhere
 
-			if (N == 6) {
-				// fixed N==6 already
-				assert(false);
-			}
-
-			assert(N >= 8);
 			assert(prefs[1] == 1 || prefs[1] == -1);
 			assert(prefs[N-1] == 1 || prefs[N-1] == -1);
 			if (prefs[1] != prefs[N-1]) {
 				do_op(1, N-1);
 			}
+
+			if (N == 6) {
+				// fixed N==6 already
+				return std::nullopt;
+			}
+
+			assert(N >= 8);
 			// we know we have both 1 and -1, so find any
 			int i = 1;
 			while (prefs[i] != -prefs[1]) i += 2;
