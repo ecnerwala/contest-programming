@@ -1651,7 +1651,7 @@ int main() {
 			res[1] = {(S[i] == '0' ? num(1) : num(-1)), num(0)};
 			// res[2] increments the count
 			res[2] = {num(0), (S[i] == '1' ? num(1) : num(-1))};
-			res[3] = {num(1), num(0)};
+			res[3] = {num(0), num(0)};
 		} else {
 			int l = (layout.get_node_size(a)+1)/2 + 1;
 			for (int z = 0; z < 4; z++) res[z].assign(l, num(0));
