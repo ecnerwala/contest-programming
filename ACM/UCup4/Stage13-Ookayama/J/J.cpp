@@ -2052,6 +2052,16 @@ void probJ() {
 	auto res = power_projection(a);
 	assert(int(res.size()) == int(a.size()));
 	for (auto v : res) { cerr << v << '\n'; }
+    const int V = 2*N;
+    std::vector<mint> fact(V+1);
+    fact[0] = 1;
+    for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * mint(i);
+    std::vector<mint> ifact(V+1);
+    ifact[V] = fact[V].inv();
+    for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * mint(i);
+    for (int c = 1; c <= N-2; c++) {
+        cout << res[c] * fact[c + N-2] * ifact[c] * ifact[N-1] << '\n';
+    }
 }
 
 
