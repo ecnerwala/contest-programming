@@ -192,7 +192,7 @@ int main(){
 					vector<P> filtered_res;
 					for(int i = 0; i < L; i++){
 						if(res[i] == P(0, 0)) continue;
-						if((L <= 2) || (res[i].cross(res[(i+1)%L]) > 0 || res[(i-1)%L].cross(res[i]) > 0)) filtered_res.push_back(res[i]);
+						if((L <= 2) || (res[i].cross(res[(i+1)%L]) > 0 || res[(i+L-1)%L].cross(res[i]) > 0)) filtered_res.push_back(res[i]);
 					}
 					return res;
 				};
@@ -220,6 +220,9 @@ int main(){
 						if(p.cross(mink[1][idx1]) < p.cross(mink[1][(idx1+1) % B])){
 							idx1++;
 							if(idx1 == B) idx1 = 0;
+						} else if(p.cross(mink[1][idx1]) < p.cross(mink[1][(idx1+B-1) % B])){
+							if(idx1 == 0) idx1 = B;
+							idx1--;
 						} else break;
 					}
 				}
