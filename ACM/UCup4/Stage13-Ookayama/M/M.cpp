@@ -304,7 +304,7 @@ int main() {
 	};
 
 	std::vector<seg_node> nodes; nodes.reserve(2 * layout.N + 40 * M); nodes.resize(2 * layout.N);
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < layout.N; i++) {
 		nodes[layout.get_point(i)].val = 1;
 	}
 	for (seg_tree::point a(layout.N-1); a > 0; a--) {
