@@ -388,6 +388,7 @@ int main() {
 			// start at time t0
 			int strand = get_strand(t0, p);
 			// we want to get strand's
+			cerr << "got strand " << strand << '\n';
 			nxt_ans = get_loc(t1, strand);
 		} else if (op == 1) {
 			int a = get_strand(t1, p-1);
