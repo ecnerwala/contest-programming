@@ -396,6 +396,7 @@ int main() {
 		} else if (op == 1) {
 			int a = get_strand(t1, p-1);
 			int b = get_strand(t1, p);
+			cerr << "got locs " << a << ' ' << b << '\n';
 			nxt_ans = get_loc(t0, b) - get_loc(t0, a);
 		} else assert(false);
 		cout << nxt_ans << '\n';
