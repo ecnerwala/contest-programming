@@ -588,7 +588,6 @@ int main() {
 		for (auto [_, i] : evts) {
 			int nt = prv_ge[i] == -1 ? N : nxt_eq[prv_ge[i]];
 			assert(nt >= i);
-			assert(nxt_eq[prv_ge[i]] >= i);
 			auto it = alive.upper_bound(nt);
 			first_skip[i] = it == alive.end() ? N : *it;
 
