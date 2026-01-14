@@ -82,7 +82,7 @@ int main(){
 	constexpr bool TESTING = true;
 	int T;
 	if (TESTING) {
-		T = 1000;
+		T = 100;
 	} else {
 		cin >> T;
 	}
@@ -140,7 +140,8 @@ int main(){
 		rotate(pts.begin(), pts.begin()+i, pts.end());
 		return pts;
 	};
-	while(elapsed() < TIME_LIMIT){
+	//while(elapsed() < TIME_LIMIT){
+	for (int z = 0; z < 500; z++) {
 		for(int t = 0; t < T; t++){
 			auto& pts = test_cases[t];
 			int N = (int)test_cases[t].size();
