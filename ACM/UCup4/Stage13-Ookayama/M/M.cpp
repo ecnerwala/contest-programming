@@ -384,6 +384,8 @@ int main() {
 		t1++;
 		assert(0 <= t0 && t0 < t1 && t1 <= M);
 
+		cerr << "query " << op << ' ' << t0 << ' ' << t1 << ' ' << p << '\n';
+
 		int nxt_ans;
 		if (op == 0) {
 			// start at time t0
@@ -397,6 +399,7 @@ int main() {
 			nxt_ans = get_loc(t0, b) - get_loc(t0, a);
 		} else assert(false);
 		cout << nxt_ans << '\n';
+		cerr << "ans " << nxt_ans << '\n';
 		prv_ans = nxt_ans;
 	}
 	return 0;
