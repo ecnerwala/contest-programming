@@ -98,7 +98,7 @@ int main(){
 		test_case.resize(N);
 		for(auto& [p, c] : test_case){
 			if (TESTING) {
-				const int X = 5;
+				const int X = 10;
 				p.x = std::uniform_int_distribution<int>(-X, X)(mt_test);
 				p.y = std::uniform_int_distribution<int>(-X, X)(mt_test);
 				c = std::uniform_int_distribution<int>(1, N)(mt_test);
