@@ -368,6 +368,7 @@ int main() {
 			a = a.c(d);
 		}
 		assert(p == layout.get_leaf_index(a));
+		ans -= M+1-t;
 		return ans;
 	};
 
