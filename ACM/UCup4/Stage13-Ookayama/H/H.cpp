@@ -1391,7 +1391,7 @@ int main() {
 	int m = std::min(H-B+A-1, W-D+C-1);
 	num ans = 0;
 	for (int i = 0; i <= m; i++) {
-		ans += fact[m] * ((xs[0][m] * ys[0][m]) - (xs[0][m] - xs[1][m]) * (ys[0][m] - ys[1][m]));
+		ans += fact[i] * ((xs[0][i] * ys[0][i]) - (xs[0][i] - xs[1][i]) * (ys[0][i] - ys[1][i]));
 	}
 	cout << ans << '\n';
 
