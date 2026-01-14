@@ -397,7 +397,15 @@ int main() {
 			int a = get_strand(t1, p-1);
 			int b = get_strand(t1, p);
 			cerr << "got locs " << a << ' ' << b << '\n';
-			nxt_ans = get_loc(t0, b) - get_loc(t0, a);
+			b = get_loc(t0, b);
+			a = get_loc(t0, a);
+			cerr << "got orig strands" << a << ' ' << b << '\n';
+			// a+1 .. b inclusive
+			// we want [a+1, b] intersect [0, N-1]
+			b = std::min(b, N-1);
+			a = std::max(a, -1);
+			nxt_ans = std::max(b - a, 0);
+			//nxt_ans = get_loc(t0, b) - get_loc(t0, a);
 		} else assert(false);
 		cout << nxt_ans << '\n';
 		cerr << "ans " << nxt_ans << '\n';
