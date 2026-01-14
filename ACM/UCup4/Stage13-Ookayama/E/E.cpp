@@ -554,7 +554,7 @@ int main() {
 		std::vector<int> loc(N+1, -1);
 		for (int i = 0; i < N; i++) {
 			int a = A[i];
-			if (loc[a] == -1) {
+			if (loc[a] != -1) {
 				nxt_eq[loc[a]] = i;
 				last_pair[i] = loc[a];
 			}
