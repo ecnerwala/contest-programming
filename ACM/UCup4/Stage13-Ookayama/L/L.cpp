@@ -91,15 +91,16 @@ int main(){
 	for(auto& test_case : test_cases){
 		int N;
 		if (TESTING) {
-			N = std::uniform_int_distribution<int>(1, 10)(mt_test);
+			N = std::uniform_int_distribution<int>(1, 20)(mt_test);
 		} else {
 			cin >> N;
 		}
 		test_case.resize(N);
 		for(auto& [p, c] : test_case){
 			if (TESTING) {
-				p.x = std::uniform_int_distribution<int>(-10, 10)(mt_test);
-				p.y = std::uniform_int_distribution<int>(-10, 10)(mt_test);
+				const int X = 5;
+				p.x = std::uniform_int_distribution<int>(-X, X)(mt_test);
+				p.y = std::uniform_int_distribution<int>(-X, X)(mt_test);
 				c = std::uniform_int_distribution<int>(1, N)(mt_test);
 			} else {
 				cin >> p.x >> p.y >> c;
@@ -238,6 +239,7 @@ int main(){
 			for (auto [p, c] : test_cases[t]) {
 				cerr << p.x << ' ' << p.y << ' ' << c << '\n';
 			}
+			assert(false);
 		}
 	}
 }
