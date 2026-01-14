@@ -317,6 +317,7 @@ int main() {
 	for (int t = 0; t < M; t++) {
 		int op = ops[t] + (M+1 - t) - 1; // we want to delete the op'th gap and the op+1'th gap
 		for (int z = 0; z < 2; z++) {
+			cerr << "remove " << op << " from " << nodes[root].val << '\n';
 			root = [&](this auto&& self, int cur, seg_tree::point a, int kth) -> int {
 				assert(0 <= kth && kth < nodes[cur].val);
 				if (a >= layout.N) {
