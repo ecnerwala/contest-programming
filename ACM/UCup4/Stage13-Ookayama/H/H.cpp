@@ -1370,15 +1370,15 @@ int main() {
 	};
 
 	auto solve_rect = [&](int x, int l) -> std::array<std::vector<num>, 2> {
-		cerr << "solve_rect " << x << ' ' << l << '\n';
+		//cerr << "solve_rect " << x << ' ' << l << '\n';
 		std::vector<num> alls(x+1);
 		std::vector<num> good(x+1);
 		for (int a = 0; a <= x; a++) {
 			alls[a] = choose(x, a) * rects(x-a, l);
 			good[a] = (x-a <= l) ? alls[a] : 0;
 		}
-		for (auto v : alls) { cerr << v << ' '; } cerr << '\n';
-		for (auto v : good) { cerr << v << ' '; } cerr << '\n';
+		//for (auto v : alls) { cerr << v << ' '; } cerr << '\n';
+		//for (auto v : good) { cerr << v << ' '; } cerr << '\n';
 		return {alls, good};
 	};
 	auto solve_dim = [&](int x1, int x2, int l) -> std::array<std::vector<num>, 2> {
