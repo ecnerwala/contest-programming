@@ -320,7 +320,7 @@ int main() {
 			root = [&](this auto&& self, int cur, seg_tree::point a, int kth) -> int {
 				assert(0 <= kth && kth < nodes[cur].val);
 				if (a >= layout.N) {
-					assert(nodes[cur].val = 1);
+					assert(nodes[cur].val == 1);
 					int nxt = int(nodes.size());
 					nodes.push_back(nodes[cur]);
 					nodes[nxt].val = 0;
