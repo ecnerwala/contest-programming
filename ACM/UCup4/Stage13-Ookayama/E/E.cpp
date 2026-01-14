@@ -597,8 +597,114 @@ int main() {
 
 	// Now, we have all the information we care about
 	struct jump_t {
+		int dest;
+		hsh_t h_val;
+		int min_skip;
 	};
+	const int L = 20;
+	std::vector<std::array<jump_t, L>> jumps(N);
 	{
+		for (int i = 0; i < N; i++) {
+			jumps[i][0] = {
+				prv_ge[i],
+				hsh_t(A[i]),
+				first_skip[i],
+			};
+			for (int l = 0; l+1 < L; l++) {
+				if (jumps[i][l].dest == -1) {
+					jumps[i][l+1] = jumps[i][l];
+				} else {
+					int j = jumps[i][l].dest;
+					jumps[i][l+1] = {
+						jumps[j][l].dest,
+						jumps[j][l].h_val + jumps[i][l].h_val,
+						std::min(jumps[j][l].min_skip, jumps[i][l].min_skip)
+					};
+				}
+			}
+			assert(jumps[i][L-1].dest == -1);
+		}
+	}
+
+	auto query = [&](int l, int r) -> int {
+		assert(0 <= l && l <= r && r < N);
+		assert(l <= r);
+		int st = last_pair[r];
+		if (st < l) {
+			return -1;
+		}
+		// now we walk the path from st to the root
+
+		{
+			int first_bad = -1;
+			int first_bad_b = -1;
+			{
+				int cur = st;
+				for (int b = L-1; b >= 0; b--) {
+					if (jumps[cur][b].dest < l) {
+						continue;
+					}
+					if (jumps[cur][b].min_skip <= r) {
+						first_bad = cur;
+						first_bad_b = b;
+					}
+					cur = jumps[cur][b].dest;
+				}
+			}
+			if (first_bad != -1) {
+				int cur = first_bad;
+				int b = first_bad_b;
+				assert(jumps[cur][b].dest >= l);
+				assert(jumps[cur][b].min_skip <= r);
+				for (; b > 0; b--) {
+					assert(jumps[cur][b].min_skip <= r);
+					int nxt = jumps[cur][b-1].dest;
+					if (jumps[nxt][b-1].min_skip <= r) {
+						cur = nxt;
+					} else {
+						assert(jumps[cur][b-1].min_skip <= r);
+					}
+				}
+				assert(jumps[cur][b].min_skip <= r);
+				st = jumps[cur][0].dest;
+			}
+		}
+		// now, we're starting from st and going to the root
+		assert(nxt_eq[st] <= r);
+		hsh_t res;
+		{
+			int cur = st;
+			for (int b = L-1; b >= 0; b--) {
+				if (jumps[cur][b].dest < l) {
+					continue;
+				}
+				assert(jumps[cur][b].min_skip > r);
+				res = jumps[cur][b].h_val + res;
+				cur = jumps[cur][b].dest;
+			}
+			assert(cur >= l);
+			assert(jumps[cur][0].dest < l);
+			res = jumps[cur][0].h_val + res;
+		}
+		// now, we walk from r to nxt_eq[st]
+		hsh_t r_res;
+		int lim = nxt_eq[st];
+		assert(lim <= r);
+		if (lim < r) {
+			int cur = r;
+			for (int b = L-1; b >= 0; b--) {
+				if (jumps[cur][b].dest <= lim) continue;
+				r_res = jumps[cur][b].h_val + r_res;
+				cur = jumps[cur][b].dest;
+			}
+			assert(cur > lim);
+			r_res = jumps[cur][0].h_val + r_res;
+		}
+		return int((res + r_res).v);
+	};
+	for (int q = 0; q < Q; q++) {
+		int l, r; cin >> l >> r; l--, r--;
+		cout << query(l, r) << '\n';
 	}
 
 	return 0;
