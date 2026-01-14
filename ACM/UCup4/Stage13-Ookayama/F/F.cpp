@@ -1359,13 +1359,15 @@ int main() {
 	}
 	std::vector<std::vector<num>> c; c.reserve(2*(N-1)); c.resize(N-1);
 	c[0] = {num(10), num(1)};
-	for (int i = 1; i < N; i++) {
+	for (int i = 1; i < N-1; i++) {
 		c[i] = c[i-1];
 		c[i][0] *= c[i][0];
 	}
 	int l = 0, r = N-1;
 	while (r-l > 1) {
 		c.push_back(ecnerwala::fft::fft_multiply(c[l], c[l+1]));
+		c[l] = {};
+		c[l+1] = {};
 		l += 2, r += 1;
 	}
 	num ans = 0;
