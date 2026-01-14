@@ -572,6 +572,7 @@ int main() {
 				stk.pop_back();
 			}
 			prv_ge[i] = stk.empty() ? -1 : stk.back();
+			stk.push_back(i);
 		}
 	}
 
