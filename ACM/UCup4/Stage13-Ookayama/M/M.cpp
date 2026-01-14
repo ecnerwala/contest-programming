@@ -384,22 +384,22 @@ int main() {
 		t1++;
 		assert(0 <= t0 && t0 < t1 && t1 <= M);
 
-		cerr << "query " << op << ' ' << t0 << ' ' << t1 << ' ' << p << '\n';
+		//cerr << "query " << op << ' ' << t0 << ' ' << t1 << ' ' << p << '\n';
 
 		int nxt_ans;
 		if (op == 0) {
 			// start at time t0
 			int strand = get_strand(t0, p);
 			// we want to get strand's
-			cerr << "got strand " << strand << '\n';
+			//cerr << "got strand " << strand << '\n';
 			nxt_ans = get_loc(t1, strand);
 		} else if (op == 1) {
 			int a = get_strand(t1, p-1);
 			int b = get_strand(t1, p);
-			cerr << "got locs " << a << ' ' << b << '\n';
+			//cerr << "got locs " << a << ' ' << b << '\n';
 			b = get_loc(t0, b);
 			a = get_loc(t0, a);
-			cerr << "got orig strands" << a << ' ' << b << '\n';
+			//cerr << "got orig strands" << a << ' ' << b << '\n';
 			// a+1 .. b inclusive
 			// we want [a+1, b] intersect [0, N-1]
 			b = std::min(b, N-1);
@@ -408,7 +408,7 @@ int main() {
 			//nxt_ans = get_loc(t0, b) - get_loc(t0, a);
 		} else assert(false);
 		cout << nxt_ans << '\n';
-		cerr << "ans " << nxt_ans << '\n';
+		//cerr << "ans " << nxt_ans << '\n';
 		prv_ans = nxt_ans;
 	}
 	return 0;
