@@ -201,7 +201,7 @@ int main(){
 			}
 			int A = (int)mink[0].size();
 			int B = (int)mink[1].size();
-			if(A <= 2 || B <= 2){
+			if(A <= 1 || B <= 1){
 				for(auto p : mink[0]){
 					for(auto q : mink[1]){
 						ans[t] = max(ans[t], abs(p.cross(q)));
