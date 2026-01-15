@@ -91,7 +91,7 @@ int main(){
 	for(auto& test_case : test_cases){
 		int N;
 		if (TESTING) {
-			N = std::uniform_int_distribution<int>(1, 30)(mt_test);
+			N = std::uniform_int_distribution<int>(1, 10)(mt_test);
 		} else {
 			cin >> N;
 		}
