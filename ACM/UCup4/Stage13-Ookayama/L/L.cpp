@@ -228,6 +228,7 @@ int main(){
 						} else break;
 					}
 				}
+				ans[t] = std::max(ans[t], cur_best);
 				if (TESTING) {
 					ll slow_best = 0;
 					for(auto p : mink[0]){
