@@ -199,6 +199,8 @@ int main(){
 				};
 				mink[l] = get_mink();
 			}
+			mink[0].pop_back();
+			mink[1].pop_back();
 			int A = (int)mink[0].size();
 			int B = (int)mink[1].size();
 			if(A <= 2 || B <= 2){
