@@ -79,7 +79,7 @@ vector<P> convexHull(vector<P> pts) {
 
 int main(){
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	constexpr bool TESTING = false;
+	constexpr bool TESTING = true;
 	int T;
 	if (TESTING) {
 		T = 100;
@@ -91,7 +91,7 @@ int main(){
 	for(auto& test_case : test_cases){
 		int N;
 		if (TESTING) {
-			N = std::uniform_int_distribution<int>(1, 8)(mt_test);
+			N = std::uniform_int_distribution<int>(1, 20)(mt_test);
 		} else {
 			cin >> N;
 		}
