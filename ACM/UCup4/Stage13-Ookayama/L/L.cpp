@@ -109,26 +109,6 @@ int main(){
 		}
 		sort(test_case.begin(), test_case.end());
 	}
-	std::vector<ll> slow_ans(T);
-	if (TESTING) {
-		for (int t = 0; t < T; t++) {
-			auto& pts = test_cases[t];
-			int N = int(pts.size());
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					if (pts[j].second == pts[i].second) continue;
-					for (int k = 0; k < N; k++) {
-						if (pts[k].second == pts[i].second || pts[k].second == pts[j].second) continue;
-						for (int l = 0; l < N; l++) {
-							if (pts[l].second == pts[i].second || pts[l].second == pts[j].second || pts[l].second == pts[k].second) continue;
-							ll cnd = (pts[i].first - pts[j].first).cross(pts[k].first - pts[l].first);
-							slow_ans[t] = std::max(slow_ans[t], cnd);
-						}
-					}
-				}
-			}
-		}
-	}
 	const double TIME_LIMIT = 3.8;
 	vector<ll> ans(T);
 	mt19937 mt(48);
@@ -253,6 +233,24 @@ int main(){
 		cout << ans[t] << '\n';
 	}
 	if (TESTING) {
+		std::vector<ll> slow_ans(T);
+		for (int t = 0; t < T; t++) {
+			auto& pts = test_cases[t];
+			int N = int(pts.size());
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					if (pts[j].second == pts[i].second) continue;
+					for (int k = 0; k < N; k++) {
+						if (pts[k].second == pts[i].second || pts[k].second == pts[j].second) continue;
+						for (int l = 0; l < N; l++) {
+							if (pts[l].second == pts[i].second || pts[l].second == pts[j].second || pts[l].second == pts[k].second) continue;
+							ll cnd = (pts[i].first - pts[j].first).cross(pts[k].first - pts[l].first);
+							slow_ans[t] = std::max(slow_ans[t], cnd);
+						}
+					}
+				}
+			}
+		}
 		for (int t = 0; t < T; t++) {
 			if (slow_ans[t] != ans[t]) {
 				cerr << "have " << slow_ans[t] << ' ' << "got " << ans[t] << '\n';
