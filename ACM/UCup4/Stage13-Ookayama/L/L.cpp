@@ -164,8 +164,6 @@ int main(){
 
 				int A = hull0.size();
 				int B = hull1.size();
-				hull0.push_back(hull0[0]);
-				hull1.push_back(hull1[0]);
 				auto get_mink = [&](){
 					if(A == 1){
 						for(auto& p : hull1) p = p + hull0[0];
@@ -175,6 +173,8 @@ int main(){
 						for(auto& p : hull0) p = p + hull1[0];
 						return hull0;
 					}
+					hull0.push_back(hull0[0]);
+					hull1.push_back(hull1[0]);
 					int idx0 = 0;
 					int idx1 = 0;
 					vector<P> res;
