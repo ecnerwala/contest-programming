@@ -179,6 +179,11 @@ int main(){
 				};
 				mink[l] = get_mink();
 			}
+			for (int z = 0; z < 2; z++) {
+				for (int i = 0; i < int(mink[z].size()); i++) {
+					assert(mink[z][i].cross(mink[z][(i+1) % int(mink[z].size())], mink[z][(i+2) % int(mink[z].size())]) > 0);
+				}
+			}
 			int A = (int)mink[0].size();
 			int B = (int)mink[1].size();
 			if(A <= 2 || B <= 2){
