@@ -2,7 +2,7 @@
 using namespace std;
 #include <sys/time.h>
 
-double get_time() {timeval tv; gettimeofday(&tv, NULL); return tv.tv_sec + tv.tv_usec * 1e-6;}
+double get_time() {timeval tv; gettimeofday(&tv, NULL); return double(tv.tv_sec) + double(tv.tv_usec) * 1e-6;}
 double start_time = get_time();
 double elapsed() {return get_time() - start_time;}
 
@@ -11,7 +11,7 @@ template<class T>
 struct Point {
 	typedef Point P;
 	T x, y;
-	explicit Point(T x=0, T y=0) : x(x), y(y) {}
+	explicit Point(T x_=0, T y_=0) : x(x_), y(y_) {}
 	bool operator<(P p) const { return tie(x,y) < tie(p.x,p.y); }
 	bool operator==(P p) const { return tie(x,y)==tie(p.x,p.y); }
 	P operator+(P p) const { return P(x+p.x, y+p.y); }
@@ -162,8 +162,8 @@ int main(){
 				hull0 = cycle(hull0);
 				hull1 = cycle(hull1);
 
-				int A = hull0.size();
-				int B = hull1.size();
+				int A = int(hull0.size());
+				int B = int(hull1.size());
 				auto get_mink = [&](){
 					if(A == 1){
 						for(auto& p : hull1) p = p + hull0[0];
