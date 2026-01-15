@@ -140,8 +140,7 @@ int main(){
 		rotate(pts.begin(), pts.begin()+i, pts.end());
 		return pts;
 	};
-	//while(elapsed() < TIME_LIMIT){
-	for (int z = 0; z < 500; z++) {
+	while(elapsed() < TIME_LIMIT){
 		for(int t = 0; t < T; t++){
 			auto& pts = test_cases[t];
 			int N = (int)test_cases[t].size();
@@ -209,6 +208,7 @@ int main(){
 					}
 				}
 			} else {
+				ll cur_best = 0;
 				int idx1 = 0;
 				{
 					auto p = mink[0][0];
@@ -218,7 +218,7 @@ int main(){
 				}
 				for(auto p : mink[0]){
 					while(true){
-						ans[t] = max(ans[t], abs(p.cross(mink[1][idx1])));
+						cur_best = max(cur_best, abs(p.cross(mink[1][idx1])));
 						if(p.cross(mink[1][idx1]) < p.cross(mink[1][(idx1+1) % B])){
 							idx1++;
 							if(idx1 == B) idx1 = 0;
@@ -226,6 +226,23 @@ int main(){
 							if(idx1 == 0) idx1 = B;
 							idx1--;
 						} else break;
+					}
+				}
+				if (TESTING) {
+					ll slow_best = 0;
+					for(auto p : mink[0]){
+						for(auto q : mink[1]){
+							slow_best = max(slow_best, abs(p.cross(q)));
+						}
+					}
+					if (slow_best != cur_best) {
+						cerr << mink[0].size() << '\n';
+						for (auto p : mink[0]) { cerr << p << '\n'; }
+						cerr << mink[1].size() << '\n';
+						for (auto p : mink[1]) { cerr << p << '\n'; }
+						cerr << "expected " << slow_best << '\n';
+						cerr << "got " << cur_best << '\n';
+						assert(false);
 					}
 				}
 			}
