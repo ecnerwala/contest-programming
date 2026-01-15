@@ -195,7 +195,6 @@ int main(){
 						if(res[i] == P(0, 0)) continue;
 						if((L <= 2) || (res[i].cross(res[(i+1)%L]) > 0 || res[(i+L-1)%L].cross(res[i]) > 0)) filtered_res.push_back(res[i]);
 					}
-					res.pop_back();
 					return res;
 				};
 				mink[l] = get_mink();
