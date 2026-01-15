@@ -218,6 +218,7 @@ int main(){
 				}
 				for(auto p : mink[0]){
 					while(true){
+						cerr << "try cnd " << p << ' ' << mink[1][idx1] << '\n';
 						cur_best = max(cur_best, abs(p.cross(mink[1][idx1])));
 						if(p.cross(mink[1][idx1]) < p.cross(mink[1][(idx1+1) % B])){
 							idx1++;
