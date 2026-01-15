@@ -79,7 +79,7 @@ vector<P> convexHull(vector<P> pts) {
 
 int main(){
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	int T;
 	if (TESTING) {
 		T = 100;
@@ -208,7 +208,6 @@ int main(){
 					}
 				}
 			} else {
-				cerr << "start test" << '\n';
 				ll cur_best = 0;
 				int idx1 = 0;
 				{
@@ -219,7 +218,6 @@ int main(){
 				}
 				for(auto p : mink[0]){
 					while(true){
-						cerr << "try cnd " << p << ' ' << mink[1][idx1] << '\n';
 						cur_best = max(cur_best, p.cross(mink[1][idx1]));
 						if(p.cross(mink[1][idx1]) < p.cross(mink[1][(idx1+1) % B])){
 							idx1++;
