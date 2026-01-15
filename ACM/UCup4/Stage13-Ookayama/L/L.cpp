@@ -199,6 +199,8 @@ int main(){
 				};
 				mink[l] = get_mink();
 			}
+			assert(mink[0].back() == mink[0].front());
+			assert(mink[1].back() == mink[1].front());
 			mink[0].pop_back();
 			mink[1].pop_back();
 			int A = (int)mink[0].size();
