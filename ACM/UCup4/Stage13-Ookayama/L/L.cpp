@@ -121,6 +121,7 @@ int main(){
 		return pts;
 	};
 	for(int iters = 0; TESTING ? iters < 500 : elapsed() < TIME_LIMIT; iters++){
+		cerr << "iter " << iters << '\n';
 		for(int t = 0; t < T; t++){
 			auto& pts = test_cases[t];
 			int N = (int)test_cases[t].size();
