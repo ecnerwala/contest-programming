@@ -208,6 +208,7 @@ int main(){
 					}
 				}
 			} else {
+				cerr << "start test" << '\n';
 				ll cur_best = 0;
 				int idx1 = 0;
 				{
