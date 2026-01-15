@@ -82,7 +82,7 @@ int main(){
 	constexpr bool TESTING = true;
 	int T;
 	if (TESTING) {
-		T = 300;
+		T = 500;
 	} else {
 		cin >> T;
 	}
