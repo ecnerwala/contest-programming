@@ -252,13 +252,15 @@ int main(){
 	for(int t = 0; t < T; t++){
 		cout << ans[t] << '\n';
 	}
-	for (int t = 0; t < T; t++) {
-		if (slow_ans[t] != ans[t]) {
-			cerr << "have " << slow_ans[t] << ' ' << "got " << ans[t] << '\n';
-			for (auto [p, c] : test_cases[t]) {
-				cerr << p.x << ' ' << p.y << ' ' << c << '\n';
+	if (TESTING) {
+		for (int t = 0; t < T; t++) {
+			if (slow_ans[t] != ans[t]) {
+				cerr << "have " << slow_ans[t] << ' ' << "got " << ans[t] << '\n';
+				for (auto [p, c] : test_cases[t]) {
+					cerr << p.x << ' ' << p.y << ' ' << c << '\n';
+				}
+				assert(false);
 			}
-			assert(false);
 		}
 	}
 }
