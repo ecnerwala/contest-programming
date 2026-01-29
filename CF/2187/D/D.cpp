@@ -200,10 +200,10 @@ int main() {
 					assert((steps & 1) == (N & 1));
 					assert(steps <= N);
 					assert(steps >= -N);
-					int64_t val = init_C + int64_t(init_C) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
+					int64_t val = pref + init_C;
+					val += int64_t(init_C) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
 					int extra = (N - steps) / 2;
 					val += extra * 2 * (Y - int64_t(init_C + int64_t(N) * X)) + int64_t(extra) * int64_t(extra+1) * X;
-					cerr << pref + val << '\n';
 					all_opts.push_back(val);
 				}
 			}
@@ -211,7 +211,7 @@ int main() {
 		std::sort(all_opts.begin(), all_opts.end());
 		all_opts.resize(std::unique(all_opts.begin(), all_opts.end()) - all_opts.begin());
 		num ans = 0;
-		for (auto v : all_opts) ans += num(pref + v);
+		for (auto v : all_opts) ans += num(v);
 		cout << ans << '\n';
 	}
 
