@@ -15,7 +15,7 @@ int main() {
 		int ans = -1;
 		for (int i = 0; i < N; i++) {
 			if (A[i].second != i) {
-				int d = std::min(A[i].first - A.front().first, A.back().first - A[i].first);
+				int d = std::max(A[i].first - A.front().first, A.back().first - A[i].first);
 				if (ans == -1 || ans < d) ans = d;
 			}
 		}
