@@ -128,6 +128,11 @@ int main() {
 		// we have 0..N-1 and P[0]..P[N-1]
 		PermTree tree(P);
 		int ans = [&](this auto&& self, int cur) -> int {
+			int a = tree.nodes[cur].l;
+			int b = tree.nodes[cur].r;
+			cerr << a << '-' << b << ' ';
+			for (int i = a; i <= b; i++) cerr << P[i] << ' ';
+			cerr << '\n';
 			if (tree.nodes[cur].type == PermTree::NodeType::LEAF) {
 				return 1;
 			}
