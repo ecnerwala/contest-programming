@@ -123,10 +123,10 @@ int main() {
 		std::vector<int> B(N);
 		for (auto& b : B) { cin >> b; b--; }
 
-		std::vector<int> invB(N);
-		for (int i = 0; i < N; i++) invB[B[i]] = i;
+		std::vector<int> invA(N);
+		for (int i = 0; i < N; i++) invA[A[i]] = i;
 		std::vector<int> P(N);
-		for (int i = 0; i < N; i++) P[i] = invB[A[i]];
+		for (int i = 0; i < N; i++) P[i] = invA[B[i]];
 		// we have 0..N-1 and P[0]..P[N-1]
 		PermTree tree(P);
 		cerr << "case " << '\n';
