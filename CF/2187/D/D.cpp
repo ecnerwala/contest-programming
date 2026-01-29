@@ -189,7 +189,7 @@ int main() {
 				for (int d = 0; d < 2; d++) {
 					// go right 2*i + off[d] steps
 					int final_pos = 2*i + off[d];
-					int num_extras = N - final_pos;
+					int num_extras = N - d - final_pos;
 					assert(num_extras & 1);
 				}
 			}
