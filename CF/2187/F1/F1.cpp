@@ -132,9 +132,7 @@ int main() {
 		//cerr << "case " << '\n';
 		//for (int p : P) { cerr << p << ' '; } cerr << '\n';
 		int ans = [&](this auto&& self, int cur) -> int {
-			int a = tree.nodes[cur].l;
-			int b = tree.nodes[cur].r;
-			//cerr << a << '-' << b << ' '; for (int i = a; i <= b; i++) cerr << P[i] << ' '; cerr << '\n';
+			//int a = tree.nodes[cur].l, b = tree.nodes[cur].r; cerr << a << '-' << b << ' '; for (int i = a; i <= b; i++) cerr << P[i] << ' '; cerr << '\n';
 			if (tree.nodes[cur].type == PermTree::NodeType::LEAF) {
 				return 1;
 			}
