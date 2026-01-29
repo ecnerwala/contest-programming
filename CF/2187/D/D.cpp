@@ -160,6 +160,7 @@ int main() {
 				off[0] = off[1]+1;
 			} else assert(false);
 		}
+		cerr << "off " << off[0] << ' ' << off[1] << '\n';
 		std::vector<int> gap_freq(N+1);
 		for (auto g : gaps) {
 			cerr << "gap " << g << '\n';
