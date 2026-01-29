@@ -184,7 +184,7 @@ int main() {
 			}
 		}
 		std::vector<int64_t> all_opts; all_opts.reserve(2*(N+1));
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i <= mx; i++) {
 			if (okay[i]) {
 				for (int d = 0; d < 2; d++) {
 					// go right 2*i + off[d] steps
