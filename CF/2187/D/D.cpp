@@ -193,7 +193,7 @@ int main() {
 		std::vector<int64_t> vals(2*N+2);
 		for (int d = 0; d < 2; d++) {
 			int64_t c = d ? Y - C0 : X + C0;
-			int64_t val = pref + c;
+			int64_t val = pref;
 			for (int k = 0; k <= N; k++) {
 				val += c;
 
