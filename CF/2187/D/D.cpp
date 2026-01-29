@@ -203,7 +203,7 @@ int main() {
 					int64_t val = pref + init_C;
 					val += int64_t(init_C) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
 					int extra = (N - steps) / 2;
-					val += extra * 2 * (Y - int64_t(init_C + int64_t(N) * X)) + int64_t(extra) * int64_t(extra+1) * X;
+					val += extra * (Y - 2 * int64_t(init_C + int64_t(N) * X)) + int64_t(extra) * int64_t(extra+1) * X;
 					cerr << val << '\n';
 					all_opts.push_back(val);
 				}
