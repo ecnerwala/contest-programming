@@ -127,6 +127,7 @@ int main() {
 		for (int i = 0; i < N; i++) invA[A[i]] = i;
 		std::vector<int> P(N);
 		for (int i = 0; i < N; i++) P[i] = invA[B[i]];
+		std::reverse(P.begin(), P.end());
 		// we have 0..N-1 and P[0]..P[N-1]
 		PermTree tree(P);
 		//cerr << "case " << '\n';
@@ -136,17 +137,9 @@ int main() {
 			if (tree.nodes[cur].type == PermTree::NodeType::LEAF) {
 				return 1;
 			}
-			if (tree.nodes[cur].type == PermTree::NodeType::INCR) {
+			if (tree.nodes[cur].type == PermTree::NodeType::DECR && tree.nodes[tree.nodes[cur].c[1]].type == PermTree::NodeType::LEAF) {
 				// walk all the way left and check it
-				int best = 0;
-				while (tree.nodes[cur].type == PermTree::NodeType::INCR) {
-					assert(tree.nodes[tree.nodes[cur].c[1]].type != PermTree::NodeType::INCR);
-					best = std::max(best, self(tree.nodes[cur].c[1]));
-					cur = tree.nodes[cur].c[0];
-				}
-				if (tree.nodes[cur].type == PermTree::NodeType::LEAF) best++;
-				else best = std::max(best, self(cur));
-				return best;
+				return 1 + self(tree.nodes[cur].c[0]);
 			} else {
 				return std::max(self(tree.nodes[cur].c[0]), self(tree.nodes[cur].c[1]));
 			}
