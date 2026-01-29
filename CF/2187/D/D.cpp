@@ -199,8 +199,6 @@ int main() {
 
 				int pos = d ? -k : 1+k;
 				vals[N+pos] = val + int64_t((N-k)/2) * c + int64_t((N-k+1)/2) * (Y-c);
-
-				cerr << pos << ' ' << vals[N+pos] << '\n';
 				c += X;
 			}
 		}
