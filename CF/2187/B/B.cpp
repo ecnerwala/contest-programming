@@ -27,6 +27,7 @@ int main() {
 							auto [w, ps] = *dp[cx][cy];
 							for (int vx = 0; vx < 2; vx++) {
 								for (int vy = 0; vy < 2; vy++) {
+									if (vx && vy) continue;
 									if (!cx && (vx != bx) && (vx > bx) != dx) continue;
 									if (!cy && (vy != by) && (vy > by) != dy) continue;
 									int nx = cx || (vx != bx);
