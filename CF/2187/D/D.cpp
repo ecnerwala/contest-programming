@@ -199,7 +199,7 @@ int main() {
 					cerr << init_pos << ' ' << final_pos << ' ' << d << ' ' << steps << '\n';
 					assert((steps & 1) == (N & 1));
 					assert(steps <= N);
-					assert(steps >= std::min(0,-(N-2)));
+					assert(steps >= -N);
 					int64_t(C0) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
 				}
 			}
