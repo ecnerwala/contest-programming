@@ -30,8 +30,6 @@ int main() {
 					}
 				}
 			}
-			cerr << "at " << i+1 << '\n';
-			for (auto v : dp) { cerr << v << ' '; } cerr << '\n';
 			while (dp.back() > T_INF) dp.pop_back();
 			cout << dp[0] << " \n"[i+1==N];
 		}
