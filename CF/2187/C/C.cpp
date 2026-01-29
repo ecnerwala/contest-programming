@@ -23,10 +23,11 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			by_depth[i].push_back({1, sz[i]});
 			sz[i]++;
-			if (i < N) {
+			if (i < N-1) {
 				int p = nxt[i];
 				sz[p] += sz[i];
 				if (by_depth[p].size() < by_depth[i].size()) std::swap(by_depth[i], by_depth[p]);
+				assert(by_depth[p].size() >= by_depth[i].size());
 				for (int l = 1; l <= int(by_depth[i].size()); l++) {
 					auto& a = by_depth[p].end()[-l];
 					auto& b = by_depth[i].end()[-l];
