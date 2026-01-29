@@ -23,7 +23,7 @@ int main() {
 			{
 				for (int k = 0; k < int(dp.size()); k++) {
 					// we can wait, then walk through with all our keys
-					dp[k] = std::max(A[i], dp[k] + 1 + 2 * std::max(k-1, 0));
+					dp[k] = std::max(A[i], dp[k]) + 1 + 2 * std::max(k-1, 0);
 					// or we can use a key
 					if (k+1 < int(dp.size())) {
 						dp[k] = std::min(dp[k], dp[k+1] + 1 + 2 * k);
