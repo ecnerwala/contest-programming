@@ -250,39 +250,38 @@ int main() {
 		//cerr << "case " << '\n';
 		//for (int p : P) { cerr << p << ' '; } cerr << '\n';
 		using num = modnum<998244353>;
-		auto ans = [&](this auto&& self, int cur) -> vector<num> {
+		num ans = 1;
+		[&](this auto&& self, int cur) -> void {
 			//int a = tree.nodes[cur].l, b = tree.nodes[cur].r; cerr << a << '-' << b << ' '; for (int i = a; i <= b; i++) cerr << P[i] << ' '; cerr << '\n';
 			if (tree.nodes[cur].type == PermTree::NodeType::LEAF) {
-				return std::vector<num>({num(1)});
+				return;
 			}
 			if (tree.nodes[cur].type == PermTree::NodeType::DECR) {
-				auto a = self(tree.nodes[cur].c[0]);
-				a.push_back(num(0));
-				// walk all the way left and check it
-				if (tree.nodes[tree.nodes[cur].c[1]].type == PermTree::NodeType::LEAF) {
-					for (int i = 0; i+1 < int(a.size()); i++) {
-						a[i+1] += a[i];
+				std::vector<bool> seq;
+				for (; tree.nodes[cur].type == PermTree::NodeType::DECR; cur = tree.nodes[cur].c[0]) {
+					int b = tree.nodes[cur].c[1];
+					if (tree.nodes[b].type == PermTree::NodeType::LEAF) seq.push_back(true);
+					else self(b), seq.push_back(false);
+				}
+				self(cur);
+				std::reverse(seq.begin(), seq.end());
+				std::vector<num> a({num(1)});
+				for (bool v : seq) {
+					a.push_back(num(0));
+					// walk all the way left and check it
+					if (v) {
+						for (int i = 0; i+1 < int(a.size()); i++) {
+							a[i+1] += a[i];
+						}
 					}
-				} else {
-					auto b = self(tree.nodes[cur].c[1]);
-					num bw = std::accumulate(b.begin(), b.end(), num(0));
-					for (auto& r : a) { r *= bw; }
 				}
-				return a;
+				ans *= std::accumulate(a.begin(), a.end(), num(0));
 			} else {
-				num res = 1;
-				{
-					auto a = self(tree.nodes[cur].c[0]);
-					res *= std::accumulate(a.begin(), a.end(), num(0));
-				}
-				{
-					auto b = self(tree.nodes[cur].c[1]);
-					res *= std::accumulate(b.begin(), b.end(), num(0));
-				}
-				return std::vector<num>({res});
+				self(tree.nodes[cur].c[0]);
+				self(tree.nodes[cur].c[1]);
 			}
 		}(tree.root);
-		cout << std::accumulate(ans.begin(), ans.end(), num(0)) << '\n';
+		cout << ans << '\n';
 	}
 
 	return 0;
