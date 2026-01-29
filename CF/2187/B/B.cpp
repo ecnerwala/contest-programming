@@ -47,6 +47,7 @@ int main() {
 			}
 		}
 		assert(ans);
+		cerr << ans->first << '\n';
 		cout << ans->second[0] << ' ' << ans->second[1] << '\n';
 	}
 
