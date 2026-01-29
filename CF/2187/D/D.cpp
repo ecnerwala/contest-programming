@@ -123,6 +123,7 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
+		cerr << "start case" << '\n';
 		int N, X, Y; cin >> N >> X >> Y;
 		std::string S; cin >> S;
 
@@ -143,6 +144,7 @@ int main() {
 		assert(S[st] == '?');
 		S.erase(S.begin(), S.begin() + st + 1);
 		N = int(S.size());
+		cerr << N << ' ' << S << '\n';
 		std::vector<int> gaps; gaps.reserve(N);
 		std::array<int, 2> off{1, 0};
 		for (int i = 0; i < int(S.size()); i++) {
@@ -160,6 +162,7 @@ int main() {
 		}
 		std::vector<int> gap_freq(N+1);
 		for (auto g : gaps) {
+			cerr << "gap " << g << '\n';
 			assert(!(g & 1));
 			g /= 2;
 			assert(g <= N);
