@@ -129,14 +129,12 @@ int main() {
 		for (int i = 0; i < N; i++) P[i] = invA[B[i]];
 		// we have 0..N-1 and P[0]..P[N-1]
 		PermTree tree(P);
-		cerr << "case " << '\n';
-		for (int p : P) { cerr << p << ' '; } cerr << '\n';
+		//cerr << "case " << '\n';
+		//for (int p : P) { cerr << p << ' '; } cerr << '\n';
 		int ans = [&](this auto&& self, int cur) -> int {
 			int a = tree.nodes[cur].l;
 			int b = tree.nodes[cur].r;
-			cerr << a << '-' << b << ' ';
-			for (int i = a; i <= b; i++) cerr << P[i] << ' ';
-			cerr << '\n';
+			//cerr << a << '-' << b << ' '; for (int i = a; i <= b; i++) cerr << P[i] << ' '; cerr << '\n';
 			if (tree.nodes[cur].type == PermTree::NodeType::LEAF) {
 				return 1;
 			}
