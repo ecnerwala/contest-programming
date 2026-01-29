@@ -128,7 +128,7 @@ int main() {
 
 		using num = modnum<998244353>;
 		int64_t C0 = 0;
-		num pref = 0;
+		int64_t pref = 0;
 		int st = 0;
 		for (; st < int(S.size()) && S[st] != '?'; st++) {
 			if (S[st] == '0') C0 = X + C0;
@@ -137,7 +137,7 @@ int main() {
 			pref += C0;
 		}
 		if (st == int(S.size())) {
-			cout << pref << '\n';
+			cout << num(pref) << '\n';
 			continue;
 		}
 		assert(S[st] == '?');
@@ -188,12 +188,17 @@ int main() {
 			if (okay[i]) {
 				for (int d = 0; d < 2; d++) {
 					// go right 2*i + off[d] steps
+					int init_pos = !d;
 					int final_pos = 2*i + off[d];
-					int num_extras = N - d - final_pos;
-					assert(num_extras & 1);
+					assert(((final_pos - init_pos) & 1) == (N & 1));
 				}
 			}
 		}
+		std::sort(all_opts.begin(), all_opts.end());
+		all_opts.resize(std::unique(all_opts.begin(), all_opts.end()) - all_opts.begin());
+		num ans = 0;
+		for (auto v : all_opts) ans += num(v);
+		cout << ans << '\n';
 	}
 
 	return 0;
