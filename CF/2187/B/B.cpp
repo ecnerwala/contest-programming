@@ -41,8 +41,12 @@ int main() {
 					}
 					dp = ndp;
 				}
-				if (dp[1][1]) {
-					if (!ans || dp[1][1]->first < ans->first) ans = dp[1][1];
+				for (int cx = 0; cx < 2; cx++) {
+					for (int cy = 0; cy < 2; cy++) {
+						auto v = dp[cx][cy];
+						if (!v) continue;
+						if (!ans || v->first < ans->first) ans = v;
+					}
 				}
 			}
 		}
