@@ -200,6 +200,7 @@ int main() {
 				int pos = d ? -k : 1+k;
 				vals[N+pos] = val + int64_t((N-k)/2) * c + int64_t((N-k+1)/2) * (Y-c);
 
+				cerr << pos << ' ' << vals[N+pos] << '\n';
 				c += X;
 			}
 		}
@@ -209,6 +210,7 @@ int main() {
 					// go right 2*i + off[d] steps
 					int final_pos = 2*i + off[d];
 					assert(-N <= final_pos && final_pos <= N+1);
+					cerr << "have " << final_pos << ' ' << vals[final_pos + N] << '\n';
 					all_opts.push_back(vals[final_pos+N]);
 				}
 			}
