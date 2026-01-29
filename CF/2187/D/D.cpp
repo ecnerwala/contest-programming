@@ -124,7 +124,7 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		cerr << "start case" << '\n';
-		int N, X, Y; cin >> N >> X >> Y;
+		int N; int64_t X, Y; cin >> N >> X >> Y;
 		std::string S; cin >> S;
 
 		using num = modnum<998244353>;
@@ -200,7 +200,10 @@ int main() {
 					assert((steps & 1) == (N & 1));
 					assert(steps <= N);
 					assert(steps >= -N);
-					int64_t(C0) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
+					int64_t val = int64_t(C0) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
+					int extra = (N - steps) / 2;
+					val += extra * 2 * (Y - int64_t(C0 + int64_t(N) * X)) + int64_t(extra) * int64_t(extra) * X;
+					all_opts.push_back(val);
 				}
 			}
 		}
