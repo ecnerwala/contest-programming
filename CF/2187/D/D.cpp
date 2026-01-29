@@ -190,7 +190,7 @@ int main() {
 					// go right 2*i + off[d] steps
 					int final_pos = 2*i + off[d];
 					int num_extras = N - final_pos;
-					assert(!(num_extras & 1));
+					assert(num_extras & 1);
 				}
 			}
 		}
