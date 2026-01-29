@@ -127,6 +127,8 @@ int main() {
 		for (int i = 0; i < N; i++) P[A[i]] = B[i];
 		// we have 0..N-1 and P[0]..P[N-1]
 		PermTree tree(P);
+		cerr << "case " << '\n';
+		for (int p : P) { cerr << p << ' '; } cerr << '\n';
 		int ans = [&](this auto&& self, int cur) -> int {
 			int a = tree.nodes[cur].l;
 			int b = tree.nodes[cur].r;
