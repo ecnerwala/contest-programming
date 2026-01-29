@@ -22,15 +22,13 @@ int main() {
 			// Now, wait until we can get through the door
 			{
 				for (int k = 0; k < int(dp.size()); k++) {
-					// we can wait
-					dp[k] = std::max(A[i], dp[k]);
+					// we can wait, then walk through with all our keys
+					dp[k] = std::max(A[i], dp[k] + 1 + 2 * std::max(k-1, 0));
 					// or we can use a key
-					if (k+1 < int(dp.size())) dp[k] = std::min(dp[k], dp[k+1]);
+					if (k+1 < int(dp.size())) {
+						dp[k] = std::min(dp[k], dp[k+1] + 1 + 2 * k);
+					}
 				}
-			}
-			// walk through the door with all our keys
-			for (int k = 0; k < int(dp.size()); k++) {
-				dp[k] += 1 + 2 * std::max(k-1, 0);
 			}
 			cerr << "at " << i+1 << '\n';
 			for (auto v : dp) { cerr << v << ' '; } cerr << '\n';
