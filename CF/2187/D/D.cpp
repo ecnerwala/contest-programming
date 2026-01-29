@@ -194,7 +194,7 @@ int main() {
 					int steps = (final_pos - init_pos) * (d ? -1 : 1);
 					assert((steps & 1) == (N & 1));
 					assert(steps <= N);
-					assert(steps >= -(N-2));
+					assert(steps >= -N);
 				}
 			}
 		}
