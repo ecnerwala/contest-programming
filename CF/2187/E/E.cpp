@@ -32,7 +32,7 @@ int main() {
 			for (int k = 0; k < int(dp.size()); k++) {
 				dp[k] += 1 + 2 * std::max(k-1, 0);
 			}
-			//while (dp.back() > T_INF) dp.pop_back();
+			while (dp.back() > T_INF) dp.pop_back();
 			cout << dp[0] << " \n"[i+1==N];
 		}
 	}
