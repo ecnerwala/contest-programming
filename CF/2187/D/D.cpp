@@ -188,24 +188,28 @@ int main() {
 			}
 		}
 		std::vector<int64_t> all_opts; all_opts.reserve(2*(N+1));
+		// just compute the ending value of all possible positions
+		// we just want the ending values of 0 0^k 1^(N-k) or 1 0^k 1^(N-k)
+		std::vector<int64_t> vals(2*N+2);
+		for (int d = 0; d < 2; d++) {
+			int64_t c = d ? Y - C0 : X + C0;
+			int64_t val = pref + c;
+			for (int k = 0; k <= N; k++) {
+				val += c;
+
+				int pos = d ? -k : 1+k;
+				vals[N+pos] = val + int64_t((N-k)/2) * c + int64_t((N-k+1)/2) * (Y-c);
+
+				c += X;
+			}
+		}
 		for (int i = 0; i <= mx; i++) {
 			if (okay[i]) {
 				for (int d = 0; d < 2; d++) {
 					// go right 2*i + off[d] steps
-					int64_t init_C = (d ? Y - C0 : X + C0);
-					int init_pos = !d;
 					int final_pos = 2*i + off[d];
-					int steps = (final_pos - init_pos) * (d ? -1 : 1);
-					cerr << init_pos << ' ' << final_pos << ' ' << d << ' ' << steps << '\n';
-					assert((steps & 1) == (N & 1));
-					assert(steps <= N);
-					assert(steps >= -N);
-					int64_t val = pref + init_C;
-					val += int64_t(init_C) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
-					int extra = (N - steps) / 2;
-					val += extra * (Y - 2 * int64_t(init_C + int64_t(N) * X)) + int64_t(extra) * int64_t(extra+1) * X;
-					cerr << val << '\n';
-					all_opts.push_back(val);
+					assert(-N <= final_pos && final_pos <= N+1);
+					all_opts.push_back(vals[final_pos+N]);
 				}
 			}
 		}
