@@ -200,7 +200,7 @@ int main() {
 					assert((steps & 1) == (N & 1));
 					assert(steps <= N);
 					assert(steps >= -N);
-					int64_t val = int64_t(init_C) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
+					int64_t val = init_C + int64_t(init_C) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
 					int extra = (N - steps) / 2;
 					val += extra * 2 * (Y - int64_t(init_C + int64_t(N) * X)) + int64_t(extra) * int64_t(extra) * X;
 					cerr << pref + val << '\n';
