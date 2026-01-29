@@ -21,8 +21,8 @@ int main() {
 		std::vector<std::vector<std::pair<int, int>>> by_depth(N);
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
-			by_depth[i].push_back({1, sz[i]});
 			sz[i]++;
+			by_depth[i].push_back({1, sz[i]});
 			if (i < N-1) {
 				int p = nxt[i];
 				sz[p] += sz[i];
