@@ -169,7 +169,7 @@ int main() {
 			assert(g <= N);
 			gap_freq[g]++;
 		}
-		std::vector<int> okay(N+1);
+		std::vector<int8_t> okay(N+1, 0);
 		int mx = 0;
 		okay[mx] = true;
 		for (int g = 1; g <= N; g++) {
