@@ -192,10 +192,10 @@ int main() {
 					int init_pos = !d;
 					int final_pos = 2*i + off[d];
 					int steps = (final_pos - init_pos) * (d ? -1 : 1);
+					cerr << init_pos << ' ' << final_pos << ' ' << d << ' ' << steps << '\n';
 					assert((steps & 1) == (N & 1));
 					assert(steps <= N);
 					assert(steps >= -(N-2));
-					cerr << steps << '\n';
 					int64_t(C0) * N + int64_t(X) * (int64_t(N) * int64_t(N+1) / 2);
 				}
 			}
