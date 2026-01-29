@@ -188,17 +188,20 @@ int main() {
 			if (okay[i]) {
 				for (int d = 0; d < 2; d++) {
 					// go right 2*i + off[d] steps
-					int64_t init_val = pref + (d ? Y - C0 : X + C0);
+					int64_t init_C = (d ? Y - C0 : X + C0);
 					int init_pos = !d;
 					int final_pos = 2*i + off[d];
-					assert(((final_pos - init_pos) & 1) == (N & 1));
+					int steps = (final_pos - init_pos) * (d ? -1 : 1);
+					assert((steps & 1) == (N & 1));
+					assert(steps <= N);
+					assert(steps >= -(N-2));
 				}
 			}
 		}
 		std::sort(all_opts.begin(), all_opts.end());
 		all_opts.resize(std::unique(all_opts.begin(), all_opts.end()) - all_opts.begin());
 		num ans = 0;
-		for (auto v : all_opts) ans += num(v);
+		for (auto v : all_opts) ans += num(pref + v);
 		cout << ans << '\n';
 	}
 
