@@ -188,6 +188,7 @@ int main() {
 			if (okay[i]) {
 				for (int d = 0; d < 2; d++) {
 					// go right 2*i + off[d] steps
+					int64_t init_val = pref + (d ? Y - C0 : X + C0);
 					int init_pos = !d;
 					int final_pos = 2*i + off[d];
 					assert(((final_pos - init_pos) & 1) == (N & 1));
