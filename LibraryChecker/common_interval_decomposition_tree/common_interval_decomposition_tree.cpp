@@ -121,6 +121,7 @@ int main() {
 	std::vector<int> P(N); for (auto& p : P) cin >> p;
 	PermTree perm(P);
 	int nxt_idx = 0;
+	std::vector<std::tuple<int, std::array<int, 2>, bool>> res; res.reserve(2*N);
 	[&](this auto&& self, int cur, int prv_idx, PermTree::NodeType par_type) -> void {
 		if (perm[cur].type == PermTree::NodeType::PARTIAL || perm[cur].type == par_type) {
 			self(perm[cur].c[0], prv_idx, par_type);
@@ -128,13 +129,17 @@ int main() {
 			return;
 		}
 		int cur_idx = nxt_idx++;
-		cout << prv_idx << ' ' << perm[cur].l << ' ' << perm[cur].r << ' ' << (perm[cur].type == PermTree::NodeType::FULL ? "prime" : "linear") << '\n';
+		res.push_back({prv_idx, {perm[cur].l, perm[cur].r}, perm[cur].type == PermTree::NodeType::FULL});
 		if (perm[cur].type == PermTree::NodeType::LEAF) return;
 		if (perm[cur].type == PermTree::NodeType::FULL) par_type = PermTree::NodeType::PARTIAL;
 		else par_type = perm[cur].type;
 		self(perm[cur].c[0], cur_idx, par_type);
 		self(perm[cur].c[1], cur_idx, par_type);
 	}(perm.root, -1, PermTree::NodeType::PARTIAL);
+	cout << res.size() << '\n';
+	for (auto [par, bounds, is_prime] : res) {
+		cout << par << ' ' << bounds[0] << ' ' << bounds[1] << ' ' << (is_prime ? "prime" : "linear") << '\n';
+	}
 
 	return 0;
 }
