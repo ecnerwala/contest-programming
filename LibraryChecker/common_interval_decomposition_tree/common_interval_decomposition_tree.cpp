@@ -128,7 +128,7 @@ int main() {
 			return;
 		}
 		int cur_idx = nxt_idx++;
-		cout << prv_idx << ' ' << cur_idx << ' ' << perm[cur].l << ' ' << perm[cur].r << ' ' << (perm[cur].type == PermTree::NodeType::FULL ? "prime" : "linear") << '\n';
+		cout << prv_idx << ' ' << perm[cur].l << ' ' << perm[cur].r << ' ' << (perm[cur].type == PermTree::NodeType::FULL ? "prime" : "linear") << '\n';
 		if (perm[cur].type == PermTree::NodeType::LEAF) return;
 		if (perm[cur].type == PermTree::NodeType::FULL) par_type = PermTree::NodeType::PARTIAL;
 		else par_type = perm[cur].type;
