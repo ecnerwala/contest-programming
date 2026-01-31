@@ -288,6 +288,7 @@ int main() {
 	for (int z = 1; z < M; z++) {
 		std::vector<int> P(N);
 		for (int i = 0; i < N; i++) { int b; cin >> b; b--; P[invA[b]] = i; }
+		for (int i = 0; i < N; i++) { cerr << P[i] << ' '; } cerr << '\n';
 		for (int i = 0; i < N; i++) {
 			int mi = P[i], ma = P[i];
 			for (int j = i+1; j < N; j++) {
