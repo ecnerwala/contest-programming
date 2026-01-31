@@ -311,7 +311,10 @@ int main() {
 		}
 		if (i < N) {
 			for (int j = i+1; j <= N; j++) {
-				if (good[{i, j-1}]) node_ways[{i, j}] = interval_ways[{i+1, j}];
+				if (good[{i, j-1}]) {
+					cerr << "good " << i << ' ' << j-1 << '\n';
+					node_ways[{i, j}] = interval_ways[{i+1, j}];
+				}
 			}
 		}
 	}
