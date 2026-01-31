@@ -163,6 +163,8 @@ int main() {
 				} else {
 					int64_t diff = vma - vmi;
 					int64_t tgt = k - vmi;
+					assert(tgt > 0);
+					assert(diff >= tgt);
 					cout << a * (pareto[mi][0] + double(pareto[ma][0] - pareto[mi][0]) * double(tgt) / double(diff)) << '\n';
 				}
 			}
