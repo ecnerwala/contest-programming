@@ -292,11 +292,10 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			int mi = P[i], ma = P[i];
 			for (int j = i+1; j < N; j++) {
-				if (P[j] < P[i]) break;
 				ma = std::max(ma, P[j]);
-				assert(mi == std::min(mi, P[j]));
+				mi = std::min(mi, P[j]);
 				assert(ma - mi >= j - i);
-				if (ma - mi > j - i) good[{i, j}] = false;
+				if (mi != P[i] || ma - mi > j - i) good[{i, j}] = false;
 			}
 		}
 	}
