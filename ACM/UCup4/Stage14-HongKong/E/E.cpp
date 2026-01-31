@@ -143,8 +143,29 @@ int main() {
 		}
 
 		for (auto [a, b] : pareto) cerr << a << ' ' << b << '\n';
+		cout << fixed << setprecision(20);
 		for (int q = 0; q < Q; q++) {
-			int a, b, k; cin >> a >> b >> k;
+			int64_t a, b, k; cin >> a >> b >> k;
+			int mi = 0, ma = int(pareto.size());
+			while (ma - mi > 1) {
+				int md = (mi + ma) / 2;
+				if (a * pareto[md][0] + b * pareto[md][1] <= k) mi = md;
+				else ma = md;
+			}
+			if (ma == int(pareto.size())) {
+				cout << a * pareto.back()[0] << '\n';
+			} else {
+				// mi .. ma
+				int64_t vmi = a * pareto[mi][0] + b * pareto[mi][1];
+				int64_t vma = a * pareto[ma][0] + b * pareto[ma][1];
+				if (vmi == k) {
+					cout << a * pareto[mi][0] << '\n';
+				} else {
+					int64_t diff = vma - vmi;
+					int64_t tgt = k - vmi;
+					cout << a * (pareto[mi][0] + double(pareto[ma][0] - pareto[mi][0]) * double(tgt) / double(diff)) << '\n';
+				}
+			}
 		}
 	}
 
