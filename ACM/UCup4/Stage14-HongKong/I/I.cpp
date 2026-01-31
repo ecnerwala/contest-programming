@@ -288,7 +288,6 @@ int main() {
 	for (int z = 1; z < M; z++) {
 		std::vector<int> P(N);
 		for (int i = 0; i < N; i++) { int b; cin >> b; b--; P[invA[b]] = i; }
-		for (int i = 0; i < N; i++) { cerr << P[i] << ' '; } cerr << '\n';
 		for (int i = 0; i < N; i++) {
 			int mi = P[i], ma = P[i];
 			for (int j = i+1; j < N; j++) {
@@ -305,7 +304,6 @@ int main() {
 	for (int i = N; i > 0; i--) {
 		interval_ways[{i, i}] = 1;
 		for (int j = i; j < N; j++) {
-			if (interval_ways[{i, j}] != 0) cerr << "int " << i << ' ' << j << ' ' << interval_ways[{i, j}] << '\n';
 			for (int k = j+1; k <= N; k++) {
 				interval_ways[{i, k}] += interval_ways[{i, j}] * node_ways[{j, k}];
 			}
@@ -313,7 +311,6 @@ int main() {
 		for (int j = i; j <= N; j++) {
 			if (good[{i-1, j-1}]) {
 				node_ways[{i-1, j}] = interval_ways[{i, j}];
-				cerr << "good " << i-1 << ' ' << j << ' ' << node_ways[{i-1, j}] << '\n';
 			}
 		}
 	}
