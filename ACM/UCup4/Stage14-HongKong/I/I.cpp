@@ -305,7 +305,7 @@ int main() {
 	for (int i = N; i > 0; i--) {
 		interval_ways[{i, i}] = 1;
 		for (int j = i; j < N; j++) {
-			if (interval_ways[{i, j}] != 0) cerr << "int " << i << ' ' << j << ' ' << interval_ways[{i, j}];
+			if (interval_ways[{i, j}] != 0) cerr << "int " << i << ' ' << j << ' ' << interval_ways[{i, j}] << '\n';
 			for (int k = j+1; k <= N; k++) {
 				interval_ways[{i, k}] += interval_ways[{i, j}] * node_ways[{j, k}];
 			}
