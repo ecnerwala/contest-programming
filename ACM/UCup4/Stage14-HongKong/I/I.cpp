@@ -302,19 +302,18 @@ int main() {
 	using num = modnum<int(1e9)+7>;
 	tensor<num, 2> node_ways({N+1, N+1});
 	tensor<num, 2> interval_ways({N+1, N+1});
-	for (int i = N; i >= 0; i--) {
+	for (int i = N; i > 0; i--) {
 		interval_ways[{i, i}] = 1;
 		for (int j = i; j < N; j++) {
+			if (interval_ways[{i, j}] != 0) cerr << "int " << i << ' ' << j << ' ' << interval_ways[{i, j}];
 			for (int k = j+1; k <= N; k++) {
 				interval_ways[{i, k}] += interval_ways[{i, j}] * node_ways[{j, k}];
 			}
 		}
-		if (i < N) {
-			for (int j = i+1; j <= N; j++) {
-				if (good[{i, j-1}]) {
-					node_ways[{i, j}] = interval_ways[{i+1, j}];
-					cerr << "good " << i << ' ' << j << ' ' << node_ways[{i, j}] << '\n';
-				}
+		for (int j = i; j <= N; j++) {
+			if (good[{i-1, j-1}]) {
+				node_ways[{i-1, j}] = interval_ways[{i, j}];
+				cerr << "good " << i-1 << ' ' << j << ' ' << node_ways[{i-1, j}] << '\n';
 			}
 		}
 	}
