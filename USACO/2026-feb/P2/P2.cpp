@@ -118,7 +118,7 @@ int main() {
 						people[0].second = !people[0].second;
 						people[1].second = !people[1].second;
 					}
-				} else {
+				} else if (N >= 3) {
 					for (int i = 0; i < N; i++) {
 						if (people[i].first == people[(i+1)%N].first) {
 							assert(!people[i].second);
@@ -148,6 +148,7 @@ int main() {
 			for (auto& x : X) x = std::uniform_int_distribution<int>(0, M-N)(mt);
 			std::sort(X.begin(), X.end());
 			for (int i = 0; i < N; i++) X[i] += i;
+			cerr << "testing " << N << ' ' << M << ' ' << K << '\n';
 			auto s = solve(N, M, K, P_pos, X);
 			auto a = slow(N, M, K, P_pos, X);
 			assert(a == s);
