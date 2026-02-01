@@ -81,8 +81,8 @@ int main() {
 				cerr << P_pos[i] << ' ' << cnt_vals[i][0] << ' ' << (1-P_pos[i]) << ' ' << cnt_vals[i][1] << '\n';
 				std::vector<num> ndp(N);
 				for (int a = 0; a < N; a++) {
-					ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
-					ndp[(a+cnt_vals[i][1])%N] += (1-P_pos[i]) * dp[a];
+					if (i != upd.first || upd.second == 0) ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
+					if (i != upd.first || upd.second == 1) ndp[(a+cnt_vals[i][1])%N] += (1-P_pos[i]) * dp[a];
 				}
 				dp = ndp;
 			}
