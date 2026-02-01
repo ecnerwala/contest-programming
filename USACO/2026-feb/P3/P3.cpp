@@ -110,9 +110,7 @@ int main() {
 		while (a != b) a = P[a], b = P[b];
 		return a;
 	};
-	for (int i = 0; i < N; i++) {
-		cerr << i << ' ' << time_out[i] << ' ' << time_up[i] << ' ' << time_down[i] << ' ' << time_in[i] << '\n';
-	}
+	//for (int i = 0; i < N; i++) { cerr << i << ' ' << time_out[i] << ' ' << time_up[i] << ' ' << time_down[i] << ' ' << time_in[i] << '\n'; }
 	for (int q = 0; q < Q; q++) {
 		int x, y; cin >> x >> y; x--, y--;
 		int l = get_lca(x, y);
