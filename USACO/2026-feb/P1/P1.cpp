@@ -85,8 +85,15 @@ int main() {
 		return ans;
 	};
 
-	for (int d = 0; d <= C; d++) {
-		cerr << d << ' ' << find_cnt(d) << '\n';
+	// now, just binary search for the first guy bigger than this
+	for (int k = 1; k <= N/2; k++) {
+		int mi = 0, ma = C+1;
+		while (ma - mi > 1) {
+			int md = mi + (ma - mi) / 2;
+			if (find_cnt(md) >= 2*k) mi = md;
+			else ma = md;
+		}
+		cout << mi << " \n"[k==N/2];
 	}
 
 	return 0;
