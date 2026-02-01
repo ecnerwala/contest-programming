@@ -120,7 +120,7 @@ int main() {
 				}
 			}
 			assert(!(people[0].first & 1));
-			ans[people[0].first] += msk;
+			ans[people[0].first/2] += msk;
 		}
 		return ans;
 	};
