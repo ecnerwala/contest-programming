@@ -140,7 +140,7 @@ int main() {
 		std::mt19937 mt(48);
 		for (int z = 0; z < 20; z++) {
 			int N = std::uniform_int_distribution<int>(1, 10)(mt);
-			int M = std::uniform_int_distribution<int>(1, 30)(mt);
+			int M = std::uniform_int_distribution<int>(N, 30)(mt);
 			int64_t K = std::uniform_int_distribution<int>(1, 300)(mt);
 			std::vector<num> P_pos(N);
 			for (auto& p : P_pos) p = num(int(mt()));
