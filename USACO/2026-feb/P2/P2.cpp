@@ -65,7 +65,7 @@ int main() {
 		}
 		std::array<int, 2> cnt_diffs;
 		cnt_diffs[0] = mod(div_mod(-2*K, M).first, N);
-		cnt_diffs[1] = mod(div_mod(-2*K, M).first, N);
+		cnt_diffs[1] = mod(cnt_diffs[0]+1, N);
 
 		int shift = 0;
 		std::array<std::vector<num>, 2> polys;
