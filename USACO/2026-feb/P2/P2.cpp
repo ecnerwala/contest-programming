@@ -54,6 +54,8 @@ int main() {
 		// Let's find the initial value
 		std::vector<std::pair<int, std::pair<int, bool>>> evts;
 		evts.reserve(2*N);
+		int diff0 = mod(div_mod(-2*K, M).first, N);
+		int diff1 = mod(diff0 + 1, N);
 		std::vector<std::array<int, 2>> cnt_vals(N);
 		for (int i = 0; i < N; i++) {
 			for (int z = 0; z < 2; z++) {
@@ -71,6 +73,8 @@ int main() {
 			std::vector<num> dp(N);
 			dp[0] = 1;
 			for (int i = 0; i < N; i++) {
+				int d = mod(cnt_vals[i][1] - cnt_vals[i][0], N);
+				assert(d == diff0 || d == diff1);
 				std::vector<num> ndp(N);
 				for (int a = 0; a < N; a++) {
 					if (i != upd.first || upd.second == 0) ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
