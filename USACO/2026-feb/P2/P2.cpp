@@ -102,7 +102,7 @@ int main() {
 			}
 		};
 
-		for (int i = 0; i < N; i++) upd_cnt(i, false);
+		//for (int i = 0; i < N; i++) upd_cnt(i, false);
 
 		std::vector<num> buf(N);
 		auto get_ans = [&]() -> num {
@@ -121,7 +121,7 @@ int main() {
 		// Every time we cross an event, we recalculate the thing
 		std::vector<num> ans(M);
 		for (auto [pos, upd] : evts) {
-			upd_cnt(upd.first, true);
+			//upd_cnt(upd.first, true);
 			// product the things
 			num v = (upd.second ? (1-P_pos[upd.first]) : P_pos[upd.first]) * get_ans();
 			ans[pos] += v;
