@@ -208,7 +208,7 @@ int main() {
 			int M = std::uniform_int_distribution<int>(N, 30)(mt);
 			int64_t K = std::uniform_int_distribution<int>(1, 300)(mt);
 			std::vector<num> P_pos(N);
-			for (auto& p : P_pos) p = num(int(mt()));
+			for (auto& p : P_pos) p = num(std::uniform_int_distribution<int>(-300, 300)(mt));
 			std::vector<int> X(N);
 			for (auto& x : X) x = std::uniform_int_distribution<int>(0, M-N)(mt);
 			std::sort(X.begin(), X.end());
