@@ -109,7 +109,7 @@ int main() {
 		return a;
 	};
 	for (int i = 0; i < N; i++) {
-		cerr << i << ' ' << time_up[i] << ' ' << time_in[i] << ' ' << time_down[i] << '\n';
+		cerr << i << ' ' << time_out[i] << ' ' << time_up[i] << ' ' << time_in[i] << ' ' << time_down[i] << '\n';
 	}
 	for (int q = 0; q < Q; q++) {
 		int x, y; cin >> x >> y; x--, y--;
