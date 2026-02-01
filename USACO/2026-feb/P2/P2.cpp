@@ -112,13 +112,21 @@ int main() {
 					}
 				}
 				for (auto [v, d] : people) { cerr << v << '-' << d << ' '; } cerr << '\n';
-				for (int i = 0; i < N; i++) {
-					if (people[i].first == people[(i+1)%N].first) {
-						assert(!people[i].second);
-						assert(people[(i+1)%N].second);
-						// flip them
-						people[i].second = true;
-						people[(i+1)%N].second = false;
+				if (N == 2) {
+					// we can confuse the forwards/backwards
+					if (people[0].first == people[1].first) {
+						people[0].second = !people[0].second;
+						people[1].second = !people[1].second;
+					}
+				} else {
+					for (int i = 0; i < N; i++) {
+						if (people[i].first == people[(i+1)%N].first) {
+							assert(!people[i].second);
+							assert(people[(i+1)%N].second);
+							// flip them
+							people[i].second = true;
+							people[(i+1)%N].second = false;
+						}
 					}
 				}
 			}
