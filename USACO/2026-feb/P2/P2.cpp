@@ -53,7 +53,7 @@ int main() {
 		if (r < 0) v--, r += m;
 		return {v, int(r)};
 	};
-	auto mod = [&](int64_t a, int m) -> int { return div_mod(a, m).second; }
+	auto mod = [&](int64_t a, int m) -> int { return div_mod(a, m).second; };
 
 	// Let's find the initial value
 	std::vector<std::pair<int, std::pair<int, bool>>> evts;
