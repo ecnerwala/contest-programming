@@ -102,12 +102,12 @@ int main() {
 			}
 		};
 
-		//for (int i = 0; i < N; i++) upd_cnt(i, false);
+		for (int i = 0; i < N; i++) upd_cnt(i, false);
 
 		std::vector<num> buf(N);
-		auto get_ans = [&]() -> num {
+		auto get_ans = [&](int extra_shift) -> num {
 			buf.assign(N, num(0));
-			for (int i = 0, c = shift; i < int(polys[0].size()); i++, c += cnt_diffs[0], c -= (c >= N) * N) {
+			for (int i = 0, c = mod(shift + extra_shift, N); i < int(polys[0].size()); i++, c += cnt_diffs[0], c -= (c >= N) * N) {
 				buf[c] += polys[0][i];
 			}
 			num ans = 0;
@@ -121,9 +121,9 @@ int main() {
 		// Every time we cross an event, we recalculate the thing
 		std::vector<num> ans(M);
 		for (auto [pos, upd] : evts) {
-			//upd_cnt(upd.first, true);
+			upd_cnt(upd.first, true);
 			// product the things
-			//num v = (upd.second ? (1-P_pos[upd.first]) : P_pos[upd.first]) * get_ans();
+			num v = (upd.second ? (1-P_pos[upd.first]) : P_pos[upd.first]) * get_ans(cnt_vals[upd.first][upd.second]);
 
 			std::vector<num> dp(N);
 			dp[0] = 1;
