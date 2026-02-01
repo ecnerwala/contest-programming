@@ -72,6 +72,7 @@ int main() {
 	for (int i = N-1; i >= 1; i--) {
 		if (!ch[i]) {
 			time_out[i] = 1;
+			// we always go up at least 1
 			time_up[i] = 0;
 		} else {
 			time_out[i] = 1 + ch_time_out_up[i] * invs[ch[i]];
