@@ -9,6 +9,7 @@ template <int MOD_> struct modnum {
 	modnum(int v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
 	explicit operator int () const { return v; }
 	friend std::ostream& operator << (std::ostream& o, modnum n) { return o << int(n); }
+	friend bool operator == (modnum a, modnum b) { return a.v == b.v; }
 
 	modnum& operator += (modnum o) {
 		v += o.v;
@@ -134,6 +135,22 @@ int main() {
 		}
 		return ans;
 	};
+
+	{
+		std::mt19937 mt(48);
+		int N = std::uniform_int_distribution<int>(1, 10)(mt);
+		int M = std::uniform_int_distribution<int>(1, 30)(mt);
+		int64_t K = std::uniform_int_distribution<int>(1, 300)(mt);
+		std::vector<num> P_pos(N);
+		for (auto& p : P_pos) p = num(int(mt()));
+		std::vector<int> X(N);
+		for (auto& x : X) x = std::uniform_int_distribution<int>(0, M-N)(mt);
+		std::sort(X.begin(), X.end());
+		for (int i = 0; i < N; i++) X[i] += i;
+		auto s = solve(N, M, K, P_pos, X);
+		auto a = slow(N, M, K, P_pos, X);
+		assert(a == s);
+	}
 
 	int T; cin >> T; while (T--) {
 		int N, M; int64_t K; cin >> N >> M >> K;
