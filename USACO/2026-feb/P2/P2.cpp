@@ -108,7 +108,7 @@ int main() {
 						v--;
 					} else {
 						v++;
-						if (v == N) v = 0;
+						if (v == M) v = 0;
 					}
 				}
 				for (int i = 0; i < N; i++) {
