@@ -93,7 +93,8 @@ int main() {
 	time_in[0] = 0;
 	for (int i = 1; i < N; i++) {
 		time_down[i] = ch[P[i]] + (ch_time_out_up[P[i]] - (time_out[i] + time_up[i])) + (ch[P[i]]-1) * time_in[P[i]];
-		time_in[i] = (time_in[P[i]] + time_down[i]) * depth[i];
+		// time_in[i] = depth[i]/(depth[i]+1) * (time_in[P[i]] + time_down[i])
+		time_in[i] = (time_in[P[i]] + time_down[i]) * (1 - invs[depth[i]+1]);
 	}
 
 	std::vector<num> sum_time_up = time_up;
