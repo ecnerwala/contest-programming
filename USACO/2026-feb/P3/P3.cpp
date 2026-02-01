@@ -104,11 +104,36 @@ int main() {
 		sum_time_down[i] += sum_time_down[P[i]];
 	}
 
+	struct par_t {
+		int dst;
+		int len;
+	};
+	std::vector<par_t> par2(N);
+	par2[0] = {0, 0};
+	for (int i = 1; i < N; i++) {
+		int p = P[i];
+		int gp = par2[p].dst;
+		if (par2[p].len == par2[gp].len) par2[i] = {par2[gp].dst, 1 + par2[p].len + par2[gp].len};
+		else par2[i] = {p, 1};
+	}
 	auto get_lca = [&](int a, int b) -> int {
 		if (depth[a] > depth[b]) std::swap(a, b);
-		while (depth[b] > depth[a]) b = P[b];
-		while (a != b) a = P[a], b = P[b];
-		return a;
+		while (depth[b] > depth[a]) {
+			if (par2[b].len <= depth[b] - depth[a]) b = par2[b].dst;
+			else b = P[b];
+		}
+		if (a == b) return a;
+		while (P[a] != P[b]) {
+			assert(par2[a].len == par2[b].len);
+			if (par2[a].dst != par2[b].dst) {
+				a = par2[a].dst;
+				b = par2[b].dst;
+			} else {
+				a = P[a];
+				b = P[b];
+			}
+		}
+		return P[a];
 	};
 	//for (int i = 0; i < N; i++) { cerr << i << ' ' << time_out[i] << ' ' << time_up[i] << ' ' << time_down[i] << ' ' << time_in[i] << '\n'; }
 	for (int q = 0; q < Q; q++) {
