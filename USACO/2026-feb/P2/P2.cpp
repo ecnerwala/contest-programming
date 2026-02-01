@@ -41,13 +41,7 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 
-	int T; cin >> T; while (T--) {
-		int N, M; int64_t K; cin >> N >> M >> K;
-		std::vector<num> P_pos(N);
-		for (auto& p : P_pos) { int v; cin >> v; p = v; }
-		std::vector<int> X(N);
-		for (auto& x : X) cin >> x;
-
+	auto solve = [&](int N, int M, int64_t K, std::vector<num> P_pos, std::vector<int> X) -> std::vector<num> {
 		auto div_mod = [&](int64_t a, int m) -> std::pair<int64_t, int> {
 			int64_t v = a / m;
 			int64_t r = int(a % m);
@@ -75,10 +69,7 @@ int main() {
 			// product the things
 			std::vector<num> dp(N);
 			dp[0] = 1;
-			cerr << "do prod " << pos << '\n';
 			for (int i = 0; i < N; i++) {
-				cerr << "  " << i << ' ';
-				cerr << P_pos[i] << ' ' << cnt_vals[i][0] << ' ' << (1-P_pos[i]) << ' ' << cnt_vals[i][1] << '\n';
 				std::vector<num> ndp(N);
 				for (int a = 0; a < N; a++) {
 					if (i != upd.first || upd.second == 0) ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
@@ -93,9 +84,18 @@ int main() {
 				r--;
 			}
 		}
-		for (int m = 0; m < M; m++) {
-			cout << ans[m] << " \n"[m+1==M];
-		}
+		return ans;
+	};
+
+	int T; cin >> T; while (T--) {
+		int N, M; int64_t K; cin >> N >> M >> K;
+		std::vector<num> P_pos(N);
+		for (auto& p : P_pos) { int v; cin >> v; p = v; }
+		std::vector<int> X(N);
+		for (auto& x : X) cin >> x;
+
+		auto ans = solve(N, M, K, P_pos, X);
+		for (int m = 0; m < M; m++) cout << ans[m] << " \n"[m+1==M];
 	}
 
 	return 0;
