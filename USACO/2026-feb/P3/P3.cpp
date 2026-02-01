@@ -8,6 +8,7 @@ template <int MOD_> struct modnum {
 	modnum() : v(0) {}
 	modnum(int v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
 	explicit operator int () const { return v; }
+	friend std::ostream& operator << (std::ostream& o, modnum n) { return o << int(n); }
 
 	modnum& operator += (modnum o) {
 		v += o.v;
@@ -103,6 +104,9 @@ int main() {
 		while (a != b) a = P[a], b = P[b];
 		return a;
 	};
+	for (int i = 0; i < N; i++) {
+		cerr << i << ' ' << time_up[i] << ' ' << time_out[i] << ' ' << time_down[i] << '\n';
+	}
 	for (int q = 0; q < Q; q++) {
 		int x, y; cin >> x >> y; x--, y--;
 		int l = get_lca(x, y);
