@@ -54,8 +54,6 @@ int main() {
 		// Let's find the initial value
 		std::vector<std::pair<int, std::pair<int, bool>>> evts;
 		evts.reserve(2*N);
-		int diff0 = mod(div_mod(-2*K, M).first, N);
-		int diff1 = mod(diff0 + 1, N);
 		std::vector<std::array<int, 2>> cnt_vals(N);
 		for (int i = 0; i < N; i++) {
 			for (int z = 0; z < 2; z++) {
@@ -65,16 +63,74 @@ int main() {
 				cnt_vals[i][z] = int(cnt);
 			}
 		}
+		std::array<int, 2> cnt_diffs;
+		cnt_diffs[0] = mod(div_mod(-2*K, M).first, N);
+		cnt_diffs[1] = mod(div_mod(-2*K, M).first, N);
+
+		int shift = 0;
+		std::array<std::vector<num>, 2> polys;
+		for (auto& p : polys) { p.reserve(N+1); p.push_back(num(1)); }
+
+		auto upd_cnt = [&](int i, bool del) {
+			int d = mod(cnt_vals[i][1] - cnt_vals[i][0], N);
+			assert(d == cnt_diffs[0] || d == cnt_diffs[1]);
+			bool z = d == cnt_diffs[1];
+
+			if (del) shift = mod(shift - cnt_vals[i][0], N);
+			else shift = mod(shift + cnt_vals[i][0], N);
+
+			if (del) {
+				if (P_pos[i] == 0) {
+					assert(polys[z][0] == num(0));
+					polys[z].erase(polys[z].begin());
+				} else {
+					num inv_P = inv(P_pos[i]);
+					for (int a = 0; a+1 < int(polys[z].size()); a++) {
+						polys[z][a] *= inv_P;
+						polys[z][a+1] -= polys[z][a] * (1-P_pos[i]);
+					}
+					assert(polys[z].back() == num(0));
+					polys[z].pop_back();
+				}
+			} else {
+				// insert the guy
+				polys[z].push_back(num(0));
+				for (int a = int(polys[z].size()) - 2; a >= 0; a--) {
+					polys[z][a+1] += polys[z][a] * (1-P_pos[i]);
+					polys[z][a] *= P_pos[i];
+				}
+			}
+		};
+
+		for (int i = 0; i < N; i++) upd_cnt(i, false);
+
+		std::vector<num> buf(N);
+		auto get_ans = [&]() -> num {
+			buf.assign(N, num(0));
+			for (int i = 0, c = shift; i < int(polys[0].size()); i++, c += cnt_diffs[0], c -= (c >= N) * N) {
+				buf[c] += polys[0][i];
+			}
+			num ans = 0;
+			for (int i = 0, c = 0; i < int(polys[1].size()); i++, c -= cnt_diffs[1], c += (c < 0) * N) {
+				ans += buf[c] * polys[1][i];
+			}
+			return ans;
+		};
+
 		std::sort(evts.begin(), evts.end());
 		// Every time we cross an event, we recalculate the thing
 		std::vector<num> ans(M);
 		for (auto [pos, upd] : evts) {
+			upd_cnt(upd.first, true);
 			// product the things
+			num v = (upd.second ? (1-P_pos[upd.first]) : P_pos[upd.first]) * get_ans();
+			ans[pos] += v;
+
 			std::vector<num> dp(N);
 			dp[0] = 1;
 			for (int i = 0; i < N; i++) {
 				int d = mod(cnt_vals[i][1] - cnt_vals[i][0], N);
-				assert(d == diff0 || d == diff1);
+				assert(d == cnt_diffs[0] || d == cnt_diffs[1]);
 				std::vector<num> ndp(N);
 				for (int a = 0; a < N; a++) {
 					if (i != upd.first || upd.second == 0) ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
@@ -82,12 +138,14 @@ int main() {
 				}
 				dp = ndp;
 			}
-			ans[pos] += dp[0];
+			assert(v == dp[0]);
+
 			{
 				auto& r = cnt_vals[upd.first][upd.second];
 				if (r == 0) r = N;
 				r--;
 			}
+			upd_cnt(upd.first, false);
 		}
 		return ans;
 	};
