@@ -123,8 +123,7 @@ int main() {
 		for (auto [pos, upd] : evts) {
 			//upd_cnt(upd.first, true);
 			// product the things
-			num v = (upd.second ? (1-P_pos[upd.first]) : P_pos[upd.first]) * get_ans();
-			ans[pos] += v;
+			//num v = (upd.second ? (1-P_pos[upd.first]) : P_pos[upd.first]) * get_ans();
 
 			std::vector<num> dp(N);
 			dp[0] = 1;
@@ -138,14 +137,15 @@ int main() {
 				}
 				dp = ndp;
 			}
-			assert(v == dp[0]);
+			//assert(v == dp[0]);
+			ans[pos] += dp[0];
 
 			{
 				auto& r = cnt_vals[upd.first][upd.second];
 				if (r == 0) r = N;
 				r--;
 			}
-			upd_cnt(upd.first, false);
+			//upd_cnt(upd.first, false);
 		}
 		return ans;
 	};
