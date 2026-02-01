@@ -75,7 +75,10 @@ int main() {
 			// product the things
 			std::vector<num> dp(N);
 			dp[0] = 1;
+			cerr << "do prod " << pos << '\n';
 			for (int i = 0; i < N; i++) {
+				cerr << "  " << i << '\n';
+				cerr << P_pos[i] << ' ' << cnt_vals[i][0] << ' ' << (1-P_pos[i]) << ' ' << cnt_vals[i][1] << '\n';
 				std::vector<num> ndp(N);
 				for (int a = 0; a < N; a++) {
 					ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
