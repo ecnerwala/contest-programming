@@ -115,7 +115,7 @@ int main() {
 		int x, y; cin >> x >> y; x--, y--;
 		int l = get_lca(x, y);
 		num ans = 0;
-		if (l != x) ans += sum_time_up[x] - sum_time_up[l] + time_in[l];
+		if (l != x) ans += time_out[x] + sum_time_up[x] - sum_time_up[l] + time_in[l];
 		ans += sum_time_down[y] - sum_time_down[l];
 		cout << ans << '\n';
 	}
