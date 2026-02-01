@@ -111,6 +111,7 @@ int main() {
 						if (v == M) v = 0;
 					}
 				}
+				for (auto [v, d] : people) { cerr << v << '-' << d << ' '; } cerr << '\n';
 				for (int i = 0; i < N; i++) {
 					if (people[i].first == people[(i+1)%N].first) {
 						assert(!people[i].second);
