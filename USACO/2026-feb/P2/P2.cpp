@@ -74,6 +74,7 @@ int main() {
 		for (auto [pos, upd] : evts) {
 			// product the things
 			std::vector<num> dp(N);
+			dp[0] = 1;
 			for (int i = 0; i < N; i++) {
 				std::vector<num> ndp(N);
 				for (int a = 0; a < N; a++) {
@@ -90,7 +91,7 @@ int main() {
 			}
 		}
 		for (int m = 0; m < M; m++) {
-			cout << ans[m] << '\n';
+			cout << ans[m] << " \n"[m+1==M];
 		}
 	}
 
