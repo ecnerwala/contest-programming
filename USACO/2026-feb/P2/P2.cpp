@@ -111,7 +111,6 @@ int main() {
 						if (v == M) v = 0;
 					}
 				}
-				for (auto [v, d] : people) { cerr << v << '-' << d << ' '; } cerr << '\n';
 				if (N == 2) {
 					// we can confuse the forwards/backwards
 					if (people[0].first == people[1].first) {
