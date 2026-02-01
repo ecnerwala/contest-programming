@@ -132,7 +132,8 @@ int main() {
 		std::vector<int> X(N);
 		for (auto& x : X) cin >> x;
 
-		auto ans = solve(N, M, K, P_pos, X);
+		//auto ans = solve(N, M, K, P_pos, X);
+		auto ans = slow(N, M, K, P_pos, X);
 		for (int m = 0; m < M; m++) cout << ans[m] << " \n"[m+1==M];
 	}
 
