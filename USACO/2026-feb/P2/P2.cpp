@@ -125,20 +125,23 @@ int main() {
 			// product the things
 			num v = (upd.second ? (1-P_pos[upd.first]) : P_pos[upd.first]) * get_ans(cnt_vals[upd.first][upd.second]);
 
-			std::vector<num> dp(N);
-			dp[0] = 1;
-			for (int i = 0; i < N; i++) {
-				int d = mod(cnt_vals[i][1] - cnt_vals[i][0], N);
-				assert(d == cnt_diffs[0] || d == cnt_diffs[1]);
-				std::vector<num> ndp(N);
-				for (int a = 0; a < N; a++) {
-					if (i != upd.first || upd.second == 0) ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
-					if (i != upd.first || upd.second == 1) ndp[(a+cnt_vals[i][1])%N] += (1-P_pos[i]) * dp[a];
+			if (false) {
+				std::vector<num> dp(N);
+				dp[0] = 1;
+				for (int i = 0; i < N; i++) {
+					int d = mod(cnt_vals[i][1] - cnt_vals[i][0], N);
+					assert(d == cnt_diffs[0] || d == cnt_diffs[1]);
+					std::vector<num> ndp(N);
+					for (int a = 0; a < N; a++) {
+						if (i != upd.first || upd.second == 0) ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
+						if (i != upd.first || upd.second == 1) ndp[(a+cnt_vals[i][1])%N] += (1-P_pos[i]) * dp[a];
+					}
+					dp = ndp;
 				}
-				dp = ndp;
+				assert(v == dp[0]);
 			}
-			assert(v == dp[0]);
-			ans[pos] += dp[0];
+
+			ans[pos] += v;
 
 			{
 				auto& r = cnt_vals[upd.first][upd.second];
