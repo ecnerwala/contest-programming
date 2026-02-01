@@ -138,7 +138,7 @@ int main() {
 
 	{
 		std::mt19937 mt(48);
-		for (int z = 0; z < 20; z++) {
+		for (int z = 0; z < 200; z++) {
 			int N = std::uniform_int_distribution<int>(1, 10)(mt);
 			int M = std::uniform_int_distribution<int>(N, 30)(mt);
 			int64_t K = std::uniform_int_distribution<int>(1, 300)(mt);
