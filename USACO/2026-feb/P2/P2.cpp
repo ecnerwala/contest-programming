@@ -137,7 +137,7 @@ int main() {
 				}
 				dp = ndp;
 			}
-			//assert(v == dp[0]);
+			assert(v == dp[0]);
 			ans[pos] += dp[0];
 
 			{
@@ -145,7 +145,7 @@ int main() {
 				if (r == 0) r = N;
 				r--;
 			}
-			//upd_cnt(upd.first, false);
+			upd_cnt(upd.first, false);
 		}
 		return ans;
 	};
