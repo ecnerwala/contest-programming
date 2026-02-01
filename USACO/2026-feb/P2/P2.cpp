@@ -112,7 +112,9 @@ int main() {
 					}
 				}
 				for (int i = 0; i < N; i++) {
-					if (people[i].first == people[(i+1)%N].first && !people[i].second && people[(i+1)%N].second) {
+					if (people[i].first == people[(i+1)%N].first) {
+						assert(!people[i].second);
+						assert(people[(i+1)%N].second);
 						// flip them
 						people[i].second = true;
 						people[(i+1)%N].second = false;
