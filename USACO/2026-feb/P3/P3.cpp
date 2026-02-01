@@ -79,7 +79,7 @@ int main() {
 			// = time from self to own guy
 			// Then, we 1/(depth+1) between dropping back to self or succeed
 			// That means we take this loop 1 / depth times on average
-			time_up[i] = invs[depth[i]] * (1 + ch_time_out_up[i] * invs[ch[i]]);
+			time_up[i] = invs[depth[i]] * time_out[i];
 		}
 		ch_time_out_up[P[i]] += time_out[i] + time_up[i];
 	}
