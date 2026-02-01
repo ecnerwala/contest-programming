@@ -87,6 +87,44 @@ int main() {
 		return ans;
 	};
 
+	auto slow = [&](int N, int M, int64_t K, std::vector<num> P_pos, std::vector<int> X) -> std::vector<num> {
+		std::vector<num> ans(M);
+		M *= 2;
+		for (auto& x : X) x *= 2;
+		K *= 2;
+		for (int msk = 0; msk < (1 << N); msk++) {
+			num prob = 1;
+			std::vector<std::pair<int, int>> people(N);
+			for (int i = 0; i < N; i++) {
+				bool dir = (msk >> i) & 1;
+				prob *= dir ? 1 - P_pos[i] : P_pos[i];
+				people[i] = {X[i], dir};
+			}
+			for (int z = 0; z < K; z++) {
+				for (int i = 0; i < N; i++) {
+					auto& v = people[i].first;
+					if (people[i].second) {
+						if (v == 0) v = M;
+						v--;
+					} else {
+						v++;
+						if (v == N) v = 0;
+					}
+				}
+				for (int i = 0; i < N; i++) {
+					if (people[i].first == people[(i+1)%N].first && !people[i].second && people[(i+1)%N].second) {
+						// flip them
+						people[i].second = true;
+						people[(i+1)%N].second = false;
+					}
+				}
+			}
+			assert(!(people[0].first & 1));
+			ans[people[0].first] += msk;
+		}
+		return ans;
+	};
+
 	int T; cin >> T; while (T--) {
 		int N, M; int64_t K; cin >> N >> M >> K;
 		std::vector<num> P_pos(N);
