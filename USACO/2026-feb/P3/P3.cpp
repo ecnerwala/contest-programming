@@ -113,7 +113,7 @@ int main() {
 		num ans = 0;
 		if (l != x) ans += sum_time_up[x] - sum_time_up[l] + time_out[l];
 		ans += sum_time_down[y] - sum_time_down[l];
-		cout << int(ans) << '\n';
+		cout << ans << '\n';
 	}
 
 	return 0;
