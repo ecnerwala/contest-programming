@@ -41,55 +41,57 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 
-	int N, M; int64_t K; cin >> N >> M >> K;
-	std::vector<num> P_pos(N);
-	for (auto& p : P_pos) { int v; cin >> v; p = v; }
-	std::vector<int> X(N);
-	for (auto& x : X) cin >> x;
+	int T; cin >> T; while (T--) {
+		int N, M; int64_t K; cin >> N >> M >> K;
+		std::vector<num> P_pos(N);
+		for (auto& p : P_pos) { int v; cin >> v; p = v; }
+		std::vector<int> X(N);
+		for (auto& x : X) cin >> x;
 
-	auto div_mod = [&](int64_t a, int m) -> std::pair<int64_t, int> {
-		int64_t v = a / m;
-		int64_t r = int(a % m);
-		if (r < 0) v--, r += m;
-		return {v, int(r)};
-	};
-	auto mod = [&](int64_t a, int m) -> int { return div_mod(a, m).second; };
+		auto div_mod = [&](int64_t a, int m) -> std::pair<int64_t, int> {
+			int64_t v = a / m;
+			int64_t r = int(a % m);
+			if (r < 0) v--, r += m;
+			return {v, int(r)};
+		};
+		auto mod = [&](int64_t a, int m) -> int { return div_mod(a, m).second; };
 
-	// Let's find the initial value
-	std::vector<std::pair<int, std::pair<int, bool>>> evts;
-	evts.reserve(2*N);
-	std::vector<std::array<int, 2>> cnt_vals(N);
-	for (int i = 0; i < N; i++) {
-		for (int z = 0; z < 2; z++) {
-			auto [cnt, pos] = div_mod(z ? X[i] - K : X[i] + K, M);
-			cnt = mod(cnt, N);
-			evts.push_back({pos, {i, z}});
-			cnt_vals[i][z] = int(cnt);
-		}
-	}
-	std::sort(evts.begin(), evts.end());
-	// Every time we cross an event, we recalculate the thing
-	std::vector<num> ans(M);
-	for (auto [pos, upd] : evts) {
-		// product the things
-		std::vector<num> dp(N);
+		// Let's find the initial value
+		std::vector<std::pair<int, std::pair<int, bool>>> evts;
+		evts.reserve(2*N);
+		std::vector<std::array<int, 2>> cnt_vals(N);
 		for (int i = 0; i < N; i++) {
-			std::vector<num> ndp(N);
-			for (int a = 0; a < N; a++) {
-				ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
-				ndp[(a+cnt_vals[i][1])%N] += (1-P_pos[i]) * dp[a];
+			for (int z = 0; z < 2; z++) {
+				auto [cnt, pos] = div_mod(z ? X[i] - K : X[i] + K, M);
+				cnt = mod(cnt, N);
+				evts.push_back({pos, {i, z}});
+				cnt_vals[i][z] = int(cnt);
 			}
-			dp = ndp;
 		}
-		ans[pos] += dp[0];
-		{
-			auto& r = cnt_vals[upd.first][upd.second];
-			if (r == 0) r = N;
-			r--;
+		std::sort(evts.begin(), evts.end());
+		// Every time we cross an event, we recalculate the thing
+		std::vector<num> ans(M);
+		for (auto [pos, upd] : evts) {
+			// product the things
+			std::vector<num> dp(N);
+			for (int i = 0; i < N; i++) {
+				std::vector<num> ndp(N);
+				for (int a = 0; a < N; a++) {
+					ndp[(a+cnt_vals[i][0])%N] += P_pos[i] * dp[a];
+					ndp[(a+cnt_vals[i][1])%N] += (1-P_pos[i]) * dp[a];
+				}
+				dp = ndp;
+			}
+			ans[pos] += dp[0];
+			{
+				auto& r = cnt_vals[upd.first][upd.second];
+				if (r == 0) r = N;
+				r--;
+			}
 		}
-	}
-	for (int m = 0; m < M; m++) {
-		cout << ans[m] << '\n';
+		for (int m = 0; m < M; m++) {
+			cout << ans[m] << '\n';
+		}
 	}
 
 	return 0;
