@@ -15,6 +15,7 @@ int main() {
 		cerr << "solve" << '\n';
 		for (int i = 0; i < N; i++) cerr << P[i] << " \n"[i+1==N];
 		assert(P[0] == -1);
+		if (N == 1) return P;
 		// First, transform into "numeric form"
 		std::vector<std::pair<int, std::array<int, 2>>> vals(N, {-1, {-1, -1}});
 		{
