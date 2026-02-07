@@ -60,8 +60,8 @@ int main() {
 				} else if (!is_dot && is_one) {
 					int j = stk.back();
 					stk.pop_back();
-					vals[j].second[0] = vals[i].second[1];
-					vals[j].second[1] = vals[i].second[0];
+					vals[j].second[1] = vals[i].second[1];
+					vals[j].second[0] = vals[i].second[0];
 				}
 			}
 			assert(cur_dots.empty());
