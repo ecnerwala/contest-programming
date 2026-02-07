@@ -1368,7 +1368,6 @@ int main() {
 	vals[0] = 1;
 	for (int i = 1; i <= N; i++) {
 		vals[i] = catalan[i-1];
-		cerr << vals[i] << '\n';
 	}
 	cout << poly_pow_monic(vals, N+1)[N] / num(N+1) << '\n';
 
