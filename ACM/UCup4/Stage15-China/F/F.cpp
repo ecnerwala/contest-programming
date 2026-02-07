@@ -1351,7 +1351,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<998244353>;
-	int N; num Q; cin >> N >> Q;
+	int N; num Q; cin >> N >> Q; N++;
 
 	std::vector<num> catalan(N);
 	ecnerwala::online_multiplier<num, ecnerwala::fft::fft_multiplier<num>> mult(N);
