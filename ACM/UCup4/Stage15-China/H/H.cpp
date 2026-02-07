@@ -23,8 +23,10 @@ int main() {
 		ans = std::max(double(A), double(tot) / N);
 	} else {
 		for (int i = N-K; i >= 0; i--) {
-			if (i < N-K) tot -= B[i];
-			ans *= double(N-K-i) / double(N-1-i);
+			if (i < N-K) {
+				ans *= double(N-K-i) / double(N-1-i);
+				tot -= B[i];
+			}
 			int64_t cnd = tot + (N-K-i) * B[i];
 			ans += std::max(double(std::max(A, B[i])), double(cnd) / (N-K));
 		}
