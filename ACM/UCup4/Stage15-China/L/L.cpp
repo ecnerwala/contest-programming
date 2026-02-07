@@ -12,6 +12,8 @@ int main() {
 	};
 	auto involute = [&](std::vector<int> P) -> std::vector<int> {
 		int N = int(P.size());
+		cerr << "solve";
+		for (int i = 0; i < N; i++) cerr << P[i] << " \n"[i+1==N];
 		assert(P[0] == -1);
 		// First, transform into "numeric form"
 		std::vector<std::pair<int, std::array<int, 2>>> vals(N, {-1, {-1, -1}});
@@ -60,8 +62,8 @@ int main() {
 				} else if (!is_dot && is_one) {
 					int j = stk.back();
 					stk.pop_back();
-					vals[j].second[1] = vals[i].second[1];
-					vals[j].second[0] = vals[i].second[0];
+					vals[j].second[0] = vals[i].second[1];
+					vals[j].second[1] = vals[i].second[0];
 				}
 			}
 			assert(cur_dots.empty());
