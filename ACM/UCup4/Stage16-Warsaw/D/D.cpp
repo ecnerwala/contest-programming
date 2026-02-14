@@ -346,7 +346,7 @@ int main() {
 
 	auto q_it = queries.begin();
 	for (int t = 0; true; t++) {
-		for (; q_it != queries.end() && q_it->t == t; t++) {
+		for (; q_it != queries.end() && q_it->t == t; q_it++) {
 			int b = q_it->b;
 			int q = q_it->q;
 			if (b < seg[1].cnt) {
