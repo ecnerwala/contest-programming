@@ -284,6 +284,7 @@ int main() {
 				}
 				bool sat = ts.solve();
 				if (sat) {
+					cerr << "won with " << i << '\n';
 					std::string res = S;
 					for (int z = 0; z < N; z++) {
 						if (ts.values[z]) res[z] = 'R';
