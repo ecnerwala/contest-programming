@@ -358,7 +358,7 @@ int main() {
 				ans[q] = b+1;
 			}
 		}
-		cerr << "at t = " << t << " -> " << t+1 << '\n';
+		//cerr << "at t = " << t << " -> " << t+1 << '\n';
 		// try to perform a phase, and see if we're done
 		if (t & 1) {
 			while (true) {
@@ -368,7 +368,7 @@ int main() {
 					l++;
 				} else if (seg[layout.get_point(l)].max == seg[1].cnt - 1) {
 					auto a = layout.get_point(l);
-					cerr << "remove pref " << seg[a].max << '\n';
+					//cerr << "remove pref " << seg[a].max << '\n';
 					seg[a] = {0, -1};
 					a.for_parents_up(update_node);
 					l++;
@@ -415,7 +415,7 @@ int main() {
 					r--;
 				} else if (seg[layout.get_point(r)].max == seg[1].cnt - 1) {
 					auto a = layout.get_point(r);
-					cerr << "remove suff " << seg[a].max << '\n';
+					//cerr << "remove suff " << seg[a].max << '\n';
 					seg[a] = {0, -1};
 					a.for_parents_up(update_node);
 					r--;
