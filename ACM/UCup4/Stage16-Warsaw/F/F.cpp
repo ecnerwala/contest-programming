@@ -258,6 +258,8 @@ int main() {
 			// pick this vertex to be the clique vertex
 			for (int i = 0; i < N; i++) {
 				kactl::TwoSat ts(N);
+				ts.either(i, i);
+
 				std::vector<int> nei; nei.reserve(N);
 				for (int j = 0; j < N; j++) if (G[{i, j}]) nei.push_back(j);
 
@@ -284,7 +286,6 @@ int main() {
 				}
 				bool sat = ts.solve();
 				if (sat) {
-					cerr << "won with " << i << '\n';
 					std::string res = S;
 					for (int z = 0; z < N; z++) {
 						if (ts.values[z]) res[z] = 'R';
