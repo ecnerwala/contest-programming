@@ -327,6 +327,7 @@ int main() {
 		seg[a] = {1, A[i]};
 	}
 	for (seg_tree::point a(layout.N-1); a > 0; a--) update_node(a);
+
 	auto get_kth = [&](int k) -> int {
 		assert(0 <= k && k < seg[1].cnt);
 		seg_tree::point a(1);
@@ -357,6 +358,7 @@ int main() {
 				ans[q] = b;
 			}
 		}
+		cerr << "at t = " << t << " -> " << t+1 << '\n';
 		// try to perform a phase, and see if we're done
 		if (t & 1) {
 			while (true) {
@@ -366,6 +368,7 @@ int main() {
 					l++;
 				} else if (seg[layout.get_point(l)].max == seg[1].cnt - 1) {
 					auto a = layout.get_point(l);
+					cerr << "remove pref " << seg[a].max << '\n';
 					seg[a] = {0, -1};
 					a.for_parents_up(update_node);
 					l++;
@@ -412,6 +415,7 @@ int main() {
 					r--;
 				} else if (seg[layout.get_point(r)].max == seg[1].cnt - 1) {
 					auto a = layout.get_point(r);
+					cerr << "remove suff " << seg[a].max << '\n';
 					seg[a] = {0, -1};
 					a.for_parents_up(update_node);
 					r--;
