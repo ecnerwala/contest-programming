@@ -353,9 +353,9 @@ int main() {
 				if (t & 1) {
 					b = seg[1].cnt - 1 - b;
 				}
-				ans[q] = get_kth(b);
+				ans[q] = get_kth(b)+1;
 			} else {
-				ans[q] = b;
+				ans[q] = b+1;
 			}
 		}
 		cerr << "at t = " << t << " -> " << t+1 << '\n';
