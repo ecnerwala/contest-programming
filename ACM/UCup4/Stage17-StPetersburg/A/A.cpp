@@ -32,6 +32,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 	} else if (R < D) {
 		theta_hi = std::asin(dbl(R)/dbl(D));
 	} else assert(false);
+	const dbl EPS = 1e-8;
 	auto solve_at_time = [&](dbl t) -> dbl {
 		// variance of each variable
 		int iters = 0;
@@ -51,7 +52,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			//std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << ' ' << val << '\n';
 			return val;
 		};
-		double res = kactl::quad(0, theta_hi, at_ang, 0.2e-8) / PI;
+		double res = kactl::quad(0, theta_hi, at_ang, EPS) / PI;
 		std::cerr << iters << '\n';
 		return res;
 	};
@@ -76,7 +77,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			return (R < D ? integ_at(d_lo) : t) - integ_at(d_hi);
 			//std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << ' ' << val << '\n';
 		};
-		double res = kactl::quad(0, theta_hi, at_ang, 0.2e-8 * T_final / 1e4) / PI;
+		double res = kactl::quad(0, theta_hi, at_ang, EPS * T_final) / PI;
 		std::cerr << iters << '\n';
 		return res;
 	};
