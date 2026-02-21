@@ -1371,9 +1371,12 @@ int main() {
 	for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	std::vector<num> dps(2*S);
+	std::vector<bool> is_top(2*S);
 	for (int i = 0; i <= N; i++) {
 		dps[S + i] = allowed_neg[i];
 	}
+	for (int i = 0; i < S; i++) is_top[S+i] = true;
+
 
 	auto solve_across_top_rev = [&](std::vector<num> a) -> std::vector<num> {
 		assert(!a.empty());
@@ -1403,6 +1406,10 @@ int main() {
 	auto solve_square = [&](int l, int m, int r) -> void {
 		l += S, m += S, r += S;
 		assert(r - m == m - l);
+		for (int i = l; i < m; i++) { assert(!is_top[i]); }
+		for (int i = m; i < r; i++) { assert(is_top[i]); }
+		for (int i = l; i < m; i++) { is_top[i] = true; }
+		for (int i = m; i < r; i++) { is_top[i] = false; }
 		auto bot0 = std::vector<num>(dps.begin() + l, dps.begin() + m);
 		auto bot1 = std::vector<num>(dps.begin() + l, dps.begin() + m);
 		auto top0 = std::vector<num>(dps.begin() + m, dps.begin() + r);
