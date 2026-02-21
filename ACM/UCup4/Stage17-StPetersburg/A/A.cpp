@@ -73,7 +73,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			auto integ_at = [&](dbl r) -> dbl {
 				return r * r / 1e4 * std::expint(-r * r / t / 1e4) + t * std::exp(-r * r / t / 1e4);
 			};
-			return integ_at(d_hi) - (R < D ? integ_at(d_lo) : 0);
+			return integ_at(d_hi) - (R < D ? integ_at(d_lo) : t);
 			//std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << ' ' << val << '\n';
 		};
 		double res = kactl::quad(0, theta_hi, at_ang, 0.2e-8) / PI;
