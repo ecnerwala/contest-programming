@@ -1437,18 +1437,14 @@ int main() {
 	std::vector<num> ans; ans.reserve(S);
 	for (int i = 0; i < S; i++) {
 		solve_square(-1, 0, 1);
-		for (int v = 0; v < 2*S; v++) {
-			cerr << v-S << ' ' << is_top[v] << ' ' << dps[v] << '\n';
-		}
+		//for (int v = 0; v < 2*S; v++) { cerr << v-S << ' ' << is_top[v] << ' ' << dps[v] << '\n'; }
 		ans.push_back(dps[S]);
 		if (i+1 < S) {
 			int a = 1 << __builtin_ctz(i+1);
 			solve_square(0, a, 2*a);
 			solve_square(-2*a, -a, 0);
 		}
-		for (int v = 0; v < 2*S; v++) {
-			cerr << v-S << ' ' << is_top[v] << ' ' << dps[v] << '\n';
-		}
+		//for (int v = 0; v < 2*S; v++) { cerr << v-S << ' ' << is_top[v] << ' ' << dps[v] << '\n'; }
 	}
 	for (int i = 1; i <= N; i++) {
 		cout << ans[i] << '\n';
