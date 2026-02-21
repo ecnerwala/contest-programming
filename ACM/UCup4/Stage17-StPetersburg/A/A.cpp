@@ -68,7 +68,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			dbl d_lo = (R < D) ? d_mid - d_side : 0;
 			dbl d_hi = d_mid + d_side;
 			if (t <= 1e-10) {
-				return (R < D) ? 0 : 1;
+				return (R < D) ? 0 : t;
 			}
 			auto integ_at = [&](dbl r) -> dbl {
 				return r * r / 1e4 * std::expint(-r * r / t / 1e4) + t * std::exp(-r * r / t / 1e4);
