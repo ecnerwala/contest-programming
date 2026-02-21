@@ -52,7 +52,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			return val;
 		};
 		double res = kactl::quad(0, theta_hi, at_ang, 0.2e-8) / PI;
-		//std::cerr << iters << '\n';
+		std::cerr << iters << '\n';
 		return res;
 	};
 	dbl a1 = solve_at_time(T_final);
@@ -77,7 +77,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			//std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << ' ' << val << '\n';
 		};
 		double res = kactl::quad(0, theta_hi, at_ang, 0.2e-8 * T_final / 1e4) / PI;
-		//std::cerr << iters << '\n';
+		std::cerr << iters << '\n';
 		return res;
 	};
 	dbl a2 = solve_at_pref(T_final);
