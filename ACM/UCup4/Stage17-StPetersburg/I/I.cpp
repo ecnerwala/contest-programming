@@ -593,6 +593,7 @@ int main() {
 		int v, u; cin >> v >> u; v--, u--;
 		assert(u != v);
 		if (!is_root[v]) {
+			cerr << "non-root" << '\n';
 			cout << "Bad oriented forest" << '\n';
 			break;
 		}
@@ -601,6 +602,7 @@ int main() {
 		assert(!vert_nodes[v].p);
 		vert_nodes[u].expose();
 		if (vert_nodes[v].p != nullptr) {
+			cerr << "cycle" << '\n';
 			cout << "Bad oriented forest" << '\n';
 			break;
 		}
