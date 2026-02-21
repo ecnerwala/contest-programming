@@ -235,6 +235,11 @@ struct mod_goldilocks {
 	friend mod_goldilocks operator / (mod_goldilocks a, mod_goldilocks b) { return mod_goldilocks(a) /= b; }
 };
 
+template <typename T> T power(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
+
 /**
  * Author: Andrew He
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf
