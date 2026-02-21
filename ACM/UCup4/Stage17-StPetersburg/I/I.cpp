@@ -554,8 +554,10 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 		if (is_vert) {
 			mi = ma = v;
 			for (int z = 0; z < 2; z++) {
-				mi = std::min(mi, c[z]->mi);
-				ma = std::max(ma, c[z]->ma);
+				if (c[z]) {
+					mi = std::min(mi, c[z]->mi);
+					ma = std::max(ma, c[z]->ma);
+				}
 			}
 		} else if (is_path) {
 			mi = std::min(c[0]->mi, c[1]->mi);
@@ -564,8 +566,10 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			mi = c[2]->mi;
 			ma = c[2]->ma;
 			for (int z = 0; z < 2; z++) {
-				mi = std::min(mi, c[z]->mi);
-				ma = std::max(ma, c[z]->ma);
+				if (c[z]) {
+					mi = std::min(mi, c[z]->mi);
+					ma = std::max(ma, c[z]->ma);
+				}
 			}
 		}
 	}
