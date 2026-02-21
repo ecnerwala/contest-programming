@@ -586,7 +586,7 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			path_len = c[0]->path_len + 1 + c[1]->path_len;
 			for (int z = 0; z < 2; z++) {
 				for (int v = 0; v < 2; v++) {
-					shortest[z][v] = std::min(c[z]->shortest[z][v], c[z]->path_len + c[!z]->shortest[z][v]);
+					shortest[z][v] = std::min(c[z]->shortest[z][v], c[z]->path_len + 1 + c[!z]->shortest[z][v]);
 				}
 			}
 		} else {
