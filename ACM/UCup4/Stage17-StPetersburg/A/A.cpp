@@ -35,7 +35,6 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 	auto solve_at_time = [&](dbl t) -> dbl {
 		// variance of each variable
 		auto at_ang = [&](dbl theta) -> dbl {
-			if (theta < 0) theta = 0;
 			if (theta > theta_hi) return 0;
 			dbl h = dbl(D) * std::sin(theta);
 			dbl d_mid = dbl(D) * std::cos(theta);
