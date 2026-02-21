@@ -44,8 +44,8 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			if (t <= 1e-10) {
 				return (R < D) ? 0 : 1;
 			}
-			dbl val = (R < D) ? std::exp(-d_lo * d_lo / t) : 1;
-			val -= std::exp(-d_hi * d_hi / t);
+			dbl val = (R < D) ? std::exp(-d_lo * d_lo / t / 1e4) : 1;
+			val -= std::exp(-d_hi * d_hi / t / 1e4);
 			std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << ' ' << val << '\n';
 			return val;
 		};
