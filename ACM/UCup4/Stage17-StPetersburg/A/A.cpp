@@ -56,7 +56,32 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 		return res;
 	};
 	dbl a1 = solve_at_time(T_final);
-	dbl a2 = kactl::quad(0, T_final, solve_at_time, 0.2e-8 * T_final / 1e4);
+	auto solve_at_pref = [&](dbl t) -> dbl {
+		// variance of each variable
+		int iters = 0;
+		auto at_ang = [&](dbl theta) -> dbl {
+			iters++;
+			if (theta > theta_hi) return 0;
+			dbl h = dbl(D) * std::sin(theta);
+			dbl d_mid = dbl(D) * std::cos(theta);
+			dbl d_side = std::sqrt(std::max(dbl(0), dbl(R) * dbl(R) - h * h));
+			dbl d_lo = (R < D) ? d_mid - d_side : 0;
+			dbl d_hi = d_mid + d_side;
+			if (t <= 1e-10) {
+				return (R < D) ? 0 : 1;
+			}
+			auto integ_at = [&](dbl r) -> dbl {
+				return r * r / 1e4 * std::expint(-r * r / t / 1e4) + t * std::exp(-r * r / t / 1e4);
+			};
+			return integ_at(d_hi) - (R < D ? integ_at(d_lo) : 0);
+			//std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << ' ' << val << '\n';
+		};
+		double res = kactl::quad(0, theta_hi, at_ang, 0.2e-8) / PI;
+		std::cerr << iters << '\n';
+		return res;
+	};
+	dbl a2 = solve_at_pref(T_final);
+	//dbl a2 = kactl::quad(0, T_final, solve_at_time, 0.2e-8 * T_final / 1e4);
 	return {a1, a2};
 }
 
