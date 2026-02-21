@@ -76,7 +76,6 @@ int main() {
 		b /= 1e4;
 		cout << fixed << setprecision(20);
 		cout << a << ' ' << b << '\n';
-		break;
 	}
 
 	return 0;
