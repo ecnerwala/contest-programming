@@ -1432,7 +1432,7 @@ int main() {
 		solve_square(-1, 0, 1);
 		ans.push_back(dps[S]);
 		if (i < S) {
-			int a = __builtin_ctz(i+1);
+			int a = 1 << __builtin_ctz(i+1);
 			solve_square(0, a, 2*a);
 			solve_square(-2*a, -a, 0);
 		}
