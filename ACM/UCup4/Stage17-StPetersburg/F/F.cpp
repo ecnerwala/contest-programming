@@ -1427,8 +1427,8 @@ int main() {
 		}
 	};
 
-	std::vector<num> ans; ans.reserve(S+1);
-	for (int i = 0; i <= S; i++) {
+	std::vector<num> ans; ans.reserve(S);
+	for (int i = 0; i < S; i++) {
 		solve_square(-1, 0, 1);
 		ans.push_back(dps[S]);
 		if (i+1 < S) {
