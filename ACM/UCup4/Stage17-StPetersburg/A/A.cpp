@@ -41,7 +41,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			dbl d_side = std::sqrt(std::max(dbl(0), dbl(R) * dbl(R) - h * h));
 			dbl d_lo = (R < D) ? d_mid - d_side : 0;
 			dbl d_hi = d_mid + d_side;
-			std::cerr << theta << ' ' << d_lo << ' ' << d_hi << '\n';
+			std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << '\n';
 			if (t <= 1e-10) {
 				return (R < D) ? 0 : 1;
 			}
