@@ -16,7 +16,7 @@ d rec(F& f, d a, d b, d eps, d S) {
 	return rec(f, a, c, eps / 2, S1) + rec(f, c, b, eps / 2, S2);
 }
 template<class F>
-d quad(d a, d b, F f, d eps = 0.2e-8) {
+d quad(d a, d b, F f, d eps) {
 	return rec(f, a, b, eps, S(a, b));
 }
 
@@ -48,7 +48,7 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			if (R < D) return std::exp(-d_lo * d_lo / t) - std::exp(-d_hi * d_hi / t);
 			else return 1 - std::exp(-d_hi * d_hi / t);
 		};
-		return kactl::quad(0, theta_hi, at_ang) / PI;
+		return kactl::quad(0, theta_hi, at_ang, 0.2e-8) / PI;
 	};
 	dbl a1 = solve_at_time(T_final);
 	dbl a2 = kactl::quad(0, T_final, solve_at_time, 0.2e-8 * T_final);
