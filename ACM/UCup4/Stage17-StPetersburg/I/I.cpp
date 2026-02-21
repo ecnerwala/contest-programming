@@ -590,7 +590,9 @@ int main() {
 	}
 	std::vector<bool> is_root(N, true);
 	for (int op = 0; op < N-1; op++) {
-		int v, u; cin >> v >> u; v--, u--;
+		// parent first, then child
+		// v is child, u is parent
+		int u, v; cin >> u >> v; u--, v--;
 		assert(u != v);
 		if (!is_root[v]) {
 			cerr << "non-root" << '\n';
