@@ -1378,7 +1378,7 @@ int main() {
 	for (int i = 0; i < S; i++) is_top[S+i] = true;
 
 
-	auto solve_across_top_rev = [&](std::vector<num> a) -> std::vector<num> {
+	auto solve_across_top = [&](std::vector<num> a) -> std::vector<num> {
 		assert(!a.empty());
 		int n = int(a.size())-1;
 		std::vector<num> paths(n+1);
@@ -1421,11 +1421,11 @@ int main() {
 		auto ntop0 = solve_along_bottom(top0);
 		std::reverse(ntop0.begin(), ntop0.end());
 
-		auto nbot1 = solve_across_top_rev(top1);
-		std::reverse(nbot1.begin(), nbot1.end());
+		auto nbot1 = solve_across_top(top1);
 
 		std::reverse(bot1.begin(), bot1.end());
-		auto ntop1 = solve_across_top_rev(bot1);
+		auto ntop1 = solve_across_top(bot1);
+		std::reverse(ntop1.begin(), ntop1.end());
 
 		int n = m-l;
 		for (int i = 0; i < n; i++) {
