@@ -34,7 +34,9 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 	} else assert(false);
 	auto solve_at_time = [&](dbl t) -> dbl {
 		// variance of each variable
+		int iters = 0;
 		auto at_ang = [&](dbl theta) -> dbl {
+			iters++;
 			if (theta > theta_hi) return 0;
 			dbl h = dbl(D) * std::sin(theta);
 			dbl d_mid = dbl(D) * std::cos(theta);
@@ -49,7 +51,9 @@ std::pair<dbl, dbl> solve(int D, int R, int T_final) {
 			//std::cerr << theta << ' ' << h << ' ' << d_lo << ' ' << d_hi << ' ' << val << '\n';
 			return val;
 		};
-		return kactl::quad(0, theta_hi, at_ang, 0.2e-8) / PI;
+		double res = kactl::quad(0, theta_hi, at_ang, 0.2e-8) / PI;
+		std::cerr << iters << '\n';
+		return res;
 	};
 	dbl a1 = solve_at_time(T_final);
 	dbl a2 = kactl::quad(0, T_final, solve_at_time, 0.2e-8 * T_final / 1e4);
