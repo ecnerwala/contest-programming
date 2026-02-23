@@ -1416,7 +1416,7 @@ int main() {
 				if (cnt_ab) continue;
 				ways += power(num(2), cnt_qq);
 			}
-			for (int v = F, p = 2; v >= 1; p++) {
+			for (int v = F, p = 2; v > 1; p++) {
 				if (v % p == 0) {
 					while (v % p == 0) v /= p;
 					ways *= 1-p;
