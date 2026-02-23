@@ -1414,6 +1414,7 @@ int main() {
 				assert(!(cnt_qq & 1));
 				cnt_qq /= 2;
 				if (cnt_ab) continue;
+				cerr << "have " << "L = " << L << ' ' << cnt_qq << '\n';
 				ways += power(num(2), cnt_qq);
 			}
 			for (int v = F, p = 2; v > 1; p++) {
