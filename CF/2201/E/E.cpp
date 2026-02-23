@@ -1355,6 +1355,7 @@ int main() {
 		int N; cin >> N;
 		std::string T; cin >> T;
 		assert(int(T.size()) == N);
+		cerr << T << '\n';
 
 		assert(!(N & 1));
 		N >>= 1;
