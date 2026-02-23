@@ -11,7 +11,7 @@ int main() {
 			cout << "YES" << '\n';
 			int N2 = K-N+1;
 			std::vector<int> A; A.reserve(2*N);
-			while (N >= N2) {
+			while (N > N2) {
 				N--;
 				A.push_back(N);
 				A.push_back(N);
