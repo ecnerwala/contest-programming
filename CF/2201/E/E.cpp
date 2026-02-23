@@ -1385,6 +1385,7 @@ int main() {
 					}
 				}
 			}
+			std::reverse(S[1].begin(), S[1].end());
 			if (!good) {
 				continue;
 			}
