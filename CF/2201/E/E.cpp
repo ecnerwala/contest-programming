@@ -1395,9 +1395,9 @@ int main() {
 				prod.pop_back();
 			}
 			assert(int(prod.size()) == L);
-			std::array<int, 2> cnt_a;
-			std::array<int, 2> cnt_b;
-			std::array<int, 2> cnt_q;
+			std::array<int, 2> cnt_a{0, 0};
+			std::array<int, 2> cnt_b{0, 0};
+			std::array<int, 2> cnt_q{0, 0};
 			for (int z = 0; z < 2; z++) {
 				for (int i = 0; i < L; i++) {
 					if (S[z][i] == 0) cnt_q[z]++;
