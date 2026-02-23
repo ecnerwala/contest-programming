@@ -21,6 +21,7 @@ int main() {
 
 		int ans = N;
 		for (auto [a, i] : vals) {
+			i = -i;
 			assert(A[i] == a);
 			if (prv[i] != -1 && A[prv[i]] == a-1) {
 				ans--;
