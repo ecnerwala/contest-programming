@@ -345,7 +345,7 @@ int main() {
 					//int j = *locs[a].rbegin();
 					auto p = layout.get_point(i);
 					seg[p] = make_null();
-					p.for_each_up(update_node);
+					p.for_parents_up(update_node);
 				}
 				locs[a].erase(x);
 				if (int(locs[a].size()) >= 2) {
@@ -353,7 +353,7 @@ int main() {
 					int j = *locs[a].rbegin();
 					auto p = layout.get_point(i);
 					seg[p] = make_mx(j-i);
-					p.for_each_up(update_node);
+					p.for_parents_up(update_node);
 				}
 			}
 			cin >> A[x]; A[x]--;
@@ -364,7 +364,7 @@ int main() {
 					//int j = *locs[a].rbegin();
 					auto p = layout.get_point(i);
 					seg[p] = make_null();
-					p.for_each_up(update_node);
+					p.for_parents_up(update_node);
 				}
 				locs[a].insert(x);
 				if (int(locs[a].size()) >= 2) {
@@ -372,7 +372,7 @@ int main() {
 					int j = *locs[a].rbegin();
 					auto p = layout.get_point(i);
 					seg[p] = make_mx(j-i);
-					p.for_each_up(update_node);
+					p.for_parents_up(update_node);
 				}
 			}
 			cout << seg[1].mx << ' ' << seg[1].cnt_mx << '\n';
