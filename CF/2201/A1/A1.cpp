@@ -13,7 +13,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			vals.push_back({A[i], -i});
 		}
-		std::sort(vals.begin(), vals.end());
+		std::sort(vals.begin(), vals.end(), std::greater<>());
 
 		std::vector<int> prv(N);
 		std::vector<int> nxt(N);
