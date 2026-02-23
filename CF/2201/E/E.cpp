@@ -1355,7 +1355,6 @@ int main() {
 		int N; cin >> N;
 		std::string T; cin >> T;
 		assert(int(T.size()) == N);
-		cerr << T << '\n';
 
 		assert(!(N & 1));
 		N >>= 1;
@@ -1415,7 +1414,6 @@ int main() {
 				assert(!(cnt_qq & 1));
 				cnt_qq /= 2;
 				if (cnt_ab) continue;
-				cerr << "have " << "L = " << L << ' ' << cnt_qq << '\n';
 				ways += power(num(2), cnt_qq);
 			}
 			for (int v = F, p = 2; v > 1; p++) {
