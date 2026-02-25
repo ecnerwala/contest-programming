@@ -16,8 +16,8 @@ int main() {
 				return 1 << __builtin_ctz(a);
 			}
 		};
-		std::vector<int64_t> suff(N+1);
-		std::vector<int64_t> pref(N+1);
+		std::vector<int64_t> suff(N);
+		std::vector<int64_t> pref(N);
 		for (int i = 0; i+1 < N; i++) {
 			pref[i+1] = pref[i] + max_ops(A[i], A[i+1]);
 		}
@@ -26,7 +26,7 @@ int main() {
 		}
 		int64_t ans = 0;
 		for (int i = 0; i < N; i++) {
-			ans = std::max(ans, pref[i] + suff[i+1] + max_ops(A[i], A[i]+1));
+			ans = std::max(ans, pref[i] + suff[i] + max_ops(A[i], A[i]+1));
 		}
 		std::cerr << ans << '\n';
 		std::cout << (ans >= K ? "YES" : "NO") << '\n';
