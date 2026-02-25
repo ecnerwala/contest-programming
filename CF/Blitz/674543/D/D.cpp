@@ -6,7 +6,7 @@ int main() {
 	ans.reserve(N);
 	int tot = 1;
 	for (int i = 1; i < N; i++) {
-		if (std::gcd(i, N) != 1) {
+		if (std::gcd(i, N) == 1) {
 			ans.push_back(i);
 			tot = int64_t(tot) * int64_t(i) % N;
 		}
