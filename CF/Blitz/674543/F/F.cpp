@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 int main() {
-	std::ios-base::sync_with_stdio(false); std::cin.tie(nullptr);
+	std::ios_base::sync_with_stdio(false); std::cin.tie(nullptr);
 	int N; std::cin >> N;
 	std::vector<int> F(N); for (auto& f : F) { std::cin >> f; f--; }
 
@@ -23,6 +23,7 @@ int main() {
 			} while (j != i);
 			ans = std::gcd(ans, cnt);
 		}
+		return dist[i];
 	};
 	int max_dist = 0;
 	for (int i = 0; i < N; i++) {
