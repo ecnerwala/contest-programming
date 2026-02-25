@@ -25,7 +25,7 @@ int main() {
 		}
 		return dist[i];
 	};
-	int max_dist = 0;
+	int max_dist = 1;
 	for (int i = 0; i < N; i++) {
 		dfs(i, 0);
 		max_dist = std::max(max_dist, dist[i]);
