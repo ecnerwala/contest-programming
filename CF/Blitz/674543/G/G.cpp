@@ -11,7 +11,7 @@ int main() {
 			int d = __builtin_ctz(a) - __builtin_ctz(p);
 			if (d >= 0 && (a >> d) == p) {
 				assert(d > 0);
-				return 1 << (d-1);
+				return (1 << d) - 1;
 			} else {
 				return 1 << __builtin_ctz(a);
 			}
