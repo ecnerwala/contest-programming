@@ -28,6 +28,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			ans = std::max(ans, pref[i] + suff[i+1] + max_ops(A[i], A[i]+1));
 		}
+		std::cerr << ans << '\n';
 		std::cout << (ans >= K ? "YES" : "NO") << '\n';
 	}
 }
