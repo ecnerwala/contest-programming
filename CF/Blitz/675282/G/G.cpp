@@ -7,8 +7,8 @@ int main() {
 		std::vector<int> cnt(M);
 		for (int k = 0; k < K; k++) {
 			int x, y; std::cin >> x >> y;
-			if (y == 0) continue;
 			x--, y--;
+			if (y == 0) continue;
 			if (N >= 2) {
 				cnt[y]++;
 			} else {
