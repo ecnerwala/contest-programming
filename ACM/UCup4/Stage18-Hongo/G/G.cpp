@@ -133,20 +133,20 @@ int main() {
 			auto it = std::lower_bound(pts.begin(), pts.end(), std::pair<int, int>{mi, r+1});
 			assert(it != pts.begin());
 			--it;
-			assert(it->first == mi && l <= it->first && it->first <= r);
+			assert(it->first == mi && l <= it->second && it->second <= r);
 			auto jt = std::lower_bound(pts.begin(), pts.end(), std::pair<int, int>{mi + std::abs(pref[r] - pref[l]), r+1});
 			assert(jt != pts.begin());
 			--jt;
-			assert(jt->first == mi + std::abs(pref[r] - pref[l]) && l <= jt->first && jt->first <= r-1);
+			assert(jt->first == mi + std::abs(pref[r] - pref[l]) && l <= jt->second && jt->second <= r-1);
 			std::cout << (it->second - l) + (r - jt->second - 1) << '\n';
 		} else if (pref[l] > pref[r]) {
 			int mi = rmq.query(l, r);
 			auto it = std::lower_bound(pts.begin(), pts.end(), std::pair<int, int>{mi, l});
 			assert(it != pts.end());
-			assert(it->first == mi && l <= it->first && it->first <= r);
+			assert(it->first == mi && l <= it->second && it->second <= r);
 			auto jt = std::lower_bound(pts.begin(), pts.end(), std::pair<int, int>{mi + std::abs(pref[r] - pref[l]), l});
 			assert(jt != pts.end());
-			assert(jt->first == mi + std::abs(pref[r] - pref[l]) && l+1 <= jt->first && jt->first <= r);
+			assert(jt->first == mi + std::abs(pref[r] - pref[l]) && l+1 <= jt->second && jt->second <= r);
 			std::cout << (r - it->second) + (jt->second - l - 1) << '\n';
 		} else assert(false);
 	}
