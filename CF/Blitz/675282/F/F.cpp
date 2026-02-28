@@ -37,6 +37,7 @@ int main() {
 				int64_t p = 1;
 				for (int j = i; j < int(bounds.size()); j++) {
 					p *= A[bounds[j]];
+					std::cerr << i << ' ' << j << '\n';
 					cnd_t cnd{p - (pref[j+1] - pref[i]), {bounds[i], bounds[j]}};
 					opt = std::max(opt, cnd);
 				}
