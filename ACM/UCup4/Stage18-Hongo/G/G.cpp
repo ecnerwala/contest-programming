@@ -132,7 +132,7 @@ int main() {
 			if (S[i] == '(') {
 				stk.push_back(i);
 			} else if (S[i] == ')') {
-				stk.pop_back();
+				if (!stk.empty()) stk.pop_back();
 				if (!stk.empty()) left_len[i] = i - stk.back();
 			} else assert(false);
 		}
@@ -147,7 +147,7 @@ int main() {
 			if (S[i] == ')') {
 				stk.push_back(i);
 			} else if (S[i] == '(') {
-				stk.pop_back();
+				if (!stk.empty()) stk.pop_back();
 				if (!stk.empty()) right_len[i] = stk.back() - i;
 			} else assert(false);
 		}
