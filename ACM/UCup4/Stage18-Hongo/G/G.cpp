@@ -124,6 +124,36 @@ int main() {
 
 	RangeMinQuery<int> rmq(pref);
 
+	std::vector<int> left_len(N);
+	{
+		std::vector<int> stk; stk.reserve(N);
+		stk.push_back(-1);
+		for (int i = 0; i < N; i++) {
+			if (S[i] == '(') {
+				stk.push_back(i);
+			} else if (S[i] == ')') {
+				stk.pop_back();
+				if (!stk.empty()) left_len[i] = i - stk.back();
+			} else assert(false);
+		}
+	}
+	RangeMaxQuery<int> left_ans(left_len);
+
+	std::vector<int> right_len(N);
+	{
+		std::vector<int> stk; stk.reserve(N);
+		stk.push_back(N);
+		for (int i = N-1; i >= 0; i--) {
+			if (S[i] == ')') {
+				stk.push_back(i);
+			} else if (S[i] == '(') {
+				stk.pop_back();
+				if (!stk.empty()) right_len[i] = stk.back() - i;
+			} else assert(false);
+		}
+	}
+	RangeMaxQuery<int> right_ans(right_len);
+
 	for (int q = 0; q < Q; q++) {
 		int l, r; std::cin >> l >> r; l--;
 		if (pref[l] == pref[r]) {
@@ -138,7 +168,9 @@ int main() {
 			assert(jt != pts.begin());
 			--jt;
 			assert(jt->first == mi + std::abs(pref[r] - pref[l]) - 1 && l <= jt->second && jt->second <= r-1);
-			std::cout << (it->second - l) + (r - jt->second - 1) << '\n';
+			int ans = (it->second - l) + (r - jt->second - 1);
+			ans = std::max(ans, left_ans.query(it->second, r-1));
+			std::cout << ans << '\n';
 		} else if (pref[l] > pref[r]) {
 			int mi = rmq.query(l, r);
 			auto it = std::lower_bound(pts.begin(), pts.end(), std::pair<int, int>{mi, l});
@@ -147,7 +179,9 @@ int main() {
 			auto jt = std::lower_bound(pts.begin(), pts.end(), std::pair<int, int>{mi + std::abs(pref[r] - pref[l]) - 1, l});
 			assert(jt != pts.end());
 			assert(jt->first == mi + std::abs(pref[r] - pref[l]) - 1 && l+1 <= jt->second && jt->second <= r);
-			std::cout << (r - it->second) + (jt->second - l - 1) << '\n';
+			int ans = (r - it->second) + (jt->second - l - 1);
+			ans = std::max(ans, right_ans.query(l, it->second-1));
+			std::cout << ans << '\n';
 		} else assert(false);
 	}
 
