@@ -7,11 +7,12 @@ int main() {
 		std::vector<int> cnt(M);
 		for (int k = 0; k < K; k++) {
 			int x, y; std::cin >> x >> y;
+			if (y == 0) continue;
 			x--, y--;
 			if (N >= 2) {
 				cnt[y]++;
 			} else {
-				if (!(y & 1)) cnt[0] ++;
+				if (y & 1) cnt[0] ++;
 			}
 		}
 		bool first = false;
