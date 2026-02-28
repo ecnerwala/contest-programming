@@ -4,7 +4,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
-		std::vector<int> A(N); for (auto a : A) { std::cin >> a; }
+		std::vector<int> A(N); for (auto& a : A) { std::cin >> a; }
 		std::vector<int> B(N);
 		[&](this auto&& self, int l, int r, int d) -> void {
 			if (r - l == 0) return;
