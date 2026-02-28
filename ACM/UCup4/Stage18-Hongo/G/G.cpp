@@ -137,7 +137,7 @@ int main() {
 			auto jt = std::lower_bound(pts.begin(), pts.end(), std::pair<int, int>{mi + std::abs(pref[r] - pref[l]), r+1});
 			assert(jt != pts.begin());
 			--jt;
-			assert(jt->first == mi + std::abs(pref[r] - pref[l]) && l <= jt->second && jt->second <= r-1);
+			assert(jt->first == mi + std::abs(pref[r] - pref[l]) && l <= jt->second && jt->second <= r);
 			std::cout << (it->second - l) + (r - jt->second - 1) << '\n';
 		} else if (pref[l] > pref[r]) {
 			int mi = rmq.query(l, r);
