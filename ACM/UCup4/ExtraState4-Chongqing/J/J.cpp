@@ -364,7 +364,7 @@ int main() {
 			auto& s = locs[F[i]];
 			auto [it, did_insert] = s.insert(i);
 			assert(did_insert);
-			update_set(s, it, -1);
+			update_set(s, it, +1);
 		}
 	};
 	for (int i = 0; i < M; i++) {
