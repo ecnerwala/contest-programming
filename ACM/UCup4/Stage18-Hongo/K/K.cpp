@@ -305,9 +305,9 @@ int main() {
 			}
 		}
 	}
-	solve_slow(10, 1, 5);
-	solve_slow(5, 11, 5);
-	solve_slow(0, 21, 5);
+	solve_slow(10, 2, 5);
+	solve_slow(5, 12, 5);
+	solve_slow(0, 22, 5);
 
 	return 0;
 }
