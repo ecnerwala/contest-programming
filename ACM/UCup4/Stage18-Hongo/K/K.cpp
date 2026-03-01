@@ -298,9 +298,9 @@ int main() {
 		std::cerr << dp[{U, T}] << '\n';
 		return dp[{U, T}];
 	};
-	for (int u = 1; u <= 5; u++) {
-		for (int t = 1; t <= 5; t++) {
-			for (int c = 1; c <= 5; c++) {
+	for (int u = 1; u <= 20; u++) {
+		for (int t = 1; t <= 20; t++) {
+			for (int c = 1; c <= 20; c++) {
 				solve_slow(u, t, c);
 			}
 		}
