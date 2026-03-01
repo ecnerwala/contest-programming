@@ -459,6 +459,10 @@ int main() {
 		}
 	}
 
+	for (int i = 0; i < N; i++) {
+		std::cerr << preorder_par[i] << ' ' << sz[i] << ' ' << depth[i] << '\n';
+	}
+
 	// we now have our preorder
 	std::vector<std::pair<int, int>> lcas(N-1);
 	for (int i = 1; i < N; i++) {
