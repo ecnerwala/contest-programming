@@ -258,6 +258,8 @@ template <int MOD_> struct modnum {
 		return *this;
 	}
 	modnum& operator *= (modnum o) {
+		if constexpr (MOD == (int64_t(1) << 31) - 1) {
+		}
 		v = int(int64_t(v) * int64_t(o.v) % MOD);
 		return *this;
 	}
@@ -400,7 +402,7 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 
-	const int MOD = int(int64_t(1 << 31) - 1);
+	const int MOD = int((int64_t(1) << 31) - 1);
 	using num = modnum<MOD>;
 	const int L = 2370291;
 	const num RT = 7;
