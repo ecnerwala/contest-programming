@@ -44,6 +44,7 @@ int main() {
 			}
 			if (bad) break;
 			for (auto v : cnt) {
+				extra += v;
 				if (v >= MOD) ways = 0;
 				else ways *= fact[v], ways %= MOD;
 			}
