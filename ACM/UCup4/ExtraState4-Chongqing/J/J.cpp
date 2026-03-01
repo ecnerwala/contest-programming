@@ -331,10 +331,11 @@ int main() {
 			int e = l / N * N;
 			l -= e, r -= e;
 		}
-		for (int x = 0; x < N; x++) {
-			if ((l+x)/N == (r+x)/N) {
-				update_range(x, x+1, delta);
-			}
+		if (r < N) {
+			update_range(0, N-r, delta);
+			update_range(N-l, N, delta);
+		} else {
+			update_range(N-l, 2*N-r, delta);
 		}
 	};
 	std::vector<std::set<int>> locs(N);
