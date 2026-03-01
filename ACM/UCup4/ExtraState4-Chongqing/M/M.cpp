@@ -486,11 +486,14 @@ int main() {
 		return query_path_to_root(u) + query_path_to_root(v) - query_path_to_root(l) - query_path_to_root(preorder_par[l]);
 	};
 	auto update_vert = [&](int u, int e) -> void {
+		std::cerr << "doing vertex " << u << " " << e << '\n';
+		u = preorder_idx[u];
 		auto rng = layout.get_range(u, u + sz[u]);
 		rng.for_each([&](auto a) -> void { seg[a] += e; });
 	};
 
 	for (int p : primes) {
+		std::cerr << "doing p " << '\n';
 		// process ops[p];
 		for (auto& [i, e] : ops[p]) {
 			if (i != 0) {
@@ -501,10 +504,10 @@ int main() {
 					C[i] /= p;
 				}
 			}
-			update_vert(preorder_idx[i], e);
+			update_vert(i, e);
 		}
 		for (auto& [i, e] : ops[p]) {
-			update_vert(preorder_idx[i], -e);
+			update_vert(i, -e);
 		}
 	}
 	for (int i = 0; i < N; i++) std::cout << C[i] << " \n"[i+1==N];
