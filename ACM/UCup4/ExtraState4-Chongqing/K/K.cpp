@@ -134,6 +134,14 @@ int main() {
 		// cnts[i] = # of characters including S[i] at i
 		for (int i = 1; i < N; i++) {
 			cnts[i] = cnts[A[i]];
+			int j = i;
+			while (j != -1 && j != A[i+1] - 1) {
+				j = A[j];
+			}
+			if (j != A[i+1] - 1) {
+				ans = 0;
+				break;
+			}
 			if (A[i+1] == 0) {
 				ans *= M - cnts[i];
 				cnts[i]++;
