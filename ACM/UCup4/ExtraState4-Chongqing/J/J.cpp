@@ -291,53 +291,33 @@ struct circular_layout {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int N, M, Q; std::cin >> N >> M >> Q;
-	seg_tree::in_order_layout layout(N);
-	struct seg_t {
-		int lazy_bad;
-		int cnt = 0;
-		int tot_xor = 0;
+	int64_t N; int M, Q; std::cin >> N >> M >> Q;
+	struct op_t {
+		int64_t l, r; int delta;
 	};
-	std::vector<seg_t> seg(2*N);
-	auto update_node = [&](seg_tree::point a) -> void {
-		assert(seg[a].lazy_bad >= 0);
-		if (seg[a].lazy_bad) {
-			seg[a].cnt = 0;
-			seg[a].tot_xor = 0;
-		} else if (a < layout.N) {
-			seg[a].cnt = seg[a.c(0)].cnt + seg[a.c(1)].cnt;
-			seg[a].tot_xor = seg[a.c(0)].tot_xor ^ seg[a.c(1)].tot_xor;
-		} else {
-			seg[a].cnt = 1;
-			seg[a].tot_xor = layout.get_leaf_index(a);
-		}
+	std::vector<op_t> ops;
+	auto queue_update_range = [&](int64_t l, int64_t r, int delta) -> void {
+		ops.push_back({l, r, delta});
 	};
-	for (seg_tree::point a(2*layout.N-1); a > 0; a--) update_node(a);
-
-	auto update_range = [&](int l, int r, int delta) -> void {
-		auto rng = layout.get_range(l, r);
-		rng.for_each([&](seg_tree::point a) -> void {
-			seg[a].lazy_bad += delta;
-			update_node(a);
-		});
-		rng.for_parents_up(update_node);
+	auto queue_print_ans = [&]() -> void {
+		ops.push_back({-1, -1, 0});
 	};
-	auto update_loc = [&](int l, int r, int delta) -> void {
+	auto update_loc = [&](int64_t l, int64_t r, int delta) -> void {
 		//std::cerr << "update_loc " << l << ' ' << r << ' ' << delta << '\n';
 		assert(l < r);
 		if (r - l >= N) return;
 		// now, everything that would put l and r together is bad
 		{
-			int e = l / N * N;
+			int64_t e = l / N * N;
 			l -= e, r -= e;
 		}
 		assert(l < N);
 		assert(r < 2*N);
 		if (r < N) {
-			update_range(0, N-r, delta);
-			update_range(N-l, N, delta);
+			queue_update_range(0, N-r, delta);
+			queue_update_range(N-l, N, delta);
 		} else {
-			update_range(N-l, 2*N-r, delta);
+			queue_update_range(N-l, 2*N-r, delta);
 		}
 	};
 	std::vector<std::set<int>> locs(N);
@@ -352,8 +332,8 @@ int main() {
 			update_loc(*it, *std::next(it), delta);
 		}
 	};
-	std::vector<int> F(M, -1);
-	auto set_f = [&](int i, int new_val) -> void {
+	std::vector<int64_t> F(M, -1);
+	auto set_f = [&](int i, int64_t new_val) -> void {
 		if (F[i] != -1) {
 			auto& s = locs[F[i]];
 			auto it = s.find(i);
@@ -371,18 +351,86 @@ int main() {
 		}
 	};
 	for (int i = 0; i < M; i++) {
-		int f; std::cin >> f; f--;
+		int64_t f; std::cin >> f; f--;
 		set_f(i, f);
 	}
+
+	queue_print_ans();
+	for (int q = 0; q < Q; q++) {
+		int i; int64_t f; std::cin >> i >> f; i--, f--;
+		set_f(i, f);
+		queue_print_ans();
+	}
+
+	std::vector<int64_t> bounds; bounds.reserve(2 + ops.size() * 2);
+	bounds.push_back(0);
+	bounds.push_back(N);
+	for (auto op : ops) {
+		if (op.l == -1 && op.r == -1 && op.delta == 0) {
+			// do nothing
+		} else {
+			assert(op.l < op.r && std::abs(op.delta) == 1);
+			bounds.push_back(op.l);
+			bounds.push_back(op.r);
+		}
+	}
+	std::sort(bounds.begin(), bounds.end());
+	bounds.resize(std::unique(bounds.begin(), bounds.end()) - bounds.begin());
+
+	std::vector<int64_t> cnts(int(bounds.size()) - 1);
+	std::vector<int64_t> tot_xors(int(bounds.size()) - 1);
+	for (int i = 0; i < int(bounds.size()); i++) {
+		int64_t v = bounds[i];
+		int64_t cur_xor = ((v & 1) ? (v-1) : 0) ^ ((v & 2) ? 1 : 0);
+		if (i < int(bounds.size()) - 1) cnts[i] -= v, tot_xors[i] ^= cur_xor;
+		if (i) cnts[i-1] += v, tot_xors[i-1] ^= cur_xor;
+	}
+
+	seg_tree::in_order_layout layout(int(bounds.size())-1);
+	struct seg_t {
+		int lazy_bad;
+		int64_t cnt = 0;
+		int64_t tot_xor = 0;
+	};
+	std::vector<seg_t> seg(2*N);
+	auto update_node = [&](seg_tree::point a) -> void {
+		assert(seg[a].lazy_bad >= 0);
+		if (seg[a].lazy_bad) {
+			seg[a].cnt = 0;
+			seg[a].tot_xor = 0;
+		} else if (a < layout.N) {
+			seg[a].cnt = seg[a.c(0)].cnt + seg[a.c(1)].cnt;
+			seg[a].tot_xor = seg[a.c(0)].tot_xor ^ seg[a.c(1)].tot_xor;
+		} else {
+			int i = layout.get_leaf_index(a);
+			seg[a].cnt = cnts[i];
+			seg[a].tot_xor = tot_xors[i];
+		}
+	};
+	for (seg_tree::point a(2*layout.N-1); a > 0; a--) update_node(a);
+
+	auto update_range = [&](int64_t l, int64_t r, int delta) -> void {
+		int lo = int(std::lower_bound(bounds.begin(), bounds.end(), l) - bounds.begin());
+		int hi = int(std::lower_bound(bounds.begin(), bounds.end(), r) - bounds.begin());
+		auto rng = layout.get_range(lo, hi);
+		rng.for_each([&](seg_tree::point a) -> void {
+			seg[a].lazy_bad += delta;
+			update_node(a);
+		});
+		rng.for_parents_up(update_node);
+	};
 
 	auto print_ans = [&]() -> void {
 		std::cout << seg[1].cnt << ' ' << seg[1].tot_xor << '\n';
 	};
-	print_ans();
-	for (int q = 0; q < Q; q++) {
-		int i, f; std::cin >> i >> f; i--, f--;
-		set_f(i, f);
-		print_ans();
+
+	for (auto op : ops) {
+		if (op.l == -1 && op.r == -1 && op.delta == 0) {
+			print_ans();
+		} else {
+			assert(op.l < op.r && std::abs(op.delta) == 1);
+			update_range(op.l, op.r, op.delta);
+		}
 	}
 
 	return 0;
