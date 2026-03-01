@@ -309,6 +309,39 @@ int main() {
 	solve_slow(10, 4, 5);
 	solve_slow(5, 14, 5);
 	solve_slow(0, 24, 5);
+	auto solve_fast = [&](int U, int T, int C) -> num {
+		const int V = U + T + C;
+		std::vector<num> fact(V+1);
+		fact[0] = 1; for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(V+1);
+		ifact[V] = inv(fact[V]); for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+		// stop at >= val
+		int val = (2 * U + T + C) / (C + 1);
+		assert(val <= 2 * U + T);
+		assert(val >= 0);
+		num ans = 0;
+		for (int nt = 0; nt <= val; nt++) {
+			for (int e = 0; e <= 1; e++) {
+				// end exactly at val
+				int nu = (val + e - nt);
+				if (nu & 1) continue;
+				nu >>= 1;
+				if (nt > T || nu > U) continue;
+				if (e && nu == 0) continue;
+				if (e) {
+					ans += fact[nt + (nu-1)] * ifact[nu-1] * ifact[nt] * fact[(T-nt) + (U-nu) + C] * ifact[T-nt] * ifact[U-nu] * ifact[C];
+				} else {
+					ans += fact[nt + nu] * ifact[nu] * ifact[nt] * fact[(T-nt) + (U-nu) + C] * ifact[T-nt] * ifact[U-nu] * ifact[C];
+				}
+			}
+		}
+		ans *= ifact[U+T+C] * fact[U] * fact[T] * fact[C];
+		return ans;
+	};
+
+	int U, T, P, C; std::cin >> U >> T >> P >> C;
+	std::cout << solve_fast(U, T, C) << '\n';
 
 	return 0;
 }
