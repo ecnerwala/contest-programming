@@ -329,11 +329,7 @@ int main() {
 				nu >>= 1;
 				if (nt > T || nu > U) continue;
 				if (e && nu == 0) continue;
-				if (e) {
-					ans += fact[nt + (nu-1)] * ifact[nu-1] * ifact[nt] * fact[(T-nt) + (U-nu) + C] * ifact[T-nt] * ifact[U-nu] * ifact[C];
-				} else {
-					ans += fact[nt + nu] * ifact[nu] * ifact[nt] * fact[(T-nt) + (U-nu) + C] * ifact[T-nt] * ifact[U-nu] * ifact[C];
-				}
+				ans += num(val + e) * fact[nt + (nu-e)] * ifact[nu-e] * ifact[nt] * fact[(T-nt) + (U-nu) + C] * ifact[T-nt] * ifact[U-nu] * ifact[C];
 			}
 		}
 		ans *= ifact[U+T+C] * fact[U] * fact[T] * fact[C];
