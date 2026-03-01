@@ -425,7 +425,7 @@ int main() {
 			for (int d = 0; d < 10; d++) {
 				num a = power(Gi + invGi, freq[d]);
 				for (int k = 0; k < 11; k++) {
-					int j = i - (d * k);
+					int j = i - (d * k) % 11 * (L / 11);
 					if (j < 0) j += L;
 					vals[{j, k}] *= a;
 				}
