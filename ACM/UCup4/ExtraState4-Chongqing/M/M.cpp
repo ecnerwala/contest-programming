@@ -460,7 +460,7 @@ int main() {
 	}
 
 	for (int i = 0; i < N; i++) {
-		std::cerr << preorder_par[i] << ' ' << sz[i] << ' ' << depth[i] << '\n';
+		//std::cerr << preorder_par[i] << ' ' << sz[i] << ' ' << depth[i] << '\n';
 	}
 
 	// we now have our preorder
@@ -482,33 +482,33 @@ int main() {
 		if (u == -1) return 0;
 		int res = 0;
 		layout.get_point(u).for_each([&](auto a) -> void { res += seg[a]; });
-		std::cerr << u << ' ' << res << '\n';
+		//std::cerr << u << ' ' << res << '\n';
 		return res;
 	};
 	auto query_path = [&](int u, int v) -> int {
-		std::cerr << "query " << u << "-" << v << '\n';
+		//std::cerr << "query " << u << "-" << v << '\n';
 		u = preorder_idx[u], v = preorder_idx[v];
 		int l = get_lca(u, v);
-		std::cerr << "  lca " << l << ' ' << " par " << preorder_par[l] << '\n';
+		//std::cerr << "  lca " << l << ' ' << " par " << preorder_par[l] << '\n';
 		return query_path_to_root(u) + query_path_to_root(v) - query_path_to_root(l) - query_path_to_root(preorder_par[l]);
 	};
 	auto update_vert = [&](int u, int e) -> void {
-		std::cerr << "doing vertex " << u << " " << e << '\n';
+		//std::cerr << "doing vertex " << u << " " << e << '\n';
 		u = preorder_idx[u];
 		auto rng = layout.get_range(u, u + sz[u]);
-		std::cerr << "  " << u << "-" << u + sz[u] << '\n';
+		//std::cerr << "  " << u << "-" << u + sz[u] << '\n';
 		rng.for_each([&](auto a) -> void { seg[a] += e; });
 	};
 
 	for (int p : primes) {
 		if (ops[p].empty()) continue;
-		std::cerr << "doing p = " << p << '\n';
+		//std::cerr << "doing p = " << p << '\n';
 		// process ops[p];
 		for (auto& [i, e] : ops[p]) {
 			if (i != 0) {
 				auto [u, v] = queries[i];
 				int path_cnt = query_path(u, v);
-				std::cerr << "  path_cnt " << path_cnt << '\n';
+				//std::cerr << "  path_cnt " << path_cnt << '\n';
 				for (int z = 0; z < path_cnt && e > 0; z++) {
 					e--;
 					C[i] /= p;
