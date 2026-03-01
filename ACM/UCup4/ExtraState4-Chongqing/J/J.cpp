@@ -316,8 +316,9 @@ int main() {
 		if (r < N) {
 			assert(0 < N-r);
 			queue_update_range(0, N-r, delta);
-			assert(N-l < N);
-			queue_update_range(N-l, N, delta);
+			if (l > 0) {
+				queue_update_range(N-l, N, delta);
+			}
 		} else {
 			assert(N-l < 2*N-r);
 			queue_update_range(N-l, 2*N-r, delta);
