@@ -370,7 +370,7 @@ int main() {
 	bounds.push_back(0);
 	bounds.push_back(N);
 	for (auto op : ops) {
-		std::cerr << op.l << ' ' << op.r << ' ' << op.delta << '\n';
+		//std::cerr << op.l << ' ' << op.r << ' ' << op.delta << '\n';
 		if (op.l == -1 && op.r == -1 && op.delta == 0) {
 			// do nothing
 		} else {
