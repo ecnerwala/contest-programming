@@ -438,6 +438,8 @@ int main() {
 			}
 		}
 		ans /= num(11) * num(L);
+		for (int i = 1; i <= (tot/2); i++) ans *= num(i);
+		for (int i = 1; i <= (tot+1)/2; i++) ans *= num(i);
 		for (int d = 0; d < 10; d++) {
 			num fact = 1;
 			for (int z = 1; z <= freq[d]; z++) fact *= num(z);
