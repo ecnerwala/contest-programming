@@ -409,24 +409,42 @@ int main() {
 	// 2370291
 	assert(L % 11 == 0);
 
+	auto fact = [&](int i) -> num {
+		num r = 1;
+		for (int z = 1; z <= i; z++) r *= num(z);
+		return r;
+	};
 	auto solve = [&](std::array<int, 10> freq) -> num {
 		int tot = std::accumulate(freq.begin(), freq.end(), 0);
 		assert(tot <= L);
 		tensor<num, 2> vals({L, 11}, num(1));
+		num w0 = fact(tot / 2) * fact((tot + 1) / 2);
+		num w1 = 0;
+		if (freq[0]) {
+			w1 = fact(tot / 2) * fact((tot - 1) / 2);
+		}
+		for (int d = 0; d < 10; d++) {
+			w0 /= fact(freq[d]);
+			w1 /= fact((d == 0 && freq[0]) ? freq[0] - 1 : freq[d]);
+		}
 		// 1/L * 1/11
 		// sum over 
 		// product of (1/(omega^dk g^l) + omega^dk g^l)^freq[d]
 		num Gi = 1;
 		num invGi = 1;
 		for (int i = 0; i < L; i++, Gi *= G, invGi *= invG) {
-			if (tot & 1) {
-				for (int z = 0; z < 11; z++) vals[{i, z}] *= invGi;
-			}
 			for (int d = 0; d < 10; d++) {
-				num a = power(Gi + invGi, freq[d]);
+				num a;
+				if (d == 0 && freq[0]) {
+					a = power(Gi + invGi, freq[0] - 1);
+					a *= w0 * (Gi + invGi) * ((tot & 1) ? invGi : 1) + w1 * ((tot & 1) ? 1 : invGi);
+				} else {
+					a = power(Gi + invGi, freq[d]);
+				}
 				for (int k = 0; k < 11; k++) {
 					int j = i - (d * k) % 11 * (L / 11);
 					if (j < 0) j += L;
+					if (d == 0) assert(j == i);
 					vals[{j, k}] *= a;
 				}
 			}
@@ -438,13 +456,6 @@ int main() {
 			}
 		}
 		ans /= num(11) * num(L);
-		for (int i = 1; i <= (tot/2); i++) ans *= num(i);
-		for (int i = 1; i <= (tot+1)/2; i++) ans *= num(i);
-		for (int d = 0; d < 10; d++) {
-			num fact = 1;
-			for (int z = 1; z <= freq[d]; z++) fact *= num(z);
-			ans /= fact;
-		}
 		return ans;
 	};
 
@@ -455,11 +466,6 @@ int main() {
 		freq[c-'0']++;
 	}
 	num ans = solve(freq);
-	std::cerr << ans << '\n';
-	if (freq[0]) {
-		freq[0]--;
-		ans -= solve(freq);
-	}
 	std::cout << ans << '\n';
 
 	return 0;
