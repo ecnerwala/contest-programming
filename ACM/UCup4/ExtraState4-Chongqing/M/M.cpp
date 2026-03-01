@@ -453,7 +453,7 @@ int main() {
 
 			preorder_par[preorder_idx[i]] = preorder_idx[par[i]];
 			sz[preorder_idx[i]] = sz_orig[i];
-			depth[preorder_idx[i]] = depth[preorder_par[i]] + 1;
+			depth[preorder_idx[i]] = depth[preorder_idx[par[i]]] + 1;
 
 			cur_idx[i] = preorder_idx[i] + 1;
 		}
