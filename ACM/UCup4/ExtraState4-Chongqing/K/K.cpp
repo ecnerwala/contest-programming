@@ -132,20 +132,30 @@ int main() {
 		cnts[0] = 1;
 		num ans = M;
 		// cnts[i] = # of characters including S[i] at i
+		std::vector<int> S(N);
+		S[0] = 0;
+		int nxt = 1;
 		for (int i = 1; i < N; i++) {
 			cnts[i] = cnts[A[i]];
-			int j = i;
-			while (j != -1 && j != A[i+1] - 1) {
-				j = A[j];
-			}
-			if (j != A[i+1] - 1) {
-				ans = 0;
-				break;
-			}
 			if (A[i+1] == 0) {
 				ans *= M - cnts[i];
 				cnts[i]++;
+				S[i] = nxt++;
+			} else {
+				S[i] = S[A[i+1]-1];
 			}
+		}
+		std::vector<int> fail(N+1);
+		{
+			fail[0] = -1;
+			for (int i = 0; i < N; i++) {
+				int cnd = fail[i];
+				while (cnd != -1 && S[cnd] != S[i]) cnd = fail[cnd];
+				fail[i+1] = cnd+1;
+			}
+		}
+		if (fail != A) {
+			ans = 0;
 		}
 		std::cout << ans << '\n';
 	}
