@@ -435,9 +435,13 @@ int main() {
 		for (int i = 0; i < L; i++, Gi *= G, invGi *= invG) {
 			for (int d = 0; d < 10; d++) {
 				num a;
-				if (d == 0 && freq[0]) {
-					a = power(Gi + invGi, freq[0] - 1);
-					a *= w0 * (Gi + invGi) * ((tot & 1) ? invGi : 1) - w1 * ((tot & 1) ? 1 : invGi);
+				if (d == 0) {
+					if (freq[0]) {
+						a = power(Gi + invGi, freq[0] - 1);
+						a *= w0 * (Gi + invGi) * ((tot & 1) ? invGi : 1) - w1 * ((tot & 1) ? 1 : invGi);
+					} else {
+						a = power(Gi + invGi, freq[0]) * w0 * ((tot & 1) ? invGi : 1);
+					}
 				} else {
 					a = power(Gi + invGi, freq[d]);
 				}
