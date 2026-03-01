@@ -437,7 +437,7 @@ int main() {
 				num a;
 				if (d == 0 && freq[0]) {
 					a = power(Gi + invGi, freq[0] - 1);
-					a *= w0 * (Gi + invGi) * ((tot & 1) ? invGi : 1) + w1 * ((tot & 1) ? 1 : invGi);
+					a *= w0 * (Gi + invGi) * ((tot & 1) ? invGi : 1) - w1 * ((tot & 1) ? 1 : invGi);
 				} else {
 					a = power(Gi + invGi, freq[d]);
 				}
