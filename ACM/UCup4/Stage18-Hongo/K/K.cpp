@@ -299,7 +299,7 @@ int main() {
 		return dp[{U, T}];
 	};
 	for (int u = 1; u <= 20; u++) {
-		for (int t = 1; t <= 20; t++) {
+		for (int t = 1; t <= 10; t++) {
 			for (int c = 1; c <= 20; c++) {
 				solve_slow(u, t, c);
 			}
