@@ -259,6 +259,13 @@ template <int MOD_> struct modnum {
 	}
 	modnum& operator *= (modnum o) {
 		if constexpr (MOD == (int64_t(1) << 31) - 1) {
+			int64_t a = int64_t(v) * int64_t(o.v);
+			int64_t lo = a & MOD;
+			int64_t hi = (a >> 31);
+			int64_t r = lo + hi;
+			r -= (r >= MOD) ? r - MOD : 0;
+			v = int(r);
+			return *this;
 		}
 		v = int(int64_t(v) * int64_t(o.v) % MOD);
 		return *this;
