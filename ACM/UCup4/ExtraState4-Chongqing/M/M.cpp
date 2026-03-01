@@ -501,6 +501,7 @@ int main() {
 			if (i != 0) {
 				auto [u, v] = queries[i];
 				int path_cnt = query_path(u, v);
+				std::cerr << "  path_cnt " << path_cnt << '\n';
 				for (int z = 0; z < path_cnt && e > 0; z++) {
 					e--;
 					C[i] /= p;
