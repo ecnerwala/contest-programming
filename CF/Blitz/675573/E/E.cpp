@@ -7,15 +7,20 @@ int main() {
 		int N, M, H; std::cin >> N >> M >> H;
 		std::vector<int> horses(H);
 		for (auto& a : horses) { std::cin >> a; a--; }
-		std::vector<std::vector<std::pair<int, int>>> adj(N);
+		std::vector<std::vector<std::pair<int, int>>> adj(2*N);
 		for (int e = 0; e < M; e++) {
 			int u, v, w; std::cin >> u >> v >> w; u--, v--;
-			assert(!(w & 1)); w /= 2;
 			adj[u].push_back({v, w});
 			adj[v].push_back({u, w});
+			assert(!(w & 1)); w /= 2;
+			adj[N+u].push_back({N+v, w});
+			adj[N+v].push_back({N+u, w});
+		}
+		for (auto a : horses) {
+			adj[a].push_back({N+a, 0});
 		}
 		auto dijk = [&](int st) -> std::vector<int64_t> {
-			std::vector<int64_t> dist(N, -1);
+			std::vector<int64_t> dist(2*N, -1);
 			min_pq<std::pair<int64_t, int>> pq;
 			pq.push({dist[st] = 0, st});
 			while (!pq.empty()) {
@@ -36,9 +41,13 @@ int main() {
 			std::cout << -1 << '\n';
 		} else {
 			int64_t ans = 2 * d0[N-1];
-			for (auto h : horses) {
-				if (d0[h] == -1) continue;
-				ans = std::min(ans, d0[h] + d1[h] + std::min(d0[h], d1[h]));
+			if (d0[N] != -1) {
+				for (int i = 0; i < N; i++) {
+					if (d0[i] == -1) continue;
+					assert(d0[i] != -1 && d1[i] != -1);
+					assert(d0[N+i] != -1);
+					ans = std::min(ans, std::max(std::min(d0[i], d0[N+i]), std::min(d1[i], d1[N+i])));
+				}
 			}
 			std::cout << ans << '\n';
 		}
