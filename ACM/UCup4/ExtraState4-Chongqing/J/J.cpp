@@ -375,11 +375,14 @@ int main() {
 		set_f(i, f);
 	}
 
-	std::cout << seg[1].cnt << ' ' << seg[1].tot_xor << '\n';
+	auto print_ans = [&]() -> void {
+		std::cout << seg[1].cnt << ' ' << seg[1].tot_xor << '\n';
+	};
+	print_ans();
 	for (int q = 0; q < Q; q++) {
 		int i, f; std::cin >> i >> f; i--, f--;
 		set_f(i, f);
-		std::cout << seg[1].cnt << ' ' << seg[1].tot_xor << '\n';
+		print_ans();
 	}
 
 	return 0;
