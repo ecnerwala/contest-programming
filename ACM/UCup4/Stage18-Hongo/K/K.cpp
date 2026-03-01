@@ -295,7 +295,7 @@ int main() {
 			}
 			std::cerr << '\n';
 		}
-		std::cerr << dp[{U, T}];
+		std::cerr << dp[{U, T}] << '\n';
 		return dp[{U, T}];
 	};
 	for (int u = 1; u <= 5; u++) {
