@@ -324,7 +324,7 @@ int main() {
 			queue_update_range(N-l, 2*N-r, delta);
 		}
 	};
-	std::vector<std::set<int>> locs(N);
+	std::map<int64_t, std::set<int>> locs;
 	auto update_set = [&](std::set<int>& s, std::set<int>::iterator it, int delta) -> void {
 		if (it != s.begin() && std::next(it) != s.end()) {
 			update_loc(*std::prev(it), *std::next(it), -delta);
