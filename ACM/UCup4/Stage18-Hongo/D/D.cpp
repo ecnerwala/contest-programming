@@ -442,17 +442,30 @@ int main() {
 		num Gi = 1;
 		num invGi = 1;
 		for (int i = 0; i < L; i++, Gi *= G, invGi *= invG) {
+			std::array<num, 22> pA;
+			pA[0] = Gi + invGi;
+			for (int z = 1; z < 22; z++) {
+				pA[z] = pA[z-1] * pA[z-1];
+			}
+			auto powA = [&](int f) -> num {
+				num r = 1;
+				while (f) {
+					r *= pA[__builtin_ctz(f)];
+					f &= f-1;
+				}
+				return r;
+			};
 			for (int d = 0; d < 10; d++) {
 				num a;
 				if (d == 0) {
 					if (freq[0]) {
-						a = power(Gi + invGi, freq[0] - 1);
+						a = powA(freq[0] - 1);
 						a *= w0 * (Gi + invGi) * ((tot & 1) ? invGi : 1) - w1 * ((tot & 1) ? 1 : invGi);
 					} else {
-						a = power(Gi + invGi, freq[0]) * w0 * ((tot & 1) ? invGi : 1);
+						a = powA(freq[0]) * w0 * ((tot & 1) ? invGi : 1);
 					}
 				} else {
-					a = power(Gi + invGi, freq[d]);
+					a = powA(freq[d]);
 				}
 				for (int k = 0; k < 11; k++) {
 					int j = i - (d * k) % 11 * (L / 11);
