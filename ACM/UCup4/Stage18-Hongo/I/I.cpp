@@ -1425,6 +1425,7 @@ int main() {
 	ways_bad.insert(ways_bad.begin(), 2, num(0));
 	ways_all -= ways_bad;
 	ways_all.insert(ways_all.begin(), 2, num(0));
+	ways_all *= 2;
 
 	while (Q--) {
 		int d; std::cin >> d;
