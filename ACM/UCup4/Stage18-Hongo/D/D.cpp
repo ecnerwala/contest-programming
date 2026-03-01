@@ -421,7 +421,7 @@ int main() {
 		num w0 = fact(tot / 2) * fact((tot + 1) / 2);
 		num w1 = 0;
 		if (freq[0]) {
-			w1 = fact(tot / 2) * fact((tot - 1) / 2);
+			w1 = fact((tot - 1) / 2) * fact(tot / 2);
 		}
 		for (int d = 0; d < 10; d++) {
 			w0 /= fact(freq[d]);
