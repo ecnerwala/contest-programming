@@ -35,7 +35,7 @@ int main() {
 				}
 				int d = b - (a << ops);
 				for (int z = 0; z < ops; z++) {
-					cnt[(d >> z) & 1]++;
+					if ((d >> z) & 1) cnt[z]++;
 				}
 				cnt[ops] += (d >> ops);
 				ways *= ifact[d >> ops];
