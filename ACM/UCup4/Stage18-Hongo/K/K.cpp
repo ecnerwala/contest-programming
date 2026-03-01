@@ -281,22 +281,27 @@ int main() {
 	using dbl = long double;
 
 	auto solve_slow = [&](int U, int T, int C) -> dbl {
+		std::cerr << "START " << U << ' ' << T << ' ' << C << '\n';
 		tensor<dbl, 2> dp({U+1, T+1}, 0);
 		for (int u = 0; u <= U; u++) {
 			for (int t = 0; t <= T; t++) {
-				dbl v = 0;
-				if (u) v += dp[{u-1, t}] * dbl(u);
-				if (t) v += dp[{u, t-1}] * dbl(t);
-				if (u + t + C > 0) v /= dbl(u + t + C);
-				dp[{u, t}] = std::max(v, dbl(2*(U-u) + (T-t)));
+				dbl hit = 0;
+				if (u) hit += dp[{u-1, t}] * dbl(u);
+				if (t) hit += dp[{u, t-1}] * dbl(t);
+				if (u + t + C > 0) hit /= dbl(u + t + C);
+				dbl stay = dbl(2*(U-u) + (T-t));
+				dp[{u, t}] = std::max(hit, stay);
+				std::cerr << (hit >= stay ? 'h' : 's');
 			}
+			std::cerr << '\n';
 		}
+		std::cerr << dp[{U, T}];
 		return dp[{U, T}];
 	};
 	for (int u = 1; u <= 5; u++) {
 		for (int t = 1; t <= 5; t++) {
 			for (int c = 1; c <= 5; c++) {
-				std::cerr << ' ' << solve_slow(u, t, c) << ' ' << solve_slow(0, 2*u+t, c) << '\n';
+				solve_slow(u, t, c);
 			}
 		}
 	}
