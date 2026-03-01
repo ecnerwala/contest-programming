@@ -1395,10 +1395,13 @@ int main() {
 	auto eval_at_x_x2 = [&](ps f) -> ps {
 		f = shift_poly(f, -inv(num(4)));
 		int n = int(f.size());
-		assert(n >= 1);
-		f.resize(2 * n - 1);
-		for (int i = 2 * n - 2; i > 0; i--) {
-			f[i] = (i & 1) ? 0 : f[i/2];
+		if (n >= 1) {
+			// do nothing
+			assert(n >= 1);
+			f.resize(2 * n - 1);
+			for (int i = 2 * n - 2; i > 0; i--) {
+				f[i] = (i & 1) ? 0 : f[i/2];
+			}
 		}
 		f = shift_poly(f, inv(num(2)));
 		return f;
