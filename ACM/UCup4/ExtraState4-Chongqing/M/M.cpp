@@ -442,7 +442,7 @@ int main() {
 		std::vector<int> sz_orig(N, 1);
 		for (int i = N-1; i >= 1; i--) sz_orig[par[i]] += sz_orig[i];
 		std::vector<int> cur_idx(N);
-		cur_idx[0] = 0;
+		cur_idx[0] = 1;
 		preorder_idx[0] = 0;
 		sz[0] = sz_orig[0];
 		depth[0] = 0;
