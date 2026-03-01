@@ -481,6 +481,7 @@ int main() {
 		return res;
 	};
 	auto query_path = [&](int u, int v) -> int {
+		std::cerr << "query " << u << "-" << v << '\n';
 		u = preorder_idx[u], v = preorder_idx[v];
 		int l = get_lca(u, v);
 		return query_path_to_root(u) + query_path_to_root(v) - query_path_to_root(l) - query_path_to_root(preorder_par[l]);
