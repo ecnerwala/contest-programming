@@ -493,7 +493,8 @@ int main() {
 	};
 
 	for (int p : primes) {
-		std::cerr << "doing p " << '\n';
+		if (ops[p].empty()) continue;
+		std::cerr << "doing p = " << p << '\n';
 		// process ops[p];
 		for (auto& [i, e] : ops[p]) {
 			if (i != 0) {
