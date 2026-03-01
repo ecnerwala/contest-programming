@@ -490,6 +490,7 @@ int main() {
 		std::cerr << "doing vertex " << u << " " << e << '\n';
 		u = preorder_idx[u];
 		auto rng = layout.get_range(u, u + sz[u]);
+		std::cerr << "  " << u << "-" << u + sz[u] << '\n';
 		rng.for_each([&](auto a) -> void { seg[a] += e; });
 	};
 
