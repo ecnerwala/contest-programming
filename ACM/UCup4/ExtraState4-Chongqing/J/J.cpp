@@ -332,7 +332,7 @@ int main() {
 		}
 		for (int x = 0; x < N; x++) {
 			if ((l+x)/N == (r+x)/N) {
-				update_range(l, r, delta);
+				update_range(x, x+1, delta);
 			}
 		}
 	};
