@@ -323,7 +323,7 @@ int main() {
 		rng.for_parents_up(update_node);
 	};
 	auto update_loc = [&](int l, int r, int delta) -> void {
-		std::cerr << "update_loc " << l << ' ' << r << ' ' << delta << '\n';
+		//std::cerr << "update_loc " << l << ' ' << r << ' ' << delta << '\n';
 		assert(l < r);
 		if (r - l >= N) return;
 		// now, everything that would put l and r together is bad
@@ -331,6 +331,7 @@ int main() {
 			int e = l / N * N;
 			l -= e, r -= e;
 		}
+		assert(l < N);
 		if (r < N) {
 			update_range(0, N-r, delta);
 			update_range(N-l, N, delta);
