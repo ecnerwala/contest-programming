@@ -412,7 +412,7 @@ int main() {
 	auto solve = [&](std::array<int, 10> freq) -> num {
 		int tot = std::accumulate(freq.begin(), freq.end(), 0);
 		assert(tot <= L);
-		tensor<num, 2> vals({L, 11});
+		tensor<num, 2> vals({L, 11}, num(1));
 		// 1/L * 1/11
 		// sum over 
 		// product of (1/(omega^dk g^l) + omega^dk g^l)^freq[d]
