@@ -466,7 +466,7 @@ int main() {
 	// we now have our preorder
 	std::vector<std::pair<int, int>> lcas(N-1);
 	for (int i = 1; i < N; i++) {
-		lcas[i-1] = {depth[i-1], preorder_par[i]};
+		lcas[i-1] = {depth[i]-1, preorder_par[i]};
 	}
 	RangeMinQuery<std::pair<int, int>> rmq(lcas);
 	auto get_lca = [&](int a, int b) -> int {
