@@ -397,7 +397,7 @@ int main() {
 		int64_t cnt = 0;
 		int64_t tot_xor = 0;
 	};
-	std::vector<seg_t> seg(2*N);
+	std::vector<seg_t> seg(2*layout.N);
 	auto update_node = [&](seg_tree::point a) -> void {
 		assert(seg[a].lazy_bad >= 0);
 		if (seg[a].lazy_bad) {
