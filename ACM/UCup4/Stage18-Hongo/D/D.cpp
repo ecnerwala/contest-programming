@@ -453,6 +453,7 @@ int main() {
 		freq[c-'0']++;
 	}
 	num ans = solve(freq);
+	std::cerr << ans << '\n';
 	if (freq[0]) {
 		freq[0]--;
 		ans -= solve(freq);
