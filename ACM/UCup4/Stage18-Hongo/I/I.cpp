@@ -1426,7 +1426,11 @@ int main() {
 	}
 	ways_all = eval_at_x_x2(ways_all);
 	ways_bad = eval_at_x_x2(ways_bad);
-	ways_bad.insert(ways_bad.begin(), 2, num(0));
+	if (N == 3) {
+		ways_bad.insert(ways_bad.begin(), 1, num(0));
+	} else {
+		ways_bad.insert(ways_bad.begin(), 2, num(0));
+	}
 	ways_all -= ways_bad;
 	ways_all.insert(ways_all.begin(), 2, num(0));
 	ways_all *= 2;
