@@ -263,7 +263,7 @@ template <int MOD_> struct modnum {
 			int64_t lo = a & MOD;
 			int64_t hi = (a >> 31);
 			int64_t r = lo + hi;
-			r -= (r >= MOD) ? r - MOD : 0;
+			r -= r >= MOD ? MOD : 0;
 			v = int(r);
 			return *this;
 		}
