@@ -1370,6 +1370,7 @@ int main() {
 	// return ps(x + a)
 	auto shift_poly = [&](ps f, num a) -> ps {
 		int n = int(f.size());
+		if (n == 0) return f;
 		assert(n >= 1);
 		std::vector<num> fact(n);
 		fact[0] = 1;
