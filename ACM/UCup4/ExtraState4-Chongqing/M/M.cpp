@@ -478,12 +478,14 @@ int main() {
 		if (u == -1) return 0;
 		int res = 0;
 		layout.get_point(u).for_each([&](auto a) -> void { res += seg[a]; });
+		std::cerr << u << ' ' << res << '\n';
 		return res;
 	};
 	auto query_path = [&](int u, int v) -> int {
 		std::cerr << "query " << u << "-" << v << '\n';
 		u = preorder_idx[u], v = preorder_idx[v];
 		int l = get_lca(u, v);
+		std::cerr << "  lca " << l << ' ' << " par " << preorder_par[l] << '\n';
 		return query_path_to_root(u) + query_path_to_root(v) - query_path_to_root(l) - query_path_to_root(preorder_par[l]);
 	};
 	auto update_vert = [&](int u, int e) -> void {
