@@ -332,6 +332,7 @@ int main() {
 			l -= e, r -= e;
 		}
 		assert(l < N);
+		assert(r < 2*N);
 		if (r < N) {
 			update_range(0, N-r, delta);
 			update_range(N-l, N, delta);
