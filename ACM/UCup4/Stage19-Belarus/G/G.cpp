@@ -71,6 +71,7 @@ int main() {
 				sc.wrongs[s.prob] = -1;
 				sc.last_ac = z;
 				if (get_val(sc) > get_val(teams[12].second)) {
+					std::cerr << s.team_name << ' ' << s.time << '\n';
 					pass_time.insert({s.team_name, s.time});
 				}
 			} else {
