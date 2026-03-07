@@ -1412,7 +1412,7 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		if (freq[i]) {
 			// multiply by (1+wx^i)^a
-			num pow_w = num(i) * weights[i];
+			num pow_w = num(i) * num(freq[i]) * weights[i];
 			for (int k = 1; i*k <= N; k++, pow_w *= -weights[i]) {
 				poly[i*k] += pow_w;
 			}
