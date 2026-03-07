@@ -335,7 +335,7 @@ int main() {
 				// now mid is properly centered
 				// now, we have to compute (mid << a.len + a.frac)
 				if (mid) {
-					if (std::abs(a.frac) == INF || a.len > 32 || std::abs(mid) >= INF) {
+					if (std::abs(a.frac) == INF || a.len > 32) {
 						r.frac = INF * signum(mid);
 					}
 					assert(a.len <= 32);
