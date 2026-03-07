@@ -302,6 +302,7 @@ int main() {
 
 	using num = modnum<998244353>;
 	std::vector<num> poly(N+1);
+	poly[0] = 1;
 	// 1 - w x^a
 	auto mul_bin = [&](int a, num w) -> void {
 		assert(a > 0);
