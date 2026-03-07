@@ -1419,7 +1419,7 @@ int main() {
 		}
 	}
 	poly = poly_exp(integ_shift(poly));
-	for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
+	//for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
 
 	if (poly[K] == num(0)) {
 		std::cout << -2 << '\n';
@@ -1446,7 +1446,7 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		if (freq[i]) {
 			div_bin(i, weights[i]);
-			for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
+			//for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
 
 			bool can_not = poly[K] != num(0);
 			bool can_use = K >= i && poly[K - i] != num(0);
