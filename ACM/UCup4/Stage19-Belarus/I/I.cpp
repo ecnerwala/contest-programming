@@ -287,6 +287,7 @@ int main() {
 	std::vector<int> freq(N+1);
 	for (int i = 0; i < N; i++) {
 		if (par[i] < 0) {
+			std::cerr << "options " << cnt[i][0] << ' ' << cnt[i][1] << '\n';
 			baseline += std::min(cnt[i][0], cnt[i][1]);
 			freq[std::abs(cnt[i][0] - cnt[i][1])]++;
 		}
