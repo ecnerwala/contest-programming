@@ -47,7 +47,6 @@ int main() {
 				sc.wrongs[s.prob]++;
 			}
 		}
-		std::cerr << int(scores.size()) << '\n';
 		std::vector<std::pair<std::string, score_t>> teams(scores.begin(), scores.end());
 		assert(int(teams.size()) >= 13);
 		auto get_val = [](const score_t& s) {
@@ -58,12 +57,11 @@ int main() {
 		};
 		std::nth_element(teams.begin(), teams.begin() + 12, teams.end(), cmp);
 		std::sort(teams.begin(), teams.begin() + 12, cmp);
-		for (auto [t, s] : teams) {
-			std::cerr << t << ' ' << s.cnt << ' ' << -s.penalty << ' ' << -s.last_ac << '\n';
-		}
 
 		scores = {};
-		std::map<std::string, int> pass_time;
+		std::set<std::string> passed;
+		std::vector<std::pair<std::string, int>> pass_times;
+		pass_times.reserve(12);
 		for (int z = 0; z < int(submissions.size()); z++) {
 			const auto& s = submissions[z];
 			auto& sc = scores[s.team_name];
@@ -74,17 +72,18 @@ int main() {
 				sc.wrongs[s.prob] = -1;
 				sc.last_ac = z;
 				if (get_val(sc) > get_val(teams[12].second)) {
-					std::cerr << s.team_name << ' ' << s.time << '\n';
-					pass_time.insert({s.team_name, s.time});
+					if (passed.insert(s.team_name).second) {
+						std::cerr << s.team_name << ' ' << s.time << '\n';
+						pass_times.push_back({s.team_name, s.time});
+					}
 				}
 			} else {
 				sc.wrongs[s.prob]++;
 			}
 		}
-		assert(int(pass_time.size()) == 12);
+		assert(int(pass_times.size()) == 12);
 		for (int z = 0; z < 12; z++) {
-			auto team_name = teams[z].first;
-			int t = pass_time[team_name];
+			const auto& [team_name, t] = pass_times[z];
 			std::cout << team_name << ' ' << t/60 << ':' << t%60/10 << t%10 << '\n';
 		}
 	}
