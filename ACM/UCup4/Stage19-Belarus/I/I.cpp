@@ -352,7 +352,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		int a = i; bool f = false; make_par(a, f);
 		int v = std::abs(cnt[a][0] - cnt[a][1]);
-		std::cout << val[v] * (cnt[a][f] > cnt[a][!f]) << " \n"[i+1==N];
+		std::cout << val[v] * (cnt[a][f] > cnt[a][!f] ? 1 : -1) << " \n"[i+1==N];
 	}
 
 	return 0;
