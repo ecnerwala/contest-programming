@@ -47,6 +47,7 @@ int main() {
 				sc.wrongs[s.prob]++;
 			}
 		}
+		std::cerr << int(scores.size()) << '\n';
 		std::vector<std::pair<std::string, score_t>> teams(scores.begin(), scores.end());
 		assert(int(teams.size()) >= 13);
 		auto get_val = [](const score_t& s) {
