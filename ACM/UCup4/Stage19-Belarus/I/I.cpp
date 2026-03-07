@@ -323,6 +323,10 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		if (freq[i]) {
 			weights[i] = num(mt());
+		}
+	}
+	for (int i = 1; i <= N; i++) {
+		if (freq[i]) {
 			mul_bin(i * (freq[i]+1), power(weights[i], freq[i]+1));
 			div_bin(i, weights[i]);
 		}
@@ -338,7 +342,6 @@ int main() {
 	val[0] = 0;
 	for (int i = 1; i <= N; i++) {
 		if (freq[i]) {
-			weights[i] = num(mt());
 			div_bin(i * (freq[i]+1), power(weights[i], freq[i]+1));
 			for (int i = 0; i <= N; i++) { std::cerr << poly[i] << ' '; } std::cerr << '\n';
 			mul_bin(i * (freq[i]), power(weights[i], freq[i]));
