@@ -340,6 +340,7 @@ int main() {
 		if (freq[i]) {
 			weights[i] = num(mt());
 			div_bin(i * (freq[i]+1), power(weights[i], freq[i]+1));
+			for (int i = 0; i <= N; i++) { std::cerr << poly[i] << ' '; } std::cerr << '\n';
 			mul_bin(i * (freq[i]), power(weights[i], freq[i]));
 
 			bool can_not = poly[K] != num(0);
