@@ -280,7 +280,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		int a, f; std::cin >> a >> f; a--; f = 1-f;
 		assert(f == 0 || f == 1);
-		std::cerr << "merge " << i << ' ' << a << ' ' << f << '\n';
+		//std::cerr << "merge " << i << ' ' << a << ' ' << f << '\n';
 		merge(i, a, f);
 	}
 
@@ -288,7 +288,7 @@ int main() {
 	std::vector<int> freq(N+1);
 	for (int i = 0; i < N; i++) {
 		if (par[i] < 0) {
-			std::cerr << "options " << cnt[i][0] << ' ' << cnt[i][1] << '\n';
+			//std::cerr << "options " << cnt[i][0] << ' ' << cnt[i][1] << '\n';
 			baseline += std::min(cnt[i][0], cnt[i][1]);
 			freq[std::abs(cnt[i][0] - cnt[i][1])]++;
 		}
@@ -331,7 +331,6 @@ int main() {
 			div_bin(i, weights[i]);
 		}
 	}
-	for (int i = 0; i <= N; i++) { std::cerr << poly[i] << ' '; } std::cerr << '\n';
 
 	if (poly[K] == num(0)) {
 		std::cout << -2 << '\n';
@@ -343,14 +342,12 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		if (freq[i]) {
 			div_bin(i * (freq[i]+1), power(weights[i], freq[i]+1));
-			for (int i = 0; i <= N; i++) { std::cerr << poly[i] << ' '; } std::cerr << '\n';
 			mul_bin(i * (freq[i]), power(weights[i], freq[i]));
 
 			bool can_not = poly[K] != num(0);
 			bool can_use = K >= i && poly[K - i] != num(0);
 
-			for (int i = 0; i <= N; i++) { std::cerr << poly[i] << ' '; } std::cerr << '\n';
-			std::cerr << i << ' ' << can_not << ' ' << can_use << '\n';
+			//std::cerr << i << ' ' << can_not << ' ' << can_use << '\n';
 			assert(can_use || can_not);
 			val[i] = can_use - can_not;
 
