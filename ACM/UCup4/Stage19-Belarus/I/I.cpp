@@ -327,6 +327,7 @@ int main() {
 			div_bin(i, weights[i]);
 		}
 	}
+	for (int i = 0; i <= N; i++) { std::cerr << poly[i] << ' '; } std::cerr << '\n';
 
 	if (poly[K] == num(0)) {
 		std::cout << -2 << '\n';
