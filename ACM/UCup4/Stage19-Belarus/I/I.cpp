@@ -280,6 +280,7 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		int a, f; std::cin >> a >> f; a--; f = 1-f;
 		assert(f == 0 || f == 1);
+		std::cerr << "merge " << i << ' ' << a << ' ' << f << '\n';
 		merge(i, a, f);
 	}
 
