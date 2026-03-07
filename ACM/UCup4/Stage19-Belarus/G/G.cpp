@@ -25,7 +25,7 @@ int main() {
 			assert(time[1] == ':');
 			s.time = (time[0] - '0') * 60 + (time[2] - '0') * 10 + (time[3] - '0');
 
-			s.ac = verdict == "AC";
+			s.ac = verdict == "OK";
 		}
 		struct score_t {
 			int cnt = 0;
