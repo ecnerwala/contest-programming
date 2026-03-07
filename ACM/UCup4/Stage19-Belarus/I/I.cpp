@@ -1433,7 +1433,7 @@ int main() {
 			poly[i] += w * poly[i-a];
 		}
 	};
-	// divide by 1 - w x^a
+	// divide by 1 + w x^a
 	auto div_bin = [&](int a, num w) -> void {
 		assert(a > 0);
 		for (int i = a; i <= N; i++) {
@@ -1448,8 +1448,16 @@ int main() {
 			div_bin(i, weights[i]);
 			//for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
 
-			bool can_not = poly[K] != num(0);
-			bool can_use = K >= i && poly[K - i] != num(0);
+			bool can_not = false;
+			bool can_use = false;
+
+			num v = 0;
+			for (int j = K % i; j <= K; j += i) {
+				v *= -weights[i];
+				v += poly[j];
+				if (j == K - i) can_use = v != num(0);
+				if (j == K) can_not = v != num(0);
+			}
 
 			//std::cerr << i << ' ' << can_not << ' ' << can_use << '\n';
 			assert(can_use || can_not);
