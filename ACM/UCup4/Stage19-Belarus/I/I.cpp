@@ -1426,21 +1426,6 @@ int main() {
 		std::exit(0);
 	}
 
-	// 1 + w x^a
-	auto mul_bin = [&](int a, num w) -> void {
-		assert(a > 0);
-		for (int i = N; i >= a; i--) {
-			poly[i] += w * poly[i-a];
-		}
-	};
-	// divide by 1 + w x^a
-	auto div_bin = [&](int a, num w) -> void {
-		assert(a > 0);
-		for (int i = a; i <= N; i++) {
-			poly[i] -= w * poly[i-a];
-		}
-	};
-
 	std::vector<int> val(N+1);
 	val[0] = 0;
 	for (int i = 1; i <= N; i++) {
