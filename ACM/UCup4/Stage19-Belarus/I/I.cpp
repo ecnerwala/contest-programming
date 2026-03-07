@@ -1445,7 +1445,6 @@ int main() {
 	val[0] = 0;
 	for (int i = 1; i <= N; i++) {
 		if (freq[i]) {
-			div_bin(i, weights[i]);
 			//for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
 
 			bool can_not = false;
@@ -1462,8 +1461,6 @@ int main() {
 			//std::cerr << i << ' ' << can_not << ' ' << can_use << '\n';
 			assert(can_use || can_not);
 			val[i] = can_use - can_not;
-
-			mul_bin(i, weights[i]);
 		}
 	}
 
