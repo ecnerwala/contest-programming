@@ -58,6 +58,9 @@ int main() {
 		};
 		std::nth_element(teams.begin(), teams.begin() + 12, teams.end(), cmp);
 		std::sort(teams.begin(), teams.begin() + 12, cmp);
+		for (auto [t, s] : teams) {
+			std::cerr << t << ' ' << s.cnt << ' ' << -s.penalty << ' ' << -s.last_ac << '\n';
+		}
 
 		scores = {};
 		std::map<std::string, int> pass_time;
