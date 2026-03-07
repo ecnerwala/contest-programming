@@ -12,7 +12,7 @@ int main() {
 			int time;
 			bool ac;
 		};
-		std::vector<submission_t> submissions;
+		std::vector<submission_t> submissions(S);
 		for (auto& s : submissions) {
 			std::cin >> s.team_name;
 
