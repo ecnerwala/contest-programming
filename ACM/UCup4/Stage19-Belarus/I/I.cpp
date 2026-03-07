@@ -1400,19 +1400,6 @@ int main() {
 	}
 
 	using num = modnum<998244353>;
-	std::vector<num> invs(N+1);
-	{
-		num f = 1;
-		for (int i = 1; i <= N; i++) {
-			invs[i] = f;
-			f *= num(i);
-		}
-		f = inv(f);
-		for (int i = N; i >= 1; i--) {
-			invs[i] *= f;
-			f *= num(i);
-		}
-	}
 
 	std::mt19937 mt(48);
 	std::vector<num> weights(N+1);
@@ -1432,6 +1419,7 @@ int main() {
 		}
 	}
 	poly = poly_exp(integ_shift(poly));
+	for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
 
 	if (poly[K] == num(0)) {
 		std::cout << -2 << '\n';
@@ -1458,6 +1446,7 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		if (freq[i]) {
 			div_bin(i, weights[i]);
+			for (auto v : poly) { std::cerr << v << ' '; } std::cerr << '\n';
 
 			bool can_not = poly[K] != num(0);
 			bool can_use = K >= i && poly[K - i] != num(0);
