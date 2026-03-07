@@ -344,6 +344,7 @@ int main() {
 			bool can_not = poly[K] != num(0);
 			bool can_use = K >= i && poly[K - i] != num(0);
 
+			std::cerr << i << ' ' << can_not << ' ' << can_use << '\n';
 			assert(can_use || can_not);
 			val[i] = can_use - can_not;
 
