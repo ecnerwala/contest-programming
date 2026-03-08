@@ -13,8 +13,8 @@ int main() {
 	std::vector<bool> is_leaf(N, true);
 	for (int i = 1; i < N; i++) is_leaf[P[i]] = false;
 
-	std::vector<int> vals(N);
 	auto can_geq = [&](int v) -> bool {
+		std::vector<int> vals(N);
 		for (int i = N-1; i >= 0; i--) {
 			if (is_leaf[i]) {
 				vals[i] = (i >= v) ? 1 : -1;
