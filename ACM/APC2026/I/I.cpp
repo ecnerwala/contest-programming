@@ -299,8 +299,8 @@ int main() {
 			for (auto& x : polys[v]) x += shift;
 			// eval_at(polys[v], i) == extra_shift[v]
 		}
-		std::cerr << v << ' ' << i << '\n';
-		for (int z = 0; z <= N; z++) { std::cerr << ' ' << eval_at(polys[v], z); } std::cerr << '\n';
+		//std::cerr << v << ' ' << i << '\n';
+		//for (int z = 0; z <= N; z++) { std::cerr << ' ' << eval_at(polys[v], z); } std::cerr << '\n';
 		assert(i < N);
 		ans += eval_at(polys[v], N);
 		{
