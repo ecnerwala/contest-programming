@@ -277,7 +277,7 @@ int main() {
 				if (a > prv) {
 					while (prv < a) { prv++; stk_sz++; }
 					stk_sz--;
-					ans *= stk_sz + (N - a + 1);
+					if (i < N-1) ans *= stk_sz + (N - a + 1);
 				} else {
 					// we're allowed to pick anything in the stk
 					ans *= stk_sz;
