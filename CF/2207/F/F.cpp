@@ -315,6 +315,7 @@ int main() {
 						must_rank[j] = true;
 					}
 					if (cur_max[c] >= 0) {
+						std::cerr << "good " << c << ' ' << cur_max[c]-run_len[c]+1 << '-' << cur_max[c] << '\n';
 						edges_by_right[cur_max[c]].push_back(cur_max[c] - run_len[c] + 1);
 						tot_edges++;
 					}
@@ -332,6 +333,7 @@ int main() {
 						must_rank[j] = true;
 					}
 					if (cur_max[c] >= 0) {
+						std::cerr << "good " << c << ' ' << cur_max[c]-run_len[c]+1 << '-' << cur_max[c] << '\n';
 						edges_by_right[cur_max[c]].push_back(cur_max[c] - run_len[c] + 1);
 						tot_edges++;
 					}
