@@ -27,7 +27,7 @@ int main() {
 		}
 		std::cerr << "test " << v << '\n';
 		for (auto x : vals) { std::cerr << x << ' '; } std::cerr << '\n';
-		return vals[0] >= 0;
+		return vals[0] > 0;
 	};
 
 	int mi = 0;
