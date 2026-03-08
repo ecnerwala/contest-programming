@@ -30,6 +30,7 @@ int main() {
 			int prv = -1;
 			for (int i = N-1; i >= -1; i--) {
 				int a = (i == -1 ? N : A[i]);
+				assert(a >= prv);
 				if (a > prv) {
 					while (prv < a) { prv++; stk.push_back(prv); }
 					assert(stk.back() == a);
