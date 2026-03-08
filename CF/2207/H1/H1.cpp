@@ -78,8 +78,8 @@ int main() {
 				assert(ops[l_ch.back()].r == ops[mid_ch].l);
 				assert(ops[r_ch.back()].l == ops[mid_ch].r);
 				std::reverse(X.begin() + ops[l_ch.back()].l, X.begin() + ops[r_ch.back()].r);
-				std::reverse(X.begin() + ops[l_ch.back()].l, X.begin() + ops[r_ch.back()].r);
 				int loc = query();
+				std::reverse(X.begin() + ops[l_ch.back()].l, X.begin() + ops[r_ch.back()].r);
 				assert(ops[l_ch.back()].l <= loc && loc < ops[r_ch.back()].r); 
 				assert(!(ops[mid_ch].l <= loc && loc < ops[mid_ch].r));
 				if (loc < ops[mid_ch].l) {
