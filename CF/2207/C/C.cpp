@@ -92,7 +92,7 @@ int main() {
 				return {0, 0};
 			}
 			int nh = A[cur / 2];
-			int w = (h - nh) * (ct[cur].r - ct[cur].l + 1);
+			int64_t w = int64_t(h - nh) * int64_t(ct[cur].r - ct[cur].l + 1);
 			auto a = self(ct[cur].c[0], nh);
 			auto b = self(ct[cur].c[1], nh);
 			return {std::max(a[0], b[0]) + w, std::max({a[0] + b[0], a[1], b[1]}) + w};
