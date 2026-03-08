@@ -51,13 +51,7 @@ int main() {
 				op.is_max = false;
 				return std::vector<int>({l});
 			}
-			if (r - l == 2) {
-				// we could solve 2 as well, save a query
-				auto a = only(self(l, l+1, is_max));
-				auto b = only(self(r-1, r, is_max));
-				return std::vector<int>({a, b});
-			}
-			assert(r - l >= 3);
+			assert(r - l >= 2);
 			int m = known_m ? *known_m : query();
 			assert(l <= m && m < r);
 			// first, put ourselves at the bottom
@@ -75,8 +69,7 @@ int main() {
 
 			// now, we gotta merge them
 			std::reverse(r_ch.begin(), r_ch.end());
-			while (!r_ch.empty()) {
-				assert(!l_ch.empty());
+			while (!l_ch.empty() && !r_ch.empty()) {
 				assert(ops[l_ch.back()].r == ops[mid_ch].l);
 				assert(ops[r_ch.back()].l == ops[mid_ch].r);
 				std::reverse(X.begin() + ops[l_ch.back()].l, X.begin() + ops[r_ch.back()].r);
@@ -94,7 +87,10 @@ int main() {
 					l_ch.pop_back();
 				} else assert(false);
 			}
-			assert(!l_ch.empty());
+			while (!r_ch.empty()) {
+				mid_ch = merge(mid_ch, r_ch.back(), !is_max);
+				r_ch.pop_back();
+			}
 			l_ch.push_back(mid_ch);
 			return l_ch;
 		};
