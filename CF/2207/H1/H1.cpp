@@ -71,6 +71,8 @@ int main() {
 			auto r_ch = self(m+1, r, !is_max);
 			std::reverse(X.begin() + m, X.begin() + r);
 
+			std::cerr << "solve " << l << ' ' << r << ' ' << is_max << '\n';
+
 			// now, we gotta merge them
 			std::reverse(r_ch.begin(), r_ch.end());
 			while (!r_ch.empty()) {
