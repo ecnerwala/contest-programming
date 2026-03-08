@@ -132,9 +132,11 @@ void solve(){
 	auto merge_into = [&](vtx_dp v, edge_dp a, vtx_dp w) -> vtx_dp {
 		// do nothing
 		ans += v_weights[a.end_ids[0]] * v_weights[a.end_ids[1]];
+		std::cerr << "merge_into" << ' ' << a.end_ids[0] << ' ' << a.end_ids[1] << '\n';
 		return vtx_dp{};
 	};
 	auto merge_series = [&](edge_dp a, vtx_dp v, edge_dp b) -> edge_dp {
+		std::cerr << "merge_series" << ' ' << a.end_ids[0] << ' ' << b.end_ids[0] << ' ' << b.end_ids[1] << '\n';
 		assert(a.end_ids[1] == b.end_ids[0]);
 		ans += v_weights[a.end_ids[0]] * v_weights[a.end_ids[1]];
 		ans += v_weights[b.end_ids[0]] * v_weights[b.end_ids[1]];
@@ -142,6 +144,7 @@ void solve(){
 		return {{a.end_ids[0], b.end_ids[1]}, a.series_mid + v_weights[a.end_ids[1]] + b.series_mid};
 	};
 	auto merge_parallel = [&](edge_dp a, edge_dp b) -> edge_dp {
+		std::cerr << "merge_parallel" << ' ' << a.end_ids[0] << ' ' << a.end_ids[1] << '\n';
 		assert(a.end_ids == b.end_ids);
 		return {a.end_ids, 0};
 	};
