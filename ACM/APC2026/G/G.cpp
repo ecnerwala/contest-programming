@@ -129,6 +129,8 @@ void solve(){
 			return;
 		}
 	}
+	vector<vector<int> > adj(N);
+	vector<int> deg(N, 0);
 	auto merge_into = [&](vtx_dp v, edge_dp a, vtx_dp w) -> vtx_dp {
 		// do nothing
 		ans += v_weights[a.end_ids[0]] * v_weights[a.end_ids[1]];
@@ -148,10 +150,11 @@ void solve(){
 	auto merge_parallel = [&](edge_dp a, edge_dp b) -> edge_dp {
 		std::cerr << "merge_parallel" << ' ' << a.end_ids[0] << ' ' << a.end_ids[1] << '\n';
 		assert(a.end_ids == b.end_ids);
+		if (deg[a.end_ids[0]] == 1 && deg[b.end_ids[0]] == 1) {
+			ans += a.series_mid * b.series_mid;
+		}
 		return {a.end_ids, 0};
 	};
-	vector<vector<int> > adj(N);
-	vector<int> deg(N, 0);
 	vector<vtx_dp> v_dp(N, vtx_dp{});
 	vector<edge_dp> e_dp(M);
 	map<pair<int,int>, int> edge_to_id;
