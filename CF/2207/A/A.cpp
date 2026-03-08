@@ -14,7 +14,7 @@ int main() {
 		}
 		int max_cnt = 0;
 		for (int i = 0; i < N; i++) max_cnt += S[i] == '1';
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i+2 < N; i++) {
 			if (S[i] == '1' && S[i+2] == '1') S[i+1] = '0';
 		}
 		int min_cnt = 0;
