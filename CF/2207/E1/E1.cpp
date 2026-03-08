@@ -28,10 +28,11 @@ int main() {
 			std::vector<int> B; B.reserve(N+1);
 			std::vector<int> stk; stk.reserve(N+1);
 			int prv = -1;
-			for (int i = N-1; i >= 0; i--) {
-				if (A[i] > prv) {
-					while (prv < A[i]) { prv++; stk.push_back(prv); }
-					assert(stk.back() == A[i]);
+			for (int i = N-1; i >= -1; i--) {
+				int a = (i == -1 ? 0 : A[i]);
+				if (a > prv) {
+					while (prv < a) { prv++; stk.push_back(prv); }
+					assert(stk.back() == a);
 				}
 				assert(!stk.empty());
 				B.push_back(stk.back());
