@@ -183,6 +183,7 @@ void solve(){
 		if(!vtx_alive[v]) continue;
 		if(deg[v] == 0){
 			deg0s.push_back(v);
+			vtx_alive[v] = 0;
 		} else if(deg[v] == 1 || deg[v] == 2){
 			// cout << "trying " << v << ' ' << deg[v] << '\n';
 			vector<int> eids = get_eids(v);
