@@ -346,7 +346,7 @@ int main() {
 		auto query_max = [&]() -> int {
 			return seg[1].mx;
 		};
-		for (int i = 0; i <= N; i++) {
+		for (int i = 0; i < N; i++) {
 			int v = query_max() + !must_rank[i];
 			increment(i+1, i+2, v);
 			for (int j : edges_by_right[i]) {
