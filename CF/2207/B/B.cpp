@@ -25,6 +25,8 @@ int main() {
 			}
 		}
 		assert(idx == N);
+		assert(M == 1);
+		std::cout << vals[0] << '\n';
 	}
 
 	return 0;
