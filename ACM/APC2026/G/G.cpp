@@ -141,6 +141,8 @@ void solve(){
 		ans += v_weights[a.end_ids[0]] * v_weights[a.end_ids[1]];
 		ans += v_weights[b.end_ids[0]] * v_weights[b.end_ids[1]];
 		ans += a.series_mid * b.series_mid;
+		ans += a.series_mid * v_weights[b.end_ids[1]];
+		ans += v_weights[a.end_ids[0]] * b.series_mid;
 		return {{a.end_ids[0], b.end_ids[1]}, a.series_mid + v_weights[a.end_ids[1]] + b.series_mid};
 	};
 	auto merge_parallel = [&](edge_dp a, edge_dp b) -> edge_dp {
