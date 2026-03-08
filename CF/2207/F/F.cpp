@@ -324,6 +324,23 @@ int main() {
 				run_len[c]++;
 			}
 		}
+		for (int c = 0; c < M; c++) {
+			int r = N+1;
+			if (r > cur_max[c]) {
+				if (r > cur_max[c] + 1) {
+					for (int j = std::max(0, cur_max[c]+1); j < N; j++) {
+						must_rank[j] = true;
+					}
+					if (cur_max[c] >= 0) {
+						edges_by_right[cur_max[c]].push_back(cur_max[c] - run_len[c] + 1);
+						tot_edges++;
+					}
+					run_len[c] = 0;
+				}
+				cur_max[c] = r;
+				run_len[c]++;
+			}
+		}
 		// N + tot_edges - max_indep_set
 		seg_tree::in_order_layout layout(N+1);
 		struct seg_node {
