@@ -252,6 +252,8 @@ int main() {
 
 	const int V = A[N-1];
 
+	const int L = 20;
+
 	using num = modnum<998244353>;
 	std::vector<num> fact(N+1);
 	std::vector<num> ifact(N+1);
@@ -260,9 +262,9 @@ int main() {
 	ifact[N] = inv(fact[N]);
 	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 	// how do we represent polynomials? easiest way is their value at 0..d-1, and then we can evaluate at a point
-	std::vector<std::vector<num>> polys(V+1);
+	std::vector<std::array<num, L>> polys(V+1);
 	std::vector<num> extra_shift(V+1);
-	auto eval_at = [&](const std::vector<num>& p, int x) -> num {
+	auto eval_at = [&](const std::array<num, L>& p, int x) -> num {
 		assert(x >= 0);
 		assert(x <= N);
 		assert(!p.empty());
@@ -278,16 +280,20 @@ int main() {
 		return ans;
 	};
 	num ans = 0;
-	for (int v = 1, i = 0; v <= V; v++) {
+	for (int v = 1, i = -1; v <= V; v++) {
 		if (v == 1) {
-			polys[v] = {num(1)};
+			polys[v].fill(num(1));
 			extra_shift[v] = num(1);
 		} else {
-			while (A[i] < v) i++;
+			while (i < 0 || A[i] < v) i++;
 			// polys[v][k] = sum of polys[v][0]...polys[v][k-1], then shift so polys[v][i] == extra_shift[v]
-			polys[v].insert(polys[v].begin(), num(0));
-			for (int z = 1; z < int(polys[v].size()); z++) {
-				polys[v][z] += polys[v][z-1];
+			{
+				num pref = 0;
+				for (int z = 0; z < L; z++) {
+					num a = pref;
+					pref += polys[v][z];
+					polys[v][z] = a;
+				}
 			}
 			num shift = extra_shift[v] - eval_at(polys[v], i);
 			for (auto& x : polys[v]) x += shift;
@@ -298,9 +304,8 @@ int main() {
 		assert(i < N);
 		ans += eval_at(polys[v], N);
 		{
-			eval_at(polys[v], i);
 			for (int v2 = v + v; v2 <= V; v2 += v) {
-				if (v > 1 && A[i] >= v2) {
+				if (i >= 0 && A[i] >= v2) {
 					// first time v2 is legal is also the first time we're legal
 					// so polys[v2][j] = -polys[v][i], polys[v2][j+1] = 0, polys[v2][j+2] = polys[v2][i+1]
 					extra_shift[v2] -= extra_shift[v];
@@ -308,10 +313,7 @@ int main() {
 					// first time v2 is legal is after the first time we're legal
 					// so polys[v2][j] = 0, polys[v2][j+1] = polys[v2][j]
 				}
-				if (int(polys[v2].size()) < int(polys[v].size())) {
-					polys[v2].resize(polys[v].size(), num(0));
-				}
-				for (int z = 0; z < int(polys[v].size()); z++) {
+				for (int z = 0; z < L; z++) {
 					polys[v2][z] += polys[v][z];
 				}
 			}
