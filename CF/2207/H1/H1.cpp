@@ -36,6 +36,7 @@ int main() {
 			return a[0];
 		};
 		auto solve = [&](this auto&& self, int l, int r, bool is_max, std::optional<int> known_m = std::nullopt) -> std::vector<int> {
+			std::cerr << "solve " << l << ' ' << r << ' ' << is_max << '\n';
 			if (is_max) {
 				assert(std::is_sorted(X.begin() + l, X.begin() + r));
 			} else {
