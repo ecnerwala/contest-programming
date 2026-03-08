@@ -25,6 +25,8 @@ int main() {
 				vals[P[i]] += vals[i];
 			}
 		}
+		std::cerr << "test " << v << '\n';
+		for (auto x : vals) { std::cerr << x << ' '; } std::cerr << '\n';
 		return vals[0] >= 0;
 	};
 
