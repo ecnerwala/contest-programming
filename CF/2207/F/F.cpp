@@ -373,7 +373,7 @@ int main() {
 				increment(0, j+1, 1);
 			}
 		}
-		std::cout << N + tot_edges - query_max() << '\n';
+		std::cout << N + tot_edges - query_max() - 1 << '\n';
 	}
 
 	return 0;
