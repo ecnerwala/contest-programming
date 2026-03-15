@@ -37,7 +37,7 @@ int main() {
 			}
 			if (t == 0) {
 				max_L = 1;
-				q[1].push_back({1, -1});
+				q[1].push_back({N+1, -1});
 			} else {
 				{
 					int max_gap = t - prv_t;
@@ -60,7 +60,7 @@ int main() {
 						}
 					}
 					if (ma == int(q[l].size())) continue;
-					int v = q[l][ma].first + (l+1);
+					int v = q[l][ma].first + (N+1-t);
 					std::cerr << t << ' ' << l+1 << ' ' << v << '\n';
 					while (!q[l+1].empty() && v >= q[l+1].back().first) q[l+1].pop_back();
 					q[l+1].push_back({v, t - (l+1)});
@@ -80,3 +80,4 @@ int main() {
 }
 
 // Each apple must be empty at the previous apple time
+// Value of q[l] is q[l].first + l * (t+1)
