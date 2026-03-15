@@ -3,8 +3,8 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int T; std::cin >> T;
-	while (T--) {
+	int CASES; std::cin >> CASES;
+	while (CASES--) {
 		int N; std::cin >> N;
 		std::string S; std::cin >> S; assert(int(S.size()) == N);
 		std::vector<std::array<int, 2>> locs; locs.reserve(N+1);
@@ -21,28 +21,59 @@ int main() {
 				locs.back()[0]++;
 			} else assert(false);
 		}
+		// final length <= N+1
+		std::vector<std::vector<std::pair<int, int64_t>>> q(N+2);
+		int max_L = 0;
 		std::map<std::array<int, 2>, int> visit_time;
-		std::vector<int> max_L(N+1);
-		std::iota(max_L.begin(), max_L.end(), 1);
 		for (int t = 0; t <= N; t++) {
 			auto it = visit_time.find(locs[t]);
+			int prv_t;
 			if (it == visit_time.end()) {
+				prv_t = -1;
 				visit_time.insert({locs[t], t});
 			} else {
-				max_L[t] = t - it->second;
+				prv_t = it->second;
 				it->second = t;
 			}
+			if (t == 0) {
+				max_L = 1;
+				q[1].push_back({-1, 1});
+			} else {
+				{
+					int max_gap = t - prv_t;
+					assert(max_gap > 0);
+					while (max_L > max_gap) {
+						q[max_L].clear();
+						max_L --;
+					}
+					assert(max_L <= max_gap);
+				}
+				// if we do take a step
+				for (int l = max_L; l >= 1; l--) {
+					int mi = -1, ma = int(q[l].size());
+					while (ma - mi > 1) {
+						int md = (mi + ma) / 2;
+						if (q[l][md].second >= prv_t) {
+							ma = md;
+						} else {
+							mi = md;
+						}
+					}
+					if (ma == int(q[l].size())) continue;
+					int v = q[l][ma].first + (l+1);
+					while (!q[l+1].empty() && v >= q[l+1].back().first) q[l+1].pop_back();
+					q[l+1].push_back({v, t - (l+1)});
+				}
+			}
 		}
-		// you can grow by at most 1 every time
-		for (int i = N; i > 0; i--) {
-			max_L[i-1] = std::min(max_L[i-1], max_L[i]);
+		int ans = 0;
+		for (int i = 1; i <= max_L; i++) {
+			ans = std::max(ans, q[i].front().first);
 		}
-		for (int i = 0; i < N; i++) {
-			max_L[i+1] = std::min(max_L[i+1], max_L[i]+1);
-		}
-		for (auto l : max_L) { std::cerr << l << ' '; } std::cerr << '\n';
-		std::cout << std::accumulate(max_L.begin(), max_L.end(), int64_t(0)) << '\n';
+		std::cout << ans << '\n';
 	}
 
 	return 0;
 }
+
+// Each apple must be empty at the previous apple time
