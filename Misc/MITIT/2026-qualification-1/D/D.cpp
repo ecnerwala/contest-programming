@@ -50,7 +50,7 @@ int main() {
 			int idx = n;
 			if (depth == K) {
 				assert(nodes[idx].tot_cnt > 0);
-				nodes[idx].tot_cnt++;
+				nodes[idx].tot_cnt--;
 				nodes[idx].is_full = nodes[idx].tot_cnt > 0;
 				nodes[idx].best_val = 0;
 				return;
