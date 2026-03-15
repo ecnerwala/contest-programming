@@ -24,7 +24,7 @@ int main() {
 		std::map<std::array<int, 2>, int> visit_time;
 		std::vector<int> max_L(N+1);
 		std::iota(max_L.begin(), max_L.end(), 1);
-		for (int t = 0; t <= T; t++) {
+		for (int t = 0; t <= N; t++) {
 			auto it = visit_time.find(locs[t]);
 			if (it == visit_time.end()) {
 				visit_time.insert({locs[t], t});
