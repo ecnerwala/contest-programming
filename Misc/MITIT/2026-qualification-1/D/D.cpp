@@ -16,11 +16,10 @@ int main() {
 		};
 
 		std::vector<trie_node> nodes;
-		nodes.reserve(2 + K * (N+Q));
+		nodes.reserve(2 + (K+1) * (N+Q));
 		nodes.push_back(trie_node{{0, 0}, 0, false, 0});
-		nodes.push_back(trie_node{{0, 0}, 1, true, 0});
 		auto update_node = [&](int n) -> void {
-			assert(n > 1);
+			assert(n >= 1);
 			auto [l, r] = nodes[n].ch;
 			nodes[n].tot_cnt = nodes[l].tot_cnt + nodes[r].tot_cnt;
 			nodes[n].is_full = nodes[l].is_full && nodes[r].is_full;
@@ -30,16 +29,17 @@ int main() {
 		int root = 0;
 		auto insert_node = [&](this auto&& self, int& n, uint64_t v, int depth) -> void {
 			std::cerr << "insert " << n << ' ' << v << ' ' << depth << '\n';
-			assert(n != 1);
-			if (depth == K) {
-				assert(n == 0);
-				n = 1;
-				return;
-			}
 			int idx = n;
 			if (n == 0) {
 				idx = n = int(nodes.size());
 				nodes.push_back(nodes[0]);
+			}
+			assert(idx != 0);
+			if (depth == K) {
+				nodes[idx].tot_cnt++;
+				nodes[idx].is_full = nodes[idx].tot_cnt > 0;
+				nodes[idx].best_val = 0;
+				return;
 			}
 			self(nodes[idx].ch[(v >> depth) & 1], v, depth+1);
 			update_node(idx);
@@ -47,12 +47,14 @@ int main() {
 		auto delete_node = [&](this auto&& self, int& n, uint64_t v, int depth) -> void {
 			std::cerr << "delete " << n << ' ' << v << ' ' << depth << '\n';
 			assert(n != 0);
+			int idx = n;
 			if (depth == K) {
-				assert(n == 1);
-				n = 0;
+				assert(nodes[idx].tot_cnt > 0);
+				nodes[idx].tot_cnt++;
+				nodes[idx].is_full = nodes[idx].tot_cnt > 0;
+				nodes[idx].best_val = 0;
 				return;
 			}
-			int idx = n;
 			self(nodes[idx].ch[(v >> depth) & 1], v, depth+1);
 			update_node(idx);
 		};
