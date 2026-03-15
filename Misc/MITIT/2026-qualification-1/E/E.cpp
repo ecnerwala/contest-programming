@@ -65,6 +65,7 @@ int main() {
 					while (!q[l+1].empty() && v >= q[l+1].back().first) q[l+1].pop_back();
 					q[l+1].push_back({v, t - (l+1)});
 					max_L = std::max(max_L, l+1);
+					assert(max_L <= t - prv_t);
 				}
 			}
 		}
