@@ -40,6 +40,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			max_L[i+1] = std::min(max_L[i+1], max_L[i]+1);
 		}
+		for (auto l : max_L) { std::cerr << l << ' '; } std::cerr << '\n';
 		std::cout << std::accumulate(max_L.begin(), max_L.end(), int64_t(0)) << '\n';
 	}
 
