@@ -22,7 +22,7 @@ int main() {
 			std::array<int, 2> ends{vals[0].begin()->first, vals[1].begin()->first};
 			sums[0] -= ends[0];
 			sums[1] -= ends[1];
-			if (N & 1) {
+			if (!(N & 1)) {
 				std::sort(ends.begin(), ends.end());
 			} else {
 				std::sort(ends.begin(), ends.end(), std::greater<>());
