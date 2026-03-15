@@ -29,6 +29,7 @@ int main() {
 		assert(K >= 1);
 		int root = 0;
 		auto insert_node = [&](this auto&& self, int& n, uint64_t v, int depth) -> void {
+			std::cerr << "insert " << n << ' ' << v << ' ' << depth << '\n';
 			assert(n != 1);
 			if (depth == K) {
 				assert(n == 0);
@@ -44,6 +45,7 @@ int main() {
 			update_node(idx);
 		};
 		auto delete_node = [&](this auto&& self, int& n, uint64_t v, int depth) -> void {
+			std::cerr << "delete " << n << ' ' << v << ' ' << depth << '\n';
 			assert(n != 0);
 			if (depth == K) {
 				assert(n == 1);
