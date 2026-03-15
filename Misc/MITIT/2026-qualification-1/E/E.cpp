@@ -61,7 +61,7 @@ int main() {
 					}
 					if (ma == int(q[l].size())) continue;
 					int v = q[l][ma].first + (l+1);
-					std::cerr << t << ' ' << l << ' ' << v << '\n';
+					std::cerr << t << ' ' << l+1 << ' ' << v << '\n';
 					while (!q[l+1].empty() && v >= q[l+1].back().first) q[l+1].pop_back();
 					q[l+1].push_back({v, t - (l+1)});
 					max_L = std::max(max_L, l+1);
