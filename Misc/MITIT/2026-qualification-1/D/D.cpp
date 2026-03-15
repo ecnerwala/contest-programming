@@ -62,14 +62,14 @@ int main() {
 			insert_node(root, a, 0);
 		}
 		assert(!nodes[root].is_full);
-		std::cout << nodes[root].best_val << '\n';
+		std::cout << nodes[root].best_val - nodes[root].tot_cnt << '\n';
 		for (int q = 0; q < Q; q++) {
 			int i; uint64_t v; std::cin >> i >> v; i--;
 			delete_node(root, A[i], 0);
 			A[i] = v;
 			insert_node(root, A[i], 0);
 			assert(!nodes[root].is_full);
-			std::cout << nodes[root].best_val << '\n';
+			std::cout << nodes[root].best_val - nodes[root].tot_cnt << '\n';
 		}
 	}
 
