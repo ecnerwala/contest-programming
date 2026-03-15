@@ -37,7 +37,7 @@ int main() {
 			}
 			if (t == 0) {
 				max_L = 1;
-				q[1].push_back({-1, 1});
+				q[1].push_back({1, -1});
 			} else {
 				{
 					int max_gap = t - prv_t;
