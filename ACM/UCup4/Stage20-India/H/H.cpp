@@ -392,6 +392,7 @@ int main() {
 			if (i+1 < N) cover_range(A[i], A[i+1], +1);
 			std::cout << seg[1].max_gap_covered << '\n';
 			std::cerr << seg[1].max_gap_all << '\n';
+			std::cerr << seg[1].l_gap << ' ' << seg[1].r_gap << '\n';
 		}
 	}
 
