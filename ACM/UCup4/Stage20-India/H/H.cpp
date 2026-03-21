@@ -324,7 +324,7 @@ int main() {
 				}
 				seg[a].l_covered = seg[a].r_covered = false;
 			} else {
-				if (!seg[a].alive) {
+				if (!seg[a.c(0)].alive && !seg[a.c(1)].alive) {
 					seg[a].alive = 0;
 					seg[a].max_gap_covered = seg[a].max_gap_all = 0;
 					seg[a].l_gap = seg[a].r_gap = seg[a.c(0)].l_gap + seg[a.c(1)].r_gap;
