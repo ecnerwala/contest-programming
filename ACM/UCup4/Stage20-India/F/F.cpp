@@ -61,6 +61,7 @@ int main() {
 				if (dp2[i] != INF) dp2[i] -= V[i];
 			}
 			std::swap(dp, dp2);
+			for (auto v : dp) { std::cerr << v << ' '; } std::cerr << '\n';
 		}
 		std::cout << *std::min_element(dp.begin(), dp.end()) << '\n';
 	}
