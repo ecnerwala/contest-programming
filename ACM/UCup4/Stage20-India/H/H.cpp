@@ -365,11 +365,9 @@ int main() {
 		auto cover_range = [&](int l, int r, int w) -> void {
 			if (l <= r) return;
 			assert(l > r);
-			std::cerr << "do " << r << ' ' << l << ' ' << w << '\n';
 			auto rng = layout.get_range(r, l);
 			rng.for_each([&](seg_tree::point a) -> void {
 				seg[a].lazy_cover += w;
-				std::cerr << ' ' << a << ' ' << w << '\n';
 				assert(seg[a].lazy_cover >= 0);
 				update_node(a);
 			});
@@ -398,8 +396,6 @@ int main() {
 			if (i-1 >= 0) cover_range(A[i-1], A[i], +1);
 			if (i+1 < N) cover_range(A[i], A[i+1], +1);
 			std::cout << seg[1].max_gap_covered << '\n';
-			std::cerr << seg[1].max_gap_all << '\n';
-			std::cerr << seg[1].l_gap << ' ' << seg[1].r_gap << '\n';
 		}
 	}
 
