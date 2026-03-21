@@ -222,6 +222,7 @@ int main() {
 		std::vector<std::vector<std::tuple<int, int, int>>> ops(N+1);
 		for (auto r : rects) {
 			assert(r[0][0] <= r[0][1] && r[0][1] <= r[1][0] && r[1][0] <= r[1][1]);
+			std::cerr << r[0][0] << '-' << r[0][1] << ' ' << r[1][0] << '-' << r[1][1] << '\n';
 			r[0][1]++, r[1][1]++;
 			ops[r[0][0]].push_back({r[1][0], -1, +1});
 			ops[r[0][0]].push_back({r[1][1], -1, -1});
