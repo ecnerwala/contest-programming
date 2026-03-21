@@ -438,7 +438,7 @@ int main() {
 				for (int i = 0; i+1 < N; i++) {
 					mx = std::max(mx, vals[i].second);
 					if (mx != i) {
-						slo = std::max(slo, A[i+1] - A[i]);
+						slo = std::max(slo, vals[i+1].first - vals[i].first);
 					}
 				}
 				for (auto a : A) { std::cerr << a << ' '; } std::cerr << '\n';
