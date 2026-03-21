@@ -365,6 +365,7 @@ int main() {
 			auto rng = layout.get_range(r, l);
 			rng.for_each([&](seg_tree::point a) -> void {
 				seg[a].lazy_cover += w;
+				std::cerr << ' ' << a << ' ' << w << '\n';
 				assert(seg[a].lazy_cover >= 0);
 				update_node(a);
 			});
