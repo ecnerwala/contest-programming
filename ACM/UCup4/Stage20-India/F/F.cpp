@@ -35,8 +35,8 @@ int main() {
 			}
 		}
 
-		for (auto v : prv_bigger) { std::cerr << v << ' '; } std::cerr << '\n';
-		for (auto v : nxt_bigger) { std::cerr << v << ' '; } std::cerr << '\n';
+		//for (auto v : prv_bigger) { std::cerr << v << ' '; } std::cerr << '\n';
+		//for (auto v : nxt_bigger) { std::cerr << v << ' '; } std::cerr << '\n';
 
 		const int64_t INF = 2e18;
 		std::vector<int64_t> dp(N, INF);
@@ -65,7 +65,7 @@ int main() {
 				if (dp2[i] != INF) dp2[i] -= V[i];
 			}
 			std::swap(dp, dp2);
-			for (auto v : dp) { std::cerr << v << ' '; } std::cerr << '\n';
+			//for (auto v : dp) { std::cerr << v << ' '; } std::cerr << '\n';
 		}
 		std::cout << *std::min_element(dp.begin(), dp.end()) << '\n';
 	}
