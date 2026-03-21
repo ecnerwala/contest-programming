@@ -160,7 +160,7 @@ int main() {
 	while (T--) {
 		int N, Q;
 		if (TESTING) {
-			N = std::uniform_int_distribution(1, 10)(mt);
+			N = std::uniform_int_distribution(1, 5)(mt);
 			Q = (N-1) * (N-2) / 2;
 		} else {
 			std::cin >> N >> Q;
