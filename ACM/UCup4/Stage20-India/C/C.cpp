@@ -150,11 +150,40 @@ public:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int T; std::cin >> T;
+	constexpr bool TESTING = true;
+
+	std::mt19937 mt(48);
+
+	int T;
+	if (TESTING) T = 10000;
+	else std::cin >> T;
 	while (T--) {
-		int N, Q; std::cin >> N >> Q;
+		int N, Q;
+		if (TESTING) {
+			N = std::uniform_int_distribution(1, 10)(mt);
+			Q = (N-1) * (N-2) / 2;
+		} else {
+			std::cin >> N >> Q;
+		}
 		std::vector<int> A(N);
-		for (auto& a : A) std::cin >> a;
+		if (TESTING) {
+			for (auto& a : A) {
+				a = std::uniform_int_distribution(1, 10)(mt);
+			}
+		} else {
+			for (auto& a : A) std::cin >> a;
+		}
+		std::vector<std::array<int, 2>> queries(Q);
+		if (TESTING) {
+			queries.clear();
+			for (int i = 0; i < N; i++) {
+				for (int j = i+3; j <= N; j++) {
+					queries.push_back({i, j});
+				}
+			}
+		} else {
+			for (auto& [l, r] : queries) { std::cin >> l >> r; l--; }
+		}
 		// double inclusive
 		std::vector<std::array<std::array<int, 2>, 2>> rects; rects.reserve(3 * N);
 		std::vector<int> prv_smaller(N);
@@ -233,7 +262,7 @@ int main() {
 
 		std::vector<int64_t> ans(Q);
 		for (int q = 0; q < Q; q++) {
-			int l, r; std::cin >> l >> r; l--;
+			auto [l, r] = queries[q];
 			int len = r - l;
 			assert(len >= 3);
 			ans[q] = int64_t(len) * int64_t(len - 1) * int64_t(len - 2) / 6;
