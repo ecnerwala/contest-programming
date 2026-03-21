@@ -310,16 +310,16 @@ int main() {
 
 	int T; std::cin >> T;
 	while (T--) {
-		int N, M; std::cin >> N >> M;
+		int N_ROUNDS, M; std::cin >> N_ROUNDS >> M;
 		using num = modnum<998244353>;
 		using lin_fn = pairnum<num, num>;
 
 		std::vector<num> dp(M);
 		dp[0] = 1;
 		std::vector<lin_fn> prefs(3*M);
-		for (int z = 0; z < N; z++) {
+		for (int z = 0; z < N_ROUNDS; z++) {
 			std::fill(prefs.begin(), prefs.end(), lin_fn(0, 0));
-			for (int i = 0; i < N; i++) {
+			for (int i = 0; i < M; i++) {
 				lin_fn f1 = lin_fn(dp[i], dp[i]) * lin_fn(M - 2 * i, +1);
 				prefs[i] += f1;
 				prefs[2*i] -= f1;
