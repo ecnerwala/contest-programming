@@ -330,11 +330,15 @@ int main() {
 					seg[a].l_gap = seg[a].r_gap = seg[a.c(0)].l_gap + seg[a.c(1)].r_gap;
 					seg[a].l_covered = seg[a].r_covered = seg[a.c(0)].l_covered || seg[a.c(1)].r_covered;
 				} else if (!seg[a.c(0)].alive) {
+					int old_lazy = seg[a].lazy_cover;
 					seg[a] = seg[a.c(1)];
+					seg[a].lazy_cover = old_lazy;
 					seg[a].l_gap += seg[a.c(0)].l_gap;
 					seg[a].l_covered |= seg[a.c(0)].l_covered;
 				} else if (!seg[a.c(1)].alive) {
+					int old_lazy = seg[a].lazy_cover;
 					seg[a] = seg[a.c(0)];
+					seg[a].lazy_cover = old_lazy;
 					seg[a].r_gap += seg[a.c(1)].r_gap;
 					seg[a].r_covered |= seg[a.c(1)].r_covered;
 				} else {
