@@ -293,10 +293,31 @@ struct circular_layout {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int T; std::cin >> T;
+	constexpr bool TESTING = true;
+	std::mt19937_64 mt(48);
+
+	int T;
+	if (TESTING) {
+		T = 1000000;
+	} else {
+		std::cin >> T;
+	}
 	while (T--) {
-		int N, Q; std::cin >> N >> Q;
-		std::vector<int> A(N); for (auto& a : A) { std::cin >> a; a--; }
+		int N, Q;
+		if (TESTING) {
+			N = std::uniform_int_distribution<int>(1, 20)(mt);
+			Q = std::uniform_int_distribution<int>(20, 50)(mt);
+		} else {
+			std::cin >> N >> Q;
+		}
+		std::vector<int> A(N);
+		if (TESTING) {
+			for (auto& a : A) {
+				a = std::uniform_int_distribution<int>(0, N-1)(mt);
+			}
+		} else {
+			for (auto& a : A) { std::cin >> a; a--; }
+		}
 		seg_tree::in_order_layout layout(N);
 		struct seg_node {
 			int lazy_cover = 0;
@@ -387,15 +408,41 @@ int main() {
 		}
 
 		for (int q = 0; q < Q; q++) {
-			int i, v; std::cin >> i >> v; i--, v--;
-			if (i-1 >= 0) cover_range(A[i-1], A[i], -1);
-			if (i+1 < N) cover_range(A[i], A[i+1], -1);
-			enable_point(A[i], -1);
-			A[i] = v;
-			enable_point(A[i], +1);
-			if (i-1 >= 0) cover_range(A[i-1], A[i], +1);
-			if (i+1 < N) cover_range(A[i], A[i+1], +1);
-			std::cout << seg[1].max_gap_covered << '\n';
+			{
+				int i, v;
+				if (TESTING) {
+					i = std::uniform_int_distribution<int>(0, N-1)(mt);
+					v = std::uniform_int_distribution<int>(0, N-1)(mt);
+				} else {
+					std::cin >> i >> v; i--, v--;
+				}
+				if (i-1 >= 0) cover_range(A[i-1], A[i], -1);
+				if (i+1 < N) cover_range(A[i], A[i+1], -1);
+				enable_point(A[i], -1);
+				A[i] = v;
+				enable_point(A[i], +1);
+				if (i-1 >= 0) cover_range(A[i-1], A[i], +1);
+				if (i+1 < N) cover_range(A[i], A[i+1], +1);
+			}
+			int ans = seg[1].max_gap_covered;
+			std::cout << ans << '\n';
+
+			if (TESTING) {
+				std::vector<std::pair<int, int>> vals(N);
+				for (int i = 0; i < N; i++) {
+					vals[i] = {A[i], i};
+				}
+				int slo = 0;
+				std::sort(vals.begin(), vals.end());
+				int mx = -1;
+				for (int i = 0; i+1 < N; i++) {
+					mx = std::max(mx, vals[i].second);
+					if (mx != i) {
+						slo = std::max(slo, A[i+1] - A[i]);
+					}
+				}
+				assert(ans == slo);
+			}
 		}
 	}
 
