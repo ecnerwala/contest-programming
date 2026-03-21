@@ -254,6 +254,7 @@ int main() {
 						v[3] += int64_t(x) * int64_t(y) * w;
 					}
 				} else {
+					assert(0 <= o && o < Q);
 					int64_t r = 0;
 					for (const auto& v : bit.prefix(y)) {
 						r += v[0] * int64_t(x) * int64_t(y);
