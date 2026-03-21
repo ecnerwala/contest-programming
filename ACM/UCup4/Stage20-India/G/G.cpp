@@ -318,7 +318,7 @@ int main() {
 		dp[0] = 1;
 		std::vector<lin_fn> prefs(3*M);
 		for (int z = 0; z < N; z++) {
-			std::fill(prefs.begin(), prefs.end(), lin_fn(0));
+			std::fill(prefs.begin(), prefs.end(), lin_fn(0, 0));
 			for (int i = 0; i < N; i++) {
 				lin_fn f1 = lin_fn(dp[i], dp[i]) * lin_fn(M - 2 * i, +1);
 				prefs[i] += f1;
