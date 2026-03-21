@@ -197,7 +197,7 @@ int main() {
 						if (stk[md].val >= v) ma = md;
 						else mi = md;
 					}
-					std::cerr << "val " << stk.back().val << A[i] << '\n';
+					//std::cerr << "val " << stk.back().val << A[i] << '\n';
 					l_bounds = {mi == -1 ? 0 : stk[mi].idx + 1, stk.end()[-2].idx};
 				}
 				stk.push_back({A[i], i, l_bounds});
@@ -223,7 +223,7 @@ int main() {
 		std::vector<std::vector<std::tuple<int, int, int>>> ops(N+1);
 		for (auto r : rects) {
 			//assert(r[0][0] <= r[0][1] && r[0][1] <= r[1][0] && r[1][0] <= r[1][1]);
-			std::cerr << r[0][0] << '-' << r[0][1] << ' ' << r[1][0] << '-' << r[1][1] << '\n';
+			//std::cerr << r[0][0] << '-' << r[0][1] << ' ' << r[1][0] << '-' << r[1][1] << '\n';
 			r[0][1]++, r[1][1]++;
 			ops[r[0][0]].push_back({r[1][0], -1, +1});
 			ops[r[0][0]].push_back({r[1][1], -1, -1});
