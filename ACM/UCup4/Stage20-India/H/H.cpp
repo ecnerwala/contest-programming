@@ -361,6 +361,7 @@ int main() {
 		auto cover_range = [&](int l, int r, int w) -> void {
 			if (l <= r) return;
 			assert(l > r);
+			std::cerr << "do " << r << ' ' << l << ' ' << w << '\n';
 			auto rng = layout.get_range(r, l);
 			rng.for_each([&](seg_tree::point a) -> void {
 				seg[a].lazy_cover += w;
