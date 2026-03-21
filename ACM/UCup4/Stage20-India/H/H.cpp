@@ -299,8 +299,8 @@ int main() {
 		std::vector<int> A(N); for (auto& a : A) { std::cin >> a; a--; }
 		seg_tree::in_order_layout layout(N);
 		struct seg_node {
-			int lazy_cover;
-			int alive;
+			int lazy_cover = 0;
+			int alive = 0;
 
 			int max_gap_covered;
 			int max_gap_all;
@@ -357,6 +357,7 @@ int main() {
 				seg[a].max_gap_covered = seg[a].max_gap_all;
 			}
 		};
+		for (seg_tree::point a(2*layout.N-1); a > 0; a--) update_node(a);
 		auto cover_range = [&](int l, int r, int w) -> void {
 			if (l <= r) return;
 			assert(l > r);
