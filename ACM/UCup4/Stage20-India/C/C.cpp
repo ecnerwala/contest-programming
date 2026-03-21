@@ -150,7 +150,7 @@ public:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 
 	std::mt19937 mt(48);
 
@@ -158,9 +158,9 @@ int main() {
 	if (TESTING) T = 10000;
 	else std::cin >> T;
 	while (T--) {
-		std::cerr << "start case" << '\n' << '\n';
 		int N, Q;
 		if (TESTING) {
+			std::cerr << "start case" << '\n' << '\n';
 			N = std::uniform_int_distribution(1, 5)(mt);
 			Q = (N-1) * (N-2) / 2;
 		} else {
