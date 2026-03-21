@@ -241,7 +241,7 @@ int main() {
 			ops[r].push_back({r, q, +1});
 		}
 
-		binary_indexed_tree<std::array<int64_t, 4>> bit;
+		binary_indexed_tree<std::array<int64_t, 4>> bit(N+1);
 		for (int x = 0; x <= N; x++) {
 			for (auto [y, o, w] : ops[x]) {
 				if (o == -1) {
