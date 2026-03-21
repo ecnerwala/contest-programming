@@ -365,6 +365,7 @@ int main() {
 			auto rng = layout.get_range(r, l);
 			rng.for_each([&](seg_tree::point a) -> void {
 				seg[a].lazy_cover += w;
+				assert(seg[a].lazy_cover >= 0);
 				update_node(a);
 			});
 			rng.for_parents_up(update_node);
