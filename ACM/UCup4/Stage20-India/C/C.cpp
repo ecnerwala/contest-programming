@@ -202,8 +202,8 @@ int main() {
 				assert(ls[1] <= rs[0]);
 				if (z) {
 					std::swap(ls, rs);
-					ls = {N-1-ls[0], N-1-ls[1]};
-					rs = {N-1-rs[0], N-1-rs[1]};
+					ls = {N-1-ls[1], N-1-ls[0]};
+					rs = {N-1-rs[1], N-1-rs[0]};
 					assert(ls[1] <= rs[0]);
 				}
 				rects.push_back({ls, rs});
