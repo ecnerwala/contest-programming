@@ -210,7 +210,7 @@ int main() {
 		}
 		std::reverse(nxt_smaller.begin(), nxt_smaller.end());
 		for (int i = 0; i < N; i++) {
-			nxt_smaller[i] = N-1-i;
+			nxt_smaller[i] = N-1-nxt_smaller[i];
 		}
 
 		for (int i = 0; i < N; i++) {
