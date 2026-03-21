@@ -216,7 +216,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			assert(prv_smaller[i] < i);
 			assert(i < nxt_smaller[i]);
-			rects.push_back({std::array<int, 2>{prv_smaller[i]+1, i}, std::array<int, 2>{i, nxt_smaller[i]-1}});
+			rects.push_back({std::array<int, 2>{prv_smaller[i]+1, i-1}, std::array<int, 2>{i+1, nxt_smaller[i]-1}});
 		}
 
 		std::vector<std::vector<std::tuple<int, int, int>>> ops(N+1);
