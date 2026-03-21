@@ -158,6 +158,7 @@ int main() {
 	if (TESTING) T = 10000;
 	else std::cin >> T;
 	while (T--) {
+		std::cerr << "start case" << '\n' << '\n';
 		int N, Q;
 		if (TESTING) {
 			N = std::uniform_int_distribution(1, 5)(mt);
