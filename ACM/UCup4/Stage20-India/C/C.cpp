@@ -298,40 +298,42 @@ int main() {
 				}
 			}
 		}
-		auto score_slow = [&](int l, int r) -> int {
-			std::vector<int> pref(A.begin() + l, A.begin() + r);
-			std::vector<int> suff(A.begin() + l, A.begin() + r);
-			for (int i = 1; i < int(pref.size()); i++) {
-				pref[i] = std::min(pref[i], pref[i-1]);
-			}
-			for (int i = int(pref.size())-2; i >= 0; i--) {
-				suff[i] = std::min(suff[i], suff[i+1]);
-			}
-			int cnt = 0;
-			for (int i = 1; i+1 < int(pref.size()); i++) {
-				cnt += 2 * A[l+i] > pref[i-1] + suff[i+1];
-			}
-			return cnt;
-		};
-		auto solve_slow = [&](int l, int r) -> int64_t {
-			int64_t tot = 0;
-			for (int i = l; i <= r; i++) {
-				for (int j = i+3; j <= r; j++) {
-					tot += score_slow(i, j);
+		if (TESTING) {
+			auto score_slow = [&](int l, int r) -> int {
+				std::vector<int> pref(A.begin() + l, A.begin() + r);
+				std::vector<int> suff(A.begin() + l, A.begin() + r);
+				for (int i = 1; i < int(pref.size()); i++) {
+					pref[i] = std::min(pref[i], pref[i-1]);
 				}
-			}
-			return tot;
-		};
-		for (int q = 0; q < Q; q++) {
-			auto [l, r] = queries[q];
-			auto slo = solve_slow(l, r);
-			auto mine = ans[q];
-			if (slo != mine) {
-				std::cerr << N << '\n';
-				for (auto a : A) { std::cerr << a << ' '; } std::cerr << '\n';
-				std::cerr << l << ' ' << r << '\n';
-				std::cerr << slo << " != " << mine << '\n';
-				assert(false);
+				for (int i = int(pref.size())-2; i >= 0; i--) {
+					suff[i] = std::min(suff[i], suff[i+1]);
+				}
+				int cnt = 0;
+				for (int i = 1; i+1 < int(pref.size()); i++) {
+					cnt += 2 * A[l+i] > pref[i-1] + suff[i+1];
+				}
+				return cnt;
+			};
+			auto solve_slow = [&](int l, int r) -> int64_t {
+				int64_t tot = 0;
+				for (int i = l; i <= r; i++) {
+					for (int j = i+3; j <= r; j++) {
+						tot += score_slow(i, j);
+					}
+				}
+				return tot;
+			};
+			for (int q = 0; q < Q; q++) {
+				auto [l, r] = queries[q];
+				auto slo = solve_slow(l, r);
+				auto mine = ans[q];
+				if (slo != mine) {
+					std::cerr << N << '\n';
+					for (auto a : A) { std::cerr << a << ' '; } std::cerr << '\n';
+					std::cerr << l << ' ' << r << '\n';
+					std::cerr << slo << " != " << mine << '\n';
+					assert(false);
+				}
 			}
 		}
 		for (auto a : ans) std::cout << a << '\n';
