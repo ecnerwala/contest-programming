@@ -441,8 +441,10 @@ int main() {
 						slo = std::max(slo, vals[i+1].first - vals[i].first);
 					}
 				}
-				for (auto a : A) { std::cerr << a << ' '; } std::cerr << '\n';
-				std::cerr << ans << ' ' << slo << '\n';
+				if (ans != slo) {
+					for (auto a : A) { std::cerr << a << ' '; } std::cerr << '\n';
+					std::cerr << ans << ' ' << slo << '\n';
+				}
 				assert(ans == slo);
 			}
 		}
