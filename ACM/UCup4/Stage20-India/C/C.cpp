@@ -197,6 +197,7 @@ int main() {
 						if (stk.back().val >= v) ma = md;
 						else mi = md;
 					}
+					std::cerr << "val " << stk.back().val << A[i] << '\n';
 					l_bounds = {mi == -1 ? 0 : stk[mi].idx + 1, stk.end()[-2].idx};
 				}
 				stk.push_back({A[i], i, l_bounds});
