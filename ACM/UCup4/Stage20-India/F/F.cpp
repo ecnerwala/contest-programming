@@ -8,14 +8,14 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, K; std::cin >> N >> K;
-		std::vector<int> A(N);
-		for (auto& a : A) std::cin >> a;
+		std::vector<int> A_orig(N);
+		for (auto& a : A_orig) std::cin >> a;
 
 		K = N-K; // number of 0's
 		N++;
 		std::vector<int64_t> V(N);
 		for (int i = 0; i+1 < N; i++) {
-			V[i+1] = V[i] + A[i];
+			V[i+1] = V[i] + A_orig[i];
 		}
 		std::vector<int> prv_bigger(N);
 		std::vector<int> nxt_bigger(N);
@@ -27,6 +27,7 @@ int main() {
 					stk.pop_back();
 				}
 				prv_bigger[i] = stk.empty() ? -1 : stk.back().second;
+				stk.push_back({V[i], i});
 			}
 			while (!stk.empty()) {
 				nxt_bigger[stk.back().second] = N;
