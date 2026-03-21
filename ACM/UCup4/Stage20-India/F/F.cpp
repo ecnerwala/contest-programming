@@ -34,6 +34,9 @@ int main() {
 			}
 		}
 
+		for (auto v : prv_bigger) { std::cerr << v << ' '; } std::cerr << '\n';
+		for (auto v : nxt_bigger) { std::cerr << v << ' '; } std::cerr << '\n';
+
 		const int64_t INF = 2e18;
 		std::vector<int64_t> dp(N, INF);
 		std::vector<int64_t> dp2(N, INF);
