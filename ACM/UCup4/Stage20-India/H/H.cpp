@@ -293,7 +293,7 @@ struct circular_layout {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::mt19937_64 mt(48);
 
 	int T;
