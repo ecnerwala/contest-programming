@@ -194,7 +194,7 @@ int main() {
 					int mi = -1, ma = int(stk.size()) - 1;
 					while (ma - mi > 1) {
 						int md = (mi + ma) / 2;
-						if (stk.back().val >= v) ma = md;
+						if (stk[md].val >= v) ma = md;
 						else mi = md;
 					}
 					std::cerr << "val " << stk.back().val << A[i] << '\n';
