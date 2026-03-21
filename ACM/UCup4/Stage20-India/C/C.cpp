@@ -326,6 +326,8 @@ int main() {
 			auto slo = solve_slow(l, r);
 			auto mine = ans[q];
 			if (slo != mine) {
+				std::cerr << N << '\n';
+				for (auto a : A) { std::cerr << a << ' '; } std::cerr << '\n';
 				std::cerr << l << ' ' << r << '\n';
 				std::cerr << slo << " != " << mine << '\n';
 				assert(false);
