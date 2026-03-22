@@ -71,8 +71,7 @@ int main() {
 		}
 	}
 
-	for (int v = last+1; ccs > 1 && v < V; v++) {
-		assert(need[v] == mx-1);
+	for (int v = (last+1) % V; ccs > 1; v++, v %= V) {
 		need[v]++;
 		assert(need[v] > pref[v]);
 		ccs -= merge(v, v+1);
