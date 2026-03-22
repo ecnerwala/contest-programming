@@ -9,7 +9,7 @@ int main() {
 	for (auto& f : F) std::cin >> f;
 
 	int W_loops = (W-1) / D;
-	int64_t ans = int64_t(W_loops) * int64_t(N - 1);
+	int64_t ans = int64_t(W_loops) * int64_t(D) * int64_t(N - 1);
 	W -= D * W_loops;
 
 	std::vector<int> vals; vals.reserve(2*N+2);
