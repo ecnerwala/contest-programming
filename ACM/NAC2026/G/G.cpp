@@ -51,6 +51,7 @@ int main() {
 				int64_t c = sq(gems[i].first - gems[v].first);
 				if (a > b + c) {
 					double area = std::sqrt(2 * (double(a) * double(b) + double(b) * double(c) + double(c) * double(a)) - double(a) * double(a) - double(b) * double(b) - double(c) * double(c));
+					area /= 2;
 					return area / std::abs(gems[i].first - gems[v].first);
 				}
 			}
