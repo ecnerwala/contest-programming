@@ -23,7 +23,8 @@ int main() {
 	int V = int(vals.size());
 	vals.push_back(D);
 
-	std::vector<int> par(V, -1);
+	int ccs = V+1;
+	std::vector<int> par(V+1, -1);
 	auto get_par = [&](int a) -> int {
 		while (par[a] >= 0) {
 			if (par[par[a]] >= 0) par[a] = par[par[a]];
@@ -39,8 +40,8 @@ int main() {
 		par[b] = a;
 		return true;
 	};
+	ccs -= merge(0, V);
 
-	int ccs = V;
 	std::vector<int> pref(V+1);
 	for (auto f : F) {
 		int st = int(std::lower_bound(vals.begin(), vals.end(), f) - vals.begin());
