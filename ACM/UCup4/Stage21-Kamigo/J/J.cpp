@@ -1569,7 +1569,7 @@ int main() {
 	using num = dynamic_modnum<my_tag>;
 	num::set_mod(P);
 	struct my_tag_dlog {};
-	using num_dlog = dynamic_modnum<my_tag>;
+	using num_dlog = dynamic_modnum<my_tag_dlog>;
 	num_dlog::set_mod(P-1);
 
 	using ps = ecnerwala::power_series_fft_2ntt<num>;
