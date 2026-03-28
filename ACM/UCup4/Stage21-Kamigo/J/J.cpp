@@ -1576,7 +1576,7 @@ int main() {
 	using ps_dlog = ecnerwala::power_series_fft_2ntt<num_dlog>;
 
 	std::vector<int> pfacs; pfacs.reserve(32);
-	for (int v = P, i = 2; v >= 1; i++) {
+	for (int v = P, i = 2; v > 1; i++) {
 		if (v % i == 0) {
 			pfacs.push_back(i);
 			while (v % i == 0) v /= i;
