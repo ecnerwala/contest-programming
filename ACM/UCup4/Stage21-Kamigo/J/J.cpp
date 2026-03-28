@@ -1590,8 +1590,8 @@ int main() {
 	A *= B;
 	for (int i = 0; i < max_a; i++) A[i] = 0;
 	for (int i = max_a; i < P; i++) {
-		std::cerr << i << ' ' << A[i] * fact[i] << '\n';
 		A[i] *= power(fact[i], N-1);
+		std::cerr << i << ' ' << A[i] * fact[i] << '\n';
 	}
 
 	ps C(ifact.begin(), ifact.end());
