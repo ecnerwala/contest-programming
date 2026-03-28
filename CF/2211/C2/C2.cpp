@@ -10,21 +10,40 @@ int main() {
 		std::vector<int> B(N); for (auto& b : B) std::cin >> b;
 
 		std::cout << ([&]() -> bool {
-			// the first N-K must be equal, the last N-K must be equal
-			for (int i = 0; i < N-K; i++) {
-				if (B[i] != -1 && A[i] != B[i]) return false;
-			}
-			for (int i = N-1; i >= K; i--) {
-				if (B[i] != -1 && A[i] != B[i]) return false;
-			}
-			if (N-K <= K) {
-				std::vector<int> cnt(N+1);
-				for (int i = N-K; i < K; i++) {
-					cnt[A[i]]++;
-					if (B[i] != -1) cnt[B[i]]--;
+			// for each mod K, if it's periodic
+			for (int m = 0; m < K; m++) {
+				bool is_periodic = true;
+				for (int i = m; i+K < N; i += K) {
+					if (A[i] != A[i+K]) is_periodic = false;
 				}
-				for (auto v : cnt) if (v < 0) return false;
+				if (!is_periodic) {
+					assert(m+K < N);
+					// they must all match
+					for (int i = m; i < N; i += K) {
+						if (B[i] == -1) B[i] = A[i];
+						if (A[i] != B[i]) return false;
+					}
+				} else {
+					// they must be all equal
+					int b = -1;
+					for (int i = m; i < N; i += K) {
+						if (B[i] != -1) { b = B[i]; break; }
+					}
+					if (b != -1) {
+						for (int i = m; i < N; i += K) {
+							if (B[i] == -1) { B[i] = b; }
+							if (B[i] != b) return false;
+						}
+					}
+					// now, it's either -1 or not -1
+				}
 			}
+			std::vector<int> cnt(N+1);
+			for (int i = 0; i < K; i++) {
+				cnt[A[i]]++;
+				if (B[i] != -1) cnt[B[i]]--;
+			}
+			for (auto v : cnt) if (v < 0) return false;
 			return true;
 		}() ? "YES" : "NO") << '\n';
 	}
