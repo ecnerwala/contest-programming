@@ -1611,7 +1611,7 @@ int main() {
 	for (int i = 1; i <= P-1; i++) fact[i] = -fact[i-1] * num(-i);
 	std::vector<num> ifact(P);
 	ifact[P-1] = inv(fact[P-1]);
-	for (int i = P-1; i >= 1; i--) ifact[i-1] = ifact[i] * num(-i);
+	for (int i = P-1; i >= 1; i--) ifact[i-1] = -ifact[i] * num(-i);
 
 	ps_dlog A_dlog(P);
 	num_dlog base = 0;
