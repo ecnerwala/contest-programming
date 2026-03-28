@@ -367,9 +367,9 @@ private:
 public:
 
 	dynamic_modnum() : v(0) {}
-	dynamic_modnum(int v_) : v(v_ >= 0 ? barrett_reduce(v_) : MOD - barrett_reduce(-v_)) { if (v == MOD) v = 0; }
+	dynamic_modnum(int v_) : v(v_ >= 0 ? barrett_reduce(v_) : (MOD-1) - barrett_reduce(~v_)) { }
 	dynamic_modnum(unsigned v_) : v(barrett_reduce(v_)) { }
-	dynamic_modnum(int64_t v_) : v(v_ >= 0 ? barrett_reduce(v_) : MOD - barrett_reduce(-v_)) { if (v == MOD) v = 0; }
+	dynamic_modnum(int64_t v_) : v(v_ >= 0 ? barrett_reduce(v_) : (MOD-1) - barrett_reduce(~v_)) { }
 	dynamic_modnum(uint64_t v_) : v(barrett_reduce(v_)) { }
 	explicit operator int() const { return v; }
 	friend std::ostream& operator << (std::ostream& out, dynamic_modnum n) { return out << int(n); }
