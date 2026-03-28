@@ -1635,7 +1635,10 @@ int main() {
 
 	ps C(ifact.begin(), ifact.end());
 	for (int i = 1; i < P; i += 2) C[i] = -C[i];
+	for (int i = 0; i < P; i++) std::cerr << A[i] << ' '; std::cerr << '\n';
+	for (int i = 0; i < P; i++) std::cerr << C[i] << ' '; std::cerr << '\n';
 	A *= C;
+	for (int i = 0; i < P; i++) std::cerr << A[i] << ' '; std::cerr << '\n';
 	num ans = 0;
 	for (int i = max_a; i < P; i++) {
 		std::cerr << i << ' ' << A[i] * fact[i] << '\n';
