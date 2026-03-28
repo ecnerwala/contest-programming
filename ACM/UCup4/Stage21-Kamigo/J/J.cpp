@@ -1571,6 +1571,8 @@ int main() {
 	struct my_tag_dlog {};
 	using num_dlog = dynamic_modnum<my_tag_dlog>;
 	num_dlog::set_mod(P-1);
+	std::vector<int> V(N);
+	for (auto& a : V) std::cin >> a;
 
 	using ps = ecnerwala::power_series_fft_2ntt<num>;
 	using ps_dlog = ecnerwala::power_series_fft_2ntt<num_dlog>;
@@ -1612,8 +1614,7 @@ int main() {
 	ps_dlog A_dlog(P);
 	num_dlog base = 0;
 	int max_a = 0;
-	for (int i = 0; i < N; i++) {
-		int a; std::cin >> a;
+	for (int a : V) {
 		assert(1 <= a && a <= P-1);
 		max_a = std::max(max_a, a);
 		base += to_dlog[int(ifact[a])];
@@ -1627,7 +1628,12 @@ int main() {
 	ps A(P);
 	for (int i = 0; i < max_a; i++) A[i] = 0;
 	for (int i = max_a; i < P; i++) {
-		A[i] = from_dlog[int(to_dlog[int(fact[i])] * num_dlog(N-1) + base + A_dlog[i])];
+		//A[i] = from_dlog[int(to_dlog[int(fact[i])] * num_dlog(N-1) + base + A_dlog[i])];
+		A[i] = 1;
+		for (auto a : V) {
+			A[i] *= fact[i] * ifact[a] * ifact[i-a];
+		}
+		A[i] *= ifact[i];
 		std::cerr << i << ' ' << A[i] * fact[i] << '\n';
 	}
 
