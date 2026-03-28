@@ -367,10 +367,10 @@ private:
 public:
 
 	dynamic_modnum() : v(0) {}
-	dynamic_modnum(int v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
-	dynamic_modnum(unsigned v_) : v(int(v_ % MOD)) { }
-	dynamic_modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
-	dynamic_modnum(uint64_t v_) : v(int(v_ % MOD)) { }
+	dynamic_modnum(int v_) : v(v_ >= 0 ? barrett_reduce(v_) : MOD - barrett_reduce(-v_)) { if (v == MOD) v = 0; }
+	dynamic_modnum(unsigned v_) : v(barrett_reduce(v_)) { }
+	dynamic_modnum(int64_t v_) : v(v_ >= 0 ? barrett_reduce(v_) : MOD - barrett_reduce(-v_)) { if (v == MOD) v = 0; }
+	dynamic_modnum(uint64_t v_) : v(barrett_reduce(v_)) { }
 	explicit operator int() const { return v; }
 	friend std::ostream& operator << (std::ostream& out, dynamic_modnum n) { return out << int(n); }
 	friend std::istream& operator >> (std::istream& in, dynamic_modnum& n) { int64_t v_; in >> v_; n = dynamic_modnum(v_); return in; }
@@ -1597,7 +1597,6 @@ int main() {
 			}
 			return true;
 		}()) gen++;
-		std::cerr << "generator " << gen << '\n';
 		num v = 1;
 		for (int i = 0; i < P-1; i++) {
 			if (i) assert(v != 1);
