@@ -106,10 +106,10 @@ int main() {
 		const int V = N + M + 1;
 		std::vector<num> fact(V+1);
 		fact[0] = 1;
-		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		for (int i = 1; i <= V; i++) fact[i] = fact[i-1] * num(i);
 		std::vector<num> ifact(V+1);
 		ifact[V] = inv(fact[V]);
-		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+		for (int i = V; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		auto ways_with_eq = [&](int a) -> num {
 			int cnt = N - a + 1;
