@@ -136,12 +136,12 @@ int main() {
 			for (int a = 1; a <= L; a++) {
 				if (L % a == 0) cnt++;
 			}
-			std::cout << cnt << '\n';
+			std::cout << num(cnt) << '\n';
 		} else {
 			std::cout << 1 << '\n';
 		}
 		for (int i = 0; i < X+Y; i++) {
-			std::cout << (i < X ? 1 : -1) << " \n"[i==X+Y];
+			std::cout << (i < X ? 1 : -1) << " \n"[i+1==X+Y];
 		}
 	}
 
