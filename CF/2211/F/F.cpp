@@ -141,9 +141,11 @@ int main() {
 				ans -= num(cost) * num(cnt_big) * ways_with_eq((l_big - 1) / 2 + 2);
 				ans += num(cost) * num(cnt_big-1) * ways_with_eq(l_big + 2);
 
-				ans -= num(cost) * num(cnt_small) * ways_with_eq((l_small - 0) / 2 + 2);
-				ans -= num(cost) * num(cnt_small-1) * ways_with_eq((l_small - 1) / 2 + 2);
-				ans += num(cost) * num(cnt_small-1) * ways_with_eq(l_small + 2);
+				if (l_small > 0) {
+					ans -= num(cost) * num(cnt_small) * ways_with_eq((l_small - 0) / 2 + 2);
+					ans -= num(cost) * num(cnt_small-1) * ways_with_eq((l_small - 1) / 2 + 2);
+					ans += num(cost) * num(cnt_small-1) * ways_with_eq(l_small + 2);
+				}
 			}
 
 			assert(l_big - l_small <= 1);
