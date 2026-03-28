@@ -367,7 +367,10 @@ private:
 public:
 
 	dynamic_modnum() : v(0) {}
+	dynamic_modnum(int v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	dynamic_modnum(unsigned v_) : v(int(v_ % MOD)) { }
 	dynamic_modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	dynamic_modnum(uint64_t v_) : v(int(v_ % MOD)) { }
 	explicit operator int() const { return v; }
 	friend std::ostream& operator << (std::ostream& out, dynamic_modnum n) { return out << int(n); }
 	friend std::istream& operator >> (std::istream& in, dynamic_modnum& n) { int64_t v_; in >> v_; n = dynamic_modnum(v_); return in; }
