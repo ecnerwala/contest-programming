@@ -1579,12 +1579,28 @@ int main() {
 	for (int i = P-1; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 	ps A(P);
+	int max_a = 0;
 	for (int i = 0; i < N; i++) {
 		int a; std::cin >> a;
+		assert(1 <= a && a <= P-1);
+		max_a = std::max(max_a, a);
 		A[a] += ifact[a];
 	}
 	ps B(ifact.begin(), ifact.end());
 	A *= B;
+	for (int i = 0; i < max_a; i++) A[i] = 0;
+	for (int i = max_a; i < P; i++) {
+		A[i] *= power(fact[i], N-1);
+	}
+
+	ps C(ifact.begin(), ifact.end());
+	for (int i = 1; i < P; i += 2) C[i] = -C[i];
+	A *= C;
+	num ans = 0;
+	for (int i = max_a; i < P; i++) {
+		ans += A[i] * fact[i];
+	}
+	std::cout << ans << '\n';
 
 	return 0;
 }
