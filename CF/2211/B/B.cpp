@@ -129,21 +129,29 @@ int main() {
 	while (T--) {
 		int X, Y; std::cin >> X >> Y;
 		using num = modnum<676767677>;
+		int vX = 1, vY = -1;
 
-		if (X == 0 || Y == 0) {
-			int L = X + Y;
-			int cnt = 0;
-			for (int a = 1; a <= L; a++) {
-				if (L % a == 0) cnt++;
-			}
-			std::cout << num(cnt) << '\n';
-		} else {
+		if (X > Y) {
+			std::swap(X, Y);
+			std::swap(vX, vY);
+		}
+		if (X == Y) {
 			std::cout << 1 << '\n';
+		} else {
+			num cnt = 0;
+			int d = Y-X;
+			assert(d > 0);
+			for (int a = 1; a <= d; a++) {
+				if (d % a == 0) cnt++;
+			}
+			std::cout << cnt << '\n';
 		}
 		for (int i = 0; i < X+Y; i++) {
-			std::cout << (i < X ? 1 : -1) << " \n"[i+1==X+Y];
+			std::cout << (i < X ? vX : vY) << " \n"[i+1==X+Y];
 		}
 	}
 
 	return 0;
 }
+
+// always goes up or down by 1, starts at 0 and ends at X-Y
