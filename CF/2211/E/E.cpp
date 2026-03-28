@@ -41,6 +41,7 @@ int main() {
 					int64_t nv = std::gcd(v, A[cur]);
 					if (nv > 1) good_cost[cur].insert(nv);
 				}
+				good_cost[nxt] = {};
 			}
 			if (good_cost[cur].empty()) {
 				cost[cur]++;
