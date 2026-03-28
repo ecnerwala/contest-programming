@@ -15,8 +15,9 @@ int main() {
 			int last_dist = 1;
 			for (int i = 0; i <= N; i++) {
 				if (pref[i] * N < pref[0] * (N-i) + pref[N] * i) {
+					assert(i != 0 && i != N);
 					return true;
-				} else if (pref[i] * N == pref[0] * (N-i) * pref[N] * i) {
+				} else if (pref[i] * N == pref[0] * (N-i) + pref[N] * i) {
 					last_dist = 0;
 				}
 				last_dist++;
