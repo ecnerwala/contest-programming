@@ -334,7 +334,7 @@ int main() {
 				a.for_parents_up(update_node);
 			}
 			ans[i] = [&]() -> int {
-				if (v == 1 || v == N) {
+				if (v == 0 || v == N-1) {
 					return (N == 1) ? 1 : 2;
 				} else {
 					assert(N >= 3);
