@@ -1579,22 +1579,22 @@ int main() {
 
 	std::vector<int> pfacs; pfacs.reserve(32);
 	for (int v = P-1, i = 2; v > 1; i++) {
-		std::cerr << "trying " << v << ' ' << i << '\n';
 		if (v % i == 0) {
 			pfacs.push_back(i);
 			while (v % i == 0) v /= i;
 		}
 	}
-	num gen = 1;
-	while (![&]() -> bool {
-		for (int p : pfacs) {
-			if (power(gen, (P-1)/p) == num(1)) return false;
-		}
-		return true;
-	}()) gen++;
 	std::vector<num_dlog> to_dlog(P);
 	std::vector<num> from_dlog(P-1);
 	{
+		num gen = 1;
+		while (![&]() -> bool {
+			for (int p : pfacs) {
+				if (power(gen, (P-1)/p) == num(1)) return false;
+			}
+			return true;
+		}()) gen++;
+		std::cerr << "generator " << gen << '\n';
 		num v = 1;
 		for (int i = 0; i < P-1; i++) {
 			if (i) assert(v != 1);
