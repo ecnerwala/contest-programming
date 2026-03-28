@@ -1583,7 +1583,7 @@ int main() {
 			while (v % i == 0) v /= i;
 		}
 	}
-	num gen = 2;
+	num gen = 1;
 	while (![&]() -> bool {
 		for (int p : pfacs) {
 			if (power(gen, (P-1)/p) == num(1)) return false;
