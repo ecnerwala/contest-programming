@@ -8,17 +8,22 @@ int main() {
 		int N; std::cin >> N;
 		std::vector<int> A(N);
 		for (auto& a : A) std::cin >> a;
-		int64_t tot = 0;
-		int64_t w_tot = 0;
-		for (int i = 0; i < N; i++) {
-			tot += A[i];
-			w_tot += i * int64_t(A[i]);
-		}
-		if (w_tot * 2 >= (N-1) * tot) {
-			std::cout << "Yes" << '\n';
-		} else {
-			std::cout << "No" << '\n';
-		}
+		std::cout << ([&]() -> bool {
+			std::vector<int64_t> pref(N+1);
+			for (int i = 0; i < N; i++) pref[i+1] = pref[i] + A[i];
+			bool can_eq = true;
+			int last_dist = 1;
+			for (int i = 0; i <= N; i++) {
+				if (pref[i] * N < pref[0] * (N-i) + pref[N] * i) {
+					return true;
+				} else if (pref[i] * N == pref[0] * (N-i) * pref[N] * i) {
+					last_dist = 0;
+				}
+				last_dist++;
+				if (last_dist > 2) can_eq = false;
+			}
+			return can_eq;
+		}() ? "Yes" : "No") << '\n';
 	}
 
 	return 0;
