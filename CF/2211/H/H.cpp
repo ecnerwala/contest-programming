@@ -14,7 +14,7 @@ int main() {
 			tot += A[i];
 			w_tot += i * int64_t(A[i]);
 		}
-		if (w_tot * 2 >= N-1 * tot) {
+		if (w_tot * 2 >= (N-1) * tot) {
 			std::cout << "Yes" << '\n';
 		} else {
 			std::cout << "No" << '\n';
