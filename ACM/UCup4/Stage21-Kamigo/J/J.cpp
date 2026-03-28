@@ -1568,8 +1568,38 @@ int main() {
 	struct my_tag {};
 	using num = dynamic_modnum<my_tag>;
 	num::set_mod(P);
+	struct my_tag_dlog {};
+	using num_dlog = dynamic_modnum<my_tag>;
+	num_dlog::set_mod(P-1);
 
 	using ps = ecnerwala::power_series_fft_2ntt<num>;
+	using ps_dlog = ecnerwala::power_series_fft_2ntt<num_dlog>;
+
+	std::vector<int> pfacs; pfacs.reserve(32);
+	for (int v = P, i = 2; v >= 1; i++) {
+		if (v % i == 0) {
+			pfacs.push_back(i);
+			while (v % i == 0) v /= i;
+		}
+	}
+	num gen = 2;
+	while (![&]() -> bool {
+		for (int p : pfacs) {
+			if (power(gen, (P-1)/p) == num(1)) return false;
+		}
+		return true;
+	}()) gen++;
+	std::vector<num_dlog> to_dlog(P);
+	std::vector<num> from_dlog(P-1);
+	{
+		num v = 1;
+		for (int i = 0; i < P-1; i++) {
+			if (i) assert(v != 1);
+			to_dlog[int(v)] = i;
+			from_dlog[i] = v;
+			v *= gen;
+		}
+	}
 
 	std::vector<num> fact(P);
 	fact[0] = 1;
@@ -1578,19 +1608,25 @@ int main() {
 	ifact[P-1] = inv(fact[P-1]);
 	for (int i = P-1; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-	ps A(P);
+	ps_dlog A_dlog(P);
+	num_dlog base = 0;
 	int max_a = 0;
 	for (int i = 0; i < N; i++) {
 		int a; std::cin >> a;
 		assert(1 <= a && a <= P-1);
 		max_a = std::max(max_a, a);
-		A[a] += ifact[a];
+		base += to_dlog[int(ifact[a])];
+		A_dlog[a] ++;
 	}
-	ps B(ifact.begin(), ifact.end());
-	A *= B;
+	ps_dlog B(P);
+	for (int i = 0; i < P; i++) {
+		B[i] = to_dlog[int(ifact[i])];
+	}
+	A_dlog *= B;
+	ps A(P);
 	for (int i = 0; i < max_a; i++) A[i] = 0;
 	for (int i = max_a; i < P; i++) {
-		A[i] *= power(fact[i], N-1);
+		A[i] = from_dlog[int(to_dlog[int(fact[i])] * num_dlog(N-1) + base + A_dlog[i])];
 		std::cerr << i << ' ' << A[i] * fact[i] << '\n';
 	}
 
