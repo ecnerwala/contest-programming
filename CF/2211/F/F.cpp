@@ -103,6 +103,65 @@ int main() {
 		int N, M; std::cin >> N >> M;
 
 		using num = modnum<676767677>;
+		const int V = N + M + 1;
+		std::vector<num> fact(V+1);
+		fact[0] = 1;
+		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(V+1);
+		ifact[V] = inv(fact[V]);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+		auto ways_with_eq = [&](int a) -> num {
+			int cnt = N - a + 1;
+			// cnt things with M values
+			return fact[cnt + M - 1] * ifact[cnt] * ifact[M - 1];
+		};
+
+		num ans = 0;
+		int l_big = N;
+		int l_small = N-1;
+		int cnt_big = 1;
+		int cnt_small = 0;
+		for (int cost = 1; l_big > 0; cost++) {
+			assert(cnt_big > 0);
+			ans += num(cost) * num(cnt_big + cnt_small) * ways_with_eq(1);
+			if (cost == 1) {
+				// it's always 1
+			} else {
+				// we subtract 1 big and 1 small, if they exist
+				assert(cnt_big + cnt_small >= 2);
+				if (cnt_small == 0) {
+					l_small = l_big;
+					cnt_small = 1;
+					cnt_big--;
+				}
+				ans -= num(cost) * num(cnt_big-1) * ways_with_eq((l_big - 0) / 2 + 2);
+				ans -= num(cost) * num(cnt_big) * ways_with_eq((l_big - 1) / 2 + 2);
+				ans += num(cost) * num(cnt_big-1) * ways_with_eq(l_big + 2);
+
+				ans -= num(cost) * num(cnt_small) * ways_with_eq((l_small - 0) / 2 + 2);
+				ans -= num(cost) * num(cnt_small-1) * ways_with_eq((l_small - 1) / 2 + 2);
+				ans += num(cost) * num(cnt_small-1) * ways_with_eq(l_small + 2);
+			}
+
+			assert(l_big - l_small <= 1);
+			if (l_small == 0) {
+				break;
+			}
+			int nl_big = l_big / 2;
+			int nl_small = nl_big - 1;
+			int ncnt_big = 0;
+			int ncnt_small = 0;
+			(((l_big - 0) / 2) == nl_big ? ncnt_big : ncnt_small) += cnt_big;
+			(((l_big - 1) / 2) == nl_big ? ncnt_big : ncnt_small) += cnt_big;
+			(((l_small - 0) / 2) == nl_big ? ncnt_big : ncnt_small) += cnt_small;
+			(((l_small - 1) / 2) == nl_big ? ncnt_big : ncnt_small) += cnt_small;
+			l_big = nl_big;
+			l_small = nl_small;
+			cnt_big = ncnt_big;
+			cnt_small = ncnt_small;
+		}
+		std::cout << ans << '\n';
 	}
 
 	return 0;
