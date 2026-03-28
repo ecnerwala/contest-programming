@@ -323,7 +323,7 @@ int main() {
 			fns[1] = {num(0), num(1)};
 			for (int i = 1; i < N; i++) {
 				// fns[i+1] = 4 fns[i] - fns[i-1] - fns[
-				fns[i+1] = fns[i] * 4 - fns[i-1] - lin_fn(num(2) + dp[N-1][i-1] + dp[N-1][i], num(0));
+				fns[i+1] = fns[i] * lin_fn(num(4), num(4)) - fns[i-1] - lin_fn(num(2) + dp[N-1][i-1] + dp[N-1][i], num(0));
 			}
 			num a = (inv(num(2)) + dp[N-1][N-1] - fns[N].u) / fns[N].v;
 			for (int i = 0; i <= N; i++) {
