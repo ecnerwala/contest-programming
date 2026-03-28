@@ -125,9 +125,9 @@ int main() {
 		for (int cost = 1; l_big > 0; cost++) {
 			std::cerr << N << ' ' << l_big << ' ' << cnt_big << ' ' << l_small << ' ' << cnt_small << '\n';
 			assert(cnt_big > 0);
-			ans += num(cost) * num(cnt_big + cnt_small) * ways_with_eq(1);
 			if (cost == 1) {
 				// it's always 1
+				ans += num(cost) * num(cnt_big + cnt_small) * ways_with_eq(1);
 			} else {
 				// we subtract 1 big and 1 small, if they exist
 				assert(cnt_big + cnt_small >= 2);
@@ -137,11 +137,13 @@ int main() {
 					cnt_big--;
 				}
 				std::cerr << N << ' ' << l_big << ' ' << cnt_big << ' ' << l_small << ' ' << cnt_small << '\n';
+				ans += num(cost) * num(cnt_big) * ways_with_eq(1);
 				ans -= num(cost) * num(cnt_big-1) * ways_with_eq((l_big - 0) / 2 + 2);
 				ans -= num(cost) * num(cnt_big) * ways_with_eq((l_big - 1) / 2 + 2);
 				ans += num(cost) * num(cnt_big-1) * ways_with_eq(l_big + 2);
 
 				if (l_small > 0) {
+					ans += num(cost) * num(cnt_small) * ways_with_eq(1);
 					ans -= num(cost) * num(cnt_small) * ways_with_eq((l_small - 0) / 2 + 2);
 					ans -= num(cost) * num(cnt_small-1) * ways_with_eq((l_small - 1) / 2 + 2);
 					ans += num(cost) * num(cnt_small-1) * ways_with_eq(l_small + 2);
