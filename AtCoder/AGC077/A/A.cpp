@@ -69,6 +69,7 @@ int main() {
 			while (x.len() > 0 && X[x.l] == Y[y.l]) {
 				x.incr_head(), y.incr_head(), pre.incr_head(), post.incr_head();
 			}
+			assert(get_pref(pref_X, x) == get_pref(pref_Y, y));
 			if (x.len() == 0) return;
 			assert(X[x.l] != Y[y.l]);
 			int dir = (X[x.l] == 'B') - (Y[y.l] == 'B');
