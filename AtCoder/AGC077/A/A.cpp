@@ -87,7 +87,7 @@ int main() {
 				};
 				int mi = 1, ma = x.len();
 				assert(chk(mi));
-				assert(!chk(mi));
+				assert(!chk(ma));
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					if (chk(md)) {
