@@ -132,6 +132,8 @@ int main() {
 		std::string Y = X;
 		std::shuffle(X.begin(), X.end(), mt);
 		std::shuffle(Y.begin(), Y.end(), mt);
+		std::cerr << X << '\n';
+		std::cerr << Y << '\n';
 		solve(X, Y);
 	}
 	std::cerr << "done testing" << '\n';
