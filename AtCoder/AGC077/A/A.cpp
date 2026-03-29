@@ -8,7 +8,7 @@ struct interval_t {
 	void decr_tail() {
 		r -= d;
 	}
-	int len() const { return (r - l + 1) * d; }
+	int len() const { return (r - l) * d + 1; }
 	void flip() {
 		std::swap(l, r);
 		d = -d;
