@@ -73,8 +73,6 @@ int main() {
 			if (x.len() == 0) return;
 			assert(X[x.l] != Y[y.l]);
 			int dir = (X[x.l] == 'B') - (Y[y.l] == 'B');
-			std::cerr << dir << '\n';
-			std::cerr << x.len() << '\n';
 			// now, we find a good prefix
 			auto chk = [&](int md) -> bool {
 				int vx = get_pref(pref_X, with_len(x, md));
@@ -129,19 +127,21 @@ int main() {
 		ops.insert(ops.end(), post_ops.rbegin(), post_ops.rend());
 		return ops;
 	};
-	std::mt19937 mt(48);
-	for (int z = 0; z < 100000; z++) {
-		int N = std::uniform_int_distribution<int>(1, 20)(mt);
-		int cA = std::uniform_int_distribution<int>(0, N)(mt);
-		std::string X = std::string(cA, 'A') + std::string(N - cA, 'B');
-		std::string Y = X;
-		std::shuffle(X.begin(), X.end(), mt);
-		std::shuffle(Y.begin(), Y.end(), mt);
-		std::cerr << X << '\n';
-		std::cerr << Y << '\n';
-		solve(X, Y);
+	if (false) {
+		std::mt19937 mt(48);
+		for (int z = 0; z < 100000; z++) {
+			int N = std::uniform_int_distribution<int>(1, 20)(mt);
+			int cA = std::uniform_int_distribution<int>(0, N)(mt);
+			std::string X = std::string(cA, 'A') + std::string(N - cA, 'B');
+			std::string Y = X;
+			std::shuffle(X.begin(), X.end(), mt);
+			std::shuffle(Y.begin(), Y.end(), mt);
+			std::cerr << X << '\n';
+			std::cerr << Y << '\n';
+			solve(X, Y);
+		}
+		std::cerr << "done testing" << '\n';
 	}
-	std::cerr << "done testing" << '\n';
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
