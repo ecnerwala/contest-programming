@@ -126,7 +126,7 @@ int main() {
 	};
 	std::mt19937 mt(48);
 	for (int z = 0; z < 100000; z++) {
-		int N = std::uniform_int_distribution<int>(1, 5)(mt);
+		int N = std::uniform_int_distribution<int>(1, 20)(mt);
 		int cA = std::uniform_int_distribution<int>(0, N)(mt);
 		std::string X = std::string(cA, 'A') + std::string(N - cA, 'B');
 		std::string Y = X;
