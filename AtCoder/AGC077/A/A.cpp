@@ -127,7 +127,7 @@ int main() {
 			ops.insert(ops.end(), pre_ops.begin(), pre_ops.end());
 			ops.push_back({L, R});
 			ops.insert(ops.end(), post_ops.rbegin(), post_ops.rend());
-			return std::move(ops);
+			return ops;
 		};
 
 		auto ans = solve();
