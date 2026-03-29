@@ -81,7 +81,7 @@ int main() {
 					int vx = get_pref(pref_X, with_len(x, md));
 					int vy = get_pref(pref_Y, with_len(y, md));
 					if (md == 1) {
-						std::cerr << "check " << x.l << ' ' << y.l << ' ' << vx << ' ' << vy << '\n';
+						std::cerr << "check " << x.l << ' ' << y.l << ' ' << vx << ' ' << vy << ' ' << dir << '\n';
 					}
 					return (vx - vy) * dir > 0;
 				};
