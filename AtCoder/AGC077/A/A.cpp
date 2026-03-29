@@ -134,6 +134,7 @@ int main() {
 		std::shuffle(Y.begin(), Y.end(), mt);
 		solve(X, Y);
 	}
+	std::cerr << "done testing" << '\n';
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
