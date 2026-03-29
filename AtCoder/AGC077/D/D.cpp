@@ -449,7 +449,7 @@ int main() {
 	ways_right[0] = 1;
 	ways_left[0] = 1;
 	for (int l = 1; l <= N; l++) {
-		for (int i = 0; i < l; i++) {
+		for (int i = 0; i+1 <= l; i++) {
 			ways_any[l] += ways_left[i] * ways_right[l-1-i];
 			ways_left[l] += ways_left[i] * ways_right[l-1-i] * num(i+1);
 		}
