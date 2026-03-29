@@ -65,6 +65,7 @@ int main() {
 		std::vector<std::array<int, 2>> pre_ops; pre_ops.reserve(N);
 		std::vector<std::array<int, 2>> post_ops; post_ops.reserve(N);
 		[&](this auto&& self, interval_t x, interval_t pre, interval_t post, interval_t y) {
+			assert(get_pref(pref_X, x) == get_pref(pref_Y, y));
 			while (x.len() > 0 && X[x.l] == Y[y.l]) {
 				x.incr_head(), y.incr_head(), pre.incr_head(), post.incr_head();
 			}
