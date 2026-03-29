@@ -56,7 +56,7 @@ int main() {
 						auto it = unvisited.lower_bound(nxt);
 						if (it == unvisited.end()) break;
 						nxt = *it;
-						while (adj_it != adj[cur].end() && *adj_it < nxt) ++*adj_it;
+						while (adj_it != adj[cur].end() && *adj_it < nxt) ++adj_it;
 						if (adj_it != adj[cur].end() && *adj_it == nxt) {
 							// skip it
 						} else {
