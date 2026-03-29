@@ -460,6 +460,8 @@ int main() {
 	}
 
 	for (int i = 0; i <= N; i++) { std::cerr << ways_any[i] << ' '; } std::cerr << '\n';
+	for (int i = 0; i <= N; i++) { std::cerr << ways_left[i] << ' '; } std::cerr << '\n';
+	for (int i = 0; i <= N; i++) { std::cerr << ways_right[i] << ' '; } std::cerr << '\n';
 
 	// intersperse 0's as well
 	std::vector<num> ways_with_0(N+2);
