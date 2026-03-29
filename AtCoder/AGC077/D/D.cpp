@@ -459,7 +459,16 @@ int main() {
 		}
 	}
 
-	std::cout << ways_any[N] << '\n';
+	// intersperse 0's as well
+	std::vector<num> ways_with_0(N+2);
+	ways_with_0[0] = 1;
+	for (int i = 0; i <= N; i++) {
+		for (int j = 0; i+j <= N; j++) {
+			ways_with_0[i+j+1] += ways_with_0[i] * ways_any[j];
+		}
+	}
+
+	std::cout << ways_with_0[N+1] << '\n';
 
 	return 0;
 }
