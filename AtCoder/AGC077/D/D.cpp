@@ -442,26 +442,22 @@ int main() {
 	int N; std::cin >> N >> num::MOD_READER();
 
 	std::vector<num> ways_any(N+1);
-	std::vector<num> ways_right(N+1);
 	std::vector<num> ways_left(N+1);
 
 	ways_any[0] = 1;
-	ways_right[0] = 1;
 	ways_left[0] = 1;
 	for (int l = 1; l <= N; l++) {
 		for (int i = 0; i+1 <= l; i++) {
-			ways_any[l] += ways_left[i] * ways_right[l-1-i];
-			ways_left[l] += ways_left[i] * ways_right[l-1-i] * num(i+1);
+			ways_any[l] += ways_left[i] * ways_any[l-1-i] * num(l-i);
+			ways_left[l] += ways_left[i] * ways_any[l-1-i] * num(l-i) * num(i+1);
 		}
-		ways_right[l] += ways_any[l] * num(l+1);
 		for (int i = 0; i+1 <= l; i++) {
-			ways_right[l] += ways_any[i] * ways_right[l-1-i];
+			ways_left[l] += ways_left[i] * ways_any[l-1-i];
 		}
 	}
 
 	for (int i = 0; i <= N; i++) { std::cerr << ways_any[i] << ' '; } std::cerr << '\n';
 	for (int i = 0; i <= N; i++) { std::cerr << ways_left[i] << ' '; } std::cerr << '\n';
-	for (int i = 0; i <= N; i++) { std::cerr << ways_right[i] << ' '; } std::cerr << '\n';
 
 	// intersperse 0's as well
 	std::vector<num> ways_with_0(N+2);
