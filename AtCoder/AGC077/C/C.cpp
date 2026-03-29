@@ -23,10 +23,11 @@ int main() {
 				out_deg[i] = (N-1-i) & 1;
 				tgt_1s += out_deg[i];
 			}
+			assert(tgt_1s == N / 2);
 			for (auto [u, v] : edges) {
 				adj[u].push_back(v);
 				adj[v].push_back(u);
-				if (u < v) {
+				if (u > v) {
 					out_deg[u] ^= 1;
 					out_deg[v] ^= 1;
 				}
