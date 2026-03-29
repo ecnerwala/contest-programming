@@ -74,6 +74,7 @@ int main() {
 			assert(X[x.l] != Y[y.l]);
 			int dir = (X[x.l] == 'B') - (Y[y.l] == 'B');
 			std::cerr << dir << '\n';
+			std::cerr << x.len() << '\n';
 			// now, we find a good prefix
 			auto chk = [&](int md) -> bool {
 				int vx = get_pref(pref_X, with_len(x, md));
