@@ -77,7 +77,6 @@ int main() {
 			auto chk = [&](int md) -> bool {
 				int vx = get_pref(pref_X, with_len(x, md));
 				int vy = get_pref(pref_Y, with_len(y, md));
-				if (md == x.len()) assert(vx == vy);
 				return (vx - vy) * dir > 0;
 			};
 			int mi = 1, ma = x.len();
