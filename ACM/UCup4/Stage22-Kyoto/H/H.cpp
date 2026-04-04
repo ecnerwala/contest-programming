@@ -396,6 +396,9 @@ int main() {
 	}
 	*/
 
+	auto t = query_tree(gen_tree(4));
+	for (auto v : t) { std::cerr << v << ' '; } std::cerr << '\n';
+
 	int N; std::cin >> N;
 
 	std::string cur(N, '1');
