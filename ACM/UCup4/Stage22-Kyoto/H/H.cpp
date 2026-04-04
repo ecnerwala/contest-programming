@@ -410,7 +410,7 @@ int main() {
 			num v; std::cin >> v;
 			if (j < N) res[j] = v;
 		}
-		ans[i] = (newton_to_elem(res) == get_tgt(N-1)) ? '1' : '0';
+		ans[i] = (newton_to_elem(res).back() == get_tgt(N-1)) ? '1' : '0';
 	}
 	std::cout << '!' << ' ' << ans << '\n' << std::flush;
 
