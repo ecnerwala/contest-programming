@@ -184,19 +184,20 @@ int main() {
 
 	for (int q = 0; q < Q; q++) {
 		int64_t c; std::cin >> c;
+		pt_t dir{-c, 1};
 		int mi = 0;
 		int ma = int(hull.size());
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
-			auto a = dot(hull[md-1], pt_t{-c, 1});
-			auto b = dot(hull[md-0], pt_t{-c, 1});
+			auto a = dot(hull[md-1], dir);
+			auto b = dot(hull[md-0], dir);
 			if (a > b) {
 				ma = md;
 			} else {
 				mi = md;
 			}
 		}
-		std::cout << dot(hull[mi], pt_t{-c, 1}) << '\n';
+		std::cout << dot(hull[mi], dir) << '\n';
 	}
 
 	return 0;
