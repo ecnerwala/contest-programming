@@ -184,7 +184,6 @@ int main() {
 
 	for (int q = 0; q < Q; q++) {
 		int64_t c; std::cin >> c;
-		int64_t ans = 0;
 		int mi = 0;
 		int ma = int(hull.size());
 		while (ma - mi > 1) {
