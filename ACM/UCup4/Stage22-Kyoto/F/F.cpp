@@ -72,7 +72,7 @@ int main() {
 		return true;
 	};
 	for (auto e : edges) {
-		for (auto v : e) {
+		for (auto& v : e) {
 			auto [it, did_insert] = ids.insert({v, int(ids.size())});
 			if (did_insert) {
 				par.push_back(-1);
