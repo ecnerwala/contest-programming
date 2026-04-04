@@ -127,7 +127,7 @@ int main() {
 		assert(r - l >= 1);
 		if (r - l == 1) {
 			// just self
-			max_diff[0] = std::max(max_diff[0], v_hi[l] - v_lo[l]);
+			setmax(max_diff[0], v_hi[l] - v_lo[l]);
 			return;
 		}
 		int m = l + (r - l) / 2;
@@ -180,6 +180,15 @@ int main() {
 		pt_t cnd = {i, max_diff[i]};
 		while (hull.size() >= 2 && cross3(hull.end()[-2], hull.end()[-1], cnd) > 0) hull.pop_back();
 		hull.push_back(cnd);
+	}
+
+	for (int q = 0; q < Q; q++) {
+		int64_t c; std::cin >> c;
+		int64_t ans = 0;
+		for (int i = 0; i < L; i++) {
+			setmax(ans, max_diff[i] - i * c);
+		}
+		std::cout << ans << '\n';
 	}
 
 	return 0;
