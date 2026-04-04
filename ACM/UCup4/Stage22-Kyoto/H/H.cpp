@@ -397,14 +397,12 @@ int main() {
 		return -num(N-1) * power(num(-2), N-2);
 	};
 
-	/*
 	for (int N = 2; N <= 10; N++) {
 		num tgt = get_tgt(N);
 		for (int z = 0; z <= 20; z++) {
 			std::cerr << N << ' ' << newton_to_elem(query_tree(gen_tree(N))).back() << ' ' << tgt << '\n';
 		}
 	}
-	*/
 
 	int N; std::cin >> N;
 
