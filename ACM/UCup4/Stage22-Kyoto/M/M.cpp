@@ -165,7 +165,7 @@ int main() {
 		while (lo_it != lo_gaps.end() || hi_it != hi_gaps.end()) {
 			auto cmp = angle_cmp(pt_t{1, 0});
 			// we want the bigger one
-			if (lo_it != lo_gaps.end() && (hi_it == hi_gaps.end() || cmp(*hi_it, *lo_it))) {
+			if (lo_it != lo_gaps.end() && (hi_it == hi_gaps.end() || !cmp(*hi_it, *lo_it))) {
 				cur += *lo_it;
 				++lo_it;
 			} else {
