@@ -62,6 +62,7 @@ int main() {
 		return a;
 	};
 	auto merge = [&](int a, int b) -> bool {
+		std::cerr << "merge " << a << ' ' << b << '\n';
 		a = get_par(a), b = get_par(b);
 		if (a == b) return false;
 		if (par[a] > par[b]) std::swap(a, b);
