@@ -1595,6 +1595,11 @@ int main() {
 		gf[i] = v * ifact[i];
 	}
 
+	auto gflog = poly_log(gf);
+	for (int i = 0; i <= N; i++) { std::cerr << gf[i] * fact[i] << ' '; } std::cerr << '\n';
+	for (int i = 0; i <= N; i++) { std::cerr << gflog[i] * fact[i] << ' '; } std::cerr << '\n';
+
+
 	std::cerr << (poly_log(gf) * gf)[N] * fact[N] << '\n';
 	std::cout << (poly_log(gf) * gf)[N] / gf[N] << '\n';
 
