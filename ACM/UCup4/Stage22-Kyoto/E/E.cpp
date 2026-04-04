@@ -1595,7 +1595,7 @@ int main() {
 		gf[i] = v * ifact[i];
 	}
 
-	std::cout << (poly_log(gf) * gf)[N] * fact[N] << '\n';
+	std::cout << (poly_log(gf) * gf)[N] / gf[N] << '\n';
 
 	return 0;
 }
