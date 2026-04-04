@@ -1583,6 +1583,7 @@ int main() {
 		vals[cur].resize(N+1, num(1));
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
+			self(nxt, cur);
 			num v = 0;
 			for (int i = 0; i <= N; i++) {
 				v += vals[nxt][i];
