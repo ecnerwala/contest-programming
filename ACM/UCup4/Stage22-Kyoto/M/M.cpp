@@ -165,7 +165,7 @@ int main() {
 		while (lo_it != lo_gaps.end() || hi_it != hi_gaps.end()) {
 			auto cmp = angle_cmp(pt_t{1, 0});
 			// we want the bigger one
-			if (lo_it != lo_gaps.end() && (hi_it == hi_gaps.end() || !cmp(*hi_it, *lo_it))) {
+			if (lo_it != lo_gaps.end() && (hi_it == hi_gaps.end() || cmp(*hi_it, *lo_it))) {
 				cur += *lo_it;
 				++lo_it;
 			} else {
@@ -185,10 +185,19 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		int64_t c; std::cin >> c;
 		int64_t ans = 0;
-		for (int i = 0; i < L; i++) {
-			setmax(ans, max_diff[i] - i * c);
+		int mi = 0;
+		int ma = int(hull.size());
+		while (ma - mi > 1) {
+			int md = (mi + ma) / 2;
+			auto a = dot(hull[md-1], pt_t{1, -c});
+			auto b = dot(hull[md-0], pt_t{1, -c});
+			if (a > b) {
+				ma = md;
+			} else {
+				mi = md;
+			}
 		}
-		std::cout << ans << '\n';
+		std::cout << dot(hull[mi], pt_t{1, -c}) << '\n';
 	}
 
 	return 0;
