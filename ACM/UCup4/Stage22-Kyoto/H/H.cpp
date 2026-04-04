@@ -383,14 +383,36 @@ int main() {
 		return edges;
 	};
 
+	auto get_tgt = [&](int N) -> num {
+		return -num(N-1) * power(num(-2), N-2);
+	};
+
+	/*
 	for (int N = 2; N <= 10; N++) {
-		num tgt = -num(N-1) * power(num(-2), N-2);
+		num tgt = get_tgt(N);
 		for (int z = 0; z <= 20; z++) {
 			std::cerr << N << ' ' << newton_to_elem(query_tree(gen_tree(N))).back() << ' ' << tgt << '\n';
 		}
 	}
+	*/
 
 	int N; std::cin >> N;
+
+	std::string cur(N, '1');
+	std::string ans(N, '?');
+	for (int i = 0; i < N; i++) {
+		cur[i] = '0';
+		std::cout << '?' << ' ' << cur << '\n' << std::flush;
+		cur[i] = '1';
+		std::vector<num> res(N);
+		res[0] = N-1;
+		for (int j = 1; j <= N; j++) {
+			num v; std::cin >> v;
+			if (j < N) res[j] = v;
+		}
+		ans[i] = (newton_to_elem(res) == get_tgt(N-1)) ? '1' : '0';
+	}
+	std::cout << '!' << ' ' << ans << '\n';
 
 	return 0;
 }
