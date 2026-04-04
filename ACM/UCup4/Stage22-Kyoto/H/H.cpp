@@ -212,12 +212,21 @@ template <typename T>
 				value = normalize(static_cast<int64_t>(value) * static_cast<int64_t>(rhs.value));
 				return *this;
 			}
+		/*
 		template <typename U = T>
 			typename enable_if<is_same<typename Modular<U>::Type, int64_t>::value, Modular>::type& operator*=(const Modular& rhs) {
 				__int128_t res = __int128_t(value) * __int128_t(rhs.value) % __int128_t(mod());
 				value = int64_t(res);
 				return *this;
 			}
+			*/
+
+		  template <typename U = T>
+  typename enable_if<is_same<typename Modular<U>::Type, int64_t>::value, Modular>::type& operator*=(const Modular& rhs) {
+    int64_t q = int64_t(static_cast<long double>(value) * rhs.value / mod());
+    value = normalize(value * rhs.value - q * mod());
+    return *this;
+  }
 		template <typename U = T>
 			typename enable_if<!is_integral<typename Modular<U>::Type>::value, Modular>::type& operator*=(const Modular& rhs) {
 				value = normalize(value * rhs.value);
