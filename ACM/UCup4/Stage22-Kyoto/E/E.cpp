@@ -1589,7 +1589,7 @@ int main() {
 	gf[0] = 1;
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= M; j++) {
-			v *= num((i-1) * N + j);
+			v *= num((i-1) * M + j);
 		}
 		v *= ifact_M;
 		gf[i] = v * ifact[i];
