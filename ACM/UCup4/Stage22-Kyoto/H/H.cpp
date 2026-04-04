@@ -383,9 +383,9 @@ int main() {
 		return edges;
 	};
 
-	for (int N = 3; N <= 20; N++) {
+	for (int N = 3; N <= 10; N++) {
 		for (int z = 0; z <= 20; z++) {
-			std::cerr << newton_to_elem(query_tree(gen_tree(N))).back() << '\n';
+			std::cerr << N << ' ' << newton_to_elem(query_tree(gen_tree(N))).back() << '\n';
 		}
 	}
 
