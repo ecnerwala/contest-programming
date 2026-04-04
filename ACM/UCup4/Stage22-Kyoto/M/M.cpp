@@ -188,15 +188,15 @@ int main() {
 		int ma = int(hull.size());
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
-			auto a = dot(hull[md-1], pt_t{1, -c});
-			auto b = dot(hull[md-0], pt_t{1, -c});
+			auto a = dot(hull[md-1], pt_t{-c, 1});
+			auto b = dot(hull[md-0], pt_t{-c, 1});
 			if (a > b) {
 				ma = md;
 			} else {
 				mi = md;
 			}
 		}
-		std::cout << dot(hull[mi], pt_t{1, -c}) << '\n';
+		std::cout << dot(hull[mi], pt_t{-c, 1}) << '\n';
 	}
 
 	return 0;
