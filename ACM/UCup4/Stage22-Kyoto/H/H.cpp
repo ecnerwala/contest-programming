@@ -384,6 +384,7 @@ int main() {
 	};
 
 	auto get_tgt = [&](int N) -> num {
+		if (N == 1) return 0;
 		return -num(N-1) * power(num(-2), N-2);
 	};
 
