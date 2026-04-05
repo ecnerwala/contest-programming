@@ -401,10 +401,30 @@ int main() {
 
 	using num = modnum<int(1e9)+7>;
 	auto slow = [&](int N, int M) -> num {
+		int cnt = 0;
+		std::vector<int> cur(N);
+		[&](this auto&& self, int idx) -> void {
+			if (idx == N) {
+				bool good = true;
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < i; j++) {
+						if (cur[j] > cur[i]) {
+							good = good && __builtin_popcount(cur[j] ^ cur[i]) == 1;
+						}
+					}
+				}
+				cnt += good;
+				return;
+			}
+			for (int v = 0; v < (1 << M); v++) {
+				cur[idx] = v;
+				self(idx+1);
+			}
+		}(0);
+		return cnt;
 	};
 
-	int N, M; std::cin >> N >> M;
-
+	const int M = 50, N = 50;
 	tensor<num, 2> dp({M+1, N+1});
 	dp[{0, 0}] = 1;
 	for (int i = 0; i <= N; i++) dp[{0, i}] = 1;
@@ -420,7 +440,14 @@ int main() {
 			}
 		}
 	}
-	std::cout << dp[{M, N}] << '\n';
+
+	for (int m = 0; m <= 3; m++) {
+		for (int n = 0; n <= 3; n++) {
+			std::cerr << "n=" << n << ' ' << "m=" << m << ' ' << slow(n, m) << ' ' << dp[{m, n}] << '\n';
+		}
+	}
+	int n, m; std::cin >> n >> m;
+	std::cout << dp[{m, n}] << '\n';
 
 	return 0;
 }
