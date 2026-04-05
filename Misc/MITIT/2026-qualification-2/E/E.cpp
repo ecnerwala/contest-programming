@@ -424,6 +424,7 @@ int main() {
 					while (cur[last_small] >> (M-1)) last_small--;
 					cnt_big_inv++;
 					cnt_bigs[{first_big, last_small}]++;
+					/*
 					if (first_big == 1 && last_small == 2) {
 						for (int i = 0; i < N; i++) {
 							for (int j = M-1; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
@@ -431,6 +432,7 @@ int main() {
 						}
 						std::cerr << '\n';
 					}
+					*/
 					if (first_big == 0 && last_small == 1) {
 						for (int i = 0; i < N; i++) {
 							for (int j = M-1; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
