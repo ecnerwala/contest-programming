@@ -20,7 +20,9 @@ int main() {
 				end_idx[pref[i]] = end_idx[v];
 			}
 		}
+		std::vector<int> res; res.reserve(N-1);
 		for (int i = 0; i < N; i++) {
+			if (i == X) continue;
 			int v = (X - i + N) % N;
 			int ans;
 			if (end_idx[v] == -1) {
@@ -28,7 +30,10 @@ int main() {
 			} else {
 				ans = end_idx[v];
 			}
-			std::cout << ans << " \n"[i+1==N];
+			res.push_back(ans);
+		}
+		for (int i = 0; i < N-1; i++) {
+			std::cout << res[i] << " \n"[i+1==N-1];
 		}
 	}
 
