@@ -413,6 +413,13 @@ int main() {
 						}
 					}
 				}
+				if (good) {
+					for (int i = 0; i < N; i++) {
+						for (int j = M-1; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
+						std::cerr << ' ';
+					}
+					std::cerr << '\n';
+				}
 				cnt += good;
 				return;
 			}
