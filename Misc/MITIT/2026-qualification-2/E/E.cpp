@@ -400,6 +400,8 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	using num = modnum<int(1e9)+7>;
+	auto slow = [&](int N, int M) -> num {
+	};
 
 	int N, M; std::cin >> N >> M;
 
@@ -413,10 +415,8 @@ int main() {
 			// if there's no inversions, it's just this
 			for (int j = 0; j <= i; j++) dp[{m, i}] += dp[{m-1, j}] * dp[{m-1, i-j}];
 			// if there's at least 1 inversion, then everything must match, so it's equivalent to some m-1 thing with a known equal range
-			for (int k = 0; k < i; k++) {
-				for (int l = k+1; l < i; l++) {
-					dp[{m, i}] += dp[{m-1, i - (l-k)}] * power(num(2), l-k-1);
-				}
+			for (int j = 0; j < i; j++) {
+				dp[{m, i}] += dp[{m-1, j}] * num(j) * power(num(2), i-j-1);
 			}
 		}
 	}
