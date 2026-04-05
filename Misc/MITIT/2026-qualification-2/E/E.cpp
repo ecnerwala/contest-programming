@@ -435,7 +435,8 @@ int main() {
 					*/
 					if (first_big == 0 && last_small == 1) {
 						for (int i = 0; i < N; i++) {
-							for (int j = M-1; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
+							if (i == 0) continue;
+							for (int j = M-2; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
 							std::cerr << ' ';
 						}
 						std::cerr << '\n';
