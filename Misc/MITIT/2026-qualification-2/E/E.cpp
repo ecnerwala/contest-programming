@@ -402,6 +402,7 @@ int main() {
 	using num = modnum<int(1e9)+7>;
 	auto slow = [&](int N, int M) -> num {
 		int cnt = 0;
+		int cnt_big_inv = 0;
 		std::vector<int> cur(N);
 		[&](this auto&& self, int idx) -> void {
 			if (idx == N) {
@@ -445,9 +446,11 @@ int main() {
 			// if there's no inversions, it's just this
 			for (int j = 0; j <= i; j++) dp[{m, i}] += dp[{m-1, j}] * dp[{m-1, i-j}];
 			// if there's at least 1 inversion, then everything must match, so it's equivalent to some m-1 thing with a known equal range
+			if (m == 3 && i == 4) std::cerr << dp[{m, i}] << '\n';
 			for (int j = 0; j < i; j++) {
 				dp[{m, i}] += dp[{m-1, j}] * num(j) * power(num(2), i-j-1);
 			}
+			if (m == 3 && i == 4) std::cerr << dp[{m, i}] << '\n';
 		}
 	}
 
