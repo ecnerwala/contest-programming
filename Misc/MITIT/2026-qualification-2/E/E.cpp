@@ -406,14 +406,16 @@ int main() {
 		[&](this auto&& self, int idx) -> void {
 			if (idx == N) {
 				bool good = true;
+				bool has_big_inv = false;
 				for (int i = 0; i < N; i++) {
 					for (int j = 0; j < i; j++) {
 						if (cur[j] > cur[i]) {
 							good = good && __builtin_popcount(cur[j] ^ cur[i]) == 1;
+							has_big_inv = has_big_inv || ((cur[j] ^ cur[i]) == (1 << (M-1)));
 						}
 					}
 				}
-				if (good) {
+				if (good && has_big_inv) {
 					for (int i = 0; i < N; i++) {
 						for (int j = M-1; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
 						std::cerr << ' ';
