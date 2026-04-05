@@ -408,8 +408,8 @@ int main() {
 	for (int i = 0; i <= N; i++) dp[{0, i}] = 1;
 
 	for (int m = 1; m <= M; m++) {
-		dp[{m, 0}] = num(1);
-		for (int i = 1; i <= N; i++) {
+		for (int i = 0; i <= N; i++) {
+			// consider just the highest bit
 			// if there's no inversions, it's just this
 			for (int j = 0; j <= i; j++) dp[{m, i}] += dp[{m-1, j}] * dp[{m-1, i-j}];
 			// if there's at least 1 inversion, then everything must match, so it's equivalent to some m-1 thing with a known equal range
