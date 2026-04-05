@@ -417,6 +417,7 @@ int main() {
 					}
 				}
 				if (good && has_big_inv) {
+					cnt_big_inv++;
 					for (int i = 0; i < N; i++) {
 						for (int j = M-1; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
 						std::cerr << ' ';
@@ -431,6 +432,8 @@ int main() {
 				self(idx+1);
 			}
 		}(0);
+		std::cerr << "big inv " << cnt_big_inv << '\n';
+		std::cerr << "small " << cnt - cnt_big_inv << '\n';
 		return cnt;
 	};
 	std::cerr << slow(4, 3) << '\n';
