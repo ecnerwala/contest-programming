@@ -423,7 +423,7 @@ int main() {
 		}(0);
 		return cnt;
 	};
-	slow(4, 3);
+	std::cerr << slow(4, 3) << '\n';
 
 	const int M = 50, N = 50;
 	tensor<num, 2> dp({M+1, N+1});
@@ -443,8 +443,8 @@ int main() {
 	}
 
 	/*
-	for (int m = 0; m <= 4; m++) {
-		for (int n = 0; n <= 3; n++) {
+	for (int m = 0; m <= 3; m++) {
+		for (int n = 0; n <= 4; n++) {
 			std::cerr << "n=" << n << ' ' << "m=" << m << ' ' << slow(n, m) << ' ' << dp[{m, n}] << '\n';
 		}
 	}
