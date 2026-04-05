@@ -433,9 +433,9 @@ int main() {
 						std::cerr << '\n';
 					}
 					*/
-					if (first_big == 0 && last_small == 1) {
+					if (last_small - first_big == 1 && first_big == 0) {
 						for (int i = 0; i < N; i++) {
-							if (i == 0) continue;
+							if (i == first_big) continue;
 							for (int j = M-2; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
 							std::cerr << ' ';
 						}
