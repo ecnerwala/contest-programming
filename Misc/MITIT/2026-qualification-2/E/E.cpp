@@ -433,7 +433,7 @@ int main() {
 						std::cerr << '\n';
 					}
 					*/
-					if (last_small - first_big == 1 && first_big == 0) {
+					if (last_small - first_big == 1 && first_big == 1) {
 						for (int i = 0; i < N; i++) {
 							if (i == first_big) continue;
 							for (int j = M-2; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
