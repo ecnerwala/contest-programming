@@ -404,6 +404,7 @@ int main() {
 		int cnt = 0;
 		int cnt_big_inv = 0;
 		std::vector<int> cur(N);
+		std::map<std::array<int, 2>, int> cnt_bigs;
 		[&](this auto&& self, int idx) -> void {
 			if (idx == N) {
 				bool good = true;
@@ -417,12 +418,19 @@ int main() {
 					}
 				}
 				if (good && has_big_inv) {
+					int first_big = 0;
+					while (!(cur[first_big] >> (M-1))) first_big++;
+					int last_small = N-1;
+					while (cur[last_small] >> (M-1)) last_small--;
 					cnt_big_inv++;
+					cnt_bigs[{first_big, last_small}]++;
+					/*
 					for (int i = 0; i < N; i++) {
 						for (int j = M-1; j >= 0; j--) std::cerr << ((cur[i] >> j) & 1);
 						std::cerr << ' ';
 					}
 					std::cerr << '\n';
+					*/
 				}
 				cnt += good;
 				return;
@@ -432,6 +440,9 @@ int main() {
 				self(idx+1);
 			}
 		}(0);
+		for (auto [a, c] : cnt_bigs) {
+			std::cerr << a[0] << '-' << a[1] << ' ' << c << '\n';
+		}
 		std::cerr << "big inv " << cnt_big_inv << '\n';
 		std::cerr << "small " << cnt - cnt_big_inv << '\n';
 		return cnt;
