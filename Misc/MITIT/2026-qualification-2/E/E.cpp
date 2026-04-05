@@ -441,7 +441,7 @@ int main() {
 		}
 	}
 
-	for (int m = 0; m <= 3; m++) {
+	for (int m = 0; m <= 4; m++) {
 		for (int n = 0; n <= 3; n++) {
 			std::cerr << "n=" << n << ' ' << "m=" << m << ' ' << slow(n, m) << ' ' << dp[{m, n}] << '\n';
 		}
