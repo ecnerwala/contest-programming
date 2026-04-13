@@ -10,6 +10,7 @@ int main() {
 		// we also need Q <= N*M - max(N, M)
 		[&]() -> void {
 			int cnd = (P + 2 * Q) * 2 + 1;
+			std::cerr << cnd << '\n';
 			for (int i = 3; i * i <= cnd; i += 2) {
 				if (cnd % i == 0) {
 					int N = i / 2, M = (cnd / i) / 2;
