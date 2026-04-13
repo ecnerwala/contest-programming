@@ -23,6 +23,7 @@ int main() {
 			dbl base = 0;
 			std::vector<dbl> ch_vals; ch_vals.reserve(adj[cur].size());
 			for (int nxt : adj[cur]) {
+				if (nxt == prv) continue;
 				auto ch_val = self(nxt, cur);
 				ch_vals.push_back(ch_val[1] - ch_val[0]);
 				base += ch_val[0];
