@@ -19,7 +19,7 @@ int main() {
 
 		using dbl = double;
 		const dbl INF = 1e99;
-		[&](this auto&& self, int cur, int prv) -> std::array<dbl, 2> {
+		auto ans = [&](this auto&& self, int cur, int prv) -> std::array<dbl, 2> {
 			dbl base = 0;
 			std::vector<dbl> ch_vals; ch_vals.reserve(adj[cur].size());
 			for (int nxt : adj[cur]) {
@@ -43,6 +43,7 @@ int main() {
 			}
 			return best_cost;
 		}(rt, -1);
+		std::cout << std::fixed << std::setprecision(20) << ans[0] << '\n';
 	}
 
 	return 0;
