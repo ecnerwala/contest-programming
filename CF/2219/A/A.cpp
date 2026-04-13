@@ -6,8 +6,8 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int P, Q; std::cin >> P >> Q;
-		// P + 2 * Q = (N-1) * M + (M-1) * N = 2 * M * N - M - N = ((2M-1) * (2N-1) - 1) / 2
-		// we also need Q <= N*M - max(N, M)
+		// P + 2 * Q = (N+1) * M + (M+1) * N = 2 * M * N + M + N = ((2M+1) * (2N+1) - 1) / 2
+		// we also need Q <= N*M + min(N, M)
 		[&]() -> void {
 			int cnd = (P + 2 * Q) * 2 + 1;
 			std::cerr << cnd << '\n';
@@ -15,7 +15,7 @@ int main() {
 				if (cnd % i == 0) {
 					int N = i / 2, M = (cnd / i) / 2;
 					std::cerr << "trying " << N << ' ' << M << ' ' << cnd << '\n';
-					if (Q <= N * M - M) {
+					if (Q <= N * M + N) {
 						std::cout << N << ' ' << M << '\n';
 						return;
 					}
