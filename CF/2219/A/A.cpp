@@ -14,6 +14,7 @@ int main() {
 			for (int i = 3; i * i <= cnd; i += 2) {
 				if (cnd % i == 0) {
 					int N = i / 2, M = (cnd / i) / 2;
+					std::cerr << "trying " << N << ' ' << M << ' ' << cnd << '\n';
 					if (Q <= N * M - M) {
 						std::cout << N << ' ' << M << '\n';
 						return;
