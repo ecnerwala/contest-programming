@@ -647,11 +647,15 @@ int main() {
 		}
 		std::cerr << "initial tree" << '\n';
 
-		for (int w = 1; w <= M; w++) {
+		for (int w = 1; w <= M+1; w++) {
 			// delete all things of weight w
-			for (auto e : edges_by_weight[w]) {
-				std::cerr << "cut " << e - edge_nodes.data() << '\n';
-				cut(e);
+			if (w < M+1) {
+				for (auto e : edges_by_weight[w]) {
+					std::cerr << "cut " << e - edge_nodes.data() << '\n';
+					if (e->own_edge == w) {
+						cut(e);
+					}
+				}
 			}
 			// we maintain the invariant that any 2 good guys in the same CC are permantently linked already
 
@@ -680,6 +684,7 @@ int main() {
 						else assert(false);
 					}
 					cut(pth);
+					pth->own_edge = -1;
 				} else {
 					// they're separate
 					if (u->own_vert != -1 && v->own_vert != -1) {
