@@ -58,6 +58,7 @@ int main() {
 				for (int j = i+1; j < int(freqs.size()); j++) {
 					ans[N - freqs[i].first - freqs[j].first] +=
 						int64_t(freqs[i].first * freqs[i].second) * int64_t(freqs[j].first * freqs[j].second);
+				}
 			}
 		}
 
