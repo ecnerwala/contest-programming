@@ -90,10 +90,14 @@ int main() {
 					}(ch, rt, N - sz[excl] - sz[ch]);
 				}
 
-				for (int i = N; i >= 0; i--) {
-					for (int j = N; j >= 0; j--) {
-						ans[std::max(i, j)] += int64_t(excl_sz[i]) * int64_t(easy_sz[j]);
-					}
+				int64_t p_excl = 0;
+				int64_t p_easy = 0;
+				for (int i = 0; i <= N; i++) {
+					ans[i] += p_excl * easy_sz[i];
+					ans[i] += p_easy * excl_sz[i];
+					ans[i] += int64_t(easy_sz[i]) * int64_t(excl_sz[i]);
+					p_excl += excl_sz[i];
+					p_easy += easy_sz[i];
 				}
 			}
 		}
