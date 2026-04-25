@@ -8,7 +8,7 @@ int main() {
 
 	int T;
 	if constexpr (TESTING) {
-		T = 10000;
+		T = 100000;
 	} else {
 		std::cin >> T;
 	}
