@@ -703,6 +703,7 @@ int main() {
 				link(e, u, v);
 			}
 		}
+		assert(edges.empty());
 
 		if (num_links == num_good - 1) {
 			std::cout << ans << '\n';
