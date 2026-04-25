@@ -29,15 +29,12 @@ int main() {
 				int cnt_le = pref_le[j] - pref_le[i];
 				int cnt_tot = j - i;
 				assert(cnt_tot & 1);
-				std::cerr << i << ' ' << j << ' ' << cnt_tot << ' ' << cnt_lt << ' ' << cnt_le << '\n';
 				if (cnt_lt <= cnt_tot / 2 && cnt_tot / 2 < cnt_le) {
-					std::cerr << "good " << i << ' ' << j << '\n';
 					dp[j] = std::max(dp[j], dp[i] + 1);
 				}
 			}
 		}
 		std::cout << dp[N] << '\n';
-		break;
 	}
 
 	return 0;
