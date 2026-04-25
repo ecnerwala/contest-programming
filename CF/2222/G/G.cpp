@@ -43,12 +43,12 @@ int main() {
 
 		ans[N] = N;
 
-		for (int cur = 0; cur < N; cur++) {
+		for (int v = 0; v < N; v++) {
 			if (N == 1) continue;
-			int excl = *std::max_element(adj[cur].begin(), adj[cur].end(), [&](auto a, auto b) { return sz[a] < sz[b]; });
-			if (cur != rt) assert(sz[excl] > sz[cur]);
+			int excl = *std::max_element(adj[v].begin(), adj[v].end(), [&](auto a, auto b) { return sz[a] < sz[b]; });
+			if (v != rt) assert(sz[excl] > sz[v]);
 			std::map<int, int> mp;
-			for (int nxt : adj[cur]) {
+			for (int nxt : adj[v]) {
 				if (nxt == excl) continue;
 				mp[sz[nxt]]++;
 			}
@@ -66,10 +66,34 @@ int main() {
 				}
 			}
 
-			if (cur == rt) {
+			if (v == rt) {
 				// do excl with everything else
-				for (int ch : adj[cur]) {
+				ans[N - sz[excl]] += sz[excl];
+				std::vector<int> excl_sz(N+1);
+				[&](this auto&& self, int cur, int prv, int val) -> void {
+					excl_sz[std::max(val, sz[cur])]++;
+					for (auto nxt : adj[cur]) {
+						if (nxt == prv) continue;
+						self(nxt, cur, std::max(val, sz[cur] - sz[nxt]));
+					}
+				}(excl, rt, 0);
+
+				std::vector<int> easy_sz(N+1);
+				for (int ch : adj[v]) {
 					if (ch == excl) continue;
+					[&](this auto&& self, int cur, int prv, int val) -> void {
+						easy_sz[std::max(val, sz[cur])]++;
+						for (auto nxt : adj[cur]) {
+							if (nxt == prv) continue;
+							self(nxt, cur, std::max(val, sz[cur] - sz[nxt]));
+						}
+					}(ch, rt, N - sz[excl] - sz[ch]);
+				}
+
+				for (int i = N; i >= 0; i--) {
+					for (int j = N; j >= 0; j--) {
+						ans[std::max(i, j)] += int64_t(excl_sz[i]) * int64_t(easy_sz[i]);
+					}
 				}
 			}
 		}
