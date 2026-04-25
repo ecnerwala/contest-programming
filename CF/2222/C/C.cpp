@@ -13,7 +13,7 @@ int main() {
 			assert(N & 1);
 			auto vals = A;
 			std::nth_element(A.begin(), A.begin() + (N/2), A.end());
-			med = A[N/2];
+			med = vals[N/2];
 		}
 		std::vector<int> pref_lt(N+1);
 		std::vector<int> pref_le(N+1);
