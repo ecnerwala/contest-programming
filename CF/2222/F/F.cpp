@@ -668,6 +668,22 @@ int main() {
 				u->make_root();
 				assert(!u->p);
 				v->expose();
+				if (!u->p && u->own_vert != -1 && v->own_vert != -1) {
+					// actually link those instead with infinite weight
+					auto a = &verts[u->own_vert];
+					auto b = &verts[v->own_vert];
+					std::cerr << "final link " << u - verts.data() << ' ' << v - verts.data() << ' ' << w << '\n';
+					num_links++;
+					ans += w;
+					auto e = &edge_nodes[nxt_edge_idx++];
+					e->own_vert = -1;
+					e->own_edge = M+1;
+					link(e, a, b);
+				}
+
+				u->make_root();
+				assert(!u->p);
+				v->expose();
 				if (u->p) {
 					// we have a real path
 					auto pth = v->p;
@@ -687,14 +703,6 @@ int main() {
 					pth->own_edge = -1;
 				} else {
 					// they're separate
-					if (u->own_vert != -1 && v->own_vert != -1) {
-						// actually link those instead with infinite weight
-						u = &verts[u->own_vert];
-						v = &verts[v->own_vert];
-						std::cerr << "final link " << u - verts.data() << ' ' << v - verts.data() << ' ' << w << '\n';
-						num_links++;
-						ans += w;
-					}
 				}
 				auto e = &edge_nodes[nxt_edge_idx++];
 				e->own_vert = -1;
