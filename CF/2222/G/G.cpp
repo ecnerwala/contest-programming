@@ -45,7 +45,7 @@ int main() {
 
 		for (int cur = 0; cur < N; cur++) {
 			if (N == 1) continue;
-			int excl = *std::max_element(adj[cur].begin(), adj[cur].end(), [&](auto a, auto b) { return sz[a] > sz[b]; });
+			int excl = *std::max_element(adj[cur].begin(), adj[cur].end(), [&](auto a, auto b) { return sz[a] < sz[b]; });
 			std::cerr << rt << ' ' << cur << ' ' << excl << '\n';
 			if (cur != rt) assert(sz[excl] > sz[cur]);
 			std::map<int, int> mp;
