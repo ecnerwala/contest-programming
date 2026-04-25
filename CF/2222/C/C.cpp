@@ -34,6 +34,7 @@ int main() {
 				}
 			}
 		}
+		assert(dp[N] >= 1);
 		std::cout << dp[N] << '\n';
 	}
 
