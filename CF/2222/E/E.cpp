@@ -8,7 +8,7 @@ int main() {
 
 	int T;
 	if constexpr (TESTING) {
-		T = 1000;
+		T = 10000;
 	} else {
 		std::cin >> T;
 	}
@@ -26,7 +26,6 @@ int main() {
 		int num_ops = 0;
 		auto do_query = [&](char type, int64_t v) -> int {
 			num_ops++;
-			std::cout << type << ' ' << v << '\n' << std::flush;
 			if constexpr (TESTING) {
 				if (type == 'I') {
 					if (K_ans == 1) st.insert(v & C_ans);
@@ -40,6 +39,7 @@ int main() {
 					return ans;
 				}
 			}
+			std::cout << type << ' ' << v << '\n' << std::flush;
 			int res; std::cin >> res;
 			return res;
 		};
