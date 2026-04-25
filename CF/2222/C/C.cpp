@@ -15,6 +15,7 @@ int main() {
 			std::nth_element(A.begin(), A.begin() + (N/2), A.end());
 			med = A[N/2];
 		}
+		std::cerr << med << '\n';
 		std::vector<int> pref_lt(N+1);
 		std::vector<int> pref_le(N+1);
 		for (int i = 0; i < N; i++) {
