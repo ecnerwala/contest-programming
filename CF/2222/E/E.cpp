@@ -71,20 +71,26 @@ int main() {
 				if (cnt_ge(cnd)) v = cnd;
 			}
 			assert(v != 0);
-			int r = ins(v);
-			if (r == 2) {
-				std::cout << 'A' << ' ' << 2 << ' ' << v << '\n' << std::flush;
-				if constexpr (TESTING) {
-					assert(K_ans == 2);
-					assert(C_ans == v);
-				}
-			} else if (r == 3) {
-				std::cout << 'A' << ' ' << 3 << ' ' << v << '\n' << std::flush;
-				if constexpr (TESTING) {
-					assert(K_ans == 3);
-					assert(C_ans == v);
-				}
-			} else assert(false);
+			// our set is {0, v}, and we want to insert something else
+			// we get 2 more queries
+			int K = -1;
+			if (v & (v-1)) {
+				int r_sz = ins(v & (v-1));
+				if (r_sz == 2) K = 2;
+				else if (r_sz == 3) K = 3;
+				else assert(false);
+			} else {
+				assert(N >= 2);
+				int64_t nv = (v == 1 ? v+2 : v+1);
+				ins(nv);
+				if (cnt_ge(nv) == 1) K = 2;
+				else K = 3;
+			}
+			std::cout << 'A' << ' ' << K << ' ' << v << '\n' << std::flush;
+			if constexpr (TESTING) {
+				assert(K_ans == K);
+				assert(C_ans == v);
+			}
 		} else assert(false);
 		assert(num_ops <= N+3);
 	}
