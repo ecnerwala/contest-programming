@@ -15,7 +15,6 @@ int main() {
 			std::nth_element(A.begin(), A.begin() + (N/2), A.end());
 			med = A[N/2];
 		}
-		std::cerr << med << '\n';
 		std::vector<int> pref_lt(N+1);
 		std::vector<int> pref_le(N+1);
 		for (int i = 0; i < N; i++) {
@@ -29,12 +28,15 @@ int main() {
 				int cnt_lt = pref_lt[j] - pref_lt[i];
 				int cnt_le = pref_le[j] - pref_le[i];
 				int cnt_tot = j - i;
+				assert(cnt_tot & 1);
 				if (cnt_lt <= cnt_tot / 2 && cnt_tot / 2 < cnt_le) {
+					std::cerr << "good " << i << ' ' << j << '\n';
 					dp[j] = std::max(dp[j], dp[i] + 1);
 				}
 			}
 		}
 		std::cout << dp[N] << '\n';
+		break;
 	}
 
 	return 0;
