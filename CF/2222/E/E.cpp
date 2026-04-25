@@ -71,13 +71,13 @@ int main() {
 			}
 			assert(v != 0);
 			int r = ins(v);
-			if (r == 1) {
+			if (r == 2) {
 				std::cout << 'A' << ' ' << 2 << ' ' << v << '\n' << std::flush;
 				if constexpr (TESTING) {
 					assert(K_ans == 2);
 					assert(C_ans == v);
 				}
-			} else if (r == 2) {
+			} else if (r == 3) {
 				std::cout << 'A' << ' ' << 3 << ' ' << v << '\n' << std::flush;
 				if constexpr (TESTING) {
 					assert(K_ans == 3);
