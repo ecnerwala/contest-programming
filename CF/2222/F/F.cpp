@@ -640,6 +640,7 @@ int main() {
 			auto e = &edge_nodes[nxt_edge_idx++];
 			e->own_vert = -1;
 			e->own_edge = weight;
+			std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << weight << '\n';
 			link(e, u, v);
 			edges_by_weight[weight].push_back(e);
 		}
@@ -690,6 +691,7 @@ int main() {
 				auto e = &edge_nodes[nxt_edge_idx++];
 				e->own_vert = -1;
 				e->own_edge = M+1;
+				std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << M+1 << '\n';
 				link(e, u, v);
 			}
 		}
