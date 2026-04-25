@@ -639,7 +639,7 @@ int main() {
 			auto e = &edge_nodes[nxt_edge_idx];
 			e->own_vert = -1;
 			e->own_edge = weight;
-			link(u, v, e);
+			link(e, u, v);
 			edges_by_weight[weight].push_back(e);
 		}
 
@@ -687,7 +687,7 @@ int main() {
 				auto e = &edge_nodes[nxt_edge_idx];
 				e->own_vert = -1;
 				e->own_edge = M+1;
-				link(u, v, e);
+				link(e, u, v);
 			}
 		}
 
