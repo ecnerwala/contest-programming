@@ -704,6 +704,7 @@ int main() {
 				} else {
 					// they're separate
 				}
+
 				auto e = &edge_nodes[nxt_edge_idx++];
 				e->own_vert = -1;
 				e->own_edge = M+1;
