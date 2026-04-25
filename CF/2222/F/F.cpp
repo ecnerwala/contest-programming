@@ -640,7 +640,7 @@ int main() {
 			auto e = &edge_nodes[nxt_edge_idx++];
 			e->own_vert = -1;
 			e->own_edge = weight;
-			std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << weight << '\n';
+			std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << e - edge_nodes.data() << ' ' << e->own_edge << '\n';
 			link(e, u, v);
 			edges_by_weight[weight].push_back(e);
 		}
@@ -649,7 +649,7 @@ int main() {
 		for (int w = 1; w <= M; w++) {
 			// delete all things of weight w
 			for (auto e : edges_by_weight[w]) {
-				std::cerr << "cut " << e << '\n';
+				std::cerr << "cut " << e - edge_nodes.data() << '\n';
 				cut(e);
 			}
 			// we maintain the invariant that any 2 good guys in the same CC are permantently linked already
@@ -692,7 +692,7 @@ int main() {
 				auto e = &edge_nodes[nxt_edge_idx++];
 				e->own_vert = -1;
 				e->own_edge = M+1;
-				std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << M+1 << '\n';
+				std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << e - edge_nodes.data() << ' ' << e->own_edge << '\n';
 				link(e, u, v);
 			}
 		}
