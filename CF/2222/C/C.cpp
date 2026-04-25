@@ -12,7 +12,7 @@ int main() {
 		{
 			assert(N & 1);
 			auto vals = A;
-			std::nth_element(A.begin(), A.begin() + (N/2), A.end());
+			std::nth_element(vals.begin(), vals.begin() + (N/2), vals.end());
 			med = vals[N/2];
 		}
 		std::vector<int> pref_lt(N+1);
