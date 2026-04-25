@@ -584,6 +584,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, M, Q; std::cin >> N >> M >> Q;
+		std::cerr << "case " << N << ' ' << M << ' ' << Q << '\n';
 		std::vector<std::pair<std::array<int, 2>, int>> edges(M);
 		for (int e = 0; e < M; e++) {
 			int u, v, w; std::cin >> u >> v >> w; u--, v--;
