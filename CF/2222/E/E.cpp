@@ -19,6 +19,7 @@ int main() {
 			N = std::uniform_int_distribution<int>(2, 5)(mt);
 			K_ans = std::uniform_int_distribution<int>(1, 3)(mt);
 			C_ans = std::uniform_int_distribution<int64_t>(1, (int64_t(1) << N) - 1)(mt);
+			std::cerr << N << ' ' << K_ans << ' ' << C_ans << '\n';
 		} else {
 			std::cin >> N;
 		}
