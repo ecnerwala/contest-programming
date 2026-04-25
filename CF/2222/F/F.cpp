@@ -633,6 +633,7 @@ int main() {
 				u = &verts[u->own_vert];
 				v = &verts[v->own_vert];
 				weight = M+1;
+				std::cerr << "initial link " << u - verts.data() << ' ' << v - verts.data() << '\n';
 				num_links++;
 				ans += 0;
 			}
@@ -685,6 +686,7 @@ int main() {
 						// actually link those instead with infinite weight
 						u = &verts[u->own_vert];
 						v = &verts[v->own_vert];
+						std::cerr << "final link " << u - verts.data() << ' ' << v - verts.data() << ' ' << w << '\n';
 						num_links++;
 						ans += w;
 					}
