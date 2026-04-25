@@ -41,17 +41,27 @@ int main() {
 
 		std::vector<int64_t> ans(N+1);
 
-		for (int i = 0; i < N; i++) {
-			if (i == rt) continue;
+		for (int cur = 0; cur < N; cur++) {
+			if (cur == rt) continue;
 			std::map<int, int> mp;
-			for (int nxt : adj[i]) {
-				if (sz[nxt] > sz[i]) continue;
+			for (int nxt : adj[cur]) {
+				if (sz[nxt] > sz[cur]) continue;
 				mp[sz[nxt]]++;
 			}
 			std::vector<std::pair<int, int>> freqs(mp.begin(), mp.end());
+			for (int i = 0; i < int(freqs.size()); i++) {
+				if (freqs[i].second >= 2) {
+					ans[N - freqs[i].first - freqs[i].first] +=
+						(int64_t(freqs[i].second) * int64_t(freqs[i].second - 1) / 2)
+						* int64_t(freqs[i].first) * int64_t(freqs[i].first);
+				}
+				for (int j = i+1; j < int(freqs.size()); j++) {
+					ans[N - freqs[i].first - freqs[j].first] +=
+						int64_t(freqs[i].first * freqs[i].second) * int64_t(freqs[j].first * freqs[j].second);
+			}
 		}
 
-		for (int i = 1; i <= N; i++) std::cout << ans[i] << '\n';
+		for (int i = 1; i <= N; i++) std::cout << ans[i] << " \n"[i==N];
 	}
 
 	return 0;
