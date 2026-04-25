@@ -662,6 +662,7 @@ int main() {
 				if (u->p) {
 					// we have a real path
 					auto pth = v->p;
+					assert(pth);
 					assert(!pth->p);
 					if (pth->min_edge == M+1) {
 						continue;
