@@ -45,7 +45,8 @@ int main() {
 		};
 		auto cnt_ge = [&](int64_t v) -> int { return do_query('Q', v); };
 		auto ins = [&](int64_t v) -> int { return do_query('I', v); };
-		ins(0);
+		//ins(0);
+		std::cout << 0 << '\n' << std::flush;
 		if (cnt_ge(1) == 0) {
 			// k == and
 			ins((int64_t(1) << N) - 1);
