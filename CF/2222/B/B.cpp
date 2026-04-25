@@ -23,9 +23,14 @@ int main() {
 		int64_t ans = 0;
 		for (int z = 0; z < 2; z++) {
 			std::sort(A[z].begin(), A[z].end());
-			while (cnt[z] && !A[z].empty() && A[z].back() > 0) {
+			if (cnt[z] > 0) {
+				assert(!A[z].empty());
 				cnt[z]--;
 				A[z].pop_back();
+				while (cnt[z] && !A[z].empty() && A[z].back() > 0) {
+					cnt[z]--;
+					A[z].pop_back();
+				}
 			}
 			for (auto a : A[z]) ans += a;
 		}
