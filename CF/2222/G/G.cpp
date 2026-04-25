@@ -41,7 +41,7 @@ int main() {
 
 		std::vector<int64_t> ans(N+1);
 
-		if (N == 1) ans[N]++;
+		ans[N] = N;
 
 		for (int cur = 0; cur < N; cur++) {
 			if (N == 1) continue;
@@ -54,6 +54,7 @@ int main() {
 			}
 			std::vector<std::pair<int, int>> freqs(mp.begin(), mp.end());
 			for (int i = 0; i < int(freqs.size()); i++) {
+				ans[N - freqs[i].first] += freqs[i].first * freqs[i].second;
 				if (freqs[i].second >= 2) {
 					ans[N - freqs[i].first - freqs[i].first] +=
 						(int64_t(freqs[i].second) * int64_t(freqs[i].second - 1) / 2)
@@ -67,6 +68,9 @@ int main() {
 
 			if (cur == rt) {
 				// do excl with everything else
+				for (int ch : adj[cur]) {
+					if (ch == excl) continue;
+				}
 			}
 		}
 
