@@ -92,7 +92,7 @@ int main() {
 
 				for (int i = N; i >= 0; i--) {
 					for (int j = N; j >= 0; j--) {
-						ans[std::max(i, j)] += int64_t(excl_sz[i]) * int64_t(easy_sz[i]);
+						ans[std::max(i, j)] += int64_t(excl_sz[i]) * int64_t(easy_sz[j]);
 					}
 				}
 			}
