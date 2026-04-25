@@ -663,6 +663,7 @@ int main() {
 			while (!edges.empty() && edges.back().second < w) {
 				auto vs = edges.back().first; edges.pop_back();
 				assert(vs[0] != vs[1]);
+				std::cerr << "try link " << vs[0] << ' ' << vs[1] << '\n';
 				auto u = &verts[vs[0]];
 				auto v = &verts[vs[1]];
 				u->make_root();
