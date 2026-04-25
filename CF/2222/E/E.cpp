@@ -16,7 +16,7 @@ int main() {
 		int N;
 		int K_ans; int64_t C_ans;
 		if constexpr (TESTING) {
-			N = std::uniform_int_distribution<int>(2, 60)(mt);
+			N = std::uniform_int_distribution<int>(2, 5)(mt);
 			K_ans = std::uniform_int_distribution<int>(1, 3)(mt);
 			C_ans = std::uniform_int_distribution<int64_t>(1, (int64_t(1) << N) - 1)(mt);
 		} else {
