@@ -23,7 +23,9 @@ int main() {
 			std::cin >> N;
 		}
 		std::set<int64_t> st;
+		int num_ops = 0;
 		auto do_query = [&](char type, int64_t v) -> int {
+			num_ops++;
 			std::cout << type << ' ' << v << '\n' << std::flush;
 			if constexpr (TESTING) {
 				if (type == 'I') {
@@ -81,6 +83,7 @@ int main() {
 				}
 			} else assert(false);
 		}
+		assert(num_ops <= N+3);
 	}
 
 	return 0;
