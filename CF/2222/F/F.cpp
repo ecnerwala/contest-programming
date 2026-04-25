@@ -649,6 +649,7 @@ int main() {
 		for (int w = 1; w <= M; w++) {
 			// delete all things of weight w
 			for (auto e : edges_by_weight[w]) {
+				std::cerr << "cut " << e << '\n';
 				cut(e);
 			}
 			// we maintain the invariant that any 2 good guys in the same CC are permantently linked already
