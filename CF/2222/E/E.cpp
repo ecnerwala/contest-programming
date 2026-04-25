@@ -47,8 +47,8 @@ int main() {
 		auto ins = [&](int64_t v) -> int { return do_query('I', v); };
 		std::cout << 0 << '\n' << std::flush;
 		st.insert(0);
-		ins(0);
-		if (cnt_ge(1) == 0) {
+		int n_sz = ins(0);
+		if (n_sz == 1) {
 			// k == and
 			ins((int64_t(1) << N) - 1);
 			int64_t v = 0;
@@ -62,7 +62,7 @@ int main() {
 				assert(K_ans == 1);
 				assert(C_ans == v);
 			}
-		} else {
+		} else if (n_sz == 2) {
 			// k == or or k == xor
 			int64_t v = 0;
 			for (int b = N-1; b >= 0; b--) {
@@ -84,7 +84,7 @@ int main() {
 					assert(C_ans == v);
 				}
 			} else assert(false);
-		}
+		} else assert(false);
 		assert(num_ops <= N+3);
 	}
 
