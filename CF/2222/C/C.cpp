@@ -11,7 +11,7 @@ int main() {
 		int med;
 		{
 			assert(N & 1);
-			auto vals = A;
+			std::vector<int> vals = A;
 			std::nth_element(vals.begin(), vals.begin() + (N/2), vals.end());
 			med = vals[N/2];
 		}
