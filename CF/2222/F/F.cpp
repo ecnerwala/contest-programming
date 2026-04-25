@@ -642,6 +642,7 @@ int main() {
 			link(e, u, v);
 			edges_by_weight[weight].push_back(e);
 		}
+		std::cerr << "initial tree" << '\n';
 
 		for (int w = 1; w <= M; w++) {
 			// delete all things of weight w
