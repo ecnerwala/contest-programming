@@ -42,10 +42,11 @@ int main() {
 		std::vector<int64_t> ans(N+1);
 
 		for (int cur = 0; cur < N; cur++) {
-			if (cur == rt) continue;
+			int excl = *std::max_element(adj[cur].begin(), adj[cur].end(), [&](auto a, auto b) { return sz[a] > sz[b]; });
+			if (cur != rt) assert(sz[excl] > sz[cur]);
 			std::map<int, int> mp;
 			for (int nxt : adj[cur]) {
-				if (sz[nxt] > sz[cur]) continue;
+				if (nxt == excl) continue;
 				mp[sz[nxt]]++;
 			}
 			std::vector<std::pair<int, int>> freqs(mp.begin(), mp.end());
@@ -59,6 +60,10 @@ int main() {
 					ans[N - freqs[i].first - freqs[j].first] +=
 						int64_t(freqs[i].first * freqs[i].second) * int64_t(freqs[j].first * freqs[j].second);
 				}
+			}
+
+			if (cur == rt) {
+				// do excl with everything else
 			}
 		}
 
