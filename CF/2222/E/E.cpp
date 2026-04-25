@@ -3,11 +3,41 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int T; std::cin >> T;
+	constexpr bool TESTING = true;
+	std::mt19937 mt(48);
+
+	int T;
+	if constexpr (TESTING) {
+		T = 1000;
+	} else {
+		std::cin >> T;
+	}
 	while (T--) {
-		int N; std::cin >> N;
+		int N;
+		int K_ans; int64_t C_ans;
+		if constexpr (TESTING) {
+			N = std::uniform_int_distribution<int>(2, 60)(mt);
+			K_ans = std::uniform_int_distribution<int>(1, 3)(mt);
+			C_ans = std::uniform_int_distribution<int64_t>(1, (int64_t(1) << N) - 1)(mt);
+		} else {
+			std::cin >> N;
+		}
+		std::set<int64_t> st;
 		auto do_query = [&](char type, int64_t v) -> int {
 			std::cout << type << ' ' << v << '\n' << std::flush;
+			if constexpr (TESTING) {
+				if (type == 'I') {
+					if (K_ans == 1) st.insert(v & C_ans);
+					else if (K_ans == 2) st.insert(v | C_ans);
+					else if (K_ans == 3) st.insert(v ^ C_ans);
+					else assert(false);
+					return int(st.size());
+				} else if (type == 'Q') {
+					int ans = 0;
+					for (auto z : st) ans += (z >= v);
+					return ans;
+				}
+			}
 			int res; std::cin >> res;
 			return res;
 		};
@@ -24,6 +54,10 @@ int main() {
 			}
 			assert(v > 0);
 			std::cout << 'A' << ' ' << 1 << ' ' << v << '\n' << std::flush;
+			if constexpr (TESTING) {
+				assert(K_ans == 1);
+				assert(C_ans == v);
+			}
 		} else {
 			// k == or or k == xor
 			int64_t v = 0;
@@ -35,8 +69,16 @@ int main() {
 			int r = ins(v);
 			if (r == 1) {
 				std::cout << 'A' << ' ' << 2 << ' ' << v << '\n' << std::flush;
+				if constexpr (TESTING) {
+					assert(K_ans == 2);
+					assert(C_ans == v);
+				}
 			} else if (r == 2) {
 				std::cout << 'A' << ' ' << 3 << ' ' << v << '\n' << std::flush;
+				if constexpr (TESTING) {
+					assert(K_ans == 3);
+					assert(C_ans == v);
+				}
 			} else assert(false);
 		}
 	}
