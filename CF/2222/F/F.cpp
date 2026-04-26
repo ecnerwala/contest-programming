@@ -613,7 +613,7 @@ int main() {
 		int nxt_edge_idx = 0;
 		for (auto [vs, w] : edges) {
 			if (w == 0) break;
-			assert(vs[0] != vs[1]);
+			if (vs[0] == vs[1]) continue;
 			auto u = &verts[vs[0]];
 			auto v = &verts[vs[1]];
 			u->make_root();
@@ -659,7 +659,7 @@ int main() {
 			// now, insert things of weight w-1 as permanent
 			while (!edges.empty() && edges.back().second < w) {
 				auto vs = edges.back().first; edges.pop_back();
-				assert(vs[0] != vs[1]);
+				if (vs[0] == vs[1]) continue;
 				//std::cerr << "try link " << vs[0] << ' ' << vs[1] << '\n';
 				auto u = &verts[vs[0]];
 				auto v = &verts[vs[1]];
