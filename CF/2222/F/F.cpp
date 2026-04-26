@@ -581,7 +581,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, M, Q; std::cin >> N >> M >> Q;
-		std::cerr << "case " << N << ' ' << M << ' ' << Q << '\n';
+		//std::cerr << "case " << N << ' ' << M << ' ' << Q << '\n';
 		std::vector<std::pair<std::array<int, 2>, int>> edges(M);
 		for (int e = 0; e < M; e++) {
 			int u, v, w; std::cin >> u >> v >> w; u--, v--;
@@ -630,7 +630,7 @@ int main() {
 				u = &verts[u->max_vert];
 				v = &verts[v->max_vert];
 				weight = M+1;
-				std::cerr << "initial link " << u - verts.data() << ' ' << v - verts.data() << '\n';
+				//std::cerr << "initial link " << u - verts.data() << ' ' << v - verts.data() << '\n';
 				num_links++;
 				ans += 0;
 			}
@@ -638,17 +638,17 @@ int main() {
 			auto e = &edge_nodes[nxt_edge_idx++];
 			e->own_vert = -1;
 			e->own_edge = weight;
-			std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << e - edge_nodes.data() << ' ' << e->own_edge << '\n';
+			//std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << e - edge_nodes.data() << ' ' << e->own_edge << '\n';
 			link(e, u, v);
 			edges_by_weight[weight].push_back(e);
 		}
-		std::cerr << "initial tree" << '\n';
+		//std::cerr << "initial tree" << '\n';
 
 		for (int w = 1; w <= M+1; w++) {
 			// delete all things of weight w
 			if (w < M+1) {
 				for (auto e : edges_by_weight[w]) {
-					std::cerr << "cut " << e - edge_nodes.data() << '\n';
+					//std::cerr << "cut " << e - edge_nodes.data() << '\n';
 					if (e->own_edge == w) {
 						cut(e);
 					}
@@ -660,7 +660,7 @@ int main() {
 			while (!edges.empty() && edges.back().second < w) {
 				auto vs = edges.back().first; edges.pop_back();
 				assert(vs[0] != vs[1]);
-				std::cerr << "try link " << vs[0] << ' ' << vs[1] << '\n';
+				//std::cerr << "try link " << vs[0] << ' ' << vs[1] << '\n';
 				auto u = &verts[vs[0]];
 				auto v = &verts[vs[1]];
 				u->make_root();
@@ -670,7 +670,7 @@ int main() {
 					// actually link those instead with infinite weight
 					auto a = &verts[u->max_vert];
 					auto b = &verts[v->max_vert];
-					std::cerr << "final link " << u - verts.data() << ' ' << v - verts.data() << ' ' << w << '\n';
+					//std::cerr << "final link " << u - verts.data() << ' ' << v - verts.data() << ' ' << w << '\n';
 					num_links++;
 					ans += w;
 					auto e = &edge_nodes[nxt_edge_idx++];
@@ -706,7 +706,7 @@ int main() {
 				auto e = &edge_nodes[nxt_edge_idx++];
 				e->own_vert = -1;
 				e->own_edge = M+1;
-				std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << e - edge_nodes.data() << ' ' << e->own_edge << '\n';
+				//std::cerr << "linking " << u - verts.data() << ' ' << v - verts.data() << ' ' << e - edge_nodes.data() << ' ' << e->own_edge << '\n';
 				link(e, u, v);
 			}
 		}
