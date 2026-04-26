@@ -625,10 +625,10 @@ int main() {
 			if (u->p) continue;
 
 			int weight = w;
-			if (u->own_vert != -1 && v->own_vert != -1) {
+			if (u->max_vert != -1 && v->max_vert != -1) {
 				// actually link those instead with infinite weight
-				u = &verts[u->own_vert];
-				v = &verts[v->own_vert];
+				u = &verts[u->max_vert];
+				v = &verts[v->max_vert];
 				weight = M+1;
 				std::cerr << "initial link " << u - verts.data() << ' ' << v - verts.data() << '\n';
 				num_links++;
@@ -665,11 +665,11 @@ int main() {
 				auto v = &verts[vs[1]];
 				u->make_root();
 				assert(!u->p);
-				v->expose();
-				if (!u->p && u->own_vert != -1 && v->own_vert != -1) {
+				v->make_root();
+				if (!u->p && u->max_vert != -1 && v->max_vert != -1) {
 					// actually link those instead with infinite weight
-					auto a = &verts[u->own_vert];
-					auto b = &verts[v->own_vert];
+					auto a = &verts[u->max_vert];
+					auto b = &verts[v->max_vert];
 					std::cerr << "final link " << u - verts.data() << ' ' << v - verts.data() << ' ' << w << '\n';
 					num_links++;
 					ans += w;
