@@ -537,7 +537,6 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	int own_edge = -1;
 	int own_vert = -1;
 
-	int min_edge = -1;
 	int min_path_edge = -1;
 	int max_vert = -1;
 
@@ -562,12 +561,10 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 	// it may not have been called on the children! In particular, be careful
 	// when accessing grandchildren information.
 	void update() {
-		min_edge = own_edge;
 		max_vert = own_vert;
 		min_path_edge = own_edge;
 		for (int z = 0; z < 3; z++) {
 			if (c[z]) {
-				min_edge = std::min(min_edge, c[z]->min_edge);
 				max_vert = std::max(max_vert, c[z]->max_vert);
 			}
 		}
@@ -690,7 +687,7 @@ int main() {
 					auto pth = v->p;
 					assert(pth);
 					assert(!pth->p);
-					if (pth->min_edge == M+1) {
+					if (pth->min_path_edge == M+1) {
 						continue;
 					}
 					// find the min edge and cut it
