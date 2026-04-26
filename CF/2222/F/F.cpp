@@ -608,7 +608,7 @@ int main() {
 		std::sort(edges.begin(), edges.end(), [&](auto a, auto b) -> bool {
 			return a.second > b.second;
 		});
-		std::vector<std::vector<my_top_tree_node*>> edges_by_weight(M+1);
+		std::vector<std::vector<my_top_tree_node*>> edges_by_weight(M+2);
 		std::vector<my_top_tree_node> edge_nodes(2*M + N);
 		int nxt_edge_idx = 0;
 		for (auto [vs, w] : edges) {
