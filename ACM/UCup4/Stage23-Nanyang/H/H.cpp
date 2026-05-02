@@ -1476,9 +1476,9 @@ int main() {
 			}
 			assert(tot_vals[v] == y / d);
 		}
-		std::cerr << "case " << N << ' ' << M << '\n';
-		for (int i = 0; i <= DEG; i++) { std::cerr << tot_poly[i] << ' '; } std::cerr << '\n';
-		for (int i = 0; i <= DEG; i++) { std::cerr << den_poly[i] << ' '; } std::cerr << '\n';
+		//std::cerr << "case " << N << ' ' << M << '\n';
+		//for (int i = 0; i <= DEG; i++) { std::cerr << tot_poly[i] << ' '; } std::cerr << '\n';
+		//for (int i = 0; i <= DEG; i++) { std::cerr << den_poly[i] << ' '; } std::cerr << '\n';
 		tot_poly.resize(M+1, num(0));
 		den_poly.resize(M+1, num(0));
 		ps res = tot_poly * inverse(den_poly);
