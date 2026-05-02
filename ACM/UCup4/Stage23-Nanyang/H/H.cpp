@@ -1465,6 +1465,7 @@ int main() {
 					deg++;
 				}
 			}
+			assert(deg == DEG);
 		}
 		std::cerr << "case " << N << '\n';
 		for (int i = 0; i <= DEG; i++) { std::cerr << tot_poly[i] << ' '; } std::cerr << '\n';
