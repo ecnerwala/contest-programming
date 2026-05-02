@@ -346,6 +346,19 @@ int main() {
 			}
 			assert(y == ys[v]);
 		}
+		std::vector<num> den_poly(DEG+1);
+		den_poly[0] = 1;
+		{
+			int deg = 0;
+			for (int i = 1; i <= N; i++) {
+				for (int z = 0; z < N / i; z++) {
+					for (int a = deg; a >= 0; a--) {
+						den_poly[a+1] -= num(i) * den_poly[i];
+					}
+					deg++;
+				}
+			}
+		}
 	}
 
 	return 0;
