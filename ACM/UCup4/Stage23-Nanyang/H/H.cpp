@@ -1467,7 +1467,7 @@ int main() {
 			}
 			assert(deg == DEG);
 		}
-		std::cerr << "case " << N << '\n';
+		std::cerr << "case " << N << ' ' << M << '\n';
 		for (int i = 0; i <= DEG; i++) { std::cerr << tot_poly[i] << ' '; } std::cerr << '\n';
 		for (int i = 0; i <= DEG; i++) { std::cerr << den_poly[i] << ' '; } std::cerr << '\n';
 		tot_poly.resize(M+1, num(0));
