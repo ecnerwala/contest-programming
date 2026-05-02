@@ -335,6 +335,7 @@ int main() {
 				r = poly[i+1] + xs[v] * r;
 				tot_poly[i] += r * coeff;
 			}
+			r = poly[0] + xs[v] * r;
 			assert(r == num(0));
 		}
 	}
