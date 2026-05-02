@@ -338,6 +338,14 @@ int main() {
 			r = poly[0] + xs[v] * r;
 			assert(r == num(0));
 		}
+		for (int v = 0; v <= DEG; v++) {
+			num y = 0;
+			for (int i = DEG; i >= 0; i--) {
+				y *= xs[v];
+				y += tot_poly[i];
+			}
+			assert(y == ys[v]);
+		}
 	}
 
 	return 0;
