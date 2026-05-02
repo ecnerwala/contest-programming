@@ -1445,14 +1445,6 @@ int main() {
 			r = poly[0] + xs[v] * r;
 			assert(r == num(0));
 		}
-		for (int v = 0; v <= DEG; v++) {
-			num y = 0;
-			for (int i = DEG; i >= 0; i--) {
-				y *= xs[v];
-				y += tot_poly[i];
-			}
-			assert(y == ys[v]);
-		}
 		ps den_poly(DEG+1);
 		den_poly[0] = 1;
 		{
@@ -1466,6 +1458,20 @@ int main() {
 				}
 			}
 			assert(deg == DEG);
+		}
+		for (int v = 0; v <= DEG; v++) {
+			num y = 0;
+			for (int i = DEG; i >= 0; i--) {
+				y *= xs[v];
+				y += tot_poly[i];
+			}
+			assert(y == ys[v]);
+			num d = 0;
+			for (int i = DEG; i >= 0; i--) {
+				d *= xs[v];
+				d += den_poly[i];
+			}
+			assert(tot_vals[v] == y / d);
 		}
 		std::cerr << "case " << N << ' ' << M << '\n';
 		for (int i = 0; i <= DEG; i++) { std::cerr << tot_poly[i] << ' '; } std::cerr << '\n';
