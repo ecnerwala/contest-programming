@@ -1466,13 +1466,14 @@ int main() {
 				}
 			}
 		}
+		std::cerr << "case " << N << '\n';
 		for (int i = 0; i <= DEG; i++) { std::cerr << tot_poly[i] << ' '; } std::cerr << '\n';
 		for (int i = 0; i <= DEG; i++) { std::cerr << den_poly[i] << ' '; } std::cerr << '\n';
-		tot_poly.resize(M, num(0));
-		den_poly.resize(M, num(0));
+		tot_poly.resize(M+1, num(0));
+		den_poly.resize(M+1, num(0));
 		ps res = tot_poly * inverse(den_poly);
-		for (int i = 0; i < M; i++) {
-			std::cout << res[i] << " \n"[i+1==M];
+		for (int i = 1; i <= M; i++) {
+			std::cout << res[i] << " \n"[i==M];
 		}
 	}
 
