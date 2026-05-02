@@ -1460,7 +1460,7 @@ int main() {
 			for (int i = 1; i <= N; i++) {
 				for (int z = 0; z < N / i; z++) {
 					for (int a = deg; a >= 0; a--) {
-						den_poly[a+1] -= num(i) * den_poly[i];
+						den_poly[a+1] -= num(i) * den_poly[a];
 					}
 					deg++;
 				}
