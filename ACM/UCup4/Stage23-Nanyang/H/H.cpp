@@ -1374,13 +1374,16 @@ int main() {
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				auto ch_vals = self(nxt, cur);
-				std::vector<std::vector<num>> nxt_vals(int(ch_vals.size()) + int(vals.size()) - 1, std::vector<num>(DEG+1, num(0)));
-				for (int i = 0; i < int(ch_vals.size()); i++) {
-					for (int j = 0; j < int(vals.size()); j++) {
-						for (int v = 0; v <= DEG; v++) {
-							nxt_vals[i+j][v] += ch_vals[i][v] * vals[j][v];
+				{
+					std::vector<std::vector<num>> nxt_vals(int(ch_vals.size()) + int(vals.size()) - 1, std::vector<num>(DEG+1, num(0)));
+					for (int i = 0; i < int(ch_vals.size()); i++) {
+						for (int j = 0; j < int(vals.size()); j++) {
+							for (int v = 0; v <= DEG; v++) {
+								nxt_vals[i+j][v] += ch_vals[i][v] * vals[j][v];
+							}
 						}
 					}
+					vals = std::move(nxt_vals);
 				}
 				for (int v = 0; v <= DEG; v++) {
 					num tot = 0;
@@ -1389,7 +1392,6 @@ int main() {
 					}
 					dead_vals[v] *= tot;
 				}
-				vals = std::move(nxt_vals);
 			}
 			{
 				std::vector<std::vector<num>> nxt_vals(int(vals.size()) + 1, std::vector<num>(DEG+1, num(0)));
