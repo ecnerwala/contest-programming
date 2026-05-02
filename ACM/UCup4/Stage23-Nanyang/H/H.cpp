@@ -1389,6 +1389,7 @@ int main() {
 					}
 					dead_vals[v] *= tot;
 				}
+				vals = std::move(nxt_vals);
 			}
 			{
 				std::vector<std::vector<num>> nxt_vals(int(vals.size()) + 1, std::vector<num>(DEG+1, num(0)));
