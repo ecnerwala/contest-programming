@@ -66,6 +66,7 @@ int main() {
 				std::vector<int> max_odd(L); std::iota(max_odd.begin(), max_odd.end(), 0);
 				std::vector<int> max_any(L); std::iota(max_any.begin(), max_any.end(), 0);
 				auto add_interval = [&](int l, int r, int64_t cnt) -> void {
+					std::cerr << " inter " << l << '-' << r << ' ' << cnt << '\n';
 					l -= st, r -= st;
 					y_costs[0] += int64_t((r - l) / 2) * int64_t(cnt);
 					if ((r - l) & 1) {
