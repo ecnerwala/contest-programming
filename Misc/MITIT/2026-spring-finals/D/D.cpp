@@ -149,7 +149,7 @@ int main() {
 						j = i+1;
 						continue;
 					}
-					while (max_odd[j] > j) {
+					while (j < L && max_odd[j] > j) {
 						j = max_odd[j];
 					}
 					int64_t tot_cnt = 0;
