@@ -64,7 +64,7 @@ int main() {
 			// now, do the Y >= X case
 			{
 				// are all y_costs == 1 or 0??
-				for (int i = 0; i < N; i++) {
+				for (int i = st; i < en; i++) {
 				}
 			}
 		}
