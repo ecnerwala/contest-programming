@@ -151,7 +151,8 @@ int main() {
 						j = i+1;
 						continue;
 					}
-					while (j < L && max_odd[j] > j) {
+					j++;
+					while (max_odd[j-1] > j) {
 						j = max_odd[j];
 					}
 					int64_t tot_cnt = 0;
