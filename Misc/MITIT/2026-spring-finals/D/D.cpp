@@ -83,6 +83,8 @@ int main() {
 				int64_t cur = A[st];
 				for (int i = st+1; i < en; i++) {
 					if (!((i-st) & 1)) {
+						int64_t nxt = cur + A[i];
+						std::cerr << "incr " << cur << ' ' << nxt << '\n';
 						// go increasing
 						while (intervals[lo].bounds[0] < cur) {
 							assert(lo < hi);
@@ -95,7 +97,6 @@ int main() {
 								intervals[lo].bounds[0] = cur;
 							}
 						}
-						int64_t nxt = A[i] + cur;
 						assert(lo < hi);
 						if (nxt > intervals[hi-1].bounds[1]) {
 							intervals[hi] = {{intervals[hi-1].bounds[1], nxt}, i};
@@ -104,6 +105,8 @@ int main() {
 						cur = nxt;
 					} else {
 						// go decreasing
+						int64_t nxt = cur - A[i];
+						std::cerr << "decr " << cur << ' ' << nxt << '\n';
 						while (intervals[hi-1].bounds[1] > cur) {
 							assert(lo < hi);
 							if (intervals[hi-1].bounds[0] >= cur) {
@@ -114,7 +117,6 @@ int main() {
 								intervals[hi-1].bounds[1] = cur;
 							}
 						}
-						int64_t nxt = cur - A[i];
 						assert(lo < hi);
 						if (nxt < intervals[lo].bounds[0]) {
 							intervals[lo-1] = {{nxt, intervals[lo].bounds[0]}, i};
