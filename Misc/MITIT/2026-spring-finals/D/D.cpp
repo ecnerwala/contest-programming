@@ -84,6 +84,7 @@ int main() {
 					}
 					max_any[l] = std::max(max_any[l], r);
 				};
+				std::sort(odds.begin(), odds.end());
 
 				{
 					// are all y_costs == 1 or 0??
