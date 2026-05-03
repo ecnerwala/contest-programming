@@ -6,7 +6,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, Q; std::cin >> N >> Q;
-		std::cerr << "case " << N << ' ' << Q << '\n';
+		//std::cerr << "case " << N << ' ' << Q << '\n';
 		std::vector<int64_t> A(N); for (auto& a : A) std::cin >> a;
 
 		std::vector<int64_t> x_costs(N+1);
@@ -66,14 +66,21 @@ int main() {
 				std::vector<int64_t> cnt_odd(L);
 				std::vector<int> max_odd(L); std::iota(max_odd.begin(), max_odd.end(), 0);
 				std::vector<int> max_any(L); std::iota(max_any.begin(), max_any.end(), 0);
+				std::vector<std::array<int, 2>> odds; odds.reserve(4 * (en - st));
 				auto add_interval = [&](int l, int r, int64_t cnt) -> void {
-					std::cerr << " inter " << l << '-' << r << ' ' << cnt << '\n';
+					assert(cnt >= 1);
+					//std::cerr << " inter " << l << '-' << r << ' ' << cnt << '\n';
 					l -= st, r -= st;
 					y_costs[0] += int64_t((r - l) / 2) * int64_t(cnt);
 					if ((r - l) & 1) {
+						y_costs[1] += (cnt - 1) / 2;
+						cnt -= (cnt - 1) / 2 * 2;
+						assert(cnt >= 1);
 						cnt_odd[l] += cnt;
 						max_odd[l] = std::max(max_odd[l], r);
-					} else {
+						for (int z = 0; z < cnt; z++) {
+							odds.push_back({l, r});
+						}
 					}
 					max_any[l] = std::max(max_any[l], r);
 				};
@@ -87,7 +94,6 @@ int main() {
 						int l_idx;
 					};
 					std::vector<inter_t> intervals(2 * (en - st));
-					std::vector<std::array<int, 2>> odds; odds.reserve(2 * (en - st));
 					intervals[hi++] = {{0, A[st]}, st};
 					int64_t cur = A[st];
 					for (int i = st+1; i < en; i++) {
@@ -142,28 +148,7 @@ int main() {
 				}
 
 				for (int i = 0; i+1 < L; i++) {
-					max_odd[i+1] = std::max(max_odd[i+1], max_odd[i]);
 					max_any[i+1] = std::max(max_any[i+1], max_any[i]);
-				}
-				std::vector<std::array<int, 2>> odds; odds.reserve(L);
-				for (int i = 0, j = 0; i < L; i = j) {
-					if (max_odd[i] == i) {
-						j = i+1;
-						continue;
-					}
-					j++;
-					while (max_odd[j-1] > j) {
-						j = max_odd[j];
-					}
-					int64_t tot_cnt = 0;
-					for (int k = i; k < j; k++) {
-						tot_cnt += cnt_odd[k];
-					}
-					y_costs[1] += tot_cnt / 2;
-					std::cerr << " odd " << i << ' ' << j << ' ' << tot_cnt << '\n';
-					if (tot_cnt & 1) {
-						odds.push_back({i, j});
-					}
 				}
 				std::vector<int> bad_dist; bad_dist.reserve(odds.size());
 				for (int z = 0; z+1 < int(odds.size()); z++) {
@@ -176,7 +161,7 @@ int main() {
 						}
 					}
 					cost++;
-					std::cerr << "cost " << cost << '\n';
+					//std::cerr << "cost " << cost << '\n';
 					bool should_ins = true;
 					while (!bad_dist.empty() && cost >= bad_dist.back()) {
 						assert(cost > 0);
@@ -219,7 +204,7 @@ int main() {
 			y_vals[i][0] += y_costs[i];
 			y_vals[i][0] -= int64_t(y_costs[i]) * i;
 			y_vals[i][1] += int64_t(y_costs[i]) * i;
-			std::cerr << i << ' ' << y_vals[i][0] << ' ' << y_vals[i][1] << '\n';
+			//std::cerr << i << ' ' << y_vals[i][0] << ' ' << y_vals[i][1] << '\n';
 		}
 
 		for (int q = 0; q < Q; q++) {
