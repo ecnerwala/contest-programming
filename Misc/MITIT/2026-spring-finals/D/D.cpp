@@ -90,10 +90,10 @@ int main() {
 							assert(lo < hi);
 							if (intervals[lo].bounds[1] <= cur) {
 								// remove the whole thing
-								add_interval(intervals[lo].l_idx, i, intervals[lo].bounds[1] - intervals[lo].bounds[0]);
+								add_interval(intervals[lo].l_idx, i-1, intervals[lo].bounds[1] - intervals[lo].bounds[0]);
 								lo++;
 							} else {
-								add_interval(intervals[lo].l_idx, i, cur - intervals[lo].bounds[0]);
+								add_interval(intervals[lo].l_idx, i-1, cur - intervals[lo].bounds[0]);
 								intervals[lo].bounds[0] = cur;
 							}
 						}
@@ -110,10 +110,10 @@ int main() {
 						while (intervals[hi-1].bounds[1] > cur) {
 							assert(lo < hi);
 							if (intervals[hi-1].bounds[0] >= cur) {
-								add_interval(intervals[hi-1].l_idx, i, intervals[hi-1].bounds[1] - intervals[hi-1].bounds[0]);
+								add_interval(intervals[hi-1].l_idx, i-1, intervals[hi-1].bounds[1] - intervals[hi-1].bounds[0]);
 								hi--;
 							} else {
-								add_interval(intervals[hi-1].l_idx, i, intervals[hi-1].bounds[1] - cur);
+								add_interval(intervals[hi-1].l_idx, i-1, intervals[hi-1].bounds[1] - cur);
 								intervals[hi-1].bounds[1] = cur;
 							}
 						}
