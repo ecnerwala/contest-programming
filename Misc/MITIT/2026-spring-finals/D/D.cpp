@@ -34,6 +34,7 @@ int main() {
 				for (int i = 0; i+1 < int(bad_pos.size()); i++) {
 					int cost = bad_pos[i+1] - bad_pos[i];
 					while (!bad_dist.empty() && cost >= bad_dist.back()) {
+						assert(cost > 0);
 						x_costs[bad_dist.back()]++;
 						cost -= bad_dist.back();
 						bad_dist.pop_back();
