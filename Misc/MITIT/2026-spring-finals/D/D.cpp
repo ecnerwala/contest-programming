@@ -218,6 +218,7 @@ int main() {
 			y_vals[i][0] += y_costs[i];
 			y_vals[i][0] -= int64_t(y_costs[i]) * i;
 			y_vals[i][1] += int64_t(y_costs[i]) * i;
+			std::cerr << i << ' ' << y_vals[i][0] << ' ' << y_vals[i][1] << '\n';
 		}
 
 		for (int q = 0; q < Q; q++) {
