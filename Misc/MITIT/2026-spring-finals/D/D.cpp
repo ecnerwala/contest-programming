@@ -6,6 +6,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, Q; std::cin >> N >> Q;
+		std::cerr << "case " << N << ' ' << Q << '\n';
 		std::vector<int64_t> A(N); for (auto& a : A) std::cin >> a;
 
 		std::vector<int64_t> x_costs(N+1);
@@ -171,7 +172,6 @@ int main() {
 							i = max_any[i]-1;
 							cost++;
 						}
-						cost--;
 					}
 					std::cerr << "cost " << cost << '\n';
 					bool should_ins = true;
