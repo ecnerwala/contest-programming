@@ -8,9 +8,7 @@ int main() {
 		int N, Q; std::cin >> N >> Q;
 		std::vector<int64_t> A(N); for (auto& a : A) std::cin >> a;
 
-		int64_t base_X = 0;
 		std::vector<int> x_costs(N+1);
-		int64_t base_Y = 0;
 		std::vector<int> y_costs(N+1);
 		for (int st = 0, en = 0; st < N; st = en) {
 			if (!A[st]) {
@@ -25,7 +23,7 @@ int main() {
 				std::vector<int> bad_pos; bad_pos.reserve(en - st);
 				for (int i = st; i < en; i++) {
 					assert(A[i] >= 1);
-					base_X += A[i] / 2;
+					x_costs[0] += A[i] / 2;
 					if (A[i] & 1) {
 						bad_pos.push_back(i);
 					}
@@ -64,18 +62,84 @@ int main() {
 			// now, do the Y >= X case
 			{
 				// are all y_costs == 1 or 0??
-				for (int i = st; i < en; i++) {
+				// let's just find all the maximal intervals
+				int lo = en - st, hi = en - st;
+				struct inter_t {
+					std::array<int64_t, 2> bounds;
+					int l_idx;
+				};
+				std::vector<inter_t> intervals(2 * (en - st));
+				auto add_interval = [&](int l, int r, int64_t cnt) -> void {
+					if ((r - l) & 1) {
+						std::cerr << " odd " << l << ' ' << r << ' ' << cnt << '\n';
+					} else {
+						std::cerr << " even " << l << ' ' << r << ' ' << cnt << '\n';
+					}
+				};
+				intervals[hi++] = {{0, A[st]}, st};
+				int64_t cur = A[st];
+				for (int i = st+1; i < en; i++) {
+					if (!((i-st) & 1)) {
+						// go increasing
+						while (intervals[lo].bounds[0] < cur) {
+							assert(lo < hi);
+							if (intervals[lo].bounds[1] <= cur) {
+								// remove the whole thing
+								add_interval(intervals[lo].l_idx, i, intervals[lo].bounds[1] - intervals[lo].bounds[0]);
+								lo++;
+							} else {
+								add_interval(intervals[lo].l_idx, i, cur - intervals[lo].bounds[0]);
+								intervals[lo].bounds[0] = cur;
+							}
+						}
+						int64_t nxt = A[i] + cur;
+						assert(lo < hi);
+						if (nxt > intervals[hi-1].bounds[1]) {
+							intervals[hi] = {{intervals[hi-1].bounds[1], nxt}, i};
+							hi++;
+						}
+						cur = nxt;
+					} else {
+						// go decreasing
+						while (intervals[hi-1].bounds[1] > cur) {
+							assert(lo < hi);
+							if (intervals[hi-1].bounds[0] >= cur) {
+								add_interval(intervals[hi-1].l_idx, i, intervals[hi-1].bounds[1] - intervals[hi-1].bounds[0]);
+								hi--;
+							} else {
+								add_interval(intervals[hi-1].l_idx, i, intervals[hi-1].bounds[1] - cur);
+								intervals[hi-1].bounds[1] = cur;
+							}
+						}
+						int64_t nxt = cur - A[i];
+						assert(lo < hi);
+						if (nxt < intervals[lo].bounds[0]) {
+							intervals[lo-1] = {{nxt, intervals[lo].bounds[0]}, i};
+							lo--;
+						}
+						cur = nxt;
+					}
+				}
+				// close off all the intervals at the end
+				for (int z = lo; z < hi; z++) {
+					add_interval(intervals[z].l_idx, en, intervals[z].bounds[1] - intervals[z].bounds[0]);
 				}
 			}
 		}
 
 		std::vector<std::array<int64_t, 2>> x_vals(N+1);
 		for (int i = 0; i <= N; i++) {
-			std::cerr << i << ' '<< x_costs[i] << '\n';
-			x_vals[i] = (i ? x_vals[i-1] : std::array<int64_t, 2>{base_X, 0});
+			x_vals[i] = (i ? x_vals[i-1] : std::array<int64_t, 2>{0, 0});
 			x_vals[i][0] += x_costs[i];
 			x_vals[i][0] -= int64_t(x_costs[i]) * i;
 			x_vals[i][1] += int64_t(x_costs[i]) * i;
+		}
+		std::vector<std::array<int64_t, 2>> y_vals(N+1);
+		for (int i = 0; i <= N; i++) {
+			y_vals[i] = (i ? y_vals[i-1] : std::array<int64_t, 2>{0, 0});
+			y_vals[i][0] += y_costs[i];
+			y_vals[i][0] -= int64_t(y_costs[i]) * i;
+			y_vals[i][1] += int64_t(y_costs[i]) * i;
 		}
 
 		for (int q = 0; q < Q; q++) {
@@ -85,7 +149,9 @@ int main() {
 				auto [cx, cy] = x_vals[max_cost];
 				std::cout << (x * cx + y * cy) << '\n';
 			} else {
-				std::cout << "bad" << '\n';
+				int max_cost = (y == x) ? N : std::min(N, y / (y - x));
+				auto [cy, cx] = y_vals[max_cost];
+				std::cout << (x * cx + y * cy) << '\n';
 			}
 		}
 	}
