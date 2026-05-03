@@ -175,6 +175,7 @@ int main() {
 							cost++;
 						}
 					}
+					cost++;
 					std::cerr << "cost " << cost << '\n';
 					bool should_ins = true;
 					while (!bad_dist.empty() && cost >= bad_dist.back()) {
