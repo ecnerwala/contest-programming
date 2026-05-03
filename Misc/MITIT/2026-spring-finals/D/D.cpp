@@ -61,6 +61,7 @@ int main() {
 
 		std::vector<std::array<int64_t, 2>> x_vals(N+1);
 		for (int i = 0; i <= N; i++) {
+			std::cerr << i << ' '<< x_costs[i] << '\n';
 			x_vals[i] = (i ? x_vals[i-1] : std::array<int64_t, 2>{base_X, 0});
 			x_vals[i][0] += x_costs[i];
 			x_vals[i][0] -= int64_t(x_costs[i]) * i;
