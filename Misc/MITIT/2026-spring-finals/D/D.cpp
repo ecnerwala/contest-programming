@@ -8,8 +8,8 @@ int main() {
 		int N, Q; std::cin >> N >> Q;
 		std::vector<int64_t> A(N); for (auto& a : A) std::cin >> a;
 
-		std::vector<int> x_costs(N+1);
-		std::vector<int> y_costs(N+1);
+		std::vector<int64_t> x_costs(N+1);
+		std::vector<int64_t> y_costs(N+1);
 		for (int st = 0, en = 0; st < N; st = en) {
 			if (!A[st]) {
 				en++;
@@ -69,9 +69,12 @@ int main() {
 					int l_idx;
 				};
 				std::vector<inter_t> intervals(2 * (en - st));
+				std::vector<std::array<int, 2>> odds; odds.reserve(2 * (en - st));
 				auto add_interval = [&](int l, int r, int64_t cnt) -> void {
+					y_costs[0] += int64_t((r - l) / 2) * int64_t(cnt);
 					if ((r - l) & 1) {
 						std::cerr << " odd " << l << ' ' << r << ' ' << cnt << '\n';
+						odds.push_back({l, r});
 					} else {
 						std::cerr << " even " << l << ' ' << r << ' ' << cnt << '\n';
 					}
