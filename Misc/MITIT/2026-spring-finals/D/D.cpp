@@ -171,6 +171,7 @@ int main() {
 							i = max_any[i]-1;
 							cost++;
 						}
+						cost--;
 					}
 					std::cerr << "cost " << cost << '\n';
 					bool should_ins = true;
