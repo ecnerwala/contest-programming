@@ -157,9 +157,9 @@ int main() {
 						tot_cnt += cnt_odd[k];
 					}
 					y_costs[1] += tot_cnt / 2;
-					tot_cnt &= 1;
-					odds.push_back({i, j});
-
+					if (tot_cnt & 1) {
+						odds.push_back({i, j});
+					}
 				}
 				std::vector<int> bad_dist; bad_dist.reserve(odds.size());
 				for (int z = 0; z+1 < int(odds.size()); z++) {
@@ -171,6 +171,7 @@ int main() {
 							cost++;
 						}
 					}
+					std::cerr << "cost " << cost << '\n';
 					bool should_ins = true;
 					while (!bad_dist.empty() && cost >= bad_dist.back()) {
 						assert(cost > 0);
