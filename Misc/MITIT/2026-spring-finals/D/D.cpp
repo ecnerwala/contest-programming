@@ -35,6 +35,7 @@ int main() {
 					int cost = bad_pos[i+1] - bad_pos[i];
 					while (!bad_dist.empty() && cost >= bad_dist.back()) {
 						assert(cost > 0);
+						assert(bad_dist.back() > 0);
 						x_costs[bad_dist.back()]++;
 						cost -= bad_dist.back();
 						bad_dist.pop_back();
@@ -45,6 +46,7 @@ int main() {
 					bad_dist.push_back(cost);
 				}
 				while (!bad_dist.empty()) {
+					assert(bad_dist.back() > 0);
 					x_costs[bad_dist.back()]++;
 					bad_dist.pop_back();
 					if (bad_dist.empty()) break;
