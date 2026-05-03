@@ -181,7 +181,7 @@ int main() {
 					while (!bad_dist.empty() && cost >= bad_dist.back()) {
 						assert(cost > 0);
 						assert(bad_dist.back() > 0);
-						x_costs[bad_dist.back()]++;
+						y_costs[bad_dist.back()]++;
 						cost -= bad_dist.back();
 						bad_dist.pop_back();
 						if (bad_dist.empty()) {
@@ -198,7 +198,7 @@ int main() {
 				}
 				while (!bad_dist.empty()) {
 					assert(bad_dist.back() > 0);
-					x_costs[bad_dist.back()]++;
+					y_costs[bad_dist.back()]++;
 					bad_dist.pop_back();
 					if (bad_dist.empty()) break;
 					bad_dist.pop_back();
