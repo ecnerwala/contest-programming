@@ -131,6 +131,7 @@ int main() {
 		for (const auto& [v, cnt] : dp) {
 			for (int d = 0; d < N; d++) {
 				if (A[i] != -1 && d != A[i]) continue;
+				if (v[d] >= N) continue;
 				if (v[d] > v[d ? d-1 : N-1]) continue;
 				auto nv = v;
 				nv[d]++;
@@ -139,6 +140,7 @@ int main() {
 		}
 		dp = std::move(ndp);
 	}
+	assert(int(dp.size()) <= 1);
 	num ans = 0;
 	for (const auto& [v, cnt] : dp) {
 		ans += cnt;
