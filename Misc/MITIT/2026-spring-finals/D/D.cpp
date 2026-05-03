@@ -159,6 +159,7 @@ int main() {
 						tot_cnt += cnt_odd[k];
 					}
 					y_costs[1] += tot_cnt / 2;
+					std::cerr << " odd " << i << ' ' << j << ' ' << tot_cnt << '\n';
 					if (tot_cnt & 1) {
 						odds.push_back({i, j});
 					}
