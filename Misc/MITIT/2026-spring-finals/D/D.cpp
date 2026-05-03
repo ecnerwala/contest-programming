@@ -31,8 +31,8 @@ int main() {
 					}
 				}
 				std::vector<int> bad_dist; bad_dist.reserve(bad_pos.size());
-				for (int i = 0; i+1 < int(bad_pos.size()); i++) {
-					int cost = bad_pos[i+1] - bad_pos[i];
+				for (int z = 0; z+1 < int(bad_pos.size()); z++) {
+					int cost = bad_pos[z+1] - bad_pos[z];
 					while (!bad_dist.empty() && cost >= bad_dist.back()) {
 						assert(cost > 0);
 						assert(bad_dist.back() > 0);
@@ -43,6 +43,7 @@ int main() {
 						cost += bad_dist.back();
 						bad_dist.pop_back();
 					}
+					assert(cost > 0);
 					bad_dist.push_back(cost);
 				}
 				while (!bad_dist.empty()) {
