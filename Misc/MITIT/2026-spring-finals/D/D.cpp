@@ -124,6 +124,9 @@ int main() {
 						}
 						cur = nxt;
 					}
+						for (int z = lo; z < hi; z++) {
+							std::cerr << intervals[z].bounds[0] << '-' << intervals[z].bounds[1] << '@' << intervals[z].l_idx << '\n';
+						}
 				}
 				// close off all the intervals at the end
 				for (int z = lo; z < hi; z++) {
