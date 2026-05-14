@@ -271,10 +271,10 @@ int main() {
 				assert(to > from);
 
 				assert(st != en);
+				auto r = prefs[en][to];
+				auto l = prefs[en][from];
 				int o = 0+1+2 - st - en;
-				auto r = prefs[o][to];
-				auto l = prefs[o][from];
-				if (r.last_val != st) {
+				if (r.last_val != o) {
 					r.tot += r.cnt;
 					r.num_swaps++;
 					r.last_val = st;
