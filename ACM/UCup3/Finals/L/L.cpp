@@ -231,13 +231,30 @@ int main() {
 		std::string S; std::cin >> S;
 		int N = int(S.size());
 
+		std::vector<std::array<int64_t, 3>> dp(N+1);
+		dp[0].fill(0);
+
 		auto select = [&](int, smawk::value_t<int64_t> a, smawk::value_t<int64_t> b) {
 			return a.v < b.v ? 0 : 1;
 		};
 
 		auto make_get = [&](int st, int en) -> auto {
-			return [=](int to, int from) -> int64_t {
-				return 0;
+			return [&, st, en](int to, int from) -> int64_t {
+				assert(to >= from);
+				to++;
+				assert(to > from);
+
+				assert(st != en);
+				int64_t tot_cost = 0;
+				int cur_cost = 0;
+				int cur_val = 0+1+2 - st - en;
+				for (int j = to-1; j >= from; j--) {
+					char c = S[j] - 'A';
+					if (c == en) continue;
+					if (c != cur_val) { cur_val = c, cur_cost++; }
+					tot_cost += cur_cost;
+				}
+				return tot_cost + dp[from][en];
 			};
 		};
 		std::array<std::array<smawk::LARSCH<std::function<int64_t(int, int)>, decltype(select)>, 3>, 3> larschs{{
@@ -256,26 +273,18 @@ int main() {
 			}},
 		}};
 
-		std::vector<std::array<int64_t, 3>> dp(N+1);
-		dp[0].fill(0);
 		for (int i = 1; i <= N; i++) {
 			for (int st = 0; st < 3; st++) {
 				dp[i][st] = 1e18;
 				for (int en = 0; en < 3; en++) {
 					if (en == st) continue;
-					int64_t tot_cost = 0;
-					int cur_cost = 0;
-					int cur_val = 0+1+2 - st - en;
-					for (int j = i-1; j >= 0; j--) {
-						int c = S[j] - 'A';
-						if (c != en) {
-							if (cur_val != c) { cur_val = c, cur_cost++; }
-							tot_cost += cur_cost;
-						}
-						dp[i][st] = std::min(dp[i][st], i + dp[j][en] + tot_cost);
-					}
+					// call this unconditionally to keep the larsch in sync
+					dp[i][st] = std::min(dp[i][st], larschs[st][en].push_and_query_next().v);
 				}
-				if (S[i-1] - 'A' == st) dp[i][st] = dp[i-1][st];
+				dp[i][st] += i;
+				if (S[i-1] - 'A' == st) {
+					dp[i][st] = dp[i-1][st];
+				}
 			}
 		}
 
