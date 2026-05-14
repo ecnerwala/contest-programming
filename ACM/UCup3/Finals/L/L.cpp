@@ -280,6 +280,7 @@ int main() {
 					r.last_val = st;
 				}
 				int64_t fast = r.tot - l.tot - int64_t(l.cnt) * (r.num_swaps - l.num_swaps);
+
 				int64_t tot_cost = 0;
 				int cur_cost = 0;
 				int cur_val = 0+1+2 - st - en;
@@ -289,7 +290,15 @@ int main() {
 					if (c != cur_val) { cur_val = c, cur_cost++; }
 					tot_cost += cur_cost;
 				}
-				assert(tot_cost == fast);
+				if (tot_cost != fast) {
+					std::cerr << "st " << st << '\n';
+					std::cerr << "en " << en << '\n';
+					std::cerr << "from " << from << " to " << to << '\n';
+					std::cerr << S.substr(from, to-from) << '\n';
+					std::cerr << fast << '\n';
+					std::cerr << tot_cost << '\n';
+					assert(tot_cost == fast);
+				}
 				return to + tot_cost + dp[from][en];
 			};
 		};
