@@ -277,7 +277,7 @@ int main() {
 				if (r.last_val != o) {
 					r.tot += r.cnt;
 					r.num_swaps++;
-					r.last_val = st;
+					r.last_val = o;
 				}
 				int64_t tot_cost = r.tot - l.tot - int64_t(l.cnt) * (r.num_swaps - l.num_swaps);
 				return to + tot_cost + dp[from][en];
