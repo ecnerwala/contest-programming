@@ -231,19 +231,30 @@ int main() {
 		std::string S; std::cin >> S;
 		int N = int(S.size());
 
-		auto select = [&](int, const smawk::value_t<int64_t>& a, const smawk::value_t<int64_t>& b) -> bool {
+		auto select = [&](int, smawk::value_t<int64_t> a, smawk::value_t<int64_t> b) {
 			return a.v < b.v ? 0 : 1;
 		};
 
-		struct cost_getter {
-			std::string& S;
-			cost_getter(std::string& S_, int st, int en) : S(S_) {}
-			int64_t operator () (int to, int from) const {
+		auto make_get = [&](int st, int en) -> auto {
+			return [=](int to, int from) -> int64_t {
 				return 0;
-			}
+			};
 		};
-
-		smawk::LARSCH a(N, cost_getter{S, 0, 1}, std::move(select));
+		std::array<std::array<smawk::LARSCH<std::function<int64_t(int, int)>, decltype(select)>, 3>, 3> larschs{{
+			{{
+				{N, make_get(0, 0), std::move(select)},
+				{N, make_get(0, 1), std::move(select)},
+				{N, make_get(0, 2), std::move(select)},
+			}}, {{
+				{N, make_get(1, 0), std::move(select)},
+				{N, make_get(1, 1), std::move(select)},
+				{N, make_get(1, 2), std::move(select)},
+			}}, {{
+				{N, make_get(2, 0), std::move(select)},
+				{N, make_get(2, 1), std::move(select)},
+				{N, make_get(2, 2), std::move(select)},
+			}},
+		}};
 
 		std::vector<std::array<int64_t, 3>> dp(N+1);
 		dp[0].fill(0);
