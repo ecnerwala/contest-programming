@@ -231,19 +231,19 @@ int main() {
 		std::string S; std::cin >> S;
 		int N = int(S.size());
 
-		auto select = [&](int, smawk::value_t<int64_t> a, smawk::value_t<int64_t> b) {
+		auto select = [&](int, const smawk::value_t<int64_t>& a, const smawk::value_t<int64_t>& b) -> bool {
 			return a.v < b.v ? 0 : 1;
 		};
 
-		auto make_get = [&](int st, int en) -> auto {
-		};
-		std::array<std::array<smawk::LARSCH<decltype(make_get(0, 1)), decltype(select)>, 3>, 3> larschs;
-		for (int st = 0; st < 3; st++) {
-			for (int en = 0; en < 3; en++) {
-				if (st == en) continue;
-				larschs[st][en] = {make_get(st, en), select};
+		struct cost_getter {
+			std::string& S;
+			cost_getter(std::string& S_, int st, int en) : S(S_) {}
+			int64_t operator () (int to, int from) const {
+				return 0;
 			}
-		}
+		};
+
+		smawk::LARSCH a(N, cost_getter{S, 0, 1}, select);
 
 		std::vector<std::array<int64_t, 3>> dp(N+1);
 		dp[0].fill(0);
