@@ -254,7 +254,7 @@ int main() {
 					if (c != cur_val) { cur_val = c, cur_cost++; }
 					tot_cost += cur_cost;
 				}
-				return tot_cost + dp[from][en];
+				return to + tot_cost + dp[from][en];
 			};
 		};
 		std::array<std::array<smawk::LARSCH<std::function<int64_t(int, int)>, decltype(select)>, 3>, 3> larschs{{
@@ -281,7 +281,6 @@ int main() {
 					// call this unconditionally to keep the larsch in sync
 					dp[i][st] = std::min(dp[i][st], larschs[st][en].push_and_query_next().v);
 				}
-				dp[i][st] += i;
 				if (S[i-1] - 'A' == st) {
 					dp[i][st] = dp[i-1][st];
 				}
