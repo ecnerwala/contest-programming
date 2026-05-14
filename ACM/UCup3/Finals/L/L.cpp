@@ -24,7 +24,7 @@ int main() {
 							if (cur_val != c) { cur_val = c, cur_cost++; }
 							tot_cost += cur_cost;
 						}
-						dp[i][st] = std::min(dp[i][st], (N-i) + dp[j][en] + tot_cost);
+						dp[i][st] = std::min(dp[i][st], i + dp[j][en] + tot_cost);
 					}
 				}
 				if (S[i-1] - 'A' == st) dp[i][st] = dp[i-1][st];
