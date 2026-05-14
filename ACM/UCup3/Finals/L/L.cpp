@@ -18,7 +18,7 @@ int main() {
 					if (en == st) continue;
 					int64_t tot_cost = 0;
 					int cur_cost = 0;
-					int cur_val = st;
+					int cur_val = 0+1+2 - st - en;
 					for (int j = i; j < N; j++) {
 						int c = S[j] - 'A';
 						if (c != en) {
