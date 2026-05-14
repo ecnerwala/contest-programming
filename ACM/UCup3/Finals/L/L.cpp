@@ -243,7 +243,7 @@ int main() {
 			}
 		};
 
-		smawk::LARSCH a(N, cost_getter{S, 0, 1}, select);
+		smawk::LARSCH a(N, cost_getter{S, 0, 1}, &select);
 
 		std::vector<std::array<int64_t, 3>> dp(N+1);
 		dp[0].fill(0);
