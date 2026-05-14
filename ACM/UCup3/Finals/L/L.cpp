@@ -238,25 +238,52 @@ int main() {
 			return a.v < b.v ? 0 : 1;
 		};
 
+		struct pref_t {
+			int64_t tot;
+			int last_val;
+			int cnt;
+			int num_swaps;
+		};
+
+		std::array<std::vector<pref_t>, 3> prefs;
+		for (int o = 0; o < 3; o++) {
+			prefs[o].resize(N+1);
+			pref_t v{0, o, 0, 0};
+			for (int i = 0; i <= N; i++) {
+				prefs[o][i] = v;
+				if (i == N) break;
+				char c = S[i] - 'A';
+				if (c != o) {
+					if (c != v.last_val) {
+						v.tot += v.cnt;
+						v.num_swaps++;
+						v.last_val = c;
+					}
+					v.cnt++;
+				}
+			}
+		}
+
 		auto make_get = [&](int st, int en) -> auto {
-			return [&S, &dp, st, en](int to, int from) -> int64_t {
+			return [&prefs, &dp, st, en](int to, int from) -> int64_t {
 				assert(to >= from);
 				to++;
 				assert(to > from);
 
 				assert(st != en);
-				int64_t tot_cost = 0;
-				int cur_cost = 0;
-				int cur_val = 0+1+2 - st - en;
-				for (int j = to-1; j >= from; j--) {
-					char c = S[j] - 'A';
-					if (c == en) continue;
-					if (c != cur_val) { cur_val = c, cur_cost++; }
-					tot_cost += cur_cost;
+				int o = 0+1+2 - st - en;
+				auto r = prefs[o][to];
+				auto l = prefs[o][from];
+				if (r.last_val != st) {
+					r.tot += r.cnt;
+					r.num_swaps++;
+					r.last_val = st;
 				}
+				int64_t tot_cost = r.tot - l.tot - l.cnt * (r.num_swaps - l.num_swaps);
 				return to + tot_cost + dp[from][en];
 			};
 		};
+
 		std::array<std::array<smawk::LARSCH<decltype(make_get(0, 1)), decltype(select)&>, 3>, 3> larschs{{
 			{{
 				{N, make_get(0, 0), select},
