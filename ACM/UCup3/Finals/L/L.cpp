@@ -257,19 +257,19 @@ int main() {
 				return to + tot_cost + dp[from][en];
 			};
 		};
-		std::array<std::array<smawk::LARSCH<std::function<int64_t(int, int)>, decltype(select)>, 3>, 3> larschs{{
+		std::array<std::array<smawk::LARSCH<decltype(make_get(0, 1)), decltype(select)&>, 3>, 3> larschs{{
 			{{
-				{N, make_get(0, 0), std::move(select)},
-				{N, make_get(0, 1), std::move(select)},
-				{N, make_get(0, 2), std::move(select)},
+				{N, make_get(0, 0), select},
+				{N, make_get(0, 1), select},
+				{N, make_get(0, 2), select},
 			}}, {{
-				{N, make_get(1, 0), std::move(select)},
-				{N, make_get(1, 1), std::move(select)},
-				{N, make_get(1, 2), std::move(select)},
+				{N, make_get(1, 0), select},
+				{N, make_get(1, 1), select},
+				{N, make_get(1, 2), select},
 			}}, {{
-				{N, make_get(2, 0), std::move(select)},
-				{N, make_get(2, 1), std::move(select)},
-				{N, make_get(2, 2), std::move(select)},
+				{N, make_get(2, 0), select},
+				{N, make_get(2, 1), select},
+				{N, make_get(2, 2), select},
 			}},
 		}};
 
