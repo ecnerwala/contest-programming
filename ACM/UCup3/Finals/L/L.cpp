@@ -234,7 +234,7 @@ int main() {
 		std::vector<std::array<int64_t, 3>> dp(N+1);
 		dp[0].fill(0);
 
-		auto select = [&](int, smawk::value_t<int64_t> a, smawk::value_t<int64_t> b) {
+		auto select = [](int, smawk::value_t<int64_t> a, smawk::value_t<int64_t> b) {
 			return a.v < b.v ? 0 : 1;
 		};
 
