@@ -265,7 +265,7 @@ int main() {
 		}
 
 		auto make_get = [&](int st, int en) -> auto {
-			return [&prefs, &dp, st, en](int to, int from) -> int64_t {
+			return [&S, &prefs, &dp, st, en](int to, int from) -> int64_t {
 				assert(to >= from);
 				to++;
 				assert(to > from);
