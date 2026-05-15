@@ -1398,6 +1398,7 @@ int main() {
 		tot_prob += prob;
 		ans += prob * (num_must + 2 * i);
 	}
+	assert(tot_prob == pairs_musts[num_pairs]);
 	ans *= 1 + num(num_any) / num(num_must + 2 * num_pairs + 1);
 	ans /= tot_prob;
 	std::cout << ans << '\n';
