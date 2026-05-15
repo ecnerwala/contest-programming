@@ -313,14 +313,14 @@ int main() {
 			seg[a].lis_cnt = seg[a.c(0)].lis_cnt + seg[a.c(1)].lis_cnt;
 		};
 
-		for (int i = 0; i < N; i++) {
-			int p = P[i];
+		for (int z = 0; z < N; z++) {
+			int p = P[z];
 			{
 				int mi = -1, ma = int(lis_vals.size());
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					assert(mi < md && md < ma);
-					if (p > lis_vals[i]) {
+					if (p > lis_vals[md]) {
 						mi = md;
 					} else {
 						ma = md;
@@ -347,7 +347,7 @@ int main() {
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					assert(mi < md && md < ma);
-					if (p < lds_vals[i]) {
+					if (p < lds_vals[md]) {
 						mi = md;
 					} else {
 						ma = md;
@@ -370,7 +370,7 @@ int main() {
 				a.for_parents_up(update_node);
 			}
 
-			std::cout << seg[1].inv_cnt << " \n"[i+1==N];
+			std::cout << seg[1].inv_cnt << " \n"[z+1==N];
 		}
 	}
 
