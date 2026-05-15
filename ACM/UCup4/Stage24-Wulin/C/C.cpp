@@ -1393,7 +1393,7 @@ int main() {
 
 	num ans = 0;
 	for (int i = 0; i <= num_pairs; i++) {
-		num prob = just_pairs[N-i] * exact_pairs[i];
+		num prob = just_pairs[num_pairs-i] * exact_pairs[i];
 		ans += prob * (num_must + 2 * i);
 	}
 	ans *= 1 + num(num_any) / num(num_must + 2 * num_pairs + 1);
