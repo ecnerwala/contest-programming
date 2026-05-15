@@ -325,7 +325,7 @@ int main() {
 						ma = md;
 					}
 				}
-				if (ma < int(lis_vals.size())) {
+				if (ma == int(lis_vals.size())) {
 					lis_vals.push_back(p);
 				} else {
 					auto a = layout.get_point(lis_vals[ma]);
@@ -351,7 +351,7 @@ int main() {
 						ma = md;
 					}
 				}
-				if (ma < int(lds_vals.size())) {
+				if (ma == int(lds_vals.size())) {
 					lds_vals.push_back(p);
 				} else {
 					auto a = layout.get_point(lds_vals[ma]);
