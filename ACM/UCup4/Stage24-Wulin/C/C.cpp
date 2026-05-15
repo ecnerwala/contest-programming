@@ -1392,12 +1392,14 @@ int main() {
 	ps exact_pairs = pairs_musts * inverse(just_pairs);
 
 	num ans = 0;
+	num tot_prob = 0;
 	for (int i = 0; i <= num_pairs; i++) {
 		num prob = just_pairs[num_pairs-i] * exact_pairs[i];
+		tot_prob += prob;
 		ans += prob * (num_must + 2 * i);
 	}
 	ans *= 1 + num(num_any) / num(num_must + 2 * num_pairs + 1);
-	ans *= ifact[num_must + 2 * num_pairs];
+	ans /= tot_prob;
 	std::cout << ans << '\n';
 
 	return 0;
