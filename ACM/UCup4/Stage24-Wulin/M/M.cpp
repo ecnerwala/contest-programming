@@ -319,6 +319,7 @@ int main() {
 				int mi = -1, ma = int(lis_vals.size());
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
+					assert(mi < md && md < ma);
 					if (p > lis_vals[i]) {
 						mi = md;
 					} else {
@@ -345,6 +346,7 @@ int main() {
 				int mi = -1, ma = int(lds_vals.size());
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
+					assert(mi < md && md < ma);
 					if (p < lds_vals[i]) {
 						mi = md;
 					} else {
