@@ -189,6 +189,7 @@ void solve(){
 	vector<ll> ans(N);
 	y_combinator(
 		[&](auto self, int v) -> void {
+			std::cerr << "vert " << v << '\n';
 			assert(up_dp[v].size() == down_dp[v].size());
 			int L = (int)ch[v].size();
 			vector<vector<ll> > l_dps(L+1);
