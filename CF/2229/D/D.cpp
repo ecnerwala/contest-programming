@@ -11,10 +11,12 @@ int main() {
 		for (int z = 0; z < 2; z++) for (auto& a : A) std::cin >> a[z];
 
 		auto is_good = [&](int v) -> bool {
+			std::cerr << "testing " << v << '\n';
 			bool was_neg = false;
 			int tot_val = 0;
 			for (auto a : A) {
 				int s = (a[0] >= v) + (a[1] >= v) - 1;
+				std::cerr << "s = " << s << '\n';
 				if (s == 0) continue;
 				else if (s == -1) {
 					if (was_neg) continue;
