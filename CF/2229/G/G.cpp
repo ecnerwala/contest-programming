@@ -81,27 +81,21 @@ int main() {
 
 		std::array<int, 2> proc_it{1, 1};
 		std::array<int, 2> ins_it{0, 0};
-		std::array<kactl::LineContainer, 2> lc;
 		while (proc_it[0] < int(H[0].size()) || proc_it[1] < int(H[1].size())) {
-			int z = proc_it[1] < int(H[1].size()) && (proc_it[0] == int(H[0].size()) || H[1][proc_it[1]].d < H[0][proc_it[0]].d);
+			int z = proc_it[1] < int(H[1].size()) && (proc_it[0] == int(H[0].size()) || H[1][proc_it[1]].v < H[0][proc_it[0]].v);
 			int i = proc_it[z]++;
 			auto& h = H[z][i];
 
 			//std::cerr << "checking house " << z << ' ' << h.x << ' ' << h.v << ' ' << h.d << '\n';
-
-			while (ins_it[!z] < int(H[!z].size()) && H[!z][ins_it[!z]].d + H[!z][ins_it[!z]].x <= h.d - h.x) {
-				int j = ins_it[!z]++;
-				auto& o = H[!z][j];
-				// if we arrive at the center on day d (inclusive), then we pay this much
-				lc[z].add(o.v, o.val + o.pref - int64_t(o.v) * int64_t(o.x + 1));
-			}
-			h.val = lc[z].query(h.d - h.x) + (h.pref - V[X]) - int64_t(h.d) * int64_t(h.v);
 			{
 				auto& o = H[z][i-1];
-				h.val = std::max(
-					h.val,
-					o.val + int64_t(o.v) * int64_t(h.d - (h.x - o.x)) + (h.pref - o.pref) - int64_t(h.d) * int64_t(h.v)
-				);
+				h.val = o.val + int64_t(o.v) * int64_t(h.d - (h.x - o.x)) + (h.pref - o.pref) - int64_t(h.d) * int64_t(h.v);
+			}
+
+			while (ins_it[!z] < proc_it[!z] && H[!z][ins_it[!z]].v <= h.v) {
+				int j = ins_it[!z]++;
+				auto& o = H[!z][j];
+				h.val = std::max(h.val, (h.d - (h.x + o.x - 1)) * o.v + o.pref + h.pref - V[X]);
 			}
 
 			//std::cerr << "value " << h.val << ' ' << h.val + h.d * int64_t(h.v) << '\n';
