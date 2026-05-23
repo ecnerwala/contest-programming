@@ -29,11 +29,20 @@ int main() {
 			}
 			return ndp;
 		};
+		std::vector<int> sz(N);
+		[&](this auto&& self, int cur) -> void {
+			sz[cur] = 1;
+			for (int nxt : adj[cur]) {
+				adj[nxt].erase(std::find(adj[nxt].begin(), adj[nxt].end(), cur));
+				self(nxt);
+				sz[cur] += sz[nxt];
+			}
+			std::sort(adj[cur].begin(), adj[cur].end(), [&](auto a, auto b) -> bool { return sz[a] < sz[b]; });
+		}(0);
 		[&](this auto&& self, int cur) -> void {
 			dp_down[cur] = std::vector<int64_t>({0});
 			prefs[cur].reserve(adj[cur].size());
 			for (int nxt : adj[cur]) {
-				adj[nxt].erase(std::find(adj[nxt].begin(), adj[nxt].end(), cur));
 				self(nxt);
 
 				prefs[cur].emplace_back(std::move(dp_down[cur]));
