@@ -13,8 +13,8 @@ int main() {
 		auto is_good = [&](int v) -> bool {
 			bool was_neg = false;
 			int tot_val = 0;
-			for (int i = 0; i < N; i++) {
-				int s = (A[i][0] >= v) + (A[i][1] >= v) - 1;
+			for (auto a : A) {
+				int s = (a[0] >= v) + (a[1] >= v) - 1;
 				if (s == 0) continue;
 				else if (s == -1) {
 					if (was_neg) continue;
