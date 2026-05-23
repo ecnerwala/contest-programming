@@ -157,8 +157,11 @@ int main() {
 		for (int i = max_leaf + 1; i < N; i++) {
 			dp_pref[i] = dp_pref[i-1] + dp[i-1];
 			if (prv_val[i] < i) {
+				std::cerr << "valid " << i << ' ' << prv_val[i] << '\n';
 				// we can come from anything > prv_val[i]
 				dp[i] = dp_pref[i] - dp_pref[prv_val[i]+1];
+			} else {
+				dp[i] = 0;
 			}
 		}
 		std::cout << dp[N-1] << '\n';
