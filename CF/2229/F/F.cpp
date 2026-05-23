@@ -5,7 +5,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/log_of_set_power_series"
 #pragma GCC optimize("O3,unroll-loops")
 #include <bits/allocator.h>
-//#pragma GCC target("avx2")
+#pragma GCC target("avx2")
 #include <iostream>
 #line 1 "cp-algorithms-aux/blazingio/blazingio.min.hpp"
 // NOLINTBEGIN
