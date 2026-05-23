@@ -95,7 +95,7 @@ int main() {
 			while (ins_it[!z] < proc_it[!z] && H[!z][ins_it[!z]].v <= h.v) {
 				int j = ins_it[!z]++;
 				auto& o = H[!z][j];
-				if (o.d + (h.x + o.x - 1) <= h.d) {
+				if (o.d + h.x + o.x <= h.d) {
 					h.val = std::max(h.val, o.val + int64_t(o.v) * int64_t(h.d - (h.x + o.x + 1)) + o.pref + h.pref - V[X]);
 				}
 			}
