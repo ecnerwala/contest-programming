@@ -13,7 +13,7 @@ int main() {
 				sums[(1<<i) + j] = {sums[j].first + A[i], (1<<i) + j};
 			}
 		}
-		std::sort(sums.begin(), sums.end());
+		//std::sort(sums.begin(), sums.end());
 		int mi = 0;
 		int ma = int(sums.size());
 		while (ma - mi > 1) {
