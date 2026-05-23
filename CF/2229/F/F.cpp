@@ -1041,11 +1041,7 @@ int main() {
 				}
 				cp_algo::big_vector<base> b(1 << N);
 				b.back() = 1;
-				cp_algo::math::subset_power_projection<base>(a, b, K+1)[K];
-				for (auto& v : b) v *= base(K);
-				auto c = cp_algo::math::subset_exp<base>(b);
-				for (auto& v : c) { std::cerr << v.getr() << ' '; } std::cerr << '\n';
-				return c.back() != base(0);
+				return cp_algo::math::subset_power_projection<base>(a, b, K+1)[K] != base(0);
 			}()) {
 				mi = md;
 			} else {
