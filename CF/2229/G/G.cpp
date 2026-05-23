@@ -105,6 +105,7 @@ int main() {
 				ans = std::max(ans, h.val + int64_t(h.v) * int64_t(K));
 			}
 		}
+		std::cout << ans << '\n';
 	}
 
 	return 0;
