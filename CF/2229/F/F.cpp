@@ -1033,7 +1033,7 @@ int main() {
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if ([&]() -> bool {
-				std::cerr << "testing le " << md << '\n';
+				std::cerr << "testing le " << sums[md].first << '\n';
 				assert(md >= 1);
 				cp_algo::big_vector<base> a(1 << N);
 				for (int z = 0; z <= md; z++) {
