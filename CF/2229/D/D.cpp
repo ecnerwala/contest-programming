@@ -25,6 +25,7 @@ int main() {
 					was_neg = false;
 				} else assert(false);
 			}
+			std::cerr << v << ' ' << tot_val << '\n';
 			return tot_val > 0;
 		};
 
