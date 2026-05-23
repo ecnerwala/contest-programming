@@ -43,14 +43,9 @@ int main() {
 	};
 
 	auto solve_max = [&](std::vector<int> A, int K) -> int64_t {
-		int N = int(A.size());
-		int64_t ans = 0;
-		for (int i = 0; i < N; i++) {
-			int fin = A[i]; A.erase(A.begin() + i);
-			ans = std::max(ans, solve_min(A, K) + fin);
-			A.insert(A.begin() + i, fin);
-		}
-		return ans;
+		auto it = std::max_element(A.begin(), A.end());
+		int fin = *it; A.erase(it);
+		return solve_min(A, K) + fin;
 	};
 
 	int T; std::cin >> T;
