@@ -89,7 +89,7 @@ int main() {
 			std::cerr << "checking house " << z << ' ' << h.x << ' ' << h.v << ' ' << h.d << '\n';
 			{
 				auto& o = H[z][i-1];
-				h.val = o.val + int64_t(o.v) * int64_t(h.d - (h.x - o.x)) + (h.pref - o.pref) - int64_t(h.d) * int64_t(h.v);
+				h.val = o.val + int64_t(o.v) * int64_t(h.d - (h.x - o.x)) + (h.pref - o.pref);
 			}
 
 			while (ins_it[!z] < proc_it[!z] && H[!z][ins_it[!z]].v <= h.v) {
@@ -99,6 +99,7 @@ int main() {
 					h.val = std::max(h.val, o.val + int64_t(o.v) * int64_t(h.d - (h.x + o.x + 1)) + o.pref + h.pref - V[X]);
 				}
 			}
+			h.val -= int64_t(h.d) * int64_t(h.v);
 
 			std::cerr << "value " << h.val << ' ' << h.val + h.d * int64_t(h.v) << '\n';
 			if (h.d <= K) {
