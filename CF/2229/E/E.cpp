@@ -143,6 +143,7 @@ int main() {
 				if (cur == N-1 && ch == N-2) {
 					assert(prv == -1);
 					// ignore it
+					continue;
 				}
 				max_ch = std::max(max_ch, ch);
 			}
