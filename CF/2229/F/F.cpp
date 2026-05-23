@@ -1033,18 +1033,18 @@ int main() {
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if ([&]() -> bool {
+				std::cerr << "testing le " << md << '\n';
 				assert(md >= 1);
 				cp_algo::big_vector<base> a(1 << N);
-				for (int z = 0; z < md; z++) {
+				for (int z = 0; z <= md; z++) {
 					a[sums[z].second] = base(mt());
 				}
 				a[0] = base(1);
-				//for (auto& v : a) std::cerr << v.getr() << '\n';
+				for (auto& v : a) { std::cerr << v.getr() << ' '; } std::cerr << '\n';
 				auto b = cp_algo::math::subset_log<base>(a);
-				//for (auto& v : b) std::cerr << v.getr() << '\n';
 				for (auto& v : b) v *= base(K);
-				//for (auto& v : b) std::cerr << v.getr() << '\n';
 				auto c = cp_algo::math::subset_exp<base>(b);
+				for (auto& v : c) { std::cerr << v.getr() << ' '; } std::cerr << '\n';
 				return c.back() != base(0);
 			}()) {
 				mi = md;
