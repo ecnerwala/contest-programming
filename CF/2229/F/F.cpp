@@ -1039,8 +1039,11 @@ int main() {
 					a[sums[z].second] = base(mt());
 				}
 				a[0] = base(1);
+				for (auto& v : a) std::cerr << v.getr() << '\n';
 				auto b = cp_algo::math::subset_exp<base>(a);
+				for (auto& v : b) std::cerr << v.getr() << '\n';
 				for (auto& v : b) v *= base(K);
+				for (auto& v : b) std::cerr << v.getr() << '\n';
 				auto c = cp_algo::math::subset_log<base>(b);
 				return c.back() != base(0);
 			}()) {
