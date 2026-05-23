@@ -95,7 +95,7 @@ int main() {
 				// if we arrive at the center on day d (inclusive), then we pay this much
 				lc[z].add(o.v, o.val + o.pref - int64_t(o.v) * int64_t(o.x + 1));
 			}
-			h.val = lc[z].query(h.d - h.x) + h.pref - int64_t(h.d) * int64_t(h.v);
+			h.val = lc[z].query(h.d - h.x) + (h.pref - V[X]) - int64_t(h.d) * int64_t(h.v);
 			{
 				auto& o = H[z][i-1];
 				h.val = std::max(
