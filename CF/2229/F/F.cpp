@@ -1040,7 +1040,7 @@ int main() {
 				}
 				a[0] = base(1);
 				auto b = cp_algo::math::subset_exp<base>(a);
-				for (auto& v : b) v *= K;
+				for (auto& v : b) v *= base(K);
 				auto c = cp_algo::math::subset_log<base>(b);
 				return c.back() != base(0);
 			}()) {
