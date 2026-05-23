@@ -15,13 +15,13 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			if (A[i] < 0) {
 			} else {
-				cur_delta -= 2 * A[i];
+				cur_delta -= 2 * std::abs(A[i]);
 				if (cur_delta > best_delta) {
 					best_delta = cur_delta;
 					best_idx = i;
 				}
 			}
-			cur_delta += 2 * A[i];
+			cur_delta += 2 * std::abs(A[i]);
 		}
 
 		std::cerr << best_delta << '\n';
