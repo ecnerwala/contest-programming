@@ -204,7 +204,7 @@ void solve(){
 				for(int i = (int)up_dp[w].size() - 1; i > 0; i--){
 					set_max(up_dp[w][i], up_dp[w][i-1] + (K - (int(up_dp[w].size()) - 1)) * W[v]);
 				}
-				up_dp[w].pop_back();
+				up_dp[w].erase(up_dp[w].begin());
 			}
 			assert(l_dps[L].size() == 2);
 			ans[v] = l_dps[L][0] + K * W[v];
