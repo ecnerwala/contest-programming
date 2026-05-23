@@ -141,8 +141,6 @@ template<class T>
 std::vector<T> conv_t(std::vector<T>& a, std::vector<T> &b) {
     int n = (int) a.size(), m = (int) b.size();
 	assert(n >= m);
-	auto res = conv(a, b);
-	return {res.begin() + (m-1), res.end() - (m-1)};
     std::vector<T> ans(n - m + 1, -INF);
 	for(int i = 0; i < n-m+1; i++){
 		for(int j = 0; j < m; j++){
@@ -190,7 +188,6 @@ void solve(){
 	vector<ll> ans(N);
 	y_combinator(
 		[&](auto self, int v) -> void {
-			std::cerr << "vert " << v << '\n';
 			assert(up_dp[v].size() == down_dp[v].size());
 			int L = (int)ch[v].size();
 			vector<vector<ll> > l_dps(L+1);
@@ -212,7 +209,6 @@ void solve(){
 				up_dp[w].erase(up_dp[w].begin());
 			}
 			assert(l_dps[L].size() == 2);
-			std::cerr << l_dps[L][0] << '\n';
 			ans[v] = l_dps[L][0] + K * W[v];
 			for(int w : ch[v]){
 				self(w);
