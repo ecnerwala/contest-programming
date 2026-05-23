@@ -1033,10 +1033,12 @@ int main() {
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if ([&]() -> bool {
+				assert(md >= 1);
 				cp_algo::big_vector<base> a(1 << N);
-				for (int z = md; z < int(sums.size()); z++) {
+				for (int z = 0; z < md; z++) {
 					a[sums[z].second] = base(mt());
 				}
+				a[0] = base(1);
 				auto b = cp_algo::math::subset_exp<base>(a);
 				for (auto& v : b) v *= K;
 				auto c = cp_algo::math::subset_log<base>(b);
