@@ -24,8 +24,6 @@ int main() {
 			cur_delta += 2 * std::abs(A[i]);
 		}
 
-		std::cerr << best_delta << '\n';
-
 		std::vector<int> ops; ops.reserve(N);
 		if (best_idx >= 0) {
 			bool flip = false;
