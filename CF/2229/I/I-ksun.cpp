@@ -201,11 +201,9 @@ void solve(){
 			for(int c = 0; c < L; c++){
 				int w = ch[v][c];
 				up_dp[w] = conv_t(l_dps[c], r_dps[c+1]);
-				up_dp[w].push_back(0);
 				for(int i = (int)up_dp[w].size() - 1; i > 0; i--){
 					set_max(up_dp[w][i], up_dp[w][i-1] + (K - (int(up_dp[w].size()) - 1 - i) - 2) * W[v]);
 				}
-				up_dp[w].erase(up_dp[w].begin());
 				up_dp[w].pop_back();
 			}
 			assert(l_dps[L].size() == 2);
