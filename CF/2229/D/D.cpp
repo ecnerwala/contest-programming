@@ -31,7 +31,7 @@ int main() {
 			return tot_val > 0;
 		};
 
-		int mi = -1;
+		int mi = 1;
 		int ma = 2*N;
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
@@ -41,7 +41,7 @@ int main() {
 				ma = md;
 			}
 		}
-		std::cout << ma << '\n';
+		std::cout << mi << '\n';
 	}
 
 	return 0;
