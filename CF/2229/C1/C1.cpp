@@ -10,7 +10,7 @@ int main() {
 		std::vector<int> ops; ops.reserve(N);
 		bool flip = false;
 		for (int i = N-1; i >= 0; i--) {
-			if ((A[i] < 0) != flip) {
+			if ((A[i] > 0) != flip) {
 				ops.push_back(i);
 				flip = !flip;
 			}
