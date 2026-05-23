@@ -81,7 +81,7 @@ int main() {
 		std::array<int, 2> proc_it{1, 1};
 		std::array<int, 2> ins_it{0, 0};
 		std::array<kactl::LineContainer, 2> lc;
-		while (true) {
+		while (proc_it[0] < int(H[0].size()) || proc_it[1] < int(H[1].size())) {
 			int z = proc_it[1] < int(H[1].size()) && (proc_it[0] == int(H[0].size()) || H[1][proc_it[1]].d < H[0][proc_it[0]].d);
 			int i = proc_it[z]++;
 			auto& h = H[z][i];
