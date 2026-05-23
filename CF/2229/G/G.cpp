@@ -100,7 +100,7 @@ int main() {
 				auto& o = H[z][i-1];
 				h.val = std::max(
 					h.val,
-					o.val + int64_t(o.d) * int64_t(h.d - (h.x - o.x)) + (h.pref - o.pref) - int64_t(h.d) * int64_t(h.v)
+					o.val + int64_t(o.v) * int64_t(h.d - (h.x - o.x)) + (h.pref - o.pref) - int64_t(h.d) * int64_t(h.v)
 				);
 			}
 
