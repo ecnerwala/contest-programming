@@ -36,7 +36,7 @@ int main() {
 				adj[nxt].erase(std::find(adj[nxt].begin(), adj[nxt].end(), cur));
 				self(nxt);
 
-				prefs[cur].push_back(std::move(dp_down[cur]));
+				prefs[cur].emplace_back(std::move(dp_down[cur]));
 				dp_down[cur] = conv_vecs(prefs[cur].back(), dp_down[nxt]);
 			}
 			dp_down[cur].push_back(-INF);
