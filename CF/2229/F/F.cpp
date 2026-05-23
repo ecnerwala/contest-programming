@@ -20,6 +20,7 @@ int main() {
 			int md = (mi + ma) / 2;
 			if ([&]() -> bool {
 				int64_t thresh = sums[md].first;
+				if (thresh > sums.back().first / K) return false;
 				std::vector<std::pair<int, int64_t>> dp(1 << N);
 				dp[0] = {0, 0};
 				for (int m = 1; m < (1 << N); m++) {
