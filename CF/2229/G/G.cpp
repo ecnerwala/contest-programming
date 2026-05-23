@@ -43,7 +43,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, K, X; std::cin >> N >> K >> X; X--;
-		std::cerr << "case " << N << ' ' << K << ' ' << X << '\n';
+		//std::cerr << "case " << N << ' ' << K << ' ' << X << '\n';
 		std::vector<int> V(N); for (auto& h : V) std::cin >> h;
 		std::vector<int> road_D(N-1); for (auto& d : road_D) std::cin >> d;
 		std::vector<int> D(N);
@@ -87,7 +87,7 @@ int main() {
 			int i = proc_it[z]++;
 			auto& h = H[z][i];
 
-			std::cerr << "checking house " << z << ' ' << h.x << ' ' << h.v << ' ' << h.d << '\n';
+			//std::cerr << "checking house " << z << ' ' << h.x << ' ' << h.v << ' ' << h.d << '\n';
 
 			while (ins_it[!z] < int(H[!z].size()) && H[!z][ins_it[!z]].d + H[!z][ins_it[!z]].x <= h.d - h.x) {
 				int j = ins_it[!z]++;
@@ -104,7 +104,7 @@ int main() {
 				);
 			}
 
-			std::cerr << "value " << h.val << ' ' << h.val + h.d * int64_t(h.v) << '\n';
+			//std::cerr << "value " << h.val << ' ' << h.val + h.d * int64_t(h.v) << '\n';
 			if (h.d <= K) {
 				ans = std::max(ans, h.val + int64_t(h.v) * int64_t(K));
 			}
