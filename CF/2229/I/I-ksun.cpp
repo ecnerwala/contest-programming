@@ -202,7 +202,7 @@ void solve(){
 				int w = ch[v][c];
 				up_dp[w] = conv_t(l_dps[c], r_dps[c+1]);
 				for(int i = (int)up_dp[w].size() - 1; i > 0; i--){
-					set_max(up_dp[w][i], up_dp[w][i-1] + (K - (int(up_dp[w].size()) - 1 - i) - 2) * W[v]);
+					set_max(up_dp[w][i], up_dp[w][i-1] + (K - (int(up_dp[w].size()) - 1)) * W[v]);
 				}
 				up_dp[w].pop_back();
 			}
