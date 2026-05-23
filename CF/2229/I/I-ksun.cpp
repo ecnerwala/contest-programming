@@ -210,6 +210,7 @@ void solve(){
 				up_dp[w].erase(up_dp[w].begin());
 			}
 			assert(l_dps[L].size() == 2);
+			std::cerr << l_dps[L][0] << '\n';
 			ans[v] = l_dps[L][0] + K * W[v];
 			for(int w : ch[v]){
 				self(w);
