@@ -208,7 +208,8 @@ void solve(){
 				up_dp[w].erase(up_dp[w].begin());
 				up_dp[w].erase(up_dp[w].begin());
 			}
-			ans[v] = l_dps[L][K-1] + K * W[v];
+			assert(l_dps[L].size() == 2);
+			ans[v] = l_dps[L][0] + K * W[v];
 			for(int w : ch[v]){
 				self(w);
 			}
