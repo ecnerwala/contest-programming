@@ -8,7 +8,7 @@ int main() {
 		int N; std::cin >> N;
 		std::vector<int> A(N); for (auto& a : A) std::cin >> a;
 		int64_t ans = 0;
-		for (int i = 0; i < N; i++) ans += std::abs(a);
+		for (int i = 0; i < N; i++) ans += std::abs(A[i]);
 		std::cout << -ans << '\n';
 	}
 
