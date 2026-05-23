@@ -135,13 +135,15 @@ std::vector<T> conv(std::vector<T>& a, std::vector<T> &b) {
     return ans;
 }
 
+const int64_t INF = 1e18;
+
 template<class T>
 std::vector<T> conv_t(std::vector<T>& a, std::vector<T> &b) {
     int n = (int) a.size(), m = (int) b.size();
 	assert(n >= m);
 	auto res = conv(a, b);
 	return {res.begin() + (m-1), res.end() - (m-1)};
-    std::vector<T> ans(n - m + 1);
+    std::vector<T> ans(n - m + 1, -INF);
 	for(int i = 0; i < n-m+1; i++){
 		for(int j = 0; j < m; j++){
 			set_max(ans[i], a[i+(m-1-j)] + b[j]);
@@ -183,7 +185,6 @@ void solve(){
 			}
 		}
 	)(0, -1);
-	const int64_t INF = 1e18;
 	up_dp[0] = std::vector<ll>(N+1, -INF);
 	up_dp[0][N-K] = 0;
 	vector<ll> ans(N);
