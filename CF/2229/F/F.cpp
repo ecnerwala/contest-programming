@@ -24,7 +24,7 @@ int main() {
 				dp[0] = {0, 0};
 				for (int m = 1; m < (1 << N); m++) {
 					for (int i = 0; i < N; i++) {
-						if (((m >> i) & 1)) continue;
+						if (!((m >> i) & 1)) continue;
 						auto cnd = dp[m - (1 << i)];
 						cnd.second += A[i];
 						if (cnd.second >= thresh) cnd.second = 0, cnd.first++;
