@@ -185,6 +185,7 @@ void solve(){
 	vector<ll> ans(N);
 	y_combinator(
 		[&](auto self, int v) -> void {
+			assert(up_dp[v].size() == down_dp[v].size());
 			int L = (int)ch[v].size();
 			vector<vector<ll> > l_dps(L+1);
 			vector<vector<ll> > r_dps(L+1);
