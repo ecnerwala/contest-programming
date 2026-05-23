@@ -86,7 +86,7 @@ int main() {
 			int i = proc_it[z]++;
 			auto& h = H[z][i];
 
-			//std::cerr << "checking house " << z << ' ' << h.x << ' ' << h.v << ' ' << h.d << '\n';
+			std::cerr << "checking house " << z << ' ' << h.x << ' ' << h.v << ' ' << h.d << '\n';
 			{
 				auto& o = H[z][i-1];
 				h.val = o.val + int64_t(o.v) * int64_t(h.d - (h.x - o.x)) + (h.pref - o.pref) - int64_t(h.d) * int64_t(h.v);
@@ -100,7 +100,7 @@ int main() {
 				}
 			}
 
-			//std::cerr << "value " << h.val << ' ' << h.val + h.d * int64_t(h.v) << '\n';
+			std::cerr << "value " << h.val << ' ' << h.val + h.d * int64_t(h.v) << '\n';
 			if (h.d <= K) {
 				ans = std::max(ans, h.val + int64_t(h.v) * int64_t(K));
 			}
