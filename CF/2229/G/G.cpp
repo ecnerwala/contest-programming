@@ -43,6 +43,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, K, X; std::cin >> N >> K >> X; X--;
+		std::cerr << "case " << N << ' ' << K << ' ' << X << '\n';
 		std::vector<int> V(N); for (auto& h : V) std::cin >> h;
 		std::vector<int> road_D(N-1); for (auto& d : road_D) std::cin >> d;
 		std::vector<int> D(N);
