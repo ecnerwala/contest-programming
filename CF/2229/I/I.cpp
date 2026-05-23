@@ -67,13 +67,13 @@ int main() {
 			}
 			for (int z = 0; z < int(adj[cur].size()); z++) {
 				int nxt = adj[cur][z];
-				dp_up[cur] = conv_transpose(dp_up[cur], dp_down[nxt]);
 				dp_up[nxt] = conv_transpose(dp_up[cur], suff_convs[z+1]);
 				// optionally take out self from dp_up[nxt]
 				for (int i = 0; i+1 < int(dp_up[nxt].size()); i++) {
 					setmax(dp_up[nxt][i], dp_up[nxt][i+1] + int64_t(W[cur]) * int64_t(K - i));
 				}
 				dp_up[nxt].pop_back();
+				dp_up[cur] = conv_transpose(dp_up[cur], dp_down[nxt]);
 			}
 			assert(int(dp_up[cur].size()) == 2);
 			ans[cur] = dp_up[cur][1] + int64_t(W[cur]) * int64_t(K);
