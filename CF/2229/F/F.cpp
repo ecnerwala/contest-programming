@@ -1033,15 +1033,15 @@ int main() {
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if ([&]() -> bool {
-				std::cerr << "testing le " << sums[md].first << '\n';
+				std::cerr << "testing ge " << sums[md].first << '\n';
 				assert(md >= 1);
 				cp_algo::big_vector<base> a(1 << N);
-				for (int z = 0; z <= md; z++) {
+				for (int z = md; z < int(sums.size()); z++) {
 					a[sums[z].second] = base(mt());
 				}
-				a[0] = base(1);
-				for (auto& v : a) { std::cerr << v.getr() << ' '; } std::cerr << '\n';
-				auto b = cp_algo::math::subset_log<base>(a);
+				cp_algo::big_vector<base> b(1 << N);
+				b.back() = 1;
+				cp_algo::math::subset_power_projection<base>(a, b, K+1)[K];
 				for (auto& v : b) v *= base(K);
 				auto c = cp_algo::math::subset_exp<base>(b);
 				for (auto& v : c) { std::cerr << v.getr() << ' '; } std::cerr << '\n';
