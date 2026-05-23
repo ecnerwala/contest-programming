@@ -57,6 +57,7 @@ int main() {
 		dp_up[0] = std::vector<int64_t>(N+1, -INF);
 		dp_up[0][K] = 0;
 		[&](this auto&& self, int cur) -> void {
+			std::cerr << cur << ' ' << dp_down[cur].size() << ' ' << dp_up[cur].size() << '\n';
 			assert(int(dp_up[cur].size()) == int(dp_down[cur].size()));
 			std::vector<std::vector<int64_t>> suff_convs(adj[cur].size()+1);
 			suff_convs.back() = std::vector<int64_t>({0});
