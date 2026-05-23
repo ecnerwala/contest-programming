@@ -19,7 +19,7 @@ int main() {
 				else if (s == -1) {
 					if (was_neg) continue;
 					was_neg = true;
-					tot_val --;
+					tot_val--;
 				} else if (s == +1) {
 					tot_val++;
 					was_neg = false;
