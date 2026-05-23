@@ -36,9 +36,9 @@ int main() {
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if (is_good(md)) {
-				ma = md;
-			} else {
 				mi = md;
+			} else {
+				ma = md;
 			}
 		}
 		std::cout << ma << '\n';
