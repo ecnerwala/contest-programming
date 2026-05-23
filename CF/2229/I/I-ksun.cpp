@@ -123,10 +123,12 @@ decltype(auto) y_combinator(Fun &&fun) {
 //     return ans;
 // }
 
+const int64_t INF = 1e18;
+
 template<class T>
 std::vector<T> conv(std::vector<T>& a, std::vector<T> &b) {
     int n = (int) a.size(), m = (int) b.size();
-    std::vector<T> ans(n + m - 1);
+    std::vector<T> ans(n + m - 1, -INF);
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < m; j++){
 			set_max(ans[i+j], a[i] + b[j]);
@@ -134,8 +136,6 @@ std::vector<T> conv(std::vector<T>& a, std::vector<T> &b) {
 	}
     return ans;
 }
-
-const int64_t INF = 1e18;
 
 template<class T>
 std::vector<T> conv_t(std::vector<T>& a, std::vector<T> &b) {
