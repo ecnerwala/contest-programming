@@ -70,7 +70,7 @@ int main() {
 						// now, we need to massage this into shape
 						// st + b * i
 						int a = st;
-						int d = (int(eval_at(a + b)) - c + M) % M;
+						int d = (eval_at(a + b) - c + M) % M;
 						return {{a, b, c, d}};
 					}
 				}
