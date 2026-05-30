@@ -50,7 +50,9 @@ int main() {
 				}
 			}
 			assert(false);
-		};
+		}();
+		auto [a, b, c, d] = res;
+		std::cout << a << ' ' << b << ' ' << c << ' ' << d << '\n';
 	}
 
 	return 0;
