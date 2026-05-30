@@ -15,6 +15,7 @@ int main() {
 			known.push_back({i, v});
 		}
 		auto res = [&]() -> std::tuple<int, int, int, int> {
+			std::cerr << "doing case" << '\n';
 			if (int(known.size()) == 0) {
 				return {0, 1, 0, 1};
 			} else if (int(known.size()) == 1) {
