@@ -113,6 +113,8 @@ int main() {
 		for (int64_t i = 0; i < N; i++) {
 			S[(a + b * i) % N] = (c + d * i) % M;
 		}
+		std::cerr << a << ' ' << b << ' ' << c << ' ' << d << '\n';
+		for (int i = 0; i < N; i++) { std::cerr << S[i] << ' '; } std::cerr << '\n';
 		for (int i = 0; i+1 < N; i++) {
 			assert(S[i] < S[i+1]);
 		}
