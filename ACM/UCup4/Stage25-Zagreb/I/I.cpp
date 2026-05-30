@@ -70,8 +70,9 @@ int main() {
 						// now, we need to massage this into shape
 						// st + b * i
 						int a = st;
-						int d = (eval_at(a + b) - c + M) % M;
+						int d = (eval_at((a + b)%N) - c + M) % M;
 						assert(eval_at(a) == c);
+						assert(eval_at((a+b)%N) == (c+d)%M);
 						return {{a, b, c, d}};
 					}
 				}
