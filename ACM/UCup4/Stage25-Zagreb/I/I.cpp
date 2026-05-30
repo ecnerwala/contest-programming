@@ -100,7 +100,7 @@ int main() {
 			};
 			// let's just check known[1] - known[0]
 			for (int b = 1; b <= N-b; b++) {
-				//std::cerr << "trying " << b << '\n';
+				std::cerr << "trying " << b << '\n';
 				// we have b x's, and N-b y's
 				int inner_x_lo = int(int64_t(b) * int64_t(known[1].first - known[0].first) / N);
 				int inner_x_hi = int((int64_t(b) * int64_t(known[1].first - known[0].first) + N-1) / N);
