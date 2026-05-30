@@ -60,6 +60,7 @@ int main() {
 		kactl::scc(adj, [&](const std::vector<int>&) -> void { });
 		bool found = false;
 		for (auto [u, v] : edges) {
+			std::cerr << kactl::comp[u] << ' ' << kactl::comp[v] << '\n';
 			if (kactl::comp[v] != kactl::comp[u]) continue;
 			if (kactl::depth[v] % 3 != (kactl::depth[u] + 1) % 3) {
 				found = true;
