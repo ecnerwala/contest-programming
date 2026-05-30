@@ -85,7 +85,7 @@ int main() {
 						if (eval_at(i) != j) good = false;
 					}
 					if (good) {
-						for (int i = 0; i < N; i++) { std::cerr << eval_at(i) << ' '; } std::cerr << '\n';
+						//for (int i = 0; i < N; i++) { std::cerr << eval_at(i) << ' '; } std::cerr << '\n';
 						// now, we need to massage this into shape
 						// st + b * i
 						int ans_a = st;
@@ -124,6 +124,7 @@ int main() {
 		}();
 		auto [a, b, c, d] = res;
 		std::cout << a << ' ' << b << ' ' << c << ' ' << d << '\n';
+		//std::cerr << a << ' ' << b << ' ' << c << ' ' << d << '\n';
 		assert(0 <= a && a < N);
 		assert(1 <= b && b < N);
 		assert(0 <= c && c < M);
@@ -132,8 +133,7 @@ int main() {
 		for (int64_t i = 0; i < N; i++) {
 			S[(a + b * i) % N] = (c + d * i) % M;
 		}
-		std::cerr << a << ' ' << b << ' ' << c << ' ' << d << '\n';
-		for (int i = 0; i < N; i++) { std::cerr << S[i] << ' '; } std::cerr << '\n';
+		//for (int i = 0; i < N; i++) { std::cerr << S[i] << ' '; } std::cerr << '\n';
 		for (int i = 0; i+1 < N; i++) {
 			assert(S[i] < S[i+1]);
 		}
