@@ -46,12 +46,16 @@ int main() {
 			auto [it, did_insert] = verts.insert({p, int(verts.size())});
 			return it->second;
 		};
-		std::vector<std::array<int, 2>> edges(M);
+		std::vector<std::array<int, 2>> edges; edges.reserve(6*M);
 		for (int e = 0; e < M; e++) {
-			int a, b, c; std::cin >> a >> b >> c;
-			int x = get_id({a, b});
-			int y = get_id({b, c});
-			edges[e] = {x, y};
+			std::array<int, 3> vs; for (auto& v : vs) std::cin >> v;
+			std::sort(vs.begin(), vs.end());
+			do {
+				auto [a, b, c] = vs;
+				int x = get_id({a, b});
+				int y = get_id({b, c});
+				edges.push_back({x, y});
+			} while (std::next_permutation(vs.begin(), vs.end()));
 		}
 
 		int N = int(verts.size());
