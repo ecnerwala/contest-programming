@@ -91,7 +91,7 @@ int main() {
 						int ans_a = st;
 						int ans_b = mod_inv_in_range(b, N);
 						int ans_c = eval_at(ans_a);
-						int ans_d = (eval_at((ans_a + ans_b)%N) - ans_c + M) % M;
+						int ans_d = (eval_at((ans_a + ans_b)%N) - c + M) % M;
 						return {{ans_a, ans_b, ans_c, ans_d}};
 					}
 				}
