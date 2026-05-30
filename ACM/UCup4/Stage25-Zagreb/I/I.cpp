@@ -33,7 +33,7 @@ int main() {
 			known.push_back({i, v});
 		}
 		auto res = [&]() -> std::tuple<int, int, int, int> {
-			std::cerr << "doing case" << ' ' << N << ' ' << M << '\n';
+			//std::cerr << "doing case" << ' ' << N << ' ' << M << '\n';
 			if (int(known.size()) == 0) {
 				return {0, 1, 0, 1};
 			} else if (int(known.size()) == 1) {
@@ -58,7 +58,7 @@ int main() {
 			})->first;
 
 			auto check_xy = [&](int x, int y) -> std::optional<std::tuple<int, int, int, int>> {
-				std::cerr << "check " << x << ' ' << y << '\n';
+				//std::cerr << "check " << x << ' ' << y << '\n';
 				if (x <= 0 || y <= 0) return std::nullopt;
 				if (x == y) return std::nullopt;
 				assert(x != y);
@@ -99,7 +99,7 @@ int main() {
 			};
 			// let's just check known[1] - known[0]
 			for (int b = 1; b <= N-b; b++) {
-				std::cerr << "trying " << b << '\n';
+				//std::cerr << "trying " << b << '\n';
 				// we have b x's, and N-b y's
 				int inner_x_lo = int(int64_t(b) * int64_t(known[1].first - known[0].first) / N);
 				int inner_x_hi = int((int64_t(b) * int64_t(known[1].first - known[0].first) + N-1) / N);
