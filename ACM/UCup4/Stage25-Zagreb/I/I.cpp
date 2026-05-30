@@ -39,6 +39,7 @@ int main() {
 			})->first;
 
 			auto check_xy = [&](int x, int y) -> std::optional<std::tuple<int, int, int, int>> {
+				std::cerr << "check " << x << ' ' << y << '\n';
 				assert(x != y);
 				assert(x > 0 && y > 0);
 				if (x > y) std::swap(x, y);
@@ -58,7 +59,7 @@ int main() {
 					c = (known[0].second - eval_at(known[0].first) + M) % M;
 					// now, eval_at is a cycle which always does +x or +y, totalling to M
 
-					bool good = eval_at(N-1) >= eval_at(0);
+					bool good = eval_at(N-1) > eval_at(0);
 					for (auto [i, j] : known) {
 						if (eval_at(i) != j) good = false;
 					}
