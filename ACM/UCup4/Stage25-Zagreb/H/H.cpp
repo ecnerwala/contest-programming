@@ -18,7 +18,8 @@ int main() {
 				state = S[i-1] > S[i];
 			}
 		}
-		inds[0].insert(inds[0].end(), inds[1].rbegin(), inds[1].rend());
+		std::reverse(inds[0].begin(), inds[0].end());
+		inds[0].insert(inds[0].end(), inds[1].begin(), inds[1].end());
 		S.erase(S.begin() + inds[0][N/2]);
 		std::cout << S << '\n';
 	}
