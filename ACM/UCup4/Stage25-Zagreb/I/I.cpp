@@ -1,6 +1,24 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
+template <typename T> T mod_inv_in_range(T a, T m) {
+	// assert(0 <= a && a < m);
+	T x = a, y = m;
+	// abs coeff of a in x and y (they're always opposite sign)
+	T vx = 1, vy = 0;
+	bool swap = false;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		vy += k * vx;
+		std::swap(x, y);
+		std::swap(vx, vy);
+		swap ^= 1;
+	}
+	assert(y == 1);
+	return swap ? vy : m - vy;
+}
+
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
@@ -70,11 +88,11 @@ int main() {
 						for (int i = 0; i < N; i++) { std::cerr << eval_at(i) << ' '; } std::cerr << '\n';
 						// now, we need to massage this into shape
 						// st + b * i
-						int a = st;
-						int d = (eval_at((a + b)%N) - c + M) % M;
-						assert(eval_at(a) == c);
-						assert(eval_at((a+b)%N) == (c+d)%M);
-						return {{a, b, c, d}};
+						int ans_a = st;
+						int ans_b = mod_inv_in_range(b, N);
+						int ans_c = eval_at(ans_a);
+						int ans_d = (eval_at((ans_a + ans_b)%N) - c + M) % M;
+						return {{ans_a, ans_b, ans_c, ans_d}};
 					}
 				}
 				return std::nullopt;
