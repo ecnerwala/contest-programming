@@ -71,6 +71,7 @@ int main() {
 						// st + b * i
 						int a = st;
 						int d = (eval_at(a + b) - c + M) % M;
+						assert(eval_at(a) == c);
 						return {{a, b, c, d}};
 					}
 				}
