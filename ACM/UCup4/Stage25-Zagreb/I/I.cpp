@@ -67,6 +67,7 @@ int main() {
 						if (eval_at(i) != j) good = false;
 					}
 					if (good) {
+						// now, we need to massage this into shape
 						return {{-1, -1, -1, -1}};
 					}
 				}
@@ -99,6 +100,18 @@ int main() {
 		}();
 		auto [a, b, c, d] = res;
 		std::cout << a << ' ' << b << ' ' << c << ' ' << d << '\n';
+		assert(0 <= a && a < N);
+		assert(1 <= b && b < N);
+		assert(0 <= c && c < M);
+		assert(1 <= d && d < M);
+		std::vector<int> S(N);
+		for (int64_t i = 0; i < N; i++) {
+			S[(a + b * i) % N] = (c + d * i) % M;
+		}
+		for (int i = 0; i+1 < N; i++) {
+			assert(S[i] < S[i+1]);
+		}
+		for (auto [i, j] : known) assert(S[i] == j);
 	}
 
 	return 0;
