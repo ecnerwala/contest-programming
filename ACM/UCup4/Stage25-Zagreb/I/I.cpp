@@ -57,7 +57,7 @@ int main() {
 				return int64_t(a.second) * N - int64_t(a.first) * M < int64_t(b.second) * N - int64_t(b.first) * M;
 			})->first;
 
-			auto check_xy = [&](int x, int y) -> std::optional<std::tuple<int, int, int, int>> {
+			auto check_xy = [&](int64_t x, int64_t y) -> std::optional<std::tuple<int, int, int, int>> {
 				std::cerr << "check " << x << ' ' << y << '\n';
 				if (x <= 0 || y <= 0) return std::nullopt;
 				if (x == y) return std::nullopt;
