@@ -122,7 +122,7 @@ int main() {
 
 		std::vector<pt_t> maxs(N);
 		// initialize to anything
-		for (int i = 0; i < N; i++) maxs[i] = pref[i+1];
+		for (int i = 0; i < N; i++) maxs[i] = {i+1, -int64_t(2e18)};
 		auto try_max = [&](pt_t a) -> void {
 			assert(1 <= a.x && a.x <= N);
 			maxs[a.x-1].y = std::max(maxs[a.x-1].y, a.y);
