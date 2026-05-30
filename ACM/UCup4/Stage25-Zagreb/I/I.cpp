@@ -67,6 +67,7 @@ int main() {
 						if (eval_at(i) != j) good = false;
 					}
 					if (good) {
+						for (int i = 0; i < N; i++) { std::cerr << eval_at(i) << ' '; } std::cerr << '\n';
 						// now, we need to massage this into shape
 						// st + b * i
 						int a = st;
