@@ -59,13 +59,11 @@ int main() {
 		}
 
 		int N = int(verts.size());
-		std::cerr << "case " << N << ' ' << M << '\n';
 		std::vector<std::vector<int>> adj(N);
 		for (auto [x, y] : edges) adj[x].push_back(y);
 		kactl::scc(adj, [&](const std::vector<int>&) -> void { });
 		bool found = false;
 		for (auto [u, v] : edges) {
-			std::cerr << kactl::comp[u] << ' ' << kactl::comp[v] << '\n';
 			if (kactl::comp[v] != kactl::comp[u]) continue;
 			if (kactl::depth[v] % 3 != (kactl::depth[u] + 1) % 3) {
 				found = true;
