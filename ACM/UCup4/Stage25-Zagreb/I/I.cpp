@@ -58,7 +58,7 @@ int main() {
 			})->first;
 
 			auto check_xy = [&](int x, int y) -> std::optional<std::tuple<int, int, int, int>> {
-				//std::cerr << "check " << x << ' ' << y << '\n';
+				std::cerr << "check " << x << ' ' << y << '\n';
 				if (x <= 0 || y <= 0) return std::nullopt;
 				if (x == y) return std::nullopt;
 				assert(x != y);
@@ -66,6 +66,7 @@ int main() {
 				if (x > y) std::swap(x, y);
 				assert(x < y);
 				int b = int((M - int64_t(y) * N) / (x - y));
+				std::cerr << N << ' ' << b << '\n';
 				assert(int64_t(x) * b + int64_t(y) * (N-b) == M);
 				for (int st : {0, global_min, N-1}) {
 					int64_t c = 0;
