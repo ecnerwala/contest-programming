@@ -66,7 +66,7 @@ int main() {
 				if (x > y) std::swap(x, y);
 				assert(x < y);
 				int b = int((M - int64_t(y) * N) / (x - y));
-				assert(x * b + y * (N-b) == M);
+				assert(int64_t(x) * b + int64_t(y) * (N-b) == M);
 				for (int st : {0, global_min, N-1}) {
 					int64_t c = 0;
 					auto eval_at = [&](int i) -> int {
