@@ -24,8 +24,49 @@ int main() {
 				return {0, 1, d, 1};
 			}
 			assert(int(known.size()) >= 2);
+			// first, check x == y, i.e. M % N == 0
+			if (M % N == 0) {
+				int64_t c = known[0].second - int64_t(known[0].first) * int64_t(M / N);
+				bool good = c >= 0 && c < M/N;
+				for (auto [i, j] : known) {
+					if (c + i * int64_t(M/N) != j) good = false;
+				}
+				if (good) return {0, 1, c, M/N};
+			}
+
+			int global_min = std::min_element(known.begin(), known.end(), [&](auto a, auto b) -> bool {
+				return int64_t(a.second) * N - int64_t(a.first) * M < int64_t(b.second) * N - int64_t(b.first) * M;
+			})->first;
+
 			auto check_xy = [&](int x, int y) -> std::optional<std::tuple<int, int, int, int>> {
-				return {{-1, -1, -1, -1}};
+				assert(x != y);
+				assert(x > 0 && y > 0);
+				if (x > y) std::swap(x, y);
+				assert(x < y);
+				int b = (M - y * N) / (x - y);
+				assert(x * b + y * (N-b) == M);
+				for (auto st : {0, global_min, N-1}) {
+					int64_t c = 0;
+					auto eval_at = [&](int i) -> int64_t {
+						int off = (i - st + N) % N;
+						int64_t cnt_x = int64_t(b) * int64_t(off) / N;
+						int64_t cnt_y = off - cnt_x;
+						int64_t r = c + cnt_x * x + cnt_y * y;
+						r %= M;
+						return r;
+					};
+					c = (known[0].second - eval_at(known[0].first) + M) % M;
+					// now, eval_at is a cycle which always does +x or +y, totalling to M
+
+					bool good = eval_at(N-1) >= eval_at(0);
+					for (auto [i, j] : known) {
+						if (eval_at(i) != j) good = false;
+					}
+					if (good) {
+						return {{-1, -1, -1, -1}};
+					}
+				}
+				return std::nullopt;
 			};
 			// let's just check known[1] - known[0]
 			for (int b = 1; b <= N-b; b++) {
@@ -44,6 +85,9 @@ int main() {
 					int64_t x_numer = inner_tot * outer_y - outer_tot * inner_y;
 					int64_t y_numer = inner_x * outer_tot - outer_x * inner_tot;
 					if (x_numer % denom != 0 || y_numer % denom != 0) continue;
+
+					if (x_numer == y_numer) continue;
+					if (x_numer <= 0 || y_numer <= 0) continue;
 
 					auto res = check_xy(int(x_numer / denom), int(y_numer / denom));
 					if (res) return *res;
