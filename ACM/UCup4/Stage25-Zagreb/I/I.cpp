@@ -65,7 +65,7 @@ int main() {
 				assert(x > 0 && y > 0);
 				if (x > y) std::swap(x, y);
 				assert(x < y);
-				int b = (M - y * N) / (x - y);
+				int b = int((M - int64_t(y) * N) / (x - y));
 				assert(x * b + y * (N-b) == M);
 				for (int st : {0, global_min, N-1}) {
 					int64_t c = 0;
