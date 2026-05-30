@@ -41,6 +41,8 @@ int main() {
 
 			auto check_xy = [&](int x, int y) -> std::optional<std::tuple<int, int, int, int>> {
 				std::cerr << "check " << x << ' ' << y << '\n';
+				if (x <= 0 || y <= 0) return std::nullopt;
+				if (x == y) return std::nullopt;
 				assert(x != y);
 				assert(x > 0 && y > 0);
 				if (x > y) std::swap(x, y);
@@ -88,10 +90,6 @@ int main() {
 					int64_t x_numer = inner_tot * outer_y - outer_tot * inner_y;
 					int64_t y_numer = inner_x * outer_tot - outer_x * inner_tot;
 					if (x_numer % denom != 0 || y_numer % denom != 0) continue;
-					std::cerr << x_numer << '/' << denom << ' ' << y_numer << '/' << denom << '\n';
-
-					if (x_numer == y_numer) continue;
-					if (x_numer <= 0 || y_numer <= 0) continue;
 
 					auto res = check_xy(int(x_numer / denom), int(y_numer / denom));
 					if (res) return *res;
