@@ -49,15 +49,15 @@ int main() {
 				assert(x < y);
 				int b = (M - y * N) / (x - y);
 				assert(x * b + y * (N-b) == M);
-				for (auto st : {0, global_min, N-1}) {
+				for (int st : {0, global_min, N-1}) {
 					int64_t c = 0;
-					auto eval_at = [&](int i) -> int64_t {
+					auto eval_at = [&](int i) -> int {
 						int off = (i - st + N) % N;
 						int64_t cnt_x = int64_t(b) * int64_t(off) / N;
 						int64_t cnt_y = off - cnt_x;
 						int64_t r = c + cnt_x * x + cnt_y * y;
-						r %= M;
-						return r;
+						assert(r >= 0);
+						return int(r % M);
 					};
 					c = (known[0].second - eval_at(known[0].first) + M) % M;
 					// now, eval_at is a cycle which always does +x or +y, totalling to M
@@ -68,7 +68,10 @@ int main() {
 					}
 					if (good) {
 						// now, we need to massage this into shape
-						return {{-1, -1, -1, -1}};
+						// st + b * i
+						int a = st;
+						int d = (int(eval_at(a + b)) - c + M) % M;
+						return {{a, b, c, d}};
 					}
 				}
 				return std::nullopt;
