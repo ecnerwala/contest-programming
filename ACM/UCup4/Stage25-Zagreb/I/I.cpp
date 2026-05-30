@@ -118,7 +118,7 @@ int main() {
 					if (x_numer % denom != 0 || y_numer % denom != 0) continue;
 
 					assert(outer_x * x_numer + outer_y * y_numer == outer_tot * denom);
-					auto res = check_xy(int(x_numer / denom), int(y_numer / denom));
+					auto res = check_xy(x_numer / denom, y_numer / denom);
 					if (res) return *res;
 				}
 			}
