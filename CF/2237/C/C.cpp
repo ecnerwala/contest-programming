@@ -315,13 +315,14 @@ int main() {
 		for (int z = 0; z < N; z++) {
 			int i = seg[1].mi.second;
 			int64_t v = seg[1].mi.first;
+			std::cerr << i << ' ' << v << '\n';
 			if (z == N-1) {
 				std::cout << v << '\n';
 				break;
 			}
 			{
 				auto a = layout.get_point(i);
-				seg[a] = {{-INF, -1}, 0};
+				seg[a] = {{INF, -1}, 0};
 				a.for_parents_up(update_node);
 			}
 
