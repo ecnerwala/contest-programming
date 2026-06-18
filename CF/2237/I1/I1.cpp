@@ -194,7 +194,6 @@ int main() {
 		num ans = 0;
 		for (auto v : dp[0]) for (auto r : v) ans += r;
 		std::cout << ans << '\n';
-		break;
 	}
 
 	return 0;
