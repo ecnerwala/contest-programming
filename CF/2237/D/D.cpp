@@ -20,7 +20,7 @@ int main() {
 			if (i == 0 || S[i] == S[i-1]) cur_len = 1;
 			else cur_len++;
 			assert(cur_len >= 1);
-			ans += i+1 - cnt[pref] - (cur_len - 2) / 2;
+			ans += i+1 - cnt[pref] - (cur_len - 1) / 2;
 
 			cnt[pref]++;
 		}
