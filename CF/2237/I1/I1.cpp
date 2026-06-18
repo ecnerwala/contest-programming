@@ -157,6 +157,7 @@ int main() {
 										if (cur_has_active && nxt_has_active) continue;
 										if (cur_has_nxt && nxt_has_nxt) continue;
 										for (bool e : {0, 1}) {
+											if (S[nxt] != '?' && S[nxt] != char('0' + e)) continue;
 											if (cur_has_active && !e) continue;
 											int nd1 = d1 + e;
 											if (nxt_has_active && e) {
