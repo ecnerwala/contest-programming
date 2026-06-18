@@ -22,7 +22,7 @@ int main() {
 	for (int i = 2; i <= V; i++) {
 		int v = i;
 		while (pfac[v] != v) v /= pfac[v];
-		if (v < 180) cnt_smooth++;
+		if (v < 863) cnt_smooth++;
 	}
 	std::cerr << cnt_smooth << '\n';
 	return 0;
