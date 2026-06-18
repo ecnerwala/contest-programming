@@ -151,8 +151,8 @@ int main() {
 							for (bool cur_has_nxt : {0, 1}) {
 								for (bool nxt_has_active : {0, 1}) {
 									for (bool nxt_has_nxt : {0, 1}) {
-										num v_cur = dp[d0][cur_has_active * 2 + cur_has_nxt];
-										num v_nxt = dp[d1][nxt_has_active * 2 + nxt_has_nxt];
+										num v_cur = dp[cur][d0][cur_has_active * 2 + cur_has_nxt];
+										num v_nxt = dp[nxt][d1][nxt_has_active * 2 + nxt_has_nxt];
 										num v = v_cur * v_nxt;
 										if (cur_has_active && nxt_has_active) continue;
 										if (cur_has_nxt && nxt_has_nxt) continue;
