@@ -19,7 +19,7 @@ int main() {
 
 		std::vector<int> prv(N-M+1, -1);
 
-		dp_1[0] = 1;
+		dp_1[0] = 0;
 
 		for (int i = 0; i < N; i++) {
 			setmax(dp_1[i+1], dp_1[i]);
