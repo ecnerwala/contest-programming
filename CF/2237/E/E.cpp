@@ -43,6 +43,7 @@ int main() {
 				for (int i = st; true; ) {
 					if (B[A[i]] == -1) {
 						B[A[i]] = A[B[i]];
+						i = A[i];
 						continue;
 					} else {
 						if (B[A[i]] != A[B[i]]) return false;
