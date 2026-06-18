@@ -194,10 +194,6 @@ int main() {
 					}
 				}
 				dp[cur] = ndp;
-				std::cerr << "merged " << nxt << ' ' << cur << '\n';
-				for (auto r : dp[cur]) {
-					for (auto v : r) { std::cerr << v << ' '; } std::cerr << '\n';
-				}
 			}
 		}(0);
 		num ans = 0;
