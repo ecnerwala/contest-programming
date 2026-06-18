@@ -12,13 +12,13 @@ int main() {
 		std::vector<int> A(N);
 		for (auto& a : A) { std::cin >> a; a--; }
 		// number of valid starts
-		int L = N-M+1;
 		const int INF = N+1;
 		std::vector<int> dp_1(N+1, -INF);
 		std::vector<int> dp_M(N+1, -INF);
 		std::vector<int> dp_use(N+1, -INF);
 
 		std::vector<int> prv(N-M+1, -1);
+
 		dp_1[0] = 1;
 
 		for (int i = 0; i < N; i++) {
@@ -34,7 +34,7 @@ int main() {
 				setmax(dp_1[i+1], dp_use[i]);
 			}
 		}
-		std::cout << N+1 - dp_M[N] << '\n';
+		std::cout << N - dp_M[N] << '\n';
 	}
 
 	return 0;
