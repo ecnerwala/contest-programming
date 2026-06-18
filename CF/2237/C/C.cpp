@@ -297,42 +297,15 @@ int main() {
 		int N; std::cin >> N;
 		std::vector<int> A(N);
 		for (auto& a : A) std::cin >> a;
-		seg_tree::in_order_layout layout(N);
-		const int64_t INF = 1e18;
-		struct seg_node {
-			std::pair<int64_t, int> mi;
-			int64_t lazy = 0;
-		};
-		std::vector<seg_node> seg(2*layout.N);
-		auto update_node = [&](seg_tree::point a) -> void {
-			seg[a].mi = std::min(seg[a.c(0)].mi, seg[a.c(1)].mi);
-			seg[a].mi.first += seg[a].lazy;
-		};
-		for (int i = 0; i < N; i++) {
-			seg[layout.get_point(i)] = {{A[i], i}, 0};
-		}
-		for (seg_tree::point a(layout.N-1); a > 0; a--) update_node(a);
-		for (int z = 0; z < N; z++) {
-			int i = seg[1].mi.second;
-			int64_t v = seg[1].mi.first;
-			std::cerr << i << ' ' << v << '\n';
-			if (z == N-1) {
-				std::cout << v << '\n';
-				break;
+		int64_t cur = A[0];
+		for (int i = 1; i < N; i++) {
+			if (A[i] >= cur) {
+				cur = A[i];
+			} else {
+				cur += A[i];
 			}
-			{
-				auto a = layout.get_point(i);
-				seg[a] = {{INF, -1}, 0};
-				a.for_parents_up(update_node);
-			}
-
-			auto r = layout.get_range(0, i);
-			r.for_each([&](auto a) -> void {
-				seg[a].lazy += v;
-				seg[a].mi.first += v;
-			});
-			r.for_parents_up(update_node);
 		}
+		std::cout << cur << '\n';
 	}
 
 	return 0;
