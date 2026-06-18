@@ -34,7 +34,7 @@ int main() {
 				setmax(dp_1[i+1], dp_use[i]);
 			}
 		}
-		std::cout << N - dp_M[N] << '\n';
+		std::cout << N+1 - dp_M[N] << '\n';
 	}
 
 	return 0;
