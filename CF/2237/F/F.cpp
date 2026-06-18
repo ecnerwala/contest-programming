@@ -22,8 +22,8 @@ int main() {
 		dp_1[0] = 1;
 
 		for (int i = 0; i < N; i++) {
-			dp_1[i+1] = dp_1[i];
-			dp_M[i+1] = dp_M[i];
+			setmax(dp_1[i+1], dp_1[i]);
+			setmax(dp_M[i+1], dp_M[i]);
 			int st = i - A[i];
 			if (0 <= st && st <= N - M) {
 				setmax(dp_use[i], dp_1[st] + 1);
