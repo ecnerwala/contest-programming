@@ -19,9 +19,8 @@ int main() {
 
 			if (i == 0 || S[i] == S[i-1]) cur_len = 1;
 			else cur_len++;
-
-			ans += i - cnt[pref] - (cur_len - 1) / 2;
-			ans++;
+			assert(cur_len >= 1);
+			ans += i - cnt[pref] - (cur_len - 2) / 2;
 
 			cnt[pref]++;
 		}
