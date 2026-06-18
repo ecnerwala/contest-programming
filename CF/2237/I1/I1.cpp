@@ -167,7 +167,7 @@ int main() {
 											} else if (nxt_has_nxt && d0 > nd1) continue;
 											if (cur_has_nxt && d0 <= nd1) continue;
 											int nd = std::max(d0, nd1);
-											int n_has_nxt = cur_has_nxt || nxt_has_nxt;
+											int n_has_nxt = cur_has_nxt || nxt_has_nxt || (nxt_has_active && e);
 
 											if (nxt_has_active && !e && d0 > 0) continue;
 
