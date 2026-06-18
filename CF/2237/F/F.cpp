@@ -28,7 +28,7 @@ int main() {
 			if (0 <= st && st <= N - M) {
 				setmax(dp_use[i], dp_1[st] + 1);
 				setmax(dp_use[i], dp_M[i] + 1);
-				setmax(dp_use[i], dp_use[prv[st]] + 1);
+				if (prv[st] != -1) setmax(dp_use[i], dp_use[prv[st]] + 1);
 				prv[st] = i;
 				setmax(dp_M[st + M], dp_use[i]);
 				setmax(dp_1[i+1], dp_use[i]);
