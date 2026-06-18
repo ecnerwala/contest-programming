@@ -185,11 +185,16 @@ int main() {
 					}
 				}
 				dp[cur] = ndp;
+				std::cerr << "merged " << nxt << ' ' << cur << '\n';
+				for (auto r : dp[cur]) {
+					for (auto v : r) { std::cerr << v << ' '; } std::cerr << '\n';
+				}
 			}
 		}(0);
 		num ans = 0;
 		for (auto v : dp[0]) for (auto r : v) ans += r;
 		std::cout << ans << '\n';
+		break;
 	}
 
 	return 0;
