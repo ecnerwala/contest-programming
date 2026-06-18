@@ -13,6 +13,7 @@ int main() {
 		std::array<int, 3> cnt{0, 0, 0};
 		int pref = 0;
 		int cur_len = 0;
+		cnt[pref]++;
 		for (int i = 0; i < N; i++) {
 			pref += (S[i] - '0') + 1;
 			pref %= 3;
