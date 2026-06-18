@@ -144,7 +144,7 @@ int main() {
 			dp[cur] = std::vector<std::array<num, 4>>(1, {num(1), num(0), num(0), num(0)});
 			for (int nxt : ch[cur]) {
 				self(nxt);
-				auto ndp = std::vector<std::array<num, 4>>(std::max(int(dp[cur].size()), int(dp[nxt].size()) + 1), {num(1), num(0), num(0), num(0)});
+				auto ndp = std::vector<std::array<num, 4>>(std::max(int(dp[cur].size()), int(dp[nxt].size()) + 1), {num(0), num(0), num(0), num(0)});
 				for (int d0 = 0; d0 < int(dp[cur].size()); d0++) {
 					for (int d1 = 0; d1 < int(dp[nxt].size()); d1++) {
 						for (const bool cur_has_active : {0, 1}) {
