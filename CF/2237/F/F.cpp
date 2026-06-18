@@ -33,7 +33,6 @@ int main() {
 				prv[st] = i;
 				setmax(dp_M[st + M], dp_use[i]);
 				setmax(dp_1[i+1], dp_use[i]);
-				std::cerr << i << ' ' << dp_use[i] << '\n';
 			}
 		}
 		std::cout << N - dp_M[N] << '\n';
