@@ -27,7 +27,7 @@ int main() {
 					l++;
 					if (B[j] != -1) has_ind = true;
 					if (used_val[j]) has_val = true;
-					j = A[i];
+					j = A[j];
 				} while (j != i);
 				if (!has_ind) unused_ind[l].push_back(i);
 				if (!has_val) unused_val[l].push_back(i);
