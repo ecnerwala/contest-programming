@@ -21,6 +21,7 @@ int main() {
 			else cur_len++;
 
 			ans += i - cnt[pref] - (cur_len - 1) / 2;
+			ans++;
 
 			cnt[pref]++;
 		}
