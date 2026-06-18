@@ -154,24 +154,33 @@ int main() {
 										num v_cur = dp[cur][d0][cur_has_active * 2 + cur_has_nxt];
 										num v_nxt = dp[nxt][d1][nxt_has_active * 2 + nxt_has_nxt];
 										num v = v_cur * v_nxt;
-										if (cur_has_active && nxt_has_active) continue;
-										if (cur_has_nxt && nxt_has_nxt) continue;
 										for (bool e : {0, 1}) {
 											if (S[nxt] != '?' && S[nxt] != char('0' + e)) continue;
-											if (cur_has_active && !e) continue;
-											int nd1 = d1 + e;
-											if (nxt_has_active && e) {
-												if (cur_has_nxt) continue;
+											bool n_nxt_has_active;
+											bool n_nxt_has_nxt;
+											int nd1;
+											if (e && nxt_has_active) {
+												n_nxt_has_active = false;
+												n_nxt_has_nxt = true;
 												nd1 = 1;
-												if (d0 > nd1) continue;
-											} else if (nxt_has_nxt && d0 > nd1) continue;
+											} else {
+												n_nxt_has_active = nxt_has_active;
+												n_nxt_has_nxt = nxt_has_nxt;
+												nd1 = d1 + e;
+											}
+											if (cur_has_active && n_nxt_has_active) continue;
+											if (cur_has_nxt && n_nxt_has_nxt) continue;
+											if (cur_has_active && !e) continue;
+
+											if (n_nxt_has_nxt && d0 > nd1) continue;
 											if (cur_has_nxt && d0 <= nd1) continue;
 											int nd = std::max(d0, nd1);
-											int n_has_nxt = cur_has_nxt || (e ? nxt_has_active : nxt_has_nxt);
 
-											if (nxt_has_active && !e && d0 > 0) continue;
+											int n_has_nxt = cur_has_nxt || n_nxt_has_nxt;
 
-											ndp[nd][(cur_has_active || (nxt_has_active && !e)) * 2 + n_has_nxt] += v;
+											if (n_nxt_has_active && !e && d0 > 0) continue;
+
+											ndp[nd][(cur_has_active || n_nxt_has_active) * 2 + n_has_nxt] += v;
 
 											if (!cur_has_active && e && d0 == 0) {
 												// just set ourselves to active
