@@ -12,7 +12,7 @@ int main() {
 		std::vector<int> A(N);
 		for (auto& a : A) { std::cin >> a; a--; }
 		// number of valid starts
-		const int INF = N+1;
+		const int INF = 2 * N + 2;
 		std::vector<int> dp_1(N+1, -INF);
 		std::vector<int> dp_M(N+1, -INF);
 		std::vector<int> dp_use(N+1, -INF);
