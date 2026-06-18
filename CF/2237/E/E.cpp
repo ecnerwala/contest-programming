@@ -51,9 +51,6 @@ int main() {
 					assert(false);
 				}
 			}
-			for (int i = 0; i < N; i++) {
-				if (B[i] == -1) return false;
-			}
 			return true;
 		}()) {
 			std::cout << "YES" << '\n';
