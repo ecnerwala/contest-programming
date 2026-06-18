@@ -173,7 +173,7 @@ int main() {
 
 											ndp[nd][(cur_has_active || nxt_has_active) * 2 + n_has_nxt] += v;
 
-											if (!cur_has_active && !nxt_has_active && e) {
+											if (!cur_has_active && !nxt_has_active && e && d0 == 0) {
 												// just set ourselves to active
 												ndp[nd][2 + n_has_nxt] -= v;
 											}
