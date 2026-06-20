@@ -18,12 +18,19 @@ int main() {
 			if (p == pfac[i]) break;
 		}
 	}
-	int cnt_smooth = 0;
-	for (int i = 2; i <= V; i++) {
-		int v = i;
-		while (pfac[v] != v) v /= pfac[v];
-		if (v < 863) cnt_smooth++;
+	const int NUM_P = 150;
+	const int MAX_P = primes[NUM_P-1];
+	std::vector<int> smooth; smooth.reserve(V);
+	smooth.push_back(1);
+	for (int z = 0; z < int(smooth.size()); z++) {
+		int i = smooth[z];
+		for (int p : primes) {
+			if (p > MAX_P) break;
+			if (int64_t(i) * p > V) break;
+			smooth.push_back(i*p);
+			if (p == pfac[i]) break;
+		}
 	}
-	std::cerr << cnt_smooth << '\n';
+	std::cerr << smooth.size() << '\n';
 	return 0;
 }
