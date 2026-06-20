@@ -77,6 +77,23 @@ int main() {
 			for (int i = 0; i < int(B.size()); i++) {
 				std::cout << B[i] << " \n"[i+1==int(B.size())];
 			}
+
+			{
+				int K = int(B.size());
+				K -= NUM_P;
+				std::vector<int> B_test(K);
+				for (int i = 0; i < K; i++) {
+					int b = 1;
+					for (int z = 0; z < NUM_P; z++) {
+						int g = std::gcd(B[i], B[K+z]);
+						if (g == -1) exit(0);
+						b *= g;
+					}
+					B[i] = b;
+				}
+				std::vector<int> A_test = from_bits(to_bits(B_test, 18), 20, N);
+				assert(A_test == B_test);
+			}
 		} else if (run == "second") {
 			int N, K; std::cin >> N >> K;
 			K -= NUM_P;
