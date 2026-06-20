@@ -639,7 +639,7 @@ int main() {
 			int cur_ans = 0;
 			assert(std::is_sorted(pth_vals.begin(), pth_vals.end()));
 			for (auto [v, w] : pth_vals) {
-				auto it = mp.lower_bound(v);
+				auto it = mp.lower_bound(-v);
 				while (it != mp.end()) {
 					int a = std::min(it->second, w);
 					it->second -= a;
