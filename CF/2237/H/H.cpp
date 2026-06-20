@@ -651,7 +651,7 @@ int main() {
 				}
 				cur_ans += w;
 			}
-			assert(std::is_sorted(pth_vals.begin(), pth_vals.end()));
+			assert(std::is_sorted(pth_vals.rbegin(), pth_vals.rend()));
 			mp[-t] = cnt;
 			assert(cnt + cur_ans == pth->sz);
 		}
