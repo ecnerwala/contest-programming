@@ -89,7 +89,7 @@ int main() {
 						if (g == -1) exit(0);
 						b *= g;
 					}
-					B[i] = b;
+					B_test[i] = b;
 				}
 				std::vector<int> A_test = from_bits(to_bits(B_test, 18), 20, N);
 				assert(A_test == A);
