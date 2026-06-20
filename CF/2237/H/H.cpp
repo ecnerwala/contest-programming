@@ -608,18 +608,43 @@ int main() {
 			link(&edge_nodes[e], &vert_nodes[u], &vert_nodes[v]);
 		}
 
-		std::map<int, int> mp; mp[-2] = M;
+		const int V = Q+3;
+		std::vector<int> par(V, -1);
+		auto get_par = [&](int a) -> int {
+			while (par[a] >= 0) {
+				if (par[par[a]] >= 0) par[a] = par[par[a]];
+				a = par[a];
+			}
+			return a;
+		};
+		std::vector<int> prv(V, -1);
+		std::vector<int> cnt(V, 0);
+		auto merge = [&](int a) -> int {
+			assert(par[a] < 0);
+			assert(cnt[a] == 0);
+			if (prv[a] == -1) return -1;
+			int b = get_par(prv[a]);
+			prv[a] = prv[b];
+			cnt[a] = cnt[b];
+			if (par[a] > par[b]) std::swap(a, b);
+			par[a] += par[b];
+			par[b] = a;
+			return a;
+		};
+		cnt[2] = M;
 
 		std::vector<int64_t> ans; ans.reserve(Q);
 
 		int64_t tot_ans = 0;
 
+		std::vector<std::pair<int, int>> pth_vals;
+		pth_vals.reserve(N);
 		for (int t = 3; t < Q+3; t++) {
 			int c; std::cin >> c; c--;
 			c = int((c + tot_ans) % N);
 			//std::cerr << "vertex " << c << '\n';
 
-			std::vector<std::pair<int, int>> pth_vals;
+			pth_vals.clear();
 			auto pth = get_path(&vert_nodes[std::exchange(start_vert, c)], &vert_nodes[c]);
 			[&](this auto&& self, my_top_tree_node* cur) -> void {
 				assert(cur->is_path);
@@ -636,24 +661,25 @@ int main() {
 				}
 			}(pth);
 			pth->do_set_path(t);
-			int cnt = 0;
+			int cur_cnt = 0;
 			int cur_ans = 0;
+			// can speed this up to inv_ack
 			for (auto [v, w] : pth_vals) {
 				//std::cerr << "chunk " << v << ' ' << w << '\n';
-				auto it = mp.lower_bound(-v);
-				while (it != mp.end()) {
-					int a = std::min(it->second, w);
-					cnt += a;
-					if (!(it->second -= a)) {
-						it = mp.erase(it);
+				int it = get_par(v);
+				while (v != -1) {
+					int a = std::min(cnt[it], w);
+					cur_cnt += a;
+					if (!(cnt[it] -= a)) {
+						v = merge(v);
 					}
 					if (!(w -= a)) break;
 				}
 				cur_ans += w;
 			}
 			assert(std::is_sorted(pth_vals.rbegin(), pth_vals.rend()));
-			mp[-t] = cnt;
-			assert(cnt + cur_ans == pth->sz);
+			cnt[t] = cur_cnt;
+			assert(cur_cnt + cur_ans == pth->sz);
 			tot_ans += cur_ans;
 			ans.push_back(tot_ans);
 		}
