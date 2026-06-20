@@ -643,7 +643,6 @@ int main() {
 				while (it != mp.end()) {
 					int a = std::min(it->second, w);
 					cnt += a;
-					it->second -= a;
 					if (!(it->second -= a)) {
 						it = mp.erase(it);
 					}
