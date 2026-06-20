@@ -616,9 +616,8 @@ int main() {
 
 		for (int t = 3; t < Q+3; t++) {
 			int c; std::cin >> c; c--;
-			c += (ans.empty() ? 0 : ans.back()) % N;
-			c %= N;
-			std::cerr << "vertex " << c << '\n';
+			c = int((c + tot_ans) % N);
+			//std::cerr << "vertex " << c << '\n';
 
 			std::vector<std::pair<int, int>> pth_vals;
 			auto pth = get_path(&vert_nodes[std::exchange(start_vert, c)], &vert_nodes[c]);
@@ -640,7 +639,7 @@ int main() {
 			int cnt = 0;
 			int cur_ans = 0;
 			for (auto [v, w] : pth_vals) {
-				std::cerr << "chunk " << v << ' ' << w << '\n';
+				//std::cerr << "chunk " << v << ' ' << w << '\n';
 				auto it = mp.lower_bound(-v);
 				while (it != mp.end()) {
 					int a = std::min(it->second, w);
