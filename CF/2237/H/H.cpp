@@ -616,6 +616,7 @@ int main() {
 			int c; std::cin >> c; c--;
 			c += ans.empty() ? 0 : ans.back();
 			c %= N;
+			std::cerr << "vertex " << c << '\n';
 
 			std::vector<std::pair<int, int>> pth_vals;
 			auto pth = get_path(&vert_nodes[std::exchange(start_vert, c)], &vert_nodes[c]);
