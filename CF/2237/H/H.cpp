@@ -610,11 +610,13 @@ int main() {
 
 		std::map<int, int> mp; mp[-2] = M;
 
-		std::vector<int> ans; ans.reserve(Q);
+		std::vector<int64_t> ans; ans.reserve(Q);
+
+		int64_t tot_ans = 0;
 
 		for (int t = 3; t < Q+3; t++) {
 			int c; std::cin >> c; c--;
-			c += ans.empty() ? 0 : ans.back();
+			c += (ans.empty() ? 0 : ans.back()) % N;
 			c %= N;
 			std::cerr << "vertex " << c << '\n';
 
@@ -653,7 +655,8 @@ int main() {
 			assert(std::is_sorted(pth_vals.rbegin(), pth_vals.rend()));
 			mp[-t] = cnt;
 			assert(cnt + cur_ans == pth->sz);
-			ans.push_back(cur_ans);
+			tot_ans += cur_ans;
+			ans.push_back(tot_ans);
 		}
 		assert(int(ans.size()) == Q);
 		for (int q = 0; q < Q; q++) std::cout << ans[q] << " \n"[q+1==Q];
