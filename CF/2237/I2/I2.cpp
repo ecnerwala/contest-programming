@@ -220,7 +220,7 @@ int main() {
 
 											ndp[nd][(cur_has_active || n_nxt_has_active) * 2 + n_has_nxt] += v;
 
-											if (!cur_has_active && e && d0 == 0 && S[nxt] != '1') {
+											if (!cur_has_active && e && d0 == 0) {
 												// just set ourselves to active
 												ndp[nd][2 + n_has_nxt] -= v;
 											}
