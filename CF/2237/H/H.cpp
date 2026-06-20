@@ -554,8 +554,8 @@ struct my_top_tree_node : public top_tree_node_base<my_top_tree_node> {
 			if (!is_vert) {
 				c[0]->do_set_path(lazy_set_path);
 				c[1]->do_set_path(lazy_set_path);
+				lazy_set_path = 0;
 			}
-			lazy_set_path = 0;
 		}
 		if (lazy_flip_path) {
 			assert(is_path);
