@@ -136,31 +136,35 @@ int main() {
 
 		// Count everything by the canonical one
 		using num = modnum<int(1e9)+7>;
-		std::vector<std::vector<std::array<num, 4>>> dp(N);
+		std::vector<std::vector<std::array<num, 6>>> dp(N);
 		[&](this auto&& self, int cur) -> void {
 			// we store for the subtree:
 			// whether there's an active bad-cut
 			// whether there's a next bad-cut, and its depth, else our own depth
-			dp[cur] = std::vector<std::array<num, 4>>(1, {num(1), num(0), num(0), num(0)});
+			dp[cur] = std::vector<std::array<num, 6>>(1, {num(1), num(0), num(0), num(0), num(1), num(0)});
+			// has_active == 2 is a special state:
+			// it stores the number of ways of picking the maximal active set ending at this point that doesn't use S='1'
+			// (obviously it can't use S='0' either, so it must be only S='?')
 			for (int nxt : ch[cur]) {
 				self(nxt);
-				auto ndp = std::vector<std::array<num, 4>>(std::max(int(dp[cur].size()), int(dp[nxt].size()) + 1), {num(0), num(0), num(0), num(0)});
+				auto ndp = std::vector<std::array<num, 6>>(std::max(int(dp[cur].size()), int(dp[nxt].size()) + 1), {num(0), num(0), num(0), num(0), num(0), num(0)});
 				for (int d0 = 0; d0 < int(dp[cur].size()); d0++) {
 					for (int d1 = 0; d1 < int(dp[nxt].size()); d1++) {
-						for (const bool cur_has_active : {0, 1}) {
+						for (const int cur_has_active : {0, 1, 2}) {
 							for (const bool cur_has_nxt : {0, 1}) {
-								for (const bool nxt_has_active : {0, 1}) {
+								for (const int nxt_has_active : {0, 1, 2}) {
 									for (const bool nxt_has_nxt : {0, 1}) {
 										num v_cur = dp[cur][d0][cur_has_active * 2 + cur_has_nxt];
 										num v_nxt = dp[nxt][d1][nxt_has_active * 2 + nxt_has_nxt];
 										num v = v_cur * v_nxt;
 										for (bool e : {0, 1}) {
 											if (S[nxt] != '?' && S[nxt] != char('0' + e)) continue;
-											bool n_nxt_has_active;
+
+											int n_nxt_has_active;
 											bool n_nxt_has_nxt;
 											int nd1;
 											if (e && nxt_has_active) {
-												n_nxt_has_active = false;
+												n_nxt_has_active = 0;
 												n_nxt_has_nxt = true;
 												nd1 = 1;
 											} else {
@@ -178,7 +182,41 @@ int main() {
 
 											int n_has_nxt = cur_has_nxt || n_nxt_has_nxt;
 
-											if (n_nxt_has_active && !e && d0 > 0) continue;
+											if (n_nxt_has_active && d0 > 0) continue;
+
+											if (cur_has_active == 2 && nxt_has_active == 2) continue;
+
+											if (cur_has_active == 2 || nxt_has_active == 2) {
+												// don't handle these the normal way
+												if (S[nxt] == '0') {
+													// we want to copy up nxt_has_active only
+													if (nxt_has_active != 2) continue;
+													// just sanity check some state things now
+													assert(e == 0);
+													assert(n_nxt_has_active == 2);
+													assert(!cur_has_active);
+													assert(d0 == 0);
+													ndp[nd][2 * 2 + n_has_nxt] += v;
+												} else if (S[nxt] == '1') {
+													// the only thing is we want to add the e 
+													assert(e == 1);
+													if (cur_has_active != 2) continue;
+													if (nxt_has_active == 2) continue;
+													assert(cur_has_active == 2 && nxt_has_active != 2);
+													assert(!n_nxt_has_active);
+													// we want to add a copy from cur_has_active -> has_active == 1
+													// because this guy is actually legal
+													ndp[nd][2 + n_has_nxt] += v;
+												} else if (S[nxt] == '?') {
+													// we go cur_has_active == 2
+													if (cur_has_active != 2) continue;
+													if (nxt_has_active == 2) continue;
+													if (e == 0) continue;
+													assert(cur_has_active == 2 && nxt_has_active != 2);
+													ndp[nd][2 * 2 + n_has_nxt] += v;
+												} else assert(false);
+												continue;
+											}
 
 											ndp[nd][(cur_has_active || n_nxt_has_active) * 2 + n_has_nxt] += v;
 
@@ -197,7 +235,7 @@ int main() {
 			}
 		}(0);
 		num ans = 0;
-		for (auto v : dp[0]) for (auto r : v) ans += r;
+		for (auto v : dp[0]) ans += v[0] + v[1] + v[2] + v[3];
 		std::cout << ans << '\n';
 	}
 
