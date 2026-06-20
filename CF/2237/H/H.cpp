@@ -637,8 +637,8 @@ int main() {
 			pth->do_set_path(t);
 			int cnt = 0;
 			int cur_ans = 0;
-			assert(std::is_sorted(pth_vals.begin(), pth_vals.end()));
 			for (auto [v, w] : pth_vals) {
+				std::cerr << "chunk " << v << ' ' << w << '\n';
 				auto it = mp.lower_bound(-v);
 				while (it != mp.end()) {
 					int a = std::min(it->second, w);
@@ -651,6 +651,7 @@ int main() {
 				}
 				cur_ans += w;
 			}
+			assert(std::is_sorted(pth_vals.begin(), pth_vals.end()));
 			mp[-t] = cnt;
 			assert(cnt + cur_ans == pth->sz);
 		}
