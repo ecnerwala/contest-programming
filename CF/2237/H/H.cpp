@@ -648,6 +648,7 @@ int main() {
 					}
 					if (!(w -= a)) break;
 				}
+				cur_ans += w;
 			}
 			mp[-t] = cnt;
 			assert(cnt + cur_ans == pth->sz);
