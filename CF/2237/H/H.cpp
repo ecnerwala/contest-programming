@@ -679,6 +679,7 @@ int main() {
 			}
 			assert(std::is_sorted(pth_vals.rbegin(), pth_vals.rend()));
 			cnt[t] = cur_cnt;
+			prv[t] = t-1;
 			assert(cur_cnt + cur_ans == pth->sz);
 			tot_ans += cur_ans;
 			ans.push_back(tot_ans);
