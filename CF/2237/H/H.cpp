@@ -653,6 +653,7 @@ int main() {
 			assert(std::is_sorted(pth_vals.rbegin(), pth_vals.rend()));
 			mp[-t] = cnt;
 			assert(cnt + cur_ans == pth->sz);
+			ans.push_back(cur_ans);
 		}
 		assert(int(ans.size()) == Q);
 		for (int q = 0; q < Q; q++) std::cout << ans[q] << " \n"[q+1==Q];
