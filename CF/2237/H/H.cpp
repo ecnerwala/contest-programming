@@ -608,7 +608,7 @@ int main() {
 			link(&edge_nodes[e], &vert_nodes[u], &vert_nodes[v]);
 		}
 
-		std::map<int, int> mp; mp[2] = M;
+		std::map<int, int> mp; mp[-2] = M;
 
 		std::vector<int> ans; ans.reserve(Q);
 
@@ -635,8 +635,21 @@ int main() {
 			}(pth);
 			pth->do_set_path(t);
 			int cnt = 0;
+			int cur_ans = 0;
 			assert(std::is_sorted(pth_vals.begin(), pth_vals.end()));
-			ans.push_back(pth->sz - cnt);
+			for (auto [v, w] : pth_vals) {
+				auto it = mp.lower_bound(v);
+				while (it != mp.end()) {
+					int a = std::min(it->second, w);
+					it->second -= a;
+					if (!(it->second -= a)) {
+						it = mp.erase(it);
+					}
+					if (!(w -= a)) break;
+				}
+			}
+			mp[-t] = cnt;
+			assert(cnt + cur_ans == pth->sz);
 		}
 	}
 
