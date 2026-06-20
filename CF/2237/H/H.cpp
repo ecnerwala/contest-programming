@@ -667,11 +667,11 @@ int main() {
 			for (auto [v, w] : pth_vals) {
 				//std::cerr << "chunk " << v << ' ' << w << '\n';
 				int it = get_par(v);
-				while (v != -1) {
+				while (it != -1) {
 					int a = std::min(cnt[it], w);
 					cur_cnt += a;
 					if (!(cnt[it] -= a)) {
-						v = merge(v);
+						it = merge(it);
 					}
 					if (!(w -= a)) break;
 				}
