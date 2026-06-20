@@ -654,6 +654,8 @@ int main() {
 			mp[-t] = cnt;
 			assert(cnt + cur_ans == pth->sz);
 		}
+		assert(int(ans.size()) == Q);
+		for (int q = 0; q < Q; q++) std::cout << ans[q] << " \n"[q+1==Q];
 	}
 
 	return 0;
