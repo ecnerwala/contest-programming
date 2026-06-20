@@ -92,7 +92,7 @@ int main() {
 					B[i] = b;
 				}
 				std::vector<int> A_test = from_bits(to_bits(B_test, 18), 20, N);
-				assert(A_test == B_test);
+				assert(A_test == A);
 			}
 		} else if (run == "second") {
 			int N, K; std::cin >> N >> K;
