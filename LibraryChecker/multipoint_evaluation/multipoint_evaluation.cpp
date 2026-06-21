@@ -1337,7 +1337,7 @@ std::vector<T> poly_evaluate(const std::vector<T>& poly, const std::vector<T>& p
 		series[int(pts.size()) + i] = {T(1), -pts[i]};
 	}
 	for (int i = int(pts.size()) - 1; i > 0; i--) {
-		series[i] = ecnerwala::fft::multiply<T, multiplier>(series[2*i], series[2*i+1]);
+		series[i] = ecnerwala::fft::multiply<multiplier, T>(series[2*i], series[2*i+1]);
 	}
 	{
 		ps root(poly.rbegin(), poly.rend());
@@ -1354,8 +1354,8 @@ std::vector<T> poly_evaluate(const std::vector<T>& poly, const std::vector<T>& p
 		std::reverse(series[1].begin(), series[1].end());
 	}
 	for (int i = 1; i < int(pts.size()); i++) {
-		series[2*i+0] = ecnerwala::fft::multiply_inner<T, multiplier>(series[i], series[2*i+0]);
-		series[2*i+1] = ecnerwala::fft::multiply_inner<T, multiplier>(series[i], series[2*i+1]);
+		series[2*i+0] = ecnerwala::fft::multiply_inner<multiplier, T>(series[i], series[2*i+0]);
+		series[2*i+1] = ecnerwala::fft::multiply_inner<multiplier, T>(series[i], series[2*i+1]);
 		std::swap(series[2*i+0], series[2*i+1]);
 	}
 	std::vector<T> ans(pts.size());
