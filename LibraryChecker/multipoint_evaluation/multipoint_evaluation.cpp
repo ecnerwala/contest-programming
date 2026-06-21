@@ -1673,7 +1673,7 @@ int main() {
 	std::vector<num> pts(M);
 	for (auto& v : pts) std::cin >> v;
 
-	auto res = ecnerwala::poly_evaluate_fft<num>(poly, pts);
+	auto res = ecnerwala::poly_evaluate_fft_2ntt<num>(poly, pts);
 	assert(int(res.size()) == M);
 	for (int i = 0; i < M; i++) std::cout << res[i] << " \n"[i+1==M];
 
