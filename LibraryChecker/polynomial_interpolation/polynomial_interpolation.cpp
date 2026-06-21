@@ -1413,7 +1413,9 @@ std::vector<T> poly_interpolate(const std::vector<T>& pts, const std::vector<T>&
 		series_down[2*i+1] = ecnerwala::fft::multiply_inner<multiplier, T>(series_down[i], series[2*i+0]);
 	}
 	for (int i = 0; i < int(pts.size()); i++) {
-		series_down[int(pts.size())+i][0] *= vals[i];
+		auto& s = series_down[int(pts.size()) + i];
+		assert(int(s.size()) == 1);
+		s[0] = vals[i] / s[0];
 	}
 	for (int i = int(pts.size()) - 1; i > 0; i--) {
 		auto a = ecnerwala::fft::multiply<multiplier, T>(series_down[2*i+0], series[2*i+1]);
