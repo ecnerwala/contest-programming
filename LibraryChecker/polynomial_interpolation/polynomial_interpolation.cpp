@@ -1418,9 +1418,9 @@ std::vector<T> poly_interpolate(const std::vector<T>& pts, const std::vector<T>&
 	for (int i = int(pts.size()) - 1; i > 0; i--) {
 		auto a = ecnerwala::fft::multiply<multiplier, T>(series_down[2*i+0], series[2*i+1]);
 		auto b = ecnerwala::fft::multiply<multiplier, T>(series_down[2*i+1], series[2*i+0]);
-		assert(sz(a) == sz(series_down[i]));
-		assert(sz(b) == sz(series_down[i]));
-		for (int z = 0; z < sz(series_down[i]); z++) series_down[i][z] = a[z] + b[z];
+		assert(int(a.size()) == int(series_down[i].size()));
+		assert(int(b.size()) == int(series_down[i].size()));
+		for (int z = 0; z < int(series_down[i].size()); z++) series_down[i][z] = a[z] + b[z];
 	}
 	std::vector<T> top = series_down[1];
 	std::reverse(top.begin(), top.end());
