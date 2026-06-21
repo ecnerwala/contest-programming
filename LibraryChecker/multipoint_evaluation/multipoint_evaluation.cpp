@@ -1337,13 +1337,16 @@ std::vector<T> poly_evaluate(const std::vector<T>& poly, const std::vector<T>& p
 		series[int(pts.size()) + i] = {T(1), -pts[i]};
 	}
 	for (int i = int(pts.size()) - 1; i > 0; i--) {
-		series[i] = ecnerwala::fft::multiply<T, multiplier>(series[2*i] * series[2*i+1]);
+		series[i] = ecnerwala::fft::multiply<T, multiplier>(series[2*i], series[2*i+1]);
 	}
 	{
 		ps root(poly.rbegin(), poly.rend());
 		assert(int(series[1].size()) == int(pts.size()) + 1);
-		series[1].resize(root.size());
-		series[1] = inverse(series[1]) * root;
+		ps pts_series(series[1].begin(), series[1].end());
+		pts_series.resize(root.size());
+		ps top = inverse(pts_series) * root;
+
+		series[1] = top;
 
 		// front-pad it back to pts.size()
 		std::reverse(series[1].begin(), series[1].end());
