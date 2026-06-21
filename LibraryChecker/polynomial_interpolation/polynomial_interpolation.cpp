@@ -1401,8 +1401,7 @@ std::vector<T> poly_interpolate(const std::vector<T>& pts, const std::vector<T>&
 	std::vector<std::vector<T>> series_down(pts.size() * 2);
 	{
 		assert(int(series[1].size()) == int(pts.size()) + 1);
-		series[1].pop_back();
-		ps root = series[1];
+		ps root(series[1].begin(), series[1].end() - 1);
 		ps deriv_root = root;
 		for (int i = 0; i < int(pts.size()); i++) {
 			deriv_root[i] *= T(int(pts.size()) - i);
