@@ -1328,6 +1328,12 @@ struct power_series : public std::vector<T> {
 	}
 };
 
+template <typename num> using power_series_fft = power_series<num, fft::fft_multiplier<num>, fft::fft_inverser<num>>;
+template <typename num, typename multiplier> using power_series_with_multiplier = power_series<num, multiplier, fft::multiply_inverser<multiplier, num>>;
+template <typename num> using power_series_fft_mod = power_series_with_multiplier<num, fft::fft_mod_multiplier<num>>;
+template <typename num> using power_series_fft_2ntt = power_series_with_multiplier<num, fft::fft_2ntt_multiplier<num>>;
+template <typename num> using power_series_fft_double = power_series_with_multiplier<num, fft::fft_double_multiplier<num>>;
+
 template <typename T, typename multiplier, typename inverser>
 std::vector<T> poly_evaluate(const std::vector<T>& poly, const std::vector<T>& pts) {
 	if (pts.empty()) return {};
@@ -1365,11 +1371,21 @@ std::vector<T> poly_evaluate(const std::vector<T>& poly, const std::vector<T>& p
 	return ans;
 }
 
-template <typename num> using power_series_fft = power_series<num, fft::fft_multiplier<num>, fft::fft_inverser<num>>;
-template <typename num, typename multiplier> using power_series_with_multiplier = power_series<num, multiplier, fft::multiply_inverser<multiplier, num>>;
-template <typename num> using power_series_fft_mod = power_series_with_multiplier<num, fft::fft_mod_multiplier<num>>;
-template <typename num> using power_series_fft_2ntt = power_series_with_multiplier<num, fft::fft_2ntt_multiplier<num>>;
-template <typename num> using power_series_fft_double = power_series_with_multiplier<num, fft::fft_double_multiplier<num>>;
+template <typename T> std::vector<T> poly_evaluate_fft(const std::vector<T>& poly, const std::vector<T>& pts) {
+	return poly_evaluate<T, fft::fft_multiplier<T>, fft::fft_inverser<T>>(poly, pts);
+}
+template <typename T, typename multiplier> std::vector<T> poly_evaluate_with_multiplier(const std::vector<T>& poly, const std::vector<T>& pts) {
+	return poly_evaluate<T, multiplier, fft::multiply_inverser<multiplier, T>>(poly, pts);
+}
+template <typename T> std::vector<T> poly_evaluate_fft_mod(const std::vector<T>& poly, const std::vector<T>& pts) {
+	return poly_evaluate_with_multiplier<T, fft::fft_mod_multiplier<T>>(poly, pts);
+}
+template <typename T> std::vector<T> poly_evaluate_fft_2ntt(const std::vector<T>& poly, const std::vector<T>& pts) {
+	return poly_evaluate_with_multiplier<T, fft::fft_2ntt_multiplier<T>>(poly, pts);
+}
+template <typename T> std::vector<T> poly_evaluate_fft_double(const std::vector<T>& poly, const std::vector<T>& pts) {
+	return poly_evaluate_with_multiplier<T, fft::fft_double_multiplier<T>>(poly, pts);
+}
 
 // TODO: Use iterator traits to deduce value type?
 template <typename base_iterator, typename value_type> struct add_into_iterator {
@@ -1618,10 +1634,9 @@ struct poly_ap_values : public std::vector<T> {
 				}
 			}
 		}
-		// TODO: Circular multiply to make this smaller
-		std::vector<T> prod(len() + osz - 1 + len() - 1);
-		multiplier::multiply(inps.begin(), len(), inv_offsets.begin(), int(inv_offsets.size()), prod.begin());
-		for (int i = 0; i < osz; i++) results[i] *= prod[i + (len() - 1)];
+		std::vector<T> prod = ecnerwala::fft::multiply_inner<multiplier, T>(inv_offsets, inps);
+		assert(int(prod.size()) == osz);
+		for (int i = 0; i < osz; i++) results[i] *= prod[i];
 		return results;
 	}
 
@@ -1658,7 +1673,7 @@ int main() {
 	std::vector<num> pts(M);
 	for (auto& v : pts) std::cin >> v;
 
-	auto res = ecnerwala::poly_evaluate<num, ecnerwala::fft::fft_multiplier<num>, ecnerwala::fft::fft_inverser<num>>(poly, pts);
+	auto res = ecnerwala::poly_evaluate_fft<num>(poly, pts);
 	assert(int(res.size()) == M);
 	for (int i = 0; i < M; i++) std::cout << res[i] << " \n"[i+1==M];
 
