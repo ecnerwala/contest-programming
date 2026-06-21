@@ -1351,8 +1351,8 @@ std::vector<T> poly_evaluate(const std::vector<T>& poly, const std::vector<T>& p
 		std::reverse(series[1].begin(), series[1].end());
 	}
 	for (int i = 1; i < int(pts.size()); i++) {
-		series[2*i+0] = ecnerwala::fft::multiply_inner<T, multiplier>(series[i] * series[2*i+0]);
-		series[2*i+1] = ecnerwala::fft::multiply_inner<T, multiplier>(series[i] * series[2*i+1]);
+		series[2*i+0] = ecnerwala::fft::multiply_inner<T, multiplier>(series[i], series[2*i+0]);
+		series[2*i+1] = ecnerwala::fft::multiply_inner<T, multiplier>(series[i], series[2*i+1]);
 		std::swap(series[2*i+0], series[2*i+1]);
 	}
 	std::vector<T> ans(pts.size());
