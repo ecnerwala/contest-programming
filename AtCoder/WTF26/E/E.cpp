@@ -390,7 +390,7 @@ int main() {
 				for (int st = 0; st < L; st++) {
 					if (prv[st].dest != -1) continue;
 					chain.clear();
-					for (int i = st; i < L; i = nxt[i].dest) {
+					for (int i = st; i != -1; i = nxt[i].dest) {
 						chain.push_back(i);
 					}
 					if (int(chain.size()) & 1) {
