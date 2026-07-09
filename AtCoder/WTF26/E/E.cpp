@@ -421,10 +421,14 @@ int main() {
 					}
 				}
 				if (pref[N] == side) valid_ends.back()++;
+
+				int L = int(pts.size());
+				assert(int(valid_ends.size()) == L+1);
 				assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
+				std::vector<int> pref_valid_ends(L+2);
+				for (int i = 0; i <= L; i++) pref_valid_ends[i+1] = pref_valid_ends[i] + valid_ends[i];
 
 				// greedy match forwards and backwards
-				int L = int(pts.size());
 				std::vector<int> pt_bal(L+1);
 				pt_bal[0] = 0;
 				for (int i = 0; i < L; i++) {
@@ -492,6 +496,28 @@ int main() {
 						chain_vals[z+1] = chain_vals[z] +  
 							(pts[chain[z]].first ? -1 : +1) * nxt[chain[z]].cost;
 					}
+					std::vector<std::array<int, 2>> ends(C+1);
+					for (int z = 0; z <= C; z++) {
+						int cur_ends = pref_valid_ends[z == C ? L+1 : pts[chain[z]].second + 1]
+							- pref_valid_ends[z == 0 ? 0 : pts[chain[z-1]].second + 1];
+						if (z == C ? !pts[chain[z-1]].first : pts[chain[z]].first) {
+							// we're a peak
+							ends[z][true] += cur_ends;
+						} else {
+							ends[z][false] += cur_ends;
+						}
+					}
+					std::vector<std::array<int, 2>> pref_ends = ends;
+					std::vector<std::array<int, 2>> suff_ends = ends;
+					for (int z = 0; z+1 <= C; z++) {
+						pref_ends[z+1][0] += pref_ends[z][0];
+						pref_ends[z+1][1] += pref_ends[z][1];
+					}
+					for (int z = C; z-1 >= 0; z--) {
+						suff_ends[z-1][0] += suff_ends[z][0];
+						suff_ends[z-1][1] += suff_ends[z][1];
+					}
+					assert(pref_ends[C][0] + pref_ends[C][1] == pref_valid_ends.back());
 				}
 			}
 
