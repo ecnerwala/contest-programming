@@ -400,7 +400,11 @@ int main() {
 			for (const bool side : {0, 1}) {
 				std::cerr << '\n' << "doing side " << side << '\n';
 				// we're going to find the matching for lo..hi
-				std::vector<std::pair<bool, int>> pts; pts.reserve(N*M);
+				struct pt_t {
+					bool is_need;
+					int loc;
+				};
+				std::vector<pt_t> pts; pts.reserve(N*M);
 				std::vector<int> valid_ends; valid_ends.reserve(N*M + 1);
 				valid_ends.push_back(0);
 				for (int i = 0; i < N; i++) {
@@ -432,7 +436,7 @@ int main() {
 				std::vector<int> pt_bal(L+1);
 				pt_bal[0] = 0;
 				for (int i = 0; i < L; i++) {
-					pt_bal[i+1] = pt_bal[i] + (pts[i].first ? -1 : +1);
+					pt_bal[i+1] = pt_bal[i] + (pts[i].is_need ? -1 : +1);
 				}
 
 				std::vector<int> is_forced(N+1);
@@ -454,19 +458,19 @@ int main() {
 					int k = 0;
 					std::vector<int> stk;
 					for (int i = 0; i < L; i++) {
-						for (; k < pts[i].second; k++) {
+						for (; k < pts[i].loc; k++) {
 							if (pref[k] != side) {
 								extra_pts.push_back(k);
 							}
 						}
-						if (pts[i].first == l_type) {
+						if (pts[i].is_need == l_type) {
 							stk.push_back(i);
 						} else {
 							if (!stk.empty()) {
 								int j = stk.back();
 								stk.pop_back();
-								int cost = pts[i].second - pts[j].second;
-								while (!extra_pts.empty() && extra_pts.back() >= pts[j].second) {
+								int cost = pts[i].loc - pts[j].loc;
+								while (!extra_pts.empty() && extra_pts.back() >= pts[j].loc) {
 									cost--;
 									extra_pts.pop_back();
 								}
@@ -486,21 +490,21 @@ int main() {
 					}
 					int C = int(chain.size());
 					std::cerr << "have chain " << C << '\n';
-					for (int i : chain) std::cerr << pts[i].first << '@' << pts[i].second << ' ';
+					for (int i : chain) std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
 					std::cerr << '\n';
 
 					std::vector<int> chain_vals(C); // TODO: p sure this should be int
 					chain_vals[0] = 0;
 					for (int z = 0; z+1 < int(chain.size()); z++) {
-						assert(pts[chain[z]].first != pts[chain[z+1]].first);
+						assert(pts[chain[z]].is_need != pts[chain[z+1]].is_need);
 						chain_vals[z+1] = chain_vals[z] +  
-							(pts[chain[z]].first ? -1 : +1) * nxt[chain[z]].cost;
+							(pts[chain[z]].is_need ? -1 : +1) * nxt[chain[z]].cost;
 					}
 					std::vector<std::array<int, 2>> ends(C+1);
 					for (int z = 0; z <= C; z++) {
-						int cur_ends = pref_valid_ends[z == C ? L+1 : pts[chain[z]].second + 1]
-							- pref_valid_ends[z == 0 ? 0 : pts[chain[z-1]].second + 1];
-						if (z == C ? !pts[chain[z-1]].first : pts[chain[z]].first) {
+						int cur_ends = pref_valid_ends[z == C ? L+1 : chain[z] + 1]
+							- pref_valid_ends[z == 0 ? 0 : chain[z-1] + 1];
+						if (z == C ? !pts[chain[z-1]].is_need : pts[chain[z]].is_need) {
 							// we're a peak
 							ends[z][true] += cur_ends;
 						} else {
