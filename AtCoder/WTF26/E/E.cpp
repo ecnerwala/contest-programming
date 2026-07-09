@@ -398,6 +398,7 @@ int main() {
 
 			num ans = 0;
 			for (const bool side : {0, 1}) {
+				std::cerr << "doing side " << side << '\n';
 				// we're going to find the matching for lo..hi
 				std::vector<std::pair<bool, int>> pts; pts.reserve(N*M);
 				std::vector<int> valid_ends; valid_ends.reserve(N*M + 1);
