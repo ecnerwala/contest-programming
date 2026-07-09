@@ -694,13 +694,15 @@ int main() {
 						suff_ends[z-1][1] += suff_ends[z][1];
 					}
 					assert(pref_ends[C][0] + pref_ends[C][1] == pref_valid_ends.back());
+					num chain_ans_under = 0;
+					num chain_ans_over = 0;
 					num chain_ans = 0;
 					for (int z = 0; z < C; z++) {
+						num v = num(chain_vals[z] * ((pts[chain[z]].is_need) ? +1 : -1));
 						num used_times = 0;
-						used_times += num(pref_ends[z][0]) * num(suff_ends[z+1][0]);
-						used_times += num(pref_ends[z][1]) * num(suff_ends[z+1][1]);
-						used_times += num(pref_ends[z][0]) * num(suff_ends[z+1][1]);
-						chain_ans += used_times * num(chain_vals[z] * ((pts[chain[z]].is_need) ? +1 : -1));
+						chain_ans_under += num(pref_ends[z][0]) * num(suff_ends[z+1][0]) * v;
+						chain_ans_over += num(pref_ends[z][1]) * num(suff_ends[z+1][1]) * v;
+						chain_ans += used_times += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
 					}
 					std::vector<int> want_vals; want_vals.reserve((C+1)/2);
 					for (int z = 0; z < C; z++) {
@@ -723,8 +725,10 @@ int main() {
 							chain_ans += used_times * num(chain_vals[z]);
 						}
 					}
+					std::cerr << "chain_ans_under " << chain_ans_under << '\n';
+					std::cerr << "chain_ans_over " << chain_ans_over << '\n';
 					std::cerr << "chain_ans " << chain_ans << '\n';
-					ans += chain_ans;
+					ans += chain_ans + chain_ans_under + chain_ans_over;
 				}
 				std::cerr << "side ans " << ans << '\n';
 				tot_ans += ans;
