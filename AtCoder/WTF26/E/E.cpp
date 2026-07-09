@@ -1,6 +1,153 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
+/** Binary-indexed tree
+ *
+ *  A binary indexed tree with N nodes of type T provides the
+ *  following two functions for 0 <= i <= N:
+ *
+ *      prefix(int i) -> prefix_iterator<T>
+ *      suffix(int i) -> suffix_iterator<T>
+ *
+ *  such that size(suffix(i) intersect prefix(j)) = (1 if i < j else 0).
+ *  Furthermore, the resulting lists always have size at most log_2(N).
+ *
+ *  This can be used to implement either point-update/(prefix|suffix)-query or
+ *  (prefix|suffix)-update/point-query over a virtual array of size N of a
+ *  commutative monoid. This can be generalized to implement
+ *  point-update/range-query or range-update/point-query over a virtual array
+ *  of size N of a commutative group.
+ *
+ *  With 0-indexed data, prefixes are more natural:
+ *   * For range update/query, use for_prefix for the ranges and for_suffix for the points.
+ *   * For prefix update/query, no change.
+ *   * For suffix update/query, use for_prefix(point + 1); 1-index the data.
+ */
+template <typename T> class binary_indexed_tree {
+private:
+	std::vector<T> dat;
+public:
+	binary_indexed_tree() {}
+	explicit binary_indexed_tree(size_t N) : dat(N) {}
+	binary_indexed_tree(size_t N, const T& t) : dat(N, t) {}
+
+	size_t size() const { return dat.size(); }
+	const std::vector<T>& data() const { return dat; }
+	std::vector<T>& data() { return dat; }
+
+private:
+	template <typename I, typename S = I> struct iterator_range {
+	private:
+		I begin_;
+		S end_;
+	public:
+		iterator_range() : begin_(), end_() {}
+		iterator_range(const I& begin__, const S& end__) : begin_(begin__), end_(end__) {}
+		iterator_range(I&& begin__, S&& end__) : begin_(begin__), end_(end__) {}
+		I begin() const { return begin_; }
+		S end() const { return end_; }
+	};
+
+public:
+	class const_suffix_iterator {
+	private:
+		const T* dat;
+		int a;
+		const_suffix_iterator(const T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const const_suffix_iterator& i, const const_suffix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a < j.a;
+		}
+		const_suffix_iterator& operator ++ () {
+			a |= a+1;
+			return *this;
+		}
+		const T& operator * () const {
+			return dat[a];
+		}
+	};
+	using const_suffix_range = iterator_range<const_suffix_iterator>;
+	const_suffix_range suffix(int a) const {
+		assert(0 <= a && a <= int(dat.size()));
+		return const_suffix_range{const_suffix_iterator{dat.data(), a}, const_suffix_iterator{nullptr, int(dat.size())}};
+	}
+
+	class suffix_iterator {
+	private:
+		T* dat;
+		int a;
+		suffix_iterator(T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const suffix_iterator& i, const suffix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a < j.a;
+		}
+		suffix_iterator& operator ++ () {
+			a |= a+1;
+			return *this;
+		}
+		T& operator * () const {
+			return dat[a];
+		}
+	};
+	using suffix_range = iterator_range<suffix_iterator>;
+	suffix_range suffix(int a) {
+		assert(0 <= a && a <= int(dat.size()));
+		return suffix_range{suffix_iterator{dat.data(), a}, suffix_iterator{nullptr, int(dat.size())}};
+	}
+
+	class const_prefix_iterator {
+	private:
+		const T* dat;
+		int a;
+		const_prefix_iterator(const T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const const_prefix_iterator& i, const const_prefix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a > 0;
+		}
+		const_prefix_iterator& operator ++ () {
+			a &= a-1;
+			return *this;
+		}
+		const T& operator * () const {
+			return dat[a-1];
+		}
+	};
+	using const_prefix_range = iterator_range<const_prefix_iterator>;
+	const_prefix_range prefix(int a) const {
+		return const_prefix_range{const_prefix_iterator{dat.data(), a}, const_prefix_iterator{nullptr, 0}};
+	}
+
+	class prefix_iterator {
+	private:
+		T* dat;
+		int a;
+		prefix_iterator(T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const prefix_iterator& i, const prefix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a > 0;
+		}
+		prefix_iterator& operator ++ () {
+			a &= a-1;
+			return *this;
+		}
+		T& operator * () const {
+			return dat[a-1];
+		}
+	};
+	using prefix_range = iterator_range<prefix_iterator>;
+	prefix_range prefix(int a) {
+		return prefix_range{prefix_iterator{dat.data(), a}, prefix_iterator{nullptr, 0}};
+	}
+};
+
 template <typename F> struct reverse_comparator_t {
 	F f;
 	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) & {
@@ -396,8 +543,9 @@ int main() {
 			// Now, it's time to do the funny matching thing
 			for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
 
-			num ans = 0;
+			num tot_ans = 0;
 			for (const bool side : {0, 1}) {
+				num ans = 0;
 				std::cerr << '\n' << "doing side " << side << '\n';
 				// we're going to find the matching for lo..hi
 				struct pt_t {
@@ -433,19 +581,35 @@ int main() {
 				for (int i = 0; i <= L; i++) pref_valid_ends[i+1] = pref_valid_ends[i] + valid_ends[i];
 
 				// greedy match forwards and backwards
-				std::vector<int> pt_bal(L+1);
-				pt_bal[0] = 0;
-				for (int i = 0; i < L; i++) {
-					pt_bal[i+1] = pt_bal[i] + (pts[i].is_need ? -1 : +1);
+				{
+					std::vector<int> loc_bal(N+1);
+					loc_bal[0] = 0;
+					for (int i = 0; i < N; i++) {
+						loc_bal[i+1] = loc_bal[i] + (M-1-popcount(S[i]));
+					}
+					{
+						int a = *std::min_element(loc_bal.begin(), loc_bal.end());
+						for (auto& v : loc_bal) v += a;
+					}
+					int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
+					binary_indexed_tree<std::pair<num, num>> bit(MX);
+					int cur_fail_cnt = 0;
+					for (int i = 0; i <= N; i++) {
+						if (pref[i] != side) {
+							cur_fail_cnt++;
+							continue;
+						}
+						for (auto it : bit.prefix(loc_bal[i]+1)) {
+							ans += cur_fail_cnt * it.first - it.second;
+						}
+						for (auto& it : bit.suffix(loc_bal[i])) {
+							it.first ++;
+							it.second += cur_fail_cnt;
+						}
+					}
 				}
 
-				std::vector<int> is_forced(N+1);
-				for (int i = 0; i <= N; i++) {
-					is_forced[i] = (pref[i] != side);
-				}
-				for (int i = 0; i <= L; i++) {
-					if (!valid_ends[i]) continue;
-				}
+				std::cerr << "baseline side " << ans << '\n';
 
 				struct edge_t {
 					int dest;
@@ -537,9 +701,11 @@ int main() {
 					}
 					auto ct = CartesianTree::build_max_tree(want_vals);
 				}
+				std::cerr << "side ans " << ans << '\n';
+				tot_ans += ans;
 			}
 
-			return ans;
+			return tot_ans;
 		}() << '\n';
 	}
 
