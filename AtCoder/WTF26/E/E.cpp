@@ -725,6 +725,7 @@ int main() {
 							num used_times = 1;
 							used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
 							used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+							std::cerr << "remove " << z << ' ' << l << ' ' << r << ' ' << used_times << '\n';
 							chain_ans += used_times * num(chain_vals[z]);
 						}
 					}
