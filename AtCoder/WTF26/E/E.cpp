@@ -306,8 +306,9 @@ int main() {
 					int a = odds[i], b = odds[i+1] + 1;
 					assert((pref[a] & 1) == (pref[b] & 1));
 					int side = (pref[a] & 1);
-					std::cerr << a << "-" << b << ' ' << pref_cnt[a][side] << ' ' << suff_cnt[b][side] << ' ' << (b-a + extra_cost[i]) << '\n';
-					ans += num(pref_cnt[a][side]) * num(suff_cnt[b][side]) * (b - a + extra_cost[i]);
+					int cost = b-a-1 + extra_cost[i];
+					std::cerr << a << "-" << b << ' ' << pref_cnt[a][side] << ' ' << suff_cnt[b][side] << ' ' << cost << '\n';
+					ans += num(pref_cnt[a][side]) * num(suff_cnt[b][side]) * cost;
 				}
 				return ans;
 			}
