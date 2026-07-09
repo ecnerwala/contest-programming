@@ -589,7 +589,7 @@ int main() {
 					}
 					{
 						int a = *std::min_element(loc_bal.begin(), loc_bal.end());
-						for (auto& v : loc_bal) v += a;
+						for (auto& v : loc_bal) v -= a;
 					}
 					int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
 					binary_indexed_tree<std::pair<num, num>> bit(MX);
