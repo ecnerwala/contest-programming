@@ -314,6 +314,7 @@ int main() {
 			}
 
 			assert(M & 1);
+
 			return -1;
 		}() << '\n';
 	}
