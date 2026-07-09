@@ -579,6 +579,7 @@ int main() {
 				assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
 				std::vector<int> pref_valid_ends(L+2);
 				for (int i = 0; i <= L; i++) pref_valid_ends[i+1] = pref_valid_ends[i] + valid_ends[i];
+				std::cerr << "valid "; for (int i = 0; i <= L; i++) { std::cerr << valid_ends[i] << ' '; } std::cerr << '\n';
 
 				// greedy match forwards and backwards
 				{
