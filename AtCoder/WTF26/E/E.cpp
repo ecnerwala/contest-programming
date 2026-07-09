@@ -627,6 +627,7 @@ int main() {
 					for (int i = 0; i < L; i++) {
 						for (; k < pts[i].loc; k++) {
 							if (pref[k] != side) {
+								std::cerr << "save at " << k << '\n';
 								extra_pts.push_back(k);
 							}
 						}
