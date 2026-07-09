@@ -711,6 +711,7 @@ int main() {
 							assert(ct[2*wz+1].m == wz);
 							int l = ct[2*wz+1].l * 2 + (wz & 1);
 							int r = ct[2*wz+1].r * 2 + (wz & 1);
+							assert(0 <= l && l <= z && z <= r && r < C);
 							num used_times = 1;
 							used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
 							used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
