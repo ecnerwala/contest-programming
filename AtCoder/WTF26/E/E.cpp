@@ -702,7 +702,7 @@ int main() {
 						num used_times = 0;
 						chain_ans_under += num(pref_ends[z][0]) * num(suff_ends[z+1][0]) * v;
 						chain_ans_over += num(pref_ends[z][1]) * num(suff_ends[z+1][1]) * v;
-						chain_ans += used_times += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
+						chain_ans += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
 					}
 					std::cerr << "chain_ans all " << chain_ans << '\n';
 					std::vector<int> want_vals; want_vals.reserve((C+1)/2);
