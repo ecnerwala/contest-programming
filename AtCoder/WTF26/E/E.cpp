@@ -264,22 +264,22 @@ int main() {
 			};
 			std::vector<int> pref(N+1);
 			for (int i = 0; i < N; i++) {
-				pref[i+1] = pref[i] + (popcount(S[i]) & 1);
+				pref[i+1] = (pref[i] + popcount(S[i])) & 1;
 			}
 			std::vector<std::array<int, 2>> pref_cnt(N+1);
 			std::vector<std::array<int, 2>> suff_cnt(N+1);
 			for (int i = 0; i <= N; i++) {
 				pref_cnt[i] = i > 0 ? pref_cnt[i-1] : std::array<int, 2>{0, 0};
-				pref_cnt[i][pref[i] & 1]++;
+				pref_cnt[i][pref[i]]++;
 			}
 			for (int i = N; i >= 0; i--) {
 				suff_cnt[i] = i < N ? suff_cnt[i+1] : std::array<int, 2>{0, 0};
-				suff_cnt[i][pref[i] & 1]++;
+				suff_cnt[i][pref[i]]++;
 			}
 
 			std::vector<int> odds; odds.reserve(N);
 			for (int i = 0; i < N; i++) {
-				if (pref[i+1] - pref[i]) {
+				if (pref[i+1] != pref[i]) {
 					odds.push_back(i);
 				}
 			}
@@ -290,7 +290,7 @@ int main() {
 			std::vector<bool> extra_cost(K-1);
 			for (int i = 0; i+1 < K; i++) {
 				int a = odds[i], b = odds[i+1];
-				bool has_extra = S[a] == S[b];
+				bool has_extra = S[a] == S[b] && (popcount(S[a]) < M);
 				for (int m = a+1; m < b; m++) {
 					int v = popcount(S[m] ^ S[a]);
 					assert(v & 1);
@@ -306,9 +306,9 @@ int main() {
 					int a = odds[i], b = odds[i+1] + 1;
 					assert((pref[a] & 1) == (pref[b] & 1));
 					int side = (pref[a] & 1);
-					int cost = b-a-1 + extra_cost[i];
+					int cost = (b-a-1) + extra_cost[i];
 					//std::cerr << a << "-" << b << ' ' << pref_cnt[a][side] << ' ' << suff_cnt[b][side] << ' ' << cost << '\n';
-					ans += num(pref_cnt[a][side]) * num(suff_cnt[b][side]) * cost;
+					ans += num(pref_cnt[a][side]) * num(suff_cnt[b][side]) * num(cost);
 				}
 				return ans;
 			}
@@ -317,6 +317,86 @@ int main() {
 
 			// Now, it's time to do the funny matching thing
 			for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
+
+			num ans = 0;
+			for (const bool side : {0, 1}) {
+				int lo = (side == (0 & 1)) ? 0 : odds[0] + 1;
+				int hi = (side == (K & 1)) ? N : odds[K-1];
+				// we're going to find the matching for lo..hi
+				assert(lo <= hi);
+				assert(pref[lo] == side);
+				assert(pref[hi] == side);
+				std::vector<std::pair<bool, int>> pts; pts.reserve(N * M);
+				std::vector<int> valid_ends; valid_ends.reserve(N*M);
+				valid_ends.push_back(0);
+				for (int i = lo; i < hi; i++) {
+					if (pref[i] == side) {
+						valid_ends.back()++;
+					}
+					int cnt = popcount(S[i]);
+					if (cnt == M) {
+						// need 1 here
+						pts.push_back({true, i});
+						valid_ends.push_back(0);
+					} else {
+						int extras = M - 1 - cnt;
+						for (int z = 0; z < extras; z++) {
+							pts.push_back({false, i});
+							valid_ends.push_back(0);
+						}
+					}
+				}
+				assert(pref[hi] == side);
+				valid_ends.back()++;
+				assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
+
+				// greedy match forwards and backwards
+				int L = int(pts.size());
+				struct edge_t {
+					int dest;
+					int cost;
+				};
+				std::vector<edge_t> prv(L, {-1, 0});
+				std::vector<edge_t> nxt(L, {-1, 0});
+				for (bool l_type : {false, true}) {
+					std::vector<int> extra_pts;
+					int k = lo;
+					std::vector<int> stk;
+					for (int i = 0; i < L; i++) {
+						for (; k < pts[i].second; k++) {
+							if (pref[k] != side) {
+								extra_pts.push_back(k);
+							}
+						}
+						if (pts[i].first == l_type) {
+							stk.push_back(i);
+						} else {
+							if (!stk.empty()) {
+								int j = stk.back();
+								stk.pop_back();
+								int cost = pts[i].second - pts[j].second;
+								while (!extra_pts.empty() && extra_pts.back() >= pts[j].second) {
+									cost--;
+									extra_pts.pop_back();
+								}
+								prv[i] = {j, cost};
+								nxt[j] = {i, cost};
+							}
+						}
+					}
+				}
+
+				std::vector<int> chain; chain.reserve(L);
+				for (int st = 0; st < L; st++) {
+					if (prv[st].dest != -1) continue;
+					chain.clear();
+					for (int i = st; i < L; i = nxt[i].dest) {
+						chain.push_back(i);
+					}
+					if (int(chain.size()) & 1) {
+					}
+				}
+			}
 
 			return -1;
 		}() << '\n';
