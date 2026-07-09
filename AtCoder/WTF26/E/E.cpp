@@ -709,8 +709,8 @@ int main() {
 						if (!pts[chain[z]].is_need) {
 							int wz = z / 2;
 							assert(ct[2*wz+1].m == wz);
-							int l = ct[2*wz+1].l * 2 + (wz & 1);
-							int r = ct[2*wz+1].r * 2 + (wz & 1);
+							int l = ct[2*wz+1].l * 2 + (z & 1);
+							int r = ct[2*wz+1].r * 2 + (z & 1);
 							assert(0 <= l && l <= z && z <= r && r < C);
 							num used_times = 1;
 							used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
