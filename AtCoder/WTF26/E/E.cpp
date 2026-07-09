@@ -522,6 +522,20 @@ int main() {
 						suff_ends[z-1][1] += suff_ends[z][1];
 					}
 					assert(pref_ends[C][0] + pref_ends[C][1] == pref_valid_ends.back());
+					for (int z = 0; z < C; z++) {
+						num used_times = 0;
+						used_times += num(pref_ends[z][0]) * num(suff_ends[z+1][0]);
+						used_times += num(pref_ends[z][1]) * num(suff_ends[z+1][1]);
+						used_times += num(pref_ends[z][0]) * num(suff_ends[z+1][1]);
+						ans += used_times * num(chain_vals[z] * ((pts[chain[z]].is_need) ? +1 : -1));
+					}
+					std::vector<int> want_vals; want_vals.reserve((C+1)/2);
+					for (int z = 0; z < C; z++) {
+						if (!pts[chain[z]].is_need) {
+							want_vals.push_back(chain_vals[z]);
+						}
+					}
+					auto ct = CartesianTree::build_max_tree(want_vals);
 				}
 			}
 
