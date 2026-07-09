@@ -625,7 +625,7 @@ int main() {
 					int k = 0;
 					std::vector<int> stk;
 					for (int i = 0; i < L; i++) {
-						for (; k < pts[i].loc; k++) {
+						for (; k <= pts[i].loc; k++) {
 							if (pref[k] != side) {
 								std::cerr << "save at " << k << '\n';
 								extra_pts.push_back(k);
@@ -638,7 +638,7 @@ int main() {
 								int j = stk.back();
 								stk.pop_back();
 								int cost = pts[i].loc - pts[j].loc;
-								while (!extra_pts.empty() && extra_pts.back() >= pts[j].loc) {
+								while (!extra_pts.empty() && extra_pts.back() > pts[j].loc) {
 									cost--;
 									extra_pts.pop_back();
 								}
