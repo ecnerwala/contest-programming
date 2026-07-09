@@ -595,7 +595,7 @@ int main() {
 					}
 					for (auto& it : bit.suffix(loc_bal[i])) {
 						it.first ++;
-						it.second += cur_fail_cnt;
+						it.second += num(cur_fail_cnt);
 					}
 				}
 				//std::cerr << "tot_pairs " << tot_pairs << '\n';
