@@ -708,6 +708,9 @@ int main() {
 					for (int z = 0; z < C; z++) {
 						if (!pts[chain[z]].is_need) {
 							int wz = z / 2;
+							assert(ct[2*wz+1].m == wz);
+							int l = ct[2*wz+1].l;
+							int r = ct[2*wz+1].r;
 						}
 					}
 					std::cerr << "chain_ans " << chain_ans << '\n';
