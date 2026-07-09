@@ -704,6 +704,7 @@ int main() {
 						chain_ans_over += num(pref_ends[z][1]) * num(suff_ends[z+1][1]) * v;
 						chain_ans += used_times += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
 					}
+					std::cerr << "chain_ans all " << chain_ans << '\n';
 					std::vector<int> want_vals; want_vals.reserve((C+1)/2);
 					for (int z = 0; z < C; z++) {
 						if (!pts[chain[z]].is_need) {
