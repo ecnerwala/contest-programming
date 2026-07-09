@@ -592,7 +592,7 @@ int main() {
 						for (auto& v : loc_bal) v -= a;
 					}
 					int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
-					binary_indexed_tree<std::pair<num, num>> bit(MX);
+					binary_indexed_tree<std::pair<int, num>> bit(MX);
 					int cur_fail_cnt = 0;
 					int64_t tot_pairs = 0;
 					for (int i = 0; i <= N; i++) {
@@ -602,7 +602,7 @@ int main() {
 						}
 						for (auto it : bit.prefix(loc_bal[i]+1)) {
 							tot_pairs += it.first;
-							ans += cur_fail_cnt * it.first - it.second;
+							ans += num(cur_fail_cnt) * num(it.first) - it.second;
 						}
 						for (auto& it : bit.suffix(loc_bal[i])) {
 							it.first ++;
