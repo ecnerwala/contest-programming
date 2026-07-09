@@ -539,7 +539,7 @@ int main() {
 				}
 			}
 
-			return -1;
+			return ans;
 		}() << '\n';
 	}
 
