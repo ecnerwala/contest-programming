@@ -657,8 +657,7 @@ int main() {
 					}
 					int C = int(chain.size());
 					std::cerr << "have chain " << C << '\n';
-					for (int i : chain) std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
-					std::cerr << '\n';
+					std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << ' '; } std::cerr << '\n';
 
 					std::vector<int> chain_vals(C); // TODO: p sure this should be int
 					chain_vals[0] = 0;
@@ -667,6 +666,7 @@ int main() {
 						chain_vals[z+1] = chain_vals[z] +  
 							(pts[chain[z]].is_need ? -1 : +1) * nxt[chain[z]].cost;
 					}
+					std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
 					std::vector<std::array<int, 2>> ends(C+1);
 					for (int z = 0; z <= C; z++) {
 						int cur_ends = pref_valid_ends[z == C ? L+1 : chain[z] + 1]
@@ -703,6 +703,10 @@ int main() {
 						}
 					}
 					auto ct = CartesianTree::build_max_tree(want_vals);
+					for (int z = 0; z < C; z++) {
+						if (!pts[chain[z]].is_need) {
+						}
+					}
 				}
 				std::cerr << "side ans " << ans << '\n';
 				tot_ans += ans;
