@@ -641,6 +641,10 @@ int main() {
 									cost--;
 									extra_pts.pop_back();
 								}
+								std::cerr << "match ";
+								std::cerr << pts[j].is_need << '@' << pts[j].loc << ' ';
+								std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
+								std::cerr << cost << '\n';
 								prv[i] = {j, cost};
 								nxt[j] = {i, cost};
 							}
