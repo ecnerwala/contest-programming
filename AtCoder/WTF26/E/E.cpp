@@ -320,16 +320,11 @@ int main() {
 
 			num ans = 0;
 			for (const bool side : {0, 1}) {
-				int lo = (side == (0 & 1)) ? 0 : odds[0] + 1;
-				int hi = (side == (K & 1)) ? N : odds[K-1];
 				// we're going to find the matching for lo..hi
-				assert(lo <= hi);
-				assert(pref[lo] == side);
-				assert(pref[hi] == side);
-				std::vector<std::pair<bool, int>> pts; pts.reserve(N * M);
-				std::vector<int> valid_ends; valid_ends.reserve(N*M);
+				std::vector<std::pair<bool, int>> pts; pts.reserve(N*M);
+				std::vector<int> valid_ends; valid_ends.reserve(N*M + 1);
 				valid_ends.push_back(0);
-				for (int i = lo; i < hi; i++) {
+				for (int i = 0; i < N; i++) {
 					if (pref[i] == side) {
 						valid_ends.back()++;
 					}
@@ -346,12 +341,25 @@ int main() {
 						}
 					}
 				}
-				assert(pref[hi] == side);
-				valid_ends.back()++;
+				if (pref[N] == side) valid_ends.back()++;
 				assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
 
 				// greedy match forwards and backwards
 				int L = int(pts.size());
+				std::vector<int> pt_bal(L+1);
+				pt_bal[0] = 0;
+				for (int i = 0; i < L; i++) {
+					pt_bal[i+1] = pt_bal[i] + (pts[i].first ? -1 : +1);
+				}
+
+				std::vector<int> is_forced(N+1);
+				for (int i = 0; i <= N; i++) {
+					is_forced[i] = (pref[i] != side);
+				}
+				for (int i = 0; i <= L; i++) {
+					if (!valid_ends[i]) continue;
+				}
+
 				struct edge_t {
 					int dest;
 					int cost;
@@ -360,7 +368,7 @@ int main() {
 				std::vector<edge_t> nxt(L, {-1, 0});
 				for (bool l_type : {false, true}) {
 					std::vector<int> extra_pts;
-					int k = lo;
+					int k = 0;
 					std::vector<int> stk;
 					for (int i = 0; i < L; i++) {
 						for (; k < pts[i].second; k++) {
@@ -393,8 +401,7 @@ int main() {
 					for (int i = st; i != -1; i = nxt[i].dest) {
 						chain.push_back(i);
 					}
-					if (int(chain.size()) & 1) {
-					}
+					int C = int(chain.size());
 				}
 			}
 
