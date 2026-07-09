@@ -541,12 +541,12 @@ int main() {
 			assert(M & 1);
 
 			// Now, it's time to do the funny matching thing
-			for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
+			//for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
 
 			num tot_ans = 0;
 			for (const bool side : {0, 1}) {
 				num ans = 0;
-				std::cerr << '\n' << "doing side " << side << '\n';
+				//std::cerr << '\n' << "doing side " << side << '\n';
 				// we're going to find the matching for lo..hi
 				struct pt_t {
 					bool is_need;
@@ -579,7 +579,7 @@ int main() {
 				assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
 				std::vector<int> pref_valid_ends(L+2);
 				for (int i = 0; i <= L; i++) pref_valid_ends[i+1] = pref_valid_ends[i] + valid_ends[i];
-				std::cerr << "valid "; for (int i = 0; i <= L; i++) { std::cerr << valid_ends[i] << ' '; } std::cerr << '\n';
+				//std::cerr << "valid "; for (int i = 0; i <= L; i++) { std::cerr << valid_ends[i] << ' '; } std::cerr << '\n';
 
 				// greedy match forwards and backwards
 				{
@@ -610,10 +610,10 @@ int main() {
 							it.second += cur_fail_cnt;
 						}
 					}
-					std::cerr << "tot_pairs " << tot_pairs << '\n';
+					//std::cerr << "tot_pairs " << tot_pairs << '\n';
 				}
 
-				std::cerr << "baseline side " << ans << '\n';
+				//std::cerr << "baseline side " << ans << '\n';
 
 				struct edge_t {
 					int dest;
@@ -628,7 +628,7 @@ int main() {
 					for (int i = 0; i < L; i++) {
 						for (; k <= pts[i].loc; k++) {
 							if (pref[k] != side) {
-								std::cerr << "save at " << k << '\n';
+								//std::cerr << "save at " << k << '\n';
 								extra_pts.push_back(k);
 							}
 						}
@@ -643,10 +643,10 @@ int main() {
 									cost--;
 									extra_pts.pop_back();
 								}
-								std::cerr << "match ";
-								std::cerr << pts[j].is_need << '@' << pts[j].loc << ' ';
-								std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
-								std::cerr << cost << '\n';
+								//std::cerr << "match ";
+								//std::cerr << pts[j].is_need << '@' << pts[j].loc << ' ';
+								//std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
+								//std::cerr << cost << '\n';
 								prv[i] = {j, cost};
 								nxt[j] = {i, cost};
 							}
@@ -662,8 +662,8 @@ int main() {
 						chain.push_back(i);
 					}
 					int C = int(chain.size());
-					std::cerr << "have chain " << C << '\n';
-					std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << ' '; } std::cerr << '\n';
+					//std::cerr << "have chain " << C << '\n';
+					//std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << ' '; } std::cerr << '\n';
 
 					std::vector<int> chain_vals(C); // TODO: p sure this should be int
 					chain_vals[0] = 0;
@@ -672,7 +672,7 @@ int main() {
 						chain_vals[z+1] = chain_vals[z] +  
 							(pts[chain[z]].is_need ? -1 : +1) * nxt[chain[z]].cost;
 					}
-					std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
+					//std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
 					std::vector<std::array<int, 2>> ends(C+1);
 					for (int z = 0; z <= C; z++) {
 						int cur_ends = pref_valid_ends[z == C ? L+1 : chain[z] + 1]
@@ -684,8 +684,8 @@ int main() {
 							ends[z][false] += cur_ends;
 						}
 					}
-					std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
-					std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
+					//std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
+					//std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
 					std::vector<std::array<int, 2>> pref_ends = ends;
 					std::vector<std::array<int, 2>> suff_ends = ends;
 					for (int z = 0; z+1 <= C; z++) {
@@ -706,7 +706,7 @@ int main() {
 						chain_ans_over += num(pref_ends[z][1]) * num(suff_ends[z+1][1]) * v;
 						chain_ans += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
 					}
-					std::cerr << "chain_ans all " << chain_ans << '\n';
+					//std::cerr << "chain_ans all " << chain_ans << '\n';
 					std::vector<int> want_vals; want_vals.reserve((C+1)/2);
 					for (int z = 0; z < C; z++) {
 						if (!pts[chain[z]].is_need) {
@@ -725,16 +725,16 @@ int main() {
 							num used_times = 1;
 							used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
 							used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
-							std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
+							//std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
 							chain_ans += used_times * num(chain_vals[z]);
 						}
 					}
-					std::cerr << "chain_ans_under " << chain_ans_under << '\n';
-					std::cerr << "chain_ans_over " << chain_ans_over << '\n';
-					std::cerr << "chain_ans " << chain_ans << '\n';
+					//std::cerr << "chain_ans_under " << chain_ans_under << '\n';
+					//std::cerr << "chain_ans_over " << chain_ans_over << '\n';
+					//std::cerr << "chain_ans " << chain_ans << '\n';
 					ans += chain_ans + chain_ans_under + chain_ans_over;
 				}
-				std::cerr << "side ans " << ans << '\n';
+				//std::cerr << "side ans " << ans << '\n';
 				tot_ans += ans;
 			}
 
