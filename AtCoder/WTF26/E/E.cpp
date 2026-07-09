@@ -307,13 +307,16 @@ int main() {
 					assert((pref[a] & 1) == (pref[b] & 1));
 					int side = (pref[a] & 1);
 					int cost = b-a-1 + extra_cost[i];
-					std::cerr << a << "-" << b << ' ' << pref_cnt[a][side] << ' ' << suff_cnt[b][side] << ' ' << cost << '\n';
+					//std::cerr << a << "-" << b << ' ' << pref_cnt[a][side] << ' ' << suff_cnt[b][side] << ' ' << cost << '\n';
 					ans += num(pref_cnt[a][side]) * num(suff_cnt[b][side]) * cost;
 				}
 				return ans;
 			}
 
 			assert(M & 1);
+
+			// Now, it's time to do the funny matching thing
+			for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
 
 			return -1;
 		}() << '\n';
