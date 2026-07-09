@@ -700,12 +700,14 @@ int main() {
 					std::vector<int> want_vals; want_vals.reserve((C+1)/2);
 					for (int z = 0; z < C; z++) {
 						if (!pts[chain[z]].is_need) {
+							assert(int(want_vals.size()) == (z/2));
 							want_vals.push_back(chain_vals[z]);
 						}
 					}
 					auto ct = CartesianTree::build_max_tree(want_vals);
 					for (int z = 0; z < C; z++) {
 						if (!pts[chain[z]].is_need) {
+							int wz = z / 2;
 						}
 					}
 					std::cerr << "chain_ans " << chain_ans << '\n';
