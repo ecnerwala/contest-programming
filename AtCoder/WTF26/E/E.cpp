@@ -714,7 +714,7 @@ int main() {
 							want_vals.push_back(chain_vals[z]);
 						}
 					}
-					auto ct = CartesianTree::build_max_tree(want_vals);
+					auto ct = CartesianTree::build_min_tree(want_vals);
 					for (int z = 0; z < C; z++) {
 						if (!pts[chain[z]].is_need) {
 							int wz = z / 2;
