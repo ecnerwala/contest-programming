@@ -683,6 +683,8 @@ int main() {
 							ends[z][false] += cur_ends;
 						}
 					}
+					std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
+					std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
 					std::vector<std::array<int, 2>> pref_ends = ends;
 					std::vector<std::array<int, 2>> suff_ends = ends;
 					for (int z = 0; z+1 <= C; z++) {
@@ -699,7 +701,6 @@ int main() {
 					num chain_ans = 0;
 					for (int z = 0; z < C; z++) {
 						num v = num(chain_vals[z] * ((pts[chain[z]].is_need) ? +1 : -1));
-						num used_times = 0;
 						chain_ans_under += num(pref_ends[z][0]) * num(suff_ends[z+1][0]) * v;
 						chain_ans_over += num(pref_ends[z][1]) * num(suff_ends[z+1][1]) * v;
 						chain_ans += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
