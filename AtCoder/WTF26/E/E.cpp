@@ -481,6 +481,9 @@ int main() {
 					}
 					int C = int(chain.size());
 					std::cerr << "have chain " << C << '\n';
+					for (int i : chain) std::cerr << pts[i].first << '@' << pts[i].second << ' ';
+					std::cerr << '\n';
+
 					std::vector<int> chain_vals(C); // TODO: p sure this should be int
 					chain_vals[0] = 0;
 					for (int z = 0; z+1 < int(chain.size()); z++) {
