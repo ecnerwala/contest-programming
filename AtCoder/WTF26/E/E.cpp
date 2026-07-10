@@ -385,9 +385,15 @@ int main() {
 						if (!stk.empty()) {
 							int j = stk.back();
 							stk.pop_back();
-							int cost = (i-j==1 && pref[pts[i].loc] != side) ? 0 :
+							int cost = pts[i].loc - pts[j].loc;
+							while (!extra_pts.empty() && extra_pts.back() > pts[j].loc) {
+								cost--;
+								extra_pts.pop_back();
+							}
+							int cost2 = (i-j==1 && pref[pts[i].loc] != side) ? 0 :
 								(pref[pts[i].loc] != side ? pts[i-1].loc : pts[i].loc)
 								- (pref[pts[j].loc+1] != side ? pts[j+1].loc : pts[j].loc);
+							assert(cost2 == cost);
 							//std::cerr << "match ";
 							//std::cerr << pts[j].is_need << '@' << pts[j].loc << ' ';
 							//std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
