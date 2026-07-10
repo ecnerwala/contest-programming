@@ -642,7 +642,9 @@ int main() {
 				}
 			}
 
-			std::vector<num> extra_ways(K);
+			std::vector<num> ways_lo(K);
+			std::vector<num> ways_hi(K);
+			std::vector<int> tie_pair(K, -1);
 			std::vector<int> chain; chain.reserve(L);
 			for (int st = 0; st < L; st++) {
 				if (prv[st].dest != -1) continue;
@@ -745,6 +747,22 @@ int main() {
 						int r = ct[2*wz+1].r * 2 + x;
 						assert(0 <= l && l <= z && z <= r && r < C);
 						// now, we have several tied things
+						for (int v = z; true; ) {
+							if (pts[chain[v]].is_lo_ex) {
+								ways_lo[*pts[chain[v]].is_lo_ex] = pref_ends[v][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
+							}
+							if (pts[chain[v]].is_hi_ex) {
+								ways_hi[*pts[chain[v]].is_hi_ex] = suff_ends[v+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+							}
+
+							int nv = ct[2*(v/2)+1].c[1] * 2 + x;
+							if (want_vals[v/2] != want_vals[nv/2]) break;
+							assert(pts[chain[v]].is_hi_ex);
+							assert(pts[chain[nv]].is_lo_ex);
+							// mark v and nv as tied
+							tie_pair[*pts[chain[v]].is_hi_ex] = *pts[chain[nv]].is_lo_ex;
+							v = nv;
+						}
 					}
 				}
 				//std::cerr << "chain_ans_under " << chain_ans_under << '\n';
@@ -752,15 +770,20 @@ int main() {
 				//std::cerr << "chain_ans " << chain_ans << '\n';
 				ans += chain_ans + chain_ans_under + chain_ans_over;
 			}
-			for (int i = 0; i < N; i++) {
-				if (pref[i] == side && pref[i+1] != side && extra_cost_lo[i]) {
-					int j = i;
-					while (pref[j+1] != side) j++;
-					assert(extra_cost_hi[j]);
-					std::cerr << "extra " << i << ' ' << j << ' ' << extra_ways[i] << ' ' << extra_ways[j] << '\n';
-					//ans += extra_ways[i] * extra_ways[j];
+			num horiz_ans = 0;
+			for (int k = 0; k < K; k++) {
+				std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
+				horiz_ans += ways_lo[k] * ways_hi[k];
+			}
+			for (int k = 0; k < K; k++) {
+				if (tie_pair[k] != -1) {
+					int l = tie_pair[k];
+					std::cerr << "tie pair " << k << ' ' << l << '\n';
+					horiz_ans -= ways_lo[k] * ways_hi[l];
 				}
 			}
+			std::cerr << "horiz_ans " << horiz_ans << '\n';
+			tot_ans += horiz_ans;
 			//std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
 		}
