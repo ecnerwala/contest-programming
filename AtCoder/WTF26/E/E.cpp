@@ -802,6 +802,13 @@ int main() {
 				S[i][j] = mt() & 1;
 			}
 		}
+		std::cerr << N << ' ' << M << '\n';
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				std::cerr << (S[i][j] ? 'O' : '.');
+			}
+			std::cerr << '\n';
+		}
 		solve(N, M, S);
 	}
 
