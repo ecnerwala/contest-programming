@@ -663,7 +663,7 @@ int main() {
 					chain_vals[z+1] = chain_vals[z] +
 						(pts[chain[z]].is_need ? -1 : +1) * nxt[chain[z]].cost;
 				}
-				//std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
+				std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
 				std::vector<std::array<int, 2>> ends(C+1);
 				for (int z = 0; z <= C; z++) {
 					int cur_ends = pref_valid_ends[z == C ? L+1 : chain[z] + 1]
