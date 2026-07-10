@@ -548,7 +548,12 @@ int main() {
 					for (int z = 0; z < extras; z++) {
 						bool is_lo_ex = extra_cost_lo[i] && z == 0;
 						bool is_hi_ex = extra_cost_hi[i] && z == extras-1;
-						pts.push_back({false, i, is_lo_ex, is_hi_ex});
+						if (is_hi_ex) {
+							// we mark them on the same parity cause it's simpler
+							assert(!pts.empty());
+							pts.back().is_hi_ex = true;
+						}
+						pts.push_back({false, i, is_lo_ex, false});
 						valid_ends.push_back(0);
 					}
 				}
@@ -651,7 +656,7 @@ int main() {
 				chain_vals[0] = 0;
 				for (int z = 0; z+1 < int(chain.size()); z++) {
 					assert(pts[chain[z]].is_need != pts[chain[z+1]].is_need);
-					chain_vals[z+1] = chain_vals[z] +  
+					chain_vals[z+1] = chain_vals[z] +
 						(pts[chain[z]].is_need ? -1 : +1) * nxt[chain[z]].cost;
 				}
 				//std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
