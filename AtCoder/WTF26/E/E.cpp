@@ -804,7 +804,7 @@ int main() {
 			}
 			num horiz_ans = 0;
 			for (int k = 0; k < K; k++) {
-				std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
+				//std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
 				horiz_ans += ways_lo[k] * ways_hi[k];
 			}
 			for (int k = 0; k < K; k++) {
@@ -814,7 +814,7 @@ int main() {
 					horiz_ans -= ways_lo[k] * ways_hi[l];
 				}
 			}
-			std::cerr << "horiz_ans " << horiz_ans << '\n';
+			//std::cerr << "horiz_ans " << horiz_ans << '\n';
 			tot_ans += horiz_ans;
 			//std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
@@ -824,7 +824,7 @@ int main() {
 	};
 
 	std::mt19937 mt(48);
-	for (int iter = 0; iter < 10000; iter++) {
+	for (int iter = 0; iter < 0; iter++) {
 		int N = 4;
 		int M = 3;
 		std::vector<bs> S(N);
