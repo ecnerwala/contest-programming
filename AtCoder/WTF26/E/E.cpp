@@ -2348,41 +2348,7 @@ int main() {
 			assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
 			std::vector<int> pref_valid_ends(L+2);
 			for (int i = 0; i <= L; i++) pref_valid_ends[i+1] = pref_valid_ends[i] + valid_ends[i];
-			std::cerr << "valid "; for (int i = 0; i <= L; i++) { std::cerr << valid_ends[i] << ' '; } std::cerr << '\n';
-
-			// greedy match forwards and backwards
-			{
-				std::vector<int> loc_bal(N+1);
-				loc_bal[0] = 0;
-				for (int i = 0; i < N; i++) {
-					loc_bal[i+1] = loc_bal[i] + (M_cap-popcount(S[i]));
-				}
-				{
-					int a = *std::min_element(loc_bal.begin(), loc_bal.end());
-					for (auto& v : loc_bal) v -= a;
-				}
-				int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
-				binary_indexed_tree<std::pair<int, num>> bit(MX);
-				int cur_fail_cnt = 0;
-				int64_t tot_pairs = 0;
-				for (int i = 0; i <= N; i++) {
-					if (pref[i] != side) {
-						cur_fail_cnt++;
-						continue;
-					}
-					for (auto it : bit.prefix(loc_bal[i]+1)) {
-						tot_pairs += it.first;
-						ans += num(cur_fail_cnt) * num(it.first) - it.second;
-					}
-					for (auto& it : bit.suffix(loc_bal[i])) {
-						it.first ++;
-						it.second += num(cur_fail_cnt);
-					}
-				}
-				std::cerr << "tot_pairs " << tot_pairs << '\n';
-			}
-
-			std::cerr << "baseline side " << ans << '\n';
+			//std::cerr << "valid "; for (int i = 0; i <= L; i++) { std::cerr << valid_ends[i] << ' '; } std::cerr << '\n';
 
 			struct edge_t {
 				int dest;
@@ -2422,6 +2388,12 @@ int main() {
 					}
 				}
 			}
+			std::vector<num> pref_cost(L+1);
+			for (int i = 0; i < L; i++) {
+				pref_cost[i+1] = pref_cost[i] + num(nxt[i].cost);
+			}
+
+			std::vector<int> all_chain_vals(L);
 
 			std::vector<num> ways_lo(K);
 			std::vector<num> ways_hi(K);
@@ -2439,12 +2411,15 @@ int main() {
 
 				std::vector<int> chain_vals(C); // TODO: p sure this should be int
 				chain_vals[0] = 0;
-				for (int z = 0; z+1 < int(chain.size()); z++) {
+				for (int z = 0; z+1 < C; z++) {
 					assert(pts[chain[z]].is_need != pts[chain[z+1]].is_need);
 					chain_vals[z+1] = chain_vals[z] +
 						(pts[chain[z]].is_need ? -1 : +1) * nxt[chain[z]].cost;
 				}
 				std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
+				for (int z = 0; z < C; z++) {
+					all_chain_vals[chain[z]] = chain_vals[z] * ((pts[chain[z]].is_need) ? +1 : -1);
+				}
 				std::vector<std::array<int, 2>> ends(C+1);
 				for (int z = 0; z <= C; z++) {
 					int cur_ends = pref_valid_ends[z == C ? L+1 : chain[z] + 1]
@@ -2469,15 +2444,7 @@ int main() {
 					suff_ends[z-1][1] += suff_ends[z][1];
 				}
 				assert(pref_ends[C][0] + pref_ends[C][1] == pref_valid_ends.back());
-				num chain_ans_under = 0;
-				num chain_ans_over = 0;
 				num chain_ans = 0;
-				for (int z = 0; z < C; z++) {
-					num v = num(chain_vals[z] * ((pts[chain[z]].is_need) ? +1 : -1));
-					chain_ans_under += num(pref_ends[z][0]) * num(suff_ends[z+1][0]) * v;
-					chain_ans_over += num(pref_ends[z][1]) * num(suff_ends[z+1][1]) * v;
-					chain_ans += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
-				}
 				//std::cerr << "chain_ans all " << chain_ans << '\n';
 				std::vector<int> want_vals; want_vals.reserve((C+1)/2);
 				for (int z = 0; z < C; z++) {
@@ -2583,6 +2550,46 @@ int main() {
 				std::cerr << "chain_ans " << chain_ans << '\n';
 				ans += chain_ans + chain_ans_under + chain_ans_over;
 			}
+
+			// greedy match forwards and backwards
+			{
+				std::vector<int> loc_bal(N+1);
+				loc_bal[0] = 0;
+				for (int i = 0; i < N; i++) {
+					loc_bal[i+1] = loc_bal[i] + (M_cap-popcount(S[i]));
+				}
+				{
+					int a = *std::min_element(loc_bal.begin(), loc_bal.end());
+					for (auto& v : loc_bal) v -= a;
+				}
+				int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
+				binary_indexed_tree<std::pair<int, num>> bit(MX);
+				num cur_weight = 0;
+				int64_t tot_pairs = 0;
+				int idx = 0;
+				for (int i = 0; i <= N; i++) {
+					for (; idx < int(pts.size()) && pts[idx].loc < i; idx++) {
+						cur_weight += all_chain_vals[idx];
+					}
+					if (pref[i] != side) {
+						cur_weight++;
+						continue;
+					}
+					for (auto it : bit.prefix(loc_bal[i]+1)) {
+						tot_pairs += it.first;
+						ans += num(cur_weight) * num(it.first) - it.second;
+					}
+					for (auto& it : bit.suffix(loc_bal[i])) {
+						it.first ++;
+						it.second += num(cur_weight);
+					}
+				}
+				std::cerr << "tot_pairs " << tot_pairs << '\n';
+			}
+
+			std::cerr << "baseline side " << ans << '\n';
+
+
 			num horiz_ans = 0;
 			for (int k = 0; k < K; k++) {
 				std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
