@@ -410,13 +410,14 @@ int main() {
 			std::vector<num> ways_lo(K);
 			std::vector<num> ways_hi(K);
 			std::vector<int> tie_pair(K, -1);
-			std::vector<int> chain; chain.reserve(L);
+
+			std::vector<pt_t> chain_pts; chain_pts.reserve(L);
 			std::vector<int> pref_ends; pref_ends.reserve(L+1);
 			std::vector<int> suff_ends; suff_ends.reserve(L+1);
 			std::vector<int> want_vals; want_vals.reserve(L);
 			for (int st = 0; st < L; st++) {
 				if (prv[st].dest != -1) continue;
-				chain.clear();
+				chain_pts.clear();
 				pref_ends.clear();
 				suff_ends.clear();
 				want_vals.clear();
@@ -424,7 +425,7 @@ int main() {
 				pref_ends.push_back(0);
 				for (int i = st; i != L; i = nxt[i].dest) {
 					if (!pts[i].is_need) {
-						chain.push_back(i);
+						chain_pts.push_back(pts[i]);
 						pref_ends.push_back(pref_valid_ends[i+1] - pref_valid_ends[prv[i].dest+1]);
 						suff_ends.push_back(pref_valid_ends[nxt[i].dest+1] - pref_valid_ends[i+1]);
 						want_vals.push_back(-pt_vals[i]);
@@ -432,7 +433,7 @@ int main() {
 				}
 				suff_ends.push_back(0);
 
-				int C = int(chain.size());
+				int C = int(chain_pts.size());
 				for (int i = 0; i < C; i++) pref_ends[i+1] += pref_ends[i];
 				for (int i = C; i > 0; i--) suff_ends[i-1] += suff_ends[i];
 
@@ -444,7 +445,7 @@ int main() {
 				auto ct = CartesianTree::build_min_tree(want_vals);
 				if (!want_vals.empty()) {
 					for (int z = 0; z < C; z ++) {
-						assert(!pts[chain[z]].is_need);
+						assert(!chain_pts[z].is_need);
 						assert(ct[2*z+1].m == z);
 						int l = ct[2*z+1].l;
 						int r = ct[2*z+1].r;
@@ -461,17 +462,17 @@ int main() {
 							if (ct[2*z+1].c[1] & 1) {
 								int cnd = ct[2*z+1].c[1] / 2;
 								if (want_vals[z] == want_vals[cnd]) {
-									if (pts[chain[z]].is_hi_ex && pts[chain[cnd]].is_lo_ex) {
-										tie_pair[*pts[chain[z]].is_hi_ex] = *pts[chain[cnd]].is_lo_ex;
+									if (chain_pts[z].is_hi_ex && chain_pts[cnd].is_lo_ex) {
+										tie_pair[*chain_pts[z].is_hi_ex] = *chain_pts[cnd].is_lo_ex;
 									}
 									r = cnd - 1;
 								}
 							}
-							if (pts[chain[z]].is_lo_ex) {
-								ways_lo[*pts[chain[z]].is_lo_ex] = pref_ends[z+1] - pref_ends[l];
+							if (chain_pts[z].is_lo_ex) {
+								ways_lo[*chain_pts[z].is_lo_ex] = pref_ends[z+1] - pref_ends[l];
 							}
-							if (pts[chain[z]].is_hi_ex) {
-								ways_hi[*pts[chain[z]].is_hi_ex] = suff_ends[z] - suff_ends[r+1];
+							if (chain_pts[z].is_hi_ex) {
+								ways_hi[*chain_pts[z].is_hi_ex] = suff_ends[z] - suff_ends[r+1];
 							}
 						}
 					}
