@@ -792,6 +792,19 @@ int main() {
 		return tot_ans;
 	};
 
+	std::mt19937 mt(48);
+	for (int iter = 0; iter < 100; iter++) {
+		int N = 20;
+		int M = 3;
+		std::vector<bs> S(N);
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				S[i][j] = (mt() & 1) ? 'O' : '.';
+			}
+		}
+		solve(N, M, S);
+	}
+
 	int T; std::cin >> T;
 	while (T--) {
 		int N, M; std::cin >> N >> M;
