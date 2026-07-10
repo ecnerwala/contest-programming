@@ -731,7 +731,7 @@ int main() {
 					while (pref[j+1] != side) j++;
 					assert(extra_cost_hi[j]);
 					std::cerr << "extra " << i << ' ' << j << ' ' << extra_ways[i] << ' ' << extra_ways[j] << '\n';
-					ans += extra_ways[i] * extra_ways[j];
+					//ans += extra_ways[i] * extra_ways[j];
 				}
 			}
 			//std::cerr << "side ans " << ans << '\n';
