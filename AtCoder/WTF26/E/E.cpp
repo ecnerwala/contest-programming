@@ -766,6 +766,7 @@ int main() {
 							for (int k = i; k <= j; k++) {
 								int v = buf[k];
 								if (pts[chain[v]].is_lo_ex) {
+									std::cerr << "set lo " << *pts[chain[v]].is_lo_ex << ' ' << pref_ends[v][0] - (cl == -1 ? 0 : pref_ends[cl][0]) << '\n';
 									ways_lo[*pts[chain[v]].is_lo_ex] = pref_ends[v][0] - (cl == -1 ? 0 : pref_ends[cl][0]);
 								}
 								if (pts[chain[v]].is_hi_ex) {
