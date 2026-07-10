@@ -2617,7 +2617,7 @@ int main() {
 		std::cerr << iter << '\n';
 		auto mine = solve(N, M, S);
 		auto riku = maroon_rk::slv(N, M, S);
-		if (mine != riku) {
+		if (mine != num(riku)) {
 			std::cerr << "bad " << mine << ' ' << riku << '\n';
 			std::cerr << N << ' ' << M << '\n';
 			for (int i = 0; i < N; i++) {
