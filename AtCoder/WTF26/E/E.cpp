@@ -2563,7 +2563,7 @@ int main() {
 				int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
 				binary_indexed_tree<std::pair<int, num>> bit(MX);
 				num cur_weight = 0;
-				//int64_t tot_pairs = 0;
+				int64_t tot_pairs = 0;
 				int idx = 0;
 				for (int i = 0; i <= N; i++) {
 					for (; idx < int(pts.size()) && pts[idx].loc < i; idx++) {
@@ -2574,7 +2574,7 @@ int main() {
 						continue;
 					}
 					for (auto it : bit.prefix(loc_bal[i]+1)) {
-						//tot_pairs += it.first;
+						tot_pairs += it.first;
 						ans += num(cur_weight) * num(it.first) - it.second;
 					}
 					for (auto& it : bit.suffix(loc_bal[i])) {
@@ -2600,7 +2600,7 @@ int main() {
 					horiz_ans -= ways_lo[k] * ways_hi[l];
 				}
 			}
-			std::cerr << "horiz_ans " << horiz_ans << '\n';
+			//std::cerr << "horiz_ans " << horiz_ans << '\n';
 			tot_ans += horiz_ans;
 			//std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
@@ -2610,18 +2610,29 @@ int main() {
 	};
 
 	std::mt19937 mt(48);
-	for (int iter = 0; iter < 10000; iter++) {
-		int N = 20000;
+	for (int iter = 0; iter < 1000; iter++) {
+		int N = 20;
 		int M = 3;
 		std::vector<bs> S(N);
 		for (int i = 0; i < N; i++) {
-			int cnt = mt() % (M+1);
 			for (int j = 0; j < M; j++) {
-				S[i][j] = j < cnt;
+				S[i][j] = mt() & 1;
 			}
 		}
 		std::cerr << iter << '\n';
-		solve(N, M, S);
+		auto mine = solve(N, M, S);
+		auto riku = maroon_rk::slv(N, M, S);
+		if (mine != num(int64_t(riku))) {
+			std::cerr << "bad " << mine << ' ' << riku << '\n';
+			std::cerr << N << ' ' << M << '\n';
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < M; j++) {
+					std::cerr << (S[i][j] ? 'O' : '.');
+				}
+				std::cerr << '\n';
+			}
+			assert(false);
+		}
 	}
 
 	int T; std::cin >> T;
