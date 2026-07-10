@@ -675,8 +675,8 @@ int main() {
 						ends[z][false] += cur_ends;
 					}
 				}
-				//std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
-				//std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
+				std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
+				std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
 				std::vector<std::array<int, 2>> pref_ends = ends;
 				std::vector<std::array<int, 2>> suff_ends = ends;
 				for (int z = 0; z+1 <= C; z++) {
