@@ -79,6 +79,96 @@ public:
 	}
 };
 
+template <typename T> T mod_inv_in_range(T a, T m) {
+	// assert(0 <= a && a < m);
+	T x = a, y = m;
+	// abs coeff of a in x and y (they're always opposite sign)
+	T vx = 1, vy = 0;
+	bool swap = false;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		vy += k * vx;
+		std::swap(x, y);
+		std::swap(vx, vy);
+		swap ^= 1;
+	}
+	assert(y == 1);
+	return swap ? vy : m - vy;
+}
+
+template <int MOD_> struct modnum {
+	// Uses subtraction to support MOD up to 2^31 - 1
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+	struct is_reduced_tag {};
+
+	int v;
+	modnum() : v(0) {}
+	modnum(int v_, is_reduced_tag) : v(v_) { assert(0 <= v && v < MOD); }
+	static modnum from_reduced(int v) { return modnum(v, is_reduced_tag{}); }
+
+	modnum(int v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	modnum(unsigned v_) : v(int(v_ % MOD)) { }
+	modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	modnum(uint64_t v_) : v(int(v_ % MOD)) { }
+
+	explicit operator int() const { return v; }
+	int as_signed() const { return MOD-v > v ? v : v - MOD; }
+	friend std::ostream& operator << (std::ostream& out, modnum n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { int64_t v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (modnum a, modnum b) { return a.v == b.v; }
+	friend bool operator != (modnum a, modnum b) { return a.v != b.v; }
+
+	modnum inv() const { return from_reduced(mod_inv_in_range(v, MOD)); }
+	friend modnum inv(modnum m) { return m.inv(); }
+	modnum neg() const { return from_reduced(v ? MOD-v : 0); }
+	friend modnum neg(modnum m) { return m.neg(); }
+
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (modnum o) {
+		v -= MOD-o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator -= (modnum o) {
+		v -= o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator *= (modnum o) {
+		v = int(int64_t(v) * int64_t(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (modnum o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (modnum a, modnum b) { return modnum(a) += b; }
+	friend modnum operator - (modnum a, modnum b) { return modnum(a) -= b; }
+	friend modnum operator * (modnum a, modnum b) { return modnum(a) *= b; }
+	friend modnum operator / (modnum a, modnum b) { return modnum(a) /= b; }
+};
+
 template <typename U, typename V> struct pairnum {
 	U u;
 	V v;
@@ -147,46 +237,12 @@ template <typename U, typename V> struct pairnum {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 	using bs = std::bitset<10>;
-	auto solve = [&](int N, int M, const std::vector<bs>& S) -> int64_t {
+	using num = modnum<998244353>;
+	auto solve = [&](int N, int M, const std::vector<bs>& S) -> num {
 		assert(int(S.size()) == N);
 		auto popcount = [](bs a) -> int {
 			return int(a.count());
 		};
-		std::vector<int> pref(N+1);
-		for (int i = 0; i < N; i++) {
-			pref[i+1] = (pref[i] + popcount(S[i])) & 1;
-		}
-
-		std::vector<int> odds; odds.reserve(N);
-		for (int i = 0; i < N; i++) {
-			if (pref[i+1] != pref[i]) {
-				odds.push_back(i);
-			}
-		}
-		int K = int(odds.size());
-		if (K == 0) return 0; // everything's even already
-		assert(K >= 1);
-
-		std::vector<std::optional<int>> extra_cost_lo(N, std::nullopt);
-		std::vector<std::optional<int>> extra_cost_hi(N, std::nullopt);
-		std::vector<bool> extra_cost(K-1);
-		for (int i = 0; i+1 < K; i++) {
-			int a = odds[i], b = odds[i+1];
-			bool has_extra = S[a] == S[b] && (popcount(S[a]) < M);
-			for (int m = a+1; m < b; m++) {
-				int v = popcount(S[m] ^ S[a]);
-				assert(v & 1);
-				if (v > 1) has_extra = false;
-			}
-			extra_cost[i] = has_extra;
-			if (has_extra) {
-				extra_cost_lo[a] = i;
-				extra_cost_hi[b] = i;
-			}
-		}
-
-		// Now, it's time to do the funny matching thing
-		//for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
 
 		int M_cap = M - (M & 1);
 		std::vector<int> balances(N);
@@ -225,10 +281,34 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			L += std::abs(balances[i]);
 		}
+
+		std::vector<int> side(N+1);
+		for (int i = 0; i <= N; i++) {
+			side[i] = pref_balances[i] & 1;
+		}
+
+		int K = 0;
+		std::vector<std::optional<int>> extra_cost_lo(N, std::nullopt);
+		std::vector<std::optional<int>> extra_cost_hi(N, std::nullopt);
+		for (int i = 0; i < N; i++) {
+			if ((balances[i] & 1) && balances[i] > 0) {
+				for (int j = i+1; true; j++) {
+					if (j == N) break;
+					int v = popcount(S[j] ^ S[i]);
+					if (v > 1) break;
+					if (v == 0) {
+						// i..j is a bad pair
+						extra_cost_lo[i] = extra_cost_hi[j] = K++;
+						break;
+					}
+				}
+			}
+		}
+
 		assert(L <= 2*N);
-		int64_t tot_ans = 0;
-		for (const bool side : {0, 1}) {
-			int64_t ans = 0;
+		num tot_ans = 0;
+		for (const bool cur_side : {0, 1}) {
+			num ans = 0;
 			//std::cerr << '\n' << "doing side " << side << '\n';
 			// we're going to find the matching for lo..hi
 			struct pt_t {
@@ -241,7 +321,7 @@ int main() {
 			std::vector<int> valid_ends; valid_ends.reserve(L + 1);
 			valid_ends.push_back(0);
 			for (int i = 0; i < N; i++) {
-				if (pref[i] == side) {
+				if (side[i] == cur_side) {
 					valid_ends.back()++;
 				}
 				if (balances[i] < 0) {
@@ -251,8 +331,8 @@ int main() {
 				} else {
 					int extras = balances[i];
 					for (int z = 0; z < extras; z++) {
-						auto is_lo_ex = pref[i] == side && z == 0 ? extra_cost_lo[i] : std::nullopt;
-						auto is_hi_ex = pref[i] != side && z == extras-1 ? extra_cost_hi[i] : std::nullopt;
+						auto is_lo_ex = side[i] == cur_side && z == 0 ? extra_cost_lo[i] : std::nullopt;
+						auto is_hi_ex = side[i] != cur_side && z == extras-1 ? extra_cost_hi[i] : std::nullopt;
 						if (is_hi_ex) {
 							// we mark them on the same parity cause it's simpler
 							assert(!pts.empty());
@@ -263,7 +343,7 @@ int main() {
 					}
 				}
 			}
-			if (pref[N] == side) valid_ends.back()++;
+			if (side[N] == cur_side) valid_ends.back()++;
 
 			assert(int(pts.size()) == L);
 			assert(int(valid_ends.size()) == L+1);
@@ -283,7 +363,7 @@ int main() {
 				std::vector<int> stk; stk.reserve(L);
 				for (int i = 0; i < L; i++) {
 					for (; k <= pts[i].loc; k++) {
-						if (pref[k] != side) {
+						if (side[k] != cur_side) {
 							//std::cerr << "save at " << k << '\n';
 							extra_pts.push_back(k);
 						}
@@ -316,8 +396,8 @@ int main() {
 				pt_vals[i] = j == -1 ? 0 : prv[i].cost - pt_vals[j];
 			}
 
-			std::vector<int> ways_lo(K);
-			std::vector<int> ways_hi(K);
+			std::vector<num> ways_lo(K);
+			std::vector<num> ways_hi(K);
 			std::vector<int> tie_pair(K, -1);
 
 			std::vector<pt_t> chain_pts; chain_pts.reserve(L);
@@ -351,7 +431,7 @@ int main() {
 				//std::cerr << "have chain " << C << '\n';
 				//std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << '/' << pts[i].is_lo_ex.value_or(-1) << '/' << pts[i].is_hi_ex.value_or(-1) << ' '; } std::cerr << '\n';
 
-				int64_t chain_ans = 0;
+				num chain_ans = 0;
 
 				auto ct = CartesianTree::build_min_tree(want_vals);
 				if (!want_vals.empty()) {
@@ -361,11 +441,11 @@ int main() {
 						int l = ct[2*z+1].l;
 						int r = ct[2*z+1].r;
 						assert(0 <= l && l <= z && z <= r && r < C);
-						int64_t used_times = 1;
+						num used_times = 1;
 						used_times *= pref_ends[z+1] - pref_ends[l];
 						used_times *= suff_ends[z] - suff_ends[r+1];
 						//std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
-						chain_ans += used_times * int64_t(want_vals[z]);
+						chain_ans += used_times * num(want_vals[z]);
 
 						// Now, let's do the bad pairs.
 						{
@@ -394,11 +474,11 @@ int main() {
 
 			// greedy match forwards and backwards
 			{
-				std::vector<pairnum<int, int64_t>> freqs(max_balance + 1);
+				std::vector<pairnum<int, num>> freqs(max_balance + 1);
 				int cur_balance = pref_balances[0];
-				pairnum<int, int64_t> pref_sum{0, 0};
+				pairnum<int, num> pref_sum{0, 0};
 
-				int64_t cur_weight = 0;
+				num cur_weight = 0;
 				//int64_t tot_pairs = 0;
 				int idx = 0;
 				for (int i = 0; i <= N; i++) {
@@ -410,12 +490,12 @@ int main() {
 						}
 						cur_weight += pt_vals[idx];
 					}
-					if (pref[i] != side) {
+					if (side[i] != cur_side) {
 						cur_weight++;
 						continue;
 					}
-					ans += cur_weight * pref_sum.u - pref_sum.v;
-					pairnum<int, int64_t> upd{1, cur_weight};
+					ans += num(cur_weight) * num(pref_sum.u) - pref_sum.v;
+					pairnum<int, num> upd{1, cur_weight};
 					pref_sum += upd, freqs[cur_balance] += upd;
 				}
 				//std::cerr << "tot_pairs " << tot_pairs << '\n';
@@ -423,7 +503,7 @@ int main() {
 
 			//std::cerr << "baseline side " << ans << '\n';
 
-			int64_t horiz_ans = 0;
+			num horiz_ans = 0;
 			for (int k = 0; k < K; k++) {
 				//std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
 				horiz_ans += ways_lo[k] * ways_hi[k];
@@ -454,7 +534,7 @@ int main() {
 				S[i][j] = r[j] == 'O';
 			}
 		}
-		std::cout << solve(N, M, S) % 998244353 << '\n';
+		std::cout << solve(N, M, S) << '\n';
 	}
 
 
