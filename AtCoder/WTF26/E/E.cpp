@@ -2476,7 +2476,7 @@ int main() {
 							// First, detect a tie to the right and tighten our interval if so
 							if (ct[2*wz+1].c[1] & 1) {
 								int cnd = (ct[2*wz+1].c[1] / 2) * 2 + x;
-								if (want_vals[z] == want_vals[cnd]) {
+								if (want_vals[z/2] == want_vals[cnd/2]) {
 									if (pts[chain[z]].is_hi_ex && pts[chain[cnd]].is_lo_ex) {
 										tie_pair[*pts[chain[z]].is_hi_ex] = *pts[chain[cnd]].is_lo_ex;
 									}
