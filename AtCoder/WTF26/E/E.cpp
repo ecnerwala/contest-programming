@@ -393,12 +393,12 @@ int main() {
 							int cost2 = (i-j==1 && pref[pts[i].loc] != side) ? 0 :
 								(pref[pts[i].loc] != side ? pts[i-1].loc : pts[i].loc)
 								- (pref[pts[j].loc+1] != side ? pts[j+1].loc : pts[j].loc);
+							std::cerr << "match ";
+							std::cerr << pts[j].is_need << '@' << pts[j].loc << ' ';
+							std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
+							std::cerr << cost << '\n';
 							std::cerr << cost2 << ' ' << cost << '\n';
 							assert(cost2 == cost);
-							//std::cerr << "match ";
-							//std::cerr << pts[j].is_need << '@' << pts[j].loc << ' ';
-							//std::cerr << pts[i].is_need << '@' << pts[i].loc << ' ';
-							//std::cerr << cost << '\n';
 							prv[i] = {j, cost};
 							nxt[j] = {i, cost};
 						}
