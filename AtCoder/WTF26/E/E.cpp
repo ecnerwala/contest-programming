@@ -322,6 +322,10 @@ int main() {
 			// now they're all positive
 		}
 		int max_balance = *std::max_element(pref_balances.begin(), pref_balances.end());
+		int L = 0;
+		for (int i = 0; i < N; i++) {
+			L += std::abs(balances[i]);
+		}
 		num tot_ans = 0;
 		for (const bool side : {0, 1}) {
 			num ans = 0;
@@ -333,8 +337,8 @@ int main() {
 				std::optional<int> is_lo_ex;
 				std::optional<int> is_hi_ex;
 			};
-			std::vector<pt_t> pts; pts.reserve(N*M);
-			std::vector<int> valid_ends; valid_ends.reserve(N*M + 1);
+			std::vector<pt_t> pts; pts.reserve(L);
+			std::vector<int> valid_ends; valid_ends.reserve(L + 1);
 			valid_ends.push_back(0);
 			for (int i = 0; i < N; i++) {
 				if (pref[i] == side) {
@@ -361,7 +365,7 @@ int main() {
 			}
 			if (pref[N] == side) valid_ends.back()++;
 
-			int L = int(pts.size());
+			assert(int(pts.size()) == L);
 			assert(int(valid_ends.size()) == L+1);
 			assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
 			std::vector<int> pref_valid_ends(L+2);
@@ -405,10 +409,6 @@ int main() {
 						}
 					}
 				}
-			}
-			std::vector<num> pref_cost(L+1);
-			for (int i = 0; i < L; i++) {
-				pref_cost[i+1] = pref_cost[i] + num(nxt[i].cost);
 			}
 
 			std::vector<int> all_chain_vals(L);
