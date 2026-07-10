@@ -2329,8 +2329,8 @@ int main() {
 				} else {
 					int extras = M_cap - cnt;
 					for (int z = 0; z < extras; z++) {
-						auto is_lo_ex = z == 0 ? extra_cost_lo[i] : std::nullopt;
-						auto is_hi_ex = z == extras-1 ? extra_cost_hi[i] : std::nullopt;
+						auto is_lo_ex = pref[i] == side && z == 0 ? extra_cost_lo[i] : std::nullopt;
+						auto is_hi_ex = pref[i] != side && z == extras-1 ? extra_cost_hi[i] : std::nullopt;
 						if (is_hi_ex) {
 							// we mark them on the same parity cause it's simpler
 							assert(!pts.empty());
