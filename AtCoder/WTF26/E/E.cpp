@@ -755,7 +755,8 @@ int main() {
 								ways_hi[*pts[chain[v]].is_hi_ex] = suff_ends[v+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
 							}
 
-							int nv = ct[2*(v/2)+1].c[1] * 2 + x;
+							if (!(ct[2*(v/2)+1].c[1] & 1)) break;
+							int nv = (ct[2*(v/2)+1].c[1]/2) * 2 + x;
 							if (want_vals[v/2] != want_vals[nv/2]) break;
 							assert(pts[chain[v]].is_hi_ex);
 							assert(pts[chain[nv]].is_lo_ex);
