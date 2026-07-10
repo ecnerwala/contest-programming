@@ -422,7 +422,7 @@ int main() {
 				want_vals.clear();
 
 				pref_ends.push_back(0);
-				for (int i = st; i != -1; i = nxt[i].dest) {
+				for (int i = st; i != L; i = nxt[i].dest) {
 					if (!pts[i].is_need) {
 						chain.push_back(i);
 						pref_ends.push_back(pref_valid_ends[i+1] - pref_valid_ends[prv[i].dest+1]);
