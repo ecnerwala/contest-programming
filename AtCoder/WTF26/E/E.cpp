@@ -500,6 +500,8 @@ int main() {
 		if (K == 0) return 0; // everything's even already
 		assert(K >= 1);
 
+		std::vector<bool> extra_cost_lo(N);
+		std::vector<bool> extra_cost_hi(N);
 		std::vector<bool> extra_cost(K-1);
 		for (int i = 0; i+1 < K; i++) {
 			int a = odds[i], b = odds[i+1];
@@ -510,27 +512,14 @@ int main() {
 				if (v > 1) has_extra = false;
 			}
 			extra_cost[i] = has_extra;
+			extra_cost_lo[a] = true;
+			extra_cost_hi[b] = true;
 		}
-
-		if (!(M & 1)) {
-			// there's nothing full, so we just fill everything in the easy way
-			num ans = 0;
-			for (int i = 0; i+1 < K; i++) {
-				int a = odds[i], b = odds[i+1] + 1;
-				assert((pref[a] & 1) == (pref[b] & 1));
-				int side = (pref[a] & 1);
-				int cost = (b-a-1) + extra_cost[i];
-				//std::cerr << a << "-" << b << ' ' << pref_cnt[a][side] << ' ' << suff_cnt[b][side] << ' ' << cost << '\n';
-				ans += num(pref_cnt[a][side]) * num(suff_cnt[b][side]) * num(cost);
-			}
-			return ans;
-		}
-
-		assert(M & 1);
 
 		// Now, it's time to do the funny matching thing
 		//for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
 
+		int M_cap = M - (M & 1);
 		num tot_ans = 0;
 		for (const bool side : {0, 1}) {
 			num ans = 0;
@@ -539,6 +528,8 @@ int main() {
 			struct pt_t {
 				bool is_need;
 				int loc;
+				bool is_lo_ex;
+				bool is_hi_ex;
 			};
 			std::vector<pt_t> pts; pts.reserve(N*M);
 			std::vector<int> valid_ends; valid_ends.reserve(N*M + 1);
@@ -548,14 +539,16 @@ int main() {
 					valid_ends.back()++;
 				}
 				int cnt = popcount(S[i]);
-				if (cnt == M) {
+				if (cnt > M_cap) {
 					// need 1 here
-					pts.push_back({true, i});
+					pts.push_back({true, i, false, false});
 					valid_ends.push_back(0);
 				} else {
-					int extras = M - 1 - cnt;
+					int extras = M_cap - cnt;
 					for (int z = 0; z < extras; z++) {
-						pts.push_back({false, i});
+						bool is_lo_ex = extra_cost_lo[i] && z == 0;
+						bool is_hi_ex = extra_cost_hi[i] && z == extras-1;
+						pts.push_back({false, i, is_lo_ex, is_hi_ex});
 						valid_ends.push_back(0);
 					}
 				}
@@ -574,7 +567,7 @@ int main() {
 				std::vector<int> loc_bal(N+1);
 				loc_bal[0] = 0;
 				for (int i = 0; i < N; i++) {
-					loc_bal[i+1] = loc_bal[i] + (M-1-popcount(S[i]));
+					loc_bal[i+1] = loc_bal[i] + (M_cap-popcount(S[i]));
 				}
 				{
 					int a = *std::min_element(loc_bal.begin(), loc_bal.end());
@@ -699,7 +692,8 @@ int main() {
 				for (int z = 0; z < C; z++) {
 					if (!pts[chain[z]].is_need) {
 						assert(int(want_vals.size()) == (z/2));
-						want_vals.push_back(chain_vals[z]);
+						// we prefer not to pick the extra ones
+						want_vals.push_back(chain_vals[z] * 2 + (pts[chain[z]].is_hi_ex || pts[chain[z]].is_lo_ex));
 					}
 				}
 				auto ct = CartesianTree::build_min_tree(want_vals);
