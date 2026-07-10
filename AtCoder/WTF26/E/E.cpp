@@ -522,6 +522,38 @@ int main() {
 		//for (int i = 0; i+1 < K; i++) { std::cerr << extra_cost[i]; } std::cerr << '\n';
 
 		int M_cap = M - (M & 1);
+		std::vector<int> balances(N);
+		std::vector<int> pref_balances(N+1);
+		for (int i = 0; i < N; i++) {
+			balances[i] = M_cap - popcount(S[i]);
+			pref_balances[i+1] = pref_balances[i] + balances[i];
+		}
+		{
+			// shrink them down
+			std::vector<int> pref_max = pref_balances;
+			std::vector<int> suff_min = pref_balances;
+			for (int i = 0; i < N; i++) {
+				pref_max[i+1] = std::max(pref_max[i+1], pref_max[i]);
+			}
+			for (int i = N; i > 0; i--) {
+				suff_min[i-1] = std::min(suff_min[i-1], suff_min[i]);
+			}
+			for (int i = 0; i < N; i++) {
+				int gap = suff_min[i+1] - pref_max[i];
+				assert(balances[i] >= gap);
+				if (gap >= 0) {
+					// only remove an even count
+					balances[i] -= gap / 2 * 2;
+				}
+			}
+			for (int i = 0; i < N; i++) {
+				pref_balances[i+1] = pref_balances[i] + balances[i];
+			}
+			int a = *std::min_element(pref_balances.begin(), pref_balances.end());
+			for (auto& v : pref_balances) v -= a;
+			// now they're all positive
+		}
+		int max_balance = *std::max_element(pref_balances.begin(), pref_balances.end());
 		num tot_ans = 0;
 		for (const bool side : {0, 1}) {
 			num ans = 0;
@@ -540,13 +572,12 @@ int main() {
 				if (pref[i] == side) {
 					valid_ends.back()++;
 				}
-				int cnt = popcount(S[i]);
-				if (cnt > M_cap) {
+				if (balances[i] < 0) {
 					// need 1 here
 					pts.push_back({true, i, std::nullopt, std::nullopt});
 					valid_ends.push_back(0);
 				} else {
-					int extras = M_cap - cnt;
+					int extras = balances[i];
 					for (int z = 0; z < extras; z++) {
 						auto is_lo_ex = pref[i] == side && z == 0 ? extra_cost_lo[i] : std::nullopt;
 						auto is_hi_ex = pref[i] != side && z == extras-1 ? extra_cost_hi[i] : std::nullopt;
@@ -717,17 +748,7 @@ int main() {
 
 			// greedy match forwards and backwards
 			{
-				std::vector<int> loc_bal(N+1);
-				loc_bal[0] = 0;
-				for (int i = 0; i < N; i++) {
-					loc_bal[i+1] = loc_bal[i] + (M_cap-popcount(S[i]));
-				}
-				{
-					int a = *std::min_element(loc_bal.begin(), loc_bal.end());
-					for (auto& v : loc_bal) v -= a;
-				}
-				int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
-				binary_indexed_tree<std::pair<int, num>> bit(MX);
+				binary_indexed_tree<std::pair<int, num>> bit(max_balance + 1);
 				num cur_weight = 0;
 				//int64_t tot_pairs = 0;
 				int idx = 0;
@@ -739,11 +760,11 @@ int main() {
 						cur_weight++;
 						continue;
 					}
-					for (auto it : bit.prefix(loc_bal[i]+1)) {
+					for (auto it : bit.prefix(pref_balances[i]+1)) {
 						//tot_pairs += it.first;
 						ans += num(cur_weight) * num(it.first) - it.second;
 					}
-					for (auto& it : bit.suffix(loc_bal[i])) {
+					for (auto& it : bit.suffix(pref_balances[i])) {
 						it.first ++;
 						it.second += num(cur_weight);
 					}
@@ -752,7 +773,6 @@ int main() {
 			}
 
 			//std::cerr << "baseline side " << ans << '\n';
-
 
 			num horiz_ans = 0;
 			for (int k = 0; k < K; k++) {
