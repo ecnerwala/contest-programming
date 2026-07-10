@@ -758,10 +758,10 @@ int main() {
 							if (!(ct[2*(v/2)+1].c[1] & 1)) break;
 							int nv = (ct[2*(v/2)+1].c[1]/2) * 2 + x;
 							if (want_vals[v/2] != want_vals[nv/2]) break;
-							assert(pts[chain[v]].is_hi_ex);
-							assert(pts[chain[nv]].is_lo_ex);
-							// mark v and nv as tied
-							tie_pair[*pts[chain[v]].is_hi_ex] = *pts[chain[nv]].is_lo_ex;
+							if (pts[chain[v]].is_hi_ex && pts[chain[nv]].is_lo_ex) {
+								// mark v and nv as tied
+								tie_pair[*pts[chain[v]].is_hi_ex] = *pts[chain[nv]].is_lo_ex;
+							}
 							v = nv;
 						}
 					}
