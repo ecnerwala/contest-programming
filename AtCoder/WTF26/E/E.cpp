@@ -404,8 +404,7 @@ int main() {
 			std::vector<int> all_chain_vals(L);
 			for (int i = 0; i < L; i++) {
 				int j = prv[i].dest;
-				if (j == -1) continue;
-				all_chain_vals[i] = prv[i].cost - all_chain_vals[j];
+				all_chain_vals[i] = j == -1 ? 0 : prv[i].cost - all_chain_vals[j];
 			}
 
 			std::vector<num> ways_lo(K);
