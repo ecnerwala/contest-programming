@@ -500,8 +500,8 @@ int main() {
 		if (K == 0) return 0; // everything's even already
 		assert(K >= 1);
 
-		std::vector<bool> extra_cost_lo(N);
-		std::vector<bool> extra_cost_hi(N);
+		std::vector<bool> extra_cost_lo(N, false);
+		std::vector<bool> extra_cost_hi(N, false);
 		std::vector<bool> extra_cost(K-1);
 		for (int i = 0; i+1 < K; i++) {
 			int a = odds[i], b = odds[i+1];
