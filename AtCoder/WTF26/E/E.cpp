@@ -10,7 +10,7 @@ namespace maroon_rk {
 using namespace std;
 
 using ll=long long;
-//#define int ll
+#define int ll
 
 bool dbg=false;
 
@@ -1757,6 +1757,26 @@ signed main(signed argc,char*argv[]){
 		slv();
 	}
 }
+
+#undef int
+
+#undef rng
+#undef rep
+#undef gnr
+#undef per
+#undef pb
+#undef eb
+#undef a
+#undef b
+#undef bg
+#undef ed
+#undef all
+#undef si
+#ifdef LOCAL
+#undef dmp(x) cerr<<__LINE__<<" "<<#x<<" "<<x<<endl
+#else
+#undef dmp
+#endif
 
 }
 
