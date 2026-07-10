@@ -653,8 +653,8 @@ int main() {
 					chain.push_back(i);
 				}
 				int C = int(chain.size());
-				//std::cerr << "have chain " << C << '\n';
-				//std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << ' '; } std::cerr << '\n';
+				std::cerr << "have chain " << C << '\n';
+				std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << ' '; } std::cerr << '\n';
 
 				std::vector<int> chain_vals(C); // TODO: p sure this should be int
 				chain_vals[0] = 0;
@@ -663,7 +663,7 @@ int main() {
 					chain_vals[z+1] = chain_vals[z] +
 						(pts[chain[z]].is_need ? -1 : +1) * nxt[chain[z]].cost;
 				}
-				//std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
+				std::cerr << ' '; for (auto v : chain_vals) { std::cerr << v << ' '; } std::cerr << '\n';
 				std::vector<std::array<int, 2>> ends(C+1);
 				for (int z = 0; z <= C; z++) {
 					int cur_ends = pref_valid_ends[z == C ? L+1 : chain[z] + 1]
@@ -675,8 +675,8 @@ int main() {
 						ends[z][false] += cur_ends;
 					}
 				}
-				//std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
-				//std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
+				std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
+				std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
 				std::vector<std::array<int, 2>> pref_ends = ends;
 				std::vector<std::array<int, 2>> suff_ends = ends;
 				for (int z = 0; z+1 <= C; z++) {
@@ -697,7 +697,7 @@ int main() {
 					chain_ans_over += num(pref_ends[z][1]) * num(suff_ends[z+1][1]) * v;
 					chain_ans += num(pref_ends[z][0]) * num(suff_ends[z+1][1]) * v;
 				}
-				//std::cerr << "chain_ans all " << chain_ans << '\n';
+				std::cerr << "chain_ans all " << chain_ans << '\n';
 				std::vector<int> want_vals; want_vals.reserve((C+1)/2);
 				for (int z = 0; z < C; z++) {
 					if (!pts[chain[z]].is_need) {
