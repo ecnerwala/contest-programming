@@ -1736,6 +1736,7 @@ int slv(int N, int M, vector<bitset<10>> S) {
 	mint ans=fast_all(ss);
 	return ans.v;
 }
+/*
 
 signed main(signed argc,char*argv[]){
 	if(argc>1&&strcmp(argv[1],"D")==0)dbg=true;
@@ -1757,6 +1758,7 @@ signed main(signed argc,char*argv[]){
 		slv();
 	}
 }
+*/
 
 #undef int
 
