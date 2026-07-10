@@ -367,7 +367,7 @@ int main() {
 				int cost;
 			};
 			std::vector<edge_t> prv(L, {-1, 0});
-			std::vector<edge_t> nxt(L, {-1, 0});
+			std::vector<edge_t> nxt(L, {L, 0});
 			for (bool l_type : {false, true}) {
 				std::vector<int> extra_pts;
 				int k = 0;
@@ -401,83 +401,66 @@ int main() {
 				}
 			}
 
-			std::vector<int> all_chain_vals(L);
+			std::vector<int> pt_vals(L);
 			for (int i = 0; i < L; i++) {
 				int j = prv[i].dest;
-				all_chain_vals[i] = j == -1 ? 0 : prv[i].cost - all_chain_vals[j];
+				pt_vals[i] = j == -1 ? 0 : prv[i].cost - pt_vals[j];
 			}
 
 			std::vector<num> ways_lo(K);
 			std::vector<num> ways_hi(K);
 			std::vector<int> tie_pair(K, -1);
 			std::vector<int> chain; chain.reserve(L);
+			std::vector<int> pref_ends; pref_ends.reserve(L+1);
+			std::vector<int> suff_ends; suff_ends.reserve(L+1);
+			std::vector<int> want_vals; want_vals.reserve(L);
 			for (int st = 0; st < L; st++) {
 				if (prv[st].dest != -1) continue;
 				chain.clear();
+				pref_ends.clear();
+				suff_ends.clear();
+				want_vals.clear();
+
+				pref_ends.push_back(0);
 				for (int i = st; i != -1; i = nxt[i].dest) {
-					chain.push_back(i);
+					if (!pts[i].is_need) {
+						chain.push_back(i);
+						pref_ends.push_back(pref_valid_ends[i+1] - pref_valid_ends[prv[i].dest+1]);
+						suff_ends.push_back(pref_valid_ends[nxt[i].dest+1] - pref_valid_ends[i+1]);
+						want_vals.push_back(-pt_vals[i]);
+					}
 				}
+				suff_ends.push_back(0);
+
 				int C = int(chain.size());
+				for (int i = 0; i < C; i++) pref_ends[i+1] += pref_ends[i];
+				for (int i = C; i > 0; i--) suff_ends[i-1] += suff_ends[i];
+
 				//std::cerr << "have chain " << C << '\n';
 				//std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << '/' << pts[i].is_lo_ex.value_or(-1) << '/' << pts[i].is_hi_ex.value_or(-1) << ' '; } std::cerr << '\n';
 
-				std::vector<std::array<int, 2>> ends(C+1);
-				for (int z = 0; z <= C; z++) {
-					int cur_ends = pref_valid_ends[z == C ? L+1 : chain[z] + 1]
-						- pref_valid_ends[z == 0 ? 0 : chain[z-1] + 1];
-					if (z == C ? !pts[chain[z-1]].is_need : pts[chain[z]].is_need) {
-						// we're a peak
-						ends[z][true] += cur_ends;
-					} else {
-						ends[z][false] += cur_ends;
-					}
-				}
-				//std::cerr << ' '; for (auto v : ends) { std::cerr << v[1] << ' '; } std::cerr << '\n';
-				//std::cerr << ' '; for (auto v : ends) { std::cerr << v[0] << ' '; } std::cerr << '\n';
-				std::vector<std::array<int, 2>> pref_ends = ends;
-				std::vector<std::array<int, 2>> suff_ends = ends;
-				for (int z = 0; z+1 <= C; z++) {
-					pref_ends[z+1][0] += pref_ends[z][0];
-					pref_ends[z+1][1] += pref_ends[z][1];
-				}
-				for (int z = C; z-1 >= 0; z--) {
-					suff_ends[z-1][0] += suff_ends[z][0];
-					suff_ends[z-1][1] += suff_ends[z][1];
-				}
-				assert(pref_ends[C][0] + pref_ends[C][1] == pref_valid_ends.back());
 				num chain_ans = 0;
-				//std::cerr << "chain_ans all " << chain_ans << '\n';
-				std::vector<int> want_vals; want_vals.reserve((C+1)/2);
-				for (int z = 0; z < C; z++) {
-					if (!pts[chain[z]].is_need) {
-						assert(int(want_vals.size()) == (z/2));
-						// we prefer not to pick the extra ones
-						want_vals.push_back(-all_chain_vals[chain[z]]);
-					}
-				}
+
 				auto ct = CartesianTree::build_min_tree(want_vals);
 				if (!want_vals.empty()) {
-					bool x = !pts[chain[0]].is_need ? 0 : 1;
-					assert(!pts[chain[x]].is_need);
-					for (int z = x; z < C; z += 2) {
+					for (int z = 0; z < C; z ++) {
 						assert(!pts[chain[z]].is_need);
-						int wz = z / 2;
-						assert(ct[2*wz+1].m == wz);
-						int l = ct[2*wz+1].l * 2 + x;
-						int r = ct[2*wz+1].r * 2 + x;
+						assert(ct[2*z+1].m == z);
+						int l = ct[2*z+1].l;
+						int r = ct[2*z+1].r;
 						assert(0 <= l && l <= z && z <= r && r < C);
 						num used_times = 1;
-						used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
-						used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+						used_times *= pref_ends[z+1] - pref_ends[l];
+						used_times *= suff_ends[z] - suff_ends[r+1];
 						//std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
-						chain_ans += used_times * num(want_vals[wz]);
+						chain_ans += used_times * num(want_vals[z]);
 
 						// Now, let's do the bad pairs.
 						{
 							// First, detect a tie to the right and tighten our interval if so
-							if (ct[2*wz+1].c[1] & 1) {
-								int cnd = (ct[2*wz+1].c[1] / 2) * 2 + x;
-								if (want_vals[z/2] == want_vals[cnd/2]) {
+							if (ct[2*z+1].c[1] & 1) {
+								int cnd = ct[2*z+1].c[1] / 2;
+								if (want_vals[z] == want_vals[cnd]) {
 									if (pts[chain[z]].is_hi_ex && pts[chain[cnd]].is_lo_ex) {
 										tie_pair[*pts[chain[z]].is_hi_ex] = *pts[chain[cnd]].is_lo_ex;
 									}
@@ -485,10 +468,10 @@ int main() {
 								}
 							}
 							if (pts[chain[z]].is_lo_ex) {
-								ways_lo[*pts[chain[z]].is_lo_ex] = pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
+								ways_lo[*pts[chain[z]].is_lo_ex] = pref_ends[z+1] - pref_ends[l];
 							}
 							if (pts[chain[z]].is_hi_ex) {
-								ways_hi[*pts[chain[z]].is_hi_ex] = suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+								ways_hi[*pts[chain[z]].is_hi_ex] = suff_ends[z] - suff_ends[r+1];
 							}
 						}
 					}
@@ -513,7 +496,7 @@ int main() {
 						} else {
 							pref_sum += freqs[++cur_balance];
 						}
-						cur_weight += all_chain_vals[idx];
+						cur_weight += pt_vals[idx];
 					}
 					if (pref[i] != side) {
 						cur_weight++;
