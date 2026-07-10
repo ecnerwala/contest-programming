@@ -737,15 +737,13 @@ int main() {
 						assert(!pts[chain[z]].is_need);
 						int wz = z / 2;
 						if (!is_par[wz]) continue;
+						if (!(want_vals[wz] & 1)) continue;
+						assert(pts[chain[z]].is_hi_ex || pts[chain[z]].is_lo_ex);
 						assert(ct[2*wz+1].m == wz);
 						int l = ct[2*wz+1].l * 2 + x;
 						int r = ct[2*wz+1].r * 2 + x;
 						assert(0 <= l && l <= z && z <= r && r < C);
-						num used_times = 1;
-						used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
-						used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
-						//std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
-						chain_ans += used_times * num(chain_vals[z]);
+						// now, we have several tied things
 					}
 				}
 				//std::cerr << "chain_ans_under " << chain_ans_under << '\n';
