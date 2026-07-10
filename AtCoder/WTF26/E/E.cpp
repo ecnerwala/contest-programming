@@ -799,7 +799,7 @@ int main() {
 		std::vector<bs> S(N);
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
-				S[i][j] = (mt() & 1) ? 'O' : '.';
+				S[i][j] = mt() & 1;
 			}
 		}
 		solve(N, M, S);
