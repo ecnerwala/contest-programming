@@ -707,9 +707,11 @@ int main() {
 						assert(0 <= l && l <= z && z <= r && r < C);
 						num used_times = 1;
 						if (pts[chain[z]].is_lo_ex) {
+							std::cerr << pts[chain[z]].loc << ' ' << pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]) << '\n';
 							extra_ways[pts[chain[z]].loc] += pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
 						}
 						if (pts[chain[z]].is_hi_ex) {
+							std::cerr << pts[chain[z]].loc << ' ' << suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]) << '\n';
 							extra_ways[pts[chain[z]].loc] += suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
 						}
 						used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
