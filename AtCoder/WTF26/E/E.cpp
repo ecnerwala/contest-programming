@@ -2563,7 +2563,7 @@ int main() {
 				int MX = *std::max_element(loc_bal.begin(), loc_bal.end()) + 1;
 				binary_indexed_tree<std::pair<int, num>> bit(MX);
 				num cur_weight = 0;
-				int64_t tot_pairs = 0;
+				//int64_t tot_pairs = 0;
 				int idx = 0;
 				for (int i = 0; i <= N; i++) {
 					for (; idx < int(pts.size()) && pts[idx].loc < i; idx++) {
@@ -2574,7 +2574,7 @@ int main() {
 						continue;
 					}
 					for (auto it : bit.prefix(loc_bal[i]+1)) {
-						tot_pairs += it.first;
+						//tot_pairs += it.first;
 						ans += num(cur_weight) * num(it.first) - it.second;
 					}
 					for (auto& it : bit.suffix(loc_bal[i])) {
