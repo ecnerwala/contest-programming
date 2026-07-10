@@ -802,6 +802,7 @@ int main() {
 				S[i][j] = mt() & 1;
 			}
 		}
+		std::cerr << "test " << N << ' ' << M << '\n';
 		solve(N, M, S);
 	}
 
