@@ -696,6 +696,7 @@ int main() {
 						want_vals.push_back(chain_vals[z] * 2 + (pts[chain[z]].is_hi_ex || pts[chain[z]].is_lo_ex));
 					}
 				}
+				std::vector<num> extra_ways(N);
 				auto ct = CartesianTree::build_min_tree(want_vals);
 				for (int z = 0; z < C; z++) {
 					if (!pts[chain[z]].is_need) {
@@ -705,10 +706,24 @@ int main() {
 						int r = ct[2*wz+1].r * 2 + (z & 1);
 						assert(0 <= l && l <= z && z <= r && r < C);
 						num used_times = 1;
+						if (pts[chain[z]].is_lo_ex) {
+							extra_ways[pts[chain[z]].loc] += pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
+						}
+						if (pts[chain[z]].is_hi_ex) {
+							extra_ways[pts[chain[z]].loc] += suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+						}
 						used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
 						used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
 						//std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
 						chain_ans += used_times * num(chain_vals[z]);
+					}
+				}
+				for (int i = 0; i < N; i++) {
+					if (pref[i] == side && pref[i+1] != side && extra_cost_lo[i]) {
+						int j = i;
+						while (pref[j+1] != side) j++;
+						assert(extra_cost_hi[j]);
+						ans += extra_ways[i] * extra_ways[j];
 					}
 				}
 				//std::cerr << "chain_ans_under " << chain_ans_under << '\n';
