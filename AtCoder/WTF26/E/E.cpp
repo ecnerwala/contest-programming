@@ -2578,9 +2578,9 @@ int main() {
 						*/
 					}
 				}
-				//std::cerr << "chain_ans_under " << chain_ans_under << '\n';
-				//std::cerr << "chain_ans_over " << chain_ans_over << '\n';
-				//std::cerr << "chain_ans " << chain_ans << '\n';
+				std::cerr << "chain_ans_under " << chain_ans_under << '\n';
+				std::cerr << "chain_ans_over " << chain_ans_over << '\n';
+				std::cerr << "chain_ans " << chain_ans << '\n';
 				ans += chain_ans + chain_ans_under + chain_ans_over;
 			}
 			num horiz_ans = 0;
