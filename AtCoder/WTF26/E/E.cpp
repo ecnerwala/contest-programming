@@ -768,7 +768,7 @@ int main() {
 									ways_lo[*pts[chain[v]].is_lo_ex] = pref_ends[v][0] - (cl < 0 ? 0 : pref_ends[cl][0]);
 								}
 								if (pts[chain[v]].is_hi_ex) {
-									ways_hi[*pts[chain[v]].is_hi_ex] = suff_ends[v+1][1] - (r == C ? 0 : suff_ends[r+1][1]);
+									ways_hi[*pts[chain[v]].is_hi_ex] = suff_ends[v+1][1] - (cr == C ? 0 : suff_ends[cr+1][1]);
 								}
 							}
 						}
