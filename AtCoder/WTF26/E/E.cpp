@@ -739,6 +739,7 @@ int main() {
 						if (!is_par[wz]) continue;
 						if (!(want_vals[wz] & 1)) continue;
 						assert(pts[chain[z]].is_hi_ex || pts[chain[z]].is_lo_ex);
+						std::cerr << "have tie" << '\n';
 						assert(ct[2*wz+1].m == wz);
 						int l = ct[2*wz+1].l * 2 + x;
 						int r = ct[2*wz+1].r * 2 + x;
