@@ -2487,7 +2487,7 @@ int main() {
 								ways_lo[*pts[chain[z]].is_lo_ex] = pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
 							}
 							if (pts[chain[z]].is_hi_ex) {
-								ways_hi[*pts[chain[z]].is_hi_ex] *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+								ways_hi[*pts[chain[z]].is_hi_ex] = suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
 							}
 						}
 					}
