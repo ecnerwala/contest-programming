@@ -654,7 +654,7 @@ int main() {
 				}
 				int C = int(chain.size());
 				std::cerr << "have chain " << C << '\n';
-				std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << '/' << pts[i].is_hi_ex.value_or(-1) << '/' << pts[i].is_lo_ex.value_or(-1) << ' '; } std::cerr << '\n';
+				std::cerr << ' '; for (int i : chain) { std::cerr << pts[i].is_need << '@' << pts[i].loc << '/' << pts[i].is_lo_ex.value_or(-1) << '/' << pts[i].is_hi_ex.value_or(-1) << ' '; } std::cerr << '\n';
 
 				std::vector<int> chain_vals(C); // TODO: p sure this should be int
 				chain_vals[0] = 0;
