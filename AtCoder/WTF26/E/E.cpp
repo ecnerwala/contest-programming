@@ -783,7 +783,7 @@ int main() {
 					horiz_ans -= ways_lo[k] * ways_hi[l];
 				}
 			}
-			std::cerr << "horiz_ans " << horiz_ans << '\n';
+			//std::cerr << "horiz_ans " << horiz_ans << '\n';
 			tot_ans += horiz_ans;
 			//std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
