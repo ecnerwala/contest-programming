@@ -2611,11 +2611,11 @@ int main() {
 
 	std::mt19937 mt(48);
 	for (int iter = 0; iter < 10000; iter++) {
-		int N = 200;
+		int N = 20000;
 		int M = 3;
 		std::vector<bs> S(N);
 		for (int i = 0; i < N; i++) {
-			int cnt = mt() % 4;
+			int cnt = mt() % (M+1);
 			for (int j = 0; j < M; j++) {
 				S[i][j] = j < cnt;
 			}
