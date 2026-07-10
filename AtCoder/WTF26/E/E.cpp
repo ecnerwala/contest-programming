@@ -517,7 +517,7 @@ int main() {
 			// greedy match forwards and backwards
 			{
 				std::vector<pairnum<int, num>> freqs(max_balance + 1);
-				int cur_balance = 0;
+				int cur_balance = pref_balances[0];
 				pairnum<int, num> pref_sum{0, 0};
 
 				num cur_weight = 0;
