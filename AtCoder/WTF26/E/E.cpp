@@ -635,6 +635,7 @@ int main() {
 				}
 			}
 
+			std::vector<num> extra_ways(N);
 			std::vector<int> chain; chain.reserve(L);
 			for (int st = 0; st < L; st++) {
 				if (prv[st].dest != -1) continue;
@@ -696,7 +697,6 @@ int main() {
 						want_vals.push_back(chain_vals[z] * 2 + (pts[chain[z]].is_hi_ex || pts[chain[z]].is_lo_ex));
 					}
 				}
-				std::vector<num> extra_ways(N);
 				auto ct = CartesianTree::build_min_tree(want_vals);
 				for (int z = 0; z < C; z++) {
 					if (!pts[chain[z]].is_need) {
@@ -720,19 +720,19 @@ int main() {
 						chain_ans += used_times * num(chain_vals[z]);
 					}
 				}
-				for (int i = 0; i < N; i++) {
-					if (pref[i] == side && pref[i+1] != side && extra_cost_lo[i]) {
-						int j = i;
-						while (pref[j+1] != side) j++;
-						assert(extra_cost_hi[j]);
-						std::cerr << "extra " << i << ' ' << j << ' ' << extra_ways[i] << ' ' << extra_ways[j] << '\n';
-						ans += extra_ways[i] * extra_ways[j];
-					}
-				}
 				//std::cerr << "chain_ans_under " << chain_ans_under << '\n';
 				//std::cerr << "chain_ans_over " << chain_ans_over << '\n';
 				//std::cerr << "chain_ans " << chain_ans << '\n';
 				ans += chain_ans + chain_ans_under + chain_ans_over;
+			}
+			for (int i = 0; i < N; i++) {
+				if (pref[i] == side && pref[i+1] != side && extra_cost_lo[i]) {
+					int j = i;
+					while (pref[j+1] != side) j++;
+					assert(extra_cost_hi[j]);
+					std::cerr << "extra " << i << ' ' << j << ' ' << extra_ways[i] << ' ' << extra_ways[j] << '\n';
+					ans += extra_ways[i] * extra_ways[j];
+				}
 			}
 			//std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
