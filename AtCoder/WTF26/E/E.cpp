@@ -2597,7 +2597,7 @@ int main() {
 			}
 			std::cerr << "horiz_ans " << horiz_ans << '\n';
 			tot_ans += horiz_ans;
-			//std::cerr << "side ans " << ans << '\n';
+			std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
 		}
 
