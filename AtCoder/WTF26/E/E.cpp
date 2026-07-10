@@ -247,16 +247,6 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			pref[i+1] = (pref[i] + popcount(S[i])) & 1;
 		}
-		std::vector<std::array<int, 2>> pref_cnt(N+1);
-		std::vector<std::array<int, 2>> suff_cnt(N+1);
-		for (int i = 0; i <= N; i++) {
-			pref_cnt[i] = i > 0 ? pref_cnt[i-1] : std::array<int, 2>{0, 0};
-			pref_cnt[i][pref[i]]++;
-		}
-		for (int i = N; i >= 0; i--) {
-			suff_cnt[i] = i < N ? suff_cnt[i+1] : std::array<int, 2>{0, 0};
-			suff_cnt[i][pref[i]]++;
-		}
 
 		std::vector<int> odds; odds.reserve(N);
 		for (int i = 0; i < N; i++) {
@@ -367,7 +357,6 @@ int main() {
 
 			assert(int(pts.size()) == L);
 			assert(int(valid_ends.size()) == L+1);
-			assert(std::accumulate(valid_ends.begin(), valid_ends.end(), 0) == pref_cnt[N][side]);
 			std::vector<int> pref_valid_ends(L+2);
 			for (int i = 0; i <= L; i++) pref_valid_ends[i+1] = pref_valid_ends[i] + valid_ends[i];
 			//std::cerr << "valid "; for (int i = 0; i <= L; i++) { std::cerr << valid_ends[i] << ' '; } std::cerr << '\n';
@@ -562,22 +551,6 @@ int main() {
 
 		return tot_ans;
 	};
-
-	std::mt19937 mt(48);
-	for (int iter = 0; iter < 0; iter++) {
-		int N = 2000;
-		int M = 3;
-		std::vector<bs> S(N);
-		for (int i = 0; i < N; i++) {
-			//int cnt = mt() % (M+1);
-			for (int j = 0; j < M; j++) {
-				S[i][j] = mt() % 6 >= 4;
-				//S[i][j] = j < cnt;
-			}
-		}
-		std::cerr << iter << '\n';
-		solve(N, M, S);
-	}
 
 	int T; std::cin >> T;
 	while (T--) {
