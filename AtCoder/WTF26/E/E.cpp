@@ -2610,7 +2610,7 @@ int main() {
 	};
 
 	std::mt19937 mt(48);
-	for (int iter = 0; iter < 10000; iter++) {
+	for (int iter = 0; iter < 0; iter++) {
 		int N = 20000;
 		int M = 3;
 		std::vector<bs> S(N);
@@ -2649,6 +2649,7 @@ int main() {
 			}
 		}
 		std::cout << solve(N, M, S) << '\n';
+		std::cerr << maroon_rk::slv(N, M, S) << '\n';
 	}
 
 
