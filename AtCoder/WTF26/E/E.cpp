@@ -2478,7 +2478,7 @@ int main() {
 							assert(!(j & 1) || want_vals[i] < want_vals[j/2]);
 						}
 						int j = ct[2*i+1].c[1];
-						if (j & 1) assert(want_vals[i] <= want_vals[j/2]);
+						assert(!(j & 1) || want_vals[i] <= want_vals[j/2]);
 						if ((j & 1) && want_vals[i] == want_vals[j/2]) {
 							is_par[j/2] = false;
 						}
@@ -2649,7 +2649,6 @@ int main() {
 			}
 		}
 		std::cout << solve(N, M, S) << '\n';
-		std::cerr << maroon_rk::slv(N, M, S) << '\n';
 	}
 
 
