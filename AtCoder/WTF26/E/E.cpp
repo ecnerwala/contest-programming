@@ -732,7 +732,7 @@ int main() {
 						int j = ct[2*i+1].c[1];
 						if (j & 1) assert(want_vals[i] <= want_vals[j/2]);
 						if ((j & 1) && want_vals[i] == want_vals[j/2]) {
-							is_par[j] = false;
+							is_par[j/2] = false;
 						}
 					}
 					for (int z = x; z < C; z += 2) {
