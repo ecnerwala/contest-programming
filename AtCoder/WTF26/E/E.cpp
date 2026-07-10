@@ -1725,7 +1725,7 @@ mint fast_all(vc<string> ss){
 	return ans;
 }
 
-int slv(int N, int M, vector<bitset<10>> S) {
+int64_t slv(int N, int M, vector<bitset<10>> S) {
 	vc<string> ss(N);
 	for (int i = 0; i < N; i++) {
 		ss[i].resize(M);
