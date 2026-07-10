@@ -2585,13 +2585,13 @@ int main() {
 			}
 			num horiz_ans = 0;
 			for (int k = 0; k < K; k++) {
-				//std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
+				std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
 				horiz_ans += ways_lo[k] * ways_hi[k];
 			}
 			for (int k = 0; k < K; k++) {
 				if (tie_pair[k] != -1) {
 					int l = tie_pair[k];
-					//std::cerr << "tie pair " << k << ' ' << l << '\n';
+					std::cerr << "tie pair " << k << ' ' << l << '\n';
 					horiz_ans -= ways_lo[k] * ways_hi[l];
 				}
 			}
