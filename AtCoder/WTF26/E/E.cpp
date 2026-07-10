@@ -2605,7 +2605,7 @@ int main() {
 	};
 
 	std::mt19937 mt(48);
-	for (int iter = 0; iter < 1000; iter++) {
+	for (int iter = 0; iter < 0; iter++) {
 		int N = 5;
 		int M = 3;
 		std::vector<bs> S(N);
