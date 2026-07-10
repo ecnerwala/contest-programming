@@ -794,7 +794,7 @@ int main() {
 
 	std::mt19937 mt(48);
 	for (int iter = 0; iter < 1000; iter++) {
-		int N = 2000;
+		int N = 20;
 		int M = 3;
 		std::vector<bs> S(N);
 		for (int i = 0; i < N; i++) {
@@ -802,7 +802,6 @@ int main() {
 				S[i][j] = mt() & 1;
 			}
 		}
-		std::cerr << "test " << N << ' ' << M << '\n';
 		solve(N, M, S);
 	}
 
