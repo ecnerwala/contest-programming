@@ -320,7 +320,7 @@ int main() {
 		num tot_ans = 0;
 		for (const bool side : {0, 1}) {
 			num ans = 0;
-			//std::cerr << '\n' << "doing side " << side << '\n';
+			std::cerr << '\n' << "doing side " << side << '\n';
 			// we're going to find the matching for lo..hi
 			struct pt_t {
 				bool is_need;
