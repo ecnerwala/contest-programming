@@ -2611,12 +2611,13 @@ int main() {
 
 	std::mt19937 mt(48);
 	for (int iter = 0; iter < 1000; iter++) {
-		int N = 20000;
-		int M = 5;
+		int N = 200;
+		int M = 9;
 		std::vector<bs> S(N);
 		for (int i = 0; i < N; i++) {
+			int cnt = mt() % (M+1);
 			for (int j = 0; j < M; j++) {
-				S[i][j] = mt() & 1;
+				S[i][j] = j < cnt;
 			}
 		}
 		std::cerr << iter << '\n';
