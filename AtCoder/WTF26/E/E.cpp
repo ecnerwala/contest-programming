@@ -500,8 +500,8 @@ int main() {
 		if (K == 0) return 0; // everything's even already
 		assert(K >= 1);
 
-		std::vector<bool> extra_cost_lo(N, false);
-		std::vector<bool> extra_cost_hi(N, false);
+		std::vector<std::optional<int>> extra_cost_lo(N, std::nullopt);
+		std::vector<std::optional<int>> extra_cost_hi(N, std::nullopt);
 		std::vector<bool> extra_cost(K-1);
 		for (int i = 0; i+1 < K; i++) {
 			int a = odds[i], b = odds[i+1];
@@ -512,8 +512,10 @@ int main() {
 				if (v > 1) has_extra = false;
 			}
 			extra_cost[i] = has_extra;
-			extra_cost_lo[a] = has_extra;
-			extra_cost_hi[b] = has_extra;
+			if (has_extra) {
+				extra_cost_lo[a] = i;
+				extra_cost_hi[b] = i;
+			}
 		}
 
 		// Now, it's time to do the funny matching thing
@@ -528,8 +530,8 @@ int main() {
 			struct pt_t {
 				bool is_need;
 				int loc;
-				bool is_lo_ex;
-				bool is_hi_ex;
+				std::optional<int> is_lo_ex;
+				std::optional<int> is_hi_ex;
 			};
 			std::vector<pt_t> pts; pts.reserve(N*M);
 			std::vector<int> valid_ends; valid_ends.reserve(N*M + 1);
@@ -541,19 +543,19 @@ int main() {
 				int cnt = popcount(S[i]);
 				if (cnt > M_cap) {
 					// need 1 here
-					pts.push_back({true, i, false, false});
+					pts.push_back({true, i, std::nullopt, std::nullopt});
 					valid_ends.push_back(0);
 				} else {
 					int extras = M_cap - cnt;
 					for (int z = 0; z < extras; z++) {
-						bool is_lo_ex = extra_cost_lo[i] && z == 0;
-						bool is_hi_ex = extra_cost_hi[i] && z == extras-1;
+						auto is_lo_ex = z == 0 ? extra_cost_lo[i] : std::nullopt;
+						auto is_hi_ex = z == extras-1 ? extra_cost_hi[i] : std::nullopt;
 						if (is_hi_ex) {
 							// we mark them on the same parity cause it's simpler
 							assert(!pts.empty());
-							pts.back().is_hi_ex = true;
+							pts.back().is_hi_ex = is_hi_ex;
 						}
-						pts.push_back({false, i, is_lo_ex, false});
+						pts.push_back({false, i, is_lo_ex, std::nullopt});
 						valid_ends.push_back(0);
 					}
 				}
@@ -640,7 +642,7 @@ int main() {
 				}
 			}
 
-			std::vector<num> extra_ways(N);
+			std::vector<num> extra_ways(K);
 			std::vector<int> chain; chain.reserve(L);
 			for (int st = 0; st < L; st++) {
 				if (prv[st].dest != -1) continue;
@@ -703,22 +705,43 @@ int main() {
 					}
 				}
 				auto ct = CartesianTree::build_min_tree(want_vals);
-				for (int z = 0; z < C; z++) {
-					if (!pts[chain[z]].is_need) {
+				if (!want_vals.empty()) {
+					bool x = !pts[chain[0]].is_need ? 0 : 1;
+					assert(!pts[chain[x]].is_need);
+					for (int z = x; z < C; z += 2) {
+						assert(!pts[chain[z]].is_need);
 						int wz = z / 2;
 						assert(ct[2*wz+1].m == wz);
-						int l = ct[2*wz+1].l * 2 + (z & 1);
-						int r = ct[2*wz+1].r * 2 + (z & 1);
+						int l = ct[2*wz+1].l * 2 + x;
+						int r = ct[2*wz+1].r * 2 + x;
 						assert(0 <= l && l <= z && z <= r && r < C);
 						num used_times = 1;
-						if (pts[chain[z]].is_lo_ex) {
-							//std::cerr << pts[chain[z]].loc << ' ' << pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]) << '\n';
-							extra_ways[pts[chain[z]].loc] += pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
+						used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
+						used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+						//std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
+						chain_ans += used_times * num(chain_vals[z]);
+					}
+					std::vector<bool> is_par(want_vals.size(), true);
+					for (int i = 0; i < int(want_vals.size()); i++) {
+						{
+							int j = ct[2*i+1].c[0];
+							assert(!(j & 1) || want_vals[i] < want_vals[j/2]);
 						}
-						if (pts[chain[z]].is_hi_ex) {
-							//std::cerr << pts[chain[z]].loc << ' ' << suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]) << '\n';
-							extra_ways[pts[chain[z]].loc] += suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
+						int j = ct[2*i+1].c[1];
+						if (j & 1) assert(want_vals[i] <= want_vals[j/2]);
+						if ((j & 1) && want_vals[i] == want_vals[j/2]) {
+							is_par[j] = false;
 						}
+					}
+					for (int z = x; z < C; z += 2) {
+						assert(!pts[chain[z]].is_need);
+						int wz = z / 2;
+						if (!is_par[wz]) continue;
+						assert(ct[2*wz+1].m == wz);
+						int l = ct[2*wz+1].l * 2 + x;
+						int r = ct[2*wz+1].r * 2 + x;
+						assert(0 <= l && l <= z && z <= r && r < C);
+						num used_times = 1;
 						used_times *= pref_ends[z][0] - (l == 0 ? 0 : pref_ends[l-1][0]);
 						used_times *= suff_ends[z+1][1] - (r+1 == C ? 0 : suff_ends[r+2][1]);
 						//std::cerr << "remove " << z << ' ' << chain_vals[z] << ' ' << l << ' ' << r << ' ' << used_times << '\n';
