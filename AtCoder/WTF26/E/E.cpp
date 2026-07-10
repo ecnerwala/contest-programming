@@ -703,7 +703,7 @@ int main() {
 					if (!pts[chain[z]].is_need) {
 						assert(int(want_vals.size()) == (z/2));
 						// we prefer not to pick the extra ones
-						want_vals.push_back(chain_vals[z] * 2 + (pts[chain[z]].is_hi_ex || pts[chain[z]].is_lo_ex));
+						want_vals.push_back(chain_vals[z]);
 					}
 				}
 				auto ct = CartesianTree::build_min_tree(want_vals);
@@ -735,17 +735,44 @@ int main() {
 							is_par[j/2] = false;
 						}
 					}
+					std::vector<int> buf; buf.reserve(C+2);
 					for (int z = x; z < C; z += 2) {
 						assert(!pts[chain[z]].is_need);
 						int wz = z / 2;
 						if (!is_par[wz]) continue;
-						if (!(want_vals[wz] & 1)) continue;
-						assert(pts[chain[z]].is_hi_ex || pts[chain[z]].is_lo_ex);
 						//std::cerr << "have tie" << '\n';
 						assert(ct[2*wz+1].m == wz);
 						int l = ct[2*wz+1].l * 2 + x;
 						int r = ct[2*wz+1].r * 2 + x;
 						assert(0 <= l && l <= z && z <= r && r < C);
+						buf.clear();
+						buf.push_back(l-1);
+						for (int v = z; true; ) {
+							buf.push_back(v);
+							int nv = (ct[2*(v/2)+1].c[1]/2) * 2 + x;
+							if (want_vals[v/2] != want_vals[nv/2]) break;
+							v = nv;
+						}
+						buf.push_back(r+1);
+						for (int i = 1; i+1 < int(buf.size()); i++) {
+							int j = i;
+							while (j+2 < int(buf.size()) && pts[chain[buf[j]]].is_hi_ex && pts[chain[buf[j+1]]].is_lo_ex) {
+								tie_pair[*pts[chain[buf[j]]].is_hi_ex] = *pts[chain[buf[j+1]]].is_lo_ex;
+								j++;
+							}
+							int cl = buf[i-1];
+							int cr = buf[j+1];
+							for (int k = i; k <= j; k++) {
+								int v = buf[k];
+								if (pts[chain[v]].is_lo_ex) {
+									ways_lo[*pts[chain[v]].is_lo_ex] = pref_ends[v][0] - (cl < 0 ? 0 : pref_ends[cl][0]);
+								}
+								if (pts[chain[v]].is_hi_ex) {
+									ways_hi[*pts[chain[v]].is_hi_ex] = suff_ends[v+1][1] - (r == C ? 0 : suff_ends[r+1][1]);
+								}
+							}
+						}
+						/*
 						// now, we have several tied things
 						for (int v = z; true; ) {
 							if (pts[chain[v]].is_lo_ex) {
@@ -765,6 +792,7 @@ int main() {
 							tie_pair[*pts[chain[v]].is_hi_ex] = *pts[chain[nv]].is_lo_ex;
 							v = nv;
 						}
+						*/
 					}
 				}
 				//std::cerr << "chain_ans_under " << chain_ans_under << '\n';
