@@ -749,6 +749,7 @@ int main() {
 						buf.push_back(l-1);
 						for (int v = z; true; ) {
 							buf.push_back(v);
+							if (!(ct[2*(v/2)+1].c[1] & 1)) break;
 							int nv = (ct[2*(v/2)+1].c[1]/2) * 2 + x;
 							if (want_vals[v/2] != want_vals[nv/2]) break;
 							v = nv;
