@@ -2537,14 +2537,14 @@ int main() {
 
 			num horiz_ans = 0;
 			for (int k = 0; k < K; k++) {
-				std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
+				//std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
 				horiz_ans += ways_lo[k] * ways_hi[k];
 				if (tie_pair[k] != -1) {
-					std::cerr << "tie_pair " << k << ' ' << tie_pair[k] << '\n';
+					//std::cerr << "tie_pair " << k << ' ' << tie_pair[k] << '\n';
 					ways_lo[tie_pair[k]] += ways_lo[k];
 				}
 			}
-			std::cerr << "horiz_ans " << horiz_ans << '\n';
+			//std::cerr << "horiz_ans " << horiz_ans << '\n';
 			tot_ans += horiz_ans;
 			//std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
