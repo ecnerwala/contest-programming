@@ -2545,7 +2545,7 @@ int main() {
 						*/
 					}
 				}
-				std::cerr << "chain_ans " << chain_ans << '\n';
+				//std::cerr << "chain_ans " << chain_ans << '\n';
 				ans += chain_ans;
 			}
 
@@ -2582,27 +2582,27 @@ int main() {
 						it.second += num(cur_weight);
 					}
 				}
-				std::cerr << "tot_pairs " << tot_pairs << '\n';
+				//std::cerr << "tot_pairs " << tot_pairs << '\n';
 			}
 
-			std::cerr << "baseline side " << ans << '\n';
+			//std::cerr << "baseline side " << ans << '\n';
 
 
 			num horiz_ans = 0;
 			for (int k = 0; k < K; k++) {
-				std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
+				//std::cerr << "extra " << k << ' ' << ways_lo[k] << ' ' << ways_hi[k] << '\n';
 				horiz_ans += ways_lo[k] * ways_hi[k];
 			}
 			for (int k = 0; k < K; k++) {
 				if (tie_pair[k] != -1) {
 					int l = tie_pair[k];
-					std::cerr << "tie pair " << k << ' ' << l << '\n';
+					//std::cerr << "tie pair " << k << ' ' << l << '\n';
 					horiz_ans -= ways_lo[k] * ways_hi[l];
 				}
 			}
-			std::cerr << "horiz_ans " << horiz_ans << '\n';
+			//std::cerr << "horiz_ans " << horiz_ans << '\n';
 			tot_ans += horiz_ans;
-			std::cerr << "side ans " << ans << '\n';
+			//std::cerr << "side ans " << ans << '\n';
 			tot_ans += ans;
 		}
 
@@ -2610,7 +2610,7 @@ int main() {
 	};
 
 	std::mt19937 mt(48);
-	for (int iter = 0; iter < 0; iter++) {
+	for (int iter = 0; iter < 1000; iter++) {
 		int N = 6;
 		int M = 3;
 		std::vector<bs> S(N);
