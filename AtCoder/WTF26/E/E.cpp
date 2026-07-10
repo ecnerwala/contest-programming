@@ -1,153 +1,6 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-/** Binary-indexed tree
- *
- *  A binary indexed tree with N nodes of type T provides the
- *  following two functions for 0 <= i <= N:
- *
- *      prefix(int i) -> prefix_iterator<T>
- *      suffix(int i) -> suffix_iterator<T>
- *
- *  such that size(suffix(i) intersect prefix(j)) = (1 if i < j else 0).
- *  Furthermore, the resulting lists always have size at most log_2(N).
- *
- *  This can be used to implement either point-update/(prefix|suffix)-query or
- *  (prefix|suffix)-update/point-query over a virtual array of size N of a
- *  commutative monoid. This can be generalized to implement
- *  point-update/range-query or range-update/point-query over a virtual array
- *  of size N of a commutative group.
- *
- *  With 0-indexed data, prefixes are more natural:
- *   * For range update/query, use for_prefix for the ranges and for_suffix for the points.
- *   * For prefix update/query, no change.
- *   * For suffix update/query, use for_prefix(point + 1); 1-index the data.
- */
-template <typename T> class binary_indexed_tree {
-private:
-	std::vector<T> dat;
-public:
-	binary_indexed_tree() {}
-	explicit binary_indexed_tree(size_t N) : dat(N) {}
-	binary_indexed_tree(size_t N, const T& t) : dat(N, t) {}
-
-	size_t size() const { return dat.size(); }
-	const std::vector<T>& data() const { return dat; }
-	std::vector<T>& data() { return dat; }
-
-private:
-	template <typename I, typename S = I> struct iterator_range {
-	private:
-		I begin_;
-		S end_;
-	public:
-		iterator_range() : begin_(), end_() {}
-		iterator_range(const I& begin__, const S& end__) : begin_(begin__), end_(end__) {}
-		iterator_range(I&& begin__, S&& end__) : begin_(begin__), end_(end__) {}
-		I begin() const { return begin_; }
-		S end() const { return end_; }
-	};
-
-public:
-	class const_suffix_iterator {
-	private:
-		const T* dat;
-		int a;
-		const_suffix_iterator(const T* dat_, int a_) : dat(dat_), a(a_) {}
-		friend class binary_indexed_tree;
-	public:
-		friend bool operator != (const const_suffix_iterator& i, const const_suffix_iterator& j) {
-			assert(j.dat == nullptr);
-			return i.a < j.a;
-		}
-		const_suffix_iterator& operator ++ () {
-			a |= a+1;
-			return *this;
-		}
-		const T& operator * () const {
-			return dat[a];
-		}
-	};
-	using const_suffix_range = iterator_range<const_suffix_iterator>;
-	const_suffix_range suffix(int a) const {
-		assert(0 <= a && a <= int(dat.size()));
-		return const_suffix_range{const_suffix_iterator{dat.data(), a}, const_suffix_iterator{nullptr, int(dat.size())}};
-	}
-
-	class suffix_iterator {
-	private:
-		T* dat;
-		int a;
-		suffix_iterator(T* dat_, int a_) : dat(dat_), a(a_) {}
-		friend class binary_indexed_tree;
-	public:
-		friend bool operator != (const suffix_iterator& i, const suffix_iterator& j) {
-			assert(j.dat == nullptr);
-			return i.a < j.a;
-		}
-		suffix_iterator& operator ++ () {
-			a |= a+1;
-			return *this;
-		}
-		T& operator * () const {
-			return dat[a];
-		}
-	};
-	using suffix_range = iterator_range<suffix_iterator>;
-	suffix_range suffix(int a) {
-		assert(0 <= a && a <= int(dat.size()));
-		return suffix_range{suffix_iterator{dat.data(), a}, suffix_iterator{nullptr, int(dat.size())}};
-	}
-
-	class const_prefix_iterator {
-	private:
-		const T* dat;
-		int a;
-		const_prefix_iterator(const T* dat_, int a_) : dat(dat_), a(a_) {}
-		friend class binary_indexed_tree;
-	public:
-		friend bool operator != (const const_prefix_iterator& i, const const_prefix_iterator& j) {
-			assert(j.dat == nullptr);
-			return i.a > 0;
-		}
-		const_prefix_iterator& operator ++ () {
-			a &= a-1;
-			return *this;
-		}
-		const T& operator * () const {
-			return dat[a-1];
-		}
-	};
-	using const_prefix_range = iterator_range<const_prefix_iterator>;
-	const_prefix_range prefix(int a) const {
-		return const_prefix_range{const_prefix_iterator{dat.data(), a}, const_prefix_iterator{nullptr, 0}};
-	}
-
-	class prefix_iterator {
-	private:
-		T* dat;
-		int a;
-		prefix_iterator(T* dat_, int a_) : dat(dat_), a(a_) {}
-		friend class binary_indexed_tree;
-	public:
-		friend bool operator != (const prefix_iterator& i, const prefix_iterator& j) {
-			assert(j.dat == nullptr);
-			return i.a > 0;
-		}
-		prefix_iterator& operator ++ () {
-			a &= a-1;
-			return *this;
-		}
-		T& operator * () const {
-			return dat[a-1];
-		}
-	};
-	using prefix_range = iterator_range<prefix_iterator>;
-	prefix_range prefix(int a) {
-		return prefix_range{prefix_iterator{dat.data(), a}, prefix_iterator{nullptr, 0}};
-	}
-};
-
 template <typename F> struct reverse_comparator_t {
 	F f;
 	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) & {
@@ -244,33 +97,6 @@ template <typename T> T mod_inv_in_range(T a, T m) {
 	return swap ? vy : m - vy;
 }
 
-template <typename T> struct extended_gcd_result {
-	T gcd;
-	T coeff_a, coeff_b;
-};
-template <typename T> extended_gcd_result<T> extended_gcd(T a, T b) {
-	T x = a, y = b;
-	// coeff of a and b in x and y
-	T ax = 1, ay = 0;
-	T bx = 0, by = 1;
-	while (x) {
-		T k = y / x;
-		y %= x;
-		ay -= k * ax;
-		by -= k * bx;
-		std::swap(x, y);
-		std::swap(ax, ay);
-		std::swap(bx, by);
-	}
-	return {y, ay, by};
-}
-
-template <typename T> T mod_inv(T a, T m) {
-	a %= m;
-	a = a < 0 ? a + m : a;
-	return mod_inv_in_range(a, m);
-}
-
 template <int MOD_> struct modnum {
 	// Uses subtraction to support MOD up to 2^31 - 1
 	static constexpr int MOD = MOD_;
@@ -343,128 +169,70 @@ template <int MOD_> struct modnum {
 	friend modnum operator / (modnum a, modnum b) { return modnum(a) /= b; }
 };
 
-struct mod_goldilocks {
-	static constexpr uint64_t MOD = 0xffffffff00000001ull;
-	static constexpr uint64_t EPS = -MOD;
-	// We have 2^32 is a primitive 6th root of unity.
-	// Note that omega_8 + omega_8^7 == 2^24 - 2^72 == sqrt(2)
-	// We'll pick the root so that 2^24 - 2^72 is our primitive 384th root of unity.
-	static constexpr uint64_t PRIMITIVE_ROOT = 2717;
-	struct is_reduced_tag {};
-	uint64_t v;
-	mod_goldilocks() : v(0) {}
-	mod_goldilocks(uint64_t v_, is_reduced_tag) : v(v_) { assert(v < MOD); }
-	mod_goldilocks(int64_t a) : v(a < 0 ? a+MOD : a) {}
-	mod_goldilocks(int a) : mod_goldilocks(int64_t(a)) {}
-	mod_goldilocks(uint64_t a) : v(a >= MOD ? a-MOD : a) {}
-	mod_goldilocks(unsigned a) : mod_goldilocks(uint64_t(a)) {}
-	mod_goldilocks(__int128_t a) : v(a % MOD < 0 ? uint64_t(MOD - a % MOD) : uint64_t(a % MOD)) {}
-	mod_goldilocks(__uint128_t a) : v(uint64_t(a % MOD)) {}
+template <typename U, typename V> struct pairnum {
+	U u;
+	V v;
 
-	static mod_goldilocks from_reduced(uint64_t v) {
-		return mod_goldilocks(v, is_reduced_tag{});
+	pairnum() : u(0), v(0) {}
+	pairnum(long long val) : u(val), v(val) {}
+	pairnum(const U& u_, const V& v_) : u(u_), v(v_) {}
+
+	friend std::ostream& operator << (std::ostream& out, const pairnum& n) { return out << '(' << n.u << ',' << ' ' << n.v << ')'; }
+	friend std::istream& operator >> (std::istream& in, pairnum& n) { long long val; in >> val; n = pairnum(val); return in; }
+
+	friend bool operator == (const pairnum& a, const pairnum& b) { return a.u == b.u && a.v == b.v; }
+	friend bool operator != (const pairnum& a, const pairnum& b) { return a.u != b.u || a.v != b.v; }
+
+	pairnum inv() const {
+		return pairnum(u.inv(), v.inv());
+	}
+	pairnum neg() const {
+		return pairnum(u.neg(), v.neg());
+	}
+	pairnum operator- () const {
+		return pairnum(-u, -v);
+	}
+	pairnum operator+ () const {
+		return pairnum(+u, +v);
 	}
 
-	explicit operator uint64_t () const { return v; }
-	int64_t as_signed() const { return MOD-v > v ? v : int64_t(v - MOD); }
-	friend std::ostream& operator << (std::ostream& out, mod_goldilocks n) { return out << uint64_t(n); }
-
-	friend bool operator == (mod_goldilocks a, mod_goldilocks b) { return a.v == b.v; }
-	friend bool operator != (mod_goldilocks a, mod_goldilocks b) { return a.v != b.v; }
-
-	mod_goldilocks operator+ () const { return *this; }
-
-	// returns a-b, assuming -MOD <= a-b, e.g. b <= MOD
-	static uint64_t sub_mod_raw(uint64_t a, uint64_t b) {
-#if defined(__x86_64__)
-		// TODO: We could try to write this using intrinsics, but GCC sometimes produces the wrong code.
-		uint64_t res_wrapped = a;
-		uint64_t adjustment = b;
-		asm (
-			// AT&T syntax: SRC DST
-			"sub %[y], %[x]\n\t"
-			// Trick from plonky2 implementation:
-			// After sub, flag CF is set iff we underflowed. We want to correct by EPS == 2^32 - 1 iff C is set.
-			// sbb (subtract with borrow) computes DST <- DST - SRC - CF
-			// Thus, we can use the 32-bit form of sbb on a dummy register to load CF ? EPS : 0.
-			// Here, we'll just reuse the original register holding b.
-			"sbb %k[y], %k[y]\n\t"
-			: [x] "+r"(res_wrapped),
-			[y] "+r"(adjustment)
-			:
-			: "cc"
-		);
-#else
-		uint64_t res_wrapped = a - b;
-		uint64_t adjustment = (res_wrapped > a) ? EPS : 0;
-#endif
-		return res_wrapped - adjustment;
-	}
-
-	// Reduce lo + 2^64 * mi + 2^96 * hi, where hi <= MOD
-	static uint64_t reduce_u160_raw(uint64_t lo, uint32_t mi, uint64_t hi) {
-		// result = lo - hi + EPS * mi
-		// 0 <= lo <= 2^64 - 1 = MOD + EPS - 1
-		// 0 <= EPS * mi <= (2^32 - 1) * EPS = MOD - 1 - EPS
-		// 0 <= hi <= MOD
-		// -MOD <= lo - hi + EPS * mi <= 2*MOD-2
-		// so we do have some leeway
-		return sub_mod_raw(sub_mod_raw(lo, hi), MOD-(uint64_t(mi)<<32)+mi);
-	}
-
-	static uint64_t reduce_u128_raw(__uint128_t v) {
-		uint64_t hi = uint64_t(v >> 64);
-		uint64_t lo = uint64_t(v);
-		uint32_t hi_hi = uint32_t(hi >> 32);
-		uint32_t hi_lo = uint32_t(hi);
-		return reduce_u160_raw(lo, hi_lo, hi_hi);
-	}
-
-	mod_goldilocks neg() const { return from_reduced(v ? MOD-v : 0); }
-	friend mod_goldilocks neg(const mod_goldilocks& m) { return m.neg(); }
-	mod_goldilocks operator- () const { return neg(); }
-
-	mod_goldilocks& operator ++ () {
-		++ v;
-		if (v == MOD) v = 0;
+	pairnum& operator ++ () {
+		++u, ++v;
 		return *this;
 	}
-	mod_goldilocks& operator -- () {
-		if (v == 0) v = MOD;
-		-- v;
-		return *this;
-	}
-	mod_goldilocks& operator += (mod_goldilocks o) {
-		v = sub_mod_raw(v, MOD-o.v);
-		return *this;
-	}
-	mod_goldilocks& operator -= (mod_goldilocks o) {
-		v = sub_mod_raw(v, o.v);
-		return *this;
-	}
-	mod_goldilocks& operator *= (mod_goldilocks o) {
-		v = reduce_u128_raw(__uint128_t(v) * __uint128_t(o.v));
+	pairnum& operator -- () {
+		--u, --v;
 		return *this;
 	}
 
-	friend mod_goldilocks operator ++ (mod_goldilocks& a, int) { mod_goldilocks r = a; ++a; return r; }
-	friend mod_goldilocks operator -- (mod_goldilocks& a, int) { mod_goldilocks r = a; --a; return r; }
-	friend mod_goldilocks operator + (mod_goldilocks a, mod_goldilocks b) { return mod_goldilocks(a) += b; }
-	friend mod_goldilocks operator - (mod_goldilocks a, mod_goldilocks b) { return mod_goldilocks(a) -= b; }
-	friend mod_goldilocks operator * (mod_goldilocks a, mod_goldilocks b) { return mod_goldilocks(a) *= b; }
-
-	mod_goldilocks inv() const { return from_reduced(mod_inv_in_range(v, MOD)); }
-	friend mod_goldilocks inv(mod_goldilocks m) { return m.inv(); }
-	mod_goldilocks& operator /= (mod_goldilocks o) {
-		return *this *= o.inv();
+	pairnum& operator += (const pairnum& o) {
+		u += o.u;
+		v += o.v;
+		return *this;
 	}
-	friend mod_goldilocks operator / (mod_goldilocks a, mod_goldilocks b) { return mod_goldilocks(a) /= b; }
+	pairnum& operator -= (const pairnum& o) {
+		u -= o.u;
+		v -= o.v;
+		return *this;
+	}
+	pairnum& operator *= (const pairnum& o) {
+		u *= o.u;
+		v *= o.v;
+		return *this;
+	}
+	pairnum& operator /= (const pairnum& o) {
+		u /= o.u;
+		v /= o.v;
+		return *this;
+	}
+
+	friend pairnum operator ++ (pairnum& a, int) { pairnum r = a; ++a; return r; }
+	friend pairnum operator -- (pairnum& a, int) { pairnum r = a; --a; return r; }
+	friend pairnum operator + (const pairnum& a, const pairnum& b) { return pairnum(a) += b; }
+	friend pairnum operator - (const pairnum& a, const pairnum& b) { return pairnum(a) -= b; }
+	friend pairnum operator * (const pairnum& a, const pairnum& b) { return pairnum(a) *= b; }
+	friend pairnum operator / (const pairnum& a, const pairnum& b) { return pairnum(a) /= b; }
 };
-
-template <typename T> T power(T a, long long b) {
-	assert(b >= 0);
-	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
-}
 
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
@@ -748,26 +516,29 @@ int main() {
 
 			// greedy match forwards and backwards
 			{
-				binary_indexed_tree<std::pair<int, num>> bit(max_balance + 1);
+				std::vector<pairnum<int, num>> freqs(max_balance + 1);
+				int cur_balance = 0;
+				pairnum<int, num> pref_sum{0, 0};
+
 				num cur_weight = 0;
 				//int64_t tot_pairs = 0;
 				int idx = 0;
 				for (int i = 0; i <= N; i++) {
 					for (; idx < int(pts.size()) && pts[idx].loc < i; idx++) {
+						if (pts[idx].is_need) {
+							pref_sum -= freqs[cur_balance--];
+						} else {
+							pref_sum += freqs[++cur_balance];
+						}
 						cur_weight += all_chain_vals[idx];
 					}
 					if (pref[i] != side) {
 						cur_weight++;
 						continue;
 					}
-					for (auto it : bit.prefix(pref_balances[i]+1)) {
-						//tot_pairs += it.first;
-						ans += num(cur_weight) * num(it.first) - it.second;
-					}
-					for (auto& it : bit.suffix(pref_balances[i])) {
-						it.first ++;
-						it.second += num(cur_weight);
-					}
+					ans += num(cur_weight) * num(pref_sum.u) - pref_sum.v;
+					pairnum<int, num> upd{1, cur_weight};
+					pref_sum += upd, freqs[cur_balance] += upd;
 				}
 				//std::cerr << "tot_pairs " << tot_pairs << '\n';
 			}
