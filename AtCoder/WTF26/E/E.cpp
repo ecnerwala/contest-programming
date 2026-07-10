@@ -512,8 +512,8 @@ int main() {
 				if (v > 1) has_extra = false;
 			}
 			extra_cost[i] = has_extra;
-			extra_cost_lo[a] = true;
-			extra_cost_hi[b] = true;
+			extra_cost_lo[a] = has_extra;
+			extra_cost_hi[b] = has_extra;
 		}
 
 		// Now, it's time to do the funny matching thing
