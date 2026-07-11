@@ -316,6 +316,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			L += std::abs(balances[i]);
 		}
+		assert(L <= 2*N);
 		num tot_ans = 0;
 		for (const bool side : {0, 1}) {
 			num ans = 0;
