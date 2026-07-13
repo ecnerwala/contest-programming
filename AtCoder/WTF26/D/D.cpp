@@ -17,9 +17,9 @@ int main() {
 		std::vector<int> invP(N, -1);
 		for (int i = 0; i < N; i++) invP[P[i]] = i;
 
-		//std::cerr << '\n' << "solve " << N << '\n';
-		//for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
-		//for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
+		std::cerr << '\n' << "solve " << N << '\n';
+		for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
+		for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
 
 		assert(Q >= P);
 
@@ -154,8 +154,8 @@ int main() {
 	{
 		int N = 7;
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
+		P = {4, 2, 5, 0, 3, 1, 6};
 		do {
-			for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
 			std::vector<int> Q = P;
 			do {
 				solve(P, Q);
