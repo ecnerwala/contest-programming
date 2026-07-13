@@ -42,6 +42,9 @@ int main() {
 		std::vector<cond_t> conds; conds.reserve(N);
 		for (int i = 0; i < N; i++) {
 			std::cerr << "index " << i << '\n';
+			std::cerr << " conds";
+			for (const auto& c : conds) std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n';
+			std::cerr << '\n';
 			auto try_extend = [&](int v) -> bool {
 				std::cerr << " try_extend " << v << '\n';
 				if (i == last_match_P+1 && v == P[i]) {
