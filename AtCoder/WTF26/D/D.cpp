@@ -110,7 +110,6 @@ int main() {
 				}
 			} else {
 				// we're already not matching Q, so we're free to be anything
-				assert(finished_pref || !conds.empty());
 				int min_idx;
 				if (conds.empty()) {
 					min_idx = 0;
