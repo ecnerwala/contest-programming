@@ -57,7 +57,7 @@ int main() {
 				}
 
 				bool n_found_move = found_move;
-				if (!found_move && !conds.empty() && v < Q[i-1] && invP[v] < invP[Q[i-1]]) {
+				if (!found_move && !conds.empty() && v < ans.back() && invP[v] < invP[ans.back()]) {
 					// we're now finished
 					std::cerr << "  is last move" << '\n';
 					n_found_move = true;
