@@ -67,6 +67,8 @@ int main() {
 		pref_mins[0] = N;
 		for (int i = 0; i < N; i++) pref_mins[i+1] = std::min(pref_mins[i], invP[i]);
 
+		int num_rebuilds = 0;
+
 		std::vector<cond_t> conds; conds.reserve(N);
 		for (int i = 0; i < N; i++) {
 			//std::cerr << "index " << i << '\n';
@@ -83,6 +85,8 @@ int main() {
 				}
 				if (last_match_P != pref_mins_st) {
 					assert(conds.empty());
+					num_rebuilds++;
+					assert(num_rebuilds <= 2);
 					pref_mins_st = last_match_P;
 					pref_mins[0] = N;
 					for (int j = 0; j < N; j++) {
