@@ -45,7 +45,7 @@ int main() {
 			//std::cerr << " conds" << '\n';
 			//for (const auto& c : conds) { std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n'; } std::cerr << '\n';
 			auto try_extend = [&](int v) -> bool {
-				std::cerr << " try_extend " << v << '\n';
+				//std::cerr << " try_extend " << v << '\n';
 				if (i == last_match_P+1 && v == P[i]) {
 					// just in the matching prefix, do nothing
 					last_match_P = i;
