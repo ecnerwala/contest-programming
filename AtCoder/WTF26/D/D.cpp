@@ -4,19 +4,22 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	auto can_make_slow = [&](const std::vector<int>& P, const std::vector<int>& Q) -> std::vector<int> {
-		int N = int(P.size());
-		assert(N == int(Q.size()));
+	auto can_make_slow = [&](std::vector<int> P, std::vector<int> Q) -> bool {
+		assert(int(P.size()) == int(Q.size()));
+		int st = 0;
+		while (st < int(P.size()) && P[st] == Q[st]) st++;
+		return false;
 	};
+
 	auto solve = [&](const std::vector<int>& P, const std::vector<int>& Q) -> std::vector<int> {
 		int N = int(P.size());
 		assert(N == int(Q.size()));
 		std::vector<int> invP(N, -1);
 		for (int i = 0; i < N; i++) invP[P[i]] = i;
 
-		//std::cerr << '\n' << "solve " << N << '\n';
-		//for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
-		//for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
+		std::cerr << '\n' << "solve " << N << '\n';
+		for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
+		for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
 
 		assert(Q >= P);
 
