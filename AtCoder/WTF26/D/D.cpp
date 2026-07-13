@@ -17,6 +17,7 @@ int main() {
 		assert(Q >= P);
 
 		std::vector<int> ans; ans.reserve(N);
+		std::vector<bool> used(N, false);
 
 		bool is_match_Q = true;
 		bool finished_pref = false;
@@ -37,6 +38,7 @@ int main() {
 				if (!finished_pref && conds.empty() && v == P[i]) {
 					// just in the matching prefix, do nothing
 					ans.push_back(v);
+					used[v] = true;
 					return true;
 				}
 
@@ -71,6 +73,7 @@ int main() {
 					conds.push_back({invP[v], cap});
 
 					ans.push_back(v);
+					used[v] = true;
 					return true;
 				} else {
 					if (!conds.empty() && v > conds.back().max_val && invP[v] < conds.back().max_P_idx) {
@@ -83,6 +86,7 @@ int main() {
 
 						finished_pref = n_finished_pref;
 						ans.push_back(v);
+						used[v] = true;
 						return true;
 					} else {
 						// just delete things we're included in
@@ -92,6 +96,7 @@ int main() {
 
 						finished_pref = n_finished_pref;
 						ans.push_back(v);
+						used[v] = true;
 						return true;
 					}
 					assert(false);
@@ -117,8 +122,8 @@ int main() {
 					min_idx = pref_mins[conds.back().max_val+1];
 				}
 				// pick the biggest unused thing after min_idx
-				int v;
-				assert(false);
+				int v = N-1;
+				while (used[v] || invP[v] < min_idx) v--;
 				bool worked = try_extend(v);
 				assert(worked);
 			}
