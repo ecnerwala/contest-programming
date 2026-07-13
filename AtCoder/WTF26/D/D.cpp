@@ -63,6 +63,7 @@ int main() {
 					}
 
 					// we need there to still exist something <= invP[v] and <= cap
+					std::cerr << "final cap = " << cap << '\n';
 					if (pref_mins[cap+1] > invP[v]) return false;
 
 					// now, update things
