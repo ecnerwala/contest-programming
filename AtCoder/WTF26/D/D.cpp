@@ -6,9 +6,37 @@ int main() {
 
 	auto can_make_slow = [&](std::vector<int> P, std::vector<int> Q) -> bool {
 		assert(int(P.size()) == int(Q.size()));
+		int N = int(P.size());
+		std::vector<int> invP(N, -1);
+		for (int i = 0; i < N; i++) invP[P[i]] = i;
 		int st = 0;
-		while (st < int(P.size()) && P[st] == Q[st]) st++;
-		return false;
+		while (st < N && P[st] == Q[st]) st++;
+		if (st == N) return true;
+		assert(P[st] != Q[st]);
+		assert(P[st] < Q[st]);
+		int first_move = st;
+		while (first_move + 1 < N && !(Q[first_move+1] < Q[first_move] && invP[Q[first_move+1]] < invP[Q[first_move]])) first_move++;
+		if (first_move == N-1) return false;
+		struct stk_t {
+			int v;
+			int p;
+		};
+		std::vector<stk_t> stk; stk.reserve(N);
+		for (int i = N-1; i >= st; i--) {
+			int v = Q[i];
+			int p = invP[v];
+			while (!stk.empty() && stk.back().p > p) {
+				stk.pop_back();
+			}
+			if (stk.empty() || v < stk.back().v) {
+				stk.push_back({v, p});
+			}
+			if (i <= first_move) {
+				int cap = std::min(Q[i] - 1, Q[i+1]);
+				if (stk.empty() || stk.back().v > cap) return false;
+			}
+		}
+		return true;
 	};
 
 	auto solve = [&](const std::vector<int>& P, const std::vector<int>& Q) -> std::vector<int> {
@@ -148,6 +176,7 @@ int main() {
 					min_idx = pref_mins[conds.back().max_val+1];
 				}
 				// pick the biggest unused thing after min_idx
+				// TODO: Make this linear time
 				int v = N-1;
 				while (used[v] || invP[v] < min_idx) v--;
 				bool worked = try_extend(v);
@@ -157,12 +186,15 @@ int main() {
 		return ans;
 	};
 
-	for (int N = 1; N <= 7; N++) {
+	for (int N = 1; N <= 4; N++) {
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		do {
+			std::vector<int> slo_ans = P;
 			std::vector<int> Q = P;
 			do {
-				solve(P, Q);
+				if (can_make_slow(P, Q)) slo_ans = Q;
+				auto my_ans = solve(P, Q);
+				assert(my_ans == slo_ans);
 			} while (std::next_permutation(Q.begin(), Q.end()));
 		} while (std::next_permutation(P.begin(), P.end()));
 	}
