@@ -62,14 +62,25 @@ int main() {
 			int max_val; // this is inclusive
 		};
 
-		int pref_mins_st = -1;
+		int pref_mins_st = -2;
 		std::vector<int> pref_mins(N+1);
-		pref_mins[0] = N;
-		for (int i = 0; i < N; i++) pref_mins[i+1] = std::min(pref_mins[i], invP[i]);
-
 		int num_rebuilds = 0;
 
+		auto rebuild_pref_mins = [&]() -> void {
+			num_rebuilds++;
+			assert(num_rebuilds <= 3);
+			pref_mins_st = last_match_P;
+			pref_mins[0] = N;
+			for (int j = 0; j < N; j++) {
+				pref_mins[j+1] = std::min(pref_mins[j], invP[j] <= pref_mins_st ? N : invP[j]);
+			}
+		};
+
 		std::vector<cond_t> conds; conds.reserve(N);
+
+		int cur_min_idx = N;
+		std::priority_queue<int> alive_vals;
+
 		for (int i = 0; i < N; i++) {
 			//std::cerr << "index " << i << '\n';
 			//std::cerr << " conds" << '\n';
@@ -85,13 +96,7 @@ int main() {
 				}
 				if (last_match_P != pref_mins_st) {
 					assert(conds.empty());
-					num_rebuilds++;
-					assert(num_rebuilds <= 2);
-					pref_mins_st = last_match_P;
-					pref_mins[0] = N;
-					for (int j = 0; j < N; j++) {
-						pref_mins[j+1] = std::min(pref_mins[j], invP[j] <= pref_mins_st ? N : invP[j]);
-					}
+					rebuild_pref_mins();
 				}
 
 				bool n_found_move = found_move;
@@ -171,6 +176,10 @@ int main() {
 				while (used[v] || !try_extend(v)) {
 					v--;
 				}
+				if (last_match_P != pref_mins_st) {
+					assert(last_match_P == i);
+					rebuild_pref_mins();
+				}
 			} else {
 				// we're already not matching Q, so we're free to be anything
 				int min_idx;
@@ -179,10 +188,15 @@ int main() {
 				} else {
 					min_idx = pref_mins[conds.back().max_val+1];
 				}
+				while (cur_min_idx > min_idx) {
+					int v = P[--cur_min_idx];
+					if (!used[v]) {
+						alive_vals.push(v);
+					}
+				}
 				// pick the biggest unused thing after min_idx
 				// TODO: Make this linear time
-				int v = N-1;
-				while (used[v] || invP[v] < min_idx) v--;
+				int v = alive_vals.top(); alive_vals.pop();
 				bool worked = try_extend(v);
 				assert(worked);
 			}
