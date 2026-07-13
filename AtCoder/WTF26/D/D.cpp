@@ -61,7 +61,7 @@ int main() {
 						conds.pop_back();
 					}
 
-					conds.push_back({invP[v], conds.back().max_val});
+					conds.push_back({invP[v], cap});
 
 					ans.push_back(v);
 					return true;
