@@ -59,7 +59,7 @@ int main() {
 		bool found_move = false;
 		struct cond_t {
 			int max_P_idx; // max_P_idx will never be <= max_val, so whatever
-			int max_val;
+			int max_val; // this is inclusive
 		};
 
 		int pref_mins_st = -1;
@@ -121,7 +121,7 @@ int main() {
 
 					// now, update things
 					while (!conds.empty() && invP[v] < conds.back().max_P_idx) {
-						// since we dropped the cap down already, these are always better
+						// since we dropped the cap down already, our new one is always tighter
 						conds.pop_back();
 					}
 
@@ -175,7 +175,7 @@ int main() {
 				// we're already not matching Q, so we're free to be anything
 				int min_idx;
 				if (conds.empty()) {
-					min_idx = 0;
+					min_idx = pref_mins[N];
 				} else {
 					min_idx = pref_mins[conds.back().max_val+1];
 				}
