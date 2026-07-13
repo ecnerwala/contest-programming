@@ -41,9 +41,9 @@ int main() {
 
 		std::vector<cond_t> conds; conds.reserve(N);
 		for (int i = 0; i < N; i++) {
-			//std::cerr << "index " << i << '\n';
+			std::cerr << "index " << i << '\n';
 			auto try_extend = [&](int v) -> bool {
-				//std::cerr << "extend " << v << '\n';
+				std::cerr << " try_extend " << v << '\n';
 				if (i == last_match_P+1 && v == P[i]) {
 					// just in the matching prefix, do nothing
 					last_match_P = i;
@@ -63,7 +63,7 @@ int main() {
 				bool n_found_move = found_move;
 				if (!found_move && !conds.empty() && v < ans.back() && invP[v] < invP[ans.back()]) {
 					// we're now finished
-					//std::cerr << "  is last move" << '\n';
+					std::cerr << "  is last move" << '\n';
 					n_found_move = true;
 				}
 
@@ -82,7 +82,7 @@ int main() {
 					}
 
 					// we need there to still exist something <= invP[v] and <= cap
-					//std::cerr << "final cap = " << cap << '\n';
+					std::cerr << "  final cap = " << cap << '\n';
 					if (pref_mins[cap+1] > invP[v]) return false;
 
 					// now, update things
