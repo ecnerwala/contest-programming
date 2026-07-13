@@ -186,7 +186,7 @@ int main() {
 		return ans;
 	};
 
-	for (int N = 1; N <= 6; N++) {
+	for (int N = 1; N <= 7; N++) {
 		std::cerr << "testing N = " << N << '\n';
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		do {
