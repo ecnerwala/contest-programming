@@ -10,6 +10,10 @@ int main() {
 		std::vector<int> invP(N, -1);
 		for (int i = 0; i < N; i++) invP[P[i]] = i;
 
+		std::cerr << '\n' << "solve " << N << '\n';
+		for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
+		for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
+
 		assert(Q >= P);
 
 		std::vector<int> ans; ans.reserve(N);
