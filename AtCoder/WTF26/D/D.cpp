@@ -157,10 +157,8 @@ int main() {
 		return ans;
 	};
 
-	{
-		int N = 7;
+	for (int N = 1; N <= 7; N++) {
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
-		P = {4, 2, 5, 0, 3, 1, 6};
 		do {
 			std::vector<int> Q = P;
 			do {
