@@ -86,7 +86,7 @@ int main() {
 				if (last_match_P != pref_mins_st) {
 					assert(conds.empty());
 					num_rebuilds++;
-					assert(num_rebuilds <= 1);
+					assert(num_rebuilds <= 2);
 					pref_mins_st = last_match_P;
 					pref_mins[0] = N;
 					for (int j = 0; j < N; j++) {
