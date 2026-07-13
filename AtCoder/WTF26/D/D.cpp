@@ -27,9 +27,12 @@ int main() {
 
 		std::vector<cond_t> conds; conds.reserve(N);
 		for (int i = 0; i < N; i++) {
+			std::cerr << "index " << i << '\n';
 			auto try_extend = [&](int v) -> bool {
+				std::cerr << "extend " << v << '\n';
 				if (!finished_pref && conds.empty() && v == P[i]) {
 					// just in the matching prefix, do nothing
+					ans.push_back(v);
 					return true;
 				}
 
