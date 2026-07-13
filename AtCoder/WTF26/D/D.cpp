@@ -42,7 +42,7 @@ int main() {
 		std::vector<cond_t> conds; conds.reserve(N);
 		for (int i = 0; i < N; i++) {
 			std::cerr << "index " << i << '\n';
-			std::cerr << " conds";
+			std::cerr << " conds" << '\n';
 			for (const auto& c : conds) std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n';
 			std::cerr << '\n';
 			auto try_extend = [&](int v) -> bool {
