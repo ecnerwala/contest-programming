@@ -89,11 +89,13 @@ int main() {
 					if (pref_mins[cap+1] > invP[v]) return false;
 
 					// now, update things
-					while (!conds.empty() && invP[v] <= conds.back().max_P_idx && cap <= conds.back().max_val) {
+					while (!conds.empty() && invP[v] < conds.back().max_P_idx) {
+						// since we dropped the cap down already, these are always better
 						conds.pop_back();
 					}
 
-					if (conds.empty() || invP[v] > conds.back().max_P_idx) {
+					assert(conds.empty() || invP[v] > conds.back().max_P_idx);
+					if (conds.empty() || cap < conds.back().max_val) {
 						conds.push_back({invP[v], cap});
 					}
 
