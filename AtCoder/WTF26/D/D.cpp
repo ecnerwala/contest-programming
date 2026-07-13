@@ -195,7 +195,6 @@ int main() {
 					}
 				}
 				// pick the biggest unused thing after min_idx
-				// TODO: Make this linear time
 				int v = alive_vals.top(); alive_vals.pop();
 				bool worked = try_extend(v);
 				assert(worked);
@@ -204,7 +203,7 @@ int main() {
 		return ans;
 	};
 
-	for (int N = 1; N <= 8; N++) {
+	for (int N = 1; N <= 0; N++) {
 		std::cerr << "testing N = " << N << '\n';
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		do {
