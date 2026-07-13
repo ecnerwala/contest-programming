@@ -17,9 +17,9 @@ int main() {
 		std::vector<int> invP(N, -1);
 		for (int i = 0; i < N; i++) invP[P[i]] = i;
 
-		std::cerr << '\n' << "solve " << N << '\n';
-		for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
-		for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
+		//std::cerr << '\n' << "solve " << N << '\n';
+		//for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
+		//for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
 
 		assert(Q >= P);
 
@@ -41,10 +41,9 @@ int main() {
 
 		std::vector<cond_t> conds; conds.reserve(N);
 		for (int i = 0; i < N; i++) {
-			std::cerr << "index " << i << '\n';
-			std::cerr << " conds" << '\n';
-			for (const auto& c : conds) std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n';
-			std::cerr << '\n';
+			//std::cerr << "index " << i << '\n';
+			//std::cerr << " conds" << '\n';
+			//for (const auto& c : conds) { std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n'; } std::cerr << '\n';
 			auto try_extend = [&](int v) -> bool {
 				std::cerr << " try_extend " << v << '\n';
 				if (i == last_match_P+1 && v == P[i]) {
@@ -66,7 +65,7 @@ int main() {
 				bool n_found_move = found_move;
 				if (!found_move && !conds.empty() && v < ans.back() && invP[v] < invP[ans.back()]) {
 					// we're now finished
-					std::cerr << "  is last move" << '\n';
+					//std::cerr << "  is last move" << '\n';
 					n_found_move = true;
 				}
 
@@ -85,7 +84,7 @@ int main() {
 					}
 
 					// we need there to still exist something <= invP[v] and <= cap
-					std::cerr << "  final cap = " << cap << '\n';
+					//std::cerr << "  final cap = " << cap << '\n';
 					if (pref_mins[cap+1] > invP[v]) return false;
 
 					// now, update things
