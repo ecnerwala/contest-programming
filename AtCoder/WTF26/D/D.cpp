@@ -110,7 +110,7 @@ int main() {
 				}
 				is_match_Q = false;
 				int v = Q[i] - 1;
-				while (!try_extend(v)) {
+				while (used[v] || !try_extend(v)) {
 					v--;
 				}
 			} else {
