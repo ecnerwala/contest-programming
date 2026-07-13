@@ -4,6 +4,10 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
+	auto can_make_slow = [&](const std::vector<int>& P, const std::vector<int>& Q) -> std::vector<int> {
+		int N = int(P.size());
+		assert(N == int(Q.size()));
+	};
 	auto solve = [&](const std::vector<int>& P, const std::vector<int>& Q) -> std::vector<int> {
 		int N = int(P.size());
 		assert(N == int(Q.size()));
@@ -55,6 +59,7 @@ int main() {
 				bool n_found_move = found_move;
 				if (!found_move && !conds.empty() && v < Q[i-1] && invP[v] < invP[Q[i-1]]) {
 					// we're now finished
+					std::cerr << "  is last move" << '\n';
 					n_found_move = true;
 				}
 
