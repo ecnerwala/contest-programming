@@ -77,6 +77,7 @@ int main() {
 						while (!conds.empty() && conds.back().max_P_idx >= new_cond.max_P_idx) conds.pop_back();
 						conds.push_back(new_cond);
 
+						finished_pref = n_finished_pref;
 						ans.push_back(v);
 						return true;
 					} else {
@@ -85,6 +86,7 @@ int main() {
 							conds.pop_back();
 						}
 
+						finished_pref = n_finished_pref;
 						ans.push_back(v);
 						return true;
 					}
