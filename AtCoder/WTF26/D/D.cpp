@@ -19,13 +19,15 @@ int main() {
 		std::vector<int> ans; ans.reserve(N);
 		std::vector<bool> used(N, false);
 
+		int last_match_P = -1;
 		bool is_match_Q = true;
-		bool finished_pref = false;
+		bool found_move = false;
 		struct cond_t {
 			int max_P_idx; // max_P_idx will never be <= max_val, so whatever
 			int max_val;
 		};
 
+		int pref_mins_st = -1;
 		std::vector<int> pref_mins(N+1);
 		pref_mins[0] = N;
 		for (int i = 0; i < N; i++) pref_mins[i+1] = std::min(pref_mins[i], invP[i]);
@@ -35,20 +37,28 @@ int main() {
 			std::cerr << "index " << i << '\n';
 			auto try_extend = [&](int v) -> bool {
 				std::cerr << "extend " << v << '\n';
-				if (!finished_pref && conds.empty() && v == P[i]) {
+				if (i == last_match_P+1 && v == P[i]) {
 					// just in the matching prefix, do nothing
+					last_match_P = i;
 					ans.push_back(v);
 					used[v] = true;
 					return true;
 				}
-
-				bool n_finished_pref = finished_pref;
-				if (!finished_pref && !conds.empty() && v < Q[i-1] && invP[v] < invP[Q[i-1]]) {
-					// we're now finished
-					n_finished_pref = true;
+				if (last_match_P != pref_mins_st) {
+					pref_mins_st = last_match_P;
+					std::fill(pref_mins.begin(), pref_mins.begin() + (pref_mins_st + 1) + 1, N); 
+					for (int j = pref_mins_st+1; j < N; j++) {
+						pref_mins[j+1] = std::min(pref_mins[j], invP[j]);
+					}
 				}
 
-				if (!n_finished_pref) {
+				bool n_found_move = found_move;
+				if (!found_move && !conds.empty() && v < Q[i-1] && invP[v] < invP[Q[i-1]]) {
+					// we're now finished
+					n_found_move = true;
+				}
+
+				if (!n_found_move) {
 					// if i == N-1, we should've hit the finished_pref condition to satisfy the condition at Q[i-1]
 					assert(i < N-1);
 
@@ -85,7 +95,7 @@ int main() {
 						while (!conds.empty() && conds.back().max_P_idx >= new_cond.max_P_idx) conds.pop_back();
 						conds.push_back(new_cond);
 
-						finished_pref = n_finished_pref;
+						found_move = n_found_move;
 						ans.push_back(v);
 						used[v] = true;
 						return true;
@@ -95,7 +105,7 @@ int main() {
 							conds.pop_back();
 						}
 
-						finished_pref = n_finished_pref;
+						found_move = n_found_move;
 						ans.push_back(v);
 						used[v] = true;
 						return true;
