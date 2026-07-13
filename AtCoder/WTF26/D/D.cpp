@@ -46,9 +46,9 @@ int main() {
 				}
 				if (last_match_P != pref_mins_st) {
 					pref_mins_st = last_match_P;
-					std::fill(pref_mins.begin(), pref_mins.begin() + (pref_mins_st + 1) + 1, N); 
-					for (int j = pref_mins_st+1; j < N; j++) {
-						pref_mins[j+1] = std::min(pref_mins[j], invP[j]);
+					pref_mins[0] = N;
+					for (int j = 0; j < N; j++) {
+						pref_mins[j+1] = std::min(pref_mins[j], invP[j] <= pref_mins_st ? N : invP[j]);
 					}
 				}
 
