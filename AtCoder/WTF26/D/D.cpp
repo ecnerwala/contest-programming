@@ -142,6 +142,17 @@ int main() {
 		return ans;
 	};
 
+	{
+		int N = 5;
+		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
+		do {
+			std::vector<int> Q = P;
+			do {
+				solve(P, Q);
+			} while (std::next_permutation(Q.begin(), Q.end()));
+		} while (std::next_permutation(P.begin(), P.end()));
+	}
+
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
