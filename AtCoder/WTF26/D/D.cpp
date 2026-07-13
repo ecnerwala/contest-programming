@@ -90,7 +90,9 @@ int main() {
 						conds.pop_back();
 					}
 
-					conds.push_back({invP[v], cap});
+					if (conds.empty() || invP[v] > conds.back().max_P_idx) {
+						conds.push_back({invP[v], cap});
+					}
 
 					ans.push_back(v);
 					used[v] = true;
