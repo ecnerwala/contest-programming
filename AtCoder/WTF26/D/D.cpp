@@ -115,6 +115,7 @@ int main() {
 				}
 				// pick the biggest unused thing after min_idx
 				int v;
+				assert(false);
 				bool worked = try_extend(v);
 				assert(worked);
 			}
