@@ -148,7 +148,7 @@ int main() {
 	};
 
 	{
-		int N = 5;
+		int N = 6;
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		do {
 			std::vector<int> Q = P;
