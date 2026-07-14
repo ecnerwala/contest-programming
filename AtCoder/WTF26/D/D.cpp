@@ -192,6 +192,7 @@ int main() {
 						en++;
 					}
 				}
+				std::cerr << "block end " << en << '\n';
 				block_starts.push_back(en);
 				last_p_thresh = p_thresh;
 			}
