@@ -163,7 +163,7 @@ int main() {
 					if (used[v]) continue;
 					while (stk.back().v < v) stk.pop_back();
 					prv_bigger[p] = stk.back().p;
-					stk.push_back({v, p});
+					stk.push_back({.v = v, .p = p});
 				}
 			}
 			std::vector<int> block_starts; block_starts.reserve(N+1);
