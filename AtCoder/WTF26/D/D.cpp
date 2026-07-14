@@ -56,7 +56,7 @@ int main() {
 
 		int st = 0;
 		while (st < N && P[st] == Q[st]) {
-			used[Q[st]] = true;
+			used[invP[Q[st]]] = true;
 			st++;
 		}
 
@@ -69,7 +69,7 @@ int main() {
 		std::vector<int> pref_mins(N+1);
 
 		for (int v = 0; v < N; v++) {
-			pref_mins[v] = used[v] ? N : invP[v];
+			pref_mins[v] = invP[v] < st ? N : invP[v];
 			if (v) pref_mins[v] = std::min(pref_mins[v], pref_mins[v-1]);
 		}
 		pref_mins[N] = -1;
@@ -89,7 +89,7 @@ int main() {
 				//std::cerr << " try_extend " << "v = " << v << ' ' << "p = " << p << '\n';
 				if (i == st && v == P[i]) {
 					// just in the matching prefix, do nothing
-					used[v] = true;
+					used[i] = true;
 					return true;
 				}
 
@@ -136,14 +136,14 @@ int main() {
 
 					found_move = n_found_move;
 				}
-				used[v] = true;
+				used[p] = true;
 				return true;
 			};
 			if (!try_extend()) {
 				assert(i+1 < N);
 				Q[i+1] = N;
 				Q[i]--;
-				while (used[Q[i]] || !try_extend()) Q[i]--;
+				while (used[invP[Q[i]]] || !try_extend()) Q[i]--;
 				i++;
 				// Finish the rest by looking at conds
 				break;
@@ -169,12 +169,12 @@ int main() {
 				cond.max_p = std::min(cond.max_p, last_p_thresh);
 				int min_p = p_thresh;
 				int min_p_val = P[min_p];
-				assert(!used[min_p_val]);
+				assert(!used[min_p]);
 				for (int p = min_p+1; p < cond.max_p; p++) {
+					if (used[p]) continue;
 					int v = P[p];
-					if (used[v]) continue;
-					if (v < min_p_val) continue;
 					if (v > cond.max_v) break;
+					if (v < min_p_val) continue;
 					min_p = p;
 					min_p_val = v;
 				}
@@ -185,8 +185,8 @@ int main() {
 				int en = block_starts.back();
 				assert(min_p < last_p_thresh);
 				for (int p = last_p_thresh - 1; p >= min_p; p--) {
+					if (used[p]) continue;
 					int v = P[p];
-					if (used[v]) continue;
 					if (v >= min_p_val) {
 						p_to_block[p] = block_idx;
 						en++;
@@ -196,7 +196,7 @@ int main() {
 				last_p_thresh = p_thresh;
 			}
 			for (int v = N-1; v >= 0; v--) {
-				if (used[v]) continue;
+				if (used[invP[v]]) continue;
 				int b = p_to_block[invP[v]];
 				if (b == -1) b = int(block_starts.size())-1;
 				Q[block_starts[b]++] = v;
