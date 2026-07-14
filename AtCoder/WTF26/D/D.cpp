@@ -150,8 +150,8 @@ int main() {
 			}
 		}
 		{
-			//std::cerr << " conds" << '\n';
-			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
+			std::cerr << " conds" << '\n';
+			for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
 			std::vector<int> prv_bigger(N, N);
 			{
