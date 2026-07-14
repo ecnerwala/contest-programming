@@ -211,8 +211,8 @@ int main() {
 	for (int N = 1; N <= 8; N++) {
 		std::cerr << "testing N = " << N << '\n';
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
+		P = {1, 5, 3, 2, 4, 6, 0};
 		do {
-			for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
 			std::vector<int> slo_ans = P;
 			std::vector<int> Q = P;
 			do {
