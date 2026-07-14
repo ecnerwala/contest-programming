@@ -110,7 +110,7 @@ int main() {
 						cap = std::min(cap, conds.back().max_v);
 					}
 
-					// we need there to still exist something <= p and <= cap
+					// we need there to still exist something < p and <= cap
 					//std::cerr << "  final cap = " << cap << '\n';
 					if (p <= pref_mins[cap]) return false;
 
