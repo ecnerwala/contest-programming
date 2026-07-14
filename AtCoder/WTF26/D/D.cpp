@@ -172,8 +172,13 @@ int main() {
 			int cur_p_cap = N;
 			while (conds.back().max_p != -1) {
 				cond_t cond = conds.back();
-				std::cerr << cond.max_p << ' ' << cond.max_v << '\n';
+				conds.pop_back();
 				int p_thresh = pref_mins[cond.max_v];
+				while (p_thresh == pref_mins[conds.back().max_v]) {
+					cond.max_p = conds.back().max_p;
+					conds.pop_back();
+				}
+				std::cerr << cond.max_p << ' ' << cond.max_v << '\n';
 				std::cerr << "p_thresh " << p_thresh << '\n';
 				int min_p = cond.max_p - 1;
 				assert(min_p < cur_p_cap);
