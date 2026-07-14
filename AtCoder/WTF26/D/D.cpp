@@ -155,13 +155,14 @@ int main() {
 			// Now, fill in Q[i:N] greedily
 			std::vector<int> prv_bigger(N, N);
 			{
-				std::vector<std::pair<int, int>> stk; stk.reserve(N+1);
+				struct stk_t { int v, p; };
+				std::vector<stk_t> stk; stk.reserve(N+1);
 				stk.push_back({N, -1});
 				for (int p = 0; p < N; p++) {
 					int v = P[p];
 					if (used[v]) continue;
-					while (stk.back().first < v) stk.pop_back();
-					prv_bigger[p] = stk.back().second;
+					while (stk.back().v < v) stk.pop_back();
+					prv_bigger[p] = stk.back().p;
 					stk.push_back({v, p});
 				}
 			}
