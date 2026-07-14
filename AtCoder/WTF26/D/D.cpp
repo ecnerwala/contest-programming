@@ -153,15 +153,15 @@ int main() {
 			//std::cerr << " conds" << '\n';
 			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
-			std::vector<int> nxt_bigger(N, -1);
+			std::vector<int> prv_bigger(N, -1);
 			{
 				std::vector<std::pair<int, int>> stk; stk.reserve(N+1);
-				stk.push_back({N, N});
-				for (int p = N-1; p >= 0; p--) {
+				stk.push_back({N, -1});
+				for (int p = 0; p < N; p++) {
 					int v = P[p];
 					if (used[v]) continue;
 					while (stk.back().first < v) stk.pop_back();
-					nxt_bigger[p] = stk.back().second;
+					prv_bigger[p] = stk.back().second;
 					stk.push_back({v, p});
 				}
 			}
@@ -170,24 +170,14 @@ int main() {
 			std::vector<int> p_to_block(N, -1);
 			int cur_p_cap = N;
 			while (conds.back().max_p != -1) {
-				int min_p = pref_mins[conds.back().max_v];
-				assert(min_p < conds.back().max_p);
 				cond_t cond = conds.back();
 				conds.pop_back();
-				while (min_p == pref_mins[conds.back().max_v]) {
-					cond.max_p = conds.back().max_p;
-					conds.pop_back();
+				int p_thresh = pref_mins[cond.max_v];
+				int min_p = cond.max_p;
+				while (!(!used[P[min_p]] && P[min_p] <= conds.back().max_v && prv_bigger[min_p] < p_thresh)) {
+					min_p--;
 				}
 				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
-				while (true) {
-					int cnd = nxt_bigger[min_p];
-					assert(cnd != -1);
-					if (cnd < cond.max_p && P[cnd] <= cond.max_v) {
-						min_p = cnd;
-					} else {
-						break;
-					}
-				}
 				while (min_p < conds.back().max_p) conds.pop_back();
 				int block_idx = int(block_starts.size())-1;
 				int en = block_starts.back();
