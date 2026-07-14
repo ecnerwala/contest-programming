@@ -172,7 +172,7 @@ int main() {
 			}
 			std::vector<int> block_starts; block_starts.reserve(N+1);
 			block_starts.push_back(0);
-			std::vector<int> p_to_block(N, -2);
+			std::vector<int> p_to_block(N, -1);
 			int cur_p_cap = N;
 			while (!conds.empty()) {
 				int min_p = pref_mins[conds.back().max_val+1];
@@ -205,8 +205,6 @@ int main() {
 					if (v <= min_p_val) {
 						p_to_block[cur_p_cap] = block_idx;
 						en++;
-					} else {
-						p_to_block[cur_p_cap] = -1;
 					}
 				}
 				block_starts.push_back(en);
@@ -214,7 +212,6 @@ int main() {
 			for (int v = N-1; v >= 0; v--) {
 				if (used[v]) continue;
 				int b = p_to_block[invP[v]];
-				assert(b != -2);
 				if (b == -1) b = int(block_starts.size())-1;
 				Q[block_starts[b]++] = v;
 			}
