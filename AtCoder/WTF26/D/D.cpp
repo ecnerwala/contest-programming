@@ -171,7 +171,7 @@ int main() {
 				}
 			}
 			std::vector<int> block_starts; block_starts.reserve(N+1);
-			block_starts.push_back(0);
+			block_starts.push_back(i);
 			std::vector<int> p_to_block(N, -1);
 			int cur_p_cap = N;
 			while (!conds.empty()) {
