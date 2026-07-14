@@ -176,6 +176,8 @@ int main() {
 					min_p_val = P[p];
 				}
 				assert(min_p >= p_thresh);
+				std::cerr << "p_thresh " << p_thresh << '\n';
+				std::cerr << "min_p " << min_p << '\n';
 				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
 				while (min_p < conds.back().max_p) conds.pop_back();
 				int block_idx = int(block_starts.size())-1;
