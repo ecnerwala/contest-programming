@@ -169,6 +169,7 @@ int main() {
 				cond.max_p = std::min(cond.max_p, last_p_thresh);
 				int min_p = p_thresh;
 				int min_p_val = P[min_p];
+				assert(!used[min_p_val]);
 				for (int p = min_p+1; p < cond.max_p; p++) {
 					int v = P[p];
 					if (used[v]) continue;
