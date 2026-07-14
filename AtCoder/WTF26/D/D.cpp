@@ -119,7 +119,6 @@ int main() {
 
 					while (p < conds.back().max_p) conds.pop_back();
 
-					assert(p > conds.back().max_p);
 					if (cap < conds.back().max_v) {
 						conds.push_back({p, cap});
 					}
