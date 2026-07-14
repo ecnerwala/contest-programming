@@ -173,7 +173,7 @@ int main() {
 			while (conds.back().max_p != -1) {
 				cond_t cond = conds.back();
 				int p_thresh = pref_mins[cond.max_v];
-				int min_p = cond.max_p;
+				int min_p = cond.max_p-1;
 				assert(min_p < cur_p_cap);
 				while (!(!used[P[min_p]] && P[min_p] <= cond.max_v && prv_bigger[min_p] < p_thresh)) {
 					min_p--;
