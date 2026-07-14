@@ -122,30 +122,22 @@ int main() {
 					if (cap < conds.back().max_v) {
 						conds.push_back({p, cap});
 					}
-
-					used[v] = true;
-					return true;
 				} else {
 					if (v > conds.back().max_v && p < conds.back().max_p) {
 						int cap = conds.back().max_v;
+						// Check that the range is satisfiable
 						if (p <= pref_mins[cap]) return false;
 						while (p < conds.back().max_p) conds.pop_back();
 						conds.push_back({p, cap});
-
-						found_move = n_found_move;
-						used[v] = true;
-						return true;
 					} else {
 						// just delete things we're included in
 						while (p < conds.back().max_p) conds.pop_back();
-
-						found_move = n_found_move;
-						used[v] = true;
-						return true;
 					}
-					assert(false);
+
+					found_move = n_found_move;
 				}
-				assert(false);
+				used[v] = true;
+				return true;
 			};
 			if (!try_extend()) {
 				assert(i+1 < N);
