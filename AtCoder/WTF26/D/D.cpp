@@ -66,12 +66,13 @@ int main() {
 			int max_v; // this is inclusive
 		};
 
-		std::vector<int> pref_mins(N+1);
+		std::vector<int> pref_mins(N+2);
 
 		pref_mins[0] = N;
 		for (int v = 0; v < N; v++) {
 			pref_mins[v+1] = std::min(pref_mins[v], used[v] ? N : invP[v]);
 		}
+		pref_mins[N+1] = -1;
 
 		std::vector<cond_t> conds; conds.reserve(N+1);
 		conds.push_back({-1, N});
@@ -182,7 +183,7 @@ int main() {
 				assert(min_p < conds.back().max_p);
 				cond_t cond = conds.back();
 				conds.pop_back();
-				while (conds.back().max_v < N && min_p == pref_mins[conds.back().max_v+1]) {
+				while (min_p == pref_mins[conds.back().max_v+1]) {
 					cond.max_p = conds.back().max_p;
 					conds.pop_back();
 				}
