@@ -182,7 +182,7 @@ int main() {
 				assert(min_p < conds.back().max_p);
 				cond_t cond = conds.back();
 				conds.pop_back();
-				while (min_p == pref_mins[conds.back().max_v+1]) {
+				while (conds.back().max_v < N && min_p == pref_mins[conds.back().max_v+1]) {
 					cond.max_p = conds.back().max_p;
 					conds.pop_back();
 				}
