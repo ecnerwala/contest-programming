@@ -174,7 +174,7 @@ int main() {
 				conds.pop_back();
 				int p_thresh = pref_mins[cond.max_v];
 				int min_p = cond.max_p;
-				while (!(!used[P[min_p]] && P[min_p] <= conds.back().max_v && prv_bigger[min_p] < p_thresh)) {
+				while (!(!used[P[min_p]] && P[min_p] <= cond.max_v && prv_bigger[min_p] < p_thresh)) {
 					min_p--;
 				}
 				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
