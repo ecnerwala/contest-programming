@@ -103,7 +103,7 @@ int main() {
 					// if i == N-1, we should've hit the finished_pref condition to satisfy the condition at Q[i-1]
 					assert(i < N-1);
 
-					int cap = std::min(Q[i]-1, Q[i+1]);
+					int cap = std::min(Q[i], Q[i+1]);
 
 					if (p < conds.back().max_p) {
 						cap = std::min(cap, conds.back().max_v);
@@ -111,7 +111,7 @@ int main() {
 
 					// we need there to still exist something <= p and <= cap
 					//std::cerr << "  final cap = " << cap << '\n';
-					if (p < pref_mins[cap+1]) return false;
+					if (p <= pref_mins[cap+1]) return false;
 
 					// now, update things
 					// since we dropped the cap down already, our new one is always tighter
@@ -128,7 +128,7 @@ int main() {
 				} else {
 					if (v > conds.back().max_v && p < conds.back().max_p) {
 						int cap = conds.back().max_v;
-						if (p < pref_mins[cap+1]) return false;
+						if (p <= pref_mins[cap+1]) return false;
 						while (p < conds.back().max_p) conds.pop_back();
 						conds.push_back({p, cap});
 
