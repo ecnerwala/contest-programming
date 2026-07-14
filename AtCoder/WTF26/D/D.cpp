@@ -153,23 +153,10 @@ int main() {
 			//std::cerr << " conds" << '\n';
 			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
-			std::vector<int> prv_bigger(N, N);
-			{
-				struct stk_t { int v, p; };
-				std::vector<stk_t> stk; stk.reserve(N+1);
-				stk.push_back({N, -1});
-				for (int p = 0; p < N; p++) {
-					int v = P[p];
-					if (used[v]) continue;
-					while (stk.back().v < v) stk.pop_back();
-					prv_bigger[p] = stk.back().p;
-					stk.push_back({.v = v, .p = p});
-				}
-			}
 			std::vector<int> block_starts; block_starts.reserve(N+1);
 			block_starts.push_back(i);
 			std::vector<int> p_to_block(N, -1);
-			int cur_p_cap = N;
+			int last_p_thresh = N;
 			while (conds.back().max_p != -1) {
 				cond_t cond = conds.back();
 				conds.pop_back();
@@ -178,32 +165,32 @@ int main() {
 					cond.max_p = conds.back().max_p;
 					conds.pop_back();
 				}
-				int min_p = cond.max_p - 1;
-				assert(min_p < cur_p_cap);
-				// prv_bigger implicitly checks !used[P[min_p]] already
-				// skip used ones
-				while (!(prv_bigger[min_p] < p_thresh && P[min_p] <= cond.max_v)) {
-					if (prv_bigger[min_p] == N) min_p--;
-					else if (prv_bigger[min_p] < p_thresh) min_p--;
-					else min_p = prv_bigger[min_p];
+				cond.max_p = std::min(cond.max_p, last_p_thresh);
+				int min_p = p_thresh;
+				int min_p_val = P[min_p];
+				for (int p = min_p+1; p < cond.max_p; p++) {
+					if (used[P[p]]) continue;
+					if (P[p] < min_p_val) continue;
+					if (P[p] > cond.max_v) break;
+					min_p = p;
+					min_p_val = P[p];
 				}
 				assert(min_p >= p_thresh);
 				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
 				while (min_p < conds.back().max_p) conds.pop_back();
 				int block_idx = int(block_starts.size())-1;
 				int en = block_starts.back();
-				assert(min_p < cur_p_cap);
-				int min_p_val = P[min_p];
-				while (cur_p_cap > min_p) {
-					--cur_p_cap;
-					int v = P[cur_p_cap];
+				assert(min_p < last_p_thresh);
+				for (int p = last_p_thresh - 1; p >= min_p; p--) {
+					int v = P[p];
 					if (used[v]) continue;
 					if (v >= min_p_val) {
-						p_to_block[cur_p_cap] = block_idx;
+						p_to_block[last_p_thresh] = block_idx;
 						en++;
 					}
 				}
 				block_starts.push_back(en);
+				last_p_thresh = p_thresh;
 			}
 			for (int v = N-1; v >= 0; v--) {
 				if (used[v]) continue;
