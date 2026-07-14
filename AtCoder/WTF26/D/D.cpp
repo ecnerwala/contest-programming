@@ -229,7 +229,10 @@ int main() {
 			std::vector<int> slo_ans = P;
 			std::vector<int> Q = P;
 			do {
-				if (can_make_slow(P, Q)) slo_ans = Q;
+				if (can_make_slow(P, Q)) {
+					std::cerr << "slo ans good" << '\n';
+					slo_ans = Q;
+				}
 				auto my_ans = solve(P, Q);
 				assert(my_ans == slo_ans);
 			} while (std::next_permutation(Q.begin(), Q.end()));
