@@ -204,7 +204,7 @@ int main() {
 					--cur_p_cap;
 					int v = P[cur_p_cap];
 					if (used[v]) continue;
-					if (v <= min_p_val) {
+					if (v >= min_p_val) {
 						p_to_block[cur_p_cap] = block_idx;
 						en++;
 					}
