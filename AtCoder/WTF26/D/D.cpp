@@ -180,8 +180,12 @@ int main() {
 				}
 				int min_p = cond.max_p - 1;
 				assert(min_p < cur_p_cap);
-				while (!(!used[P[min_p]] && P[min_p] <= cond.max_v && prv_bigger[min_p] < p_thresh)) {
-					min_p--;
+				// prv_bigger implicitly checks !used[P[min_p]] already
+				// skip used ones
+				while (!(prv_bigger[min_p] < p_thresh && P[min_p] <= cond.max_v)) {
+					if (prv_bigger[min_p] == N) min_p--;
+					else if (prv_bigger[min_p] < p_thresh) min_p--;
+					else min_p = prv_bigger[min_p];
 				}
 				assert(min_p >= p_thresh);
 				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
