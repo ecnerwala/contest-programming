@@ -190,7 +190,7 @@ int main() {
 					int v = P[p];
 					if (used[v]) continue;
 					if (v >= min_p_val) {
-						p_to_block[last_p_thresh] = block_idx;
+						p_to_block[p] = block_idx;
 						en++;
 					}
 				}
