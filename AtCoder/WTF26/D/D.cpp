@@ -216,6 +216,8 @@ int main() {
 				Q[block_starts[b]++] = v;
 			}
 		}
+		std::cerr << "ans ";
+		for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
 
 		return Q;
 	};
