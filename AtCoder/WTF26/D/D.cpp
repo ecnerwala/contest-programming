@@ -151,7 +151,7 @@ int main() {
 				assert(i+1 < N);
 				Q[i+1] = N;
 				Q[i]--;
-				while (!try_extend()) Q[i]--;
+				while (used[Q[i]] || !try_extend()) Q[i]--;
 				i++;
 				// Finish the rest by looking at conds
 				break;
