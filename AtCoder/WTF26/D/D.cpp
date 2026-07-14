@@ -169,11 +169,12 @@ int main() {
 				int min_p = p_thresh;
 				int min_p_val = P[min_p];
 				for (int p = min_p+1; p < cond.max_p; p++) {
-					if (used[P[p]]) continue;
-					if (P[p] < min_p_val) continue;
-					if (P[p] > cond.max_v) break;
+					int v = P[p];
+					if (used[v]) continue;
+					if (v < min_p_val) continue;
+					if (v > cond.max_v) break;
 					min_p = p;
-					min_p_val = P[p];
+					min_p_val = v;
 				}
 				assert(min_p >= p_thresh);
 				std::cerr << "p_thresh " << p_thresh << '\n';
