@@ -76,14 +76,14 @@ int main() {
 
 		int i = st;
 		for (; i < N; i++) {
-			//std::cerr << "index " << i << '\n';
-			//std::cerr << " conds" << '\n';
-			//for (const auto& c : conds) { std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n'; } std::cerr << '\n';
+			std::cerr << "index " << i << '\n';
+			std::cerr << " conds" << '\n';
+			for (const auto& c : conds) { std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n'; } std::cerr << '\n';
 			auto try_extend = [&]() -> bool {
 				int v = Q[i];
 				int p = invP[v];
 
-				//std::cerr << " try_extend " << v << '\n';
+				std::cerr << " try_extend " << v << '\n';
 				if (i == st && v == P[i]) {
 					// just in the matching prefix, do nothing
 					used[v] = true;
@@ -93,7 +93,7 @@ int main() {
 				bool n_found_move = found_move;
 				if (!found_move && !conds.empty() && v < Q[i-1] && p < invP[Q[i-1]]) {
 					// we're now finished
-					//std::cerr << "  is last move" << '\n';
+					std::cerr << "  is last move" << '\n';
 					n_found_move = true;
 				}
 
@@ -110,7 +110,7 @@ int main() {
 					}
 
 					// we need there to still exist something <= p and <= cap
-					//std::cerr << "  final cap = " << cap << '\n';
+					std::cerr << "  final cap = " << cap << '\n';
 					if (p < pref_mins[cap+1]) return false;
 
 					// now, update things
