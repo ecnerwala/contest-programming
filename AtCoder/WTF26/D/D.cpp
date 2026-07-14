@@ -172,7 +172,6 @@ int main() {
 			int cur_p_cap = N;
 			while (conds.back().max_p != -1) {
 				cond_t cond = conds.back();
-				conds.pop_back();
 				int p_thresh = pref_mins[cond.max_v];
 				int min_p = cond.max_p;
 				assert(min_p < cur_p_cap);
