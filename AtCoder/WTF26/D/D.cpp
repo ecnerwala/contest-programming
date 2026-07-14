@@ -46,9 +46,9 @@ int main() {
 		std::vector<int> invP(N, -1);
 		for (int i = 0; i < N; i++) invP[P[i]] = i;
 
-		//std::cerr << '\n' << "solve " << N << '\n';
-		//for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
-		//for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
+		std::cerr << '\n' << "solve " << N << '\n';
+		for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
+		for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
 
 		assert(Q >= P);
 
@@ -150,8 +150,8 @@ int main() {
 			}
 		}
 		{
-			//std::cerr << " conds" << '\n';
-			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
+			std::cerr << " conds" << '\n';
+			for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
 			std::vector<int> block_starts; block_starts.reserve(N+1);
 			block_starts.push_back(i);
