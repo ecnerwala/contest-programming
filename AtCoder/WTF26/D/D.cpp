@@ -158,6 +158,8 @@ int main() {
 			}
 		}
 		{
+			std::cerr << " conds" << '\n';
+			for (const auto& c : conds) { std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
 			std::vector<int> nxt_bigger(N, -1);
 			{
@@ -229,10 +231,7 @@ int main() {
 			std::vector<int> slo_ans = P;
 			std::vector<int> Q = P;
 			do {
-				if (can_make_slow(P, Q)) {
-					std::cerr << "slo ans good" << '\n';
-					slo_ans = Q;
-				}
+				if (can_make_slow(P, Q)) slo_ans = Q;
 				auto my_ans = solve(P, Q);
 				assert(my_ans == slo_ans);
 			} while (std::next_permutation(Q.begin(), Q.end()));
