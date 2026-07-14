@@ -55,7 +55,7 @@ int main() {
 
 		int st = 0;
 		while (st < N && P[st] == Q[st]) {
-			used[P[st]] = true;
+			used[Q[st]] = true;
 			st++;
 		}
 
