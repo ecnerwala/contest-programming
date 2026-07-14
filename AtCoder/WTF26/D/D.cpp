@@ -62,7 +62,7 @@ int main() {
 
 		bool found_move = false;
 		struct cond_t {
-			int max_p; // we will always have used[cond.max_P_idx] == true, so this never ties
+			int max_p; // we will always have used[cond.max_p] == true, so this never ties
 			int max_v; // this is inclusive
 		};
 
@@ -80,7 +80,7 @@ int main() {
 		for (; i < N; i++) {
 			//std::cerr << "index " << i << '\n';
 			//std::cerr << " conds" << '\n';
-			//for (const auto& c : conds) { std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n'; } std::cerr << '\n';
+			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			auto try_extend = [&]() -> bool {
 				int v = Q[i];
 				int p = invP[v];
@@ -103,9 +103,7 @@ int main() {
 					// if i == N-1, we should've hit the finished_pref condition to satisfy the condition at Q[i-1]
 					assert(i < N-1);
 
-					int cap = v - 1;
-					assert(v == Q[i]);
-					cap = std::min(cap, Q[i+1]);
+					int cap = std::min(Q[i], Q[i+1]);
 
 					if (p < conds.back().max_p) {
 						cap = std::min(cap, conds.back().max_v);
@@ -161,7 +159,7 @@ int main() {
 		}
 		{
 			//std::cerr << " conds" << '\n';
-			//for (const auto& c : conds) { std::cerr << ' ' << c.max_P_idx << ',' << c.max_val << '\n'; } std::cerr << '\n';
+			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
 			std::vector<int> nxt_bigger(N, -1);
 			{
@@ -226,7 +224,7 @@ int main() {
 		return Q;
 	};
 
-	for (int N = 1; N <= 0; N++) {
+	for (int N = 1; N <= 8; N++) {
 		std::cerr << "testing N = " << N << '\n';
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		do {
