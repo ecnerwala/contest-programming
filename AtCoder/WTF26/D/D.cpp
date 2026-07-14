@@ -201,6 +201,7 @@ int main() {
 				if (used[v]) continue;
 				int b = p_to_block[invP[v]];
 				if (b == -1) b = int(block_starts.size())-1;
+				std::cerr << "writing " << v << " to " << block_starts[b] << '\n';
 				Q[block_starts[b]++] = v;
 			}
 		}
