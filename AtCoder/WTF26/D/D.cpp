@@ -66,13 +66,13 @@ int main() {
 			int max_v; // this is inclusive
 		};
 
-		std::vector<int> pref_mins(N+2);
+		std::vector<int> pref_mins(N+1);
 
 		for (int v = 0; v < N; v++) {
 			pref_mins[v] = used[v] ? N : invP[v];
 			if (v) pref_mins[v] = std::min(pref_mins[v], pref_mins[v-1]);
 		}
-		pref_mins[N+1] = -1;
+		pref_mins[N] = -1;
 
 		std::vector<cond_t> conds; conds.reserve(N+1);
 		conds.push_back({-1, N});
@@ -112,7 +112,7 @@ int main() {
 
 					// we need there to still exist something <= p and <= cap
 					//std::cerr << "  final cap = " << cap << '\n';
-					if (p <= pref_mins[cap+1]) return false;
+					if (p <= pref_mins[cap]) return false;
 
 					// now, update things
 					// since we dropped the cap down already, our new one is always tighter
@@ -129,7 +129,7 @@ int main() {
 				} else {
 					if (v > conds.back().max_v && p < conds.back().max_p) {
 						int cap = conds.back().max_v;
-						if (p <= pref_mins[cap+1]) return false;
+						if (p <= pref_mins[cap]) return false;
 						while (p < conds.back().max_p) conds.pop_back();
 						conds.push_back({p, cap});
 
@@ -179,11 +179,11 @@ int main() {
 			std::vector<int> p_to_block(N, -1);
 			int cur_p_cap = N;
 			while (conds.back().max_p != -1) {
-				int min_p = pref_mins[conds.back().max_v+1];
+				int min_p = pref_mins[conds.back().max_v];
 				assert(min_p < conds.back().max_p);
 				cond_t cond = conds.back();
 				conds.pop_back();
-				while (min_p == pref_mins[conds.back().max_v+1]) {
+				while (min_p == pref_mins[conds.back().max_v]) {
 					cond.max_p = conds.back().max_p;
 					conds.pop_back();
 				}
