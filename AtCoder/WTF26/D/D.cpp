@@ -21,19 +21,20 @@ int main() {
 			int v;
 			int p;
 		};
-		std::vector<stk_t> stk; stk.reserve(N);
+		std::vector<stk_t> stk; stk.reserve(N+1);
+		stk.push_back({N, -1});
 		for (int i = N-1; i >= st; i--) {
 			int v = Q[i];
 			int p = invP[v];
-			while (!stk.empty() && stk.back().p > p) {
+			while (stk.back().p > p) {
 				stk.pop_back();
 			}
-			if (stk.empty() || v < stk.back().v) {
+			if (v < stk.back().v) {
 				stk.push_back({v, p});
 			}
 			if (i <= first_move) {
 				int cap = std::min(Q[i] - 1, Q[i+1]);
-				if (stk.empty() || stk.back().v > cap) return false;
+				if (stk.back().v > cap) return false;
 			}
 		}
 		return true;
@@ -61,8 +62,8 @@ int main() {
 
 		bool found_move = false;
 		struct cond_t {
-			int max_P_idx; // we will always have used[cond.max_P_idx] == true, so this never ties
-			int max_val; // this is inclusive
+			int max_p; // we will always have used[cond.max_P_idx] == true, so this never ties
+			int max_v; // this is inclusive
 		};
 
 		std::vector<int> pref_mins(N+1);
@@ -72,7 +73,8 @@ int main() {
 			pref_mins[v+1] = std::min(pref_mins[v], used[v] ? N : invP[v]);
 		}
 
-		std::vector<cond_t> conds; conds.reserve(N);
+		std::vector<cond_t> conds; conds.reserve(N+1);
+		conds.push_back({-1, N});
 
 		int i = st;
 		for (; i < N; i++) {
@@ -91,7 +93,7 @@ int main() {
 				}
 
 				bool n_found_move = found_move;
-				if (!found_move && !conds.empty() && v < Q[i-1] && p < invP[Q[i-1]]) {
+				if (!found_move && i-1 >= st && v < Q[i-1] && p < invP[Q[i-1]]) {
 					// we're now finished
 					//std::cerr << "  is last move" << '\n';
 					n_found_move = true;
@@ -105,8 +107,8 @@ int main() {
 					assert(v == Q[i]);
 					cap = std::min(cap, Q[i+1]);
 
-					if (!conds.empty() && p < conds.back().max_P_idx) {
-						cap = std::min(cap, conds.back().max_val);
+					if (p < conds.back().max_p) {
+						cap = std::min(cap, conds.back().max_v);
 					}
 
 					// we need there to still exist something <= p and <= cap
@@ -116,20 +118,20 @@ int main() {
 					// now, update things
 					// since we dropped the cap down already, our new one is always tighter
 
-					while (!conds.empty() && p < conds.back().max_P_idx) conds.pop_back();
+					while (p < conds.back().max_p) conds.pop_back();
 
-					assert(conds.empty() || p > conds.back().max_P_idx);
-					if (conds.empty() || cap < conds.back().max_val) {
+					assert(p > conds.back().max_p);
+					if (cap < conds.back().max_v) {
 						conds.push_back({p, cap});
 					}
 
 					used[v] = true;
 					return true;
 				} else {
-					if (!conds.empty() && v > conds.back().max_val && p < conds.back().max_P_idx) {
-						int cap = conds.back().max_val;
+					if (v > conds.back().max_v && p < conds.back().max_p) {
+						int cap = conds.back().max_v;
 						if (p < pref_mins[cap+1]) return false;
-						while (!conds.empty() && p < conds.back().max_P_idx) conds.pop_back();
+						while (p < conds.back().max_p) conds.pop_back();
 						conds.push_back({p, cap});
 
 						found_move = n_found_move;
@@ -137,7 +139,7 @@ int main() {
 						return true;
 					} else {
 						// just delete things we're included in
-						while (!conds.empty() && p < conds.back().max_P_idx) conds.pop_back();
+						while (p < conds.back().max_p) conds.pop_back();
 
 						found_move = n_found_move;
 						used[v] = true;
@@ -163,12 +165,13 @@ int main() {
 			// Now, fill in Q[i:N] greedily
 			std::vector<int> nxt_bigger(N, -1);
 			{
-				std::vector<std::pair<int, int>> stk; stk.reserve(N);
+				std::vector<std::pair<int, int>> stk; stk.reserve(N+1);
+				stk.push_back({N, N});
 				for (int p = N-1; p >= 0; p--) {
 					int v = P[p];
 					if (used[v]) continue;
-					while (!stk.empty() && stk.back().first < v) stk.pop_back();
-					nxt_bigger[p] = stk.empty() ? N : stk.back().second;
+					while (stk.back().first < v) stk.pop_back();
+					nxt_bigger[p] = stk.back().second;
 					stk.push_back({v, p});
 				}
 			}
@@ -176,26 +179,26 @@ int main() {
 			block_starts.push_back(i);
 			std::vector<int> p_to_block(N, -1);
 			int cur_p_cap = N;
-			while (!conds.empty()) {
-				int min_p = pref_mins[conds.back().max_val+1];
-				assert(min_p < conds.back().max_P_idx);
+			while (conds.back().max_p != -1) {
+				int min_p = pref_mins[conds.back().max_v+1];
+				assert(min_p < conds.back().max_p);
 				cond_t cond = conds.back();
 				conds.pop_back();
-				while (!conds.empty() && min_p == pref_mins[conds.back().max_val+1]) {
-					cond.max_P_idx = conds.back().max_P_idx;
+				while (min_p == pref_mins[conds.back().max_v+1]) {
+					cond.max_p = conds.back().max_p;
 					conds.pop_back();
 				}
-				assert(min_p < cond.max_P_idx && P[min_p] <= cond.max_val);
+				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
 				while (true) {
 					int cnd = nxt_bigger[min_p];
 					assert(cnd != -1);
-					if (cnd < cond.max_P_idx && P[cnd] <= cond.max_val) {
+					if (cnd < cond.max_p && P[cnd] <= cond.max_v) {
 						min_p = cnd;
 					} else {
 						break;
 					}
 				}
-				while (!conds.empty() && min_p < conds.back().max_P_idx) conds.pop_back();
+				while (min_p < conds.back().max_p) conds.pop_back();
 				int block_idx = int(block_starts.size())-1;
 				int en = block_starts.back();
 				assert(min_p < cur_p_cap);
@@ -223,7 +226,7 @@ int main() {
 		return Q;
 	};
 
-	for (int N = 1; N <= 8; N++) {
+	for (int N = 1; N <= 0; N++) {
 		std::cerr << "testing N = " << N << '\n';
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		do {
