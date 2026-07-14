@@ -46,9 +46,9 @@ int main() {
 		std::vector<int> invP(N, -1);
 		for (int i = 0; i < N; i++) invP[P[i]] = i;
 
-		std::cerr << '\n' << "solve " << N << '\n';
-		for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
-		for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
+		//std::cerr << '\n' << "solve " << N << '\n';
+		//for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
+		//for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
 
 		assert(Q >= P);
 
@@ -178,6 +178,7 @@ int main() {
 				while (!(!used[P[min_p]] && P[min_p] <= cond.max_v && prv_bigger[min_p] < p_thresh)) {
 					min_p--;
 				}
+				assert(min_p >= p_thresh);
 				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
 				while (min_p < conds.back().max_p) conds.pop_back();
 				int block_idx = int(block_starts.size())-1;
@@ -211,6 +212,7 @@ int main() {
 		std::cerr << "testing N = " << N << '\n';
 		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
 		do {
+			for (auto p : P) { std::cerr << p << ' '; } std::cerr << '\n';
 			std::vector<int> slo_ans = P;
 			std::vector<int> Q = P;
 			do {
