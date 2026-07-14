@@ -150,9 +150,9 @@ int main() {
 			}
 		}
 		{
-			std::cerr << "i = " << i << '\n';
-			std::cerr << " conds" << '\n';
-			for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
+			//std::cerr << "i = " << i << '\n';
+			//std::cerr << " conds" << '\n';
+			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
 			std::vector<int> block_starts; block_starts.reserve(N+1);
 			block_starts.push_back(i);
@@ -179,8 +179,6 @@ int main() {
 					min_p_val = v;
 				}
 				assert(min_p >= p_thresh);
-				std::cerr << "p_thresh " << p_thresh << '\n';
-				std::cerr << "min_p " << min_p << '\n';
 				assert(min_p < cond.max_p && P[min_p] <= cond.max_v);
 				while (min_p < conds.back().max_p) conds.pop_back();
 				int block_idx = int(block_starts.size())-1;
@@ -194,7 +192,6 @@ int main() {
 						en++;
 					}
 				}
-				std::cerr << "block end " << en << '\n';
 				block_starts.push_back(en);
 				last_p_thresh = p_thresh;
 			}
@@ -202,11 +199,10 @@ int main() {
 				if (used[v]) continue;
 				int b = p_to_block[invP[v]];
 				if (b == -1) b = int(block_starts.size())-1;
-				std::cerr << "writing " << v << " to " << block_starts[b] << '\n';
 				Q[block_starts[b]++] = v;
 			}
 		}
-		std::cerr << "ans "; for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
+		//std::cerr << "ans "; for (auto q : Q) { std::cerr << q << ' '; } std::cerr << '\n';
 
 		return Q;
 	};
