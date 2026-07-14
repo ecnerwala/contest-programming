@@ -68,9 +68,9 @@ int main() {
 
 		std::vector<int> pref_mins(N+2);
 
-		pref_mins[0] = N;
 		for (int v = 0; v < N; v++) {
-			pref_mins[v+1] = std::min(pref_mins[v], used[v] ? N : invP[v]);
+			pref_mins[v] = used[v] ? N : invP[v];
+			if (v) pref_mins[v] = std::min(pref_mins[v], pref_mins[v-1]);
 		}
 		pref_mins[N+1] = -1;
 
