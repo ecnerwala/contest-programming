@@ -153,7 +153,7 @@ int main() {
 			//std::cerr << " conds" << '\n';
 			//for (const auto& c : conds) { std::cerr << ' ' << c.max_p << ',' << c.max_v << '\n'; } std::cerr << '\n';
 			// Now, fill in Q[i:N] greedily
-			std::vector<int> prv_bigger(N, -1);
+			std::vector<int> prv_bigger(N, N);
 			{
 				std::vector<std::pair<int, int>> stk; stk.reserve(N+1);
 				stk.push_back({N, -1});
