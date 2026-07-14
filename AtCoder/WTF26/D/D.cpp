@@ -111,6 +111,9 @@ int main() {
 
 					// we need there to still exist something <= p and <= cap
 					//std::cerr << "  final cap = " << cap << '\n';
+					if (cap == Q[i]) {
+						assert(p >= pref_mins[cap+1]);
+					}
 					if (p < pref_mins[cap+1]) return false;
 
 					// now, update things
