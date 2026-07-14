@@ -83,7 +83,7 @@ int main() {
 				int v = Q[i];
 				int p = invP[v];
 
-				std::cerr << " try_extend " << v << '\n';
+				std::cerr << " try_extend " << "v = " << v << ' ' << "p = " << p << '\n';
 				if (i == st && v == P[i]) {
 					// just in the matching prefix, do nothing
 					used[v] = true;
