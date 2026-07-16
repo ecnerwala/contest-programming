@@ -319,6 +319,7 @@ int main() {
 				self(l, m, l_conn, n_r_conn);
 			}
 		}(0, M, tensor<bool, 2>({N, N}, false), tensor<bool, 2>({N, N}, false));
+		std::cout << ans << '\n';
 	}
 
 	return 0;
