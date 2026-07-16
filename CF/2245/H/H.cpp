@@ -160,17 +160,91 @@ public:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int T; std::cin >> T;
-	while (T--) {
-		// N is the smaller, inner dimension
-		int N, M; std::cin >> N >> M;
-		//std::cerr << "case " << M << ' ' << N << '\n';
-		tensor<int, 2> A({M, N});
-		for (int j = 0; j < N; j++) {
-			for (int i = 0; i < M; i++) {
-				std::cin >> A[{i, j}];
+	auto solve_slow = [&](int M, int N, tensor<int, 2> A) -> int64_t {
+		int vis_time = 1;
+		tensor<int, 2> vis({M, N}, 0);
+		int64_t ans = 0;
+		int l = 0, r = M;
+		auto check_slow = [&](int x, int y) -> void {
+			// check A[{x, i}], then delete it from contention
+			int tgt = std::exchange(A[{x, y}], -1);
+			if (tgt == -1) return;
+			//std::cerr << "check_slow " << x << ' ' << y << '\n';
+			int mark = vis_time;
+			vis_time += 4;
+			vis[{x, y}] = mark;
+			A[{x, y}] = 0;
+			for (int iter = 0; iter < 3; iter++) {
+				for (int i = l; i < r; i++) {
+					bool on = false;
+					for (int j = 0; j < N; j++) {
+						if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
+							on = true;
+						}
+						if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
+						if (A[{i, j}]) {
+							on = false;
+						}
+					}
+				}
+				for (int i = l; i < r; i++) {
+					bool on = false;
+					for (int j = N-1; j >= 0; j--) {
+						if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
+							on = true;
+						}
+						if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
+						if (A[{i, j}]) {
+							on = false;
+						}
+					}
+				}
+				for (int j = 0; j < N; j++) {
+					bool on = false;
+					for (int i = l; i < r; i++) {
+						if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
+							on = true;
+						}
+						if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
+						if (A[{i, j}]) {
+							on = false;
+						}
+					}
+				}
+				for (int j = 0; j < N; j++) {
+					bool on = false;
+					for (int i = r-1; i >= l; i--) {
+						if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
+							on = true;
+						}
+						if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
+						if (A[{i, j}]) {
+							on = false;
+						}
+					}
+				}
+			}
+			//for (int i = l; i < r; i++) { for (int j = 0; j < N; j++) { std::cerr << vis[{i, j}] << ' '; } std::cerr << '\n'; }
+			for (int i = l; i < r; i++) {
+				for (int j = 0; j < N; j++) {
+					if (A[{i, j}] == tgt) {
+						if (vis[{i, j}] >= mark) {
+							//std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
+							ans++;
+						}
+					}
+				}
+			}
+			A[{x, y}] = -1;
+		};
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < N; j++) {
+				if (A[{i, j}]) check_slow(i, j);
 			}
 		}
+		return ans;
+	};
+	auto solve = [&](int M, int N, tensor<int, 2> A) -> int64_t {
 		tensor<int, 2> row_pref({M+1, N}, 0);
 		tensor<int, 2> col_pref({M, N+1}, 0);
 		for (int i = 0; i < M; i++) {
@@ -320,8 +394,8 @@ int main() {
 						for (int y = 0; y < N; y++) {
 							y_good[y+1] = y_good[y] + (row_pref[{r_lo, y}] == row_pref[{l_hi, y}]);
 						}
-						std::cerr << "merge " << l_lo << '-' << l_hi << ' ' << r_lo << '-' << r_hi << '\n';
-						std::cerr << "tot good " << y_good[N] << '\n';
+						//std::cerr << "merge " << l_lo << '-' << l_hi << ' ' << r_lo << '-' << r_hi << '\n';
+						//std::cerr << "tot good " << y_good[N] << '\n';
 						buf.clear();
 						for (int x = l_lo; x < l_hi; x++) {
 							int y_lo = 0;
@@ -419,7 +493,44 @@ int main() {
 				self(l, m, l_conn, n_r_conn);
 			}
 		}(0, M, tensor<bool, 2>({N, N}, false), tensor<bool, 2>({N, N}, false));
-		std::cout << ans << '\n';
+		return ans;
+	};
+	std::mt19937 mt(48);
+	for (int z = 0; z < 2000; z++) {
+		int M = std::uniform_int_distribution<int>(1, 10)(mt);
+		int N = std::uniform_int_distribution<int>(1, 10)(mt);
+		tensor<int, 2> A({M, N});
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < N; j++) {
+				A[{i, j}] = std::max(std::uniform_int_distribution<int>(-8, 2)(mt), 0);
+			}
+		}
+		int64_t slo = solve_slow(M, N, A);
+		int64_t res = solve(M, N, A);
+		if (slo != res) {
+			std::cerr << M << ' ' << N << '\n';
+			for (int i = 0; i < M; i++) {
+				for (int j = 0; j < N; j++) {
+					std::cerr << A[{i, j}] << ' ';
+				}
+				std::cerr << '\n';
+			}
+			assert(false);
+		}
+	}
+
+	int T; std::cin >> T;
+	while (T--) {
+		// N is the smaller, inner dimension
+		int N, M; std::cin >> N >> M;
+		//std::cerr << "case " << M << ' ' << N << '\n';
+		tensor<int, 2> A({M, N});
+		for (int j = 0; j < N; j++) {
+			for (int i = 0; i < M; i++) {
+				std::cin >> A[{i, j}];
+			}
+		}
+		std::cout << solve(M, N, A) << '\n';
 	}
 
 	return 0;
