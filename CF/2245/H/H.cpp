@@ -394,8 +394,8 @@ int main() {
 						for (int y = 0; y < N; y++) {
 							y_good[y+1] = y_good[y] + (row_pref[{r_lo, y}] == row_pref[{l_hi, y}]);
 						}
-						std::cerr << "merge " << l_lo << '-' << l_hi << ' ' << r_lo << '-' << r_hi << '\n';
-						std::cerr << "tot good " << y_good[N] << '\n';
+						//std::cerr << "merge " << l_lo << '-' << l_hi << ' ' << r_lo << '-' << r_hi << '\n';
+						//std::cerr << "tot good " << y_good[N] << '\n';
 						buf.clear();
 						for (int x = l_lo; x < l_hi; x++) {
 							int y_lo = 0;
@@ -449,10 +449,9 @@ int main() {
 								cnts[dir]++;
 								if (dir) num_bad += cnts[0];
 							}
-							if (!cnts[0] || !cnts[1]) continue;
-							std::cerr << buf[i].first << ' ' << i << ' ' << j << '\n';
-							std::cerr << " cnts " << cnts[0] << ' ' << cnts[1] << '\n';
-							std::cerr << " bad " << num_bad << '\n';
+							//std::cerr << buf[i].first << ' ' << i << ' ' << j << '\n';
+							//std::cerr << " cnts " << cnts[0] << ' ' << cnts[1] << '\n';
+							//std::cerr << " bad " << num_bad << '\n';
 							if (!(buf[i].first & 1)) {
 								ans += int64_t(cnts[0]) * int64_t(cnts[1]);
 							}
@@ -497,7 +496,7 @@ int main() {
 		return ans;
 	};
 	std::mt19937 mt(48);
-	for (int z = 0; z < 0; z++) {
+	for (int z = 0; z < 2000; z++) {
 		int M = std::uniform_int_distribution<int>(1, 4)(mt);
 		int N = std::uniform_int_distribution<int>(1, 5)(mt);
 		tensor<int, 2> A({M, N});
