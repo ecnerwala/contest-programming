@@ -297,6 +297,15 @@ int main() {
 				}
 			}
 
+			std::vector<num> fact(N+1);
+			fact[0] = 1;
+			for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+
+			std::vector<num> invs(N+1);
+			for (int i = 1; i <= N; i++) {
+				invs[i] = inv(num(i));
+			}
+
 			// we're now guaranteed to be pretty good
 			int R = 0;
 			std::vector<int> right_idx; right_idx.reserve(2*N+1);
@@ -324,12 +333,19 @@ int main() {
 			assert(int(right_idx.size()) == R);
 			assert(int(nxt_right.size()) == R);
 			assert(R <= 2 * N + 1);
-			tensor<num, 2> dp({N+1, R});
+			tensor<num, 2> dp({N+1, R}, num(0));
 			for (int i = N; i >= 0; i--) {
 				// empty list
 				dp[{i, first_right[i]}] = 1;
-			}
-			for (int i = 0; i <= N; i++) {
+				for (int j = i; j < N; j++) {
+					// pick a midpoint
+					num a = dp[{i, last_right[j]}];
+					for (int k = first_right[j+1]; k < R; k++) {
+						if (nxt_right[k] == -1) continue;
+						assert(nxt_right[k] == k || nxt_right[k] == k+1);
+						dp[{i, nxt_right[k]}] += a * dp[{j+1, k}] * invs[right_idx[k] - i];
+					}
+				}
 			}
 			return dp[{0, last_right[N]}];
 		}() << '\n';
