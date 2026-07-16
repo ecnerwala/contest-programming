@@ -278,7 +278,7 @@ int main() {
 				return;
 			}
 			int m = l + (r - l) / 2;
-			//std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
+			std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
 			{
 				auto check_slow = [&](int x, int y) -> void {
 					// check A[{x, i}], then delete it from contention
@@ -460,7 +460,6 @@ int main() {
 					}
 				}
 			}
-
 
 			{
 				tensor<bool, 2> n_l_conn({N, N}, false);
