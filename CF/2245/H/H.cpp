@@ -174,7 +174,23 @@ int main() {
 			vis_time += 4;
 			vis[{x, y}] = mark;
 			A[{x, y}] = 0;
-			for (int iter = 0; iter < 3; iter++) {
+			for (int i = x-1; i >= l; i--) {
+				vis[{i, y}] = mark;
+				if (A[{i, y}]) break;
+			}
+			for (int i = x+1; i < r; i++) {
+				vis[{i, y}] = mark;
+				if (A[{i, y}]) break;
+			}
+			for (int j = y-1; j >= 0; j--) {
+				vis[{x, j}] = mark;
+				if (A[{x, j}]) break;
+			}
+			for (int j = y+1; j < N; j++) {
+				vis[{x, j}] = mark;
+				if (A[{x, j}]) break;
+			}
+			for (int iter = 0; iter < 2; iter++) {
 				for (int i = l; i < r; i++) {
 					bool on = false;
 					for (int j = 0; j < N; j++) {
