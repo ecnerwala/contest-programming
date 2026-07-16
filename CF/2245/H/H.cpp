@@ -164,6 +164,7 @@ int main() {
 	while (T--) {
 		// N is the smaller, inner dimension
 		int N, M; std::cin >> N >> M;
+		std::cerr << "case " << M << ' ' << N << '\n';
 		tensor<int, 2> A({M, N});
 		for (int j = 0; j < N; j++) {
 			for (int i = 0; i < M; i++) {
