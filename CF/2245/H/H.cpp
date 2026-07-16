@@ -368,14 +368,14 @@ int main() {
 						if (A[{x, i}]) {
 							// find everything we can get to
 							check_slow(x, i);
-							r_thresh.push_back(x);
+							r_thresh.push_back(x+1);
 							break;
 						}
 					}
 					for (int x = m-1; x >= l; x--) {
 						if (A[{x, i}]) {
 							check_slow(x, i);
-							l_thresh.push_back(x+1);
+							l_thresh.push_back(x);
 							break;
 						}
 					}
