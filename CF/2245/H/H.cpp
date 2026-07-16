@@ -187,7 +187,7 @@ int main() {
 			assert(r - l >= 1);
 			if (r - l == 1) {
 				for (int i = 0; i < N; i++) {
-					if (A[{l, i}] == 0) continue;
+					if (A[{l, i}] == 0 || A[{l, i}] == -1) continue;
 					bool is_first = true;
 					for (int j = i+1; j < N; j++) {
 						if (A[{l, j}] == 0) continue;
