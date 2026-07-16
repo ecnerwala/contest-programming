@@ -497,7 +497,7 @@ int main() {
 	};
 	std::mt19937 mt(48);
 	for (int z = 0; z < 2000; z++) {
-		int M = std::uniform_int_distribution<int>(1, 2)(mt);
+		int M = std::uniform_int_distribution<int>(1, 4)(mt);
 		int N = std::uniform_int_distribution<int>(1, 5)(mt);
 		tensor<int, 2> A({M, N});
 		for (int i = 0; i < M; i++) {
