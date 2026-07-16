@@ -511,7 +511,7 @@ int main() {
 		return ans;
 	};
 	std::mt19937 mt(48);
-	for (int z = 0; z < 1; z++) {
+	for (int z = 0; z < 0; z++) {
 		int N = 100;
 		int M = int(2e6) / N;
 		tensor<int, 2> A({M, N});
