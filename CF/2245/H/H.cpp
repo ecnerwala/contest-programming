@@ -481,7 +481,7 @@ int main() {
 				tensor<bool, 2> n_r_conn({N, N}, false);
 				for (int i = 0; i < N; i++) {
 					for (int j = i+1; j < N; j++) {
-						for (int k = m; k <= r; k--) {
+						for (int k = m; k <= r; k++) {
 							std::cerr << A.shape[0] << ' ' << A.shape[1] << ' ' << M << ' ' << N << ' ' << k << ' ' << i << '-' << j << '\n';
 							if (k < r && (A[{k, i}] || A[{k, j}])) break;
 							if (k == r ? r_conn[{i, j}] : (col_pref[{k, i}] == col_pref[{k, j+1}])) {
