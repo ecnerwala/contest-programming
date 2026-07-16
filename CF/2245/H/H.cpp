@@ -284,7 +284,7 @@ int main() {
 					// check A[{x, i}], then delete it from contention
 					int tgt = std::exchange(A[{x, y}], -1);
 					if (tgt == -1) return;
-					//std::cerr << "check_slow " << x << ' ' << y << '\n';
+					std::cerr << "check_slow " << x << ' ' << y << '\n';
 					int mark = vis_time;
 					vis_time += 4;
 					vis[{x, y}] = mark;
