@@ -498,11 +498,11 @@ int main() {
 	std::mt19937 mt(48);
 	for (int z = 0; z < 2000; z++) {
 		int M = std::uniform_int_distribution<int>(1, 4)(mt);
-		int N = std::uniform_int_distribution<int>(1, 5)(mt);
+		int N = std::uniform_int_distribution<int>(1, 3)(mt);
 		tensor<int, 2> A({M, N});
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
-				A[{i, j}] = std::max(std::uniform_int_distribution<int>(-8, 1)(mt), 0);
+				A[{i, j}] = std::max(std::uniform_int_distribution<int>(-8, 2)(mt), 0);
 			}
 		}
 		int64_t slo = solve_slow(M, N, A);
