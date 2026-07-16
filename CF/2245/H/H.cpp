@@ -300,6 +300,7 @@ int main() {
 					// check A[{x, i}], then delete it from contention
 					int tgt = std::exchange(A[{x, y}], -1);
 					if (tgt == -1) return;
+					return;
 					std::cerr << "check_slow " << x << ' ' << y << '\n';
 					int mark = vis_time;
 					vis_time += 4;
@@ -511,7 +512,7 @@ int main() {
 		return ans;
 	};
 	std::mt19937 mt(48);
-	for (int z = 0; z < 0; z++) {
+	for (int z = 0; z < 1; z++) {
 		int N = 100;
 		int M = int(2e6) / N;
 		tensor<int, 2> A({M, N});
