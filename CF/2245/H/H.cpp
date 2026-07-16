@@ -208,6 +208,7 @@ int main() {
 			{
 				auto check_slow = [&](int x, int y) -> void {
 					// check A[{x, i}], then delete it from contention
+					std::cerr << "check_slow " << x << ' ' << y << '\n';
 					int tgt = std::exchange(A[{x, y}], -1);
 					if (tgt == -1) return;
 					std::cerr << "check_slow " << x << ' ' << y << '\n';
