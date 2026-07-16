@@ -38,7 +38,7 @@ int main() {
 		std::vector<int> ans(N, 0);
 		for (int z = 0; z < int(q.size()); z++) {
 			int v = q[z];
-			ans[v] = (N-z) * (cnt[v][1] == 0 ? -1 : +1);
+			ans[v] = (N-z) * (cnt[v][0] == 0 ? -1 : +1);
 			for (int e : adj[v]) {
 				int u = edges[e].v[0] ^ edges[e].v[1] ^ v;
 				if (in_queue[u]) continue;
