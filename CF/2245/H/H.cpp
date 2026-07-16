@@ -384,6 +384,7 @@ int main() {
 				l_thresh.resize(std::unique(l_thresh.begin(), l_thresh.end()) - l_thresh.begin());
 				std::sort(r_thresh.begin(), r_thresh.end());
 				r_thresh.resize(std::unique(r_thresh.begin(), r_thresh.end()) - r_thresh.begin());
+				l_thresh.clear();
 				for (int zl = 0; zl+1 < int(l_thresh.size()); zl++) {
 					for (int zr = 0; zr+1 < int(r_thresh.size()); zr++) {
 						int l_lo = l_thresh[zl];
