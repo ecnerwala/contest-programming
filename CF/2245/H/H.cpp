@@ -192,7 +192,6 @@ int main() {
 					bool is_first = true;
 					for (int j = i+1; j < N; j++) {
 						if (A[{l, j}] == 0) continue;
-						is_first = false;
 
 						if (A[{l, i}] == A[{l, j}]) {
 							std::cerr << " adj " << l << ' ' << i << ' ' << j << '\n';
@@ -200,6 +199,7 @@ int main() {
 								ans++;
 							}
 						}
+						is_first = false;
 					}
 				}
 				return;
