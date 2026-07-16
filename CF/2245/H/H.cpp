@@ -265,6 +265,12 @@ int main() {
 					}
 					for (int i = l; i < r; i++) {
 						for (int j = 0; j < N; j++) {
+							std::cerr << vis[{i, j}] << ' ';
+						}
+						std::cerr << '\n';
+					}
+					for (int i = l; i < r; i++) {
+						for (int j = 0; j < N; j++) {
 							if (A[{i, j}] == tgt && vis[{i, j}] >= mark) {
 								std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
 								ans++;
