@@ -518,7 +518,7 @@ int main() {
 		tensor<int, 2> A({M, N});
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
-				A[{i, j}] = std::max(std::uniform_int_distribution<int>(-1, 2)(mt), 0);
+				A[{i, j}] = std::max(std::uniform_int_distribution<int>(-8, 2)(mt), 0);
 			}
 		}
 		int64_t res = solve(M, N, A);
