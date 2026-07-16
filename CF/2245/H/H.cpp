@@ -194,7 +194,6 @@ int main() {
 						if (A[{l, j}] == 0) continue;
 
 						if (A[{l, i}] == A[{l, j}]) {
-							std::cerr << " adj " << l << ' ' << i << ' ' << j << '\n';
 							if (is_first || l_conn[{i, j}] || r_conn[{i, j}]) {
 								ans++;
 							}
@@ -205,14 +204,13 @@ int main() {
 				return;
 			}
 			int m = l + (r - l) / 2;
-			std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
+			//std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
 			{
 				auto check_slow = [&](int x, int y) -> void {
 					// check A[{x, i}], then delete it from contention
-					std::cerr << "check_slow " << x << ' ' << y << '\n';
 					int tgt = std::exchange(A[{x, y}], -1);
 					if (tgt == -1) return;
-					std::cerr << "check_slow " << x << ' ' << y << '\n';
+					//std::cerr << "check_slow " << x << ' ' << y << '\n';
 					int mark = vis_time;
 					vis_time += 4;
 					vis[{x, y}] = mark;
@@ -267,7 +265,7 @@ int main() {
 							}
 						}
 					}
-					for (int i = l; i < r; i++) { for (int j = 0; j < N; j++) { std::cerr << vis[{i, j}] << ' '; } std::cerr << '\n'; }
+					//for (int i = l; i < r; i++) { for (int j = 0; j < N; j++) { std::cerr << vis[{i, j}] << ' '; } std::cerr << '\n'; }
 					for (int i = l; i < r; i++) {
 						for (int j = 0; j < N; j++) {
 							if (A[{i, j}] == tgt) {
@@ -276,7 +274,7 @@ int main() {
 									|| (r_conn[{y, j}] && row_pref[{r, j}] == row_pref[{i+1, j}] && row_pref[{r, y}] == row_pref[{x+1, y}])
 									|| (l_conn[{y, j}] && row_pref[{l, j}] == row_pref[{i, j}] && row_pref[{l, y}] == row_pref[{x, y}])
 								) {
-									std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
+									//std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
 									ans++;
 								}
 							}
