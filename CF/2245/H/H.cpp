@@ -218,7 +218,7 @@ int main() {
 						for (int i = l; i < r; i++) {
 							bool on = false;
 							for (int j = 0; j < N; j++) {
-								if (((i == x && j == y) || !A[{i, j}]) && vis[{i, j}] == mark+iter) {
+								if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
 									on = true;
 								}
 								if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
@@ -230,7 +230,7 @@ int main() {
 						for (int i = l; i < r; i++) {
 							bool on = false;
 							for (int j = N-1; j >= 0; j--) {
-								if (((i == x && j == y) || !A[{i, j}]) && vis[{i, j}] == mark+iter) {
+								if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
 									on = true;
 								}
 								if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
@@ -242,7 +242,7 @@ int main() {
 						for (int j = 0; j < N; j++) {
 							bool on = false;
 							for (int i = l; i < r; i++) {
-								if (((i == x && j == y) || !A[{i, j}]) && vis[{i, j}] == mark+iter) {
+								if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
 									on = true;
 								}
 								if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
@@ -254,7 +254,7 @@ int main() {
 						for (int j = 0; j < N; j++) {
 							bool on = false;
 							for (int i = r-1; i >= l; i--) {
-								if (((i == x && j == y) || !A[{i, j}]) && vis[{i, j}] == mark+iter) {
+								if (!A[{i, j}] && vis[{i, j}] == mark+iter) {
 									on = true;
 								}
 								if (on && vis[{i, j}] < mark) vis[{i, j}] = mark + iter + 1;
