@@ -508,9 +508,9 @@ int main() {
 		int64_t slo = solve_slow(M, N, A);
 		int64_t res = solve(M, N, A);
 		if (slo != res) {
-			std::cerr << M << ' ' << N << '\n';
-			for (int i = 0; i < M; i++) {
-				for (int j = 0; j < N; j++) {
+			std::cerr << N << ' ' << M << '\n';
+			for (int j = 0; j < N; j++) {
+				for (int i = 0; i < M; i++) {
 					std::cerr << A[{i, j}] << ' ';
 				}
 				std::cerr << '\n';
