@@ -368,7 +368,7 @@ int main() {
 						std::sort(buf.begin(), buf.end());
 						for (int i = 0, j = 0; i < int(buf.size()); i = j) {
 							while (j < int(buf.size()) && buf[j].first == buf[i].first) j++;
-							std::cerr << buf[i].first << ' ' << i << ' ' << j << '\n';
+							//std::cerr << buf[i].first << ' ' << i << ' ' << j << '\n';
 							std::array<int, 2> cnts{0, 0};
 							int64_t num_bad = 0;
 							for (int k = i; k < j; k++) {
@@ -376,8 +376,8 @@ int main() {
 								cnts[dir]++;
 								if (dir) num_bad += cnts[0];
 							}
-							std::cerr << " cnts " << cnts[0] << ' ' << cnts[1] << '\n';
-							std::cerr << " bad " << num_bad << '\n';
+							//std::cerr << " cnts " << cnts[0] << ' ' << cnts[1] << '\n';
+							//std::cerr << " bad " << num_bad << '\n';
 							if (!(buf[i].first & 1)) {
 								ans += int64_t(cnts[0]) * int64_t(cnts[1]);
 							}
