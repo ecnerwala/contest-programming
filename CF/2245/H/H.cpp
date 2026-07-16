@@ -320,6 +320,8 @@ int main() {
 						for (int y = 0; y < N; y++) {
 							y_good[y+1] = y_good[y] + (row_pref[{r_lo, y}] == row_pref[{l_hi, y}]);
 						}
+						std::cerr << "merge " << l_lo << '-' << l_hi << ' ' << r_lo << '-' << r_hi << '\n';
+						std::cerr << "tot good " << y_good[N] << '\n';
 						buf.clear();
 						for (int x = l_lo; x < l_hi; x++) {
 							int y_lo = 0;
