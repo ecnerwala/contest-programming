@@ -278,13 +278,13 @@ int main() {
 				return;
 			}
 			int m = l + (r - l) / 2;
-			//std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
+			std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
 			{
 				auto check_slow = [&](int x, int y) -> void {
 					// check A[{x, i}], then delete it from contention
 					int tgt = std::exchange(A[{x, y}], -1);
 					if (tgt == -1) return;
-					//std::cerr << "check_slow " << x << ' ' << y << '\n';
+					std::cerr << "check_slow " << x << ' ' << y << '\n';
 					int mark = vis_time;
 					vis_time += 4;
 					vis[{x, y}] = mark;
@@ -348,7 +348,7 @@ int main() {
 									|| (r_conn[{y, j}] && row_pref[{r, j}] == row_pref[{i+1, j}] && row_pref[{r, y}] == row_pref[{x+1, y}])
 									|| (l_conn[{y, j}] && row_pref[{l, j}] == row_pref[{i, j}] && row_pref[{l, y}] == row_pref[{x, y}])
 								) {
-									//std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
+									std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
 									ans++;
 								}
 							}
@@ -394,8 +394,8 @@ int main() {
 						for (int y = 0; y < N; y++) {
 							y_good[y+1] = y_good[y] + (row_pref[{r_lo, y}] == row_pref[{l_hi, y}]);
 						}
-						//std::cerr << "merge " << l_lo << '-' << l_hi << ' ' << r_lo << '-' << r_hi << '\n';
-						//std::cerr << "tot good " << y_good[N] << '\n';
+						std::cerr << "merge " << l_lo << '-' << l_hi << ' ' << r_lo << '-' << r_hi << '\n';
+						std::cerr << "tot good " << y_good[N] << '\n';
 						buf.clear();
 						for (int x = l_lo; x < l_hi; x++) {
 							int y_lo = 0;
@@ -442,7 +442,7 @@ int main() {
 						std::sort(buf.begin(), buf.end());
 						for (int i = 0, j = 0; i < int(buf.size()); i = j) {
 							while (j < int(buf.size()) && buf[j].first == buf[i].first) j++;
-							//std::cerr << buf[i].first << ' ' << i << ' ' << j << '\n';
+							std::cerr << buf[i].first << ' ' << i << ' ' << j << '\n';
 							std::array<int, 2> cnts{0, 0};
 							int64_t num_bad = 0;
 							for (int k = i; k < j; k++) {
@@ -450,8 +450,8 @@ int main() {
 								cnts[dir]++;
 								if (dir) num_bad += cnts[0];
 							}
-							//std::cerr << " cnts " << cnts[0] << ' ' << cnts[1] << '\n';
-							//std::cerr << " bad " << num_bad << '\n';
+							std::cerr << " cnts " << cnts[0] << ' ' << cnts[1] << '\n';
+							std::cerr << " bad " << num_bad << '\n';
 							if (!(buf[i].first & 1)) {
 								ans += int64_t(cnts[0]) * int64_t(cnts[1]);
 							}
