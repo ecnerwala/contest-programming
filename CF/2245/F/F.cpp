@@ -347,7 +347,7 @@ int main() {
 					}
 				}
 			}
-			return dp[{0, last_right[N]}];
+			return dp[{0, last_right[N]}] * fact[N];
 		}() << '\n';
 	}
 
