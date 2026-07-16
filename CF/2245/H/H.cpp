@@ -213,6 +213,7 @@ int main() {
 					int mark = vis_time;
 					vis_time += 4;
 					vis[{x, y}] = mark;
+					A[{x, y}] = 0;
 					for (int iter = 0; iter < 3; iter++) {
 						for (int i = l; i < r; i++) {
 							bool on = false;
@@ -271,12 +272,15 @@ int main() {
 					}
 					for (int i = l; i < r; i++) {
 						for (int j = 0; j < N; j++) {
+							std::cerr << vis[{i, j}] << ' ';
+							std::cerr << '\n';
 							if (A[{i, j}] == tgt && vis[{i, j}] >= mark) {
 								std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
 								ans++;
 							}
 						}
 					}
+					A[{x, y}] = -1;
 				};
 				// solve things that cross the middle
 				for (int i = 0; i < N; i++) {
