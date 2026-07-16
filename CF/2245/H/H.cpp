@@ -496,17 +496,19 @@ int main() {
 		return ans;
 	};
 	std::mt19937 mt(48);
-	for (int z = 0; z < 2000; z++) {
-		int M = std::uniform_int_distribution<int>(1, 10)(mt);
-		int N = std::uniform_int_distribution<int>(1, 10)(mt);
+	for (int z = 0; z < 1; z++) {
+		int N = 100;
+		int M = int(2e6) / N;
 		tensor<int, 2> A({M, N});
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
 				A[{i, j}] = std::max(std::uniform_int_distribution<int>(-8, 2)(mt), 0);
 			}
 		}
-		int64_t slo = solve_slow(M, N, A);
 		int64_t res = solve(M, N, A);
+		std::cerr << "res " << '\n';
+		exit(0);
+		int64_t slo = solve_slow(M, N, A);
 		if (slo != res) {
 			std::cerr << N << ' ' << M << '\n';
 			for (int j = 0; j < N; j++) {
