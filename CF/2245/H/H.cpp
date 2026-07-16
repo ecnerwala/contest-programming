@@ -203,13 +203,13 @@ int main() {
 				return;
 			}
 			int m = l + (r - l) / 2;
-			std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
+			//std::cerr << "solve " << l << ' ' << m << ' ' << r << '\n';
 			{
 				auto check_slow = [&](int x, int y) -> void {
 					// check A[{x, i}], then delete it from contention
 					int tgt = std::exchange(A[{x, y}], -1);
 					if (tgt == -1) return;
-					std::cerr << "check_slow " << x << ' ' << y << '\n';
+					//std::cerr << "check_slow " << x << ' ' << y << '\n';
 					int mark = vis_time;
 					vis_time += 4;
 					vis[{x, y}] = mark;
@@ -268,7 +268,7 @@ int main() {
 					for (int i = l; i < r; i++) {
 						for (int j = 0; j < N; j++) {
 							if (A[{i, j}] == tgt && vis[{i, j}] >= mark) {
-								std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
+								//std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
 								ans++;
 							}
 						}
