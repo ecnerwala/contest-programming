@@ -164,7 +164,7 @@ int main() {
 	while (T--) {
 		// N is the smaller, inner dimension
 		int N, M; std::cin >> N >> M;
-		std::cerr << "case " << M << ' ' << N << '\n';
+		//std::cerr << "case " << M << ' ' << N << '\n';
 		tensor<int, 2> A({M, N});
 		for (int j = 0; j < N; j++) {
 			for (int i = 0; i < M; i++) {
@@ -183,6 +183,7 @@ int main() {
 		tensor<int, 2> vis({M, N}, 0);
 		int64_t ans = 0;
 		std::vector<std::array<int, 2>> q; q.reserve(N*M);
+		std::vector<std::pair<int, int>> buf; buf.reserve(2 * N * M);
 		[&](this auto&& self, int l, int r, const tensor<bool, 2>& l_conn, const tensor<bool, 2>& r_conn) -> void {
 			assert(r - l >= 1);
 			if (r - l == 1) {
@@ -267,31 +268,120 @@ int main() {
 					//for (int i = l; i < r; i++) { for (int j = 0; j < N; j++) { std::cerr << vis[{i, j}] << ' '; } std::cerr << '\n'; }
 					for (int i = l; i < r; i++) {
 						for (int j = 0; j < N; j++) {
-							if (A[{i, j}] == tgt && vis[{i, j}] >= mark) {
-								//std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
-								ans++;
+							if (A[{i, j}] == tgt) {
+								if (
+									vis[{i, j}] >= mark
+									|| (r_conn[{y, j}] && row_pref[{r, j}] == row_pref[{i+1, j}] && row_pref[{r, y}] == row_pref[{x+1, y}])
+									|| (l_conn[{y, j}] && row_pref[{l, j}] == row_pref[{i, j}] && row_pref[{l, y}] == row_pref[{x, y}])
+								) {
+									//std::cerr << "found " << x << ' ' << y << ' ' << i << ' ' << j << '\n';
+									ans++;
+								}
 							}
 						}
 					}
 					A[{x, y}] = -1;
 				};
 				// solve things that cross the middle
+				std::vector<int> l_thresh; l_thresh.reserve(N+1);
+				l_thresh.push_back(l);
+				l_thresh.push_back(m);
+				std::vector<int> r_thresh; r_thresh.reserve(N+1);
+				r_thresh.push_back(m);
+				r_thresh.push_back(r);
 				for (int i = 0; i < N; i++) {
 					for (int x = m; x < r; x++) {
 						if (A[{x, i}]) {
 							// find everything we can get to
 							check_slow(x, i);
+							r_thresh.push_back(x);
 							break;
 						}
 					}
 					for (int x = m-1; x >= l; x--) {
 						if (A[{x, i}]) {
 							check_slow(x, i);
+							l_thresh.push_back(x+1);
 							break;
 						}
 					}
 				}
+				std::sort(l_thresh.begin(), l_thresh.end());
+				l_thresh.resize(std::unique(l_thresh.begin(), l_thresh.end()) - l_thresh.begin());
+				std::sort(r_thresh.begin(), r_thresh.end());
+				r_thresh.resize(std::unique(r_thresh.begin(), r_thresh.end()) - r_thresh.begin());
+				for (int zl = 0; zl+1 < int(l_thresh.size()); zl++) {
+					for (int zr = 0; zr+1 < int(r_thresh.size()); zr++) {
+						int l_lo = l_thresh[zl];
+						int l_hi = l_thresh[zl+1];
+						int r_lo = r_thresh[zr];
+						int r_hi = r_thresh[zr+1];
+						std::vector<int> y_good(N+1);
+						for (int y = 0; y < N; y++) {
+							y_good[y+1] = y_good[y] + (row_pref[{r_lo, y}] == row_pref[{l_hi, y}]);
+						}
+						buf.clear();
+						for (int x = l_lo; x < l_hi; x++) {
+							int y_lo = 0;
+							for (int y = 0; y < N; y++) {
+								if (A[{x, y}]) {
+									int y_hi = y+1;
+									while (y_hi < N && !A[{x, y_hi}]) y_hi++;
+
+									if (A[{x, y}] > 0) {
+										int mi = y_good[y_lo];
+										int ma = y_good[y_hi];
+										if (ma > mi) {
+											buf.push_back({2 * A[{x, y}] + 1, 2 * mi + 1});
+											buf.push_back({2 * A[{x, y}] + 0, 2 * ma + 0});
+										}
+									}
+
+									y_lo = y+1;
+									y = y_hi-1;
+								}
+							}
+						}
+						for (int x = r_lo; x < r_hi; x++) {
+							int y_lo = 0;
+							for (int y = 0; y < N; y++) {
+								if (A[{x, y}]) {
+									int y_hi = y+1;
+									while (y_hi < N && !A[{x, y_hi}]) y_hi++;
+
+									if (A[{x, y}] > 0) {
+										int mi = y_good[y_lo];
+										int ma = y_good[y_hi];
+										if (ma > mi) {
+											buf.push_back({2 * A[{x, y}] + 0, 2 * mi + 1});
+											buf.push_back({2 * A[{x, y}] + 1, 2 * ma + 0});
+										}
+									}
+
+									y_lo = y+1;
+									y = y_hi-1;
+								}
+							}
+						}
+						std::sort(buf.begin(), buf.end());
+						for (int i = 0, j = 0; i < int(buf.size()); i = j) {
+							while (j < int(buf.size()) && buf[j].first == buf[i].first) j++;
+							std::array<int, 2> cnts{0, 0};
+							int64_t num_bad = 0;
+							for (int k = i; k < j; k++) {
+								int dir = buf[k].second & 1;
+								cnts[dir]++;
+								if (dir) num_bad += cnts[0];
+							}
+							if (!(buf[i].first & 1)) {
+								ans += int64_t(cnts[0]) * int64_t(cnts[1]);
+							}
+							ans -= num_bad;
+						}
+					}
+				}
 			}
+
 
 			{
 				tensor<bool, 2> n_l_conn({N, N}, false);
@@ -300,7 +390,7 @@ int main() {
 						for (int k = m-1; k >= l-1; k--) {
 							if (k >= l && (A[{k, i}] || A[{k, j}])) break;
 							if (k == l-1 ? l_conn[{i, j}] : (col_pref[{k, i}] == col_pref[{k, j+1}])) {
-								n_l_conn[{i, j}] = true;
+								n_l_conn[{i, j}] = n_l_conn[{j, i}] = true;
 								break;
 							}
 						}
@@ -315,7 +405,7 @@ int main() {
 						for (int k = m; k <= r; k--) {
 							if (k < r && (A[{k, i}] || A[{k, j}])) break;
 							if (k == r ? r_conn[{i, j}] : (col_pref[{k, i}] == col_pref[{k, j+1}])) {
-								n_r_conn[{i, j}] = true;
+								n_r_conn[{i, j}] = n_r_conn[{j, i}] = true;
 								break;
 							}
 						}
