@@ -195,6 +195,7 @@ int main() {
 						is_first = false;
 
 						if (A[{l, i}] == A[{l, j}]) {
+							std::cerr << " adj " << l << ' ' << i << ' ' << j << '\n';
 							if (is_first || l_conn[{i, j}] || r_conn[{i, j}]) {
 								ans++;
 							}
