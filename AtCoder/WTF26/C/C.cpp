@@ -1567,7 +1567,7 @@ int main() {
 			dp = std::move(ndp);
 			for (int i = 0; i <= cur+1; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
-					std::cerr << dp[{i, j}] << ' ';
+					std::cerr << dp[{i, j}] * fact[i] * fact[j] << ' ';
 				}
 				std::cerr << '\n';
 			}
