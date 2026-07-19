@@ -136,7 +136,7 @@ int main() {
 				label[a] = N+e;
 			}
 		}
-		assert(int(cuts.size()) == N-1);
+		assert(int(cuts.size()) == 2*(N-1));
 		std::ranges::sort(cuts, [&](const auto& a, const auto& b) -> bool { return a.w > b.w; });
 		{
 			std::vector<int> par(2*N-1, -1);
