@@ -1569,6 +1569,7 @@ int main() {
 	}
 
 	for (auto g : ways_groups) { std::cerr << g << ' '; std::cerr << '\n'; }
+
 	// Now, we want all groups to be nonempty
 	for (int g = 1; g <= N; g++) {
 		for (int h = g+1; h <= N; h++) {
@@ -1576,12 +1577,13 @@ int main() {
 		}
 	}
 
-	// Now, groups can be split arbitrarily
+	// Now, groups can have extra cuts in them
 	for (int g = 1; g <= N; g++) {
 		for (int h = 1; h < g; h++) {
 			ways_groups[g] -= ways_groups[h] * fact[N-h] * ifact[N-g] * ifact[g-h];
 		}
 	}
+
 	for (auto g : ways_groups) { std::cerr << g << ' '; std::cerr << '\n'; }
 	for (int g = 1; g <= N; g++) std::cout << ways_groups[g] << " \n"[g==N];
 
