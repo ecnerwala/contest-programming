@@ -128,7 +128,7 @@ int main() {
 				assert(a != b);
 				if (par[a] > par[b]) std::swap(a, b);
 
-				// Dirty trick: smuggle the sz in the first parameter
+				// Dirty trick: smuggle the sz in v[0]
 				cuts[label[a]] = {w * (-par[b]), {-par[a], N+e}};
 				cuts[label[b]] = {w * (-par[a]), {-par[b], N+e}};
 
