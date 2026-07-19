@@ -147,6 +147,7 @@ int main() {
 			for (int i = 0; i < 2 * (N-1); i++) {
 				cuts[i].w = int64_t(std::min<__int128_t>(__int128_t(cuts[i].w) * cuts[i].v[0], MAX_W));
 				cuts[i].v[0] = i;
+				std::cerr << "cut " << cuts[i].w << ' ' << cuts[i].v[0] << ' ' << cuts[i].v[1] << '\n';
 			}
 		}
 		assert(int(cuts.size()) == 2*(N-1));
