@@ -1560,7 +1560,7 @@ int main() {
 					ndp[{i, j}] += dp[{i, j}];
 
 					// We could take something claimed after and move it before
-					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1) * invs[cur-i-1];
+					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1) * invs[i+1];
 
 					// We could take new guys
 					mul_a[i + (2*cur+1) * j] = claim_ways[{i, j}] * cur_A;
@@ -1577,7 +1577,7 @@ int main() {
 			auto res = ecnerwala::fft::fft_multiply(mul_a, mul_b);
 			for (int i = 0; i <= cur; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
-					ndp[{i+1, j}] += res[i + (2*cur+1) * j] * invs[cur-i-1];
+					ndp[{i+1, j}] += res[i + (2*cur+1) * j];
 				}
 			}
 			// We want to count the number of unclaimed cells
