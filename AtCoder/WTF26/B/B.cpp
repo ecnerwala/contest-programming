@@ -411,7 +411,7 @@ int main() {
 	for (int i = N-2; i >= 0; i--) {
 		// at most i guys are in the suffix after this
 		tensor<num, 3> ndp({N, i+1, i+1});
-		for (int x = 0; x < A[i-1]; x++) {
+		for (int x = 0; x < A[i]; x++) {
 			for (int y = std::max(0, x-1); y < N; y++) {
 				ndp[{x, 0, 0}] += dp[{y, 0, 0}];
 				for (int a = 1; a <= i+1; a++) {
