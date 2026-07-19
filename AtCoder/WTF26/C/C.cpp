@@ -1532,7 +1532,7 @@ int main() {
 				for (int k = 0; k < K; k++) {
 					v += power(num(k), i) * power(num(k+1), j) * fact[i+j];
 				}
-				claim_ways[{i, j}] = v;
+				claim_ways[{i, j}] = v * ifact[i] * ifact[j];
 			}
 		}
 
