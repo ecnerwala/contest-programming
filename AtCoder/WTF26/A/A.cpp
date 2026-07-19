@@ -127,6 +127,7 @@ int main() {
 				a = get_par(a), b = get_par(b);
 				assert(a != b);
 				if (par[a] > par[b]) std::swap(a, b);
+				std::cerr << "merge " << a << ' ' << b << ' ' << N+e << ' ' << w << '\n';
 
 				// Dirty trick: smuggle the sz in the first parameter
 				cuts[label[a]] = {w * (-par[b]), {-par[a], N+e}};
