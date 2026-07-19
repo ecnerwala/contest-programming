@@ -108,10 +108,11 @@ int main() {
 		}
 		std::ranges::sort(edges, [&](const auto& a, const auto& b) -> bool { return a.w > b.w; });
 		const int64_t MAX_W = edges.back().w * (N-1);
-		std::vector<edge_t> cuts; cuts.reserve(2*(N-1));
+		std::vector<edge_t> cuts(2*(N-1));
 		{
 			std::vector<int> par(N, -1);
 			std::vector<int> label(N); std::ranges::iota(label, 0);
+			std::vector<int> sz(2*N-1, 0); std::ranges::fill(sz.begin(), sz.begin() + N, 1);
 			auto get_par = [&](int a) -> int {
 				while (par[a] >= 0) {
 					if (par[par[a]] >= 0) {
@@ -128,12 +129,23 @@ int main() {
 				assert(a != b);
 				if (par[a] > par[b]) std::swap(a, b);
 
-				cuts.push_back({int64_t(std::min(__int128_t(w) * -par[a] * (N + par[a]), __int128_t(MAX_W))), {label[a], N+e}});
-				cuts.push_back({int64_t(std::min(__int128_t(w) * -par[b] * (N + par[b]), __int128_t(MAX_W))), {label[b], N+e}});
+				cuts[label[a]] = {w * (-par[b]), {label[a], N+e}};
+				cuts[label[b]] = {w * (-par[a]), {label[b], N+e}};
 
 				par[a] += par[b];
 				par[b] = a;
 				label[a] = N+e;
+				sz[N+e] = -par[a];
+			}
+
+			// Now, fill in the cut costs all the way
+			for (int i = 2*(N-1) - 1; i >= 0; i--) {
+				int ng = cuts[i].v[1];
+				assert(ng > i);
+				cuts[i].w += ng == 2 * (N-1) ? 0 : cuts[ng].w;
+			}
+			for (int i = 0; i < 2 * (N-1); i++) {
+				cuts[i].w = int64_t(std::min<__int128_t>(__int128_t(cuts[i].w) * sz[i], MAX_W));
 			}
 		}
 		assert(int(cuts.size()) == 2*(N-1));
