@@ -1536,6 +1536,13 @@ int main() {
 				claim_ways[{i, j}] = v * ifact[i] * ifact[j];
 			}
 		}
+		for (int i = 0; i <= N-1; i++) {
+			for (int j = 0; i+j <= N-1; j++) {
+				std::cerr << claim_ways[{i, j}] * fact[i] * fact[j] << ' ';
+			}
+			std::cerr << '\n';
+		}
+		std::cerr << '\n';
 
 		// Number of claimed cells
 		tensor<num, 2> dp({1, N+1});
