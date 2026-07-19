@@ -1567,6 +1567,12 @@ int main() {
 		}
 		ways_groups[K] = dp[{N, 0}] * fact[N];
 	}
+	// Now, we want all groups to be nonempty
+	for (int g = 1; g <= N; g++) {
+		for (int h = g+1; h <= N; h++) {
+			ways_groups[h] -= fact[h] * ifact[g] * ifact[h-g] * ways_groups[g];
+		}
+	}
 
 	for (auto g : ways_groups) std::cerr << g << '\n';
 
