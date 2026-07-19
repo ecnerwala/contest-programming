@@ -1557,10 +1557,10 @@ int main() {
 			for (int i = 0; i <= cur; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
 					// We could take something unclaimed after and move it before
-					ndp[{i, j}] += dp[{i, j}];
+					ndp[{i, j}] += dp[{i, j}] * invs[cur+1-i];
 
 					// We could take something claimed after and move it before
-					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1) * invs[cur-i];
+					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1);
 
 					// We could take new guys
 					mul_a[i + (2*cur+1) * j] = claim_ways[{i, j}] * cur_A;
