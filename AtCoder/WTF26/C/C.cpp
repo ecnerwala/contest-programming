@@ -1551,7 +1551,7 @@ int main() {
 					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1) * invs[i+1];
 
 					// We could take new guys
-					mul_a[i + (2*cur+1) * j] = claim_ways[{i, j}] * num(A[i]);
+					mul_a[i + (2*cur+1) * j] = claim_ways[{i, j}] * num(A[cur]);
 					mul_b[i + (2*cur+1) * j] = dp[{i, j}];
 				}
 			}
