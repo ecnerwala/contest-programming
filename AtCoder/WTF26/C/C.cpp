@@ -1525,8 +1525,8 @@ int main() {
 	std::vector<num> ways_groups(N+1);
 	for (int K = 1; K <= N; K++) {
 		tensor<num, 2> claim_ways({N, N});
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; i+j < N; j++) {
+		for (int i = 0; i <= N-1; i++) {
+			for (int j = 0; i+j <= N-1; j++) {
 				num v = 0;
 				for (int k = 0; k < K; k++) {
 					v += power(num(k), i) * power(num(k+1), j) * fact[i+j];
