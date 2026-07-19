@@ -1545,7 +1545,7 @@ int main() {
 		std::cerr << '\n';
 
 		// Number of claimed cells
-		// dp is real_value * ifact[cur-i] * ifact[j], to help with the 
+		// dp is real_value * fact[cur-i] * ifact[j], to help with the 
 		tensor<num, 2> dp({1, N+1});
 		dp[{0, 0}] = 1;
 		for (int cur = 0; cur < N; cur++) {
@@ -1557,7 +1557,7 @@ int main() {
 			for (int i = 0; i <= cur; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
 					// We could take something unclaimed after and move it before
-					ndp[{i, j}] += dp[{i, j}] * invs[cur+1-i];
+					ndp[{i, j}] += dp[{i, j}] * num(cur+1-i);
 
 					// We could take something claimed after and move it before
 					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1);
@@ -1569,7 +1569,7 @@ int main() {
 			}
 			for (int i = 0; i <= cur+1; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
-					std::cerr << ndp[{i, j}] * fact[cur+1-i] * fact[j] << ' ';
+					std::cerr << ndp[{i, j}] * ifact[cur+1-i] * fact[j] << ' ';
 				}
 				std::cerr << '\n';
 			}
@@ -1583,7 +1583,7 @@ int main() {
 			// We want to count the number of unclaimed cells
 			for (int i = 0; i <= cur+1; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
-					std::cerr << ndp[{i, j}] * fact[cur+1-i] * fact[j] << ' ';
+					std::cerr << ndp[{i, j}] * ifact[cur+1-i] * fact[j] << ' ';
 				}
 				std::cerr << '\n';
 			}
