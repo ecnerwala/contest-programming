@@ -1566,6 +1566,7 @@ int main() {
 			}
 			// We want to count the number of unclaimed cells
 			dp = std::move(ndp);
+			/*
 			for (int i = 0; i <= cur+1; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
 					std::cerr << dp[{i, j}] * fact[i] * fact[j] << ' ';
@@ -1573,6 +1574,7 @@ int main() {
 				std::cerr << '\n';
 			}
 			std::cerr << '\n';
+			*/
 		}
 		ways_groups[K] = dp[{N, 0}] * fact[N];
 	}
