@@ -1560,7 +1560,7 @@ int main() {
 					ndp[{i, j}] += dp[{i, j}];
 
 					// We could take something claimed after and move it before
-					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1) * invs[i+1];
+					ndp[{i+1, j}] += dp[{i, j+1}] * num(j+1) * invs[cur-i];
 
 					// We could take new guys
 					mul_a[i + (2*cur+1) * j] = claim_ways[{i, j}] * cur_A;
@@ -1569,7 +1569,7 @@ int main() {
 			}
 			for (int i = 0; i <= cur+1; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
-					std::cerr << ndp[{i, j}] * fact[i] * fact[j] << ' ';
+					std::cerr << ndp[{i, j}] * fact[cur+1-i] * fact[j] << ' ';
 				}
 				std::cerr << '\n';
 			}
@@ -1583,7 +1583,7 @@ int main() {
 			// We want to count the number of unclaimed cells
 			for (int i = 0; i <= cur+1; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
-					std::cerr << ndp[{i, j}] * fact[i] * fact[j] << ' ';
+					std::cerr << ndp[{i, j}] * fact[cur+1-i] * fact[j] << ' ';
 				}
 				std::cerr << '\n';
 			}
