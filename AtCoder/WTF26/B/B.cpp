@@ -416,7 +416,11 @@ int main() {
 				for (int a = 0; a <= i+1; a++) {
 					assert(x <= y+1);
 					if (x == y+1) {
-						if (a <= i) ndp[{x, a}] += dp[{y, a}];
+						if (a == i+1) {
+							std::cerr << "bad path " << i << ' ' << x << ' ' << y << ' ' << a << '\n';
+						} else {
+							ndp[{x, a}] += dp[{y, a}];
+						}
 					} else {
 						assert(x < y+1);
 						ndp[{x, std::max(0, a-1)}] += dp[{y, a}];
