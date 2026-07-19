@@ -141,7 +141,7 @@ int main() {
 			for (int i = 2*(N-1) - 1; i >= 0; i--) {
 				int ng = cuts[i].v[1];
 				assert(ng > i);
-				cuts[i].w += ng == 2 * (N-1) ? 0 : cuts[ng].w;
+				cuts[i].w += (ng == 2 * (N-1)) ? 0 : cuts[ng].w;
 			}
 			for (int i = 0; i < 2 * (N-1); i++) {
 				cuts[i].w = int64_t(std::min<__int128_t>(__int128_t(cuts[i].w) * cuts[i].v[0], MAX_W));
