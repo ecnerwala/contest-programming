@@ -1571,6 +1571,7 @@ int main() {
 				}
 				std::cerr << '\n';
 			}
+			std::cerr << '\n';
 		}
 		ways_groups[K] = dp[{N, 0}] * fact[N];
 	}
