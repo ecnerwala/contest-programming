@@ -140,6 +140,7 @@ int main() {
 
 			// Now, fill in the cut costs all the way
 			for (int i = 2*(N-1) - 1; i >= 0; i--) {
+				assert(cuts[i].v[0] == i);
 				int ng = cuts[i].v[1];
 				assert(ng > i);
 				cuts[i].w += ng == 2 * (N-1) ? 0 : cuts[ng].w;
