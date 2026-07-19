@@ -1522,7 +1522,7 @@ int main() {
 	std::vector<num> invs(N+1);
 	for (int i = 1; i <= N; i++) invs[i] = ifact[i] * fact[i-1];
 
-	std::vector<num> ways_groups(N);
+	std::vector<num> ways_groups(N+1);
 	for (int K = 1; K <= N; K++) {
 		tensor<num, 2> claim_ways({N, N});
 		for (int i = 0; i < N; i++) {
@@ -1565,7 +1565,7 @@ int main() {
 			// We want to count the number of unclaimed cells
 			dp = std::move(ndp);
 		}
-		ways_groups[N-K] = dp[{N, 0}] * fact[N];
+		ways_groups[K] = dp[{N, 0}] * fact[N];
 	}
 
 	for (auto g : ways_groups) std::cerr << g << '\n';
