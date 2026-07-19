@@ -107,7 +107,7 @@ int main() {
 			e.v[0]--, e.v[1]--;
 		}
 		std::ranges::sort(edges, [&](const auto& a, const auto& b) -> bool { return a.w > b.w; });
-		const int64_t MAX_W = edges.back().w * (N-1);
+		const int64_t MAX_W = edges[0].w * (N-1);
 		std::vector<edge_t> cuts(2*(N-1));
 		{
 			std::vector<int> par(N, -1);
