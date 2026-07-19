@@ -1508,7 +1508,7 @@ int main() {
 
 	int N; std::cin >> N;
 	std::vector<int> A(N);
-	for (auto& a : A) std::cin >> a;
+	for (auto& a : A) { std::cin >> a; a++; }
 	assert(std::is_sorted(A.begin(), A.end()));
 
 	using num = modnum<998244353>;
