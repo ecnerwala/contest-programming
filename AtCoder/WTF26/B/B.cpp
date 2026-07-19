@@ -404,26 +404,34 @@ int main() {
 	std::vector<int> A(N);
 	for (auto& a : A) std::cin >> a;
 	using num = modnum<998244353>;
-	tensor<num, 2> dp({N+1, N+1});
-	for (int x = 1; x <= A[N-1]; x++) {
-		dp[{x, x}] = 1;
+	tensor<num, 3> dp({N, N, N});
+	for (int x = 0; x < A[N-1]; x++) {
+		dp[{x, x, 0}] = 1;
 	}
-	for (int i = N-1; i >= 1; i--) {
+	for (int i = N-2; i >= 0; i--) {
 		// at most i guys are in the suffix after this
-		tensor<num, 2> ndp({N+1, i+1});
-		for (int x = 1; x <= A[i-1]; x++) {
-			for (int y = std::max(1, x-1); y <= N; y++) {
-				for (int a = 0; a <= i+1; a++) {
-					assert(x <= y+1);
-					if (x == y+1) {
-						if (a == i+1) {
-							std::cerr << "bad path " << i << ' ' << x << ' ' << y << ' ' << a << '\n';
+		tensor<num, 3> ndp({N, i+1, i+1});
+		for (int x = 0; x < A[i-1]; x++) {
+			for (int y = std::max(0, x-1); y < N; y++) {
+				ndp[{x, 0, 0}] += dp[{y, 0, 0}];
+				for (int a = 1; a <= i+1; a++) {
+					for (int cut = 0; cut < a; cut++) {
+						num v = dp[{y, a, cut}];
+						if (x == y+1) {
+							if (a == i+1) {
+								// bad
+								continue;
+							} else {
+								ndp[{x, a, cut}] += v;
+							}
 						} else {
-							ndp[{x, a}] += dp[{y, a}];
+							assert(x < y+1);
+							int na = a-1;
+							int ncut = std::max(cut, a - (x + 1));
+							// the last a-1 of y are
+							if (ncut >= na) na = ncut = 0;
+							ndp[{x, na, ncut}] += v;
 						}
-					} else {
-						assert(x < y+1);
-						ndp[{x, std::max(0, a-1)}] += dp[{y, a}];
 					}
 				}
 			}
@@ -431,10 +439,8 @@ int main() {
 		dp = std::move(ndp);
 	}
 	num ans = 0;
-	for (int x = 1; x <= N; x++) {
-		for (int a = 0; a <= 1; a++) {
-			ans += dp[{x, a}];
-		}
+	for (int x = 0; x < N; x++) {
+		ans += dp[{x, 0, 0}];
 	}
 	std::cout << ans << '\n';
 
