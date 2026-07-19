@@ -1602,7 +1602,9 @@ int main() {
 		ways_groups[K] = dp[{N, 0}];
 	}
 
-	for (auto g : ways_groups) { std::cerr << g << ' '; } std::cerr << '\n';
+	if (false) {
+		for (auto g : ways_groups) { std::cerr << g << ' '; } std::cerr << '\n';
+	}
 
 	// Now, we want all groups to be nonempty
 	for (int g = 1; g <= N; g++) {
@@ -1618,7 +1620,9 @@ int main() {
 		}
 	}
 
-	for (auto g : ways_groups) { std::cerr << g << ' '; } std::cerr << '\n';
+	if (false) {
+		for (auto g : ways_groups) { std::cerr << g << ' '; } std::cerr << '\n';
+	}
 	for (int g = 1; g <= N; g++) std::cout << ways_groups[g] << " \n"[g==N];
 
 	return 0;
