@@ -159,6 +159,7 @@ int main() {
 				if (par[a] > par[b]) std::swap(a, b);
 
 				ans += num(int64_t(freq[a]) * int64_t(freq[b])) * num(w);
+				std::cerr << freq[a] << ' ' << freq[b] << ' ' << w << '\n';
 
 				par[a] += par[b];
 				par[b] = a;
