@@ -127,7 +127,6 @@ int main() {
 				a = get_par(a), b = get_par(b);
 				assert(a != b);
 				if (par[a] > par[b]) std::swap(a, b);
-				std::cerr << "merge " << label[a] << ' ' << label[b] << ' ' << N+e << ' ' << w << '\n';
 
 				// Dirty trick: smuggle the sz in the first parameter
 				cuts[label[a]] = {w * (-par[b]), {-par[a], N+e}};
@@ -139,9 +138,6 @@ int main() {
 			}
 
 			// Now, fill in the cut costs all the way
-			for (int i = 0; i < 2 * (N-1); i++) {
-				std::cerr << "cut " << cuts[i].w << ' ' << cuts[i].v[0] << ' ' << cuts[i].v[1] << '\n';
-			}
 			for (int i = 2*(N-1) - 1; i >= 0; i--) {
 				int ng = cuts[i].v[1];
 				assert(ng > i);
@@ -150,7 +146,6 @@ int main() {
 			for (int i = 0; i < 2 * (N-1); i++) {
 				cuts[i].w = int64_t(std::min<__int128_t>(__int128_t(cuts[i].w) * cuts[i].v[0], MAX_W));
 				cuts[i].v[0] = i;
-				std::cerr << "cut " << cuts[i].w << ' ' << cuts[i].v[0] << ' ' << cuts[i].v[1] << '\n';
 			}
 		}
 		assert(int(cuts.size()) == 2*(N-1));
@@ -176,7 +171,6 @@ int main() {
 				if (par[a] > par[b]) std::swap(a, b);
 
 				ans += num(int64_t(freq[a]) * int64_t(freq[b])) * num(w);
-				std::cerr << freq[a] << ' ' << freq[b] << ' ' << w << '\n';
 
 				par[a] += par[b];
 				par[b] = a;
