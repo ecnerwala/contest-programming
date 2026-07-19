@@ -1530,8 +1530,9 @@ int main() {
 			for (int j = 0; i+j <= N-1; j++) {
 				num v = 0;
 				for (int k = 0; k < K; k++) {
-					v += power(num(k), i) * power(num(k+1), j) * fact[i+j];
+					v += power(num(k), i) * power(num(k+1), j);
 				}
+				v *= fact[i+j];
 				claim_ways[{i, j}] = v * ifact[i] * ifact[j];
 			}
 		}
