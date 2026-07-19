@@ -135,7 +135,6 @@ int main() {
 				par[a] += par[b];
 				par[b] = a;
 				label[a] = N+e;
-				sz[N+e] = -par[a];
 			}
 
 			// Now, fill in the cut costs all the way
