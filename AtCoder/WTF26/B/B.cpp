@@ -418,6 +418,7 @@ int main() {
 					if (x == y+1) {
 						if (a <= i) ndp[{x, a}] += dp[{y, a}];
 					} else {
+						assert(x < y+1);
 						ndp[{x, std::max(0, a-1)}] += dp[{y, a}];
 					}
 				}
