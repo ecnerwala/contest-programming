@@ -1542,6 +1542,7 @@ int main() {
 		dp[{0, 0}] = 1;
 		for (int cur = 0; cur < N; cur++) {
 			num cur_A = A[cur] + 1;
+			std::cerr << "cur " << cur << " " << cur_A << '\n';
 			tensor<num, 2> ndp({cur+2, N-cur});
 			std::vector<num> mul_a((2*cur + 1) * (2 * (N-cur-1) + 1) / 2 + 1);
 			std::vector<num> mul_b((2*cur + 1) * (2 * (N-cur-1) + 1) / 2 + 1);
@@ -1558,6 +1559,13 @@ int main() {
 					mul_b[i + (2*cur+1) * j] = dp[{i, j}];
 				}
 			}
+			for (int i = 0; i <= cur+1; i++) {
+				for (int j = 0; j <= N-1-cur; j++) {
+					std::cerr << ndp[{i, j}] * fact[i] * fact[j] << ' ';
+				}
+				std::cerr << '\n';
+			}
+			std::cerr << '\n';
 			auto res = ecnerwala::fft::fft_multiply(mul_a, mul_b);
 			for (int i = 0; i <= cur; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
@@ -1565,14 +1573,14 @@ int main() {
 				}
 			}
 			// We want to count the number of unclaimed cells
-			dp = std::move(ndp);
 			for (int i = 0; i <= cur+1; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
-					std::cerr << dp[{i, j}] * fact[i] * fact[j] << ' ';
+					std::cerr << ndp[{i, j}] * fact[i] * fact[j] << ' ';
 				}
 				std::cerr << '\n';
 			}
 			std::cerr << '\n';
+			dp = std::move(ndp);
 		}
 		ways_groups[K] = dp[{N, 0}] * fact[N];
 	}
