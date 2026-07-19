@@ -1581,7 +1581,7 @@ int main() {
 			ways_groups[g] -= ways_groups[h] * fact[N-h] * ifact[N-g] * ifact[g-h];
 		}
 	}
-	for (auto g : ways_groups) std::cerr << g << '\n';
+	for (auto g : ways_groups) { std::cerr << g << ' '; std::cerr << '\n'; }
 	for (int g = 1; g <= N; g++) std::cout << ways_groups[g] << " \n"[g==N];
 
 	return 0;
