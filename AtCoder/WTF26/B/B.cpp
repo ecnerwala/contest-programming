@@ -414,6 +414,7 @@ int main() {
 		for (int x = 1; x <= A[i-1]; x++) {
 			for (int y = std::max(1, x-1); y <= N; y++) {
 				for (int a = 0; a <= i+1; a++) {
+					assert(x >= y-1);
 					if (y == x-1) {
 						if (a <= i) ndp[{x, a}] += dp[{y, a}];
 					} else {
