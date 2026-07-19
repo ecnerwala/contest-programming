@@ -1508,7 +1508,7 @@ int main() {
 
 	int N; std::cin >> N;
 	std::vector<int> A(N);
-	for (auto& a : A) { std::cin >> a; a++; }
+	for (auto& a : A) { std::cin >> a; }
 	assert(std::is_sorted(A.begin(), A.end()));
 
 	using num = modnum<998244353>;
@@ -1539,7 +1539,7 @@ int main() {
 		tensor<num, 2> dp({1, N+1});
 		dp[{0, 0}] = 1;
 		for (int cur = 0; cur < N; cur++) {
-			num cur_A = A[cur];
+			num cur_A = A[cur] + 1;
 			tensor<num, 2> ndp({cur+2, N-cur});
 			std::vector<num> mul_a((2*cur + 1) * (2 * (N-cur-1) + 1) / 2 + 1);
 			std::vector<num> mul_b((2*cur + 1) * (2 * (N-cur-1) + 1) / 2 + 1);
