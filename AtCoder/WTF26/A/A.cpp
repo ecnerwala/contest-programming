@@ -112,7 +112,6 @@ int main() {
 		{
 			std::vector<int> par(N, -1);
 			std::vector<int> label(N); std::ranges::iota(label, 0);
-			std::vector<int> sz(2*N-1, 0); std::ranges::fill(sz.begin(), sz.begin() + N, 1);
 			auto get_par = [&](int a) -> int {
 				while (par[a] >= 0) {
 					if (par[par[a]] >= 0) {
@@ -129,8 +128,9 @@ int main() {
 				assert(a != b);
 				if (par[a] > par[b]) std::swap(a, b);
 
-				cuts[label[a]] = {w * (-par[b]), {label[a], N+e}};
-				cuts[label[b]] = {w * (-par[a]), {label[b], N+e}};
+				// Dirty trick: smuggle the sz in the first parameter
+				cuts[label[a]] = {w * (-par[b]), {-par[a], N+e}};
+				cuts[label[b]] = {w * (-par[a]), {-par[b], N+e}};
 
 				par[a] += par[b];
 				par[b] = a;
@@ -140,13 +140,13 @@ int main() {
 
 			// Now, fill in the cut costs all the way
 			for (int i = 2*(N-1) - 1; i >= 0; i--) {
-				assert(cuts[i].v[0] == i);
 				int ng = cuts[i].v[1];
 				assert(ng > i);
 				cuts[i].w += ng == 2 * (N-1) ? 0 : cuts[ng].w;
 			}
 			for (int i = 0; i < 2 * (N-1); i++) {
-				cuts[i].w = int64_t(std::min<__int128_t>(__int128_t(cuts[i].w) * sz[i], MAX_W));
+				cuts[i].w = int64_t(std::min<__int128_t>(__int128_t(cuts[i].w) * cuts[i].v[0], MAX_W));
+				cuts[i].v[0] = i;
 			}
 		}
 		assert(int(cuts.size()) == 2*(N-1));
