@@ -139,6 +139,9 @@ int main() {
 			}
 
 			// Now, fill in the cut costs all the way
+			for (int i = 0; i < 2 * (N-1); i++) {
+				std::cerr << "cut " << cuts[i].w << ' ' << cuts[i].v[0] << ' ' << cuts[i].v[1] << '\n';
+			}
 			for (int i = 2*(N-1) - 1; i >= 0; i--) {
 				int ng = cuts[i].v[1];
 				assert(ng > i);
