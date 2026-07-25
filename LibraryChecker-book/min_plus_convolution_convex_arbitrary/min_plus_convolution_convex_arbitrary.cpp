@@ -14,7 +14,7 @@ int main() {
 	const int INF = *std::max_element(A.begin(), A.end()) + *std::max_element(B.begin(), B.end()) + 1;
 	auto res = smawk::smawk(N+M-1, M, [&](int row, int col) -> int {
 		int i = row - col;
-		return i < 0 ? INF + (~i) : i >= N ? INF + M + (i-N) : (A[i] + B[col]);
+		return i < 0 ? INF + M + (~i) : i >= N ? INF + (i-N) : (A[i] + B[col]);
 	}, [&]([[maybe_unused]] int row, smawk::value_t<int> col1, smawk::value_t<int> col2) -> bool {
 		return col1.v < col2.v;
 	});
