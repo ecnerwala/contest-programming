@@ -18,7 +18,7 @@ int main() {
 		std::cerr << row << ' ' << col << ' ' << res << '\n';
 		return res;
 	}, [&]([[maybe_unused]] int row, smawk::value_t<int> col1, smawk::value_t<int> col2) -> bool {
-		return col1.v < col2.v;
+		return col1.v < col2.v ? 0 : 1;
 	});
 	for (int i = 0; i < N+M-1; i++) {
 		std::cout << res[i].v << " \n"[i+1==N+M-1];
