@@ -22,12 +22,12 @@ int main() {
 		if (int(res.size()) == N) {
 			std::cout << "Yes" << '\n';
 
-			std::vector<int> P(N);
+			std::vector<int> pos(N);
 			for (int i = 0; i < N; i++) {
-				P[res[i]] = i;
+				pos[res[i]] = i;
 			}
 			for (int i = 0; i < N; i++) {
-				std::cout << res[i] << " \n"[i+1==N];
+				std::cout << pos[i] << " \n"[i+1==N];
 			}
 		} else {
 			std::cout << "No" << '\n';
