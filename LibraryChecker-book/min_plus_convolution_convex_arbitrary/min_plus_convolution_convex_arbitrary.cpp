@@ -15,7 +15,7 @@ int main() {
 	auto res = smawk::smawk(N+M-1, M, [&](int row, int col) -> int {
 		int i = row - col;
 		return i < 0 ? MAX_VAL + 2 : i >= N ? MAX_VAL + 1 : (A[i] + B[col]);
-	}, [&](int row, smawk::value_t<int> col1, smawk::value_t<int> col2) -> bool {
+	}, [&]([[maybe_unused]] int row, smawk::value_t<int> col1, smawk::value_t<int> col2) -> bool {
 		return col1.v < col2.v;
 	});
 	for (int i = 0; i < N+M-1; i++) {
