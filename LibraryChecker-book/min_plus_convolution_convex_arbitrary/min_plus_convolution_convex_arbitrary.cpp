@@ -9,8 +9,8 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	int N, M; std::cin >> N >> M;
-	std::vector<int> A(N);
-	std::vector<int> B(M);
+	std::vector<int> A(N); for (auto& a : A) std::cin >> a;
+	std::vector<int> B(M); for (auto& b : B) std::cin >> b;
 	const int MAX_VAL = *std::max_element(A.begin(), A.end()) + *std::max_element(B.begin(), B.end());
 	auto res = smawk::smawk(N+M-1, M, [&](int row, int col) -> int {
 		int i = row - col;
