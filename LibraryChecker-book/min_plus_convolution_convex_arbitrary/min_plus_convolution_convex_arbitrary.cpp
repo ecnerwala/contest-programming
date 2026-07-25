@@ -16,6 +16,7 @@ int main() {
 		int i = row - col;
 		int res = i < 0 ? INF + M + (~i) : i >= N ? INF + (i-N) : (A[i] + B[col]);
 		std::cerr << row << ' ' << col << ' ' << res << '\n';
+		return res;
 	}, [&]([[maybe_unused]] int row, smawk::value_t<int> col1, smawk::value_t<int> col2) -> bool {
 		return col1.v < col2.v;
 	});
