@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 
 class PermTree {
 	// The tree is "left-associative": INCR/DECR nodes are structured as (1 INCR 2) INCR 3...
