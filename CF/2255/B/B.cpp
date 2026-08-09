@@ -257,15 +257,18 @@ int main() {
 
 		num ans = 1;
 		std::array<int, 2> cnt{0, 0};
+		std::array<int, 2> cnt_slots{0, 0};
 		// The first and last never change
 		for (int i = 0, j = 0; i < N; i = j) {
 			while (j < N && S[i] == S[j]) j++;
-			std::cerr << S[i] << ' ' << j-i-1 << '\n';
-			ans /= fact(j - i - 1);
-			cnt[S[i]-'0'] += j - i - 1;
+			cnt[S[i]-'0'] += j - i;
+			cnt_slots[S[i]-'0'] ++;
 		}
-		ans *= fact(cnt[0]);
-		ans *= fact(cnt[1]);
+		for (int z = 0; z < 2; z++) {
+			if (cnt_slots[z] > 0) {
+				ans *= choose(cnt[z] - cnt_slots[z], cnt_slots[z] - 1);
+			}
+		}
 		std::cerr << '\n';
 		std::cout << ans << '\n';
 	}
