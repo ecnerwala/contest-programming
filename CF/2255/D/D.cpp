@@ -17,7 +17,7 @@ int main() {
 		for (int i = 0; i <= B; i++) {
 			if (freq[i]) {
 				ans = std::max(ans, freq[i] + i);
-				freq[i+1] += freq[i] - 1;
+				if (i < B) freq[i+1] += freq[i] - 1;
 			}
 		}
 		assert(ans >= N);
