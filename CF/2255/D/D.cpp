@@ -29,7 +29,7 @@ int main() {
 			for (auto a : std::span(A.begin(), A.end() - num_bigs)) {
 				pq.push(a);
 			}
-			for (int i = std::min(B-1, t-1); i >= 0; i--) {
+			for (int i = std::min(B-1, t-1); i >= 0 && !pq.empty(); i--) {
 				int v = pq.top(); pq.pop();
 				v -= (1 << i);
 				if (v > 0) pq.push(v);
