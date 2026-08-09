@@ -255,19 +255,17 @@ int main() {
 			return fact(a+b) / (fact(a) * fact(b));
 		};
 
+		num ans = 1;
 		std::array<int, 2> cnt{0, 0};
 		// The first and last never change
-		if (S.front() == S.back()) {
-			for (int i = 1; i+1 < N; i++) cnt[S[i]-'0']++;
-		} else {
-			// if they never cross it's just 1
-			if (std::is_sorted(S.begin(), S.end()) || std::is_sorted(S.begin(), S.end(), std::greater())) {
-				// do nothing
-			} else {
-				for (int i = 1; i+1 < N; i++) cnt[S[i]-'0']++;
-			}
+		for (int i = 0, j = 0; i < N; i = j) {
+			while (j < N && S[i] == S[j]) j++;
+			ans /= fact(j - i - 1);
+			cnt[S[i]-'0'] += j - i - 1;
 		}
-		std::cout << choose(cnt[0], cnt[1]) << '\n';
+		ans *= fact(cnt[0]);
+		ans *= fact(cnt[1]);
+		std::cout << ans << '\n';
 	}
 
 	return 0;
