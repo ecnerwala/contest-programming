@@ -1608,8 +1608,9 @@ int main() {
 		ps ways = v2 * ps_inv(trns);
 		for (int k = 0; k <= N/2; k++) {
 			num a = ways[k] * ifact[N-2*k];
-			std::cerr << a << '\n';
+			std::cerr << a << ' ';
 		}
+		std::cerr << '\n';
 	}
 
 	return 0;
