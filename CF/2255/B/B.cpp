@@ -260,11 +260,13 @@ int main() {
 		// The first and last never change
 		for (int i = 0, j = 0; i < N; i = j) {
 			while (j < N && S[i] == S[j]) j++;
+			std::cerr << S[i] << ' ' << j-i-1 << '\n';
 			ans /= fact(j - i - 1);
 			cnt[S[i]-'0'] += j - i - 1;
 		}
 		ans *= fact(cnt[0]);
 		ans *= fact(cnt[1]);
+		std::cerr << '\n';
 		std::cout << ans << '\n';
 	}
 
