@@ -269,7 +269,6 @@ int main() {
 				ans *= choose(cnt[z] - cnt_slots[z], cnt_slots[z] - 1);
 			}
 		}
-		std::cerr << '\n';
 		std::cout << ans << '\n';
 	}
 
