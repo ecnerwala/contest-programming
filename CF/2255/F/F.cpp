@@ -1605,12 +1605,15 @@ int main() {
 		ps trns(N/2+1);
 		for (int k = 0; k <= N/2; k++) v2[k] = vieta[k] * vieta[N-k] * fact[N-2*k];
 		for (int d = 0; d <= N/2; d++) trns[d] = ifact[d] * ifact[d];
+		for (int k = 0; k <= N/2; k++) { std::cerr << vieta[k] * vieta[N-k] << ' '; } std::cerr << '\n';
 		ps ways = v2 * ps_inv(trns);
+		num ans = 0;
 		for (int k = 0; k <= N/2; k++) {
 			num a = ways[k] * ifact[N-2*k];
 			std::cerr << a << ' ';
 		}
 		std::cerr << '\n';
+		std::cout << ans / num(N) << '\n';
 	}
 
 	return 0;
