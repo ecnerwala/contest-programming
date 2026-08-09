@@ -1597,9 +1597,19 @@ int main() {
 		using E = ecnerwala::fft::engines::ntt<num>;
 		// just reverse them for convenience
 		for (auto& a : A) a = -a;
-		auto tree = ecnerwala::poly::subproduct_tree<E>(A).prod(1).rev_series();
-		for (int i = 0; i <= N; i++) { std::cerr << tree[i] << ' '; } std::cerr << '\n';
+		auto vieta = ecnerwala::poly::subproduct_tree<E>(A).prod(1).rev_series();
 
+		// v2[k] * fact[N-2k] = sum_a <= k ways[a] * fact[N-2a] / (fact[k-a])^2
+		using ps = ecnerwala::series::trunc<E>;
+		ps v2(N/2+1);
+		ps trns(N/2+1);
+		for (int k = 0; k <= N/2; k++) v2[k] = vieta[k] * vieta[N-k] * fact[N-2*k];
+		for (int d = 0; d <= N/2; d++) trns[d] = ifact[d] * ifact[d];
+		ps ways = v2 * ps_inv(trns);
+		for (int k = 0; k <= N/2; k++) {
+			num a = ways[k] * ifact[N-2*k];
+			std::cerr << a << '\n';
+		}
 	}
 
 	return 0;
