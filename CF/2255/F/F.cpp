@@ -9,7 +9,6 @@
 #pragma GCC diagnostic ignored "-Wunknown-warning-option"
 #pragma GCC diagnostic ignored "-Wmisleading-indentation"
 #pragma GCC diagnostic ignored "-Wmultistatement-macros"
-#include <bits/stdc++.h>
 #include <cassert>
 // src/fft/common.hpp
 namespace ecnerwala{
