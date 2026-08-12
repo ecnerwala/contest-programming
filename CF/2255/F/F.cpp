@@ -1919,12 +1919,16 @@ int main() {
 		// (we want sum of ways[a] * fact[N]/fact[2*a]/fact[N-2*a] * fact[a] * fact[a] * 2)
 		// (src: Devin)
 		// We can actually compute ways[a] now:
-		// We can rewrite
+		// We can write this relation as
 		// sum_k v2[k] s^k = sum_a ways[a] * s^a * (1+s)^(N-2a)
-		// Then, computing the GF of ways[a] is just an inverse change of variables. Let y = s / (1+s)^2
-		// sum ways[a] * y^a = (1+s)^{-N} * sum__k v2[k] s^k
-		// y = s / (1+s)^2 => (1+s) = 1 + (1+s)^2 * y => 1+s = catalan(y)
+		// Then, computing the GF of ways[a] is just an inverse change of variables.
+		// Let y = s / (1+s)^2. Then,
+		//   sum ways[a] * y^a = (1+s)^{-N} * sum__k v2[k] s^k
+		//
+		// To write s in terms of y:
+		//   y = s / (1+s)^2 => (1+s) = 1 + (1+s)^2 * y => 1+s = catalan(y)
 		// Thus, we just want poly_compose on catalan
+
 		using ps = ecnerwala::series::trunc<E>;
 		ps v2(N/2+1);
 		for (int k = 0; k <= N/2; k++) v2[k] = vieta[k] * vieta[N-k];
