@@ -1937,6 +1937,7 @@ int main() {
 		ps catalan1 = catalan; catalan1[0] = 0;
 		ps ways = ps_compose(v2, catalan1) * ps_pow_monic(catalan, -N);
 		num ans = 0;
+		for (int k = 0; k <= N/2; k++) { std::cerr << ways[k] << ' '; } std::cerr << '\n';
 		for (int k = 0; k <= N/2; k++) {
 			ans += ways[k] * fact[N] * ifact[2*k] * ifact[N-2*k] * fact[k] * fact[k] * 2;
 		}
