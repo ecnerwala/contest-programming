@@ -9,6 +9,7 @@
 #pragma GCC diagnostic ignored "-Wunknown-warning-option"
 #pragma GCC diagnostic ignored "-Wmisleading-indentation"
 #pragma GCC diagnostic ignored "-Wmultistatement-macros"
+#include <bits/stdc++.h>
 #include <cassert>
 // src/fft/common.hpp
 namespace ecnerwala{
@@ -515,7 +516,7 @@ concept has_cache_opt=like<S>&&requires(const S&s){
 };
 namespace detail{
 template<like S>
-std::optional<std::reference_wrapper<fft::transformed<typename S::engine_t>>>cache_opt_of(const S&s){
+std::optional<std::reference_wrapper<fft::transformed<typename S::engine_t>>>cache_of(const S&s){
 if constexpr(has_cache<S>)return s.cache();
 else if constexpr(has_cache_opt<S>)return s.cache_opt();
 else return std::nullopt;
@@ -532,7 +533,7 @@ explicit maybe_cached(span<E,exact_>s_):s(s_){}
 maybe_cached(span<E,exact_>s_,fft::transformed<E>&f_):s(s_),f(f_){}
 maybe_cached(cached_span<E,exact_>c):s(c.s),f(c.f){}
 template<like S>requires std::same_as<typename S::engine_t,E>&&(S::exact_v==exact_)
-maybe_cached(const S&o):s(o),f(detail::cache_opt_of(o)){}
+maybe_cached(const S&o):s(o),f(detail::cache_of(o)){}
 int len()const{return s.len();}
 const T&operator[](int i)const{return s[i];}
 operator std::span<const T>()const{return s.coeffs();}
@@ -541,45 +542,44 @@ maybe_cached first(int n)const{
 return n==len()?*this:maybe_cached(s.first(n));
 }
 std::optional<std::reference_wrapper<fft::transformed<E>>>cache_opt()const{return f;}
-cached_span<E,exact_>cache_or(fft::transformed<E>&tmp)const{
-return{s,f?f->get():tmp};
-}
 };
 template<fft::engine E,bool exact_>
 maybe_cached<E,exact_>cached_span<E,exact_>::first(int n)const{
 return maybe_cached<E,exact_>(*this).first(n);
 }
-template<like S>
-struct zero_extended{
-using E=typename S::engine_t;
+template<fft::engine E>
+struct resized{
 using T=typename E::value_type;
 using engine_t=E;
 static constexpr bool exact_v=false;
-S s;
-int n;
-int len()const{return n;}
-const T&operator[](int i)const{
-static const T zero{};
-return i<s.len()?s[i]:zero;
-}
+trunc<E>s;
+std::optional<std::reference_wrapper<fft::transformed<E>>>f;
+int len()const{return s.len();}
+const T&operator[](int i)const{return s[size_t(i)];}
 operator std::span<const T>()const{return std::span<const T>(s);}
-operator span<E,false>()const{return span<E,S::exact_v>(s);}
-auto first(int k)const{
-assert(0<=k&&k<=n);
-return zero_extended<decltype(s.first(k))>{s.first(std::min(k,s.len())),k};
+operator span<E,false>()const{return s;}
+maybe_cached<E,false>first(int n)const{
+span<E,false>v=s;
+if(n==len()&&f)return{v,f->get()};
+return maybe_cached<E,false>(v.first(n));
 }
-std::optional<std::reference_wrapper<fft::transformed<E>>>cache_opt()const{
-return detail::cache_opt_of(s);
-}
+std::optional<std::reference_wrapper<fft::transformed<E>>>cache_opt()const{return f;}
 };
 template<like S>
-auto with_len(const S&s,int n){
-return zero_extended<decltype(s.first(n))>{s.first(std::min(n,s.len())),n};
+resized<typename S::engine_t>with_len(const S&s,int n){
+using E=typename S::engine_t;
+using T=typename E::value_type;
+auto p=s.first(std::min(n,s.len()));
+resized<E>r;
+r.s.assign(size_t(n),T{});
+std::span<const T>pc(p);
+std::copy(pc.begin(),pc.end(),r.s.begin());
+r.f=detail::cache_of(p);
+return r;
 }
 template<typename S>
-concept has_prefix_cache=like<S>&&!S::exact_v&&!has_cache<S>&&!has_cache_opt<S>
-&&requires(const S&s,int n){
-{s.first(n)}->has_cache_opt;
+concept has_prefix_cache=like<S>&&!S::exact_v&&requires(const S&s,int n){
+{s.prefix_cache(n)}->std::same_as<fft::transformed<typename S::engine_t>&>;
 };
 template<fft::engine E,bool exact_>
 struct cached{
@@ -614,7 +614,7 @@ template<fft::engine E>using cached_trunc=cached<E,false>;
 namespace detail{
 template<like S>
 cached_span<typename S::engine_t,S::exact_v>as_cached_span(const S&s,fft::transformed<typename S::engine_t>&tmp){
-auto co=cache_opt_of(s);
+auto co=cache_of(s);
 return{s,co?co->get():tmp};
 }
 }
@@ -709,7 +709,7 @@ return s.first(std::min(s.len(),nextPow2(prec)));
 }else{
 span<E,S::exact_v>v=s;
 int used=std::min(v.len(),prec);
-if(auto co=cache_opt_of(s)){
+if(auto co=cache_of(s)){
 if(s.len()<=prec||fft::detail::conv_size_for(s.len()+prec-1).n
 ==fft::detail::conv_size_for(2*prec-1).n){
 return cached_span<E,S::exact_v>{v,co->get()};
@@ -802,6 +802,7 @@ int n=nextPow2(k);
 if(std::min(n,len())==k)return{v,prefix_cache(n)};
 return maybe_cached<E,false>(v);
 }
+fft::transformed<E>&cache()const{return prefix_cache(nextPow2(len()));}
 fft::transformed<E>&prefix_cache(int n)const{
 assert(n>0&&!(n&(n-1)));
 int k=__builtin_ctz(unsigned(n));
@@ -934,23 +935,6 @@ bool operator==(const A&a,const B&b){
 return a.rev_series()==b.rev_series();
 }
 template<fft::engine E>
-std::pair<vec<E>,vec<E>>divmod(const vec<E>&a,const vec<E>&d){
-using T=typename E::value_type;
-assert(d.len()>0&&d.leading()!=T(0));
-int L=a.len()-d.len()+1;
-if(L<=0)return{vec<E>{},a};
-series::cached_exact<E>revd(d.rev_series());
-series::trunc<E>invd=ps_inv(series::with_len(revd,L));
-vec<E>q=vec<E>::from_rev_series(series::exact<E>(a.rev_series()*invd));
-vec<E>r=a-vec<E>(cached<E>::from_rev_series(revd*q.rev_series()));
-r.resize(d.len()-1);
-return{std::move(q),std::move(r)};
-}
-template<fft::engine E>
-vec<E>operator/(const vec<E>&a,const vec<E>&d){return divmod(a,d).first;}
-template<fft::engine E>
-vec<E>operator%(const vec<E>&a,const vec<E>&d){return divmod(a,d).second;}
-template<fft::engine E>
 struct form{
 using T=typename E::value_type;
 series::cached_exact<E>c;
@@ -1075,6 +1059,340 @@ form<E>::from_rev_series(series::exact<E>(ps_inv(root)*deriv_root))
 std::vector<T>leaf_vals(size_t(N),T{});
 for(int i=0;i<N;i++)leaf_vals[i]=vals[i]/denoms[i];
 return tree.combine_up(std::span<const T>(leaf_vals));
+}
+}
+// src/fft/series.hpp
+namespace ecnerwala::series{
+template<like S>
+vec<typename S::engine_t,S::exact_v>stretch(const S&a_,int n){
+using E=typename S::engine_t;
+span<E,S::exact_v>a=a_;
+vec<E,S::exact_v>r(size_t(a.len()));
+for(int i=0;i*n<a.len();i++){
+r[i*n]=a[i];
+}
+return r;
+}
+template<like S>
+vec<typename S::engine_t,S::exact_v>deriv_shift(const S&a_){
+using E=typename S::engine_t;
+span<E,S::exact_v>a=a_;
+vec<E,S::exact_v>r(a.begin(),a.end());
+for(int i=0;i<r.len();i++){
+r[i]*=i;
+}
+return r;
+}
+template<like S>
+vec<typename S::engine_t,S::exact_v>integ_shift(const S&a_){
+using E=typename S::engine_t;
+using T=typename E::value_type;
+span<E,S::exact_v>a=a_;
+assert(a[0]==0);
+vec<E,S::exact_v>r(a.begin(),a.end());
+T f=1;
+for(int i=1;i<r.len();i++){
+r[i]*=f;
+f*=i;
+}
+f=inv(f);
+for(int i=r.len()-1;i>0;i--){
+r[i]*=f;
+f*=i;
+}
+return r;
+}
+template<like S>
+vec<typename S::engine_t,S::exact_v>integ_shift_offset(const S&a_,int offset){
+using E=typename S::engine_t;
+using T=typename E::value_type;
+span<E,S::exact_v>a=a_;
+vec<E,S::exact_v>r(a.begin(),a.end());
+T f=1;
+for(int i=0;i<r.len();i++){
+r[i]*=f;
+f*=i+offset;
+}
+assert(f!=0);
+f=inv(f);
+for(int i=r.len()-1;i>=0;i--){
+r[i]*=f;
+f*=i+offset;
+}
+return r;
+}
+template<trunc_like S>
+trunc<typename S::engine_t>deriv_shift_log(const S&a){
+return deriv_shift(a)*ps_inv(a);
+}
+template<trunc_like S>
+trunc<typename S::engine_t>ps_log(const S&a){
+assert(a[0]==1);
+return integ_shift(deriv_shift_log(a));
+}
+template<trunc_like S>
+trunc<typename S::engine_t>ps_exp(const S&a_){
+using E=typename S::engine_t;
+using T=typename E::value_type;
+span<E,false>a=a_;
+assert(a.len()>=1);
+assert(a[0]==0);
+trunc<E>r(1,T(1));r.reserve(size_t(a.len()));
+trunc<E>invR(1,T(1));invR.reserve(size_t(a.len()));
+while(r.len()<a.len()){
+int o_sz=r.len();
+int n_sz=std::min(o_sz*2,a.len());
+trunc<E>t=deriv_shift(trunc<E>(a.begin(),a.begin()+o_sz));
+fft::multiply_circular<E>(std::span<const T>(t),std::span<const T>(r).first(o_sz),std::span<T>(t),o_sz);
+t=deriv_shift(r)-t;
+t*=invR;
+t.resize(size_t(n_sz-o_sz));
+trunc<E>v(a.begin()+o_sz,a.begin()+n_sz);
+v-=integ_shift_offset(t,o_sz);
+v*=r;
+r.resize(size_t(n_sz));
+std::copy(v.begin(),v.end(),r.begin()+o_sz);
+if(r.len()<a.len()){
+assert(r.len()==2*invR.len());
+int n=invR.len();
+int nn=r.len();
+trunc<E>tmp(size_t(4)*n);
+fft::square<E>(std::span<const T>(invR).first(n),std::span<T>(tmp));
+fft::multiply<E>(std::span<const T>(tmp).first(nn),std::span<const T>(r).first(nn),std::span<T>(tmp));
+invR.resize(size_t(nn));
+for(int i=n;i<nn;i++)invR[i]=-tmp[i];
+}
+}
+return r;
+}
+template<trunc_like S>
+trunc<typename S::engine_t>ps_pow_monic(const S&a_,typename S::engine_t::value_type k){
+using E=typename S::engine_t;
+span<E,false>a=a_;
+if(a.len()==0)return{};
+assert(a[0]==1);
+trunc<E>l=ps_log(a_);
+l*=k;
+return ps_exp(l);
+}
+template<trunc_like S>
+trunc<typename S::engine_t>ps_pow(const S&a_,int64_t k){
+using E=typename S::engine_t;
+using T=typename E::value_type;
+span<E,false>a=a_;
+assert(k>=0);
+if(k==0){
+trunc<E>r(size_t(a.len()),T(0));
+if(r.len()>0)r[0]=T(1);
+return r;
+}
+int st=0;
+while(st<a.len()&&a[st]==0)st++;
+if(st>0&&k>(a.len()-1)/st){
+return trunc<E>(size_t(a.len()),T(0));
+}
+trunc<E>r(a.begin()+st,a.end()-(st*(k-1)));
+T leading_coeff=r[0];
+r*=inv(leading_coeff);
+r=ps_pow_monic(r,T(k));
+r*=power(leading_coeff,k);
+r.insert(r.begin(),size_t(st*k),T(0));
+assert(r.len()==a.len());
+return r;
+}
+template<trunc_like S>
+trunc<typename S::engine_t>to_newton_sums(const S&a,int deg){
+auto r=deriv_shift_log(a);
+r[0]=deg;
+for(int i=1;i<r.len();i++)r[i]=-r[i];
+return r;
+}
+template<trunc_like S>
+trunc<typename S::engine_t>from_newton_sums(const S&s_,int deg){
+using E=typename S::engine_t;
+span<E,false>s=s_;
+assert(s[0]==deg);
+trunc<E>r(s.begin(),s.end());
+r[0]=0;
+for(int i=1;i<r.len();i++)r[i]=-r[i];
+return ps_exp(integ_shift(std::move(r)));
+}
+template<trunc_like S>
+trunc<typename S::engine_t>euler_transform(const S&a){
+using E=typename S::engine_t;
+trunc<E>r=deriv_shift(a);
+std::vector<bool>is_prime(size_t(r.len()),true);
+for(int p=2;p<r.len();p++){
+if(!is_prime[p])continue;
+for(int i=1;i*p<r.len();i++){
+r[i*p]+=r[i];
+is_prime[i*p]=false;
+}
+}
+return ps_exp(integ_shift(r));
+}
+template<trunc_like S>
+trunc<typename S::engine_t>inverse_euler_transform(const S&a){
+using E=typename S::engine_t;
+trunc<E>r=deriv_shift(ps_log(a));
+std::vector<bool>is_prime(size_t(r.len()),true);
+for(int p=2;p<r.len();p++){
+if(!is_prime[p])continue;
+for(int i=(r.len()-1)/p;i>=1;i--){
+r[i*p]-=r[i];
+is_prime[i*p]=false;
+}
+}
+return integ_shift(r);
+}
+template<fft::engine E>struct packed_bivariate{
+using T=typename E::value_type;
+int L,l;
+std::vector<T>c;
+packed_bivariate(int L_,std::span<const T>g):L(L_),l(0),c(size_t(4)<<L){
+c[0]=T(1);
+for(int i=0;i<sz(g);i++)c[(2<<L)+i]=-g[i];
+}
+fft::transformed<E>advance(){
+int B=4<<L;
+auto tq=E::transform(std::span<const T>(c),B);
+auto tn=E::negate_arg(tq,B);
+E::finish(E::mul(tq,tn,B),std::span<T>(c));
+l++;
+for(int i=1;i<(2<<L);i++)c[i]=c[2*i];
+for(int i=0;i<(2<<(L-l));i++){
+c[(2<<L)+i]=c[i];
+c[i]=T(0);
+}
+c[2<<L]-=T(1);
+c[0]=T(1);
+std::fill(c.begin()+(2<<L)+(1<<(L-l)),c.end(),T(0));
+for(int i=0;i<(2<<L);i+=2<<(L-l)){
+for(int j=0;j<(1<<(L-l));j++){
+c[i+(1<<(L-l))+j]=T(0);
+}
+}
+return tn;
+}
+};
+template<trunc_like SF,trunc_like SG>requires fft::same_engine<SF,SG>
+trunc<typename SF::engine_t>ps_compose(const SF&f_,const SG&g_){
+using E=typename SF::engine_t;
+using T=typename E::value_type;
+span<E,false>f=f_;
+span<E,false>g=g_;
+if(g.len()==0)return{};
+int m=f.len();
+int n=g.len();
+int L=__builtin_ctz(unsigned(nextPow2(n)));
+int B=4<<L;
+packed_bivariate<E>Q(L,g.coeffs());
+std::vector<fft::transformed<E>>tneg;
+tneg.reserve(L);
+for(int l=1;l<=L;l++)tneg.push_back(Q.advance());
+trunc<E>P;
+{
+P=trunc<E>(f.begin(),f.end());
+std::reverse(P.begin(),P.end());
+trunc<E>QL((1<<L)+1);
+for(int i=0;i<=(1<<L);i++){
+QL[i]=Q.c[2*i];
+}
+QL.resize(size_t(m),T(0));
+P*=ps_inv(QL);
+std::reverse(P.begin(),P.end());
+P.resize(size_t(1)<<L,T(0));
+std::reverse(P.begin(),P.end());
+P.resize(size_t(B),T(0));
+for(int i=(1<<L)-1;i>0;i--){
+P[2*i]=P[i];
+P[i]=T(0);
+}
+}
+for(int l=L-1;l>=0;l--){
+for(int i=(2<<L)-1;i>0;i--){
+T v=P[i];
+P[2*i]=((2*i)&(1<<(L-l)))?T(0):v;
+P[i]=T(0);
+}
+auto tp=E::transform(std::span<const T>(P),B);
+E::finish(E::mul(tneg[l],tp,B),std::span<T>(P));
+for(int i=0;i<(2<<L);i++){
+P[i]=P[(2<<L)+i];
+P[(2<<L)+i]=T(0);
+}
+}
+return trunc<E>(P.begin(),P.begin()+n);
+}
+template<exact_like P,exact_like Q>requires fft::same_engine<P,Q>
+P::engine_t::value_type kth_term_of_rational_function(
+const P&p,
+const Q&q,
+uint64_t k
+){
+using E=P::engine_t;
+using T=E::value_type;
+assert(q.len()>0&&q[0]!=T(0));
+if(p.len()==0)return T(0);
+int d=std::max(p.len()+1,q.len());
+assert(d>=2);
+int n=nextPow2((d-1)+d-1);
+fft::transformed<E>tq,tp;
+if(auto cq=detail::cache_of(q)){E::extend_to(cq->get(),n,q);tq=cq->get();}
+if(auto cp=detail::cache_of(p)){E::extend_to(cp->get(),n,p);tp=cp->get();}
+std::vector<T>p_buf(d-1,T(0));
+std::ranges::copy(std::span<const T>(p),p_buf.begin());
+std::vector<T>q_buf(d,T(0));
+std::ranges::copy(std::span<const T>(q),q_buf.begin());
+while(k>0){
+E::extend_to(tq,n,q_buf);
+auto tnq=E::negate_arg(tq,n);
+E::extend_to(tp,n,p_buf);
+auto ntp=E::downsample(E::mul(tp,tnq,n),n/2,bool(k&1));
+assert(ntp.size()==n/2);
+if constexpr(std::same_as<typename E::product,typename E::transformed>){
+tp=ntp;
+}else{
+tp={};
+}
+E::finish(std::move(ntp),std::span(p_buf));
+k>>=1;
+if(!k){
+q_buf[0]*=q_buf[0];
+break;
+}
+auto ntq=E::downsample(E::mul(tq,tnq,n),n/2,false);
+assert(ntq.size()==n/2);
+if constexpr(std::same_as<typename E::product,typename E::transformed>){
+tq=ntq;
+}else{
+tq={};
+}
+if(n/2==d-1){
+T v0=q_buf[0]*q_buf[0];
+E::finish(std::move(ntq),std::span(q_buf).first(d-1));
+q_buf[d-1]=std::exchange(q_buf[0],v0)-v0;
+}else{
+E::finish(std::move(ntq),std::span(q_buf));
+}
+}
+return p_buf[0]*inv(q_buf[0]);
+}
+template<trunc_like S,exact_like Q>requires fft::same_engine<S,Q>
+S::engine_t::value_type kth_term_of_linear_recurrence(
+const S&s,
+const Q&q,
+uint64_t k
+){
+using E=S::engine_t;
+using T=E::value_type;
+assert(q.len()>0&&q[0]!=T(0));
+assert(s.len()>=q.len()-1);
+fft::transformed<E>tq;
+auto q_cached=detail::as_cached_span(q,tq);
+span<E,false>sv=s;
+auto p=exact<E>(sv.first(q.len()-1)*q_cached);
+return kth_term_of_rational_function(p,q_cached,k);
 }
 }
 // src/modnum.hpp
@@ -1599,17 +1917,26 @@ int main() {
 		for (auto& a : A) a = -a;
 		auto vieta = ecnerwala::poly::subproduct_tree<E>(A).prod(1).rev_series();
 
-		// v2[k] * fact[N-2k] = sum_a <= k ways[a] * fact[N-2a] / (fact[k-a])^2
+		// v2[k] = sum_a <= k ways[a] * fact[N-2*a] / fact[k-a] / fact[N-a-k]
+		// (we want sum of ways[a] * fact[N]/fact[2*a]/fact[N-2*a] * fact[a] * fact[a] * 2)
+		// (src: Devin)
+		// We can actually compute ways[a] now:
+		// We can rewrite
+		// sum_k v2[k] s^k = sum_a ways[a] * s^a * (1+s)^(N-2a)
+		// Then, computing the GF of ways[a] is just an inverse change of variables. Let y = s / (1+s)^2
+		// sum ways[a] * y^a = (1+s)^{-N} * sum__k v2[k] s^k
+		// y = s / (1+s)^2 => (1+s) = 1 + (1+s)^2 * y => 1+s = catalan(y)
+		// Thus, we just want poly_compose on catalan
 		using ps = ecnerwala::series::trunc<E>;
 		ps v2(N/2+1);
-		ps trns(N/2+1);
-		for (int k = 0; k <= N/2; k++) v2[k] = vieta[k] * vieta[N-k] * fact[N-2*k];
-		for (int d = 0; d <= N/2; d++) trns[d] = ifact[d] * ifact[d];
-		for (int k = 0; k <= N/2; k++) { std::cerr << vieta[k] * vieta[N-k] << ' '; } std::cerr << '\n';
-		ps ways = v2 * ps_inv(trns);
+		for (int k = 0; k <= N/2; k++) v2[k] = vieta[k] * vieta[N-k];
+		ps catalan(N/2+1);
+		for (int i = 0; i <= N/2; i++) { catalan[i] = fact[2*i] * ifact[i] * ifact[i+1]; }
+		ps catalan1 = catalan; catalan1[0] = 0;
+		ps ways = ps_compose(v2, catalan1) * ps_pow_monic(catalan, -N);
 		num ans = 0;
 		for (int k = 0; k <= N/2; k++) {
-			num a = ways[k] * ifact[N-2*k];
+			num a = ways[k];
 			std::cerr << a << ' ';
 		}
 		std::cerr << '\n';
