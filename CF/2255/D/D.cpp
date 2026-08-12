@@ -43,11 +43,10 @@ int main() {
 				if (l == i+1) {
 					// note that if freq[l] > 0, we'll fail next iteration anyways
 					int a = min_v[l] - (1 << i);
-					if (a) {
-						int nl = ceil_log_2(a);
-						freq[nl]++;
-						min_v[nl] = std::min(min_v[nl], a);
-					}
+					assert(a);
+					int nl = ceil_log_2(a);
+					freq[nl]++;
+					min_v[nl] = std::min(min_v[nl], a);
 				}
 			}
 		}();
