@@ -10,11 +10,11 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
-		std::vector<int> A(N); for (auto& a : A) std::cin >> a;
 		const int B = 30;
 		std::array<int, B+1> freq; freq.fill(0);
 		std::array<int, B+1> min_v; min_v.fill(1 << B);
-		for (auto a : A) {
+		while (N--) {
+			int a; std::cin >> a;
 			int l = ceil_log_2(a);
 			freq[l]++;
 			min_v[l] = std::min(min_v[l], a);
@@ -30,11 +30,9 @@ int main() {
 				}
 			}
 		}
-		assert(ans >= N);
 		ans -= [&]() -> bool {
 			// see if we can do ans-1
 			int t = ans-1;
-			if (t < N) return false;
 			int l = B;
 			for (int i = t-1; ; i--) {
 				while (l >= 0 && freq[l] == 0) l--;
@@ -46,10 +44,10 @@ int main() {
 				freq[l]--;
 				if (l == i+1) {
 					// note that if freq[l] > 0, we'll fail next iteration anyways
+					if (freq[l]) return false;
 					int a = min_v[l] - (1 << i);
-					assert(a > 0);
 					int nl = ceil_log_2(a);
-					assert(nl <= l);
+					assert(nl < l);
 					freq[nl]++;
 					min_v[nl] = std::min(min_v[nl], a);
 				}
