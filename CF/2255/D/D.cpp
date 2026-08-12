@@ -20,10 +20,14 @@ int main() {
 			min_v[l] = std::min(min_v[l], a);
 		}
 		int ans = 0;
-		for (int i = 0; i <= B; i++) {
-			if (freq[i]) {
-				ans = std::max(ans, freq[i] + i);
-				if (i < B) freq[i+1] += freq[i] - 1;
+		{
+			int cur_freq = 0;
+			for (int i = 0; i <= B; i++) {
+				cur_freq += freq[i];
+				if (cur_freq) {
+					ans = std::max(ans, cur_freq + i);
+					cur_freq--;
+				}
 			}
 		}
 		assert(ans >= N);
