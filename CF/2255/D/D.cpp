@@ -45,6 +45,7 @@ int main() {
 					int a = min_v[l] - (1 << i);
 					assert(a);
 					int nl = ceil_log_2(a);
+					assert(nl <= i);
 					freq[nl]++;
 					min_v[nl] = std::min(min_v[nl], a);
 				}
