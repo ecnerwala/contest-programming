@@ -1936,7 +1936,6 @@ int main() {
 		for (int k = 0; k <= N/2; k++) {
 			ans += ways[k] * fact[N] * ifact[2*k] * ifact[N-2*k] * fact[k] * fact[k] * 2;
 		}
-		std::cerr << '\n';
 		std::cout << ans / num(N) << '\n';
 	}
 
