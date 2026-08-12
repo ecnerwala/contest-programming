@@ -36,10 +36,11 @@ int main() {
 				while (l >= 0 && freq[l] == 0) l--;
 				if (l < 0) return true;
 				assert(l >= 0 && freq[l] > 0);
-				if (l > i) return false;
-				assert(i >= l);
+				if (i == -1) return false;
+				if (l > i+1) return false;
+				assert(i+1 >= l);
 				freq[l]--;
-				if (l == i) {
+				if (l == i+1) {
 					// note that if freq[l] > 0, we'll fail next iteration anyways
 					int a = min_v[l] - (1 << i);
 					if (a) {
