@@ -43,6 +43,7 @@ int main() {
 				if (l == i+1) {
 					// note that if freq[l] > 0, we'll fail next iteration anyways
 					int a = min_v[l] - (1 << i);
+					std::cerr << a << '\n';
 					assert(a);
 					int nl = ceil_log_2(a);
 					assert(nl <= l);
