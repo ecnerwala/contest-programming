@@ -1916,7 +1916,7 @@ int main() {
 		auto vieta = ecnerwala::poly::subproduct_tree<E>(A).prod(1).rev_series();
 
 		// v2[k] = sum_a <= k ways[a] * fact[N-2*a] / fact[k-a] / fact[N-a-k]
-		// (we want sum of ways[a] * fact[N]/fact[2*a]/fact[N-2*a] * fact[a] * fact[a] * 2)
+		// (we want sum of ways[a] * fact[N]/fact[2*a] * fact[a] * fact[a] * 2)
 		// (src: Devin)
 		// We can actually compute ways[a] now:
 		// We can write this relation as
@@ -1937,7 +1937,6 @@ int main() {
 		ps catalan1 = catalan; catalan1[0] = 0;
 		ps ways = ps_compose(v2, catalan1) * ps_pow_monic(catalan, -N);
 		num ans = 0;
-		for (int k = 0; k <= N/2; k++) { std::cerr << ways[k] << ' '; } std::cerr << '\n';
 		for (int k = 0; k <= N/2; k++) {
 			ans += ways[k] * fact[N] * ifact[2*k] * fact[k] * fact[k] * 2;
 		}
