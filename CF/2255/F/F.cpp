@@ -1939,8 +1939,8 @@ int main() {
 		num ans = 0;
 		for (int k = 0; k <= N/2; k++) { std::cerr << ways[k] << ' '; } std::cerr << '\n';
 		for (int k = 0; k <= N/2; k++) {
-			std::cerr << k << ' ' << ways[k] << ' ' << fact[N] * ifact[2*k] * ifact[N-2*k] * fact[k] * fact[k] * 2 << '\n';
-			ans += ways[k] * fact[N] * ifact[2*k] * ifact[N-2*k] * fact[k] * fact[k] * 2;
+			std::cerr << k << ' ' << ways[k] << ' ' << fact[N] * ifact[2*k] * fact[k] * fact[k] * 2 << '\n';
+			ans += ways[k] * fact[N] * ifact[2*k] * fact[k] * fact[k] * 2;
 		}
 		std::cout << ans / num(N) << '\n';
 	}
