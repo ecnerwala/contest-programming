@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <bits/stdc++.h>
 #include <cassert>
 
 // ecnerwala/cp-book
@@ -10,6 +9,8 @@
 #pragma GCC diagnostic ignored "-Wunknown-warning-option"
 #pragma GCC diagnostic ignored "-Wmisleading-indentation"
 #pragma GCC diagnostic ignored "-Wmultistatement-macros"
+#include <bits/stdc++.h>
+#include <cassert>
 // src/fft/common.hpp
 namespace ecnerwala{
 template<class T>int sz(T&&arg){using std::size;return int(size(std::forward<T>(arg)));}
