@@ -1796,6 +1796,7 @@ int main() {
 		std::vector<num> ans(N+1);
 		for (int k = 0; k <= N; k++) {
 			cur *= vals;
+			std::cerr << "base " << cur[N+1] << '\n';
 			ans[k] = cur[N+1] * fact[2*N-1] * ifact[k+1] * ifact[2*N-k-1];
 		}
 		for (int k = N; k >= 0; k--) {
