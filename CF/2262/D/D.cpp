@@ -61,6 +61,7 @@ int main() {
 						if (tgt[tgt[cur]] == -1) {
 							tgt[cur] = cur;
 						} else {
+							assert(A[cur] <= tgt[cur]);
 							return A[cur] < tgt[cur] ? 1 : 2;
 						}
 					}
