@@ -376,9 +376,6 @@ int main() {
 			}
 		}
 		assert(hi == must_include[0]);
-		for (int i = 0; i <= N; i++) std::cerr << cnt[i] << ' ' << must_include[i] << ' ' << ways[i] << '\n';
-		std::cerr << '\n';
-
 		std::cout << tot << '\n';
 	}
 
