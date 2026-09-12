@@ -358,9 +358,6 @@ int main() {
 
 		for (int i = N-1; i >= 0; i--) setmin(must_include[i], must_include[i+1]);
 		assert(must_include[N] == N+1);
-		for (int i = 0; i <= N; i++) std::cerr << cnt[i] << ' ' << must_include[i] << '\n';
-		std::cerr << '\n';
-
 		using num = wala::modnum<int(1e9)+7>;
 		std::vector<num> ways(N+1);
 		ways[N] = 1;
@@ -380,6 +377,9 @@ int main() {
 			}
 		}
 		assert(hi == must_include[0]);
+		for (int i = 0; i <= N; i++) std::cerr << cnt[i] << ' ' << must_include[i] << ' ' << ways[i] << '\n';
+		std::cerr << '\n';
+
 		std::cout << tot << '\n';
 	}
 
