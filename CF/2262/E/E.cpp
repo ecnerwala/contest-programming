@@ -2115,12 +2115,7 @@ int main() {
 		// Now, ans(x) = real_ans(1+x), so we want real_ans(x) = ans(x-1)
 
 		// This should be multiplying by the e^{-D} operator
-		ans = wala::poly::taylor_shift(std::move(ans), -1);
-		for (int k = N; k >= 0; k--) {
-			for (int l = k+1; l <= N; l++) {
-				ans[k] -= fact[l] * ifact[k] * ifact[l-k] * ans[l];
-			}
-		}
+		ans = taylor_shift(std::move(ans), -1);
 		for (int k = 0; k <= N; k++) std::cout << ans[k] << " \n"[k==N];
 	}
 
