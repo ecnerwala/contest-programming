@@ -56,6 +56,7 @@ int main() {
 			int cur = st;
 			while (A[orig_bad] != B[orig_bad]) {
 				int op = [&]() -> int {
+					std::cerr << "at " << cur << ' ' << tgt[cur] << '\n';
 					if (tgt[cur] != cur && tgt[cur] != -1) {
 						if (tgt[tgt[cur]] == -1) {
 							tgt[cur] = cur;
