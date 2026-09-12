@@ -83,8 +83,8 @@ int main() {
 					cur = A[cur];
 				} else assert(false);
 			}
-			assert(A == B);
 		for (auto& a : A) { std::cerr << a << ' '; } std::cerr << '\n';
+			assert(A == B);
 			return std::make_pair(st, std::move(ops));
 		}();
 		if (ans) {
