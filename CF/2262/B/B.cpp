@@ -314,7 +314,6 @@ int main() {
 
 		std::vector<int> seg_cnt(2*layout.N);
 
-		std::vector<int> ans; ans.reserve(N);
 		// only prefix maxes can survive
 		// if a prefix max eats another prefix max, then it at least doubles
 		// there are at most log n prefix maxes that do any eating
@@ -377,27 +376,29 @@ int main() {
 				if (nxt_eat == eats.end()) break;
 				auto it = alive.find(*nxt_eat);
 				assert(it != alive.end());
-				auto nt = std::next(it);
-				assert(nt != alive.end());
-				int64_t cur_sum = get_sum(it->first, nt->first);
+				assert(std::next(it) != alive.end());
+				int not_eat = std::next(it)->first;
 				// now, go walk until we fail
 				while (true) {
-					int not_eat = ralive.upper_bound(cur_sum)->second;
-					if (not_eat == nt->first) {
+					auto jt = ralive.upper_bound(get_sum(it->first, not_eat));
+					if (jt == ralive.end()) {
+						// we can eat everything
+						not_eat = N;
 						break;
-					} else {
-						nt = alive.find(not_eat);
-						cur_sum = get_sum(it->first, not_eat);
 					}
+					if (not_eat == jt->second) break;
+					not_eat = jt->second;
 				}
-				layout.get_range(it->first, nt->first).for_each([&](auto a) -> void {
+				layout.get_range(it->first, not_eat).for_each([&](auto a) -> void {
 					ans -= seg_cnt[a];
 				});
 				ans++;
-				cur = nt->first;
+				cur = not_eat;
 			}
 			return ans;
 		};
+
+		std::vector<int> ans; ans.reserve(N);
 		for (auto i : P) {
 			do_insert(i, A[i]);
 			ans.push_back(get_ans());
