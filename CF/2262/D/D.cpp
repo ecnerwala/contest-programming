@@ -4,13 +4,20 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int T; std::cin >> T;
+	//int T; std::cin >> T;
+	int T = 10000;
+	std::mt19937 mt(48);
 	while (T--) {
-		int N; std::cin >> N;
+		//int N; std::cin >> N;
+		int N = std::uniform_int_distribution<int>(1, 5)(mt);
 		std::vector<int> A(N);
-		for (auto& a : A) { std::cin >> a; a--; }
+		//for (auto& a : A) { std::cin >> a; a--; }
 		std::vector<int> B(N);
-		for (auto& b : B) { std::cin >> b; b--; }
+		//for (auto& b : B) { std::cin >> b; b--; }
+		for (int i = 0; i < N; i++) {
+			B[i] = std::uniform_int_distribution<int>(i, N-1)(mt);
+			A[i] = std::uniform_int_distribution<int>(0, B[i])(mt);
+		}
 		auto ans = [&]() -> std::optional<std::pair<int, std::vector<int>>> {
 			for (int i = 0; i < N; i++) if (A[i] > B[i]) return std::nullopt;
 			int first_bad = N-1;
