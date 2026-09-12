@@ -401,6 +401,7 @@ int main() {
 		std::vector<int> ans; ans.reserve(N);
 		int tot = 0;
 		for (auto i : P) {
+			tot++;
 			do_insert(i, A[i]);
 			ans.push_back(tot - get_ans());
 		}
