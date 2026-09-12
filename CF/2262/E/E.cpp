@@ -1789,6 +1789,7 @@ int main() {
 		ps vals(N+2);
 		for (int i = 0; i <= N; i++) {
 			num catalan = fact[2*i] * ifact[i] * ifact[i+1];
+			std::cerr << "catalan " << i << ' ' << catalan << '\n';
 			vals[i+1] = catalan * catalan;
 		}
 		ps cur(N+2); cur[0] = 1;
