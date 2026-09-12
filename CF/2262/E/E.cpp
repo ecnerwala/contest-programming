@@ -1780,9 +1780,9 @@ int main() {
 		// This corresponds to deferring the decision of which nodes to allocate the children to.
 		// Thus, we'll just write out F = (sum catalan(n)^2 u^n) / (1-x).
 		// We can separate this in what we want:
-		//  ans[k] = 1/(k+1) ([x^k] 1 / (1-x)^(2(n-k) + k)) ([u^{n-k}] (sum catalan(n)^2 u^n)^{k+1}) 
-		//  ans[k] = choose(2n-1, k) / (k+1) ([u^{n-k}] (sum catalan(n)^2 u^n)^{k+1})
-		//  ans[k] = choose(2n-1, k) / (k+1) ([u^{n+1}] (u * sum catalan(n)^2 u^n)^{k+1})
+		//  ans[k] = 1/(k+1) ([x^k] 1 / (1-x)^(2(n-k) + k+1)) ([u^{n-k}] (sum catalan(n)^2 u^n)^{k+1}) 
+		//  ans[k] = choose(2n, k) / (k+1) ([u^{n-k}] (sum catalan(n)^2 u^n)^{k+1})
+		//  ans[k] = choose(2n, k) / (k+1) ([u^{n+1}] (u * sum catalan(n)^2 u^n)^{k+1})
 		//  which is actually 1D power projection
 		using engine = wala::fft::engines::crt<num>;
 		using ps = wala::series::trunc<engine>;
@@ -1796,7 +1796,7 @@ int main() {
 		std::vector<num> ans(N+1);
 		for (int k = 0; k <= N; k++) {
 			cur *= vals;
-			ans[k] = cur[N+1] * fact[2*N-1] * ifact[k+1] * ifact[2*N-k-1];
+			ans[k] = cur[N+1] * fact[2*N] * ifact[k+1] * ifact[2*N-k];
 			std::cerr << "base " << k << ' ' << ans[k] << ' ' << cur[N+1] << '\n';
 		}
 		for (int k = N; k >= 0; k--) {
