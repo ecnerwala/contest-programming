@@ -399,9 +399,10 @@ int main() {
 		};
 
 		std::vector<int> ans; ans.reserve(N);
+		int tot = 0;
 		for (auto i : P) {
 			do_insert(i, A[i]);
-			ans.push_back(get_ans());
+			ans.push_back(tot - get_ans());
 		}
 
 		std::reverse(ans.begin(), ans.end());
