@@ -39,7 +39,7 @@ int main() {
 				}
 				if (A[i] != B[i]) {
 					if (i < A[cur_min]) {
-						first_bad = i+1;
+						first_bad = i;
 						tgt[cur_min] = cur_min;
 						cur_min = i;
 					} else if (A[i] < A[cur_min]) {
