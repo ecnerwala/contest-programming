@@ -18,6 +18,9 @@ int main() {
 			B[i] = std::uniform_int_distribution<int>(i, N-1)(mt);
 			A[i] = std::uniform_int_distribution<int>(0, B[i])(mt);
 		}
+		std::cerr << N << '\n';
+		for (auto& a : A) { std::cerr << a << ' '; } std::cerr << '\n';
+		for (auto& a : B) { std::cerr << a << ' '; } std::cerr << '\n';
 		auto ans = [&]() -> std::optional<std::pair<int, std::vector<int>>> {
 			for (int i = 0; i < N; i++) if (A[i] > B[i]) return std::nullopt;
 			int first_bad = N-1;
