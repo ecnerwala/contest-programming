@@ -84,6 +84,7 @@ int main() {
 				} else assert(false);
 			}
 			assert(A == B);
+		for (auto& a : A) { std::cerr << a << ' '; } std::cerr << '\n';
 			return std::make_pair(st, std::move(ops));
 		}();
 		if (ans) {
