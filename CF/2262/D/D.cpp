@@ -23,7 +23,7 @@ int main() {
 			std::vector<int> tgt(N, -1);
 			int cur_min = first_bad;
 			for (int i = first_bad - 1; i >= 0; i--) {
-				is_okay[i] = B[i] > i && B[i] < first_bad && is_okay[B[i]];
+				is_okay[i] = B[i] > i && B[i] <= first_bad && is_okay[B[i]];
 				if (A[i] != B[i] && !is_okay[i]) {
 					return std::nullopt;
 				}
