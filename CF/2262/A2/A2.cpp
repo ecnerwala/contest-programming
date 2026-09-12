@@ -377,6 +377,7 @@ int main() {
 				tot += ways[i];
 			}
 		}
+		assert(hi == must_include[0]);
 		std::cout << tot << '\n';
 	}
 
