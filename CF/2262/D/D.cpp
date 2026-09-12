@@ -73,6 +73,7 @@ int main() {
 					cur = A[cur];
 				} else assert(false);
 			}
+			assert(A == B);
 			return std::make_pair(st, std::move(ops));
 		}();
 		if (ans) {
