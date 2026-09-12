@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-// https://github.com/ecnerwala/cp-book (`scripts/bundle.py --minify src/fft/series.hpp src/fft/engines/crt.hpp`)
+// https://github.com/ecnerwala/cp-book (`scripts/bundle.py --minify src/fft/series.hpp src/fft/poly.hpp src/fft/engines/crt.hpp`)
 // clang-format off
 // @formatter:off
 #pragma GCC diagnostic push
@@ -883,6 +883,34 @@ f*=i+offset;
 }
 return r;
 }
+template<like S>
+vec<typename S::engine_t,S::exact_v>ogf_to_egf(const S&a_){
+using E=typename S::engine_t;
+using T=typename E::value_type;
+span<E,S::exact_v>a=a_;
+vec<E,S::exact_v>r(a.begin(),a.end());
+T f=1;
+for(int i=1;i<r.len();i++)f*=i;
+f=inv(f);
+for(int i=r.len()-1;i>0;i--){
+r[i]*=f;
+f*=i;
+}
+return r;
+}
+template<like S>
+vec<typename S::engine_t,S::exact_v>egf_to_ogf(const S&a_){
+using E=typename S::engine_t;
+using T=typename E::value_type;
+span<E,S::exact_v>a=a_;
+vec<E,S::exact_v>r(a.begin(),a.end());
+T f=1;
+for(int i=1;i<r.len();i++){
+f*=i;
+r[i]*=f;
+}
+return r;
+}
 template<trunc_like S>
 trunc<typename S::engine_t>deriv_shift_log(const S&a){
 return deriv_shift(a)*ps_inv(a);
@@ -1155,6 +1183,284 @@ auto q_cached=detail::as_cached_span(q,tq);
 span<E,false>sv=s;
 auto p=exact<E>(sv.first(q.len()-1)*q_cached);
 return kth_term_of_rational_function(p,q_cached,k);
+}
+}
+// src/fft/poly.hpp
+namespace wala::poly{
+template<fft::engine E>struct vec{
+using T=typename E::value_type;
+using engine_t=E;
+series::exact<E>c;
+vec()=default;
+explicit vec(int len):c(size_t(len),T{}){}
+vec(std::initializer_list<T>coeffs):c(std::rbegin(coeffs),std::rend(coeffs)){}
+explicit vec(std::span<const T>coeffs):c(coeffs.rbegin(),coeffs.rend()){}
+const series::exact<E>&rev_series()const{return c;}
+static vec from_rev_series(series::exact<E>s){
+vec r;
+r.c=std::move(s);
+return r;
+}
+series::trunc<E>unrev_series(int n)const{
+series::trunc<E>r(size_t(n),T{});
+std::copy(begin(),begin()+std::min(n,len()),r.begin());
+return r;
+}
+auto begin(){return c.rbegin();}
+auto end(){return c.rend();}
+auto begin()const{return c.rbegin();}
+auto end()const{return c.rend();}
+int len()const{return c.len();}
+int degree()const{return len()-1;}
+T&operator[](int i){return c[len()-1-i];}
+const T&operator[](int i)const{return c[len()-1-i];}
+T leading()const{return c.front();}
+void shift(int k=1){
+if(len()>0)c.insert(c.end(),size_t(k),T(0));
+}
+void resize(int n){
+if(n>=len())c.insert(c.begin(),size_t(n-len()),T(0));
+else c.erase(c.begin(),c.begin()+(len()-n));
+}
+T operator()(const T&x)const{
+T r{};
+for(const T&v:c)r=r*x+v;
+return r;
+}
+vec&operator+=(const vec&o){
+if(o.len()>len())resize(o.len());
+for(int i=0;i<o.len();i++)(*this)[i]+=o[i];
+return*this;
+}
+friend vec operator+(vec a,const vec&b){a+=b;return a;}
+vec&operator-=(const vec&o){
+if(o.len()>len())resize(o.len());
+for(int i=0;i<o.len();i++)(*this)[i]-=o[i];
+return*this;
+}
+friend vec operator-(vec a,const vec&b){a-=b;return a;}
+friend bool operator==(const vec&a,const vec&b){return a.c==b.c;}
+vec&operator*=(const T&n){for(T&v:c)v*=n;return*this;}
+friend vec operator*(vec a,const T&n){a*=n;return a;}
+friend vec operator*(const T&n,vec a){a*=n;return a;}
+vec&operator*=(const vec&o){return*this=(*this)*o;}
+};
+template<typename P>
+concept like=requires(const P&p){
+typename P::engine_t;
+{p.len()}->std::same_as<int>;
+p.rev_series();
+requires series::like<std::remove_cvref_t<decltype(p.rev_series())>>;
+requires std::remove_cvref_t<decltype(p.rev_series())>::exact_v;
+};
+template<fft::engine E>
+struct cached{
+using T=typename E::value_type;
+using engine_t=E;
+cached()=default;
+cached(vec<E>&&p):c(std::move(p.c)){}
+explicit cached(const vec<E>&p):c(p.c){}
+operator vec<E>()&&{return vec<E>::from_rev_series(std::move(c));}
+const series::cached_exact<E>&rev_series()const{return c;}
+static cached from_rev_series(series::cached_exact<E>s){
+cached r;
+r.c=std::move(s);
+return r;
+}
+int len()const{return c.len();}
+int degree()const{return len()-1;}
+const T&operator[](int i)const{return c[len()-1-i];}
+T leading()const{return c[0];}
+T operator()(const T&x)const{
+T r{};
+for(const T&v:c)r=r*x+v;
+return r;
+}
+private:
+series::cached_exact<E>c;
+};
+template<like A,like B>requires fft::same_engine<A,B>
+cached<typename A::engine_t>operator*(const A&a,const B&b){
+return cached<typename A::engine_t>::from_rev_series(a.rev_series()*b.rev_series());
+}
+template<like A>
+cached<typename A::engine_t>square(const A&a){
+return cached<typename A::engine_t>::from_rev_series(square(a.rev_series()));
+}
+template<like A,like B,like C,like D>
+requires fft::same_engine<A,B>&&fft::same_engine<A,C>&&fft::same_engine<A,D>
+cached<typename A::engine_t>multiply_add2(
+const A&a,const B&b,const C&c,const D&d){
+return cached<typename A::engine_t>::from_rev_series(
+multiply_add2(a.rev_series(),b.rev_series(),c.rev_series(),d.rev_series()));
+}
+template<like A,like B>requires fft::same_engine<A,B>
+bool operator==(const A&a,const B&b){
+return a.rev_series()==b.rev_series();
+}
+template<fft::engine E>
+struct form{
+using T=typename E::value_type;
+series::cached_exact<E>c;
+form()=default;
+explicit form(int len):c(series::exact<E>(size_t(len),T{})){}
+const series::cached_exact<E>&rev_series()const{return c;}
+static form from_rev_series(series::cached_exact<E>s){
+form r;
+r.c=std::move(s);
+return r;
+}
+static form from_poly(const vec<E>&p){return from_rev_series(series::cached_exact<E>(p.rev_series()));}
+int len()const{return c.len();}
+form for_length(int n)const{
+auto r=series::exact<E>(c);
+if(n>=len())r.insert(r.begin(),size_t(n-len()),T(0));
+else r.erase(r.begin(),r.begin()+(len()-n));
+return from_rev_series(std::move(r));
+}
+static form polynomial_evaluation(T z,int len){
+series::exact<E>k(size_t(len),T{});
+T p=T(1);
+for(int i=0;i<len;i++){k[i]=p;p*=z;}
+return from_rev_series(std::move(k));
+}
+template<like P>
+T operator()(const P&p)const{
+assert(p.len()<=len());
+T r{};
+for(int i=0;i<p.len();i++)r+=c[i]*p[i];
+return r;
+}
+template<like P>
+form composed_with(const P&q)const{
+assert(q.len()>0&&q.len()<=len());
+return from_rev_series(middle_product(c,q.rev_series()));
+}
+template<series::like S>requires std::same_as<typename S::engine_t,E>
+form composed_with(const S&s)const{
+if constexpr(!S::exact_v)assert(s.len()>=len());
+series::vec<E,S::exact_v>r=c*s;
+r.resize(size_t(len()));
+return from_rev_series(series::exact<E>(std::move(r)));
+}
+};
+template<fft::engine E>
+vec<E>to_D_basis(vec<E>p){
+using T=typename E::value_type;
+T f=1;
+for(int i=1;i<p.len();i++){
+f*=i;
+p[i]*=f;
+}
+return p;
+}
+template<fft::engine E>
+vec<E>from_D_basis(vec<E>p){
+using T=typename E::value_type;
+T f=1;
+for(int i=1;i<p.len();i++)f*=i;
+f=inv(f);
+for(int i=p.len()-1;i>0;i--){
+p[i]*=f;
+f*=i;
+}
+return p;
+}
+template<fft::engine E>
+vec<E>taylor_shift(vec<E>p,typename E::value_type c){
+using T=typename E::value_type;
+int n=p.len();
+series::trunc<E>e(size_t(n),T{});
+if(n>0)e[0]=T(1);
+for(int i=1;i<n;i++)e[i]=e[i-1]*c;
+T f=1;
+for(int i=1;i<n;i++)f*=i;
+f=inv(f);
+for(int i=n-1;i>0;i--){
+e[i]*=f;
+f*=i;
+}
+return from_D_basis(vec<E>::from_rev_series(series::exact<E>(to_D_basis(std::move(p)).rev_series()*e)));
+}
+template<fft::engine E>
+struct subproduct_tree{
+using T=typename E::value_type;
+int N;
+std::vector<cached<E>>nodes;
+explicit subproduct_tree(std::span<const T>pts):N(sz(pts)),nodes(size_t(2)*N){
+assert(N>0);
+for(int i=0;i<N;i++){
+nodes[N+i]=vec<E>{-pts[i],T(1)};
+}
+for(int i=N-1;i>0;i--){
+nodes[i]=nodes[2*i]*nodes[2*i+1];
+}
+}
+int size(int i)const{return nodes[i].len()-1;}
+const cached<E>&prod(int i)const{return nodes[i];}
+std::vector<T>pushdown(form<E>f)const{
+assert(f.len()==N);
+std::vector<form<E>>down(size_t(2)*N);
+down[1]=std::move(f);
+for(int i=1;i<N;i++){
+down[2*i+0]=down[i].composed_with(nodes[2*i+1]);
+down[2*i+1]=down[i].composed_with(nodes[2*i+0]);
+down[i]=form<E>{};
+}
+std::vector<T>out(size_t(N),T{});
+for(int i=0;i<N;i++)out[i]=down[N+i].rev_series()[0];
+return out;
+}
+cached<E>combine_up(std::span<const T>leaf_vals)const{
+assert(sz(leaf_vals)==N);
+std::vector<cached<E>>up(size_t(2)*N);
+for(int i=0;i<N;i++){
+up[N+i]=vec<E>{leaf_vals[i]};
+}
+for(int i=N-1;i>0;i--){
+up[i]=multiply_add2(up[2*i+0],nodes[2*i+1],up[2*i+1],nodes[2*i+0]);
+up[2*i+0]=cached<E>{};
+up[2*i+1]=cached<E>{};
+}
+return std::move(up[1]);
+}
+};
+template<fft::engine E>
+std::vector<typename E::value_type>multipoint(
+const vec<E>&p,
+std::span<const typename E::value_type>pts
+){
+if(pts.empty())return{};
+int N=sz(pts);
+subproduct_tree<E>tree{pts};
+auto q=series::trunc<E>(tree.prod(1).rev_series());
+q.resize(p.len());
+form<E>f=form<E>::from_poly(p).composed_with(ps_inv(q));
+return tree.pushdown(f.for_length(N));
+}
+template<fft::engine E>
+vec<E>interpolate(
+std::span<const typename E::value_type>pts,
+std::span<const typename E::value_type>vals
+){
+using T=typename E::value_type;
+assert(sz(pts)==sz(vals));
+if(pts.empty())return{};
+int N=sz(pts);
+using ps=series::trunc<E>;
+subproduct_tree<E>tree{pts};
+auto root=ps(tree.prod(1).rev_series());
+root.shrink(N);
+ps deriv_root=root;
+for(int i=0;i<N;i++){
+deriv_root[i]*=T(N-i);
+}
+std::vector<T>denoms=tree.pushdown(
+form<E>::from_rev_series(series::exact<E>(ps_inv(root)*deriv_root))
+);
+std::vector<T>leaf_vals(size_t(N),T{});
+for(int i=0;i<N;i++)leaf_vals[i]=vals[i]/denoms[i];
+return tree.combine_up(std::span<const T>(leaf_vals));
 }
 }
 // src/num/modnum.hpp
@@ -1786,17 +2092,30 @@ int main() {
 		//  which is actually 1D power projection
 		using engine = wala::fft::engines::crt<num>;
 		using ps = wala::series::trunc<engine>;
-		ps vals(N+2);
+		using poly = wala::poly::vec<engine>;
+		ps symbol_ways(N+2);
 		for (int i = 0; i <= N; i++) {
 			num catalan = fact[2*i] * ifact[i] * ifact[i+1];
-			vals[i+1] = catalan * catalan;
+			symbol_ways[i+1] = catalan * catalan;
 		}
+
+		poly ans(N+1);
+
+		// TODO: This should just be ans = power_project()
 		ps cur(N+2); cur[0] = 1;
-		std::vector<num> ans(N+1);
 		for (int k = 0; k <= N; k++) {
-			cur *= vals;
-			ans[k] = cur[N+1] * fact[2*N] * ifact[k+1] * ifact[2*N-k];
+			cur *= symbol_ways;
+			ans[k] = cur[N+1];
 		}
+
+		for (int k = 0; k <= N; k++) {
+			ans[k] *= fact[2*N] * ifact[k+1] * ifact[2*N-k];
+		}
+
+		// Now, ans(x) = real_ans(1+x), so we want real_ans(x) = ans(x-1)
+
+		// This should be multiplying by the e^{-D} operator
+		ans = wala::poly::taylor_shift(std::move(ans), -1);
 		for (int k = N; k >= 0; k--) {
 			for (int l = k+1; l <= N; l++) {
 				ans[k] -= fact[l] * ifact[k] * ifact[l-k] * ans[l];
