@@ -369,7 +369,7 @@ int main() {
 			ralive.insert({v, i});
 		};
 		auto get_ans = [&]() -> int {
-			int ans = int(alive.size());
+			int ans = int(alive.size()) - 1;
 			int cur = 0;
 			while (true) {
 				auto nxt_eat = eats.lower_bound(cur);
@@ -399,11 +399,9 @@ int main() {
 		};
 
 		std::vector<int> ans; ans.reserve(N);
-		int tot = 0;
 		for (auto i : P) {
-			tot++;
 			do_insert(i, A[i]);
-			ans.push_back(tot - get_ans());
+			ans.push_back(get_ans());
 		}
 
 		std::reverse(ans.begin(), ans.end());
