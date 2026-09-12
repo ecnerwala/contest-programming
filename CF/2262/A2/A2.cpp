@@ -366,14 +366,14 @@ int main() {
 		for (int i = N-1; i >= 0; i--) {
 			assert(must_include[i] > i);
 			// sum of ways[i+1,must_include[i])
+			if (!cnt[i]) {
+				ways[i] = tot;
+				tot += ways[i];
+			}
 			while (hi > must_include[i]) {
 				--hi;
 				assert(hi > i);
 				tot -= ways[hi];
-			}
-			if (!cnt[i]) {
-				ways[i] = tot;
-				tot += ways[i];
 			}
 		}
 		assert(hi == must_include[0]);
