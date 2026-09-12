@@ -11,7 +11,7 @@ int main() {
 		for (int i = 1; i <= N; i++) {
 			int a; std::cin >> a;
 			// the buckets are half-open [a * i, (a+1) * i)
-			assert((a-1) * i <= N);
+			assert(a == 0 || (a-1) * i <= N);
 			cnt[a*i]++;
 			cnt[std::min(N, a*i+i)]--;
 		}
