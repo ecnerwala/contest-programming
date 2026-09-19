@@ -357,6 +357,7 @@ int main() {
 			seg[a].mins[1].first += seg[a].lazy;
 		};
 		auto do_update = [&](evt_t e) {
+			std::cerr << "do update " << e.bounds[0] << '-' << e.bounds[1] << ' ' << std::exp(e.v) << '\n';
 			auto rng = layout.get_range(e.bounds);
 			rng.for_each([&](auto a) -> void {
 				seg[a].mins[0].first += e.v;
@@ -380,7 +381,6 @@ int main() {
 				if (i) {
 					// move seg[a].mins
 					dbl v = std::log(dbl(A[i])) - std::log(dbl(A[i-1]));
-					std::cerr << "updating " << i << ' ' << std::exp(v) << '\n';
 					do_update({{0, i}, +v});
 					do_update({{i, N}, -v});
 				}
