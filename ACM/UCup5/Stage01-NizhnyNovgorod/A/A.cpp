@@ -545,6 +545,9 @@ int main() {
 	for (int i = 1; i <= N+M; i++) {
 		ans += dp[{i, 0}] / num(i);
 	}
+	for (int z = 0; z < M; z++) {
+		ans /= num(N+z);
+	}
 	std::cout << ans << '\n';
 
 	return 0;
