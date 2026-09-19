@@ -522,6 +522,10 @@ int main() {
 			}
 			L++;
 		}
+		for (int i = 0; i < NA; i++) {
+			std::cerr << bounds[i][0] << ' ' << bounds[i][1] << '\n';
+		}
+		std::cerr << '\n';
 		wala::seg_tree::in_order_layout layout(L);
 		struct seg_node {
 			int val = 0;
@@ -542,7 +546,6 @@ int main() {
 		std::vector<int> ans(NA, -1);
 		for (int z = NA-1; z >= 0; z--) {
 			auto [l, r] = bounds[perm[z]];
-			std::swap(l, r);
 			assert(l != r);
 			if (l < r) {
 				incr_range(l, r+1);
