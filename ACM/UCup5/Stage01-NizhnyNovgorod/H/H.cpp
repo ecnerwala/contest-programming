@@ -542,6 +542,7 @@ int main() {
 		std::vector<int> ans(NA, -1);
 		for (int z = NA-1; z >= 0; z--) {
 			auto [l, r] = bounds[perm[z]];
+			std::swap(l, r);
 			assert(l != r);
 			if (l < r) {
 				incr_range(l, r+1);
