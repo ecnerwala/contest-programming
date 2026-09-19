@@ -522,6 +522,7 @@ int main() {
 			}
 			L++;
 		}
+		std::cerr << "L = " << L << '\n';
 		for (int i = 0; i < NA; i++) {
 			std::cerr << bounds[i][0] << ' ' << bounds[i][1] << '\n';
 		}
