@@ -134,11 +134,14 @@ int main() {
 					return !is_reflex(a1 - a0, B[b] - a0);
 				};
 
+				int cur_steps = 0;
 				while (!(!is_above(b0) && is_above(b1))) {
+					cur_steps++;
 					steps++;
 					b0++; if (b0 == NB) b0 = 0;
 					b1++; if (b1 == NB) b1 = 0;
 				}
+				std::cerr << cur_steps << '\n';
 				assert(!is_above(b0) && is_above(b1));
 			}
 			std::cerr << "steps " << steps << ' ' << NB << '\n';
