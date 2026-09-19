@@ -126,8 +126,8 @@ int main() {
 		for (int z = 0; z < 2; z++) {
 			int b0 = 0, b1 = 1;
 			int steps = 0;
-			for (int i = 0; i < NA; i++) {
-				pt_t a0 = A[i], a1 = A[(i+1)%NA];
+			for (int i = 0; i <= NA; i++) {
+				pt_t a0 = A[i % NA], a1 = A[(i+1)%NA];
 				if (z) std::swap(a0, a1);
 
 				auto is_above = [&](int b) -> bool {
