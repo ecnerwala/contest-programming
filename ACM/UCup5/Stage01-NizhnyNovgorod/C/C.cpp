@@ -357,7 +357,7 @@ int main() {
 			seg[a].mins[1].first += seg[a].lazy;
 		};
 		auto do_update = [&](evt_t e) {
-			std::cerr << "do update " << e.bounds[0] << '-' << e.bounds[1] << ' ' << std::exp(e.v) << '\n';
+			//std::cerr << "do update " << e.bounds[0] << '-' << e.bounds[1] << ' ' << std::exp(e.v) << '\n';
 			auto rng = layout.get_range(e.bounds);
 			rng.for_each([&](auto a) -> void {
 				seg[a].mins[0].first += e.v;
@@ -369,7 +369,7 @@ int main() {
 		std::vector<int> cur_comp(N);
 		std::vector<std::pair<dbl, int>> best_edge(N);
 		while (num_comps > 1) {
-			std::cerr << "start iteration" << '\n';
+			//std::cerr << "start iteration" << '\n';
 			// reset the seg
 			for (int i = 0; i < N; i++) {
 				cur_comp[i] = get_par(i);
@@ -400,7 +400,7 @@ int main() {
 				auto [cost, tgt] = best_edge[i];
 				assert(tgt != -1);
 				if (merge(i, tgt)) {
-					std::cerr << "yes!" << '\n';
+					//std::cerr << "yes!" << '\n';
 					num_comps--;
 					if (cost >= MAX_LOG) return MAX_VAL;
 					tot_ans += std::exp(cost);
