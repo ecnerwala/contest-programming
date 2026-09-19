@@ -367,12 +367,13 @@ int main() {
 			rng.for_parents_up(update_node);
 		};
 		std::vector<int> cur_comp(N);
+		std::vector<std::pair<dbl, int>> best_edge(N);
 		while (num_comps > 1) {
 			std::cerr << "start iteration" << '\n';
 			// reset the seg
 			for (int i = 0; i < N; i++) {
 				cur_comp[i] = get_par(i);
-				std::cerr << i << ' ' << cur_comp[i] << '\n';
+				best_edge[i] = {INF, -1};
 				auto a = layout.get_point(i);
 				seg[a].mins = {std::pair<dbl, int>{std::log(dbl(A[i])) - std::log(dbl(A[0])), cur_comp[i]}, {INF, -1}};
 				seg[a].lazy = 0;
@@ -390,8 +391,13 @@ int main() {
 					do_update({{i, N}, -v});
 				}
 				for (auto e : evts[i]) do_update(e);
-				auto [cost, tgt] = seg[1].mins[seg[1].mins[0].second == cur_comp[i]];
-				std::cerr << "merge " << i << ' ' << tgt << ' ' << std::exp(cost) << '\n';
+				auto cnd = seg[1].mins[seg[1].mins[0].second == cur_comp[i]];
+				best_edge[cur_comp[i]] = std::min(best_edge[cur_comp[i]], cnd);
+			}
+
+			for (int i = 0; i < N; i++) {
+				if (cur_comp[i] != i) continue;
+				auto [cost, tgt] = best_edge[i];
 				assert(tgt != -1);
 				if (merge(i, tgt)) {
 					std::cerr << "yes!" << '\n';
