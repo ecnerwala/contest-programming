@@ -385,7 +385,7 @@ int main() {
 				}
 				for (auto e : evts[i]) do_update(e);
 				auto [cost, tgt] = seg[1].mins[seg[1].mins[0].second == cur_comp[i]];
-				std::cerr << "merge " << i << ' ' << tgt << ' ' << cost << '\n';
+				std::cerr << "merge " << i << ' ' << tgt << ' ' << std::exp(cost) << '\n';
 				assert(tgt != -1);
 				if (merge(i, tgt)) {
 					num_comps--;
