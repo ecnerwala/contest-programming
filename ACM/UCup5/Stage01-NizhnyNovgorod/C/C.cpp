@@ -375,8 +375,12 @@ int main() {
 				std::cerr << i << ' ' << cur_comp[i] << '\n';
 				auto a = layout.get_point(i);
 				seg[a].mins = {std::pair<dbl, int>{std::log(dbl(A[i])) - std::log(dbl(A[0])), cur_comp[i]}, {INF, -1}};
+				seg[a].lazy = 0;
 			}
-			for (wala::seg_tree::point a(layout.N - 1); a > 0; a--) update_node(a);
+			for (wala::seg_tree::point a(layout.N - 1); a > 0; a--) {
+				seg[a].lazy = 0;
+				update_node(a);
+			}
 
 			for (int i = 0; i < N; i++) {
 				if (i) {
