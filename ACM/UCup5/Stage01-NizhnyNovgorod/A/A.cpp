@@ -527,11 +527,14 @@ int main() {
 				num v = std::exchange(dp[{i, j}], num(0));
 				// we can connect to a leaf
 				if (i > 0) {
+					// we can connect to it either way
 					ndp[{i, j}] += v * num(i);
+					ndp[{i, j+1}] += v * num(i);
 				}
 				// we can connect to an unmarked guy
 				if (j > 0) {
 					ndp[{i+1, j-1}] += v * num(j);
+					ndp[{i+1, j}] += v * num(j);
 				}
 				if (i + j < N+z) {
 					ndp[{i+1, j}] += v * num(N+z - i - j);
@@ -539,6 +542,9 @@ int main() {
 			}
 		}
 		std::swap(dp, ndp);
+	}
+	for (int i = 1; i <= N+M; i++) {
+		std::cerr << i << ' ' << dp[{i, 0}] << '\n';
 	}
 
 	num ans = 0;
