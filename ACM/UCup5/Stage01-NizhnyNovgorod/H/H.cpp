@@ -507,7 +507,8 @@ int main() {
 				int64_t y = -cross3(a0, a1, B[b0]);
 				assert(x >= 0 && y >= 0);
 				loc_t cut{b0, {y, x+y}};
-				locs.push_back({cut, 2*i + z});
+				int bound_id = z ? 2 * i + 0 : 2 * ((i+1)%NA) + 1;
+				locs.push_back({cut, bound_id});
 			}
 		}
 		assert(int(locs.size()) == 2 * NA);
