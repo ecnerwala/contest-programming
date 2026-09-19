@@ -543,9 +543,6 @@ int main() {
 		}
 		std::swap(dp, ndp);
 	}
-	for (int i = 1; i <= N+M; i++) {
-		std::cerr << i << ' ' << dp[{i, 0}] << '\n';
-	}
 
 	num ans = 0;
 	for (int i = 1; i <= N+M; i++) {
