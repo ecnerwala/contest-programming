@@ -367,6 +367,7 @@ int main() {
 		};
 		std::vector<int> cur_comp(N);
 		while (num_comps > 1) {
+			std::cerr << "start iteration" << '\n';
 			// reset the seg
 			for (int i = 0; i < N; i++) {
 				cur_comp[i] = get_par(i);
@@ -384,6 +385,7 @@ int main() {
 				}
 				for (auto e : evts[i]) do_update(e);
 				auto [cost, tgt] = seg[1].mins[seg[1].mins[0].second == cur_comp[i]];
+				std::cerr << "merge " << i << ' ' << tgt << ' ' << cost << '\n';
 				assert(tgt != -1);
 				if (merge(i, tgt)) {
 					num_comps--;
