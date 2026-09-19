@@ -372,6 +372,7 @@ int main() {
 			// reset the seg
 			for (int i = 0; i < N; i++) {
 				cur_comp[i] = get_par(i);
+				std::cerr << i << ' ' << cur_comp[i] << '\n';
 				auto a = layout.get_point(i);
 				seg[a].mins = {std::pair<dbl, int>{std::log(dbl(A[i])) - std::log(dbl(A[0])), cur_comp[i]}, {INF, -1}};
 			}
