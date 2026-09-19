@@ -507,6 +507,7 @@ int main() {
 				int64_t y = -cross3(a0, a1, B[b0]);
 				assert(x >= 0 && y >= 0);
 				loc_t cut{b0, {y, x+y}};
+				std::cerr << "cut " << z << ' ' << i << ' ' << b0 << ' ' << cut.second << '\n';
 				int bound_id = z ? 2 * ((i+1)%NA) + 0 : 2 * i + 1;
 				locs.push_back({cut, bound_id});
 			}
