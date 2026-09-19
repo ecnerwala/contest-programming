@@ -394,6 +394,7 @@ int main() {
 				std::cerr << "merge " << i << ' ' << tgt << ' ' << std::exp(cost) << '\n';
 				assert(tgt != -1);
 				if (merge(i, tgt)) {
+					std::cerr << "yes!" << '\n';
 					num_comps--;
 					if (cost >= MAX_LOG) return MAX_VAL;
 					tot_ans += std::exp(cost);
