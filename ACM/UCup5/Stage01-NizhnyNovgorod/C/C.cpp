@@ -380,6 +380,7 @@ int main() {
 				if (i) {
 					// move seg[a].mins
 					dbl v = std::log(dbl(A[i])) - std::log(dbl(A[i-1]));
+					std::cerr << "updating " << i << ' ' << std::exp(v) << '\n';
 					do_update({{0, i}, +v});
 					do_update({{i, N}, -v});
 				}
