@@ -552,8 +552,8 @@ int main() {
 			if (l < r) {
 				incr_range(l, r+1);
 			} else {
-				incr_range(0, l+1);
-				incr_range(r, L);
+				incr_range(0, r+1);
+				incr_range(l, L);
 			}
 			ans[z] = seg[1].val;
 		}
