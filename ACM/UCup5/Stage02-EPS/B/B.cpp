@@ -256,6 +256,10 @@ int main() {
 			prvA = a;
 		}
 	}
+	if (N == 0) {
+		for (int q = 0; q < Q; q++) std::cout << 0 << '\n';
+		exit(0);
+	}
 	std::vector<int> pref_pos(N+1);
 	for (int i = 0; i < N; i++) pref_pos[i+1] = pref_pos[i] + (A[i] >= 0);
 
