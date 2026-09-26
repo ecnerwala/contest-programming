@@ -13,7 +13,7 @@ int main() {
 		if (N >= 2 * K) {
 			for (int i = K; i < N-K; i++) ans += A[i];
 		}
-		for (int i = 0; i < N-1-i && i < N-K && i < K; i++) {
+		for (int i = 0; i < N-1-i && i < N-K+1 && i < K; i++) {
 			ans += std::max(A[i], A[N-1-i]);
 		}
 		std::cout << ans << '\n';
