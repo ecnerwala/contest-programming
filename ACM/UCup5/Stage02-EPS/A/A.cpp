@@ -248,6 +248,7 @@ int main() {
 
 	int Q;
 	cin >> N >> Q;
+	int N_orig = N;
 	{
 		std::vector<int> vals(2*N);
 		for (int i = 0; i < N; i++) {
@@ -285,6 +286,7 @@ int main() {
 
 	while (Q--) {
 		int L, R, K; cin >> L >> R >> K; L--, R--;
+		if (L > R) L += N_orig;
 		K = std::min(K, pref_pos[R] - pref_pos[L]);
 		int LL = L<<1, RR = R<<1, KK = K<<1;
 
