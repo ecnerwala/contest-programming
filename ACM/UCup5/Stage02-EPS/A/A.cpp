@@ -247,7 +247,7 @@ int main() {
 	};
 
 	int Q;
-	int K_global
+	int K_global;
 	cin >> N >> K_global >> Q;
 	int N_orig = N;
 	{
