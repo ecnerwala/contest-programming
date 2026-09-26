@@ -257,7 +257,6 @@ int main() {
 			std::cin >> vals[i];
 			vals[N+i] = vals[i];
 		}
-		for (auto& v : vals) std::cin >> v;
 		N = 2 * N - 1;
 		for (int i = 0; i < N; i++) {
 			A[i] = vals[i+1] - vals[i];
