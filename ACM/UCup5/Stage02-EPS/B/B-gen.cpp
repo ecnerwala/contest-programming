@@ -15,7 +15,7 @@ int main() {
 	for (int q = 0; q < Q; q++) {
 		int l = std::uniform_int_distribution<int>(1, N)(mt);
 		int r = std::uniform_int_distribution<int>(1, N)(mt);
-		if (l < r) std::swap(l, r);
+		if (l > r) std::swap(l, r);
 		int k = std::uniform_int_distribution<int>(0, (r-l+1)/2)(mt);
 		std::cout << l << ' ' << r << ' ' << k << '\n';
 	}
