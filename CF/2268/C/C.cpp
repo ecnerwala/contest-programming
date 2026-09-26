@@ -237,9 +237,10 @@ int main() {
 
 		auto is_good = [&](int v) -> bool {
 			assert(v);
-			std::vector<std::pair<int, int>> pref(N+1);
+			std::vector<int> inds(N+1);
 			std::vector<int> cnts; cnts.reserve(N+2);
 			{
+				std::vector<std::pair<int, int>> pref(N+1);
 				wala::hash_map<int, int> mp;
 				for (int i = 0; i <= N; i++) {
 					if (i < N) pref[i+1].first = pref[i].first ^ (A[i] & v);
@@ -262,23 +263,21 @@ int main() {
 					}
 					assert(loc == N+1);
 				}
-				std::vector<std::pair<int, int>> pref2(N+1);
 				for (int i = 0; i <= N; i++) {
-					pref2[cnts[pref[i].first]++] = pref[i];
+					inds[cnts[pref[i].first]++] = pref[i].second;
 				}
-				pref = std::move(pref2);
 				cnts.insert(cnts.begin(), 0);
 			}
 
 			std::vector<std::pair<int, bool>> buf; buf.reserve(N+1);
 			std::vector<int> vals; vals.reserve(N);
-			for (int z = 0; z+1 < int(cnts.size()); z++) {
-				int l = cnts[z], r = cnts[z+1];
+			for (int rng = 0; rng+1 < int(cnts.size()); rng++) {
+				int l = cnts[rng], r = cnts[rng+1];
 				buf.clear();
 				vals.clear();
 				for (int i = l; i < r; i++) {
-					int pos = pref[i].second >> 1;
-					bool dir = pref[i].second & 1;
+					int pos = inds[i] >> 1;
+					bool dir = inds[i] & 1;
 					buf.push_back({pos, dir});
 				}
 				int S = int(buf.size()) - 1;
