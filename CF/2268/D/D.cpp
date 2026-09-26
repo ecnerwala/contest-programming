@@ -60,6 +60,7 @@ int main() {
 				num_3 -= num_1;
 				num_3 -= num_2;
 				ans += num_1 + 2 * num_2 + 3 * num_3;
+				std::cerr << "inner " << i << ' ' << par[i] << ' ' << num_1 << ' ' << num_2 << ' ' << num_3 << '\n';
 			}
 
 		}
