@@ -151,6 +151,7 @@ void solve(){
 					p += V;
 					while (p > 1) {
 						res = max_pt(res, hulls[p ^ 1].query(x));
+						p >>= 1;
 					}
 					return res;
 				};
