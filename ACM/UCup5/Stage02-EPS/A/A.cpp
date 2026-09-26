@@ -247,7 +247,8 @@ int main() {
 	};
 
 	int Q;
-	cin >> N >> Q;
+	int K_global
+	cin >> N >> K_global >> Q;
 	int N_orig = N;
 	{
 		std::vector<int> vals(2*N);
@@ -285,8 +286,9 @@ int main() {
 	print_time("seg_time");
 
 	while (Q--) {
-		int L, R, K; cin >> L >> R >> K; L--, R--;
+		int L, R; cin >> L >> R; L--, R--;
 		if (L > R) L += N_orig;
+		int K = K_global;
 		K = std::min(K, pref_pos[R] - pref_pos[L]);
 		int LL = L<<1, RR = R<<1, KK = K<<1;
 
