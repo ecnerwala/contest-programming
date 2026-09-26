@@ -237,6 +237,7 @@ int main() {
 					buf.push_back({pos, dir});
 				}
 				int S = int(buf.size()) - 1;
+				vals.resize(S);
 				for (int i = 0; i < S; i++) vals[i] = rmq.query(buf[i].first, buf[i+1].first-1);
 				auto ct = wala::CartesianTree::build_max_tree(vals);
 
