@@ -237,6 +237,7 @@ int main() {
 	auto clk = chrono::system_clock();
 	auto start = clk.now();
 	auto print_time = [&](string s) {
+		return;
 		auto end = clk.now();
 		auto diff = end - start;
 		cerr << "time for " << s << ": " << double(chrono::nanoseconds(diff).count()) / 1e9 << '\n';
