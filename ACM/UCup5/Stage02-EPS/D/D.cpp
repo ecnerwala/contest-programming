@@ -118,7 +118,9 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, W; int64_t U, V; std::cin >> N >> W >> U >> V;
+		using dbl = long double;
 		using pt_t = wala::Point<int, int64_t>;
+		using pd = wala::Point<dbl>;
 		std::vector<pt_t> car(N);
 		for (auto& p : car) std::cin >> p;
 		int Q; std::cin >> Q;
@@ -132,16 +134,27 @@ int main() {
 		}
 		assert(U >= 0);
 		auto sq = [](int64_t a) -> __int128_t { return __int128_t(a) * __int128_t(a); };
-		auto get_time = [&](pt_t tgt) -> std::optional<int64_t> {
-			if (U >= V && tgt.x >= 0) {
+		auto get_time = [&](pt_t P) -> std::optional<dbl> {
+			if (U >= V && P.x >= 0) {
 				return std::nullopt;
 			}
-			if (sq(U * tgt.y) > sq(V * tgt.y) + sq(V * tgt.x)) {
-				assert(U > V);
-				return std::nullopt;
-			}
+			dbl res;
+			if (U == V) {
+				assert(P.x < 0);
+				res = dbl(int64_t(P.x) * int64_t(P.x) + int64_t(P.y) * int64_t(P.y)) / dbl(2 * -P.x);
+			} else {
+				__int128_t dx = sq(V * P.y) + sq(V * P.x) - sq(U * P.y);
+				if (dx < 0) {
+					assert(U > V);
+					return std::nullopt;
+				}
 
-			// now, 
+				res = (std::sqrt(dbl(dx)) - dbl(P.x * U)) * dbl(U) / dbl(V * V - U * U);
+			}
+			assert(res >= 0);
+			pd tgt = pd(P) + pd(res, 0);
+			std::cerr << abs(tgt) << '/' << res << ' ' << V << '/' << U << '\n';
+			return res;
 		};
 
 		std::sort(car.begin(), car.end(), [&](auto a, auto b) -> bool {
