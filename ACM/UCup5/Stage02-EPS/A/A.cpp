@@ -2,6 +2,7 @@
 //#pragma GCC target("sse,sse2,sse3,ssse3,popcnt,abm,mmx")
 
 #include<bits/extc++.h>
+#include <cassert>
 using namespace std;
 
 const int MAXN = 210000;
@@ -288,6 +289,7 @@ int main() {
 	while (Q--) {
 		int L, R; cin >> L >> R; L--, R--;
 		if (L > R) L += N_orig;
+		std::cerr << "query " << L << ' ' << R << ' ' << K << '\n';
 		int K = K_global;
 		K = std::min(K, pref_pos[R] - pref_pos[L]);
 		int LL = L<<1, RR = R<<1, KK = K<<1;
