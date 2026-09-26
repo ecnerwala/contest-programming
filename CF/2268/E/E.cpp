@@ -1704,7 +1704,6 @@ int main() {
 			for (int i = 1; i < N; i++) {
 				num v = res[N+i];
 				num ways = catalan[i] * catalan[N-i];
-				std::cerr << N << ' ' << i << ' ' << ways << '\n';
 				tot += ways * num(N-i+1);
 			}
 			std::cerr << N << ' ' << tot << '\n';
