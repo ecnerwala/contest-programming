@@ -99,6 +99,12 @@ int main() {
 				ans += dist[i][j] == INF ? 0 : dist[i][j];
 			}
 		}
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				std::cerr << dist[i][j] << ' ';
+			}
+			std::cerr << '\n';
+		}
 		return ans;
 	};
 
