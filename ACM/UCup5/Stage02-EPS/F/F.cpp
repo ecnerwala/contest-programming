@@ -43,7 +43,7 @@ int main() {
 				if (!check(K, 2, p1)) { K *= 3; continue; }
 				if (!check(K, 4, p1)) { K *= 3; continue; }
 				if (!check(K, 3, p1)) { K *= 2; continue; }
-				return int64_t(K);
+				return int64_t(K * 6);
 			}
 		}() << '\n';
 	}
