@@ -149,12 +149,7 @@ int main() {
 					return std::nullopt;
 				}
 
-				if (U > V) {
-					assert(P.x < 0);
-					res = (dbl(-P.x * U) - std::sqrt(dbl(dx))) * dbl(U) / dbl(U * U - V * V);
-				} else {
-					res = (dbl(P.x * U) + std::sqrt(dbl(dx))) * dbl(U) / dbl(V * V - U * U);
-				}
+				res = (dbl(P.x * U) + std::sqrt(dbl(dx))) * dbl(U) / dbl(V * V - U * U);
 			}
 			assert(res >= 0);
 			pd tgt = pd(P) + pd(res, 0);
