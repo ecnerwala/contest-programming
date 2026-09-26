@@ -172,7 +172,7 @@ void solve(){
 					auto [sx, sy] = score.first;
 					auto [px, py] = best_per[cc].first;
 					if(best_per[cc].second.first == -1 || sx * py >= sy * px) best_per[cc] = score;
-					// cerr << id << ' ' << j << ' ' << sx << '/' << sy << '\n';
+					cerr << id << ' ' << j << ' ' << sx << '/' << sy << '\n';
 				}
 				upd(cc, {x, Q[id]});
 			}
@@ -181,7 +181,7 @@ void solve(){
 		for(int cc = 0; cc < V; cc++){
 			auto [i, j] = best_per[cc].second;
 			if(j >= 0 && uf.join(i, j)){
-				// cerr << i << ' ' << j << '\n';
+				cerr << i << ' ' << j << '\n';
 				uf_bipartite.join(2*i, 2*j+1);
 				uf_bipartite.join(2*i+1, 2*j);
 			}
