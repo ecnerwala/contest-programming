@@ -279,7 +279,7 @@ int main() {
 				return res;
 			};
 			auto merge_dp = [&](dp_t v0, dp_t v1, int mx) -> dp_t {
-				if ((mx) == v) {
+				if ((mx & v) == v) {
 					if (v0[0][0] != -1 && v1[1][1] != -1 && v1[1][1] - v0[0][0] > 1) {
 						good = true;
 					}
