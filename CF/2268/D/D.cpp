@@ -62,7 +62,7 @@ int main() {
 				num_3 -= num_1;
 				num_3 -= num_2;
 				ans += num_1 + 2 * num_2 + 3 * num_3;
-				std::cerr << "inner " << i << ' ' << par[i] << ' ' << num_1 << ' ' << num_2 << ' ' << num_3 << '\n';
+				//std::cerr << "inner " << i << ' ' << par[i] << ' ' << num_1 << ' ' << num_2 << ' ' << num_3 << '\n';
 			}
 
 		}
@@ -109,19 +109,21 @@ int main() {
 		return ans;
 	};
 
-	for (int N = 1; N <= 7; N++) {
-		std::cerr << "N = " << N << '\n';
-		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
-		do {
-			auto slo = slow(P);
-			auto res = solve(P);
-			if (slo != res) {
-				std::cerr << "bad" << '\n';
-				for (auto& v : P) { std::cerr << v << ' '; } std::cerr << '\n';
-				std::cerr << slo << ' ' << res << '\n';
-				assert(false);
-			}
-		} while (std::next_permutation(P.begin(), P.end()));
+	if (false) {
+		for (int N = 1; N <= 7; N++) {
+			std::cerr << "N = " << N << '\n';
+			std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
+			do {
+				auto slo = slow(P);
+				auto res = solve(P);
+				if (slo != res) {
+					std::cerr << "bad" << '\n';
+					for (auto& v : P) { std::cerr << v << ' '; } std::cerr << '\n';
+					std::cerr << slo << ' ' << res << '\n';
+					assert(false);
+				}
+			} while (std::next_permutation(P.begin(), P.end()));
+		}
 	}
 
 	int T; std::cin >> T;
