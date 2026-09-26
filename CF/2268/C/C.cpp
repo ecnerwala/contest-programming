@@ -269,50 +269,51 @@ int main() {
 				cnts.insert(cnts.begin(), 0);
 			}
 
-			std::vector<std::pair<int, bool>> buf; buf.reserve(N+1);
 			std::vector<int> vals; vals.reserve(N);
+			bool good = false;
+
+			using dp_t = std::array<std::array<int, 2>, 2>;
+			auto build_dp = [&](int idx) -> dp_t {
+				std::array<std::array<int, 2>, 2> res{std::array<int, 2>{-1, -1}, {-1, -1}};
+				res[idx & 1] = {idx >> 1, idx >> 1};
+				return res;
+			};
+			auto merge_dp = [&](dp_t v0, dp_t v1, int mx) -> dp_t {
+				if ((mx) == v) {
+					if (v0[0][0] != -1 && v1[1][1] != -1 && v1[1][1] - v0[0][0] > 1) {
+						good = true;
+					}
+					if (v0[1][0] != -1 && v1[0][1] != -1 && v1[0][1] - v0[1][0] > 1) {
+						good = true;
+					}
+				}
+				std::array<std::array<int, 2>, 2> res{std::array<int, 2>{-1, -1}, {-1, -1}};
+				for (int z = 0; z < 2; z++) {
+					if (v0[z][0] == -1) res[z] = v1[z];
+					else if (v1[z][0] == -1) res[z] = v0[z];
+					else res[z] = {v0[z][0], v1[z][1]};
+				}
+				return res;
+			};
 			for (int rng = 0; rng+1 < int(cnts.size()); rng++) {
 				int l = cnts[rng], r = cnts[rng+1];
 				assert(r > l);
 				int S = r - l - 1;
-				buf.clear();
-				vals.clear();
-				for (int i = l; i < r; i++) {
-					int pos = inds[i] >> 1;
-					bool dir = inds[i] & 1;
-					buf.push_back({pos, dir});
-				}
 				vals.resize(S);
-				for (int i = 0; i < S; i++) vals[i] = rmq.query(buf[i].first, buf[i+1].first-1);
+				for (int i = 0; i < S; i++) vals[i] = rmq.query(inds[l+i] >> 1, (inds[l+i+1] >> 1) - 1);
 				auto ct = wala::CartesianTree::build_max_tree(vals);
 
-				bool good = false;
 				[&](this auto&& self, int cur) -> std::array<std::array<int, 2>, 2> {
-					std::array<std::array<int, 2>, 2> res{std::array<int, 2>{-1, -1}, {-1, -1}};
 					if (!(cur & 1)) {
-						res[buf[cur/2].second] = {buf[cur/2].first, buf[cur/2].first};
+						return build_dp(inds[l + (cur >> 1)]);
 					} else {
 						auto v0 = self(ct[cur].c[0]);
 						auto v1 = self(ct[cur].c[1]);
-						if ((vals[cur / 2] & v) == v) {
-							if (v0[0][0] != -1 && v1[1][1] != -1 && v1[1][1] - v0[0][0] > 1) {
-								good = true;
-							}
-							if (v0[1][0] != -1 && v1[0][1] != -1 && v1[0][1] - v0[1][0] > 1) {
-								good = true;
-							}
-						}
-						for (int z = 0; z < 2; z++) {
-							if (v0[z][0] == -1) res[z] = v1[z];
-							else if (v1[z][0] == -1) res[z] = v0[z];
-							else res[z] = {v0[z][0], v1[z][1]};
-						}
+						return merge_dp(v0, v1, vals[cur >> 1]);
 					}
-					return res;
 				}(ct.root);
-				if (good) return true;
 			}
-			return false;
+			return good;
 		};
 
 		int ans = 0;
