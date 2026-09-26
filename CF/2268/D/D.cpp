@@ -107,7 +107,7 @@ int main() {
 			auto slo = slow(P);
 			auto res = solve(P);
 			if (slo != res) {
-				std::cerr << "bad";
+				std::cerr << "bad" << '\n';
 				for (auto& v : P) { std::cerr << v << ' '; } std::cerr << '\n';
 				std::cerr << slo << ' ' << res << '\n';
 				assert(false);
