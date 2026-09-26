@@ -4,11 +4,8 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	int T; std::cin >> T;
-	while (T--) {
-		int N; std::cin >> N;
-		std::vector<int> P(N); for (auto& p : P) { std::cin >> p; p--; }
-
+	auto solve = [&](std::vector<int> P) -> int64_t {
+		int N = int(P.size());
 		std::vector<int> par(N, -1);
 		std::vector<int> first_child(N, -1);
 		std::vector<int> num_children(N, 0);
@@ -69,7 +66,61 @@ int main() {
 
 		// Moving left
 		ans += int64_t(N) * int64_t(N-1) / 2;
-		std::cout << ans << '\n';
+		return ans;
+	};
+
+	auto slow = [&](std::vector<int> P) -> int64_t {
+		int N = int(P.size());
+		std::vector<std::vector<int>> dist(N);
+		const int INF = N+1;
+		for (int i = 0; i < N; i++) {
+			dist[i].assign(N, INF);
+			for (int j = 0; j < i; j++) dist[i][j] = 1;
+			dist[i][i] = 0;
+			for (int j = i+1; j < N; j++) {
+				if (P[j] > P[i]) {
+					dist[i][j] = 1;
+					break;
+				}
+			}
+		}
+		for (int k = 0; k < N; k++) {
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					dist[i][j] = std::min(dist[i][j], dist[i][k] + dist[k][j]);
+				}
+			}
+		}
+		int64_t ans = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				ans += dist[i][j] == INF ? 0 : dist[i][j];
+			}
+		}
+		return ans;
+	};
+
+	for (int N = 1; N <= 7; N++) {
+		std::cerr << "N = " << N << '\n';
+		std::vector<int> P(N); std::iota(P.begin(), P.end(), 0);
+		do {
+			auto slo = slow(P);
+			auto res = solve(P);
+			if (slo != res) {
+				std::cerr << "bad";
+				for (auto& v : P) { std::cerr << v << ' '; } std::cerr << '\n';
+				std::cerr << slo << ' ' << res << '\n';
+				assert(false);
+			}
+		} while (std::next_permutation(P.begin(), P.end()));
+	}
+
+	int T; std::cin >> T;
+	while (T--) {
+		int N; std::cin >> N;
+		std::vector<int> P(N); for (auto& p : P) { std::cin >> p; p--; }
+
+		std::cout << solve(P) << '\n';
 	}
 
 	return 0;
