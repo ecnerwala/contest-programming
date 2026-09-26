@@ -152,7 +152,7 @@ int main() {
 				res = (std::sqrt(dbl(dx)) - dbl(P.x * U)) * dbl(U) / dbl(V * V - U * U);
 			}
 			assert(res >= 0);
-			pd tgt = pd(P) + pd(res, 0);
+			pd tgt = pd(P) - pd(res, 0);
 			std::cerr << abs(tgt) << '/' << res << ' ' << V << '/' << U << '\n';
 			std::cerr << abs(tgt) / res << ' ' << dbl(V) / dbl(U) << '\n';
 			return res;
