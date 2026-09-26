@@ -269,7 +269,6 @@ int main() {
 				cnts.insert(cnts.begin(), 0);
 			}
 
-			std::vector<int> vals; vals.reserve(N);
 			bool good = false;
 
 			using dp_t = std::array<std::array<int, 2>, 2>;
@@ -295,23 +294,24 @@ int main() {
 				}
 				return res;
 			};
+			std::vector<std::pair<int, dp_t>> stk; stk.reserve(N+1);
 			for (int rng = 0; rng+1 < int(cnts.size()); rng++) {
 				int l = cnts[rng], r = cnts[rng+1];
 				assert(r > l);
-				int S = r - l - 1;
-				vals.resize(S);
-				for (int i = 0; i < S; i++) vals[i] = rmq.query(inds[l+i] >> 1, (inds[l+i+1] >> 1) - 1);
-				auto ct = wala::CartesianTree::build_max_tree(vals);
+				for (int i = l; i < r; i++) {
+					int val = -1;
+					if (i+1 < r) val = rmq.query(inds[i] >> 1, (inds[i+1] >> 1) - 1);
+					else if (!stk.empty()) val = stk[0].first + 1;
 
-				[&](this auto&& self, int cur) -> std::array<std::array<int, 2>, 2> {
-					if (!(cur & 1)) {
-						return build_dp(inds[l + (cur >> 1)]);
-					} else {
-						auto v0 = self(ct[cur].c[0]);
-						auto v1 = self(ct[cur].c[1]);
-						return merge_dp(v0, v1, vals[cur >> 1]);
+					dp_t cur_dp = build_dp(inds[i]);
+					while (!stk.empty() && val >= stk.back().first) {
+						cur_dp = merge_dp(stk.back().second, cur_dp, stk.back().first);
+						stk.pop_back();
 					}
-				}(ct.root);
+					stk.push_back({val, cur_dp});
+				}
+				assert(int(stk.size()) == 1);
+				stk.pop_back();
 			}
 			return good;
 		};
