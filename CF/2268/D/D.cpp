@@ -52,11 +52,11 @@ int main() {
 				// we have par[i] - i things in here
 				int num_1 = par[i] - i - 1;
 				int64_t num_2 = 0;
-				for (int j = i+1; j <= par[i]; j++) {
-					if (first_child[j] == -1) continue;
-					num_2 += j - first_child[j] - num_children[j];
+				for (int b = i+1; b <= par[i]; b++) {
+					if (first_child[b] == -1) continue;
+					num_2 += b - first_child[b] - num_children[b];
 				}
-				for (int a = i; a < par[i]; a++) {
+				for (int a = i+1; a < par[i]; a++) {
 					num_2 += par[a] - a - 1;
 				}
 				int64_t num_3 = int64_t(par[i] - i) * int64_t(par[i] - i - 1) / 2;
