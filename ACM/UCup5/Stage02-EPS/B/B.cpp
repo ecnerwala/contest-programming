@@ -209,7 +209,7 @@ pair<range_data, range_data> get_range_with_cnt(int LL, int RR, int cnt) {
 	int rcur = roots[RR];
 	int leftPt = 2*N;
 	int rightPt = -1;
-	int64_t sum = 0;
+	int sum = 0;
 
 	int remCnt = cnt;
 	for (int z = 0; z < LG; z++) {
