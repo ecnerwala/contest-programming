@@ -1700,15 +1700,18 @@ int main() {
 
 			auto res = a0 * a1;
 			assert(res[N] == num(N+1));
+			num cur_ans = 0;
 			num tot = 0;
 			for (int i = 1; i < N; i++) {
 				num v = res[N+i];
 				num ways = catalan[i] * catalan[N-i];
 				tot += ways * num(N-i+1);
+				cur_ans += ways * (num(N-i+1) - num(v) * (num(1 + prod) / num(2)));
 			}
-			std::cerr << N << ' ' << tot << '\n';
 			assert(tot == catalan[N] * num(N-1));
+			ans += cur_ans * num(1 << b);
 		}
+		std::cout << ans << '\n';
 	}
 
 	return 0;
