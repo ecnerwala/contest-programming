@@ -9,7 +9,7 @@ const int MAXN = 110000;
 int N;
 int A[MAXN];
 
-int V[MAXN * 2];
+int64_t V[MAXN * 2];
 
 pair<pair<int, int>, pair<int, int>> insertions[MAXN];
 int insertionTime[2*MAXN];
@@ -58,11 +58,12 @@ void build() {
 } // namespace insertion_builder
 
 namespace seg_static {
-const int S = 1 << 16;
+const int S = 1 << 17;
+static_assert(S >= MAXN + 1);
 struct node {
-	int bestSt;
-	int bestEn;
-	int bestRange;
+	int64_t bestSt;
+	int64_t bestEn;
+	int64_t bestRange;
 } seg[2*S];
 
 void init() {
@@ -79,8 +80,8 @@ void init() {
 	}
 }
 
-int query_start(int l, int r) {
-	int ans = V[2*l];
+int64_t query_start(int l, int r) {
+	int64_t ans = V[2*l];
 	for (l += S, r += S; l < r; l /= 2, r /= 2) {
 		if (l & 1) {
 			ans = max(ans, seg[l].bestSt);
@@ -93,8 +94,8 @@ int query_start(int l, int r) {
 	}
 	return ans;
 }
-int query_end(int l, int r) {
-	int ans = V[2*r-1];
+int64_t query_end(int l, int r) {
+	int64_t ans = V[2*r-1];
 	for (l += S, r += S; l < r; l /= 2, r /= 2) {
 		if (l & 1) {
 			ans = max(ans, seg[l].bestEn);
@@ -107,11 +108,11 @@ int query_end(int l, int r) {
 	}
 	return ans;
 }
-int query_range(int l, int r) {
+int64_t query_range(int l, int r) {
 	assert(l < r);
-	int bestL = V[2*l];
-	int bestR = V[2*r-1];
-	int ans = bestL + bestR;
+	int64_t bestL = V[2*l];
+	int64_t bestR = V[2*r-1];
+	int64_t ans = bestL + bestR;
 	for (l += S, r += S; l < r; l /= 2, r /= 2) {
 		if (l & 1) {
 			ans = max(ans, seg[l].bestRange);
@@ -132,12 +133,13 @@ int query_range(int l, int r) {
 } // namespace seg_static
 
 namespace seg_time {
-const int LG = 16;
+const int LG = 17;
 const int S = 1 << LG;
+static_assert(S >= MAXN + 1);
 struct node {
 	int ch[2];
 	int prefCnt;
-	int prefSum;
+	int64_t prefSum;
 
 	int nxtPt;
 	int prvPt;
@@ -164,7 +166,7 @@ int init_tree() {
 	return 0;
 }
 
-int insert_time(int node, int nodeL, int nodeR, int loc, int ind, int sumVal) {
+int insert_time(int node, int nodeL, int nodeR, int loc, int ind, int64_t sumVal) {
 	assert(nodeL <= loc && loc < nodeR);
 
 	int newNode = pool_sz++;
@@ -197,7 +199,7 @@ void init() {
 
 // returns cnt, sum, leftPt, rightPt
 struct range_data {
-	int cnt, sum, leftPt, rightPt;
+	int cnt; int64_t sum; int leftPt, rightPt;
 };
 pair<range_data, range_data> get_range_with_cnt(int LL, int RR, int cnt) {
 	assert(cnt <= RR - LL);
@@ -207,7 +209,7 @@ pair<range_data, range_data> get_range_with_cnt(int LL, int RR, int cnt) {
 	int rcur = roots[RR];
 	int leftPt = 2*N;
 	int rightPt = -1;
-	int sum = 0;
+	int64_t sum = 0;
 
 	int remCnt = cnt;
 	for (int z = 0; z < LG; z++) {
