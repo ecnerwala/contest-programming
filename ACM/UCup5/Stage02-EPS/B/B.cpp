@@ -277,7 +277,10 @@ int main() {
 		K = std::min(K, pref_pos[R] - pref_pos[L]);
 		int LL = L<<1, RR = R<<1, KK = K<<1;
 
-		if (K == 1) {
+		if (K == 0) {
+			std::cout << 0 << '\n';
+			continue;
+		} else if (K == 1) {
 			cout << seg_static::query_range(L, R) << '\n';
 			continue;
 		}
