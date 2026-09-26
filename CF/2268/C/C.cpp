@@ -238,7 +238,7 @@ int main() {
 		auto is_good = [&](int v) -> bool {
 			assert(v);
 			std::vector<std::pair<int, int>> pref(N+1);
-			std::vector<int> cnts; cnts.reserve(N+1);
+			std::vector<int> cnts; cnts.reserve(N+2);
 			{
 				wala::hash_map<int, int> mp;
 				for (int i = 0; i <= N; i++) {
@@ -267,12 +267,13 @@ int main() {
 					pref2[cnts[pref[i].first]++] = pref[i];
 				}
 				pref = std::move(pref2);
+				cnts.insert(cnts.begin(), 0);
 			}
 
 			std::vector<std::pair<int, bool>> buf; buf.reserve(N+1);
 			std::vector<int> vals; vals.reserve(N);
-			for (int l = 0, r = 0; l < int(pref.size()); l = r) {
-				while (r < int(pref.size()) && pref[r].first == pref[l].first) r++;
+			for (int z = 0; z+1 < int(cnts.size()); z++) {
+				int l = cnts[z], r = cnts[z+1];
 				buf.clear();
 				vals.clear();
 				for (int i = l; i < r; i++) {
