@@ -53,6 +53,7 @@ int main() {
 				for (int b = i+1; b <= par[i]; b++) {
 					if (first_child[b] == -1) continue;
 					num_2 += b - first_child[b] - num_children[b];
+					num_2 += num_children[first_child[b]];
 				}
 				for (int a = i+1; a < par[i]; a++) {
 					num_2 += par[a] - a - 1;
