@@ -127,7 +127,7 @@ void solve(){
 			}
 		}
 		// best edge per vertex
-		vector<pair<pair<ll, ll>, pair<int,int> >> best_per(N+1, pair<pair<ll, ll>, pair<int,int> >{{0, 0}, {-1, -1}});
+		vector<pair<pair<ll, ll>, pair<int,int> >> best_per(V, pair<pair<ll, ll>, pair<int,int> >{{0, 0}, {-1, -1}});
 		for(int dir = 0; dir < 2; dir++){
 			// cerr << "dir " << dir << '\n';
 			vector<hull> hulls(2*V);
@@ -178,7 +178,7 @@ void solve(){
 			}
 		}
 
-		for(int cc = 0; cc < N; cc++){
+		for(int cc = 0; cc < V; cc++){
 			auto [i, j] = best_per[cc].second;
 			if(j >= 0 && uf.join(i, j)){
 				// cerr << i << ' ' << j << '\n';
