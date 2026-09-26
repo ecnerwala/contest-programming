@@ -1,5 +1,31 @@
 #include <bits/stdc++.h>
 #include <cassert>
+#include <ext/pb_ds/assoc_container.hpp>
+
+namespace wala {
+
+struct splitmix64_hash {
+	static uint64_t splitmix64(uint64_t x) {
+		// http://xorshift.di.unimi.it/splitmix64.c
+		x += 0x9e3779b97f4a7c15;
+		x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+		x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+		return x ^ (x >> 31);
+	}
+
+	size_t operator()(uint64_t x) const {
+		static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
+		return splitmix64(x + FIXED_RANDOM);
+	}
+};
+
+template <typename K, typename V, typename Hash = splitmix64_hash>
+using hash_map = __gnu_pbds::gp_hash_table<K, V, Hash>;
+
+template <typename K, typename Hash = splitmix64_hash>
+using hash_set = hash_map<K, __gnu_pbds::null_type, Hash>;
+
+} // namespace wala
 
 namespace wala {
 
@@ -212,18 +238,36 @@ int main() {
 		auto is_good = [&](int v) -> bool {
 			assert(v);
 			std::vector<std::pair<int, int>> pref(N+1);
-			pref[0] = {0, 0};
-			for (int i = 0; i < N; i++) {
-				pref[i+1].first = pref[i].first ^ (A[i] & v);
-			}
-			for (int i = 0; i <= N; i++) {
-				pref[i].second = 2 * i;
-				if (pref[i].first > (pref[i].first ^ v)) {
-					pref[i].first ^= v;
-					pref[i].second++;
+			std::vector<int> cnts; cnts.reserve(N+1);
+			{
+				wala::hash_map<int, int> mp;
+				for (int i = 0; i <= N; i++) {
+					if (i < N) pref[i+1].first = pref[i].first ^ (A[i] & v);
+					pref[i].second = 2 * i;
+					if (pref[i].first > (pref[i].first ^ v)) {
+						pref[i].first ^= v;
+						pref[i].second++;
+					}
+					auto [a, did_insert] = mp.insert({pref[i].first, int(cnts.size())});
+					if (did_insert) cnts.push_back(0);
+
+					pref[i].first = a->second;
+
+					cnts[pref[i].first]++;
 				}
+				{
+					int loc = 0;
+					for (int i = 0; i < int(cnts.size()); i++) {
+						loc += std::exchange(cnts[i], loc);
+					}
+					assert(loc == N+1);
+				}
+				std::vector<std::pair<int, int>> pref2(N+1);
+				for (int i = 0; i <= N; i++) {
+					pref2[cnts[pref[i].first]++] = pref[i];
+				}
+				pref = std::move(pref2);
 			}
-			std::sort(pref.begin(), pref.end());
 
 			std::vector<std::pair<int, bool>> buf; buf.reserve(N+1);
 			std::vector<int> vals; vals.reserve(N);
