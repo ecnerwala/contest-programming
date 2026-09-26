@@ -287,7 +287,7 @@ int main() {
 
 	while (Q--) {
 		int L, R; cin >> L >> R; L--, R--;
-		if (L > R) L += N_orig;
+		if (L > R) { L += N_orig; std::swap(L, R); }
 		int K = K_global;
 		std::cerr << "query " << L << ' ' << R << ' ' << K << '\n';
 		K = std::min(K, pref_pos[R] - pref_pos[L]);
