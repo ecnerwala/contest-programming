@@ -2,7 +2,7 @@
 
 int main() {
 	std::mt19937 mt(48);
-	int N = int(1e5);
+	int N = int(10);
 	int Q = int(1e5);
 	std::cout << N << ' ' << Q << '\n';
 	std::vector<int> A(N);
