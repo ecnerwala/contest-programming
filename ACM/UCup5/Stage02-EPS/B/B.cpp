@@ -288,7 +288,7 @@ int main() {
 			continue;
 		}
 
-		int ans;
+		int64_t ans;
 
 		const auto r = seg_time::get_range_with_cnt(LL, RR, KK-1);
 		if (r.second.cnt == KK) {
@@ -296,8 +296,8 @@ int main() {
 			if (!(rmid.leftPt & 1)) {
 				ans = rmid.sum;
 			} else {
-				int lbest = seg_static::query_start(L, (rmid.leftPt+1)/2);
-				int rbest = seg_static::query_end((rmid.rightPt) / 2, R);
+				int64_t lbest = seg_static::query_start(L, (rmid.leftPt+1)/2);
+				int64_t rbest = seg_static::query_end((rmid.rightPt) / 2, R);
 				ans = max(rmid.sum + lbest - V[rmid.rightPt], rmid.sum - V[rmid.leftPt] + rbest);
 
 				const auto& rlo = r.first;
