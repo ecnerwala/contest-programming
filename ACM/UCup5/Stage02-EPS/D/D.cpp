@@ -172,6 +172,10 @@ int main() {
 		if (lower.size() >= 2 && lower.end()[-1].y == lower.end()[-2].y) lower.pop_back();
 		for (auto& p : upper) { std::cerr << p << '\n'; } std::cerr << '\n';
 		for (auto& p : lower) { std::cerr << p << '\n'; } std::cerr << '\n';
+
+		for (int i = 0; i < int(upper.size()); i++) {
+			std::cerr << get_time(upper[i]).value_or(-1) << '\n';
+		}
 	}
 
 	return 0;
