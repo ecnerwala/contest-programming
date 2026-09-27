@@ -200,9 +200,11 @@ int main() {
 					}
 				}
 				if (!has_fold) {
-					for (auto r : runs) { std::cerr << r << ' '; }
-					std::cerr << mp[S] << '\n';
-					print_val(S);
+					if (L <= 10) {
+						for (auto r : runs) { std::cerr << r << ' '; }
+						std::cerr << mp[S] << '\n';
+					}
+					//print_val(S);
 				}
 			}
 		}
