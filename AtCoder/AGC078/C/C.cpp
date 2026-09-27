@@ -161,6 +161,7 @@ int main() {
 				min_height = std::min(min_height, net_height);
 			} else assert(false);
 		}
+		if (net_height < 0) return;
 		int val = (max_height - std::max(net_height, 0)) - (std::min(net_height, 0) - min_height);
 		assert(!((((int(S.size()) - std::abs(net_height)) / 2) ^ v.v.n ^ v.star) & 1));
 		if (val != v.v.n) {
