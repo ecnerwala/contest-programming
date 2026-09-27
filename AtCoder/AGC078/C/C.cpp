@@ -172,7 +172,9 @@ int main() {
 		return S;
 	};
 	auto print_val = [&](std::string S) -> void {
-		std::cerr << S << ' ' << mp[S] << '\n';
+		auto v = mp[S];
+		assert(v.v.d == 0);
+		std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << '\n';
 	};
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
