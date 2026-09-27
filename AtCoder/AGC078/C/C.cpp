@@ -188,10 +188,12 @@ int main() {
 		for (int i = 0; i < L; i++) S += 'A' + ((i ^ v) & 1);
 		return S;
 	};
+	if (false) {
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
 			print_val(build_alt(i, 0) + build_alt(j, i^1));
 		}
+	}
 	}
 
 	return 0;
