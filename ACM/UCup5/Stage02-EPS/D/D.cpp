@@ -195,8 +195,8 @@ int main() {
 			if (lower.size() >= 2 && lower.end()[-1].y == lower.end()[-2].y) lower.pop_back();
 		}
 
-		while (upper.size() >= 2 && cross(pt_t(-int(U), int(V)), upper.end()[-1] - upper.end()[-2])) >= 0) upper.pop_back();
-		while (lower.size() >= 2 && cross(pt_t(-int(U), int(V)), lower.end()[-1] - lower.end()[-2])) <= 0) lower.pop_back();
+		while (upper.size() >= 2 && cross(pt_t(-int(U), int(V)), upper.end()[-1] - upper.end()[-2]) >= 0) upper.pop_back();
+		while (lower.size() >= 2 && cross(pt_t(-int(U), int(V)), lower.end()[-1] - lower.end()[-2]) <= 0) lower.pop_back();
 
 		for (auto& p : upper) { std::cerr << p << '\n'; } std::cerr << '\n';
 		for (auto& p : lower) { std::cerr << p << '\n'; } std::cerr << '\n';
