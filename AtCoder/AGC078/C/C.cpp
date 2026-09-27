@@ -146,7 +146,7 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	std::map<std::string, wala::cold_ish> mp;
-	for (int L = 0; L < 20; L++) {
+	for (int L = 0; L < 6; L++) {
 		for (int m = 0; m < (1 << L); m++) {
 			std::string S; S.reserve(L);
 			for (int i = 0; i < L; i++) S += 'A' + ((m >> i) & 1);
