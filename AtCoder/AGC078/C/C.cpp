@@ -161,7 +161,9 @@ int main() {
 			auto res = wala::cold_ish_game(moves);
 			assert(res);
 			mp[S] = *res;
-			//std::cerr << S << ' ' << *res << '\n';
+			if (L <= 8) {
+				std::cerr << S << ' ' << *res << '\n';
+			}
 		}
 	}
 	auto build_alt = [&](int L, int v) -> std::string {
