@@ -251,7 +251,7 @@ int main() {
 		}
 		std::cout << std::fixed << std::setprecision(20);
 		for (int q = 0; q < Q; q++) {
-			std::cout << ans[q] << '\n';
+			std::cout << ans[q] / dbl(V) << '\n';
 		}
 	}
 
