@@ -198,6 +198,14 @@ int main() {
 						auto T = S.substr(0, i-l) + S.substr(j);
 						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
 						has_fold = true;
+					} else if (a + b >= l) {
+						int d = std::min({a, b, l});
+						auto T = S.substr(0, i-a) +
+							std::string(a-d, S[i] ^ 'A' ^ 'B') +
+							std::string(l-d, S[i] ^ 'A' ^ 'B') +
+							std::string(b-d, S[i] ^ 'A' ^ 'B') +
+							S.substr(j+b);
+						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), d & 1));
 					}
 				}
 				if (!has_fold) {
