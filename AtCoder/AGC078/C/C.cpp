@@ -162,9 +162,7 @@ int main() {
 			} else assert(false);
 		}
 		int val = (max_height - std::max(net_height, 0)) - (std::min(net_height, 0) - min_height);
-		if (net_height == 0) {
-			std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << val << ' ' << (int(S.size()) - net_height) / 2 << ' ' << min_height << '-' << max_height << '\n';
-		}
+		std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << val << ' ' << (int(S.size()) - net_height) / 2 << ' ' << min_height << '-' << max_height << '\n';
 	};
 	for (int L = 0; L < 18; L++) {
 		for (int m = 0; m < (1 << L); m++) {
