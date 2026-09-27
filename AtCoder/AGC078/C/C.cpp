@@ -198,13 +198,27 @@ int main() {
 						auto T = S.substr(0, i-l) + S.substr(j);
 						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
 						has_fold = true;
-					} else if (a >= 1 && b >= 1 && l >= 2) {
-						auto T = S.substr(0, i-1) + S.substr(i+1, j-1-(i+1)) + S.substr(j+1);
-						std::cerr << S << ' ' << T << ' ' << mp[S] << ' ' << mp[T] << '\n';
-						assert(mp[S] == mp[T]);
 					}
 				}
 				if (!has_fold) {
+					for (int i = 0, j = 0; i < L; i = j) {
+						while (j < L && S[j] == S[i]) j++;
+						int l = j - i;
+						runs.push_back(l);
+						int a = 0;
+						while (i > a && S[i-1-a] != S[i]) a++;
+						int b = 0;
+						while (j+b < L && S[j+b] != S[i]) b++;
+						if (a >= l && b >= l) {
+							auto T = S.substr(0, i-l) + S.substr(j);
+							assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
+							has_fold = true;
+						} else if (a >= 1 && b >= 1 && l >= 2) {
+							auto T = S.substr(0, i-1) + S.substr(i+1, j-1-(i+1)) + S.substr(j+1);
+							std::cerr << S << ' ' << T << ' ' << mp[S] << ' ' << mp[T] << '\n';
+							assert(mp[S] == mp[T]);
+						}
+					}
 					if (L <= 15) {
 						for (auto r : runs) { std::cerr << r << ' '; }
 						std::cerr << " -> " << mp[S].v.n << " *"[mp[S].star] << '\n';
