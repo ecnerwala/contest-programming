@@ -139,6 +139,7 @@ int main() {
 		assert(V > 0);
 
 		auto sq = [](int64_t a) -> __int128_t { return __int128_t(a) * __int128_t(a); };
+		// distance in V units
 		auto get_time = [&](pt_t P) -> std::optional<dbl> {
 			if (U >= V && P.x >= 0) {
 				return std::nullopt;
@@ -155,7 +156,7 @@ int main() {
 				}
 
 				// This should always be the right direction
-				res = (dbl(P.x * U) + std::sqrt(dbl(dx))) * dbl(U) / dbl(V * V - U * U);
+				res = (dbl(P.x * U) + std::sqrt(dbl(dx))) / dbl(V * V - U * U) * dbl(V);
 			}
 			assert(res >= 0);
 			/*
@@ -195,8 +196,10 @@ int main() {
 			if (lower.size() >= 2 && lower.end()[-1].y == lower.end()[-2].y) lower.pop_back();
 		}
 
-		while (upper.size() >= 2 && cross(pt_t(-int(U), int(V)), upper.end()[-1] - upper.end()[-2]) >= 0) upper.pop_back();
-		while (lower.size() >= 2 && cross(pt_t(-int(U), int(V)), lower.end()[-1] - lower.end()[-2]) <= 0) lower.pop_back();
+		// Prune away the time when we can go vertical
+		pt_t safe_dir(-int(U), int(V));
+		while (upper.size() >= 2 && cross(safe_dir, upper.end()[-1] - upper.end()[-2]) >= 0) upper.pop_back();
+		while (lower.size() >= 2 && cross(safe_dir, lower.end()[-1] - lower.end()[-2]) <= 0) lower.pop_back();
 
 		for (auto& p : upper) { std::cerr << p << '\n'; } std::cerr << '\n';
 		for (auto& p : lower) { std::cerr << p << '\n'; } std::cerr << '\n';
@@ -204,16 +207,51 @@ int main() {
 		for (int i = 0; i < int(upper.size()); i++) {
 			std::cerr << get_time(upper[i]).value_or(-1) << '\n';
 		}
-		std::vector<dbl> ans(Q, 1e99);
-		for (int i = 0; i+1 < int(upper.size()); i++) {
-			assert(upper[i].y < upper[i+1].y);
-			auto dir = upper[i+1] - upper[i];
-			assert(dir.y > 0);
-			if (V * -dir.x >= U * dir.y) {
-				// we can go vertical from here
-				assert(false);
-				break;
+		auto setmin = [](auto& a, auto b) { if (b < a) a = b; };
+		const dbl INF = 1e99;
+		std::vector<dbl> ans(Q, 2 * INF);
+		{
+			auto it = S.rbegin();
+			for (; it != S.rend() && cross(safe_dir, upper.back() - pt_t(it->first, 0)) >= 0; ++it) {
+				setmin(ans[it->second], W);
 			}
+			dbl t_cur = W - upper.back().y;
+			for (int i = int(upper.size()) - 1; i >= 0; i--) {
+				for (; it != S.rend() && (i == 0 || cross(upper[i] - upper[i-1], upper[i] - pt_t(it->first, 0)) >= 0); ++it) {
+					auto t = get_time(upper[i] - pt_t(it->first, 0));
+					if (!t) break;
+					setmin(ans[it->second], t_cur + *t);
+				}
+				if (i > 0) {
+					auto t = get_time(upper[i] - upper[i-1]);
+					if (!t) break;
+					t_cur += *t;
+				}
+			}
+		}
+		{
+			auto it = S.begin();
+			for (; it != S.end() && cross(safe_dir, lower.back() - pt_t(it->first, 0)) <= 0; ++it) {
+				setmin(ans[it->second], W);
+			}
+			dbl t_cur = W - lower.back().y;
+			for (int i = int(lower.size()) - 1; i >= 0; i--) {
+				for (; it != S.end() && (i == 0 || cross(lower[i] - lower[i-1], lower[i] - pt_t(it->first, 0)) <= 0); ++it) {
+					auto t = get_time(lower[i] - pt_t(it->first, 0));
+					assert(t);
+					setmin(ans[it->second], t_cur + *t);
+				}
+				if (i > 0) {
+					auto t = get_time(lower[i] - lower[i-1]);
+					assert(t);
+					t_cur += *t;
+				}
+			}
+			assert(it == S.end());
+		}
+		std::cout << std::fixed << std::setprecision(20);
+		for (int q = 0; q < Q; q++) {
+			std::cout << ans[q] << '\n';
 		}
 	}
 
