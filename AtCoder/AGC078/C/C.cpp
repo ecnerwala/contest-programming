@@ -190,10 +190,11 @@ int main() {
 					while (j < L && S[j] == S[i]) j++;
 					int l = j - i;
 					runs.push_back(l);
-					if (
-						i >= l && S.substr(i-l, l) == std::string(l, S[i] ^ 'A' ^ 'B')
-						&& j+l <= L && S.substr(j, l) == std::string(l, S[i] ^ 'A' ^ 'B')
-					) {
+					int a = 0;
+					while (i > a && S[i-1-a] != S[i]) a++;
+					int b = 0;
+					while (j+b < L && S[j+b] != S[i]) b++;
+					if (l >= a && l >= b) {
 						auto T = S.substr(0, i-l) + S.substr(j);
 						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
 						has_fold = true;
