@@ -158,7 +158,7 @@ int main() {
 				// This should always be the right direction
 				res = (dbl(P.x * U) + std::sqrt(dbl(dx))) / dbl(V * V - U * U) * dbl(V);
 			}
-			assert(res >= 0);
+			//assert(res >= 0);
 			/*
 			pd tgt = pd(P) + pd(res, 0);
 			std::cerr << abs(tgt) << '/' << res << ' ' << V << '/' << U << '\n';
@@ -201,12 +201,9 @@ int main() {
 		while (upper.size() >= 2 && cross(safe_dir, upper.end()[-1] - upper.end()[-2]) >= 0) upper.pop_back();
 		while (lower.size() >= 2 && cross(safe_dir, lower.end()[-1] - lower.end()[-2]) <= 0) lower.pop_back();
 
-		for (auto& p : upper) { std::cerr << p << '\n'; } std::cerr << '\n';
-		for (auto& p : lower) { std::cerr << p << '\n'; } std::cerr << '\n';
+		//for (auto& p : upper) { std::cerr << p << '\n'; } std::cerr << '\n';
+		//for (auto& p : lower) { std::cerr << p << '\n'; } std::cerr << '\n';
 
-		for (int i = 0; i < int(upper.size()); i++) {
-			std::cerr << get_time(upper[i]).value_or(-1) << '\n';
-		}
 		auto setmin = [](auto& a, auto b) { if (b < a) a = b; };
 		const dbl INF = 1e99;
 		std::vector<dbl> ans(Q, 2 * INF);
