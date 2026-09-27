@@ -184,10 +184,12 @@ int main() {
 			assert(res);
 			mp[S] = *res;
 			{
+				std::vector<int> runs;
 				bool has_fold = false;
 				for (int i = 0, j = 0; i < L; i = j) {
 					while (j < L && S[j] == S[i]) j++;
 					int l = j - i;
+					runs.push_back(l);
 					if (
 						i >= l && S.substr(i-l, l) == std::string(l, S[i] ^ 'A' ^ 'B')
 						&& j+l <= L && S.substr(j, l) == std::string(l, S[i] ^ 'A' ^ 'B')
@@ -198,6 +200,8 @@ int main() {
 					}
 				}
 				if (!has_fold) {
+					for (auto r : runs) { std::cerr << r << ' '; }
+					std::cerr << mp[S] << '\n';
 					print_val(S);
 				}
 			}
