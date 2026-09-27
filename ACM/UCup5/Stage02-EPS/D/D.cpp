@@ -149,25 +149,43 @@ int main() {
 					return std::nullopt;
 				}
 
+				// This should always be the right direction
 				res = (dbl(P.x * U) + std::sqrt(dbl(dx))) * dbl(U) / dbl(V * V - U * U);
 			}
 			assert(res >= 0);
+			/*
 			pd tgt = pd(P) + pd(res, 0);
 			std::cerr << abs(tgt) << '/' << res << ' ' << V << '/' << U << '\n';
 			std::cerr << abs(tgt) / res << ' ' << dbl(V) / dbl(U) << '\n';
+			*/
 			return res;
 		};
 
-		std::sort(car.begin(), car.end(), [&](auto a, auto b) -> bool {
-			return std::make_pair(a.y, a.x) < std::make_pair(b.y, b.x);
-		});
+		{
+			auto mi = std::min_element(car.begin(), car.end(), [&](auto a, auto b) -> bool {
+				return std::make_pair(a.y, a.x) < std::make_pair(b.y, b.x);
+			});
+			std::rotate(car.begin(), mi, car.end());
+		}
 		std::vector<pt_t> upper; upper.reserve(N);
 		std::vector<pt_t> lower; lower.reserve(N);
-		for (auto p : car) {
-			while (upper.size() >= 2 && cross3(upper.end()[-2], upper.end()[-1], p) <= 0) upper.pop_back();
-			while (lower.size() >= 2 && cross3(lower.end()[-2], lower.end()[-1], p) >= 0) lower.pop_back();
-			upper.push_back(p);
-			lower.push_back(p);
+		{
+			auto ma = std::max_element(car.begin(), car.end(), [&](auto a, auto b) -> bool {
+				return std::make_pair(a.y, a.x) < std::make_pair(b.y, b.x);
+			});
+			for (auto p : std::span(car.begin(), ma+1)) {
+				while (upper.size() >= 2 && cross3(upper.end()[-2], upper.end()[-1], p) <= 0) upper.pop_back();
+				upper.push_back(p);
+			}
+			std::reverse(car.begin() + 1, car.end());
+			ma = std::max_element(car.begin(), car.end(), [&](auto a, auto b) -> bool {
+				return std::make_pair(a.y, a.x) < std::make_pair(b.y, b.x);
+			});
+			for (auto p : std::span(car.begin(), ma+1)) {
+				while (lower.size() >= 2 && cross3(lower.end()[-2], lower.end()[-1], p) >= 0) lower.pop_back();
+				lower.push_back(p);
+			}
+			std::reverse(car.begin() + 1, car.end());
 		}
 		if (upper.size() >= 2 && upper[0].y == upper[1].y) upper.erase(upper.begin());
 		if (lower.size() >= 2 && lower.end()[-1].y == lower.end()[-2].y) lower.pop_back();
@@ -176,6 +194,11 @@ int main() {
 
 		for (int i = 0; i < int(upper.size()); i++) {
 			std::cerr << get_time(upper[i]).value_or(-1) << '\n';
+		}
+		for (int i = 0; i+1 < int(upper.size()); i++) {
+			assert(upper[i].y < upper[i+1].y);
+			if (upper[i].x <= upper[i+1].x) {
+			}
 		}
 	}
 
