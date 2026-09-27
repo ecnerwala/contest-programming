@@ -204,6 +204,10 @@ int main() {
 					if (L <= 15) {
 						for (auto r : runs) { std::cerr << r << ' '; }
 						std::cerr << " -> " << mp[S].v.n << " *"[mp[S].star] << '\n';
+						auto it = std::max_element(S.begin(), S.end());
+						if (it == S.begin() || *it >= *std::next(it) + *std::prev(it)) {
+							assert(!mp[S].star);
+						}
 						int net_height = 0;
 						int max_height = 0;
 						int min_height = 0;
