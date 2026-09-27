@@ -161,7 +161,7 @@ int main() {
 				min_height = std::min(min_height, net_height);
 			} else assert(false);
 		}
-		if (max_height == net_height) {
+		if (min_height == 0 && max_height == net_height) {
 			std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << net_height << ' ' << min_height << '-' << max_height << '\n';
 		}
 	};
