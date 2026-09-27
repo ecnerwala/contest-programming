@@ -172,6 +172,11 @@ int main() {
 	auto print_val = [&](std::string S) -> void {
 		std::cerr << S << ' ' << mp[S] << '\n';
 	};
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			print_val(build_alt(i, 0) + build_alt(j, i^1));
+		}
+	}
 
 	return 0;
 }
