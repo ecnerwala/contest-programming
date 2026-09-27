@@ -192,7 +192,7 @@ int main() {
 					&& j+l <= L && S.substr(j, l) == std::string(l, S[i] ^ 'A' ^ 'B')
 				) {
 					auto T = S.substr(0, i-l) + S.substr(j);
-					assert(mp[S].v == mp[T].v);
+					assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
 				}
 			}
 		}
