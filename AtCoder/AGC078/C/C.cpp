@@ -178,7 +178,7 @@ int main() {
 			auto res = wala::cold_ish_game(moves);
 			assert(res);
 			mp[S] = *res;
-			if (L <= 10) print_val(S);
+			if (L <= 8) print_val(S);
 		}
 	}
 	auto build_alt = [&](int L, int v) -> std::string {
