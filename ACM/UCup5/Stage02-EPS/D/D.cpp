@@ -124,15 +124,20 @@ int main() {
 		std::vector<pt_t> car(N);
 		for (auto& p : car) std::cin >> p;
 		int Q; std::cin >> Q;
-		std::vector<int> S(Q);
-		for (auto& s : S) std::cin >> s;
+		std::vector<std::pair<int, int>> S(Q);
+		for (int q = 0; q < Q; q++) { std::cin >> S[q].first; S[q].second = q; }
+		std::sort(S.begin(), S.end());
 
 		if (U < 0) {
 			U = -U;
 			for (auto& p : car) p.x = -p.x;
-			for (auto& s : S) s = -s;
+			std::reverse(car.begin(), car.end());
+			for (auto& s : S) s.first *= -1;
+			std::reverse(S.begin(), S.end());
 		}
 		assert(U >= 0);
+		assert(V > 0);
+
 		auto sq = [](int64_t a) -> __int128_t { return __int128_t(a) * __int128_t(a); };
 		auto get_time = [&](pt_t P) -> std::optional<dbl> {
 			if (U >= V && P.x >= 0) {
@@ -186,18 +191,27 @@ int main() {
 				lower.push_back(p);
 			}
 			std::reverse(car.begin() + 1, car.end());
+			if (upper.size() >= 2 && upper[0].y == upper[1].y) upper.erase(upper.begin());
+			if (lower.size() >= 2 && lower.end()[-1].y == lower.end()[-2].y) lower.pop_back();
 		}
-		if (upper.size() >= 2 && upper[0].y == upper[1].y) upper.erase(upper.begin());
-		if (lower.size() >= 2 && lower.end()[-1].y == lower.end()[-2].y) lower.pop_back();
+
+		while (upper.size() >= 2 && cross(pt_t(-int(U), int(V)), upper.end()[-1] - upper.end()[-2])) >= 0) upper.pop_back();
+		while (lower.size() >= 2 && cross(pt_t(-int(U), int(V)), lower.end()[-1] - lower.end()[-2])) <= 0) lower.pop_back();
+
 		for (auto& p : upper) { std::cerr << p << '\n'; } std::cerr << '\n';
 		for (auto& p : lower) { std::cerr << p << '\n'; } std::cerr << '\n';
 
 		for (int i = 0; i < int(upper.size()); i++) {
 			std::cerr << get_time(upper[i]).value_or(-1) << '\n';
 		}
+		std::vector<dbl> ans(Q, 1e99);
 		for (int i = 0; i+1 < int(upper.size()); i++) {
 			assert(upper[i].y < upper[i+1].y);
-			if (upper[i].x <= upper[i+1].x) {
+			auto dir = upper[i+1] - upper[i];
+			assert(dir.y > 0);
+			if (V * -dir.x >= U * dir.y) {
+				// we can go vertical from here
+				break;
 			}
 		}
 	}
