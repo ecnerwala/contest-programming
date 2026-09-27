@@ -467,6 +467,7 @@ E::extend_to(t,n,in);
 {E::upsample(ct,n,false)}->std::same_as<typename E::transformed>;
 {E::upsample(cp,n,false)}->std::same_as<typename E::product>;
 {E::negate_arg(ct,n)}->std::same_as<typename E::transformed>;
+{E::of_reverse(ct,n)}->std::same_as<typename E::transformed>;
 {E::mul(ct,ct,n)}->std::same_as<typename E::product>;
 {E::sq(ct,n)}->std::same_as<typename E::product>;
 {E::mul2(ct,ct,ct,ct,n)}->std::same_as<typename E::template product_t<2*E::unit_scale>>;
@@ -532,6 +533,12 @@ transformed r;r.v.resize(n);
 for(int j=0;j<n;j++)r.v[j]=t.v[j^1];
 return r;
 }
+static transformed of_reverse(const transformed&t,int n){
+assert(t.size()>=n);
+transformed r;r.v.resize(n);
+for(int j=0;j<n;j++)r.v[j]=t.v[core::conj_index(j)];
+return r;
+}
 static product mul(const transformed&a,const transformed&b,int n){
 assert(a.size()>=n&&b.size()>=n);
 product p;p.v.resize(n);
@@ -553,6 +560,12 @@ static product add(product&&a,const product&b){
 assert(a.size()==b.size());
 for(int i=0;i<a.size();i++)a.v[i]+=b.v[i];
 return std::move(a);
+}
+static num dot(const product&p,const transformed&t,int n){
+assert(p.size()>=n&&t.size()>=n);
+num r=0;
+for(int j=0;j<n;j++)r+=p.v[j]*t.v[core::conj_index(j)];
+return r*inv(num(n));
 }
 template<typename Op=assign_op>static void finish(product&&p,std::span<num>out,Op op={}){
 int n=p.size();
@@ -1675,7 +1688,6 @@ int main() {
 		std::vector<int> A(N); for (auto& a : A) std::cin >> a;
 		using num = wala::modnum<998244353>;
 		using E = wala::fft::engines::ntt<num>;
-		using ps = wala::series::exact<E>;
 		const int V = 2 * N;
 		std::vector<num> fact(V+1);
 		fact[0] = 1;
@@ -1688,27 +1700,25 @@ int main() {
 		catalan[0] = 1;
 		for (int i = 1; i <= N; i++) catalan[i] = fact[2*i] * ifact[i] * ifact[i+1];
 
+		const int L = wala::nextPow2(2*N);
+		std::vector<num> weights(N);
+		for (int i = 1; i < N; i++) weights[i] = catalan[i] * catalan[N-i];
+
+		auto tw = E::transform(weights, L);
+
 		num ans = 0;
 		for (int b = 0; b < 18; b++) {
-			ps a0(N+1), a1(N+1);
+			std::vector<num> a(N+1);
 			num prod = 1;
 			for (int i = 0; i <= N; i++) {
 				if (i && ((A[i-1] >> b) & 1)) prod = -prod;
-				a0[i] = prod;
-				a1[N-i] = prod;
+				a[i] = prod;
 			}
 
-			auto res = a0 * a1;
-			assert(res[N] == num(N+1));
-			num cur_ans = 0;
-			num tot = 0;
-			for (int i = 1; i < N; i++) {
-				num v = res[N+i];
-				num ways = catalan[i] * catalan[N-i];
-				tot += ways * num(N-i+1);
-				cur_ans += ways * (num(N-i+1) - num(v) * (num(1 + prod) / num(2)));
-			}
-			assert(tot == catalan[N] * num(N-1));
+			auto ta = E::transform(a, L);
+			num v = E::dot(E::mul(E::of_reverse(ta, L), ta, L), tw, L);
+
+			num cur_ans = catalan[N] * num(N-1) - v * (num(1 + prod) / num(2));
 			ans += cur_ans * num(1 << b);
 		}
 		std::cout << ans << '\n';
