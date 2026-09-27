@@ -192,6 +192,7 @@ int main() {
 					&& j+l <= L && S.substr(j, l) == std::string(l, S[i] ^ 'A' ^ 'B')
 				) {
 					auto T = S.substr(0, i-l) + S.substr(j);
+					std::cerr << "cnd " << S << ' ' << T << ' ' << mp[S] << ' ' << mp[T] << '\n';
 					assert(mp[S] == mp[T]);
 				}
 			}
