@@ -203,8 +203,8 @@ int main() {
 					if (L <= 10) {
 						for (auto r : runs) { std::cerr << r << ' '; }
 						std::cerr << " -> " << mp[S].v.n << " *"[mp[S].star] << '\n';
+						print_val(S);
 					}
-					//print_val(S);
 				}
 			}
 		}
