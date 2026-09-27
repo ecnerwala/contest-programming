@@ -200,6 +200,7 @@ int main() {
 						has_fold = true;
 					} else if (a >= 1 && b >= 1 && l >= 2) {
 						auto T = S.substr(0, i-1) + S.substr(i+1, j-1) + S.substr(j+1);
+						std::cerr << S << ' ' << T << ' ' << mp[S] << ' ' << mp[T] << '\n';
 						assert(mp[S] == mp[T]);
 					}
 				}
