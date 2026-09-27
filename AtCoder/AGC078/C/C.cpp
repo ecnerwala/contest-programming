@@ -202,7 +202,7 @@ int main() {
 				if (!has_fold) {
 					if (L <= 10) {
 						for (auto r : runs) { std::cerr << r << ' '; }
-						std::cerr << mp[S] << '\n';
+						std::cerr << " -> " << mp[S].v.n << " *"[mp[S].star] << '\n';
 					}
 					//print_val(S);
 				}
