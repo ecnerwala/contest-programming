@@ -205,7 +205,7 @@ int main() {
 						for (auto r : runs) { std::cerr << r << ' '; }
 						std::cerr << " -> " << mp[S].v.n << " *"[mp[S].star] << '\n';
 						auto it = std::max_element(runs.begin(), runs.end());
-						if (it == runs.begin() || std::next(it) == runs.end() || *it >= *std::next(it) + *std::prev(it)) {
+						if (it != runs.begin() && std::next(it) != runs.end() && *it >= *std::next(it) + *std::prev(it)) {
 							assert(!mp[S].star);
 						}
 						int net_height = 0;
