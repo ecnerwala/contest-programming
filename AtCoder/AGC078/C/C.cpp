@@ -162,7 +162,7 @@ int main() {
 			} else assert(false);
 		}
 		if (min_height == 0 && max_height == net_height) {
-			std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << net_height << ' ' << min_height << '-' << max_height << '\n';
+			std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << (int(S.size()) - net_height) / 2 << ' ' << min_height << '-' << max_height << '\n';
 		}
 	};
 	for (int L = 0; L < 18; L++) {
