@@ -183,16 +183,22 @@ int main() {
 			auto res = wala::cold_ish_game(moves);
 			assert(res);
 			mp[S] = *res;
-			if (L <= 8) print_val(S);
-			for (int i = 0, j = 0; i < L; i = j) {
-				while (j < L && S[j] == S[i]) j++;
-				int l = j - i;
-				if (
-					i >= l && S.substr(i-l, l) == std::string(l, S[i] ^ 'A' ^ 'B')
-					&& j+l <= L && S.substr(j, l) == std::string(l, S[i] ^ 'A' ^ 'B')
-				) {
-					auto T = S.substr(0, i-l) + S.substr(j);
-					assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
+			{
+				bool has_fold = false;
+				for (int i = 0, j = 0; i < L; i = j) {
+					while (j < L && S[j] == S[i]) j++;
+					int l = j - i;
+					if (
+						i >= l && S.substr(i-l, l) == std::string(l, S[i] ^ 'A' ^ 'B')
+						&& j+l <= L && S.substr(j, l) == std::string(l, S[i] ^ 'A' ^ 'B')
+					) {
+						auto T = S.substr(0, i-l) + S.substr(j);
+						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
+						has_fold = true;
+					}
+				}
+				if (!has_fold) {
+					print_val(S);
 				}
 			}
 		}
