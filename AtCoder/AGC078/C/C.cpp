@@ -146,7 +146,7 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	std::map<std::string, wala::cold_ish> mp;
-	for (int L = 0; L < 10; L++) {
+	for (int L = 0; L < 18; L++) {
 		for (int m = 0; m < (1 << L); m++) {
 			std::string S; S.reserve(L);
 			for (int i = 0; i < L; i++) S += 'A' + ((m >> i) & 1);
@@ -163,12 +163,15 @@ int main() {
 			mp[S] = *res;
 			//std::cerr << S << ' ' << *res << '\n';
 		}
-		{
-			std::string S; S.reserve(L);
-			for (int i = 0; i < L; i++) S += 'A' + (i & 1);
-			std::cerr << S << ' ' << mp[S] << '\n';
-		}
 	}
+	auto build_alt = [&](int L, int v) -> std::string {
+		std::string S; S.reserve(L);
+		for (int i = 0; i < L; i++) S += 'A' + ((i ^ v) & 1);
+		return S;
+	};
+	auto print_val = [&](std::string S) -> void {
+		std::cerr << S << ' ' << mp[S] << '\n';
+	};
 
 	return 0;
 }
