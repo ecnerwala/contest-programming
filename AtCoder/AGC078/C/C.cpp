@@ -194,7 +194,7 @@ int main() {
 					while (i > a && S[i-1-a] != S[i]) a++;
 					int b = 0;
 					while (j+b < L && S[j+b] != S[i]) b++;
-					if (l >= a && l >= b) {
+					if (a >= l && b >= l) {
 						auto T = S.substr(0, i-l) + S.substr(j);
 						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
 						has_fold = true;
