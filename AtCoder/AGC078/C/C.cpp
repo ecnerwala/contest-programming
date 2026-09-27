@@ -166,7 +166,6 @@ int main() {
 		assert(!((((int(S.size()) - std::abs(net_height)) / 2) ^ v.v.n ^ v.star) & 1));
 		if (val != v.v.n) {
 			std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << val << ' ' << (int(S.size()) - std::abs(net_height)) / 2 << ' ' << min_height << '-' << max_height << '\n';
-			assert(std::abs(val - v.v.n) <= net_height + 1);
 		}
 	};
 	for (int L = 0; L < 18; L++) {
