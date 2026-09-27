@@ -202,7 +202,7 @@ int main() {
 						int d = std::min({a, b, l});
 						auto T = S.substr(0, i-a) +
 							std::string(a-d, S[i] ^ 'A' ^ 'B') +
-							std::string(l-d, S[i] ^ 'A' ^ 'B') +
+							std::string(l-d, S[i]) +
 							std::string(b-d, S[i] ^ 'A' ^ 'B') +
 							S.substr(j+b);
 						std::cerr << S << ' ' << T << ' ' << mp[S] << ' ' << mp[T] << '\n';
