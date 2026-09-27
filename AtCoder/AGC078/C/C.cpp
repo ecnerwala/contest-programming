@@ -201,9 +201,21 @@ int main() {
 					}
 				}
 				if (!has_fold) {
-					if (L <= 10) {
+					if (L <= 15) {
 						for (auto r : runs) { std::cerr << r << ' '; }
 						std::cerr << " -> " << mp[S].v.n << " *"[mp[S].star] << '\n';
+						int net_height = 0;
+						int max_height = 0;
+						int min_height = 0;
+						for (char c : S) {
+							if (c == 'A') {
+								net_height++;
+								max_height = std::max(max_height, net_height);
+							} else if (c == 'B') {
+								net_height--;
+								min_height = std::min(min_height, net_height);
+							} else assert(false);
+						}
 						print_val(S);
 					}
 				}
