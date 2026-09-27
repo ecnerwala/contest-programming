@@ -205,6 +205,7 @@ int main() {
 							std::string(l-d, S[i] ^ 'A' ^ 'B') +
 							std::string(b-d, S[i] ^ 'A' ^ 'B') +
 							S.substr(j+b);
+						std::cerr << S << ' ' << T << ' ' << mp[S] << ' ' << mp[T] << '\n';
 						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), d & 1));
 					}
 				}
