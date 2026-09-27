@@ -193,7 +193,7 @@ int main() {
 				) {
 					auto T = S.substr(0, i-l) + S.substr(j);
 					std::cerr << "cnd " << S << ' ' << T << ' ' << mp[S] << ' ' << mp[T] << '\n';
-					assert(mp[S] == mp[T]);
+					assert(mp[S].v == mp[T].v);
 				}
 			}
 		}
