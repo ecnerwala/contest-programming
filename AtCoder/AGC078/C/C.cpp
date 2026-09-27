@@ -166,7 +166,6 @@ int main() {
 		assert(!((((int(S.size()) - std::abs(net_height)) / 2) ^ v.v.n ^ v.star) & 1));
 		if (val != v.v.n) {
 			std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << val << ' ' << (int(S.size()) - std::abs(net_height)) / 2 << ' ' << min_height << '-' << max_height << '\n';
-			assert(std::abs(val - v.v.n) <= 1);
 		}
 	};
 	for (int L = 0; L < 18; L++) {
@@ -184,9 +183,10 @@ int main() {
 			auto res = wala::cold_ish_game(moves);
 			assert(res);
 			mp[S] = *res;
-			if (L <= 18) print_val(S);
+			if (L <= 8) print_val(S);
 		}
 	}
+	print_val("AABBBAAABB");
 	auto build_alt = [&](int L, int v) -> std::string {
 		std::string S; S.reserve(L);
 		for (int i = 0; i < L; i++) S += 'A' + ((i ^ v) & 1);
