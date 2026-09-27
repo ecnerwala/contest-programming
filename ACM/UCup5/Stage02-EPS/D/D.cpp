@@ -147,7 +147,7 @@ int main() {
 			dbl res;
 			if (U == V) {
 				assert(P.x < 0);
-				res = dbl(int64_t(P.x) * int64_t(P.x) + int64_t(P.y) * int64_t(P.y)) / dbl(2 * -P.x);
+				res = dbl(int64_t(P.x) * int64_t(P.x) + int64_t(P.y) * int64_t(P.y)) / dbl(-P.x) * 0.5;
 			} else {
 				__int128_t dx = sq(V * P.y) + sq(V * P.x) - sq(U * P.y);
 				if (dx < 0) {
