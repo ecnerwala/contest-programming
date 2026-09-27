@@ -204,7 +204,6 @@ int main() {
 					for (int i = 0, j = 0; i < L; i = j) {
 						while (j < L && S[j] == S[i]) j++;
 						int l = j - i;
-						runs.push_back(l);
 						int a = 0;
 						while (i > a && S[i-1-a] != S[i]) a++;
 						int b = 0;
