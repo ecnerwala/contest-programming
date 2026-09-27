@@ -183,9 +183,7 @@ int main() {
 				upper.push_back(p);
 			}
 			std::reverse(car.begin() + 1, car.end());
-			ma = std::max_element(car.begin(), car.end(), [&](auto a, auto b) -> bool {
-				return std::make_pair(a.y, a.x) < std::make_pair(b.y, b.x);
-			});
+			ma = (ma == car.begin() ? ma : car.end() - (ma - car.begin()));
 			for (auto p : std::span(car.begin(), ma+1)) {
 				while (lower.size() >= 2 && cross3(lower.end()[-2], lower.end()[-1], p) >= 0) lower.pop_back();
 				lower.push_back(p);
