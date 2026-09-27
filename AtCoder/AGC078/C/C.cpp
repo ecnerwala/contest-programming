@@ -198,6 +198,9 @@ int main() {
 						auto T = S.substr(0, i-l) + S.substr(j);
 						assert(mp[S] == mp[T] + wala::cold_ish(wala::dyadic(0), l & 1));
 						has_fold = true;
+					} else if (a >= 1 && b >= 1 && l >= 2) {
+						auto T = S.substr(0, i-1) + S.substr(i+1, j-1) + S.substr(j+1);
+						assert(mp[S] == mp[T]);
 					}
 				}
 				if (!has_fold) {
@@ -205,7 +208,7 @@ int main() {
 						for (auto r : runs) { std::cerr << r << ' '; }
 						std::cerr << " -> " << mp[S].v.n << " *"[mp[S].star] << '\n';
 						auto it = std::max_element(runs.begin(), runs.end());
-						if (it != runs.begin() && std::next(it) != runs.end() && *it > *std::next(it) + *std::prev(it)) {
+						if (it != runs.begin() && std::next(it) != runs.end() && *it >= *std::next(it) + *std::prev(it)) {
 							assert(!mp[S].star);
 						}
 						int net_height = 0;
