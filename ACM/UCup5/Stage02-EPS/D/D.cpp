@@ -120,7 +120,6 @@ int main() {
 		int N, W; int64_t U, V; std::cin >> N >> W >> U >> V;
 		using dbl = long double;
 		using pt_t = wala::Point<int, int64_t>;
-		using pd = wala::Point<dbl>;
 		std::vector<pt_t> car(N);
 		for (auto& p : car) std::cin >> p;
 		int Q; std::cin >> Q;
@@ -158,7 +157,7 @@ int main() {
 				// This should always be the right direction
 				res = (dbl(P.x * U) + std::sqrt(dbl(dx))) / dbl(V * V - U * U) * dbl(V);
 			}
-			//assert(res >= 0);
+			assert(res >= 0);
 			/*
 			pd tgt = pd(P) + pd(res, 0);
 			std::cerr << abs(tgt) << '/' << res << ' ' << V << '/' << U << '\n';
