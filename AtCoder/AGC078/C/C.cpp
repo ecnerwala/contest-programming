@@ -146,10 +146,15 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	std::map<std::string, wala::cold_ish> mp;
+	auto print_val = [&](std::string S) -> void {
+		auto v = mp[S];
+		assert(v.v.d == 0);
+		std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << '\n';
+	};
 	for (int L = 0; L < 18; L++) {
 		for (int m = 0; m < (1 << L); m++) {
 			std::string S; S.reserve(L);
-			for (int i = 0; i < L; i++) S += 'A' + ((m >> i) & 1);
+			for (int i = 0; i < L; i++) S += 'A' + ((m >> (L-1-i)) & 1);
 			std::array<std::vector<wala::cold_ish>, 2> moves;
 			for (int i = 0; i+1 < L; i++) {
 				if (S[i] != S[i+1]) {
@@ -161,20 +166,13 @@ int main() {
 			auto res = wala::cold_ish_game(moves);
 			assert(res);
 			mp[S] = *res;
-			if (L <= 8) {
-				std::cerr << S << ' ' << *res << '\n';
-			}
+			if (L <= 8) print_val(S);
 		}
 	}
 	auto build_alt = [&](int L, int v) -> std::string {
 		std::string S; S.reserve(L);
 		for (int i = 0; i < L; i++) S += 'A' + ((i ^ v) & 1);
 		return S;
-	};
-	auto print_val = [&](std::string S) -> void {
-		auto v = mp[S];
-		assert(v.v.d == 0);
-		std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << '\n';
 	};
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
