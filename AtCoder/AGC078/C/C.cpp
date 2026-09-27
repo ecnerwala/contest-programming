@@ -149,7 +149,19 @@ int main() {
 	auto print_val = [&](std::string S) -> void {
 		auto v = mp[S];
 		assert(v.v.d == 0);
-		std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << '\n';
+		int net_height = 0;
+		int max_height = 0;
+		int min_height = 0;
+		for (char c : S) {
+			if (c == 'A') {
+				net_height++;
+				max_height = std::max(max_height, net_height);
+			} else if (c == 'B') {
+				net_height--;
+				min_height = std::min(min_height, net_height);
+			} else assert(false);
+		}
+		std::cerr << S << ' ' << v.v.n << (v.star ? '*' : ' ') << ' ' << net_height << ' ' << min_height << '-' << max_height << '\n';
 	};
 	for (int L = 0; L < 18; L++) {
 		for (int m = 0; m < (1 << L); m++) {
