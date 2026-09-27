@@ -211,6 +211,7 @@ int main() {
 			assert(dir.y > 0);
 			if (V * -dir.x >= U * dir.y) {
 				// we can go vertical from here
+				assert(false);
 				break;
 			}
 		}
