@@ -1715,10 +1715,12 @@ int main() {
 				a[i] = prod;
 			}
 
-			auto ta = E::transform(a, L);
-			num v = E::dot(E::mul(E::of_reverse(ta, L), ta, L), tw, L);
+			num cur_ans = catalan[N] * num(N-1);
+			if (prod == 1) {
+				auto ta = E::transform(a, L);
+				cur_ans -= E::dot(E::mul(E::of_reverse(ta, L), ta, L), tw, L);
+			}
 
-			num cur_ans = catalan[N] * num(N-1) - v * (num(1 + prod) / num(2));
 			ans += cur_ans * num(1 << b);
 		}
 		std::cout << ans << '\n';
