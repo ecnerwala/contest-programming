@@ -381,7 +381,6 @@ int main() {
 					best_root[b] = std::min(best_root[b], v);
 				}
 				for (int i = 0; i < N; i++) {
-					std::cerr << "cnd " << cur_val << ' ' << i << ' ' << best_root[i] << '\n';
 					best_vals[i] = std::max(best_vals[i], cur_val - best_root[i]);
 				}
 			} while (std::next_permutation(prufer.begin(), prufer.end()));
@@ -389,6 +388,7 @@ int main() {
 				std::vector<int> deg(N, 1);
 				for (auto v : prufer) deg[v]++;
 				for (int rt = 0; rt < N; rt++) {
+					std::cerr << "trying root " << rt << '\n';
 					bool good = true;
 					wala::MCMF_Dinic<int, int> flower(2 * N + 2);
 					for (int i = 0; i < N; i++) {
@@ -398,6 +398,7 @@ int main() {
 							good = false;
 							break;
 						}
+						std::cerr << i << ' ' << vals[i].first << ' ' << vals[i].second - tree_in << " in " << ' ' << vals[i].second - tree_out << " out " << '\n';
 						flower.add_edge(0, 2 + i, vals[i].second - tree_in, 0);
 						flower.add_edge(2 + N + i, 1, vals[i].second - tree_out, 0);
 					}
