@@ -379,7 +379,10 @@ int main() {
 						for (int i = 0; i < N; i++) {
 							int tree_out = (i != rt);
 							int tree_in = deg[i] - tree_out;
-							if (tree_out > vals[i].second || tree_in > vals[i].second) good = false;
+							if (tree_out > vals[i].second || tree_in > vals[i].second) {
+								good = false;
+								break;
+							}
 							flower.add_edge(0, 2 + i, vals[i].second - tree_in, 0);
 							flower.add_edge(2 + N + i, 1, vals[i].second - tree_out, 0);
 						}
