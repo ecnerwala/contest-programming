@@ -321,6 +321,118 @@ struct Dinic {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
+	auto slow = [&](int W, std::vector<int> freq) -> int {
+		std::vector<int> A; A.reserve(W);
+		for (int v = 1; v <= 7; v++) {
+			for (int z = 0; z < freq[v]; z++) {
+				A.push_back(z);
+			}
+		}
+		assert(int(A.size()) == W);
+		int ans = 0;
+		do {
+			int v = 0;
+			for (int i = 0; i+1 < W; i++) v += std::lcm(A[i], A[i+1]);
+			ans = std::max(ans, v);
+		} while (std::next_permutation(A.begin(), A.end()));
+		return ans;
+	};
+	auto solve = [&](int W, std::vector<int> freq) -> int {
+		std::vector<std::pair<int, int>> vals; vals.reserve(7);
+		for (int v = 1; v <= 7; v++) {
+			if (freq[v]) vals.push_back({v, freq[v]});
+		}
+
+		int N = int(vals.size());
+
+		assert(N >= 1);
+		if (N == 1) {
+			return vals[0].first * (vals[0].second - 1);
+		}
+
+		int ans = 0;
+
+		// We pick a degree sequence, then pick a tree with that degree sequence, then pick a root and one edge around that root to ignore
+		std::vector<int> prufer(N-2, 0);
+		do {
+			// current thing has some fixed degree
+			std::vector<int> best_vals(N, 0);
+			do {
+				std::vector<int> deg(N, 1);
+				for (auto v : prufer) deg[v]++;
+
+				int cur_val = 0;
+				std::vector<int> best_root(N, 43);
+				// find the last leaf
+				for (int z = 0; z < N-2; z++) {
+					int a = 0;
+					while (deg[a] != 1) a++;
+					int b = prufer[z];
+					deg[a]--, deg[b]--;
+					int v = std::lcm(vals[a].first, vals[b].first);
+					cur_val += v;
+					best_root[a] = std::min(best_root[a], v);
+					best_root[b] = std::min(best_root[b], v);
+				}
+				for (int i = 0; i < N; i++) {
+					best_vals[i] = std::max(best_vals[i], cur_val - best_root[i]);
+				}
+			} while (std::next_permutation(prufer.begin(), prufer.end()));
+			{
+				std::vector<int> deg(N, 1);
+				for (auto v : prufer) deg[v]++;
+				for (int rt = 0; rt < N; rt++) {
+					bool good = true;
+					wala::MCMF_Dinic<int, int> flower(2 * N + 2);
+					for (int i = 0; i < N; i++) {
+						int tree_out = (i != rt);
+						int tree_in = deg[i] - tree_out;
+						if (tree_out > vals[i].second || tree_in > vals[i].second) {
+							good = false;
+							break;
+						}
+						flower.add_edge(0, 2 + i, vals[i].second - tree_in, 0);
+						flower.add_edge(2 + N + i, 1, vals[i].second - tree_out, 0);
+					}
+					if (!good) continue;
+					for (int i = 0; i < N; i++) {
+						for (int j = 0; j < N; j++) {
+							flower.add_edge(2 + i, 2 + N + j, W, 43 - std::lcm(vals[i].first, vals[j].first));
+						}
+					}
+					auto [flow, cost] = flower.max_flow(0, 1);
+					assert(flow == W - (N-1));
+					ans = std::max(ans, best_vals[rt] + (43 * flow - cost));
+				}
+			}
+		} while ([&]() -> bool {
+			// Increment prufer to the lex next increasing sequence
+			int z = N-3;
+			while (z >= 0 && prufer[z] == N-1) z--;
+			if (z == -1) return false;
+			int v = prufer[z] + 1;
+			for (; z < N-2; z++) prufer[z] = v;
+			return true;
+		}());
+		return ans;
+	};
+
+	std::mt19937 mt(48);
+	while (true) {
+		int W = std::uniform_int_distribution<int>(1, 10)(mt);
+		std::cerr << "test " << W << '\n';
+		std::vector<int> freq(8);
+		for (int i = 0; i < W; i++) freq[std::uniform_int_distribution<int>(1, 7)(mt)]++;
+		auto slo = slow(W, freq);
+		auto ans = solve(W, freq);
+		if (slo != ans) {
+			for (auto v : freq) { std::cerr << v << ' '; } std::cerr << '\n';
+			std::cerr << "slo " << slo << '\n';
+			std::cerr << "ans " << ans << '\n';
+			assert(false);
+		}
+	}
+
 	int T; std::cin >> T;
 	while (T--) {
 		int W; std::cin >> W;
@@ -329,85 +441,7 @@ int main() {
 			int a; std::cin >> a;
 			freq[a]++;
 		}
-		std::cout << [&]() -> int {
-			std::vector<std::pair<int, int>> vals; vals.reserve(7);
-			for (int v = 1; v <= 7; v++) {
-				if (freq[v]) vals.push_back({v, freq[v]});
-			}
-
-			int N = int(vals.size());
-
-			assert(N >= 1);
-			if (N == 1) {
-				return vals[0].first * (vals[0].second - 1);
-			}
-
-			int ans = 0;
-
-			// We pick a degree sequence, then pick a tree with that degree sequence, then pick a root and one edge around that root to ignore
-			std::vector<int> prufer(N-2, 0);
-			do {
-				// current thing has some fixed degree
-				std::vector<int> best_vals(N, 0);
-				do {
-					std::vector<int> deg(N, 1);
-					for (auto v : prufer) deg[v]++;
-
-					int cur_val = 0;
-					std::vector<int> best_root(N, 43);
-					// find the last leaf
-					for (int z = 0; z < N-2; z++) {
-						int a = 0;
-						while (deg[a] != 1) a++;
-						int b = prufer[z];
-						deg[a]--, deg[b]--;
-						int v = std::lcm(vals[a].first, vals[b].first);
-						cur_val += v;
-						best_root[a] = std::min(best_root[a], v);
-						best_root[b] = std::min(best_root[b], v);
-					}
-					for (int i = 0; i < N; i++) {
-						best_vals[i] = std::max(best_vals[i], cur_val - best_root[i]);
-					}
-				} while (std::next_permutation(prufer.begin(), prufer.end()));
-				{
-					std::vector<int> deg(N, 1);
-					for (auto v : prufer) deg[v]++;
-					for (int rt = 0; rt < N; rt++) {
-						bool good = true;
-						wala::MCMF_Dinic<int, int> flower(2 * N + 2);
-						for (int i = 0; i < N; i++) {
-							int tree_out = (i != rt);
-							int tree_in = deg[i] - tree_out;
-							if (tree_out > vals[i].second || tree_in > vals[i].second) {
-								good = false;
-								break;
-							}
-							flower.add_edge(0, 2 + i, vals[i].second - tree_in, 0);
-							flower.add_edge(2 + N + i, 1, vals[i].second - tree_out, 0);
-						}
-						if (!good) continue;
-						for (int i = 0; i < N; i++) {
-							for (int j = 0; j < N; j++) {
-								flower.add_edge(2 + i, 2 + N + j, W, 43 - std::lcm(vals[i].first, vals[j].first));
-							}
-						}
-						auto [flow, cost] = flower.max_flow(0, 1);
-						assert(flow == W - (N-1));
-						ans = std::max(ans, best_vals[rt] + (43 * flow - cost));
-					}
-				}
-			} while ([&]() -> bool {
-				// Increment prufer to the lex next increasing sequence
-				int z = N-3;
-				while (z >= 0 && prufer[z] == N-1) z--;
-				if (z == -1) return false;
-				int v = prufer[z] + 1;
-				for (; z < N-2; z++) prufer[z] = v;
-				return true;
-			}());
-			return ans;
-		}() << '\n';
+		std::cout << solve(W, freq) << '\n';
 	}
 
 	return 0;
