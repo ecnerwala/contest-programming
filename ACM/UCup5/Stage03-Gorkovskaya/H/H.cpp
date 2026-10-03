@@ -402,6 +402,7 @@ int main() {
 					}
 					auto [flow, cost] = flower.max_flow(0, 1);
 					assert(flow == W - (N-1));
+					std::cerr << rt << ' ' << best_vals[rt] << ' ' << 43 * flow - cost << '\n';
 					ans = std::max(ans, best_vals[rt] + (43 * flow - cost));
 				}
 			}
