@@ -414,7 +414,7 @@ int main() {
 						}
 						int outer_val = root_loop ? best_whole : best_vals[rt];
 						auto [flow, cost] = flower.max_flow(0, 1);
-						assert(flow == W - (N-1));
+						assert(flow == W - (N-1) - root_loop);
 						std::cerr << rt << ' ' << outer_val << ' ' << 43 * flow - cost << '\n';
 						ans = std::max(ans, outer_val + (43 * flow - cost));
 					}
