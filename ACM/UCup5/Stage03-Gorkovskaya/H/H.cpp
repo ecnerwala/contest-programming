@@ -364,10 +364,16 @@ int main() {
 				int cur_val = 0;
 				std::vector<int> best_root(N, 43);
 				// find the last leaf
-				for (int z = 0; z < N-2; z++) {
+				for (int z = 0; z <= N-2; z++) {
 					int a = 0;
 					while (deg[a] != 1) a++;
-					int b = prufer[z];
+					int b;
+					if (z == N-2) {
+						b = a+1;
+						while (deg[b] != 1) b++;
+					} else {
+						b = prufer[z];
+					}
 					deg[a]--, deg[b]--;
 					int v = std::lcm(vals[a].first, vals[b].first);
 					cur_val += v;
