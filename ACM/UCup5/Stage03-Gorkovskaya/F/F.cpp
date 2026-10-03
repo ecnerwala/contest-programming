@@ -355,7 +355,7 @@ int main() {
 			for (int i = N-1; i >= 0; i--) ways[i+1] -= ways[i];
 		}
 		num v = 1;
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i <= N; i++) {
 			if (freq[i]) v *= power(ways[i], freq[i]);
 		}
 		ans += v * fact[N] * ifact[k] * ifact[N-k];
