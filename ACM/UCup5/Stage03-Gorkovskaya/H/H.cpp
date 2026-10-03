@@ -325,7 +325,7 @@ int main() {
 		std::vector<int> A; A.reserve(W);
 		for (int v = 1; v <= 7; v++) {
 			for (int z = 0; z < freq[v]; z++) {
-				A.push_back(z);
+				A.push_back(v);
 			}
 		}
 		assert(int(A.size()) == W);
