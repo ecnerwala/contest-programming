@@ -1731,7 +1731,7 @@ int main() {
 		ps v_all(N+5);
 		v_st[0] = num(1);
 		v_all[0] = num(1);
-		v_all[1] -= num(1);
+		v_all[1] -= num(K);
 		for (int i = 0; i <= N/2; i++) {
 			v_st[2 * i + 1] -= neg_st[i] * fact[i];
 			v_all[2 * i + 2] += neg_all[i] * fact[i];
@@ -1739,7 +1739,7 @@ int main() {
 			v_all[2 * i + 3] -= pos_all[i] * fact[i];
 		}
 		ps res = v_st * ps_inv(v_all);
-		std::cout << res[N] << '\n';
+		std::cout << res[N] + int(N & 1) << '\n';
 	}
 
 	return 0;
