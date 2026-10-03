@@ -433,7 +433,7 @@ int main() {
 	};
 
 	std::mt19937 mt(48);
-	while (true) {
+	while (false) {
 		int W = std::uniform_int_distribution<int>(1, 8)(mt);
 		std::cerr << "test " << W << '\n';
 		std::vector<int> freq(8);
