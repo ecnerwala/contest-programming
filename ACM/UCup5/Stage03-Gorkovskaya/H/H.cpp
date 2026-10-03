@@ -356,6 +356,7 @@ int main() {
 		std::vector<int> prufer(N-2, 0);
 		do {
 			// current thing has some fixed degree
+			int best_whole = 0;
 			std::vector<int> best_vals(N, 0);
 			do {
 				std::vector<int> deg(N, 1);
@@ -380,6 +381,7 @@ int main() {
 					best_root[a] = std::min(best_root[a], v);
 					best_root[b] = std::min(best_root[b], v);
 				}
+				best_whole = std::max(best_whole, cur_val);
 				for (int i = 0; i < N; i++) {
 					best_vals[i] = std::max(best_vals[i], cur_val - best_root[i]);
 				}
@@ -387,31 +389,35 @@ int main() {
 			{
 				std::vector<int> deg(N, 1);
 				for (auto v : prufer) deg[v]++;
-				for (int rt = 0; rt < N; rt++) {
-					std::cerr << "trying root " << rt << '\n';
-					bool good = true;
-					wala::MCMF_Dinic<int, int> flower(2 * N + 2);
-					for (int i = 0; i < N; i++) {
-						int tree_out = (i != rt);
-						int tree_in = deg[i] - tree_out;
-						if (tree_out > vals[i].second || tree_in > vals[i].second) {
-							good = false;
-							break;
+				for (bool root_loop : {false, true}) {
+					for (int rt = 0; rt < N; rt++) {
+						std::cerr << "trying root " << rt << '\n';
+						bool good = true;
+						wala::MCMF_Dinic<int, int> flower(2 * N + 2);
+						for (int i = 0; i < N; i++) {
+							int tree_out = (i != rt);
+							int tree_in = deg[i] - tree_out;
+							if (root_loop && i == rt) tree_out++, tree_in++;
+							if (tree_out > vals[i].second || tree_in > vals[i].second) {
+								good = false;
+								break;
+							}
+							std::cerr << i << ' ' << vals[i].first << ' ' << vals[i].second - tree_in << " in " << ' ' << vals[i].second - tree_out << " out " << '\n';
+							flower.add_edge(0, 2 + i, vals[i].second - tree_in, 0);
+							flower.add_edge(2 + N + i, 1, vals[i].second - tree_out, 0);
 						}
-						std::cerr << i << ' ' << vals[i].first << ' ' << vals[i].second - tree_in << " in " << ' ' << vals[i].second - tree_out << " out " << '\n';
-						flower.add_edge(0, 2 + i, vals[i].second - tree_in, 0);
-						flower.add_edge(2 + N + i, 1, vals[i].second - tree_out, 0);
-					}
-					if (!good) continue;
-					for (int i = 0; i < N; i++) {
-						for (int j = 0; j < N; j++) {
-							flower.add_edge(2 + i, 2 + N + j, W, 43 - std::lcm(vals[i].first, vals[j].first));
+						if (!good) continue;
+						for (int i = 0; i < N; i++) {
+							for (int j = 0; j < N; j++) {
+								flower.add_edge(2 + i, 2 + N + j, W, 43 - std::lcm(vals[i].first, vals[j].first));
+							}
 						}
+						int outer_val = root_loop ? best_whole : best_vals[rt];
+						auto [flow, cost] = flower.max_flow(0, 1);
+						assert(flow == W - (N-1));
+						std::cerr << rt << ' ' << outer_val << ' ' << 43 * flow - cost << '\n';
+						ans = std::max(ans, outer_val + (43 * flow - cost));
 					}
-					auto [flow, cost] = flower.max_flow(0, 1);
-					assert(flow == W - (N-1));
-					std::cerr << rt << ' ' << best_vals[rt] << ' ' << 43 * flow - cost << '\n';
-					ans = std::max(ans, best_vals[rt] + (43 * flow - cost));
 				}
 			}
 		} while ([&]() -> bool {
