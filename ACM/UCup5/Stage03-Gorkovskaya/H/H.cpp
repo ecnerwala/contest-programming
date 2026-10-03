@@ -381,6 +381,7 @@ int main() {
 					best_root[b] = std::min(best_root[b], v);
 				}
 				for (int i = 0; i < N; i++) {
+					std::cerr << "cnd " << cur_val << ' ' << i << ' ' << best_root[i] << '\n';
 					best_vals[i] = std::max(best_vals[i], cur_val - best_root[i]);
 				}
 			} while (std::next_permutation(prufer.begin(), prufer.end()));
