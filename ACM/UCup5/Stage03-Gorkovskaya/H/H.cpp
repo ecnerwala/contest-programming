@@ -420,7 +420,7 @@ int main() {
 
 	std::mt19937 mt(48);
 	while (true) {
-		int W = std::uniform_int_distribution<int>(1, 5)(mt);
+		int W = std::uniform_int_distribution<int>(1, 2)(mt);
 		std::cerr << "test " << W << '\n';
 		std::vector<int> freq(8);
 		for (int i = 0; i < W; i++) freq[std::uniform_int_distribution<int>(1, 7)(mt)]++;
