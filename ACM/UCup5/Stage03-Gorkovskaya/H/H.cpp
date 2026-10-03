@@ -391,7 +391,7 @@ int main() {
 				for (auto v : prufer) deg[v]++;
 				for (bool root_loop : {false, true}) {
 					for (int rt = 0; rt < N; rt++) {
-						std::cerr << "trying root " << rt << '\n';
+						//std::cerr << "trying root " << rt << '\n';
 						bool good = true;
 						wala::MCMF_Dinic<int, int> flower(2 * N + 2);
 						for (int i = 0; i < N; i++) {
@@ -402,7 +402,7 @@ int main() {
 								good = false;
 								break;
 							}
-							std::cerr << i << ' ' << vals[i].first << ' ' << vals[i].second - tree_in << " in " << ' ' << vals[i].second - tree_out << " out " << '\n';
+							//std::cerr << i << ' ' << vals[i].first << ' ' << vals[i].second - tree_in << " in " << ' ' << vals[i].second - tree_out << " out " << '\n';
 							flower.add_edge(0, 2 + i, vals[i].second - tree_in, 0);
 							flower.add_edge(2 + N + i, 1, vals[i].second - tree_out, 0);
 						}
@@ -415,7 +415,7 @@ int main() {
 						int outer_val = root_loop ? best_whole : best_vals[rt];
 						auto [flow, cost] = flower.max_flow(0, 1);
 						assert(flow == W - (N-1) - root_loop);
-						std::cerr << rt << ' ' << outer_val << ' ' << 43 * flow - cost << '\n';
+						//std::cerr << rt << ' ' << outer_val << ' ' << 43 * flow - cost << '\n';
 						ans = std::max(ans, outer_val + (43 * flow - cost));
 					}
 				}
@@ -434,7 +434,7 @@ int main() {
 
 	std::mt19937 mt(48);
 	while (true) {
-		int W = std::uniform_int_distribution<int>(1, 3)(mt);
+		int W = std::uniform_int_distribution<int>(1, 8)(mt);
 		std::cerr << "test " << W << '\n';
 		std::vector<int> freq(8);
 		for (int i = 0; i < W; i++) freq[std::uniform_int_distribution<int>(1, 7)(mt)]++;
