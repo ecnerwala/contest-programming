@@ -1722,6 +1722,10 @@ int main() {
 		neg_all *= eqs;
 		pos_st *= eqs;
 		pos_all *= eqs;
+		for (int i = 0; i <= N/2; i++) { std::cerr << neg_st[i] * fact[i] << ' '; } std::cerr << '\n';
+		for (int i = 0; i <= N/2; i++) { std::cerr << neg_all[i] * fact[i] << ' '; } std::cerr << '\n';
+		for (int i = 0; i <= N/2; i++) { std::cerr << pos_st[i] * fact[i] << ' '; } std::cerr << '\n';
+		for (int i = 0; i <= N/2; i++) { std::cerr << pos_all[i] * fact[i] << ' '; } std::cerr << '\n';
 
 		ps v_st(N+5);
 		ps v_all(N+5);
