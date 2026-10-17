@@ -4,24 +4,16 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	auto get_checksum = [&](int N, int H, const std::string& S, int i) -> bool {
-		assert(i >= 0 && i < H);
-		bool b = false;
-		if (i == 0) {
-			for (int k = 1; k < (1 << (H-1)); k++) {
-				// Pick exactly 1 child of each guy to include, which is stable under flip
-				b ^= S[2*k + !(k == 1 ? 0 : S[k-1] - '0') - 1] - '0';
-			}
-		} else {
-			// S[(1<<i) - 1] is the sum of everything in its row, as well as the entire subtrees of its odd positions
-			for (int k = (1 << i) + 1; k < (2 << i); k++) b ^= S[k-1] - '0';
-			for (int j = i+1; j < H; j++) {
-				for (int k = (1 << j); k < (2 << j); k++) {
-					if ((k >> (j-i)) & 1) b ^= S[k-1] - '0';
-				}
-			}
-		}
-		return b;
+	auto flip_subtrees = [&](int H, std::string S) -> std::string {
+		std::string R((1 << H) - 1, '?');
+		[&](this auto&& self, int i, int j) -> void {
+			R[i] = S[j];
+			if (i >= (1 << (H-1))) return;
+			bool f = R[i] - '0';
+			self(2 * i + 0, 2 * j + (0 ^ f));
+			self(2 * i + 1, 2 * j + (1 ^ f));
+		}(1, 1);
+		return R;
 	};
 
 	auto encode = [&](int N, int H, std::string B) -> std::string {
@@ -30,18 +22,20 @@ int main() {
 		std::string S((1 << H) - 1, '?');
 		{
 			auto it = B.begin();
-			for (int i = 1; i < (1 << H); i++) {
-				if (i & (i-1)) {
-					S[i-1] = it != B.end() ? *(it++) : '0';
+			for (int i = int(S.size()) - 1; i >= 0; i--) {
+				if (!i || (i & (i-1))) {
+					S[i] = it != B.end() ? *(it++) : '0';
+				} else {
+					bool b = false;
+					for (int j = i+1; j < int(S.size()); j++) {
+						if (j & i) b ^= S[j] - '0';
+					}
+					S[i] = b + '0';
 				}
 			}
 			assert(it == B.end());
 		}
-		// Now, let's fill in the extras in S
-		for (int i = H-1; i >= 0; i--) {
-			S[(1 << i) - 1] = '0' + get_checksum(N, H, S, i);
-		}
-		return S;
+		return flip_subtrees(H, std::move(S));
 	};
 	auto do_flip = [&](int N, int H, std::string S, int p) -> std::string {
 		assert(1 <= p && p < (1 << H));
@@ -53,52 +47,32 @@ int main() {
 		}
 		return S;
 	};
-	auto get_flip_pos = [&](int N, int H, const std::string& S) -> int {
-		for (int i = H-1; true; i--) {
-			if (i == 0) {
-				return 1;
-			}
-			assert(i > 0);
-
-			if (S[(1 << i) - 1] != '0' + get_checksum(N, H, S, i)) {
-				// figure out where the flip is
-				int pos = (1 << i);
-				for (int j = i-1; j > 0; j--) {
-					if (S[(1 << j) - 1] != '0' + get_checksum(N, H, S, j)) {
-						pos += 1 << (i - j);
-					}
-				}
-				assert(!(pos & 1));
-				int k = pos >> 1;
-				pos ^= (k == 1 ? 0 : S[k-1] - '0');
-				std::cerr << " final pos " << pos << '\n';
-				std::cerr << " sum " << get_checksum(N, H, S, 0) << '\n';
-				if (S[1 - 1] != '0' + get_checksum(N, H, S, 0)) {
-					// do nothing
-					pos ^= 1;
-				} else {
-				}
-				assert((1 << i) <= pos && pos < (2 << i));
-				return pos;
-			}
-		}
-	};
 	auto decode = [&](int N, int H, std::string S) -> std::string {
 		assert(int(S.size()) == (1 << H) - 1);
 		assert(N <= (1 << H) - 1 - H);
-		int pos = get_flip_pos(N, H, S);
-		S = do_flip(N, H, S, pos);
+		S = flip_subtrees(H, std::move(S));
 		{
-			std::string B(N, '?');
+			int f = 0;
+			for (int i = 1; i < int(S.size()); i *= 2) {
+				bool b = false;
+				for (int j = 0; j < int(S.size()); j++) {
+					if (j & i) b ^= S[j] - '0';
+				}
+				if (b) f += i;
+			}
+			S[f] ^= 1;
+		}
+		std::string B(N, '?');
+		{
 			auto it = B.begin();
-			for (int i = 1; i < (1 << H); i++) {
-				if (i & (i-1)) {
-					if (it != B.end()) *(it++) = S[i-1];
+			for (int i = int(S.size()) - 1; i >= 0; i--) {
+				if (!i || (i & (i-1))) {
+					if (it != B.end()) *(it++) = S[i];
 				}
 			}
 			assert(it == B.end());
-			return B;
 		}
+		return B;
 	};
 
 	for (int H = 2; H <= 10; H++) {
@@ -112,11 +86,7 @@ int main() {
 			for (int i = 1; i < (1 << H); i++) {
 				std::string T = do_flip(N, H, S, i);
 				std::cerr << " flip " << i << ' ' << T << '\n';
-				assert(int(T.size()) == int(S.size()));
-				int r = get_flip_pos(N, H, T);
-				std::cerr << "recovered " << r << '\n';
-				assert(r == i);
-				//assert(decode(N, H, T) == B);
+				assert(decode(N, H, T) == B);
 			}
 		}
 	}
