@@ -69,7 +69,7 @@ int main() {
 					}
 				}
 				assert(!(pos & 1));
-				pos ^= (pos/2 == 1 ? 0 : S[pos/2] - '0');
+				pos ^= (pos/2 == 1 ? 0 : S[pos/2-1] - '0');
 				if (S[1 - 1] != '0' + get_checksum(N, H, S, 0)) {
 					// do nothing
 					pos ^= 1;
