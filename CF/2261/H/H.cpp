@@ -7,7 +7,6 @@ int main() {
 	auto encode = [&](int N, int H, std::string B) -> std::string {
 		assert(int(B.size()) == N);
 		assert((N == 1 && H == 2) || (N == 2030 && H == 11));
-		assert(N == 2030 && H == 11);
 		std::string S((1 << H) - 1, '?');
 		{
 			auto it = B.begin();
@@ -43,7 +42,6 @@ int main() {
 	auto decode = [&](int N, int H, std::string S) -> std::string {
 		assert(int(S.size()) == (1 << H) - 1);
 		assert((N == 1 && H == 2) || (N == 2030 && H == 11));
-		assert(N == 2030 && H == 11);
 		{
 			std::string B(N, '?');
 			auto it = B.begin();
