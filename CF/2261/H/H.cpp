@@ -51,13 +51,10 @@ int main() {
 		}
 		return S;
 	};
-	auto decode = [&](int N, int H, std::string S) -> std::string {
-		assert(int(S.size()) == (1 << H) - 1);
-		assert(N <= (1 << H) - 1 - H);
+	auto get_flip_pos = [&](int N, int H, const std::string& S) -> int {
 		for (int i = H-1; true; i--) {
 			if (i == 0) {
-				S = do_flip(N, H, S, 1);
-				break;
+				return 1;
 			}
 			assert(i > 0);
 
@@ -75,10 +72,15 @@ int main() {
 				} else {
 					pos ^= (S[pos/2] - '0') ^ 1;
 				}
-				S = do_flip(N, H, S, pos);
-				break;
+				return pos;
 			}
 		}
+	};
+	auto decode = [&](int N, int H, std::string S) -> std::string {
+		assert(int(S.size()) == (1 << H) - 1);
+		assert(N <= (1 << H) - 1 - H);
+		int pos = get_flip_pos(N, H, S);
+		S = do_flip(N, H, S, pos);
 		{
 			std::string B(N, '?');
 			auto it = B.begin();
@@ -101,7 +103,12 @@ int main() {
 			std::string S = encode(N, H, B);
 			std::cerr << "got " << S << '\n';
 			for (int i = 1; i < (1 << H); i++) {
-				assert(decode(N, H, do_flip(N, H, S, i)) == B);
+				std::string T = do_flip(N, H, S, i);
+				std::cerr << " flip " << i << ' ' << T << '\n';
+				int r = get_flip_pos(N, H, T);
+				std::cerr << "recovered " << r << '\n';
+				assert(r == i);
+				assert(decode(N, H, T) == B);
 			}
 		}
 	}
