@@ -7,9 +7,9 @@ int main() {
 	auto flip_subtrees = [&](int H, std::string S) -> std::string {
 		std::string R((1 << H) - 1, '?');
 		[&](this auto&& self, int i, int j) -> void {
-			R[i] = S[j];
+			R[i-1] = S[j-1];
 			if (i >= (1 << (H-1))) return;
-			bool f = R[i] - '0';
+			bool f = R[i-1] - '0';
 			self(2 * i + 0, 2 * j + (0 ^ f));
 			self(2 * i + 1, 2 * j + (1 ^ f));
 		}(1, 1);
