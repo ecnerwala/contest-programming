@@ -106,6 +106,7 @@ int main() {
 			for (int i = 1; i < (1 << H); i++) {
 				std::string T = do_flip(N, H, S, i);
 				std::cerr << " flip " << i << ' ' << T << '\n';
+				assert(int(T.size()) == int(S.size()));
 				int r = get_flip_pos(N, H, T);
 				std::cerr << "recovered " << r << '\n';
 				assert(r == i);
