@@ -10,7 +10,7 @@ int main() {
 		std::string S((1 << H) - 1, '?');
 		{
 			auto it = B.begin();
-			for (int i = 1; i < (1 << H) - 1; i++) {
+			for (int i = 1; i < (1 << H); i++) {
 				if (i & (i-1)) {
 					S[i-1] = it != B.end() ? *(it++) : '0';
 				}
@@ -45,7 +45,7 @@ int main() {
 		{
 			std::string B(N, '?');
 			auto it = B.begin();
-			for (int i = 1; i < (1 << H) - 1; i++) {
+			for (int i = 1; i < (1 << H); i++) {
 				if (i & (i-1)) {
 					if (it != B.end()) *(it++) = S[i-1];
 				}
