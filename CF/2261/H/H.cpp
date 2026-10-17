@@ -75,7 +75,7 @@ int main() {
 		return B;
 	};
 
-	for (int H = 2; H <= 8; H++) {
+	for (int H = 2; H <= 5; H++) {
 		int N = (1 << H) - 1 - H;
 		for (int msk = 0; msk < (1 << N); msk++) {
 			std::string B(N, '?');
