@@ -72,8 +72,8 @@ int main() {
 				pos ^= (pos/2 == 1 ? 0 : S[pos/2] - '0');
 				if (S[1 - 1] != '0' + get_checksum(N, H, S, 0)) {
 					// do nothing
-				} else {
 					pos ^= 1;
+				} else {
 				}
 				assert((1 << i) <= pos && pos < (2 << i));
 				return pos;
