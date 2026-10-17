@@ -10,7 +10,7 @@ int main() {
 		if (i == 0) {
 			for (int k = 1; k < (1 << (H-1)); k++) {
 				// Pick exactly 1 child of each guy to include, which is stable under flip
-				b ^= S[2*k + (k == 1 ? 0 : S[k-1] - '0')] - '0';
+				b ^= S[2*k + !(k == 1 ? 0 : S[k-1] - '0')] - '0';
 			}
 		} else {
 			// S[(1<<i) - 1] is the sum of everything in its row, as well as the entire subtrees of its odd positions
