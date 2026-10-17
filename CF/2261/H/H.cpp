@@ -69,10 +69,11 @@ int main() {
 					}
 				}
 				assert(!(pos & 1));
+				pos ^= (pos/2 == 1 ? 0 : S[pos/2] - '0');
 				if (S[1 - 1] != '0' + get_checksum(N, H, S, 0)) {
-					pos ^= S[pos/2] - '0';
+					// do nothing
 				} else {
-					pos ^= (S[pos/2] - '0') ^ 1;
+					pos ^= 1;
 				}
 				assert((1 << i) <= pos && pos < (2 << i));
 				return pos;
