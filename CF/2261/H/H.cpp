@@ -45,7 +45,7 @@ int main() {
 	};
 	auto do_flip = [&](int N, int H, std::string S, int p) -> std::string {
 		assert(1 <= p && p < (1 << H));
-		S[p-1] ^= '1';
+		S[p-1] ^= 1;
 		for (int a = 2 * p + 0, b = 2 * p + 1, l = 1; a < (1 << H); a <<= 1, b <<= 1, l <<= 1) {
 			for (int k = 0; k < l; k++) std::swap(S[a+l-1], S[b+l-1]);
 		}
