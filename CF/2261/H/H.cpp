@@ -72,6 +72,7 @@ int main() {
 				} else {
 					pos ^= (S[pos/2] - '0') ^ 1;
 				}
+				assert((1 << i) <= pos && pos < (2 << i));
 				return pos;
 			}
 		}
