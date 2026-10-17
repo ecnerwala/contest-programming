@@ -80,12 +80,12 @@ int main() {
 		for (int msk = 0; msk < (1 << N); msk++) {
 			std::string B(N, '?');
 			for (int i = 0; i < N; i++) B[i] = '0' + ((msk >> i) & 1);
-			std::cerr << "test " << N << ' ' << H << ' ' << B << '\n';
+			//std::cerr << "test " << N << ' ' << H << ' ' << B << '\n';
 			std::string S = encode(N, H, B);
-			std::cerr << "got " << S << '\n';
+			//std::cerr << "got " << S << '\n';
 			for (int i = 1; i < (1 << H); i++) {
 				std::string T = do_flip(N, H, S, i);
-				std::cerr << " flip " << i << ' ' << T << '\n';
+				//std::cerr << " flip " << i << ' ' << T << '\n';
 				assert(decode(N, H, T) == B);
 			}
 		}
