@@ -72,6 +72,7 @@ int main() {
 				int k = pos >> 1;
 				pos ^= (k == 1 ? 0 : S[k-1] - '0');
 				std::cerr << "final pos " << pos << '\n';
+				std::cerr << " sum " << get_checksum(N, H, S, 0) << '\n';
 				if (S[1 - 1] != '0' + get_checksum(N, H, S, 0)) {
 					// do nothing
 					pos ^= 1;
