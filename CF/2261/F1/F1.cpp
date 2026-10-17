@@ -43,7 +43,45 @@ int main() {
 111
 
 DURLDULRUU)" << '\n';
+		return 0;
 	}
+	assert(N >= 4);
+	for (int a = 0; a < N; a++) {
+		for (int b = 0; b < N; b++) {
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					if (i == a) {
+						if (j == b-1) {
+							std::cout << '1';
+						} else {
+							std::cout << '0';
+						}
+					} else if (i == a-1) {
+						if (j == 0 || j == 1) std::cout << '0';
+						else std::cout << '1';
+					} else {
+						std::cout << '1';
+					}
+				}
+				std::cout << '\n';
+			}
+			std::cout << '\n';
+		}
+	}
+	for (int i = 0; i <= N*N; i++) {
+		if (i % N == (N-2) || i % N == (N-1)) {
+			std::cout << 'U';
+		} else if (i == 0) {
+			std::cout << 'R';
+		} else if (i == 1) {
+			std::cout << 'L';
+		} else if (i % N == 0 || i % N == 1) {
+			std::cout << 'D';
+		} else {
+			std::cout << 'U';
+		}
+	}
+	std::cout << '\n';
 
 	return 0;
 }
