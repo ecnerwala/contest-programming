@@ -888,7 +888,7 @@ int main() {
 			cnds.push_back(*std::prev(upper_it));
 			cnds.push_back(*upper_it);
 			if (upper_it->p.x == C.x) cnds.push_back(*std::next(upper_it));
-			if (off_diag_pt.idx != -1) cnds.push_back()
+			if (off_diag_pt != -1) cnds.push_back()
 		};
 
 		for (int q = 0; q < Q; q++) {
