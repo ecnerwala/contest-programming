@@ -4,6 +4,9 @@
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
+	auto solve = [&](int N, int X0, int Y0, int A, int B, int C, int T) -> int64_t {
+	};
+
 	int CASES; std::cin >> CASES;
 	while (CASES--) {
 		int N, X0, Y0, Q; std::cin >> N >> X0 >> Y0 >> Q;
