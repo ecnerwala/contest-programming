@@ -4388,6 +4388,7 @@ int main() {
 			prods[i] = prods[2*i] * prods[2*i+1];
 		}
 		wala::vec<form> pushdowns(2 * layout.N);
+		pushdowns[1] = form(newtons);
 	}
 
 	return 0;
