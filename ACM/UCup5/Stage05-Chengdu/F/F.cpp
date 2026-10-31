@@ -4388,7 +4388,6 @@ int main() {
 			prods[i] = prods[2*i] * prods[2*i+1];
 		}
 		wala::vec<series> pushdowns(2 * layout.N);
-		pushdowns[1] = 
 	}
 
 	return 0;
