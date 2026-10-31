@@ -1259,8 +1259,10 @@ int main() {
 
 		std::sort(x_evts.begin(), x_evts.end());
 		int pref = 0;
+
 		int64_t prv_x = 0;
-		bool prv_good = true;
+		bool prv_has = false;
+
 		for (int i = 0, j = 0; i < x_evts.size(); i = j) {
 			int64_t x = x_evts[i].first;
 			while (j < x_evts.size() && x_evts[j].first == x) pref += x_evts[j++].second;
