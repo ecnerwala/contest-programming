@@ -1220,7 +1220,7 @@ int main() {
 				}
 				assert(e < s);
 				int v = s % N;
-				if (v < 0) v == N;
+				if (v < 0) v += N;
 			};
 			assert(en != st);
 			while (en != st) {
