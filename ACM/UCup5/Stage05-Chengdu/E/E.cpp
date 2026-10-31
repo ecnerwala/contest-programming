@@ -834,7 +834,7 @@ int main() {
 		for (int i = 0; i < N; i++) P[i].second = i;
 
 		std::ranges::sort(P, [&](auto a, auto b) -> bool {
-			return a.first < b.first;
+			return lex_less(a.first, b.first);
 		});
 	}
 
