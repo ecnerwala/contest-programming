@@ -4395,6 +4395,7 @@ int main() {
 			coeffs[2*i+1] = middle_product(coeffs[i], prods[2*i]);
 		}
 		for (int i = 0; i < N; i++) {
+		}
 	}
 
 	return 0;
