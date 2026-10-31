@@ -3614,8 +3614,6 @@ int main() {
 			subtree_sizes[1].push_back(tot);
 			return tot;
 		}(ct.root, 0);
-		assert(adds.capacity() == adds.size());
-		assert(subs.capacity() == subs.size());
 
 		using num = wala::modnum<998244353>;
 		using E = wala::fft::engines::ntt<num>;
