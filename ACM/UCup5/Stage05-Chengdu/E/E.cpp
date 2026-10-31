@@ -905,6 +905,7 @@ int main() {
 			}
 			if (tot_hull == 4 && !off_diag_pt) {
 				// Check the hull
+				for (int i = 0; i < 4; i++) {
 			}
 		};
 
