@@ -908,9 +908,7 @@ int main() {
 				}
 				cnds.append_range(std::ranges::subrange{lo, hi});
 			}
-			if (off_diag_pt) {
-				cnds.push_back(*off_diag_pt);
-			}
+			if (off_diag_pt) cnds.push_back(*off_diag_pt);
 
 			auto signum = [&](auto x) -> int { return (x > 0) - (x < 0); };
 			for (int i = 0; i < cnds.size(); i++) {
