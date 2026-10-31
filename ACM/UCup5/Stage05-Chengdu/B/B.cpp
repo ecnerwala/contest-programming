@@ -1160,6 +1160,17 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	auto slow = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
+		auto normalize_coord = [&](int64_t v) -> int64_t {
+			v %= 2 * N;
+			if (v < 0) v += 2 * N;
+			if (v > N) v = 2 * N - v;
+			return v;
+		};
+		auto normalize_pt = [&](pt_t a) -> pt_t {
+			a.x = normalize_coord(a.x);
+			a.y = normalize_coord(a.y);
+			return a;
+		};
 		for (int dx : {-1, +1}) {
 			for (int dy : {-1, +1}) {
 				for (int64_t cx = 0, cy = T; cx <= T; cx++, cy--) {
