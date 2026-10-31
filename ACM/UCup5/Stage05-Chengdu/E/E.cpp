@@ -891,7 +891,11 @@ int main() {
 			cnds.push_back(*upper_it);
 			if (upper_it->p.x == C.x) cnds.push_back(*std::next(upper_it));
 			if (cnds.size() == 4) {
-				if (off_diag_pt) cnds.push_back(*off_diag_pt);
+				if (off_diag_pt) {
+					cnds.push_back(*off_diag_pt);
+				}
+				else {
+				}
 			}
 
 			auto signum = [&](auto x) -> int { return (x > 0) - (x < 0); };
