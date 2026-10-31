@@ -4076,10 +4076,12 @@ int main() {
 				prods[i] = prods[2*i] * prods[2*i+1];
 			}
 			auto p = series(prods[1]);
-			auto newtons = deriv_shift(p) * ps_inv(p);
-			newtons.shrink_to(N+1);
+			auto cur_newtons = deriv_shift(p) * ps_inv(p);
+			cur_newtons.shrink_to(N+1);
 			for (int64_t v : subtree_sizes[z]) { std::cerr << v << ' '; } std::cerr << '\n';
-			std::cerr << "newtons "; for (auto n : newtons) { std::cerr << -n << ' '; } std::cerr << '\n';
+			std::cerr << "newtons "; for (auto n : cur_newtons) { std::cerr << -n << ' '; } std::cerr << '\n';
+			if (z == 0) newtons -= cur_newtons;
+			else newtons += cur_newtons;
 		}
 
 		// Now, we convert adds to newton sums and likewise subs
