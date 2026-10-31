@@ -849,7 +849,7 @@ int main() {
 		assert(int(lower.size()) >= 2);
 		assert(int(upper.size()) >= 2);
 
-		int tot_hull = lower.size()
+		int tot_hull = int(lower.size()) + int(upper.size()) - 2;
 
 		auto query = [&](pt_t C) -> std::optional<wala::vec<int>> {
 			if (C.x <= lower.front().p.x || C.x >= lower.back().p.x) return std::nullopt;
