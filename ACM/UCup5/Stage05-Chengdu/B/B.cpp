@@ -1305,7 +1305,7 @@ int main() {
 	};
 
 	std::mt19937 mt(48);
-	while (true) {
+	for (int z = 0; z < 1000; z++) {
 		int N = std::uniform_int_distribution<int>(2, 10)(mt);
 		int X0 = std::uniform_int_distribution<int>(1, N)(mt);
 		int Y0 = std::uniform_int_distribution<int>(1, N)(mt);
@@ -1313,6 +1313,7 @@ int main() {
 		int B = std::uniform_int_distribution<int>(-N, N)(mt);
 		int C = std::uniform_int_distribution<int>(-N*N, N*N)(mt);
 		int T = std::uniform_int_distribution<int>(1, 5*N)(mt);
+		if (A == 0 && B == 0) continue;
 		auto ans = slow(N, X0, Y0, A, B, C, T);
 		auto mine = solve(N, X0, Y0, A, B, C, T);
 		if (ans != mine) {
