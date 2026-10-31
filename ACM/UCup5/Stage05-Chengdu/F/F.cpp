@@ -3596,7 +3596,7 @@ int main() {
 		auto sa = wala::SuffixArrayLCP::shift_and_construct(S);
 		auto ct = wala::CartesianTree::build_min_tree(sa.lcp);
 		std::array<wala::bounded_vec<int64_t>, 2> subtree_sizes{
-		(wala::with_capacity{2*N+1});
+			{wala::with_capacity{2*N+1}},
 
 		}
 		wala::bounded_vec<int64_t> subs(wala::with_capacity{2*N+1});
