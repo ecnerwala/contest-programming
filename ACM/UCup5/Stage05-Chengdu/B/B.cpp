@@ -1239,7 +1239,7 @@ int main() {
 				x_evts.push_back({std::max(a.x, b.x)+1, -1});
 			} else {
 				if (va % vdir) return;
-				int64_t steps = va / vdir;
+				int64_t steps = -va / vdir;
 				if (steps < 0 || steps > l) return;
 				pt_t inter = a + dir * steps;
 				x_evts.push_back({inter.x, +1});
