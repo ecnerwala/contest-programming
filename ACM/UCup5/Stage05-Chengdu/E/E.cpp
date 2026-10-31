@@ -849,6 +849,7 @@ int main() {
 		}
 
 		for (int q = 0; q < Q; q++) {
+			pt_t C; std::cin >> C;
 		}
 	}
 
