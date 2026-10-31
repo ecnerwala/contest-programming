@@ -4064,7 +4064,7 @@ int main() {
 		using exact = wala::series::exact<E>;
 		using poly = wala::poly::vec<E>;
 
-		exact newtons(N);
+		exact newtons(N+1);
 		
 		for (int z = 0; z < 2; z++) {
 			int S = subtree_sizes[z].size();
