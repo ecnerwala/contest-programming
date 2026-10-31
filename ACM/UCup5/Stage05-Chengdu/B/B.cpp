@@ -1042,11 +1042,12 @@ template <typename T> struct mod_constraint {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	auto solve = [&](int N, int X0, int Y0, int A, int B, int C, int T) -> int64_t {
-		int g = std::gcd(std::abs(A), std::abs(B));
+	auto solve = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
+		int64_t g = std::gcd(std::abs(A), std::abs(B));
 		if (C % g) return 0;
 		A /= g, B /= g, C /= g;
 
+		X0 - T
 	};
 
 	int CASES; std::cin >> CASES;
