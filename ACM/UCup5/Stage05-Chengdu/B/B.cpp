@@ -1044,6 +1044,7 @@ int main() {
 
 	auto solve = [&](int N, int X0, int Y0, int A, int B, int C, int T) -> int64_t {
 		int g = std::gcd(std::abs(A), std::abs(B));
+		if (C % g) return 0;
 		auto a = wala::extended_gcd(A, B);
 	};
 
