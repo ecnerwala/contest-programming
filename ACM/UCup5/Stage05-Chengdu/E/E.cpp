@@ -842,7 +842,7 @@ int main() {
 
 		std::ranges::sort(P, [&](auto a, auto b) -> bool { return lex_less(a.p, b.p); });
 		for (auto cnd : P) {
-			while (lower.size() >= 2 && cross3(lower.end()[-2].p, lower.end()[-1].p, cnd.p) < 0)
+			while (lower.size() >= 2 && cross3(lower.end()[-2].p, lower.end()[-1].p, cnd.p) < 0) lower.pop_back();
 		}
 	}
 
