@@ -4391,6 +4391,7 @@ int main() {
 		for (int i = 1; i < N; i++) {
 			assert(coeffs[i].size() == prods[i].size());
 			coeffs[2*i] = coeffs[i];
+			coeffs[2*i].shrink_to(prods[2*i].size());
 		}
 	}
 
