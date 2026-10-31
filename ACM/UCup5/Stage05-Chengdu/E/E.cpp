@@ -883,6 +883,7 @@ int main() {
 
 			wala::bounded_vec<poly_t> cnds(wala::with_capacity{6});
 			cnds.push_back(*std::prev(lower_it));
+			cnds.push_back(*lower_it);
 			if (lower_it->p.x == C.x) {
 			}
 			if (upper_it->p.x == C.x) {
