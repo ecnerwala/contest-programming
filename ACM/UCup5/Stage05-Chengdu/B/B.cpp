@@ -1219,7 +1219,7 @@ int main() {
 					s = -s, e = -e;
 				}
 				assert(e < s);
-				int v = s % N;
+				int64_t v = s % N;
 				if (v < 0) v += N;
 			};
 			assert(en != st);
