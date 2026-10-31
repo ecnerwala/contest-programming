@@ -1195,7 +1195,7 @@ int main() {
 				en = st + dir * (2 * N);
 			}
 			assert(en != st);
-			while (en != st) {
+			while (true) {
 			}
 		}
 	};
