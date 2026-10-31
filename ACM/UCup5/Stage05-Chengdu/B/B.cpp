@@ -1162,7 +1162,7 @@ int main() {
 	auto slow = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
 		auto normalize_coord = [&](int64_t v) -> int64_t {
 			v %= 2 * N;
-			if (v < 0) v += 2 * N;
+			if (v <= 0) v += 2 * N;
 			if (v > N) v = 2 * N - v;
 			return v;
 		};
