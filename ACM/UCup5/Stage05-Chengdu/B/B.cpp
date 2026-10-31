@@ -1195,7 +1195,7 @@ int main() {
 				en = st + dir * (2 * N);
 			}
 			assert(en != st);
-			while (true) {
+			while (en != st) {
 				// go to the next multiple of N
 			}
 		}
