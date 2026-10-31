@@ -3609,9 +3609,9 @@ int main() {
 				tot += self(ct[cur].c[0], nxt_height);
 				tot += self(ct[cur].c[1], nxt_height);
 			}
-			subs.push_back(tot);
+			subtree_sizes[0].push_back(tot);
 			tot += nxt_height - cur_height;
-			adds.push_back(tot);
+			subtree_sizes[1].push_back(tot);
 			return tot;
 		}(ct.root, 0);
 		assert(adds.capacity() == adds.size());
