@@ -850,6 +850,7 @@ int main() {
 		assert(int(upper.size()) >= 2);
 
 		int tot_hull = int(lower.size()) + int(upper.size()) - 2;
+		int off_diag_pt = -1;
 		if (tot_hull == 4) {
 			std::array<poly_t, 4> hull;
 			int idx = 0;
