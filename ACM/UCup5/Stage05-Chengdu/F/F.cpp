@@ -4389,6 +4389,7 @@ int main() {
 		wala::vec<trunc> coeffs(2 * layout.N);
 		coeffs[1] = newtons;
 		for (int i = 1; i < N; i++) {
+			assert(coeffs[i].size() == prods[i].size());
 		}
 	}
 
