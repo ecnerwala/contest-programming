@@ -1049,11 +1049,6 @@ int main() {
 		N--;
 		assert(0 <= X0 && X0 <= N);
 		assert(0 <= Y0 && Y0 <= N);
-		if (A <= 0 && B <= 0) {
-			A = -A, B = -B, C = -C;
-			assert(A >= 0 && B >= 0);
-		}
-		// We want both A and B positive
 	};
 
 	int CASES; std::cin >> CASES;
