@@ -897,8 +897,8 @@ int main() {
 				cnds.append_range(std::ranges::subrange{lo, hi});
 			}
 			{
-				auto lo = std::prev(lower_it);
-				auto hi = std::next(lower_it);
+				auto lo = std::prev(upper_it);
+				auto hi = std::next(upper_it);
 				while (hi - lo < 5) {
 					if (hi == lower.end()) {
 						if (lo == lower.begin()) {
