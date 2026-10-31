@@ -866,7 +866,10 @@ int main() {
 			pt_t C; std::cin >> C;
 			auto res = query(C);
 			if (res) {
-				auto r = *res;
+				const auto& r = *res;
+				r.size();
+			} else {
+				std::cout << -1 << '\n';
 			}
 		}
 	}
