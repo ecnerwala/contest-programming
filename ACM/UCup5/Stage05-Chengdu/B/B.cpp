@@ -1259,7 +1259,7 @@ int main() {
 
 		std::sort(x_evts.begin(), x_evts.end());
 		{
-			auto it = 
+			auto it = ;
 		}
 	};
 
