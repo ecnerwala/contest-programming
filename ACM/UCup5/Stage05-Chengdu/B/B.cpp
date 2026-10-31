@@ -1187,7 +1187,6 @@ int main() {
 		square[3] = {X0, Y0 - T};
 		for (int z = 0; z < 4; z++) {
 			pt_t st = square[z], en = square[(z+1)%4];
-			assert(en != st);
 			pt_t dir = en - st;
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
@@ -1195,7 +1194,8 @@ int main() {
 			if (T >= 2 * N) {
 				en = st + dir * (2 * N);
 			}
-			while (true) {
+			assert(en != st);
+			while (en != st) {
 			}
 		}
 	};
