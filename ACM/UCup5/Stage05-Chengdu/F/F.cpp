@@ -3595,6 +3595,8 @@ int main() {
 		std::string S; std::cin >> S;
 		auto sa = wala::SuffixArrayLCP::shift_and_construct(S);
 		auto ct = wala::CartesianTree::build_min_tree(sa.lcp);
+		wala::bounded_vec<int64_t> adds;
+		wala::bounded_vec<int64_t> subs;
 		[&](this auto&& self, int cur) -> void {
 		}(ct.root);
 	}
