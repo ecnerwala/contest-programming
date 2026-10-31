@@ -3622,7 +3622,7 @@ int main() {
 		using poly = wala::poly::vec<E>;
 		
 		for (int z = 0; z < 2; z++) {
-			wala::vec<exact> 
+			wala::vec<exact> prods;
 		}
 
 		// Now, we convert adds to newton sums and likewise subs
