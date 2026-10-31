@@ -1191,7 +1191,8 @@ int main() {
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
 			assert(en - st == (dir * T));
-			if (T >= 2 * (N-2))
+			if (T >= 2 * N) {
+			}
 		}
 	};
 
