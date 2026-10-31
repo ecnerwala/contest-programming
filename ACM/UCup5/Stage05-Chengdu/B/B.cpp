@@ -1203,7 +1203,7 @@ int main() {
 			int64_t l = std::abs(dir.x);
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
-			assert(b - a == (dir * T));
+			assert(b - a == dir * l);
 			if (T >= 2 * N) {
 				en = st + dir * (2 * N);
 			}
