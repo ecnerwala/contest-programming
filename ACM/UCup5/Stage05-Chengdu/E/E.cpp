@@ -891,9 +891,9 @@ int main() {
 				while (hi - lo < 5) {
 					if (hi == lower.end()) {
 						if (lo == lower.begin()) {
-							lo++;
-						}
-					}
+							break;
+						} else --lo;
+					} else ++hi;
 				}
 			}
 			cnds.push_back(*std::prev(lower_it));
