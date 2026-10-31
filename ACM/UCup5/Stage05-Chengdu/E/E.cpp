@@ -839,7 +839,7 @@ int main() {
 
 		std::ranges::sort(P, [&](auto a, auto b) -> bool { return lex_less(a.p, b.p); });
 
-		wala::bounded_vec<poly_t> lower(N);
+		wala::bounded_vec<poly_t> lower(with_capacity{N});
 	}
 
 	return 0;
