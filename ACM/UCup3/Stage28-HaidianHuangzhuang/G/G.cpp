@@ -34,7 +34,7 @@ int main() {
 		adj[v].push_back(u);
 	}
 	const int64_t INF = 1e18;
-	cout << std::y_combinator([&](auto self, int cur, int prv) -> std::array<int64_t, 3> {
+	cout << (N == 1 ? 0 : std::y_combinator([&](auto self, int cur, int prv) -> std::array<int64_t, 3> {
 		std::array<int64_t, 3> res{0, B, INF};
 		for (int nxt : adj[cur]) {
 			if (nxt == prv) continue;
@@ -47,7 +47,7 @@ int main() {
 			};
 		}
 		return res;
-	})(0, -1)[2] / 2 + int64_t(A) * int64_t(N-1) - B << '\n';
+	})(0, -1)[2] / 2 + int64_t(A) * int64_t(N-1) - B) << '\n';
 
 	return 0;
 }

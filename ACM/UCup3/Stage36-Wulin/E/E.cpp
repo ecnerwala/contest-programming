@@ -120,7 +120,7 @@ public:
 struct frac_t {
 	int64_t n, d;
 	friend std::strong_ordering operator <=> (frac_t a, frac_t b) {
-		return a.n * b.d <=> b.n * a.d;
+		return __int128_t(a.n) * b.d <=> __int128_t(b.n) * a.d;
 	}
 };
 

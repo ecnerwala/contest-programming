@@ -558,15 +558,15 @@ template <typename num> std::vector<std::vector<num>> solve(int N, const tensor<
 			zeroes.resize(1);
 		}
 
-		num cur_dot_self = num(0);
-		for (int a = 0; a < N; a++) {
-			cur_dot_self += curG[a] * cur[a];
-		}
+		dot_self[i] = dot(i, i);
 		if (!zeroes.empty()) {
-			if (cur_dot_self != 0) {
-				auto [a, dot] = ;
-				for (int a = 0; a < N; a++) {
-				}
+			assert(int(zeroes.size()) == 0);
+			if (dot_self[i] != 0) {
+				auto [a, dot] = zeroes[0];
+				do_row_op(a, i, -dot / dot_self[i]);
+				dot_self[a] = dot(a, a);
+			} else {
+				// We have some garbage entangled thing
 			}
 		}
 	}

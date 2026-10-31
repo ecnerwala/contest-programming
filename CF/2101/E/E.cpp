@@ -236,7 +236,7 @@ int main() {
 			adj[v].push_back(u);
 		}
 
-		auto ans = slow(N, std::move(S), std::move(adj));
+		auto ans = solve(N, std::move(S), std::move(adj));
 
 		for (int i = 0; i < N; i++) {
 			cout << ans[i] << " \n"[i+1==N];

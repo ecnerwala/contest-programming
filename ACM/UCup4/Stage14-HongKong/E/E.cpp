@@ -142,7 +142,7 @@ int main() {
 			a = N-a;
 		}
 
-		for (auto [a, b] : pareto) cerr << a << ' ' << b << '\n';
+		//for (auto [a, b] : pareto) cerr << a << ' ' << b << '\n';
 		cout << fixed << setprecision(20);
 		for (int q = 0; q < Q; q++) {
 			int64_t a, b, k; cin >> a >> b >> k;

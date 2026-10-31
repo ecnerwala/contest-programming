@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+
+int main() {
+	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
+
+	int T; std::cin >> T;
+	while (T--) {
+		int N, K; std::cin >> N >> K;
+		std::vector<int> A(N);
+		for (auto& a : A) std::cin >> a;
+		std::sort(A.begin(), A.end());
+
+		std::vector<std::array<std::array<int, 2>, 2>> ranges, nranges0, nranges1;
+		ranges.reserve(N); nranges0.reserve(N); nranges1.reserve(N);
+		ranges.push_back({std::array<int, 2>{0, N}, {0, N}});
+		for (int b = K-1; b >= 0; b--) {
+			for (auto [rng1, rng2] : ranges) {
+				auto [l1, r1] = rng1;
+				int m1 = l1;
+				while (m1 < r1 && !((A[m1] >> b) & 1)) m1++;
+				auto [l2, r2] = rng2;
+				int m2 = l1;
+				while (m2 < r1 && !((A[m1] >> b) & 1)) m1++;
+			}
+			if (!nranges1.empty()) {
+				std::swap(ranges, nranges1);
+				nranges1.clear();
+			} else {
+				std::swap(ranges, nranges0);
+				nranges0.clear();
+			}
+		}
+	}
+
+	return 0;
+}

@@ -63,7 +63,7 @@ int main() {
 			cout << "Yes" << '\n';
 			for (int i = 0; i < N; i++) {
 				cout << res[i].first+1 << ' ' << res[i].second.size();
-				for (auto v : res[i].second) cout << ' ' << v;
+				for (auto v : res[i].second) cout << ' ' << v+1;
 				cout << '\n';
 			}
 		}

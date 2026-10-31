@@ -49,7 +49,7 @@ int main() {
 		}
 
 		auto pair_val = [&](auto it, auto jt) -> int64_t {
-			return (jt->second.second - it->second.second) * std::min(it->second.first, jt->second.first);
+			return int64_t(jt->second.second - it->second.second) * std::min(it->second.first, jt->second.first);
 		};
 		auto iter_val = [&](auto& mp, auto it) -> int64_t {
 			int64_t ans = 0;

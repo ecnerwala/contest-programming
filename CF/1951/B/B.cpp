@@ -30,7 +30,7 @@ int main() {
 		std::swap(A[K], A[1]);
 
 		for (int i = 0; i < N; i++) {
-			if (A[i] >= V) {
+			if (A[i] > V) {
 				std::swap(A[K], A[i]);
 				check();
 				std::swap(A[K], A[i]);

@@ -1,0 +1,1 @@
+{"name": "Balkan OI '11 P4 - Compare", "group": "DMOJ", "url": "https://dmoj.ca/problem/bkoi11p4", "interactive": false, "memoryLimit": 128, "timeLimit": 10000, "tests": [], "testType": "single", "input": {"type": "stdin"}, "output": {"type": "stdout"}, "languages": {"java": {"mainClass": "Main", "taskClass": "BalkanOI11P4Compare"}}}

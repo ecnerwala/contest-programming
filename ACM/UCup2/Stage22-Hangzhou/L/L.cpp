@@ -307,10 +307,9 @@ int main() {
 				remove_in_set(i);
 				in_set[i] = false;
 				reconcile();
-			} else {
-				while (!to_insert.empty() && !alive[to_insert.back()]) {
-					to_insert.pop_back();
-				}
+			} else if (!to_insert.empty() && to_insert.back() == i) {
+				to_insert.pop_back();
+				reconcile();
 			}
 		};
 

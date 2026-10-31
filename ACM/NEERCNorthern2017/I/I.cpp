@@ -38,7 +38,6 @@ int main() {
 		for (int i = 0, j = 0; i < N; i = j+1) {
 			j = i;
 			while (collinear[j]) j++;
-			cerr << i << ' ' << j << '\n';
 			int num_segs = j - i + 1;
 			ans -= int64_t(num_segs) * int64_t(num_segs + 1) / 2;
 		}

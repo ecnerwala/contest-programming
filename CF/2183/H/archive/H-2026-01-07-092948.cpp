@@ -1,0 +1,333 @@
+#include <bits/stdc++.h>
+#if __cpp_concepts >= 202002
+#include <concepts>
+#endif
+
+namespace smawk {
+
+template <typename T> struct value_t {
+	T v;
+	int col;
+};
+
+// Get(int row, int col) -> T
+// Select(int row, const value_t<T>& opt_0, const value_t<T>& opt_1) returns 0 or 1 for which is better
+#if __cpp_concepts >= 202002
+template <typename T, typename Get, typename Select> concept totally_monotone_matrix_oracle =
+	std::default_initializable<T> && std::movable<T>
+	&& std::invocable<Get, int, int> && std::convertible_to<std::invoke_result_t<Get, int, int>, T>
+	&& std::predicate<Select, int, const value_t<T>&, const value_t<T>&>;
+#endif
+
+
+template <typename Get, typename Select, typename T = std::invoke_result_t<Get, int, int>>
+#if __cpp_concepts >= 202002
+requires totally_monotone_matrix_oracle<T, Get, Select>
+#endif
+class LARSCH {
+public:
+	int N;
+	Get get;
+	Select select;
+	int L;
+	int num_rows;
+
+	std::vector<std::vector<value_t<T>>> stk;
+	std::vector<std::pair<value_t<T>, int>> bests;
+	LARSCH() {}
+	LARSCH(int N_, Get&& get_, Select&& select_) : N(N_), get(std::forward<Get>(get_)), select(std::forward<Select>(select_)) {
+		L = N ? 31 - __builtin_clz(N) : 0;
+		stk.resize(L);
+		bests.resize(L);
+		// N >> L == 1, unless N == 0
+		for (int i = 0; i < L; i++) {
+			stk[i].reserve(N >> (i+1));
+		}
+		num_rows = 0;
+	}
+
+	value_t<T> push_and_query_next() {
+		assert(num_rows < N);
+		int inp_row = num_rows++;
+
+		int l = 0;
+		value_t<T> nbest;
+		while (true) {
+			int r = inp_row >> l;
+			int col = l == 0 ? inp_row : stk[l-1][r].col;
+			if (l == L) {
+				// special case: just return the unique element
+				assert(r == 0);
+				assert(inp_row == 0);
+				int row = ((r+1) << l) - 1;
+				if (l == 0) nbest = {get(row, col), col};
+				else nbest = {std::move(stk[l-1][r].v), stk[l-1][r].col};
+				l--;
+				break;
+			}
+			assert(l < L);
+
+			if (r & 1) {
+				int row = ((r+1) << l) - 1;
+				value_t<T> prv_col_top;
+				if (l == 0) prv_col_top = {get(row, col), col};
+				else prv_col_top = {std::move(stk[l-1][r].v), stk[l-1][r].col};
+
+				assert(bests[l].second <= r);
+
+				// just check this guy at this row, and then push it into the next layer, but don't query yet
+				if (bests[l].second == r || select(row, bests[l].first, prv_col_top)) {
+					// prv_col_top is better here
+					bests[l].first = std::move(prv_col_top);
+					bests[l].second = r;
+				}
+			}
+			if (bests[l].second == r) {
+				// We've committed to the new column being the best, so let's prune the stack and propagate to ensure consistency.
+				assert(int(stk[l].size()) >= (r+1)/2);
+				stk[l].resize((r+1)/2);
+				// We can just set .second only, since the only time it's read is the r&1 case, which will override bests[l].first
+				if (l+1 < L) bests[l+1].second = (r+1)/2;
+			}
+			std::optional<value_t<T>> to_push;
+			while (int(stk[l].size()) > (r+1)/2) {
+				int row = (int(stk[l].size()) << (l+1)) - 1;
+				value_t<T> nv{get(row, col), col};
+				if (select(row, stk[l].back(), nv)) {
+					stk[l].pop_back();
+					to_push = std::move(nv);
+				} else {
+					break;
+				}
+			}
+			if (to_push) {
+				stk[l].emplace_back(std::move(*to_push));
+			} else {
+				int row = (int(stk[l].size()+1) << (l+1)) - 1;
+				if (row < N) stk[l].emplace_back(get(row, col), col);
+			}
+			if (r & 1) {
+				// go return
+				nbest = std::move(bests[l].first);
+				l--;
+				break;
+			} else if (((r+2) << l) - 1 >= N) {
+				// go return
+				nbest.col = col;
+				break;
+			} else {
+				l++;
+				continue;
+			}
+			assert(false);
+		}
+		for (; l >= 0; l--) {
+			int r = inp_row >> l;
+			assert(!(r & 1));
+			int row = ((r+1) << l) - 1;
+			bests[l].first = std::move(nbest);
+			bool did_set = false;
+			while (true) {
+				int idx = bests[l].second;
+				assert(idx <= r);
+				int col = (l == 0 ? idx : stk[l-1][idx].col);
+				assert(col <= bests[l].first.col);
+				value_t<T> cnd;
+				if (l > 0 && idx == r) cnd = {std::move(stk[l-1][r].v), col};
+				else cnd = {get(row, col), col};
+				if (!did_set || select(row, nbest, cnd)) {
+					did_set = true;
+					nbest = std::move(cnd);
+				}
+				if (col == bests[l].first.col) break;
+				bests[l].second++;
+			}
+		}
+		assert(l == -1);
+		return nbest;
+	}
+};
+
+template <typename Get, typename Select, typename T = std::invoke_result_t<Get&&, int, int>>
+#if __cpp_concepts >= 202002
+requires totally_monotone_matrix_oracle<T, Get&&, Select&&>
+#endif
+std::vector<value_t<T>> smawk(int N, int M, Get&& get, Select&& select) {
+	// TODO: If M >> N, then we should do an extra layer of column filter on the outside. The cutoff should be M > 2N or so.
+	std::vector<value_t<T>> res(N);
+	for (int i = 0; i < N; i++) res[i].col = -1;
+	std::vector<int> stks(N);
+	int L = N ? 31 - __builtin_clz(N) : 0;
+	std::vector<int> stk_ends(L+1);
+	stk_ends[0] = 0;
+	for (int l = 0; l < L; l++) {
+		int sz = 0;
+		auto check_col = [&](int col, int min_sz) -> void {
+			while (sz > min_sz) {
+				int row = (sz << (l+1)) - 1;
+				value_t<T> cnd(get(row, col), col);
+				if (select(row, res[row], cnd)) {
+					// we prefer cnd, save this
+					res[row] = std::move(cnd);
+					sz--;
+				} else {
+					break;
+				}
+			}
+
+			if (sz < (N >> (l+1))) {
+				int row = ((sz+1) << (l+1)) - 1;
+				if (res[row].col == col) {
+					stks[stk_ends[l] + sz] = col;
+					sz++;
+				} else {
+					value_t<T> cnd(get(row, col), col);
+					// This is a legal optimization, but I'm not sure it buys anything real, so just stub it out with true ||
+					if (true || res[row].col == -1 || res[row].col < col || !select(row, cnd, res[row])) {
+						res[row] = std::move(cnd);
+						stks[stk_ends[l] + sz] = col;
+						sz++;
+					}
+				}
+			}
+		};
+		if (l == 0) {
+			for (int col = 0; col < M; col++) {
+				check_col(col, 0);
+			}
+		} else {
+			for (int z = stk_ends[l-1]; z < stk_ends[l]; z++) {
+				check_col(stks[z], (z - stk_ends[l-1]) / 2);
+			}
+		}
+		assert(sz <= (N >> (l+1)));
+		stk_ends[l+1] = stk_ends[l] + sz;
+	}
+	for (int l = L; l >= 0; l--) {
+		int z = l == 0 ? 0 : stk_ends[l-1];
+		for (int r = 0; r < (N >> l); r += 2) {
+			int row = ((r+1) << l) - 1;
+			// TODO: You could not reset this? Not sure if it buys anything real.
+			res[row].col = -1;
+			for (; z < (l == 0 ? M : stk_ends[l]); z++) {
+				int col = l == 0 ? z : stks[z];
+				value_t<T> cnd = {get(row, col), col};
+				if (res[row].col == -1 || select(row, res[row], cnd)) {
+					res[row] = std::move(cnd);
+				}
+				if ((r+1) < (N >> l) && col == res[((r+2) << l) - 1].col) break;
+			}
+			assert(res[row].col != -1);
+		}
+	}
+	return res;
+}
+
+// namespace smawk
+}
+
+std::string to_string(__int128_t a) {
+	if (a < 0) {
+		return "-" + to_string(-a);
+	}
+	std::string res;
+	for (; a; a /= 10) res += char('0' + (a % 10));
+	if (res.empty()) res += '0';
+	std::reverse(res.begin(), res.end());
+	return res;
+}
+std::ostream& operator << (std::ostream& o, __int128_t v) {
+	return o << to_string(v);
+}
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int T; cin >> T;
+	while (T--) {
+		int N, K; cin >> N >> K;
+		std::vector<int> A(N);
+		for (auto& a : A) cin >> a;
+		std::sort(A.begin(), A.end());
+
+		//cerr << "start case" << '\n';
+
+		std::vector<int64_t> pref(N+1);
+		for (int i = 0; i < N; i++) pref[i+1] = pref[i] + A[i];
+
+		int st_len = 0;
+		while (st_len < N && pref[st_len] + int64_t(A[st_len]) * st_len <= 0) {
+			st_len++;
+		}
+		assert(st_len >= 1);
+
+		auto solve = [&](std::pair<__int128_t, int> slope) -> std::pair<__int128_t, int> {
+			std::vector<std::pair<__int128_t, int>> dp(N+1);
+			smawk::LARSCH a(
+				N - st_len + 1,
+				[&](int out, int in) -> std::pair<__int128_t, int> {
+					assert(out >= in);
+					out++;
+					out = out > 0 ? out + st_len - 1 : out;
+					in = in > 0 ? in + st_len - 1 : in;
+					assert(out == 0 || out >= st_len);
+					assert(in == 0 || in >= st_len);
+					return {dp[in].first + (__int128_t(pref[out] - pref[in]) * (out - in)) * slope.second - slope.first, dp[in].second + 1};
+				},
+				[&](int, smawk::value_t<std::pair<__int128_t, int>> v0, smawk::value_t<std::pair<__int128_t, int>> v1) -> bool {
+					return v0.v.first < v1.v.first ? 0 : 1;
+				}
+			);
+			dp[0] = {0, 0};
+			for (int i = st_len; i <= N; i++) {
+				dp[i] = a.push_and_query_next().v;
+			}
+			auto res = dp[N];
+			res.first += slope.first * res.second;
+			assert(res.first % slope.second == 0);
+			res.first /= slope.second;
+			return res;
+		};
+
+		std::pair<__int128_t, int> v_lo{__int128_t(pref[N]) * N, 1}, v_hi{__int128_t(pref[st_len]) * st_len + (pref[N] - pref[st_len]), N - st_len + 1};
+		__int128_t ans;
+		if (K == v_lo.second) {
+			ans = v_lo.first;
+		} else if (K >= v_hi.second) {
+			// all 1's and then all together in a group of size N-K+1
+			ans = (pref[N] - pref[N-K+1]) + __int128_t(pref[N-K+1]) * (N-K+1);
+		} else {
+			assert(v_lo.second < K && K < v_hi.second);
+			// v_lo is the worst case, v_hi is the best
+			__int128_t s_lo = v_hi.first - v_lo.first;
+			__int128_t s_hi = 0;
+			assert(v_lo == solve({2 * s_lo - 1, 2}));
+			assert(v_hi == solve({2 * s_hi + 1, 2}));
+			while (true) {
+				if (s_lo == s_hi) {
+					assert((v_hi.first - v_lo.first) % (v_hi.second - v_lo.second) == 0);
+					ans = v_lo.first + (v_hi.first - v_lo.first) / (v_hi.second - v_lo.second) * (K - v_lo.second);
+					break;
+				}
+				assert(s_lo < s_hi);
+				__int128_t m = (s_lo + s_hi + 1) / 2;
+				assert(m > s_lo && m-1 < s_hi);
+				auto res = solve({2 * m - 1, 2});
+				//cerr << 2*m-1 << '/' << 2 << ' ' << res.first << ' ' << res.second << '\n';
+				if (res.second == K) {
+					ans = res.first;
+					break;
+				} else if (res.second < K) {
+					v_lo = res;
+					s_lo = m;
+				} else {
+					v_hi = res;
+					s_hi = m-1;
+				}
+			}
+		}
+		cout << ans << '\n';
+	}
+
+	return 0;
+}

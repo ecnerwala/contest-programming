@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
 
 /** Binary-indexed tree
  *
@@ -151,7 +152,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	std::mt19937_64 mt(48);
+	std::mt19937_64 mt(FIXED_RANDOM);
 	int T; cin >> T;
 	while (T--) {
 		int N; cin >> N;

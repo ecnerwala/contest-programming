@@ -27,7 +27,7 @@ int main() {
 				ans *= double(N-K-i) / double(N-1-i);
 				tot -= B[i];
 			}
-			int64_t cnd = tot + (N-K-i) * B[i];
+			int64_t cnd = tot + (N-K-i) * int64_t(B[i]);
 			ans += std::max(double(std::max(A, B[i])), double(cnd) / (N-K));
 		}
 		ans *= double(K) / double(N);

@@ -14,6 +14,7 @@ int main() {
 
 	int ans = -1;
 	for (int z = 0; z < 2; z++, std::swap(w, h)) {
+		if (W < w || H < h) continue;
 		int cnd = 0;
 		for (int v = W; v > w; v++, v /= 2) {
 			cnd++;

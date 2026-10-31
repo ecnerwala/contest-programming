@@ -28,6 +28,7 @@ int main() {
 			cout << 0 << '\n';
 			exit(0);
 		}
+
 		int min_lx = N - max_ls;
 		int min_lz = N - max_lp;
 		assert(min_lx + min_lz < N);
@@ -35,6 +36,7 @@ int main() {
 		T = T.substr(min_lx, M - min_lx - min_lz);
 		N -= min_lx + min_lz;
 		M -= min_lx + min_lz;
+
 		assert(N > 0);
 		assert(int(S.size()) == N);
 		assert(int(T.size()) == M);

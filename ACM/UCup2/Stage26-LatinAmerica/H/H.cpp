@@ -30,7 +30,7 @@ int main() {
 				break;
 			}
 		}
-		cerr << "new_len " << new_len << '\n';
+		//cerr << "new_len " << new_len << '\n';
 		assert(new_len != -1);
 		assert(N % new_len == 0);
 		for (int i = 0; i < N; i++) {
@@ -57,7 +57,7 @@ int main() {
 			}
 		}
 
-		cerr << "loop_pos " << loop_pos << '\n';
+		//cerr << "loop_pos " << loop_pos << '\n';
 		if (loop_pos != -1) {
 			for (int i = 0; i < N; i++) {
 				assert(S[(N+loop_pos - i) % N] == S[i]);

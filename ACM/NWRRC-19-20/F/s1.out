@@ -1,0 +1,3 @@
+2
+foreach ($a as &$x) if ($x == 2) break;
+foreach ($a as  $x) if ($x == 2) break;

@@ -301,7 +301,6 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, K; cin >> N >> K;
-		cerr << "case " << N << ' ' << K << '\n';
 		std::vector<Point<int>> pts(N);
 		for (int i = 0; i < N; i++) {
 			cin >> pts[i];

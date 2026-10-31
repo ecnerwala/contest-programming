@@ -1,0 +1,1 @@
+{"name": "CEOI '18 P6 - Triangles", "group": "DMOJ", "url": "https://dmoj.ca/problem/ceoi18p6", "interactive": false, "memoryLimit": 256, "timeLimit": 3000, "tests": [], "testType": "single", "input": {"type": "stdin"}, "output": {"type": "stdout"}, "languages": {"java": {"mainClass": "Main", "taskClass": "CEOI18P6Triangles"}}}

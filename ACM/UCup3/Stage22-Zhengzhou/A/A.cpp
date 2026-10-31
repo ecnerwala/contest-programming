@@ -44,34 +44,13 @@ std::optional<std::array<std::string, 3>> solve(int64_t A, int64_t B, int64_t C)
 	res[1].resize(B*G);
 	res[2].resize(C*G);
 
-	int vp;
-	int vq;
-	int vr;
-	if (p*G >= 3) {
-		vp = 2;
-		if (q*G >= 2) vq = 1, vr = -1;
-		else vr = 1, vq = -1;
-	} else if (q*G >= 3) {
-		vq = 2;
-		if (p*G >= 2) vp = 1, vr = -1;
-		else vp = 1, vr = -1;
-	} else if (r*G >= 3) {
-		vr = 2;
-		if (p*G >= 2) vp = 1, vq = -1;
-		else vp = 1, vq = -1;
-	} else {
-		if (p*G == 2) vp = 1, vq = -1, vr = -1;
-		else if (q*G == 2) vq = 1, vp = -1, vr = -1;
-		else if (r*G == 2) vr = 1, vp = -1, vq = -1;
-		else vp = -1, vq = -1, vr = -1;
-	}
 	//cerr << vp << ' ' << vq << ' ' << vr << '\n';
 	std::mt19937 mt(48);
 
 	while (true) {
 		std::vector<int> fp(p*G); for (auto& a : fp) a = mt() & 1;
 		std::vector<int> fq(q*G); for (auto& a : fq) a = mt() & 1;
-		std::vector<int> fr(q*G); for (auto& a : fr) a = mt() & 1;
+		std::vector<int> fr(r*G); for (auto& a : fr) a = mt() & 1;
 		for (int i = 0; i < A*G; i++) {
 			res[0][i] = "01"[fp[i % (p*G)] ^ fq[i % (q*G)]];
 		}
@@ -112,7 +91,7 @@ void test() {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	test();
+	//test();
 
 	int T; cin >> T;
 	while (T--) {

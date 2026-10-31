@@ -337,16 +337,17 @@ int main() {
 				if (mid) {
 					if (std::abs(a.frac) == INF || a.len > 32) {
 						r.frac = INF * signum(mid);
+					} else {
+						assert(a.len <= 32);
+						if (b.len <= 32 && mid == -(int64_t(1) << (b.len - 1)) && a.frac < 0) {
+							r.val--;
+							mid = int64_t(1) << (b.len - 1);
+						}
+						mid <<= a.len;
+						mid += a.frac;
+						if (std::abs(mid) >= INF) r.frac = INF * signum(mid);
+						else r.frac = int(mid);
 					}
-					assert(a.len <= 32);
-					if (b.len <= 32 && mid == -(int64_t(1) << (b.len - 1)) && a.frac < 0) {
-						r.val--;
-						mid = int64_t(1) << (b.len - 1);
-					}
-					mid <<= a.len;
-					mid += a.frac;
-					if (std::abs(mid) >= INF) r.frac = INF * signum(mid);
-					else r.frac = int(mid);
 				} else {
 					r.frac = a.frac;
 				}

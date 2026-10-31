@@ -2,16 +2,6 @@
 
 int main() {
 	std::ios_base::sync_with_stdio(false); std::cin.tie(nullptr);
-	int T; std::cin >> T;
-	while (T--) {
-		int N; std::cin >> N;
-		std::vector<int> A(N);
-		for (auto& a : A) { std::cin >> a; }
-		std::vector<int> B(N);
-		for (auto& b : B) { std::cin >> b; }
-		int64_t best = -1;
-		int best_ways = 0;
-
 		const int MOD = int(1e6) + 3;
 		// we need some really big factorials
 		std::vector<int> fact(MOD);
@@ -21,6 +11,16 @@ int main() {
 		assert(fact[MOD-1] == MOD-1);
 		ifact[MOD-1] = MOD-1;
 		for (int i = MOD-1; i >= 1; i--) ifact[i-1] = int(int64_t(ifact[i]) * i % MOD);
+
+	int T; std::cin >> T;
+	while (T--) {
+		int N; std::cin >> N;
+		std::vector<int> A(N);
+		for (auto& a : A) { std::cin >> a; }
+		std::vector<int> B(N);
+		for (auto& b : B) { std::cin >> b; }
+		int64_t best = -1;
+		int best_ways = 0;
 
 		for (int ops = 0; true; ops++) {
 			bool bad = false;

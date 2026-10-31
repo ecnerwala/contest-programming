@@ -1,0 +1,3 @@
+(* bar()) {} int main() {} void foo() { /*
+*) program foo; begin end. { */
+}

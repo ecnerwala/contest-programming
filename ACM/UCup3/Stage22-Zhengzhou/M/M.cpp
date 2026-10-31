@@ -19,7 +19,7 @@ int main() {
 	};
 	ld mi = 0;
 	ld ma = N;
-	for (int z = 0; z <= 60; z++) {
+	for (int z = 0; z <= 128; z++) {
 		ld md = mi + (ma - mi) / 2;
 		if (eval(md) >= K) ma = md;
 		else mi = md;

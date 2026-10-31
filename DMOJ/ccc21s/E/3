@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, Q; cin >> N >> Q;
+	struct req_t {
+		int l, r;
+		int v;
+	};
+	vector<req_t> reqs(Q);
+	vector<int> seg(2*N, 1);
+	for (auto& r : reqs) {
+		cin >> r.l >> r.r >> r.v;
+		r.l--;
+		for (int a = N+r.l, b = N+r.r; a < b; a >>= 1, b >>= 1) {
+			if (a & 1) {
+				seg[a] = std::lcm(seg[a], r.v);
+				a++;
+			}
+			if (b & 1) {
+				--b;
+				seg[b] = std::lcm(seg[b], r.v);
+			}
+		}
+	}
+
+
+	return 0;
+}

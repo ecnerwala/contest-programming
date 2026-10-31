@@ -41,8 +41,8 @@ int main() {
 			while (!pq.empty()) {
 				auto [d, v] = pq.top();
 				pq.pop();
-				assert(dist[v].first == k);
-				assert(dist[v].second <= d);
+				//assert(dist[v].first == k);
+				//assert(dist[v].second <= d);
 				if (dist[v].second != d) continue;
 				for (auto [u, c, l] : adj[v]) {
 					if (c == ticket_comp && l + d <= ticket_len) {

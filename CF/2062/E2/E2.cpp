@@ -270,7 +270,7 @@ int main() {
 				cnt_bigger++;
 			}
 		}
-		cout << cnt_ans; for (int i = 0; i < N; i++) { if (good[i]) cout << ' ' << i; } cout << '\n';
+		cout << cnt_ans; for (int i = 0; i < N; i++) { if (good[i]) cout << ' ' << i+1; } cout << '\n';
 	}
 
 	return 0;

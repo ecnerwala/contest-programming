@@ -149,7 +149,7 @@ int main() {
 					continue;
 				} else assert(false);
 			}
-			for (auto s : cur_G) { cerr << s << '\n'; } cerr << '\n';
+			//for (auto s : cur_G) { cerr << s << '\n'; } cerr << '\n';
 		}
 	}
 

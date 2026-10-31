@@ -1,0 +1,1 @@
+{"name": "NOI '19 Problem 6 - Explore", "group": "DMOJ", "url": "https://dmoj.ca/problem/noi19p6", "interactive": false, "memoryLimit": 512, "timeLimit": 1000, "tests": [], "testType": "single", "input": {"type": "stdin"}, "output": {"type": "stdout"}, "languages": {"java": {"mainClass": "Main", "taskClass": "NOI19Problem6Explore"}}}

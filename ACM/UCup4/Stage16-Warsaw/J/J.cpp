@@ -45,7 +45,6 @@ int main() {
 	int ans = 0;
 	for (int i = 0; i < (1 << K); i++) {
 		if (T_tot - (dp[i][0] + dp[i][1]) >= T_tgt) {
-			cerr << i << '\n';
 			ans++;
 		}
 	}

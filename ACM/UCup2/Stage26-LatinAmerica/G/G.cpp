@@ -43,7 +43,7 @@ int main() {
 		}
 	}
 
-	cout << fixed << setprecision(10) << std::accumulate(vals.begin(), vals.end(), 0.) << '\n';
+	cout << fixed << setprecision(20) << std::accumulate(vals.begin(), vals.end(), 0.) << '\n';
 
 	return 0;
 }

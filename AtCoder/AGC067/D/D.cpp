@@ -992,14 +992,14 @@ int main() {
 	dp_any[0] = 1;
 	dp_with_right[0] = 1;
 
-	auto m1 = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N);
-	auto m2 = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N);
+	auto mul_any = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N);
+	auto mul_with_right = ecnerwala::online_multiplier<num, ecnerwala::fft::fft_mod_multiplier<num>>(N);
 
 	for (int n = 1; n <= N; n++) {
-		m1.push(dp_with_right[n-1], num(n) * dp_any[n-1]);
-		dp_any[n] = m1.back();
-		m2.push(num(n) * dp_with_right[n-1], num(n) * dp_any[n-1]);
-		dp_with_right[n] = m2.back();
+		mul_any.push(dp_with_right[n-1], num(n) * dp_any[n-1]);
+		dp_any[n] = mul_any.back();
+		mul_with_right.push(num(n) * dp_with_right[n-1], num(n) * dp_any[n-1]);
+		dp_with_right[n] = mul_with_right.back();
 	}
 	num ans = dp_any[N];
 	for (int i = 1; i <= N; i++) ans *= num(i);

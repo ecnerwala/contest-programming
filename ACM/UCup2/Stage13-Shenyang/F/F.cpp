@@ -670,7 +670,7 @@ int main() {
 					l /= K, r /= K;
 					sum = std::accumulate(bucket_sums.begin() + l, bucket_sums.begin() + r, sum);
 				}
-				cerr << sum << '\n';
+				//cerr << sum << '\n';
 				ans[q] = (sum == 0);
 			}
 		}

@@ -178,6 +178,7 @@ int main() {
 				}
 			}
 		}
+		if (N == 1) A[0] = 1;
 		if (good) {
 			cout << "YES" << '\n';
 			for (int i = 0; i < N; i++) cout << A[i] << " \n"[i+1==N];

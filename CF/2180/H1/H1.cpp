@@ -5,7 +5,6 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	auto solve = [&](int64_t g_hi, int64_t d) -> int {
-		assert(d >= 1);
 		int l = __builtin_ctzll(d);
 		d >>= l;
 		g_hi = g_hi / d + ((g_hi % d) & 1);

@@ -12,8 +12,8 @@ std::optional<std::string> solve(std::string S) {
 		}
 	};
 	if (N >= 5 && S.back() == '1' && S[0] == '1' && S[1] == '0') {
-		str << "(" << S[0] << "?" << S[1] << ":" << S[2] << ")";
-		str << "?";
+		str << '(' << S[0] << '?' << S[1] << ':' << S[2] << ')';
+		str << '?';
 		print_expr(3, N-1);
 		str << ':' << S[N-1];
 		return str.str();

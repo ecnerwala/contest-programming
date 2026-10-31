@@ -9,7 +9,7 @@ int main() {
 		int N = int(2e5);
 		cout << N << '\n';
 		for (int i = 1; i < N; i++) {
-			cout << -i << '\n';
+			cout << -i << ' ';
 		}
 		cout << N << '\n';
 	}

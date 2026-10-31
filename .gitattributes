@@ -1,0 +1,7 @@
+IOI2018/meetings/meetings.zip filter=lfs diff=lfs merge=lfs -text
+IOI2019/day1/rect/rect-materials.zip filter=lfs diff=lfs merge=lfs -text
+IOI2019/day2/walk/walk-materials.zip filter=lfs diff=lfs merge=lfs -text
+IOI2020/day1/plants.zip filter=lfs diff=lfs merge=lfs -text
+IOI2020/day1/tickets.zip filter=lfs diff=lfs merge=lfs -text
+IOI2021/day1/parks-CMS.zip filter=lfs diff=lfs merge=lfs -text
+IOI2023/day2.zip filter=lfs diff=lfs merge=lfs -text

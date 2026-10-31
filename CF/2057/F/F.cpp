@@ -358,6 +358,7 @@ int main() {
 				v_lo++;
 				int64_t cost_v_lo = get_cost(v_lo);
 				auto get_inv_cost = [&](int64_t tgt) -> int64_t {
+					// TODO: Do this analytically?
 					int64_t mi = v_lo;
 					int64_t ma = v_hi + 1;
 					while (ma - mi > 1) {

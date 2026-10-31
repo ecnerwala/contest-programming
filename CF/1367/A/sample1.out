@@ -1,0 +1,4 @@
+abac
+ac
+bcdaf
+zzzzzz

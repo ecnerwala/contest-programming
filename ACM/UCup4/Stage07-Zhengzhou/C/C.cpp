@@ -175,8 +175,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	//int N = 700;
 	int N; cin >> N;
+	//int N = 700;
 	std::vector<int> Q(N);
 	for (auto& q : Q) cin >> q;
 	//for (auto& q : Q) q = 1;

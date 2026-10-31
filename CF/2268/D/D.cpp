@@ -6,7 +6,7 @@ int main() {
 
 	auto solve = [&](std::vector<int> P) -> int64_t {
 		int N = int(P.size());
-		std::cerr << "solve " << N << '\n';
+		//std::cerr << "solve " << N << '\n';
 		std::vector<int> par(N, -1);
 		std::vector<int> first_child(N, -1);
 		std::vector<int> num_children(N, 0);

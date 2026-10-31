@@ -879,6 +879,7 @@ int main() {
 			auto res = poly_pow_monic(dp, N-1);
 			cout << res[M-C] << '\n';
 		} else {
+			assert(M == C);
 			cout << 1 << '\n';
 		}
 	}

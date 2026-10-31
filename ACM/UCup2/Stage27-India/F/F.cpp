@@ -197,7 +197,7 @@ int main() {
 			}
 			return tot_sub_ways;
 		})(0, -1);
-		cerr << "orig ans " << orig_ans << '\n';
+		//cerr << "orig ans " << orig_ans << '\n';
 
 		auto cube = [](num x) -> num {
 			return x * x * x;
@@ -233,10 +233,10 @@ int main() {
 				didx %= int(diffs.size());
 			}
 			cur_ans += num(a);
-			diffs[didx2] = a + N-1;
+			diffs[didx2] = a + 2*(N-2);
 			didx2++;
 			didx2 %= int(diffs.size());
-			cerr << "c = " << c << ' ' << "cur_ans = " << cur_ans << '\n';
+			//cerr << "c = " << c << ' ' << "cur_ans = " << cur_ans << '\n';
 			tot_ans += cube(cur_ans);
 		}
 		cout << tot_ans << '\n';

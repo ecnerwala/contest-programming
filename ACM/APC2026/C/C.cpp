@@ -16,8 +16,6 @@ int main() {
 		adj[u].push_back(v);
 		adj[v].push_back(u);
 	}
-	for (auto& r : adj) {
-	}
 
 	std::vector<int> vis(N);
 	std::vector<int> S_real; S_real.reserve(N);
@@ -33,7 +31,7 @@ int main() {
 	} else {
 		for (int j = 0; j < M; j++) {
 			auto [u, v] = edges[j];
-			std::cout << std::max(loc[u], loc[v]) + 1 << " \n"[j+1==M];
+			std::cout << N+1-std::max(loc[u], loc[v]) << " \n"[j+1==M];
 		}
 	}
 

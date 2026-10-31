@@ -147,8 +147,8 @@ protected:
 
 public:
 	T& operator[] (std::array<int, NDIMS> idx) const {
-		return data[flatten_index_checked(idx)];
 #ifdef _GLIBCXX_DEBUG
+		return data[flatten_index_checked(idx)];
 #else
 		return data[flatten_index(idx)];
 #endif

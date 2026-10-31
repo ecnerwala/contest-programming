@@ -54,13 +54,13 @@ int main(){
 				if(x->l != y->l || (ysum - xsum != 0)){
 					x = x->l;
 					y = y->l;
-					suffix += "L";
+					suffix += 'L';
 				} else if(x->r != y->r || (ysum - xsum + y->diff - x->diff != 0)){
 					ysum += y->diff;
 					xsum += x->diff;
 					x = x->r;
 					y = y->r;
-					suffix += "R";
+					suffix += 'P';
 				} else assert(false);
 			}
 			ll val = ask(st, ns + suffix) - base_val;
@@ -94,12 +94,12 @@ int main(){
 		for(int it = 0; it < L; it++){
 			int st = mt() % K;
 			string s;
-			for(int i = 0; i < level; i++) s += "LR"[mt() % 2];
+			for(int i = 0; i < level; i++) s += "LP"[mt() % 2];
 
 			vector<ll> base_val(2);
 			vector<node*> ch(2);
 			for(int dir = 0; dir < 2; dir++){
-				string ns = s + "LR"[dir];
+				string ns = s + "LP"[dir];
 				tie(base_val[dir], ch[dir]) = compute_node(st, ns);
 			}
 			ll new_diff = base_val[1] - base_val[0];

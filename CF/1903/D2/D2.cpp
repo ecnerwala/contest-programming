@@ -9,19 +9,8 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		cin >> A[i];
 	}
-	std::sort(A.begin(), A.end());
-
-	std::vector<std::pair<int64_t, int>> queries(Q);
-	for (int q = 0; q < Q; q++) {
-		cin >> queries[q].first; queries[q].second = q;
-	}
-	std::sort(queries.begin(), queries.end());
-	std::vector<int64_t> ans(Q);
 
 	std::vector<int64_t> cnt_A(1 << 20);
-	for (int a : A) {
-		 cin >> a;
-	}
 	
 	std::vector<std::vector<std::pair<int, int64_t>>> cnts(20);
 	for (int b = 0; b < 20; b++) {
@@ -64,11 +53,9 @@ int main() {
 		return cur_ans;
 	};
 
-	for (auto [k, q] : queries) {
-		ans[q] = solve_query(k);
-	}
 	for (int q = 0; q < Q; q++) {
-		cout << ans[q] << '\n';
+		int64_t k; cin >> k;
+		cout << solve_query(k) << '\n';
 	}
 
 	return 0;

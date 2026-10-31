@@ -79,10 +79,10 @@ vector<P> convexHull(vector<P> pts) {
 
 int main(){
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	int T;
 	if (TESTING) {
-		T = 500;
+		T = 400;
 	} else {
 		cin >> T;
 	}
@@ -111,7 +111,7 @@ int main(){
 	}
 	const double TIME_LIMIT = 3.8;
 	vector<ll> ans(T);
-	mt19937 mt(48);
+	mt19937 mt(50);
 	auto cycle = [&](vector<P> pts) -> vector<P> {
 		if(pts.size() <= 1) return pts;
 		int N = (int)pts.size();
@@ -120,7 +120,7 @@ int main(){
 		rotate(pts.begin(), pts.begin()+i, pts.end());
 		return pts;
 	};
-	for(int iters = 0; TESTING ? iters < 500 : elapsed() < TIME_LIMIT; iters++){
+	for(int iters = 0; TESTING || false ? iters < 500 : elapsed() < TIME_LIMIT; iters++){
 		cerr << "iter " << iters << '\n';
 		for(int t = 0; t < T; t++){
 			auto& pts = test_cases[t];
@@ -176,7 +176,7 @@ int main(){
 						if(res[i] == P(0, 0)) continue;
 						if((L <= 2) || (res[i].cross(res[(i+1)%L]) > 0 || res[(i+L-1)%L].cross(res[i]) > 0)) filtered_res.push_back(res[i]);
 					}
-					return res;
+					return filtered_res;
 				};
 				mink[l] = get_mink();
 			}
@@ -189,10 +189,10 @@ int main(){
 			}
 			int A = (int)mink[0].size();
 			int B = (int)mink[1].size();
-			if(A <= 2 || B <= 2){
+			if (std::min(A, B) <= 20) {
 				for(auto p : mink[0]){
 					for(auto q : mink[1]){
-						ans[t] = max(ans[t], abs(p.cross(q)));
+						ans[t] = max(ans[t], p.cross(q));
 					}
 				}
 			} else {

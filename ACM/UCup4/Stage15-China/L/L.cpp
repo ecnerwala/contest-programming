@@ -12,8 +12,6 @@ int main() {
 	};
 	auto involute = [&](std::vector<int> P) -> std::vector<int> {
 		int N = int(P.size());
-		cerr << "solve" << '\n';
-		for (int i = 0; i < N; i++) cerr << P[i] << " \n"[i+1==N];
 		assert(P[0] == -1);
 		if (N == 1) return P;
 		// First, transform into "numeric form"

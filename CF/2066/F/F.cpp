@@ -295,7 +295,6 @@ int main() {
 				for (int z = 0; z < int(c.size()); z++) {
 					cout << c[z] << " \n"[z+1==int(c.size())];
 				}
-				cout << '\n';
 			}
 		} else {
 			cout << -1 << '\n';

@@ -21,7 +21,7 @@ int main() {
 		inv_loc[locs[i].second] = i;
 	}
 
-	const int B = 2;
+	const int B = 500;
 	//assert(B % 2 == 0);
 
 	int K = int(N+B-1) / B;

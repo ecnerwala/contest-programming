@@ -328,7 +328,7 @@ int main() {
 			}
 			if (bad_j != -1) {
 				if (tree_2.is_ancestor(bad_j, i)) {
-					// mark i's subtree as good
+					// mark i's subtree as bad
 					val[0]++;
 					val[i]--;
 				} else {

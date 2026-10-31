@@ -1,0 +1,1 @@
+int find_pos(int n, int x);

@@ -269,10 +269,10 @@ template <typename num> struct fft_multiplier {
 		bool did_cut = false;
 		if (sza > 1 && szb > 1 && n == 2 * (s - 1)) {
 			// we have exactly 1 wraparound, so let's just handle it explicitly to save a factor of 2
+			// only do it if sza < s and szb < s so we don't have to wrap the inputs
 			did_cut = true;
 			n /= 2;
 		}
-		// add 1 in case did_cut
 		copy(ia, ia+sza, fa.begin());
 		fill(fa.begin()+sza, fa.begin()+n, num(0));
 		copy(ib, ib+szb, fb.begin());

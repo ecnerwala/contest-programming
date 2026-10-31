@@ -9,7 +9,7 @@ int main() {
 		int64_t B, C, D; cin >> B >> C >> D;
 		cout << [&]() -> int64_t {
 			int64_t res = 0;
-			for (int b = 0; b <= 61; b++, B>>=1, C>>=1, D>>=1) {
+			for (int b = 0; b <= 60; b++, B>>=1, C>>=1, D>>=1) {
 				int wa = 0;
 				if (B & 1) {
 					D --;

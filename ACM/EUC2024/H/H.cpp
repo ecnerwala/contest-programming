@@ -197,6 +197,9 @@ int main() {
 						if (vy == 1 && !ncol.empty() && ncol.back().second == vy && ncol.back().first.second == y) {
 							ncol.back().first.second = y+1;
 						} else {
+							if (ncol.size() >= 2 && ncol.end()[-2].first.first == y-2 && ncol.end()[-2].second >= 2 && ncol.end()[-1].second >= 2) {
+								return false;
+							}
 							ncol.push_back({{y, y+1}, vy});
 						}
 					}

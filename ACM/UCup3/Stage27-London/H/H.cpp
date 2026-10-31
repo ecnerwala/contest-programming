@@ -527,7 +527,7 @@ int main() {
 
 	std::vector<hsh> tot_hsh(Q);
 
-	const int BLOCK = 1;
+	const int BLOCK = 20;
 	std::vector<hash_map<hsh, std::vector<int>>> small_queries(BLOCK);
 	hash_map<hsh, std::vector<std::pair<int, int>>> query_blocks;
 	for (int q = 0; q < Q; q++) {
@@ -538,7 +538,7 @@ int main() {
 			}
 			tot_hsh[q] = res;
 		}
-		cerr << "tot_hsh " << q << ' ' << tot_hsh[q] << '\n';
+		//cerr << "tot_hsh " << q << ' ' << tot_hsh[q] << '\n';
 		if (int(queries[q].size()) < BLOCK) {
 			small_queries[int(queries[q].size())][tot_hsh[q]].push_back(q);
 		} else {

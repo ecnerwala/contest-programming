@@ -234,7 +234,7 @@ int main() {
 		self(cur + 1, ca * W + 2, cb * W + 2, cc * W + 2, w);
 		self(cur + 1, ca * W + 3, cb * W + 3, cc * W + 3, w);
 
-		if (cur == 0) {
+		if (ca == cb && cb == cc) {
 			self(cur + 1, ca * W + 4, cb * W + 5, cc * W + 6, 12 * w);
 			self(cur + 1, ca * W + 6, cb * W + 5, cc * W + 4, -12 * w);
 		} else {

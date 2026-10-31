@@ -2047,7 +2047,6 @@ int main() {
 	}
 	a = a.inv();
 	a = FPS<num>({num(1)}) - a;
-	for (auto v : a) { cerr << v << ' '; } cerr << '\n';
     if (N == 1) {
         cout << 1 << '\n';
         return 0;

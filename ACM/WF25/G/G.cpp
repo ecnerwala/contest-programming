@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 
+template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
+
 struct splitmix64_hash {
 	static uint64_t splitmix64(uint64_t x) {
 		// http://xorshift.di.unimi.it/splitmix64.c
@@ -292,9 +294,40 @@ int main() {
 			}
 			assert(int(ins.size()) - int(outs.size()) <= 1);
 			assert(int(ins.size()) - int(outs.size()) >= 0);
-			// Try to delete the paths that are bad
+
+			if (int(ins.size()) > int(outs.size())) {
+				assert(cur_end != -2);
+			}
+
+			// delete everything that's in -> out, that's just local garbage we don't need
+			{
+				for (auto e_in : ins) {
+					int cur = e_in;
+					while (true) {
+						assert(in_path[cur]);
+						int t = edge_tri[cur];
+						if (t >= 0 && tris[t].v == v) break;
+						in_path[cur] = false;
+						if (t < 0) break;
+						tri_active[t] = false;
+						tot_path -= tri_fns[t];
+						cur = nxt[cur];
+					}
+				}
+			}
+
+			// now, delete all the out -> in paths that might exist
+
+			assert(int(ins.size()) == 1);
+
 			if (cur_end == -2) {
-				ans = std::min(ans, tot_path.eval(h));
+				assert(int(ins.size()) == 1);
+				assert(int(outs.size()) == 1);
+				int t_in = edge_tri[ins[0]];
+				int t_out = edge_tri[outs[0] ^ 1];
+				assert(tris[t_in].v == v);
+				assert(tris[t_out].v == v);
+				setmin(ans, (tot_path + tri_fns[t_in] + tri_fns[t_out]).eval(h));
 			}
 
 			for (int t : vert_triangles[v]) { update_tri(t, false); }
@@ -311,7 +344,6 @@ int main() {
 			h_cur = h_extra;
 			for (int t = 0; t < N_TRI; t++) update_tri(t, true);
 			// trace from left_edge and right_edge
-			{}
 		}
 		if (ans >= INF / 2) cout << "impossible" << '\n';
 		else cout << std::fixed << std::setprecision(10) << ans << '\n';

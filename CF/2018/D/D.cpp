@@ -35,9 +35,6 @@ int main() {
 				cnt_good += w;
 			}
 		};
-		auto get_ans = [&]() -> int {
-			return tot_val - !cnt_good;
-		};
 		auto merge = [&](int a, int b) -> void {
 			a = get_par(a), b = get_par(b);
 			assert(a != b);

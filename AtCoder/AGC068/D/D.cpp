@@ -326,9 +326,6 @@ int main() {
 	ifact[N] = inv(fact[N]);
 	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-	// dp1 of a node is # ways to have a cuts on left and b cuts on right, weighted by B^size a
-	// dp2 of a node is # ways to have one piece in the middle, a pieces on left and b pieces on right, weighted by value of the middle
-	
 	std::vector<int> sz(N);
 	auto [rdp_open, rdp_close] = std::y_combinator([&](auto self, int cur) -> std::pair<tensor<num, 2>, tensor<num, 2>> {
 		sz[cur] = 0;

@@ -119,7 +119,7 @@ int main() {
 			int64_t denom1 = dot(D1.perp_cw(), D2);
 			assert(denom1 != 0);
 			// P1 + numer1 / denom1 * D1.perp_cw()
-			
+
 			int64_t numer2 = dot(P1 - P2, D1);
 			int64_t denom2 = dot(D2.perp_ccw(), D1);
 			assert(denom2 != 0);
@@ -139,7 +139,6 @@ int main() {
 			num_roots -= (numer1 == 0);
 			num_roots -= (numer2 == 0);
 			return (num_roots > 0) ? 3 : 4;
-
 		};
 		cout << solve() << '\n';
 	}

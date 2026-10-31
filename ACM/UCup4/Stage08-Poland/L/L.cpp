@@ -60,7 +60,7 @@ int main() {
 	} else {
 		assert(K >= 2);
 		std::vector<dbl> ans(M, 1);
-		//for (auto a : A) ans[a] = 0;
+		for (auto a : A) ans[a] = 0;
 		for (int z = 0; z < 2; z++) {
 			for (auto& a : A) a = M-1-a;
 			std::reverse(ans.begin(), ans.end());
@@ -101,7 +101,7 @@ int main() {
 		{
 			int mi = *std::min_element(A.begin(), A.end());
 			int ma = *std::max_element(A.begin(), A.end());
-			cout << fixed << setprecision(10);
+			cout << fixed << setprecision(20);
 			for (int j = 0; j < M; j++) {
 				if (mi <= j && j <= ma) {
 					ans[j] = std::max(ans[j], dbl(0.));

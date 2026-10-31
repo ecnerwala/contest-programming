@@ -315,7 +315,7 @@ void stress() {
 				c = char('A' + std::uniform_int_distribution<int>(0, sigma - 1)(mt));
 			}
 		}
-		std::cerr << "test " << N << ' ' << K << ' ' << char('A' + sigma - 1) << '\n';
+		//std::cerr << "test " << N << ' ' << K << ' ' << char('A' + sigma - 1) << '\n';
 		auto ans = solve_slow(S, K);
 		auto res = solve_slow(S, K);
 		assert(ans == res);
@@ -326,7 +326,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	stress();
+	//stress();
 
 	int T; cin >> T;
 	while (T--) {

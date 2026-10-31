@@ -177,11 +177,9 @@ int main() {
 				// take c1 when x >= c1-c0
 				double x = c1 - c0;
 				double v = c0 / 2 + ((c0 + x/2) * (x / P) + (c1) * ((P-x) / P)) / 2;
-				cerr << v << ' ';
 				dp[{i, j}] = v;
 			}
 		}
-			cerr << '\n';
 	}
 	cout << fixed << setprecision(10) << dp[{R-1, C-1}] << '\n';
 

@@ -80,6 +80,7 @@ inline std::vector<int> direct_graph(const std::vector<std::vector<int>>& adj, i
 			if (has_sink[nxt]) {
 				d = true;
 			} else if (lowval[nxt] >= depth[cur]) {
+				assert(false);
 				// Arbitrary choice
 				d = true;
 				// Uncomment to skip extra BCCs.

@@ -32,7 +32,6 @@ int main() {
 		} else {
 			std::sort(S.begin(), S.end(), std::greater<>());
 			for (int i = 1; i <= N; i++) {
-				cerr << i << ' ' << fac_cnt[i] << '\n';
 				cout << S[fac_cnt[i]] << " \n"[i==N];
 			}
 		}

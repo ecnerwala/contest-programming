@@ -1,0 +1,6 @@
+5 5
+kill 3
+change 1 4 2 1
+change 2 4 2 2
+revive 3
+getmin 1 5 2

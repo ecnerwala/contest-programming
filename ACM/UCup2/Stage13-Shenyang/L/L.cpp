@@ -19,7 +19,6 @@ int main() {
 
 	auto solve = [&](int N, auto&& query) -> std::vector<std::string> {
 		auto solve_empty_row = [&](int r_empty) -> std::vector<std::string> {
-			cerr << "solving empty row " << r_empty << '\n';
 			std::vector<int> resp(N);
 			for (int b = 0; (1 << b) < N; b++) {
 				std::vector<std::string> Q(N, std::string(N, '0'));
@@ -129,7 +128,7 @@ int main() {
 		return ans;
 	};
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 
 	std::mt19937 mt(48);
 

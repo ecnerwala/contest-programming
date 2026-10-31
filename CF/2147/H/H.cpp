@@ -249,7 +249,6 @@ int main() {
 			for (auto e : gh) {
 				g = std::gcd(g, e.w);
 			}
-			assert(g != 0);
 			if (g != 1) {
 				cout << 1 << '\n';
 				cout << N << '\n';

@@ -140,7 +140,6 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			{
 				int off = i + (N-1);
-				int x0 = 0;
 				int j_max = N;
 				if (!bads[off].empty()) j_max = bads[off].back();
 				for (int j = i+2; j <= j_max; j++) {

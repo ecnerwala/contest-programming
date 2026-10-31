@@ -325,11 +325,13 @@ int main() {
 	int L, T; cin >> L >> T;
 	assert(L <= 35);
 
+	cout << L << ' ' << T << '\n';
+
 	while (T--) {
 		obj_t o = read_obj(L);
 		obj_t r = biject(L, o);
 		print_obj(cout, r);
-		assert(biject(L, r) == o);
+		//assert(biject(L, r) == o);
 	}
 	//cerr << ways_finish[70][0] * 3 << '\n';
 

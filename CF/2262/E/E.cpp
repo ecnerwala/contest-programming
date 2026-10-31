@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-// https://github.com/ecnerwala/cp-book (`scripts/bundle.py --minify src/fft/series.hpp src/fft/poly.hpp src/fft/engines/crt.hpp`)
+#if 1 // region https://github.com/ecnerwala/cp-book (`scripts/bundle.py --minify src/fft/series.hpp src/fft/poly.hpp src/fft/engines/crt.hpp`)
 // clang-format off
 // @formatter:off
 #pragma GCC diagnostic push
@@ -2055,6 +2055,7 @@ op(out[i],o_mod);
 #pragma GCC diagnostic pop
 // clang-format on
 // @formatter:on
+#endif // endregion
 
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
@@ -2113,8 +2114,6 @@ int main() {
 		}
 
 		// Now, ans(x) = real_ans(1+x), so we want real_ans(x) = ans(x-1)
-
-		// This should be multiplying by the e^{-D} operator
 		ans = taylor_shift(std::move(ans), -1);
 		for (int k = 0; k <= N; k++) std::cout << ans[k] << " \n"[k==N];
 	}

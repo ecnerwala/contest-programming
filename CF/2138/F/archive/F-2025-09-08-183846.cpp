@@ -1,0 +1,210 @@
+#include <bits/stdc++.h>
+
+template <typename T, typename AreaT=T> struct Point {
+public:
+	T x, y;
+	Point() : x(0), y(0) {}
+	Point(T x_, T y_) : x(x_), y(y_) {}
+	template <typename U, typename V> explicit Point(const Point<U, V>& p) : x(p.x), y(p.y) {}
+	Point(const std::pair<T, T>& p) : x(p.first), y(p.second) {}
+	Point(const std::complex<T>& p) : x(real(p)), y(imag(p)) {}
+	explicit operator std::pair<T, T> () const { return std::pair<T, T>(x, y); }
+	explicit operator std::complex<T> () const { return std::complex<T>(x, y); }
+	auto as_pair() const { return std::pair<T, T>(*this); }
+	auto as_complex() const { return std::complex<T>(*this); }
+
+	friend std::ostream& operator << (std::ostream& o, const Point& p) { return o << '(' << p.x << ',' << p.y << ')'; }
+	friend std::istream& operator >> (std::istream& i, Point& p) { return i >> p.x >> p.y; }
+	friend bool operator == (const Point& a, const Point& b) { return a.x == b.x && a.y == b.y; }
+	friend bool operator != (const Point& a, const Point& b) { return !(a==b); }
+
+	Point operator + () const { return Point(+x, +y); }
+	Point operator - () const { return Point(-x, -y); }
+
+	Point& operator += (const Point& p) { x += p.x, y += p.y; return *this; }
+	Point& operator -= (const Point& p) { x -= p.x, y -= p.y; return *this; }
+	Point& operator *= (const T& t) { x *= t, y *= t; return *this; }
+	Point& operator /= (const T& t) { x /= t, y /= t; return *this; }
+
+	friend Point operator + (const Point& a, const Point& b) { return Point(a.x+b.x, a.y+b.y); }
+	friend Point operator - (const Point& a, const Point& b) { return Point(a.x-b.x, a.y-b.y); }
+	friend Point operator * (const Point& a, const T& t) { return Point(a.x*t, a.y*t); }
+	friend Point operator * (const T& t ,const Point& a) { return Point(t*a.x, t*a.y); }
+	friend Point operator / (const Point& a, const T& t) { return Point(a.x/t, a.y/t); }
+
+	AreaT dist2() const { return AreaT(x) * AreaT(x) + AreaT(y) * AreaT(y); }
+	auto dist() const { return std::sqrt(dist2()); }
+	Point unit() const { return *this / this->dist(); }
+	auto angle() const { return std::atan2(y, x); }
+
+	T int_norm() const { return std::gcd(x,y); }
+	Point int_unit() const { if (!x && !y) return *this; return *this / this->int_norm(); }
+
+	// Convenient free-functions, mostly for generic interop
+	friend auto norm(const Point& a) { return a.dist2(); }
+	friend auto abs(const Point& a) { return a.dist(); }
+	friend auto unit(const Point& a) { return a.unit(); }
+	friend auto arg(const Point& a) { return a.angle(); }
+	friend auto int_norm(const Point& a) { return a.int_norm(); }
+	friend auto int_unit(const Point& a) { return a.int_unit(); }
+
+	Point perp_cw() const { return Point(y, -x); }
+	Point perp_ccw() const { return Point(-y, x); }
+
+	friend AreaT dot(const Point& a, const Point& b) { return AreaT(a.x) * AreaT(b.x) + AreaT(a.y) * AreaT(b.y); }
+	friend AreaT cross(const Point& a, const Point& b) { return AreaT(a.x) * AreaT(b.y) - AreaT(a.y) * AreaT(b.x); }
+	friend AreaT cross3(const Point& a, const Point& b, const Point& c) { return cross(b-a, c-a); }
+
+	// Complex numbers and rotation
+	friend Point conj(const Point& a) { return Point(a.x, -a.y); }
+
+	// Returns conj(a) * b
+	friend Point dot_cross(const Point& a, const Point& b) { return Point(dot(a, b), cross(a, b)); }
+	friend Point cmul(const Point& a, const Point& b) { return dot_cross(conj(a), b); }
+	friend Point cdiv(const Point& a, const Point& b) { return dot_cross(b, a) / b.dist2(); }
+
+	// Must be a unit vector; otherwise multiplies the result by abs(u)
+	Point rotate(const Point& u) const { return dot_cross(conj(u), *this); }
+	Point unrotate(const Point& u) const { return dot_cross(u, *this); }
+
+	friend bool lex_less(const Point& a, const Point& b) {
+		return std::tie(a.x, a.y) < std::tie(b.x, b.y);
+	}
+
+	friend bool same_dir(const Point& a, const Point& b) { return cross(a,b) == 0 && dot(a,b) > 0; }
+
+	// check if 180 <= s..t < 360
+	friend bool is_reflex(const Point& a, const Point& b) { auto c = cross(a,b); return c ? (c < 0) : (dot(a, b) < 0); }
+
+	// operator < (s,t) for angles in [base,base+2pi)
+	friend bool angle_less(const Point& base, const Point& s, const Point& t) {
+		int r = is_reflex(base, s) - is_reflex(base, t);
+		return r ? (r < 0) : (0 < cross(s, t));
+	}
+
+	friend auto angle_cmp(const Point& base) {
+		return [base](const Point& s, const Point& t) { return angle_less(base, s, t); };
+	}
+	friend auto angle_cmp_center(const Point& center, const Point& dir) {
+		return [center, dir](const Point& s, const Point& t) -> bool { return angle_less(dir, s-center, t-center); };
+	}
+
+	// is p in [s,t] taken ccw? 1/0/-1 for in/border/out
+	friend int angle_between(const Point& s, const Point& t, const Point& p) {
+		if (same_dir(p, s) || same_dir(p, t)) return 0;
+		return angle_less(s, p, t) ? 1 : -1;
+	}
+};
+
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	using pt_t = Point<double>;
+	auto solve = [&](int P_, int Q_, int M) -> std::vector<std::pair<std::array<int, 2>, pt_t>> {
+		cerr << "solve " << P_ << ' ' << Q_ << ' ' << M << '\n';
+		pt_t tgt(P_, Q_);
+		std::vector<std::pair<std::array<int, 2>, pt_t>> res; res.reserve(M);
+		if (M % 2 == 0) {
+			int num_steps = M / 2;
+			pt_t offset = tgt / num_steps;
+			pt_t st_2{0.5, offset.y - 0.5};
+			int prv_off = 2;
+			int prv_on = 1;
+			int idx = 2;
+			for (int i = 1; i <= num_steps; i++) {
+				{
+					auto p = st_2 + offset * (i-1);
+					res.push_back({{prv_off, prv_on}, p});
+					prv_off = ++idx;
+				}
+				{
+					auto p = offset * i;
+					res.push_back({{prv_off, prv_on}, p});
+					prv_on = ++idx;
+				}
+			}
+			return res;
+		} else {
+			int num_steps = M / 2;
+			pt_t offset = tgt.unit();
+			pt_t t1 = tgt - offset * (num_steps - 1);
+			pt_t t0 = tgt - offset * num_steps;
+			auto is_good = [&](double d) -> bool {
+				return 0.5 <= d && d <= 1.0;
+			};
+			pt_t t0_actual = is_good(abs(t0 - pt_t(1, 0))) ? t0 : pt_t{0.5, std::sqrt(0.75)};
+			pt_t st_2 = [&]() -> pt_t {
+				const int scale = 32;
+				for (int x = -scale; x <= scale; x++) {
+					for (int y = -scale; y <= scale; y++) {
+						pt_t cnd{x / double(scale), y / double(scale)};
+						if (is_good(abs(cnd - pt_t(0, 0))) && is_good(abs(cnd - pt_t(1, 0))) && is_good(abs(cnd - t0)) && is_good(abs(cnd - t1)) && is_good(abs(cnd - t0_actual))) {
+							return cnd;
+						}
+					}
+				}
+				assert(false);
+			}();
+			res.push_back({{1, 2}, st_2});
+			res.push_back({{2, 3}, t0_actual});
+			res.push_back({{3, 4}, t1});
+			int idx = 5;
+			int prv_off = 3;
+			int prv_on = 5;
+			for (int i = 2; i <= num_steps; i++) {
+				{
+					auto p = st_2 + offset * (i-1);
+					res.push_back({{prv_off, prv_on}, p});
+					prv_off = ++idx;
+				}
+				{
+					auto p = t0 + offset * i;
+					res.push_back({{prv_off, prv_on}, p});
+					prv_on = ++idx;
+				}
+			}
+			return res;
+		}
+	};
+
+	for (int i = 1; i <= 100; i++) {
+		for (int j = 1; j <= 100; j++) {
+
+			int v = 0;
+			while (v * v < 4 * (i * i + j * j)) v++;
+			auto r = solve(i, j, v);
+			std::vector<pt_t> pts;
+			pts.reserve(r.size() + 2);
+			pts.push_back({0, 0});
+			pts.push_back({1, 0});
+			auto check_dist = [&](int i, int j) -> void {
+				double d = abs(pts[i] - pts[j]);
+				assert(d >= 0.5 - 1e-8);
+				assert(d <= 1 + 1e-8);
+			};
+			for (auto [a, b] : r) {
+				cerr << a[0] << ' ' << a[1] << ' ' << b << '\n';
+				int c = int(pts.size());
+				pts.push_back(b);
+				check_dist(a[0]-1, c);
+				check_dist(a[1]-1, c);
+			}
+			cerr << i << ' ' << j << ' ' << pts.back() << '\n';
+		}
+	}
+
+	cout << fixed << setprecision(20);
+	int T; cin >> T;
+	while (T--) {
+		int P_, Q_, M; cin >> P_ >> Q_ >> M;
+		auto r = solve(P_, Q_, M);
+		cout << r.size() << '\n';
+		for (auto [a, b] : r) {
+			cout << a[0] << ' ' << a[1] << ' ' << b.x << ' ' << b.y << '\n';
+		}
+	}
+
+	return 0;
+}

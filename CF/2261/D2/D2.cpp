@@ -39,7 +39,13 @@ int main() {
 				last_bad = std::max(last_bad, {b, vals[i+1].first});
 			}
 		}
-		std::vector<int> cuts; cuts.reserve(N);
+		std::vector<int> cuts; cuts.reserve(N+1);
+		if (first_bad.first == N) {
+			assert(last_bad.first == -1);
+			assert(cuts.empty());
+		} else if (first_bad.second == last_bad.second) {
+			cuts.push_back(0);
+		}
 		for (int i = 0; i+1 < N; i++) {
 			if (evts[i] == i+1) {
 				// must cut here
@@ -48,14 +54,8 @@ int main() {
 				evts[i+1] = std::min(evts[i+1], evts[i]);
 			}
 		}
-		if (first_bad.first == N) {
-			assert(last_bad.first == -1);
-			assert(cuts.empty());
-		} else if (first_bad.second == last_bad.second) {
-			cuts.push_back(N);
-		}
 		if (cuts.size() & 1) {
-			cuts.insert(cuts.begin(), 0);
+			cuts.push_back(N);
 		}
 		std::cout << cuts.size() / 2 << '\n';
 		for (int i = 0; i < int(cuts.size()) / 2; i++) {

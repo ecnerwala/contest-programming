@@ -76,20 +76,20 @@ int main() {
 
 		std::vector<int> path; path.reserve(N);
 		std::y_combinator([&](auto self, int cur, int prv) -> bool {
-			path.push_back(deg[cur]);
+			path.push_back(cur);
 			if (cur == oroot) return true;
 			for (int nxt : adj[cur]) {
 				if (nxt == prv) continue;
 				if (self(nxt, cur)) return true;
 			}
-			assert(path.back() == deg[cur]);
+			assert(path.back() == cur);
 			path.pop_back();
 			return false;
 		})(root, -1);
 		int num_big = 0;
 		for (int i = 0; i < N; i++) num_big += deg[i] >= 3;
 		int path_big = 0;
-		for (int v : path) path_big += v >= 3;
+		for (int v : path) path_big += deg[v] >= 3;
 		assert(path_big <= num_big);
 		if (path_big < num_big) {
 			cout << 3 << '\n';
@@ -97,18 +97,18 @@ int main() {
 		}
 		bool good = true;
 		for (int i = 0; i < int(path.size()); i++) {
-			if (path[i] > 4) {
+			if (deg[path[i]] > 4) {
 				good = false;
 			}
-			if (path[i] == 4) {
+			if (deg[path[i]] == 4) {
 				int j = i+1;
-				while (j < int(path.size()) && path[j] != 4) j++;
+				while (j < int(path.size()) && deg[path[j]] != 4) j++;
 				if (j < int(path.size())) {
-					assert(path[j] == 4);
+					assert(deg[path[j]] == 4);
 					bool found = false;
 					for (int k = i; k <= j; k++) {
-						assert(path[k] >= 2);
-						if (path[k] == 2) found = true;
+						assert(deg_orig[path[k]] >= 2);
+						if (deg_orig[path[k]] == 2) found = true;
 					}
 					if (!found) good = false;
 				}

@@ -21,7 +21,7 @@ int main() {
 			pref_lt[i+1] = pref_lt[i] + (A[i] < med);
 			pref_le[i+1] = pref_le[i] + (A[i] <= med);
 		}
-		std::vector<int> dp(N+1);
+		std::vector<int> dp(N+1, -N-1);
 		dp[0] = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = i+1; j <= N; j += 2) {

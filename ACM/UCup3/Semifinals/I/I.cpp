@@ -1,3 +1,4 @@
+#define NDEBUG
 #include <bits/stdc++.h>
 
 int main() {
@@ -61,7 +62,6 @@ int main() {
 		for (auto e1000 : E1000) {
 
 			double x0 = e1000 / 1000.;
-			std::cerr << "handle " << x0 << '\n';
 
 			double t0 = 0;
 			std::vector<piece_t> nxt;
@@ -96,7 +96,6 @@ int main() {
 				break;
 			}
 
-			cerr << "constant part " << x0 << ' ' << t0 << '\n';
 			x0 /= (1 + t0);
 
 			if (t0 > 0) {
@@ -137,7 +136,6 @@ int main() {
 				x += integ_from(p, t0, p.tf);
 				t0 = p.tf;
 			}
-			cerr << t0 << '\n';
 		}
 		cout << fixed << setprecision(20) << x << '\n';
 	}

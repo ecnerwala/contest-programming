@@ -1,0 +1,40 @@
+# From ~/.gitignore_global (dotfiles), minus *.com and *.log, which match data here
+.__afs*
+.*.swp
+.vimtags
+.notags
+.clangd/
+.cache/
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.sqlite
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+__pycache__/
+.vscode/
+*.iml
+.idea/
+*.ipr
+*.iws
+compile_commands.json
+.ignored/
+
+# make clean / veryclean; per-problem binaries are in each problem's .gitignore
+*.res
+target/
+Testrun-*.cpp
+a.out
+
+.aider.tags.cache.v3/
+
+# Generated tests
+*.gen.in
+*.gen.out

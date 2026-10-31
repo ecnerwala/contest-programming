@@ -7,12 +7,12 @@ int main() {
 	// >= length of period, and multiple of cycle length
 	std::vector<int> dist(N, -1);
 	int64_t ans = 1;
-	auto dfs = [&](this auto&& self, int i, int depth) -> int {
+	auto dfs = [&](this auto&& self, int i) -> int {
 		if (dist[i] >= 0) return dist[i];
 		if (dist[i] == -1) {
 			dist[i] = -2;
-			int nd = self(F[i], depth+1);
-			if (dist[i] < -1) dist[i] = nd+1;
+			int nd = self(F[i]);
+			if (dist[i] == -2) dist[i] = nd+1;
 		} else {
 			int cnt = 0;
 			int j = i;
@@ -21,14 +21,13 @@ int main() {
 				dist[j] = 0;
 				cnt++;
 			} while (j != i);
-			ans = std::gcd(ans, cnt);
+			ans = std::lcm(ans, cnt);
 		}
 		return dist[i];
 	};
 	int max_dist = 1;
 	for (int i = 0; i < N; i++) {
-		dfs(i, 0);
-		max_dist = std::max(max_dist, dist[i]);
+		max_dist = std::max(max_dist, dfs(i));
 	}
 	ans = (max_dist + ans - 1) / ans * ans;
 	std::cout << ans << '\n';

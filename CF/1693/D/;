@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N; cin >> N;
+	std::vector<int> A(N);
+	for (auto& a : A) { cin >> a; a--; }
+
+	std::vector<int> nxt_bad(N, N);
+	for (int incr = 0; incr < 2; incr++) {
+
+		// First, we generate when each guy is pareto optimal from the back
+		std::vector<std::pair<int, int>> pref_mins; // index, val
+		for (int i = N-1; i >= 0; i--) {
+			while (!pref_mins.empty() && A[i] < pref_mins.back().second) {
+				int j = pref_mins.back().first;
+			}
+			pref_mins.push_back({i, A[i]});
+		}
+
+		for (auto& a : A) { a = N-1-a; }
+	}
+
+	for (int i = N-1; i > 0; i--) {
+		nxt_bad[i-1] = std::min(nxt_bad[i-1], nxt_bad[i]);
+	}
+	int64_t ans = 0;
+	for (int i = 0; i < N; i++) {
+		ans += nxt_bad[i] - i;
+	}
+	cout << ans << '\n';
+
+	return 0;
+}
+
+// Bad if there's a 3412 or a 2143

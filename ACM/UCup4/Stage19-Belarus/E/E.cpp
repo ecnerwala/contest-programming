@@ -7,6 +7,7 @@ int main() {
 	while (T--) {
 		int N, K, A, B; std::cin >> N >> K >> A >> B;
 		std::cout << [&]() -> int {
+			if (N == 1) return K;
 			if (A > B) std::swap(A, B);
 			assert(A <= B);
 			int d = (B - A);

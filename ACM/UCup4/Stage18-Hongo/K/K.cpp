@@ -278,37 +278,6 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	using num = modnum<998244353>;
-	using dbl = long double;
-
-	auto solve_slow = [&](int U, int T, int C) -> dbl {
-		std::cerr << "START " << U << ' ' << T << ' ' << C << '\n';
-		tensor<dbl, 2> dp({U+1, T+1}, 0);
-		for (int u = 0; u <= U; u++) {
-			for (int t = 0; t <= T; t++) {
-				dbl hit = 0;
-				if (u) hit += dp[{u-1, t}] * dbl(u);
-				if (t) hit += dp[{u, t-1}] * dbl(t);
-				if (u + t + C > 0) hit /= dbl(u + t + C);
-				dbl stay = dbl(2*(U-u) + (T-t));
-				dp[{u, t}] = std::max(hit, stay);
-				std::cerr << (hit >= stay ? 'h' : 's');
-			}
-			std::cerr << '\n';
-		}
-		std::cerr << dp[{U, T}] << '\n';
-		return dp[{U, T}];
-	};
-	for (int u = 1; u <= 10; u++) {
-		for (int t = 1; t <= 20; t++) {
-			for (int c = 1; c <= 20; c++) {
-				solve_slow(u, t, c);
-			}
-		}
-	}
-	solve_slow(12, 0, 5);
-	solve_slow(10, 4, 5);
-	solve_slow(5, 14, 5);
-	solve_slow(0, 24, 5);
 	auto solve_fast = [&](int U, int T, int C) -> num {
 		const int V = U + T + C;
 		std::vector<num> fact(V+1);

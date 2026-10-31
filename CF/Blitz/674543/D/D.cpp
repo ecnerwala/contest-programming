@@ -11,6 +11,7 @@ int main() {
 			tot = int64_t(tot) * int64_t(i) % N;
 		}
 	}
+	// could just remove tot, but this is cooler
 	if (tot == 1) {
 	} else if (tot == N-1) {
 		ans.pop_back();

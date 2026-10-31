@@ -24,6 +24,7 @@ int main() {
 				int j = i;
 				bool has_ind = false, has_val = false;
 				do {
+					vis[j] = true;
 					l++;
 					if (B[j] != -1) has_ind = true;
 					if (used_val[j]) has_val = true;

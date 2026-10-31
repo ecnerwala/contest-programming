@@ -1,0 +1,11 @@
+#!/bin/bash
+
+./gen >in
+./sol <in >out
+./stupid <in >ok
+DIFF=$(diff out ok)
+if [ "$DIFF" == "" ]
+then
+  ./test
+fi
+

@@ -64,6 +64,7 @@ int main() {
 			if (invA[i] == -1) {
 				// insert a 0 row
 				treap_node* n = &nodes.emplace_back();
+				n->pri = mt();
 				n->own_slope = 0;
 				n->update();
 				[&](this auto&& self, treap_node* &cur) -> void {

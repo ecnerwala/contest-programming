@@ -1,0 +1,18 @@
+17
+insert 0 abcdef
+print 0 6
+erase 4 5
+print 0 5
+copy 0 3
+paste 1
+print 0 8
+cut 2 4
+print 0 6
+undo
+print 0 8
+paste 6
+print 0 10
+redo
+redo
+print 0 10
+serialize

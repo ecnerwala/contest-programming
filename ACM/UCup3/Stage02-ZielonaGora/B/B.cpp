@@ -62,7 +62,7 @@ int main() {
 		std::sort(adj[cur].begin(), adj[cur].end(), [&](auto i, auto j) { return sz[i] > sz[j]; });
 		if (!adj[cur].empty()) {
 			{
-				int keep_sz = (adj[cur].size() >= 2 ? int(sz[adj[cur][1]]) : 0);
+				int keep_sz = (adj[cur].size() >= 2 ? int(sz[adj[cur][1]]) : 0) + 1;
 				std::swap(dp_down_set[cur], dp_down_set[adj[cur][0]]);
 				// min the next guy down
 				for (auto it : dp_down_set[cur]) {

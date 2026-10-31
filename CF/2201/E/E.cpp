@@ -1385,10 +1385,10 @@ int main() {
 					}
 				}
 			}
-			std::reverse(S[1].begin(), S[1].end());
 			if (!good) {
 				continue;
 			}
+			std::reverse(S[1].begin(), S[1].end());
 			auto prod = ecnerwala::fft::fft_multiply(S[0], S[1]);
 			while (int(prod.size()) > L) {
 				prod[int(prod.size())-1-L] += prod[int(prod.size())-1];

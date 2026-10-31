@@ -791,6 +791,20 @@ int main() {
 		std::vector<std::array<int, 2>> edges(M);
 
 		spqr_tree tree(N, edges);
+
+		auto solve_comp = [&](int comp) -> std::array<int64_t, 3> {
+			tree.components[comp].vertices;
+		};
+		std::array<int64_t, 3> ways{1, 0, 0};
+		for (int comp = 0; comp < tree.NC; comp++) {
+			auto a = solve_comp(comp);
+			ways = {
+				ways[0] * a[0],
+				ways[1] * a[0] + ways[0] * a[1],
+				ways[2] * a[0] + ways[1] * a[1] + ways[0] * a[2]
+			};
+		}
+		cout << ways[2] << '\n';
 	}
 
 	return 0;

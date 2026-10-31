@@ -35,20 +35,19 @@ int main() {
 	std::sort(A.begin(), A.end());
 	std::vector<std::pair<int, int>> ops;
 	ops.reserve(20000);
-	for (int z = 0; z < A[0].first; z++) ops.push_back({1, z});
 
-	std::y_combinator([&](auto self, int l, int r, int val) -> void {
+	for (int z = 0; z < A[0].first; z++) ops.push_back({1, z});
+	std::y_combinator([&](auto self, int l, int r) -> void {
 		assert(l < r);
-		assert(val == A[l].first);
 		if (r - l == 1) return;
 		int m = (l + r) / 2;
-		if (A[m].first > val) {
+		if (A[m].first > A[l].first) {
 			for (int i = m; i < r; i++) ops.push_back({2, A[i].second});
-			for (int z = val+1; z < A[m].first; z++) ops.push_back({1, z});
+			for (int z = A[l].first+1; z < A[m].first; z++) ops.push_back({1, z});
 		}
-		self(m, r, A[m].first);
-		self(l, m, val);
-	})(0, N, A[0].first);
+		self(m, r);
+		self(l, m);
+	})(0, N);
 	cout << ops.size() << '\n';
 	for (auto [x, y] : ops) {
 		cout << x << ' ' << y << '\n';

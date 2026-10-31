@@ -17,9 +17,8 @@ int main() {
 			if (cur <= X) break;
 			// jump to j
 			dp[j] += dp[i];
-			cerr << i << ' ' << j << ' ' << dp[i] << '\n';
 		}
-		cout << int64_t(N+2) * int64_t(N+1) / 2 - std::accumulate(dp.begin(), dp.end(), 0) << '\n';
+		cout << int64_t(N+2) * int64_t(N+1) / 2 - std::accumulate(dp.begin(), dp.end(), int64_t(0)) << '\n';
 	}
 
 	return 0;

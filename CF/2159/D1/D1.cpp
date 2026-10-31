@@ -11,11 +11,10 @@ int main() {
 		for (auto& a : A) { cin >> a; }
 		struct stk_t {
 			int64_t v;
-			int idx;
 			int dist;
 		};
 		std::vector<stk_t> stk; stk.reserve(N+1);
-		stk.push_back({-1, -1, 0});
+		stk.push_back({-1, 0});
 		for (int i = 0; i < N; i++) {
 			int64_t a = A[i];
 			while (stk.size() > 1 && stk.back().v >= a) {
@@ -34,7 +33,7 @@ int main() {
 				}
 				dist = std::min(dist, stk[mi].dist + l);
 			}
-			stk.push_back({a, i, dist});
+			stk.push_back({a, dist});
 		}
 		cout << stk.back().dist << '\n';
 	}

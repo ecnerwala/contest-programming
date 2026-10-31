@@ -132,16 +132,11 @@ void test() {
 }
 
 int main() {
-	if (fopen("boysgirls.in", "r")) {
-		freopen("boysgirls.in", "r", stdin);
-		freopen("boysgirls.out", "w", stdout);
-	}
-
-	test();
-	using namespace std;
-
-	int N, X, Y; cin >> N >> X >> Y;
-	cout << solve(N, X, Y) << '\n';
+	//test();
+	std::ifstream fin("boysgirls.in");
+	std::ofstream fout("boysgirls.out");
+	int N, X, Y; fin >> N >> X >> Y;
+	fout << solve(N, X, Y) << '\n';
 	return 0;
 }
 

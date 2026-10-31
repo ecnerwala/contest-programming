@@ -51,9 +51,11 @@ int main() {
 				} else {
 					cyc_idx[cur].len = depth;
 					self(nxt[cur], depth+1);
-					cyc_idx[cur] = cyc_idx[nxt[cur]];
-					cyc_idx[cur].idx++;
-					if (cyc_idx[cur].idx == cyc_idx[cur].len) cyc_idx[cur].idx = 0;
+					if (cyc_idx[cur].st == -1) {
+						cyc_idx[cur] = cyc_idx[nxt[cur]];
+						cyc_idx[cur].idx++;
+						if (cyc_idx[cur].idx == cyc_idx[cur].len) cyc_idx[cur].idx = 0;
+					}
 				}
 				if (is_black[cur]) can_black[cyc_idx[cur].st][cyc_idx[cur].idx] = true;
 			}(v, 0);

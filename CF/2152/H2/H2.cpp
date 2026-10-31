@@ -23,7 +23,7 @@ int main() {
 
 		struct heap_t {
 			int64_t v;
-			int64_t delta;
+			int64_t cnt;
 			std::array<heap_t*, 2> c = {nullptr, nullptr};
 		};
 		auto meld = [&](this auto&& self, heap_t* a, heap_t* b) -> heap_t* {
@@ -38,9 +38,9 @@ int main() {
 		};
 		std::vector<heap_t> heap_nodes(4*N);
 		int NODES = 0;
-		auto new_heap_node = [&](int64_t v, int64_t delta) -> heap_t* {
+		auto new_heap_node = [&](int64_t v, int64_t cnt) -> heap_t* {
 			assert(NODES < int(heap_nodes.size()));
-			return &(heap_nodes[NODES++] = {v, delta, {nullptr, nullptr}});
+			return &(heap_nodes[NODES++] = {v, cnt, {nullptr, nullptr}});
 		};
 		std::vector<heap_t*> heaps(N);
 		for (int i = 0; i < N; i++) {
@@ -86,7 +86,7 @@ int main() {
 					} else {
 						cur_val += cur_slope * (heaps[u]->v - cur_pos);
 						cur_pos = heaps[u]->v;
-						cur_slope += heaps[u]->delta;
+						cur_slope += heaps[u]->cnt;
 						heaps[u] = meld(heaps[u]->c[0], heaps[u]->c[1]);
 					}
 				}
@@ -96,7 +96,7 @@ int main() {
 		{
 			int rt = get_par(0);
 			while (heaps[rt]) {
-				for (int z = 0; z < heaps[rt]->delta; z++) {
+				for (int z = 0; z < heaps[rt]->cnt; z++) {
 					deltas.push_back(heaps[rt]->v);
 				}
 				heaps[rt] = meld(heaps[rt]->c[0], heaps[rt]->c[1]);

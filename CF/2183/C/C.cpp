@@ -6,11 +6,11 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		int N, M, K; cin >> N >> M >> K;
+		int64_t N, M, K; cin >> N >> M >> K;
 		M++;
 		// we get M+1 soldiers
-		int L = K-1;
-		int R = N-K;
+		int64_t L = K-1;
+		int64_t R = N-K;
 		if (L > R) std::swap(L, R);
 		assert(L <= R);
 		if (L + R + R <= M) {

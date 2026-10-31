@@ -1,0 +1,178 @@
+#include <bits/stdc++.h>
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+
+private:
+	using ll = long long;
+
+	int v;
+
+	static int minv(int a, int m) {
+		a %= m;
+		assert(a);
+		return a == 1 ? 1 : int(m - ll(minv(m, a)) * ll(m) / a);
+	}
+
+public:
+
+	modnum() : v(0) {}
+	modnum(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	explicit operator int() const { return v; }
+	friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { ll v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
+	friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
+
+	modnum inv() const {
+		modnum res;
+		res.v = minv(v, MOD);
+		return res;
+	}
+	friend modnum inv(const modnum& m) { return m.inv(); }
+	modnum neg() const {
+		modnum res;
+		res.v = v ? MOD-v : 0;
+		return res;
+	}
+	friend modnum neg(const modnum& m) { return m.neg(); }
+
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (const modnum& o) {
+		v -= MOD-o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator -= (const modnum& o) {
+		v -= o.v;
+		v = (v < 0) ? v + MOD : v;
+		return *this;
+	}
+	modnum& operator *= (const modnum& o) {
+		v = int(ll(v) * ll(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (const modnum& o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
+	friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
+	friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
+	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
+};
+
+using num = modnum<int(1e9)+7>;
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, Q; cin >> N >> Q;
+	string S0, T; cin >> S0 >> T;
+	assert(int(T.size()) == N);
+
+	vector<array<int, 26>> trie; trie.reserve(int(1e6) + 20);
+	trie.push_back(array<int, 26>()); trie.back().fill(-1);
+
+	int max_len = 0;
+
+	vector<vector<pair<int, int>>> queries(N+1);
+	for (int q = 0; q < Q; q++) {
+		int k; string w; cin >> k >> w;
+		max_len = max(int(w.size()), max_len);
+		int cur = 0;
+		for (char c : w) {
+			c -= 'a';
+			if (trie[cur][c] != -1) {
+				cur = trie[cur][c];
+			} else {
+				int next_idx = int(trie[cur].size());
+				trie[cur][c] = next_idx;
+				cur = next_idx;
+				trie.push_back(array<int, 26>()); trie.back().fill(-1);
+			}
+		}
+		queries[k].push_back({cur, q});
+	}
+
+	vector<int> bfs; bfs.reserve(trie.size());
+	vector<int> failure(trie.size());
+	failure[0] = -1;
+	bfs.push_back(0);
+	for (int z = 0; z < int(bfs.size()); z++) {
+		int cur = bfs[z];
+		for (int c = 0; c < 26; c++) {
+			if (trie[cur][c] == -1) {
+				trie[cur][c] = cur ? trie[failure[cur]][c] : 0;
+			} else {
+				int nxt = trie[cur][c];
+				failure[nxt] = cur ? trie[failure[cur]][c] : 0;
+				bfs.push_back(nxt);
+			}
+		}
+	}
+
+	auto get_cnts = [&](const string s) -> vector<num> {
+		vector<num> res(trie.size(), 0);
+		{
+			int cur = 0;
+			++res[cur];
+			for (char c : s) {
+				c -= 'a';
+				cur = trie[cur][c];
+				++res[cur];
+			}
+		}
+		for (int z = int(bfs.size())-1; z > 0; z--) {
+			int cur = bfs[z];
+			res[failure[cur]] += res[cur];
+		}
+		return res;
+	};
+
+	vector<num> ans(Q);
+
+	int K = 0;
+	string SK = S0;
+	while (K < N && int(SK.size()) < max_len) {
+		auto cnts = get_cnts(SK);
+		for (auto [n, q] : queries[K]) {
+			ans[q] = cnts[n];
+		}
+		SK = SK + T[K] + SK;
+		K++;
+	}
+
+	vector<num> base_cnts = get_cnts(SK);
+	array<vector<num>, 26> letter_cnts;
+	for (int c = 0; c < 26; c++) {
+		letter_cnts[c] = get_cnts(SK + char(c + 'a') + SK);
+	}
+
+	for (int q = 0; q < Q; q++) {
+		cout << ans[q] << '\n';
+	}
+
+	return 0;
+}

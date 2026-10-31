@@ -2,6 +2,7 @@
 
 int main() {
 	using std::cin, std::cout;
+	std::ios_base::sync_with_stdio(false); std::cin.tie(nullptr);
 	int T; cin >> T;
 	while (T--) {
 		std::string S; cin >> S;

@@ -213,7 +213,7 @@ tensor<bool, 2> solve(int N) {
 		}
 	}
 	int max_cnt = N * (N+3) / 5;
-	std::cerr << "N = " << N << ' ' << max_cnt << ' ' << tot_cnt << '\n';
+	//std::cerr << "N = " << N << ' ' << max_cnt << ' ' << tot_cnt << '\n';
 	/*
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
@@ -239,9 +239,7 @@ tensor<bool, 2> solve(int N) {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
-	for (int i = 8; i <= 100; i++) {
-		solve(i);
-	}
+	//for (int i = 8; i <= 100; i++) { solve(i); }
 	int N; cin >> N;
 	auto res = solve(N);
 	for (int i = 0; i < N; i++) {

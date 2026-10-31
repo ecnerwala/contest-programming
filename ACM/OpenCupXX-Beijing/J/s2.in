@@ -1,0 +1,9 @@
+5
+message A { optional B nest = 1 ; }
+message B { optional C nest = 1 ; }
+message C { }
+message D { optional E nest = 1 ; }
+message E { }
+2
+B D
+A D

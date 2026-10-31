@@ -1,0 +1,135 @@
+#include <bits/stdc++.h>
+
+namespace std {
+
+template<class Fun>
+class y_combinator_result {
+	Fun fun_;
+public:
+	template<class T>
+	explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+
+	template<class ...Args>
+	decltype(auto) operator()(Args &&...args) {
+		return fun_(std::ref(*this), std::forward<Args>(args)...);
+	}
+};
+
+template<class Fun>
+decltype(auto) y_combinator(Fun &&fun) {
+	return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
+
+} // namespace std
+
+inline std::vector<int> direct_graph(const std::vector<std::vector<int>>& adj, int source = -1, int sink = -1) {
+	int N = int(adj.size());
+	if (N == 0) {
+		return {};
+	}
+	if (N == 1) {
+		return {0};
+	}
+	assert(N >= 2);
+	// Make some arbitrary choices as defaults
+	if (source == -1 && sink == -1) {
+		source = 0, sink = adj[source][0];
+	} else if (source == -1) {
+		source = adj[sink][0];
+	} else if (sink == -1) {
+		sink = adj[source][0];
+	}
+	assert(source != sink);
+	std::vector<int> depth(N, -1);
+	std::vector<int> lowval(N);
+	std::vector<bool> has_sink(N);
+	std::vector<std::vector<int>> ch(N);
+	std::y_combinator([&](auto self, int cur, int prv) -> void {
+		depth[cur] = prv != -1 ? depth[prv] + 1 : 0;
+		lowval[cur] = depth[cur];
+		ch[cur].reserve(adj[cur].size());
+		has_sink[cur] = (cur == sink);
+		for (int nxt : adj[cur]) {
+			if (nxt == prv) continue;
+			if (depth[nxt] == -1) {
+				ch[cur].push_back(nxt);
+				self(nxt, cur);
+				lowval[cur] = std::min(lowval[cur], lowval[nxt]);
+				if (has_sink[nxt]) has_sink[cur] = true;
+				if (lowval[nxt] >= depth[cur] && !has_sink[nxt]) {
+					// WARNING: This component will be directed arbitrarily.
+					// In practice, we'll just make the first child an extra sink
+				}
+			} else if (depth[nxt] < depth[cur]) {
+				lowval[cur] = std::min(lowval[cur], depth[nxt]);
+			} else {
+				// down edge
+			}
+		}
+	})(source, -1);
+
+	// true is after, false is before
+	std::vector<bool> edge_dir(N, false);
+	std::vector<int> lst_nxt(N, -1);
+	auto lst = std::y_combinator([&](auto self, int cur) -> std::array<int, 2> {
+		std::array<int, 2> res{cur, cur};
+		for (int nxt : ch[cur]) {
+			// If we're on the path to the sink, mark it as downwards.
+
+			bool d;
+			if (has_sink[nxt]) {
+				d = true;
+			} else if (lowval[nxt] >= depth[cur]) {
+				// Arbitrary choice
+				d = true;
+				// Uncomment to skip extra BCCs.
+				//continue;
+			} else {
+				d = !edge_dir[lowval[nxt]];
+			}
+			edge_dir[depth[cur]] = d;
+
+			auto ch_res = self(nxt);
+
+			// Join res and ch
+			if (!d) std::swap(res, ch_res);
+			lst_nxt[std::exchange(res[1], ch_res[1])] = ch_res[0];
+		}
+		return res;
+	})(source);
+
+	std::vector<int> res(N);
+	int cur = lst[0];
+	for (int i = 0; i < N; i++) {
+		res[i] = cur;
+		cur = lst_nxt[cur];
+	}
+	return res;
+}
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int T; cin >> T;
+	while (T--) {
+		int N1, N2, M; cin >> N1 >> N2 >> M;
+		int N = N1 + N2;
+		std::vector<std::vector<int>> adj(N);
+		for (int e = 0; e < M; e++) {
+			int u, v; cin >> u >> v; u--, v--;
+			adj[u].push_back(v);
+			adj[v].push_back(u);
+		}
+		auto res = direct_graph(adj);
+		auto it = res.begin();
+		for (int l : {N1, N2}) {
+			for (int i = 0; i < l; i++) {
+				cout << (*it)+1 << " \n"[i+1==l];
+				++it;
+			}
+		}
+	}
+
+	return 0;
+}

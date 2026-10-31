@@ -281,7 +281,7 @@ int main() {
 		for (int i = 0; i < N; i++) assert(used[i]);
 	}
 
-	using num = modnum<998244353>;
+	using num = modnum<int(1e9)+7>;
 	std::vector<num> fact(N+1);
 	fact[0] = 1;
 	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);

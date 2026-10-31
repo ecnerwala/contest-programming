@@ -298,7 +298,6 @@ int main() {
 
 	struct seg_t {
 		int64_t mi = 0;
-		int64_t ma = 0;
 		int64_t sum = 0;
 		int64_t lazy_set = -1; // -1 means don't set, lazy_set has prio over lazy add
 		int64_t lazy_add = 0;
@@ -307,7 +306,6 @@ int main() {
 	std::vector<seg_t> seg(2*N);
 	auto do_add = [&](seg_tree::point a, int64_t v) -> void {
 		seg[a].mi += v;
-		seg[a].ma += v;
 		seg[a].sum += v * layout.get_node_size(a);
 		if (seg[a].lazy_set != -1) {
 			seg[a].lazy_set += v;
@@ -317,7 +315,6 @@ int main() {
 	};
 	auto do_set = [&](seg_tree::point a, int64_t v) -> void {
 		seg[a].mi = v;
-		seg[a].ma = v;
 		seg[a].sum = v * layout.get_node_size(a);
 		seg[a].lazy_set = v;
 		seg[a].lazy_add = 0;
@@ -342,13 +339,12 @@ int main() {
 		assert(seg[a].lazy_set == -1);
 		assert(seg[a].lazy_add == 0);
 		seg[a].mi = std::min(seg[a.c(0)].mi, seg[a.c(1)].mi);
-		seg[a].ma = std::max(seg[a.c(0)].ma, seg[a.c(1)].ma);
 		seg[a].sum = seg[a.c(0)].sum + seg[a.c(1)].sum;
 	};
 
 	for (int i = 0; i < N; i++) {
 		seg_tree::point a = layout.get_point(i);
-		seg[a].mi = seg[a].ma = seg[a].sum = A[i];
+		seg[a].mi = seg[a].sum = A[i];
 	}
 	for (seg_tree::point a(N-1); a > 0; a--) update_node(a);
 
@@ -378,7 +374,7 @@ int main() {
 			for (; !queues[mex].empty(); mex++) {
 				for (int z = 0; z < int(queues[mex].size()); z++) {
 					auto a = queues[mex][z];
-					if (seg[a].mi == seg[a].ma) {
+					if (a >= N || seg[a].lazy_set != -1) {
 						// do nothing
 					} else {
 						assert(a < N);
@@ -388,8 +384,6 @@ int main() {
 					}
 				}
 			}
-
-			cerr << "got mex " << mex << '\n';
 
 			for (auto v : to_clear) queues[v] = {};
 			to_clear.clear();

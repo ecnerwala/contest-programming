@@ -1,0 +1,169 @@
+% https://www.overleaf.com/3459635932cssrpqvtsdfx
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{minted}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+
+% Absolute value
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+% Rounding
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\round{\lfloor}{\rceil}
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+
+\let\oldfloor\floor
+\def\floor{\@ifstar{\oldfloor}{\oldfloor*}}
+
+\let\oldceil\ceil
+\def\ceil{\@ifstar{\oldceil}{\oldceil*}}
+
+\let\oldround\round
+\def\round{\@ifstar{\oldround}{\oldround*}}
+\makeatother
+
+\title{ICPC WF 15 G}
+\author{Andrew He}
+\date{March 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem}
+
+We are given a pipe of length $l$ with a substance moving through it at some unknown velocity in $[v_1, v_2]$, initially at the left endpoint. Up to every $s$ seconds, we may knock on a point on the pipe, and determine if the substance has passed this point or not. Then, find the maximum number of queries necessary to guarantee we know the velocity to within an additive error of $t/2$, or output that it's impossible.
+
+\section{Preliminaries}
+
+First, let's simplify the query structure a little. When we query at a given
+time/distance, we might as well imagine querying a particular velocity. To
+query a velocity $v$ at time $a$, we must have $av \le l \iff v \le l/a$.
+
+Thus, earlier queries are strictly better than later queries, so we should
+always make our $d$th query at time $ds$.
+
+Also, querying smaller velocities is strictly easier. Thus, we should try to
+classify the velocities into these ranges of size $t$:
+$$[v_1, v_2 - Kt], [v_2 - Kt, v_2 - (K-1)t], \ldots [v_2 - 2t, v_2 - 1t], [v_2 - t, v_2]$$
+for $v_1 < v_2 - Kt \le v_1 + t$.
+
+\section{Reduction to building a decision tree}
+
+We now take a top-down approach to this problem. Let's phrase it as:
+
+\noindent\fbox{\parbox{\textwidth}{
+Construct a decision tree, where each
+internal node is one of the queries
+$$ v_2 - Kt, v_2 - (K-1)t, \ldots v_2 - t $$
+and the queries are sorted (when listed in preorder) and satisfy
+$$ \operatorname{depth}(v_2 - kt) \le \floor{\frac{l / s}{v_2 - kt}} - 1 $$
+Subject to these constraints, minimize the maximum depth of the tree.
+(Here, the depth of the root is 0.)
+}}
+
+However, depths of internal nodes is a little clunky, so we'll convert this to
+a decision tree with constraints on the leaf-depths. Intuitively, this is
+possible because the depth constraints are monotonic.
+
+Note that leaf-nodes are labelled with our target intervals. Then, consider the
+direct parent of the node $ [v_2 - kt, v_2 - (k-1)t] $. The parent is either
+labeled $v_2 - kt$ or $v_2 - (k-1)t$, so the depth of the leaf is at most
+$$ \max(\operatorname{depth}(v_2 - kt), \operatorname{depth}(v_2 - (k-1)t)) + 1 \le \floor{\frac{l / s}{v_2 - kt}} $$
+Furthermore, these leaf constraints are sufficient: the internal node $v_2 - kt$
+must have the leaf $[v_2 - kt, v_2 - (k-1)t]$ as a descendant, so it's depth is
+at most the one less than the leaf's depth, which is the desired constraint.
+Note that we don't need a depth constraint on $ [v_1, v_2 - Kt] $.
+
+Thus, we have the our actual final reduction:
+
+\noindent\fbox{\parbox{\textwidth}{
+Construct a decision tree with (sorted) leaves
+$$[v_1, v_2 - Kt], [v_2 - Kt, v_2 - (K-1)t], \ldots [v_2 - 2t, v_2 - 1t], [v_2
+- t, v_2]$$ so that the leaf $[v_2 - kt, v_2 - (k-1)t]$ has depth at most $\floor{\frac{l/s}{v_2 - kt}}$.
+Furthermore, minimize the maximum depth of this decision tree.
+}}
+
+\section{Decision trees}
+
+We'll use a few facts about decision trees.
+\begin{theorem}
+Given $a_1 \ge a_2 \ge \ldots a_n$, there exists a binary decision tree with leaf depths (in order) exactly equal to $a_1, a_2 \ldots a_n$ iff $\sum 2^{-a_i} = 1$.
+\end{theorem}
+\begin{proof}
+The only-if direction is a simple counting argument; each internal node splits the "value" in half.
+
+The if direction is a simple application of Huffman codes; we just greedily merge the left 2 nodes.
+\end{proof}
+
+\begin{corollary}
+Given integers $a_1 \ge a_2 \ge \ldots a_n$, there exists a binary decision tree with leaf depths (in order) at most $a_1, a_2 \ldots a_n$ iff $\sum 2^{-a_i} \le 1$.
+\end{corollary}
+\begin{proof}
+We can just decrease some suffix of the $a_i$ until it satisfies the theorem.
+\end{proof}
+
+\section{The algorithm}
+
+Now, by Corollary 1, we can reduce the problem to:
+
+\noindent\fbox{\parbox{\textwidth}{
+Consider the (monotonically decreasing) sequence
+$$ \{a_i\} = \infty, \floor{\frac{l/s}{v_2-Kt}}, \floor{\frac{l/s}{v_2-(K-1)t}}, \ldots,
+\floor{\frac{l/s}{v_2-2t}}, \floor{\frac{l/s}{v_2-t}}$$
+Find the minimum depth $d$ such that
+$$ \sum 2^{-\min(d, a_i)} \le 1 \iff \sum 2^{\max(0, d - a_i)} \le 2^d$$
+}}
+
+We can solve this in $O(K \log l)$ time with binary search on $d$ (you can evaluate the inequality without bignums by rounding away small powers of 2 as we go). However, this is potentially too slow, as $K = \floor{(v_2 - v_1 - 1) / t}$ can be large.
+
+To optimize the solution, note that there are only $O(\sqrt{l})$ possible distinct values of $\floor{\frac{l/s}{v_2 - kt}}$. Thus, we can collect and store the sequence $a_i$ using run-length encoding and solve the problem in $O(\sqrt{l} \log l)$.
+
+We can also simplify the implementation by linearly searching $d$ upwards and tracking the suffix of the $a_i$ which is greater than $d$ (still with the run-length trick). This solution takes $O(d)$ time, which in practice is at most $100$.
+My implementation of this solution can be found below.
+\clearpage
+\begin{minted}{python}
+def go():
+    L, V1, V2, T, S = map(int, input().split())
+
+    L //= S
+
+    curDepth = 0
+    curRem = 1
+    while curRem < (V2 - V1 + T - 1) // T:
+        nDepth = L // (V2 - T)
+        if curDepth < nDepth:
+            curRem <<= 1
+            curDepth += 1
+        else:
+            numTake = (V2 - max(V1, L // (nDepth + 1)) - 1) // T
+            assert L // (V2 - numTake * T) == nDepth and V2 - numTake * T > V1
+
+            if curRem <= numTake:
+                return "impossible"
+
+            V2 -= numTake * T
+            curRem -= numTake
+
+    return curDepth
+
+for _ in range(int(input())):
+    print(go())
+\end{minted}
+\end{document}

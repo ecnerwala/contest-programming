@@ -234,7 +234,7 @@ num solve(int A, int B, int C, int L, int64_t N) {
 	num coeff = num(1 << L);
 	for (int bit = L; true; coeff *= 2, bit++) {
 		if (bit >= 70) {
-			std::cerr << "doing bit " << bit << ' ' << int(carry_locs.size()) << ' ' << (carry_locs.empty() ? -1 : carry_locs.front()) << ' ' << mod << '\n';
+			//std::cerr << "doing bit " << bit << ' ' << int(carry_locs.size()) << ' ' << (carry_locs.empty() ? -1 : carry_locs.front()) << ' ' << mod << '\n';
 		}
 		if (carry_locs.empty()) break;
 		std::vector<int64_t> n_carry_locs; n_carry_locs.reserve(carry_locs.size() * 2);

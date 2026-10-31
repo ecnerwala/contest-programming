@@ -1,0 +1,17 @@
+Edge A and B are equivalent iff deleting A and deleting B disconnects the graph
+
+
+E1-A1---A3-E3-B3---
+|                B2
+B1    |           |
+------------- A2-E2
+
+E1 = E2 = E3 != anything else
+E1, E2, E3 must be balanced
+
+ / \
+A---B
+ \ /
+
+If E occurs, then the entire EC occurs.
+If all equivalence classes are balanced, then all cycles are balanced

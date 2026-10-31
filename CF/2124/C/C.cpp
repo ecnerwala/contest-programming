@@ -8,7 +8,6 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		std::vector<int> B(N); for (auto& b : B) cin >> b;
-		int last_bad = -1;
 		int res = 1;
 		for (int i = 0; i+1 < N; i++) {
 			if (B[i+1] % B[i] != 0) {

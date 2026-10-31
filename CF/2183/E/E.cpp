@@ -251,8 +251,8 @@ int main() {
 		for (auto& a : A) cin >> a;
 		// we need a_1 = 1, (a_i, a_{i+1}) = (ak, (a+1)k) for some a
 		using num = modnum<998244353>;
-		std::vector<int> dp(M+1, 0);
-		std::vector<int> ndp(M+1, 0);
+		std::vector<num> dp(M+1, 0);
+		std::vector<num> ndp(M+1, 0);
 		dp[1] = (A[0] == 1 || A[0] == 0);
 		for (int i = 1; i < N; i++) {
 			for (int v = 1; v <= M; v++) ndp[v] = 0;

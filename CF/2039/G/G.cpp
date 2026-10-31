@@ -875,6 +875,8 @@ int main() {
 		cerr << i << ' ' << max_path[i] << '\n';
 	}
 	using num = modnum<998244353>;
+	int min_smooth = *std::min_element(max_path.begin(), max_path.end());
+	int max_smooth = *std::max_element(max_path.begin(), max_path.end());
 
 	static dirichlet_series::div_vector_layout layout;
 	layout = dirichlet_series::div_vector_layout(M);

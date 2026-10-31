@@ -366,8 +366,7 @@ int main() {
 					if (i >= 3) acc += ndp[i-3];
 					ndp_2[i] = acc;
 				}
-			}
-			{
+			} else {
 				std::fill(ndp.begin(), ndp.end(), num(0));
 				std::fill(ndp_2.begin(), ndp_2.end(), num(0));
 				for (int i = 0; i < V; i++) {

@@ -50,7 +50,6 @@ int main() {
 				weight[i][v] += c;
 			}
 		}
-		cerr << ans << '\n';
 		std::vector<int64_t> val_pref(K, 0);
 		std::vector<int64_t> dp_val(K, 0);
 		int64_t dp_blank = 0;

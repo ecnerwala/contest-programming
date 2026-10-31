@@ -177,8 +177,6 @@ int main() {
 		}
 	}
 
-	cerr << "done sieve" << '\n';
-
 	int T; cin >> T;
 	while (T--) {
 		int N, M; int64_t L, F; cin >> N >> M >> L >> F;
@@ -191,7 +189,7 @@ int main() {
 		int v_min = (p > 2 && N < 2 * prv_prime[p-1]) ? prv_prime[p-1] : 1;
 		int lo = p;
 		int hi = N;
-		std::vector<bool> dp(hi + 1 - v_min);
+		std::vector<char> dp(hi + 1 - v_min);
 		dp[v_min - v_min] = true;
 		for (int i = lo; i <= hi; i++) {
 			int max_legal = 0;

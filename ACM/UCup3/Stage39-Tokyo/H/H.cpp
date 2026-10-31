@@ -23,13 +23,15 @@ int main() {
 		if (N_min == -1) exit(0);
 		assert(N_min >= 1);
 		assert(N_min <= K);
-		if (N_min == K) break;
 
 		std::vector<int> jumps(K, 0);
 		for (int i = 0; i < N_min; i++) {
 			int v; cin >> v;
+			assert(0 <= v && v < K);
 			jumps[v] = 1;
 		}
+
+		if (N_min == K) break;
 		for (int z = 0; z < 3; z++) {
 			for (int i = K-1; i >= 0; i--) {
 				if (jumps[i]) {

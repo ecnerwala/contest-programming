@@ -265,6 +265,7 @@ int main() {
 				}
 				self(cur);
 				std::reverse(seq.begin(), seq.end());
+				// TODO: We can count these using FFT/div-conquer
 				std::vector<num> a({num(1)});
 				for (bool v : seq) {
 					a.push_back(num(0));

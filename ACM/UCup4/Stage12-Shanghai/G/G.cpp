@@ -20,6 +20,7 @@ int main() {
 			for (int b = L-1; b >= 0; b--) {
 				if ((a >> b) & 1) {
 					if (!basis[b]) {
+						for (int o = b-1; o >= 0; o--) a = std::min(a, a ^ basis[o]);
 						basis[b] = a;
 						for (int o = b+1; o < L; o++) basis[o] = std::min(basis[o], basis[o] ^ a);
 					}

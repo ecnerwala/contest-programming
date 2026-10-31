@@ -1,0 +1,1 @@
+Hi! Welcome to the folder of ksun48 in the Universal Cup Summer Summit 2024. If you are reading this, that means you are in the wrong place.

@@ -392,16 +392,7 @@ int main() {
 
 	auto get_next = [&](int a, int r) -> int {
 		assert(a != r);
-		int l = la.lca(a, r);
-		int res;
-		if (l == a) {
-			res = la.get_ancestor(r, la.get_depth(r) - la.get_depth(a) - 1);
-		} else {
-			res = la.get_ancestor(a, 1);
-		}
-		cerr << a << ' ' << r << ' ' << res << ' ' << la.get_next(a, r) << '\n';
-		assert(res == la.get_next(a, r));
-		return res;
+		return la.get_next(a, r);
 	};
 
 	std::vector<bool> is_alive(V, true);

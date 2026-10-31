@@ -2,7 +2,9 @@
 
 int main() {
 	using namespace std;
-	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	//ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	freopen("codecoder.in", "r", stdin);
+	freopen("codecoder.out", "w", stdout);
 
 	int N; cin >> N;
 	struct person_t {

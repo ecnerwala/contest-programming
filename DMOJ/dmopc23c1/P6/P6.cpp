@@ -171,6 +171,7 @@ int main() {
 		}
 
 		std::vector<int> corp_par(M, -1);
+		std::vector<std::vector<int>> corp_ch(M);
 
 		std::y_combinator([&](auto self, int cur, int prv) -> std::set<std::pair<int, int>> {
 			std::set<std::pair<int, int>> res;
@@ -191,6 +192,7 @@ int main() {
 				assert(did_erase);
 				if (!res.empty()) {
 					corp_par[m] = res.rbegin()->second;
+					corp_ch[corp_par[m]].push_back(m);
 				}
 			}
 			return res;

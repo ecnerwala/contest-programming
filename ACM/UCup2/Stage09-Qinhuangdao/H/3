@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, Q; cin >> N >> Q;
+	std::vector<int> fa(N+1);
+	for (int i = 2; i <= N; i++) {
+		cin >> fa[i];
+	}
+
+	struct lct_node {
+		// parent
+		int p = 0;
+		// children
+		std::array<int, 2> c = {0, 0};
+		int sz = 0;
+
+		// TODO: more metadata specific to the root
+		int r = 0;
+	};
+
+	std::vector<lct_node> tree(N+1);
+	auto d = [&](int i) -> bool {
+		return i == tree[tree[i].p].c[1];
+	};
+	auto update = [&](int i) -> void {
+		tree[i].sz = tree[tree[i].c[0]].sz + 1 + tree[tree[i].c[1]].sz;
+	};
+	// doesn't run any update
+	auto rot = [&](int i) -> void {
+		int p = tree[i].p;
+		assert(p != i);
+		assert(p != 0);
+		bool x = d(i);
+		assert(tree[p].c[x] == i);
+		int ch = tree[i].c[!x];
+
+		tree[p].c[x] = ch;
+		if (ch) tree[ch].p = p;
+
+		int gp = tree[p].p;
+		if (gp) tree[gp].c[d(p)] = i;
+		tree[i].p = gp;
+
+		// TODO: swap the metadata like this
+		// TODO: is it faster unconditionally?
+		if (!gp) std::swap(tree[i].r, tree[p].r);
+
+		tree[i].c[!x] = p;
+		tree[p].p = i;
+
+		update(p);
+	};
+	auto splay = [&](int i) -> void {
+		while (tree[i].p) {
+			int p = tree[i].p;
+			if (tree[p].p) {
+				if (d(p) == d(i)) rot(p);
+				else rot(i);
+			}
+			rot(i);
+		}
+		update(i);
+	};
+
+	std::set<int> alive(N+1);
+	std::vector<int> alive(N+1);
+
+	for (int q = 1; q <= Q; q++) {
+		int op; cin >> op;
+		if (op == 1) {
+			int l, r, delta; cin >> l >> r >> delta;
+		} else if (op == 2) {
+			int k; cin >> k;
+			std::vector<int> B(k);
+			for (auto& b : B) { cin >> b; }
+		} else assert(false);
+	}
+	return 0;
+}

@@ -18,7 +18,7 @@ int main() {
 		if (int(lines[i].size()) <= 7) continue;
 		if ((int(lines[i].size()) - 7) % 4) continue;
 		std::string S = lines[i].substr(int(lines[i].size()) - (int(lines[i].size()) - 7) / 4);
-		bool good = true;
+		bool good = int(S.size()) >= 1;
 		for (char c : S) {
 			if ('a' <= c && c <= 'z') continue;
 			else good = false;

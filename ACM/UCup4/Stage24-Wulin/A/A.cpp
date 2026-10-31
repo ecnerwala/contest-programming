@@ -19,11 +19,7 @@ inline std::vector<int> make_st_dag(const std::vector<std::vector<int>>& adj, in
 	std::vector<int> lowval(N);
 	std::vector<bool> has_sink(N);
 	std::vector<std::vector<int>> ch(N);
-#if __cpp_explicit_this_parameter >= 202110L
 	([&](this auto&& self, int cur, int prv) -> void {
-#else
-	std::y_combinator([&](auto self, int cur, int prv) -> void {
-#endif
 		depth[cur] = prv != -1 ? depth[prv] + 1 : 0;
 		lowval[cur] = depth[cur];
 		ch[cur].reserve(adj[cur].size());
@@ -46,12 +42,7 @@ inline std::vector<int> make_st_dag(const std::vector<std::vector<int>>& adj, in
 	// true is after, false is before
 	std::vector<bool> edge_dir(N, false);
 	std::vector<int> lst_nxt(N, -1);
-	auto lst =
-#if __cpp_explicit_this_parameter >= 202110L
-		([&](this auto&& self, int cur) -> std::array<int, 2> {
-#else
-		std::y_combinator([&](auto self, int cur) -> std::array<int, 2> {
-#endif
+	auto lst = ([&](this auto&& self, int cur) -> std::array<int, 2> {
 		std::array<int, 2> res{cur, cur};
 		for (int nxt : ch[cur]) {
 			// If we're on the path to the sink, mark it as downwards.
@@ -82,6 +73,25 @@ inline std::vector<int> make_st_dag(const std::vector<std::vector<int>>& adj, in
 
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
+
+	int T; std::cin >> T;
+	while (T--) {
+		int N, M; int64_t A, B; std::cin >> N >> M >> A >> B;
+		A *= int(1e6), B *= int(1e6);
+		std::vector<std::array<int, 2>> edges(M);
+		for (auto& [u, v] : edges) { std::cin >> u >> v; u--, v--; }
+
+		std::vector<std::vector<std::pair<int, int>>> adj(N);
+		for (auto [e, vs] : edges | std::views::enumerate) {
+			adj[vs[0]].push_back({e, vs[1]});
+			adj[vs[1]].push_back({e, vs[0]});
+		}
+
+		std::vector<int> depth(N, -1);
+		std::vector<int> lowval(N, -1);
+		[&](this auto&& self, int cur) -> void {
+		};
+	}
 
 	return 0;
 }

@@ -163,7 +163,6 @@ int main() {
 		segs[i+1]--;
 		ans *= val(segs[i+0], segs[i+1]);
 		ans *= val(segs[i+1], segs[i+2]);
-		cerr << ans << '\n';
 		cout << ans << " \n"[i+1==N];
 	}
 

@@ -140,6 +140,7 @@ int main() {
 		auto sq = [](int64_t a) -> __int128_t { return __int128_t(a) * __int128_t(a); };
 		// distance in V units
 		auto get_time = [&](pt_t P) -> std::optional<dbl> {
+			if (P.x == 0 && P.y == 0) return 0;
 			if (U >= V && P.x >= 0) {
 				return std::nullopt;
 			}

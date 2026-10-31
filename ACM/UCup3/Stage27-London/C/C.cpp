@@ -4,8 +4,8 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	const int M = 64;
-	const double alpha = 0.709;
+	const int M = 256;
+	const double alpha = M == 64 ? 0.709 : (0.7213 / (1 + 1.079 / M));
 	std::mt19937_64 mt(48);
 	int N, Q; cin >> N >> Q;
 	std::vector<std::array<uint8_t, M>> HLL(N+Q);
@@ -32,7 +32,9 @@ int main() {
 			}
 		}
 
-		cout << int(E + 0.5) << '\n';
+		int ans = int(E + 0.5);
+		ans = std::max(ans, 2);
+		cout << ans << '\n';
 
 		if ((q - N) % 50 == 49) cout << flush;
 	}

@@ -1,0 +1,14 @@
+N B1
+    UE -> B2
+    UE -> B6
+N B2
+    UE -> B3
+N B3
+    UE -> B4
+    UE -> B5
+N B4
+N B5
+    BUG
+    UE -> B4
+N B6
+    UE -> B3

@@ -1,0 +1,109 @@
+#include <bits/stdc++.h>
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, M; cin >> N >> M;
+
+	using bs = bitset<2020>;
+	std::vector<bs> A(N);
+	for (int e = 0; e < M; e++) {
+		int u, v; cin >> u >> v; u--, v--;
+		if (u > v) std::swap(u, v);
+		assert(u < v);
+		A[v][u] = true;
+	}
+
+	std::vector<bs> Ys; Ys.reserve(N);
+	std::vector<std::pair<int, bs>> basis; basis.reserve(N);
+	bs Y_const;
+
+	for (int i = 0; i < N; i++) {
+		bs A_reduced = A[i];
+		bs Y_const_reduced = Y_const;
+		for (const auto& [idx, v] : basis) {
+			if (Y_const_reduced[idx]) Y_const_reduced ^= v;
+			if (A_reduced[idx]) A_reduced ^= v;
+		}
+
+		int Y_const_reduced_idx = int(Y_const_reduced._Find_first());
+		bool has_Y_const = (Y_const_reduced_idx < N && A_reduced[Y_const_reduced_idx]);
+		if (has_Y_const) {
+			A_reduced ^= Y_const_reduced;
+		}
+
+		int A_reduced_idx = int(A_reduced._Find_first());
+		if (A_reduced_idx < N) {
+			// Then we're linearly independent, so just add it to the basis
+
+			if (has_Y_const) {
+				has_Y_const = false;
+				A_reduced ^= Y_const_reduced;
+				A_reduced_idx = int(A_reduced._Find_first());
+				assert(A_reduced_idx < N);
+			}
+
+			bs Y1 = A[i];
+			bs Y2;
+			Y2[i] = true;
+
+			Y1[N+1+int(Ys.size())] = true;
+			Y2[N+1+int(Ys.size())+1] = true;
+
+			A_reduced[N+1+int(Ys.size())] = true;
+
+			Ys.push_back(Y1);
+			Ys.push_back(Y2);
+
+			basis.push_back({A_reduced_idx, A_reduced});
+			basis.push_back({i, Y2});
+		} else {
+			// We're linearly dependent, so just process things
+			bs did_flip;
+			for (int z = 0; z < int(Ys.size()); z++) {
+				if (!(z & 1) && A_reduced[N+1+z] && A_reduced[N+1+z+1]) {
+					did_flip[N+1+z] = true;
+					did_flip[N+1+z+1] = true;
+					Ys[z].flip(i);
+					Ys[z+1].flip(i);
+					// We have a pair, so
+					A_reduced.flip(N);
+					z++;
+					continue;
+				}
+
+				if (A_reduced[N+1+z]) {
+					did_flip[N+1+(z^1)] = true;
+					Ys[z^1].flip(i);
+				}
+			}
+			// Let's go fix the basis now
+			for (auto& [a, v] : basis) {
+				assert(a < i);
+				if ((v & did_flip).count() & 1) {
+					v.flip(i);
+				}
+			}
+
+			// Now, A is just possibly 1 and possibly has_Y_const
+
+			if (has_Y_const && A_reduced[N]) {
+				Y_const.flip(N);
+				bs Y1 = Y_const;
+				bs Y2;
+				Y2[i] = true;
+				Y2[N] = true;
+				Y1[N+1+int(Ys.size())] = true;
+				Y2[N+1+int(Ys.size())+1] = true;
+				Y_const_reduced
+			} else if (A_reduced[N]) {
+			} else if (has_Y_const) {
+			} else {
+				// Nothing left
+			}
+		}
+	}
+
+	return 0;
+}

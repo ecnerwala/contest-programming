@@ -2051,7 +2051,6 @@ void probJ() {
 	assert(int(a.size()) >= 2);
 	auto res = power_projection(a);
 	assert(int(res.size()) == int(a.size()));
-	for (auto v : res) { cerr << v << '\n'; }
     const int V = 2*N;
     std::vector<mint> fact(V+1);
     fact[0] = 1;

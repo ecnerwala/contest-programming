@@ -132,7 +132,7 @@ int main() {
 		}
 		using num = modnum<998244353>;
 		// the components need to form a chain, which means that we have
-		// (components-1)! * (product of all) * (sum 1/comp size)
+		// (components-1)! * (product of all)^2 * (sum 1/comp size)
 		int comps = 0;
 		num ans = 1;
 		num s_inv = 0;

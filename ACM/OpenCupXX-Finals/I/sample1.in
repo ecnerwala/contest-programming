@@ -1,0 +1,6 @@
+5 5
+change 1 5 2 100
+change 2 5 2 10
+getmin 1 4 3
+kill 4
+getmin 1 4 3

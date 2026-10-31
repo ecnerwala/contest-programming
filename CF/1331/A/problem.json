@@ -1,0 +1,1 @@
+{"name": "A. Is it rated?", "group": "April Fools Day Contest 2020", "url": "https://codeforces.com/contest/1331/problem/A", "interactive": false, "memoryLimit": 256, "timeLimit": 1000, "tests": [], "testType": "single", "input": {"type": "stdin"}, "output": {"type": "stdout"}, "languages": {"java": {"mainClass": "Main", "taskClass": "AIsItRated"}}}

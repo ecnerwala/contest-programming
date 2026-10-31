@@ -84,6 +84,9 @@ private:
 	void do_flip_path() {
 		derived_this()->do_flip_path();
 	}
+	void set_heavy_child(top_tree_node* v) {
+		derived_this()->set_heavy_child(v);
+	}
 	void downdate() {
 		derived_this()->downdate();
 	}
@@ -257,6 +260,9 @@ private:
 		assert(c[0] == nullptr);
 
 		pa->update();
+
+		set_heavy_child(nullptr);
+
 		return pa;
 	}
 
@@ -288,7 +294,9 @@ private:
 
 		is_path = true;
 
+		pa->set_heavy_child(derived_this());
 		pa->update();
+
 		return pa;
 	}
 
@@ -560,7 +568,23 @@ struct sample_top_tree_node : public top_tree_node_base<sample_top_tree_node> {
 		*/
 	}
 
+	void set_heavy_child(sample_top_tree_node* v) {
+		// NOTE: update() will be called later
+		assert(is_vert);
+		assert(!v || (!v->is_vert && !v->is_path));
+	}
+
 	std::array<std::array<int64_t, 8>, 8> values;
+
+	int64_t ST_TO_GR;
+	int64_t ST_TO_HGR;
+	int64_t ST_TO_HGL;
+	int64_t GR_TO_GR;
+	int64_t GR_TO_HGR;
+	int64_t HGR_TO_HGR;
+	int64_t HGL_TO_HGL;
+	int64_t HGL_TO_HGR;
+
 	int64_t own_b;
 	int64_t own_g;
 	int64_t own_h;

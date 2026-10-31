@@ -1,0 +1,430 @@
+#include <bits/stdc++.h>
+
+int NUM_GET = 0;
+int NUM_SELECT = 0;
+
+namespace smawk {
+
+template <typename T> struct value_t {
+	T v;
+	int col;
+};
+
+// Get(int row, int col) -> T
+// Select(int row, const value_t<T>& opt_0, const value_t<T>& opt_1) returns 0 or 1 for which is better
+#if __cpp_concepts >= 202002
+template <typename T, typename Get, typename Select> concept totally_monotone_matrix_oracle =
+	std::default_initializable<T> && std::movable<T>
+	&& std::invocable<Get, int, int> && std::convertible_to<std::invoke_result_t<Get, int, int>, T>
+	&& std::predicate<Select, int, const value_t<T>&, const value_t<T>&>;
+#endif
+
+
+template <typename Get, typename Select, typename T = std::invoke_result_t<Get, int, int>>
+#if __cpp_concepts >= 202002
+requires totally_monotone_matrix_oracle<T, Get, Select>
+#endif
+class LARSCH {
+public:
+	int N;
+	Get get;
+	Select select;
+	int L;
+	int num_rows;
+
+	std::vector<std::vector<value_t<T>>> stk;
+	std::vector<std::pair<value_t<T>, int>> bests;
+	LARSCH() {}
+	LARSCH(int N_, Get&& get_, Select&& select_) : N(N_), get(std::forward<Get>(get_)), select(std::forward<Select>(select_)) {
+		L = N ? 31 - __builtin_clz(N) : 0;
+		stk.resize(L);
+		bests.resize(L);
+		// N >> L == 1, unless N == 0
+		for (int i = 0; i < L; i++) {
+			stk[i].reserve(N >> (i+1));
+		}
+		num_rows = 0;
+	}
+
+	value_t<T> push_and_query_next() {
+		assert(num_rows < N);
+		int inp_row = num_rows++;
+
+		int l = 0;
+		value_t<T> nbest;
+		while (true) {
+			int r = inp_row >> l;
+			int col = l == 0 ? inp_row : stk[l-1][r].col;
+			if (r & 1) {
+				int row = ((r+1) << l) - 1;
+				value_t<T> prv_col_top;
+				if (l == 0) prv_col_top = {get(row, col), col};
+				else prv_col_top = {std::move(stk[l-1][r].v), stk[l-1][r].col};
+
+				// just check this guy at this row, and then push it into the next layer, but don't query yet
+				if (select(row, bests[l].first, prv_col_top)) {
+					// prv_col_top is better here
+					bests[l].first = std::move(prv_col_top);
+					bests[l].second = (r+1)/2;
+					// optimization: since we're the global best, we know we'll kill the entire rest of the stack, so just do it here
+					//assert(int(stk[l].size()) >= (r+1)/2);
+					//stk[l].resize((r+1)/2);
+				}
+			}
+			if (l < L) {
+				std::optional<value_t<T>> to_push;
+				while (int(stk[l].size()) > (r+1)/2) {
+					int row = (int(stk[l].size()) << (l+1)) - 1;
+					value_t<T> nv{get(row, col), col};
+					if (select(row, stk[l].back(), nv)) {
+						stk[l].pop_back();
+						to_push = std::move(nv);
+					} else {
+						break;
+					}
+				}
+				if (to_push) {
+					stk[l].emplace_back(std::move(*to_push));
+				} else {
+					int row = (int(stk[l].size()+1) << (l+1)) - 1;
+					if (row < N) stk[l].emplace_back(get(row, col), col);
+				}
+			}
+			if (r & 1) {
+				// go return
+				nbest = std::move(bests[l].first);
+				l--;
+				break;
+			} else if (l == L) {
+				// special case: just go down 1 level already
+				int row = ((r+1) << l) - 1;
+				if (l == 0) nbest = {get(row, col), col};
+				else nbest = {std::move(stk[l-1][r].v), stk[l-1][r].col};
+				l--;
+				break;
+			} else if (((r+2) << l) - 1 >= N) {
+				// go return
+				nbest.col = col;
+				break;
+			} else {
+				l++;
+				continue;
+			}
+			assert(false);
+		}
+		for (; l >= 0; l--) {
+			int r = inp_row >> l;
+			assert(!(r & 1));
+			int row = ((r+1) << l) - 1;
+			bests[l].first = std::move(nbest);
+			bool did_set = false;
+			while (true) {
+				int idx = bests[l].second;
+				int col = (l == 0 ? idx : stk[l-1][idx].col);
+				value_t<T> cnd;
+				if (l > 0 && idx == r) cnd = {std::move(stk[l-1][r].v), col};
+				else cnd = {get(row, col), col};
+				if (!did_set || select(row, nbest, cnd)) {
+					did_set = true;
+					nbest = std::move(cnd);
+				}
+				if (col == bests[l].first.col) break;
+				bests[l].second++;
+			}
+		}
+		assert(l == -1);
+		return nbest;
+	}
+};
+
+template <typename Get, typename Select, typename T = std::invoke_result_t<Get&&, int, int>>
+#if __cpp_concepts >= 202002
+requires totally_monotone_matrix_oracle<T, Get&&, Select&&>
+#endif
+std::vector<value_t<T>> smawk(int N, int M, Get&& get, Select&& select) {
+	// TODO: If M >> N, then we should do an extra layer of column filter on the outside. The cutoff should be M > 2N or so.
+	std::vector<value_t<T>> res(N);
+	for (int i = 0; i < N; i++) res[i].col = -1;
+	std::vector<int> stks(N);
+	int L = N ? 31 - __builtin_clz(N) : 0;
+	std::vector<int> stk_ends(L+1);
+	stk_ends[0] = 0;
+	for (int l = 0; l < L; l++) {
+		int sz = 0;
+		auto check_col = [&](int col, int min_sz) -> void {
+			while (sz > min_sz) {
+				int row = (sz << (l+1)) - 1;
+				value_t<T> cnd(get(row, col), col);
+				if (select(row, res[row], cnd)) {
+					// we prefer cnd, save this
+					res[row] = std::move(cnd);
+					sz--;
+				} else {
+					break;
+				}
+			}
+
+			if (sz < (N >> (l+1))) {
+				int row = ((sz+1) << (l+1)) - 1;
+				if (res[row].col == col) {
+					stks[stk_ends[l] + sz] = col;
+					sz++;
+				} else {
+					value_t<T> cnd(get(row, col), col);
+					// This is a legal optimization, but I'm not sure it buys anything real, so just stub it out with true ||
+					if (true || res[row].col == -1 || res[row].col < col || !select(row, cnd, res[row])) {
+						res[row] = std::move(cnd);
+						stks[stk_ends[l] + sz] = col;
+						sz++;
+					}
+				}
+			}
+		};
+		if (l == 0) {
+			for (int col = 0; col < M; col++) {
+				check_col(col, 0);
+			}
+		} else {
+			for (int z = stk_ends[l-1]; z < stk_ends[l]; z++) {
+				check_col(stks[z], (z - stk_ends[l-1]) / 2);
+			}
+		}
+		assert(sz <= (N >> (l+1)));
+		stk_ends[l+1] = stk_ends[l] + sz;
+	}
+	for (int l = L; l >= 0; l--) {
+		int z = l == 0 ? 0 : stk_ends[l-1];
+		for (int r = 0; r < (N >> l); r += 2) {
+			int row = ((r+1) << l) - 1;
+			// TODO: You could not reset this? Not sure if it buys anything real.
+			res[row].col = -1;
+			for (; z < (l == 0 ? M : stk_ends[l]); z++) {
+				int col = l == 0 ? z : stks[z];
+				value_t<T> cnd = {get(row, col), col};
+				if (res[row].col == -1 || select(row, res[row], cnd)) {
+					res[row] = std::move(cnd);
+				}
+				if ((r+1) < (N >> l) && col == res[((r+2) << l) - 1].col) break;
+			}
+			assert(res[row].col != -1);
+		}
+	}
+	return res;
+}
+
+// namespace smawk
+}
+
+// https://noshi91.github.io/Library/algorithm/larsch.cpp.html
+template <class T> class larsch {
+  struct reduce_row;
+  struct reduce_col;
+
+  struct reduce_row {
+    int n;
+    std::function<T(int, int)> f;
+    int cur_row;
+    int state;
+    std::unique_ptr<reduce_col> rec;
+
+    reduce_row(int n_) : n(n_), f(), cur_row(0), state(0), rec() {
+      const int m = n / 2;
+      if (m != 0) {
+        rec = std::make_unique<reduce_col>(m);
+      }
+    }
+
+    void set_f(std::function<T(int, int)> f_) {
+      f = f_;
+      if (rec) {
+        rec->set_f([&](int i, int j) -> T { return f(2 * i + 1, j); });
+      }
+    }
+
+    int get_argmin() {
+      const int cur_row_ = cur_row;
+      cur_row += 1;
+      if (cur_row_ % 2 == 0) {
+        const int prev_argmin = state;
+        const int next_argmin = [&]() {
+          if (cur_row_ + 1 == n) {
+            return n - 1;
+          } else {
+            return rec->get_argmin();
+          }
+        }();
+        state = next_argmin;
+        int ret = prev_argmin;
+        for (int j = prev_argmin + 1; j <= next_argmin; j += 1) {
+          if (f(cur_row_, ret) > f(cur_row_, j)) {
+            ret = j;
+          }
+        }
+        return ret;
+      } else {
+        if (f(cur_row_, state) <= f(cur_row_, cur_row_)) {
+          return state;
+        } else {
+          return cur_row_;
+        }
+      }
+    }
+  };
+
+  struct reduce_col {
+    int n;
+    std::function<T(int, int)> f;
+    int cur_row;
+    std::vector<int> cols;
+    reduce_row rec;
+
+    reduce_col(int n_) : n(n_), f(), cur_row(0), cols(), rec(n) {}
+
+    void set_f(std::function<T(int, int)> f_) {
+      f = f_;
+      rec.set_f([&](int i, int j) -> T { return f(i, cols[j]); });
+    }
+
+    int get_argmin() {
+      const int cur_row_ = cur_row;
+      cur_row += 1;
+      const auto cs = [&]() -> std::vector<int> {
+        if (cur_row_ == 0) {
+          return {{0}};
+        } else {
+          return {{2 * cur_row_ - 1, 2 * cur_row_}};
+        }
+      }();
+      for (const int j : cs) {
+        while ([&]() {
+          const int size = cols.size();
+          return size != cur_row_ && f(size - 1, cols.back()) > f(size - 1, j);
+        }()) {
+          cols.pop_back();
+        }
+        if (cols.size() != n) {
+          cols.push_back(j);
+        }
+      }
+      return cols[rec.get_argmin()];
+    }
+  };
+
+public:
+  std::unique_ptr<reduce_row> base;
+
+  larsch() {}
+  larsch(int n, std::function<T(int, int)> f)
+      : base(std::make_unique<reduce_row>(n)) {
+    base->set_f(f);
+  }
+
+  int get_argmin() { return base->get_argmin(); }
+};
+
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int T; cin >> T;
+	while (T--) {
+		int N, M; cin >> N >> M;
+		//cerr << "case " << N << ' ' << M << '\n';
+		std::vector<int> A(N);
+		for (auto& a : A) cin >> a;
+		std::vector<int> B(N);
+		for (auto& b : B) cin >> b;
+		assert(B.back() == 0);
+		B.pop_back();
+		std::vector<int> C(M);
+		for (auto& c : C) cin >> c;
+		std::vector<int> D(M);
+		for (auto& d : D) cin >> d;
+		assert(D.back() == 0);
+		D.pop_back();
+
+		std::vector<int64_t> x_coords(2*N);
+		for (int i = 0; i < N; i++) {
+			x_coords[2*i] = i ? x_coords[2*i-1] + B[i-1] : 0;
+			x_coords[2*i+1] = x_coords[2*i] + A[i];
+		}
+		//for (auto v : x_coords)  { cerr << v << ' ' ;} cerr << '\n';
+		std::vector<int64_t> y_coords(2*M);
+		for (int j = 0; j < M; j++) {
+			y_coords[2*j] = j ? y_coords[2*j-1] + D[j-1] : 0;
+			y_coords[2*j+1] = y_coords[2*j] + C[j];
+		}
+		//for (auto v : y_coords)  { cerr << v << ' ' ;} cerr << '\n';
+
+		using dbl = double;
+		struct getter {
+			std::vector<int64_t>* coords = nullptr;
+			std::vector<dbl>* bots = nullptr;
+			int gap = 0;
+			dbl operator () (int outp, int inp) const {
+				NUM_GET++;
+				assert(outp >= inp);
+				assert(inp < int(bots->size()));
+				auto sq = [](dbl a) { return a * a; };
+				return (*bots)[inp] + std::sqrt(double(sq(gap) + sq((*coords)[2 * outp + 1] - (*coords)[2 * inp + 0])));
+			}
+		};
+		struct selector {
+			bool operator () (int, smawk::value_t<dbl> a, smawk::value_t<dbl> b) const {
+				NUM_SELECT++;
+				return a.v < b.v ? 0 : 1;
+			}
+		};
+
+		std::vector<larsch<dbl>> rows(M-1);
+		std::vector<larsch<dbl>> cols(N-1);
+		std::vector<std::vector<dbl>> row_bots(M-1);
+		std::vector<std::vector<dbl>> col_bots(N-1);
+		for (int j = 0; j+1 < M; j++) {
+			row_bots[j].reserve(N);
+			row_bots[j].push_back(dbl(y_coords[2*j+1]));
+			rows[j] = larsch<dbl>(N, getter{&x_coords, &row_bots[j], D[j]});
+		}
+		for (int i = 0; i+1 < N; i++) {
+			col_bots[i].reserve(M);
+			col_bots[i].push_back(dbl(x_coords[2*i+1]));
+			cols[i] = larsch<dbl>(M, getter{&y_coords, &col_bots[i], B[i]});
+		}
+
+		dbl ans = dbl(x_coords[2*N-1] + y_coords[2*M-1]);
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				if (0 <= j && j+1 < M && 0 <= i && i < N) {
+					// traverse a row
+					int pi = rows[j].get_argmin();
+					dbl v = rows[j].base->f(i, pi);
+					//cerr << "col bot " << i << ' ' << j+1 << ' ' << v << '\n';
+					if (i == N-1) {
+						ans = std::min(ans, v + dbl(y_coords[2*M-1] - y_coords[2*(j+1)]));
+					} else {
+						assert(int(col_bots[i].size()) == j+1);
+						col_bots[i].push_back(v);
+					}
+				}
+				if (0 <= i && i+1 < N && 0 <= j && j < M) {
+					// traverse a col
+					int pj = cols[i].get_argmin();
+					dbl v = cols[i].base->f(j, pj);
+					//cerr << "row bot " << i+1 << ' ' << j << ' ' << v << '\n';
+					if (j == M-1) {
+						ans = std::min(ans, v + dbl(x_coords[2*N-1] - x_coords[2*(i+1)]));
+					} else {
+						assert(int(row_bots[j].size()) == i+1);
+						row_bots[j].push_back(v);
+					}
+				}
+			}
+		}
+		cerr << "NUM_GET " << NUM_GET << '\n';
+		cerr << "NUM_SELECT " << NUM_SELECT << '\n';
+		cout << fixed << setprecision(20) << ans << '\n';
+	}
+
+	return 0;
+}

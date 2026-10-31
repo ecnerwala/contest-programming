@@ -1,0 +1,7 @@
+2
+fn &input()
+fn sum(&a, &b)
+3
+a := input()
+b := sum(a, a)
+c := sum(a, &b)

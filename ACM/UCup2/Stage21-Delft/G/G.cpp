@@ -78,7 +78,7 @@ int main() {
 
 				for (int par_val = 0; par_val < 2; par_val++) {
 					int64_t outer_cnt = ch_cnt + par_val;
-					int64_t mid_cnt = int(adj[cur].size()) - ch_cnt;
+					int64_t mid_cnt = int(adj[cur].size()) - outer_cnt;
 					int64_t cnd_val = cur_val;
 					if (our_val == 0) {
 						// Few cases to analyze

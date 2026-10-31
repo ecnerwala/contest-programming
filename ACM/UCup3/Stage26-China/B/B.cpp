@@ -609,31 +609,32 @@ int main() {
 
 	int T; cin >> T;
 	while (T--) {
-		std::mt19937 mt(48);
+		std::mt19937 mt(47);
 		int N; cin >> N;
 		using pt_t = Point<int64_t>;
 		std::vector<pt_t> P(N);
 		for (auto& p : P) cin >> p;
 
-		//int64_t A = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
-		//int64_t B = std::uniform_int_distribution(-int64_t(1e14), int64_t(1e14))(mt);
-		int64_t A = 2, B = 1;
+		int64_t A = std::uniform_int_distribution(-int64_t(1e4), int64_t(1e4))(mt);
+		int64_t B = std::uniform_int_distribution(-int64_t(1e4), int64_t(1e4))(mt);
+		//int64_t A = 2, B = 1;
 
 		pt_t dir(A, B);
 
 		for (auto& p : P) p = p.unrotate(dir);
 		std::sort(P.begin(), P.end(), [&](auto a, auto b) { return lex_less(a, b); });
 
-		for (int i = 0; i < N; i++) cerr << P[i] << '\n';
+		//for (int i = 0; i < N; i++) cerr << P[i] << '\n';
 
 		std::vector<frac_t> vals(N+1);
 
 		vals[0] = {0, 1};
+		bigint fac = bigint(A) * bigint(A) + bigint(B) * bigint(B);
 		for (int i = 1; i < N-1; i++) {
 			cout << '?' << ' ' << A << ' ' << B << ' ' << -P[i].x << '\n' << flush;
 			std::string numer; cin >> numer;
 			std::string denom; cin >> denom;
-			vals[i] = {numer, denom};
+			vals[i] = {bigint(numer) * fac, denom};
 		}
 		vals[N-1] = {0, 1};
 
@@ -686,6 +687,8 @@ int main() {
 				//cerr << "finding prv and nxt" << '\n';
 				assert(d.denom > 0);
 				for (int a = 0, b = 0; true; ) {
+					assert(a < int(v.size()));
+					assert(b < int(v.size()));
 					frac_t cnd = v[b].first - v[a].first - d;
 					assert(cnd.denom > 0);
 					if (cnd.numer == 0) {
@@ -703,6 +706,7 @@ int main() {
 			} else if (prv[i] == -1) {
 				//cerr << "finding prv" << '\n';
 				for (int a = 0; true; a++) {
+					assert(a < int(v.size()));
 					if ((v[a].first - d).numer == 0) {
 						prv[i] = v[a].second;
 						nxt[prv[i]] = i;
@@ -712,6 +716,7 @@ int main() {
 			} else if (nxt[i] == -1) {
 				//cerr << "finding nxt" << '\n';
 				for (int b = 0; true; b++) {
+					assert(b < int(v.size()));
 					if ((v[b].first + d).numer == 0) {
 						nxt[i] = v[b].second;
 						prv[nxt[i]] = i;

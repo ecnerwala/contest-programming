@@ -11,5 +11,13 @@ int main() {
 	}
 	assert(N == int(1e5) && M == int(15e3));
 
+	const int V = 27720;
+	for (int i = 1; i <= V; i++) {
+		if (V % i == 0) {
+		}
+	}
+	for (int i = 0; i < N; i++) {
+	}
+
 	return 0;
 }

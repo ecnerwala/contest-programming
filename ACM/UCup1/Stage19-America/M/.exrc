@@ -1,0 +1,164 @@
+let s:cpo_save=&cpo
+set cpo&vim
+imap <M-Bslash> <Plug>(codeium-complete)
+imap <M-[> <Plug>(codeium-previous)
+imap <M-]> <Plug>(codeium-next-or-complete)
+imap <Plug>(codeium-complete) <Cmd>call codeium#Complete()
+imap <Plug>(codeium-previous) <Cmd>call codeium#CycleCompletions(-1)
+imap <Plug>(codeium-next-or-complete) <Cmd>call codeium#CycleOrComplete()
+imap <Plug>(codeium-next) <Cmd>call codeium#CycleCompletions(1)
+imap <Plug>(codeium-dismiss) <Cmd>call codeium#Clear()
+inoremap <silent> <Plug>(fzf-maps-i) :call fzf#vim#maps('i', 0)
+inoremap <expr> <Plug>(fzf-complete-buffer-line) fzf#vim#complete#buffer_line()
+inoremap <expr> <Plug>(fzf-complete-line) fzf#vim#complete#line()
+inoremap <expr> <Plug>(fzf-complete-file-ag) fzf#vim#complete#path('ag -l -g ""')
+inoremap <expr> <Plug>(fzf-complete-file) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -type f -print -o -type l -print | sed 's:^..::'")
+inoremap <expr> <Plug>(fzf-complete-path) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -print | sed '1d;s:^..::'")
+inoremap <expr> <Plug>(fzf-complete-word) fzf#vim#complete#word()
+inoremap <silent> <Plug>NERDCommenterInsert :call nerdcommenter#Comment('i', "Insert")
+inoremap <silent> <expr> <Plug>delimitMateS-BS delimitMate#WithinEmptyPair() ? "\<Del>" : "\<S-BS>"
+inoremap <silent> <Plug>delimitMateBS =delimitMate#BS()
+inoremap <C-W> u
+inoremap <C-U> u
+nnoremap  <Cmd>nohlsearch|diffupdate|normal! 
+nnoremap <silent> <expr>  &buftype ==# 'quickfix' ? "\" : ":nohl\"
+nmap  ca <Plug>NERDCommenterAltDelims
+xmap  cu <Plug>NERDCommenterUncomment
+nmap  cu <Plug>NERDCommenterUncomment
+xmap  cb <Plug>NERDCommenterAlignBoth
+nmap  cb <Plug>NERDCommenterAlignBoth
+xmap  cl <Plug>NERDCommenterAlignLeft
+nmap  cl <Plug>NERDCommenterAlignLeft
+nmap  cA <Plug>NERDCommenterAppend
+xmap  cy <Plug>NERDCommenterYank
+nmap  cy <Plug>NERDCommenterYank
+xmap  cs <Plug>NERDCommenterSexy
+nmap  cs <Plug>NERDCommenterSexy
+xmap  ci <Plug>NERDCommenterInvert
+nmap  ci <Plug>NERDCommenterInvert
+nmap  c$ <Plug>NERDCommenterToEOL
+xmap  cn <Plug>NERDCommenterNested
+nmap  cn <Plug>NERDCommenterNested
+xmap  cm <Plug>NERDCommenterMinimal
+nmap  cm <Plug>NERDCommenterMinimal
+xmap  c  <Plug>NERDCommenterToggle
+nmap  c  <Plug>NERDCommenterToggle
+xmap  cc <Plug>NERDCommenterComment
+nmap  cc <Plug>NERDCommenterComment
+nnoremap <silent>  bd :Bclose
+nnoremap <silent>  b <Cmd>FzfBuffers
+nnoremap <silent>  f <Cmd>FzfRg
+nnoremap <silent>    <Cmd>call fzf#vim#gitfiles('-co --exclude-standard')
+nnoremap <silent>  n <Cmd>NERDTreeClose<Cmd>silent! NERDTreeFind<Cmd>NERDTreeFocus
+nnoremap # ?\<=expand('<cword>')\>
+xnoremap # y?\V"
+omap <silent> % <Plug>(MatchitOperationForward)
+xmap <silent> % <Plug>(MatchitVisualForward)
+nmap <silent> % <Plug>(MatchitNormalForward)
+nnoremap & :&&
+nnoremap * /\<=expand('<cword>')\>
+xnoremap * y/\V"
+nnoremap Y y$
+omap <silent> [% <Plug>(MatchitOperationMultiBackward)
+xmap <silent> [% <Plug>(MatchitVisualMultiBackward)
+nmap <silent> [% <Plug>(MatchitNormalMultiBackward)
+omap <silent> ]% <Plug>(MatchitOperationMultiForward)
+xmap <silent> ]% <Plug>(MatchitVisualMultiForward)
+nmap <silent> ]% <Plug>(MatchitNormalMultiForward)
+xmap a% <Plug>(MatchitVisualTextObject)
+xmap gx <Plug>NetrwBrowseXVis
+nmap gx <Plug>NetrwBrowseX
+omap <silent> g% <Plug>(MatchitOperationBackward)
+xmap <silent> g% <Plug>(MatchitVisualBackward)
+nmap <silent> g% <Plug>(MatchitNormalBackward)
+nnoremap gA :%y+
+nnoremap <SNR>140_: :=v:count ? v:count : ''
+xnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
+nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
+xmap <silent> <Plug>(MatchitVisualTextObject) <Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)
+onoremap <silent> <Plug>(MatchitOperationMultiForward) :call matchit#MultiMatch("W",  "o")
+onoremap <silent> <Plug>(MatchitOperationMultiBackward) :call matchit#MultiMatch("bW", "o")
+xnoremap <silent> <Plug>(MatchitVisualMultiForward) :call matchit#MultiMatch("W",  "n")m'gv``
+xnoremap <silent> <Plug>(MatchitVisualMultiBackward) :call matchit#MultiMatch("bW", "n")m'gv``
+nnoremap <silent> <Plug>(MatchitNormalMultiForward) :call matchit#MultiMatch("W",  "n")
+nnoremap <silent> <Plug>(MatchitNormalMultiBackward) :call matchit#MultiMatch("bW", "n")
+onoremap <silent> <Plug>(MatchitOperationBackward) :call matchit#Match_wrapper('',0,'o')
+onoremap <silent> <Plug>(MatchitOperationForward) :call matchit#Match_wrapper('',1,'o')
+xnoremap <silent> <Plug>(MatchitVisualBackward) :call matchit#Match_wrapper('',0,'v')m'gv``
+xnoremap <silent> <Plug>(MatchitVisualForward) :call matchit#Match_wrapper('',1,'v'):if col("''") != col("$") | exe ":normal! m'" | endifgv``
+nnoremap <silent> <Plug>(MatchitNormalBackward) :call matchit#Match_wrapper('',0,'n')
+nnoremap <silent> <Plug>(MatchitNormalForward) :call matchit#Match_wrapper('',1,'n')
+snoremap <expr> <BS> ("\<BS>" . (&virtualedit ==# '' && getcurpos()[2] >= col('$') - 1 ? 'a' : 'i'))
+onoremap <silent> <Plug>(fzf-maps-o) :call fzf#vim#maps('o', 0)
+xnoremap <silent> <Plug>(fzf-maps-x) :call fzf#vim#maps('x', 0)
+nnoremap <silent> <Plug>(fzf-maps-n) :call fzf#vim#maps('n', 0)
+tnoremap <silent> <Plug>(fzf-normal) 
+tnoremap <silent> <Plug>(fzf-insert) i
+nnoremap <silent> <Plug>(fzf-normal) <Nop>
+nnoremap <silent> <Plug>(fzf-insert) i
+nnoremap <silent> <Plug>GitGutterPreviewHunk :call gitgutter#utility#warn('Please change your map <Plug>GitGutterPreviewHunk to <Plug>(GitGutterPreviewHunk)')
+nnoremap <silent> <Plug>(GitGutterPreviewHunk) :GitGutterPreviewHunk
+nnoremap <silent> <Plug>GitGutterUndoHunk :call gitgutter#utility#warn('Please change your map <Plug>GitGutterUndoHunk to <Plug>(GitGutterUndoHunk)')
+nnoremap <silent> <Plug>(GitGutterUndoHunk) :GitGutterUndoHunk
+nnoremap <silent> <Plug>GitGutterStageHunk :call gitgutter#utility#warn('Please change your map <Plug>GitGutterStageHunk to <Plug>(GitGutterStageHunk)')
+nnoremap <silent> <Plug>(GitGutterStageHunk) :GitGutterStageHunk
+xnoremap <silent> <Plug>GitGutterStageHunk :call gitgutter#utility#warn('Please change your map <Plug>GitGutterStageHunk to <Plug>(GitGutterStageHunk)')
+xnoremap <silent> <Plug>(GitGutterStageHunk) :GitGutterStageHunk
+nnoremap <silent> <expr> <Plug>GitGutterPrevHunk &diff ? '[c' : ":\call gitgutter#utility#warn('Please change your map \<Plug>GitGutterPrevHunk to \<Plug>(GitGutterPrevHunk)')\"
+nnoremap <silent> <expr> <Plug>(GitGutterPrevHunk) &diff ? '[c' : ":\execute v:count1 . 'GitGutterPrevHunk'\"
+nnoremap <silent> <expr> <Plug>GitGutterNextHunk &diff ? ']c' : ":\call gitgutter#utility#warn('Please change your map \<Plug>GitGutterNextHunk to \<Plug>(GitGutterNextHunk)')\"
+nnoremap <silent> <expr> <Plug>(GitGutterNextHunk) &diff ? ']c' : ":\execute v:count1 . 'GitGutterNextHunk'\"
+xnoremap <silent> <Plug>(GitGutterTextObjectOuterVisual) :call gitgutter#hunk#text_object(0)
+xnoremap <silent> <Plug>(GitGutterTextObjectInnerVisual) :call gitgutter#hunk#text_object(1)
+onoremap <silent> <Plug>(GitGutterTextObjectOuterPending) :call gitgutter#hunk#text_object(0)
+onoremap <silent> <Plug>(GitGutterTextObjectInnerPending) :call gitgutter#hunk#text_object(1)
+nnoremap <Plug>NERDCommenterAltDelims :call nerdcommenter#SwitchToAlternativeDelimiters(1)
+xnoremap <silent> <Plug>NERDCommenterUncomment :call nerdcommenter#Comment("x", "Uncomment")
+nnoremap <silent> <Plug>NERDCommenterUncomment :call nerdcommenter#Comment("n", "Uncomment")
+xnoremap <silent> <Plug>NERDCommenterAlignBoth :call nerdcommenter#Comment("x", "AlignBoth")
+nnoremap <silent> <Plug>NERDCommenterAlignBoth :call nerdcommenter#Comment("n", "AlignBoth")
+xnoremap <silent> <Plug>NERDCommenterAlignLeft :call nerdcommenter#Comment("x", "AlignLeft")
+nnoremap <silent> <Plug>NERDCommenterAlignLeft :call nerdcommenter#Comment("n", "AlignLeft")
+nnoremap <silent> <Plug>NERDCommenterAppend :call nerdcommenter#Comment("n", "Append")
+xnoremap <silent> <Plug>NERDCommenterYank :call nerdcommenter#Comment("x", "Yank")
+nnoremap <silent> <Plug>NERDCommenterYank :call nerdcommenter#Comment("n", "Yank")
+xnoremap <silent> <Plug>NERDCommenterSexy :call nerdcommenter#Comment("x", "Sexy")
+nnoremap <silent> <Plug>NERDCommenterSexy :call nerdcommenter#Comment("n", "Sexy")
+xnoremap <silent> <Plug>NERDCommenterInvert :call nerdcommenter#Comment("x", "Invert")
+nnoremap <silent> <Plug>NERDCommenterInvert :call nerdcommenter#Comment("n", "Invert")
+nnoremap <silent> <Plug>NERDCommenterToEOL :call nerdcommenter#Comment("n", "ToEOL")
+xnoremap <silent> <Plug>NERDCommenterNested :call nerdcommenter#Comment("x", "Nested")
+nnoremap <silent> <Plug>NERDCommenterNested :call nerdcommenter#Comment("n", "Nested")
+xnoremap <silent> <Plug>NERDCommenterMinimal :call nerdcommenter#Comment("x", "Minimal")
+nnoremap <silent> <Plug>NERDCommenterMinimal :call nerdcommenter#Comment("n", "Minimal")
+xnoremap <silent> <Plug>NERDCommenterToggle :call nerdcommenter#Comment("x", "Toggle")
+nnoremap <silent> <Plug>NERDCommenterToggle :call nerdcommenter#Comment("n", "Toggle")
+xnoremap <silent> <Plug>NERDCommenterComment :call nerdcommenter#Comment("x", "Comment")
+nnoremap <silent> <Plug>NERDCommenterComment :call nerdcommenter#Comment("n", "Comment")
+nnoremap <C-L> <Cmd>nohlsearch|diffupdate|normal! 
+inoremap  u
+inoremap  u
+let &cpo=s:cpo_save
+unlet s:cpo_save
+set cindent
+set cinoptions=N-s,g0,j1,(s,m1
+set completeopt=menu,menuone,noselect
+set errorformat=%-GIn\ file\ included\ %.%#,%*[^\"]\"%f\"%*\\D%l:\ %m,\"%f\"%*\\D%l:\ %m,%-G%f:%l:\ (Each\ undeclared\ identifier\ is\ reported\ only\ once,%-G%f:%l:\ for\ each\ function\ it\ appears\ in.),%-GIn\ file\ included\ from\ %f:%l:%c:,%-GIn\ file\ included\ from\ %f:%l:%c\\,,%-GIn\ file\ included\ from\ %f:%l:%c,%-GIn\ file\ included\ from\ %f:%l,%-G%*[\ ]from\ %f:%l:%c,%-G%*[\ ]from\ %f:%l:,%-G%*[\ ]from\ %f:%l\\,,%-G%*[\ ]from\ %f:%l,%f:%l:%c:%m,%f(%l):%m,%f:%l:%m,\"%f\"\\,\ line\ %l%*\\D%c%*[^\ ]\ %m,%D%*\\a[%*\\d]:\ Entering\ directory\ %*[`']%f',%X%*\\a[%*\\d]:\ Leaving\ directory\ %*[`']%f',%D%*\\a:\ Entering\ directory\ %*[`']%f',%X%*\\a:\ Leaving\ directory\ %*[`']%f',%DMaking\ %*\\a\ in\ %f,%f|%l|\ %m
+set helplang=en
+set nohidden
+set ignorecase
+set listchars=extends:‚ñ∂,leadmultispace:¬∑\ ,nbsp:‚ê£,precedes:‚óÄ,tab:¬ª\ ,trail:‚ê£
+set mouse=a
+set runtimepath=~/.config/nvim,~/.local/share/nvim/plugged/bclose.vim,~/.local/share/nvim/plugged/nerdtree,~/.local/share/nvim/plugged/vim-airline,~/.local/share/nvim/plugged/vim-airline-themes,~/.local/share/nvim/plugged/vim-bufferline,~/.local/share/nvim/plugged/vim-colors-solarized,~/.local/share/nvim/plugged/delimitMate,~/.local/share/nvim/plugged/nerdcommenter,~/.local/share/nvim/plugged/vim-sleuth,~/.local/share/nvim/plugged/vim-gitgutter,~/.local/share/nvim/plugged/editorconfig-vim,~/.local/share/nvim/plugged/fzf,~/.local/share/nvim/plugged/fzf.vim,~/.local/share/nvim/plugged/nvim-lspconfig,~/.local/share/nvim/plugged/nvim-treesitter,~/.local/share/nvim/plugged/playground,~/.local/share/nvim/plugged/nvim-cmp,~/.local/share/nvim/plugged/cmp-buffer,~/.local/share/nvim/plugged/cmp-path,~/.local/share/nvim/plugged/cmp-cmdline,~/.local/share/nvim/plugged/cmp-nvim-lsp,~/.local/share/nvim/plugged/cmp-vsnip,~/.local/share/nvim/plugged/vim-vsnip,~/.local/share/nvim/plugged/vim-fugitive,~/.local/share/nvim/plugged/codeium.vim,~/.local/share/nvim/plugged/vim-pandoc,~/.local/share/nvim/plugged/vim-python-pep8-indent,~/.local/share/nvim/plugged/vim-jsx-pretty,~/.local/share/nvim/plugged/vim-circom-syntax,~/.local/share/nvim/plugged/SimpylFold,~/.local/share/nvim/plugged/workflowish,/etc/xdg/nvim,~/.local/share/nvim/site,/usr/local/share/nvim/site,/usr/share/nvim/site,/usr/share/nvim/runtime,/usr/share/nvim/runtime/pack/dist/opt/matchit,/usr/lib/nvim,/usr/share/nvim/site/after,/usr/local/share/nvim/site/after,~/.local/share/nvim/site/after,/etc/xdg/nvim/after,~/.config/nvim/after,~/.local/share/nvim/plugged/playground/after,~/.local/share/nvim/plugged/cmp-buffer/after,~/.local/share/nvim/plugged/cmp-path/after,~/.local/share/nvim/plugged/cmp-cmdline/after,~/.local/share/nvim/plugged/cmp-nvim-lsp/after,~/.local/share/nvim/plugged/cmp-vsnip/after,~/.local/share/nvim/plugged/vim-jsx-pretty/after,/usr/share/vim/vimfiles
+set shiftwidth=4
+set smartcase
+set softtabstop=4
+set spellfile=~/.config/nvim/spell/en.utf-8.add
+set splitbelow
+set splitright
+set tabstop=4
+set title
+set undofile
+set updatetime=200
+set window=59
+" vim: set ft=vim :

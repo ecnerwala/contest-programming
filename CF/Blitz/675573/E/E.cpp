@@ -40,13 +40,14 @@ int main() {
 		if (d0[N-1] == -1) {
 			std::cout << -1 << '\n';
 		} else {
-			int64_t ans = 2 * d0[N-1];
-			if (d0[N] != -1) {
-				for (int i = 0; i < N; i++) {
-					if (d0[i] == -1) continue;
-					assert(d0[i] != -1 && d1[i] != -1);
-					assert(d0[N+i] != -1);
+			int64_t ans = d0[N-1];
+			for (int i = 0; i < N; i++) {
+				if (d0[i] == -1) continue;
+				assert(d0[i] != -1 && d1[i] != -1);
+				if (d0[N+i] != -1) {
 					ans = std::min(ans, std::max(std::min(d0[i], d0[N+i]), std::min(d1[i], d1[N+i])));
+				} else {
+					ans = std::min(ans, std::max(d0[i], d1[i]));
 				}
 			}
 			std::cout << ans << '\n';

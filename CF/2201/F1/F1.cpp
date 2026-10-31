@@ -18,6 +18,7 @@ struct splitmix64_hash {
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+	static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
 
 	int T; cin >> T;
 	while (T--) {
@@ -36,7 +37,7 @@ int main() {
 				int f = row_freq[z][r]++;
 				int g = freq_freq[z][f]++;
 				if (z) std::swap(f, g);
-				hsh[z] += splitmix64_hash::splitmix64((uint64_t(f) << 32) | uint64_t(g));
+				hsh[z] += splitmix64_hash::splitmix64(((uint64_t(f) << 32) | uint64_t(g)) + FIXED_RANDOM);
 			}
 			cout << (hsh[0] == hsh[1] ? "YES" : "NO") << '\n';
 		}

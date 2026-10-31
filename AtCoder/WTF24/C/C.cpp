@@ -11,7 +11,8 @@ int main() {
 		for (auto& x : X) cin >> x;
 		std::vector<int> K(N);
 		for (auto& k : K) { cin >> k; k--; }
-		auto solve = [&]() -> int {
+		auto solve = [&]() -> int64_t {
+			if (L <= 2*C) return 0;
 			std::array<int, 2> cur_cap{C, C};
 			int cur_pos = 0;
 			for (int i = 0; i < N; i++) {
@@ -32,7 +33,9 @@ int main() {
 				cur_pos = nxt_pos;
 			}
 			if (L - cur_pos > cur_cap[0] + cur_cap[1]) return -1;
-			return 0;
+			int64_t ans = 1e18;
+
+			return std::min(ans, int64_t(L - 2 * C));
 		};
 		cout << solve() << '\n';
 	}

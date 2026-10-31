@@ -73,7 +73,6 @@ int main() {
 				sc.last_ac = z;
 				if (get_val(sc) > get_val(teams[12].second)) {
 					if (passed.insert(s.team_name).second) {
-						std::cerr << s.team_name << ' ' << s.time << '\n';
 						pass_times.push_back({s.team_name, s.time});
 					}
 				}

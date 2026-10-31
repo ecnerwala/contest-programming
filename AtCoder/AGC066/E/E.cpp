@@ -1,35 +1,69 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include <bits/stdc++.h>
+
+template <typename T> T mod_inv_in_range(T a, T m) {
+	// assert(0 <= a && a < m);
+	T x = a, y = m;
+	// coeff of a in x and y
+	T vx = 1, vy = 0;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		vy -= k * vx;
+		std::swap(x, y);
+		std::swap(vx, vy);
+	}
+	assert(y == 1);
+	return vy < 0 ? m + vy : vy;
+}
+
+template <typename T> struct extended_gcd_result {
+	T gcd;
+	T coeff_a, coeff_b;
+};
+template <typename T> extended_gcd_result<T> extended_gcd(T a, T b) {
+	T x = a, y = b;
+	// coeff of a and b in x and y
+	T ax = 1, ay = 0;
+	T bx = 0, by = 1;
+	while (x) {
+		T k = y / x;
+		y %= x;
+		ay -= k * ax;
+		by -= k * bx;
+		std::swap(x, y);
+		std::swap(ax, ay);
+		std::swap(bx, by);
+	}
+	return {y, ay, by};
+}
+
+template <typename T> T mod_inv(T a, T m) {
+	a %= m;
+	a = a < 0 ? a + m : a;
+	return mod_inv_in_range(a, m);
+}
 
 template <int MOD_> struct modnum {
 	static constexpr int MOD = MOD_;
 	static_assert(MOD_ > 0, "MOD must be positive");
 
 private:
-	using ll = long long;
-
 	int v;
-
-	static int minv(int a, int m) {
-		a %= m;
-		assert(a);
-		return a == 1 ? 1 : int(m - ll(minv(m, a)) * ll(m) / a);
-	}
 
 public:
 
 	modnum() : v(0) {}
-	modnum(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
 	explicit operator int() const { return v; }
 	friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
-	friend std::istream& operator >> (std::istream& in, modnum& n) { ll v_; in >> v_; n = modnum(v_); return in; }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { int64_t v_; in >> v_; n = modnum(v_); return in; }
 
 	friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
 	friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
 
 	modnum inv() const {
 		modnum res;
-		res.v = minv(v, MOD);
+		res.v = mod_inv_in_range(v, MOD);
 		return res;
 	}
 	friend modnum inv(const modnum& m) { return m.inv(); }
@@ -58,17 +92,17 @@ public:
 		return *this;
 	}
 	modnum& operator += (const modnum& o) {
-		v += o.v;
-		if (v >= MOD) v -= MOD;
+		v -= MOD-o.v;
+		v = (v < 0) ? v + MOD : v;
 		return *this;
 	}
 	modnum& operator -= (const modnum& o) {
 		v -= o.v;
-		if (v < 0) v += MOD;
+		v = (v < 0) ? v + MOD : v;
 		return *this;
 	}
 	modnum& operator *= (const modnum& o) {
-		v = int(ll(v) * ll(o.v) % MOD);
+		v = int(int64_t(v) * int64_t(o.v) % MOD);
 		return *this;
 	}
 	modnum& operator /= (const modnum& o) {
@@ -83,119 +117,55 @@ public:
 	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
 };
 
-template <typename T> T pow(T a, long long b) {
-	assert(b >= 0);
-	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
-}
-
-using num = modnum<998244353>;
-
 int main() {
-int T; cin >> T; while (T--) {
-	int N; cin >> N;
-	vector<vector<int>> adj(N);
-	for (int i = 0; i < N-1; i++) {
-		int u, v; cin >> u >> v; u--, v--;
-		adj[u].push_back(v);
-		adj[v].push_back(u);
-	}
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	if (N == 1) {
-		cout << 1 << '\n';
-		continue;
-	}
-
-	assert(N >= 2);
-
-	vector<num> fact(N+1);
-	fact[0] = 1;
-	for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
-	vector<num> ifact(N+1);
-	ifact[N] = inv(fact[N]);
-	for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
-
-	int ROOT = 0;
-	while (adj[ROOT].size() != 1) ROOT++;
-
-	vector<int> preorder; preorder.reserve(N);
-	vector<vector<pair<int, int>>> merges(N+3);
-
-	std::function<void(int, int, pair<int, int>)> dfs = [&](int cur, int prv, pair<int, int> curMerge) -> void {
-		preorder.push_back(cur);
-		if (curMerge.first != -1) {
-			merges[curMerge.second].emplace_back(curMerge.first, cur);
-			curMerge.second++;
+	int T; cin >> T;
+	while (T--) {
+		int N; cin >> N;
+		std::vector<std::vector<int>> adj(N);
+		for (int e = 0; e < N-1; e++) {
+			int u, v; cin >> u >> v; u--, v--;
+			adj[u].push_back(v);
+			adj[v].push_back(u);
 		}
-		if (adj[cur].size() >= 3) {
-			int nxt = adj[cur][0]; if (nxt == prv) nxt = adj[cur][1];
-			if (curMerge.first != -1) {
-				merges[curMerge.second].emplace_back(curMerge.first, nxt);
+
+		using num = modnum<998244353>;
+		std::vector<num> fact(N+1);
+		fact[0] = 1;
+		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		std::vector<num> ifact(N+1);
+		ifact[N] = inv(fact[N]);
+		for (int i = N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
+		std::vector<std::vector<std::array<int, 2>>> merges(N+1);
+
+		for (int st = 0; st < N; st++) {
+			if (adj[st].size() == 2) continue;
+			for (int st_ch : adj[st]) {
+				int path_len = 2;
+				int a = st, b = st_ch;
+				while (adj[b].size() == 2) {
+					a ^= adj[b][0] ^ adj[b][1];
+					std::swap(a, b);
+					path_len++;
+				}
+				int en = b;
+				if (st > en) continue;
+				merges[path_len].push_back({st, en});
+				// If K < N - path_len, then vertices on the two sides can merge
 			}
-			curMerge = {cur + N, 2};
 		}
-		for (int nxt : adj[cur]) {
-			if (nxt == prv) continue;
-			dfs(nxt, cur, curMerge);
-		}
-	};
-	dfs(ROOT, -1, pair<int, int>(-1, -1));
-
-	vector<int> par(2*N, -1);
-	vector<int> sz(2*N);
-	for (int i = 0; i < N; i++) sz[i] = 1;
-	num curCnt = fact[N];
-
-	auto getPar = [&](int a) -> int {
-		stack<int> stk;
-		while (par[a] >= 0) {
-			stk.push(a);
-			a = par[a];
-		}
-		while (!stk.empty()) {
-			par[stk.top()] = a;
-			stk.pop();
-		}
-		return a;
-	};
-	auto merge = [&](int a, int b) -> bool {
-		a = getPar(a), b = getPar(b);
-		if (a == b) return false;
-		if (par[b] < par[a]) swap(a, b);
-		par[a] += par[b];
-		par[b] = a;
-		curCnt *= fact[sz[a]];
-		curCnt *= fact[sz[b]];
-		sz[a] += sz[b];
-		curCnt *= ifact[sz[a]];
-		sz[b] = 0;
-		return true;
-	};
-
-	vector<num> ans(N+1);
-	for (int i = 0; i < N; i++) {
-		ans[N-i] = curCnt;
-
-		// delete this one
-		//cerr << "delete " << preorder[i] << '\n';
-		curCnt *= ifact[N-i];
-		curCnt *= fact[N-i-1];
-		int p = getPar(preorder[i]);
-		curCnt *= fact[sz[p]];
-		sz[p]--;
-		curCnt *= ifact[sz[p]];
-
-		for (auto it : merges[i+1]) {
-			//cerr << "merge " << it.first << ' ' << it.second << '\n';
-			merge(it.first, it.second);
-		}
-
-		//for (int v = 0; v < 2*N; v++) { if (par[v] < 0) cerr << sz[v] << ' '; } cerr << '\n';
+		std::vector<int> par(N, -1);
+		auto get_par = [&](int a) -> int {
+			while (par[a] >= 0) {
+				if (par[par[a]] >= 0) par[a] = par[par[a]];
+				a = par[a];
+			}
+			return a;
+		};
 	}
-
-	for (int i = 1; i <= N; i++) {
-		cout << fact[N] * ifact[N-i] / ans[i] << " \n"[i==N];
-	}
-}
 
 	return 0;
 }

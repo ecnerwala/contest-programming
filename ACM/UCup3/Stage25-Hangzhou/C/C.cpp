@@ -149,6 +149,8 @@ int main() {
 		auto pa = [&](int x) -> pt_t { return a[(x >= int(a.size())) ? x - int(a.size()) : x]; };
 		auto pb = [&](int x) -> pt_t { return b[(x >= int(b.size())) ? x - int(b.size()) : x]; };
 
+		if (cross(pa(a_lo + 1) - pa(a_lo), base_ang) == 0) a_lo++;
+
 		std::array<pt_t, 2> ans_big{a[0], b[0]};
 		std::array<pt_t, 2> ans_small{a[0], b[0]};
 
@@ -182,6 +184,8 @@ int main() {
 		auto pa = [&](int x) -> pt_t { return a[(x >= int(a.size())) ? x - int(a.size()) : x]; };
 		auto pb = [&](int x) -> pt_t { return b[(x >= int(b.size())) ? x - int(b.size()) : x]; };
 
+		if (cross(pa(a_lo + 1) - pa(a_lo), base_ang) == 0) a_lo++;
+
 		std::array<pt_t, 2> ans_big{a[0], b[0]};
 		std::array<pt_t, 2> ans_small{a[0], b[0]};
 
@@ -192,7 +196,7 @@ int main() {
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					pt_t x = pa(md), y = pa(md+1);
-					if (cross(base_ang, cur - y) < 0) {
+					if (cross(base_ang, cur - y) <= 0) {
 						ma = md;
 					} else if (cross(y - x, cur - y) < 0) {
 						ma = md;
@@ -212,7 +216,7 @@ int main() {
 				while (ma - mi > 1) {
 					int md = (mi + ma) / 2;
 					pt_t x = pa(md), y = pa(md+1);
-					if (cross(base_ang, cur - x) > 0) {
+					if (cross(base_ang, cur - x) >= 0) {
 						mi = md;
 					} else if (cross(y - x, cur - x) < 0) {
 						mi = md;

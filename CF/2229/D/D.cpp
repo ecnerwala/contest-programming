@@ -21,15 +21,15 @@ int main() {
 					was_neg = true;
 					tot_val--;
 				} else if (s == +1) {
-					tot_val++;
 					was_neg = false;
+					tot_val++;
 				} else assert(false);
 			}
 			return tot_val > 0;
 		};
 
 		int mi = 1;
-		int ma = 2*N;
+		int ma = 2*N+1;
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			if (is_good(md)) {

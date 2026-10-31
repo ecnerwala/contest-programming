@@ -301,6 +301,11 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
+	if (fopen("gangsters.in", "r")) {
+		freopen("gangsters.in", "r", stdin);
+		freopen("gangsters.out", "w", stdout);
+	}
+
 	int N, Q; cin >> N >> Q;
 	std::vector<int> P(N);
 	std::vector<std::vector<int>> ch(N);

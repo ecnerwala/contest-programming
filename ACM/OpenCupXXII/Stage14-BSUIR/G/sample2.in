@@ -1,0 +1,7 @@
+2
+fn input()
+fn clone(&a)
+3
+a := input()
+a := &a
+b := clone(a)

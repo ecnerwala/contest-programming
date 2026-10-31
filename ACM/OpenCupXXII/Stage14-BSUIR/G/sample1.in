@@ -1,0 +1,10 @@
+3
+fn input()
+fn clone(&a)
+fn sum(a, b)
+5
+a := input()
+b := input()
+br := &b
+s := sum(a, b)
+bc := clone(br)

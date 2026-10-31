@@ -18,7 +18,7 @@ int main() {
 		// sort by right endpoint
 		std::sort(segs.begin(), segs.end(), [&](auto a, auto b) { return a[1] < b[1]; });
 		std::vector<int> par(V, -1);
-		// first is linked list pointer, second is actual value
+		// first is linked list pointer, second is actual gap
 		std::vector<std::pair<int, int>> val(V, {0, 0});
 		auto get_par = [&](int a) -> int {
 			while (par[a] >= 0) {
@@ -42,8 +42,8 @@ int main() {
 					while ((++cur_r) < r) par[cur_r] = r;
 					right_gap = 0;
 				}
-				l = get_par(l);
 				right_gap++;
+				l = get_par(l);
 				assert(val[l].second > 0);
 				if ((--val[l].second) == 0) {
 					if (val[l].first >= cur_l) {

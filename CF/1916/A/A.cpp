@@ -8,6 +8,13 @@ int main() {
 	while (T--) {
 		int N, K; cin >> N >> K;
 		std::vector<int> B(N); for (auto& b : B) cin >> b;
+		int v = 1;
+		for (auto b : B) v *= b;
+		if (2023 % v != 0) {
+			cout << "NO" << '\n';
+		} else {
+			cout << "YES" << '\n';
+		}
 		int r = 2023;
 		for (int b : B) {
 			if (r % b) { r = 0; break; }

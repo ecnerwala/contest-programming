@@ -13,7 +13,7 @@ int main() {
 			sum += i * (i+1) / 2;
 			if (len > 1000) break;
 			seq.push_back(i);
-			cerr << int(seq.size()) << ' ' << i << ' ' << len << ' ' << sum << '\n';
+			//cerr << int(seq.size()) << ' ' << i << ' ' << len << ' ' << sum << '\n';
 		}
 	}
 
@@ -65,8 +65,6 @@ int main() {
 			for (int z = 0; z < L; z++) {
 				for (int a = 0; a < seq[z]; a++) {
 					cnd.push_back(open_ind);
-				}
-				for (int a = 0; a < seq[z]; a++) {
 					cnd.push_back(inds[z]);
 				}
 				cnd.push_back(open_ind);

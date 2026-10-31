@@ -297,7 +297,6 @@ int main() {
 			// all 1's and then all together in a group of size N-K+1
 			ans = (pref[N] - pref[N-K+1]) + __int128_t(pref[N-K+1]) * (N-K+1);
 		} else {
-			st_len = 1;
 			assert(v_lo.second < K && K < v_hi.second);
 			// v_lo is the worst case, v_hi is the best
 			__int128_t s_lo = v_hi.first - v_lo.first;

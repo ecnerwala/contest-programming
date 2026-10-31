@@ -20,11 +20,13 @@ int main() {
 		for (int i = 0; i < N; i++) r_cnt[i+1] += r_cnt[i];
 		std::sort(A.begin(), A.end());
 		do {
-			ans +=
-				(A[0] + A[1] + A[2] == r_cnt.back())
-				&& binary_search(r_cnt.begin(), r_cnt.end(), A[0])
-				&& binary_search(r_cnt.begin(), r_cnt.end(), A[0] + A[1])
-				&& binary_search(r_cnt.begin(), r_cnt.end(), A[0] + A[1] + A[2]);
+			for (int i = 1; i < N; i++) {
+				for (int j = i+1; j < N; j++) {
+					if (A[0] + A[1] + A[2] == r_cnt[N] && r_cnt[i] == A[0] && r_cnt[j] == A[0] + A[1]) {
+						ans++;
+					}
+				}
+			}
 		} while (std::next_permutation(A.begin(), A.end()));
 	}
 	fout << ans << '\n';

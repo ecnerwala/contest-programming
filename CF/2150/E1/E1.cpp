@@ -10,7 +10,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 
-		std::vector<int> P(N);
+		std::vector<int> P(2*N-1);
 		std::iota(P.begin(), P.end(), 0);
 		std::shuffle(P.begin(), P.end(), mt);
 

@@ -1,0 +1,57 @@
+
+# 2023-11-16 17:00:20.401835
++/help
+
+# 2023-11-16 17:00:54.688020
++The problem statement is in the comment. Please first read the input. Use a struct to store all queries.
+
+# 2023-11-16 17:05:54.963872
++Modify a and b to be 0-indexed
+
+# 2023-11-16 17:06:55.743672
++Implement union find
+
+# 2023-11-16 17:07:57.069016
++There's a compiler error
+
+# 2023-11-16 17:08:03.843091
++/run make
+
+# 2023-11-16 17:09:05.462216
++Please don't use using namespace st
+
+# 2023-11-16 17:10:23.384905
++Fix idnentation to always use tabs
+
+# 2023-11-16 17:12:25.195417
++/run make
+
+# 2023-11-16 17:13:10.342937
++Change spaces to tabs one more time
+
+# 2023-11-16 17:14:32.817087
++Modify the union find to store the difference of each node with its parent
+
+# 2023-11-16 17:16:19.290915
++Make unite return a boolean for whether the diff is equal to the existing one
+
+# 2023-11-16 17:16:51.692113
++Now use union find in main to solve the problem
+
+# 2023-11-16 17:17:28.641658
++/run make test
+
+# 2023-11-16 17:18:58.327346
++My code gets wrong answer
+
+# 2023-11-16 17:19:19.418087
++It seems to integer overflow
+
+# 2023-11-16 17:20:21.241750
++/run make test
+
+# 2023-11-16 17:21:05.578327
++Thank you! goodbye
+
+# 2023-11-16 17:21:10.303300
++/exit

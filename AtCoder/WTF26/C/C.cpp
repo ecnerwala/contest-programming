@@ -1583,7 +1583,6 @@ int main() {
 				std::cerr << '\n';
 			}
 			auto res = ecnerwala::fft::fft_multiply(mul_a, mul_b);
-			std::cerr << res.size() << '\n';
 			for (int i = 0; i <= cur; i++) {
 				for (int j = 0; j <= N-1-cur; j++) {
 					ndp[{i+1, j}] += res[i + (2*cur+1) * j];

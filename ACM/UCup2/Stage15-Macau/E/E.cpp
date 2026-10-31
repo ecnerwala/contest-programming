@@ -9,7 +9,7 @@ int main() {
 	for (auto& a : A) { cin >> a; a--; }
 	std::vector<int> B(N);
 	for (auto& b : B) { cin >> b; b--; }
-	std::vector<std::array<int, 2>> edges; edges.reserve(2*N-1);
+	std::vector<std::array<int, 2>> edges; edges.reserve(2*N-2);
 	for (int z = 0; z < 2; z++) {
 		// Add the edges
 		std::vector<int> inv_B(N);
