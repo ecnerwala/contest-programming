@@ -1204,9 +1204,6 @@ int main() {
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
 			assert(b - a == dir * l);
-			if (T >= 2 * N) {
-				en = st + dir * (2 * N);
-			}
 		};
 
 		std::array<pt_t, 4> square;
