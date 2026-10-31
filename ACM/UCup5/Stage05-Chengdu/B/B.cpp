@@ -1178,6 +1178,9 @@ int main() {
 		square[1] = {X0, Y0 + T};
 		square[2] = {X0 - T, Y0};
 		square[3] = {X0, Y0 - T};
+		for (int z = 0; z < 4; z++) {
+			pt_t st = square[z], en = square[(z+1)%4];
+		}
 	};
 
 	int CASES; std::cin >> CASES;
