@@ -1189,8 +1189,9 @@ int main() {
 			return v;
 		};
 		auto normalize_pt = [&](pt_t a) -> pt_t {
-			a.x %= 2 * N;
-			a.x %= 2 * N;
+			a.x = normalize_coord(a.x);
+			a.y = normalize_coord(a.y);
+			return a;
 		};
 		auto process_seg = [&](pt_t a, pt_t b) -> void {
 			a = normalize_pt(a);
