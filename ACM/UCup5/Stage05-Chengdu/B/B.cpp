@@ -1183,9 +1183,10 @@ int main() {
 		square[3] = {X0, Y0 - T};
 		for (int z = 0; z < 4; z++) {
 			pt_t st = square[z], en = square[(z+1)%4];
-			pt_t dir = en - st;
+			pt_t dir{signum(en.x - en.y)}
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
+			asser
 		}
 	};
 
