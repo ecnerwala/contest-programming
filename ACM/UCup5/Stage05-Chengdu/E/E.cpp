@@ -834,7 +834,7 @@ int main() {
 		};
 		int N, Q; std::cin >> N >> Q;
 		wala::vec<poly_t> P(N);
-		for (auto& p : P) std::cin >> p.first;
+		for (auto& p : P) std::cin >> p.p;
 		for (int i = 0; i < N; i++) P[i].second = i;
 
 		std::ranges::sort(P, [&](auto a, auto b) -> bool {
