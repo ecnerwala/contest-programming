@@ -855,7 +855,6 @@ int main() {
 			auto upper_it = std::lower_bound(upper.begin(), upper.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
-			if (lower_it == lower.end() || lower_it == lower.begin()) return false;
 		};
 
 		for (int q = 0; q < Q; q++) {
