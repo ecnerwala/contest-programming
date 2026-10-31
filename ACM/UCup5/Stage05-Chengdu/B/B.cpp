@@ -1275,6 +1275,7 @@ int main() {
 			prv_has = pref > 0;
 		}
 		assert(pref == 0);
+		return ans;
 	};
 
 	int CASES; std::cin >> CASES;
