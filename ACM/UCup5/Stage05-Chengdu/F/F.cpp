@@ -3490,5 +3490,11 @@ public:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
+	int T; std::cin >> T;
+	while (T--) {
+		int N; std::cin >> N;
+		std::string S; std::cin >> S;
+	}
+
 	return 0;
 }
