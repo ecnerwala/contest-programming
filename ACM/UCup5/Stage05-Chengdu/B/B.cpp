@@ -1196,6 +1196,7 @@ int main() {
 		auto process_seg = [&](pt_t a, pt_t b) -> void {
 			a = normalize_pt(a);
 			b = normalize_pt(b);
+			// Now, just intersect this lien
 		};
 
 		std::array<pt_t, 4> square;
