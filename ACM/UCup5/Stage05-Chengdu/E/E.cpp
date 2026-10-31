@@ -885,8 +885,9 @@ int main() {
 			cnds.push_back(*std::prev(lower_it));
 			cnds.push_back(*lower_it);
 			if (lower_it->p.x == C.x) cnds.push_back(*std::next(lower_it));
-			if (upper_it->p.x == C.x) {
-			}
+			cnds.push_back(*std::prev(lower_it));
+			cnds.push_back(*lower_it);
+			if (lower_it->p.x == C.x) cnds.push_back(*std::next(lower_it));
 		};
 
 		for (int q = 0; q < Q; q++) {
