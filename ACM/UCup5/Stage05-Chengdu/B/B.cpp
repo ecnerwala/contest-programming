@@ -1196,7 +1196,7 @@ int main() {
 			if (T >= 2 * N) {
 				en = st + dir * (2 * N);
 			}
-			auto a = [&](int64_t p, int d) -> int {
+			auto a = [&](int64_t p, int64_t d) -> int {
 			};
 			assert(en != st);
 			while (en != st) {
