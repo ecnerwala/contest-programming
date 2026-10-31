@@ -1209,6 +1209,7 @@ int main() {
 			int64_t vdir = dir.x * A + dir.y * B;
 			if (vdir == 0) {
 				if (va != 0) return;
+				std::min(a.x, b.x);
 			} else {
 				if (va % vdir) return;
 				int64_t steps = va / vdir;
