@@ -4087,6 +4087,7 @@ int main() {
 		for (auto n : newtons) { std::cerr << n << ' '; } std::cerr << '\n';
 
 		// Now, we convert adds to newton sums and likewise subs
+			wala::vec<exact> prods(S * 2);
 		for (int i = 0; i < N; i++) {
 		}
 	}
