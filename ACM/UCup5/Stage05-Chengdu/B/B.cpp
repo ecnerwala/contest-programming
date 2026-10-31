@@ -1206,6 +1206,7 @@ int main() {
 			assert(b - a == dir * l);
 			// Now, intersect these
 			int64_t va = a.x * A + a.y * B + C;
+			int64_t vdir = dir.x * A + dir.y * B;
 		};
 
 		std::array<pt_t, 4> square;
