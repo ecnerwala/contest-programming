@@ -1046,15 +1046,7 @@ int main() {
 		assert(1 <= X0 && X0 <= N);
 		assert(1 <= Y0 && Y0 <= N);
 		X0--, Y0--, C += A + B;
-
-		if (std::abs(A) == std::abs(B)) {
-		}
-
-		int64_t g = std::gcd(std::abs(A), std::abs(B));
-		if (C % g) return 0;
-		A /= g, B /= g, C /= g;
-
-		X0 - T
+		assert(0 <= X0 && X0 <= N-1);
 	};
 
 	int CASES; std::cin >> CASES;
