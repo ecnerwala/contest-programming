@@ -3624,7 +3624,7 @@ int main() {
 		for (int z = 0; z < 2; z++) {
 			wala::vec<exact> prods(subtree_sizes[z].size() * 2);
 			for (int i = 0; i < subtree_sizes[z].size(); i++) {
-				prods[subtree_sizes[z].size() + i] = {1, num(subtree_sizes[z][i])};
+				prods[subtree_sizes[z].size() + i] = exact{{1, num(subtree_sizes[z][i])}};
 			}
 		}
 
