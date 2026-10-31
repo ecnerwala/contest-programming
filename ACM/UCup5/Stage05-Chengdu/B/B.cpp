@@ -1258,8 +1258,7 @@ int main() {
 		}
 
 		std::sort(x_evts.begin(), x_evts.end());
-		{
-			auto it = ;
+		for (int i = 0, j = 0; i < x_evts.size(); i++) {
 		}
 	};
 
