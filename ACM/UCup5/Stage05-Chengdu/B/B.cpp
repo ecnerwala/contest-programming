@@ -1221,6 +1221,7 @@ int main() {
 				// go to the next multiple of N
 				int64_t t = std::min(get_time(st.x, en.x), get_time(st.y, en.y));
 				auto n_st = st + t * dir;
+				process_seg(st, n_st);
 				st = n_st;
 			}
 		}
