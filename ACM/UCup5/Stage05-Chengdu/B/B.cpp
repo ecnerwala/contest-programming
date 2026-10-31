@@ -1182,7 +1182,14 @@ int main() {
 		auto signum = [](auto x) -> int { return (x > 0) - (x < 0); };
 
 		using pt_t = wala::Point<int64_t>;
+		auto normalize_coord = [&](int64_t v) -> int64_t {
+			v %= 2 * N;
+			if (v < 0) v += 2 * N;
+			if (v > N) v = 2 * N - v;
+		};
 		auto normalize_pt = [&](pt_t a) -> pt_t {
+			a.x %= 2 * N;
+			a.x %= 2 * N;
 		};
 		auto process_seg = [&](pt_t a, pt_t b) -> void {
 			a = normalize_pt(a);
