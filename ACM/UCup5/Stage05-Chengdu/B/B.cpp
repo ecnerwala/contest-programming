@@ -1166,11 +1166,6 @@ int main() {
 			if (v > N) v = 2 * N - v;
 			return v;
 		};
-		auto normalize_pt = [&](pt_t a) -> pt_t {
-			a.x = normalize_coord(a.x);
-			a.y = normalize_coord(a.y);
-			return a;
-		};
 		for (int dx : {-1, +1}) {
 			for (int dy : {-1, +1}) {
 				for (int64_t cx = 0, cy = T; cx <= T; cx++, cy--) {
