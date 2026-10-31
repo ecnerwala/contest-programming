@@ -910,7 +910,7 @@ int main() {
 				for (int i = 0; i < 4; i++) {
 					if (cross3(hull[i].p, hull[(i+1)%4].p, C) <= 0) return std::nullopt;
 				}
-				return wala::vec(hull);
+				return wala::vec<int>{{hull[0].idx, hull[1].idx, hull[2].idx, hull[3].idx}};
 			}
 			return std::nullopt;
 		};
