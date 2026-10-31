@@ -3494,6 +3494,7 @@ int main() {
 	while (T--) {
 		int N; std::cin >> N;
 		std::string S; std::cin >> S;
+		auto sa = wala::SuffixArrayLCP::shift_and_construct(S);
 	}
 
 	return 0;
