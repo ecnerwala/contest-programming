@@ -1199,6 +1199,13 @@ int main() {
 			a = normalize_pt(a);
 			b = normalize_pt(b);
 			// Now, just intersect this line
+			pt_t dir = en - st;
+			dir.x = signum(dir.x);
+			dir.y = signum(dir.y);
+			assert(en - st == (dir * T));
+			if (T >= 2 * N) {
+				en = st + dir * (2 * N);
+			}
 		};
 
 		std::array<pt_t, 4> square;
