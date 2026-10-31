@@ -850,6 +850,7 @@ int main() {
 		for (int q = 0; q < Q; q++) {
 			pt_t C; std::cin >> C;
 			std::ranges::lower_bound(lower, C, [&](poly_t a, pt_t b) -> bool {
+				return lex_less(a.p, b);
 			});
 		}
 	}
