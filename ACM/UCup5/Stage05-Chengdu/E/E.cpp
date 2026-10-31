@@ -851,7 +851,7 @@ int main() {
 
 		int tot_hull = int(lower.size()) + int(upper.size()) - 2;
 		if (tot_hull == 4) {
-			wala::vec<poly_t> hull;
+			std::array<poly_t, 4> hull;
 		}
 
 		auto query = [&](pt_t C) -> std::optional<wala::vec<int>> {
