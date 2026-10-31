@@ -1182,7 +1182,11 @@ int main() {
 		auto signum = [](auto x) -> int { return (x > 0) - (x < 0); };
 
 		using pt_t = wala::Point<int64_t>;
+		auto normalize_pt = [&](pt_t a) -> pt_t {
+		};
 		auto process_seg = [&](pt_t a, pt_t b) -> void {
+			a = normalize_pt(a);
+			b = normalize_pt(b);
 		};
 
 		std::array<pt_t, 4> square;
