@@ -890,9 +890,11 @@ int main() {
 			if (upper_it->p.x == C.x) cnds.push_back(*std::next(upper_it));
 			if (off_diag_pt) cnds.push_back(*off_diag_pt);
 
+			auto signum = [&](auto x) -> int { return (x > 0) - (x < 0); }
 			for (int i = 0; i < cnds.size(); i++) {
 				for (int j = 0; j < cnds.size(); j++) {
 					for (int k = 0; k < cnds.size(); k++) {
+						int s = cross3()
 					}
 				}
 			}
