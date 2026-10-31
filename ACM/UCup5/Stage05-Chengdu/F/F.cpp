@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-#if 1 // region https://github.com/ecnerwala/cp-book (`scripts/bundle.py src/containers/vec.hpp src/num/modnum.hpp src/fft/poly.hpp src/fft/engines/ntt.hpp src/seq/suffix_array.hpp`)
+#if 1 // region https://github.com/ecnerwala/cp-book (`scripts/bundle.py src/containers/vec.hpp src/num/modnum.hpp src/fft/poly.hpp src/fft/engines/ntt.hpp src/seq/suffix_array.hpp src/seq/cartesian_tree.hpp`)
 #include <algorithm>
 #include <concepts>
 #include <cstdlib>
@@ -26,6 +26,7 @@
 #include <optional>
 #include <cmath>
 #include <cstring>
+#include <array>
 #line 2 "src/containers/vec.hpp"
 
 #line 15 "src/containers/vec.hpp"
@@ -3481,6 +3482,104 @@ public:
 
 	int get_lcs(int a, int b) const {
 		return SuffixArrayRMQ::get_lcp(N - a, N - b);
+	}
+};
+
+} // namespace wala
+#line 2 "src/seq/cartesian_tree.hpp"
+
+#line 5 "src/seq/cartesian_tree.hpp"
+
+#line 2 "src/reverse_comparator.hpp"
+
+#line 5 "src/reverse_comparator.hpp"
+
+namespace wala {
+
+template <typename F> struct reverse_comparator_t {
+	F f;
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) & {
+		return f(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) const& {
+		return f(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) && {
+		return std::move(f)(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+	template <typename Arg1, typename Arg2> constexpr bool operator() (Arg1&& arg1, Arg2&& arg2) const&& {
+		return std::move(f)(std::forward<Arg2>(arg2), std::forward<Arg1>(arg1));
+	}
+};
+
+template <typename F> constexpr reverse_comparator_t<std::decay_t<F>> reverse_comparator(F&& f) {
+	return { std::forward<F>(f) };
+}
+
+} // namespace wala
+#line 8 "src/seq/cartesian_tree.hpp"
+
+namespace wala {
+
+class CartesianTree {
+public:
+	struct Node {
+		int l, m, r; // inclusive ranges
+		std::array<int, 2> c;
+		int p;
+	};
+	vec<Node> nodes;
+	int root = -1;
+
+	CartesianTree() {}
+
+	Node& operator [] (int idx) { return nodes[idx]; }
+	const Node& operator [] (int idx) const { return nodes[idx]; }
+
+	int size() const { return nodes.size(); }
+
+private:
+	CartesianTree(vec<Node>&& nodes_, int root_) : nodes(std::move(nodes_)), root(root_) {}
+
+public:
+	// min-cartesian-tree, with earlier cells tiebroken earlier
+	template <std::ranges::random_access_range R, typename Comp = std::ranges::less>
+	static CartesianTree build_min_tree(const R& v, Comp comp = Comp()) {
+		int N = int(std::ranges::size(v));
+		vec<Node> nodes(2*N+1);
+		bounded_vec<int> stk(with_capacity{N});
+		int root = -1;
+		for (int i = 0; i <= N; i++) {
+			int cur = 2*i;
+			nodes[cur].l = i;
+			nodes[cur].r = i-1;
+			nodes[cur].m = i-1;
+			nodes[cur].c = {-1, -1};
+			while (!stk.empty() && (i == N || comp(v[i], v[nodes[stk.back()].m]))) {
+				int nxt = stk.back(); stk.pop_back();
+				nodes[cur].p = nxt;
+				nodes[nxt].c[1] = cur;
+				nodes[nxt].r = nodes[cur].r;
+				cur = nxt;
+			}
+			if (i == N) {
+				root = cur;
+				break;
+			}
+			nodes[2*i+1].l = nodes[cur].l;
+			nodes[2*i+1].m = i;
+			nodes[cur].p = 2*i+1;
+			nodes[2*i+1].c[0] = cur;
+			stk.push_back(2*i+1);
+		}
+		nodes[root].p = -1;
+		return {std::move(nodes), root};
+	}
+
+	// max-cartesian-tree, with earlier cells tiebroken earlier
+	template <std::ranges::random_access_range R, typename Comp = std::ranges::less>
+	static CartesianTree build_max_tree(const R& v, Comp comp = Comp()) {
+		return build_min_tree(v, reverse_comparator(comp));
 	}
 };
 
