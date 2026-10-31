@@ -892,9 +892,10 @@ int main() {
 
 			auto signum = [&](auto x) -> int { return (x > 0) - (x < 0); };
 			for (int i = 0; i < cnds.size(); i++) {
-				for (int j = 0; j < cnds.size(); j++) {
-					for (int k = 0; k < cnds.size(); k++) {
+				for (int j = i+1; j < cnds.size(); j++) {
+					for (int k = j+1; k < cnds.size(); k++) {
 						int s = signum(cross3(cnds[i].p, cnds[j].p, cnds[k].p));
+						if (s == 0) continue;
 					}
 				}
 			}
