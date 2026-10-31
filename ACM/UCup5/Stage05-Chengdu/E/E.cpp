@@ -851,7 +851,8 @@ int main() {
 			auto lower_it = std::lower_bound(lower.begin(), lower.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
-			auto upper_it = std::lower_bound(lower.begin(), lower.end(), C, [&](poly_t a, pt_t b) -> bool {
+			if (lower_it == lower.end())
+			auto upper_it = std::lower_bound(upper.begin(), upper.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
 		};
