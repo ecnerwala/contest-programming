@@ -1050,6 +1050,8 @@ int main() {
 		assert(0 <= X0 && X0 <= N);
 		assert(0 <= Y0 && Y0 <= N);
 		if (B == 0) {
+			std::swap(A, B);
+			std::swap(X0, Y0);
 		}
 	};
 
