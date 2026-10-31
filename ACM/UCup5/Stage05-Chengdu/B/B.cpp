@@ -1196,6 +1196,8 @@ int main() {
 			if (T >= 2 * N) {
 				en = st + dir * (2 * N);
 			}
+			auto a = [&](int64_t p, int d) -> int {
+			};
 			assert(en != st);
 			while (en != st) {
 				// go to the next multiple of N
