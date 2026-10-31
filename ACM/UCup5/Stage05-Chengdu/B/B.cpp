@@ -1176,6 +1176,8 @@ int main() {
 		std::array<pt_t, 4> square;
 		square[0] = {X0 - T, Y0};
 		square[1] = {X0, Y0 + T};
+		square[2] = {X0, Y0 + T};
+		square[3] = {X0, Y0 + T};
 	};
 
 	int CASES; std::cin >> CASES;
