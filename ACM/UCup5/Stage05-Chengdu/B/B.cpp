@@ -1211,6 +1211,7 @@ int main() {
 				if (va == 0) 
 			} else {
 				if (va % vdir) return;
+				int64_t steps = va / vdir;
 			}
 		};
 
