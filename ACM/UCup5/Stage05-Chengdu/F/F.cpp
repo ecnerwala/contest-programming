@@ -4397,7 +4397,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			auto a = layout.get_point(i);
 			auto r = middle_product(coeffs[a], prods[a])[0];
-			std::cout << r << '\n';
+			std::cout << r << " \n"[i+1==N];
 		}
 	}
 
