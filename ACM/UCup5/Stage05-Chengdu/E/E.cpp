@@ -867,7 +867,8 @@ int main() {
 			auto res = query(C);
 			if (res) {
 				const auto& r = *res;
-				r.size();
+				std::cout << r.size() << '\n';
+				for (int i = 0; i < int(r.size()); i++) std::cout << r[i] << " \n"[i+1==int(r.size())];
 			} else {
 				std::cout << -1 << '\n';
 			}
