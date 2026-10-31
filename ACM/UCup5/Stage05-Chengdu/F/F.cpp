@@ -3595,10 +3595,10 @@ int main() {
 		std::string S; std::cin >> S;
 		auto sa = wala::SuffixArrayLCP::shift_and_construct(S);
 		auto ct = wala::CartesianTree::build_min_tree(sa.lcp);
-		wala::bounded_vec<int64_t> adds(N);
-		wala::bounded_vec<int64_t> subs(N);
-		[&](this auto&& self, int cur) -> void {
-		}(ct.root);
+		wala::bounded_vec<int64_t> adds(wala::with_capacity{2*N});
+		wala::bounded_vec<int64_t> subs(wala::with_capacity{2*N});
+		[&](this auto&& self, int cur, int cur_height) -> void {
+		}(ct.root, 0);
 	}
 
 	return 0;
