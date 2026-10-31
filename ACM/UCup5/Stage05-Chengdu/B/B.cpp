@@ -1160,6 +1160,7 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	auto slow = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
+		assert(N >= 2);
 		auto normalize_coord = [&](int64_t v) -> int64_t {
 			v %= 2 * (N-1);
 			if (v < 0) v += 2 * N;
