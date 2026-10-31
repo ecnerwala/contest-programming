@@ -1159,8 +1159,6 @@ public:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	auto signum = [](auto x) -> int { return (x > 0) - (x < 0); };
-
 	auto solve = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
 		assert(1 <= X0 && X0 <= N);
 		assert(1 <= Y0 && Y0 <= N);
@@ -1173,6 +1171,9 @@ int main() {
 			std::swap(X0, Y0);
 		}
 		assert(B != 0);
+
+	auto signum = [](auto x) -> int { return (x > 0) - (x < 0); };
+
 		// Since B != 0, there's a unique Y for each X on the line, so we can just use X coordinates of intersections
 		using pt_t = wala::Point<int64_t>;
 		std::array<pt_t, 4> square;
