@@ -1189,14 +1189,12 @@ int main() {
 		square[3] = {X0, Y0 - T};
 		for (int z = 0; z < 4; z++) {
 			pt_t st = square[z], en = square[(z+1)%4];
-			{
-				pt_t dir = en - st;
-				dir.x = signum(dir.x);
-				dir.y = signum(dir.y);
-				assert(en - st == (dir * T));
-				if (T >= 2 * N) {
-					en = st + dir * (2 * N);
-				}
+			pt_t dir = en - st;
+			dir.x = signum(dir.x);
+			dir.y = signum(dir.y);
+			assert(en - st == (dir * T));
+			if (T >= 2 * N) {
+				en = st + dir * (2 * N);
 			}
 			auto get_time = [&](int64_t s, int64_t e) -> int64_t {
 				assert(s != e);
