@@ -894,7 +894,7 @@ int main() {
 			for (int i = 0; i < cnds.size(); i++) {
 				for (int j = 0; j < cnds.size(); j++) {
 					for (int k = 0; k < cnds.size(); k++) {
-						int s = cross3(cnds[i].p, cnds[j].p, cnds[k].p);
+						int s = signum(cross3(cnds[i].p, cnds[j].p, cnds[k].p));
 					}
 				}
 			}
