@@ -9,6 +9,7 @@ int main() {
 		int N, X0, Y0, Q; std::cin >> N >> X0 >> Y0 >> Q;
 		while (Q--) {
 			int A, B, C, T; std::cin >> A >> B >> C >> T;
+			std::cout << solve(N, X0, Y0, A, B, C, T) << '\n';
 		}
 	}
 
