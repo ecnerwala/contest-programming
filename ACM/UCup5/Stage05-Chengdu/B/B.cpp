@@ -1261,6 +1261,7 @@ int main() {
 		int pref = 0;
 		for (int i = 0, j = 0; i < x_evts.size(); i = j) {
 			while (j < x_evts.size() && x_evts[j].first == x_evts[i].first) {
+				pref = i;
 			}
 		}
 	};
