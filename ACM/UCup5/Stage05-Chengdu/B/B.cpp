@@ -1167,6 +1167,7 @@ int main() {
 			if (v == 0) v += 2 * (N-1);
 			assert(1 <= v && v < 2 * N - 1);
 			if (v > N) v = 2 * N - v;
+			assert(1 <= v && v <= N);
 			return v;
 		};
 		for (int dx : {-1, +1}) {
