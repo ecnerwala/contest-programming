@@ -1047,6 +1047,10 @@ int main() {
 		assert(1 <= Y0 && Y0 <= N);
 		X0--, Y0--, C += A + B;
 
+		int64_t g = std::gcd(std::abs(A), std::abs(B));
+		if (C % g) return 0;
+		A /= g, B /= g, C /= g;
+
 		X0 - T
 	};
 
