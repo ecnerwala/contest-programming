@@ -1175,6 +1175,8 @@ int main() {
 				for (int64_t cx = 0, cy = T; cx <= T; cx++, cy--) {
 					int64_t x = normalize_coord(X0 + dx * cx);
 					int64_t y = normalize_coord(Y0 + dy * cy);
+					if (A * x + B * y + C == 0) {
+					}
 				}
 			}
 		}
