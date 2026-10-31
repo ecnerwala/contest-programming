@@ -900,8 +900,8 @@ int main() {
 				auto lo = std::prev(upper_it);
 				auto hi = std::next(upper_it);
 				while (hi - lo < 5) {
-					if (hi == lower.end()) {
-						if (lo == lower.begin()) {
+					if (hi == upper.end()) {
+						if (lo == upper.begin()) {
 							break;
 						} else --lo;
 					} else ++hi;
