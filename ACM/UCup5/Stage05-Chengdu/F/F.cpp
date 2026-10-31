@@ -4075,6 +4075,7 @@ int main() {
 			}
 			auto p = series(prods[1]);
 			auto newtons = deriv_shift(p) * ps_inv(p);
+			newtons.shrink_to(N+1);
 		}
 
 		// Now, we convert adds to newton sums and likewise subs
