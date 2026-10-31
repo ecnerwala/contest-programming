@@ -1046,6 +1046,7 @@ int main() {
 		int g = std::gcd(std::abs(A), std::abs(B));
 		if (C % g) return 0;
 		A /= g, B /= g, C /= g;
+
 	};
 
 	int CASES; std::cin >> CASES;
