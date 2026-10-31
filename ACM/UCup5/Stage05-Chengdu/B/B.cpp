@@ -1174,10 +1174,10 @@ int main() {
 		// Since B != 0, there's a unique Y for each X on the line, so we can just use X coordinates of intersections
 		using pt_t = wala::Point<int64_t>;
 		std::array<pt_t, 4> square;
-		square[0] = {X0 - T, Y0};
+		square[0] = {X0, Y0 + T};
 		square[1] = {X0, Y0 + T};
 		square[2] = {X0, Y0 + T};
-		square[3] = {X0, Y0 + T};
+		square[3] = {X0 - T, Y0};
 	};
 
 	int CASES; std::cin >> CASES;
