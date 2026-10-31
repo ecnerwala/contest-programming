@@ -833,7 +833,9 @@ int main() {
 		for (auto& p : P) std::cin >> p.first;
 		for (int i = 0; i < N; i++) P[i].second = i;
 
-		std::ranges::sort(P);
+		std::ranges::sort(P, [&](auto a, auto b) -> bool {
+			return a.first < b.first;
+		});
 	}
 
 	return 0;
