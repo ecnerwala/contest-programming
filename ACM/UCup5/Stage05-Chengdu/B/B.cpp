@@ -1179,7 +1179,7 @@ int main() {
 		assert(B != 0);
 		// Since B != 0, there's a unique Y for each X on the line, so we can just use X coordinates of intersections
 
-		wala::bounded_vec<std::pair<int64_t, int>> x_evts(wala::with_capacity{50});
+		wala::bounded_vec<std::pair<int64_t, int>> x_evts(wala::with_capacity{100});
 
 		auto signum = [](auto x) -> int { return (x > 0) - (x < 0); };
 
