@@ -1215,6 +1215,7 @@ int main() {
 			}
 			auto get_time = [&](int64_t s, int64_t e) -> int64_t {
 				assert(s != e);
+				signum(e - s);
 			};
 			assert(en != st);
 			while (en != st) {
