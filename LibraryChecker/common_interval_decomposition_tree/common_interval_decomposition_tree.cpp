@@ -118,8 +118,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	int N; cin >> N;
-	std::vector<int> P(N);
-	for (auto& p : P) cin >> p; cin >> P[0];
+	std::vector<int> P(N); for (auto& p : P) cin >> p;
 	PermTree perm(P);
 	int nxt_idx = 0;
 	std::vector<std::tuple<int, std::array<int, 2>, bool>> res; res.reserve(2*N);

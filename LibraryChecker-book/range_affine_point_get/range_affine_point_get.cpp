@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/range_affine_range_sum
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/range_affine_point_get
 
 #include <bits/stdc++.h>
 

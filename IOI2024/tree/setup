@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+DIR=tree
+
+#unzip -j ../${DIR}.zip "${DIR}/attachments/${DIR}.zip"
+cp ../${DIR}.zip .
+unzip -j ./${DIR}.zip "examples/*"
+unzip -j ./${DIR}.zip "cpp/*" -x "cpp/*.sh"
+rm ./${DIR}.zip
+bear -- make all

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+sed -i 's|^-include \(.*\)|cat \1 2>/dev/null|e' Makefile
+rm -f config.mk local.mk
+
+DIR=__PROBLEM_NAME__
+
+#unzip -j ../${DIR}.zip "${DIR}/attachments/${DIR}.zip"
+cp ../${DIR}.zip .
+unzip -j ./${DIR}.zip "examples/*"
+unzip -j ./${DIR}.zip "cpp/*" -x "cpp/*.sh"
+rm ./${DIR}.zip
+
+bear -- make all

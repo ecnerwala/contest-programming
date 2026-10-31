@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+DIR=insects
+
+unzip -j ../${DIR}.zip "${DIR}/attachments/${DIR}.zip"
+unzip -j ./${DIR}.zip "samples/*"
+unzip -j ./${DIR}.zip "cpp/*" -x "cpp/*.sh"
+rm ./${DIR}.zip
+bear -- make all

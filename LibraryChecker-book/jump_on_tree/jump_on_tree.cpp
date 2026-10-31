@@ -26,7 +26,6 @@ int main() {
 	}(0, -1, 0);
 	ecnerwala::level_ancestor la(par);
 
-
 	for (int q = 0; q < Q; q++) {
 		int s, t, i; std::cin >> s >> t >> i;
 		std::cout << [&]() -> int {

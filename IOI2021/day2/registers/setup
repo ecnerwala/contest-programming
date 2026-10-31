@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+DIR=registers
+
+unzip -j ../${DIR}-CMS.zip "${DIR}/attachments/${DIR}.zip"
+unzip -j ./${DIR}.zip "examples/*"
+unzip -j ./${DIR}.zip "cpp/*" -x "cpp/*.sh"
+rm ./${DIR}.zip
+bear -- make all

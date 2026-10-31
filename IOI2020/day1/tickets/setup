@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+DIR=tickets
+
+unzip -j ../${DIR}.zip "${DIR}/public/examples/*"
+unzip -j ../${DIR}.zip "${DIR}/public/cpp/*" -x "${DIR}/public/cpp/compile_cpp.sh"
+bear make all

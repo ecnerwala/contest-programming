@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rm -f __PROBLEM_NAME__.cpp
+
+sed -i 's|^-include \(.*\)|cat \1 2>/dev/null|e' Makefile
+rm -f config.mk local.mk

@@ -1,0 +1,4 @@
+LANG := kotlin
+TARGET := $(PROBLEM_NAME).jar
+EXECUTE := java -jar $(TARGET)
+CLEAN_TARGETS := $(TARGET)
