@@ -4074,7 +4074,7 @@ int main() {
 				prods[i] = prods[2*i] * prods[2*i+1];
 			}
 			auto p = series(prods[1]);
-			auto newtons = deriv_shift(prods[1]) * ps_inv(prods[1]);
+			auto newtons = deriv_shift(p) * ps_inv(p);
 		}
 
 		// Now, we convert adds to newton sums and likewise subs
