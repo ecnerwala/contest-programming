@@ -828,6 +828,10 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		using pt_t = wala::Point<int, int64_t>;
+		struct poly_t {
+			pt_t p;
+			int idx;
+		}
 		int N, Q; std::cin >> N >> Q;
 		wala::vec<std::pair<pt_t, int>> P(N);
 		for (auto& p : P) std::cin >> p.first;
@@ -836,6 +840,8 @@ int main() {
 		std::ranges::sort(P, [&](auto a, auto b) -> bool {
 			return lex_less(a.first, b.first);
 		});
+
+		wala::bounded_vec<std::pair
 	}
 
 	return 0;
