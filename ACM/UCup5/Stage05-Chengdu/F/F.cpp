@@ -4076,6 +4076,8 @@ int main() {
 			auto p = series(prods[1]);
 			auto newtons = deriv_shift(p) * ps_inv(p);
 			newtons.shrink_to(N+1);
+			for (int i = 0; i < S; i++) {
+			}
 			for (auto n : newtons) { std::cerr << -n << ' '; } std::cerr << '\n';
 		}
 
