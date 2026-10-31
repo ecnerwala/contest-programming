@@ -894,7 +894,7 @@ int main() {
 						} else --lo;
 					} else ++hi;
 				}
-				cnds.insert(lo.begin(), lo.end());
+				cnds.append_range({lo, hi});
 			}
 			cnds.push_back(*std::prev(lower_it));
 			cnds.push_back(*lower_it);
