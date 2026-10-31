@@ -893,7 +893,6 @@ int main() {
 			if (cnds.size() == 4) {
 				if (off_diag_pt) {
 					cnds.push_back(*off_diag_pt);
-				} else {
 				}
 			}
 
