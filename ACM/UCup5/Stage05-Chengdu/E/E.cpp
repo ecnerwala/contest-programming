@@ -889,7 +889,7 @@ int main() {
 				auto lo = std::prev(lower_it);
 				auto hi = std::next(lower_it);
 				while (hi - lo < 5) {
-					if (hi == lower.end() && )
+					if (hi == lower.end() && );
 				}
 			}
 			cnds.push_back(*std::prev(lower_it));
