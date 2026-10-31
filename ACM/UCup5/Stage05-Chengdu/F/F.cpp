@@ -3597,7 +3597,7 @@ int main() {
 		auto ct = wala::CartesianTree::build_min_tree(sa.lcp);
 		wala::bounded_vec<int64_t> adds(wala::with_capacity{2*N});
 		wala::bounded_vec<int64_t> subs(wala::with_capacity{2*N});
-		[&](this auto&& self, int cur, int cur_height) -> int {
+		[&](this auto&& self, int cur, int cur_height) -> int64_t {
 			int nxt_height;
 			if (!(cur & 1)) {
 				nxt_height = sa.N - sa.sa[cur >> 1];
