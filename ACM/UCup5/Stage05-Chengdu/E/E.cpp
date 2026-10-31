@@ -837,12 +837,11 @@ int main() {
 		for (auto& p : P) std::cin >> p.p;
 		for (int i = 0; i < N; i++) P[i].idx = i;
 
-		std::ranges::sort(P, [&](auto a, auto b) -> bool { return lex_less(a.p, b.p); });
-
 		wala::bounded_vec<poly_t> lower(wala::with_capacity{N});
 		wala::bounded_vec<poly_t> upper(wala::with_capacity{N});
+		std::ranges::sort(P, [&](auto a, auto b) -> bool { return lex_less(a.p, b.p); });
+
 		for (auto cnd : P) {
-		}
 		}
 	}
 
