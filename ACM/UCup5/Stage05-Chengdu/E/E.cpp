@@ -829,7 +829,7 @@ int main() {
 	while (T--) {
 		using pt_t = wala::Point<int, int64_t>;
 		int N, Q; std::cin >> N >> Q;
-		wala::vec<pt_t> P(N);
+		wala::vec<std::pair<pt_t, int>> P(N);
 		for (auto& p : P) std::cin >> p;
 
 		wala::vec<int> ids(N);
