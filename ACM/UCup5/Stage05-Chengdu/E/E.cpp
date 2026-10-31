@@ -847,6 +847,9 @@ int main() {
 			lower.push_back(cnd);
 			upper.push_back(cnd);
 		}
+
+		for (int q = 0; q < Q; q++) {
+		}
 	}
 
 	return 0;
