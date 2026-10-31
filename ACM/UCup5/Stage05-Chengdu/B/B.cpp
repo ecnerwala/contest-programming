@@ -1309,6 +1309,10 @@ int main() {
 		int N = std::uniform_int_distribution<int>(2, 10)(mt);
 		int X0 = std::uniform_int_distribution<int>(1, N)(mt);
 		int Y0 = std::uniform_int_distribution<int>(1, N)(mt);
+		int A = std::uniform_int_distribution<int>(1, N)(mt);
+		int B = std::uniform_int_distribution<int>(1, N)(mt);
+		int C = std::uniform_int_distribution<int>(1, N)(mt);
+		int T = std::uniform_int_distribution<int>(1, 3*N)(mt);
 	}
 
 	int CASES; std::cin >> CASES;
