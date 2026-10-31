@@ -3599,13 +3599,13 @@ int main() {
 		wala::bounded_vec<int64_t> subs(wala::with_capacity{2*N});
 		[&](this auto&& self, int cur, int cur_height) -> int64_t {
 			int nxt_height;
+			int64_t tot = 0;
 			if (!(cur & 1)) {
 				nxt_height = sa.N - sa.sa[cur >> 1];
 			} else {
 				nxt_height = sa.lcp[cur >> 1];
-			}
-			int64_t tot = 0;
-			if (cur & 1) {
+				tot += self(ct[cur].c[0], nxt_height);
+				tot += self(ct[cur].c[1], nxt_height);
 			}
 			subs.push_back(tot);
 			tot += nxt_height - cur_height;
