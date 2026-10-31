@@ -829,6 +829,7 @@ int main() {
 	while (T--) {
 		using pt_t = wala::Point<int, int64_t>;
 		int N, Q; std::cin >> N >> Q;
+		wala::vec<pt_t> P(N);
 	}
 
 	return 0;
