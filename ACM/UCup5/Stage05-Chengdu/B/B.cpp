@@ -1219,7 +1219,7 @@ int main() {
 					s = -s, e = -e;
 				}
 				assert(e < s);
-				s % N;
+				int v = s % N;
 			};
 			assert(en != st);
 			while (en != st) {
