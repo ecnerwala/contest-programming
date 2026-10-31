@@ -1164,6 +1164,7 @@ int main() {
 		auto normalize_coord = [&](int64_t v) -> int64_t {
 			v %= 2 * (N-1);
 			if (v < 0) v += 2 * (N-1);
+			v++;
 			if (v > N) v = 2 * N - v;
 			return v;
 		};
