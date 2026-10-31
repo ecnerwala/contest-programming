@@ -1173,7 +1173,7 @@ int main() {
 		assert(B != 0);
 		// Since B != 0, there's a unique Y for each X on the line, so we can just use X coordinates of intersections
 		using pt_t = wala::Point<int64_t>;
-		std::array<pt_t, 4>;
+		std::array<pt_t, 4> square;
 	};
 
 	int CASES; std::cin >> CASES;
