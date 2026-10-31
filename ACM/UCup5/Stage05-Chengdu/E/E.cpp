@@ -910,7 +910,9 @@ int main() {
 				for (int i = 0; i < 4; i++) {
 					if (cross3(hull[i].p, hull[(i+1)%4].p, C) <= 0) return std::nullopt;
 				}
+				return hull;
 			}
+			return std::nullopt;
 		};
 
 		for (int q = 0; q < Q; q++) {
