@@ -4351,11 +4351,11 @@ int main() {
 
 		using num = wala::modnum<998244353>;
 		using E = wala::fft::engines::ntt<num>;
-		using series = wala::series::trunc<E>;
+		using trunc = wala::series::trunc<E>;
 		using exact = wala::series::exact<E>;
 		using form = wala::poly::form<E>;
 
-		series newtons(N+1, num(0));
+		trunc newtons(N+1, num(0));
 		
 		for (int z = 0; z < 2; z++) {
 			int S = subtree_sizes[z].size();
@@ -4366,7 +4366,7 @@ int main() {
 			for (int i = S-1; i > 0; i--) {
 				prods[i] = prods[2*i] * prods[2*i+1];
 			}
-			auto p = series(prods[1]);
+			auto p = trunc(prods[1]);
 			auto cur_newtons = deriv_shift(p) * ps_inv(p);
 			cur_newtons *= num(-1);
 			cur_newtons.shrink_to(N+1);
@@ -4387,7 +4387,7 @@ int main() {
 		for (int i = N-1; i > 0; i--) {
 			prods[i] = prods[2*i] * prods[2*i+1];
 		}
-		wala::vec<series> pushdowns(2 * layout.N);
+		wala::vec<trunc> pushdowns(2 * layout.N);
 	}
 
 	return 0;
