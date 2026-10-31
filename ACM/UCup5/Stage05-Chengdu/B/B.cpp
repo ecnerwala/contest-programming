@@ -1181,7 +1181,7 @@ int main() {
 
 		auto signum = [](auto x) -> int { return (x > 0) - (x < 0); };
 
-		wala::bounded_vec(wala::with_capacity{100});
+		wala::bounded_vec vals(wala::with_capacity{100});
 
 		using pt_t = wala::Point<int64_t>;
 		auto normalize_coord = [&](int64_t v) -> int64_t {
