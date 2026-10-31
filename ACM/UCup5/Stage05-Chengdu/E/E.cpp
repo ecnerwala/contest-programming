@@ -851,6 +851,7 @@ int main() {
 
 		auto query = [&](pt_t C) -> std::optional<wala::vec<int>> {
 			if (C.x <= lower.front().p.x || C.x >= lower.back().p.x) return std::nullopt;
+			assert(lower.front().p.x < C.x && C.x < lower.back().p.x);
 
 			auto lower_it = std::lower_bound(lower.begin(), lower.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
