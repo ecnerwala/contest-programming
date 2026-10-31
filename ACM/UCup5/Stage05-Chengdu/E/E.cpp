@@ -850,7 +850,7 @@ int main() {
 		assert(int(upper.size()) >= 2);
 
 		int tot_hull = int(lower.size()) + int(upper.size()) - 2;
-		poly_t off_diag_pt{{0, 0}, -1};
+		std::optional<poly_t> off_diag_pt;
 		if (tot_hull == 4) {
 			std::array<poly_t, 4> hull;
 			int idx = 0;
@@ -888,6 +888,7 @@ int main() {
 			cnds.push_back(*std::prev(upper_it));
 			cnds.push_back(*upper_it);
 			if (upper_it->p.x == C.x) cnds.push_back(*std::next(upper_it));
+			if (off_diag_pt.idx != -1) cnds.push_back()
 		};
 
 		for (int q = 0; q < Q; q++) {
