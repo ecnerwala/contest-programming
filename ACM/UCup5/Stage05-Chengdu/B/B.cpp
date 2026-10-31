@@ -1173,8 +1173,8 @@ int main() {
 		for (int dx : {-1, +1}) {
 			for (int dy : {-1, +1}) {
 				for (int64_t cx = 0, cy = T; cx <= T; cx++, cy--) {
-					normalize_coord(X0 + dx * cx);
-					normalize_coord(Y0 + dx * cx);
+					int64_t x = normalize_coord(X0 + dx * cx);
+					int64_t y = normalize_coord(Y0 + dy * cy);
 				}
 			}
 		}
