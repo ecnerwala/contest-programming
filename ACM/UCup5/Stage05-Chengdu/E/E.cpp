@@ -851,14 +851,13 @@ int main() {
 
 		auto query = [&](pt_t C) -> std::optional<wala::vec<int>> {
 			if (C.x <= lower.front().p.x || C.x >= lower.back().p.x) return std::nullopt;
+
 			auto lower_it = std::lower_bound(lower.begin(), lower.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
-			if (lower_it == lower.end() || lower_it == lower.begin()) return std::nullopt;
 			auto upper_it = std::lower_bound(upper.begin(), upper.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
-			if (upper_it == upper.end() || upper_it == upper.begin()) return std::nullopt;
 		};
 
 		for (int q = 0; q < Q; q++) {
