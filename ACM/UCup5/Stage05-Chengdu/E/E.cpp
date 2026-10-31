@@ -841,7 +841,8 @@ int main() {
 
 		wala::bounded_vec<poly_t> lower(wala::with_capacity{N});
 		wala::bounded_vec<poly_t> upper(wala::with_capacity{N});
-		for (int i = 0; i < N; i++) {
+		for (auto cnd : P) {
+		}
 		}
 	}
 
