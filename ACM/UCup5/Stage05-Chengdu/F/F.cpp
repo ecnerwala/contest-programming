@@ -4390,6 +4390,7 @@ int main() {
 		coeffs[1] = newtons;
 		for (int i = 1; i < N; i++) {
 			assert(coeffs[i].size() == prods[i].size());
+			coeffs[2*i] = coeffs[i];
 		}
 	}
 
