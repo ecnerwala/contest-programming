@@ -848,16 +848,16 @@ int main() {
 		}
 
 		auto query = [&](pt_t C) -> std::optional<wala::vec<int>> {
-		};
-
-		for (int q = 0; q < Q; q++) {
-			pt_t C; std::cin >> C;
 			auto lower_it = std::lower_bound(lower.begin(), lower.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
 			auto upper_it = std::lower_bound(lower.begin(), lower.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
+		};
+
+		for (int q = 0; q < Q; q++) {
+			pt_t C; std::cin >> C;
 		}
 	}
 
