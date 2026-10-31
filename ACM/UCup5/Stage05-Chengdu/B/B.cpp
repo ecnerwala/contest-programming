@@ -1304,6 +1304,10 @@ int main() {
 		return ans;
 	};
 
+	std::mt19937 mt(48);
+	while (true) {
+	}
+
 	int CASES; std::cin >> CASES;
 	while (CASES--) {
 		int N, X0, Y0, Q; std::cin >> N >> X0 >> Y0 >> Q;
