@@ -884,6 +884,7 @@ int main() {
 			if (lower_it->p.x == C.x) {
 			}
 			if (upper_it->p.x == C.x) {
+			}
 		};
 
 		for (int q = 0; q < Q; q++) {
