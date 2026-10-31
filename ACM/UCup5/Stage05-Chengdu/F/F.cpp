@@ -3600,7 +3600,9 @@ int main() {
 		[&](this auto&& self, int cur, int cur_height) -> void {
 			int nxt_height;
 			if (!(cur & 1)) {
-				int nxt_height = sa.N - sa.sa[cur >> 1];
+				nxt_height = sa.N - sa.sa[cur >> 1];
+			} else {
+				nxt_height = sa.lcp[cur >> 1];
 			}
 		}(ct.root, 0);
 	}
