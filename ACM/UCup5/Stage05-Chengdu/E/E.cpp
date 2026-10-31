@@ -898,6 +898,7 @@ int main() {
 						if (s == 0) continue;
 						if (s != signum(cross3(cnds[i].p, cnds[j].p, C))) continue;
 						if (s != signum(cross3(cnds[i].p, C, cnds[k].p))) continue;
+						if (s != signum(cross3(C, cnds[j].p, cnds[k].p))) continue;
 					}
 				}
 			}
