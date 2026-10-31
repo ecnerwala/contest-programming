@@ -853,7 +853,6 @@ int main() {
 		wala::vec<poly_t> hull(tot_hull);
 		std::optional<poly_t> off_diag_pt;
 		if (tot_hull == 4) {
-			std::array<poly_t, 4> hull;
 			int idx = 0;
 			for (int i = 0; i+1 < int(lower.size()); i++) hull[idx++] = lower[i];
 			for (int i = int(upper.size()) - 1; i > 0; i--) hull[idx++] = upper[i];
