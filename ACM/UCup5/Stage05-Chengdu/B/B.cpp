@@ -1043,6 +1043,7 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	auto solve = [&](int N, int X0, int Y0, int A, int B, int C, int T) -> int64_t {
+		auto a = wala::extended_gcd(A, B);
 	};
 
 	int CASES; std::cin >> CASES;
