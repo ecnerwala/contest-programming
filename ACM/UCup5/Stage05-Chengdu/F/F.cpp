@@ -4353,7 +4353,6 @@ int main() {
 		using E = wala::fft::engines::ntt<num>;
 		using trunc = wala::series::trunc<E>;
 		using exact = wala::series::exact<E>;
-		using form = wala::poly::form<E>;
 
 		trunc newtons(N+1, num(0));
 		
