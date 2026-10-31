@@ -4374,7 +4374,7 @@ int main() {
 			if (z == 0) newtons -= cur_newtons;
 			else newtons += cur_newtons;
 		}
-		for (auto n : newtons) { std::cerr << n << ' '; } std::cerr << '\n';
+		//for (auto n : newtons) { std::cerr << n << ' '; } std::cerr << '\n';
 
 		// Now, we convert adds to newton sums and likewise subs
 		wala::seg_tree::in_order_layout layout(N);
