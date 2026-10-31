@@ -1265,6 +1265,7 @@ int main() {
 				j++;
 			}
 		}
+		assert(pref == 0);
 	};
 
 	int CASES; std::cin >> CASES;
