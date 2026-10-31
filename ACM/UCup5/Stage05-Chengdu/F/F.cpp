@@ -3612,6 +3612,7 @@ int main() {
 			adds.push_back(tot);
 			return tot;
 		}(ct.root, 0);
+		assert(adds.capacity() == adds.size());
 	}
 
 	return 0;
