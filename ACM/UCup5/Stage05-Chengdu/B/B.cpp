@@ -1204,6 +1204,7 @@ int main() {
 			assert(en != st);
 			while (en != st) {
 				// go to the next multiple of N
+				get_time(st.x, en.x);
 			}
 		}
 	};
