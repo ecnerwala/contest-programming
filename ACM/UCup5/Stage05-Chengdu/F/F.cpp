@@ -3599,6 +3599,7 @@ int main() {
 		wala::bounded_vec<int64_t> subs(wala::with_capacity{2*N});
 		[&](this auto&& self, int cur, int cur_height) -> void {
 			if (!(cur & 1)) {
+				int nxt_height = sa.N - sa.sa[cur >> 1];
 			}
 		}(ct.root, 0);
 	}
