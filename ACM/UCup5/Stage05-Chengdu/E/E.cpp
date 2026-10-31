@@ -881,6 +881,7 @@ int main() {
 			assert(upper_it != upper.end());
 			assert(upper_it != upper.begin());
 
+			wala::bounded_vec<poly_t> cnds;
 			if (lower_it->p.x == C.x) {
 			}
 			if (upper_it->p.x == C.x) {
