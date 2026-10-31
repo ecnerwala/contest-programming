@@ -4084,6 +4084,9 @@ int main() {
 			if (z == 0) newtons -= cur_newtons;
 			else newtons += cur_newtons;
 		}
+		for (auto n : newtons) {
+			std::cerr << n << '\n';
+		}
 
 		// Now, we convert adds to newton sums and likewise subs
 	}
