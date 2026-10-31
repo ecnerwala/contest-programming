@@ -3630,6 +3630,7 @@ int main() {
 			for (int i = S-1; i > 0; i--) {
 				prods[i] = prods[2*i] * prods[2*i+1];
 			}
+			prods[1];
 		}
 
 		// Now, we convert adds to newton sums and likewise subs
