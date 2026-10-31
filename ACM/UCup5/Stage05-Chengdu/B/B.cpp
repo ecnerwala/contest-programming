@@ -1161,6 +1161,7 @@ int main() {
 
 	auto slow = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
 	};
+
 	auto solve = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
 		assert(1 <= X0 && X0 <= N);
 		assert(1 <= Y0 && Y0 <= N);
