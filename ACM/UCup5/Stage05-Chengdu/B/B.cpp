@@ -1306,7 +1306,7 @@ int main() {
 
 	std::mt19937 mt(48);
 	while (true) {
-		N = std::uniform_int_distribution<int>(1, 10);
+		int N = std::uniform_int_distribution<int>(1, 10);
 	}
 
 	int CASES; std::cin >> CASES;
