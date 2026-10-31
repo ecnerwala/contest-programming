@@ -833,7 +833,7 @@ int main() {
 			int idx;
 		};
 		int N, Q; std::cin >> N >> Q;
-		wala::vec<std::pair<pt_t, int>> P(N);
+		wala::vec<poly_t> P(N);
 		for (auto& p : P) std::cin >> p.first;
 		for (int i = 0; i < N; i++) P[i].second = i;
 
