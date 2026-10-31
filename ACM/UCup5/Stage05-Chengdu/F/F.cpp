@@ -4381,7 +4381,7 @@ int main() {
 		wala::seg_tree::in_order_layout layout(N);
 		wala::vec<exact> prods(2 * layout.N);
 		for (int i = 0; i < N; i++) {
-			prods[layout.get_point(i)] = {, inv(num(i+1))};
+			prods[layout.get_point(i)] = {inv(num(i+1)), num(1) - inv(num(i+1))};
 		}
 	}
 
