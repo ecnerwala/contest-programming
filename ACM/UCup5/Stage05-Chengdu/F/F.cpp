@@ -3596,8 +3596,7 @@ int main() {
 		auto sa = wala::SuffixArrayLCP::shift_and_construct(S);
 		auto ct = wala::CartesianTree::build_min_tree(sa.lcp);
 		[&](this auto&& self, int cur) -> void {
-			ct.root
-		}();
+		}(ct.root);
 	}
 
 	return 0;
