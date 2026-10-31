@@ -850,6 +850,7 @@ int main() {
 		assert(int(upper.size()) >= 2);
 
 		int tot_hull = int(lower.size()) + int(upper.size()) - 2;
+		if (tot_hull == 4) {
 
 		auto query = [&](pt_t C) -> std::optional<wala::vec<int>> {
 			if (C.x <= lower.front().p.x || C.x >= lower.back().p.x) return std::nullopt;
