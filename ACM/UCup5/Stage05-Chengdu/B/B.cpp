@@ -1256,6 +1256,8 @@ int main() {
 				st = n_st;
 			}
 		}
+
+		std::sort(x_evts.begin(), x_evts.end());
 	};
 
 	int CASES; std::cin >> CASES;
