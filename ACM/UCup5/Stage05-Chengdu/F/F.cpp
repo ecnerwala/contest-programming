@@ -4379,7 +4379,7 @@ int main() {
 
 		// Now, we convert adds to newton sums and likewise subs
 		wala::seg_tree::in_order_layout layout(N);
-		wala::vec<exact> prods(2 * N);
+		wala::vec<exact> prods(2 * layout.N);
 		for (int i = 0; i < N; i++) {
 			prods[N + i] = {};
 		}
