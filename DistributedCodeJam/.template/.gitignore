@@ -1,1 +1,3 @@
 /__PROBLEM_NAME__
+*.res
+Testrun-*.cpp
