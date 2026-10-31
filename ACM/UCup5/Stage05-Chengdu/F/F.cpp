@@ -3613,6 +3613,7 @@ int main() {
 			return tot;
 		}(ct.root, 0);
 		assert(adds.capacity() == adds.size());
+		assert(subs.capacity() == subs.size());
 	}
 
 	return 0;
