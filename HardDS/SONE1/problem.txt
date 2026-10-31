@@ -1,0 +1,18 @@
+The first line is N and M, indicating that there are N points and M queries in this tree
+Then there are N-1 rows, each row x, y indicates that xy has an edge
+Next is N rows, each row is a number, indicating the weight of each point
+The next line indicates the root
+Next is line M
+The first number is K
+K = 0 means the subtree is modified, followed by x, y, means the point weight of the subtree rooted at x is changed to y
+K = 1 means changing roots, followed by x, means changing the root of this tree to x
+K = 2 means chain modification, followed by x, y, z, means changing the point weight on the path of xy in this tree to z
+K = 3 means that the subtree asks for min, followed by x, means the weight min of the midpoint of the subtree rooted at x
+K = 4 means that the subtree asks for max, followed by x, means the weight of the midpoint of the subtree rooted at x
+K = 5 means subtree addition, followed by x, y, means the weight of the midpoint of the subtree where x is the root + y
+K = 6 means chain addition, followed by x, y, z, means changing the point weight on the path of xy in this tree to + z
+K = 7 means the chain asks for min, followed by x, y, means the min on the path of xy in this tree
+K = 8 means the chain asks for max, followed by x, y, means the max of points on the path of xy in this tree
+K = 9 means changing the father, followed by x, y, means changing the father of x to y, if y does not operate in the x subtree.
+K = 10 means that the chain asks for sum, followed by x, y, z, means that the sum of points on the path of xy in this tree
+K = 11 means the subtree asks for sum, followed by x, it means the point weight sum of the subtree rooted at x

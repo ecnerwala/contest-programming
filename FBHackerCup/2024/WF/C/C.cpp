@@ -1,5 +1,17 @@
 #include<bits/stdc++.h>
 
+constexpr int64_t floor_sqrt(int64_t N) {
+	assert(N >= 0);
+	if (N == 0) return 0;
+	int64_t a = N;
+	while (true) {
+		int64_t b = N/a;
+		assert(a >= b);
+		if (a-b <= 1) return b;
+		a = (a+b+1)>>1;
+	}
+}
+
 template <typename T> struct Point {
 public:
 	T x, y;
@@ -116,6 +128,31 @@ int main() {
 				// max_area / l <= W
 				if (max_area * max_area <= W * W * (pts[i] - pts[(i+1)%N]).dist2()) {
 					return true;
+				}
+			}
+
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					pt_t a = pts[i];
+					pt_t b = pts[(i+1)%N];
+					pt_t c = pts[j];
+					pt_t d = pts[(j+1)%N];
+					if (cross(b - a, c - d) > 0) {
+						// try the angle bisector
+						pt_t dir = b + c - a - d;
+						int64_t min_dot = dot(dir, pts[0]);
+						for (int k = 0; k < N; k++) {
+							min_dot = std::min(min_dot, dot(dir, pts[k]));
+						}
+						int64_t tgt_dot_2 = D * D * dir.dist2();
+						auto sq = [](int64_t a) -> int64_t { return a * a; };
+						int64_t da = dot(dir, a) - min_dot;
+						int64_t db = dot(dir, b) - min_dot;
+						int64_t dc = dot(dir, c) - min_dot;
+						int64_t dd = dot(dir, d) - min_dot;
+						if (sq(da) <= tgt_dot_2 && tgt_dot_2 <= sq(db) && sq(dd) <= tgt_dot_2 && tgt_dot_2 <= sq(dc)) {
+						}
+					}
 				}
 			}
 

@@ -1,0 +1,111 @@
+*{
+font-family: arial, verdana, helvetica, sans-serif;
+}
+
+a:link{color:blue;text-decoration:none;}
+a:visited{color:blue;text-decoration:none;}
+a:hover{color:cyan;}
+h2{
+	color:blue;
+}
+.toprow{
+	background-color:#1a5cc8;
+	color:#FFFFFF;
+    font-weight:bold;
+   white-space: nowrap;
+}
+.toprow a,.toprow a:visited{ font-family: Arial; font-weight: bold; font-size: 18px; color: #FFFFFF; margin: 15px }
+.toprow a:hover{ font-family: Arial; font-weight: bold; font-size: 18px; color:orange; margin: 15px }
+
+.oddrow{background-color:#D7EBFF;white-space: nowrap;}
+.evenrow{background-color:#FFFFFF;white-space: nowrap;}
+
+.top3 {color:orange;}
+.top2 {color:green;}
+.top1 {color:#0DF;}
+.hot {color:red;}
+.lock {color:grey;}
+
+.mono span{width:3em;display:inline-block; text-align:center}
+
+blockquote td {font-size:75%}
+
+body{
+	background-color:#FFFFFF;
+	background-image: url(../image/background.jpg);
+}
+.hd{
+color:#FFFFFF;
+font-weight:bold;
+}
+
+.hd .highlight{
+color:red;
+}
+
+.time{
+	text-align: right;
+}
+.ip{
+	text-align: right;
+	padding-right: 5px;
+}
+tr.userinfo{
+	background-color:#FFFFF0;
+	font-size: 16px;
+}
+span.yes{
+color:green;
+font-weight: bolder; 
+}
+span.no{
+color:red;
+font-weight: bolder;
+}
+
+span.exadmin{
+color:gray;
+}
+#center{
+  text-align:center;
+}
+
+div.content {
+	height: auto;
+	background:#e4f0f8;
+	margin: 0;
+	padding: 0 20px;
+	font-size: 18px !IMPORTANT;
+	font-family: Times New Roman;
+	text-align: left
+}
+.sampledata{
+    white-space:pre;
+    background:#8db8ff;
+    font-size: 18px;
+	font-family:Monospace;
+}
+
+.notice{
+	border:solid 1px black;
+	width:90%;
+	margin:10px auto;
+	text-align:left;
+}
+
+.notice div{
+	border:dashed 1px silver; margin:1px; padding:1px 5px; background:#f3f3f3; font-size:80%; color:red;
+}
+
+.notice div b{
+	margin: 0 10px 0 2px;
+}
+
+.footer{}
+.footer div{
+	color:silver;
+	font-size:80%;
+}
+.footer div a:link{color:silver; text-decoration:none;}
+.footer div a:visited{color:silver; text-decoration:none;}
+.footer div a:hover{color:grey; text-decoration:none;}
