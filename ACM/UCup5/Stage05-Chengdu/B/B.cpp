@@ -1196,7 +1196,7 @@ int main() {
 			if (T >= 2 * N) {
 				en = st + dir * (2 * N);
 			}
-			auto a = [&](int64_t p, int64_t d) -> int {
+			auto get_time = [&](int64_t p, int64_t d) -> int64_t {
 			};
 			assert(en != st);
 			while (en != st) {
