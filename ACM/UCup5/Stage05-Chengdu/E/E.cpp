@@ -837,9 +837,7 @@ int main() {
 		for (auto& p : P) std::cin >> p.p;
 		for (int i = 0; i < N; i++) P[i].idx = i;
 
-		std::ranges::sort(P, [&](auto a, auto b) -> bool {
-			return lex_less(a.p, b.p);
-		});
+		std::ranges::sort(P, [&](auto a, auto b) -> bool { return lex_less(a.p, b.p); });
 
 		wala::bounded_vec<std::pair
 	}
