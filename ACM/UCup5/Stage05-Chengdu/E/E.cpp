@@ -828,6 +828,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		using pt_t = wala::Point<int, int64_t>;
+		int N, Q; std::cin >> N >> Q;
 	}
 
 	return 0;
