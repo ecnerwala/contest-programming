@@ -3619,7 +3619,7 @@ int main() {
 		using E = wala::fft::engines::ntt<num>;
 		using series = wala::series::trunc<E>;
 		using exact = wala::series::exact<E>;
-		using poly = wala::series::poly<E>;
+		using poly = wala::poly::vec<E>;
 		
 		for (int z = 0; z < 2; z++) {
 			wala::vec<exact> 
