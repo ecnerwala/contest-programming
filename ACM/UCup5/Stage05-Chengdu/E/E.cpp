@@ -833,10 +833,7 @@ int main() {
 		for (auto& p : P) std::cin >> p.first;
 		for (int i = 0; i < N; i++) P[i].second = i;
 
-		wala::vec<int> ids(N);
-		std::ranges::iota(ids, 0);
-		std::sort(ids.begin(), ids.end(), [&](int a, int b) -> int {
-		});
+		std::ranges::sort(P);
 	}
 
 	return 0;
