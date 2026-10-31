@@ -3618,7 +3618,7 @@ int main() {
 		using num = wala::modnum<998244353>;
 		using E = wala::fft::engines::ntt<num>;
 		using series = wala::series::trunc<E>;
-		using poly = wala::poly::vec<E>;
+		using exact = wala::series::exact<E>;
 		
 		for (int z = 0; z < 2; z++) {
 			wala::vec<poly>
