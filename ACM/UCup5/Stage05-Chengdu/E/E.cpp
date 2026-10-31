@@ -834,8 +834,7 @@ int main() {
 		};
 		int N, Q; std::cin >> N >> Q;
 		wala::vec<poly_t> P(N);
-		for (auto& p : P) std::cin >> p.p;
-		for (int i = 0; i < N; i++) P[i].idx = i+1;
+		for (int i = 0; i < N; i++) { std::cin >> P[i].p; P[i].idx = i+1; }
 
 		wala::bounded_vec<poly_t> lower(wala::with_capacity{N});
 		wala::bounded_vec<poly_t> upper(wala::with_capacity{N});
