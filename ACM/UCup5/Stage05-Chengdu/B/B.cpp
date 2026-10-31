@@ -1160,6 +1160,8 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	auto solve = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
+		if (T == 0) {
+		}
 		assert(1 <= X0 && X0 <= N);
 		assert(1 <= Y0 && Y0 <= N);
 		X0--, Y0--, C += A + B;
