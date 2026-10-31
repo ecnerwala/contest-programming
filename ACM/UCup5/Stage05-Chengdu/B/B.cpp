@@ -1170,17 +1170,19 @@ int main() {
 			assert(1 <= v && v <= N);
 			return v;
 		};
-		std::map<std::pair<int64_t, int64_t>> vals;
+		std::set<std::pair<int64_t, int64_t>> vals;
 		for (int dx : {-1, +1}) {
 			for (int dy : {-1, +1}) {
 				for (int64_t cx = 0, cy = T; cx <= T; cx++, cy--) {
 					int64_t x = normalize_coord(X0 + dx * cx);
 					int64_t y = normalize_coord(Y0 + dy * cy);
 					if (A * x + B * y + C == 0) {
+						vals.insert({x, y});
 					}
 				}
 			}
 		}
+		return int(vals.size());
 	};
 
 	auto solve = [&](int64_t N, int64_t X0, int64_t Y0, int64_t A, int64_t B, int64_t C, int64_t T) -> int64_t {
