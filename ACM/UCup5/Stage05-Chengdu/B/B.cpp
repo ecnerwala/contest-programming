@@ -1208,6 +1208,9 @@ int main() {
 			int64_t va = a.x * A + a.y * B + C;
 			int64_t vdir = dir.x * A + dir.y * B;
 			if (vdir == 0) {
+				if (va == 0) 
+			} else {
+				if (va % vdir) return;
 			}
 		};
 
