@@ -1205,6 +1205,7 @@ int main() {
 			while (en != st) {
 				// go to the next multiple of N
 				get_time(st.x, en.x);
+				get_time(st.y, en.y);
 			}
 		}
 	};
