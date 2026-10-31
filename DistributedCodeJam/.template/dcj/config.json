@@ -24,6 +24,8 @@
     "-Wduplicated-cond",
     "-Wcast-qual",
     "-Wcast-align",
+    "-Wno-unused-result",
+    "-Wno-sign-conversion",
     "-D_GLIBCXX_DEBUG",
     "-D_GLIBCXX_DEBUG_PEDANTIC",
     "-D_FORTIFY_SOURCE=2",

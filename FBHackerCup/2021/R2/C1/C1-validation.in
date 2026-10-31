@@ -1,0 +1,75 @@
+13
+1 1 1
+X
+3 3 2
+XXX
+...
+XXX
+3 3 1
+XXX
+.X.
+XXX
+4 3 4
+X..
+.XX
+..X
+XXX
+4 5 3
+.X.X.
+.X.X.
+X.X.X
+X.X.X
+7 8 4
+..XX.X.X
+X..X.X..
+XX....XX
+.XXX.XX.
+X...XX.X
+..X.....
+.X..X.X.
+1 5 1
+XXXXX
+5 1 1
+X
+X
+X
+X
+X
+4 5 3
+.X.X.
+XXXXX
+X.X.X
+X.X.X
+4 5 3
+.X.X.
+.X.X.
+XXXXX
+X.X.X
+5 5 2
+.XXX.
+XX..X
+.X...
+XXXXX
+X.X..
+8 13 6
+............X
+......X......
+.XX..XX....X.
+..X..XX.X.X..
+X....X.XX....
+XXXX.XXXX..XX
+XX..XXX.X.XXX
+...X.X.X.X...
+12 60 6
+..............................X.......................X....X
+X.X...X.........XX.X..X............XXX..X.......X...X..X.X..
+XX.X.X....X..X.X.XX.XXX.X.XX.XXX.....XX......XX.X....XXXXX..
+.XXXXXXXXXXXXXXXXXXXX.XXX.XXXXXXXX..X.XX.XXX..XXXX.XXXXXXX..
+XXXXXXXXXXXX.XXXXXXXXXXXX.XXX.XXXX.XXXXXXXXXXXXXXXXXXXXXX.X.
+XXX.XXXXX.XXXXXX.XXXX.XX.XXXXX.XXXXXX.XX.XXXX.XXXX.XXXXX.XXX
+.XXXXXXXXXXXXXXXXXXXX.XXX.XXXXXXXX..X.XX.XXX..XXXX.XXXXXXX.X
+XXXXXXXXXX.XXXXX.XXXXX.XXXX..XX.XXXXXXXX.XXXXXXXXXXXXXXX..X.
+XXXXXXX..X..XXXXX.X..XX.X..XXX..X..X.X.XX....XXXXX..XXXXXXX.
+.X.XXXX..XXXX.X.X.X.XXXX.XX.XXX.XXX...XXX.XX..X.X.X....XX.X.
+...X.X.X......XXXX.X.X.X...X......X..X.XXX...XX.XX...XXX...X
+...............X........X...............XX...X......X.......

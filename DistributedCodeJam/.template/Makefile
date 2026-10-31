@@ -3,7 +3,7 @@ DCJ = ./dcj/dcj.sh
 NODES = 10
 export PYTHONPATH = /usr/bin/python2.7
 
-TARGET := $PROBLEM_NAME
+TARGET := __PROBLEM_NAME__
 
 INPUTS := $(sort $(basename $(wildcard *.h)))
 EXECUTABLES := $(INPUTS)
