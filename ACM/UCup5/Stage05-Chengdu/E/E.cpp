@@ -859,10 +859,15 @@ int main() {
 			auto upper_it = std::lower_bound(upper.begin(), upper.end(), C, [&](poly_t a, pt_t b) -> bool {
 				return lex_less(a.p, b);
 			});
+
 		};
 
 		for (int q = 0; q < Q; q++) {
 			pt_t C; std::cin >> C;
+			auto res = query(C);
+			if (res) {
+				auto r = *res;
+			}
 		}
 	}
 
