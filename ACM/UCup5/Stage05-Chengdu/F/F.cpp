@@ -4077,8 +4077,8 @@ int main() {
 			}
 			auto p = series(prods[1]);
 			auto cur_newtons = deriv_shift(p) * ps_inv(p);
-			cur_newtons.shrink_to(N+1);
 			cur_newtons *= num(-1);
+			cur_newtons.shrink_to(N+1);
 			for (int64_t v : subtree_sizes[z]) { std::cerr << v << ' '; } std::cerr << '\n';
 			std::cerr << "newtons "; for (auto n : cur_newtons) { std::cerr << -n << ' '; } std::cerr << '\n';
 			if (z == 0) newtons -= cur_newtons;
