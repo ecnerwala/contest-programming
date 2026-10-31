@@ -1194,6 +1194,8 @@ int main() {
 			if (T >= 2 * N) {
 				en = st + dir * (2 * N);
 			}
+			while (true) {
+			}
 		}
 	};
 
