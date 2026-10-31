@@ -880,7 +880,6 @@ int main() {
 			assert(lower_it != lower.begin());
 			assert(upper_it != upper.end());
 			assert(upper_it != upper.begin());
-
 		};
 
 		for (int q = 0; q < Q; q++) {
