@@ -1053,6 +1053,7 @@ int main() {
 			A = -A, B = -B, C = -C;
 			assert(A >= 0 && B >= 0);
 		}
+		// We want both A and B positive
 	};
 
 	int CASES; std::cin >> CASES;
