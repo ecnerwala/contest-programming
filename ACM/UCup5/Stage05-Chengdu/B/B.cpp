@@ -1315,6 +1315,9 @@ int main() {
 		int T = std::uniform_int_distribution<int>(1, 3*N)(mt);
 		auto ans = slow(N, X0, Y0, A, B, C, T);
 		auto mine = solve(N, X0, Y0, A, B, C, T);
+		if (ans != mine) {
+			std::cerr << N << ' ' << X0 << ' ' << Y0 << ' ' << A << ' ' << B << ' ' << C << ' ' << T << '\n';
+		}
 		assert(ans == mine);
 	}
 
