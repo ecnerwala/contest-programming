@@ -3604,6 +3604,8 @@ int main() {
 			} else {
 				nxt_height = sa.lcp[cur >> 1];
 			}
+			subs.push_back(tot);
+			tot += nxt_height - cur_height;
 		}(ct.root, 0);
 	}
 
