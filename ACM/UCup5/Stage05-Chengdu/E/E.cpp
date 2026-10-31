@@ -876,6 +876,8 @@ int main() {
 				return lex_less(a.p, b);
 			});
 
+			assert(lower_it != lower.end();)
+
 		};
 
 		for (int q = 0; q < Q; q++) {
