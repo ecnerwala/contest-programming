@@ -4387,6 +4387,8 @@ int main() {
 			prods[i] = prods[2*i] * prods[2*i+1];
 		}
 		wala::vec<trunc> pushdowns(2 * layout.N);
+		for (int i = 1; i < N; i++) {
+		}
 	}
 
 	return 0;
