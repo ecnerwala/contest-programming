@@ -1,0 +1,23 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Bob had an array that contained the integers from 1 to <b>N</b>, inclusive.
+He converted each integer into a string.
+Then, he sorted the array.
+Finally, he converted each string back into an integer.
+</p>
+<p>
+Count and return the number of inversions in Bob's final array.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SortInversions</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long count(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>A pair of indices (i, j) into an array B is an inversion if and only if (i &lt; j and B[i] &gt; B[j]). In other words, an inversion is a pair of elements such that the bigger element is to the left of the smaller one.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr></table></td></tr><tr><td><pre>Returns: 24</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Bob had the array {1, 2, ..., 9, 10, 11, 12}.
+</p>
+<p>
+He converted the elements to strings: {"1", "2", ..., "9", "10", "11", "12"}.
+</p>
+<p>
+He sorted those strings: {"1", "10", "11", "12", "2", ..., "9"}.
+</p>
+<p>
+He converted everything back to integers: {1, 10, 11, 12, 2, ..., 9}.
+</p>
+<p>
+This array now contains 24 inversions.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>199</pre></td></tr></table></td></tr><tr><td><pre>Returns: 9610</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>999999</pre></td></tr></table></td></tr><tr><td><pre>Returns: 45451601010</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

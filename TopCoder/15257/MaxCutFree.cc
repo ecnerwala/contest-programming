@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define rep(i, a, b) for(int i = a; i < (b); ++i)
+#define trav(a, x) for(auto& a : x)
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+
+vi num, st;
+vector<vector<pii>> ed;
+int Time;
+template<class F>
+int dfs(int at, int par, F f) {
+	int me = num[at] = ++Time, e, y, top = me;
+	trav(pa, ed[at]) if (pa.second != par) {
+		tie(y, e) = pa;
+		if (num[y]) {
+			top = min(top, num[y]);
+			if (num[y] < me)
+				st.push_back(e);
+		} else {
+			int si = sz(st);
+			int up = dfs(y, e, f);
+			top = min(top, up);
+			if (up == me) {
+				st.push_back(e);
+				f(vi(st.begin() + si, st.end()));
+				st.resize(si);
+			}
+			else if (up < me) st.push_back(e);
+			else { /* e is a bridge */ }
+		}
+	}
+	return top;
+}
+
+template<class F>
+void bicomps(F f) {
+	num.assign(sz(ed), 0);
+	rep(i,0,sz(ed)) if (!num[i]) dfs(i, -1, f);
+}
+
+vector<vi> adj;
+vector<bool> vis;
+
+// maximum taking and not taking
+pair<int, int> dfs(int cur, int prv = -1) {
+	assert(!vis[cur]);
+	vis[cur] = true;
+	int nt = 0, t = 1;
+	for (int nxt : adj[cur]) {
+		if (nxt == prv) continue;
+		auto it = dfs(nxt, cur);
+		nt += it.second;
+		t += it.first;
+	}
+	t = max(t, nt);
+	return pair<int, int>(nt, t);
+}
+
+namespace ecnerwala {
+
+class MaxCutFree {
+
+public:
+
+	int solve(int n, vector <int> a, vector <int> b) {
+		int m = sz(a);
+		ed.assign(n, vector<pair<int, int>>());
+		for (int e = 0; e < m; e++) {
+			ed[a[e]].emplace_back(b[e], e);
+			ed[b[e]].emplace_back(a[e], e);
+		}
+		vector<bool> notBridge(m, false);
+		bicomps([&](const vi& edgelist){ for(int e : edgelist) notBridge[e] = true; });
+
+		adj.assign(n, vi());
+
+		for (int e = 0; e < m; e++) {
+			if (notBridge[e]) continue;
+			int x = a[e], y = b[e];
+			adj[x].push_back(y);
+			adj[y].push_back(x);
+		}
+		vis.assign(n, false);
+		int res = 0;
+		for (int i = 0; i < n; i++) {
+			if (!vis[i]) {
+				res += dfs(i).second;
+			}
+		}
+		return res;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::MaxCutFree;
+
+// vim:ft=cpp

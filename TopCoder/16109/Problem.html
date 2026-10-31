@@ -1,0 +1,65 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>
+The time limit is 4 seconds.
+</i></p>
+<p>
+A sequence is called <i>good</i> if its product can be expressed as the sum of two squares.
+For example:
+</p>
+<ul>
+<li>{1, 1, 1} is good because 1*1*1 = 1 = 0^2 + 1^2.</li>
+<li>{6, 164, 15} is good because 6*164*15 = 14760 = 42^2 + 114^2.</li>
+<li>{2, 3} is not good because 2*3 = 6 and it is not possible to write 6 as the sum of two squares.</li>
+</ul>
+<p>
+A subsequence of a sequence X is any sequence that can be obtained by erasing zero or more elements of X, while maintaining the order of the remaining elements.
+Two subsequences of the same sequence are distinct if they correspond to erasing elements at different indices.
+</p>
+<p> 
+You have an array A of size <b>N</b>.
+The elements of A are positive integers.
+</p>
+<p>
+You are also given a collection of <b>Q</b> queries.
+For the i-th query, consider the sequence A_i formed by the elements of A at indices from QL[i] to QR[i], inclusive.
+The answer to the i-th query is the number of non-empty good subsequences of the sequence A_i.
+</p>
+<p>
+Calculate answers to all the queries, and return their sum modulo 998,244,353.
+</p>
+<br></br>
+<p>
+To keep the input size small, you are only given prefixes of A, QL, and QR in the vector &lt;int&gt;s <b>Aprefix</b>, <b>QLprefix</b>, and <b>QRprefix</b>.
+Use the following pseudocode to generate the full arrays:
+</p>
+<pre>
+state = seed
+
+A = Aprefix
+while length(A) &lt; N:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    A.append( 1 + state modulo 10000000)
+
+QL = QLprefix
+QR = QRprefix
+while len(L) &lt; Q:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    x = state modulo N
+    state = (state * 1103515245 + 12345) modulo 2^31
+    y = state modulo N
+    QL.append( min(x,y) )
+    QR.append( max(x,y) )
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TaleOfTwoSquares</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, int, vector &lt;int&gt;, vector &lt;int&gt;, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int N, vector &lt;int&gt; Aprefix, int Q, vector &lt;int&gt; QLprefix, vector &lt;int&gt; QRprefix, int seed)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>4.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 10^5, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Aprefix</b> will have between 0 and min(100,<b>N</b>) elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Aprefix</b> will be between 1 and 10^7, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Q</b> will be between 1 and 10^5, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>QLprefix</b> will have between 0 and min(100,<b>Q</b>) elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>QRprefix</b> will have the same number of elements as <b>QLprefix</b>.</td></tr><tr><td align="center" valign="top">-</td><td>For each valid i, 0 &lt;= <b>QLprefix</b>[i] &lt;= <b>QRprefix</b>[i] &lt;= <b>N</b>-1.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>{1, 1, 1, 6, 164, 15, 2, 3}</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{0, 3, 6}</pre></td></tr><tr><td><pre>{2, 5, 7}</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 11</pre></td></tr><tr><td><table><tr><td colspan="2">In this example we are given the entire arrays A, QL, QR.
+There are three queries.
+<ul>
+<li>Query 0 asks about the sequence {1, 1, 1}. Each of the 7 non-empty subsequences of this sequence is good.</li>
+<li>Query 1 asks about the sequence {6, 164, 15}. Only the subsequences {6, 15}, {164}, and {6, 164, 15} are good.</li>
+<li>Query 2 asks about the sequence {2, 3}. Only the subsequence {2} is good.</li>
+</ul>
+The sum of answers to all queries is therefore 7 + 3 + 1 = 11.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>40</pre></td></tr><tr><td><pre>{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}</pre></td></tr><tr><td><pre>300</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 800453880</pre></td></tr><tr><td><table><tr><td colspan="2">All non-empty subsequences of each sequence are good.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>14</pre></td></tr><tr><td><pre>{47, 12345}</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>{4, 5}</pre></td></tr><tr><td><pre>{6, 7}</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 11</pre></td></tr><tr><td><table><tr><td colspan="2">You should have the following arrays:
+<pre>
+A = {47, 12345, 5621309, 3614406, 1878299, 854092, 6820649, 3962434, 1250151, 3983528, 7736277, 8477438, 9514867, 2640324}
+QL = {4, 5, 5, 1, 3}
+QR = {6, 7, 8, 6, 6}
+</pre>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

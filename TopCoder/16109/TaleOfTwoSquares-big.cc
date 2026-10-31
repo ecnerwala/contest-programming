@@ -1,0 +1,267 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#include <numeric>
+#endif
+
+#include <bits/stdc++.h>
+#include <bits/extc++.h>
+
+using namespace std;
+
+namespace ecnerwala {
+
+template <typename K, typename V, typename Comp = std::less<K>>
+using order_statistic_map = __gnu_pbds::tree<
+	K, V, Comp,
+	__gnu_pbds::rb_tree_tag,
+	__gnu_pbds::tree_order_statistics_node_update
+>;
+
+template <typename K, typename Comp = std::less<K>>
+using order_statistic_set = order_statistic_map<K, __gnu_pbds::null_type, Comp>;
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+
+private:
+	using ll = long long;
+
+	int v;
+
+	static int minv(int a, int m) {
+		a %= m;
+		assert(a);
+		return a == 1 ? 1 : int(m - ll(minv(m, a)) * ll(m) / a);
+	}
+
+public:
+
+	modnum() : v(0) {}
+	modnum(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	explicit operator int() const { return v; }
+	friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { ll v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
+	friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
+
+	modnum inv() const {
+		modnum res;
+		res.v = minv(v, MOD);
+		return res;
+	}
+	friend modnum inv(const modnum& m) { return m.inv(); }
+	modnum neg() const {
+		modnum res;
+		res.v = v ? MOD-v : 0;
+		return res;
+	}
+	friend modnum neg(const modnum& m) { return m.neg(); }
+
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (const modnum& o) {
+		v += o.v;
+		if (v >= MOD) v -= MOD;
+		return *this;
+	}
+	modnum& operator -= (const modnum& o) {
+		v -= o.v;
+		if (v < 0) v += MOD;
+		return *this;
+	}
+	modnum& operator *= (const modnum& o) {
+		v = int(ll(v) * ll(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (const modnum& o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
+	friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
+	friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
+	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
+};
+
+template <typename T> T pow(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
+
+class TaleOfTwoSquares {
+
+public:
+
+	int count(int N, vector <int> Aprefix, int Q, vector <int> QLprefix, vector <int> QRprefix, int seed) {
+		int64_t state = seed;
+
+		vector<int> A = Aprefix; A.reserve(N);
+		while (int(A.size()) < N) {
+			state = (state * 1103515245 + 12345) % (int64_t(1) << 31);
+			A.push_back(int(1 + state % 10000000));
+		}
+
+		vector<int> QL = QLprefix; QL.reserve(Q);
+		vector<int> QR = QRprefix; QR.reserve(Q);
+		while (int(QL.size()) < Q) {
+			state = (state * 1103515245 + 12345) % (int64_t(1) << 31);
+			int x = int(state % N);
+			state = (state * 1103515245 + 12345) % (int64_t(1) << 31);
+			int y = int(state % N);
+			QL.push_back( std::min(x,y) );
+			QR.push_back( std::max(x,y) );
+		}
+
+		const int V = int(1e7) + 100;
+		vector<int> primes; primes.reserve(V);
+		vector<int> pfac(V+1);
+		for (int v = 2; v <= V; v++) {
+			if (!pfac[v]) {
+				primes.push_back(v);
+				pfac[v] = v;
+			}
+			for (int q : primes) {
+				if (q > pfac[v]) break;
+				if (q > V / v) break;
+				pfac[q * v] = q;
+			}
+		}
+
+		vector<int> p_idx(V+1);
+		int P_small = 0;
+		int P = 0;
+		for (int p : primes) {
+			if (p % 4 == 3) {
+				if (p <= V / p) {
+					P_small++;
+				}
+				p_idx[p] = P++;
+			}
+		}
+		cerr << P << ' ' << P_small << '\n';
+		using bs = bitset<240>;
+		assert(P_small <= 240);
+
+		using num = modnum<998244353>;
+		num ans = 0;
+
+		vector<vector<int>> queries(N);
+		for (int q = 0; q < Q; q++) {
+			queries[QR[q]].push_back(QL[q]);
+		}
+		vector<num> p2m1(N+1);
+		for (int i = 1; i <= N; i++) {
+			p2m1[i] = p2m1[i-1] * 2 + num(1);
+		}
+
+		vector<pair<bs, bs>> basis(240);
+		vector<int> inds(240, -1);
+
+		order_statistic_set<int> alives;
+
+		auto insert_vec = [&](bs cur_msk, int a) {
+			bs ind_msk;
+			for (int idx = int(cur_msk._Find_first()); idx < 240; idx = int(cur_msk._Find_next(idx))) {
+				assert(cur_msk[idx]);
+				if (basis[idx].first[idx]) {
+					cur_msk ^= basis[idx].first;
+					ind_msk ^= basis[idx].second;
+				} else {
+					assert(inds[idx] == -1);
+					alives.insert(inds[idx] = a);
+					assert(!ind_msk[idx]);
+					ind_msk[idx] = true;
+					basis[idx] = {cur_msk, ind_msk};
+					return;
+				}
+			}
+			pair<int, int> to_remove = {a, -1};
+			for (int idx = int(ind_msk._Find_first()); idx < 240; idx = int(ind_msk._Find_next(idx))) {
+				to_remove = min(to_remove, pair<int, int>{inds[idx], idx});
+			}
+			int idx = to_remove.second;
+			if (idx == -1) {
+				return;
+			}
+			alives.erase(to_remove.first);
+			alives.insert(inds[idx] = a);
+			assert(ind_msk[idx]);
+			ind_msk[idx] = false;
+
+			for (int v = 0; v < 240; v++) {
+				if (basis[v].second[idx]) {
+					basis[v].second ^= ind_msk;
+				}
+			}
+		};
+
+		vector<pair<bitset<240>, int>> prime_occ(P, {bs(), -1});
+
+		for (int y = 0; y < N; y++) {
+			// insert A[y]
+			bs cur_msk;
+			int large_prime = -1;
+			for (int v = A[y]; v > 1; ) {
+				int p = pfac[v];
+				int e = 0;
+				while (v % p == 0) v /= p, e ^= 1;
+				if (p % 4 == 3 && e) {
+					int i = p_idx[p];
+					if (i >= P_small) {
+						assert(large_prime == -1);
+						large_prime = i;
+					} else {
+						cur_msk.flip(i);
+					}
+				}
+			}
+			if (large_prime != -1) {
+				// instead insert your predecessor
+				if (prime_occ[large_prime].second != -1) {
+					alives.erase(prime_occ[large_prime].second);
+					insert_vec(prime_occ[large_prime].first ^ cur_msk, prime_occ[large_prime].second);
+				}
+				alives.insert(y);
+				prime_occ[large_prime] = {cur_msk, y};
+			} else {
+				insert_vec(cur_msk, y);
+			}
+			
+			for (int x : queries[y]) {
+				int rnk = int(alives.size()) - int(alives.order_of_key(x));
+				ans += p2m1[(y - x + 1) - rnk];
+			}
+		}
+
+		return int(ans);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::TaleOfTwoSquares;
+
+// vim:ft=cpp

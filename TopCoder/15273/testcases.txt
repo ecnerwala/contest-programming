@@ -1,0 +1,6 @@
+"bbaab"
+3
+"ababbaab"
+8
+"ababaabbaabbaaabbbaaabbbaaaabbbbaaaabbbbaaaaabbbbbaaaaabbbbbaaaaaabbbbbbaaaaaabbbbbb"
+139

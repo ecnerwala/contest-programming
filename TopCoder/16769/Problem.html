@@ -1,0 +1,74 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit is 3 seconds.</i></p>
+<br></br>
+<p>
+Chessland is located on a rectangular board divided into <b>R</b> times <b>C</b> unit squares, with <b>R</b>*<b>C</b> even.
+Squares have coordinates (row, column) with rows numbered from 0 top to bottom and columns numbered from 0 left to right.
+</p>
+<br></br>
+<p>
+Chessland wants its own Formula 1 circuit.
+The circuit will consist of road segments.
+Each road segment must connect two squares that share a side.
+The circuit must visit each square of the board exactly once.
+</p>
+<p>
+For each pair of such squares you are given whether it's possible to build the road segment, and if yes, what it costs.
+</p>
+<br></br>
+<p>
+Additionally, corners are harder to build than straight road segments. For each square you are given the extra cost you have to pay if the circuit changes direction within that square.
+</p>
+<br></br>
+<p>
+You are given:
+</p>
+<ul>
+<li>The dimensions <b>R</b> and <b>C</b>.</li>
+<li>The vector &lt;int&gt; <b>costRight</b> where the value <b>costRight</b>[r*<b>C</b>+c] is the cost of building a road between the square (r, c) and the square (r, c+1), or -1 if this is impossible.</li>
+<li>The vector &lt;int&gt; <b>costDown</b> where the value <b>costDown</b>[r*<b>C</b>+c] is the cost of building a road between the square (r, c) and the square (r+1, c), or -1 if this is impossible.</li>
+<li>The vector &lt;int&gt; <b>costCorner</b> where the value <b>costCorner</b>[r*<b>C</b>+c] is the cost of building a corner of the circuit on the square (r, c).</li>
+</ul>
+<p>
+Return -1 if no solution exists, or the cost of the cheapest solution if solutions exist.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RaceCircuit</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int construct(int R, int C, vector &lt;int&gt; costRight, vector &lt;int&gt; costDown, vector &lt;int&gt; costCorner)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 2 and 12, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will be between 2 and 12, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> * <b>C</b> will be even.</td></tr><tr><td align="center" valign="top">-</td><td><b>costRight</b>, <b>costDown</b> and <b>costCorner</b> will have <b>R</b> * <b>C</b> elements each.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>costRight</b> and <b>costDown</b> will be between -1 and 999, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>costCorner</b> will be between 0 and 999, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>costRight</b> and <b>costDown</b> that correspond to road segments leaving the kingdom will be -1.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>{10, -1,
+ 40, -1}</pre></td></tr><tr><td><pre>{20, 30,
+ -1, -1}</pre></td></tr><tr><td><pre>{5, 4,
+ 9, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 125</pre></td></tr><tr><td><table><tr><td colspan="2">The smallest possible example. The costs to build roads and corners are shown below:
+<pre>
+
+[5] --10-- [4]
+ |          |
+ |          |
+20         30
+ |          |
+ |          |
+[9] --40-- [7]
+
+</pre>
+There is only one way how to build the circuit. The road segments cost 10+30+40+20 = 100 and the extra cost for its corners is 5+4+9+7 = 25.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>{0, -1,
+ 0, -1}</pre></td></tr><tr><td><pre>{-1,  0,
+ -1, -1}</pre></td></tr><tr><td><pre>{5, 4,
+ 9, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">A trivial example with no solution.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{1, 2, 1, -1,
+ 2, 1, 2, -1,
+ 1, 1, 1, -1}</pre></td></tr><tr><td><pre>{ 1,  1,  1,  1,
+  1,  2,  2,  1,
+ -1, -1, -1, -1}</pre></td></tr><tr><td><pre>{100, 100, 100, 100,
+ 100, 100, 100, 100,
+ 100, 100, 100, 100}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 812</pre></td></tr><tr><td><table><tr><td colspan="2">Building the corners costs the same everywhere. There are only two possible circuits and both have the same number of corners, so we just need the cheapest road segments. Luckily for us, the road segments with cost 1 form exactly one of the two possible circuits.
+<pre>
+*---*   *---*
+|   |   |   |
+*   *---*   *
+|           |
+*---*---*---*
+</pre>
+We pay 800 for the corners and 12 for the road segments.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{1, 2, 1, -1,
+ 2, 1, 2, -1,
+ 1, 1, 1, -1}</pre></td></tr><tr><td><pre>{ 1,  1,  1,  1,
+  1,  2,  2,  1,
+ -1, -1, -1, -1}</pre></td></tr><tr><td><pre>{100, 100, 100, 100,
+ 100, 100, 100, 100,
+ 100,  50,  50, 100}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 715</pre></td></tr><tr><td><table><tr><td colspan="2">Here the road costs are negligible in comparison to the corner costs. The optimal solution is to build the other possible circuit with corners at (2,1) and (2,2).
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

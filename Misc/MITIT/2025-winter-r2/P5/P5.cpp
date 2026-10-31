@@ -28,14 +28,14 @@ int main() {
 			int c = num_colors++;
 			while (r < N && locs[r].first == locs[l].first) r++;
 			for (int i = l; i < r; i++) C[locs[i].second] = c;
-			cerr << "color " << c << '\n';
+			//cerr << "color " << c << '\n';
 			int cur_x = N;
 			int balance = 0;
 			int st = N;
 			for (int i = r-1; i >= l; i--) {
 				int x = locs[i].second;
 				if (balance > 0 && balance - (cur_x - (x+1)) <= 0) {
-					cerr << "pushing balance at " << cur_x - balance << '\n';
+					//cerr << "pushing balance at " << cur_x - balance << '\n';
 					starts[cur_x - balance].push_back({0, c, st});
 				}
 				balance -= cur_x - (x+1);
@@ -52,13 +52,13 @@ int main() {
 					starts[cur_x - balance].push_back({0, c, st});
 				} else {
 					balance -= cur_x;
-					cerr << "pushing initial balance " << balance << '\n';
+					//cerr << "pushing initial balance " << balance << '\n';
 					cur_balances.push_back({balance, c, st});
 				}
 			}
 		}
 
-		cerr << "K = " << K << '\n';
+		//cerr << "K = " << K << '\n';
 
 		std::map<int, std::vector<int>> alive_stacks;
 
@@ -69,14 +69,14 @@ int main() {
 		}
 
 		for (int i = 0; i < N; i++) {
-			cerr << "at " << i << '\n';
+			//cerr << "at " << i << '\n';
 			{
 				int L = 0;
 				for (int z = 0; z < int(cur_balances.size()); z++) {
 					if (cur_balances[z].en > i) {
 						cur_balances[L++] = cur_balances[z];
 					} else {
-						cerr << "  clear " << cur_balances[z].color << '\n';
+						//cerr << "  clear " << cur_balances[z].color << '\n';
 						assert(cur_balances[z].en == i);
 						assert(cur_balances[z].bal == 0);
 					}
@@ -86,7 +86,7 @@ int main() {
 			cur_balances.insert(cur_balances.end(), starts[i].begin(), starts[i].end());
 
 			int c = C[i];
-			cerr << "try insert " << c << '\n';
+			//cerr << "try insert " << c << '\n';
 
 			auto get_cnt = [&](int color) -> int {
 				auto it = alive_stacks.find(color);
@@ -99,7 +99,7 @@ int main() {
 			for (const auto& it : cur_balances) {
 				assert(it.en > i);
 				int cnt = get_cnt(it.color);
-				cerr << "  color " << it.color << ' ' << cnt << ' ' << it.bal << '\n';
+				//cerr << "  color " << it.color << ' ' << cnt << ' ' << it.bal << '\n';
 				assert(cnt + it.bal <= K);
 				if (it.color == c) {
 					continue;
@@ -110,7 +110,7 @@ int main() {
 					// we're fine
 				}
 			}
-			cerr << "  must use " << must_color << '\n';
+			//cerr << "  must use " << must_color << '\n';
 
 			if (must_color == -1) {
 				auto it = alive_stacks.begin();
@@ -123,7 +123,7 @@ int main() {
 				assert(it->first != c);
 				must_color = it->first;
 			}
-			cerr << "  using " << must_color << " -> " << c << '\n';
+			//cerr << "  using " << must_color << " -> " << c << '\n';
 			{
 				auto it = alive_stacks.find(must_color);
 				assert(it != alive_stacks.end());

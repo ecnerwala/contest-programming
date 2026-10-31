@@ -1,0 +1,17 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A string is called a <i>palindrome</i> if it reads the same forwards and backwards. E.g., "a", "noon" and "tacocat" are palindromes but "cocoa" isn't.
+</p>
+<p>
+A string is called a <i>near-palindrome</i> if we can rearrange its characters to make it a palindrome. For example, "aaa", "cocoa" and "xxyyzz" are near-palindromes but "abc" isn't.
+</p>
+<br></br>
+<p>
+You are given a string <b>S</b> of lowercase English letters.
+You are allowed to perform a sequence of operations.
+In each operation you can choose an index into <b>S</b> and either increment or decrement the character at that index.
+(Incrementing 'a' turns it into 'b', incrementing 'b' gives 'c', ..., and if we increment 'z' we get 'a' again. Decrementing is the inverse operation.)
+</p>
+<p>
+Determine and return the smallest number of operations needed to turn <b>S</b> into a near-palindrome.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>NearPalindromesDiv1</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int solve(string S)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will contain between 1 and 2,500 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>S</b> will be a lowercase English letter ('a'-'z').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;cocoa&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This is already a near-palindrome, no operations are needed.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;daddy&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"><p>One optimal solution is to increment S[4] twice, changing the input string into the near-palindrome "dadda".</p>
+<p>(The string "dadda" is a near-palindrome because we can rearrange its letters to get a palindrome. One of the palindromes we can obtain this way is "dadad".)</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;abcdefgh&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

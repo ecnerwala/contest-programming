@@ -1,0 +1,58 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class DogsInAGrid {
+
+public:
+
+	vector <string> construct(int N) {
+		const int W = 40;
+		const int R_W = W + (W-2) + (W-2);
+		std::vector<std::string> grid;
+		char cur = 'D';
+		grid.push_back(string(W, 'D'));
+
+		while (N > 0) {
+			cur ^= 'D' ^ 'G';
+			if (N >= R_W) {
+				grid.push_back(string(W, 'O'));
+				grid.push_back(string(W, cur));
+				N -= R_W;
+				continue;
+			}
+			int excess = R_W - N;
+			grid.push_back(string(W, 'O'));
+			if (excess % 3 != 0) {
+				excess -= 1;
+				grid.back().front() = cur;
+			}
+			if (excess % 3 != 0) {
+				excess -= 1;
+				grid.back().back() = cur;
+			}
+			for (int z = 0; z < excess / 3; z++) {
+				grid.back()[z+1] = cur;
+			}
+			grid.push_back(string(W, cur));
+			break;
+		}
+		assert(grid.size() <= 40);
+		return grid;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::DogsInAGrid;
+
+// vim:ft=cpp

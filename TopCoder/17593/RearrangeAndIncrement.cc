@@ -1,0 +1,124 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class RearrangeAndIncrement {
+
+public:
+
+	vector <int> change(int X, int Y) {
+		std::vector<int> res;
+		res.push_back(X);
+		while (X != 1) {
+			string s = to_string(X);
+			std::sort(s.begin(), s.end());
+			std::reverse(s.begin(), s.end());
+
+			X = std::stoi(s);
+			res.push_back(X);
+
+			if (X % 10 == 9) {
+				X++;
+				res.push_back(X);
+				// rearrange
+				X = 1;
+				res.push_back(X);
+			} else {
+				X += 9 - (X % 10);
+				res.push_back(X);
+			}
+		}
+		assert(X == 1);
+		if (X == Y) {
+			return res;
+		}
+		if (Y < 10) {
+			res.push_back(Y);
+			return res;
+		}
+
+		std::string SY = std::to_string(Y);
+		while (std::to_string(X).size() < SY.size()) {
+			string s = to_string(X);
+			std::sort(s.begin(), s.end());
+			std::reverse(s.begin(), s.end());
+
+			X = std::stoi(s);
+			res.push_back(X);
+
+			if (X % 10 == 9) {
+				X++;
+				res.push_back(X);
+			} else {
+				X += 9 - (X % 10);
+				res.push_back(X);
+			}
+		}
+		if (SY[0] > '1') {
+			X += SY[0] - '1';
+			res.push_back(X);
+
+			{
+				string s = to_string(X);
+				std::swap(s.front(), s.back());
+				X = std::stoi(s);
+				res.push_back(X);
+			}
+
+			while (true) {
+				std::string s = to_string(X);
+				std::sort(s.begin()+1, s.end());
+				std::reverse(s.begin()+1, s.end());
+				X = std::stoi(s);
+				res.push_back(X);
+
+				if (X % 10 == 9) {
+					X++;
+					res.push_back(X);
+					break;
+				} else {
+					X += 9 - (X % 10);
+					res.push_back(X);
+				}
+			}
+		}
+
+		std::string SX = std::to_string(X);
+		assert(SX.size() == SY.size());
+		assert(SX[0] == SY[0]);
+		for (int i = 1; i < int(SY.size()); i++) {
+			assert(SX[i] == '0');
+			if (SY[i] != '0') {
+				SX.back() = SY[i];
+				X = std::stoi(SX);
+				res.push_back(X);
+
+				std::swap(SX[i], SX.back());
+				X = std::stoi(SX);
+				res.push_back(X);
+			}
+		}
+		return res;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	auto res = RearrangeAndIncrement().change(100000000, 999999999);
+	cerr << res.size() << '\n';
+	for (int v : res) { cerr << v << ' '; } cerr << '\n';
+	res = RearrangeAndIncrement().change(100000000, 9);
+	cerr << res.size() << '\n';
+	for (int v : res) { cerr << v << ' '; } cerr << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::RearrangeAndIncrement;
+
+// vim:ft=cpp

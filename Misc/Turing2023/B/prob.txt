@@ -1,0 +1,74 @@
+B.  Basic Looping Practice Problems
+
+    Time Limit:
+    2000
+    ms
+    Memory Limit:
+    524288
+    kb
+
+Description
+
+You are given a sequence {ai} of length n, where ai=i and 1≤n≤1000. You are also given a target sequence {bi}. Your task is to transform {ai} into {bi} using at most 2001 operations. You can perform the following two operations:
+
+    You can select a non-negative integer val within the int range, and {ai} will become {ai+val}.
+
+    You can select a positive integer val within the int range, and {ai} will become {aimodval}.
+
+It is guaranteed that there always exists a way to transform {ai} into {bi} using at most 2001 operations.
+Input
+
+There are two lines in the input:
+
+The first line contains a positive integer n, the length of the sequence.
+
+The second line contains n positive integers, which are the target sequence {bi}.
+Output
+
+The first line of the output should contain a non-negative integer t, the number of operations needed to reach the target sequence.
+
+The following t lines each contain two integers. The first integer is the operation type opt you have selected, and the second integer is the parameter val you have chosen.
+Examples
+Input 1
+
+3
+3 5 2
+
+Output 1
+
+5
+1 1
+2 3
+1 3
+2 4
+1 2
+
+Input 2
+
+3
+6 8 4
+
+Output 2
+
+5
+1 2
+2 4
+1 4
+2 5
+1 4
+
+Note
+
+For 100% of the test cases, 1≤n≤1000, and 0≤bi<100000.
+
+You need to ensure that your output satisfies 0≤t≤2001, opt∈{1,2}, and 0≤val≤2147483647.
+
+The problem will be graded on several subtasks:
+
+Subtask 1: n=1, 0≤bi<100000, worth 1 point.
+
+Subtask 2: 1≤n≤3, 0≤bi<5, worth 19 points.
+
+Subtask 3: 1≤n≤1000, 0≤bi<100000, with the additional constraint that the target sequence {bi} is non-decreasing, worth 35 points.
+
+Subtask 4: 1≤n≤1000, 0≤bi<100000, worth 45 points.

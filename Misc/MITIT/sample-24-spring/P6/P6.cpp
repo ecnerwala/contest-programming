@@ -316,7 +316,6 @@ int main() {
 				assert(-V <= l && l <= r && r <= V);
 				dp[{ni, nj, V + l}] += w;
 				dp[{ni, nj, V + r + 1}] -= w;
-				cerr << ni << ' ' << nj << ' ' << l << ' ' << r << ' ' << w << '\n';
 				if (l <= 0 && 0 <= r) {
 					// decrement 0
 					dp[{ni, nj, V + 0}] -= w;

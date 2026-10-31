@@ -1,0 +1,81 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#include <numeric>
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class MaximumPenalty {
+
+public:
+
+	vector <int> schedule(vector <int> L, vector <int> P) {
+		int N = int(L.size());
+		int64_t T = std::accumulate(L.begin(), L.end(), int64_t(0));
+
+		auto get_penalty = [&](int i, int64_t t) -> int64_t {
+			return ((P[4*i+3] * t + P[4*i+2]) * t + P[4*i+1]) * t + P[4*i+0];
+		};
+
+		vector<int> ans; ans.reserve(N);
+		vector<pair<int64_t, int>> jobs(N);
+		auto run_with_max = [&](int64_t mx) -> bool {
+			for (int i = 0; i < N; i++) {
+				int64_t tlo = -1;
+				int64_t thi = T+1;
+				while (thi - tlo > 1) {
+					int64_t tmd = (tlo + thi) / 2;
+					if (get_penalty(i, tmd) <= mx) tlo = tmd;
+					else thi = tmd;
+				}
+				jobs[i] = {tlo, i};
+			}
+			sort(jobs.begin(), jobs.end(), std::greater<pair<int64_t, int>>());
+			ans.clear();
+			int64_t cur_t = T;
+			for (int i = 0; i < N; i++) {
+				if (cur_t > jobs[i].first) return false;
+				cur_t -= L[jobs[i].second];
+				ans.push_back(jobs[i].second);
+			}
+			reverse(ans.begin(), ans.end());
+			return true;
+		};
+
+		int64_t lo = -1;
+		int64_t hi = 0;
+		for (int i = 0; i < N; i++) {
+			hi = max(hi, get_penalty(i, T));
+		}
+
+		while (hi - lo > 1) {
+			int64_t md = lo + (hi - lo) / 2;
+			if (run_with_max(md)) hi = md;
+			else lo = md;
+		}
+
+		run_with_max(hi);
+		return ans;
+	}
+};
+
+void my_tests() {
+	int N = 1000;
+	vector<int> L(N, 100);
+	vector<int> P(4*N, 8000);
+	P[0]--;
+	ofstream fout("hack.in");
+	fout << '{'; for (int i = 0; i < N; i++) {fout << L[i] << ",}"[i+1==N];} fout << '\n';
+	fout << '{'; for (int i = 0; i < 4*N; i++) {fout << P[i] << ",}"[i+1==4*N];} fout << '\n';
+	MaximumPenalty().schedule(L, P);
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::MaximumPenalty;
+
+// vim:ft=cpp

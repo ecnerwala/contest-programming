@@ -1,0 +1,35 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class GuessForMoney {
+
+public:
+
+	double balance(long long N) {
+		int64_t N_orig = N;
+		double ans = 0;
+		for (int g = 0; N > 0; g++) {
+			ans += N;
+			int64_t cnt = std::min(1ll << g, N);
+			N -= cnt;
+		}
+		return ans / N_orig;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	std::cerr << GuessForMoney().balance(1e12) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::GuessForMoney;
+
+// vim:ft=cpp

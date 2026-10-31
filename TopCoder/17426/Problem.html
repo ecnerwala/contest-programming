@@ -1,0 +1,42 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have a deck of 52 cards. 
+Each card has a single uppercase English letter ('A'-'Z').
+Each letter is used exactly twice, so the deck contains 26 pairs of cards.
+</p>
+<br></br>
+<p>
+You are going to use the cards to play the memory game with your friends.
+You shuffled the deck of cards and placed them onto the table.
+The cards are arranged into a single row and they are all face-down (i.e., the letters on them are not visible).
+</p>
+<p>
+The memory game is played in turns.
+In each turn, the active player starts by selecting one of the cards and turning it over.
+After seeing the letter on this card, the player then selects and turns over another card.
+If the two cards are distinct, they are turned face down again and the turn ends.
+If they form a pair, the player scores a point and takes those cards away from the table.
+Then, the player gets to repeat the whole process until they either reveal two cards that don't match, or find and remove the last pair of cards.
+</p>
+<br></br>
+<p>
+Some (possibly zero) turns of the game have already been played by other players.
+It is now your turn to play the game.
+There are 2*N cards still on the table. 
+</p>
+<p>
+(Note that during the game only pairs of matching cards are removed from the game, and thus it is guaranteed that those 2*N cards contain N pairs of matching cards.)
+</p>
+<br></br>
+<p>
+The string <b>known</b> represents what you currently know about the cards that are still in play.
+Each character represents one of the cards.
+If the character is a letter, you are certain that the card has that specific letter.
+Otherwise, the character is '-' (dash) and it means that you don't know anything about the card. (Maybe you haven't seen it, maybe you just forgot what it was.)
+</p>
+<br></br>
+<p>
+What is the maximum number of pairs you are <i>guaranteed</i> to find this turn, if you play the game optimally (i.e., in a way that maximizes this number)?
+Calculate and return this number of pairs.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>OptimalMemoryGame</td></tr><tr><td>Method:</td><td>findPairs</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int findPairs(string known)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>We want to stress that the two cards selected by the player are <i>not</i> selected at the same time. Instead, they are selected and revealed one at a time. When selecting the second card ("looking for a pair"), the player already knows what letter was on the first card they selected, and this information can influence the choice of the second card.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 26, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>known</b> will contain exactly 2*N characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>known</b> will be an uppercase English letter or a dash.</td></tr><tr><td align="center" valign="top">-</td><td>Each letter will appear at most twice in <b>known</b>.</td></tr><tr><td align="center" valign="top">-</td><td>There will be at most N distinct letters in <b>known</b>.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;AEIOUIAEUO&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2">All ten remaining cards have already been revealed and you know what they are. You can simply collect all pairs, one after another.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;----------&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The best you can do is flip some pair of cards. You aren't guaranteed that they will match. (In fact, it's likely that they won't.) Thus, you aren't guaranteed to find any pairs here, regardless of what strategy you use.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;--------A----E-----IAO----U---&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">The pair of As is the only pair you can collect here. After you do so, you may get lucky and find another pair, but this isn't guaranteed to happen.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;-X&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"><p>Sometimes we can guarantee to find a pair even if we aren't actually given the positions of both cards in it.</p>
+<p>For example, here the only unknown card is clearly the second X, and once we know that, we can guarantee that we can find and collect a matching pair.</p>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

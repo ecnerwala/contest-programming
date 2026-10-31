@@ -1,0 +1,110 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+#define trav(a, x) for (auto& a : x)
+
+using ll = long long;
+typedef unsigned long long ull;
+typedef long double ld;
+ull mod_mul(ull a, ull b, ull M) {
+	ll ret = a * b - M * ull(ld(a) * ld(b) / ld(M));
+	return ret + M * (ret < 0) - M * (ret >= (ll)M);
+}
+ull mod_pow(ull b, ull e, ull mod) {
+	ull ans = 1;
+	for (; e; b = mod_mul(b, b, mod), e /= 2)
+		if (e & 1) ans = mod_mul(ans, b, mod);
+	return ans;
+}
+
+bool isPrime(ull n) {
+	if (n < 2 || n % 6 % 4 != 1) return n - 2 < 2;
+	ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022},
+	    s = __builtin_ctzll(n-1), d = n >> s;
+	trav(a, A) {   // ^ count trailing zeroes
+		ull p = mod_pow(a, d, n), i = s;
+		while (p != 1 && p != n - 1 && a % n && i--)
+			p = mod_mul(p, p, n);
+		if (p != n-1 && i != s) return 0;
+	}
+	return 1;
+}
+
+bool isComposite(ll n) {
+	assert(n >= 0);
+	if (n == 0) return true;
+	if (n == 1) return false;
+	return !isPrime(n);
+}
+
+class PrefixComposite {
+
+	const int L = 15;
+	vector<ll> toDigits(ll v) {
+		vector<ll> r;
+		for (int i = 0; i < L; i++) {
+			r.push_back(v % 10);
+			v /= 10;
+		}
+		assert(v == 0);
+		reverse(r.begin(), r.end());
+		return r;
+	}
+
+	vector<ll> Ad;
+	vector<ll> Bd;
+	ll dfs_lo(int ind, ll val, bool eqA = true) {
+		if (!isComposite(val)) return -1;
+		if (ind == L) {
+			return val;
+		}
+		for (ll d = (eqA ? Ad[ind] : 0); d < 10; d++) {
+			ll ans = dfs_lo(ind+1, val * 10 + d, eqA && (d == Ad[ind]));
+			if (ans == -1) continue;
+			return ans;
+		}
+		return -1;
+	}
+	ll dfs_hi(int ind, ll val, bool eqB = true) {
+		if (!isComposite(val)) return -1;
+		if (ind == L) {
+			return val;
+		}
+		for (ll d = (eqB ? Bd[ind] : 9); d >= 0; d--) {
+			ll ans = dfs_hi(ind+1, val * 10 + d, eqB && (d == Bd[ind]));
+			if (ans == -1) continue;
+			return ans;
+		}
+		return -1;
+	}
+
+public:
+
+	vector<long long> minMax(long long A, long long B) {
+		Ad = toDigits(A);
+		Bd = toDigits(B);
+		ll mi = dfs_lo(0, 0);
+		ll ma = dfs_hi(0, 0);
+		if (A <= mi && mi <= ma && ma <= B) {
+			return vector<ll>({mi, ma});
+		} else {
+			return {};
+		}
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::PrefixComposite;
+
+// vim:ft=cpp

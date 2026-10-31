@@ -1,0 +1,44 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+We are recording temperature at regular intervals.
+You are given a log of last <b>N</b> recorded temperatures: values T[0] to T[<b>N</b>-1].
+Value T[0] is the earliest measurement, value T[<b>N</b>-1] is the most recent one.
+</p>
+<p>
+In this problem, we will use the following values: T[i] = (i*i + 4*i + 7) modulo <b>M</b>.
+As usual, a higher value is warmer.
+</p>
+<p>
+Each group of <b>Y</b> consecutive measurements represents a time interval of one year.
+</p>
+<br></br>
+<p>
+You would like to verify whether global warming is happening during the time that corresponds to your measurements.
+To do this, you need to find the year-long interval with the coldest average (the first such interval, if there are ties) and the year-long interval with the hottest average (the last such interval, if there are ties).
+</p>
+<p>
+More formally, we are looking at all contiguous segments of length <b>Y</b> in the given sequence of measurements. Among them, find
+</p>
+<ul>
+<li>The smallest index lo such that the average of the values T[lo], ..., T[lo+<b>Y</b>-1] is minimal.</li>
+<li>The largest index hi such that the average of the values T[hi], ..., T[hi+<b>Y</b>-1] is maximal.</li>
+</ul>
+<p>
+Return {lo, hi}.
+</p>
+<p>
+That is, return a vector &lt;int&gt; with two elements: element 0 should be lo and element 1 should be hi.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>GlobalWarmingCheck</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; solve(int N, int M, int Y)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 1,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will be between 1 and 1,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Y</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>20</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {8, 4 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The sequence of temperatures is T = {7, 12, 19, 8, 19, 12, 7, 4, 3, 4, 7, 12}.
+</p>
+<p>
+As <b>Y</b>=1, we are looking at segments that consist of a single measurement. The average temperature in a one-value segment is simply that value, so we are looking for the leftmost minimum and the rightmost maximum in the array.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>20</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: {6, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The temperatures are the same as in the previous example.
+</p>
+<p>
+The segments T[6], T[7], T[8], T[9] and T[7], T[8], T[9], T[10] both have the smallest average temperature of 4.50.
+</p>
+<p>
+The segments T[1], T[2], T[3], T[4] and T[2], T[3], T[4], T[5] both have the largest average temperature of 14.50.
+</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 9 }</pre></td></tr><tr><td><table><tr><td colspan="2">All segments have the same average temperature of 0, so we simply want the leftmost and the rightmost of them. Note that the rightmost segment starts at index 9. It contains the values T[9], T[10] and T[11].</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>57000</pre></td></tr><tr><td><pre>997</pre></td></tr><tr><td><pre>23</pre></td></tr></table></td></tr><tr><td><pre>Returns: {984, 56322 }</pre></td></tr><tr><td><table><tr><td colspan="2">Watch out for integer overflow when computing the values T[i]. In particular, the value i*i does not always fit into a 32-bit integer.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

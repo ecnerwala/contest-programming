@@ -1,0 +1,29 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+The reverse of a positive integer X, denoted rev(X), is the number formed by the same digits but in the opposite order.
+</p>
+<p>
+If a number with trailing zeros is reversed, the trailing zeros become leading zeros and thus they are discarded. For example, rev(4700) = 0074 = 74.
+</p>
+<p>
+Adding leading zeros before making the reversal is not allowed, so the value rev(X) is always unique.
+</p>
+
+<br></br>
+
+<p>
+The string <b>N</b> contains the canonical base-10 representation of a positive integer. Let int(<b>N</b>) denote that integer.
+</p>
+<p>
+Determine whether there is a positive integer X such that int(<b>N</b>) = X + rev(X).
+If yes, return a string containing the canonical representation of any one such X.
+If no, return an empty string instead.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>AddReverse</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string solve(string N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>"Canonical representation" means that there are no leading zeros.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will contain between 1 and 5,000 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>N</b> will be a digit ('0'-'9').</td></tr><tr><td align="center" valign="top">-</td><td>The first character of <b>N</b> will not be '0'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;88&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;44&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+If we take X = 44, we have rev(X) = 44, and 44 + 44 = 88.
+</p>
+<p>
+Several other correct X exist.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;11&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;10&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There is only one way to get the sum 11: we need to choose X = 10 and then we add rev(X) = 01 = 1. Thus, "10" is the only correct return value.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;121&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;110&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>Here, X can be any one of the following values: { 29, 38, 47, 56, 65, 74, 83, 92, 110 }.</p>
+<p>For example, 47 + rev(47) = 47 + 74 = 121, and 110 + rev(110) = 110 + 11 = 121.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;1000&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There is no X such that X + rev(X) = 1000.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;10485827274850&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;7382858692013&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,29 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+William and Xenia are fans of NIM-style games. Today, they came up with a new variant and they are both really excited to play it.
+</p>
+<p>
+As is usually the case, the game is played with some piles of tokens, the players take alternating turns, and the person who is unable to make a valid move loses the game.
+</p>
+<p>
+In this version of the game, the valid moves look as follows:
+The current player announces either <i>"take"</i> or <i>"split"</i>.
+Then:
+</p>
+<ul>
+<li>If they chose "take", they must choose one non-empty pile of tokens and remove one or more tokens from the pile.</li>
+<li>If they chose "split", they must choose a pile with at least two tokens and split the chosen pile into two or more smaller piles.</li>
+</ul>
+<p>
+For example, if there is a single pile with 7 tokens, the current player has multiple possibilities for a valid move, including these:
+</p>
+<ul>
+<li>Announce "take" and remove three tokens, leaving a single pile with four tokens.</li>
+<li>Announce "take" and remove all seven tokens, leaving an empty pile.</li>
+<li>Announce "split" and split the pile into a pile with two tokens and a pile with five tokens.</li>
+<li>Announce "split" and split the pile into seven piles containing one token each.</li>
+</ul>
+<p>
+You are given the vector &lt;int&gt; <b>piles</b>.
+Consider the position of the game where William is the next player to move, and the elements of <b>piles</b> are the sizes of the piles of tokens.
+Determine and return the winner of the game, assuming both players play optimally.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>YetAnotherTokenGame</td></tr><tr><td>Method:</td><td>getWinner</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string getWinner(vector &lt;int&gt; piles)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>piles</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>piles</b> will be between 1 and 300, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{47}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;William&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">William can take all tokens and win in a single turn. (More precisely, after William takes all tokens, Xenia will be unable to make a valid move.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,1,1,1,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;William&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The only valid move in this situation is choose "take" and to remove one of the tokens. Eventually, William will remove the last token and then Xenia will lose the game.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3,1,1,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;William&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">One winning move for William is to remove two tokens from the pile with three tokens. Another winning move is to split this pile into three piles, each containing one token.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3,42,47,3,42,47}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Xenia&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">This position is symmetric. Xenia can use this symmetry to copy William's moves, and if she does that, she will eventually win the game.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{300,42,47,3,42,47}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;William&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">One winning strategy for William is to produce the configuration from Example #3 and then to follow Xenia's strategy from that example.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,3,5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Xenia&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

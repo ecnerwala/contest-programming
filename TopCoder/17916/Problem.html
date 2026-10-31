@@ -1,0 +1,57 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are given a permutation <b>P</b> of values 0 to N-1.
+</p>
+<p>
+Your task is simple: sort this permutation, i.e., transform it to the identity permutation {0, 1, ..., N-1}.
+</p>
+
+<br></br>
+
+<p>
+The only way in which you can modify <b>P</b> is by reversing its subarrays.
+More precisely, in each step you can select any half-open range of indices [x, y) and reverse the order of values within that range:
+instead of <b>P</b>[x], <b>P</b>[x+1], ..., <b>P</b>[y-1] these values will now be <b>P</b>[y-1], ..., <b>P</b>[x+1], <b>P</b>[x].
+</p>
+<p>
+For example, you can transform the permutation P = {0, 1, 2, 6, 5, 4, 3, 7, 8} into the identity permutation by reversing the range [3, 7).
+</p>
+
+<br></br>
+
+<p>
+Your task is to find a reasonably short sequence of reversals that sorts <b>P</b>.
+</p>
+<p>
+Let opt(<b>P</b>) be the optimal number of reversals needed to sort <b>P</b>. Then:
+</p>
+<ul>
+<li>The number of reversals in your solution must not exceed 2*opt(<b>P</b>).</li>
+<li>The number of reversals in your solution must not exceed N-1.</li>
+</ul>
+
+<br></br>
+
+<p>
+If you want to perform K reversals, return a vector &lt;int&gt; with 2*K values: for each reversal, in order, return the indices x and y.
+</p>
+
+<br></br>
+<p>----------</p>
+<br></br>
+
+<p><i>
+The system tests contain a set of permutations for which we know the exact value of the optimal solution.
+These permutations have between 1 and 50 elements, inclusive.
+</i></p>
+
+<p><i>
+As we need to know opt(<b>P</b>) to evaluate your solution, for N &gt; 9 the validator that is executed when you submit a challenge only allows the specific test cases that are included in the system tests.
+If you can guess what they are, you can use them as challenges :) but most likely this means that custom challenges are only allowed for permutations of length up to 9.
+</i></p>
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ReversalSorting</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; solve(vector &lt;int&gt; P)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>It is guaranteed that a valid solution always exists. </td></tr><tr><td align="center" valign="top">-</td><td>Each reversal [x, y) in your return value must satisfy 0 &lt;= x &lt;= y &lt;= N. (Reversals with y-x &lt; 2 do nothing, but your solution may still return them if you want.)</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will be a permutation of values 0 through length(<b>P</b>)-1.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">This is already a sorted permutation. The optimal number of reversals needed is 0, and thus the only valid solution is to do nothing.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2, 6, 5, 4, 3, 7, 8}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 7, 0, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Example permutation from the problem statement. You may return any sequence of one or two reversals that sorts it.
+</p>
+<p>
+The reference solution performs the one reversal that sorts it and then another dummy reversal that only touches element 0 of <b>P</b>. The returned solution is not optimal but it is still within the stated limits, so it's a valid solution.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 0, 3, 2, 5, 4, 7, 6}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 2, 2, 4, 4, 6, 6, 8 }</pre></td></tr><tr><td><table><tr><td colspan="2">Our solution sorts this permutation by performing four consecutive transpositions (i.e., reversals of two-element ranges): we reverse the range [0,2), then [2,4), then [4,6), and finally [6,8).</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,53 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There is a castle.
+Around the castle there is a wall.
+Along the wall there are <b>N</b> guard houses at regular intervals.
+They are numbered 0 to <b>N</b>-1 in clockwise order. 
+</p>
+<p>
+As the wall goes around the whole castle, if you start from guard house <b>N</b>-1 and continue walking clockwise around the castle, you will eventually get back to guard house 0.
+</p>
+<br></br>
+<p>
+Everyone left the castle to go attend the wedding of the royal daughter.
+The only person left at the castle is Andre the guard.
+He just started his service by visiting guard house 0.
+</p>
+<p>
+Andre was given a sequence of commands: the vector &lt;int&gt; <b>commands</b>.
+Each command is a non-zero integer.
+A positive integer x is the command "walk clockwise around the castle until you visit a guard house x times".
+A negative integer x is the same command but Andre is supposed to walk counter-clockwise until he visits a guard house (-x) times.
+</p>
+<br></br>
+<p>
+Andre was told to repeat the entire sequence of commands <b>R</b> times.
+</p>
+<p>
+Each new iteration starts from the guard house where he finished the previous one. He does not return to guard house 0 each time he begins a new sequence of commands.
+</p>
+<br></br>
+<p>
+Return a vector&lt;long long&gt; with <b>N</b> elements: for each guard house, the total number of times Andre visited it during the entire process.
+(Element x of the return value should be the number of times guard house x was visited.)
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CastleGuard</td></tr><tr><td>Method:</td><td>walk</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Method signature:</td><td>vector&lt;long long&gt; walk(int N, int R, vector &lt;int&gt; commands)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 3 and 500, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 10^7, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>commands</b> will have between 1 and 500 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The absolute value of each element of <b>commands</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 1, 1, 1, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">Andre started by visiting guard house 0. Then he repeated a sequence of commands three times. The sequence consisted of a single command "1". Thus, Andre walked to guard house 1, then to guard house 2, and finally to guard house 3. In total he visited four guard houses, each of them once.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>1234</pre></td></tr><tr><td><pre>{2, -3, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2469, 2468, 1234, 0, 0, 0, 0, 0, 0, 1234 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+This sequence of commands has Andre walking back and forth. In each iteration he starts at guard house 0, walks two "steps" clockwise to guard house 2, then three "steps" counter-clockwise to guard house 9, and then one "step" clockwise to guard house 0.
+</p>
+<p>
+Don't forget to count the initial visit to guard house 0 - the one before Andre started to execute the commands.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>97</pre></td></tr><tr><td><pre>1000</pre></td></tr><tr><td><pre>{314}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{3238, 3238, 3238, 3238, 3238, 3238, 3238, 3238, 3238, 3238, 3238, 3238,
+ 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237,
+ 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237,
+ 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237,
+ 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237,
+ 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237,
+ 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237,
+ 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237, 3237,
+ 3237 }</pre></td></tr><tr><td><table><tr><td colspan="2">Each command causes Andre to walk a bit more than three times around the whole castle. When this is repeated 1,000 times, he'll visit each guard house more than 3,000 times.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>123</pre></td></tr><tr><td><pre>{1, -2, 3, -4, 5, -6, 7, -8, 9, -10}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{151, 151, 150, 148, 146, 144, 143, 143, 143, 143, 143, 143, 143, 143,
+ 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143,
+ 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143,
+ 143, 144, 145, 147, 149 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>9</pre></td></tr><tr><td><pre>{1000000000}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3000000001, 3000000000, 3000000000 }</pre></td></tr><tr><td><table><tr><td colspan="2">Watch out for integer overflows, the final counts can be large.
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,42 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This problem is about the popular word-guessing game Wordle. Knowledge of this game is not necessary to solve the problem.
+</p>
+<br></br>
+<p>
+There are two strings: the secret string <b>hidden</b> and the puzzle solver's attempt <b>guess</b>.
+Each string consists of five uppercase English letters ('A'-'Z').
+</p>
+<p>
+When the solver makes a guess, the game announces how good the guess was.
+This is done using colors.
+The letters of the guess that are in correct places are highlighted in green and the letters that are in the secret word but at some other index are highlighted in yellow.
+</p>
+<br></br>
+<p>
+Formally, the coloring works as follows:
+</p>
+<p>
+A pair of indices (i, j) is called <i>valid</i> if <b>guess</b>[i] = <b>hidden</b>[j].
+When coloring the letters of <b>guess</b> we will look for valid pairs of indices.
+Among these pairs each index can only be used at most once:
+there cannot be two pairs (i, j1) and (i, j2) with j1 != j2, and there cannot be two pairs (i1, j) and (i2, j) with i1 != i2.
+</p>
+<p>
+We will create these pairs in two passes. 
+</p>
+<ol>
+<li>
+In the first pass we create all valid pairs of the form (i, i).
+These correspond to the green letters.
+</li>
+<li>
+In the second pass we go through all possible i from 0 to 4, in this order.
+For each i, if there is a j such that (i, j) is a valid pair disjoint from all the ones we already have, we take the smallest such j and we add the pair (i, j) to our collection.
+For each pair (i, j) added in this step the letter at position i in <b>guess</b> will be yellow.
+</li>
+</ol>
+<br></br>
+<p>
+Return a string of length 5 with the colors assigned to the letters of the given guess. 
+Use 'g' for green, 'y' for yellow, and '-' for letters that did not get any color.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>WordleColors</td></tr><tr><td>Method:</td><td>color</td></tr><tr><td>Parameters:</td><td>string, string</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string color(string hidden, string guess)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>hidden</b> will have exactly 5 characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>hidden</b> will be an uppercase English letter ('A'-'Z').</td></tr><tr><td align="center" valign="top">-</td><td><b>guess</b> will have exactly 5 characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>guess</b> will be an uppercase English letter ('A'-'Z').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;BLOCK&quot;</pre></td></tr><tr><td><pre>&quot;BRICK&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;g--gg&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The letters 'B', 'C', 'K' all appear in their correct positions and so they are green. The letters 'R' and 'I' of the guess don't appear in the hidden word and so they don't get a color.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;BLOCK&quot;</pre></td></tr><tr><td><pre>&quot;BLOBS&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;ggg--&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The letter <b>guess</b>[3] = 'B' does not get any color. When coloring the letters green for exact matches we already created the pair (0, 0), i.e., we paired <b>guess</b>[0] = 'B' with the corresponding <b>hidden</b>[0] = 'B'. There is no other 'B' in <b>hidden</b> to pair with <b>guess</b>[3].</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;BLURB&quot;</pre></td></tr><tr><td><pre>&quot;BOBBY&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;g-y--&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">We first find the pair (0, 0) of 'B's in the right position that makes <b>guess</b>[0] green. Then we find the pair (2, 4) of 'B's that are present but not in the same position. The third 'B' in "BOBBY" has no pair, as "BLURB" only contains two 'B's.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;ABBOT&quot;</pre></td></tr><tr><td><pre>&quot;BOBBY&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;yyg--&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;CANAL&quot;</pre></td></tr><tr><td><pre>&quot;AAAAA&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;-g-g-&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;GREEN&quot;</pre></td></tr><tr><td><pre>&quot;BLACK&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;-----&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;RATES&quot;</pre></td></tr><tr><td><pre>&quot;STARE&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;yyyyy&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

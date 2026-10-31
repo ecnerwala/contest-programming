@@ -1,0 +1,60 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class CutCutCut {
+
+public:
+
+	vector <int> findPieces(vector <int> X1, vector <int> Y1, vector <int> X2, vector <int> Y2, int Q) {
+		const int L = 10000;
+		auto linearize = [&] (int x, int y) -> int {
+			assert(0 <= x && x <= L);
+			assert(0 <= y && y <= L);
+			if (x == 0) { return y; }
+			else if (y == L) { return L + x; }
+			else if (x == L) { return L + L + (L - y); }
+			else if (y == 0) { return L + L + L + (L - x); }
+			else assert(false);
+		};
+		vector<pair<int, int>> bounds(Q);
+		for (int i = 0; i < Q; i++) {
+			int v1 = linearize(X1[i], Y1[i]);
+			int v2 = linearize(X2[i], Y2[i]);
+			if (v1 > v2) swap(v1, v2);
+			assert(v1 <= v2);
+			bounds[i] = {v1, v2};
+		}
+		auto intersects = [&](pair<int, int> a, pair<int, int> b) {
+			if (a.second < b.first || b.second < a.first) return false;
+			if (a.first < b.first && b.second < a.second) return false;
+			if (b.first < a.first && a.second < b.second) return false;
+			return true;
+		};
+		int curAns = 1;
+		vector<int> ans;
+		for (int i = 0; i < Q; i++) {
+			curAns++;
+			for (int j = 0; j < i; j++) {
+				curAns += intersects(bounds[i], bounds[j]);
+			}
+			ans.push_back(curAns);
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::CutCutCut;
+
+// vim:ft=cpp

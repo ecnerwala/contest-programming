@@ -1,0 +1,101 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class MostPeriodic {
+
+public:
+
+	string construct(string bank) {
+		int L = int(bank.size());
+		std::array<int, 26> cnt; cnt.fill(0);
+		for (char c : bank) {
+			cnt[c - 'A'] ++;
+		}
+		std::string ans;
+		ans.reserve(L);
+		auto check = [&](int p) -> bool {
+			int sz_small = L / p;
+			int sz_big = L / p + 1;
+
+			int want_big = L % p;
+			int want_small = p - (L % p);
+			string big_bank; big_bank.reserve(L);
+			string small_bank; small_bank.reserve(L);
+			string either_bank; either_bank.reserve(L);
+
+			for (int c = 0; c < 26; c++) {
+				int freq = cnt[c];
+				int num_big = freq % (L / p);
+				if (freq < int64_t(num_big) * (L / p + 1)) {
+					return false;
+				}
+				freq -= num_big * (L / p + 1);
+				assert(freq % (L / p) == 0);
+				int num_small = freq / (L / p);
+				int num_either = num_small / (L / p + 1);
+				num_small %= (L / p + 1);
+
+				for (int z = 0; z < num_big; z++) big_bank.push_back(char('A' + c));
+				for (int z = 0; z < num_small; z++) small_bank.push_back(char('A' + c));
+				for (int z = 0; z < num_either; z++) either_bank.push_back(char('A' + c));
+			}
+
+			{
+				int tot_big = int(big_bank.size());
+				int tot_small = int(small_bank.size());
+				if (tot_big > want_big) return false;
+				if (tot_small > want_small) return false;
+
+				if ((tot_big - want_big) % (L/p) != 0) {
+					return false;
+				}
+				if ((tot_small - want_small) % (L/p + 1) != 0) {
+					return false;
+				}
+			}
+			while (int(big_bank.size()) < want_big) {
+				char c = either_bank.back();
+				either_bank.pop_back();
+				for (int z = 0; z < (L / p); z++) {
+					big_bank.push_back(c);
+				}
+			}
+			while (int(small_bank.size()) < want_small) {
+				char c = either_bank.back();
+				either_bank.pop_back();
+				for (int z = 0; z < (L / p + 1); z++) {
+					small_bank.push_back(c);
+				}
+			}
+
+			string per = big_bank + small_bank;
+			for (int i = 0; i < L; i++) {
+				ans += per[i % p];
+			}
+
+			return true;
+		};
+		for (int p = 1; p <= L; p++) {
+			if (check(p)) {
+				return ans;
+			}
+		}
+		assert(false);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::MostPeriodic;
+
+// vim:ft=cpp

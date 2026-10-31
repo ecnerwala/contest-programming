@@ -1,0 +1,33 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This problem is about bitmaps.
+All bitmaps in this problem are black-and-white bitmaps with <b>R</b> rows and <b>C</b> columns.
+</p>
+<p>
+A bitmap is called a checkerboard if it has the property that no two pixels that share a side share the same color: each black pixel must be horizontally and vertically adjacent to only white pixels and vice versa.
+Clearly, for any dimensions <b>R</b> and <b>C</b> there are exactly two distinct checkerboards.
+</p>
+<br></br>
+<p>
+The <i>checkerboard distance</i> of a bitmap is the minimum number of pixels that have to be edited (i.e., turned from black to white or vice versa) in order to change that bitmap into a checkerboard.
+</p>
+<p>
+For example, the bitmap shown below (using 'W' and 'B' for white and black pixels) has checkerboard distance 2.
+</p>
+<pre>
+   
+   WBWBW
+   BWBWB
+   BBWWW
+   BWBWB
+
+</pre>
+<p>
+You are given the dimensions <b>R</b> and <b>C</b> and the checkerboard distance <b>D</b>. Count all bitmaps with these parameters, and return that count modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>AlmostCheckerboards</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int R, int C, int D)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>D</b> will be between 0 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">The two perfect checkerboards are shown below:
+<pre>
+
+  BWBW   WBWB
+  WBWB   BWBW
+  BWBW   WBWB
+
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">You can transform any 3x4 bitmap into any other 3x4 bitmap in at most 3x4 = 12 changes, so there clearly won't be any bitmaps with checkerboard distance exactly equal to 47.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8</pre></td></tr><tr><td><table><tr><td colspan="2">The eight bitmaps that match these parameters are precisely all the bitmaps that contains three pixels of one color and one pixel of the opposite color. The edit that turns it into a valid checkerboard is always to find the pixel that has the unique color and to toggle the pixel that is diagonally opposite it to make it match.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>9</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>15</pre></td></tr></table></td></tr><tr><td><pre>Returns: 135805043</pre></td></tr><tr><td><table><tr><td colspan="2">Remember that the answer should be computed modulo 10^9 + 7. (The exact answer for this test case is 11,135,805,120, and that modulo 1,000,000,007 is 135,805,043.)</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

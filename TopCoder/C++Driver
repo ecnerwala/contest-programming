@@ -191,6 +191,28 @@ int main(int argc, char* argv[] __attribute__((unused)))
 		if (__abort_on_fail && 0 < __fail) std::abort();
 	}
 
+	{
+		int __testnum = __pass + __fail + 1;
+
+		std::cout << "# my_tests" << std::endl;
+		std::cout.flush();
+
+		__timer_start();
+
+		ecnerwala::my_tests();
+
+		double __t = __timer_stop();
+
+		std::cout << "# test completed in " << __t << "ms" << std::endl;
+		std::cout.flush();
+
+		std::cout << "ok";
+		++__pass;
+
+		std::cout << " " << __testnum << " - " << "success" << " must equal " << "success" << std::endl;
+		std::cout.flush();
+	}
+
 	std::cout << "1.." << (__pass + __fail) << std::endl
 		  << "# passed: " << __pass << std::endl
 		  << "# failed: " << __fail << std::endl;

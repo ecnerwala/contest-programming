@@ -1,0 +1,54 @@
+C.  Basic Computational Geometry Practice Problems
+
+    Time Limit:
+    4000
+    ms
+    Memory Limit:
+    1048576
+    kb
+
+Description
+
+Alice and Bob are playing a game on a two-dimensional plane.
+
+There are n points P1,⋯,Pn on the plane, with the coordinates of Pi being (xi,yi). Initially, there is a piece at Pv0.
+
+Alice and Bob take turns making moves, with Alice moving first. In the i-th move, the player selects a point Pvi and moves the piece from Pvi−1 to Pvi. The move must satisfy Pvi≠Pvi−1 and dis(Pvi,Pvi−1)<dis(Pvi−1,Pvi−2) when i>1. Here, dis(Pi,Pj) denotes the Euclidean distance between Pi and Pj. The game ends when a player is unable to move the piece.
+
+For each v0=i, determine the winner of the game.
+Input
+
+The first line contains a positive integer n.
+
+The following n lines each contain two integers xi and yi, describing a point Pi=(xi,yi).
+
+It is guaranteed that the n points are distinct.
+Output
+
+Output one line with n numbers. The i-th number represents the winner when v0=i. If Alice wins, output 1; if Bob wins, output 0. There are no spaces between the numbers.
+Examples
+Input 1
+
+4
+0 0
+0 1
+1 1
+2 2
+
+Output 1
+
+1110
+
+Note
+
+For all test cases, it is guaranteed that 2≤n≤105, 0≤xi,yi≤109, and Pi are distinct.
+
+Subtask1 (15pts): n≤100.
+
+Subtask2 (15pts): n≤2000.
+
+Subtask3 (25pts): xi and yi are independently and uniformly distributed in [0,109].
+
+Subtask4 (20pts): xi=1 for all i.
+
+Subtask5 (25pts): No special restrictions.

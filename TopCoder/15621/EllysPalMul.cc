@@ -1,0 +1,62 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class EllysPalMul {
+
+public:
+
+	static int64_t reverse(int64_t v) {
+		int64_t u = 0;
+		while (v) {
+			u *= 10;
+			u += v % 10;
+			v /= 10;
+		}
+		return u;
+	}
+
+	int getMin(int X_) {
+		int64_t X = X_;
+		const int64_t MAXY = int(1e9);
+		int64_t ans = MAXY+1;
+
+		for (int L = 1; L <= 14; L++) {
+			int64_t p10lo = 1; for (int z = 0; z < L/2; z++) p10lo *= 10;
+			int64_t p10hi = p10lo * (L % 2 ? 10 : 1);
+
+			for (int64_t v = p10hi/10; v < p10hi; v++) {
+				int64_t cnd = v * p10lo;
+				if (L & 1) {
+					cnd += reverse(v / 10);
+				} else {
+					cnd += reverse(v);
+				}
+				if (cnd % X == 0) {
+					ans = min(ans, cnd / X);
+					goto done;
+				}
+			}
+		}
+
+done:
+		if (ans > MAXY) return -1;
+		else return int(ans);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	cerr << EllysPalMul().getMin(int(99998)) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::EllysPalMul;
+
+// vim:ft=cpp

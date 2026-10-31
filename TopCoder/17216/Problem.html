@@ -1,0 +1,68 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are designing a new video game.
+</p>
+<p>
+In this video game, each level is a rectangular room divided into blocks.
+Some blocks are solid terrain blocks (denoted '-') and others contain spiky traps (denoted '*').
+If the player steps onto a trap, they die.
+</p>
+<p>
+The player starts the game in the northwest corner of the room.
+Their goal is to reach the opposite (southeast) corner of the room.
+Both the starting block and the goal block must be solid terrain blocks ('-').
+</p>
+<p>
+The player can move in three ways: making a step, a hop, or a jump.
+Each movement must go either to the east, or to the south.
+A step takes the player to the next block in that direction, a hop skips over one block and lands on the second one, and a jump skips over two blocks and lands on the third one.
+(You can hop or jump over blocks with spikes without dying. You cannot make a move that would leave the room.)
+</p>
+<p>
+For example, consider the following level (north is on the top, west is on the left - i.e., we start in the top left corner and we go to the bottom right):
+</p>
+<pre>
+
+    -**-**-
+    *******
+    -*-*-*-
+</pre>
+<p>
+There are two ways in which a player can traverse this level: either they make two jumps east
+and then a hop south, or they start by a hop south and continue by making three hops east.
+(In all other ways of moving, the player would either move outside the level, or they would step onto spikes and die.)
+</p>
+<br></br>
+<p>
+You are given an int <b>W</b>.
+</p>
+<p>
+Design a level that can be traversed in exactly <b>W</b> distinct ways.
+</p>
+<p>
+The level must be rectangular, it must have between 2 and 50 rows (inclusive) and between 2 and 50 columns (inclusive). Also, remember that the start and end of a level must be solid blocks.
+</p>
+<p>
+Return a vector &lt;string&gt; with the map of your level. Any valid solution will be accepted.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>StepHopJumpConstruct</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; construct(int W)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>For the given constraints a solution always exists.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>W</b> will be between 0 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;----&quot;, &quot;***-&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The returned level:
+<pre>
+
+    ----
+    ***-
+
+</pre>
+<p>
+The level can be traversed in four different ways. In each of them we first move only to the right and then we take a step down. While moving to the right, we can do either three steps, or a hop + a step, or a step + a hop, or a jump.
+</p>
+<p>
+(Note that we cannot just return {"----"}, as the level must have at least two rows.)
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;-**-**-&quot;, &quot;*******&quot;, &quot;-*-*-*-&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The returned level is the one described in the statement. Many other solutions exist.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;-**&quot;, &quot;-**&quot;, &quot;-**&quot;, &quot;-**&quot;, &quot;-*-&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The returned level:
+<pre>
+
+    -**
+    -**
+    -**
+    -**
+    -*-
+
+</pre>
+There are seven ways in which we can move southwards from the start. Once we reach the southwest (i.e., bottom left) corner, we must finish the solution by making a hop to the right.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>106</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;----&quot;, &quot;----&quot;, &quot;----&quot;, &quot;----&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The returned solution is a 4x4 board with no traps. Two of the 106 possible ways of traversing this level are "a jump east and then a jump south" and "a jump south and then a jump east". Another solution is a sequence of six steps, going alternately east and south. Yet another solution is a step south, a jump east, and two more steps south.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;-*&quot;, &quot;*-&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">Remember that a valid level must have a solid block as its start and end, even if we want zero solutions.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

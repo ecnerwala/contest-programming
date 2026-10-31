@@ -1,0 +1,136 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+In this problem you will meet a Montessori toy for toddlers.
+It helps the toddlers develop color recognition, hand-eye coordination, fine motor skills, but most importantly, cognitive thinking and problem-solving skills.
+</p>
+<p>
+Let's see whether you are a match for toddlers :)
+</p>
+<br></br>
+<p>
+The toy is a vertically placed wooden board. A hole with a comb-like shape is cut into the board. Seen from a side, the board looks as shown below: '#' is wood, '.' is a hole.
+</p>
+<p>
+Note that we can view the board as a collection of cells: some contain wood, others are empty.
+The letters and numbers around the board are coordinates of those cells.
+</p>
+<pre>
+
+     ABCDEFGHIJK
+   0 ###########
+   1 #.........#
+   2 ##.#.#.#.##
+   3 ##.#.#.#.##
+   4 ##.#.#.#.##
+   5 ##.#.#.#.##
+   6 ###########
+
+</pre>
+<p>
+Twelve pegs are placed into the hole. Each peg occupies one of the cells. The pegs are shaped so that they cannot be removed from the board, but they can freely be moved up, down, left and right.
+</p>
+<p>
+The pegs come in four different colors, and there are three pegs of each color. We will use the digits '0' to '3' to represent the colors.
+</p>
+<p>
+In the initial configuration, each of the vertical "comb teeth" on the board contains three of the pegs. For example:
+</p>
+<pre>
+
+     ###########
+     #.........#
+     ##.#.#.#.##
+     ##0#1#2#3##
+     ##0#2#1#1##
+     ##0#3#3#2##
+     ###########
+
+</pre>
+<p>
+You are given the initial configuration in the vector &lt;string&gt; <b>start</b>. Each element is one column from top to bottom, and the elements are given left to right. E.g., the above configuration is {"000", "123", "213", "312"}.
+</p>
+<p>
+The goal of the puzzle is to rearrange the pegs into a possibly different configuration of the same shape.
+You are given the goal configuration in the vector &lt;string&gt; <b>goal</b>, using exactly the same format.
+</p>
+<br></br>
+<p>
+A valid move consists of taking a single peg and shifting it one cell up, down, left, or right.
+The new cell must be empty.
+</p>
+<p>
+For this problem we will add an extra restriction.
+We don't ever want the pegs to fall, because it damages the paint on them.
+</p>
+<p>
+Thus, we require that after each move only the peg you most recently moved can be in the air (i.e., have an empty cell immediately below itself).
+If the most recently moved peg is in the air, you must keep holding it and moving it until it rests on wood or on top of another peg again.
+</p>
+<br></br>
+<p>
+Find any sequence of at most 1000 valid moves that transforms the start configuration into the goal configuration.
+</p>
+<p>
+The description of a move is a string of length 3 of the form [column_letter][row_number][direction]. The first two characters are the current coordinates of a peg you want to move (see the first figure in the statement), and [direction] is one of "UDLR" for up, down, left, and right.
+</p>
+<p>
+Return the concatenation of moves you want to perform, in chronological order.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ToddlerToy</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string solve(vector &lt;string&gt; start, vector &lt;string&gt; goal)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Any valid answer will be accepted. You do not have to minimize the number of moves used, you just need to be within the given limit.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>start</b> and <b>goal</b> will have the form described in the problem statement (four elements, each of length 3, together containing three copies of each of the digits '0' to '3').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;000&quot;, &quot;123&quot;, &quot;213&quot;, &quot;312&quot;}</pre></td></tr><tr><td><pre>{&quot;000&quot;, &quot;123&quot;, &quot;213&quot;, &quot;312&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">We start with the configuration in the problem statement and we want to end with the same configuration. We can simply do nothing.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;000&quot;, &quot;123&quot;, &quot;213&quot;, &quot;312&quot;}</pre></td></tr><tr><td><pre>{&quot;000&quot;, &quot;123&quot;, &quot;313&quot;, &quot;212&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;G3UG2UG1LI3UI2UI1LH1LG1DG2DF1RG1RH1RI1DI2D&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The returned answer first moves the '2' peg away from the top of the third column:
+<pre>
+
+     ###########
+     #....2....#
+     ##.#.#.#.##
+     ##0#1#.#3##
+     ##0#2#1#1##
+     ##0#3#3#2##
+     ###########
+
+</pre>
+Then it moves the '3' peg from the top of the fourth column to the top of the third column:
+<pre>
+
+     ###########
+     #....2....#
+     ##.#.#.#.##
+     ##0#1#3#.##
+     ##0#2#1#1##
+     ##0#3#3#2##
+     ###########
+
+</pre>
+And finally it moves the peg '2' from its temporary location to where it belongs.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;000&quot;, &quot;123&quot;, &quot;213&quot;, &quot;312&quot;}</pre></td></tr><tr><td><pre>{&quot;210&quot;, &quot;003&quot;, &quot;213&quot;, &quot;312&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+&quot;C3UC2UC1RD1RE1RF1RG1DC4UC3UC2UC1LE3UE2UE1LD1LC1DC2DC3DE4UE3UE2UE1LD1LC1DC2DB1RC1RD1RE1DE2DE3DG2UG1LF1LE1DE2D&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>A slightly more complicated task that involves the movement of (at least) four pegs. Note that our returned solution does not do this in an optimal number of moves. This is to illustrate that minimizing the number of moves is not required.</p>
+<p>Our solution starts by moving the '0's that are not in their places away from the leftmost column:</p>
+<pre>
+
+     ###########
+     #.........#
+     ##.#.#0#.##
+     ##.#1#2#3##
+     ##0#2#1#1##
+     ##0#3#3#2##
+     ###########
+
+     ###########
+     #0........#
+     ##.#.#0#.##
+     ##.#1#2#3##
+     ##.#2#1#1##
+     ##0#3#3#2##
+     ###########
+
+</pre>
+Then we move the '1' to its desired location and we follow it by moving the '2' to its desired location:
+<pre>
+
+     ###########
+     #0........#
+     ##.#.#0#.##
+     ##2#.#2#3##
+     ##1#.#1#1##
+     ##0#3#3#2##
+     ###########
+
+</pre>
+And we finish by bringing the '0's to the now-empty locations in the second column.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;300&quot;, &quot;011&quot;, &quot;122&quot;, &quot;233&quot;}</pre></td></tr><tr><td><pre>{&quot;000&quot;, &quot;111&quot;, &quot;222&quot;, &quot;333&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+&quot;C3UC2UC1RD1RE1RF1RG1RH1RI1RE3UE2UE1LD1LC1DC2DG3UG2UG1LF1LE1DE2DI3UI2UI1LH1LG1DG2DJ1LI1DI2D&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Our returned solution performs a cyclic shift of the four misplaced pegs: first it moves the '3' peg out of the way, then it moves '0', '1', and '2' to their correct columns, and finally it moves the '3' from its current location to the now-empty space in its column.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

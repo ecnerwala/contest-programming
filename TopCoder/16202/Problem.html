@@ -1,0 +1,31 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+The devil is coming to INOI land.
+INOI land has <b>N</b> cities and <b>M</b> bidirectional roads between them.
+Each road connects either one city to itself, or two distinct cities to each other.
+Each pair of cities can be connected by multiple roads.
+(I.e., INOI is a graph in which both self-loops and multiple edges may appear.)
+</p>
+<p>
+The devil wants to destroy one road.
+The devil will always choose the road whose destruction will cause the most damage.
+The damage caused by the destruction of a road is the number of (unordered) pairs of cities that will get disconnected when the road is destroyed.
+</p>
+<p>
+Aqa Asadi, as the hero of INOI, wants to prevent as much damage as possible. 
+The night before the devil attacks, Aqa Asadi can build one additional road.
+The devil will then consider the new road network (including the road Aqa Asadi built) when choosing which road he should destroy.
+Calculate and return the smallest possible amount of damage done by the devil.
+</p>
+<p>
+Use the pseudocode below to generate two arrays A and B with <b>M</b> elements each. For each valid i, one of the roads in INOI land connects cities A[i] and B[i].
+</p>
+<pre>
+A = PA
+B = PB
+for i = size(PA) to M-1:
+    A.append( Seed )
+    Seed = (Seed * X + Y) modulo N
+for i = size(PB) to M-1:
+    B.append( Seed )
+    Seed = (Seed * X + Y) modulo N
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>AqaAsadiSaves</td></tr><tr><td>Method:</td><td>minDamage</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;, vector &lt;int&gt;, int, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long minDamage(int N, int M, vector &lt;int&gt; PA, vector &lt;int&gt; PB, int Seed, int X, int Y)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The road added by Aqa Asadi can connect any two cities, even if they are already connected by one or more other roads. Alternately, he may also choose to build a self-loop at any city.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>PA</b> and <b>PB</b> will have the same number of elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>PA</b> will have at most <b>M</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>PA</b> will have at most 500 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>PA</b> and <b>PB</b> will be between 0 and <b>N</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Seed</b>, <b>X</b>, <b>Y</b> will each be between 0 and <b>N</b>-1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{0, 1, 2}</pre></td></tr><tr><td><pre>{1, 2, 0}</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>6</pre></td></tr><tr><td><pre>{0, 1, 2, 2, 4, 4}</pre></td></tr><tr><td><pre>{1, 2, 3, 4, 5, 6}</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{4}</pre></td></tr><tr><td><pre>{7}</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

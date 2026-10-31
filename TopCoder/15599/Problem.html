@@ -1,0 +1,44 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>This problem has an unusual time limit of 5 seconds.</i></p> 
+
+<p>
+Teja and Raja are experienced players in CSGo (Catch the Strawberry and go). CSGo is a two-player game consisting of <b>n</b> rounds. Teja and Raja play alternate rounds, Teja goes first. (Thus, Teja plays rounds 1, 3, 5, ..., while Raja plays rounds 2, 4, 6, ...)
+</p>
+<p>
+At the beginning of the entire game Teja and Raja each have zero strawberries. In each round of CSGo, the active player can gain between 0 and 2*<b>k</b> strawberries. The actual number of strawberries gained is a random event (more details below) and all these random events are mutually independent.
+</p>
+<p>
+You are given the values <b>n</b>, <b>k</b>, <b>Arange</b>, <b>Brange</b>, and <b>seed</b>. 
+Use the following pseudocode to generate arrays A and B, each of length 2*<b>k</b>+1:
+</p>
+<pre>
+state = seed
+for i = 0 .. 2*k:
+    state = (1103515245 * state + 12345)
+    state = state modulo 2^31
+    A[i] = state modulo Arange
+    state = (1103515245 * state + 12345)
+    state = state modulo 2^31
+    B[i] = state modulo Brange
+</pre>
+<p>
+For each valid index i, let pA(i) = A[i] / sum(A) and let pB(i) = B[i] / sum(B). 
+The value pA(i) is the probability that Teja gains exactly i strawberries in any one round in which he is the active player. 
+The value pB(i) is the same for Raja.
+</p>
+<p>
+For spectators a game of CSGo is competitive if the absolute difference between the number of Teja's and the number of Raja's strawberries never exceeds <b>k</b>. (I.e., after each round the difference must be <b>k</b> or less.)
+</p>
+<p>
+What is the probability with which the game between Teja and Raja will be competitive? It can be shown that the answer is always rational. Let X/Y be the answer in reduced form. Let Z = Y^(-1) be the inverse element to Y when computing modulo 10^9 + 7. Compute and return the value (X*Z) modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>StrawberryHard</td></tr><tr><td>Method:</td><td>competitive</td></tr><tr><td>Parameters:</td><td>int, int, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int competitive(int n, int k, int Arange, int Brange, int seed)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>5.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The inverse element to Y when computing modulo 10^9 + 7 is the only Z in the range [0, 10^9 + 6] such that Y*Z = 1 (modulo 10^9 + 7).</td></tr><tr><td align="center" valign="top">-</td><td>The constraints ensure that the answer is always well-defined: the probability is always a fraction X/Y such that Y has a unique inverse element.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 17 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 1 and 7000 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Arange</b> and <b>Brange</b> will be between 1 and 10^9+7 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 10^9+6 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Sum of elements of A will not be a multiple of 10^9+7.</td></tr><tr><td align="center" valign="top">-</td><td>Sum of elements of B will not be a multiple of 10^9+7.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 571428576</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The pseudocode should give you the arrays A = {1,1,1,1,1,1,1} and B = {2,3,0,0,1,1,0}.
+</p>
+<p>
+This game consists of just one round in which Teja gains some strawberries. If Teja gains between 0 and 3 strawberries, the game will be competitive, if he gains more, it won't be.
+The probability that Teja gains between 0 and 3 strawberries is 4/7. Thus, we have X = 4 and Y = 7. We can compute that Z = 142,857,144 and therefore the answer you should return is (X*Z) modulo (10^9 + 7) = 571,428,576.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>740562</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The arrays are A = {1, 2, 0, 0, 0, 0, 0} and B = {1, 1, 0, 0, 0, 0, 0}.
+</p>
+<p>
+This game has six rounds. In each round, the active player gains at most one strawberry. (Note that the probability of gaining more strawberries is zero.) Thus, the difference between the numbers of Teja's and Raja's strawberries never exceeds 3 and the game is guaranteed to be competitive.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>740562</pre></td></tr></table></td></tr><tr><td><pre>Returns: 753086426</pre></td></tr><tr><td><table><tr><td colspan="2">If Teja always gains a strawberry and Raja never does, the game will not be competitive. Thus, the probability that this game won't be competitive is (2/3)^4 * (1/2)^3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>11</pre></td></tr><tr><td><pre>13</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 931930680</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

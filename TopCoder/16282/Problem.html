@@ -1,0 +1,56 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There is a building. Its floor is a <b>R</b> times <b>C</b> rectangle divided into a grid of unit squares.
+You are going to build walls along the sides of some unit squares.
+This will divide the building into one or more rooms.
+Two rooms are adjacent if they share a common wall segment.
+(Touching corners are not enough.)
+</p>
+<p>
+Can you build the walls in such a way that there will be exactly <b>N</b> pairs of adjacent rooms?
+If yes, find and return any valid solution and return its ASCII art drawing as a vector &lt;string&gt;.
+If no, return an empty vector &lt;string&gt; instead.
+</p>
+<p>
+See the Examples for the proper output format. A formal definition is given in the Notes but should not be needed.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RoomPairs</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; construct(int R, int C, int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The ASCII art must have 2*<b>R</b>+1 rows and 2*<b>C</b>+1 columns.</td></tr><tr><td align="center" valign="top">-</td><td>Each character with both (0-based) coordinates even must be '+'. These characters represent corners of unit squares.</td></tr><tr><td align="center" valign="top">-</td><td>Each character with both (0-based) coordinates odd must be ' '. These characters represent the individual unit squares.</td></tr><tr><td align="center" valign="top">-</td><td>Each character with coordinates [even][odd] must be either ' ' (representing the absence of a wall) or '-' (representing the presence of a wall).</td></tr><tr><td align="center" valign="top">-</td><td>Each character with coordinates [odd][even] must be either ' ' (representing the absence of a wall) or '|' (representing the presence of a wall).</td></tr><tr><td align="center" valign="top">-</td><td>Characters on the boundary cannot be spaces. These characters represent the outer wall of the building.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 30, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will be between 1 and 30, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 0 and <b>R</b>*(<b>C</b>-1) + (<b>R</b>-1)*<b>C</b>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;+-+-+-+-+&quot;, &quot;| |   | |&quot;, &quot;+ + +-+ +&quot;, &quot;|   |   |&quot;, &quot;+-+-+-+-+&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>Formatted output:</p>
+<pre>
+{"+-+-+-+-+",
+ "| |   | |",
+ "+ + +-+ +",
+ "|   |   |",
+ "+-+-+-+-+"}
+</pre>
+<p>
+There are only two rooms, they form one pair of adjacent rooms.
+</p>
+<p>
+Note that the bigger room contains one extra wall that does not change anything. This is allowed.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;+-+-+-+&quot;, &quot;| | | |&quot;, &quot;+-+ +-+&quot;, &quot;|     |&quot;, &quot;+-+ +-+&quot;, &quot;| | | |&quot;, &quot;+-+-+-+&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>Formatted output:</p>
+<pre>
+{"+-+-+-+",
+ "| | | |",
+ "+-+ +-+",
+ "|     |",
+ "+-+ +-+",
+ "| | | |",
+ "+-+-+-+"}
+</pre>
+<p>
+The big middle room is adjacent to each of the four small rooms.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{&quot;+-+-+-+-+&quot;,
+ &quot;|       |&quot;,
+ &quot;+ +-+-+ +&quot;,
+ &quot;| | | | |&quot;,
+ &quot;+ +-+-+ +&quot;,
+ &quot;|       |&quot;,
+ &quot;+-+-+-+-+&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>31</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{&quot;+-+-+-+-+-+&quot;,
+ &quot;| | | | | |&quot;,
+ &quot;+-+-+-+-+-+&quot;,
+ &quot;| | | | | |&quot;,
+ &quot;+-+-+-+-+-+&quot;,
+ &quot;| | | | | |&quot;,
+ &quot;+-+-+-+-+-+&quot;,
+ &quot;| | | | | |&quot;,
+ &quot;+-+-+-+-+-+&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

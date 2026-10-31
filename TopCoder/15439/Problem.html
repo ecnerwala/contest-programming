@@ -1,0 +1,24 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+In this problem we use the Euro currency. One euro equals 100 cents. All amounts in this problem will be in cents to avoid dealing with non-integer numbers.
+</p>
+<p>
+Euro coins have the following denominations: 1, 2, 5, 10, 20, 50, 100, and 200 cents.
+Euro banknotes have the following denominations: 500, 1000, 2000, 5000, 10000, 20000, and 50000 cents.
+</p>
+<p>
+There are rumors that the European Committee will soon introduce a new banknote worth <b>newBanknote</b> cents.
+</p>
+<p>
+In this new monetary system, what will be the smallest number of coins and banknotes needed to pay exactly X cents?
+</p>
+<p>
+You are given the vector &lt;int&gt; <b>amountsToPay</b>.
+For each X in <b>amountsToPay</b> answer the above question.
+Return a vector &lt;int&gt; containing the answers.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>NewBanknote</td></tr><tr><td>Method:</td><td>fewestPieces</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; fewestPieces(int newBanknote, vector &lt;int&gt; amountsToPay)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>newBanknote</b> will be between 1 and 2*10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>amountsToPay</b> will have between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>amountsToPay</b> will be between 1 and 2*10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4700</pre></td></tr><tr><td><pre>{53, 9400, 9401, 30000}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 2, 3, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2">The new banknote is worth exactly 47 euro.
+<ul>
+<li>When paying 53 cents, the new banknote is useless. The optimal way uses three coins: 50 + 2 + 1.</li>
+<li>When paying 94 euro, the optimal solution is to use two new banknotes.</li>
+<li>When paying 94 euro and 1 cent, the optimal solution is to use two new banknotes and a 1-cent coin.</li>
+<li>When paying 300 euro, the optimal solution is to use one 100-euro and one 200-euro banknote.</li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1234</pre></td></tr><tr><td><pre>{1233, 1234, 1235}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {6, 1, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000</pre></td></tr><tr><td><pre>{1233, 100047}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {6, 6 }</pre></td></tr><tr><td><table><tr><td colspan="2">The new banknote is utterly useless: we already have 10-euro banknotes. Thus, the answer for any amount is the same as when paying using regular Euro denominations only.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

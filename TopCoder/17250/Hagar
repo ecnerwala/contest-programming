@@ -1,0 +1,35 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class Hagar {
+
+public:
+
+	double expectedProfit(vector <int> gold) {
+		std::sort(gold.begin(), gold.end());
+		std::reverse(gold.begin(), gold.end());
+		double ans = 0;
+		double sum = 0;
+		for (int i = 0; i < int(gold.size()); i++) {
+			sum += 1. / gold[i];
+			ans = max(ans, i / sum);
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::Hagar;
+
+// vim:ft=cpp

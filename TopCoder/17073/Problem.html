@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are going to play a hole of golf.
+The golf course is a horizontal plane.
+The ball is a point and the hole is also a point.
+Everything in this problem is continuous: distances are real numbers and points have real coordinates.
+</p>
+<br></br>
+<p>
+The distance from the tee (i.e., the point where you start) to the hole is exactly <b>D</b> meters.
+</p>
+<br></br>
+<p>
+You are extremely good at golf: you can position your shots exactly.
+However, you are limited by the golf clubs you have.
+For each club you know the range of distances at which you can be exact.
+</p>
+<p>
+You are given the information on your clubs in the vector &lt;int&gt;s <b>clubLo</b> and <b>clubHi</b>.
+For each valid index i you have one club that works for distances in the closed interval [<b>clubLo</b>[i] meters, <b>clubHi</b>[i] meters].
+</p>
+<p>
+For example, if you have a club that works for the interval [4,7], this means that you can use this club to move the ball from its current point A to any point B of the plane such that the distance between A and B is between 4 and 7 meters, inclusive.
+</p>
+<br></br>
+<p>
+Compute and return the minimal number of strokes in which you can get the ball from the tee into the hole.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>OptimalGolf</td></tr><tr><td>Method:</td><td>minStrokes</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minStrokes(int D, vector &lt;int&gt; clubLo, vector &lt;int&gt; clubHi)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The last stroke must end with the ball exactly reaching the hole. It is not enough if the trajectory of the stroke passes through the hole.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>D</b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>clubLo</b> will have between 1 and 5 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>clubHi</b> will have the same number of elements as <b>clubLo</b>.</td></tr><tr><td align="center" valign="top">-</td><td>For each i, we will have 1 &lt;= <b>clubLo</b>[i] &lt;= <b>clubHi</b>[i] &lt;= 1000.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>{1}</pre></td></tr><tr><td><pre>{1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2">The hole is 7 meters away from the tee. The only club we have is exact only at the distance of 1 meter. The optimal way to play the hole is to make 7 strokes, each time moving the ball exactly 1 meter in the direction of the hole.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>{2}</pre></td></tr><tr><td><pre>{2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Now the only club we have can only be used for the distance of exactly 2 meters. If we were to hit the ball exactly towards the hole each time, during the fourth stroke the ball would pass over the hole to its other side.
+</p>
+<p>
+However, it is possible to get the ball exactly to the hole in four strokes if we are smart and play some of the strokes sideways.
+</p>
+<p>
+If we assume that the tee is at (0,0) and the hole at (7,0), one way of playing this hole is to hit the ball from (0,0) to (1.5,sqrt(7/4)), from there to (3.5,sqrt(7/4)), from there to (5.5,sqrt(7/4)), and finally from that point to (7,0). We can easily verify that each of these four strokes moves the ball by exactly 2 meters.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>470</pre></td></tr><tr><td><pre>{100, 400, 600}</pre></td></tr><tr><td><pre>{200, 500, 700}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">We can use the middle club to get a hole-in-one.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>{5, 4, 2}</pre></td></tr><tr><td><pre>{5, 7, 10}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2">Here we can play straight towards the hole. For example, we can use the third club to hit the ball 10 meters four times, and then the second club to hit it the last 7 meters. Alternately, we can use the third club five times, moving the ball 10, 10, 10, 9.1, and 7.9 meters towards the hole.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{7}</pre></td></tr><tr><td><pre>{100}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

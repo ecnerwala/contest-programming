@@ -1,0 +1,15 @@
+{ }
+3
+1
+{"-AC", "A-B", "CB-" }
+3
+3
+{"-ABAB", "A-ACC", "BA-AC", "ACA-B", "BCCB-" }
+5
+3
+{ }
+1
+1
+{"-ACEDB", "A-BDCE", "CB-AED", "EDA-BC", "DCEB-A", "BEDCA-" }
+6
+5

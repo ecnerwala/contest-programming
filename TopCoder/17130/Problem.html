@@ -1,0 +1,68 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There are various types of tournaments: <i>round-robin</i> in which each pair of players plays each other, <i>single-elimination</i> in which once you lose, you are out, and many others.
+</p>
+<p>
+This problem is about a <i>triple-elimination</i> tournament. In such a tournament a player is only eliminated if they lose three games.
+</p>
+<br></br>
+<p>
+The tournament is played in rounds.
+In each rounds the players who are still in the tournament are paired up and each pair plays a game (in which one player wins and the other loses).
+</p>
+<p>
+More precisely, each round looks as follows:
+</p>
+<ol>
+<li>The players are divided into four groups: group 0, 1, 2, and 3. The group number represents the number of losses the player already has in the tournament. (E.g., in the first round everyone is in group 0. In the second round approximately half of the players are still in group 0 and half are in group 1.)</li>
+<li>Everyone who is in group 3 (has three losses) is eliminated from the tournament.</li>
+<li>If exactly one player remains, that player is declared the winner and the tournament is over.<br></br>&nbsp;</li>
+<li>Players in group 0 are divided into pairs.</li>
+<li>If group 0 has an odd number of players, the last remaining player is paired with a player from the next non-empty group (if there are still some unpaired players left).</li>
+<li>Steps 4 and 5 are repeated for the unpaired players in group 1. Then, the same steps are repeated for unpaired players in group 2.</li>
+<li>If one player remained unpaired, that player has a <i>bye</i> - they won't play in this round.</li>
+<li>Each pair of players plays a game. In the game one player wins and the other loses.</li>
+</ol>
+<br></br>
+<p>
+You are given the number <b>N</b> of players at the beginning of the tournament.
+You are also given the group <b>G</b> which contained the player who won the tournament at the moment the tournament ended.
+</p>
+<p>
+Determine and return the total number of games that were played in the tournament.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TripleEliminationTournament</td></tr><tr><td>Method:</td><td>countGames</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countGames(int N, int G)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The answer you should return can always be uniquely determined from the data you were given.</td></tr><tr><td align="center" valign="top">-</td><td>The answer will always fit into a 32-bit signed int.</td></tr><tr><td align="center" valign="top">-</td><td>Please note that you are asked to return the total number of <i>games played</i> and not the total number of <i>rounds</i> in the tournament.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>G</b> will be between 0 and 2, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">There were two players: Lee Chong Wei and Lin Dan. The tournament had three rounds. In each round the two players were paired together and in each round Lee Chong Wei won. After three losses, Lin Dan got eliminated and Lee Chong Wei won the tournament.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Suppose there are three players: A, B, C.
+</p>
+<p>
+In the first round all of them are in group 0. Two will get paired and the third one will get a bye. For example, assume A plays B and C gets a bye. A wins.
+</p>
+<p>
+In the second round A and C are still in group 0 (no losses) while B is in group 1. A and C play each other, B gets a bye. Suppose C wins the game.
+</p>
+<p>
+In the third round, C is the only player in group 0 while both A and B are now in group 1. As described in step 5, C gets paired to somebody from the next group - for example, C may get paired with B. When we then go to process group 1, only A is still unpaired. As we don't have any other players, A remains unpaired and gets a bye. Suppose B wins the game.
+</p>
+<p>
+In the fourth round all three players are in group 1. From this point the tournament will continue for several more rounds until eventually two of the three players are eliminated.
+</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 21</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Sometimes it is possible that the input corresponds to multiple very different tournaments. In this case we can uniquely determine the number of players in each group at the beginning of each round. These numbers are shown below:
+</p>
+<pre>
+round | group sizes at its start | number of games played
+------+--------------------------+-----------------------
+    1 | 8 0 0 0                  | 4
+    2 | 4 4 0 0                  | 4
+    3 | 2 4 2 0                  | 4
+    4 | 1 3 3 1                  | 3 (one player got eliminated, one got a bye)
+    5 | 1 1 4 1                  | 3 (one eliminated)
+    6 | 1 0 3 2                  | 2 (two eliminated)
+    7 | 1 0 1 2                  | 1 (two eliminated)
+    8 | 1 0 0 1                  | tournament over
+</pre>
+<p>
+The total number of games was 4+4+4+3+3+2+1 = 21.
+</p>
+<p>
+Note that in round 6 the only player in group 0 got paired with one of the three players in group 2.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>436475</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1309424</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -116,7 +116,7 @@ int main() {
 	cerr << cL.size() << '\n';
 
 	std::mt19937 mt(48);
-	for (int z = 0; z < 10000; z++) {
+	for (int z = 0; z < 0; z++) {
 		int N = std::uniform_int_distribution<int>(1, 100)(mt);
 		std::string S(N, '?');
 		for (char& c : S) c = std::uniform_int_distribution<char>('0', '1')(mt);

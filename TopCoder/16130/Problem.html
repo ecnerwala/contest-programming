@@ -1,0 +1,53 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Quang and Nam are playing a game. 
+</p>
+<p>
+Nam has <b>N</b> stones.
+</p>
+<p>
+Quang has secretly chosen two integers L and R such that 1 &lt;= L &lt;= R &lt;= <b>N</b>.
+The integers between L and R, inclusive, are called good.
+All other integers are called bad.
+</p>
+<p>
+Nam's task is to determine the values L and R.
+</p>
+<br></br>
+<p>
+Nam can ask Quang an abitrary number of questions.
+For each question, Nam will partition all <b>N</b> stones into one or more non-empty piles.
+He will then show the partition to Quang and ask: "Are all these pile sizes good?"
+Quang will always truthfully answer "yes" or "no".
+</p>
+<br></br>
+<p>
+Nam is very smart, so he can deduce all information contained in Quang's answers.
+On the other hand, he does not want to guess, so he will only announce the pair (L, R) if he is 100% sure what the two numbers are.
+</p>
+<p>
+Given <b>N</b>, count all admissible pairs (L, R) such that Nam can win the game.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>QuangAndNam</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long count(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 10^6, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+For <b>N</b> = 2 there are 3 possible pairs (L, R) Quang can choose: (1, 1), (1, 2) and (2, 2). 
+</p>
+<p>
+Nam can play the game as follows:
+</p>
+<ul>
+<li>Partition the stones into two piles, each containing a single stone. Show the configuration to Quang.</li>
+<li>If he gets the answer "no", he can deduce that L = R = 2, and he wins the game.</li>
+<li>Leave both stones on the same pile. Show the configuration to Quang.</li>
+<li>If he gets the answer "yes" in both cases, Quang chose L = 1 and R = 2. If the second answer was "no", we must have L = R = 1.</li>
+</ul>
+Thus, for <b>N</b> = 2 Nam can always win the game.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Nam can only win the game if the pair (L, R) chosen by Quang is one of the pairs (1, 1), (1, 2), (1, 3) and (2, 2).
+</p>
+<p>
+If Quang chooses one of the pairs (2, 3) or (3, 3), Nam will not be able to win the game.
+In both situations, Nam will get the answer "yes" if he shows Quang all three stones on the same pile, and the answer "no" for all other partitions of stones.
+</p>
+<p>
+In more detail, suppose (L, R) = (2, 3) and Nam produces the partition with two stones on one pile and one stone on the other pile.
+When Quang looks at this partition, he sees pile sizes 2 and 1.
+The number 2 is good, but the number 1 is bad.
+Hence, the correct answer to the question "Are all these pile sizes good?" is "no".
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 23</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

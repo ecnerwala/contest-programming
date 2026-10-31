@@ -1,0 +1,40 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>To celebrate the Lunar New Year that starts the Year of the Tiger, the problems in this set feature tigers.</i></p><br></br>
+<p>
+The jungle around us contains <b>N</b> interesting locations, numbered from 0 to <b>N</b>-1.
+</p>
+<p>
+Some pairs of locations are connected by paths. There are <b>M</b> such paths, numbered from 0 to <b>M</b>-1. Note the constraints on <b>M</b>.
+</p>
+<p>
+All paths are bidirectional. There can be multiple paths connecting the same two locations. There are no self-loops: for each path its two endpoints are distinct. 
+</p>
+<p>
+No two paths intersect. More precisely, whenever two paths need to cross each other, one of them goes over the other - that's easily done in a jungle!
+</p>
+<br></br>
+<p>
+Each path has a difficulty level that is proportional to the number of tigers who live around that path.
+</p>
+<p>
+In order to become a tiger master, one has to make a trip into the jungle.
+The trip must consist of <i>at least 20</i> mutually distinct paths.
+The paths must obviously be consecutive (each starting in the location where the previous one ended) and they must be chosen so that the difficulty level of the trip never decreases.
+</p>
+<p>
+Take the first step to becoming a tiger master: find one such trip or determine that no such trip is possible.
+</p>
+<br></br>
+<p>
+You are given the ints <b>N</b> and <b>M</b>. You are also given the vector &lt;int&gt;s <b>X</b>, <b>Y</b> and <b>D</b> that describe the paths: for each i, path number i connects locations <b>X</b>[i] and <b>Y</b>[i] and its difficulty level is <b>D</b>[i].
+</p>
+<p>
+If there is a tiger master trip, return a vector &lt;int&gt; of length at least 21: the number of the location where your trip starts followed by the numbers of paths in the order in which they should be traversed. Any valid solution will be accepted.
+</p>
+<p>
+If there is no valid tiger master trip, return an empty vector &lt;int&gt;.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TigerMaster</td></tr><tr><td>Method:</td><td>train</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; train(int N, int M, vector &lt;int&gt; X, vector &lt;int&gt; Y, vector &lt;int&gt; D)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will be between 10*<b>N</b> and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>X</b>, <b>Y</b> and <b>D</b> will have exactly <b>M</b> elements each.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>X</b> will be between 0 and <b>N</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Y</b> will be between 0 and <b>N</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>For each i, <b>X</b>[i] will differ from <b>Y</b>[i].</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>D</b> will be between 0 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>23</pre></td></tr><tr><td><pre>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0}</pre></td></tr><tr><td><pre>{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1}</pre></td></tr><tr><td><pre>{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 21, 6, 1, 19, 22, 3, 10, 14, 13, 12, 2, 8, 15, 0, 9, 7, 17, 4, 20, 5 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Two locations connected by 23 distinct paths, each with the same difficulty. You may take any 20 of those (or more if you wish to), just make sure you don't take the same path twice.
+</p>
+<p>
+Note that element #0 of the example return value (i.e., the number 1) is the number of the starting location. Only the following numbers are path numbers.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>30</pre></td></tr><tr><td><pre>{1, 2, 2, 2, 2, 0, 0, 1, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 1, 2, 0, 1, 0, 2, 0, 2, 0, 0, 1, 2}</pre></td></tr><tr><td><pre>{0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 2, 0, 0, 1, 1, 0, 0, 0, 2, 1, 2, 2, 1, 1, 2, 0, 1, 2, 2, 1}</pre></td></tr><tr><td><pre>{55, 73, 50, 53, 13, 61, 72, 30, 91, 76, 73, 16, 46, 65, 12, 89, 60, 98, 45, 98, 33, 72, 39, 33, 14, 48, 1, 80, 79, 55}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 26, 14, 4, 24, 11, 7, 23, 18, 12, 25, 2, 0, 16, 5, 6, 21, 1, 10, 9, 28 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,10 +1,17 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++11 -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wcast-qual -Wcast-align
-DEBUGFLAGS = -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fstack-protector -lmcheck -D_FORTIFY_SOURCE=2
+CXXFLAGS = -Wall -Wextra -pedantic -std=c++14 -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion
+DEBUGFLAGS = -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2
 
-TARGET := $(notdir $(CURDIR))
+DEBUG = true
+ifeq ($(DEBUG),true)
+	CXXFLAGS += $(DEBUGFLAGS)
+endif
 
-TESTS := $(sort $(patsubst %.in,%,$(wildcard *.in)))
+TARGET := CCROSSX
+EXECUTE := ./$(TARGET)
+
+CASES := $(sort $(basename $(wildcard *.in)))
+TESTS := $(sort $(basename $(wildcard *.out)))
 
 all: $(TARGET)
 
@@ -12,19 +19,28 @@ clean:
 	-rm -rf $(TARGET) *.res
 
 %: %.cpp
-	$(LINK.cpp) $^ $(LOADLIBES) $(LDLIBS) -o $@
+	$(LINK.cpp) $< $(LOADLIBES) $(LDLIBS) -o $@
 
 run: $(TARGET)
-	time ./$(TARGET)
+	time $(EXECUTE)
 
 %.res: $(TARGET) %.in
-	time ./$(TARGET) < $*.in > $*.res
+	time $(EXECUTE) < $*.in > $*.res
+ifeq ($(DEBUG),true)
+	@echo "Built with DEBUG flags enabled, code may be slower than normal"
+endif
 
-test%: %.res
+%.out: % # Cancel the builtin rule
+
+__test_%: %.res %.out
 	diff $*.res $*.out
 
-test: $(patsubst %,test%,$(TESTS))
+runs: $(patsubst %,%.res,$(CASES))
 
-.PHONY: all clean run test
+solve: runs
 
-.PRECIOUS: $(patsubst %,%.res,$(TESTS))
+test: $(patsubst %,__test_%,$(TESTS))
+
+.PHONY: all clean run test __test_% runs solve
+
+.PRECIOUS: %.res

@@ -1,0 +1,149 @@
+#include <bits/stdc++.h>
+
+int modinv(int a, int m) { return a == 1 ? 1 : m - int(int64_t(modinv(m % a, a)) * m / a); }
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	int v;
+	modnum() : v(0) {}
+	modnum(int v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
+	explicit operator int () const { return v; }
+	friend std::ostream& operator << (std::ostream& o, modnum n) { return o << int(n); }
+
+	modnum& operator += (modnum o) {
+		v += o.v;
+		if (v >= MOD) v -= MOD;
+		return *this;
+	}
+	modnum& operator -= (modnum o) {
+		v -= o.v;
+		if (v < 0) v += MOD;
+		return *this;
+	}
+	modnum& operator *= (modnum o) {
+		v = int(int64_t(v) * int64_t(o.v) % MOD);
+		return *this;
+	}
+	friend modnum operator + (modnum a, modnum b) { return a += b; }
+	friend modnum operator - (modnum a, modnum b) { return a -= b; }
+	friend modnum operator * (modnum a, modnum b) { return a *= b; }
+
+	friend modnum inv(modnum a) {
+		modnum r;
+		r.v = modinv(a.v, MOD);
+		return r;
+	}
+};
+
+int main() {
+	using namespace std;
+	ios_base::sync_with_stdio(false), cin.tie(nullptr);
+
+	int N, Q; cin >> N >> Q;
+	std::vector<int> P(N);
+	P[0] = -1;
+	for (int i = 1; i < N; i++) { cin >> P[i]; P[i]--; }
+
+	std::vector<int> depth(N);
+	depth[0] = 0;
+	for (int i = 1; i < N; i++) depth[i] = depth[P[i]]+1;
+
+	std::vector<int> ch(N);
+	for (int i = 1; i < N; i++) ch[P[i]]++;
+
+	using num = modnum<int(1e9)+7>;
+	std::vector<num> invs(N+1);
+	{
+		num f = 1;
+		for (int i = 1; i <= N; i++) invs[i] = f, f *= num(i);
+		f = inv(f);
+		for (int i = N; i >= 1; i--) invs[i] *= f, f *= num(i);
+	}
+
+	// We consider the tree with 2N states: one is the normal node state,
+	// and the other is a "jumper" state which goes to normal w/ prob
+	// 1/(depth+1), and goes to par jumper otherwise.
+
+	// time from jumper to par jumper
+	std::vector<num> time_up(N);
+	std::vector<num> ch_time_out_up(N);
+	// time from self to jumper
+	std::vector<num> time_out(N);
+	for (int i = N-1; i >= 1; i--) {
+		if (!ch[i]) {
+			time_out[i] = 1;
+			// we always go up at least 1
+			time_up[i] = 0;
+		} else {
+			time_out[i] = 1 + ch_time_out_up[i] * invs[ch[i]];
+			// 1 + (sum over children of time_up) / ch
+			// = time from self to own guy
+			// Then, we 1/(depth+1) between dropping back to self or succeed
+			// That means we take this loop 1 / depth times on average
+			time_up[i] = invs[depth[i]] * time_out[i];
+		}
+		ch_time_out_up[P[i]] += time_out[i] + time_up[i];
+	}
+
+	// time to from jumper to self
+	std::vector<num> time_in(N);
+	// time from par self to self
+	std::vector<num> time_down(N);
+	// happens immediately
+	time_in[0] = 0;
+	for (int i = 1; i < N; i++) {
+		time_down[i] = ch[P[i]] + (ch_time_out_up[P[i]] - (time_out[i] + time_up[i])) + (ch[P[i]]-1) * time_in[P[i]];
+		// time_in[i] = depth[i]/(depth[i]+1) * (time_in[P[i]] + time_down[i])
+		time_in[i] = (time_in[P[i]] + time_down[i]) * (1 - invs[depth[i]+1]);
+	}
+
+	std::vector<num> sum_time_up = time_up;
+	std::vector<num> sum_time_down = time_down;
+	for (int i = 1; i < N; i++) {
+		sum_time_up[i] += sum_time_up[P[i]];
+		sum_time_down[i] += sum_time_down[P[i]];
+	}
+
+	struct par_t {
+		int dst;
+		int len;
+	};
+	std::vector<par_t> par2(N);
+	par2[0] = {0, 0};
+	for (int i = 1; i < N; i++) {
+		int p = P[i];
+		int gp = par2[p].dst;
+		if (par2[p].len == par2[gp].len) par2[i] = {par2[gp].dst, 1 + par2[p].len + par2[gp].len};
+		else par2[i] = {p, 1};
+	}
+	auto get_lca = [&](int a, int b) -> int {
+		if (depth[a] > depth[b]) std::swap(a, b);
+		while (depth[b] > depth[a]) {
+			if (par2[b].len <= depth[b] - depth[a]) b = par2[b].dst;
+			else b = P[b];
+		}
+		if (a == b) return a;
+		while (P[a] != P[b]) {
+			assert(par2[a].len == par2[b].len);
+			if (par2[a].dst != par2[b].dst) {
+				a = par2[a].dst;
+				b = par2[b].dst;
+			} else {
+				a = P[a];
+				b = P[b];
+			}
+		}
+		return P[a];
+	};
+	//for (int i = 0; i < N; i++) { cerr << i << ' ' << time_out[i] << ' ' << time_up[i] << ' ' << time_down[i] << ' ' << time_in[i] << '\n'; }
+	for (int q = 0; q < Q; q++) {
+		int x, y; cin >> x >> y; x--, y--;
+		int l = get_lca(x, y);
+		num ans = 0;
+		if (l != x) ans += time_out[x] + sum_time_up[x] - sum_time_up[l] + time_in[l];
+		ans += sum_time_down[y] - sum_time_down[l];
+		cout << ans << '\n';
+	}
+
+	return 0;
+}

@@ -1,0 +1,43 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have a collection of power cords and devices that use electricity. We will refer to them as "cords" and "devices", and we will use the word "gadgets" to refer to both cables and devices.
+</p>
+<p>
+Each gadget has exactly one plug.
+</p>
+<p>
+Devices have no sockets.
+Cords have one or more sockets.
+Different cords may have a different number of sockets.
+</p>
+<p>
+Additionally, there is exactly one socket on the wall: the power outlet.
+</p>
+<p>
+All plugs have the same shape, all sockets have the same shape, and they all match.
+</p>
+<br></br>
+<p>
+You want to plug all your devices into electricity at the same time.
+(Plugging in all the cords is optional.)
+</p>
+<p>
+Determine whether it is possible, and if it is, find one way of doing so.
+</p>
+<br></br>
+<p>
+You are given the vector &lt;int&gt; <b>gadgets</b> with N elements.
+This array describes a collection of N gadgets, numbered from 0 to N-1.
+For each i, <b>gadgets</b>[i] is the number of sockets on gadget number i.
+(Hence, gadgets with <b>gadgets</b>[i] = 0 are the devices and all other gadgets are the cords.)
+</p>
+<p>
+If it is possible to plug in all the devices, find one way of doing so and return a vector &lt;int&gt; that describes it.
+For each j, element j of the return value should be the number of the gadget into which gadget j is plugged.
+Use the value -1 for a gadget that remains unplugged, and the value <b>N</b> for a gadget that is plugged into the wall socket.
+</p>
+<p>
+If there is no solution, return an empty vector &lt;int&gt; instead.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PlugStuffIn</td></tr><tr><td>Method:</td><td>plug</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; plug(vector &lt;int&gt; gadgets)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>gadgets</b> will contain between 0 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>gadgets</b> will be between 0 and 50, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1 }</pre></td></tr><tr><td><table><tr><td colspan="2">A single device. The only solution is to plug the device into the wall.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 1, 0, 1, 1, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1, -1, 4, -1, 6, -1 }</pre></td></tr><tr><td><table><tr><td colspan="2">A single device and five extension cords (each with one socket).
+Our example return value describes a solution in which we plug cord 4 into the wall and then device 2 into cord 4.
+Other solutions exist, including the one in which we plug the device straight into the wall and we ignore the cords.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 1, 0, 1, 1, 1, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">Now we have two devices. The extension cords are useless - regardless of whether we use them or not, there is no way to plug both devices at the same time.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 2, 0, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 4, 5, 4, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2">We have to use everything. In our solution, cord 2 goes into the wall and cord 4 into one of the two sockets on cord 2. This leaves three empty sockets that now all have power: the unused one on cord 2 and both sockets on cord 4. Thus, we can plug our three devices in (taking care to plug each of them into its own socket).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 3, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 2, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>We have a device + two cords, each with three sockets. In our solution we have plugged the device into the wall, cord 1 into one of the sockets on cord 2, and cord 2 into one of the sockets on cord 1.</p>
+<p>Note that the two cords now don't have power - they are only plugged into each other, but they aren't connected to the electrical network. If we were to plug another device into one of their sockets, that device would not have electricity, and thus such a configuration would NOT be a valid solution.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, 20, 30, 40}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1, 1, -1, -1 }</pre></td></tr><tr><td><table><tr><td colspan="2">No devices here, so we don't have to do anything. But just for good fun we plugged cable 1 (the one with 20 sockets) into one of its own sockets. (As in the previous example, this cable doesn't have electricity.)</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,63 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Treeland has the topology of a tree.
+There are <b>N</b> locations with labels 0 to <b>N</b>-1.
+</p>
+<p>
+For each i between 0 and <b>N</b>-2, inclusive, the locations <b>parent</b>[i] and (i+1) are connected by a bidirectional road of length <b>plength</b>[i].
+</p>
+<br></br>
+<p>
+We would like to create a street view map for Treeland.
+</p>
+<p>
+We have a fleet of cars with cameras.
+Initially, car j is parked in location <b>carNode</b>[j] and it contains <b>carGas</b>[j] units of gas.
+</p>
+<p>
+Car movement is continuous.
+Cars are points.
+One unit of gas is enough to traverse one unit of distance.
+</p>
+<br></br>
+<p>
+Each car should visit some parts of Treeland in such a way that together they will cover the whole Treeland - not just all locations, but also entire roads between them.
+</p>
+<p>
+(Some parts of Treeland may be visited by multiple cars.)
+</p>
+<br></br>
+<p>
+Whenever two cars are located at the same point, they may share gas arbitrarily.
+This includes meeting somewhere on a road between two locations, moving a fractional amount of gas from one car to another, and also having more than the initial amount of gas in a car.
+</p>
+<p>
+Return "possible" if there is a schedule how to move the cars and share gas between them so that we get the full street view map.
+Return "impossible" otherwise.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TreelandStreetView</td></tr><tr><td>Method:</td><td>deliver</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string deliver(int N, vector &lt;int&gt; parent, vector &lt;int&gt; plength, vector &lt;int&gt; carNode, vector &lt;int&gt; carGas)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>parent</b> will have exactly <b>N</b>-1 elements.</td></tr><tr><td align="center" valign="top">-</td><td>For all i, element i of <b>parent</b> will be between 0 and i, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>plength</b> will have exactly <b>N</b>-1 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>plength</b> will be between 1 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>carNode</b> will have between 1 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>carNode</b> will be between 0 and <b>N</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>carGas</b> will have the same number of elements as <b>carNode</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>carGas</b> will be between 0 and 10^6, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{0, 0, 0, 0}</pre></td></tr><tr><td><pre>{7, 8, 9, 10}</pre></td></tr><tr><td><pre>{1, 0, 0, 0}</pre></td></tr><tr><td><pre>{34, 0, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+This graph is a star with center in location 0. One car with 34 units of gas starts in location 1, all others start in location 0 with no gas.
+</p>
+<p>
+A valid schedule: car 0 will come to location 0. At that point, it has 27 units of gas left. This gas is divided among the other three cars according to the lengths of the other three roads from location 0, and then each of the other three cars traverses one of the remaining three roads.
+</p>
+<p>
+(We did not need three cars in location 0. It would be doable with two, the third road can be traversed by the car that just arrived.)
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>{100}</pre></td></tr><tr><td><pre>{0, 1}</pre></td></tr><tr><td><pre>{51, 53}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Two locations connected by a road of length 100. One car starts in each location. Each car has enough gas to traverse slightly more than half of the road. So, together they have enough gas to visit the whole land.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{0, 0, 0, 0}</pre></td></tr><tr><td><pre>{7, 8, 9, 10}</pre></td></tr><tr><td><pre>{0, 1, 2, 3, 4}</pre></td></tr><tr><td><pre>{23, 5, 5, 5, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Each of the cars that start in the endpoints of the star will traverse as much of its only road as it can. The car that starts in the middle can visit everything else if it does so in the right order (i.e., ending in the middle of the longest road).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{0, 0, 0, 0}</pre></td></tr><tr><td><pre>{7, 8, 9, 10}</pre></td></tr><tr><td><pre>{0, 1, 2, 3, 4}</pre></td></tr><tr><td><pre>{22, 5, 5, 5, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Wait, what? This is still solvable with one fewer unit of gas? Sure. Remember that cars can swap gas whenever they meet. The schedule shown in the previous example is not optimal.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{0, 1, 1, 3}</pre></td></tr><tr><td><pre>{1, 1, 100, 100}</pre></td></tr><tr><td><pre>{0, 2}</pre></td></tr><tr><td><pre>{99, 104}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Car 0 can do the entire trip alone, as follows: come from 0 via 1 to 2 (spent 2 units of gas, has 97), take all the gas from car 1 (now it has 201 units of gas), return to 1 (200 units left), and then travel via 3 to 4 (exactly all gas spent).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{0, 1, 1, 3}</pre></td></tr><tr><td><pre>{1, 1, 100, 100}</pre></td></tr><tr><td><pre>{3}</pre></td></tr><tr><td><pre>{297}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Even though this car has much more gas than the total length of all roads, it is alone to do the job and it cannot do it without traversing some roads twice. It turns out that the amount of gas it has is not sufficient.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>{0, 0, 0, 3, 3}</pre></td></tr><tr><td><pre>{100, 110, 5, 99, 111}</pre></td></tr><tr><td><pre>{1, 2}</pre></td></tr><tr><td><pre>{215, 215}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Cars from 1 and 2 drive to 0. Car from 1 will arrive there with 115 fuel, car from 2 with 105 fuel. They now have 220 fuel among them.
+</p>
+<p>
+Both cars drive to location 3. Total amount of fuel left: 210.
+</p>
+<p>
+At this point one of the cars part ways again. One car takes 99 fuel and drives off towards location 4, the other car is left with 111 fuel and drives towards location 5. Both make it exactly.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">7)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>14</pre></td></tr><tr><td><pre>{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}</pre></td></tr><tr><td><pre>{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>{0, 7, 11, 6}</pre></td></tr><tr><td><pre>{2, 4, 1, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+A line with unit distances.
+</p>
+<p>
+Car #3 will start by driving one step right and giving one unit of gas to car #1.
+</p>
+<p>
+At this point car #3 has 5 units of gas left. It drives 5 steps left. Car #0 drives 2 steps right. Cars #0 and #3 meet in location 2.
+</p>
+<p>
+Car #1 now drives from its location all the way to location 13 to cover the rest of the land. Along the way this car picks up one unit of fuel from car #2. Together it spends six units of fuel: four it had from the start, one it got from car #3, and one it got from car #2.
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

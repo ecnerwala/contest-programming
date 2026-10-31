@@ -1,0 +1,69 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have printed <b>N</b> lines of text onto a sheet of paper. Then you took scissors and cut the sheet into individual lines of text.
+</p>
+<p>
+Now you have <b>N</b> strips of paper. For each i between 1 and <b>N</b>, inclusive, one of the strips of paper contains the following sentence:
+"Exactly i of the statements above this one are false."
+</p>
+<br></br>
+<p>
+You are now going to do two things. 
+</p>
+<ul>
+<li>First, you will tape all strips of paper back into a complete sheet. When doing so, you can choose any of the <b>N!</b> possible orders for the strips.</li>
+<li>Once you have the complete page, you are then going to decide which statements are true and which ones are false. You must do this in a way that is completely logically consistent.</li>
+</ul>
+<br></br>
+<p>
+We are interested in successfully completing the procedure described above and maximizing the number of true statements. 
+</p>
+<p>
+Find that maximum.
+Also, find all permutations of statements for which the maximum can be achieved (by a suitable choice of truth values).
+</p>
+<br></br>
+<p>
+Return the vector &lt;int&gt; {A, B, C}, where:
+</p>
+<ul>
+<li>A = the maximum number of true statements.</li>
+<li>B = the number of permutations of statements such that A of them can be true.</li>
+<li>C = the sum of all those permutations, as defined below.</li>
+<li>Both B and C should be computed modulo (10^9 + 7).</li>
+</ul>
+<p>
+When computing C, each permutation is converted to a number as follows: the elements of the permutation are digits in base <b>N</b>+1 with the first of them being the least significant digit.
+</p>
+<p>
+For example, a sheet that contains the statements in order {1 false above, 4 false above, 2 false above, 3 false above} corresponds to the permutation (1, 4, 2, 3) and that is converted to the number 1 + 5*4 + 5*5*2 + 5*5*5*3.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>FalseAbove</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; solve(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Note that in B and C each permutation of statements should only be counted once, even if there are multiple different ways to select which A of its <b>N</b> statements are true.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 100,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 1, 5 }</pre></td></tr><tr><td><table><tr><td colspan="2">If we have the statements:
+<pre>
+    Exactly 1 of the statements above this one is false.
+    Exactly 2 of the statements above this one are false.
+</pre>
+the only consistent way of assigning truth values is that both statements are false. On the other hand, if we have:
+<pre>
+    Exactly 2 of the statements above this one are false.
+    Exactly 1 of the statements above this one is false.
+</pre>
+<p>
+then the only consistent possibility is that the top statement is false and the bottom statement is true.
+</p>
+<p>
+Thus:
+The largest possible number of true statements is A = 1.
+There is exactly B = 1 permutation for which this can happen.
+That permutation is the permutation (2, 1).
+This permutation corresponds to the number 2 + 3*1 = 5, hence C = 5.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 3, 138 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+For <b>N</b> = 3 it is never possible to have more than one true statement.
+There are some permutations and some truth value assignments such that one of the three statements is true.
+Thus, A = 1. 
+</p>
+<p>
+Out of the six possible permutations of statements, there are B = 3 good ones.
+(Good permutations are ones for which there is at least one way to have A true statements and <b>N</b>-A false statements.)
+</p>
+<p>
+The three good permutations correspond to numbers 39, 45, and 54. The value C is the sum of these three numbers.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 6, 380214 }</pre></td></tr><tr><td><table><tr><td colspan="2">Here's one additional piece of information unrelated to this example test case. For <b>N</b> = 10 we won't tell you the correct values A and B, but we will tell you that the correct C is 680,141,183. You can use this information to make sure that you are computing C modulo 10^9 + 7.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

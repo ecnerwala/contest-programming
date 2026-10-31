@@ -1,0 +1,83 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>Eggheads</i> is a quiz show in which a five-person team of challengers competes against a five-person team of professional quizzers called the Eggheads.
+You are a team of challengers and you want to maximize the probability that your team will win.
+In this problem you are given the data on how good each quizzer is, and you should compute and return the probability that you win the game if you take the optimal choices.
+The rules of the game are explained below.
+</p>
+<p>
+The game consists of four individual rounds followed by a team round. The team that wins the team round wins the game.
+There are <b>S</b>+1 subjects, numbered from 0 to <b>S</b>.
+Subject number <b>S</b> is general knowledge.
+This subject is used in the team round.
+Four of the remaining <b>S</b> subjects are used in the individual rounds.
+</p>
+<p>
+Each individual round looks as follows:
+</p>
+<ul>
+<li>One of the possible subjects that haven't been chosen yet is chosen uniformly at random and announced.</li>
+<li>Knowing the subject, you (the challengers) get to choose the two people who will compete against each other: one member of your team and one member of the Eggheads. <i>You may not choose a person who has already competed in a previous individual round.</i></li>
+<li>Each person who competes in this round is given three questions on the chosen subject. If one of the contestants has more correct answers than the other, they win the round.</li>
+<li>In case of a tie, the contestants are repeatedly given one question each until there is a decision (i.e., one contestant gets their question right and the other's answer is wrong).</li>
+</ul>
+<p>
+The team round looks the same as the individual rounds, with one exception:
+</p>
+<ul>
+<li>On each team, all the members <i>who have not lost an individual round</i> get to compete. In other words, the people who lost the individual rounds have to leave the room, and then all who remained get to play the final team round.</li>
+</ul>
+<p>
+Suppose we number the members of your team from 0 to 4.
+We will assume that your team member i can answer any question on subject j with probability p[i][j].
+You are given these probabilities as percentages in the vector &lt;int&gt; <b>yourSkills</b>.
+More precisely, <b>yourSkills</b> = { p[0][0], ..., p[0][<b>S</b>], p[1][0], .... p[1][<b>S</b>], ..., p[4][<b>S</b>] }.
+</p>
+<p>
+You are also given the vector &lt;int&gt; <b>theirSkills</b> that describes your opponents in the same way.
+</p>
+<p>
+We assume that all random choices in the problem statement are mutually independent.
+In the team round we assume that a team knows the answer if and only if at least one of the present team members knows the answer.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Eggheads</td></tr><tr><td>Method:</td><td>winProbability</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double winProbability(int S, vector &lt;int&gt; yourSkills, vector &lt;int&gt; theirSkills)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The only choice you actually get to make is the choice which pair of players should compete in each round (knowing the subject for that round).</td></tr><tr><td align="center" valign="top">-</td><td>The subject for each round is only chosen and announced when that round begins. Notably, you do not know the subjects for future rounds when making your choice for a particular round.</td></tr><tr><td align="center" valign="top">-</td><td>Your answer will be accepted if it has an absolute error at most 1e-9.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will be between 4 and 7, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>yourSkills</b> will have 5*(<b>S</b>+1) elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>theirSkills</b> will have 5*(<b>S</b>+1) elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>yourSkills</b> will be between 1 and 99, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>theirSkills</b> will be between 1 and 99, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50}</pre></td></tr><tr><td><pre>{50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50,
+ 50, 50, 50, 50, 50}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.5</pre></td></tr><tr><td><table><tr><td colspan="2">Everything is fifty-fifty, so your choices don't matter and your team has a 50 percent probability of winning the game.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>{1, 1, 1, 1, 1, 1, 1, 1,
+ 1, 1, 1, 1, 1, 1, 1, 1,
+ 1, 1, 1, 1, 1, 1, 1, 1,
+ 1, 1, 1, 1, 1, 1, 1, 1,
+ 1, 1, 1, 1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>{99, 99, 99, 99, 99, 99, 99, 99,
+ 99, 99, 99, 99, 99, 99, 99, 99,
+ 99, 99, 99, 99, 99, 99, 99, 99,
+ 99, 99, 99, 99, 99, 99, 99, 99,
+ 99, 99, 99, 99, 99, 99, 99, 99}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.011523858729556E-16</pre></td></tr><tr><td><table><tr><td colspan="2">A team of losers vs. a team of geniuses.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{50, 1, 1, 1, 1, 30,
+ 1, 1, 1, 1, 1, 1,
+ 1, 1, 1, 1, 1, 1,
+ 1, 1, 1, 1, 1, 1,
+ 1, 1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>{70, 99, 99, 99, 99, 99,
+ 20, 20, 20, 20, 20, 1,
+ 20, 20, 20, 20, 20, 1,
+ 20, 20, 20, 20, 20, 1,
+ 20, 20, 20, 20, 20, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.19276528375258337</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Your team member 0 is decent at subject 0 and also at subject 5 (general knowledge). The Eggheads have one elite player who is amazing at everything except for subject 0. If this player makes it to the final round, your chances of winning it are really slim. Your best bet is to hope that subject 0 comes up during the individual rounds (probability 4/5 = 0.8). If it does, you can send your team member 0 against Egghead 0. With probability 0.258 you will be able to eliminate the Egghead and suddenly you'll have the only good player in the final round. The probability that your two team members (including member 0) will win the final round against four Eggheads (other than Egghead 0) is very close to 93.1%. This option (0.8 * 0.258 * 0.931 = 0.1921584) is the only way in which you have a reasonable chance to win. The other scenarios in which you win are much less likely and contribute only a few hundredths of a percent towards the total probability of winning.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{50, 1, 1, 1, 10,
+ 1, 50, 1, 1, 10,
+ 1, 1, 50, 1, 10,
+ 1, 1, 1, 50, 10,
+ 1, 1, 1, 1, 10}</pre></td></tr><tr><td><pre>{99, 99, 99, 20, 99,
+ 99, 20, 99, 99, 99,
+ 20, 99, 99, 99, 99,
+ 99, 99, 99, 99, 20,
+ 99, 99, 20, 99, 99}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.40036967200462004</pre></td></tr><tr><td><table><tr><td colspan="2">Each Egghead has got one weakness. As there are only four subjects other than general knowledge, you can be sure that all of them will come up. You can assign each of your team members who knows a subject to the Egghead who is bad at that subject. With high probability this should give you a final round in which all five of you play against the last remaining Egghead -- the one who is only 20% at general knowledge. If that final round really takes place, your team should win it with probability approximately 77.338%.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{99, 99, 99, 99, 10,
+ 1, 1, 1, 1, 10,
+ 1, 1, 1, 1, 10,
+ 1, 1, 1, 1, 10,
+ 1, 1, 1, 1, 10}</pre></td></tr><tr><td><pre>{20, 99, 99, 99, 99,
+ 99, 20, 99, 99, 99,
+ 99, 99, 20, 99, 99,
+ 99, 99, 99, 20, 99,
+ 99, 99, 99, 99, 20}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.812459259291132E-5</pre></td></tr><tr><td><table><tr><td colspan="2">Remember that you cannot use the same person twice. Even though your player 0 really excels in four subjects, they can only compete in one individual round. Thus, the remaining three individual rounds will still quite likely be won by an Egghead, and the final round will almost surely be two challengers versus four Eggheads.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

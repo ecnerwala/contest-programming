@@ -1,0 +1,54 @@
+Task: ZMI
+
+Time Change [C]
+
+Algorithmic Skirmishes 2026, first round. Limits: 1024 MB, 1 s. 2026-03-23
+
+It happened that this year the time change falls during the Skirmishes. Does that mean you have one hour less for the weekend round? Unfortunately yes, and we sincerely apologize for that.
+
+This year Bajtazar decided to reach the finals. Instead of giving up halfway through the contest (as happened in previous years), he decided to make the best possible use of his time and carefully plan when he will work on each task.
+
+Let us recall the schedule of this year’s Skirmishes:
+
+ROUND   TASK PUBLICATION        SUBMISSION DEADLINE
+1       March 23, 12:00         March 24, 23:59:59
+2       March 24, 12:00         March 25, 23:59:59
+3       March 25, 12:00         March 26, 23:59:59
+4       March 26, 12:00         March 27, 23:59:59
+5       March 27, 12:00         March 29, 23:59:59
+
+The time change will occur on March 29 at 2:00 at night, when we move the clocks forward to 3:00.
+
+Write a program that helps Bajtazar compute how much time he will have to solve a task from a given round, if we know the time at which he starts working on the task.
+
+Input
+
+The single line of input contains four integers x, d, h, m (1 ≤ x ≤ 5, 23 ≤ d ≤ 29, 0 ≤ h ≤ 23, 0 ≤ m ≤ 59) denoting respectively: the number of the round the task is from, the day, hour, and minute at which Bajtazar started working on the task.
+
+We guarantee that the given date and time is within the duration of round x, and describes a valid Polish time, i.e., it is not within the hour skipped due to the time change. More precisely, the pair (d, h) where d = 29 and h = 2 will not appear in the input.
+
+Output
+
+Print a single integer — the number of minutes Bajtazar has to complete the task.
+
+Example
+
+For the input:
+1 23 12 0
+
+the correct output is:
+2160
+
+For the input:
+5 28 13 14
+
+the correct output is:
+2026
+
+Explanation of the examples:
+
+In the first example, Bajtazar started working on the ZMI task from the first round at the moment of its publication; he has the entire duration of that round, i.e., 36 hours, which is 2160 minutes.
+
+In the second example, Bajtazar started working on the task from the weekend round on Saturday at 13:14 (unfortunately he spent all Friday debugging 4A and had to properly catch up on sleep), so he has 646 minutes until midnight from Saturday to Sunday and 23 hours on Sunday (due to the time change), for a total of 646 + 23 · 60 = 2026 minutes.
+
+1

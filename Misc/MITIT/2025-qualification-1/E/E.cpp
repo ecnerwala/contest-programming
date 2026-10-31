@@ -52,67 +52,29 @@ void slow(int N) {
 // ++++++_++++____+++++++
 
 std::optional<std::vector<int>> get_move(const std::string& S) {
-	int lo = 0;
-	int hi = int(S.size());
-	while (lo < int(S.size()) && S[lo] == '0') lo++;
-	while (hi-1 >= 0 && S[hi-1] == '1') hi--;
-	// should not be sorted
-	assert(lo != hi);
-	if (((hi - lo) & 1) == 0) {
-		bool losing = true;
-		for (int i = lo+1; i < hi-1; i++) {
-			if (S[i] != (i < (hi + lo) / 2 ? '0' : '1')) {
-				losing = false;
-				break;
-			}
-		}
-		if (losing) return std::nullopt;
-	}
+	int N = int(S.size());
 	int split = 0;
 	for (char c : S) {
 		if (c == '0') split++;
 	}
-	// split+i, split-1-i
-	int N = int(S.size());
-	std::vector<int> res; res.reserve(N);
-	for (int i = 0; split-1-i >= 0 && split+i < N; i++) {
-		char l = S[split-1-i], r = S[split+i];
-		if (l == '1' && r == '0') {
-			for (int z = 0; z < N; z++) {
-				if (z == split-1-i) continue;
-				if (z == split+i) continue;
-				res.push_back(z);
-			}
-			return res;
-		}
+	int num_bad = 0;
+	for (int i = 0; i < N; i++) {
+		if (S[i] != "01"[i >= split]) num_bad++;
 	}
-	for (int i = 0; split-1-i >= 0 && split+i < N; i++) {
-		char l = S[split-1-i], r = S[split+i];
-		if (r == '0') {
+	// split+i, split-1-i
+	std::vector<int> res; res.reserve(N);
+	for (int l = split-1, r = split; l >= 0 && r < N; l--, r++) {
+		char vl = S[l], vr = S[r];
+		if (vl == '1' && vr == '0' && num_bad == 2) return std::nullopt;
+		if (vl == '1' || vr == '0') {
 			// this is good
 			for (int z = 0; z < N; z++) {
-				if (z > split-1-i && z < split) continue;
-				if (z == split+i) continue;
+				if (l < z && z < r) continue;
+				if (z == l && vl == '1') continue;
+				if (z == r && vr == '0') continue;
 				res.push_back(z);
 			}
 			return res;
-		}
-		if (l != '0') {
-			break;
-		}
-	}
-	for (int i = 0; split-1-i >= 0 && split+i < N; i++) {
-		char l = S[split-1-i], r = S[split+i];
-		if (l == '1') {
-			for (int z = 0; z < N; z++) {
-				if (z == split-1-i) continue;
-				if (z >= split && z < split+i) continue;
-				res.push_back(z);
-			}
-			return res;
-		}
-		if (r != '1') {
-			break;
 		}
 	}
 	assert(false);

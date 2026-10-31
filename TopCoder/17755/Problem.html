@@ -1,0 +1,63 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A binary tree is a rooted tree in which each node has at most one left child and at most one right child.
+</p>
+<p>
+Each N-node tree in this problem will have its nodes labeled 0 to <b>N</b>-1.
+For a fixed tree left(v) and right(v) will denote the numbers of the left and right child of node v.
+The special value None is used if node v does not have that child.
+</p>
+<br></br>
+<p>
+Consider the following three mutually recursive functions:
+</p>
+<pre>
+
+function PreInPost(v):
+    print(v)
+    if left(v) is not None: InPostPre(left(v))
+    if right(v) is not None: InPostPre(right(v))
+
+function InPostPre(v):
+    if left(v) is not None: PostPreIn(left(v))
+    print(v)
+    if right(v) is not None: PostPreIn(right(v))
+
+function PostPreIn(v):
+    if left(v) is not None: PreInPost(left(v))
+    if right(v) is not None: PreInPost(right(v))
+    print(v)
+
+</pre>
+<p>
+Each of these three functions has the property that if you call it with the argument equal to the root of the tree, it will output each of the tree's nodes exactly once.
+(As the three functions call each other in a cycle, we are cycling through printing the tree in pre-order, in-order, and post-order. Hence the function names.)
+</p>
+<br></br>
+<p>
+You are given the vector &lt;int&gt;s <b>PIP</b> and <b>IPP</b>.
+<b>PIP</b> contains the order in which the call PreInPost(root) printed the nodes of a tree.
+<b>IPP</b> contains the order in which the call InPostPre(root) printed the nodes of the same tree.
+</p>
+<p>
+Count all distinct trees that match the given information. Return that count modulo (10^9 + 7).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PreInPostOrder</td></tr><tr><td>Method:</td><td>reconstruct</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int reconstruct(vector &lt;int&gt; PIP, vector &lt;int&gt; IPP)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Remember that you are counting binary trees with N nodes, where N is the number of elements in <b>PIP</b>. The nodes are labelled 0 to N-1.</td></tr><tr><td align="center" valign="top">-</td><td>Two trees count as identical if and only if the functions left() and right() that describe them are identical.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>PIP</b> will have between 1 and 70 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>PIP</b> will be a permutation of 0 to N-1, where N is the number of elements in <b>PIP</b>.</td></tr><tr><td align="center" valign="top">-</td><td><b>IPP</b> will have the same number of elements as <b>PIP</b>.</td></tr><tr><td align="center" valign="top">-</td><td><b>IPP</b> will be a permutation of 0 to N-1, where N is the number of elements in <b>IPP</b>.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2}</pre></td></tr><tr><td><pre>{0, 2, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">The only tree that matches these looks as follows:
+<pre>
+0
+ \
+  \
+   1
+  /
+ 2
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 0}</pre></td></tr><tr><td><pre>{1, 0, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">The only matching tree has the same shape as in the previous example, only the order of node labels is different.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 0}</pre></td></tr><tr><td><pre>{0, 1, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">No such tree.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 1, 3, 0}</pre></td></tr><tr><td><pre>{0, 3, 1, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">In both matching trees we have left(2)=1 and right(1)=0. One of the two matching trees has left(0)=3, the other has right(0)=3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 3, 4, 2, 1, 7, 8, 6, 5, 10, 9}</pre></td></tr><tr><td><pre>{2, 3, 4, 1, 0, 6, 7, 8, 9, 10, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 18</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0,1,3,5,4,2}</pre></td></tr><tr><td><pre>{0,2,3,5,4,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+0              0           0          0
+ \              \           \          \
+  1              1           1          1
+   \              \           \          \
+    2              2           2          2
+     \            / \         / \        / 
+      3          3   5       3   4      3   
+       \              \       \          \
+        4              4       5          4
+       /                                 /
+      5                                 5
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

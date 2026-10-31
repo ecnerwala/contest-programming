@@ -1,0 +1,60 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+class LandSplitter {
+
+public:
+
+	ll cheapest(int N_, int A_, int B_) {
+		ll N = N_, A = A_, B = B_;
+
+		ll cnt = (N + B - 1) / B;
+		ll extra = cnt * B - N;
+		if (extra > (B-A) * cnt) {
+			return -1;
+		}
+		ll ans = N * N;
+		ll cntB = cnt;
+		ll cntA = 0;
+		if (extra) {
+			assert((B-A) > 0);
+			cntA = extra / (B-A);
+			cntB -= cntA;
+			extra %= (B-A);
+		}
+		if (extra) {
+			cntB --;
+			ans -= (B - extra) * (B - extra);
+		}
+		ans -= B * B * cntB;
+		ans -= A * A * cntA;
+		assert(ans % 2 == 0);
+		return ans / 2;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	mt19937 mt(48);
+	for (int A = 1; A <= 10; A++) {
+		for (int B = A; B <= 10; B++) {
+			for (int N = B; N <= 10; N++) {
+				LandSplitter().cheapest(N, A, B);
+			}
+		}
+	}
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::LandSplitter;
+
+// vim:ft=cpp

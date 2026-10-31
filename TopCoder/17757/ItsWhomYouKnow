@@ -1,0 +1,75 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class ItsWhomYouKnow {
+
+public:
+
+	long long simulate(int N, int C, int P, vector <int> initialClans, vector <int> initialPowers, int seed) {
+		int64_t state = seed;
+		auto new_patient = [&]() -> std::pair<int, int> {
+			state = (state * 1103515245 + 12345) & ((1ull << 31) - 1);
+			int clan = int((state / 10) % C);
+			state = (state * 1103515245 + 12345) & ((1ull << 31) - 1);
+			int power = int(state % P);
+			return {clan, power};
+		};
+
+		std::vector<int> clan_powers(C, 0);
+		std::vector<std::queue<int>> clan_q(C);
+		std::priority_queue<std::pair<int, int>> clans;
+
+		int L = 0;
+		auto insert_new_patient = [&](std::pair<int, int> v) {
+			int clan = v.first, power = v.second;
+			int id = L++;
+			if (power > clan_powers[clan]) {
+				clan_powers[clan] = power;
+			}
+			clans.push({clan_powers[clan], -clan});
+			clan_q[clan].push(id);
+		};
+		for (int i = 0; i < int(initialClans.size()); i++) {
+			insert_new_patient({initialClans[i], initialPowers[i]});
+		}
+
+		auto pop_patient = [&]() -> int {
+			while (true) {
+				int clan = -clans.top().second;
+				if (clan_q[clan].empty()) {
+					clans.pop();
+					continue;
+				}
+				int res = clan_q[clan].front();
+				clan_q[clan].pop();
+				return res;
+			}
+		};
+
+		int64_t ans = 0;
+		for (int x = 0; x < N; x++) {
+			insert_new_patient(new_patient());
+			insert_new_patient(new_patient());
+			int id = pop_patient();
+			ans += int64_t(x+1) * int64_t(id);
+			state = (state + id) & ((1ull << 31) - 1);
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::ItsWhomYouKnow;
+
+// vim:ft=cpp

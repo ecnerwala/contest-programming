@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://lukakalinovcic.github.io/geodeb/main.js"></script>
+</head>
+<body>
+  <div id="rootElement"></div>
+</body>
+<script type="text/javascript">
+resourcePath = 'https://lukakalinovcic.github.io/geodeb/';
+jsonData = 
+{
+  "source_code": [
+    "#include <bits/stdc++.h>\u000a",
+    "\u000a",
+    "#include \u0022geodeb.h\u0022\u000a",
+    "\u000a",
+    "template <class T> int sgn(T x) { return (x > 0) - (x < 0); }\u000a",
+    "template<class T>\u000a",
+    "struct Point {\u000a",
+    "\u0009typedef Point P;\u000a",
+    "\u0009T x, y;\u000a",
+    "\u0009explicit Point(T x_=0, T y_=0) : x(x_), y(y_) {}\u000a",
+    "\u0009bool operator<(P p) const { return tie(x,y) < tie(p.x,p.y); }\u000a",
+    "\u0009bool operator==(P p) const { return tie(x,y)==tie(p.x,p.y); }\u000a",
+    "\u0009P operator+(P p) const { return P(x+p.x, y+p.y); }\u000a",
+    "\u0009P operator-(P p) const { return P(x-p.x, y-p.y); }\u000a",
+    "\u0009P operator*(T d) const { return P(x*d, y*d); }\u000a",
+    "\u0009P operator/(T d) const { return P(x/d, y/d); }\u000a",
+    "\u0009T dot(P p) const { return x*p.x + y*p.y; }\u000a",
+    "\u0009T cross(P p) const { return x*p.y - y*p.x; }\u000a",
+    "\u0009T cross(P a, P b) const { return (a-*this).cross(b-*this); }\u000a",
+    "\u0009T dist2() const { return x*x + y*y; }\u000a",
+    "\u0009double dist() const { return sqrt((double)dist2()); }\u000a",
+    "\u0009// angle to x-axis in interval [-pi, pi]\u000a",
+    "\u0009double angle() const { return atan2(y, x); }\u000a",
+    "\u0009P unit() const { return *this/dist(); } // makes dist()=1\u000a",
+    "\u0009P perp() const { return P(-y, x); } // rotates +90 degrees\u000a",
+    "\u0009P normal() const { return perp().unit(); }\u000a",
+    "\u0009// returns point rotated 'a' radians ccw around the origin\u000a",
+    "\u0009P rotate(double a) const {\u000a",
+    "\u0009\u0009return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }\u000a",
+    "\u0009friend std::ostream& operator<<(std::ostream& os, P p) {\u000a",
+    "\u0009\u0009return os << \u0022(\u0022 << p.x << \u0022,\u0022 << p.y << \u0022)\u0022; }\u000a",
+    "};\u000a",
+    "\u000a",
+    "typedef Point<double> P;\u000a",
+    "double ccRadius(const P& A, const P& B, const P& C) {\u000a",
+    "\u0009return (B-A).dist()*(C-B).dist()*(A-C).dist()/\u000a",
+    "\u0009\u0009\u0009std::abs((B-A).cross(C-A))/2;\u000a",
+    "}\u000a",
+    "P ccCenter(const P& A, const P& B, const P& C) {\u000a",
+    "\u0009P b = C-A, c = B-A;\u000a",
+    "\u0009return A + (b*c.dist2()-c*b.dist2()).perp()/b.cross(c)/2;\u000a",
+    "}\u000a",
+    "\u000a",
+    "int main() {\u000a",
+    "\u0009using namespace std;\u000a",
+    "\u0009ios_base::sync_with_stdio(false), cin.tie(nullptr);\u000a",
+    "\u000a",
+    "\u0009GD_INIT(\u0022output.html\u0022);\u000a",
+    "\u000a",
+    "\u0009const int N = 63;\u000a",
+    "\u0009std::vector<P> ps(N);\u000a",
+    "\u0009for (int i = 0; i < N; i++) {\u000a",
+    "\u0009\u0009cin >> ps[i].x >> ps[i].y;\u000a",
+    "\u0009\u0009ps[i].y *= -1;\u000a",
+    "\u0009\u0009GD_POINT(ps[i].x, ps[i].y);\u000a",
+    "\u0009}\u000a",
+    "\u000a",
+    "\u0009std::vector<bool> done(N);\u000a",
+    "\u0009for (int i = 0; i < N; i++) {\u000a",
+    "\u0009\u0009for (int j = i+1; j < N; j++) {\u000a",
+    "\u0009\u0009\u0009for (int k = j+1; k < N; k++) {\u000a",
+    "\u0009\u0009\u0009\u0009if (done[i] || done[j] || done[k]) continue;\u000a",
+    "\u0009\u0009\u0009\u0009double r = ccRadius(ps[i], ps[j], ps[k]);\u000a",
+    "\u0009\u0009\u0009\u0009P center = ccCenter(ps[i], ps[j], ps[k]);\u000a",
+    "\u0009\u0009\u0009\u0009std::vector<int> cur;\u000a",
+    "\u0009\u0009\u0009\u0009for (int l = k+1; l < N; l++) {\u000a",
+    "\u0009\u0009\u0009\u0009\u0009if (std::abs((ps[l] - center).dist() - r) <= 1e-8) {\u000a",
+    "\u0009\u0009\u0009\u0009\u0009\u0009if (cur.empty()) {\u000a",
+    "\u0009\u0009\u0009\u0009\u0009\u0009\u0009cur.push_back(i);\u000a",
+    "\u0009\u0009\u0009\u0009\u0009\u0009\u0009cur.push_back(j);\u000a",
+    "\u0009\u0009\u0009\u0009\u0009\u0009\u0009cur.push_back(k);\u000a",
+    "\u0009\u0009\u0009\u0009\u0009\u0009}\u000a",
+    "\u0009\u0009\u0009\u0009\u0009\u0009cur.push_back(l);\u000a",
+    "\u0009\u0009\u0009\u0009\u0009}\u000a",
+    "\u0009\u0009\u0009\u0009}\u000a",
+    "\u0009\u0009\u0009\u0009if (cur.empty()) continue;\u000a",
+    "\u0009\u0009\u0009\u0009GD_CIRCLE(center.x, center.y, r);\u000a",
+    "\u0009\u0009\u0009\u0009GD_POINT(center.x, center.y, \u0022red\u0022);\u000a",
+    "\u0009\u0009\u0009\u0009for (int idx : cur) done[idx] = true;\u000a",
+    "\u0009\u0009\u0009\u0009std::cerr << center.dist() << ' ' << r << '\u005cn';\u000a",
+    "\u0009\u0009\u0009\u0009std::vector<P> cur_pts; cur_pts.reserve(cur.size());\u000a",
+    "\u0009\u0009\u0009\u0009for (int idx : cur) cur_pts.push_back(ps[idx] - center);\u000a",
+    "\u0009\u0009\u0009\u0009std::sort(cur_pts.begin(), cur_pts.end(), [&](P a, P b) { return a.angle() < b.angle(); });\u000a",
+    "\u0009\u0009\u0009\u0009for (int z = 0; z+1 < 7; z++) {\u000a",
+    "\u0009\u0009\u0009\u0009\u0009cerr << (cur_pts[z+1].angle() - cur_pts[z].angle()) * r << '\u005cn';\u000a",
+    "\u0009\u0009\u0009\u0009}\u000a",
+    "\u0009\u0009\u0009}\u000a",
+    "\u0009\u0009}\u000a",
+    "\u0009}\u000a",
+    "\u000a",
+    "\u0009return 0;\u000a",
+    "}\u000a"
+  ],
+  "root": {
+    "type": "begin",
+    "line": 48,
+    "children": [
+      {
+        "type": "point",
+        "line": 55,
+        "x": -38.620245,
+        "y": 16.386240
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -37.524031,
+        "y": -5.422026
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -26.302875,
+        "y": 5.951387
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -25.641059,
+        "y": -13.311272
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -20.999418,
+        "y": 29.282310
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -20.199537,
+        "y": 7.097863
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -19.748214,
+        "y": 19.771328
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -19.344361,
+        "y": 1.560920
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -18.698825,
+        "y": -16.486102
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -15.974644,
+        "y": 16.807165
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -15.966864,
+        "y": -8.952484
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -15.581030,
+        "y": -2.957932
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -14.888714,
+        "y": 8.870406
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -14.023879,
+        "y": -14.211613
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -10.609925,
+        "y": 34.707764
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -10.391086,
+        "y": 16.828105
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -10.230733,
+        "y": -0.740719
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -10.201127,
+        "y": 15.470686
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -9.247082,
+        "y": 26.880943
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -9.020281,
+        "y": -23.070254
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -8.919298,
+        "y": -19.895475
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -6.511082,
+        "y": 12.821645
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -4.209435,
+        "y": 2.288504
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -1.162660,
+        "y": -18.935136
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": -0.543684,
+        "y": 21.642604
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 0.274137,
+        "y": 7.623695
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 0.887701,
+        "y": -6.833633
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 1.010884,
+        "y": 16.995710
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 1.676660,
+        "y": -19.740933
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 1.978671,
+        "y": 2.687236
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 2.199651,
+        "y": 20.718798
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 2.687553,
+        "y": 22.593181
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 3.581676,
+        "y": 14.835346
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 6.388066,
+        "y": 16.841446
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 6.410709,
+        "y": 14.569047
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 7.201166,
+        "y": 40.362557
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 7.316710,
+        "y": 9.217456
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 8.123411,
+        "y": -14.262198
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 8.470126,
+        "y": -25.268276
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 9.467857,
+        "y": -1.898115
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 9.868326,
+        "y": 4.932679
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 11.477616,
+        "y": 15.590361
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 12.046113,
+        "y": -0.857723
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 13.745157,
+        "y": 27.191096
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 14.414332,
+        "y": 3.826996
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 14.634191,
+        "y": 5.933641
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 14.956479,
+        "y": -11.254565
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 15.706535,
+        "y": -10.783092
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 16.022574,
+        "y": -6.941187
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 16.086638,
+        "y": 7.428085
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 16.529230,
+        "y": 6.531505
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 17.690424,
+        "y": 4.621094
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 21.650803,
+        "y": 7.827825
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 21.909028,
+        "y": 28.834745
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 22.622403,
+        "y": -0.432766
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 23.281702,
+        "y": -7.295919
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 23.525101,
+        "y": -15.040531
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 23.637565,
+        "y": 20.079491
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 24.872776,
+        "y": 3.268482
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 25.921101,
+        "y": 22.001131
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 27.304966,
+        "y": 3.261513
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 27.832361,
+        "y": -1.629149
+      },
+      {
+        "type": "point",
+        "line": 55,
+        "x": 29.495393,
+        "y": 10.878793
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": -17.854160,
+        "y": 6.498383,
+        "r": 23.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": -17.854160,
+        "y": 6.498383,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": -8.457234,
+        "y": -3.078181,
+        "r": 20.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": -8.457234,
+        "y": -3.078181,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": -7.500000,
+        "y": 12.990381,
+        "r": 14.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": -7.500000,
+        "y": 12.990381,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": -0.500000,
+        "y": -0.866025,
+        "r": 19.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": -0.500000,
+        "y": -0.866025,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": 3.646612,
+        "y": 20.680963,
+        "r": 20.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": 3.646612,
+        "y": 20.680963,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": 0.173648,
+        "y": -0.984808,
+        "r": 18.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": 0.173648,
+        "y": -0.984808,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": 5.362311,
+        "y": -4.499513,
+        "r": 21.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": 5.362311,
+        "y": -4.499513,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": 14.554844,
+        "y": 12.212965,
+        "r": 15.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": 14.554844,
+        "y": 12.212965,
+        "attr": "red"
+      },
+      {
+        "type": "circ",
+        "line": 77,
+        "x": 20.000000,
+        "y": -0.000000,
+        "r": 8.000000
+      },
+      {
+        "type": "point",
+        "line": 78,
+        "x": 20.000000,
+        "y": -0.000000,
+        "attr": "red"
+      }
+    ]
+  },
+  "theme": "light"
+};
+init(resourcePath);
+</script>
+</html>

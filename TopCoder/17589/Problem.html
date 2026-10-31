@@ -1,0 +1,34 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are taking part in a game show.
+</p>
+<p>
+The host has just shown you a board with multiple question subjects.
+For each subject you can see the amount in dollars it is worth.
+The amount for subject i is <b>A</b>[i].
+You have practiced a lot and so you know that you will answer a question about subject i correctly with probability exactly <b>P</b>[i] percent.
+</p>
+<p>
+The game will be played in turns.
+In each turn you select a subject, a question about that subject is revealed and you have to give an answer.
+Then, one of two things will happen: If you answered correctly, the amount for that subject is added to your bank.
+But if you answered incorrectly, you lose all money currently in your bank.
+</p>
+<p>
+During the game you must select each subject exactly once.
+After you selected the last subject and (correctly or incorrectly) answered the last question, the amount in your bank are your winnings.
+</p>
+<br></br>
+<p>
+Your goal is to maximize the value E = the expected value of your winnings.
+Find out the optimal order in which you should select the subjects.
+</p>
+<p>
+Clearly, if there are N questions, E * 100^N is always an integer. 
+Return this integer modulo (10^9 + 7).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>QuestionOrder</td></tr><tr><td>Method:</td><td>maxExpProfit</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int maxExpProfit(vector &lt;int&gt; A, vector &lt;int&gt; P)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> will have between 1 and 500 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>A</b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will have the same number of elements as <b>A</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>P</b> will be between 0 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{100, 100, 100}</pre></td></tr><tr><td><pre>{50, 50, 50}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 87500000</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Three equivalent questions. You will get each of them right with probability 50 percent, and if you do, the question will contribute 100 dollars to your bank. There are eight equally likely sequences of correct and incorrect answers. We can compute your expected winnings as the average of your winnings in those eight cases.
+</p>
+<p>
+(The actual expected value is E = 87.5)
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{50, 1000}</pre></td></tr><tr><td><pre>{10, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 50000</pre></td></tr><tr><td><table><tr><td colspan="2">You have no chance with the second question, and it's clearly a dumb idea to take it second - it will just empty your bank. If you do the impossible question first and the hard question next, in 90% of cases you still get nothing but in 10% of cases you get 50 dollars. Thus, the better strategy gives you an expected profit E = 0.1 * 50 = 5 dollars.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{100, 200, 500, 1000}</pre></td></tr><tr><td><pre>{90, 80, 40, 20}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 559999699</pre></td></tr><tr><td><table><tr><td colspan="2"><p>In this particular example the harder questions happen to be worth more money. </p>
+<p>When following the optimal strategy, your expected score will be E = 435.6; then the actual return value is (43,560,000,000 mod 1,000,000,007).</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

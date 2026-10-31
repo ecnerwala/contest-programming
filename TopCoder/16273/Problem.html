@@ -1,0 +1,63 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+In this problem we consider a specific implementation of breadth-first search (BFS).
+The input is an undirected graph on N vertices.
+The vertices are labeled from 0 to N-1.
+The graph is simple (i.e., no self-loops and no multiple edges).
+The specific property of our BFS is that whenever we process neighbors of a vertex, we do so in numerical order (smallest to largest).
+</p>
+<p>
+For reference, the pseudocode of the algorithm is given below. (You should not need it. It's just ordinary BFS in lexicographic order.)
+</p>
+<pre>
+
+BFS(start):
+    visited = an empty set
+    visited.add(start)
+    Q = an empty queue
+    Q.push_back(start)
+
+    while Q is not empty:
+        current = Q.pop_front()
+        for next in 0 .. N-1:
+            if (next is not in visited) and (there is an edge between current and next):
+                visited.add(next)
+                Q.push(next)
+</pre>
+
+<p>
+The BFS order of a connected graph is a permutation of its vertices in the order in which they would be processed if we start the BFS described above from vertex 0.
+(A vertex is processed when it's popped from the queue.)
+</p>
+
+<p>
+You are given the vector &lt;int&gt; <b>bfsOrder</b>: a permutation of numbers 0 to N-1 that starts with 0.
+</p>
+<p>
+Count all connected simple graphs with this BFS order, and return that count modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BFSOrder</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(vector &lt;int&gt; bfsOrder)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 3000, inclusive</td></tr><tr><td align="center" valign="top">-</td><td><b>bfsOrder</b> will be a permutation of numbers from 0 to N-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>bfsOrder</b>[0] will be 0.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">Three of the four connected graphs on three vertices have this BFS order. Here they are:
+<pre>
+
+0--1--2      0--1      0--1
+             |         | /
+             |         |/
+             2         2
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 2, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">The one remaining connected graph on three vertices (with edges 0-2 and 2-1).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 3, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2">One of these seven graphs is the path 0-1-3-2, in the other six the neighbors of 0 are 1 and 3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 6, 5, 4, 2, 3, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2">For each BFS order there is always at least one valid graph (the path with the vertices in that order). Sometimes there is more than one, sometimes there isn't.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 2, 1, 4, 3, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 37</pre></td></tr><tr><td><table><tr><td colspan="2">One of those graphs:
+<pre>
+0--2--1--3
+   | /| /
+   |/ |/
+   4--5
+</pre>
+<p>
+Our BFS will start in 0, discover 2 as a neighbor of 0, discover 1 and 4 (in this order) as neighbors of 2, and finally discover 3 and 5 (again, in this order) as neighbors of 1.
+</p>
+<p>
+Another one of those graphs:
+</p>
+<pre>
+0--2--1--3
+   |    /
+   |   /
+   4--5
+</pre>
+Here, the last vertex (5) will only be discovered when processing vertex 4. Still, the order in which the vertices of this graph are processed remains the same: 0, 2, 1, 4, 3, 5.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

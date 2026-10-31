@@ -1,0 +1,51 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are about to cross a poisoned swampy area.
+Luckily, you have its map: the vector &lt;string&gt; <b>swamp</b> containing a rectangle of characters.
+Each character represents one unit square of the swamp as follows:
+</p>
+<ul>
+<li>'<tt>.</tt>' is a safe square, you can step on it.</li>
+<li>'<tt>#</tt>' is a blocked square, you cannot step on it.</li>
+<li>'<tt>1</tt>'-'<tt>9</tt>' are poisoned squares. Stepping on a square with digit X increases your poison count by X.</li>
+<li>'<tt>S</tt>' is a spring with cleansing water. Stepping on it resets your poison count back to zero.</li>
+</ul>
+<br></br>
+<p>
+You start in the top left corner of the map (row 0, column 0) and your poison count is 0.
+You want to reach the bottom right corner of the map.
+You move in steps. 
+In each step you can move from your current square to another square that shares a side with your current one.
+You may not leave the mapped area.
+If your poison count reaches 10 or more, you die.
+</p>
+<p>
+You <i>ARE</i> allowed to enter the same square multiple times.
+If you step on the same poisoned square multiple times, you get the corresponding amount of poison each time you do so.
+If you step on the same spring multiple times, you get cleansed each time you do so.
+</p>
+<br></br>
+<p>
+Return "possible" if you can cross the swamp alive and "impossible" if you cannot do so.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PoisonedSwamp</td></tr><tr><td>Method:</td><td>cross</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string cross(vector &lt;string&gt; swamp)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>swamp</b> will contain between 2 and 20 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>swamp</b> will contain the same number of characters, and that number will be between 2 and 20, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>swamp</b> will be one of "<tt>.#123456789S</tt>" (quotes for clarity).</td></tr><tr><td align="center" valign="top">-</td><td>The characters in the top left and bottom right corner of <b>swamp</b> will be '<tt>.</tt>'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....&quot;,
+ &quot;####.&quot;,
+ &quot;.....&quot;,
+ &quot;.####&quot;,
+ &quot;.....&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There's no poison, just find your way across.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....&quot;,
+ &quot;####.&quot;,
+ &quot;97...&quot;,
+ &quot;9#2##&quot;,
+ &quot;97...&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There is a strongly poisoned area in this swamp but luckily it can be avoided completely by taking a shortcut and only receiving 2 poison.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.111111111.&quot;,
+ &quot;.#########.&quot;,
+ &quot;..22222....&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">If you go down and right, you'll eventually collect 10 poison and die. Luckily, if you go right and then down, you'll only collect 9 poison and you'll reach the end of the swamp alive.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.#222#111&quot;,
+ &quot;4#S#2#1#S&quot;,
+ &quot;4#3#S#1#9&quot;,
+ &quot;S33#111#.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">A lot of poison in this swamp, but luckily for us the cleansing springs are frequent enough to get us through.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..111111111111..&quot;,
+ &quot;###############.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Too much poison along this way.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..111111111111..&quot;,
+ &quot;#######S#######.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">This example shows that sometimes we need to revisit the same cell. In this case, the only way to cross the swamp is to make a detour: after you have 6 poison, step down to reach the cleansing spring and then return back and continue. You will reach the end of the swamp alive (with 7 poison) if you do so.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..#.#.&quot;,
+ &quot;..#.#.&quot;,
+ &quot;#5#.5.&quot;,
+ &quot;....#.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">7)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.1.#.&quot;,
+ &quot;.9.#.&quot;,
+ &quot;.###.&quot;,
+ &quot;2#.1.&quot;,
+ &quot;.#.7.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

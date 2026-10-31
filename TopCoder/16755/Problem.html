@@ -1,0 +1,45 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Given a rectangular chessboard with some obstacles and a single chess knight, we can play a simple game.
+We will start by marking one empty square as the starting square and placing the knight there.
+From this point on, we will repeatedly choose and perform a valid move of the knight.
+(The move is always chosen uniformly at random from the set of moves that are valid at that moment. The random choices are mutually independent. Squares that contain obstacles cannot be the target of a move.)
+</p>
+<p>
+The game ends when the knight returns to its starting square for the first time.
+The outcome of the game is the number of moves it took.
+If the starting square is such that the knight has no valid moves, we define that the outcome of the game is 0.
+</p>
+<br></br>
+<p>
+You are given a positive fraction <b>P</b> / <b>Q</b>.
+Your task is as follows:
+</p>
+<ol>
+<li>Take a rectangular chessboard with at most 30 rows and at most 30 columns. (You get to choose the dimensions.)</li>
+<li>Place zero or more obstacles onto the board.</li>
+<li>Mark one of the empty squares as the knight's starting square.</li>
+<li>You win if the <i>expected</i> outcome of the game for your chessboard equals <b>P</b> / <b>Q</b>.</li>
+</ol>
+<p>
+Return your board formatted as a vector &lt;string&gt;, using '.' for empty squares, '#' for obstacles, and 'N' for the knight's starting position.
+All valid solutions will be accepted.
+If there is no valid solution, return an empty vector &lt;string&gt;.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ReturnedKnight</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; construct(int P, int Q)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>A chess knight moves by two squares in one direction and then by one square in the two orthogonal directions. (Thus, on an empty infinite chessboard a knight has exactly 8 valid moves from each cell.)</td></tr><tr><td align="center" valign="top">-</td><td>The knight can jump over obstacles. For each move, only the square where it ends its move must be obstacle-free.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Q</b> will be between 1 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;.######..&quot;, &quot;##N####..&quot;, &quot;####.##..&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+.######..
+##N####..
+####.##..
+
+</pre>
+
+The knight has two options for its first jump. Regardless of which one it chooses, in the second jump it will have to return back where it started. Thus, each possible game on this board has outcome 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>800</pre></td></tr><tr><td><pre>100</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;N..&quot;, &quot;...&quot;, &quot;...&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+N..
+...
+...
+
+</pre>
+<p>
+For this board some games will end in two moves, some will end in two thousand moves. It can be shown that the average outcome of a game for this board is exactly 8.
+</p>
+<p>
+{".N.", ".#.", "..."} would also be a valid answer. In this particular situation we cannot visit the middle cell so we may put an obstacle there without changing the outcome of the game. Also, all eight possible starting cells happen to be equivalent.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>22</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;...&quot;, &quot;..N&quot;, &quot;..#&quot;, &quot;...&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>93</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">This is clearly impossible: on any board where the outcome of the game is positive its smallest possible value is 2, and therefore its expected value is at least 2.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

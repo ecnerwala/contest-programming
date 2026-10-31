@@ -1,74 +1,51 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-const int INF = 1.1e9;
-
-const int MAXN = 2e6;
-
-int N;
-pair<int, int> D[MAXN];
-int H[MAXN];
-
-const int S = 1 << 20;
-
-int seg[S * 2];
+#include <bits/stdc++.h>
 
 int main() {
-	scanf("%d", &N);
-	for(int i = 0; i < N; i++) {
-		scanf("%d", &D[i].first);
-		D[i].second = i;
-	}
-	sort(D, D + N);
+	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
+	int N; std::cin >> N;
+	std::vector<int> D(N); for (auto& d : D) std::cin >> d;
+	int Q; std::cin >> Q;
 
-	for(int i = 0; i < N; i++) {
-		H[D[i].second] = i;
-	}
+	std::array<std::vector<std::pair<int, int>>, 2> V;
+	V[0].resize(N);
+	V[1].resize(N);
 
-	int Q; scanf("%d", &Q);
+	for (int q = 0; q < Q; q++) {
+		int K; std::cin >> K;
 
-	for(int q = 0; q < Q; q++) {
-		int k; scanf("%d", &k);
+		V[0][0] = {D[0], 0};
+		int lo = 0, hi = 1, hi2 = 0;
+		int res = 0;
 
-		for(int i = 1; i < 2 * S; i++) seg[i] = INF;
-
-		for(int i = 0; i < N; i++) {
-			int h = H[i];
-			int v;
-			if(!i) {
-				v = 0;
-			} else {
-				v = seg[1] + 1;
-				for(int c = h + S, r = 2 * S - 1; c <= r; c /= 2, r /= 2) {
-					if(c % 2 == 1) {
-						v = min(v, seg[c++]);
-					}
-				}
-			}
-
-			if(i == N - 1) {
-				printf("%d\n", v);
+		for (int i = 1; i < N; i++) {
+			assert(lo < hi);
+			bool z = D[i] >= V[0][lo].first;
+			if (i == N-1) {
+				std::cout << res+z << '\n';
 				break;
 			}
-
-			if(i >= k) {
-				for(int c = H[i - k] + S; c; c /= 2) {
-					if(c >= S) {
-						seg[c] = INF;
-					} else {
-						seg[c] = min(seg[2 * c], seg[2 * c + 1]);
-					}
+			if (z) {
+				while (hi2 && D[i] >= V[1][hi2-1].first) {
+					--hi2;
 				}
+				V[1][hi2++] = {D[i], i};
+			} else {
+				hi2 = 0;
+				while (lo < hi && D[i] >= V[0][hi-1].first) {
+					--hi;
+				}
+				V[0][hi++] = {D[i], i};
 			}
-			for(int c = h + S; c; c /= 2) {
-				if(c >= S) {
-					seg[c] = v;
-				} else {
-					seg[c] = min(seg[2 * c], seg[2 * c + 1]);
+
+			if (V[0][lo].second == i - K) {
+				lo++;
+				if (lo == hi) {
+					lo = 0, hi = hi2;
+					hi2 = 0;
+					std::swap(V[0], V[1]);
+					res++;
 				}
 			}
 		}
 	}
-
-	return 0;
 }

@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class UniformingMatrix {
+
+	bool go(const vector<string>& M) {
+		int a = int(M.size());
+		int b = int(M[0].size());
+		if (a % 2 == 0 || b % 2 == 0) {
+			return true;
+		}
+		int tot = 0;
+		for (const string& s : M) {
+			for (char c : s) {
+				tot ^= (c - '0');
+			}
+		}
+		if (tot == (a%2) * (b%2)) return true;
+		return false;
+	}
+
+public:
+
+	string isPossible(vector <string> M) {
+		return go(M) ? "possible" : "impossible";
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::UniformingMatrix;
+
+// vim:ft=cpp

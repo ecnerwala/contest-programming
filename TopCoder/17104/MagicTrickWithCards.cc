@@ -1,0 +1,52 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class MagicTrickWithCards {
+
+public:
+
+	vector<int> findOneCard(string query) {
+		assert(int(query.size()) == 52);
+		vector<int> dash_pos; dash_pos.reserve(52);
+		for (int i = 0; i < 52; i++) {
+			if (query[i] == '-') dash_pos.push_back(i);
+		}
+		int N = int(dash_pos.size());
+		vector<int> dash_dist(N);
+		dash_dist[0] = 52 + dash_pos[0] - dash_pos[N-1];
+		for (int i = 1; i < N; i++) {
+			dash_dist[i] = dash_pos[i] - dash_pos[i-1];
+		}
+		{
+			int p = int(max_element(dash_dist.begin(), dash_dist.end()) - dash_dist.begin());
+			std::rotate(dash_dist.begin(), dash_dist.begin() + p, dash_dist.end());
+			std::rotate(dash_pos.begin(), dash_pos.begin() + p, dash_pos.end());
+		}
+		reverse(dash_pos.begin(), dash_pos.end());
+		return dash_pos;
+	}
+
+	vector <int> findTheirCard(vector <string> queryCards, vector <int> queryX) {
+		vector<int> res(queryCards.size());
+		for (int i = 0; i < int(queryCards.size()); i++) {
+			res[i] = findOneCard(std::move(queryCards[i]))[queryX[i]];
+		}
+		return res;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::MagicTrickWithCards;
+
+// vim:ft=cpp

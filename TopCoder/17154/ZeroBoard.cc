@@ -1,0 +1,81 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class ZeroBoard {
+
+public:
+
+	vector <int> solve(int R, int C, vector <int> data) {
+		auto x = [&](int a, int b) -> int {
+			assert(0 <= a && a < R);
+			assert(0 <= b && b < C);
+			return a * C + b;
+		};
+
+		for (int i = 0; i < R; i++) {
+			for (int j = 0; j < C; j++) {
+				if ((i ^ j) & 1) data[x(i,j)] *= -1;
+			}
+		}
+		if (std::accumulate(data.begin(), data.end(), 0) != 0) {
+			return std::vector<int>({-1});
+		}
+
+		std::vector<int> resp_pos; resp_pos.reserve(4 * 500);
+		std::vector<int> resp_neg; resp_neg.reserve(4 * 500);
+
+		// d = 0 means 2 rows
+		auto do_op = [&](int r, int c, int d, int a) -> void {
+			if (a == 0) return;
+
+			data[x(r,c)] += a;
+			data[d ? x(r,c+1) : x(r+1,c)] -= a;
+
+			if ((r ^ c) & 1) a *= -1;
+			std::vector<int>& resp = (a > 0) ? resp_pos : resp_neg;
+			resp.push_back(r);
+			resp.push_back(c);
+			resp.push_back(d);
+			resp.push_back(a);
+		};
+
+		std::vector<int> row_sum(R);
+		for (int i = 0; i < R; i++) {
+			for (int j = 0; j < C; j++) {
+				row_sum[i] += data[x(i,j)];
+			}
+			if (i+1 < R) {
+				do_op(i, 0, 0, -row_sum[i]);
+			} else {
+				assert(row_sum[i] == 0);
+			}
+			for (int j = 0; j < C; j++) {
+				if (j + 1 < C) {
+					do_op(i, j, 1, -data[x(i,j)]);
+				} else {
+					assert(data[x(i,j)] == 0);
+				}
+				assert(data[x(i,j)] == 0);
+			}
+		}
+
+		resp_pos.insert(resp_pos.end(), resp_neg.begin(), resp_neg.end());
+		return resp_pos;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::ZeroBoard;
+
+// vim:ft=cpp

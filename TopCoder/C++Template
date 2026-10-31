@@ -1,3 +1,7 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -10,6 +14,10 @@ public:
 	$RETURNTYPE$ $METHODNAME$($METHODPARAMS$) {
 	}
 };
+
+void my_tests() {
+	// FILL IN TESTS
+}
 
 }  // namespace ecnerwala
 

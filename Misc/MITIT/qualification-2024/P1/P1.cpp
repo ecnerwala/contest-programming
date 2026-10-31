@@ -1,5 +1,12 @@
 #include <bits/stdc++.h>
 
+void wssert(bool b) {
+	if (!b) {
+		std::cout << "GARBAGE" << '\n';
+		exit(0);
+	}
+}
+
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -15,8 +22,8 @@ int main() {
 			for (auto& v : a) { cin >> v; v--; }
 			std::sort(a.begin(), a.end());
 			auto [u, v, w] = a;
-			//assert(u <= v && v <= w);
-			//assert(0 <= u && w < N);
+			wssert(u <= v && v <= w);
+			wssert(0 <= u && w < N);
 			if (u == w) {
 				v1.push_back({u});
 			} else if (u == v || v == w) {

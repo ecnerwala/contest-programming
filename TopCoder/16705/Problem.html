@@ -1,0 +1,54 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This problem takes place on an infinite grid of unit squares.
+There are <b>N</b> tokens on the grid.
+Currently, token number i is in the square at coordinates (X[i], Y[i]).
+Multiple tokens may share the same square at any time.
+</p>
+<br></br>
+<p>
+You can move the tokens. The only allowed operation is called a step and involves moving one token into one of the four squares adjacent to its current square.
+</p>
+<br></br>
+<p>
+We say that the <b>N</b> tokens are <i>in an N rooks position</i> if the tokens occupy N consecutive rows of the grid and at the same time they occupy N consecutive columns of the grid.
+(Each of those rows and columns must actually be occupied by one of the tokens. In other words, if the tokens are in this position and we would cut out the smallest rectangle that contains all tokens, we would have an N times N board on which the tokens represent one possible position of N rooks that don't attack each other.)
+</p>
+<br></br>
+<p>
+Given the initial positions of all tokens, find the minimum number of steps needed to move all tokens into some valid N rooks position.
+</p>
+<br></br>
+<p>
+As we need to have large inputs, please be so kind and use the following simple pseudocode to generate the arrays X and Y with the coordinates of all points:
+</p>
+<pre>
+L = length(Xprefix)
+for i = 0 to L-1:
+    X[i] = Xprefix[i]
+    Y[i] = Yprefix[i]
+for i = L to N-1:
+    X[i] = (A * X[i-1] + B * X[i-2]) mod C
+    Y[i] = (A * Y[i-1] + B * Y[i-2]) mod C
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>NRooksPosition</td></tr><tr><td>Method:</td><td>minSteps</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, int, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long minSteps(int N, vector &lt;int&gt; Xprefix, vector &lt;int&gt; Yprefix, int A, int B, int C)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution is fast enough for any input within the allowed range of <b>N</b>. It does not depend on the pseudorandom generator in any way.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Xprefix</b> will have between 2 and min(500,<b>N</b>) elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Yprefix</b> will have the same number of elements as <b>Xprefix</b>.</td></tr><tr><td align="center" valign="top">-</td><td>All elements of <b>Xprefix</b> and <b>Yprefix</b> will be between 0 and 10^9 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> and <b>B</b> will be between 0 and 10^9 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{5, 8, 7}</pre></td></tr><tr><td><pre>{1, 3, 5}</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The initial configuration of tokens looks as follows (X grows to the right, Y grows upwards):
+</p>
+<pre>
+......2.
+........
+.......1
+........
+....0...
+</pre>
+One optimal solution is to move token 0 one step right, then one step up, and then move token 2 one step down, producing:
+<pre>
+........
+......2.
+.......1
+.....0..
+........
+</pre>
+The tokens are now in three consecutive rows and three consecutive columns.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>999999</pre></td></tr><tr><td><pre>{0, 0}</pre></td></tr><tr><td><pre>{0, 0}</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 499999000000</pre></td></tr><tr><td><table><tr><td colspan="2">999,999 tokens, all of them start at (0,0).
+One optimal solution is to distribute them to the points (-499999,499999) to (499999,-499999).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{953523433, 43}</pre></td></tr><tr><td><pre>{2324, 244525243}</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1198046307</pre></td></tr><tr><td><table><tr><td colspan="2">Two tokens far from each other. They must almost-meet somewhere. It doesn't really matter whether we push just one of them the whole way or whether we push each of them a part of the way towards the other.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>{47, 530}</pre></td></tr><tr><td><pre>{9421, 125521}</pre></td></tr><tr><td><pre>1234567</pre></td></tr><tr><td><pre>7654321</pre></td></tr><tr><td><pre>987654321</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5509135972</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+X = {47, 530, 26419276, 176189634, 267705568, 376691149, 738601310, 368332752, 756100319, 534681602, }
+Y = {9421, 125521, 902603039, 753444129, 36706724, 375900842, 810804826, 812632368, 128411635, 285087958, }
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

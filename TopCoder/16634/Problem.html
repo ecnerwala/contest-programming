@@ -1,0 +1,50 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>Tiny Chessboard Nim</i> is a two-player game played on a tiny 2x2 chessboard.
+</p>
+<p>
+A position in this game consists of some number of grains of rice placed on each cell of the chessboard.
+</p>
+<p>
+A valid move in this game consists of:
+</p>
+<ol>
+<li>choosing either one row or one column of the chessboard</li>
+<li>choosing a positive integer x</li>
+<li>removing exactly x grains of rice from each cell in the chosen row/column</li>
+</ol>
+<p>
+Standard termination rule applies: whoever cannot make a valid move, loses the game.
+</p>
+<p>
+You are given a position: the vector &lt;int&gt; <b>rice</b> that gives the number of grains of rice on each cell of the chessboard in row major order. That is, if <b>rice</b> = {a, b, c, d}, the board looks as follows:
+</p>
+<pre>
++---+---+
+| a | b |
++---+---+
+| c | d |
++---+---+
+</pre>
+<p>
+Return the number of winning moves in the given position.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TinyChessboardNim</td></tr><tr><td>Method:</td><td>countWinningMoves</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countWinningMoves(vector &lt;int&gt; rice)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>rice</b> will contain exactly 4 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>rice</b> will be between 0 and 1,000,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{4, 7, 7, 4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This is a losing position. The second player can use the symmetry to make sure they always have a valid move. E.g., if the first player chooses one row, the second player will choose the other row and the same x as the first player used.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 42, 47, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Even though there is still some rice on the chessboard, this game is already over.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 3, 4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">The two winning moves are:
+<ul>
+<li>
+select the second row and x = 3, producing the state {1, 2, 0, 1}
+</li>
+<li>
+select the first column and x = 1, producing the state {0, 2, 2, 4}
+</li>
+</ul>
+<pre>
+
+given        after        after
+position:    move #1:     move #2:
++---+---+    +---+---+    +---+---+
+| 1 | 2 |    | 1 | 2 |    | 0 | 2 |
++---+---+    +---+---+    +---+---+
+| 3 | 4 |    | 0 | 1 |    | 2 | 4 |
++---+---+    +---+---+    +---+---+
+</pre>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

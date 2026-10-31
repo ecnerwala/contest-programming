@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+cargo init --bin --vcs none

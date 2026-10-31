@@ -102,7 +102,7 @@ int main() {
 			}
 		}
 		if (R == 2 && C == 2) {
-			// all 0 was counted as both double diagonals
+			// all + was counted as both double diagonals
 			bool good = true;
 			for (auto [_, v] : constraints) {
 				good = good && (v == 0);

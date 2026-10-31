@@ -1,0 +1,33 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+An ice hockey playoff final is played as a sequence of matches.
+The winner is the first team that wins <b>winsNeeded</b> of those matches.
+</p>
+<p>
+Teams A and B are facing off in such a final.
+The home ice alternates every two matches.
+That is, A plays the first two matches on their home ice, B plays matches 3 and 4 on their home ice, A plays matches 5 and 6 at home, and so on.
+</p>
+<p>
+It is known that home and away games are completely different. In this matchup, we know the following about a <i>single independent game</i> between A and B:
+<ul>
+<li>If A plays at home ice, they win with probability <b>AwinHome</b> percent.</li>
+<li>If B plays at home ice, they win with probability <b>BwinHome</b> percent.</li>
+</ul>
+</p>
+<p>
+There is a reason why we emphasized the words "single independent game" in the previous paragraph.
+In a playoff series there is one more factor that influences the win probability of each team: <i>momentum</i>.
+The team that keeps winning has a morale boost that makes it more likely that they will win the next match.
+In this problem, momentum works as follows:
+if a team has a streak of W won matches in a row, their win probability for the next match is increased by 5*W percent (up to a maximum of 100 percent, of course).
+</p>
+<p>
+For example, if A won the first game of the series and B won the next three, in game five B has a 5*3 = 15 percent boost due to momentum.
+</p>
+<p>
+You are given <b>winsNeeded</b>, <b>AwinHome</b> and <b>BwinHome</b>.
+Let P be the probability that team A will win the whole series.
+Let M = 2*<b>winsNeeded</b>-1 be the maximum number of matches in the series.
+It can be shown that X = P * 100^M is an integer.
+Compute and return the value (X modulo (10^9 + 7)).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>HockeyPlayoff</td></tr><tr><td>Method:</td><td>winProbability</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int winProbability(int winsNeeded, int AwinHome, int BwinHome)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>winsNeeded</b> will be between 1 and 600, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>AwinHome</b> will be between 0 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>BwinHome</b> will be between 0 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>100</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The first one to three wins will win the series. Team A is completely hopeless and always loses, so B will win this series 3:0.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 999300007</pre></td></tr><tr><td><table><tr><td colspan="2">The diametrally opposite situation to Example 0. The answer is 100^7 modulo (10^9 + 7).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>600</pre></td></tr><tr><td><pre>50</pre></td></tr><tr><td><pre>50</pre></td></tr></table></td></tr><tr><td><pre>Returns: 594375906</pre></td></tr><tr><td><table><tr><td colspan="2">A perfectly symmetric situation. The answer is (0.5 * 100^1199) modulo (10^9 + 7).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>53</pre></td></tr><tr><td><pre>57</pre></td></tr></table></td></tr><tr><td><pre>Returns: 942200194</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>93</pre></td></tr><tr><td><pre>87</pre></td></tr></table></td></tr><tr><td><pre>Returns: 545426737</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

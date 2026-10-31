@@ -1,0 +1,53 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class RedGreenBlueLight {
+
+public:
+
+	vector <int> move(vector <int> steps) {
+		int N = int(steps.size());
+		std::vector<std::pair<int, int>> people(N);
+		for (int i = 0; i < N; i++) people[i] = {steps[i], i};
+		std::sort(people.begin(), people.end());
+		std::vector<int> stk; stk.reserve(N);
+		std::vector<int> res(N, 0);
+		int cur = 0;
+		int cur_st = 0;
+		for (int z = 0; z < N; z++) {
+			int v = people[z].first;
+			while (stk.size() >= 2 && stk.end()[-2] == v) {
+				stk.pop_back();
+				stk.pop_back();
+				v--;
+			}
+			if (v == 1) {
+				for (int k = cur_st; k <= z; k++) {
+					res[people[k].second] = cur;
+				}
+				cur++;
+				cur_st = z+1;
+				if (cur == 3) return res;
+			} else {
+				stk.push_back(v);
+			}
+		}
+		return {-1};
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::RedGreenBlueLight;
+
+// vim:ft=cpp

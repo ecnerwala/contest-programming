@@ -1,0 +1,36 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This problem is about a special type of cardboard boxes.
+When assembled, these boxes have three dimensions: length, width, and height.
+All three dimensions must be positive integers.
+Length and width are interchangable: a (length,width,height) box is the same as a (width,length,height) box.
+</p>
+<p>
+A cardboard box consists of 12 connected pieces of cardboard.
+The shape of each piece is a rectangle.
+</p>
+<p>
+Four of these pieces are simply the sides of the box.
+If we only had these four pieces, we would have a box that is missing the top and the bottom.
+We will call this shape an <i>open box</i>.
+</p>
+<p>
+The next four pieces are flaps on the top of the box.
+Each flap is connected to one of the four edges of the open box.
+Thus, one dimension of each flap is fixed.
+All four flaps have the same second dimension, and this dimension is as small as possible given that together the four flaps can completely cover the top of the box.
+For example, if your box is 50 cm long and 21 cm wide, each of the top flaps will have dimensions (the length of the edge it is attached to, times 10.5 cm).
+</p>
+<p>
+The last four pieces are flaps on the bottom. These look the same as the flaps on the top.
+</p>
+<p>
+Given the total surface area <b>S</b> of the cardboard box, count all possible dimensions it may have.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CardboardBoxes</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>long long</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long count(long long S)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>As shown in the statement, only the dimensions of the box itself must be integers. The flaps can have one dimension that is not an integer.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will be between 1 and 10^13, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">It should be quite obvious that the surface area of a valid cardboard box cannot be 47.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>470</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">The six distinct sets of dimensions (in the order width, length, height) that correspond to surface area 470 are listed below:
+<pre>
+1 4 46
+1 46 4
+2 3 45
+2 45 3
+3 44 2
+4 43 1
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4700</pre></td></tr></table></td></tr><tr><td><pre>Returns: 106</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

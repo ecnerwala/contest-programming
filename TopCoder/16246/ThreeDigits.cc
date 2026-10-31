@@ -1,0 +1,70 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class ThreeDigits {
+
+	using int128_t = __int128;
+	int128_t mod_pow(int128_t a, int128_t b, int128_t m) {
+		int128_t r = 1;
+		a %= m;
+		while (b) {
+			if (b & 1) r *= a, r %= m;
+			a *= a, a %= m;
+			b >>= 1;
+		}
+		return r;
+	}
+
+public:
+
+	string calculate(int X_, int Y_, int Z_) {
+		const int128_t X = X_;
+		const int128_t Y = Y_;
+		const int128_t Z = Z_;
+
+		// we want to find (1000 * X^Y - a) / Z mod 1e6
+
+		const int128_t MOD = Z * int128_t(1e6);
+		int128_t r = 1000 * mod_pow(X, Y, MOD) % MOD;
+		r /= Z;
+		assert(0 <= r && r < int(1e6));
+
+		int lo = r % 1000;
+		int hi = int(r / 1000);
+
+		bool is_big;
+		if (X <= 1) {
+			is_big = false;
+		} else {
+			is_big = (log(double(X)) * double(Y) - log(double(Z)) > log(900.));
+		}
+
+		string res;
+		if (is_big) {
+			res = to_string(1000 + hi).substr(1);
+		} else {
+			res = to_string(hi);
+		}
+		res += '.';
+		res += char(lo / 100 % 10 + '0');
+		res += char(lo / 10 % 10 + '0');
+		res += char(lo / 1 % 10 + '0');
+		return res;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::ThreeDigits;
+
+// vim:ft=cpp

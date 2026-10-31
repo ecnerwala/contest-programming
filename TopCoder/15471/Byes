@@ -1,0 +1,48 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class Byes {
+
+	int numZeroes(long long v) {
+		if (v == 0) return 0;
+		return 64 - __builtin_clzll(v) - __builtin_popcountll(v);
+	}
+
+public:
+
+	long long getNumberOfPlayers(long long lowerBound, int numberOfByes) {
+		if (numberOfByes > 0) {
+			lowerBound = max(lowerBound, 2ll);
+		}
+		lowerBound --;
+		while (numZeroes(lowerBound) < numberOfByes) {
+			lowerBound += (lowerBound & (-lowerBound));
+		}
+		for (long long v = 1; numZeroes(lowerBound) > numberOfByes; v <<= 1) {
+			lowerBound |= v;
+		}
+		return lowerBound+1;
+	}
+};
+
+void my_tests() {
+	for (long long lb = 1; lb <= 1000; lb++) {
+		for (int byes = 0; byes <= 60; byes++) {
+			cerr << lb << ' ' << byes << '\n';
+			Byes().getNumberOfPlayers(lb, byes);
+		}
+	}
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::Byes;
+
+// vim:ft=cpp

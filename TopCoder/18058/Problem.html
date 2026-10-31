@@ -1,0 +1,23 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit: 3 seconds.</i></p><br></br>
+<p>
+Two non-empty classes of kids (class A and class B) went together on a school trip.
+During the trip they played a game.
+We know the following about the trip and the game:
+</p>
+<ul>
+<li>Class A contained at most <b>N</b> kids.</li>
+<li>Class B contained at most as many kids as class A.</li>
+<li>For the game, all kids in class A divided themselves evenly into teams of size a, and all kids in class B divided themselves evenly into teams of size b.</li>
+<li>The choice of a and b was a part of the game strategy. These two values could have been equal or distinct - each was chosen independently of each other.</li>
+<li>There is one additional limit on team sizes: each class can only choose a team size that can also be chosen by the other class.</li>
+</ul>
+<p>
+For example, if <b>N</b>=100 one valid possibility is that class A had 100 kids who split into groups of 5, while class B had 70 kids who split into groups of 2.
+</p>
+<p>
+(In the above scenario note that class B cannot pick team size 7: even though they can split evenly into teams of size 7, their opponents don't have this option and thus the last rule forbids this choice.)
+</p>
+<br></br>
+<p>
+Given <b>N</b>, count all scenarios consistent with the description given above, and return that count modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TwoClassTrip</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Formally, scenarios are 4-tuples (size of class A, size of class B, team size a, team size b).</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 5,000,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Only a trivial solution: one kid in class A and one kid in class B, each forming a single team of size 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">Now we get five more options: if class A had size 2 and class B size 1 both classes had to form teams of size 1, and if both classes had two kids in them, there are four possible combinations of chosen team sizes.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 27</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 937336804</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

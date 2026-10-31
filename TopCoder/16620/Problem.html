@@ -1,0 +1,134 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are given the vector &lt;string&gt; <b>country</b> that contains a rectangular map of a region.
+The map is divided into cells, and each cell is either water ('.') or land ('#').
+All cells on the border of the map are water cells.
+</p>
+<p>
+Boats can travel between water cells by moving in the four cardinal directions ("up, down, left, right").
+Two water cells belong to the same body of water if a boat can reach one of those cells from the other (without going onto land).
+The body of water that contains the border of the map is the sea, all other bodies of water are lakes.
+</p>
+<p>
+Rabbits can travel between land cells by moving in eight directions (not just horizontally and vertically, but also diagonally).
+Two land cells belong to the same island if a rabbit can reach one of those cells from the other (without going into water).
+</p>
+<p>
+You have just inherited an unlimited amount of soil.
+You want to use it to build your own island somewhere in this region.
+You really dislike saltwater, so you want to build your island on one of the lakes (and not in the sea).
+Obviously, your island must be a single island (as defined above) and it must not touch any of the existing islands.
+</p>
+<p>
+Compute and return the largest possible number of cells that can form your new island-in-a-lake.
+Return 0 if it's not possible to build a new island in a lake.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>IslandInALake</td></tr><tr><td>Method:</td><td>build</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int build(vector &lt;string&gt; country)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>country</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>country</b> will contain between 1 and 50 characters.</td></tr><tr><td align="center" valign="top">-</td><td>All elements of <b>country</b> will contain the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>country</b> will be either '.' or '#'.</td></tr><tr><td align="center" valign="top">-</td><td>Each character on the boundary of <b>country</b> (i.e., first+last row+column) will be '.'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;......&quot;,
+ &quot;......&quot;,
+ &quot;......&quot;,
+ &quot;......&quot;,
+ &quot;......&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Only the sea. No islands, no lakes, nowhere to build our new island-in-a-lake.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.......&quot;,
+ &quot;..##...&quot;,
+ &quot;.##..#.&quot;,
+ &quot;..#.#..&quot;,
+ &quot;.......&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Two islands in the sea. One has five cells, the other one has two. No lakes anywhere.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.......&quot;,
+ &quot;.####..&quot;,
+ &quot;.#...#.&quot;,
+ &quot;.#####.&quot;,
+ &quot;.......&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">One island with a lake that consists of three cells. The lake is too narrow, we cannot build any new island inside the lake.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..........&quot;,
+ &quot;.####.....&quot;,
+ &quot;.#...#....&quot;,
+ &quot;.#...#....&quot;,
+ &quot;.#...#....&quot;,
+ &quot;.#####....&quot;,
+ &quot;..........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">This time we can build a single-cell island inside the lake. The new map would then look as follows (with the new island denoted by an asterisk):
+<pre>
+..........
+.####.....
+.#...#....
+.#.*.#....
+.#...#....
+.#####....
+..........
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;............&quot;,
+ &quot;.####.#####.&quot;,
+ &quot;.#...#....#.&quot;,
+ &quot;.#........#.&quot;,
+ &quot;.#...#....#.&quot;,
+ &quot;.#########..&quot;,
+ &quot;............&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">A bigger island, still with a single lake. There are now multiple ways to build a new island on this lake, including one way of building an island that consists of two adjacent cells.
+<pre>
+............
+.####.#####.
+.#...#....#.
+.#.....**.#.
+.#...#....#.
+.#########..
+............
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...........&quot;,
+ &quot;..#####....&quot;,
+ &quot;..#....##..&quot;,
+ &quot;..#.....#..&quot;,
+ &quot;...#.....#.&quot;,
+ &quot;..#.#....#.&quot;,
+ &quot;.#...#...#.&quot;,
+ &quot;..###.###..&quot;,
+ &quot;...........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">This map contains a single island and there are two lakes on this island. One is too small to build on, the other can contain a new island of size 3 as shown below.
+<pre>
+...........
+..#####....
+..#....##..
+..#..*..#..
+...#..*..#.
+..#.#..*.#.
+.#...#...#.
+..###.###..
+...........
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...........&quot;,
+ &quot;.#########.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.#####.#.&quot;,
+ &quot;.#.#...#.#.&quot;,
+ &quot;.#.#...#.#.&quot;,
+ &quot;.#.#...#.#.&quot;,
+ &quot;.#.#####.#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#########.&quot;,
+ &quot;...........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">We can build a 1-cell island in the center of this map. The lake that contains it is actually a lake on an island that is on a lake on an island, but we do not care about that. Any lake (i.e., any body of water other than the sea) can be used for building.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">7)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...........&quot;,
+ &quot;.#########.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.#####.#.&quot;,
+ &quot;.#.#...#...&quot;,
+ &quot;.#.#...#.#.&quot;,
+ &quot;.#.#...#.#.&quot;,
+ &quot;.#.###.#.#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#########.&quot;,
+ &quot;...........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This map looks similar to the previous one, but this one actually contains two separate islands, and all water is sea so we cannot build our island anywhere.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">8)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...........&quot;,
+ &quot;.#########.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#...#...#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#.......#.&quot;,
+ &quot;.#########.&quot;,
+ &quot;...........&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 31</pre></td></tr><tr><td><table><tr><td colspan="2">The optimal new island is shown below. Notice how it goes around the existing tiny island.
+<pre>
+...........
+.#########.
+.#.......#.
+.#.*****.#.
+.#.*****.#.
+.#.*****.#.
+.#.*****.#.
+.#.*...*.#.
+.#.*.#.*.#.
+.#.*...*.#.
+.#.*****.#.
+.#.......#.
+.#########.
+...........
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

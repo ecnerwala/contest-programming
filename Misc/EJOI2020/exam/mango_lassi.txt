@@ -1,0 +1,16 @@
+For every student i, define L0[i], L1[i], R0[i], R1[i] s.t. if you join range [a, b] containing the student, then IFF L0[i] < a and b < R1[i] and either a <= L1[i] or b >= R0[i], that student is counted.
+
+Let ADD[a, b] count the number of students that pass in range [a, b] if we join range [a, b].
+
+Then, store in segment tree, at time i, in position k < i,
+	DP[k] + ADD[k+1, i]
+
+How do the segment tree values change? Let's consider which ADD[k+1, i]'s student j contributes to.
+When i is j, they start contributing to all k s.t. L0[j] < k <= L1[j].
+When i becomes R0[j], they start contributing to all k s.t. L1[j] < k <= j.
+When i becomes R1[j], they no longer contribute
+All three are easy range addition operations
+
+
+A = 1,1,1,4,5
+B = 4,5,0,0,0

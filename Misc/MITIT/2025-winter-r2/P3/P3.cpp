@@ -648,7 +648,7 @@ int main() {
 
 	for (int l = int(by_level.size()) - 2; l >= 0; l--) {
 		for (int v : by_level[l+1]) {
-			cerr << "set " << v << ' ' << dp[v] << '\n';
+			//cerr << "set " << v << ' ' << dp[v] << '\n';
 			verts[v].expose();
 			verts[v].vert_val = dp[v];
 			verts[v].update_all();
@@ -656,7 +656,7 @@ int main() {
 		for (int cur : by_level[l]) {
 			if (cur != 0) {
 				for (auto [v, w] : adj[cur]) {
-					cerr << "set " << v << ' ' << INF << '\n';
+					//cerr << "set " << v << ' ' << INF << '\n';
 					verts[v].expose();
 					verts[v].vert_val = INF;
 					verts[v].update_all();
@@ -664,10 +664,10 @@ int main() {
 			}
 			verts[cur].make_root();
 			dp[cur] = std::min(INF, verts[cur].min_dist[0]);
-			cerr << "query " << cur << ' ' << dp[cur] << '\n';
+			//cerr << "query " << cur << ' ' << dp[cur] << '\n';
 			if (cur != 0) {
 				for (auto [v, w] : adj[cur]) {
-					cerr << "set " << v << ' ' << dp[v] << '\n';
+					//cerr << "set " << v << ' ' << dp[v] << '\n';
 					verts[v].expose();
 					verts[v].vert_val = dp[v];
 					verts[v].update_all();
@@ -675,7 +675,7 @@ int main() {
 			}
 		}
 		for (int v : by_level[l+1]) {
-			cerr << "set " << v << ' ' << INF << '\n';
+			//cerr << "set " << v << ' ' << INF << '\n';
 			verts[v].expose();
 			verts[v].vert_val = INF;
 			verts[v].update_all();

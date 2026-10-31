@@ -1,0 +1,104 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+The galaxy contains an unlimited supply of habitable planets. These are numbered 0, 1, 2, ... in decreasing order of terraformation. Planet 0 is the origin of life in the galaxy, and it is still the planet best suitable for life.
+</p>
+<p>
+There are multiple colonies in the galaxy. 
+Their current state is described by the vector &lt;int&gt;s <b>planet</b> and <b>colonySize</b>.
+For each i, there is a colony on planet <b>planet</b>[i] with population <b>colonySize</b>[i].
+</p>
+<p>
+At any moment, there can be multiple colonies on each planet (including planet 0).
+As soon as a colony becomes empty, it ceases to exist completely. 
+</p>
+<br></br>
+<p>
+For some unspecified reason it became necessary to relocate all colonists back to planet 0.
+</p>
+<p>
+It is unclear whether this is the responsibility of the Galactic High Command (below called "player A") or the Galactic Colonization Authority ("player B").
+</p>
+<p>
+The two organizations discussed this and came to an agreement that they will issue alternating relocation orders.
+Each relocation order must move some positive number of colonists towards planet 0, using one of the moves described below.
+</p>
+<br></br>
+<p>
+The player after whose move all colonists are on the home planet will be celebrated as the one who successfully completed the relocation.
+(Equivalently, the player unable to make a valid move loses.)
+</p>
+<p>
+Both players are trying to reach this goal and play optimally.
+</p>
+<br></br>
+<p>
+There are three types of allowed moves:
+</p>
+<ul>
+<li>
+  <i>A normal move.</i>
+  <br></br>
+  Select a colony on some planet P &gt; 0 and another (currently existing, non-empty) colony on planet P-1.
+  <br></br>
+  Select a positive number X up to and inclusive the population of the first colony.
+  <br></br>
+  Move X colonists from the first colony to the second one.
+  <br></br>
+  &nbsp;
+</li>
+<li>
+  <i>A slow move.</i>
+  <br></br>
+  Select a colony on some planet P &gt; 0.
+  <br></br>
+  Select a positive number X up to and inclusive the population of that colony.
+  <br></br>
+  Build a new colony on planet P-1.
+  While you do so, take X colonists from the old colony and move them slowly to the new one. 
+  As the move is slow, the colonists will multiply along the way and exactly 2*X of them will arrive to their destination.
+  <br></br>
+  &nbsp;
+</li>
+<li>
+  <i>A fast move.</i>
+  <br></br>
+  Select a colony on some planet P &gt; 0 <i>such that P is an odd prime</i> (3, 7, 9, 11, ...) and the population of the colony is at least P.
+  <br></br>
+  Relocate the entire colony to planet P-2 (as a new colony on that planet).
+  <br></br>
+  While adapting the colony to the new, different environment, P of the colonists will die.
+  (If the original colony had X colonists, the new one will have X-P.)
+  <br></br>
+  &nbsp;
+</li>
+</ul>
+<p>
+A less precise but shorter version of the same rules:
+</p>
+<ul>
+<li>Move any positive number of people from a colony on planet P to an existing colony on planet P-1.</li>
+<li>Take X people from a colony on planet P, create a new colony on planet P-1 with 2*X people.</li>
+<li>Take an entire colony of X people from planet P, where P is an odd prime, and create a new colony on planet P-2 with X-P people.</li>
+</ul>
+<p>
+Two moves are different if you make different selections during the move.
+</p>
+<p>
+For example, suppose there are four colonies: colony A and colony B on planet 4 with 1 person in each of them, colony C on planet 5 with 1 person, and colony D on planet 5 with 7 people.
+Then, the possible moves look as follows:
+</p>
+<ul>
+<li>There are 16 ways to make a normal move. Three of them are "move 1 person from C to A", "move 1 person from C to B" and "move 4 people from D to B".</li>
+<li>There are 10 ways to make a slow move. Two of them are "move 1 person from colony A (which ceases to exists) and create a new colony E on planet 3 with 2 people" and "take 4 people from colony D and create a new colony E on planet 4 with 8 people".</li>
+<li>There is only 1 way to make a fast move: "take the entire colony D and instead create a new colony E on planet 3 with just 7-5 = 2 people".</li>
+</ul>
+<br></br>
+<p>
+Player A is the one to make the first move.
+Return the count of different winning first moves they can make.
+(In particular, return 0 if the current position is losing for them.)
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Colonists</td></tr><tr><td>Method:</td><td>countMoves</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long countMoves(vector &lt;int&gt; planet, vector &lt;int&gt; colonySize)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>As shown in an example in the statement, relocating one colonist slowly produces two new colonists. Don't make any human-based assumptions about how the colonists multiply, just accept that their number always doubles during a slow move :)</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>planet</b> will have between 1 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>colonySize</b> will have the same number of elements as <b>planet</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>planet</b> will be between 0 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>At least one element of <b>planet</b> will be positive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>colonySize</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 2, 3, 3, 5, 5, 12, 12}</pre></td></tr><tr><td><pre>{12, 12, 5, 5, 8, 8, 3, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The second player has a fairly trivial winning strategy based on symmetry, so this is a losing position for the player whose turn it is.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1}</pre></td></tr><tr><td><pre>{470}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Relocate everyone to planet 0 using a slow move and win.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 1}</pre></td></tr><tr><td><pre>{30, 470, 420}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+One possible winning move is to relocate 50 people slowly from colony 1 to a new colony on planet 0. After the move we will have: on planet 0 a colony of size 30 and a colony of size 100, on planet 1 two colonies of size 420 each. It can be shown that this is a losing position (for the player whose turn it then is).
+</p>
+<p>
+The other possible winning move is to relocate 50 people quickly from colony 1 (on planet 1) to colony 0 (on planet 0). After the move we will have: on planet 0 a colony of size 80, and on planet 1 two colonies of size 420 each.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3, 4, 5, 11}</pre></td></tr><tr><td><pre>{1, 7, 2, 14}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">One of the two winning moves here is a fast move.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{17}</pre></td></tr><tr><td><pre>{17}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">One of the two winning moves is to relocate the entire colony to planet 15 using a fast move. During this move all 17 colonists perish, and so the colony on planet 15 immediately stops existing. As there are now no colonists on planets other than planet 0, the game is now over.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

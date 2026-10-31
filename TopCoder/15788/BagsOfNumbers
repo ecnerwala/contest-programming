@@ -1,0 +1,78 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+class BagsOfNumbers {
+
+	ll getNimber(ll a, ll b, ll c, ll d) {
+		ll ans = d;
+		ans += min(a, c);
+		ll v = (a + c - 2 * min(a, c)) / 2;
+		ans += (b + v) / 2;
+		return ans;
+	}
+
+public:
+
+	ll wonByAlice(int n, vector<long long> a, vector<long long> b, vector<long long> c, vector<long long> d) {
+		vector<ll> nimbers;
+		for (int i = 0; i < n; i++) {
+			nimbers.push_back(getNimber(a[i], b[i], c[i], d[i]));
+		}
+		//for (int i = 0; i < n; i++) { cerr << nimbers[i] << '\n'; }
+		int lo = n / 2, hi = n - n / 2;
+		vector<ll> los((1ll << lo));
+		vector<ll> his((1ll << hi));
+		for (int i = 0; i < lo; i++) {
+			ll v = nimbers[i];
+			for (int m = 0; m < (1 << i); m++) {
+				los[m | (1 << i)] = los[m] ^ v;
+			}
+		}
+		for (int i = 0; i < hi; i++) {
+			ll v = nimbers[lo + i];
+			for (int m = 0; m < (1 << i); m++) {
+				his[m | (1 << i)] = his[m] ^ v;
+			}
+		}
+		unordered_map<ll, int> seen;
+		for (auto it : los) seen[it]++;
+		ll ans = (1ll << n);
+		for (auto it : his) {
+			ans -= seen[it];
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	mt19937 mt(48);
+	int N = 50;
+	vector<ll> A(N), B(N), C(N), D(N);
+	for (int i = 0; i < N; i++) {
+		A[i] = mt();
+		B[i] = mt();
+		C[i] = mt();
+		D[i] = mt();
+	}
+	cerr << N << '\n';
+	cerr << "{"; for (int i = 0; i < N; i++) { cerr << A[i] << ",}"[i+1==N]; } cerr << '\n';
+	cerr << "{"; for (int i = 0; i < N; i++) { cerr << B[i] << ",}"[i+1==N]; } cerr << '\n';
+	cerr << "{"; for (int i = 0; i < N; i++) { cerr << C[i] << ",}"[i+1==N]; } cerr << '\n';
+	cerr << "{"; for (int i = 0; i < N; i++) { cerr << D[i] << ",}"[i+1==N]; } cerr << '\n';
+	cerr << BagsOfNumbers().wonByAlice(N, A, B, C, D) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::BagsOfNumbers;
+
+// vim:ft=cpp

@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+int f[200][200];
+int nim(int x, int y);
+int _nim(int x, int y) {
+  if (!x || !y)  return 1 << (x + y);
+  if (f[x][y] != -1)  return f[x][y];
+  int ret = 1, e = 1;
+  for (int i = 0; i <= 4; i++)
+    if ((x ^ y) & (1 << i))  e *= (1 << (1 << i));
+    else  if (x & (1 << i))  ret = nim(ret, 3 * (1 << (1 << i)) / 2);
+  f[x][y] = nim(ret, e);
+  return f[x][y];
+}
+int nim(int x, int y) {
+  int ret = 0;
+  for (int i = 0; i <= 20; i++)
+    if (x & (1 << i))
+      for (int j = 0; j <= 20; j++)
+        if (y & (1 << j))  ret ^= _nim(i, j);
+  return ret;
+}
+class Rectoggle {
+	int getNimber(int v, int m) {
+		v++;
+		int d = __builtin_ctz(v);
+		while ((1 << d) > m) {
+			d --;
+		}
+		return (1 << d);
+	}
+
+	vector<int> solveNimber(int numRows, int maxRows) {
+		vector<int> res(numRows+1);
+		for (int i = 0; i <= numRows; i++) {
+			set<int> s;
+			int v = 0;
+			s.insert(v);
+			for (int j = 1; j <= i && j < maxRows; j++) {
+				v ^= res[i - j];
+				s.insert(v);
+			}
+			res[i] = 0;
+			while (s.count(res[i])) {
+				res[i]++;
+			}
+			cerr << i << ' ' << res[i] << '\n';
+		}
+		return res;
+	}
+
+	void test() {
+		cerr << nim((1 << 18), (1 << 18)) << '\n';
+		for (int z = 1; z <= 1000; z++) {
+			solveNimber(1000, z);
+		}
+		solveNimber(1000, 511);
+		solveNimber(1000, 512);
+		solveNimber(1000, 513);
+	}
+
+public:
+	int whoWins(vector <int> ledrow, vector <int> ledcol, int maxrows, int maxcols) {
+		memset(f, -1, sizeof(f));
+		//test(); return 0;
+		int res = 0;
+		for (size_t i = 0; i < ledrow.size(); i++) {
+			res ^= nim(getNimber(ledrow[i], maxrows), getNimber(ledcol[i], maxcols));
+		}
+		return (res == 0) ? 2 : 1;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::Rectoggle;
+
+// vim:ft=cpp

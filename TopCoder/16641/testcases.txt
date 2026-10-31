@@ -1,0 +1,38 @@
+{"INC Z", "INC Z", "INC Z" }
+{"INC C", "INC C", "INC C"}
+{ }
+{"INC D", "INC D"}
+{"CLEAR A", "EQUAL K L 0 2" }
+{"ZERO D 0 1"}
+
+{"EQUAL B Z 1 0" }
+{"ZERO B 1 0"}
+{"EQUAL A B 1 2", "INC Z" }
+{"ZERO A 5 1",
+ "DEC A",
+ "ZERO B 7 3",
+ "DEC B",
+ "ZERO J 0 0",
+ "ZERO B 6 7",
+ "INC C"}
+{"EQUAL A B 3 1", "INC A", "EQUAL A B 4 1", "INC Z" }
+{"ZERO A 5 1",
+ "DEC A",
+ "ZERO B 2 3",
+ "DEC B",
+ "ZERO J 0 0",
+ "ZERO B 6 7",
+ "INC C"}
+{"EQUAL A D 6 1", "INC D", "EQUAL A D 6 3", "INC Z", "INC D", "EQUAL A D 6 3", "CLEAR D", "EQUAL B D 13 8", "INC D", "EQUAL B D 13 10", "INC Z", "INC D", "EQUAL B D 13 10" }
+{"DEC A",
+ "ZERO A 5 2",
+ "DEC A",
+ "INC C",
+ "ZERO A 5 2",
+ "DEC B",
+ "ZERO B 10 7",
+ "DEC B",
+ "INC C",
+ "ZERO B 10 7"}
+{"INC Z" }
+{"INC C", "DEC C", "DEC C", "INC C"}

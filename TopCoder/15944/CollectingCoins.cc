@@ -1,0 +1,75 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+template <typename T> void setmax(T& a, T b) { if (b > a) a = b; }
+
+using ll = long long;
+
+const ll INF = 2e18;
+
+class CollectingCoins {
+
+public:
+
+	long long maxValue(int m, int k, vector <int> v, vector <int> d) {
+		// include the training empty-day
+		m++;
+
+		vector<ll> start(k);
+		for (int l = 1; l <= k; l++) {
+			ll totValue = 0;
+			for (int i = 0; i < int(v.size()); i++) {
+				totValue += ll(v[i]) * ll((l-1) - (l-1) / d[i]);
+			}
+			start[l-1] = totValue;
+		}
+
+		auto merge = [&](const vector<ll>& a, const vector<ll>& b) -> vector<ll> {
+			vector<ll> c(2*k-1, -INF);
+			for (int i = 0; i < k; i++) {
+				for (int j = 0; j < k; j++) {
+					setmax(c[i+j], a[i] + b[j]);
+				}
+			}
+			for (int i = 0; i < 2*k-1; i++) {
+				for (int l = 1; i+l < 2*k-1 && l <= k; l++) {
+					setmax(c[i+l], c[i] + start[l-1]);
+				}
+			}
+			return {c.end() - k, c.end()};
+		};
+
+		ll e = (m + k-1) / k;
+
+		vector<ll> prod(k, -INF);
+		prod[k-1] = 0;
+		vector<ll> base = start;
+		while (e) {
+			if (e & 1) {
+				prod = merge(prod, base);
+			}
+			base = merge(base, base);
+			e /= 2;
+		}
+		return prod[(m-1) % k];
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	//cerr << CollectingCoins().maxValue(int(1e9), 1000, vector<int>(1000, 1000), vector<int>(1000, 3)) << '\n';
+	cerr << CollectingCoins().maxValue(952233580, 48, {1}, {48}) << '\n';
+	cerr << CollectingCoins().maxValue(952233580, 49, {1}, {48}) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::CollectingCoins;
+
+// vim:ft=cpp

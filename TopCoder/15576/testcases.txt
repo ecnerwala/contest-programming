@@ -1,0 +1,6 @@
+7
+"ABCDEFG"
+1
+"GFEDCBA"
+3
+"ACBB"

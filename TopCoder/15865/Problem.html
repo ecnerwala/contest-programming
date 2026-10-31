@@ -1,0 +1,39 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+It is a truth universally acknowledged that Die Hard is the best Christmas movie of all time.
+And just like John McClane at the beginning of the movie, millions upon millions of people fly home for Christmas each year.
+This problem is about air travel.
+Yippie-ki-yay!
+</p>
+<p>
+There are <b>N</b> airports in Absurdistan.
+Up until now, there has only been a single airline (owned by the Grand Vizier) that has supplied flights between all the airports.
+However, the Grand Vizier noticed that the airlines sometimes have trouble filling the planes, and this costs the Grand Vizier money.
+The Grand Vizier has hired a group of analysts, and after a few months they traced the problem to its root: the possibility to fly an odd number of segments.
+Ordinary flight tickets in Absurdistan are sometimes called hobbit tickets (as they go "there and back again").
+E.g., if a person flies from A via B to C, we can expect that they will later return from C via B to A, traveling a total of four segments.
+If they were to take a direct flight from C to A instead, the total number of segments flown by our customers would now be odd, and that's the reason why all planes (each with an even number of seats) cannot be filled exactly.
+Or, at least, that's what the analysts told the Grand Vizier, before collecting their pay and leaving the country in a hurry.
+</p>
+<p>
+Be it as it may, the Grand Vizier has decided to eliminate this issue completely.
+His decision was as follows:
+</p>
+<ul>
+<li>From this moment on, there will be <b>A</b> separate airline companies in Absurdistan. (Each of them owned by the Grand Vizier, of course.)</li>
+<li>For each pair of airports, exactly one of these airlines must fly the direct flights between them, in both directions.</li>
+<li>Each airline must actually fly some flights.</li>
+<li>Each ticket must be purchased with one specific airline. The ticket must contain a sequence of flights offered by that airline. The flights must be consecutive (each starting where the previous ended), and the last flight must return the traveller to the airport where the ticket started.</li>
+<li>It must not be possible to buy a ticket with an odd number of flights.</li>
+</ul>
+<p>
+Find out whether the Grand Vizier's plan can be carried out.
+If it cannot, return an empty vector &lt;string&gt;.
+If it can, return a vector &lt;string&gt; with <b>N</b> elements, each containing <b>N</b> characters: '-' on the main diagonal, and one of the first <b>A</b> uppercase letters of the English alphabet everywhere else. For each distinct i and j, the characters at [i][j] and [j][i] in the return value must be equal, and they represent the airline that flies between the airports i and j.
+Any valid answer will be accepted.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ChristmasTravel</td></tr><tr><td>Method:</td><td>plan</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; plan(int N, int A)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> will be between 1 and 26, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">There is no solution. If we had three airports and a single airline, people could buy a ticket with an odd number of flights. An example of such a ticket is a ticket with the flights 2 -&gt; 0 -&gt; 1 -&gt; 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;-AC&quot;, &quot;A-B&quot;, &quot;CB-&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">Remember that each airline must fly some segments, so each of the letters 'A', 'B' and 'C' must appear in the output for this test case (exactly twice). All correct answers for this test case can be obtained from the one shown in the example by permuting 'A', 'B', and 'C'.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;-ABAB&quot;, &quot;A-ACC&quot;, &quot;BA-AC&quot;, &quot;ACA-B&quot;, &quot;BCCB-&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The example output describes the following situation:
+<ul>
+<li>Airline 'A' executes the flights between the following pairs of airports: 0-1, 1-2, 2-3, 3-0.</li>
+<li>Airline 'B' executes the flights between the following pairs of airports: 2-0, 0-4, 4-3.</li>
+<li>Airline 'C' executes the flights between the following pairs of airports: 3-1, 1-4, 4-2.</li>
+</ul>
+We can easily verify that none of these airlines can sell a valid ticket with an odd number of flights.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">If there is just one airport, no flights are possible, so the only airline in this country does not fly anywhere. This contradicts the requirement that each airline must actually fly some flights.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;-ACEDB&quot;, &quot;A-BDCE&quot;, &quot;CB-AED&quot;, &quot;EDA-BC&quot;, &quot;DCEB-A&quot;, &quot;BEDCA-&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">In the example output, each airline has exactly one flight out of each airport. Thus, obviously, each valid ticket people can buy just goes back and forth between two airports one or more times, and therefore there are no valid tickets with an odd number of flights. Of course, this is just one of very many valid solutions.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

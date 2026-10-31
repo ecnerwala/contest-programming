@@ -1,0 +1,76 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class EllysNim {
+
+public:
+
+	int first_bit(int64_t v) {
+		assert(v);
+		return 63 - __builtin_clzll(v);
+	}
+	int64_t p2(int b) {
+		return int64_t(1) << b;
+	}
+
+	long long getMin(vector <int> A_) {
+		using i64 = int64_t;
+		const vector<i64> A(A_.begin(), A_.end());
+		int N = int(A.size());
+		i64 bestAns = 1e18;
+		i64 initXor = 0;
+		for (i64 v : A) {
+			initXor ^= v;
+		}
+		if (!initXor) return 0;
+		for (int b0 = first_bit(initXor); b0 <= 33; b0++) {
+			i64 ans = 0;
+			i64 curXor = initXor;
+			vector<i64> curA = A;
+			bool first = true;
+			while (curXor) {
+				int b = first ? b0 : first_bit(curXor); first = false;
+				bool found = false;
+				i64 best = -1;
+				int bestInd = -1;
+				for (int i = 0; i < N; i++) {
+					i64 v = curA[i];
+					if (v & p2(b)) continue;
+					found = true;
+					v &= (p2(b)-1);
+					if (v > best) {
+						best = v;
+						bestInd = i;
+					}
+				}
+				if (!found) goto oops;
+
+				ans -= curA[bestInd];
+				curXor ^= curA[bestInd];
+				curA[bestInd] ^= p2(b) ^ best;
+				curXor ^= curA[bestInd];
+				ans += curA[bestInd];
+			}
+			bestAns = min(bestAns, ans);
+oops:;
+		}
+		return bestAns;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	cerr << EllysNim().getMin({3,5,7}) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::EllysNim;
+
+// vim:ft=cpp

@@ -1,0 +1,43 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>To celebrate the Lunar New Year that starts the Year of the Tiger, the problems in this set feature tigers.</i></p><br></br>
+<p>
+Absurdistan has always been famous for having a population of oxen and tigers living peacefully together.
+However, recently there has been an issue of contention: how to celebrate the Lunar New Year?
+The tigers want huge fireworks while the oxen consider it a waste of money.
+As always, the final decision will be decided by a referendum: a nation-wide vote.
+</p>
+<br></br>
+<p>
+The tigers really want the fireworks, so they decided to help their issue by cunningly manipulating the voting system.
+Instead of simply counting all the votes, they will divide the country into several <i>exactly equally large</i> districts.
+Each district will take its own vote on the issue and then it will nominate one delegate (either a tiger or an ox) to represent the opinion that won in the district.
+Those delegates will then cast the votes that will determine the final outcome of the referendum.
+</p>
+<p>
+And the tigers are not required to stop at one level of hierarchy.
+For the next step, each district can now be divided into sub-districts.
+<i>The sub-districts must again have exactly the same size, all over the country, so that everything seems as fair as possible.</i>
+Each sub-district will take a vote and nominate one sub-delegate for the district vote, and then each district will evaluate the votes of those sub-delegates and nominate one delegate for the country vote.
+</p>
+<p>
+Obviously, the above process can be continued recursively arbitrarily many times.
+Again, we emphasize that on each level of the election hierarchy all sub*-districts across the whole country must have exactly the same size.
+</p>
+<br></br>
+<p>
+One final peculiarity of the voting system in Absurdistan is that a tiger is <b>TV</b> / <b>OV</b> times more powerful than an ox, and therefore a tiger's vote is worth <b>TV</b> and an ox's vote is worth <b>OV</b>.
+</p>
+<p>
+As tigers are the ones who want change, they must have a strict majority in order for the motion to pass. (If in some vote the total weight of the tigers' votes is the same as the total weight of the votes of the oxen, an ox is nominated as the delegate.)
+</p>
+<br></br>
+<p>
+The total population of Absurdistan is <b>N</b>.
+Assume that tigers have perfect control over how to divide the country into districts - they get to choose the depth of the hierarchy, the district sizes, and they also decide which inhabitants belong into which districts.
+Calculate and return the minimal number of tigers in the population needed to get the fireworks.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Tigerrymander</td></tr><tr><td>Method:</td><td>minTigers</td></tr><tr><td>Parameters:</td><td>long long, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long minTigers(long long N, int TV, int OV)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 5 * 10^12, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>TV</b> will be between 1 and 10, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>OV</b> will be between 1 and 10, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"><p>There are 4 animals in Absurdistan, and the votes of tigers and oxen count the same.</p>
+<p>The tigers could divide the country into four districts of size 1, but that's the same as not dividing it at all: each district would simply nominate its only member.</p>
+<p>The tigers could also divide the country into two districts of size 2. This isn't exactly helpful: whenever there are two votes, both voters must be tigers in order for the tigers' motion to win. And thus if there are two districts of size 2, the tigers will only get fireworks if all four animals are tigers.</p>
+<p>Perhaps surprisingly, the best strategy here is to have everyone vote in the same election. Then three tigers can already outvote one ox.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>13</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2">Again, the optimal solution is that there are no districts. Four tigers are not yet enough to win against nine oxen, but five tigers already have a stronger total vote than eight oxen.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2"><p>If everyone voted together, at least seven tigers would be needed. However, six tigers can still win the referendum by splitting the country cleverly.</p>
+<p>Using T and O to represent tigers and oxen, one optimal solution is to form four districts: TTO, TTO, TTO and OOO. Three districts will nominate a tiger while only one will nominate an ox, so in the final vote the tigers win 3:1.</p>
+<p>(There is one other solution that also allows six tigers to win the election.)</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>28</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">Yes, you read that correctly, two tigers who cleverly manipulate the system can win the whole election here.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>21</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 20</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

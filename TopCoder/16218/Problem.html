@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You're given a sequence <b>A</b> of N positive integers and a positive integer <b>Y</b>.
+</p>
+<br></br>
+<p>
+Let S be any subset of the set {0, 1, 2, 3, ..., N-1}.
+The weight of S, denoted w(S), is defined as the number of subsets {x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>k</sub>} of S such that 
+<b>A</b>[x<sub>1</sub>] + <b>A</b>[x<sub>2</sub>] + ... + <b>A</b>[x<sub>k</sub>] = <b>Y</b>.
+</p>
+<br></br>
+<p>
+For example, suppose <b>A</b> = {1, 10, 40, 70, 71, 100, 111, 200} and <b>Y</b> = 111.
+<br></br>
+For the set S1 = {0, 1, 2, 3, 4, 5} we have w(S1) = 3 because of the three subsets {0, 1, 5}, {0, 2, 3}, and {2, 4}:
+</p>
+<ul>
+<li><b>A</b>[0] + <b>A</b>[1] + <b>A</b>[5] = 1 + 10 + 100 = 111,</li>
+<li><b>A</b>[0] + <b>A</b>[2] + <b>A</b>[3] = 1 + 40 + 70 = 111, and</li>
+<li><b>A</b>[2] + <b>A</b>[4] = 40 + 71 = 111.</li>
+</ul>
+<p>
+For the set S2 = {2, 5, 6, 7} we have w(S2) = 1 because the only subset of S2 with the required property is {6}, with <b>A</b>[6] = 111.
+</p>
+<br></br>
+<p>
+Find the sum of w(S) over all subsets of the sequence {0, 1, 2, 3, ..., N-1}.
+Return this sum modulo 10<sup>9</sup>+7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SuperSubset</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int solve(vector &lt;int&gt; A, int Y)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> will have between 1 and 3000 elements, both inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>A[i]</b> will have between 1 and 9999, both inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Y</b> will be between 1 and 9999, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 3}</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">w( { } ) = 0 <br></br>
+w( { 1 } ) = 0 <br></br>
+w( { 2 } ) = 0 <br></br>
+w( { 3 } ) = 1 <br></br>
+w( { 1, 2 } ) = 1 <br></br>
+w( { 1, 3 } ) = 1 <br></br>
+w( { 2, 3 } ) = 1 <br></br>
+w( { 1, 2, 3 } ) = 2 <br></br></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2">Each of the five 4-element sets of indices has weight 1 and the only 5-element set of indices has weight 5.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

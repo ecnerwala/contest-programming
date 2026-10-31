@@ -1,0 +1,51 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>Game of Life is a cellular automaton invented by the recently deceased mathematician John H. Conway. We included this problem into today's set to honor his memory.</i>
+</p>
+<p>
+In our version of the Game of Life the <i>world</i> is a rectangular array of cells.
+Each cell is either alive ('X') or dead ('.').
+Each cell has up to eight neighbors: horizontal, vertical, and diagonal.
+Cells at the boundary have fewer than eight neighbors.
+</p>
+<p>
+The world evolves in steps. In each step some living cells may die and some dead cells may become alive.
+In particular, a cell that is currently dead will become a living cell in the next step if and only if it currently has exactly three neighbors that are alive.
+</p>
+<p>
+You are given the int <b>N</b>.
+Find any rectangular configuration of cells with dimensions at most 50x50 and with the following property: in the next step, exactly <b>N</b> of the dead cells will become living cells.
+Return your configuration as a vector &lt;string&gt;.
+</p>
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ThreeNeighbors</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; construct(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>For the given constraints a solution always exists, and any valid solution will be accepted.</td></tr><tr><td align="center" valign="top">-</td><td>We only care about the number of cells that change from dead to living. All other parameters of your world (dimensions, the number of cells that die, the total number of cells, etc.) may be arbitrary.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 500, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;.....&quot;, &quot;.XX..&quot;, &quot;.X.X.&quot;, &quot;.X...&quot;, &quot;.....&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The return value corresponds to a configuration of cells known as a "glider":
+</p>
+<pre>
+.....
+.XX..
+.X.X.
+.X...
+.....
+</pre>
+<p>
+Below, the two cells that will become alive in the next step are marked with asterisks. Each of these dead cells has exactly three neighbors that are alive.
+</p>
+<pre>
+.....
+.XX..
+*X.X.
+.X*..
+.....
+</pre>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;........&quot;, &quot;.XXX..X.&quot;, &quot;..X..X..&quot;, &quot;..X..X..&quot;, &quot;..X...X.&quot;, &quot;........&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+..*.....
+.XXX..X.
+..X.*X*.
+.*X*.X*.
+..X...X.
+........
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;XXXX&quot;, &quot;XXXX&quot;, &quot;.XXX&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+XXXX
+XXXX
+*XXX
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

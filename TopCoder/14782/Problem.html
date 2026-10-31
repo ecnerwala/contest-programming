@@ -1,0 +1,46 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>There is a grid with <b>H</b> rows and <b>W</b> columns. All cells in the grid are initially white.</p>
+<p>You may perform zero or more painting steps. Each step looks as follows:</p>
+<ol>
+<li>You select either any one column of the grid, or any one diagonal that goes down and to the right.</li>
+<li>You paint all its cells black.</li>
+</ol>
+<p>
+The same cell can be painted multiple times. Once it's black, it remains black when you paint it again.
+</p>
+<p>
+Two grids are different if one of them has a white cell at some coordinates at which the other grid has a black cell.
+Compute and return the number of different grids you can obtain, modulo 1,000,000,007.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>DiagonalColumn</td></tr><tr><td>Method:</td><td>countGrids</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countGrids(int H, int W)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>H</b> and <b>W</b> will be between 1 and 38, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+In the figure below, the columns and diagonals you are allowed to paint are shown using asterisks.
+</p>
+<pre>
+
+columns:   diagonals:
+*.   .*   ..   *.   .*
+*.   .*   *.   .*   ..
+
+</pre>
+<p>
+The 12 different grids that can be produced are shown below, using '.' for white and '#' for black.
+</p>
+<pre>
+
+..   ..   .#   #.
+..   #.   ..   #.
+
+#.   .#   .#   ##
+.#   .#   #.   #.
+
+##   .#   #.   ##
+.#   ##   ##   ##
+
+</pre>
+<p>
+And the four grids that cannot be produced look as follows:
+</p>
+<pre>
+
+#.   ..   ##   ..   
+..   .#   ..   ##
+
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 37</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 28</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 32</pre></td></tr><tr><td><table><tr><td colspan="2">Each of the 2^5 black-and-white grids can be produced.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 64</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>38</pre></td></tr><tr><td><pre>38</pre></td></tr></table></td></tr><tr><td><pre>Returns: 173889321</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

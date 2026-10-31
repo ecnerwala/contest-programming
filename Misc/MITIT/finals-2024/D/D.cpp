@@ -1021,7 +1021,7 @@ int main() {
 	for (int i = 0; i <= N; i++) {
 		a[i] = ifact[i] * inv(pow_2_choose_2[i]);
 	}
-	a *= a;
+	a = square(a);
 	for (int i = 0; i <= N; i++) {
 		a[i] *= pow_2_choose_2[i];
 	}

@@ -1,0 +1,32 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class MinMaxGame {
+
+public:
+
+	int lastNumber(vector <int> A) {
+		int N = int(A.size());
+		if (N & 1) {
+			return max(A.front(), A.back());
+		} else {
+			return min(A.front(), A.back());
+		}
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::MinMaxGame;
+
+// vim:ft=cpp

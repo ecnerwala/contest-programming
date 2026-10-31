@@ -1,0 +1,54 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+class CatAndMice {
+
+public:
+
+	ll numDirs(int N) {
+		vector<int> phi(N+1);
+		for (int i = 1; i <= N; i++) phi[i] = i;
+		for (int p = 2; p <= N; p++) {
+			if (phi[p] == p) {
+				for (int j = p; j <= N; j += p) {
+					phi[j] -= phi[j] / p;
+				}
+			}
+		}
+		ll ans = 0;
+		for (int i = 1; i <= N; i++) ans += phi[i];
+		ans *= 8;
+		return ans;
+	}
+
+	ll catchAtLeast(int N, int C) {
+		// max(abs(x), abs(y)) * C <= N
+		// max(abs(x), abs(y)) <= N / C <=> max(abs(x), abs(y)) <= N // C
+		return numDirs(N / C);
+	}
+
+	ll countDirections(int N, int C) {
+		return catchAtLeast(N, C) - catchAtLeast(N, C+1);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	cerr << CatAndMice().numDirs(0) << '\n';
+	cerr << CatAndMice().countDirections(int(5e6), 1) << '\n';
+	cerr << CatAndMice().countDirections(int(5e6), int(5e6)) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::CatAndMice;
+
+// vim:ft=cpp

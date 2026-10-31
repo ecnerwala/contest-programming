@@ -1,0 +1,6 @@
+0
+"cocoa"
+2
+"daddy"
+4
+"abcdefgh"

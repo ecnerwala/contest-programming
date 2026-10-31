@@ -1,0 +1,67 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class BiddingWars {
+
+public:
+
+	double findMax(int N, vector <int> F, vector <int> T) {
+		int M = int(F.size());
+		assert(M == int(T.size()));
+		vector<vector<int>> adj(N);
+		for (int e = 0; e < M; e++) {
+			adj[F[e]].push_back(T[e]);
+		}
+
+		vector<double> dp(N);
+		dp[N-1] = 0;
+		dp[N-2] = -1;
+		for (int i = N-3; i >= 0; i--) {
+			double mi = -1;
+			double ma = 0;
+			for (int j : adj[i]) {
+				if (dp[j] < -0.5) {
+					// this guy is infinite
+					ma = -1;
+				} else {
+					if (ma < -0.5) {
+					} else {
+						ma = max(ma, dp[j]);
+					}
+					if (mi < -0.5) {
+						mi = dp[j];
+					} else {
+						mi = min(mi, dp[j]);
+					}
+				}
+			}
+
+			if (mi < -0.5) {
+				assert(ma < -0.5);
+				dp[i] = -1;
+			} else if (ma < -0.5) {
+				dp[i] = mi + 1;
+			} else {
+				dp[i] = ma / (ma + 1) * (mi + 1);
+			}
+			//cerr << i << ' ' << mi << ' ' << ma << ' ' << dp[i] << '\n';
+		}
+		return dp[0];
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::BiddingWars;
+
+// vim:ft=cpp

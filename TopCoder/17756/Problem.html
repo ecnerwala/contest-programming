@@ -1,0 +1,30 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There are <b>N</b> variables, numbered from 0 to <b>N</b>-1.
+These variables are also labeled using the first <b>N</b> uppercase English letters ('A', 'B', 'C', ...).
+</p>
+<p>
+Each variable represents a string of lowercase English letters ('a'-'z').
+Additionally, each variable has a known fixed length: variable i represents a string of length <b>L</b>[i].
+</p>
+<br></br>
+<p>
+A <i>word</i> is a string of lowercase letters.
+</p>
+<p>
+A <i>pattern</i> is a string that contains variables and lowercase letters.
+</p>
+<p>
+An <i>assignment</i> is a sequence of <b>N</b> words that represent the values of our variables. (For each i, word i in this sequence must have length <b>L</b>[i].)
+</p>
+<p>
+Given an assignment, the <i>evaluation</i> of a pattern is the word obtained by replacing each occurrence of each variable by its assigned value.
+</p>
+<br></br>
+<p>
+You are given <b>N</b>, <b>L</b> and the vector &lt;string&gt; <b>patterns</b>.
+</p>
+<p>
+Determine whether there is an assignment such that all the given patterns evaluate to the same word W.
+If yes, return any word W that can be obtained this way.
+If no, return an empty string.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MatchingPatterns</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string solve(int N, vector &lt;int&gt; L, vector &lt;string&gt; patterns)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 26, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>L</b> will have exactly <b>N</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>L</b> will be between 1 and 10, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>patterns</b> will have between 1 and 5 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>patterns</b> will have between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>patterns</b> will be either a lowercase English letter ('a'-'z') or one of the first <b>N</b> uppercase English letters.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{2}</pre></td></tr><tr><td><pre>{&quot;AAA&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;hehehe&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The valid answers are precisely all strings of the form "xyxyxy" where x and y are any two (not necessarily distinct) lowercase letters.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{2, 3}</pre></td></tr><tr><td><pre>{&quot;ABxA&quot;, &quot;BxxB&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;xxxxxxxx&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The returned string is the only correct return value for this test case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{2, 3, 2}</pre></td></tr><tr><td><pre>{&quot;ABxA&quot;, &quot;yCCB&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There is no assignment for which these two patterns evaluate to the same word.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{4, 5, 6}</pre></td></tr><tr><td><pre>{&quot;A&quot;, &quot;B&quot;, &quot;C&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">These three patterns will never evaluate to words of the same length, so they clearly cannot evaluate to the same word.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{1, 2, 3, 4}</pre></td></tr><tr><td><pre>{&quot;ABCD&quot;, &quot;DxAyzB&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;yzzzxyyzzz&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

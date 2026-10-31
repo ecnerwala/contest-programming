@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class ChangeDistances {
+
+public:
+
+	vector <string> findGraph(vector <string> g) {
+		int n = int(g.size());
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (i == j) continue;
+				g[i][j] ^= 1;
+			}
+		}
+		return g;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::ChangeDistances;
+
+// vim:ft=cpp

@@ -1,0 +1,49 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Consider an infinite sequence of digits. For example, here's the prefix of sqrt(47), with the decimal point removed: 6855654600401044124935871449084848960460643461001326275485108185678...
+</p>
+<p>
+Now consider a simple infinite process.
+During the process we maintain an infinite text.
+Initially, this text consists of our infinite sequence of digits.
+Then, for each prime, in increasing order, we do the following:
+</p>
+<ul>
+<li>Find the first occurrence of the prime in the current infinite text.</li>
+<li>If we did find it, replace it by spaces. (If the entire infinite text contains no occurrences of the current prime, nothing happens.)</li>
+</ul>
+<p>
+After the entire infinite process is done, we are left with a collection of space-separated tokens.
+We convert them back into numbers to obtain the result: a sequence of non-negative integers.
+</p>
+<br></br>
+<p>
+You are given an int <b>X</b> that is not a square and a int <b>N</b>.
+</p>
+<p>
+Determine and return the <b>N</b>-th term (0-based index) of the sequence produced by the above process if we start with the decimal expansion of sqrt(<b>X</b>).
+Return its value modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CrossPrimesOut</td></tr><tr><td>Method:</td><td>findTerm</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int findTerm(int X, int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Spaces matter. For example, "1234   789" does NOT contain an occurrence of "47".</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>X</b> will be between 1 and 10,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>X</b> will not be a square.</td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 0 and 30, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5654600</pre></td></tr><tr><td><table><tr><td colspan="2">We start with sqrt(47):
+<pre>
+6855654600401044124935871449084848960460643461001326275485108185678...
+</pre>
+We find and remove the first 2:
+<pre>
+68556546004010441 4935871449084848960460643461001326275485108185678...
+</pre>
+We find and remove the first 3:
+<pre>
+68556546004010441 49 5871449084848960460643461001326275485108185678...
+</pre>
+We find and remove the first 5:
+<pre>
+68 56546004010441 49 5871449084848960460643461001326275485108185678...
+</pre>
+Now the same with 7, 11, 13, and so on. Immediately before processing the prime 401 we have the following:
+<pre>
+68 565460040104   49 58 144908484  604606  4  00  26275485108185  8...
+</pre>
+Removing the first occurrence of 401 produces:
+<pre>
+68 5654600   04   49 58 144908484  604606  4  00  26275485108185  8
+</pre>
+At this point it's easy to show that in the final sequence element 0 will be 68 and element 1 will be 5654600. Thus, we return 5654600.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">The final token at index 2 in the sequence for sqrt(47) is "04", as seen in the previous example. When converted into an integer, the leading zero is obviously lost.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>9</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Here the actual string token produced by the infinite process is "00".</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 270897077</pre></td></tr><tr><td><table><tr><td colspan="2">The actual term is 24,270,897,245.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

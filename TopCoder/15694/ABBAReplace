@@ -1,0 +1,56 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class ABBAReplace {
+
+public:
+	int countStepsString(string S) {
+		int N = int(S.size());
+		vector<int> prefA(N+1);
+		vector<int> suffB(N+1);
+		for (int i = 0; i < N; i++) {
+			prefA[i+1] = prefA[i] + (S[i] == 'A');
+		}
+		for (int i = N-1; i >= 0; i--) {
+			suffB[i] = suffB[i+1] + (S[i] == 'B');
+		}
+		int ans = 0;
+		for (int i = 0; i <= N; i++) {
+			if (prefA[i] && suffB[i]) {
+				ans = max(ans, prefA[i] + suffB[i] - 1);
+			}
+		}
+		return ans;
+	}
+
+	int countSteps(string Sprefix, int N, int seed, int threshold) {
+		long long state = seed;
+		string S = Sprefix;
+		while (int(S.size()) < N) {
+			state = (state * 1103515245 + 12345) % (1ll << 31);
+			if (state < threshold) {
+				S += 'A';
+			} else {
+				S += 'B';
+			}
+		}
+		assert(N == int(S.size()));
+		return countStepsString(S);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::ABBAReplace;
+
+// vim:ft=cpp

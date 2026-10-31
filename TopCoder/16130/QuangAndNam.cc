@@ -1,0 +1,252 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+/** Binary-indexed tree
+ *
+ *  A binary indexed tree with N nodes of type T provides the
+ *  following two functions for 0 <= i <= N:
+ *
+ *      prefix(int i) -> prefix_iterator<T>
+ *      suffix(int i) -> suffix_iterator<T>
+ *
+ *  such that size(suffix(i) intersect prefix(j)) = (1 if i < j else 0).
+ *  Furthermore, the resulting lists always have size at most log_2(N).
+ *
+ *  This can be used to implement either point-update/(prefix|suffix)-query or
+ *  (prefix|suffix)-update/point-query over a virtual array of size N of a
+ *  commutative monoid. This can be generalized to implement
+ *  point-update/range-query or range-update/point-query over a virtual array
+ *  of size N of a commutative group.
+ *
+ *  With 0-indexed data, prefixes are more natural:
+ *   * For range update/query, use for_prefix for the ranges and for_suffix for the points.
+ *   * For prefix update/query, no change.
+ *   * For suffix update/query, use for_prefix(point + 1); 1-index the data.
+ */
+template <typename T> class binary_indexed_tree {
+private:
+	std::vector<T> dat;
+public:
+	binary_indexed_tree() {}
+	explicit binary_indexed_tree(size_t N) : dat(N) {}
+	binary_indexed_tree(size_t N, const T& t) : dat(N, t) {}
+
+	size_t size() const { return dat.size(); }
+	const std::vector<T>& data() const { return dat; }
+	std::vector<T>& data() { return dat; }
+
+private:
+	template <typename I, typename S = I> struct iterator_range {
+	private:
+		I begin_;
+		S end_;
+	public:
+		iterator_range() : begin_(), end_() {}
+		iterator_range(const I& begin__, const S& end__) : begin_(begin__), end_(end__) {}
+		iterator_range(I&& begin__, S&& end__) : begin_(begin__), end_(end__) {}
+		I begin() const { return begin_; }
+		S end() const { return end_; }
+	};
+
+public:
+	class const_suffix_iterator {
+	private:
+		const T* dat;
+		int a;
+		const_suffix_iterator(const T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const const_suffix_iterator& i, const const_suffix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a < j.a;
+		}
+		const_suffix_iterator& operator ++ () {
+			a |= a+1;
+			return *this;
+		}
+		const T& operator * () const {
+			return dat[a];
+		}
+	};
+	using const_suffix_range = iterator_range<const_suffix_iterator>;
+	const_suffix_range suffix(int a) const {
+		assert(0 <= a && a <= int(dat.size()));
+		return const_suffix_range{const_suffix_iterator{dat.data(), a}, const_suffix_iterator{nullptr, int(dat.size())}};
+	}
+
+	class suffix_iterator {
+	private:
+		T* dat;
+		int a;
+		suffix_iterator(T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const suffix_iterator& i, const suffix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a < j.a;
+		}
+		suffix_iterator& operator ++ () {
+			a |= a+1;
+			return *this;
+		}
+		T& operator * () const {
+			return dat[a];
+		}
+	};
+	using suffix_range = iterator_range<suffix_iterator>;
+	suffix_range suffix(int a) {
+		assert(0 <= a && a <= int(dat.size()));
+		return suffix_range{suffix_iterator{dat.data(), a}, suffix_iterator{nullptr, int(dat.size())}};
+	}
+
+	class const_prefix_iterator {
+	private:
+		const T* dat;
+		int a;
+		const_prefix_iterator(const T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const const_prefix_iterator& i, const const_prefix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a > 0;
+		}
+		const_prefix_iterator& operator ++ () {
+			a &= a-1;
+			return *this;
+		}
+		const T& operator * () const {
+			return dat[a-1];
+		}
+	};
+	using const_prefix_range = iterator_range<const_prefix_iterator>;
+	const_prefix_range prefix(int a) const {
+		return const_prefix_range{const_prefix_iterator{dat.data(), a}, const_prefix_iterator{nullptr, 0}};
+	}
+
+	class prefix_iterator {
+	private:
+		T* dat;
+		int a;
+		prefix_iterator(T* dat_, int a_) : dat(dat_), a(a_) {}
+		friend class binary_indexed_tree;
+	public:
+		friend bool operator != (const prefix_iterator& i, const prefix_iterator& j) {
+			assert(j.dat == nullptr);
+			return i.a > 0;
+		}
+		prefix_iterator& operator ++ () {
+			a &= a-1;
+			return *this;
+		}
+		T& operator * () const {
+			return dat[a-1];
+		}
+	};
+	using prefix_range = iterator_range<prefix_iterator>;
+	prefix_range prefix(int a) {
+		return prefix_range{prefix_iterator{dat.data(), a}, prefix_iterator{nullptr, 0}};
+	}
+};
+
+class QuangAndNam {
+
+public:
+
+	long long count(int N) {
+		// If you put things into P piles, then there's one >= N/P and one <= N/P
+		// so that's the tightest you can get.
+		// L,R is admissible if you can get a "yes" [L, <=R], a "yes" [>=L, R], and a "no" [L-1, <=R] or L == 1 and a "no" [>=L, R+1] or R == N
+		// Or, if you get all "no", it's sometimes distinguishable
+
+		// If N == 1, there's no correction
+		// If N == 2, you can always get yes
+		// If N == 3, (2,2) is the unique all no's; if it includes 1 or 3 then it's possible
+		// If N == 4, (3,3) is the unique all no's; if includes 1,2, or 4 then it's possible
+		// If N >= 5, [N-2,N-2] and [N-1,N-1] are both impossible
+
+		vector<int> min_R(N+1);
+		for (int L = 1; L <= N; L++) {
+			// maximize the number of piles
+			int num_piles = N / L;
+			int num_extra = N % L;
+			if (num_extra == 0) {
+				min_R[L] = L;
+				continue;
+			}
+			// can't fit the extra
+			if (num_piles == 1) {
+				min_R[L] = N+1;
+				continue;
+			}
+
+			min_R[L] = L + (num_extra + (num_piles - 1) - 1) / (num_piles - 1);
+		}
+		for (int L = N; L-1 >= 1; L--) {
+			// we need to be able to exclude L-1 as well
+			min_R[L] = max(min_R[L], min_R[L-1]);
+		}
+
+		vector<int> max_L(N+1);
+		for (int R = 1; R <= N; R++) {
+			int num_piles = (N + R - 1) / R;
+			int num_remove = num_piles * R - N;
+			if (num_remove == 0) {
+				max_L[R] = R;
+				continue;
+			}
+			if (num_piles == 1) {
+				max_L[R] = 0;
+				continue;
+			}
+
+			max_L[R] = R - (num_remove + (num_piles - 1) - 1) / (num_piles - 1);
+		}
+		for (int R = 1; R+1 <= N; R++) {
+			max_L[R] = min(max_L[R], max_L[R+1]);
+		}
+
+		//for (int L = 1; L <= N; L++) { cerr << L << ' ' << min_R[L] << '\n'; }
+		//for (int R = 1; R <= N; R++) { cerr << R << ' ' << max_L[R] << '\n'; }
+
+		int64_t ans = 0;
+
+		// now we intersect the two; find the number of pairs such that (L, min_R[L]) <= (max_L[R], R)
+		vector<vector<int>> ls(N+2);
+		for (int L = 1; L <= N; L++) {
+			ls[min_R[L]].push_back(L);
+		}
+
+		binary_indexed_tree<int> bit(N+2);
+		for (int R = 1; R <= N; R++) {
+			for (int l : ls[R]) {
+				for (int& a : bit.suffix(l-1)) a++;
+			}
+			for (int a : bit.prefix(max_L[R])) ans += a;
+		}
+
+		if (N == 3 || N == 4) ans++;
+
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	for (int n = 1; n <= 100; n++) {
+		cerr << n << '\n';
+		cerr << QuangAndNam().count(n) << '\n';
+	}
+	cerr << QuangAndNam().count(int(1e6)) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::QuangAndNam;
+
+// vim:ft=cpp

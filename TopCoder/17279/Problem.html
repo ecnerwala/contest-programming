@@ -1,0 +1,83 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+We have a group of <b>N</b> athletes.
+They can play one-on-one games.
+Each game ends either with a win for one of the players or with a draw.
+</p>
+<br></br>
+<p>
+In some situations the results of these matches happen to be transitive. 
+E.g., if A defeats B and B defeats C (or draws with C), we would expect that also A defeats C in a head-to-head game.
+</p>
+<p>
+Sadly, it is not always the case. In real-life tournaments one can often encounter match results that are not compatible with each other.
+</p>
+<br></br>
+<p>
+Formally:
+</p>
+<ul>
+<li>We will use the character '=' to represent a draw, the character '&gt;' to represent a win (with the player on the left defeating the player on the right), and '&lt;' for a loss.</li>
+<li>If we assign integers a and b to players A and B, we say that their match result is compatible with these integers if those integers satisfy the corresponding relation.</li>
+<li>Given three players A, B, and C, we say that the results between A, B, and C are compatible if we can assign integers a, b, c to these players in such a way that for each pair of players their two integers are compatible with the outcome of their match.</li>
+<li>The <i>weirdness</i> of a tournament is the number of triples of distinct players that are <i>not</i> compatible.</li>
+</ul>
+<br></br>
+<p>
+We are interested in tournaments in which <b>N</b> players play each other exactly once.
+Such a tournament contains exactly T(<b>N</b>) = <b>N</b> * (<b>N</b>-1) * (<b>N</b>-2) / 6 unordered triples of distinct players.
+</p>
+<p>
+Determine whether such a tournament can have weirdness strictly greater than 0.81 * T(<b>N</b>).
+</p>
+<br></br>
+<p>
+If yes, construct a vector &lt;string&gt; with <b>N</b> elements, each containing <b>N</b> characters. In element A, character B should be the result of the match between players A and B (from the point of view of player A), or the character '=' if A equals B.
+</p>
+<p>
+If no, construct an empty vector &lt;string&gt;.
+</p>
+<br></br>
+<p>
+In either case, as we want to keep the output size small, <b>return compress(your answer)</b>, where compress is the routine given below.
+</p>
+<pre>
+
+/* Java */
+    String compress(String[] tournament) {
+        String answer=""; int cur = 0, c = 0, N = tournament.length;
+        for (int i=0; i&lt;N; ++i) for (int j=0; j&lt;i; ++j, ++c) {
+            cur = 3*cur + tournament[i].charAt(j) - 60;
+            if (c % 4 == 3) { answer += (char)(cur+33); cur = 0; }
+        }
+        if (c % 4 != 0) { while (c % 4 != 0) { cur = 3*cur; ++c; } answer += (char)(cur+33); }
+        return answer;
+    }
+
+/* C++ */
+    string compress(vector&lt;string&gt; tournament) {
+        string answer=""; char cur = 0; int c = 0, N = tournament.size();
+        for (int i=0; i&lt;N; ++i) for (int j=0; j&lt;i; ++j, ++c) {
+            cur = 3*cur + tournament[i][j] - 60;
+            if (c % 4 == 3) { answer += cur+33; cur = 0; }
+        }
+        if (c % 4) { while (c % 4) { cur = 3*cur; ++c; } answer += cur+33; }
+        return answer;
+    }
+
+/* High-level pseudocode */
+    - concatenate the rows of the lower triangular half of the tournament matrix
+    - interpret &lt;, =, &gt; as ternary digits 0, 1, 2
+    - append 0 until you have a number of characters divisible by four
+    - encode each group of four as a character from [33, 33+3^4).
+
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PoorComparisons</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string construct(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Note that the matrix that describes a valid tournament must be antisymmetric: the character at [a][b] must be the opposite of the character at [b][a].</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 300, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">There are no possible triples of players. The threshold value is 0.81 * T(2) = 0, and it is clearly impossible to have a tournament with weirdness greater than 0.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;N&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Before compression, the returned tournament looked as follows: {"==&lt;", "==&gt;", "&gt;&lt;="}.
+</p>
+<p>
+Here we have T(3) = 1, so the threshold we have to beat is weirdness &gt; 0.81. The returned tournament has a draw between players 0 and 1, player 1 defeating player 2, and player 2 defeating player 0. This is a tournament with weirdness 1.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;gR%i&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Before compression, the returned tournament looked as follows: {"=&lt;====", "&gt;=&lt;===", "=&gt;=&lt;&gt;&lt;", "==&gt;=&gt;&lt;", "==&lt;&lt;=&gt;", "==&gt;&gt;&lt;=" }
+</p>
+<p>
+The returned tournament has weirdness 17 = 0.85 * T(6).
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

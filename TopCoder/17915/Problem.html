@@ -1,0 +1,46 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+In this problem a <i>permutation</i> of order N is an array P[0..N-1] such that the elements of this array are mutually distinct values from 0 to N-1.
+</p>
+<p>
+There are exactly N! permutations of order N.
+</p>
+
+<br></br>
+
+<p>
+Given a constraint <b>K</b>, a permutation of order N is called <i>wild</i> if for at least one index x the difference between x and P[x] is strictly bigger than N-<b>K</b>.
+</p>
+<p>
+For example, for <b>K</b>=3:
+</p>
+<ul>
+<li>The permutation P = {3, 0, 1, 2} is wild because abs( 0 - P[0] ) = 3 &gt; N-3.</li>
+<li>The permutation P = {0, 5, 2, 3, 4, 1} is wild because abs( 1 - P[1] ) = 4 &gt; N-3, and also because abs( 5 - P[5] ) has the same value.</li>
+<li>The permutation P = {1, 0, 3, 2, 5, 4} is not wild because for each x we have abs( x - P[x] ) = 1, which isn't large enough.</li>
+</ul>
+
+<br></br>
+
+<p>
+You are given <b>K</b> and the vector &lt;int&gt; <b>queries</b>.
+For each value N in <b>queries</b> count all wild permutations of order N, modulo 10^9 + 7.
+Return a vector &lt;int&gt; with the answers to all queries, in the order in which they were given.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>WildPermutations</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; count(int K, vector &lt;int&gt; queries)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>K</b> will be between 1 and 2,500, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>queries</b> will have between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>queries</b> will be between 2*<b>K</b> and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {10 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We have <b>K</b>=2 and N=4. Hence, we are looking for permutations of order 4 in which at least one element x has the property abs( x - P[x] ) &gt; N-2 = 2.
+</p>
+<p>
+There are ten such permutations. Their full list follows.
+</p>
+<pre>
+
+(1, 2, 3, 0)
+(1, 3, 2, 0)
+(2, 1, 3, 0)
+(2, 3, 1, 0)
+(3, 0, 1, 2)
+(3, 0, 2, 1)
+(3, 1, 0, 2)
+(3, 1, 2, 0)
+(3, 2, 0, 1)
+(3, 2, 1, 0)
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{4, 4, 4, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {10, 10, 10, 42 }</pre></td></tr><tr><td><table><tr><td colspan="2">An example with multiple queries. We already know that each of the first three has the answer 10. The last one has 42 permutations.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{10}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1763280 }</pre></td></tr><tr><td><table><tr><td colspan="2">About half of all 10! permutations of order 10 are wild for <b>K</b> = 3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{8, 7, 6, 5, 4, 3, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">For <b>K</b>=1 the requirement for a wild permutation becomes "some x differs from P[x] by more than N-1". This is clearly impossible, as the difference between any index and any value is at most N-1. Thus, there are no wild permutations.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

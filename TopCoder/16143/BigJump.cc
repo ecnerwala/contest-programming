@@ -1,0 +1,61 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class BigJump {
+
+	vector<vector<pair<int, int>>> adj;
+	vector<int> ans;
+	void recurse(int cur) {
+		while (!adj[cur].empty()) {
+			auto e = adj[cur].back(); adj[cur].pop_back();
+			recurse(e.first);
+			ans.push_back(e.second);
+		}
+	}
+
+public:
+
+	vector <int> construct(int N) {
+		assert(N % 2 == 0);
+		adj = vector<vector<pair<int, int>>>(N/2);
+		for (int i = 0; i < N; i++) {
+			adj[i/2].emplace_back(i%(N/2), i);
+		}
+		ans = vector<int>(); ans.reserve(N);
+		recurse(0);
+		assert(int(ans.size()) == N);
+		reverse(ans.begin(), ans.end());
+		for (int& v : ans) {
+			v = (N-v) % N;
+		}
+		for (int i = 0; i+1 < N; i++) {
+			assert(2 * ans[i] % N == ans[i+1] || (2 * ans[i] + N-1) % N == ans[i+1]);
+		}
+		vector<bool> vis(N, false);
+		for (int i = 0; i < N; i++) {
+			assert(!vis[ans[i]]);
+			vis[ans[i]] = true;
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	BigJump bigJumper;
+	for (int N = 2; N <= 3000; N += 2) {
+		bigJumper.construct(N);
+	}
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::BigJump;
+
+// vim:ft=cpp

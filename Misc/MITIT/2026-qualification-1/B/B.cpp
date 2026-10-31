@@ -8,7 +8,7 @@ int main() {
 		int N; std::cin >> N;
 		std::vector<int> A(N); for (auto& a : A) std::cin >> a;
 		auto hi = *std::max_element(A.begin(), A.end());
-		auto lo = *std::max_element(A.begin(), A.end());
+		auto lo = *std::min_element(A.begin(), A.end());
 		int64_t ans = 0;
 		for (auto a : A) {
 			ans += std::max(hi - a, a - lo);

@@ -251,7 +251,7 @@ int main() {
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
 	std::mt19937 mt(48);
-	{
+	if (false) {
 		for (int z = 0; z < 5; z++) {
 			//int N = std::uniform_int_distribution<int>(2, 1e4)(mt);
 			int N = 1e4;

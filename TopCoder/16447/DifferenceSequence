@@ -1,0 +1,105 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class DifferenceSequence {
+
+public:
+
+	vector<long long> kthSmallestRepresentative(int n, long long k) {
+		using ll = long long;
+		if (k == 1) {
+			return vector<long long>(n, 0);
+		}
+		k -= 2;
+
+		int mod = (1 << n) | 1;
+		int num_pow = 0;
+		while (!(__builtin_popcount(mod) & 1)) {
+			num_pow++;
+			int old_mod = mod;
+			// divide by x+1
+			mod ^= mod >> 16;
+			mod ^= mod >> 8;
+			mod ^= mod >> 4;
+			mod ^= mod >> 2;
+			mod ^= mod >> 1;
+			assert((mod & 1) == 0);
+			mod >>= 1;
+			assert(old_mod == (mod ^ (mod << 1)));
+		}
+
+		assert(num_pow == (1 << __builtin_ctz(n)));
+
+		// there's nothing else
+		if (mod == 1) return {};
+
+		int num_bits = 31 - __builtin_clz(mod);
+
+		auto g_small = [&](int m) -> int {
+			m ^= m << 1;
+			return min(m, m ^ mod);
+		};
+
+		auto g_orig = [&](int m) -> int {
+			m ^= m << 1;
+			return min(m, m ^ (1 << n) ^ 1);
+		};
+
+		/*
+		int ord = 1;
+		for (int cur = g(1); cur != 1; cur = g(cur)) ord++;
+		cerr << "mod = " << bitset<30>(mod) << '\n';
+		cerr << "ord = " << ord << '\n';
+		{
+			int cur = 1;
+			for (int z = 0; z < ord; z++) {
+				cur = g(cur);
+			}
+			assert(cur == 1);
+		}
+
+		(1 << num_bits) / ord;
+		*/
+
+		vector<int> opts;
+		for (int m = 1; m < (1 << num_bits); m++) {
+			int st = m;
+			for (int z = 0; z < num_pow; z++) st ^= st << 1;
+			for (int cur = g_orig(st); cur != st; cur = g_orig(cur)) {
+				if (cur > st) goto bad;
+			}
+			opts.push_back(st);
+bad: continue;
+		}
+		//cerr << opts.size() << '\n';
+		sort(opts.begin(), opts.end());
+		int m = opts[k % int(opts.size())];
+		long long fac = (k / int(opts.size())) + 1;
+		vector<long long> res(n);
+		for (int i = 0; i < n; i++) {
+			res[i] = bool(m & (1 << i)) * fac;
+		}
+		reverse(res.begin(), res.end());
+		return res;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	for (int n = 2; n <= 26; n++) {
+		cerr << "n = " << n << '\n';
+		DifferenceSequence().kthSmallestRepresentative(n, 2);
+	}
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::DifferenceSequence;
+
+// vim:ft=cpp

@@ -1,0 +1,12 @@
+"S<S>>>S"
+"XXXXXXXXXX"
+4
+3
+"SSSS"
+"XXXXOOOXXX"
+0
+3
+">>>>S"
+"XXXXOOOXXX"
+0
+2

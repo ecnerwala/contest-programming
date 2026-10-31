@@ -1,0 +1,39 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+PBG is a shooter game for bears.
+The next round of this game will involve <b>P</b> polar bears (including Limak), <b>B</b> brown bears and <b>G</b> grizzly bears.
+We will use N to denote the total number of bears, that is, N = <b>P</b> + <b>B</b> + <b>G</b>.
+</p>
+<p>
+The PBG game is played in rounds.
+In each round, a pair of bears is chosen uniformly at random.
+The two chosen bears fight each other.
+The loser of the fight is eliminated from the game, the winner remains.
+</p>
+<p>
+The three bear species can be ordered by strength. Grizzly bears are the strongest, polar bears are in the middle, and brown bears are the weakest.
+A bear from a stronger species will always beat a bear of a weaker species in a fight.
+Whenever two bears of the same species fight, each of them has a 50 percent chance to win the fight.
+</p>
+<p>
+The game ends when there is only one bear left.
+After the game, each bear is assigned a place: the winner's place is 1 and the other bears are on places 2 to N in reversed elimination order.
+(That is, the bear that lost the very last fight is in place 2, and the bear that got eliminated first is in place N.)
+</p>
+<p>
+Limak is one of the polar bears in the game.
+Find the expected value of his place in the game.
+Express this value as a reduced fraction X/Y.
+Return the value X*Y^(-1)  modulo 1000000007.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PBG</td></tr><tr><td>Method:</td><td>findEV</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int findEV(int P, int B, int G)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Given the constraints used in this problem, if Limak's expected place is a reduced fraction is X/Y, the number Y will never be divisible by (10^9 + 7) = 1,000,000,007.</td></tr><tr><td align="center" valign="top">-</td><td>The notation Y^(-1) represents the inverse element to Y modulo 10^9 + 7. The previous note implies that this value always exists.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will be between 1 and 2000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>B</b> will be between 0 and 2000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>G</b> will be between 0 and 2000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">There are five polar bears and each of them is equally likely to take any place from 1 to 5.
+The expected value of Limak's place is (1+2+3+4+5)/5 = 3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 333333338</pre></td></tr><tr><td><table><tr><td colspan="2"><p>There is one bear of each species.
+There are three possibilities:</p>
+
+<ul>
+<li>In the first round Limak (a polar bear) meets a brown bear. Since polar bears are a stronger species, Limak wins. In the second round he will then lose to the grizzly bear. Limak's place: 2.</li>
+<li>In the first round Limak meets the grizzly bear and loses. Limak's place: 3.</li>
+<li>In the first round the other two bears fight. The grizzly wins. In the second round the grizzly defeats Limak as well. Limak's place: 2.</li>
+</ul>
+
+<p>Each of the three scenarios is equally likely, so the answer is (2 + 3 + 2) / 3 = 7 / 3.</p>
+<p>The correct return value is therefore (7 * 3^(-1)) mod (10^9 + 7) = (7 * 333,333,336) mod (10^9 + 7) = 333,333,338.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">There is one polar bear (Limak) and three brown bears.
+Limak is the strongest of the four bears, so he will always get first place.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 672193888</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 333333339</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2000</pre></td></tr><tr><td><pre>2000</pre></td></tr><tr><td><pre>2000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 246923693</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

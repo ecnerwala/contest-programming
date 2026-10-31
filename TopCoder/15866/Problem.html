@@ -1,0 +1,43 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+"All I want for Christmas is for everyone to be forced to listen to 'All I Want For Christmas' and all other Christmas songs for the whole December!" exclaimed Santa.
+</p>
+<p>
+You are the elf in charge of broadcasting Christmas songs to all the households in one specific village.
+The village contains N households, and we'll number them 0 to N-1.
+</p>
+<p>
+You have the whole Elf Broadcasting Network at your disposal.
+The network consists of <b>T</b> directional broadcast towers, numbered 0 to <b>T</b>-1.
+Each tower can be used arbitrarily many times.
+When used, the tower will broadcast the whole Mariah Carey Christmas album to any one household.
+The cost of doing so depends both on the household and on the tower used, in a very specific way:
+broadcasting from tower x to household y costs ((<b>A</b>[y] * x + <b>B</b>[y]) modulo 1,000,000,007) elf dollars.
+Note that all the values in <b>A</b> are small (see Constraints).
+</p>
+<p>
+Once a household has been "infected" by Christmas music, they are under your control and you can use them to spread the "love" to their neighbors.
+Each household that has already heard the album can call any other household and play them the album.
+The costs of doing so are given in the vector &lt;string&gt; <b>directCost</b>.
+More precisely, the cost of having household i call household j is the ASCII value of the character <b>directCost</b>[i][j].
+These costs are symmetric: i calling j costs the same as j calling i.
+</p>
+<p>
+Return the minimum total cost of spreading the Christmas joy to everyone in the village.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ChristmasSongBroadcast</td></tr><tr><td>Method:</td><td>minimizeCost</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minimizeCost(int T, vector &lt;int&gt; A, vector &lt;int&gt; B, vector &lt;string&gt; directCost)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>It can be shown that the optimal answer will always fit into a signed 32-bit integer.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>T</b> will be between 1 and 10^9 + 7, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>A</b>, <b>B</b> and <b>directCost</b> will have N elements each.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>A</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>B</b> will be between 0 and 10^9 + 6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>directCost</b> will have N characters.</td></tr><tr><td align="center" valign="top">-</td><td>For each i, <b>directCost</b>[i][i] will be '-' (and should be ignored).</td></tr><tr><td align="center" valign="top">-</td><td>For each distinct i and j, <b>directCost</b>[i][j] will be one of [0-9A-Za-z] (i.e., a digit, an uppercase letter, or a lowercase letter).</td></tr><tr><td align="center" valign="top">-</td><td>For each distinct i and j, <b>directCost</b>[i][j] will be equal to <b>directCost</b>[j][i].</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000000007</pre></td></tr><tr><td><pre>{1, 10, 100}</pre></td></tr><tr><td><pre>{7, 7, 7}</pre></td></tr><tr><td><pre>{&quot;-AA&quot;,
+ &quot;A-A&quot;,
+ &quot;AA-&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+There are three households in this village. The direct broadcast from any house to any other house costs 65 elf dollars (65 is the ASCII value of 'A'). However, we will not use this option because for each household there is a broadcasting tower that can broadcast the song to the house for free.
+</p>
+<p>
+The optimal solution is to broadcast from tower 1,000,000,000 to house 0, from tower 100,000,000 to house 1, and from tower 10,000,000 to house 2.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{1, 1, 1}</pre></td></tr><tr><td><pre>{1600, 1500, 1700}</pre></td></tr><tr><td><pre>{&quot;-01&quot;,
+ &quot;0-A&quot;,
+ &quot;1A-&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1597</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+There is only a single tower. Broadcasting from the tower to household 0 costs 1600, doing so to household 1 costs 1500, and for household 2 we would pay 1700 elf dollars.
+</p>
+<p>
+The optimal solution is to use the tower to send Christmas music to household 1, then have household 1 call household 0 (cost 48) and then have the now-infected household 0 call household 2 (cost 49).
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{100, 100, 100, 100}</pre></td></tr><tr><td><pre>{0, 35, 999999910, 123456789}</pre></td></tr><tr><td><pre>{&quot;-01z&quot;,
+ &quot;0-Az&quot;,
+ &quot;1A-z&quot;,
+ &quot;zzz-&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 160</pre></td></tr><tr><td><table><tr><td colspan="2">This time, one cheapest solution is to broadcast from tower 0 to household 0 (cost 0), then from tower 0 to household 1 (cost 35), then from tower 1 to household 2 (cost 3), and finally from any of those households to household 3 (cost 122, which is the ASCII value of 'z').</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{47}</pre></td></tr><tr><td><pre>{1000000006}</pre></td></tr><tr><td><pre>{&quot;-&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1000000006</pre></td></tr><tr><td><table><tr><td colspan="2">Sometimes broadcasting can be pretty expensive.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,46 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class Hamiltons {
+
+public:
+
+	vector <int> construct(int N, int L) {
+		vector<vector<int>> adj(N, vector<int>(N, L));
+		for (int i = 0; i < N; i++) {
+			adj[i][(i+1)%N] = adj[(i+1)%N][i] = 1;
+		}
+		adj[4][5] = adj[5][4] = L;
+		// alternate better cycle
+		// (L+1) / 3
+		adj[0][2] = adj[2][0] = (L+2 + 0) / 4;
+		adj[2][4] = adj[4][2] = (L+2 + 1) / 4;
+		adj[3][1] = adj[1][3] = (L+2 + 2) / 4;
+		adj[1][5] = adj[5][1] = (L+2 + 3) / 4;
+
+		vector<int> res; res.reserve(N*N);
+		for (int i = 0; i < N; i++) {
+			for (int j = i+1; j < N; j++) {
+				assert(adj[i][j] == adj[j][i]);
+				res.push_back(adj[i][j]);
+			}
+		}
+		return res;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::Hamiltons;
+
+// vim:ft=cpp

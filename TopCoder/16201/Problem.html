@@ -1,0 +1,81 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There are K football posts (e. g. goalkeeper, defender, left-wing forward).
+Aqa Asadi has N students to train.
+All students are arranged in a line. 
+At any moment, each student is trained to exactly one of the K posts.
+The posts are numbered from 0 to K-1 and the students are numbered from 0 to N-1 in the order in which they initially stand in the line.
+</p>
+<p>
+The training is performed as a sequence of steps.
+In each step Aqa Asadi performs one of the following operations:
+</p>
+<ul>
+<li>
+Call a manager of a team and have them hire one of the students. The student leaves the line and goes away with the manager. <br></br> Aqa Asadi receives a commission from the manager for this action. The commission depends on the post for which the player is trained: if the post is x, Aqa Asadi gains <b>C</b>[x] dollars.
+</li>
+<li>
+Select one student in the line and convert them from a player to a coach. Then, select one of the students <i>adjacent to the new coach</i> and have the coach train that player. Once that is done, the coach will leave the line and go home. The other student will remain in the line but they will now be trained to a possibly different post. The new post of this student is t[x][y], where x is the post of the coach and y is the old post of this student.
+</li>
+</ul>
+
+
+<p>
+Notes:
+</p>
+<ul>
+<li>
+Some positions may currently be so undesirable that the commission for them is negative. E.g., if C[7] = -3 and Aqa Asadi has a student trained to post 7, if he wants a manager to hire that student, he has to pay the manager 3 dollars.
+</li>
+<li>
+During the training process Aqa Asadi's bilance may be negative. E.g., the example action described in the previous line can be the very first action of the training process, and after this action Aqa's bilance will be -3 dollars.
+</li>
+<li>
+In the end there can be some students left unhired by any manager, and for those you will get no money at all, but you also don't have to pay the manager to hire them.
+However, you cannot just send a student away from the line during the training process without having them hired.
+</li>
+<li>
+Due to Aqa Asadi's unique training process, the new post t[x][y] may be different from both x and y.
+</li>
+<li>
+The training process is not necessarily symmetric: in general, t[x][y] may be different from t[y][x].
+</li>
+<li>
+Please remember that at each moment each student is only trained to one post. When they are coached, they learn the new post but forget the old one.
+</li>
+<li>
+Whenever a student leaves the line for any reason, his neighbors now become adjacent in the new line.
+</li>
+</ul>
+
+
+<p>
+The input you are given are the vector &lt;int&gt;s <b>C</b>, <b>A</b>, and <b>T</b>, with the following meanings:
+</p>
+<ul>
+<li>
+The array <b>C</b> has K elements. <b>C</b>[x] is the commission Aqa Asadi receives from a manager each time they sign a player with post x.
+</li>
+<li>
+The array <b>A</b> has N elements. <b>A</b>[y] is the original post to which student y is trained.
+</li>
+<li>
+The array <b>T</b> has K*K elements. The value t[i][j] is equal to <b>T</b>[i * K + j].
+</li>
+</ul>
+<p>
+Aqa Asadi would like to make as much money as possible on the commissions. Calculate and return his largest possible total profit.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>AqaAsadiTrains</td></tr><tr><td>Method:</td><td>getMax</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int getMax(vector &lt;int&gt; C, vector &lt;int&gt; A, vector &lt;int&gt; T)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>K and N will each be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will have K elements. </td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>C</b> will be between -1000000 and 1000000 (-10^6 to 10^6), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> will have N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>A</b> will be between 0 and K-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>T</b> will have K*K elements.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>T</b> will be between 0 and K-1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3, 0, -5}</pre></td></tr><tr><td><pre>{0, 0}</pre></td></tr><tr><td><pre>{2, 0, 0, 2, 1, 1, 1, 2, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">There are three posts. For each student trained to post 0 Aqa Asadi can get a commission of 3 dollars. As he already has two such students, the best solution is to have a manager sign both of them to get 3 + 3 dollars.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{40, -10, -30, 10, 50}</pre></td></tr><tr><td><pre>{3, 2}</pre></td></tr><tr><td><pre>{0, 1, 2, 2, 4, 4, 3, 2, 3, 1, 3, 0, 0, 2, 3, 2, 0, 3, 1, 3, 4, 2, 4, 4, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Aqa Asadi has two students. If he has a manager sign both of them, he will get the provisions <b>C</b>[3] + <b>C</b>[2] = 10 + (-30) = (-20). That's worse than doing nothing.
+</p>
+<p>
+A better solution would be to have a manager sign student 0 and then to just send student 1 away. The commission for doing this is <b>C</b>[3] = 10.
+</p>
+<p>
+Coaching does not help us here, either.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{40, -10, -30, 10, 50}</pre></td></tr><tr><td><pre>{3, 2}</pre></td></tr><tr><td><pre>{0, 1, 2, 2, 4, 4, 3, 2, 3, 1, 3, 0, 0, 0, 3, 2, 0, 4, 1, 3, 4, 2, 4, 4, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 50</pre></td></tr><tr><td><table><tr><td colspan="2">The provisions and players are the same as in Example #1 but coaching now works in a different way. If we convert student 1 to a coach and have them re-train student 0, we will get a single student who will now be trained to the post t[2][3] = 0 and we can get the commission <b>C</b>[0] = 40 for signing him up with a team. An even better solution is to convert student 0 to a coach and have them re-train student 1 to the new post t[3][2] = 4. We will then get the commission <b>C</b>[4] = 50.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, -47}</pre></td></tr><tr><td><pre>{1, 0, 1}</pre></td></tr><tr><td><pre>{1, 1, 1, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 20</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+There are two player types: type 0 is a good player (worth 10) and type 1 is a bad player (worth -47).
+</p>
+<p>
+The optimal solution for Aqa Asadi is to first sell the middle player, which leaves two bad players who are now adjacent.
+Now he can have one of them train the other one, producing a second good player.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, -47}</pre></td></tr><tr><td><pre>{1, 1, 1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>{1, 1, 1, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 30</pre></td></tr><tr><td><table><tr><td colspan="2">The optimal solution is to create three pairs of students. In each pair one of the students will coach the other one. In this way we can produce three good players. One bad player will be left over.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-30, 10, -10, -40, -30}</pre></td></tr><tr><td><pre>{1, 1, 3, 1, 3}</pre></td></tr><tr><td><pre>{4, 4, 1, 2, 1, 2, 1, 0, 3, 0, 2, 0, 0, 0, 4, 1, 3, 3, 2, 0, 0, 0, 2, 0, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 30</pre></td></tr><tr><td><table><tr><td colspan="2">The optimal solution is to have a manager hire students 0, 1, 3, and to leave the other two students unhired.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

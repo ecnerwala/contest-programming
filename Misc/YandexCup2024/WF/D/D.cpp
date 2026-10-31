@@ -350,7 +350,7 @@ int main() {
 	MCMF_Dinic<int64_t, int64_t> flower(2*C + 2);
 	int SOURCE = 2 * C;
 	int SINK = 2 * C + 1;
-	const int INF_FLOW = 1e9;
+	const int INF_FLOW = 1e6;
 	for (auto [u, v] : edges) {
 		u = scc_id[u];
 		v = scc_id[v];

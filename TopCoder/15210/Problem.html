@@ -1,0 +1,40 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+	You are given a matrix <b>M</b> consisting of zeros and ones. You are allowed to perform operations of the following type:
+</p>
+<ol>
+	<li>Choose a position (i, j) in the matrix.</li>
+	<li>Flip all the values but <b>M</b>(i, j) in the i-th row of <b>M</b>. By flipping, '0' becomes '1' and '1' becomes '0'. Note that <b>M</b>(i, j) does not get changed.</li>
+	<li>Flip all the values but <b>M</b>(i, j) in the j-th column of <b>M</b>. Note that <b>M</b>(i, j) does not get changed.</li>
+</ol>
+<p>
+	Output "possible" if it is possible to transform <b>M</b> to an all ones matrix by applying any number of these operations. Otherwise, output "impossible".
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>UniformingMatrix</td></tr><tr><td>Method:</td><td>isPossible</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string isPossible(vector &lt;string&gt; M)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Note that the return value is case-sensitive.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will contain between 1 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each elements of <b>M</b> will contain between 1 and 100 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All the elements of <b>M</b> will contain the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of each element of <b>M</b> will be '0' or '1'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;1101&quot;,
+ &quot;0010&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">One possibility here is to apply the operation on M(1, 2).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;11111&quot;,
+ &quot;11111&quot;,
+ &quot;11111&quot;,
+ &quot;11111&quot;,
+ &quot;11111&quot;,
+ &quot;11111&quot;,
+ &quot;11111&quot;,
+ &quot;11111&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The input matrix is already in the required format, so there is no need to apply any operation in this case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;110&quot;,
+ &quot;001&quot;,
+ &quot;110&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+It is possible to obtain the all ones matrix from the input by applying the operations on M(2, 1), M(2, 2) and M(1, 1).
+</p>
+<p>
+For instance, applying the operation on M(2, 1) leads to matrix
+</p>
+<pre>
+100
+011
+011
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;01010&quot;,
+ &quot;10101&quot;,
+ &quot;01010&quot;,
+ &quot;01010&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;0110011&quot;,
+ &quot;1011000&quot;,
+ &quot;0101000&quot;,
+ &quot;0010001&quot;,
+ &quot;1010011&quot;,
+ &quot;1011011&quot;,
+ &quot;0111100&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

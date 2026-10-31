@@ -1,0 +1,82 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class FilmSort {
+
+public:
+
+	vector <int> sort(vector <int> reels) {
+		int N = int(reels.size());
+		auto findReel = [&](int a) {
+			for (int j = 0; j < N; j++) {
+				if (abs(reels[j]) == a) {
+					return j;
+				}
+			}
+			assert(false);
+		};
+
+		vector<int> ops;
+		auto doOp = [&](int from, int to) {
+			assert(reels[to] == 0);
+			assert(from != to);
+			reels[to] = -reels[from];
+			reels[from] = 0;
+			ops.push_back(from);
+		};
+
+		for (int i = N-1; i > 0; ) {
+			if (abs(reels[i]) == i) {
+				i--;
+			} else if (abs(reels[i]) == 0) {
+				// find the correct one and bring it here
+				doOp(findReel(i), i);
+			} else {
+				doOp(i, findReel(0));
+				assert(abs(reels[i]) == 0);
+			}
+		}
+
+		//for (int i = 0; i < N; i++) { cerr << reels[i] << ' '; } cerr << '\n';
+
+		vector<int> negatives;
+		for (int i = 1; i < N; i++) {
+			if (reels[i] < 0) {
+				negatives.push_back(i);
+			}
+		}
+		if (negatives.size() % 2 == 1) {
+			return {-1};
+		}
+
+		for (int z = 0; z < int(negatives.size()); z += 2) {
+			int i = negatives[z];
+			int j = negatives[z+1];
+			doOp(i, 0);
+			doOp(j, i);
+			doOp(0, j);
+			doOp(i, 0);
+			doOp(j, i);
+			doOp(0, j);
+		}
+
+		//for (int i = 0; i < N; i++) { cerr << reels[i] << ' '; } cerr << '\n';
+		return ops;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::FilmSort;
+
+// vim:ft=cpp

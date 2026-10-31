@@ -1,0 +1,45 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>This problem has a non-standard time limit: 5 seconds.</i></p>
+<p>
+You are given an undirected tree on <b>N</b> nodes numbered from 0 to <b>N</b>-1. Each node x has some value V[x]. These values are then used to compute the <i>cost</i> of each node. Your task is to find the sum of costs of all nodes in the tree.
+</p>
+<p>
+The cost of a node x is defined as follows:
+</p>
+<p>
+Let's say the set of nodes at distance 2 from node x is set S. The cost of this node is the minimum value of abs(V[a]-V[b]) where a and b belong to S and a != b. If size of set S is less than 2, then the cost of node x is 0.
+
+</p>
+
+<p>
+You are given the int <b>N</b>, the int[]s <b>edge</b> and int[]s <b>val</b>, and the ints <b>D</b>, <b>seed</b>. Use the pseudocode below to generate the edges of the tree and the values of all its nodes.
+</p>
+<pre>
+A[0] = seed
+for i = 1 to 2*N-1:
+    A[i] = (A[i-1] * 1103515245 + 12345) modulo 2147483648
+
+V = val
+for i = size(val) to N-1:
+    V[i] = A[i]
+
+E = edge
+for i = size(edge) to N-1:
+    E[i] = A[N+i] modulo min(i,D)
+
+for i = 1 to N-1:
+    the tree contains an edge between i and E[i]
+
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TwoDistance</td></tr><tr><td>Method:</td><td>findMinValue</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long findMinValue(int N, vector &lt;int&gt; edge, vector &lt;int&gt; val, int D, int seed)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>5.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The distance between two nodes is the number of edges in the shortest path between the two nodes.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 3 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The number of elements in edge will between 1 and min(<b>N</b>, 100), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>edge</b>[0] will be equal to -1.</td></tr><tr><td align="center" valign="top">-</td><td>For i > 0, <b>edge</b>[i] will be between 0 and i-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The number of elements in <b>val</b> will between 0 and min(<b>N</b>, 100), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>val</b> will be between 0 and 2,147,483,647, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>D</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>seed will be between 0 and 2,147,483,647, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{-1, 0, 1}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Here, we can see that no node will have greater than 1 nodes at a distance of 2. Hence answer is 0.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{-1}</pre></td></tr><tr><td><pre>{1, 2, 3, 4, 5}</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">Here we will obtain E array as {-1, 0, 1, 2, 2} and hence the edges as 0-1, 1-2, 2-3, 2-4.
+<p>
+For node 0, only node 2 is at a distance of 2, hence cost for node 0 is 0.
+</p>
+<p>
+For node 1, it has nodes 3 and 4 at a distance of 2, hence cost for node 1 is abs(V[3]-V[4]) = 1
+</p>
+<p>
+For node 2, again cost is 0.
+</p>
+<p>
+For node 3, nodes 1 and 4 are at a distance 2, hence cost is abs(V[1]-V[4]) = 3. Similarly for node 4, cost is 2. 
+</p>
+Hence answer is 1 + 2 + 3 = 6.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>{-1}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>670614018</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3498908364</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>200000</pre></td></tr><tr><td><pre>{-1}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>84</pre></td></tr><tr><td><pre>589477399</pre></td></tr></table></td></tr><tr><td><pre>Returns: 88111951</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

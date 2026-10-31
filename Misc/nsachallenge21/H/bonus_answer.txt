@@ -1,0 +1,6 @@
+Congrats! You were able to take advantage of the developers poor programming skills and reverse their key_hash routine. Now you can take your code and decrypt not only the contractors' files, but all the files of victims in the global attack. You have quite literaly saved the world.
+
+Send an email to cd709902@gmail.com with the subject "I saved the world!" including the following in the body of the email:
+
+Team Name: <insert your team or individual name>
+Token: 55ac8cec68ac9d64d2b2505e0fdb532f

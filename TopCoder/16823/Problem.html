@@ -1,0 +1,42 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+We have N jobs to complete.
+The jobs are numbered from 0 to N-1.
+Job i requires <b>L</b>[i] seconds of work.
+At any moment we can only work on one of the jobs.
+</p>
+<p>
+As is usually the case, each job should be completed as soon as possible: the longer it takes, the worse the penalty will be.
+If job i is completed after t seconds, the penalty is calculated as follows:
+</p>
+<p>
+penalty(i, t) = <b>P</b>[4i+0] * t<sup>0</sup> + <b>P</b>[4i+1] * t<sup>1</sup> + <b>P</b>[4i+2] * t<sup>2</sup> + <b>P</b>[4i+3] * t<sup>3</sup>
+</p>
+<p>
+All coefficients in <b>P</b> are nonnegative, and therefore the penalty is nondecreasing in time.
+</p>
+<p>
+The penalty of the whole schedule is the <i>maximum</i> (not the sum!) over all jobs. 
+Your goal is to minimize this penalty.
+</p>
+<br></br>
+<p>
+Clearly it doesn't pay off to jump back and forth between jobs: there is always an optimal schedule in which whenever you start working on a problem, you work on it until you complete it.
+Such a schedule can then be described by a list of job numbers in the order in which you should perform them.
+Find any such optimal schedule and return a vector &lt;int&gt; with the corresponding job order.
+Any optimal solution will be accepted.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MaximumPenalty</td></tr><tr><td>Method:</td><td>schedule</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; schedule(vector &lt;int&gt; L, vector &lt;int&gt; P)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>For the constraints specified below the largest possible penalty fits into a signed 64-bit integer.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>L</b> will contain N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>L</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will contain 4*N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>P</b> will be between 0 and 8000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7, 4, 1}</pre></td></tr><tr><td><pre>{0, 0, 0, 1,
+ 0, 0, 2, 0,
+ 0, 3, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 2, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">We have a long job with penalty function t^3, a medium job with penalty function 2t^2, and a short job with penalty 3t.
+If we do them in the order {0, 2, 1}, we will finish job 0 at 7 seconds, job 2 at 8 seconds, and then job 1 at 12 seconds.
+The individual penalties will be 7^3 = 343, 2*8^2 = 128, and 3*12 = 36.
+Thus, the overall penalty will be 343.
+This is optimal. There is one other optimal solution that would also be accepted.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7, 4, 2, 5}</pre></td></tr><tr><td><pre>{47, 0, 0, 0,
+ 47, 0, 0, 0,
+ 47, 0, 0, 0,
+ 47, 0, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 2, 1, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">All jobs have the same constant penalty. The order in which we do them does not matter.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7, 4, 2, 5}</pre></td></tr><tr><td><pre>{0, 47, 0, 0,
+ 0, 47, 0, 0,
+ 0, 47, 0, 0,
+ 0, 47, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 2, 1, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">All jobs have the same linear time penalty. Regardless of the order in which we perform them the penalty for the last job finished will always be 47*18, so again the order does not matter.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7, 4, 2, 5}</pre></td></tr><tr><td><pre>{0, 7, 8,  15,
+ 1, 6, 9,  14,
+ 2, 5, 10, 13,
+ 3, 4, 11, 12}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 2, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2">Any order in which job 3 is performed last is optimal.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

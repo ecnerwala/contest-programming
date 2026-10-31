@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>You are preparing to explore a newly discovered tomb. Fortunately, due to some modern technology, you have a map of what the tomb looks like. Some areas are clear, and others are filled with debris. You are given this vector &lt;string&gt; <b>map</b>. An 'X' indicates debris, while a '.' indicates a clear area.</p>
+
+<p>The tomb is divided into as many as six chambers. A chamber consists of clear areas adjacent to each other vertically or horizontally. Once inside the tomb, you can move around vertically and horizontally. It takes no effort to move through clear areas as many timnes as you like, but moving through any debris filled area takes effort each time you travel through it.</p>
+
+<p>You plan to dig a single entrance and a single exit to the tomb, at locations of your choosing. (In other words, you may start and end your exploration of the tomb in any area you like. The entrance and the exit may be at the same location.)</p>
+
+<p>Assuming you make an optimal selection, what is the fewest times you must travel through debris-filled areas in order to visit every clear area of the tomb at least once?</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TombExplorer</td></tr><tr><td>Method:</td><td>minimumDigging</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minimumDigging(vector &lt;string&gt; map)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>map</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>map</b> will contain the same number of characters, between 1 and 50 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each characer of each element of <b>map</b> will be '.' or 'X'.</td></tr><tr><td align="center" valign="top">-</td><td>The empty areas will form between 1 and 6 chambers, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;XXX&quot;,
+ &quot;X.X&quot;,
+ &quot;XXX&quot;}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;XXXXX&quot;,
+ &quot;X.X.X&quot;,
+ &quot;XXXXX&quot;}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...XX...&quot;,
+ &quot;...XXXX.&quot;,
+ &quot;XXXXXXX.&quot;,
+ &quot;XXXXXXX.&quot;,
+ &quot;XXXXXXX.&quot;,
+ &quot;XXXXXXX.&quot;,
+ &quot;XX.XXXX.&quot;,
+ &quot;XXXXXXX.&quot;,
+ &quot;.X.X.X..&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2">The chambers look as follows:
+<pre>
+111XX222
+111XXXX2
+XXXXXXX2
+XXXXXXX2
+XXXXXXX2
+XXXXXXX2
+XX3XXXX2
+XXXXXXX2
+4X5X6X22
+</pre>
+<p>
+One optimal solution is to enter the tomb anywhere in chamber 1, then go to chamber 2 (through 2 debris cells), from there to chamber 6, 5, 4, back to 5, and finally to chamber 3 from where we exit the tomb. The total number of traversed debris cells is 7. (Note that the debris cell between chambers 4 and 5 is entered and also counted twice.)
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

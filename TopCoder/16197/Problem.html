@@ -1,0 +1,29 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Aqa Asadi is a kind teacher who puts a lot of effort into helping students grow and make friends.
+</p>
+<p>
+<b>N</b> students stand in a line.
+They are numbered 0 through <b>N</b>-1, in order.
+Student i is A[i] seconds old.
+</p>
+<p>
+Aqa Asadi came up with a formula that measures how difficult it is for two students to become friends: for students i and j, the difficulty is |A[j] - A[i]| / |j - i|.
+In the formula, |x| denotes the absolute value of x.
+</p>
+<p>
+Find the pair of students with the smallest difficulty to form a friendship, and return that difficulty.
+</p>
+<p>
+Use the following pseudocode for generating the array A[0..<b>N</b>-1]:
+</p>
+<pre>
+for i = 0 to N-1:
+    if i &lt; length(P):
+        A[i] = P[i]
+    if i == length(P):
+        A[i] = B0
+    if i &gt; length(P):
+        A[i] = (A[i-1] * X + Y) modulo 1000000007
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>AqaAsadiMinimizes</td></tr><tr><td>Method:</td><td>getMin</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, int, int, int, int</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double getMin(vector &lt;int&gt; P, int B0, int X, int Y, int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The returned value will be accepted if its relative or absolute error does not exceed 1e-9.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will have between 0 and <b>N</b> elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will have at most 100 elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>B0</b>, <b>X</b>, <b>Y</b>, and all elements of <b>P</b> will be between 0 and 1,000,000,006, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{11, 0, 30, 20, 1000}</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.0</pre></td></tr><tr><td><table><tr><td colspan="2">The best pair are the students i=0 and j=3, their difficulty of forming a friendship is |20 - 11| / |3 - 0| = 9/3 = 3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{47, 1, 10, 3, 2}</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.3333333333333333</pre></td></tr><tr><td><table><tr><td colspan="2">Students i=1 and j=4 are the best choice here.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{123456}</pre></td></tr><tr><td><pre>234567890</pre></td></tr><tr><td><pre>345678</pre></td></tr><tr><td><pre>456789</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8333191.571428572</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+A = {123456, 234567890, 958968621, 353106369, 103025544, 664206330, 514591322, 898217931, 176235549, 752137571}
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

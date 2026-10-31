@@ -1,0 +1,48 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+long long gcd(long long a, long long b) { return __gcd(a, b); }
+long long lcm(long long a, long long b) { return a / gcd(a, b) * b; }
+
+class DevuAndEqualizingLCM {
+
+	bool is_bigger(long long v, const std::vector<long long>& A) {
+		long long r = 1;
+		for (long long o : A) {
+			r = lcm(r, gcd(o, v));
+		}
+		return r < v;
+	}
+
+public:
+
+	int minimumOperationsNeeded(vector<long long> A, vector<long long> B) {
+		int ans = 0;
+		for (long long b : B) {
+			if (is_bigger(b, A)) ans++;
+		}
+		if (ans == 0) {
+			// check if the LCM's are identical
+			for (long long a : A) {
+				if (is_bigger(a, B)) ans = 1;
+			}
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::DevuAndEqualizingLCM;
+
+// vim:ft=cpp

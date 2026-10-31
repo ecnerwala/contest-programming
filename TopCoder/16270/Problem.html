@@ -1,0 +1,29 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+One of the challenges after marriage is to select which friends to invite to your house.
+</p>
+<p>
+When inviting friends, their political party is important. 
+There are 12 political parties in Iran.
+We will label them 'a', 'b', ..., 'l'.
+</p>
+<p>
+You are given a string <b>S</b> that represents a sequence in which your friends are going to congratulate you.
+For each friend the string contains a single character: their political party.
+You must decide which of the friends you will invite to your house - in other words, you must select some subsequence of your friends.
+</p>
+<p>
+The friends you invite will sit at a table in the order in which they were in the original sequence.
+When choosing whom to invite, we want to make sure that there are no three friends i &lt; j &lt; k that were all invited such that <b>S</b>[i] = <b>S</b>[k] and <b>S</b>[i] != <b>S</b>[j].
+</p>
+<p>
+We want to maximize the number of friends invited to our house.
+If there are multiple optimal solutions, for each of them we will write down the parties of the invited friends as a string, and we will pick an optimal solution for which that string is the lexicographically smallest.
+Find and return that string.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MarriageAndSelectionChallenge</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string solve(string S)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will contain between 1 and 3,000 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>S</b> will be one of the first 12 English letters ('a'-'l').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;kick&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;ick&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We cannot invite all four friends, because <b>S</b>[0] = <b>S</b>[3] and <b>S</b>[0] != <b>S</b>[1].
+</p>
+<p>
+There are two ways in which we can invite three friends: either we invite friends 0,1,2 or friends 1,2,3.
+In the first case we get the string "kic", in the second case the string "ick".
+As "kic" &gt; "ick", our answer is "ick".
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;cccaaccc&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;cccccc&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The optimal solution is to invite everyone from party 'c'.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;ccaaccc&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;aaccc&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Now the optimal solution is to invite friends 2-6. Inviting everyone from party 'c' gives the same total number of friends but a lexicographically larger string.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,65 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit: 3 seconds.</i></p><br></br>
+
+<p>
+Your company produces a sliding puzzle.
+The frame of the puzzle is a solid boundary of a <b>R</b> times <b>C</b> rectangle.
+Inside the rectangle is a grid of unit square cells. 
+Some cells are blocked, others contain movable tiles, the rest is empty.
+</p>
+<p>
+There are exactly <b>N</b> movable tiles, and they are labeled using the first <b>N</b> digits, starting from 0.
+</p>
+<p>
+The initial state of the puzzle is given in the vector &lt;string&gt; <b>board</b>.
+</p>
+
+<br></br>
+
+<p>
+An example initial state of a puzzle with <b>R</b>=2 rows and <b>C</b>=3 columns is shown below.
+Blocked cells are denoted 'X', tiles have numbers, empty cells are periods ('.').
+</p>
+<pre>
+
++---+---+---+
+| 1 | 2 | 3 |
++---+---+---+
+| X | . | 0 |
++---+---+---+
+</pre>
+
+<br></br>
+
+<p>
+The puzzle is played by sliding the movable tiles.
+In each move you can choose any tile that shares a side with an empty cell and slide that tile into that empty cell.
+E.g., in the situation shown above there are exactly two possible moves: either you slide the 2 tile down or the 0 tile left.
+If you slide the 2 tile down, you will get a new configuration in which there are three possible moves:
+slide 1 right, or 3 left, or 2 back up.
+</p>
+
+<br></br>
+
+<p>
+Due to the manufacturing process all pieces may have imperfections which may cause the puzzle to get stuck.
+You now want to introduce a very thorough process of automated testing that will allow you to detect and discard all defective products.
+</p>
+<p>
+The testing process <i>must create each reachable configuration of tiles at least once</i> and from each of them it must <i>try each possible move at least once</i>.
+Only after all of this was tested and the puzzle pieces never got stuck can you be sure that this particular product isn't defective.
+</p>
+<br></br>
+<p>
+A sequence of moves is called a <i>valid test</i> if it satisfies the above requirements.
+A valid test is <i>optimal</i> if it's the shortest among all possible valid tests.
+</p>
+<p>
+Count all optimal valid tests.
+Return their count modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ThoroughTesting</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int, int, int, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int R, int C, int N, vector &lt;string&gt; board)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Formally, a sequence of moves is a sequence of pairs (number of the tile we move, cardinal direction in which we move it). Two sequences of moves differ if and only if these sequences differ.</td></tr><tr><td align="center" valign="top">-</td><td>An equivalent way of stating the last constraint ("All non-'X' cells on the board will form one 4-connected component.") is that if we changed any N-1 of the N tiles into empty cells, the remaining tile would be able to reach all the empty cells.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 8, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will be between 1 and 8, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 8, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be less than <b>R</b>*<b>C</b>.</td></tr><tr><td align="center" valign="top">-</td><td>(<b>R</b>*<b>C</b>)<sup><b>N</b></sup> will not exceed 1300.</td></tr><tr><td align="center" valign="top">-</td><td><b>board</b> will have <b>R</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>board</b> will have <b>C</b> characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each of the first <b>N</b> digits ('0', '1', ...) will appear exactly once in <b>board</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each other character in <b>board</b> will be 'X' or '.'.</td></tr><tr><td align="center" valign="top">-</td><td><b>board</b> will contain at least one '.'.</td></tr><tr><td align="center" valign="top">-</td><td>All non-'X' cells on the board will form one 4-connected component.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{&quot;0...&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">In the unique optimal test we slide the 0 tile three times to the right and then three times to the left.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{&quot;.0XX&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Here the board contains some blocked cells so the unique optimal test is even shorter: one move left, one move right.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{&quot;01&quot;,
+ &quot;2.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 24</pre></td></tr><tr><td><table><tr><td colspan="2">Note that not all 4! configurations of these three tiles are actually reachable by sliding them. (As we go around the square, the three tiles always remain in the same cyclic order.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{&quot;0.2&quot;,
+ &quot;X1X&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">Not much swapping possible in this puzzle. When doing an optimal test we must shift each tile into the center and back out. We get to choose in which order we want to do that, so that's 3! = 6 possibilities.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{&quot;0..&quot;,
+ &quot;X.X&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">Two options: either we visit the bottom row before the top right corner or vice versa.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{&quot;....&quot;,
+ &quot;.XX.&quot;,
+ &quot;.XX0&quot;,
+ &quot;....&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 24</pre></td></tr><tr><td><table><tr><td colspan="2">One of the solutions is a full "circle" clockwise and then the same counter-clockwise. Eleven other solutions have the form that we pick an empty cell, go there clockwise, go a full circle counter-clockwise, and then return clockwise to where we started. The other twelve solutions are the previous twelve done in the opposite direction.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

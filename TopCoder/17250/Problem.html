@@ -1,0 +1,23 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Hagar the Horrible is going to raid one of the king's castles.
+</p>
+<p>
+Castle i contains <b>gold</b>[i] tons of gold.
+</p>
+<p>
+The king currently has only one battalion of soldiers.
+He can secretly station it at any one of the castles.
+</p>
+<p>
+If Hagar attacks an unprotected castle, his band of vikings will loot all the gold from that castle.
+If Hagar attacks the protected castle, the king's soldiers will chase off the vikings and Hagar will go home empty-handed.
+</p>
+<br></br>
+<p>
+All of the above information is public (i.e., both Hagar and the king know it).
+The king must choose which castle to protect without knowing where Hagar plans to attack, and Hagar must choose where to attack without knowing which castle the king will protect.
+</p>
+<p>
+You are given the vector &lt;int&gt; <b>gold</b> describing the king's castles.
+Return the expected number of tons of gold looted by Hagar, assuming both parties make their decision optimally.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Hagar</td></tr><tr><td>Method:</td><td>expectedProfit</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double expectedProfit(vector &lt;int&gt; gold)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The return value must have an absolute or a relative error at most 1e-9.</td></tr><tr><td align="center" valign="top">-</td><td>Optimal play can formally be defined as follows: the value X you should return is the only real number such that Hagar can make sure that his expected profit is at least X regardless of the king's strategy, and the king can make sure that Hagar's expected profit is at most X regardless of Hagar's strategy.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>gold</b> will contain between 1 and 30 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>gold</b> will be between 0 and 40, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{37, 37, 37}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 24.666666666666664</pre></td></tr><tr><td><table><tr><td colspan="2">With three identical castles the best strategy for both the king and Hagar is to pick the castle uniformly at random. In two out of three cases Hagar will loot the chosen castle, in one of three cases he'll be unlucky and choose the castle the king defended.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 0, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.0</pre></td></tr><tr><td><table><tr><td colspan="2">The king has no gold, strategies don't matter.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 0, 27, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.0</pre></td></tr><tr><td><table><tr><td colspan="2">All the king's gold is in one of the castles. The king can just protect the gold and Hagar cannot loot anything.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 37, 37}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 18.5</pre></td></tr><tr><td><table><tr><td colspan="2">Both parties ignore the poor castle and flip a fair coin to choose one of the two rich castles.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

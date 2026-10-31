@@ -667,7 +667,6 @@ struct power_series : public std::vector<T> {
 			t *= invR;
 			t.resize(n_sz - o_sz);
 			power_series v(a.begin() + o_sz, a.begin() + n_sz);
-			//v -= poly_log(r);
 			v -= integ_shift_offset(t, o_sz);
 			v *= r;
 			r.resize(n_sz);

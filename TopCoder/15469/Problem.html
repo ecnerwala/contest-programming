@@ -1,0 +1,32 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit is 3.5 seconds.</i></p>
+<p>Kaede loves maple trees. One day, she found a big maple tree and she described it as an undirected connected graph with N nodes and N-1 edges.</p>
+<p>You are given the description in the vector &lt;int&gt;s <b>p</b> and <b>length</b>. For each valid i, the i-th edge of the tree connects node <b>p</b>[i] and node i+1, and the length of this edge is <b>length</b>[i].</p>
+<br></br>
+<p>There are 2<sup>N</sup>-1 ways to choose a non-empty subset of nodes. Once we choose a subset of nodes, there is always a unique minimal subtree which contains all nodes in the subset.</p>
+<br></br>
+<p>Kaede got interested in <i>diameters</i> of these subtrees.</p>
+<p>Suppose we iterate over all 2<sup>N</sup>-1 ways to choose a non-empty subset of nodes, for each of them we construct the unique minimal subtree and then we determine and write down its diameter. Let D be the sum of the 2<sup>N</sup>-1 values we would write down.</p>
+<p>Please help Kaede: calculate and return the value (D modulo 1,000,000,007) for the given tree.</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MapleTree</td></tr><tr><td>Method:</td><td>sum</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int sum(vector &lt;int&gt; p, vector &lt;int&gt; length)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.500</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Given two vertices u, v in a tree, let d(u, v) be the distance between u and v, i.e., the sum of lengths on the unique simple path that connects u and v. The diameter of a tree is the largest out of all values d(u, v).</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 2 and 2000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>p</b> and <b>length</b> will contain exactly N-1 elements each.</td></tr><tr><td align="center" valign="top">-</td><td>For valid <b>i</b>, <b>p</b>[i] will be between 0 and i, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>length</b> will be between 1 and 10000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 1, 1, 2}</pre></td></tr><tr><td><pre>{1, 2, 1, 1, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 249</pre></td></tr><tr><td><table><tr><td colspan="2">The tree is shown below as ASCII art. Edge lengths are shown using the corresponding number of symbols.
+<pre>
+       0
+      / \
+     1   \
+    / \   2
+   3   4   \
+            \
+             5
+</pre>
+<p>The diameter of this tree is 6.</p>
+<p>There are 63 different ways in which we can select a non-empty subset of nodes, so the answer is a sum of 63 subtree diameters.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2, 3}</pre></td></tr><tr><td><pre>{10, 10, 10, 10}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 720</pre></td></tr><tr><td><table><tr><td colspan="2">This tree is a line.
+We can compute the answer as follows:
+<ul>
+<li>There are 5 non-empty subsets of nodes that produce a subtree of diameter 0. Example subset: {2}.</li>
+<li>There are 4 non-empty subsets of nodes that produce a subtree of diameter 10. Example subset: {2, 3}.</li>
+<li>There are 6 non-empty subsets of nodes that produce a subtree of diameter 20. Example subsets: {0, 2} and {1, 2, 3}.</li>
+<li>There are 8 non-empty subsets of nodes that produce a subtree of diameter 30. Example subset: {0, 1, 3}.</li>
+<li>There are 8 non-empty subsets of nodes that produce a subtree of diameter 40. Example subset: {0, 1, 2, 3, 4}.</li>
+</ul>
+Thus, the sum of all 31 diameters is 4*10 + 6*20 + 8*30 + 8*40 = 720.
+
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 0, 0}</pre></td></tr><tr><td><pre>{10, 10, 10, 10}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 480</pre></td></tr><tr><td><table><tr><td colspan="2">This tree is a star. Among the 31 subtrees whose diameters we are interested in are five with diameter 0, four with diameter 10, and twenty-two with diameter 20. Thus, the sum of all diameters is 4*10 + 22*20 = 480.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0}</pre></td></tr><tr><td><pre>{1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

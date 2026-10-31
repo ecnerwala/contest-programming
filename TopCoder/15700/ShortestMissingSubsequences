@@ -1,0 +1,153 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+
+private:
+	using ll = long long;
+
+	int v;
+
+	static int minv(int a, int m) {
+		a %= m;
+		assert(a);
+		return a == 1 ? 1 : int(m - ll(minv(m, a)) * ll(m) / a);
+	}
+
+public:
+
+	modnum() : v(0) {}
+	modnum(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	explicit operator int() const { return v; }
+	friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { ll v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
+	friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
+
+	modnum inv() const {
+		modnum res;
+		res.v = minv(v, MOD);
+		return res;
+	}
+	modnum neg() const {
+		modnum res;
+		res.v = v ? MOD-v : 0;
+		return res;
+	}
+
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (const modnum& o) {
+		v += o.v;
+		if (v >= MOD) v -= MOD;
+		return *this;
+	}
+	modnum& operator -= (const modnum& o) {
+		v -= o.v;
+		if (v < 0) v += MOD;
+		return *this;
+	}
+	modnum& operator *= (const modnum& o) {
+		v = int(ll(v) * ll(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (const modnum& o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
+	friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
+	friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
+	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
+};
+using num = modnum<int(1e9)+7>;
+
+template <typename T> T pow(T a, long long b) {
+	assert(b >= 0);
+	T r = 1; while (b) { if (b & 1) r *= a; b >>= 1; a *= a; } return r;
+}
+
+class ShortestMissingSubsequences {
+
+public:
+
+	vector <int> count(int G, int N, vector <int> Aprefix) {
+		vector<int> A = Aprefix;
+		ll state = Aprefix.back();
+		while (int(A.size()) < N) {
+			state = (state * 1103515245 + 12345) % (1ll << 31);
+			A.push_back( state % G );
+		}
+
+		if (G == 1) {
+			return vector<int>({N+1, 1});
+		}
+		if (G > N) {
+			set<int> s(A.begin(), A.end());
+			return vector<int>({1, G - int(s.size())});
+		}
+		assert(2 <= G && G <= N);
+
+		int curL = 1; // impossible length
+		num curAns = 0; // number possible of length curL
+		unordered_map<int, num> lastSeen; // number possible of length curL
+		unordered_map<int, num> seen; // number possible of length curL+1
+
+		num pG = 1;
+		for (int i = N-1; i >= 0; i--) {
+			seen[A[i]] = curAns;
+			curAns += pG - lastSeen[A[i]];
+			lastSeen[A[i]] = pG;
+			if (int(seen.size()) == G) {
+				curL ++;
+				pG *= num(G);
+				lastSeen = std::move(seen);
+				curAns = 0;
+				for (auto it : lastSeen) {
+					curAns += it.second;
+				}
+				seen = {};
+			}
+		}
+
+		return vector<int>({curL, int(pow(num(G), curL) - curAns)});
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::ShortestMissingSubsequences;
+
+// vim:ft=cpp

@@ -1,0 +1,44 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have reached the final level of the game you are playing.
+This level consists of <b>N</b>+1 blocks, numbered from 0 to <b>N</b> from the left to the right.
+You start the level on block 0 and your goal is to reach block <b>N</b> exactly.
+</p>
+<p>
+In this level, your character can make jumps of maximum length <b>J</b>.
+The character may jump both to the left and to the right, as long as they never leave the level.
+</p>
+<p>
+A jump of length x will skip over x-1 consecutive blocks and land on the next (x-th) one in the direction of the jump.
+In particular, a jump of length 1 is simply a step to the next block on the left or on the right.
+</p>
+<br></br>
+<p>
+Block 0 is safe. All other blocks that form the level contain spiky traps that deal damage. More precisely, each time you land on block i, you receive T[i] damage.
+</p>
+<p>
+Calculate and return the minimum total amount of damage you have to receive in order to reach block <b>N</b>.
+</p>
+<br></br>
+<p>
+In order to keep the input small, the damage is pseudorandom, as described below:
+</p>
+<pre>
+
+T[0] = 0
+state = seed
+for i = 1 to N:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    T[i] = 1 + (state modulo M)
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>StepLeapSurviveTraps</td></tr><tr><td>Method:</td><td>minDamage</td></tr><tr><td>Parameters:</td><td>int, int, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long minDamage(int N, int J, int seed, int M)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on the damages to be (pseudo)random, it would solve any input of the same size within the time limit.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>J</b> will be between 1 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 17</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The damage for the cells that form this level is as follows: T = {0, 9, 6, 9, 2, 9, 4, 1, 8}.
+</p>
+<p>
+Here, the optimal strategy is to only jump to the right, making jumps of lengths 2, 2, 3, and 1. This way, we'll receive a total of 6+2+1+8 = 17 damage.
+</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>100</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>123456789</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5835166389</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+With <b>J</b> = 1 the optimal strategy is to simply walk to the right and receive a total of sum(T) damage.
+</p>
+<br></br>
+<p>
+For reference, the correct T looks as follows: T = {0, 78707731, 16700828, 54223987, 37397303, 112252759, 46678489, 43595839, 18674904, 13909121, 118477438, 88033399, 105356379, 57997612, 53876392, 95020013, 74587130, 65130672, 87137913, 21107663, 31915521, 93853982, 18919115, 39849879, 77942770, 35619505, 115508126, 38321619, 81217888, 48486089, 99385754, 3518042, 54541781, 56535927, 103271783, 118677266, 9471515, 42240439, 63756943, 22645319, 78498270, 24766051, 23259469, 97059690, 78644199, 106718369, 103400840, 52991972, 82679980, 11571002, 51967363, 92835245, 14642439, 8424125, 24743784, 97337616, 122077541, 1705829, 100021156, 109475123, 72076633, 108579776, 115648995, 69629823, 17743411, 112870250, 19785396, 23719093, 30779622, 32618435, 122368451, 78015617, 67622124, 44870230, 12344214, 55071073, 113446855, 52198724, 46857513, 99791617, 82202168, 19463620, 21983457, 19896614, 36547647, 10608455, 19619123, 19874030, 26282158, 63021190, 25389104, 82849251, 37721099, 93169629, 115038596, 6768175, 47951505, 65151308, 78430545, 36017979, 3777986}
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>12345</pre></td></tr><tr><td><pre>54321</pre></td></tr></table></td></tr><tr><td><pre>Returns: 46038</pre></td></tr><tr><td><table><tr><td colspan="2">Here the optimal solution is to cross the entire level in one jump, only receiving T[<b>N</b>] damage.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

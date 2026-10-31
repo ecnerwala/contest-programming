@@ -1,0 +1,92 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit: 7 seconds.</i></p>
+<br></br>
+<p>
+There is a rectangular building divided into unit square cells.
+Some of the squares are rooms.
+The remaining cells are all blocked by various building infrastructure.
+For simplicity, we will call the blocked cells "walls".
+Walls are not rooms.
+</p>
+<p>
+You are given the floor plan of the building in the vector &lt;string&gt; <b>plan</b>:
+'.' represents a room, '#' represents a wall.
+</p>
+<br></br>
+<p>
+We have the option of installing sensors into some of the rooms (at most one sensor per room).
+Each sensor monitors not just the room it's in but also all rooms that share a side with it.
+</p>
+<p>
+When a spy enters a room that is monitored by one or more sensors, each of those sensors will report the exact room in which the spy was detected.
+</p>
+<br></br>
+<p>
+An enemy spy will try to infiltrate our building by entering one of its rooms.
+We know that as soon as this spy enters the chosen room, he will be able to take control of any single sensor <i>that is monitoring that room</i>.
+</p>
+<p>
+(The spy gets to choose whether he wants to do this and if yes, he gets to choose which one of the nearby sensors he wants to compromise.
+The sensor is compromised before it gets a chance to make the correct report.)
+</p>
+<p>
+The spy can change the report of the compromised sensor to any other valid report. That is, he can make the sensor report nothing at all, or he can make the sensor report the presence of the spy in another one of the rooms the compromised sensor monitors.
+</p>
+<br></br>
+<p>
+We say that a building <i>can be protected</i> under these conditions if we can (knowing the information given in the previous paragraph) reliably detect the presence of the spy:
+whenever the spy enters a room, we must be able to determine that this happened and also determine the exact room where the spy is located.
+</p>
+<br></br>
+<p>
+Determine whether the given building can be protected. Return an empty vector &lt;string&gt; if it cannot.
+If it can be protected, find any one way of doing so with the smallest number of sensors. Return a vector &lt;string&gt; describing one optimal placement of sensors, using 'S' for a room with a sensor.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>IntruderAlert</td></tr><tr><td>Method:</td><td>placeSensors</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; placeSensors(vector &lt;string&gt; plan)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>7.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Your returned vector &lt;string&gt; must have walls ('#') exactly in the same places as <b>plan</b>.</td></tr><tr><td align="center" valign="top">-</td><td>The spy can enter any one room in the building (i.e., any cell denoted '.'), not just those on the boundary of the building.</td></tr><tr><td align="center" valign="top">-</td><td>The spy knows everything written in the problem statement. We also know everything written in the problem statement and we can use this knowledge to determine the spy's location from the sensors' report.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>plan</b> will have between 1 and 5 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>plan</b> will have between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>plan</b> will have the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>plan</b> will be '.' or '#'.</td></tr><tr><td align="center" valign="top">-</td><td>At least one character in <b>plan</b> will be '.'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">Even if we do place a sensor into each of the rooms, if the spy takes over one of them, we are doomed. For example, the spy may enter one room and have the compromised sensor report that he entered the other room. We now have two sensors, each claiming that the spy is in a different room, and no way to break the symmetry.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;####&quot;,
+ &quot;#..#&quot;,
+ &quot;####&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">Essentially the same test case as in Example 0 but with some extra walls.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..&quot;,
+ &quot;..&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;SS&quot;, &quot;S.&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We can protect this building, but in order to do that we need to place at least three sensors.
+</p>
+<p>
+To show that two sensors are not enough, consider their two different placements.
+</p>
+<p>
+Option 1:
+</p>
+<pre>
+..
+SS
+</pre>
+<p>
+For this sensor placement the spy can enter the room in the top left corner and silence the only adjacent sensor.
+</p>
+<p>
+Option 2:
+</p>
+<pre>
+.S
+S.
+</pre>
+<p>
+Here the spy can enter the top left corner, corrupt any one of the two sensors and have the corrupted sensor report the spy in the bottom right corner instead.
+As in Example 0, we now have two sensors giving us inconsistent information and there is no way to break the symmetry.
+</p>
+<br></br>
+<p>
+Three sensors are indeed sufficient. For example, consider the following placement:
+</p>
+<pre>
+.S
+SS
+</pre>
+<ul>
+<li>If only one sensor reports, we know that another sensor had to be silenced and thus the reporting sensor is correct.</li>
+<li>If any two sensors agree, their common report is correct.</li>
+<li>In particular, if the spy is in the bottom right corner, all three sensors see him and even after the sabotage two sensors will still agree.</li>
+<li>The only remaining option is that we get exactly two reports and they disagree. In that case we know that one of the reporting sensors is corrupted, and thus the spy is in a room that is only monitored by two sensors. There are three mutually distinct options: 
+  <ul><li>If the two reporting sensors are bottom left and top right, the spy must be in the top left corner (regardless of what exactly the two sensors report).</li><li>If they are the two bottom sensors, the spy is in the bottom left corner.</li><li>And if they are the two sensors on the right, the spy is in the top right corner.</li></ul></li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;......&quot;,
+ &quot;......&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;SSS.SS&quot;, &quot;S.S.S.&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">Here we can already do with significantly fewer than the full twelve sensors.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...&quot;,
+ &quot;.#.&quot;,
+ &quot;...&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;.SS&quot;, &quot;S#S&quot;, &quot;SS.&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...#&quot;,
+ &quot;.#.#&quot;,
+ &quot;....&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;SSS#&quot;, &quot;S#.#&quot;, &quot;.SSS&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

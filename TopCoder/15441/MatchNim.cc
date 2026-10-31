@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class MatchNim {
+
+	unordered_map<int, bool> cache;
+	int numOps = 0;
+
+	bool isWinning(vector<int> piles) {
+		if (piles.empty()) return false;
+		sort(piles.begin(), piles.end());
+		if (piles.back() >= int(piles.size()) - 1) {
+			// take everything
+			return true;
+		}
+
+		int state = 0;
+		for (int i = 0; i < int(piles.size()); i++) {
+			assert(piles[i]);
+			state |= piles[i] << (3 * i);
+		}
+
+		if (cache.count(state)) return cache[state];
+
+		for (int i = 0; i < int(piles.size()); i++) {
+			for (int v = piles[i]; v >= 1; v--) {
+				for (int m = (1 << int(piles.size())) - 1; m >= 0; m--) {
+					if (m & (1 << i)) continue;
+					if (__builtin_popcount(m) <= v) {
+						vector<int> npiles; npiles.reserve(piles.size() - __builtin_popcount(m));
+						for (int curm = (1 << int(piles.size())) - m - 1; curm; curm &= (curm - 1)) {
+							int j = __builtin_ctz(curm & (-curm));
+							if (j != i) {
+								npiles.push_back(piles[j]);
+							} else if (v < piles[i]) {
+								npiles.push_back(piles[i] - v);
+							}
+						}
+						if (!isWinning(npiles)) {
+							return cache[state] = true;
+						}
+					}
+				}
+			}
+		}
+		return cache[state] = false;
+	}
+
+public:
+
+	string whoWins(vector <int> piles) {
+		cerr << isWinning(vector<int>({1})) << '\n';
+		cerr << isWinning(vector<int>({1,1})) << '\n';
+		cerr << isWinning(vector<int>({1,1,1})) << '\n';
+		cerr << isWinning(vector<int>(9, 7)) << '\n';
+		cerr << cache.size() << '\n';
+		return isWinning(piles) ? "Yvonne" : "Zara";
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::MatchNim;
+
+// vim:ft=cpp

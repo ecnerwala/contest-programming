@@ -1,0 +1,50 @@
+Task: KON
+
+Conference [B]
+
+Algorithmic Skirmishes 2026, first round. Limits: 1024 MB, 1 s. 2026-03-23
+
+In Byteland, a large scientific conference is being organized, lasting k days. Each day, a certain number of meetings take place simultaneously (at the same time). Additionally, some meetings are continuations of meetings that took place on the previous day.
+
+A participant can attend at most one meeting per day. Moreover, if meeting b is a continuation of meeting a, then a participant can attend it only if on the previous day they attended meeting a. A meeting can be a continuation of at most one meeting from the previous day, but many meetings can be continuations of the same meeting (its participants split into groups on the next day, and some may not go to any continuation).
+
+The King of Byteland wants to know exactly what will happen at each meeting, so he decided to send his trusted employees to the conference. Help him determine the minimum number of employees he must send so that at least one of them can attend every meeting.
+
+Input
+
+The first line of input contains two positive integers k and n₁ (1 ≤ k, n₁ ≤ 500 000), denoting respectively the number of days of the conference and the number of meetings taking place on the first day (since it is the first day, no meeting can be a continuation of an earlier meeting).
+
+Then, if k > 1, for 2 ≤ i ≤ k, the i-th line contains the description of day i. It begins with a positive integer nᵢ (1 ≤ nᵢ ≤ 500 000), denoting the number of meetings taking place on day i, followed by a sequence of nᵢ integers aᵢ,1, …, aᵢ,nᵢ (0 ≤ aᵢ,j ≤ nᵢ₋₁). The value aᵢ,j = 0 means that the j-th meeting on day i is not a continuation of any earlier meeting; if aᵢ,j > 0, then the j-th meeting on day i is a continuation of the aᵢ,j-th meeting from day i − 1.
+
+Meetings on each day are numbered from 1 to nᵢ. The total number of meetings, i.e., the sum of all nᵢ, does not exceed 500 000.
+
+Output
+
+Print one integer – the minimum number of employees that must be sent to the conference so that at least one of them can attend every meeting.
+
+Example
+
+For the input:
+
+4 3
+
+3 1 1 1
+
+4 0 0 2 0
+
+2 3 3
+
+the correct result is:
+
+6
+
+Explanation of the example: We send six employees to the conference, let us call them A, B, C, D, E, and F.
+On the first day, we send employees A, B, C, and D to the first meeting, employee E to the second, and employee F to the third meeting.
+
+On the second day, E and F stay at home (there is no meeting they could attend), employees A and B go to the second meeting, and C and D to the first and third.
+
+On the third day, A and B go to the third meeting; for the remaining meetings, we send one of the remaining employees to each.
+
+Finally, on the last day, A and B go to the first and second meetings.
+
+It can be seen that five employees are not enough to attend all meetings.

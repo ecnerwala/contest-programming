@@ -1,0 +1,68 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+template <typename T> void setmax(T& a, const T& b) { if (b > a) a = b; }
+
+class AqaAsadiTrains {
+
+public:
+
+	int getMax(vector <int> C, vector <int> A, vector <int> T) {
+		using i64 = int64_t;
+		const i64 INF = 1e18;
+		int N = int(A.size());
+		int K = int(C.size());
+		vector<i64> dp((N+1)*(N+1)*(K+1), -INF);
+		auto Z = [&](int a, int b, int c) { return (a * (N+1) + b) * (K+1) + c; };
+		for (int i = 0; i < N; i++) {
+			dp[Z(i, i+1, A[i])] = 0;
+		}
+		for (int l = 1; l <= N; l++) {
+			for (int i = 0, j = l; j <= N; i++, j++) {
+				for (int k = i+1; k <= j-1; k++) {
+					setmax(dp[Z(i,j,K)], dp[Z(i,k,K)] + dp[Z(k,j,K)]);
+					for (int x = 0; x < K; x++) {
+						setmax(dp[Z(i,j,x)], dp[Z(i,k,x)] + dp[Z(k,j,K)]);
+						setmax(dp[Z(i,j,x)], dp[Z(i,k,K)] + dp[Z(k,j,x)]);
+					}
+					for (int x = 0; x < K; x++) {
+						for (int y = 0; y < K; y++) {
+							for (int z : {T[x*K+y], T[y*K+x]}) {
+								setmax(dp[Z(i,j,z)], dp[Z(i,k,x)] + dp[Z(k,j,y)]);
+							}
+						}
+					}
+				}
+				// you can sell someone
+				for (int x = 0; x < K; x++) {
+					setmax(dp[Z(i,j,K)], dp[Z(i,j,x)] + C[x]);
+				}
+			}
+		}
+		vector<i64> dp2(N+1, -INF);
+		dp2[0] = 0;
+		for (int i = 0; i < N; i++) {
+			setmax(dp2[i+1], dp2[i]);
+			for (int j = i+1; j <= N; j++) {
+				setmax(dp2[j], dp2[i] + dp[Z(i,j,K)]);
+			}
+		}
+		return int(dp2[N]);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::AqaAsadiTrains;
+
+// vim:ft=cpp

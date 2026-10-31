@@ -1,0 +1,62 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Elly has a rectangular matrix with <b>N</b> rows and <b>M</b> columns. Each cell contains a digit (0-9). The girl defines a "path" from the cell in the upper left corner (row 0, column 0) to the lower right one (row <b>N</b>-1, column <b>M</b>-1) as a sequence of cells sharing a side going only down or to the right.
+<br></br><br></br>
+Each path has an associated value – that is the integer we get when we concatenate the digits in the visited cells, in the order we visit them. Values with leading zeroes are allowed. Let's look at the following possible matrix with 4 rows and 7 columns:
+<pre>
+1849312
+8951400
+5678129
+8721365
+</pre>
+The path going down, right, right, down, right, right, right, down, right has value 1895781265. Other possible paths have values 1849312095, 1895781365, or 1858721365, among many others.
+<br></br><br></br>
+The girl can change some (possibly all or none) of the cells of the matrix. If the current digit in a cell is X, in one operation the girl can change it to either X-1 or X+1. The digits change cyclically between 0 and 9 – thus changing 0 to 9 or 9 to 0 takes a single operation. Elly can do as many operations as she wants – thus she can get to any other matrix of digits with the same dimensions.
+<br></br><br></br>
+Elly wants to get a matrix on which all paths have values divisible by three. Of course, she wants to do it with as few operations as possible. Given the ints <b>N</b> and <b>M</b>, as well as the vector &lt;string&gt; <b>matrix</b> giving the initial digits in the matrix, return the minimum number of operations required to do so.
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>EllysThree</td></tr><tr><td>Method:</td><td>getMin</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int getMin(int N, int M, vector &lt;string&gt; matrix)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> and <b>M</b> will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>matrix</b> will contain exactly <b>N</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>matrix</b> will contain exactly <b>M</b> characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>matrix</b> will be a digit ('0'-'9').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>{&quot;1849312&quot;,
+ &quot;8951400&quot;,
+ &quot;5678129&quot;,
+ &quot;8721365&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2">The example from the problem statement. One of the possible resulting matrices is:<br></br>
+<pre>
+1839421
+8961510
+6678139
+9721365
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{&quot;042&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Leading zeroes are allowed, thus this matrix is valid without any changes.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>9</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{&quot;1&quot;, &quot;3&quot;, &quot;3&quot;, &quot;7&quot;, &quot;6&quot;, &quot;6&quot;, &quot;6&quot;, &quot;4&quot;, &quot;2&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Increasing by one any of the digits yields a matrix of the required type.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>13</pre></td></tr><tr><td><pre>{&quot;9454743993694&quot;,
+ &quot;2621082535304&quot;,
+ &quot;7042910517370&quot;,
+ &quot;1085880558575&quot;,
+ &quot;1649500905308&quot;,
+ &quot;1329832441329&quot;,
+ &quot;8039295627801&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 42</pre></td></tr><tr><td><table><tr><td colspan="2">The Answer is 42.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>33</pre></td></tr><tr><td><pre>28</pre></td></tr><tr><td><pre>{&quot;3924540372699482461959052373&quot;,
+ &quot;3775662604951838761645280661&quot;,
+ &quot;4590019155668566895846525300&quot;,
+ &quot;7660057219937532806711524044&quot;,
+ &quot;1564147647984682605010172146&quot;,
+ &quot;7045841532282877576364456274&quot;,
+ &quot;3814819683751796473651237567&quot;,
+ &quot;4031424800358860980124855111&quot;,
+ &quot;5002523845580224146215648232&quot;,
+ &quot;8491414555026773578968320263&quot;,
+ &quot;4946734059870766934433755091&quot;,
+ &quot;9792652664307908810065499322&quot;,
+ &quot;5883633601313699981657212869&quot;,
+ &quot;0270456241288992902960982050&quot;,
+ &quot;8248225251569913625753339601&quot;,
+ &quot;6038989966909434471708165284&quot;,
+ &quot;7157408935676850512694539390&quot;,
+ &quot;1903308470539870820923313050&quot;,
+ &quot;5672155010906362182244410101&quot;,
+ &quot;5613238011479959434003125799&quot;,
+ &quot;1616602903240654799752974673&quot;,
+ &quot;9917238043310329767524789648&quot;,
+ &quot;9386866245651931148351599616&quot;,
+ &quot;0288261775320885692141607061&quot;,
+ &quot;4502491177791892689367563262&quot;,
+ &quot;2387625226003663573293368187&quot;,
+ &quot;1851685890743516942422293606&quot;,
+ &quot;6116997930274118769324412710&quot;,
+ &quot;0640686746123981416169165875&quot;,
+ &quot;2809115257849686014067667122&quot;,
+ &quot;2036057721028023144804036953&quot;,
+ &quot;8941139704540145857739666512&quot;,
+ &quot;9853874329000744480537363737&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 484</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

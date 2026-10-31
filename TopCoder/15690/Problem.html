@@ -1,0 +1,63 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>
+This problem has a nonstandard time limit: 3 seconds.
+</i></p>
+<p>
+You have a square chessboard with <b>D</b> rows and <b>D</b> columns.
+Both rows and columns are numbered from 0, and the square in row r, column c is denoted (r,c).
+</p>
+<p>
+Some rooks are already placed onto the chessboard:
+For each valid i, there is a rook at (<b>R0</b>[i], <b>C0</b>[i]).
+The color of this rook is <b>T0</b>[i], where 0 means white and 1 means black.
+You will add up to <b>steps</b> additional rooks as described below.
+</p>
+<p>
+Once you have placed all the rooks, look at the empty cells.
+We say that a rook A attacks an empty cell B if and only if:
+</p>
+<ul>
+<li>A and B share the same row or the same column.</li>
+<li>If there are any other cells between A and B (in the row/columm they share), these cells must all be empty.</li>
+</ul>
+<p>
+Let E[w][b] be the number of empty cells that are attacked by exactly w white and b black rooks.
+Return a vector &lt;int&gt; with 25 elements: element 5*w + b of the return value should be E[w][b].
+</p>
+<p>
+In order to generate the full input, run the following pseudocode:
+</p>
+<pre>
+for i = 0 .. length(R0)-1:
+    add a rook at (R0[i], C0[i]) with color T0[i]
+
+state = seed
+for i = 0 .. steps-1:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    r = state % D
+    state = (state * 1103515245 + 12345) modulo 2^31
+    c = state % D
+    state = (state * 1103515245 + 12345) modulo 2^31
+    t = state div 2^30
+
+    if cell (r,c) is still empty:
+        add a rook at (r, c) with color t
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RookAttacks</td></tr><tr><td>Method:</td><td>classify</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;, int, int</td></tr><tr><td>Returns:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Method signature:</td><td>vector&lt;long long&gt; classify(int D, vector &lt;int&gt; R0, vector &lt;int&gt; C0, vector &lt;int&gt; T0, int seed, int steps)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>D</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>R0</b> will have between 0 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C0</b> will have the same number of elements as <b>R0</b>.</td></tr><tr><td align="center" valign="top">-</td><td><b>T0</b> will have the same number of elements as <b>R0</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>R0</b> will be between 0 and <b>D</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>C0</b> will be between 0 and <b>D</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>T0</b> will be between 0 and 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The rooks described by <b>R0</b> and <b>C0</b> will be placed on distinct cells.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>steps</b> will be between 0 and 99,900, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>{2}</pre></td></tr><tr><td><pre>{5}</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: {49, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">A standard 8x8 chessboard with a single white rook at (2,5). There are 14 empty cells attacked by a single white rook and 49 cells that are not attacked at all.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000000000</pre></td></tr><tr><td><pre>{0, 0, 999999999, 999999999}</pre></td></tr><tr><td><pre>{0, 999999999, 0, 999999999}</pre></td></tr><tr><td><pre>{0, 0, 0, 1}</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{999999996000000004, 0, 0, 0, 0, 0, 1999999996, 0, 0, 0, 1999999996, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">Four rooks in the corners of the largest possible chessboard. Three are white, one is black.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{1, 1, 1, 1, 0, 2, 3, 4}</pre></td></tr><tr><td><pre>{0, 4, 3, 1, 2, 2, 2, 2}</pre></td></tr><tr><td><pre>{1, 1, 1, 1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 16, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">The cell (1, 2) is attacked by four black rooks. Each other empty cell is attacked by two black rooks.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>984567245</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>4747</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{969372659926890025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">A huge empty board.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>{5}</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>{1}</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: {24, 30, 7, 0, 0, 19, 11, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">The pseudocode attempts to place the following additional rooks:
+<pre>
+r c t
+-----
+2 1 0
+5 0 0
+0 9 1
+9 8 1
+4 9 1
+7 8 0
+4 9 0
+</pre>
+<p>
+The white rook at (5,0) will not be placed because one of the initial rooks is already there.
+The white rook at (4,9) will not be placed because earlier a black rook was placed into the same cell.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>11</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>42</pre></td></tr><tr><td><pre>5497</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">The whole chessboard is full.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

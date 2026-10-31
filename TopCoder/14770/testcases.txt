@@ -1,0 +1,22 @@
+2
+{"WORD",
+ "ORDW",
+ "RDWO",
+ "DWOR"}
+"WORD"
+0
+{"ABCDE",
+ "FGHIJ",
+ "KLMNO",
+ "PQRST"}
+"XYZ"
+6
+{"ABA",
+ "BAB",
+ "ABA"}
+"AB"
+12
+{"AAA",
+ "AAA",
+ "AAA"}
+"AA"

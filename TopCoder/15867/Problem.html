@@ -1,0 +1,75 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+The modern Santa Claus figure is based on traditions that can be traced back to a real person, Saint Nicholas of Myra, who died in the fourth century.
+There are also some other adaptations of this historical figure in other cultures.
+For example, in a part of Europe Saint Nicholas (often assisted by an angel and a devil) comes to award well-behaved children and punish naughty children a few weeks before Christmas.
+Nice children are usually awarded various sweets.
+</p>
+<p>
+Thomas is going to play Saint Nicholas this year.
+He has already purchased some small bags of different brands of candy.
+The sizes of these bags are given in the vector &lt;int&gt; <b>bags</b>.
+</p>
+<p>
+Different brands of candy have different popularity among the kids.
+The popularity is consistent across the whole population of kids.
+Sadly, Thomas has no idea about which candies are more popular than others.
+</p>
+<p>
+Kids care about fairness, but only in a limited way.
+If a group of kids get some candy, they compare two things:
+First, the total number of candies everyone got must be the same.
+Second, the total number of the best candies everyone got must also be the same.
+As long as these two conditions are satisfied, the kids will be happy that the split was fair.
+</p>
+<p>
+As Thomas has no idea about popularity, his approach when giving out the candies is as follows:
+</p>
+<ol>
+<li>He shows all candy types he has to the kids and they tell him which candies are the best ones.</li>
+<li>He divides all the candy he has into equal-sized piles, each containing exactly one of the best candies and as many other candies as possible. (Note that some non-best candies can be left over.)</li>
+<li>He hands out the piles to kids until he runs out of candy. (The number of kids who want candy is potentially infinite, so this always happens, sooner or later.)</li>
+</ol>
+<p>
+Thomas hates to waste candy, because doing so makes little Greta cry.
+He is now sad, because he realized that in step 2 of the above process he can have some leftovers, depending on which candy type is the most popular one.
+Thomas would like to avoid this situation at (nearly) any cost.
+</p>
+<p>
+For each brand of candy, all bags have the same size.
+The bags for different brands have different sizes.
+For each positive integer i, there is a brand whose bags contain exactly i candies.
+</p>
+<p>
+Thomas went to a wholesale store to purchase more bags of candy.
+He thinks that having multiple bags of the same brand is boring, therefore he is only willing to purchase brands he does not already have, and he is only willing to purchase one bag of each new brand.
+</p>
+<p>
+Advise Thomas what sizes of bags he should purchase to make sure that he won't have any leftovers, regardless of which candy type is the most popular one.
+Return a vector&lt;long long&gt; with the bag sizes (each representing a different new brand of candies).
+</p>
+<p>
+Constraints your answer must satisfy:
+</p>
+<ul>
+<li>The number of new bags Thomas will purchase must not exceed 100.</li>
+<li>The total number of candies in all the bags (the ones he already has plus the ones you tell him to buy) must not exceed 10^18.</li>
+<li>All bag sizes (considering both the ones he already has and the ones you tell him to buy) must be distinct.</li>
+</ul>
+<p>
+There is always a solution that matches the above constraints, and any such solution will be accepted.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ChristmasCandySplit</td></tr><tr><td>Method:</td><td>buyMoreBags</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Method signature:</td><td>vector&lt;long long&gt; buyMoreBags(vector &lt;int&gt; bags)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>bags</b> will have between 1 and 22 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>bags</b> will be between 1 and 22, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>bags</b> will be distinct.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 6, 4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {24, 36, 72, 144 }</pre></td></tr><tr><td><table><tr><td colspan="2"><ul>
+<li>If candy from bag 0 is the best candy, Thomas will make two piles, each containing one best candy and 5 other candies.</li>
+<li>If candy from bag 1 is the best candy, Thomas will make six piles, each containing one best candy and 1 other candy.</li>
+<li>If candy from bag 2 is the best candy, Thomas will make four piles, each containing one best candy and 2 other candies.</li>
+</ul>
+<p>
+Thus, there are never any leftovers and Thomas does not have to purchase any other candies. Hence, {} is a valid solution.
+</p> 
+<p>
+The example output shows another valid solution. 
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {6 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Thomas can purchase a single new bag with 6 candies and obtain a solution essentially identical to Example #0.
+</p>
+<p>
+Note that {2} is not a valid answer, as he already has a bag with 2 candies and he won't purchase another one.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, 12}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 30, 6 }</pre></td></tr><tr><td><table><tr><td colspan="2">After the purchase recommended by the example answer, Thomas will have a total of 60 candies and there will be no leftovers, regardless of which of his five bags of candy happens to be the most popular one.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

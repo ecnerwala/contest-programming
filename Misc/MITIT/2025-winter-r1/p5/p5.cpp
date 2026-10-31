@@ -441,6 +441,7 @@ int main() {
 			X /= p;
 			cur_mod /= p;
 		}
+		std::sort(res.begin(), res.end());
 		cout << res.size();
 		for (int v : res) cout << ' ' << v;
 		cout << '\n';

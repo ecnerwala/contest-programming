@@ -1,0 +1,33 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This problem is about the traditional game of NIM.
+To refresh your memory, the rules of NIM are as follows:
+</p>
+<p>
+There are several piles of tokens. Two players take alternating turns. In each turn, the active player chooses one non-empty pile of tokens and removes some tokens from the pile. (The player can remove as many tokens as they like, but all tokens must be taken from the same pile and the player must always remove at least one token.)
+The player who cannot make a valid move (because all piles are already empty) loses the game.
+</p>
+<br></br>
+<p>
+You are playing NIM against your nemesis.
+It is your turn to play.
+The current pile sizes are given in the vector &lt;int&gt; <b>piles</b>.
+</p>
+<p>
+Sadly, you noticed that you are in a losing position: if your nemesis will play optimally, you have no way to win the game.
+Even more sadly, you are sure that your nemesis knows the optimal strategy for the game of NIM, so there's no chance for you.
+</p>
+<br></br>
+<p>
+Or is there some chance after all?
+You still have one glimmer of hope: what if you drag the game out? Maybe your opponent will become tired and make a mistake.
+Thus, you set yourself a new goal: maximize the number of turns the game will take.
+</p>
+<p>
+Your nemesis can read you like an open book and they immediately understand what's going on.
+They now want to disrupt your plan by not just winning, but by doing so in a way that requires as few moves as possible.
+We will assume that they play the game optimally with these goals in mind.
+</p>
+<br></br>
+<p>
+Return the vector &lt;int&gt; {A, B, C}, where A is the number of turns the game will take (assuming you both play optimally) and B, C describe one optimal move in the given situation: decrement <b>piles</b>[B] by C. If there are multiple optimal moves, you may return any one of them.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SlowestNim</td></tr><tr><td>Method:</td><td>move</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; move(vector &lt;int&gt; piles)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>piles</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>piles</b> will be between 1 and 20,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>piles</b> will represent a losing position in the game of NIM.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, 10}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {20, 1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">Here the optimal strategy for you is easy: just take one token from any pile, the opponent then has to take one token from the other pile, and so on. You will eventually lose, but at least it will take the full 20 moves.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {6, 2, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">Here you need to be careful, not all good-looking moves you can make in this position are optimal.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{123, 456, 678, 789}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2046, 0, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,46 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class CardboardBoxes {
+
+public:
+
+	long long count(long long S) {
+		if (S % 2) return 0;
+		S /= 2;
+		long long ans = 0;
+		auto checkVal = [&](long long wl, long long wh) -> long long {
+			long long maxW = min(wl / 2, wh - 1);
+			return maxW;
+		};
+		for (long long v = 1; v * v <= S; v++) {
+			if (S % v == 0) {
+				ans += checkVal(v, S / v);
+				if (v < S / v) {
+					ans += checkVal(S / v, v);
+				}
+			}
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::CardboardBoxes;
+
+// vim:ft=cpp
+
+// Find W <= L so that
+// 2 * W * (W + L) + 2 * H * (W + L) = area
+// 2 * (W + H) * (W + L) = area

@@ -1,0 +1,55 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This problem is about the popular word-guessing game Wordle. Knowledge of this game is not necessary to solve the problem.
+</p>
+<br></br>
+<p>
+In Wordle the goal is to guess a hidden string of uppercase English letters ('A'-'Z').
+In this problem, the hidden string can have anywhere between 1 and 9 letters.
+</p>
+<p>
+The player plays the game by making guesses. Each guess is a string of uppercase letters of the same length as the hidden string.
+</p>
+<br></br>
+<p>
+Whenever a player makes a guess, the game tells the player how well the guess matches the hidden string.
+This is done using colors: the letters of the guess that are in correct place are highlighted in green and the letters that are in the 
+secret word but at some other index are highlighted in yellow.
+</p>
+<br></br>
+<p>
+Formally, the coloring works as follows:
+</p>
+<p>
+Assume that we have the secret string in the variable "hidden" and the guess made by the player in the variable "<b>guess</b>".
+A pair of indices (i, j) is called <i>valid</i> if <b>guess</b>[i] = hidden[j].
+</p>
+<p>
+When coloring the letters of <b>guess</b> we will look for valid pairs of indices.
+Among these pairs each index can only be used at most once:
+there cannot be two pairs (i, j1) and (i, j2) with j1 != j2, and there cannot be two pairs (i1, j) and (i2, j) with i1 != i2.
+</p>
+<p>
+We will create these pairs in two passes. 
+</p>
+<ol>
+<li>
+In the first pass we create all valid pairs of the form (i, i).
+These correspond to the green letters.
+</li>
+<li>
+In the second pass we go through all possible i from 0 to length(<b>guess</b>)-1, in this order.
+For each i, if there is a j such that (i, j) is a valid pair disjoint from all the ones we already have, we take the smallest such j and we add the pair (i, j) to our collection.
+For each pair (i, j) added in this step the letter at position i in <b>guess</b> will be yellow.
+</li>
+</ol>
+<br></br>
+<p>
+You are given the string <b>guess</b> and the string <b>colors</b>.
+The string <b>guess</b> represents a guess made by the player, and the string <b>colors</b> the colors assigned to the letters of this guess.
+In <b>colors</b> we use 'g' for green, 'y' for yellow, and '-' for letters that did not get any color.
+</p>
+<p>
+Determine whether there is some hidden string H such that the guess given in <b>guess</b> would get the colors given in <b>colors</b>.
+If yes, return any one such H.
+If no, return an empty string instead.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>WordleBack</td></tr><tr><td>Method:</td><td>deduce</td></tr><tr><td>Parameters:</td><td>string, string</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string deduce(string guess, string colors)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>In the actual game Wordle there is an extra constraint that both the guess and the secret are valid dictionary words. There is no such constraint in this problem.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>guess</b> will have between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>guess</b> will be an uppercase English letter ('A'-'Z').</td></tr><tr><td align="center" valign="top">-</td><td><b>colors</b> will have the same number of characters as <b>guess</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>colors</b> will be one of 'g', 'y', and '-'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;HELLO&quot;</pre></td></tr><tr><td><pre>&quot;ggggg&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;HELLO&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The secret word must clearly be "HELLO".</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;STARE&quot;</pre></td></tr><tr><td><pre>&quot;yyggy&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;ESART&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The two valid answers for this test case are "TEARS" and "ESART".</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;HELLO&quot;</pre></td></tr><tr><td><pre>&quot;-g---&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;MERRY&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Note that "DECOY" would not be a valid answer here: if "DECOY" were the secret word, "HELLO" would get the colors "-g--y" instead of "-g---".</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;AAAAAAA&quot;</pre></td></tr><tr><td><pre>&quot;gggygyg&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">This is clearly an impossible situation. There is no hidden word for which the guess "AAAAAAA" gets five green and two yellow letters. If the hidden word is exactly "AAAAAAA" you'll get seven 'g's for this guess, and if the hidden word is anything else you'd get at least one '-'.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;C&quot;</pre></td></tr><tr><td><pre>&quot;y&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,93 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+// number of things with a given mask and final vertex, and the current leaf
+long long dp[1 << 16][16][17];
+
+class CaterpillarSpanningTrees {
+
+public:
+
+	long long count(vector <string> G) {
+		int N = int(G.size());
+		if (N == 1) {
+			return 1;
+		}
+		if (N == 2) {
+			if (G[0][1] == 'Y') return 1;
+			else return 0;
+		}
+		assert(N >= 3);
+		using ll = long long;
+
+		memset(dp, 0, sizeof(dp));
+
+		// pick the initial vertex, and its first leaf
+		for (int i = 0; i < N; i++) {
+			dp[1<<i][i][0] = 1;
+		}
+		for (int m = 1; m < (1 << N); m++) {
+			for (int i = 0; i < N; i++) {
+				if (!(m & (1 << i))) continue;
+				for (int v = 0; v < N; v++) {
+					// don't take this as a leaf
+					//cerr << "bump " << bitset<16>(m) << ' ' << i << ' ' << v+1 << ' ' << dp[m][i][v] << '\n';
+					dp[m][i][v+1] += dp[m][i][v];
+					// take it as a leaf
+					if (!(m & (1 << v)) && G[i][v] == 'Y') {
+						//cerr << "bump " << bitset<16>(m | (1 << v)) << ' ' << i << ' ' << v+1 << ' ' << dp[m][i][v] << '\n';
+						dp[m|(1<<v)][i][v+1] += dp[m][i][v];
+					}
+				}
+
+				//cerr << "finish " << bitset<16>(m) << ' ' << i << ' ' << N << ' ' << dp[m][i][N] << '\n';
+
+				// after all leaves, extend the path
+				if (m == (1 << i)) continue;
+				for (int j = 0; j < N; j++) {
+					if (m & (1 << j)) continue;
+					if (G[i][j] != 'Y') continue;
+					if ((m | (1 << j)) == (1 << N) - 1) {
+						// doesn't count, that's just a leaf
+						continue;
+					}
+					//cerr << "bump " << bitset<16>(m | (1 << j)) << ' ' << j << ' ' << 0 << ' ' << dp[m][i][N] << '\n';
+					dp[m|(1<<j)][j][0] += dp[m][i][N];
+				}
+			}
+		}
+
+		ll ans = 0;
+		for (int i = 0; i < N; i++) {
+			ans += dp[(1 << N) - 1][i][N];
+		}
+
+		for (int i = 0; i < N; i++) {
+			bool is_star = true;
+			for (int j = 0; j < N; j++) {
+				if (j == i) continue;
+				if (G[i][j] != 'Y') is_star = false;
+			}
+			if (is_star) ans++;
+		}
+
+		assert(ans % 2 == 0);
+		return ans / 2;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::CaterpillarSpanningTrees;
+
+// vim:ft=cpp

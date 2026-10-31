@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A high jumper is practicing for the upcoming competition.
+She makes a sequence of <b>N</b> jumps.
+We will number the jumps from 0 to <b>N</b>-1.
+The height of jump i is H[i].
+Jump i is a success if H[i] &gt; <b>threshold</b>, and it is a failure otherwise.
+</p>
+<p>
+You are given ints <b>S</b> and <b>F</b>.
+Find the longest contiguous segment of her practice such that within the segment the ratio of successes to failures is exactly <b>S</b>:<b>F</b>.
+</p>
+<p>
+Find and return {lo, hi} such that H[lo:hi] is the optimal segment. (See Notes if you aren't familiar with the H[lo:hi] notation.)
+</p>
+<p>
+If there are multiple optimal segments, minimize lo.
+</p>
+<br></br>
+<p>
+In order to keep the input size small, the sequence H is pseudorandom. Follow the pseudocode given below to generate it.
+</p>
+<pre>
+
+H[0] = (seed * 1103515245 + 12345) modulo 2^31
+for i = 1 to N-1:
+    H[i] = (H[i-1] * 1103515245 + 12345) modulo 2^31
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ExactRate</td></tr><tr><td>Method:</td><td>getLongest</td></tr><tr><td>Parameters:</td><td>int, int, int, int, int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; getLongest(int N, int seed, int threshold, int S, int F)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>You should return a vector &lt;int&gt; with two elements: element 0 is lo, element 1 is hi. These values must satisfy 0 &lt;= lo &lt;= hi &lt;= <b>N</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Jump i belongs into the segment H[lo:hi] if and only if lo &lt;= i &lt; hi. Note that jump number hi does <i>not</i> belong into this segment.</td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on the input being pseudorandom.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>threshold</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>F</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>1012345678</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 6 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Sequence of jump heights: H = { 325621308, 263614405, 1041878298, 160854091, 1346820648, 663962433, 1031250150, 1993983527, 507736276, 118477437, 1569514866, 722640323 }.
+</p>
+<p>
+Jumps 2, 4, 6, 7 and 10 are successes. The other seven jumps are failures.
+</p>
+<p>
+The longest segment in which there are twice as many failures as successes consists of the first six jumps (0,1,2,3,4,5).
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>1012345678</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 8 }</pre></td></tr><tr><td><table><tr><td colspan="2">Same sequence of jumps. Here the longest good segment contains jumps 2,3,4,5,6,7. Out of those, four are successes and two are failures.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>1012345678</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>11</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">Whenever there is no non-empty segment with the desired ratio, return {0, 0}. This is a description of an empty segment, and among all such descriptions it has the smallest possible value lo.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

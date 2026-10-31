@@ -34,8 +34,10 @@ int main() {
 		}
 	}
 
-	int x_lo = -4, x_hi = 9;
-	int y_lo = -5, y_hi = 5;
+	//int x_lo = -4, x_hi = 9;
+	//int y_lo = -5, y_hi = 5;
+	int x_lo = -1, x_hi = 1;
+	int y_lo = -1, y_hi = 47;
 	cout << N << ' ' << (x_hi - x_lo + 1) << ' ' << (y_hi - y_lo + 1) << '\n';
 	int cnt = 0;
 	for (int x = x_lo; x <= x_hi; x++) {

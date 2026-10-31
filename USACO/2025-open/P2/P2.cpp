@@ -68,6 +68,7 @@ int main() {
 		// we start at 2, end at <= range after taking num_mid+1 steps
 		// extra way to take 0 steps at any point
 		modnum cur = 1;
+		// (range - 2 + cnt choose cnt) * (num_mid choose cnt)
 		for (int cnt = 0; cnt <= num_mid; cnt++) {
 			if (cnt > 0) {
 				cur *= modnum(range - 2 + cnt);

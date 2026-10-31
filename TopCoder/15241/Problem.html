@@ -1,0 +1,54 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>
+This problem has a time limit of 3 seconds and memory limit of 512 MB.
+</i></p>
+<p>
+Arpa has an array A with <b>N</b> elements (indexed 0 through <b>N</b>-1) and <b>Q</b> questions about elements of the array. 
+Each question asks about some non-empty contiguous segment of the array.
+Arpa initially just wanted to know the bitwise xor of those elements, but that's not what we are doing in this problem.
+</p>
+<p>
+Mojtaba is Arpa's kind teacher.
+He wants to give Arpa large answers.
+Therefore, he decided that whenever Arpa asks a question, he will ignore <i>exactly</i> one of the elements in the specified range.
+He will always choose the element that maximizes the bitwise xor of the remaining elements in the range.
+(Note that by definition the bitwise xor of no elements is zero.)
+</p>
+<p>
+Today, Mojtaba is occupied by preparing a holiday celebration, so you will have to do his job.
+Compute the answers to all of Arpa's queries, and return their sum.
+</p>
+<p>
+Both the contents of the array and the queries are generated pseudorandomly.
+The array A is constructed as follows:
+</p>
+<ul>
+<li>A[0] = <b>Add</b>.</li>
+<li>For each i from 1 to <b>N</b>-1: A[i] = (A[i-1] * <b>Base</b> + <b>Add</b>) modulo (10^9 + 7).</li>
+</ul>
+<p>
+Parameters L and R for the queries are generated as follows:
+</p>
+<ul>
+<li>L[0] = <b>QAdd</b> modulo <b>N</b>, and R[0] = (L[0] * <b>QBase</b> + <b>QAdd</b>) modulo <b>N</b>.</li>
+<li>For each i from 1 to <b>Q</b>-1: L[i] = (R[i-1] * <b>QBase</b> + <b>QAdd</b>) modulo <b>N</b>, and R[i] = (L[i] * <b>QBase</b> + <b>QAdd</b>) modulo <b>N</b>.</li>
+</ul>
+<p>
+For query number i, consider all elements of the array A at indices between min(L[i],R[i]) and max(L[i],R[i]), inclusive.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MojiDeletes</td></tr><tr><td>Method:</td><td>maximumXor</td></tr><tr><td>Parameters:</td><td>int, int, int, int, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long maximumXor(int N, int Q, int Base, int Add, int QBase, int QAdd)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>512</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Q</b> will be between 1 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Base</b>, <b>Add</b>, <b>QBase</b> and <b>QAdd</b> will each be between 1 and 10^9 + 6, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 37292</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The array A is { 3, 33, 333, 3333, 33333 }.
+</p>
+<p>
+The same numbers in base 2 (with some leading zeros added for readability) look as follows:
+</p>
+<pre>
+0000000000000011
+0000000000100001
+0000000101001101
+0000110100000101
+1000001000110101
+</pre>
+<p>Query 0 is about elements A[1] and A[2]. Mojtaba will ignore A[1] and answer A[2] = 333.</p>
+<p>Query 1 is about the entire array. Mojtaba will ignore A[2] and answer (A[0] xor A[1] xor A[3] xor A[4]) = 36,626.</p>
+<p>Query 2 is the same as query 0.</p>
+<p>Thus, the correct return value is 333 + 36,626 + 333 = 37,292.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>42</pre></td></tr><tr><td><pre>7654321</pre></td></tr><tr><td><pre>1234567</pre></td></tr><tr><td><pre>23</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 41156782009</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>500000</pre></td></tr><tr><td><pre>500000</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 534618713588573</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

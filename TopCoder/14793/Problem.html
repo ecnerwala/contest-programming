@@ -1,0 +1,28 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are given a directed acyclic graph with <b>n</b> nodes and m edges.
+The edges are given in the vector &lt;int&gt;s <b>f</b>, <b>t</b> denoting a directed edge from node <b>f</b>[i] to node <b>t</b>[i].
+The nodes are given in topological order (so <b>f</b>[i] &lt; <b>t</b>[i] for all i).
+Node 0 is guaranteed to be the only node with no incoming edges.
+Node n-1 is guaranteed to be the only node with no outgoing edges.
+</p>
+
+<p>
+You want to label nodes with rational numbers such that the following holds.
+</p>
+
+<p>
+Let x_v be the value of the v-th node.
+The node 0 must have value x_0 = 0 and the node n-1 must have value x_{n-1} = 1. 
+All other nodes must satisfy 0 &le; x_v &le; 1.
+</p>
+<p>
+For all non-source and non-sink nodes, x_v must be the average of the smallest value of a node that it can reach and the largest value of a node that can reach it. More formally, let S(v) be the set of nodes reachable from v (not including v), and let T(v) be the set of nodes that can reach v (not including v). Then, x_v must be equal to ((min_(y in S(v)) x_y) + max_(z in T(v)) x_z)) / 2 for all nodes v from 1 to n-2.
+</p>
+
+<p>
+Return this as a vector&lt;long long&gt; of nonnegative integers with the following format { p_0,q_0, p_1,q_1, ..., p_{n-1},q_{n-1} }.
+Here, this represents setting x_i = p_i/q_i (p_i and q_i do not need to be coprime).
+If there are multiple possible answers, output any of them.
+If there are no answers, return an empty vector&lt;long long&gt;.
+It is guaranteed under the current constraints that if there is an answer, then there is one where all results fit in a signed 64-bit integer.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>FillInTheDAG</td></tr><tr><td>Method:</td><td>findWay</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Method signature:</td><td>vector&lt;long long&gt; findWay(int n, vector &lt;int&gt; f, vector &lt;int&gt; t)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>4.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 3 and 100.</td></tr><tr><td align="center" valign="top">-</td><td>m will be between 2 and 1,000.</td></tr><tr><td align="center" valign="top">-</td><td><b>f,t</b> will contain exactly m elements each.</td></tr><tr><td align="center" valign="top">-</td><td>0 &lt;= <b>f</b>[i] &lt; <b>t</b>[i] &lt; <b>n</b> for all valid i.</td></tr><tr><td align="center" valign="top">-</td><td>Node 0 will be the only node with indegree zero.</td></tr><tr><td align="center" valign="top">-</td><td>Node <b>n</b>-1 will be the only node with outdegree zero.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{0,1}</pre></td></tr><tr><td><pre>{1,2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 1, 2, 1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">In this case, the only solution is to assign x_0 = 0, x_1 = 1/2, and x_2 = 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>{0,1,2,4,0,3}</pre></td></tr><tr><td><pre>{1,2,4,5,3,4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 1, 4, 1, 2, 3, 8, 3, 4, 1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">This solution corresponds to setting x_0 = 0, x_1 = 1/4, x_2 = 1/2, x_3 = 3/8, x_4 = 3/4 and x_5 = 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{0,0,0,1,1,2}</pre></td></tr><tr><td><pre>{1,2,3,2,3,3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 1, 3, 2, 3, 1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

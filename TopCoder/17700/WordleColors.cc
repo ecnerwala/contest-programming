@@ -1,0 +1,46 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class WordleColors {
+
+public:
+
+	string color(string hidden, string guess) {
+		std::swap(hidden, guess);
+		string res(5, '-');
+		std::map<char, int> gcnt;
+		for (int i = 0; i < 5; i++) {
+			if (hidden[i] == guess[i]) {
+				res[i] = 'g';
+			} else {
+				gcnt[guess[i]]++;
+			}
+		}
+		for (int i = 0; i < 5; i++) {
+			if (hidden[i] == guess[i]) {
+				continue;
+			}
+			if (gcnt[hidden[i]] > 0) {
+				gcnt[hidden[i]]--;
+				res[i] = 'y';
+			}
+		}
+		return res;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::WordleColors;
+
+// vim:ft=cpp

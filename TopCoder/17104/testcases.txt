@@ -1,0 +1,22 @@
+{9, 5, 11, 23, 23, 1, 33, 14, 6, 23, 23, 4, 18, 0, 1, 27, 14, 51, 34, 16 }
+{"ncmN-z-yG--q-v-K-D-J-B--e----i-p-Q-s-F-d-ZjaxgfbOHAS",
+ "NdyuiS--C-t-Q-D--Ys-n-q-K-r-ex-J-l-AHcVvBmbwagETGLjo",
+ "m-fI-j-Y--u-D-rioGLXWsqdFpwESeBPhTAvU-Q-M-t-V-c--N-C",
+ "MF-l-W-yVc-p-N-b-Y-L--f-s--KqwoeIvJaDuETdRQ-z-m-k-U-",
+ "F-n-b-UqCQZHVBuLcXszgaRoN-J-P-M-Y--Gd--lf--k-v-K-E--",
+ "s-f--c-M-vZHCjLDFgPbndeR-o-N-y-G-O-V-S-TUWYp-h-K--u-",
+ "HAdJblNSWt-c-m-r-Y-p-w-X-eZ-Ky--T-E--FQ--IOsvkVBCMRj",
+ "o-pm-w--S-Ez-K-J-eRubcxXAIVFMlg-i-a--BH-W-Q-k-ZU-C--",
+ "-y-B-A-b-HXGOIacWPELuJTzsUjSQFKlD-n-m-Y-Z-ek--w--x-r",
+ "laHpnNmQIzgRVFYh-M-d-Sb--c-JX-U--T---e-B--u-x-w-o-Z-",
+ "K-O-mG-w-y--H-J-F-B--T-e-I-tQ-qS-x--jNLpMvsEcVfnYuD-",
+ "-y-K-uOEqrPaTeXcwRNpUhf-i-xF-H-v--C-ZM-d-----jB-o-bl",
+ "-L-I--oAF-P-h--S-W-g-U-steEKXafxCbRVluYmGNJjQr-T-c-H",
+ "-B-e--WlzETxGNJVKtrQMHbSwRCPp-L-I-X-f-g-k-F--s-m-y-n",
+ "Q--Vp-s-lUNfHzwFWdOnLrMcAmDkKC-x-P-J--R-j-B-g--hS--a",
+ "C-Ji-m-l-z-BuDK-o--YV--Ae-n-S-v-pTMPGqhZdHIEOaNUr-g-",
+ "-j-w-am-v----c-Xi-R-W-kH-guAFOTlZBJKSnNqUo-M--d-E--s",
+ "-g-W-i-C-O--XRQhKTfYvDewIJFrdxctM-o-j-m--b-pA-y-uZ-B",
+ "V-mw-r-l-k-zy-K-f-pUNxJM--h-W--b-T--t-IYCBQnAsXPdiEa",
+ "D--S-e-J-cv-ZE-P-M-W-lhmRACudQsTpgIwGinBKx-b-z-j-a-H"}
+{2, 2, 1, 2, 1, 4, 4, 1, 1, 0, 0, 0, 2, 3, 3, 2, 4, 0, 2, 3}

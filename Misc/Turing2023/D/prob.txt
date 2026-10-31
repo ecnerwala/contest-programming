@@ -1,0 +1,62 @@
+D.  Eternal Tragedy
+
+    Time Limit:
+    8000
+    ms
+    Memory Limit:
+    1048576
+    kb
+
+Description
+
+There is an integer sequence a1,a2,…,an. Given a sequence of m operations b1,b2,…,bm, where each operation is one of the following two types:
+
+    Given l,r,c, change all ai with l≤i≤r to max(ai,c).
+
+    Given l,r,c, change all ai with l≤i≤r to min(ai,c).
+
+For a sequence of operations c1,c2,…,ck, a position i is called stable if and only if, after performing the operations c1,c2,…,ck, the final value of ai is independent of its initial value. In this case, the final value is called the stable value of position i. Let f(c1,c2,…,ck) denote the sum of the stable values of all stable positions after performing the operations.
+
+You need to calculate ∑l=1rf(cl,cl+1,…,cr) for all 1≤r≤m.
+Input
+
+The first line contains two positive integers n and m.
+
+The following m lines each contain four positive integers op,l,r,c that describe the operation bi.
+Output
+
+One line containing m numbers, representing the answers.
+Examples
+Input 1
+
+6 10
+1 1 1 7
+1 3 4 6
+1 3 5 4
+2 3 6 4
+2 1 6 1
+2 2 3 8
+2 1 4 8
+1 3 4 6
+2 3 3 5
+1 4 4 1
+
+Output 1
+
+0 0 0 36 10 10 10 64 74 74 
+
+Note
+
+Guaranteed that 1≤n,m≤105, 1≤op≤2, 1≤l≤r≤n, and 1≤c≤108.
+
+Subtask1 (15pts): Guaranteed that n,m≤500.
+
+Subtask2 (15pts): Guaranteed that n,m≤2000.
+
+Subtask3 (15pts): Guaranteed that n=1.
+
+Subtask4 (15pts): Guaranteed that there is at most one operation such that op=2.
+
+Subtask5 (15pts): Guaranteed that all operations are generated randomly with equal probability from all valid operations.
+
+Subtask6 (25pts): No special restrictions.

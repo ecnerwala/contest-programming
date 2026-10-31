@@ -24,7 +24,7 @@ int main() {
 		if (query(md)) hi = md;
 		else lo = md;
 	}
-	cout << hi << '\n';
+	cout << '!' << ' ' << hi << '\n' << flush;
 
 	return 0;
 }

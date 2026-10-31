@@ -1,0 +1,4 @@
+{"start", "start::finish:x:" }
+1
+{"start", "start:yY:explode::r", "start:l:start::l", "start:r:start::r", "start::finish:x:", "Hello47::Hello42::" }
+2

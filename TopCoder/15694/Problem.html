@@ -1,0 +1,53 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Consider a very simple string rewriting system.
+We have a string over the alphabet {A,B}.
+In each step, we find all occurrences of "AB" in the current string and we change each of them into "BA".
+</p>
+<p>
+For example, if we start with the string "AABABB", the rewriting will go as follows:
+</p>
+<pre>
+0: AABABB
+1: ABABAB
+2: BABABA
+3: BBABAA
+4: BBBAAA
+</pre>
+<p>
+At this point, the rewriting has stopped, as there are no more "AB" substrings in the current string.
+</p>
+<p>
+Use the following pseudocode to generate a string S of length <b>N</b>:
+</p>
+<pre>
+state = seed
+S = Sprefix
+while length(S) &lt; N:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    if state &lt; threshold:
+        S += 'A'
+    else:
+        S += 'B'
+</pre>
+<p>
+Given the string S, compute and return the number of rewriting steps.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ABBAReplace</td></tr><tr><td>Method:</td><td>countSteps</td></tr><tr><td>Parameters:</td><td>string, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countSteps(string Sprefix, int N, int seed, int threshold)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on any properties of the pseudorandom generator.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>Sprefix</b> will contain between 0 and 1000 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>Sprefix</b> will be 'A' or 'B'.</td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between len(<b>Sprefix</b>) and 7,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>threshold</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;AABABB&quot;</pre></td></tr><tr><td><pre>6</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">The example from the problem statement.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">An empty string.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;ABBABAABABBBABBBB&quot;</pre></td></tr><tr><td><pre>17</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 11</pre></td></tr><tr><td><table><tr><td colspan="2">S = <b>Sprefix</b>.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;AABAA&quot;</pre></td></tr><tr><td><pre>17</pre></td></tr><tr><td><pre>47474747</pre></td></tr><tr><td><pre>1000000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The string you should generate is S = "AABAAABAAABBBAAAA".
+The sequence of values in the "state" variable during generation is as follows:
+</p>
+<pre>
+81038168
+1862554801
+143404438
+831999255
+766706948
+1708690157
+2010484002
+1631167411
+81620336
+507504873
+660822382
+597739535
+</pre>
+<p>Watch out for integer overflow.</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

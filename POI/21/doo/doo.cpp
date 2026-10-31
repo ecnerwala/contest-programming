@@ -15,7 +15,6 @@ ll S; // sum
 int M; // max value of A
 
 int nxt[MAXN];
-int vis[MAXN];
 
 int query(ll v) {
 	if(v >= S) return 1;
@@ -27,45 +26,25 @@ int query(ll v) {
 			if(r == N) r = 0;
 		}
 
-		nxt[l] = r - l;
-		if(nxt[l] < 0) nxt[l] += N;
+		nxt[l] = r;
+		assert(r != l);
 
 		v += A[l];
 	}
 
-	int res = N;
+	int st = 0;
+	for (int i = 0; i < N; i++) st = nxt[st];
 
-	for(int i = 0; i < N; i++) {
-		vis[i] = -1;
-	}
-
-	for(int i = 0; i < N; i++) {
-
-		int cur = i;
-		while(vis[cur] == -1) {
-			vis[cur] = i;
-			cur += nxt[cur];
-			if(cur >= N) cur -= N;
-		}
-
-		if(vis[cur] == i) {
-			// cur is part of a cycle
-			int l = cur;
-			int r = cur;
-
-			int d = 0;
-			do {
-				while(r - l < N) {
-					r += nxt[r % N];
-					d++;
-				}
-				if(d < res) res = d;
-				d--;
-			} while(l % N != cur);
-		}
-	}
-
-	return res;
+	int res = 0;
+	int loops = 0;
+	int cur = st;
+	do {
+		res++;
+		int n = nxt[cur];
+		loops += n < cur;
+		cur = n;
+	} while (cur != st);
+	return (res + loops - 1) / loops;
 }
 
 int main() {

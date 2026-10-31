@@ -36,7 +36,7 @@ int main() {
 		while (z_hi < L && by_time[z_hi].first == T_cur) {
 			z_hi++;
 		}
-		cerr << T_cur << ' ' << z_lo << '-' << z_hi << '\n';
+		//cerr << T_cur << ' ' << z_lo << '-' << z_hi << '\n';
 
 		for (int z = z_lo; z < z_hi; z++) {
 			int loc = by_time[z].second;
@@ -102,7 +102,7 @@ int main() {
 		int loc; int64_t cur_time; int64_t rem_time;
 		cin >> loc >> cur_time >> rem_time; loc--;
 		while (rem_time > 0) {
-			cerr << "at " << loc << " at " << cur_time << " rem " << rem_time << '\n';
+			//cerr << "at " << loc << " at " << cur_time << " rem " << rem_time << '\n';
 			int T_cur = T[loc];
 			int v = pref[loc] + int(cur_time & int64_t(T_cur - 1));
 			{

@@ -1,0 +1,117 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This task is about automata that can walk on rooted binary trees and keep notes in the trees' nodes.
+</p>
+<p>
+The trees are general binary trees.
+I.e., each node has at most two sons: at most one left son and at most one right son.
+</p>
+<br></br>
+<p>
+Each node contains 26 boolean variables.
+These are called <i>flags</i> and they are labelled 'a' to 'z'.
+</p>
+<p>
+Variables 'l', 'r', and 'p' are special: initially they are set to true iff the node has a left son ('l'), a right son ('r'), and a parent ('p').
+</p>
+<p>
+All other variables are initally set to false.
+</p>
+<p>
+All variables are read-write, but it is generally recommended to leave 'l', 'r', and 'p' untouched.
+</p>
+<br></br>
+<p>
+The automaton has a finite number of states.
+It begins its computation in the root of the tree.
+</p>
+<p>
+A general step of its computation looks as follows:
+The automaton is located in one of the nodes of the tree.
+Based on its current state and some flags in the current node, the automaton decides how to change it state, toggle some of the flags in the current node, and then possibly it moves along an edge to an adjacent node.
+</p>
+<p>
+More formally, the program for the automaton is a finite sequence of strings.
+The first of those strings is the identifier of the starting state.
+The rest of the program is a sequence of instructions.
+Each instruction has the following form: "<tt>current_state:conditions:new_state:toggle:move</tt>".
+Here:
+</p>
+<ul>
+<li><tt>current_state</tt> is the identifier of the current state (any string of 1-10 letters and/or digits).</li>
+<li><tt>conditions</tt> is a sequence of distinct conditions that all have to be satisfied. Each condition is a lowercase letter (letter x represents the condition "flag x is set to true") or an uppercase letter (representing the condition that the corresponding flag must be false).</li>
+<li><tt>new_state</tt> is the identifier of the new state into which the automaton switches if this instruction is used.</li>
+<li><tt>toggle</tt> is a list of distinct flags (lowercase letters) that will be toggled (from true to false and vice versa) if this instruction is used.</li>
+<li><tt>move</tt> is either an empty string (with the meaning that the automaton remains in its current node) or a description of a movement: 'l' to the left son of the current node, 'r' to its right son, or 'p' to its parent.</li>
+</ul>
+<p>
+Instruction order matters:
+In each step, the automaton applies the first instruction in the program that can be applied.
+</p>
+<p>
+If no instruction can be applied, the execution of the program terminates.
+The execution of the program is also terminated if it attempts to move to a non-existing node of the tree (and that step still counts as executed).
+</p>
+<br></br>
+<p>---------------------------------</p>
+<br></br>
+<p><b>Simulator.</b></p>
+<p>
+Simulator for these automata is available at <tt>https://algo.sk/topcoder/BinaryTreeAutomatonHard/</tt>
+</p>
+<p>
+(You may download a standalone Python3 version of the simulator, and for small inputs you may also run it online.)
+</p>
+<br></br>
+<p>---------------------------------</p>
+<br></br>
+<p><b>Task.</b></p>
+<p>
+Write a program for the automaton that will find all deepest nodes in the tree.
+</p>
+<p>
+When your program terminates, the deepest nodes of the tree must be precisely those in which the 'x' flag is set.
+</p>
+<br></br>
+<p>
+Submit a <i>wrapper program</i>: a program in any supported programming language that will return a vector &lt;string&gt; containing your program for the automaton. (Remember that element 0 of your return value should be the initial state for your program.)
+</p>
+<br></br>
+<p>
+There are multiple test cases for the wrapper program.
+Each test case consists of a single int <b>N</b> representing the number of nodes in the trees on which your automaton will be tested.
+</p>
+<p>
+(Your wrapper program may return different programs for different values of <b>N</b>, but doing so is not necessary and does not really help you solve the task.)
+</p>
+<br></br>
+<p>
+Your wrapper program will be tested <b>twice</b> and you will only score points if <b>both</b> tests pass.
+In the arena only tests with <b>N</b> &lt;= 30 are allowed.
+During system tests we will also test your program (outside the arena) on tests with <b>N</b> &lt;= 60,000.
+</p>
+<p>
+The program for the automaton must have the following properties:
+</p>
+<ul>
+<li>It must have at most 500 instructions.</li>
+<li>The instructions must have at most 6500 characters total.</li>
+<li>On any given tree with at most 30 vertices it must terminate within 20,000 steps.</li>
+<li>On any given tree with at most 60,000 vertices it must terminate within 200,000,000 steps.</li>
+<li>Remember that state names must be strings of 1-10 letters and/or digits.</li>
+</ul></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BinaryTreeAutomatonHard</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; construct(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Please be mindful of the obfuscation rules. When including string constants in your program, please make sure they are in a reasonably human-readable form.</td></tr><tr><td align="center" valign="top">-</td><td>For each <b>N</b> that is actually used as a test case we have a deterministically chosen collection of <b>N</b>-node trees. The exact same collection will be used to test all submitted programs.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 30, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>(In additional tests <b>N</b> will be up to 60,000.)</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;start&quot;, &quot;start::finish:x:&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>The returned program will be tested on exactly one tree: the tree with a single node. (In the simulator this tree is encoded "--".)</p>
+<br></br>
+<p>The algorithm will start in the state "start" in the root of the tree.</p>
+<p>It will perform exactly one step, in which it will change its state to "finish" and set the 'x' flag in the only node of the tree.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{&quot;start&quot;,
+ &quot;start:yY:explode::r&quot;,
+ &quot;start:l:start::l&quot;,
+ &quot;start:r:start::r&quot;,
+ &quot;start::finish:x:&quot;,
+ &quot;Hello47::Hello42::&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>The returned program will be tested on exactly two trees with two nodes each. (In the simulator they are encoded "+---" and "-+--".)</p>
+<br></br>
+<p>The automaton will start in the root of the tree in the state "start".</p>
+<p>The instruction "<tt>start:yY:explode::r</tt>" will never be executed: flag 'y' cannot be both set and unset at the same time, hence the conditions "yY" will never be satisfied.</p>
+<p>Exactly one of the two instructions "<tt>start:l:start::l</tt>", "<tt>start:r:start::r</tt>" will be executed exactly once (the automaton will move from the root to the only leaf).</p>
+<p>Once the automaton reaches the leaf, the previous two instructions no longer apply. Now the automaton will execute "<tt>start::finish:x:</tt>" and set the 'x' flag in the leaf.</p>
+<p>After that happens, the program will terminate.</p>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

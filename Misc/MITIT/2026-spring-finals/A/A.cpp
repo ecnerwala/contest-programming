@@ -185,6 +185,7 @@ int main() {
 			par[b] = a;
 			return true;
 		};
+		bool good = true;
 		std::vector<std::array<int, 2>> ne; ne.reserve(N*M);
 		for (int i = 1; i <= N; i++) {
 			dist[{i, 0}] = i;
@@ -200,6 +201,7 @@ int main() {
 				// dist[{i, j}] = A[i-1] == B[j-1] ? a : (mi + 1);
 				if (mi == a) {
 					// don't learn anything
+					if (p != (a & 1)) good = false;
 					dist[{i, j}] = a;
 				} else {
 					if (p == (a & 1)) {
@@ -212,7 +214,6 @@ int main() {
 				}
 			}
 		}
-		bool good = true;
 		for (auto [i, j] : ne) {
 			if (get_par(i) == get_par(j)) {
 				good = false; break;

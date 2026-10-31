@@ -1,0 +1,145 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+template <typename T> void setmin(T& a, const T& b) { if (b < a) a = b; }
+
+class TwoDistance {
+
+	long long solve(const vector<long long>& V, const vector<int>& par) {
+		int N = int(V.size());
+		assert(int(par.size()) == N);
+
+		vector<vector<pair<long long, int>>> ch(N);
+		for (int i = 1; i < N; i++) {
+			ch[par[i]].push_back(pair<long long, int>(V[i], i));
+		}
+		for (int i = 0; i < N; i++) {
+			sort(ch[i].begin(), ch[i].end());
+		}
+
+		vector<vector<pair<long long, int>>> ch2(N);
+		for (int i = 1; i < N; i++) {
+			int p = par[par[i]];
+			if (p == -1) continue;
+			ch2[p].push_back(pair<long long, int>(V[i], i));
+		}
+		for (int i = 0; i < N; i++) {
+			sort(ch2[i].begin(), ch2[i].end());
+		}
+
+		const long long INF = 1e18;
+		vector<long long> ans(N, INF);
+
+		for (int i = 0; i < N; i++) {
+			// ch2-ch2
+			for (int z = 0; z+1 < int(ch2[i].size()); z++) {
+				setmin(ans[i], abs(ch2[i][z+1].first - ch2[i][z].first));
+			}
+			if (par[i] != -1) {
+				const auto& pch = ch[par[i]];
+				auto checkVal = [&](pair<long long, int> cval) {
+					auto nt = lower_bound(pch.begin(), pch.end(), cval);
+					auto pt = nt;
+					if (nt != pch.end() && nt->second == i) {
+						++nt;
+					}
+					if (nt != pch.end()) {
+						setmin(ans[i], abs(nt->first - cval.first));
+					}
+
+					if (pt != pch.begin()) {
+						--pt;
+						if (pt->second == i) {
+						} else {
+							++pt;
+						}
+					}
+					if (pt != pch.begin()) {
+						--pt;
+						setmin(ans[i], abs(cval.first - pt->first));
+					}
+				};
+
+				// ch2-par
+				for (auto cval : ch2[i]) {
+					checkVal(cval);
+				}
+
+				if (par[par[i]] != -1) {
+					// parpar-par
+					checkVal({V[par[par[i]]], par[par[i]]});
+
+					// ch2-parpar
+					for (auto cval : ch2[i]) {
+						setmin(ans[i], abs(V[par[par[i]]] - cval.first));
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < N; i++) {
+			if (ch[i].size() < 3) {
+				continue;
+			}
+			for (int z = 1; z+1 < int(ch[i].size()); z++) {
+				setmin(ans[ch[i][z].second], ch[i][z+1].first - ch[i][z-1].first);
+			}
+			long long bestPref = ch[i][1].first - ch[i][0].first;
+			for (int z = 2; z < int(ch[i].size()); z++) {
+				setmin(ans[ch[i][z].second], bestPref);
+				setmin(bestPref, ch[i][z].first - ch[i][z-1].first);
+			}
+			long long bestSuff = ch[i][int(ch[i].size())-1].first - ch[i][int(ch[i].size())-2].first;
+			for (int z = int(ch[i].size())-3; z >= 0; z--) {
+				setmin(ans[ch[i][z].second], bestSuff);
+				setmin(bestSuff, ch[i][z+1].first - ch[i][z].first);
+			}
+		}
+
+		long long tot = 0;
+		for (int i = 0; i < N; i++) {
+			if (ans[i] == INF) {
+				continue;
+			}
+			tot += ans[i];
+		}
+		return tot;
+	}
+public:
+
+	long long findMinValue(int N, vector <int> edge, vector <int> val, int D, int seed) {
+		vector<long long> A(2*N);
+		A[0] = seed;
+		for (int i = 1; i <= 2*N-1; i++) {
+			A[i] = (A[i-1] * 1103515245 + 12345) % 2147483648LL;
+		}
+
+		vector<long long> V(val.begin(), val.end()); V.resize(N);
+		for (int i = int(val.size()); i <= N-1; i++) {
+			V[i] = A[i];
+		}
+
+		vector<int> E = edge; E.resize(N);
+		for (int i = int(edge.size()); i <= N-1; i++) {
+			E[i] = int(A[N+i] % min(i,D));
+		}
+
+		return solve(V, E);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::TwoDistance;
+
+// vim:ft=cpp

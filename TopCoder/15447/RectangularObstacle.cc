@@ -1,0 +1,43 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class RectangularObstacle {
+
+public:
+
+	long long countReachable(int x1, int x2, int y1, int y2, int s) {
+		assert(x1 <= 0 && 0 <= x2);
+		assert(1 <= y1 && y1 <= y2);
+		using i64 = int64_t;
+		i64 ans = i64(s) * i64(s+1) * 2 + 1;
+		for (int x = x1; x <= x2; x++) {
+			int y = s - abs(x);
+			if (y >= y1) {
+				ans -= y - y1 + 1;
+				int yhi = s - min(abs(x1-1) + abs(x-(x1-1)), abs(x2+1) + abs(x-(x2+1)));
+				assert(yhi <= y);
+				if (yhi > y2) {
+					ans += yhi - y2;
+				}
+			}
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	cerr << RectangularObstacle().countReachable(-1e6, 1e6, 1, 1e6, 1e9) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::RectangularObstacle;
+
+// vim:ft=cpp

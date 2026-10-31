@@ -1,0 +1,59 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Given is a sequence A[0..<b>N</b>-1] of nonnegative integers, each between 0 and <b>M</b>-1, inclusive. We are going to sort this sequence
+</p>
+<p>
+The sorting will consist of <b>N</b>-1 phases, numbered from 0 to <b>N</b>-2. Each phase is either "type 0" or "type 1". 
+</p>
+<p>
+Also given is a sequence T[0..<b>N</b>-2] of zeros and ones: T[i] is the type of phase i.
+</p>
+<p>
+In a type 0 phase we locate the leftmost minimum in A and then we move it to the beginning of A by repeatedly swapping it with its left neighbor. Once that is done, we will pretend that this element no longer exists during the following phases.
+</p>
+<p>
+In a type 1 phase we move the rightmost maximum in A to the end in the same way.
+</p>
+<p>
+Let S[i] be the number of swaps performed during phase i.
+Let WS[i] = S[i] * 10^i.
+Return sum(WS) modulo (10^9 + 7).
+</p>
+<br></br>
+<p>
+Please use the following pseudocode to generate the arrays A and T:
+</p>
+<pre>
+
+L = length(Aprefix)
+for i = 0 to L-1:
+    A[i] = Aprefix[i]
+
+state = seed
+for i = L to N-1:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    A[i] = state modulo M
+
+for i = 0 to N-2:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    tmp = (state div 2^20) modulo 100
+    if tmp &lt; B:
+        T[i] = 1
+    else:
+        T[i] = 0
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>LRSort</td></tr><tr><td>Method:</td><td>simulate</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int simulate(int N, vector &lt;int&gt; Aprefix, int M, int seed, int B)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on the input being pseudorandom, that is only done to keep the input size small. </td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Aprefix</b> will have between 0 and min(<b>N</b>,200) elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Aprefix</b> will be between 0 and <b>M</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>B</b> will be between 0 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>{70, 60, 50, 40, 30, 20}</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>74</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12345</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The generated array T should look as follows: T = {1, 1, 0, 1, 0}.
+</p>
+<p>
+Regardless of the phase type, the element we want is always at the opposite end of the currently-unsorted segment of A. Thus, the required numbers of swaps are S = {5, 4, 3, 2, 1}.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>{4, 7}</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>47474747</pre></td></tr><tr><td><pre>74</pre></td></tr></table></td></tr><tr><td><pre>Returns: 102023400</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The generated array A should look as follows: A = {4, 7, 8, 1, 8, 5, 8, 7, 2, 1}
+</p>
+<p>
+The generated array T should look as follows: T = {0, 0, 1, 0, 1, 1, 1, 1, 1}
+</p>
+<p>
+The calculated array S should look as follows: S = {3, 8, 2, 6, 2, 2, 0, 1, 0}
+</p>
+<p>
+For example, in phase 0 we move the leftmost 1 to the beginning of A (3 swaps), then in phase 1 we move the other 1 to the beginning of the rest of A (8 swaps), then in phase 2 we move the rightmost 8 to the end of A (which now only requires 2 swaps), and so on.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47000</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The array A is all zeros. Regardless of the array T, there will never be any swaps.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>15</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>147</pre></td></tr><tr><td><pre>777444</pre></td></tr><tr><td><pre>42</pre></td></tr></table></td></tr><tr><td><pre>Returns: 466633400</pre></td></tr><tr><td><table><tr><td colspan="2">Remember to calculate the answer modulo 10^9 + 7.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

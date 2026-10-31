@@ -1,0 +1,24 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Nam and Quang are playing a game with a sequence of integers <b>A</b>. In the game they take alternating turns. Nam plays first.
+</p>
+<br></br>
+<p>
+In Nam's turn he has to choose two consecutive elements of <b>A</b>. Once he does so, he has to erase the larger of these two elements. (If they are equal, he erases one of them, it does not matter which one.)
+</p>
+<p>
+Quang's turn also begins with him choosing two consecutive elements of <b>A</b>. However, Quang always erases the smaller of those two elements.
+</p>
+<br></br>
+<p>
+The game terminates when only one element of <b>A</b> remains. Its value V is the result of the game. Nam's objective is to maximize V, while Quang's objective is to minimize V.
+</p>
+<br></br>
+<p>
+Assume that both players play optimally. Determine and return the value of V.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MinMaxGame</td></tr><tr><td>Method:</td><td>lastNumber</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int lastNumber(vector &lt;int&gt; A)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Whenever an element gets erased from <b>A</b>, its neighbors become adjacent to each other. </td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> will have between 2 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>A</b> will be between 1 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3, 2, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">There are 2 possible scenarios:
+<br></br>
+- Scenerio 1: In the first turn, Nam chooses the first two elements of <b>A</b>, then erases the larger one. The sequence <b>A</b> now becomes {2, 1}. In the second turn, Quang erases the smaller one amongst the two elements remaining in <b>A</b>. The sequence <b>A</b> now becomes {2}. The game terminates, V = 2.
+<br></br>
+- Scenerio 2: In the first turn, Nam chooses the last two elements of <b>A</b>, then erases the larger one. The sequence <b>A</b> now becomes {3, 1}. In the second turn, Quang erases the smaller one amongst the two elements remaining in <b>A</b>. The sequence <b>A</b> now becomes {3}. The game terminates, V = 3.
+<br></br>
+Because Nam's objective is to maximize V, he will choose scenerio 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 5, 3, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{4, 5, 1, 6, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

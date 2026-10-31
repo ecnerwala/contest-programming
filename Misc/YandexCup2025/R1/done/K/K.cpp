@@ -746,13 +746,13 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		std::string S; cin >> S;
-		std::string cur = S;
-		std::reverse(cur.begin(), cur.end());
-		cur += 'a' - 1;
-		cur += S;
+		std::string sa_S = S;
+		std::reverse(sa_S.begin(), sa_S.end());
+		sa_S += 'a' - 1;
+		sa_S += S;
 		//cerr << cur << '\n';
 		auto pals = manacher(S);
-		auto sa = SuffixArray::shift_and_construct(cur);
+		auto sa = SuffixArray::shift_and_construct(sa_S);
 		auto ct = CartesianTree::build_min_tree(sa.lcp);
 
 		using num = modnum<998244353>;

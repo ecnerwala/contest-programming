@@ -1,0 +1,62 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have a tree.
+Its vertices are numbered from 0 to <b>N</b>-1.
+</p>
+<p>
+You want to place some tokens onto the vertices of the tree.
+Each vertex may contain at most one token.
+Each simple path may contain at most <b>K</b> tokens.
+Maximize the number of tokens on the tree and return that maximum.
+</p>
+<br></br>
+<p>
+For each i between 0 and <b>N</b>-2, inclusive, the tree contains an undirected edge between vertices (i+1) and P[i].
+</p>
+<p>
+For all i we will have P[i] &lt; (i+1), which ensures that the collection of <b>N</b>-1 edges is a tree.
+</p>
+<br></br>
+<p>
+In order to keep the input small, the tree is (mostly) pseudorandom. 
+Please use the pseudocode below to generate its array P.
+</p>
+<pre>
+
+state = seed
+L = length(Pprefix)
+
+for i = 0 to L-1:
+    P[i] = Pprefix[i]
+
+for i = L to N-2:
+    lo = max(0, i-D+1)
+    state = (state * 1103515245 + 12345) modulo 2^31
+    P[i] = lo + (state modulo (i-lo+1))
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TokenTree</td></tr><tr><td>Method:</td><td>maxTokens</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int maxTokens(int N, int K, vector &lt;int&gt; Pprefix, int D, int seed)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on the input being pseudorandom.</td></tr><tr><td align="center" valign="top">-</td><td>The parameter <b>D</b> used in the pseudocode influences the shape of the resulting tree.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 500,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>K</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Pprefix</b> will contain between 0 and min(<b>N</b>-1, 200) elements.</td></tr><tr><td align="center" valign="top">-</td><td>For each i, <b>Pprefix</b>[i] will be between 0 and i, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>D</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Regardless of the random seed, the choice <b>D</b> = 1 ensures that the generated tree will be a path: you will get P = {0, 1, 2, 3, 4, 5, 6} and thus the tree edges are 0-1, 1-2, ..., 6-7.
+</p>
+<p>
+Clearly, you can place up to four tokens anywhere you like and you will have a valid solution. You cannot place more than four tokens because then the path that is the whole tree would contain too many tokens.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>{0, 0, 0, 0, 0, 0, 0}</pre></td></tr><tr><td><pre>8</pre></td></tr><tr><td><pre>42</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We are given the entire array P in <b>Pprefix</b>.
+The tree is a star with 0 in the center.
+</p>
+<p>
+No path may contain more than two tokens. The optimal solution is to place a token into each of the vertices 1-7.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>{0, 0, 0, 0, 0, 0, 0}</pre></td></tr><tr><td><pre>8</pre></td></tr><tr><td><pre>23236</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8</pre></td></tr><tr><td><table><tr><td colspan="2">Same graph as in the previous example but now each path may contain up to 7 tokens.  The optimal solution is to simply place a token everywhere, so the total number of tokens is <b>N</b> = 8.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{0, 0, 1}</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>12345</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Here you should generate P = {0, 0, 1, 2, 4, 2, 4, 6, 8}.
+</p>
+<p>
+The generated tree is depicted below.
+</p>
+<pre>
+
+3 --- 1 --- 0 --- 2 --- 6 --- 8 --- 9
+                  |
+                  |
+            5 --- 4 --- 7
+
+</pre>
+<p>
+One optimal solution is to place seven tokens at vertices 0, 1, 4, 5, 6, 7, and 9.
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,106 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+We have a wooden cabinet.
+The whole cabinet is divided into pigeonholes: a vertical grid of <b>R</b> rows times <b>C</b> columns of rectangular spaces that can contain objects.
+</p>
+<br></br>
+<p>
+Each pigeonhole contains some nonnegative number of tokens.
+</p>
+<p>
+If a pigeonhole is empty, all pigeonholes that are higher in the same column are also empty.
+</p>
+<p>
+You are given the numbers of tokens in the vector &lt;int&gt; <b>piles</b>.
+The pile sizes are given in column-major order: first the leftmost column from top to bottom, then the next column from top to bottom, and so on.
+</p>
+<p>
+Formally, if we number the rows 0 to <b>R</b>-1 top to bottom and the columns 0 to <b>C</b>-1 left to right, the number of tokens in cell (row r, column c) is <b>piles</b>[ <b>R</b>*c + r ].
+</p>
+<br></br>
+<p>
+We are going to play a version of the game of NIM with these pigeonholes.
+The rules are as follows:
+</p>
+<ul>
+<li>This is a two-player game. The players take alternating turns.</li>
+<li>Valid numbers are positive integers that do not contain the digits 4 and 7. (Some valid numbers are 1, 2, 3, 5, 6, 13, 290016, and so on. The numbers 0, 4, 7, 100402 and 2007407 are not valid.)</li>
+<li>A valid move consists of selecting a non-empty column and making one of two things:
+  <ol>
+  <li>You may remove a valid number of tokens from the topmost non-empty pigeonhole in the chosen column.</li>
+  <li>If a move of the first type would clear a pigeonhole completely and the column is not empty yet, you may also remove exactly one token from the pigeonhole immediately below the one you just cleared.</li>
+  </ol>
+</li>
+</ul>
+<p>
+Note that you cannot remove tokens from more than two pigeonholes in the same turn. 
+For example, suppose there is a column with three pigeonholes, containing 5, 1 and 7 tokens from top to bottom.
+If we select this column, we have the following ways to make a move:
+</p>
+<ul>
+<li>We may remove 1, 2, 3, or 5 tokens from the top pigeonhole.</li>
+<li>We may remove 5 tokens from the top and 1 from the middle pigeonhole.</li>
+</ul>
+<p>
+Note that removing 5 from the top, 1 from the middle and also 1 from the bottom is <i>not</i> a valid move: even if we clear the second pigeonhole along with the first, that's all we are allowed to do.
+</p>
+<br></br>
+<p>
+The game ends <b>as soon as any one column becomes empty</b>, even if there are still tokens in other columns.
+</p>
+<p>
+There are two ways in which the winner can be determined:
+</p>
+<ul>
+<li>If <b>emptyWins</b> = 1, whoever created the empty column wins.</li>
+<li>If <b>emptyWins</b> = 0, whoever created (or, most likely and more precisely, whoever was forced to create) the empty column loses.</li>
+</ul>
+<br></br>
+<p>
+You are given the initial position of the game, as described above, and the value of <b>emptyWins</b>.
+It's your turn.
+Return the number of distinct winning moves you have in the given position.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PigeonholeNim</td></tr><tr><td>Method:</td><td>countWinningMoves</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countWinningMoves(int R, int C, vector &lt;int&gt; piles, int emptyWins)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>We are using the standard meaning of "<i>winning moves</i>": A move is a winning move if after making the move you will have a strategy that guarantees that you can win the game regardless of how your opponent plays.</td></tr><tr><td align="center" valign="top">-</td><td>Two moves are distinct if they affect different columns, and also if they affect the same column and leave it in a different state.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 20, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will be between 1 and 20, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>piles</b> will have <b>R</b>*<b>C</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>piles</b> will be between 0 and 200, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each column in the grid of pigeonholes will be non-empty.</td></tr><tr><td align="center" valign="top">-</td><td>In each column, if a pigeonhole is empty, all pigeonholes that are higher in the same column are also empty.</td></tr><tr><td align="center" valign="top">-</td><td><b>emptyWins</b> will be either 0 or 1.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{9}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We can win simply by taking all 9 tokens from the only pigeonhole, as this creates an empty column.
+</p>
+<p>
+We can also win by taking 5 tokens. This leaves our opponent with 4 tokens, and they cannot take all of them. After their move we can take the rest.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{17}</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">Here we want to force our opponent to clear the only column. The most straightforward way of doing so is by taking 16 tokens, but we can also take just 12, leaving the opponent with 5 tokens.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{121, 1, 1, 123}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">There is one column:
+<pre>
++------+
+|  121 |
++------+
+|    1 |
++------+
+|    1 |
++------+
+|  123 |
++------+
+</pre>
+<p>
+Making a move of the second type wins us the game. (We take the 121+1 tokens from the top two pigeonholes. Our opponent can then either just take 1 token from the third pigeonhole, or 1+1 from the fourth. In either case, we can take all that remains in our next turn.)
+</p>
+<p>
+Perhaps surprisingly, taking 80 tokens from the top pile is also a winning move.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{2, 19, 2, 191, 2, 111, 2, 33}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This is a losing position. If our opponent is smart, we will eventually be forced to clear a cell in the topmost row, and once that happens, our opponent will clear the rest of the column. (Note that we cannot save ourselves by doing a move of the second type.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{2, 19, 2, 5, 2, 111, 2, 33}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+This seems to be a similar situation to the one in the previous example.
+However, now the bottom pigeonhole in the second column only contains 5 tokens.
+This changes the game quite significantly.
+</p>
+<p>
+There is exactly one winning move: to remove one token from the top pigeonhole in that column (turning it from {2,5} to {1,5} ).
+</p>
+<p>
+In this situation, there are exactly four independent moves that don't immediately lose the game: removing one token from one of the other columns, or removing 1+1 tokens from column 2 (leaving four tokens in the bottom pigeonhole). Our opponent will play the first of these moves, we play the second, they play the third, we play the fourth. (The order does not matter. If they do anything else, they lose.)
+</p>
+<p>
+Now we have columns {1, 19}, {0, 4}, {1, 111}, and {1, 33}.
+Regardless of what our opponent does next, we can win in our next turn.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{1, 1, 1, 1, 1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">Nobody wants to be the one who empties a column and loses. The three winning moves we have in this position are as follows: choose any column and remove 1+1 tokens from it.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1}</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">The same example as the previous one but now with two empty pigeonholes on the top of each column. These don't change anything, the three winning moves remain the same.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">7)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
++---+---+---+---+
+|  0|  3|  6|  9|
++---+---+---+---+
+|  1|  4|  7| 10|
++---+---+---+---+
+|  2|  5|  8| 11|
++---+---+---+---+
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

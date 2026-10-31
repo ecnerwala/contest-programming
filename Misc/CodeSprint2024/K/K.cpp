@@ -33,6 +33,5 @@ int main() {
 	// lo bits of s
 	cout << ((lo_bits ^ A[0]) & ((int64_t(1) << max_k) - 1)) << '\n';
 
-
 	return 0;
 }

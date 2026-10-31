@@ -1,0 +1,37 @@
+5
+{"home.htm", "sitemap.htm", "contact.htm", "support/login.jsp"}
+{"2 locations.htm", "3 ../home.htm"}
+{"0 contact.htm"}
+4
+{"index.html","products/all/INDEX.HTML","images/products/A101.GIF"}
+{"1 ../../index.html","1 ../../products"}
+{}
+1
+{".rc"}
+{}
+{}
+5
+{"a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a"}
+{"0 a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a"}
+{"0 ../a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a",
+ "0 ..a/a",
+ "0 a../a.."}
+5
+{"abc/ccba","ab/cba","..a"}
+{"0 cba","1 ccba"}
+{"0 cba","1 ccba"}
+6
+{"a","ab/ab","ab/ab/abc","abc/abc"}
+{"0 ab/ab","1 ab","1 ../ab/ab","2 ../../ab/abc"}
+{"0 ../ab/ab","2 ../abc/abc","1 ab/ab"}
+1
+{"a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a"}
+{"0 ../../../../../../../../a/a/a/a/a/a/a/a/a"}
+{"0 ../../../../../../../../a/a/a/a/a/a/a/a/a"}
+14
+{"index.asp", "contact.asp", "about/index.asp", "users/support.asp",
+ "company/executiveteam.asp", "products/catalog.asp"}
+{"1 index.asp", "1 requestinfo.asp", "2 ../index.asp", "2 history.asp",
+"3 ../index.asp", "3 helpdesk.asp", "4 ../index.asp", "4 boardofdirectors.asp",
+"4 location.asp", "5 ../index.asp", "5 new/index.asp",  "5 ../index.asp", "5 sale.asp"}
+{"10 ../../index.asp", "11 products/index.asp", "11 products/catalog.asp"}

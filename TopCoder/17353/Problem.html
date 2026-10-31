@@ -1,0 +1,32 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There are N frogs and 2*N+1 lilypads.
+The lilypads are arranged in a row and numbered from 0 to 2*N.
+</p>
+<p>
+For each frog you are given its initial lilypad <b>start</b>[i] and the desired destination <b>goal</b>[i].
+</p>
+<br></br>
+<p>
+Frogs can only move by jumping.
+The jumps must be performed one at a time.
+In each jump, the jumping frog must leap over exactly one other frog and land on an empty lilypad.
+</p>
+<br></br>
+<p>
+Find any sequence of at most 1000 jumps that brings all frogs to their desired destinations.
+</p>
+<br></br>
+<p>
+Suppose your sequence of jumps is:
+</p>
+<ul>
+<li>a frog jumps from lilypad s[0] to lilypad t[0],</li>
+<li>then a frog jumps from s[1] to t[1],</li>
+<li>then ...</li>
+</ul>
+<p>
+Return the vector &lt;int&gt; { s[0], t[0], s[1], t[1], ... }.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Frogs</td></tr><tr><td>Method:</td><td>move</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; move(vector &lt;int&gt; start, vector &lt;int&gt; goal)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>A solution within the stated limit always exists.</td></tr><tr><td align="center" valign="top">-</td><td>Any valid solution will be accepted.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 3 and 30, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>start</b> will contain N elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>goal</b> will contain N elements.</td></tr><tr><td align="center" valign="top">-</td><td>The elements of <b>start</b> will be distinct numbers between 0 and 2*N, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The elements of <b>goal</b> will be distinct numbers between 0 and 2*N, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 3, 5}</pre></td></tr><tr><td><pre>{2, 3, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 0, 0, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>All frogs are already in their desired places, so an empty sequence would have been a valid answer.</p>
+<p>Just to illustrate that you are not required to minimize the number of jumps, one of our frogs jumps over the other twice (there and back).</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 3, 5}</pre></td></tr><tr><td><pre>{6, 0, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 0, 2, 6 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>First frog 1 jumps from lilypad 3 to lilypad 0, then frog 0 jumps from lilypad 2 to lilypad 6.</p>
+<p>(Note that making the same jumps in the opposite order is not a valid solution, as frog 0 would jump over two frogs in the same jump and then frog 1 would jump over no frogs at all.)</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2, 3}</pre></td></tr><tr><td><pre>{6, 7, 5, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 5, 1, 4, 4, 7, 0, 4, 4, 6 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

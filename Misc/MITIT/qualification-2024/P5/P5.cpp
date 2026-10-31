@@ -66,22 +66,21 @@ int main() {
 	int T; cin >> T;
 	while (T--) {
 		int N, M; cin >> N >> M;
-		std::vector<std::vector<std::pair<int, int>>> adj(N);
+		std::vector<std::vector<std::pair<int, int>>> orig_adj(N);
 		std::vector<std::vector<int>> adj2(N);
 		for (int e = 0; e < M; e++) {
 			int u, v, w; cin >> u >> v >> w; u--, v--;
-			adj[u].push_back({v, w});
+			orig_adj[u].push_back({v, w});
 			adj2[u].push_back(v);
 		}
 		bool good = false;
-		std::vector<int> successor(N, -1);
 		std::vector<std::vector<std::pair<int, int>>> scc_adj(N);
 		std::vector<int> depth(N, -1);
 		kactl::scc(adj2, [&](const std::vector<int>& verts) {
 			//cerr << "scc" << ' ' << int(verts.size()) << '\n';
 			bool has_edge = false;
 			for (int v : verts) {
-				for (auto [u, e] : adj[v]) {
+				for (auto [u, e] : orig_adj[v]) {
 					assert(kactl::comp[u] != -1);
 					if (kactl::comp[u] != kactl::comp[v]) continue;
 					//cerr << v << ' ' << u << ' ' << e << '\n';
@@ -100,11 +99,11 @@ int main() {
 					return;
 				}
 				depth[cur] = d;
-				for (auto [nxt, _] : adj[cur]) {
+				for (auto [nxt, _] : scc_adj[cur]) {
 					self(nxt, d+1);
 				}
 			})(verts[0], 0);
-			assert(g != 0);
+			assert(g > 0);
 			//cerr << "gcd " << g << '\n';
 			std::vector<int> cyc_colors(g, -1);
 			for (int v : verts) {

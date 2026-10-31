@@ -1,0 +1,61 @@
+Task: GRM
+
+Mobile Game [A]
+
+Algorithmic Skirmishes 2026, first round. Limits: 1024 MB, 1 s. 2026-03-23
+
+Recently, in Byteotia, the mobile game Survival Shooter Skirmishes has become very popular. In this game, we control a squad of warriors marching along a straight path. From time to time, the squad encounters an event. In the i-th event, the player has two options to choose from: go along the left side of the road and receive ai additional warriors, or go along the right side of the road and multiply the current number of warriors by bi. Although everyone knows that the more warriors, the better, the game’s advertisements clearly show that making the correct decision can be very complicated.
+
+After the first l events, Bajtazar has x warriors. (The number x does not have to be achievable from those first l events by applying the above rules – after all, these are warriors, not tourists; a poor player may lose some in a fight with zombies, the rules of which we do not describe in this task.) He wonders how many warriors he will have after the event numbered r if he plays optimally. Help him compute this!
+
+Input
+
+The first line of input contains integers n and q (1 ≤ n ≤ 500 000, 1 ≤ q ≤ 100 000).
+The next n lines contain descriptions of the events; the i-th of them contains two integers ai and bi
+(0 ≤ ai < 10^9 + 7, 1 ≤ bi < 10^9 + 7).
+The next q lines contain descriptions of queries; the i-th of them contains three integers xi, li and ri
+(0 ≤ xi < 10^9 + 7, 0 ≤ li < ri ≤ n).
+
+Output
+
+For each query, output one number – the number of warriors when using the optimal strategy. Output the results modulo 10^9 + 7.
+
+Example
+
+For the input:
+
+10 2
+
+3 2
+
+3 2
+
+3 2
+
+0 1000
+
+0 1000
+
+0 1000
+
+0 1000
+
+0 1000
+
+0 1000
+
+123 1
+
+1 0 3
+
+1 3 9
+
+the correct output is:
+
+16
+
+49
+
+Explanation of the example: In the first query, Bajtazar starts with 1 warrior. In the first event, he can either receive 3 additional warriors or multiply the number of warriors by 2. In the optimal strategy, he chooses the first option, so he will have 4 warriors. The next two events are the same, but this time it is more profitable to double the number of warriors. Ultimately, Bajtazar will have 16 warriors.
+
+1

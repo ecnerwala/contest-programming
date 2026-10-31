@@ -1,0 +1,61 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>Uzuki, Rin and Mio are friends. Today they are going to create a game!</p>
+<p>The field of the game is a rectangular grid of cells. You are given its map in the vector &lt;string&gt; <b>field</b>. Each character in <b>field</b> represents one cell, as follows:</p>
+<ul>
+<li>'x' is a special cell (explained below)</li>
+<li>'#' is an active cell</li>
+<li>'.' is an inactive cell</li>
+<li>'*' is an undecided cell that can become either active or inactive</li>
+</ul>
+<p>There are at most 20 special cells. Each special cell is an active cell.</p>
+<p>The following sequence of events is about to happen:</p>
+<ol>
+<li>The friends will decide which of the undecided cells will become active and which ones will become inactive.</li>
+<li>Each pair of adjacent active cells will be connected by a pipe. (Two cells are adjacent if they share a side.)</li>
+<li>Uzuki will paint some pipes red, Rin will paint some other pipes blue, and Mio will paint all the remaining pipes yellow.</li>
+</ol>
+<p>They have to be careful when painting the pipes. Research has shown that players of the game become confused if two pipes of the same color are connected to the same <i>special</i> cell. (Note that other active cells may be incident to multiple pipes of the same color.)</p>
+<p>A way of changing the '*' cells into '#' and '.' cells is called <i>valid</i> if it is then possible to paint all pipes without confusing the players.</p>
+<p>Return the number of valid ways to resolve the undecided cells, modulo 1,000,000,007.</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Newgenerations</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(vector &lt;string&gt; field)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>M will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>field</b> will contain exactly N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>field</b> will contain exactly M characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>field</b> will be 'x' or '#' or '.' or '*'.</td></tr><tr><td align="center" valign="top">-</td><td><b>field</b> will contain between 0 and 20 'x's, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;x*&quot;
+,&quot;*#&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>There are four possible assignments:</p>
+<pre>
+   x#    x#    x.    x.
+   ##    .#    ##    .#
+</pre>
+
+<p>In the first case, all cells are now active, so there will be four pipes.</p>
+<p>In the second and third case, three cells are active and thus two pipes will appear.</p>
+<p>In the fourth case, two cells are active, but no pipes will appear because the active cells are not adjacent.</p>
+<p>In all cases, the authors can paint every pipe in one of three colors so that players will never get confused. (For example, in the first case they can paint both horizontal pipes red and both vertical ones blue.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;##.&quot;
+,&quot;.#.&quot;
+,&quot;.##&quot;}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"><p>Five cells are active and four pipes will appear between them.</p>
+<p>As there are no undecided cells, there is exactly one way to resolve the undecided cells: do nothing.</p>
+<p>As there are no special cells, any coloring of pipes is OK, which means that the one way mentioned in the previous paragraph is a valid solution.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;#.......#.......#&quot;
+,&quot;##.....###.....##&quot;
+,&quot;###...#####...###&quot;
+,&quot;####.x#####x.####&quot;
+,&quot;####xxx###xxx####&quot;
+,&quot;###xx*******xx###&quot;
+,&quot;##x***********x##&quot;
+,&quot;#***************#&quot;}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 134217728</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;#****#*#*****#******&quot;
+,&quot;#****#..*.#*#*.*x.#*&quot;
+,&quot;****#**#**##*****#**&quot;
+,&quot;*##***#*##x*x***#x*x&quot;
+,&quot;****#*#*****#*****#*&quot;
+,&quot;.**###*#**x*.*###**x&quot;
+,&quot;*#**##*.**#****x**.*&quot;
+,&quot;#************.***#**&quot;
+,&quot;*******#*#****#***.*&quot;
+,&quot;*#.***##**.**##.#*##&quot;
+,&quot;*.##****.****#.****x&quot;
+,&quot;*.*#****#*##*#***.#*&quot;
+,&quot;###x#*.***#x***#***#&quot;
+,&quot;#*.**#**#*******#.**&quot;
+,&quot;****#x***##x*.##.*#*&quot;
+,&quot;*###*###****.**#****&quot;
+,&quot;*.*#*****###****##**&quot;
+,&quot;*#*#**.*#*x*##**#***&quot;
+,&quot;*##*******#x#**#****&quot;
+,&quot;***##*******#*******&quot;}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 961436185</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

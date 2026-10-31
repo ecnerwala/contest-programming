@@ -1,0 +1,20 @@
+0
+{"XXX",
+ "X.X",
+ "XXX"}
+
+1
+{"XXXXX",
+ "X.X.X",
+ "XXXXX"}
+
+7
+{"...XX...",
+ "...XXXX.",
+ "XXXXXXX.",
+ "XXXXXXX.",
+ "XXXXXXX.",
+ "XXXXXXX.",
+ "XX.XXXX.",
+ "XXXXXXX.",
+ ".X.X.X.."}

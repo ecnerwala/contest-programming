@@ -1,0 +1,82 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>To celebrate the Lunar New Year that starts the Year of the Tiger, the problems in this set feature tigers.</i></p><br></br>
+<p>
+A tiger is travelling on a grid of unit squares.
+Some of those squares contain obstacles.
+The tiger may not enter those squares, but it can jump over them.
+</p>
+<p>
+The tiger can move in steps. 
+In each step it can move one square in one of the four cardinal directions. (I.e., from its current square to another square that shares a side with it.)
+</p>
+<p>
+The tiger can also make jumps. Each jump must also be made in one of the four cardinal directions. When jumping, the tiger moves over one or more squares and then lands in the next one.
+</p>
+<br></br>
+<p>
+After a step the tiger is free to change its direction or to stop moving.
+</p>
+<p>
+However, the tiger is heavy and after a jump it has a lot of inertia, which makes it impossible to change direction immediately. 
+Thus, each jump must be followed either by a <i>strictly shorter</i> jump in the same direction, or by a step in the same direction.
+</p>
+<p>
+(If the tiger follows a jump with a shorter jump, the second one does also count as a jump, and thus it must also be followed by a step or an even shorter jump in the same direction.
+Each of these steps or jumps counts as a separate action.)
+</p>
+<br></br>
+<p>
+The tiger is not allowed to leave the grid. If a step or jump would lead to the tiger having to leave the grid, the tiger is not allowed to perform it.
+</p>
+<br></br>
+<p>
+You are given the vector &lt;string&gt; <b>plan</b> which contains a map of the grid.
+The map is a rectangle. Each character in <b>plan</b> represents one of the squares: '.' (period) is an empty cell, '#' is an obstacle, 'T' is the tiger's starting location and 'L' is the tiger's lair: the square the tiger wants to reach.
+</p>
+<p>
+There is exactly one 'T' and exactly one 'L'. Both of these squares count as empty squares.
+The tiger may enter and leave each empty square, <i>including these two</i>, arbitrarily many times during its travels.
+</p>
+<br></br>
+<p>
+Calculate and return the smallest possible total number of actions (steps + jumps) the tiger needs to perform in order to reach the lair <i>and stop there</i>.
+Return -1 if this goal cannot be reached.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>JumpingTiger</td></tr><tr><td>Method:</td><td>travel</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int travel(vector &lt;string&gt; plan)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>plan</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>plan</b> will contain between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>plan</b> will contain the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>plan</b> will be one of ".#TL".</td></tr><tr><td align="center" valign="top">-</td><td><b>plan</b> will contain exactly one 'T'.</td></tr><tr><td align="center" valign="top">-</td><td><b>plan</b> will contain exactly one 'L'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;T.######&quot;,
+ &quot;#..#####&quot;,
+ &quot;##..####&quot;,
+ &quot;###..###&quot;,
+ &quot;####..##&quot;,
+ &quot;#####..#&quot;,
+ &quot;######..&quot;,
+ &quot;#######L&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 14</pre></td></tr><tr><td><table><tr><td colspan="2">The tiger takes alternate steps "right" and "down" until it reaches the lair.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;T.######&quot;,
+ &quot;#..#####&quot;,
+ &quot;##..####&quot;,
+ &quot;###..###&quot;,
+ &quot;####..##&quot;,
+ &quot;#####..#&quot;,
+ &quot;######..&quot;,
+ &quot;.######L&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 14</pre></td></tr><tr><td><table><tr><td colspan="2">The extra empty square in the bottom left corner does not help. The tiger is not allowed to jump there from its current location because the next step or jump would then take it outside the grid.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;T.######&quot;,
+ &quot;#..#####&quot;,
+ &quot;##..####&quot;,
+ &quot;###..###&quot;,
+ &quot;####..##&quot;,
+ &quot;#####..#&quot;,
+ &quot;.#####..&quot;,
+ &quot;.######L&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Now the tiger is able to reach the bottom left corner from its starting location by jumping to the penultimate row and then making a step.
+</p>
+<p>
+At this moment, the tiger cannot just jump to its lair: remember that the tiger is required to actually stop at the lair.
+</p>
+<p>
+However, the tiger now has another, slightly longer way to reach its lair. From the bottom left corner of the grid it can now take a step up, then jump to the penultimate column, follow that jump by a step to the right, and finally take a step down to reach the lair.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;T.######&quot;,
+ &quot;#..#####&quot;,
+ &quot;##..####&quot;,
+ &quot;###..###&quot;,
+ &quot;####..##&quot;,
+ &quot;#####..#&quot;,
+ &quot;.#####..&quot;,
+ &quot;.#####.L&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">Now we are good, the tiger can make a jump down followed by a step and then a jump right followed by a step.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.##.&quot;,
+ &quot;#L##&quot;,
+ &quot;####&quot;,
+ &quot;.#T#&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">The tiger has no valid move: the only way to reach a square without an obstacle is a jump left, but that one would have to be followed by another move that would take the tiger outside the grid.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;T&quot;, &quot;#&quot;, &quot;#&quot;, &quot;L&quot;, &quot;#&quot;, &quot;#&quot;, &quot;.&quot;, &quot;.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">The tiger can jump onto its lair but it cannot reach it in a way that would allow it to stop there.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

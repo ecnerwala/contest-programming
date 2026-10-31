@@ -1,0 +1,47 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class ChristmasCandySplit {
+
+public:
+
+	vector<long long> buyMoreBags(vector <int> bags) {
+		vector<long long> ans({116396280, 77597520, 33256080, 5290740, 248976, 2660, 51});
+		set<int> has(bags.begin(), bags.end());
+		for (int i = 1; i <= 22; i++) {
+			if (!has.count(i)) ans.push_back(i);
+		}
+		
+		/*
+		int N = 232792560;
+		int S = 22 * 23 / 2;
+		int rem = N - S;
+		vis[0] = true;
+		for (int i = N; i > 22; i--) {
+			if (N % i) continue;
+			if (i > rem) continue;
+			rem -= i;
+			ans.push_back(i);
+			cerr << i << ' ' << rem << '\n';
+		}
+		assert(rem == 0);
+		*/
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::ChristmasCandySplit;
+
+// vim:ft=cpp

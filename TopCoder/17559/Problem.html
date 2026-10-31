@@ -1,0 +1,32 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit: 3.5 seconds.</i></p><br></br>
+<p>
+We have an established company called <b>companyName</b>.
+</p>
+<p>
+We have an issue with the name: it shows too late in alphabetical listings of similar companies, so we don't get all the clients we could.
+</p>
+<p>
+At the same time, if we just rename the company, we would risk losing many old clients.
+</p>
+<br></br>
+<p>
+The way to go is to just tweak the company name a little: we will select exactly <b>K</b> characters in the company name and rearrange them, while keeping the rest of the name intact.
+Our goal is to end with any name that is lexicographically smaller than the current name.
+</p>
+<br></br>
+<p>
+For example, if our company name is "TOPCODER" and <b>K</b> = 3, one of the many ways how to improve this name starts by selecting the three vowels. 
+</p>
+<p>
+<i>Rearranging the characters</i> can be imagined as a two-step process:
+</p>
+<ul>
+<li>First we take the selected characters (in our example: 'O', 'O', and 'E') out, leaving gaps in the string (in our example: "T_PC_D_R").</li>
+<li>Then we reinsert the removed characters back into the gaps - one into each gap, in any order we like. (In our example: we can get either the original "TOPCODER", or "TOPCEDOR", or "TEPCODOR".)</li>
+</ul>
+<br></br>
+<p>
+A set of <b>K</b> characters (more precisely, a set of <b>K</b> distinct indices into the company name) is called <i>good</i> if we can improve the company name by rearranging those characters.
+Count all good sets.
+Return their count modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ImproveName</td></tr><tr><td>Method:</td><td>improve</td></tr><tr><td>Parameters:</td><td>string, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int improve(string companyName, int K)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.500</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>companyName</b> will contain between 1 and 2,000 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>companyName</b> will be an uppercase English letter ('A'-'Z').</td></tr><tr><td align="center" valign="top">-</td><td><b>K</b> will be between 1 and length(<b>companyName</b>), inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;ABCDE&quot;</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">There is no way to improve this company name by swapping two of its characters.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;AABCCDEEEFZ&quot;</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Again, a company name that cannot be improved.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;EEDDCCBBAA&quot;</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 120</pre></td></tr><tr><td><table><tr><td colspan="2">Regardless of what three letters we select, it is always possible to make the company name lexicographically smaller. For example, if we choose the first three characters, we can rename the company to "EDEDCCBBAA". Thus, the answer is (10 choose 3).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;TOPCODER&quot;</pre></td></tr><tr><td><pre>8</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">There is only one way of selecting 8 letters out of 8. This set of eight letters is good: if we can rearrange all eight letters in the name, we can choose between many names that are lexicographically smaller than the original. One of those is "CODERPOT".</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;TOPCODER&quot;</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 49</pre></td></tr><tr><td><table><tr><td colspan="2">Some of the triples of characters are good, others are bad. As we have seen in the problem statement, the three vowels (i.e., characters at 0-based indices 1, 4, 6) form one of those 49 good triples.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

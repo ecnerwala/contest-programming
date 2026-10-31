@@ -1,0 +1,23 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>Misof recently had an accident in which he managed to cut his left hand on some broken glass. He is now "all right" - meaning that he can only use his right hand for a while. Help him with some issues he has.</p>
+<p>Misof is lying at home and he is bored. He would like to watch a movie in which he can enjoy the sense of a "deja vu" - that is, seeing the same scene for a second time.</p>
+<p>For the purpose of this problem, a movie is a sequence of scenes, and we will use nonnegative integers to describe them. Two scenes are different iff they have a different number.</p>
+<p>A "deja vu" is a scene that occurs exactly twice in the movie. (A scene that occurs more than two times does not count.)</p>
+<p>Misof has already selected a movie to watch, but then he came up with an interesting observation: what if he could increase the number of deja vus by only watching some part of the movie?</p>
+<p>Formally, for a sequence X of integers let dejavu(X) be the number of elements that occur in X exactly twice. You are given a sequence M. Find a contiguous subsequence M' of M that maximizes dejavu(M') and return the value dejavu(M').</p>
+<br></br>
+<br></br>
+<p>The sequence M of length <b>N</b> is constructed using the following pseudocode:</p>
+<pre>
+A[0] = seed
+for i = 1 to N-1:
+    A[i] = (A[i-1] * 1664525 + 1013904223) modulo 4294967296
+for i = 0 to N-1:
+    M[i] = A[i] modulo R
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>DejaVu</td></tr><tr><td>Method:</td><td>mostDejaVus</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int mostDejaVus(int N, int seed, int R)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution would correctly solve any sequence of length <b>N</b>, it does not depend on the properties of the pseudorandom generator.</td></tr><tr><td align="center" valign="top">-</td><td>Watch out for integer overflow when generating M.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"><p>A = { 47, 1092136898, 2326342713, 3532868, 1750783699, 3040800278, 3282292349, 2587573688, 3003147703, 1792673706 }</p>
+<p>M = { 2, 3, 3, 3, 4, 3, 4, 3, 3, 1 }</p>
+<p>The contiguous subsequences {3, 4, 3, 4} and {4, 3, 4, 3} contain two deja vus each, and this is the best Misof can get.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>14</pre></td></tr><tr><td><pre>474747</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"><p>M = { 0, 2, 2, 1, 0, 0, 6, 0, 6, 0, 2, 1, 1, 0 }</p>
+<p>The optimal solutions are the subsequences M[2:12] = {2, 1, 0, 0, 6, 0, 6, 0, 2, 1} and M[6:13] = {6, 0, 6, 0, 2, 1, 1}. Each of these contains three deja vus.</p>
+<p>Note that for M[2:12] the scene 0 does not count as a deja vu, as it occurs too many times. Only scenes 2, 1, and 6 give Misof one valid deja vu each.</p>
+
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

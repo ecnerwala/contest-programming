@@ -1,0 +1,287 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+template <int MOD_> struct modnum {
+	static constexpr int MOD = MOD_;
+	static_assert(MOD_ > 0, "MOD must be positive");
+
+private:
+	using ll = long long;
+
+	int v;
+
+	static int minv(int a, int m) {
+		a %= m;
+		assert(a);
+		return a == 1 ? 1 : int(m - ll(minv(m, a)) * ll(m) / a);
+	}
+
+public:
+
+	modnum() : v(0) {}
+	modnum(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+	explicit operator int() const { return v; }
+	friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
+	friend std::istream& operator >> (std::istream& in, modnum& n) { ll v_; in >> v_; n = modnum(v_); return in; }
+
+	friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
+	friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
+
+	modnum inv() const {
+		modnum res;
+		res.v = minv(v, MOD);
+		return res;
+	}
+	modnum neg() const {
+		modnum res;
+		res.v = v ? MOD-v : 0;
+		return res;
+	}
+	modnum operator- () const {
+		return neg();
+	}
+	modnum operator+ () const {
+		return modnum(*this);
+	}
+
+	modnum& operator ++ () {
+		v ++;
+		if (v == MOD) v = 0;
+		return *this;
+	}
+	modnum& operator -- () {
+		if (v == 0) v = MOD;
+		v --;
+		return *this;
+	}
+	modnum& operator += (const modnum& o) {
+		v += o.v;
+		if (v >= MOD) v -= MOD;
+		return *this;
+	}
+	modnum& operator -= (const modnum& o) {
+		v -= o.v;
+		if (v < 0) v += MOD;
+		return *this;
+	}
+	modnum& operator *= (const modnum& o) {
+		v = int(ll(v) * ll(o.v) % MOD);
+		return *this;
+	}
+	modnum& operator /= (const modnum& o) {
+		return *this *= o.inv();
+	}
+
+	friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+	friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
+	friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
+	friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
+	friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
+	friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
+};
+using num = modnum<int(1e9)+7>;
+
+struct union_find {
+	vector<int> par;
+	explicit union_find(int N) : par(N, -1) { }
+	int getpar(int a) { return (par[a] == -1) ? a : (par[a] = getpar(par[a])); }
+	bool merge(int a, int b) {
+		a = getpar(a), b = getpar(b);
+		if (a == b) return false;
+		par[a] = b;
+		return true;
+	}
+	bool merge(pair<int, int> p) { return merge(p.first, p.second); } // shorthand
+};
+
+mt19937 mt(48);
+struct treap {
+	treap* ch[2] = {nullptr, nullptr};
+	~treap() {
+		delete ch[0];
+		delete ch[1];
+	}
+
+	mt19937::result_type pri = mt();
+	pair<int, int> key;
+	pair<int, int> val;
+	pair<int, int> bestVal;
+	void update() {
+		bestVal = val;
+		if (ch[0]) bestVal = max(bestVal, ch[0]->bestVal);
+		if (ch[1]) bestVal = max(bestVal, ch[1]->bestVal);
+	}
+};
+
+void split(pair<int, int> key, treap* r, treap* &x, treap* &y) {
+	if (!r) {
+		x = y = nullptr;
+		return;
+	}
+	if (r->key < key) {
+		x = r;
+		split(key, r->ch[1], x->ch[1], y);
+		x->update();
+	} else {
+		y = r;
+		split(key, r->ch[0], x, y->ch[0]);
+		y->update();
+	}
+}
+
+void merge(treap* x, treap* y, treap* &r) {
+	if (x == nullptr) {
+		r = y;
+		r->update();
+		return;
+	}
+	if (y == nullptr) {
+		r = x;
+		r->update();
+		return;
+	}
+	if (x->pri < y->pri) {
+		r = x;
+		merge(x->ch[1], y, r->ch[1]);
+	} else {
+		r = y;
+		merge(x, y->ch[0], r->ch[0]);
+	}
+	r->update();
+}
+
+template <typename U, typename V>
+std::ostream& operator << (std::ostream& o, const pair<U, V>& p) {
+	return o << "(" << p.first << ", " << p.second << ")";
+}
+
+class ComponentsForever {
+public:
+
+	vector<int> getMST(vector<pair<int, int>> coords) {
+		vector<pair<pair<int, int>, int>> frogs;
+		for (int i = 0; i < int(coords.size()); i++) {
+			frogs.emplace_back(coords[i], i);
+		}
+		int N = int(frogs.size());
+
+		//for (int i = 0; i < N; i++) { cerr << "frog " << frogs[i] << '\n'; }
+
+
+		vector<pair<int, pair<int, int>>> edges;
+
+		for (int swapxy = 0; swapxy < 2; swapxy++) {
+			for (int flipx = 0; flipx < 2; flipx ++) {
+				for (int flipy = 0; flipy < 2; flipy ++) {
+					sort(frogs.begin(), frogs.end());
+					treap* root = nullptr;
+					for (int i = 0; i < N; i++) {
+						// closest point
+						treap* n = new treap();
+						n->key = {frogs[i].first.second - frogs[i].first.first, frogs[i].second};
+						n->val = {frogs[i].first.second, frogs[i].second};
+						n->update();
+
+						treap* x; treap* y; split(n->key, root, x, y);
+						if (x != nullptr) {
+							edges.emplace_back(n->bestVal.first - x->bestVal.first, pair<int, int>(n->bestVal.second, x->bestVal.second));
+						}
+
+						merge(x, n, x);
+						merge(x, y, root);
+					}
+					delete root;
+					root = nullptr;
+
+					for (auto& f : frogs) f.first.second *= -1;
+				}
+				for (auto& f : frogs) f.first.first *= -1;
+			}
+			for (auto& f : frogs) swap(f.first.first, f.first.second);
+		}
+
+		//for (auto it : edges ){ cerr << "edge" << ' ' << it << '\n'; }
+
+		/*
+		for (int i = 0; i < N; i++) {
+			for (int j = i+1; j < N; j++) {
+				int d = max(abs(frogs[i].first - frogs[j].first), abs(frogs[i].second - frogs[j].second));
+				edges.emplace_back(d, pair<int, int>(i, j));
+			}
+		}
+		*/
+		sort(edges.begin(), edges.end());
+
+		union_find ds(N);
+		vector<int> ans;
+		for (auto it : edges) {
+			if (ds.merge(it.second)) {
+				ans.push_back(it.first);
+			}
+		}
+		return ans;
+	}
+
+	num getEV(vector<pair<int, int>> frogs, int Llo, int Rhi) {
+		if (frogs.empty()) return 0;
+
+		vector<int> edges = getMST(frogs);
+		assert(edges.size() + 1 == frogs.size());
+		auto c2 = [] (int a) -> num{
+			if (a < 0) return 0;
+			return num(a) * num(a-1) / num(2);
+		};
+
+		num ans = c2(Rhi - Llo + 1);
+		for (int v : edges) {
+			// different if R < v <=> R <= (v-1)
+			ans += c2(min(v-1, Rhi) - Llo + 1);
+		}
+		ans /= c2(Rhi - Llo + 1);
+
+		return ans;
+	}
+
+	int countComponents(int n, vector <int> Xprefix, vector <int> Yprefix, int seed, int Xrange, int Yrange, int Llo, int Rhi) {
+		vector<int> X(n);
+		vector<int> Y(n);
+		for (int i = 0; i < int(Xprefix.size()); i++) {
+			X[i] = Xprefix[i];
+			Y[i] = Yprefix[i];
+		}
+		long long state = seed;
+
+		for (int i = int(Xprefix.size()); i < n; i++) {
+			state = (1103515245 * state + 12345);
+			X[i] = int(state % Xrange);
+			state = state % (1ll << 31);
+			state = (1103515245 * state + 12345);
+			Y[i] = int(state % Yrange);
+			state = state % (1ll << 31);
+		}
+
+		vector<pair<int, int>> frogs[2];
+		for (int i = 0; i < n; i++) {
+			frogs[(X[i] + Y[i]) % 2].emplace_back(X[i], Y[i]);
+		}
+		num ans = getEV(frogs[0], Llo, Rhi) + getEV(frogs[1], Llo, Rhi);
+
+		return int(ans);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::ComponentsForever;
+
+// vim:ft=cpp

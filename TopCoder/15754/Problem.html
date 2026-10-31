@@ -1,0 +1,18 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Consider the following problem:
+Given a tree with <b>N</b> vertices, color each of them red, green or blue in such a way that:
+</p>
+<ul>
+<li>No two red vertices are adjacent.</li>
+<li>No two red vertices share a common neighbor.</li>
+</ul>
+<p>
+(Note that green and blue vertices may be placed arbitrarily.)
+</p>
+<p>
+Given <b>N</b>, construct any tree with at least 2.62^<b>N</b> valid colorings.
+</p>
+<p>
+In order to compute the return value, root your tree in any of its vertices and label the vertices 0 through <b>N</b>-1 in such a way that for each vertex x, parent[x] &lt; x.
+Then, return { parent[1], parent[2], ..., parent[<b>N</b>-1] }.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ThreeColorTrees</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; construct(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>For <b>N</b> = 1, 2, 3, ..., 10 your tree should have at least 3, 7, 18, 48, 124, 324, 848, 2221, 5818, and 15241 valid colorings.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0 }</pre></td></tr><tr><td><table><tr><td colspan="2">The only two-vertex tree has 8 valid colorings. (The only invalid coloring is the one with both vertices red.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">A star with four vertices has exactly 48 valid colorings: 2^4 = 16 such that no vertex is red, and 4 * 2^3 = 32 such that one vertex is red.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 2, 3, 4 }</pre></td></tr><tr><td><table><tr><td colspan="2">A path of length 6 has 352 valid colorings.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 0, 3, 4, 0, 0, 7, 8 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

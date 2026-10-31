@@ -1,0 +1,32 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>Five Pile Special</i> is a NIM variant: a two-player combinatorial game.
+It is played with five piles of tokens, arranged in a row.
+</p>
+<p>
+There are three types of valid moves:
+</p>
+<ol>
+<li>The player selects <i>one</i> of the piles, selects a positive number x, and removes x tokens from the selected pile.</li>
+<li>The player selects <i>three consecutive</i> piles, selects a positive number x, and removes x tokens from each of the selected piles.</li>
+<li>The player selects <i>all five</i> piles, selects a positive number x, and removes x tokens from each of the selected piles.</li>
+</ol>
+<p>
+The players take alternating turns. The player unable to make a valid move loses the game.
+</p>
+<p>
+You are given a position in this game: the vector&lt;long long&gt; <b>piles</b> containing the token counts on the individual piles.
+</p>
+<p>
+Each move in this game can be represented as a sequence of five values: for each pile, the number of tokens removed from it. 
+Find all winning moves for the given position and return their concatenation (in any order).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>FivePileSpecial</td></tr><tr><td>Method:</td><td>findWinningMoves</td></tr><tr><td>Parameters:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Returns:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Method signature:</td><td>vector&lt;long long&gt; findWinningMoves(vector&lt;long long&gt; piles)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>An empty pile still counts as a pile. For example, if the token counts are {1, 0, 2, 3, 0}, the three non-empty piles are <i>not</i> consecutive.</td></tr><tr><td align="center" valign="top">-</td><td>You may assume that for each position that matches the constraints given below there are at most 1,000 distinct winning moves.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>piles</b> will contain exactly 5 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>piles</b> will be between 0 and 10^18, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 0, 7, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">As most of the piles are empty, valid moves in this situation must only involve a single pile. Then, this is clearly a losing position: the second player can win by "mirroring" the first player's moves on the other pile.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7, 7, 7, 7, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{7, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0,
+ 0, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Taking 7 from all piles is a winning move: the opponent has no tokens left and loses immediately.
+</p>
+<p>
+Taking 7 from the first three piles is also a winning move: it produces the situation from Example 0.
+</p>
+<p>
+Further analysis can show that taking 7 from any other valid set of piles is also a winning move.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{47, 42, 0, 42, 47}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">A less trivial symmetric position that is losing for the same reason as in Example 0.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, 0, 11, 0, 12}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 11 }</pre></td></tr><tr><td><table><tr><td colspan="2">We can emulate a traditional game of three-pile NIM.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 11, 14, 19, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0, 14, 0, 0, 6, 6, 6, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 3, 4, 5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 3, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1234567890123, 0, 0, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1234567890121, 0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

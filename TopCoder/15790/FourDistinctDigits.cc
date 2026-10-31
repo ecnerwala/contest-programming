@@ -1,0 +1,107 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+class FourDistinctDigits {
+
+public:
+
+	string find(ll N, int D, int B) {
+		int num0 = 0;
+		while (true) {
+			ll g = __gcd(N, ll(B));
+			if (g == 1) break;
+			N /= g;
+			num0 ++;
+			D--;
+		}
+
+		mt19937 mt(48);
+		// high to low
+		auto gen = [&](int len) -> pair<ll, vector<int>> {
+			ll ans = 0;
+			vector<int> v;
+			for (int i = 0; i < len; i++) {
+				int d;
+				if (i == 0) {
+					d = int(mt() % 3) + 1;
+				} else {
+					d = int(mt() % 4);
+				}
+				ans *= B;
+				ans += d;
+				ans %= N;
+				v.push_back(d);
+			}
+			return {ans, v};
+		};
+
+		auto intToChar = [&](int a) {
+			assert(0 <= a && a < B);
+			if (a < 10) return char(a + '0');
+			else if (a < 36) return char(a - 10 + 'A');
+			else return char(a - 36 + 'a');
+		};
+		auto fmt = [&](vector<int> hi, vector<int> lo) {
+			string res;
+			ll v = 0;
+			for (int c : hi) {
+				v *= B; v += c; v %= N;
+				res += intToChar(c);
+			}
+			for (int c : lo) {
+				v *= B; v += c; v %= N;
+				res += intToChar(c);
+			}
+			for (int i = 0; i < num0; i++) {
+				res += '0';
+				v *= B; v %= N;
+			}
+			assert(v == 0);
+			assert(res[0] != '0');
+			return res;
+		};
+
+		const int lo = D / 2;
+		const int hi = D - (D / 2);
+		unordered_map<ll, vector<int>> los;
+		unordered_map<ll, vector<int>> his;
+		while (true) {
+			// generate a lo
+			auto nlo = gen(lo);
+			los.insert(nlo);
+			if (his.count(nlo.first)) {
+				return fmt(his[nlo.first], los[nlo.first]);
+			}
+			auto nhi = gen(hi);
+			for (int i = 0; i < lo; i++) nhi.first *= B, nhi.first %= N;
+			nhi.first = (N - nhi.first) % N;
+			his.insert(nhi);
+			if (los.count(nhi.first)) {
+				return fmt(his[nhi.first], los[nhi.first]);
+			}
+		}
+		assert(false);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	cerr << FourDistinctDigits().find(1ll << 36, 40, 62) << '\n';
+	cerr << FourDistinctDigits().find(3ll << 35, 40, 62) << '\n';
+	cerr << FourDistinctDigits().find((3ll << 35) + 1, 40, 62) << '\n';
+	
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::FourDistinctDigits;
+
+// vim:ft=cpp

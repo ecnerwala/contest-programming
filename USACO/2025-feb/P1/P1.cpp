@@ -26,6 +26,8 @@ int main() {
 	};
 
 	int64_t ans = 0;
+	std::vector<std::array<int, 2>> prvs(N);
+	std::vector<std::array<int, 2>> nxts(N);
 	{
 		std::vector<int> nxt(N);
 		std::vector<int> prv(N);
@@ -41,6 +43,8 @@ int main() {
 			// number of odd length interval
 			int lo = (i - p);
 			int hi = (n - i);
+			prvs[i] = {p == -1 ? -1 : prv[p], p};
+			nxts[i] = {n == N ? N : nxt[n], n};
 			int64_t cnt = int64_t(lo / 2) * int64_t(hi / 2) + int64_t((lo+1) / 2) * int64_t((hi+1) / 2);
 			assert(cnt == get_evens(p, i, i+1, n+1));
 
@@ -57,6 +61,9 @@ int main() {
 			if (n != N) prv[n] = p;
 			prv[i] = nxt[i] = -2;
 		}
+	}
+
+	for (int i = 0; i < N; i++) {
 	}
 
 	for (int i = 0; i+3 <= N; i++) {

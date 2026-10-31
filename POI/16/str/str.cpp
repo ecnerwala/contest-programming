@@ -101,7 +101,7 @@ struct seg_event {
 	}
 };
 
-struct AXIS { enum { X, Y, P, N }; };
+namespace AXIS { enum { X, Y, P, N }; };
 arr<seg_event, MAXP> evts[4];
 
 int main() {

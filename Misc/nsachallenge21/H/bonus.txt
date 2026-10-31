@@ -1,0 +1,4 @@
+NOTE: There are NO KEY PARTS hidden in this file! This is the BONUS. If you have not finished all the other KATTIS challenges including "final", please complete those first. You can return to this problem once you are finished with the challenge!
+
+The python script you ran to generate this file also generated a ransomware file called 9821c812-e07a-4976-b02d-74814dcccc03.jpg. There are NO KEY PARTS in that file either. Decrypting that file is the BONUS problem. This may require revisiting some of your earlier work. Maybe you should take a closer look at that "hash" algorithm.
+

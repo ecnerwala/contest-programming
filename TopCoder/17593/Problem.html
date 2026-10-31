@@ -1,0 +1,34 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have two ways of modifying a positive integer: you can either rearrange its digits, or you can make a small increment.
+</p>
+<ul>
+<li>
+When rearranging digits, the new number must have exactly the same digits as the old number, but they can appear in any order. 
+(If the old number contains some zeros, they can become leading zeros when rearranging the digits. However, note that adding extra zeros is not allowed.)
+</li>
+<li>
+When incrementing the number, you can add any integer between 1 and 13, inclusive.
+</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>
+You can rearrange 10234 to 01234 or to 42013, but not to 10203040. If you rearrange 10234 to 01234, your new number has the value 1234: the leading zero is discarded after the operation.
+</li>
+<li>
+You can increment 10234 to 10235 or 10247, but not to 10248. 
+</li>
+</ul>
+<br></br>
+<p>
+Given the positive integers <b>X</b> and <b>Y</b>, transform <b>X</b> to <b>Y</b> in reasonably few steps.
+</p>
+<p>
+Return a vector &lt;int&gt; with the following properties:
+</p>
+<ul>
+<li>The number of elements is at most 200.</li>
+<li>The first element is <b>X</b> and the last element is <b>Y</b>.</li>
+<li>Each element is between 1 and 2,000,000,000, inclusive.</li>
+<li>Each element after the first can be obtained from the previous one by performing one legal transformation.</li>
+</ul></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RearrangeAndIncrement</td></tr><tr><td>Method:</td><td>change</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; change(int X, int Y)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>For the given constraints a solution always exists.</td></tr><tr><td align="center" valign="top">-</td><td>Any valid solution will be accepted. It is not necessary to minimize its length.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>X</b> will be between 1 and 999,999,999, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Y</b> will be between 1 and 999,999,999, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10234</pre></td></tr><tr><td><pre>1247</pre></td></tr></table></td></tr><tr><td><pre>Returns: {10234, 1234, 1247 }</pre></td></tr><tr><td><table><tr><td colspan="2">We first rearrange 10234 to 01234, and then we take the number 1234 we just produced and increment it by 13.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10234</pre></td></tr><tr><td><pre>10248</pre></td></tr></table></td></tr><tr><td><pre>Returns: {10234, 10244, 10248 }</pre></td></tr><tr><td><table><tr><td colspan="2">As the difference is 14, we cannot do it in a single increment, but we can surely do it in two.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>999997</pre></td></tr><tr><td><pre>1000001</pre></td></tr></table></td></tr><tr><td><pre>Returns: {999997, 999998, 999999, 1000000, 1000001 }</pre></td></tr><tr><td><table><tr><td colspan="2">Just for fun we increment the current number by 1 four times. Note that the number of digits changes in one of the steps.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000000</pre></td></tr><tr><td><pre>1000</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1000000, 1000 }</pre></td></tr><tr><td><table><tr><td colspan="2">We can rearrange 1000000 to 0001000, which is the same as 1000.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1111111</pre></td></tr><tr><td><pre>1111232</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1111111, 1111122, 1111221, 1111232 }</pre></td></tr><tr><td><table><tr><td colspan="2">Increment, rearrange, increment.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: {47 }</pre></td></tr><tr><td><table><tr><td colspan="2">A one-element sequence is a valid answer if <b>X</b> = <b>Y</b>.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

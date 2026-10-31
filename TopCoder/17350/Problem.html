@@ -1,0 +1,46 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+We are playing a simple version of the <i>Battleships</i> game.
+</p>
+<p>
+The game is played on a rectangular grid of cells. Somewhere in the grid there is a single hidden battleship. The battleship occupies three consecutive cells (either vertically or horizontally).
+</p>
+<p>
+You are given the current map of the grid in the vector &lt;string&gt; <b>grid</b>.
+Each character represents one cell.
+'W' is a cell known to contain water, '.' is an unknown cell that may still belong to the battleship.
+</p>
+<p>
+The game is played by firing shots. Each shot hits one of the cells in the grid. In our game, your goal is to hit the battleship at least once. (It is not necessary to hit all three cells of the battleship, any one of them is enough.)
+</p>
+<p>
+Let N be the number of '.' cells currently in the grid.
+Find any set of at most N/3 shots that is guaranteed to win the game.
+Return your solution in the same format as the input, using '*' for cells where you want to fire your shots.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>OneBattleship</td></tr><tr><td>Method:</td><td>hit</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; hit(vector &lt;string&gt; grid)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>For the given constraints a solution always exists.</td></tr><tr><td align="center" valign="top">-</td><td>Each cell you did not shoot must contain the same character in your return value as it did in <b>grid</b>.</td></tr><tr><td align="center" valign="top">-</td><td>You are allowed to shoot 'W' cells (even though this does not help you find the battleship).</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>grid</b> will contain between 1 and 50 rows, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>grid</b> will contain the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>grid</b> will contain between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>grid</b> will be 'W' or '.'.</td></tr><tr><td align="center" valign="top">-</td><td>In <b>grid</b>, there will be at least one group of three consecutive '.' characters (horizontally or vertically).</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;WW.WW&quot;,
+ &quot;WW.WW&quot;,
+ &quot;.....&quot;,
+ &quot;WW.WW&quot;,
+ &quot;WW.WW&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;WW.WW&quot;, &quot;WW.WW&quot;, &quot;..*..&quot;, &quot;WW.WW&quot;, &quot;WW.WW&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">There are six possible positions for the battleship. Two of them are shown below using 'B' for the battleship cells.
+<pre>
+
+   WW.WW    WW.WW
+   WW.WW    WW.WW
+   .BBB.    ..B..
+   WW.WW    WWBWW
+   WW.WW    WWBWW
+   
+</pre>
+<p>
+Regardless of where the battleship is hiding, we can hit it by shooting the middle cell of the grid.
+</p>
+<p>
+(Other valid solutions with at most 3 shots will also be accepted.)
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.W.......&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;.W..*.*..&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>We have 8 unknown cells, so we can make at most 8/3 shots. Hence, two shots is still OK but three shots is already too many.</p>
+<p>The leftmost unknown cell cannot be a part of the battleship, so we can just ignore it. The two shots shown in the return value are guaranteed to hit the battleship. (This is not the only possible solution.)</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;W.W.W.W.&quot;,
+ &quot;.W.W.W.W&quot;,
+ &quot;W.W.W.W.&quot;,
+ &quot;.W.W.W.W&quot;,
+ &quot;W.W.W.W.&quot;,
+ &quot;...W.W.W&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;W.W.W.W.&quot;, &quot;.W.W.W.W&quot;, &quot;W.W.W.W.&quot;, &quot;.W.W.W.W&quot;, &quot;W*W.W.W.&quot;, &quot;***W.W.W&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">On this board we can tell where the battleship is hiding and we can hit it using a single shot. The statement allows us to make up to 8 shots, so in our example return value we make four shots.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...&quot;,
+ &quot;.W.&quot;,
+ &quot;...&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;..*&quot;, &quot;.W.&quot;, &quot;*..&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">We should shoot two opposite corners of this grid.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

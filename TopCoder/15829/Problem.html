@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+There is a sequence of pending jobs.
+Each job depends on all previous jobs.
+If job B depends on job A, job B cannot be started before job A (but they can be started at the same time).
+</p>
+<p>
+The total number of workers you have available is <b>workers</b>.
+Each job takes two months to complete, and must be completed in two consecutive months.
+Job i demands firstMonth[i] workers during the first month and secondMonth[i] workers during the second month.
+</p>
+<p>
+Compute and return the smallest number of months in which all jobs can be completed.
+</p>
+<p>
+Use the pseudocode below to generate firstMonth[] and secondMonth[]:
+</p>
+<pre>
+L0, L1 = length(firstMonth0), length(firstMonth1)
+for i1 in 0 .. L1-1:
+    for i0 in 0 .. L0-1:
+        firstMonth [ i1 * L0 + i0 ] = min( workers,  firstMonth0[i0] xor  firstMonth1[i1] )
+        secondMonth[ i1 * L0 + i0 ] = min( workers, secondMonth0[i0] xor secondMonth1[i1] )
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TwoMonthScheduling</td></tr><tr><td>Method:</td><td>minimumMonths</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minimumMonths(int workers, vector &lt;int&gt; firstMonth0, vector &lt;int&gt; firstMonth1, vector &lt;int&gt; secondMonth0, vector &lt;int&gt; secondMonth1)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on the input format, it would correctly solve any input of the size allowed by the constraints.</td></tr><tr><td align="center" valign="top">-</td><td>The elements of the arrays firstMonth and secondMonth do not exceed the number of workers you have. Thus, a solution always exists.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>workers</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>firstMonth0</b> will have between 1 and 500 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>firstMonth1</b> will have between 1 and 10 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>secondMonth0</b> will have the same number of elements as <b>firstMonth0</b>.</td></tr><tr><td align="center" valign="top">-</td><td><b>secondMonth1</b> will have the same number of elements as <b>firstMonth1</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of the four arrays will be between 0 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000</pre></td></tr><tr><td><pre>{900, 150, 300, 200}</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>{400, 300, 600, 150}</pre></td></tr><tr><td><pre>{0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The arrays <b>firstMonth0</b> and <b>secondMonth0</b> are identical to the generated arrays firstMonth and secondMonth. An optimal solution looks as follows:
+</p>
+<pre>
+month 1: first month of job 0 (900 workers needed)
+month 2: second month of job 0, first month of job 1 (400 + 150 workers needed)
+month 3: second month of job 1, first month of jobs 2 and 3 (300 + 300 + 200 workers needed)
+month 4: second month of jobs 2 and 3 (600 + 50 workers needed)
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000</pre></td></tr><tr><td><pre>{900, 150, 300, 200}</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>{400, 600, 300, 150}</pre></td></tr><tr><td><pre>{0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2">The input looks similar to Example 0, but job 1 now requires more and job 2 requires fewer workers during their second months. Even though the sum of times is still the same, it is no longer possible to do everything in four months.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000</pre></td></tr><tr><td><pre>{350, 172, 24}</pre></td></tr><tr><td><pre>{998, 54}</pre></td></tr><tr><td><pre>{513, 119, 0}</pre></td></tr><tr><td><pre>{24, 118}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2">The arrays you are supposed to generate:
+<pre>
+firstMonth  = {696, 842, 1000, 360, 154, 46}
+secondMonth = {537, 111, 24, 631, 1, 118}
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>47</pre></td></tr><tr><td><pre>{0,0,0,0,0,0,1,0,0,0}</pre></td></tr><tr><td><pre>{0,0,0,0,0,0,0,0,0,0}</pre></td></tr><tr><td><pre>{0,0,0,0,0,0,0,0,0,0}</pre></td></tr><tr><td><pre>{0,0,0,0,0,0,1,0,0,0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">A lot of jobs, but most of them require no workers at all. All these jobs can be done at the same time.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

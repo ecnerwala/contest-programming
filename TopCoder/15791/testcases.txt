@@ -1,0 +1,27 @@
+{"Bgr" }
+"BBgbr"
+3
+{"rGB" }
+"BBgbrGBBB"
+3
+{"RBrg" }
+"RGBrgb"
+4
+{"RGBrg", "bRGBr", "gbRGB", "rgbRG" }
+"RGBrgbRGBrgbRGBrgbRG"
+5
+{"Rrbg" }
+"rrrrrbbbbbbgR"
+4
+{ }
+"gbgBgBgBbGGGBGGgbGBbGgGBBBBGGBGBbgBGBbbgGBBG"
+3
+{"RGbRR", "RgBRR", "RgBRR", "RgBRR", "RgBRr", "RgBrr" }
+"RRgBrRRrgBRRBRgRRGBrRRgbRRRgBR"
+5
+{"RRgBrRRrgBRRBRgRRGBrRRgbRRRgBR" }
+"RRgBrRRrgBRRBRgRRGBrRRgbRRRgBR"
+30
+{"RGb", "RGb" }
+"RbRbGG"
+3

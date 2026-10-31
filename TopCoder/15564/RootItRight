@@ -1,0 +1,98 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+class RootItRight {
+
+public:
+
+	long long findMinimumTotalCost(int N, vector <int> edge, vector <int> val, int D, int seed, int MX) {
+		vector<ll> A(2 * N);
+		A[0] = seed;
+		for (int i = 1; i <= 2 * N - 1; i++) {
+			A[i] = (A[i-1] * 1103515245LL + 12345LL) % 2147483648LL;
+		}
+		vector<int> E = edge;
+		E.resize(N, 0);
+		for (int i = int(edge.size()); i <= N-1; i++) {
+			E[i] = int(A[i] % min(i, D) + i - min(i, D));
+		}
+
+		vector<ll> V(val.begin(), val.end());
+		V.resize(N, 0);
+		for (int i = int(val.size()); i <= N-1; i++) {
+			V[i] = A[N+i] % MX;
+		}
+
+		vector<vector<int>> ch(N);
+		for (int i = 1; i < N; i++) {
+			ch[E[i]].push_back(i);
+		}
+
+		// increase by sum[v_i * subtree_i]
+		vector<ll> subSize(N);
+		for (int i = N-1; i >= 0; i--) {
+			subSize[i] ++;
+			if (i != 0) subSize[E[i]] += subSize[i];
+		}
+
+		vector<ll> depth(N);
+		depth[0] = 0;
+		for (int i = 1; i < N; i++) {
+			depth[i] = depth[E[i]] + 1;
+		}
+
+		vector<ll> subWeight(N);
+		for (int i = N-1; i >= 0; i--) {
+			subWeight[i] += V[i] * subSize[i];
+			if (i) subWeight[E[i]] += subWeight[i];
+		}
+
+		ll curSum = 0;
+		for (int i = 0; i < N; i++) {
+			curSum += V[i] * subSize[i] * depth[i];
+		}
+
+		vector<ll> superWeight(N);
+		superWeight[0] = 0;
+		for (int i = 0; i < N; i++) {
+			ll chSum = 0;
+			for (int c : ch[i]) {
+				chSum += subWeight[c];
+			}
+			for (int c : ch[i]) {
+				superWeight[c] = superWeight[i] + (N - subSize[c]) * V[i] + (chSum - subWeight[c]);
+			}
+		}
+
+		vector<ll> rootVal(N);
+		rootVal[0] = curSum;
+		for (int i = 1; i < N; i++) {
+			rootVal[i] = rootVal[E[i]] + superWeight[i] - subWeight[i];
+		}
+		/*
+		for (int i = 0; i < N; i++) {
+			cerr << i << ' ' << E[i] << ' ' << V[i] << ' ' << subSize[i] << ' ' << depth[i] << ' ' << subWeight[i] << ' ' << superWeight[i] << ' ' << rootVal[i] << '\n';
+		}
+		*/
+
+		return *min_element(rootVal.begin(), rootVal.end());
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::RootItRight;
+
+// vim:ft=cpp

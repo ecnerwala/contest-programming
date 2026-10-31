@@ -1,0 +1,33 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Some black and some white balls are placed in a row.
+You are given a vector &lt;int&gt; <b>balls</b> that describes the row using run-length encoding.
+That is, the row of balls looks as follows:
+</p>
+<ul>
+<li>At the beginning there are <b>balls</b>[0] white balls.</li>
+<li>Then there are <b>balls</b>[1] black balls.</li>
+<li>After those there are <b>balls</b>[2] white balls again.</li>
+<li>... and so on, alternating between white and black.</li>
+</ul>
+<p>
+You have to split the entire row into segments.
+Each segment must be labeled either "white" or "black".
+A segment labeled "white" must contain exactly <b>white</b> white balls (and arbitrarily many black ones).
+A segment labeled "black" must contain exactly <b>black</b> black balls (and arbitrarily many white ones).
+</p>
+<p>
+Find the number of ways in which we can split the row into segments and assign colors to those segments.
+Return that value modulo 1,000,000,007.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BlackAndWhiteBalls</td></tr><tr><td>Method:</td><td>getNumber</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int getNumber(vector &lt;int&gt; balls, int white, int black)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>balls</b> will contain between 1 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>balls</b> will be between 1 and 1,000,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>white</b> and <b>black</b> will be between 1 and 1,000,000,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 2}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The row of balls looks as follows: WWBB.
+The four ways to split it are listed below.
+</p>
+<ol>
+<li>White segment W, white segment W, black segment BB.</li>
+<li>White segment W, white segment WBB.</li>
+<li>White segment W, black segment WBB.</li>
+<li>Black segment WWBB.</li>
+</ol>
+<p>
+Note that the second and third way are considered distinct: the division of the row into segments is the same but the labels are not.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 1, 3}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 14</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 1, 1, 1, 1}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 28</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 2, 2, 2, 2}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 236</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3, 6, 3, 10}</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{30, 15, 45, 20, 8, 13, 7, 3, 25, 10}</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 180210099</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1000000000, 1000000000, 1000000000, 1000000000}</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 632653058</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

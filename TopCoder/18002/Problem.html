@@ -1,0 +1,39 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>DivNim</i> is a version of the NIM game.
+</p>
+<p>
+This version is played with a whiteboard.
+At any moment during the game there is a collection of (not necessarily distinct) positive integers written on the board.
+Two players take alternating turns.
+In each turn, the current player chooses one number (let's call it X), erases it and in its place writes a proper divisor of X.
+The game ends when there are no more moves left.
+</p>
+<p>
+For example, if the board has the numbers { 1, 12, 27, 12 }, the current player can either erase one of the 12s and then write 1, 2, 3, 4, or 6 instead of it, or they can erase the 27 and replace it with 1, 3, or 9.
+</p>
+<br></br>
+<p>
+DivNim can be played in two ways: in <i>normal play</i> the player who's unable to make a move loses, and in <i>misere play</i> that player wins the game.
+</p>
+<br></br>
+<p>
+You are going to play a game of DivNim against Shawn, the local DivNim champion who always plays optimally.
+You already made the agreement that all starting numbers will be between <b>lo</b> and <b>hi</b>, inclusive.
+Some such numbers are already on the whiteboard; these are given in the vector&lt;long long&gt; <b>board</b>.
+</p>
+<p>
+Before the game starts you have to add <i>exactly one</i> additional number N to the whiteboard. (The number you add must be within the allowed range. It can be a duplicate of a number already on the board.)
+Then, Shawn will be the one to take the first turn of the game.
+</p>
+<br></br>
+<p>
+For each mode of play, count the number of ways in which you can choose N so that you can win the game (if you play optimally). Return a vector &lt;int&gt; with two elements: the answer for normal play, followed by the answer for misere play.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>DivNim</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>long long, long long, vector&lt;long long&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; solve(long long lo, long long hi, vector&lt;long long&gt; board)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>lo</b> will be between 1 and 10^12, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>hi</b> will be between <b>lo</b> and 10^12, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>hi</b> - <b>lo</b> will not exceed 10^5.</td></tr><tr><td align="center" valign="top">-</td><td><b>board</b> will contain between 0 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>board</b> will be between <b>lo</b> and <b>hi</b>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>12</pre></td></tr><tr><td><pre>{}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 5 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The board is empty, so you will be playing only with the number N you'll add to the board.
+</p>
+<p>
+If you are playing with the normal rule, you can only win if you choose N = 1 (in which case Shawn immediately has no valid move and loses). In all other scenarios Shawn erases your N, writes down 1 instead, and then you lose.
+</p>
+<p>
+If you are playing with the misere rule, you should choose one of the available primes (2, 3, 5, 7, or 11) as your N. If you choose N = 1, Shawn wins immediately, and in all other scenarios Shawn can make sure that he wins after your first move.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>12</pre></td></tr><tr><td><pre>12</pre></td></tr><tr><td><pre>{12, 12, 12, 12, 12}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">You must add a sixth 12 to the board. This creates a symmetric position, and in both modes of play you can use that symmetry to your advantage and defeat Shawn.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>30</pre></td></tr><tr><td><pre>{12, 16, 29, 24, 28}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {6, 6 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>12</pre></td></tr><tr><td><pre>{1, 1, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 5 }</pre></td></tr><tr><td><table><tr><td colspan="2">As you cannot do anything with a 1 written on the whiteboard, this example is essentially the same as Example #0.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,30 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Bear Limak has just started a new year at school.
+The school teaches N subjects.
+At the end of the year Limak will get a grade for each of the subjects.
+Each grade will be an integer between 0 (worst) and 10 (best), inclusive.
+</p>
+<p>
+The grade for each subject depends on the number of days Limak will spend studying that subject.
+If he does not study a subject at all, his grade for that subject will be 0.
+Each subject has its own difficulty rating <b>d</b>[i]: each <b>d</b>[i] days spent studying the subject will increase Limak's grade by 1 (up to a maximum of 10, of course).
+</p>
+<p>
+Note that these increases are discrete.
+E.g., if Limak spends <b>d</b>[i]-1 days studying subject i, his grade will still be 0.
+</p>
+<p>
+Limak's parents are quite strict.
+Each of them has made a request:
+</p>
+<ul>
+<li>Mama bear told Limak that his mean grade must be at least <b>needMean</b>.</li>
+<li>Papa bear told Limak that his median grade must be at least <b>needMedian</b>.</li>
+</ul>
+<p>
+Compute and return the smallest possible number of days of studying Limak needs in order to satisfy the requests of both parents.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MeanMedian</td></tr><tr><td>Method:</td><td>minEffort</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minEffort(int needMean, int needMedian, vector &lt;int&gt; d)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The mean of N values is their sum divided by N. (The mean can be non-integer.)</td></tr><tr><td align="center" valign="top">-</td><td>The median of N values is the middle element of a sorted list of all those values. (In this problem, N is always odd and thus the middle element always exists.)</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>needMean</b> will be between 0 and 10, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>needMedian</b> will be between 0 and 10, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>N (the number of elements in <b>d</b>) will be between 1 and 49, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>N will be odd.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>d</b> will be between 1 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{30, 25, 20}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 180</pre></td></tr><tr><td><table><tr><td colspan="2">There are three subjects at school.
+Limak's grades should have mean at least 2 and median at least 4.
+The only optimal solution is to study subject 0 for 0 days, subject 1 for 4*25 = 100 days and subject 2 for 4*20 = 80 days.
+Afterwards, Limak's grades will be {0, 4, 4}.
+Their mean is 8/3 (which is more than we need) and their median is 4 (which is exactly what we need).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{30, 25, 20}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 260</pre></td></tr><tr><td><table><tr><td colspan="2">Limak should get grades 0, 4, 8. The mean is exactly 4 and so is the median. The answer is 4*25+8*20=260.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{1, 4, 3, 2, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 110</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>{1000}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{4, 8, 12, 16, 18, 20, 22, 23, 24}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1046</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

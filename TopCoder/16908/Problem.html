@@ -1,0 +1,123 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+One of the biggest challenges after marriage is deciding who will do which of the chores in the household.
+Our lucky bride and groom decided to settle each of these questions by playing a game.
+</p>
+<p>
+They will play many different versions of the game.
+Each version of the game will start by looking at the same weighted tree.
+The tree has <b>N</b> vertices, numbered from 0 to <b>N</b>-1.
+When rooted at vertex 0, we will the parent of vertex i will be denoted parent[i] and the weight of the edge i-parent[i] will be denoted weight[i].
+The tree can be generated using the following pseudocode:
+</p>
+<pre>
+
+def rnd():
+    state = (state * 1103515245 + 12345) modulo 2^31
+    return state
+
+# generate the parents of vertices other than 0
+for i = 1 to N-1:
+    parent[i] = max( 0, i - 1 - (rnd() % D) )
+
+# prepare a bank of some edge weights that will appear frequently
+bank = empty sequence
+for i = 0 to B-1:
+    bank.append( rnd() % N )
+
+# assign edge weights
+for i = 1 to N-1:
+    if rnd() % 100 &lt; P:
+        weight[i] = rnd() % N
+    else:
+        weight[i] = bank[ rnd() % B ]
+
+</pre>
+<p>
+Please make sure to generate the data in the given order: all parents, then bank, then all weights.
+</p>
+<br></br>
+<p>
+For each game the bride and groom will select four parameters: (U, V, hi, lo).
+The game will be played on the path from vertex U to vertex V in their tree.
+The players will be covering some of the edges of this path by tokens.
+</p>
+<p>
+The players take alternating turns, starting with the bride.
+In each turn the current player must choose an edge on the path that has no token yet and place a token onto that edge.
+</p>
+<p>
+During the game the players maintain a single value called X.
+At the beginning of the game X = hi.
+When a player chooses an edge, they must choose an edge whose weight is at most X.
+Once they place the token onto that edge, X becomes equal to the weight of that edge.
+</p>
+<p>
+The player who cannot perform a valid move loses.
+Also, the player who is forced to make X strictly less than lo (by placing a token onto an edge with weight smaller than lo) loses the game.
+</p>
+<br></br>
+<p>
+You are given a sequence of queries. Each query has the form (U, V, hi).
+For each query q, compute answer[q] = the number of values lo in the range [0, hi] such that the <i>groom</i> will win the game if both the bride and the groom play optimally.
+Return the sum of answers to all the queries.
+</p>
+<p>
+There are <b>Q</b> queries.
+Use the following pseudocode <i>after you already generated all other data</i> to generate them.
+(The order matters because each call to rnd() changes the state of the pseudorandom generator.)
+</p>
+<pre>
+
+for q = 0 to Q-1:
+    U = rnd() % N
+    V = rnd() % N
+    hi = rnd() % N
+    make a query (U, V, hi)
+</pre>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MarriageAndGamingChallenge</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int, int, int, int, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long solve(int N, int D, int state, int B, int P, int Q)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 100,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>D</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>state</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>B</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>P</b> will be between 0 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Q</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>47474747</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>50</pre></td></tr><tr><td><pre>9</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2">When generating the tree we will generate these arrays, in the given order:
+<pre>
+parent = {None, 0, 0, 2, 2, 4, 4}
+bank = {2, 6}
+weight = {None, 1, 6, 2, 6, 5, 6}
+
+</pre>
+The queries are:
+<pre>
+query 0: 5 3 4
+query 1: 2 5 6
+query 2: 4 3 0
+query 3: 5 0 5
+query 4: 2 5 2
+query 5: 4 0 1
+query 6: 3 1 3
+query 7: 1 6 6
+query 8: 0 0 0
+</pre>
+<br></br>
+<p>
+The answers to the individual queries, in the given order, are as follows: 2, 0, 1, 0, 3, 2, 1, 0, 1.
+</p>
+<p>
+Query 0: If lo is in {0, 1, 2}, the bride places a token onto the edge 2-3 (weight 2) and the groom loses the game. If lo is in {3, 4} the bride has no valid move and loses the game. Hence, the groom wins for two choices of lo.
+</p>
+<p>
+Query 1: For any lo in [0,6] the bride wins. If lo=6 she places her first token onto the edge 2-4 (weight 6), in all other cases she places her first token onto the edge 4-5 (weight 5). In either case the groom loses immediately.
+</p>
+<p>
+Query 2: The value of lo must be 0. The bride has no valid move and thus she loses the game and the groom wins.
+</p>
+<p>
+Query 7: The edges on the path 1-6 have weights {1, 6, 6, 6}. The bride always wins. If lo is in [0,1] she places her token onto the edge 1-0 (weight 1) and the groom loses. If lo is in [2,6] the bride places her token on any one of the three edges of weight 6, the groom onto another, the bride then covers the third edge and then the groom loses the game.
+</p>
+<br></br>
+<p>
+Helpful data for checking that you have the correct instance:
+</p>
+<p>
+The values weight[2] and weight[4] were chosen from the bank, all other were chosen at random.
+</p>
+<p>
+The function rnd() returned the following sequence of values:
+81038168, 1862554801, 143404438, 831999255, 766706948, 1708690157, 2010484002, 1631167411, 81620336, ... 
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>47474747</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>9</pre></td></tr></table></td></tr><tr><td><pre>Returns: 23</pre></td></tr><tr><td><table><tr><td colspan="2">This is the same tree but now every edge has weight 2.
+The individual answers are 4, 3, 1, 1, 6, 1, 2, 4, 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>3000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 800879</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

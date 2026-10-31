@@ -1,0 +1,21 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Adam and Becky have a pizza.
+The pizza is cut into N slices, numbered from 0 to N-1 in order.
+(For each i, slice i is adjacent to slices (i-1) mod N and (i+1) mod N.)
+Slice i contains <b>olives</b>[i] olives.
+</p>
+<p>
+Adam and Becky both love olives and so they each want to get as many olives as possible.
+They are going to divide their pizza in a competitive way.
+They will take alternating turns.
+Adam goes first.
+In each turn, the active player must take <i>exactly one</i> slice from each <i>contiguous segment</i> of slices.
+Below are two example beginnings of the game for N = 10.
+</p>
+<ol>
+<li>Adam takes slice 7. The remaining nine slices still form one contiguous segment, so Becky will now take any one of those slices. She takes slice 6. The remaining eight slices still form one contiguous segment, so Adam will pick just one slice in his next move.</li>
+<li>Adam takes slice 7. Becky takes slice 3. This divides the remaining eight slices into two contiguous segments: {8,9,0,1,2} and {4,5,6}. Adam will now take one slice from each of these segments. E.g., he might take slices 9 and 4, or slices 0 and 5 (but not slices 0 and 1).</li>
+</ol>
+<p>
+Compute and return the number of olives Adam will have at the end of the game.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PizzaEatingGame</td></tr><tr><td>Method:</td><td>eat</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int eat(vector &lt;int&gt; olives)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>olives</b> will have between 3 and 500 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>olives</b> will be between 0 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 1, 100, 1, 2, 1, 50}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 104</pre></td></tr><tr><td><table><tr><td colspan="2">The optimal strategy for both players is clear: Adam must take 100, Becky must take 50, then Adam will take both 2s, and finally Becky takes all four 1s.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{99, 5, 6, 5, 100}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 110</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

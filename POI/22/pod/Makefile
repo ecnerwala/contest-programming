@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++11 -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align
-DEBUGFLAGS = -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2
+CXXFLAGS = -std=c++17 -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion
+DEBUGFLAGS = -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize-recover=all -fstack-protector-all -D_FORTIFY_SOURCE=2
 
 DEBUG = true
 ifeq ($(DEBUG),true)
@@ -9,6 +9,11 @@ endif
 
 TARGET := pod
 EXECUTE := ./$(TARGET)
+CLEAN_TARGETS := $(TARGET)
+
+#TARGET := pod.py
+#EXECUTE := python3 ./$(TARGET)
+#CLEAN_TARGETS :=
 
 CASES := $(sort $(basename $(wildcard *.in)))
 TESTS := $(sort $(basename $(wildcard *.out)))
@@ -16,19 +21,23 @@ TESTS := $(sort $(basename $(wildcard *.out)))
 all: $(TARGET)
 
 clean:
-	-rm -rf $(TARGET) *.res
+	-rm -rf $(CLEAN_TARGETS) *.res
 
 %: %.cpp
-	$(LINK.cpp) $^ $(LOADLIBES) $(LDLIBS) -o $@
+	$(LINK.cpp) $< $(LOADLIBES) $(LDLIBS) -o $@
+
+export TIME=\n  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB
 
 run: $(TARGET)
-	time $(EXECUTE)
+	\time $(EXECUTE)
 
 %.res: $(TARGET) %.in
-	time $(EXECUTE) < $*.in > $*.res
+	\time $(EXECUTE) < $*.in > $*.res
 ifeq ($(DEBUG),true)
 	@echo "Built with DEBUG flags enabled, code may be slower than normal"
 endif
+
+%.out: % # Cancel the builtin rule
 
 __test_%: %.res %.out
 	diff $*.res $*.out

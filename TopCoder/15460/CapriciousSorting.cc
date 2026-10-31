@@ -1,0 +1,51 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class CapriciousSorting {
+
+public:
+
+	int count(vector <int> num) {
+		for (int i = 0; i+1 < int(num.size()); i++) {
+			if (num[i] == num[i+1]) return 0;
+		}
+		int ans = 1;
+		for (int l = 29; l >= 0; l--) {
+			// check if 0 works and check if 1 works
+			bool works[2] = {false, false};
+			for (int z = 0; z < 2; z++) {
+				works[z] = true;
+				int last = (num[0] >> l) ^ z;
+				for (int i = 1; i < int(num.size()); i++) {
+					int nxt = (num[i] >> l) ^ z;
+					if (nxt > last) {
+						works[z] = false;
+						break;
+					}
+					last = nxt;
+				}
+			}
+			ans *= works[0] + works[1];
+			if (works[1]) {
+				for (int i = 0; i < int(num.size()); i++) num[i] ^= (1 << l);
+			}
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::CapriciousSorting;
+
+// vim:ft=cpp

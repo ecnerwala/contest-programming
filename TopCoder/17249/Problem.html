@@ -1,0 +1,34 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A <i>word search</i> puzzle is a rectangular grid of letters.
+The goal of the puzzle is to look for words in the grid.
+Words can be placed in eight cardinal directions (horizontally, vertically, or diagonally).
+</p>
+<p>
+A <i>dog search</i> puzzle is a word search puzzle in which each letter is 'D', 'O', or 'G'.
+The goal in a dog search puzzle is to find the occurrences of the word "DOG".
+</p>
+<p>
+Below is an example of a dog search puzzle.
+</p>
+<pre>
+
+    DGODD
+    OOGOG
+    GOGDD
+</pre>
+<p>
+The example puzzle contains four dogs: one in column 0 downwards, one in row 0 right-to-left, one on the diagonal from the top left corner, and one on the diagonal from the top right corner.
+</p>
+<p>
+Given <b>N</b>, construct any dog search puzzle with at most 40 rows, at most 40 columns, and exactly <b>N</b> dogs.
+Return the puzzle as a vector &lt;string&gt;.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>DogsInAGrid</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; construct(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>For the chosen constraints a solution always exists. </td></tr><tr><td align="center" valign="top">-</td><td>Remember that only the letters 'D', 'O', and 'G' are allowed in the grid. Also, the grid must be rectangular and no dimension of the grid may exceed 40.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 0 and 2,222, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;DGODD&quot;, &quot;OOGOG&quot;, &quot;GOGDD&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The returned grid is the example grid from the problem statement. We have already seen that it contains exactly four dogs, so it is one of the acceptable answers for this test case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;OOOOO&quot;, &quot;OODOO&quot;, &quot;ODOGO&quot;, &quot;OOGOO&quot;, &quot;OOOOO&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The returned grid, formatted as a grid:
+<pre>
+
+    {"OOOOO",
+     "OODOO",
+     "ODOGO",
+     "OOGOO",
+     "OOOOO" }
+</pre>
+One dog is in the middle column, one is in the middle row.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;DOGDOGDOGDOGDOGODOG&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,62 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class RankingStudents {
+
+public:
+
+	bool isRankingPossible(int N, vector <int> F, vector <int> A, vector <int> B) {
+		assert(N == int(F.size()));
+		int M = int(A.size());
+		assert(M == int(B.size()));
+
+		vector<int> indeg(N);
+		vector<vector<int>> pred(N);
+		for (int e = 0; e < M; e++) {
+			indeg[A[e]]++;
+			pred[B[e]].push_back(A[e]);
+		}
+		vector<vector<int>> byF(N);
+		for (int i = 0; i < N; i++) {
+			indeg[i] ++;
+			byF[F[i]].push_back(i);
+		}
+
+		stack<int> q;
+		for (int t = N-1; t >= 0; t--) {
+			for (int cur : byF[t]) {
+				if (--indeg[cur] == 0) {
+					q.push(cur);
+				}
+			}
+			if (q.empty()) return false;
+			int cur = q.top(); q.pop();
+			for (int nxt : pred[cur]) {
+				if (--indeg[nxt] == 0) {
+					q.push(nxt);
+				}
+			}
+		}
+		return true;
+	}
+
+	string rankingPossible(int n, vector <int> f, vector <int> a, vector <int> b) {
+		return isRankingPossible(n, f, a, b) ? "Possible" : "Impossible";
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::RankingStudents;
+
+// vim:ft=cpp

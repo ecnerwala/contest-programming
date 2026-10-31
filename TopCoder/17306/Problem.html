@@ -1,0 +1,53 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit: 5 seconds.</i></p>
+<br></br>
+<p>
+You have an <b>R</b> times <b>C</b> rectangle divided into unit squares.
+</p>
+<br></br>
+<p>
+You want to perform a sequence of two actions.
+</p>
+<p>
+The first action is to remove some collection of individual unit squares. (All remaining squares are left in their original positions.
+</p>
+<p>
+The second action is to perfectly tile all the remaining squares using horizontally and/or vertically placed 1x2 dominoes.
+</p>
+<br></br>
+<p>
+Consider all possible ways of correctly performing these two actions. Among them, count all possible ways to perform the first action.
+Return that count modulo 1,000,000,007.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CountTilings</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int R, int C)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>5.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>In a perfect tiling of a collection of squares each 1x2 domino tile covers two squares, and each square is covered by exactly one domino.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 8, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>If <b>R</b> = 8, <b>C</b> will be between 1 and 200, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>If <b>R</b> = 7, <b>C</b> will be between 1 and 1,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>If <b>R</b> &lt;= 6, <b>C</b> will be between 1 and 8,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+As your first action you must remove the only square.
+</p>
+<p>
+For your second action you are then left with an empty set of squares, and that can be perfectly tiled using an empty set of dominoes.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 18</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+There are 18 valid ways to perform the first action.
+All of them are shown below, using 'x' for a square you remove and '.' for a square you keep.
+</p>
+<pre>
+
+  xxx
+  xxx
+
+  xx.  x.x  .xx  ..x  x..  xxx  xxx
+  xx.  x.x  .xx  xxx  xxx  ..x  x..
+
+  ..x  .x.  x..  x..  ..x  xx.  .xx  ...  ...
+  ..x  .x.  x..  ..x  x..  ...  ...  xx.  .xx
+
+  ...
+  ...
+
+</pre>
+<p>
+Note that for some of these there are multiple valid ways to perform the second action.
+That has no impact on our answer, each of the options shown above is only counted once.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>50</pre></td></tr></table></td></tr><tr><td><pre>Returns: 365010934</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+For a 1x<b>C</b> strip we are essentially just tiling it with 1x1 and 1x2 tiles. 
+The numbers of such tilings are clearly Fibonacci numbers.
+</p>
+<p>
+The exact number of tilings for <b>C</b> = 50 is F[51] = 20,365,011,074.
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

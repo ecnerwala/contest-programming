@@ -1,0 +1,33 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+The sequence S is <i>growing too quickly</i> if you can point to two of its elements S[i] and S[j] with i &lt; j such that the difference S[j] - S[i] is greater than 10*(j-i).
+</p>
+<br></br>
+<p>
+(Note that the difference can be negative, which is allowed. For example, the sequence {500, 400, 300, 200, 100} isn't growing too quickly.)
+</p>
+<br></br>
+<p>
+You are given a sequence A of <b>N</b> integers.
+You have a blaster.
+In each step, you can use the blaster to shoot any element of A.
+When you do so, you may choose an arbitrary new <i>integer</i> value for that element.
+</p>
+<br></br>
+<p>
+Return the minimum number of shots needed to turn A into a sequence that isn't growing too quickly.
+</p>
+<br></br>
+<p>
+In order to keep the input size small, the sequence A will be pseudorandomly generated.
+Please use the pseudocode below.
+</p>
+<pre>
+state = seed
+for i = 0 to N-1:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    diff = state modulo (2*spread + 1)
+    A[i] = i*delta + diff - spread
+</pre>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>NoQuickGrowth</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int solve(int N, int delta, int spread, int seed)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on any properties of the pseudorandom input. It would correctly solve any input of the given size.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>delta</b> will be between -20 and 20, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>spread</b> will be between 0 and 10^7, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The sequence is A = {0, 10, 20, 30, 40, 50, 60}. We do not need to use the blaster.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>11</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">The sequence is A = {0, 11, 22, 33, 44, 55, 66}. We have to blast at least 6 of its 7 elements. One valid solution that uses blaster six times is to turn the sequence into {22, 22, 22, 23, 23, 23, -47}.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>-3</pre></td></tr><tr><td><pre>10000000</pre></td></tr><tr><td><pre>4747</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The pseudocode should produce the following sequence: A = {4262855, 5911200, 6624873, -1410345, 1378369, -6155535, -1297177}.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>428341411</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The generated sequence is A = {3, 2, 5, 12, 5, 11}. This sequence does not grow too quickly anywhere, so we don't have to use the blaster at all.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

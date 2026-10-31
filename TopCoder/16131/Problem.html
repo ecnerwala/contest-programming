@@ -1,0 +1,38 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Consider the implementation of binary search shown below:
+</p>
+<pre>
+
+def binary_search(array, value):
+    low = 0
+    high = len(array)-1
+    while low &lt;= high:
+        mid = (low + high) / 2
+        if array[mid] == value: return '1'
+        if array[mid] &lt; value: low = mid + 1
+        if array[mid] &gt; value: high = mid - 1
+    return '0'
+
+</pre>
+<p>
+Clearly, if the input array is sorted, the procedure returns '1' if the given value is present in the given array and it returns '0' if the value is not in the array.
+</p>
+<p>
+In this problem we'll take a look at what happens if the array <i>isn't</i> sorted. Even in those cases binary search can sometimes give the correct answer, but sometimes we can search for a value that is present in the array and the search will fail to find it.
+</p>
+<br></br>
+<p>
+Let P be a permutation of numbers from 0 to N-1, inclusive.
+The signature of P is a string sig(P) of length N defined as follows:
+<br></br>
+sig(P) = binary_search(P,0) + binary_search(P,1) + ... + binary_search(P,N-1)
+<br></br>
+In words, character i of the signature of a permutation tells us whether binary search correctly locates the value i in this permutation.
+</p>
+<br></br>
+<p>
+You are given a string <b>S</b> containing N zeros and ones.
+Count all permutations P of order N such that their signature is <b>S</b>.
+Return that count modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BinarySearch</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(string S)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>In the pseudocode for binary search, the valid indices into an array of length N are values from 0 to N-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Also in the pseudocode, "/" represents integer division that truncates (e.g., 9/2 = 4).</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will have between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>S</b> will be either '0' or '1'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;111&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">There is only one permutation with this signature: P = {0, 1, 2}.
+In other words, for N = 3 binary search always works if and only if the input permutation is sorted in increasing order.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;000&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">There is no permutation with this signature. I.e., for N = 3 there is no permutation such that binary search always fails.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;101&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">The two permutations with this signature are P = {0, 2, 1} and P = {1, 0, 2}.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;100011&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;0011101100010010010111010111010&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 373885200</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

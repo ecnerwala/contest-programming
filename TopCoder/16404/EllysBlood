@@ -1,0 +1,43 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class EllysBlood {
+
+public:
+
+	int getMax(vector <int> have, vector <int> need) {
+		int ans = 0;
+		auto f = [&](int a, int b) {
+			int v = min(have[a], need[b]);
+			have[a] -= v, need[b] -= v;
+			ans += v;
+		};
+		f(3,3);
+		f(2,2);
+		f(1,1);
+		f(0,0);
+		f(2,3);
+		f(1,3);
+		f(0,3);
+		f(0,1);
+		f(0,2);
+
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::EllysBlood;
+
+// vim:ft=cpp

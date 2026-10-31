@@ -1,0 +1,109 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class SparseOnes {
+
+	int64_t pref_cnt(int64_t A) {
+		if (A == 0) return 0;
+		if (A == 1) return 0;
+		if (A == 2) return 1;
+
+		A -= 2;
+		int64_t ans = 1;
+
+		// sum of the digits of the first A characters
+		// Count and sum of all length k valid strings (ignoring the leading digit constriant)
+		struct dat_t {
+			int64_t cnt;
+			int64_t sum;
+		};
+		std::vector<dat_t> fib;
+		fib.push_back({1, 0});
+		fib.push_back({2, 1});
+
+		for (int i = 0; true; i++) {
+			if (i == int(fib.size())) {
+				fib.push_back({fib[i-1].cnt + fib[i-2].cnt, fib[i-1].sum + fib[i-2].cnt + fib[i-2].sum});
+			}
+			if (A >= (i+2) * fib[i].cnt) {
+				ans += fib[i].cnt + fib[i].sum;
+				A -= (i+2) * fib[i].cnt;
+				continue;
+			} else {
+				assert(A < (i+2) * fib[i].cnt);
+				int64_t num_nums = A / (i+2);
+				int64_t num_extra = A % (i+2);
+
+				std::vector<int> extra;
+
+				// Leading 10 of everything
+				extra.push_back(1);
+				extra.push_back(0);
+				ans += num_nums;
+
+				while (i > 0) {
+					if (num_nums >= fib[i-1].cnt) {
+						ans += fib[i-1].sum;
+
+						num_nums -= fib[i-1].cnt;
+
+						extra.push_back(1);
+						extra.push_back(0);
+						ans += num_nums;
+
+						i -= 2;
+					} else {
+						extra.push_back(0);
+						i -= 1;
+					}
+				}
+				if (i == -1) {
+					extra.pop_back();
+					i++;
+				}
+				ans += std::accumulate(extra.begin(), extra.begin() + num_extra, 0);
+				break;
+			}
+		}
+		return ans;
+	}
+
+public:
+
+	long long count(long long A, long long B) {
+		return pref_cnt(B) - pref_cnt(A);
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	cerr << SparseOnes().count(0, int64_t(1e14)) << '\n';
+	std::string A;
+	A += '0';
+	for (int i = 1; i < 100000; i++) {
+		std::string v;
+		for (int j = i; j; j >>= 1) {
+			if ((j & 3) == 3) goto bad;
+			v += char('0' + (j & 1));
+		}
+		std::reverse(v.begin(), v.end());
+		A += v;
+bad:;
+	}
+	cerr << "Generated A" << '\n';
+	for (int i = 0; i < int(A.size()); i++) {
+		assert((A[i]-'0') == SparseOnes().count(i, i+1));
+	}
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::SparseOnes;
+
+// vim:ft=cpp

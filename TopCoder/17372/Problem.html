@@ -1,0 +1,26 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are in charge of preparing the next big hit: a show called the calamari game.
+</p>
+<p>
+For this show you have created a variation of a children's game. You call it "red light, green light, blue light".
+Your version of this game looks as follows:
+</p>
+<p>
+There are some participants. Initially, each participant is some number of steps away from the goal line. You are given these distances in the vector &lt;int&gt; <b>steps</b>.
+</p>
+<p>
+The game is played in turns. Each turn looks as follows:
+</p>
+<ul>
+<li>Each participant turns on one of the three lights on their helmet: red, green, or blue.</li>
+<li>A scary mechanical doll with a machine gun will choose one of the colors. The players with the chosen color are allowed to take one step towards the goal line. All other players are immediately eliminated from the game.</li>
+</ul>
+<p>
+The players win when at least one of them reaches the goal line. The doll wins when everyone gets eliminated.
+</p>
+<p>
+Given the starting locations of all players, determine whether a cooperating group of players has a winning strategy.
+If they don't, return {-1}.
+If they do, find one winning set of choices the players should make in the first turn of the game. Return a vector &lt;int&gt; with one element for each player (in the order in which they are given in the input).
+Each element of the return value should be 0, 1, or 2. These values represent the three different light colors each player can choose from.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RedGreenBlueLight</td></tr><tr><td>Method:</td><td>move</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; move(vector &lt;int&gt; steps)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>steps</b> will contain between 1 and 1000 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>steps</b> will be between 1 and 999,999,999, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 2, 2, 1, 0, 2, 0, 0, 2, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">As long as these players don't make the mistake of just choosing one or two colors only, they will win the game after its first round.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{11, 11, 11, 11, 11, 11, 11, 11, 11, 11}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1 }</pre></td></tr><tr><td><table><tr><td colspan="2">The doll can guarantee to eliminate at least one player per round, and if it does so, this bunch of players doesn't stand a chance.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7, 8, 9, 7, 7, 8, 9, 8, 7, 9, 7, 7, 8, 8}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1 }</pre></td></tr><tr><td><table><tr><td colspan="2">The doll can use better strategies than the one described in the previous example. For example, whenever there are 14 players as in this example, the doll can easily make sure that at most four of them will reach the next turn. </td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 3, 4, 5, 6, 7, 999888777, 2, 3, 4, 5, 2, 3, 2, 9, 1, 7, 2, 3, 4, 5, 6, 7, 15}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 0, 1, 1, 0, 2, 1, 2, 0, 2, 1, 1, 0, 2, 0, 2, 1, 0, 1, 0, 2, 1, 2, 2, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

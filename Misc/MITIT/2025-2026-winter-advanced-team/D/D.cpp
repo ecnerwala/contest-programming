@@ -122,60 +122,16 @@ vector<Pt> P;
 bool f[510][510];
 Mint g[510][510];
 
-bool check(const vector<int> &us) {
-  const int usLen = us.size();
-  for (int i = 0; i < usLen; ++i) {
-    const Int d = P[us[i]].abs2();
-    for (int j = 0; j < usLen; ++j) if (i != j) {
-      if (d >= (P[us[j]] - P[us[i]]).abs2()) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
 int main() {
-  /*
   for (; ~scanf("%d", &N); ) {
     P.resize(N);
     for (int u = 0; u < N; ++u) {
       scanf("%lld%lld", &P[u].x, &P[u].y);
     }
-    */
-  std::mt19937 mt(48);
-  while (true) {
-    N = std::uniform_int_distribution<int>(1, 10)(mt);
-    P.resize(N);
-    for (int u = 0; u < N; ++u) {
-      P[u].x = std::uniform_int_distribution<int>(-5, 5)(mt);
-      P[u].y = std::uniform_int_distribution<int>(-5, 5)(mt);
-    }
-
-    auto slow = [&]() {
-      Mint ans = 0;
-      for (int u0 = 0; u0 < N; ++u0) {
-	if (check({u0})) ans += 1;
-	for (int u1 = u0 + 1; u1 < N; ++u1) {
-	  if (check({u0, u1})) ans += 1;
-	  for (int u2 = u1 + 1; u2 < N; ++u2) {
-	    if (check({u0, u1, u2})) ans += 1;
-	    for (int u3 = u2 + 1; u3 < N; ++u3) {
-	      if (check({u0, u1, u2, u3})) ans += 1;
-	      for (int u4 = u3 + 1; u4 < N; ++u4) {
-		if (check({u0, u1, u2, u3, u4})) ans += 1;
-	      }}}}}
-      return ans;
-    };
-
+    
     sort(P.begin(), P.end(), [&](const Pt &a, const Pt &b) -> bool {
       return (cmpArg(a, b) < 0);
     });
-
-    cerr << "case " << N << '\n';
-    for (int u = 0; u < N; ++u) {
-      cerr << P[u].x << ' ' << P[u].y << '\n';
-    }
     
     memset(f, 0, sizeof(f));
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) {
@@ -185,7 +141,6 @@ int main() {
     memset(g, 0, sizeof(g));
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) {
       if (f[u][v] && f[v][w]) {
-	cerr << u << ' ' << v << ' ' << w << '\n';
         g[u][w] += 1;
       }
     }
@@ -193,16 +148,10 @@ int main() {
     Mint ans = 0;
     ans += N;
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) if (f[u][v]) ans += 1;
-    cerr << "ans after 2" << ans << '\n';
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) if (f[u][v]) ans += g[u][v];
-    cerr << "ans after 3" << ans << '\n';
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[v][w] && f[u][w]) ans += g[u][v];
-    cerr << "ans after 4" << ans << '\n';
     for (int u = 0; u < N; ++u) for (int v = u + 1; v < N; ++v) for (int w = v + 1; w < N; ++w) if (f[u][w]) ans += g[u][v] * g[v][w];
-    cerr << "ans after 5" << ans << '\n';
     printf("%u\n", ans.x);
-    cerr << slow() << '\n';
-    assert(ans == slow());
   }
   return 0;
 }

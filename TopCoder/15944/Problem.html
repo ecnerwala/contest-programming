@@ -1,0 +1,33 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+We have a machine that can produce different types of coins.
+For each type you are given the value <b>v</b>[i] those coins have.
+(Different types of coins may have the same value.)
+Each day we can use the machine to produce as many coins as we wish, but there are some restrictions we must obey:
+</p>
+<ul>
+<li>No two coins produced on the same day can have the same type. (In other words, you can produce at most one coin of each type each day.)</li>
+<li>For each coin type i there is a constant <b>d</b>[i] with the following meaning: among any <b>d</b>[i] consecutive days there must be at least one day on which a coin of type i is <i>not</i> produced.</li>
+<li>Among any <b>k</b> consecutive days there must be at least one day when the machine is powered down and does not produce any coins at all.</li>
+</ul>
+
+<p>
+You are given the ints <b>m</b> and <b>k</b>, and the vector &lt;int&gt;s <b>v</b> and <b>d</b>.
+If you can use the machine for <b>m</b> days, what is the maximum total value of coins you can produce?
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CollectingCoins</td></tr><tr><td>Method:</td><td>maxValue</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long maxValue(int m, int k, vector &lt;int&gt; v, vector &lt;int&gt; d)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b> v </b> and <b> d </b> will have the same number of elements.</td></tr><tr><td align="center" valign="top">-</td><td>The number of elements in <b>v</b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b> v </b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b> k </b> will be between 2 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b> d </b> will be between 2 and 10 <sup> 9 </sup>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b> m </b> will be between 1 and 10 <sup> 9 </sup>, inclusive</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{1}</pre></td></tr><tr><td><pre>{3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We have 5 days. The machine must be idle at least once in each 3-day interval. There is one type of coins. Their value is 1, and in each 3-day interval there has to be a day on which coins of this type are not produced. 
+</p>
+<p>
+The optimal solution is to produce one coin on each of days 1, 2, 4, and 5, and to do nothing on day 3.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>{1, 2}</pre></td></tr><tr><td><pre>{2, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2">There are two types of coins. To generate coins with a total value of 10, we can do the following:
+
+<ul>
+
+<li> On day 1, generate both types of coins. </li>
+<li> On day 2, generate only second type. </li>
+<li> On day 3, don't generate any coin.</li>
+<li> On day 4, generate both types of coins. </li>
+<li> On day 5, generate only second type. </li>
+
+</ul>
+
+This way we have produced 2 coins of the first type and 4 coins of the second type. Their total value is 2*1 + 4*2 = 10. There is no better solution.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>17</pre></td></tr><tr><td><pre>{10,20}</pre></td></tr><tr><td><pre>{30,40}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 300</pre></td></tr><tr><td><table><tr><td colspan="2">Given how small <b>m</b> is, we can generate both coin types each day.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

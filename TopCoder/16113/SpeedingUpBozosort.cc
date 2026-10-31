@@ -1,0 +1,158 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+#define rep(i, a, b) for(int i = a; i < (b); ++i)
+#define all(x) begin(x), end(x)
+#define sz(x) (int)(x).size()
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+typedef vector<double> vd;
+
+const double eps = 1e-12;
+
+int solveLinear(vector<vd>& A, vd& b, vd& x) {
+	int n = sz(A), m = sz(x), rank = 0, br, bc;
+	if (n) assert(sz(A[0]) == m);
+	vi col(m); iota(all(col), 0);
+
+	rep(i,0,n) {
+		double v, bv = 0;
+		rep(r,i,n) rep(c,i,m)
+			if ((v = fabs(A[r][c])) > bv)
+				br = r, bc = c, bv = v;
+		if (bv <= eps) {
+			rep(j,i,n) if (fabs(b[j]) > eps) return -1;
+			break;
+		}
+		swap(A[i], A[br]);
+		swap(b[i], b[br]);
+		swap(col[i], col[bc]);
+		rep(j,0,n) swap(A[j][i], A[j][bc]);
+		bv = 1/A[i][i];
+		rep(j,i+1,n) {
+			double fac = A[j][i] * bv;
+			b[j] -= fac * b[i];
+			rep(k,i+1,m) A[j][k] -= fac*A[i][k];
+		}
+		rank++;
+	}
+
+	x.assign(m, 0);
+	for (int i = rank; i--;) {
+		b[i] /= A[i][i];
+		x[col[i]] = b[i];
+		rep(j,0,i) b[j] -= A[j][i] * b[i];
+	}
+	return rank; // (multiple solutions if rank < m)
+}
+
+class SpeedingUpBozosort {
+
+public:
+
+	double expectedComparisons(vector <int> A, int numSwaps) {
+		int N = int(A.size());
+		int M = 1; for (int i = 1; i <= N; i++) M *= i;
+		vector<vector<int>> perms; perms.reserve(M);
+		{
+			vector<int> v(N); iota(v.begin(), v.end(), 0);
+			do {
+				perms.push_back(v);
+			} while (next_permutation(v.begin(), v.end()));
+		}
+
+		vector<int> numComps(M);
+		for (int p = 0; p < M; p++) {
+			numComps[p] = 1;
+			for (int i = 0; i+1 < N; i++) {
+				if (A[perms[p][i]] <= A[perms[p][i+1]]) {
+					numComps[p]++;
+				} else {
+					break;
+				}
+			}
+			if (numComps[p] == N) {
+				// it's sorted
+				numComps[p] = 0;
+			}
+		}
+
+		vector<int> comp(M*M);
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < M; j++) {
+				vector<int> v(N);
+				for (int z = 0; z < N; z++) v[z] = perms[i][perms[j][z]];
+				comp[i*M+j] = int(lower_bound(perms.begin(),perms.end(),v) - perms.begin());
+			}
+		}
+
+		vector<double> trans1(M);
+		trans1[0] += 1. / N;
+		for (int i = 0; i < N; i++) {
+			for (int j = i+1; j < N; j++) {
+				vector<int> a = perms[0];
+				swap(a[i], a[j]);
+				int np = int(lower_bound(perms.begin(), perms.end(), a) - perms.begin());
+				trans1[np] += 2. / N / N;
+			}
+		}
+
+		vector<double> tmp(M);
+		auto mulEq = [&](vector<double>& v, const vector<double>& a) {
+			fill(tmp.begin(), tmp.end(), 0);
+			for (int i = 0; i < M; i++) {
+				for (int j = 0; j < M; j++) {
+					tmp[comp[i*M+j]] += v[i] * a[j];
+				}
+			}
+			swap(v, tmp);
+		};
+		vector<double> trans(M); trans[0] = 1;
+		for (int a = numSwaps; a; a /= 2) {
+			if (a & 1) mulEq(trans, trans1);
+			mulEq(trans1, trans1);
+		}
+
+		vector<vector<double>> linA(M, vector<double>(M));
+		vector<double> linB(M);
+		for (int i = 0; i < M; i++) {
+			linA[i][i] = 1;
+			if (numComps[i]) {
+				linB[i] = numComps[i];
+				for (int j = 0; j < M; j++) linA[i][comp[i*M+j]] -= trans[j];
+			} else {
+				linB[i] = N-1;
+			}
+		}
+		/*
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < M; j++) {
+				cerr << linA[i][j] << ' ';
+			}
+			cerr << " = " << linB[i] << '\n';
+		}
+		*/
+		vector<double> x(M);
+		solveLinear(linA, linB, x);
+		return x[0];
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	vector<int> A(6); iota(A.begin(), A.end(), 1);
+	cerr << SpeedingUpBozosort().expectedComparisons(A, 1000) << '\n';
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::SpeedingUpBozosort;
+
+// vim:ft=cpp

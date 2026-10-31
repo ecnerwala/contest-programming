@@ -1,0 +1,64 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+const ll INF = 1e18;
+
+class TwoLadders {
+
+public:
+
+	long long minSteps(int sx, int lx1, int lx2, vector <int> X, vector <int> Y) {
+		map<int, vector<int>> mp;
+		for (int i = 0; i < int(X.size()); i++) {
+			mp[Y[i]].push_back(X[i]);
+		}
+		int max_height = mp.rbegin()->first;
+		map<int, ll> dp;
+		dp[sx] = 0;
+		mp[0].push_back(sx);
+		ll ans = 0;
+		for (auto it : mp) {
+			ll lo = *min_element(it.second.begin(), it.second.end());
+			ll hi = *max_element(it.second.begin(), it.second.end());
+			//cerr << it.first << ' ' << lo << ' ' << hi << '\n';
+
+			ans = INF;
+			map<int, ll> ndp;
+
+			for (auto prv : dp) {
+				//cerr << prv.first << ' ' << prv.second << '\n';
+				ans = min(ans, prv.second + abs(prv.first - lo) + abs(hi - lo));
+				ans = min(ans, prv.second + abs(prv.first - hi) + abs(hi - lo));
+				for (auto nxt : vector<int>({lx1, lx2})) {
+					ll v1 = prv.second + abs(prv.first - lo) + abs(hi - lo) + abs(hi - nxt);
+					ll v2 = prv.second + abs(prv.first - hi) + abs(hi - lo) + abs(lo - nxt);
+					ll v = min(v1, v2);
+					if (!ndp.count(nxt)) {
+						ndp[nxt] = INF;
+					}
+					ndp[nxt] = min(ndp[nxt], v);
+				}
+			}
+			dp = ndp;
+		}
+
+		return ans + max_height;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::TwoLadders;
+
+// vim:ft=cpp

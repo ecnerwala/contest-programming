@@ -1,0 +1,64 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>Time limit is 3 seconds.</i>
+</p>
+<p>
+Given is a complete directed graph on <b>N</b> vertices.
+The vertices are numbered from 0 to <b>N</b>-1.
+For each pair of distinct vertices u and v, the edge from u to v has a non-negative length dist[u,v].
+</p>
+<p>
+You are given the edge lengths in the vector &lt;int&gt; <b>G</b>.
+For each u and v, dist[u,v] = <b>G</b>[u*<b>N</b>+v].
+</p>
+<br></br>
+<p>
+You wanted to compute the shortest paths from 0 to all other vertices, so you implemented Dijkstra's algorithm.
+Here is the pseudocode that corresponds to your implementation:
+</p>
+<pre>
+
+1) S = set of all vertices
+2) D[0] = 0
+3) for i = 1 to N-1: D[i] = infinity
+
+4) while (S is not empty):
+5)     find u in S such that D[u] is minimal among all D[i] where i is in S
+6)     remove u from S
+7)     for v = 0 to N-1:
+8)         if D[v] &gt; D[u] + dist[u,v]:
+9)             D[v] = D[u] + dist[u,v]
+
+</pre>
+
+<p>
+The above pseudocode is an actual correct version of Dijkstra's algorithm.
+When it terminates, each value D[i] is the length of the shortest path from vertex 0 to vertex i.
+</p>
+
+<p>
+Your friend then decided to prank you and edited line 5) in the above code to the following one:
+</p>
+
+<pre>
+
+5')     select u from S uniformly at random
+
+</pre>
+
+<p>
+Calculate and return the probability that the modified algorithm will calculate the entire array D correctly.
+</p>
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RandomDijkstraDiv1</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double solve(int N, vector &lt;int&gt; G)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Your return value will be accepted if it has a relative or an absolute error at most 1e-9.</td></tr><tr><td align="center" valign="top">-</td><td>Note that the cycle in lines 7-9 of the pseudocode iterates over all vertices of the graph, not just over those that are still in the set S.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 14, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>G</b> will have exactly <b>N</b>*<b>N</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>G</b> will be between 0 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>For each u, <b>G</b>[u*<b>N</b>+u] will be 0.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{ 0, 1, 1000, 1000, 1000, 0, 1, 1000, 1000, 1000, 0, 1, 1000, 1000, 1000, 0 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.16666666666666666</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+A graph on 4 vertices. The edges 0 -> 1, 1 -> 2, and 2 -> 3 each have length 1, all other edges have length 1000
+</p>
+<p>
+There are multiple ways to get the correct array of distances. The obvious one is to remove the vertices from S in the order 0, 1, 2, 3.
+A less trivial observation is that removing the vertices in the order 0, 3, 1, 2 does also produce all correct distances in the end.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{ 0, 1, 1, 1, 1, 0, 1000, 1000, 1, 1000, 0, 1000, 1, 1000, 1000, 0 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1.0</pre></td></tr><tr><td><table><tr><td colspan="2">Sooner or later we will remove vertex 0 from S, and while we process it we will compute the correct distance for all other vertices.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{
+      0, 1000, 1000,    4,    5,
+   1000,    0, 1000, 1000, 1000,
+   1000,    2,    0, 1000, 1000,
+   1000, 1000,    6,    0, 1000,
+   1000,    7, 1000, 1000,    0
+}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.375</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

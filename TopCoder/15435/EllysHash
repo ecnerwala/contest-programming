@@ -1,0 +1,77 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+const ll MOD = 1000000000000037ll;
+
+class EllysHash {
+
+public:
+
+	ll getHash(int N, string A, string B, string C) {
+		vector<tuple<ll, ll, ll>> vals(N);
+		ll p127 = 1;
+		for (int i = N-1; i >= 0; i--) {
+			vals[i] = tuple<ll, ll, ll>(A[i] * p127 % MOD, B[i] * p127 % MOD, C[i] * p127 % MOD);
+			p127 = p127 * 127 % MOD;
+		}
+
+		int L = N / 2;
+		vector<ll> ahashes({0ll});
+		for (int i = 0; i < L; i++) {
+			vector<ll> nhashes;
+			nhashes.reserve(ahashes.size() * 3);
+			for (ll v : ahashes) {
+				nhashes.push_back((v + get<0>(vals[i])) % MOD);
+				nhashes.push_back((v + get<1>(vals[i])) % MOD);
+				nhashes.push_back((v + get<2>(vals[i])) % MOD);
+			}
+			ahashes = nhashes;
+		}
+
+		sort(ahashes.begin(), ahashes.end());
+
+		vector<ll> bhashes({0ll});
+		for (int i = L; i < N; i++) {
+			vector<ll> nhashes;
+			nhashes.reserve(bhashes.size() * 3);
+			for (ll v : bhashes) {
+				nhashes.push_back((v + get<0>(vals[i])) % MOD);
+				nhashes.push_back((v + get<1>(vals[i])) % MOD);
+				nhashes.push_back((v + get<2>(vals[i])) % MOD);
+			}
+			bhashes = nhashes;
+		}
+
+		for (ll& v : bhashes) v = (MOD - v) % MOD;
+		bhashes.push_back(*max_element(bhashes.begin(), bhashes.end()) - MOD);
+		sort(bhashes.begin(), bhashes.end());
+		assert(bhashes[0] < 0);
+
+		ll ans = MOD-1;
+		for (int i = 0, j = 0; i < int(ahashes.size()); i++) {
+			while (j+1 < int(bhashes.size()) && bhashes[j+1] <= ahashes[i]) {
+				j++;
+			}
+			ans = min(ans, ahashes[i] - bhashes[j]);
+		}
+		return ans;
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::EllysHash;
+
+// vim:ft=cpp

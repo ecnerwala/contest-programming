@@ -1,0 +1,57 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+In Magic: the Gathering, some cards have the ability "cascade" that allows the player to play another cheaper card for free. 
+Without using too many terms specific to this card game, we can rephrase this ability as follows:
+</p>
+<ul>
+<li>When you play a card X with 'cascade', reveal cards from the top of your deck of cards until you either reveal a card C with a strictly smaller cost than card X, or reveal the entire deck.</li>
+<li>If you revealed the entire deck without finding a card cheaper than card X, terminate the process.</li>
+<li>Shuffle all the revealed cards other than card C, and place them onto the bottom of the deck.</li>
+<li>Play card C. (This card can also have cascade. If it does, resolve it in the same way.)</li>
+</ul>
+<p>
+Your deck contains N cards.
+Each of those cards has three properties: it has some non-negative integer cost cost[i], it has some non-negative integer power power[i], and it may have cascade (cascade[i] is either true or false).
+In the beginning, the entire deck is shuffled and you know nothing about the order of cards in the deck.
+</p>
+<p>
+(Note that already after you resolve the first cascade you know which cards were put to the bottom of the deck and thus the order of the cards in the deck is no longer completely random. E.g., if there is a second cascade, the cards revealed first will be the cards that weren't revealed during the first cascade.)
+</p>
+<br></br>
+<p>
+You have just played another card (not from your deck).
+The cost of this card is greater than the cost of any card in your deck, the power of this card is 0, and it does have cascade.
+Calculate and return the expected total power of cards you will play.
+More precisely, the answer is a rational number P/Q.
+Return PQ^(-1), where Q^(-1) is the inverse element to Q modulo 10^9 + 7.
+</p>
+<br></br>
+<p>
+Please use the following pseudocode to generate the arrays cost, power, cascade:
+</p>
+<pre>
+
+L = len(costPrefix)
+for i = 0 .. L-1:
+    cost[i] = costPrefix[i]
+    power[i] = powerPrefix[i]
+    cascade[i] = (cascadePrefix[i] == 'Y')
+
+state = seed
+for i = L .. N-1:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    cost[i] = state mod CM
+    state = (state * 1103515245 + 12345) modulo 2^31
+    power[i] = state mod PM
+    state = (state * 1103515245 + 12345) modulo 2^31
+    cascade[i] = (state &lt; CT)
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Cascade</td></tr><tr><td>Method:</td><td>expectedPower</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, string, int, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int expectedPower(int N, vector &lt;int&gt; costPrefix, vector &lt;int&gt; powerPrefix, string cascadePrefix, int seed, int CM, int PM, int CT)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>"Shuffle" means "rearrange into a permutation chosen uniformly at random from all possible permutations". All shuffles are mutually independent.</td></tr><tr><td align="center" valign="top">-</td><td>It can be shown that for each valid test case the answer P/Q (as a reduced fraction) has the property that Q and 10^9 + 7 are relatively prime.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 100,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>&nbsp;</td></tr><tr><td align="center" valign="top">-</td><td>L will be between 0 and min(<b>N</b>, 500), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>costPrefix</b>, <b>powerPrefix</b> and <b>cascadePrefix</b> will each have length L.</td></tr><tr><td align="center" valign="top">-</td><td>&nbsp;</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>CM</b> will be between 1 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>PM</b> will be between 1 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>CT</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>&nbsp;</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>costPrefix</b> will be between 0 and 10^6 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>powerPrefix</b> will be between 0 and 10^6 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>cascadePrefix</b> will be either 'Y' or 'N'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{10, 20}</pre></td></tr><tr><td><pre>{100, 200}</pre></td></tr><tr><td><pre>&quot;NN&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 150</pre></td></tr><tr><td><table><tr><td colspan="2">Two cards: one has cost 10 and power 100, the other has cost 20 and power 200, neither has cascade.
+When we resolve the initial cascade, we will reveal the top card of the deck and play it, and that's all.
+The expected total power of the cards played is therefore (100 + 200) / 2 = 150.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{10, 20}</pre></td></tr><tr><td><pre>{100, 201}</pre></td></tr><tr><td><pre>&quot;NN&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 500000154</pre></td></tr><tr><td><table><tr><td colspan="2">The same test case as before, but now the expected total power of the cards played is 301/2, which is not an integer. The returned value is (301 * 2^(-1)) mod (10^9 + 7) = (301 * 500,000,004) mod (10^9 + 7) = 500,000,154.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{10, 20}</pre></td></tr><tr><td><pre>{100, 200}</pre></td></tr><tr><td><pre>&quot;NY&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 200</pre></td></tr><tr><td><table><tr><td colspan="2">The same test case as Example 0, but now the more expensive card has cascade. If we reveal that one first, we will also cascade into the cheaper one. Thus, with probability 1/2 we will just play the cheaper card (power 100) and with probability 1/2 we will play both cards (total power 100+200 = 300).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>{1, 1, 1, 2, 1, 0}</pre></td></tr><tr><td><pre>{10, 20, 30, 40, 50, 60}</pre></td></tr><tr><td><pre>&quot;NNNYNY&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 666666712</pre></td></tr><tr><td><table><tr><td colspan="2"><p>The fact that the last card (cost 0, power 60) has cascade does not matter - if we play this card and resolve its cascade, it certainly won't do anything because there are no cards cheaper than this one.</p>
+<p>The exact answer as a reduced fraction is 122/3.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>{4, 7}</pre></td></tr><tr><td><pre>{47, 42}</pre></td></tr><tr><td><pre>&quot;YN&quot;</pre></td></tr><tr><td><pre>474747</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>1250000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 487500069</pre></td></tr><tr><td><table><tr><td colspan="2">The full test case should look as follows:
+<pre>
+cost: 4, 7, 0, 9, 0, 5, 8, 5, 6, 5,
+power: 47, 42, 49, 60, 15, 22, 85, 32, 87, 34,
+cascade: true, false, true, false, false, false, true, true, true, false,
+</pre>
+The exact answer as a fraction is 5247/80</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

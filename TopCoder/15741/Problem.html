@@ -1,0 +1,37 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+This problem is about points in a two-dimensional plane.
+We will deal with L-shapes: triples of points that resemble the letter L.
+</p>
+<p>
+Three (not necessarily distinct) points form an L-shape if we can label them A, B, and C in such a way that points A and B have the same x-coordinate, and points B and C have the same y-coordinate.
+For example:
+</p>
+<ul>
+<li>The points (0, 3), (1, 9), (1, 3) form an L-shape. If we label them as C = (0, 3), A = (1, 9) and B = (1, 3), we have A.x = B.x and B.y = C.y.</li>
+<li>The points (5, 5), (5, 5), and (5, 5) also form an L-shape.</li>
+<li>The points (1, 9), (1, 9), and (7, 7) do <i>not</i> form an L-shape.</li>
+</ul>
+<p>
+Let a step be an operation in which we change any one coordinate of any one point by 1.
+The L-score of a triple of points is defined as the smallest number of such steps needed to transform that triple of points into an L-shape.
+</p>
+<p>
+You are given a set of N points in the plane: for each valid i, the coordinates of one point are (i, <b>y</b>[i]).
+No two points have same x-coordinate, and no two points have same y-coordinate.
+Compute and return the sum of L-scores over all N*(N-1)*(N-2)/6 triples of points.
+</p>
+<p>
+Note that you don't actually move any of the N given points.
+The L-score calculations for different triples of points are completely independent.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>LShape</td></tr><tr><td>Method:</td><td>sumL</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long sumL(vector &lt;int&gt; y)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.500</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Note the unusual time limit.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N (the number of elements in <b>y</b>) will be between 3 and 3000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>y</b> will be between 0 and 2999, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Elements in <b>y</b> will be distinct.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{4, 9, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"><p>We are given three points: (0, 4), (1, 9), and (2, 3).</p>
+<p>There is only one triple of points, and its L-score is 2.</p>
+<p>One way of changing this triple into an L-shape in two steps looks as follows:</p>
+<ul>
+<li>Move the first point from (0, 4) to (0, 3).</li>
+<li>Move the third point from (2, 3) to (1, 3).</li>
+</ul>
+<p>After these two steps we have the L-shape (0, 3), (1, 9), (1, 3).</p>
+<p>Another optimal strategy is to move the first point from (0, 4) to (1, 4) and then to (1, 3), yielding the L-shape (1, 3), (1, 9), (2, 3).</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2"><p>The given four points are (0, 0), (1, 1), (2, 2) and (3, 3).
+There are N*(N-1)*(N-2)/6 = 4*3*2/6 = 4 triples and their scores are 2, 3, 3, 2, so the total answer is 10.</p>
+<p>For example, a triple (0, 0), (2, 2), (3, 3) has score 3 and it's optimal to move the point (2, 2) to (0, 3) in 3 moves.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 2, 1, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8</pre></td></tr><tr><td><table><tr><td colspan="2">Each of four triples has score 2, so the answer is 8.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{6, 2, 3, 0, 1, 4, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 107</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1400, 200, 1499, 0, 1, 500, 600, 700, 777, 1498}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 30708</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

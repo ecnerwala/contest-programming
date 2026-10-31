@@ -1,0 +1,93 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+string compress(vector<string> tournament) {
+	string answer=""; char cur = 0; int c = 0, N = int(tournament.size());
+	for (int i=0; i<N; ++i) for (int j=0; j<i; ++j, ++c) {
+		cur = 3*cur + tournament[i][j] - 60;
+		if (c % 4 == 3) { answer += cur+33; cur = 0; }
+	}
+	if (c % 4) { while (c % 4) { cur = 3*cur; ++c; } answer += cur+33; }
+	return answer;
+}
+
+bool is_good(char a, char b, char c) {
+	int num_eq = (a == '=') + (b == '=') + (c == '=');
+	if (num_eq == 3) {
+		return true;
+	} else if (num_eq == 2) {
+		return false;
+	} else if (num_eq == 1) {
+		return (a ^ b ^ c) != '=';
+	} else {
+		return !(a == b && b == c);
+	}
+}
+
+bool test(std::vector<std::string> G) {
+	int N = int(G.size());
+	int cnt = 0;
+	for (int i = 0; i < N; i++) {
+		for (int j = i+1; j < N; j++) {
+			for (int k = j+1; k < N; k++) {
+				char a = G[i][j];
+				char b = G[j][k];
+				char c = G[k][i];
+				cnt += !is_good(a, b, c);
+			}
+		}
+	}
+	int T = N * (N-1) * (N-2) / 6;
+	cerr << N << '\n';
+	cerr << cnt << ' ' << int(0.81 * T) << ' ' << T << '\n';
+	if (cnt > int(0.81 * T)) {
+		return true;
+	}
+	for (const string& s : G) cerr << s << '\n';
+	assert(N <= 2);
+	return false;
+}
+
+class PoorComparisons {
+
+public:
+
+
+	std::vector<std::string> build(int N) {
+		mt19937 mt(48);
+		std::vector<std::string> G(N, std::string(N, '='));
+		for (int i = 0; i < N; i++) {
+			for (int j = i+2; j < N; j += 2) {
+				int r = mt() & 1;
+				G[i][j] = "<>"[r];
+				G[j][i] = "><"[r];
+			}
+		}
+		return G;
+	}
+
+	string construct(int N) {
+		if (N <= 2) return "";
+		return compress(build(N));
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+	for (int i = 1; i <= 300; i++) {
+		cerr << "test " << i << '\n';
+		assert(test(PoorComparisons().build(i)) == (i > 2));
+	}
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::PoorComparisons;
+
+// vim:ft=cpp

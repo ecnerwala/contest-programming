@@ -1,0 +1,20 @@
+"hehehe"
+1
+{2}
+{"AAA"}
+"xxxxxxxx"
+2
+{2, 3}
+{"ABxA", "BxxB"}
+""
+3
+{2, 3, 2}
+{"ABxA", "yCCB"}
+""
+3
+{4, 5, 6}
+{"A", "B", "C"}
+"yzzzxyyzzz"
+4
+{1, 2, 3, 4}
+{"ABCD", "DxAyzB"}

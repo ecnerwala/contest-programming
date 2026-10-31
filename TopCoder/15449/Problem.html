@@ -1,0 +1,129 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit is 2.5 seconds.</i></p>
+<p>There is a group of N people. The people are numbered from 0 to N-1. Each person in the group has a first name and a last name.</p>
+<br></br>
+<p>If a and b are two <i>different</i> people such that the last name of person a is the same as the first name of person b, the ordered pair (a, b) is called <i>cool</i>.</p>
+<p>Each ordered pair of people has some weight. The weight of (a, b) is <b>weight</b>[a*N+b].</p>
+<p>Given a group of people, Kaede's happiness is equal to the total weight of all cool pairs in that group.</p>
+<br></br>
+<p>
+You are given the vector &lt;string&gt;s <b>firstname</b> and <b>lastname</b>.
+These contain the first and last names of people in the group.
+However, some of these names may have been replaced by wildcards ("*"). 
+The total number of wildcards does not exceed 17.
+</p>
+<p>
+Kaede plans to replace each wildcard by some <i>non-empty</i> string of lowercase English letters. Different wildcards may be replaced by different strings.
+</p>
+<p>
+She wants to do this in a way that will maximize her happiness.
+If there are multiple optimal solutions, she prefers the lexicographically smallest one among them, as defined below.
+</p>
+<br></br>
+<p>
+An <i>assignment</i> is the sequence of strings {F[0], L[0], F[1], L[1], ..., F[N-1], L[N-1]}, where F[i] and L[i] are the names assigned to person i. (F is obtained from <b>firstname</b> and L from <b>lastname</b> by replacing each wildcard.)
+</p>
+<p>
+Given two distinct assignments, the lexicographically smaller one is the one that has a lexicographically smaller string at the smallest index at which the two assignments differ.
+</p>
+<br></br>
+<p>
+Return the lexicographically smallest among all assignments that maximize Kaede's happiness.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CoolPairs</td></tr><tr><td>Method:</td><td>smallest</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, vector &lt;string&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; smallest(vector &lt;string&gt; firstname, vector &lt;string&gt; lastname, vector &lt;int&gt; weight)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.500</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Please note that <b>weight</b> does not have to be symmetrical: the values <b>weight</b>[a*N+b] and <b>weight</b>[b*N+a] may differ.</td></tr><tr><td align="center" valign="top">-</td><td>Given two distinct strings S and T we say that S is lexicographically smaller than T if and only if either S is a prefix of T or the character S[i] has a smaller ASCII value than the character T[i] for the smallest i such that S[i] and T[i] differ.</td></tr><tr><td align="center" valign="top">-</td><td>Given two distinct arrays of strings P and Q of the same length, we say that P is lexicographically smaller than Q if and only if the string P[i] is lexicographically smaller than the string Q[i] for the smallest i such that P[i] and Q[i] differ.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 2 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>firstname</b> and <b>lastname</b> will contain exactly N elements each.</td></tr><tr><td align="center" valign="top">-</td><td><b>weight</b> will contain exactly N*N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>firstname</b> and <b>lastname</b> will have between 1 and 10 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>firstname</b> and <b>lastname</b> will either be "*" or it will consist of lowercase English letters ('a'-'z') only.</td></tr><tr><td align="center" valign="top">-</td><td>The total number of "*"s in <b>firstname</b> and <b>lastname</b> together will be between 0 and 17, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>weight</b> will be either -1 or between 0 and 10000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>weight</b>[a*N+b] will be equal to -1 if and only if a = b.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;*&quot;, &quot;john&quot;}</pre></td></tr><tr><td><pre>{&quot;*&quot;, &quot;smith&quot;}</pre></td></tr><tr><td><pre>{
+-1, 1, 
+1, -1
+}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;smith&quot;, &quot;john&quot;, &quot;john&quot;, &quot;smith&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">For any assignment the total weight of all cool pairs will be at most 2; {"smith", "john", "john", "smith"} is the only valid assignment that has total weight = 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;*&quot;, &quot;john&quot;}</pre></td></tr><tr><td><pre>{&quot;*&quot;, &quot;smith&quot;}</pre></td></tr><tr><td><pre>{
+-1, 0,
+0, -1
+}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;a&quot;, &quot;a&quot;, &quot;john&quot;, &quot;smith&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The total weight of all cool pairs will be always 0. So, lexicographically smallest one is {"a", "a", "john", "smith"}.
+(You should take care not to assign empty string to *.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;*&quot;, &quot;bob&quot;, &quot;*&quot;, &quot;alice&quot;, &quot;tom&quot;}</pre></td></tr><tr><td><pre>{&quot;bob&quot;, &quot;*&quot;, &quot;david&quot;, &quot;*&quot;, &quot;*&quot;}</pre></td></tr><tr><td><pre>{
+-1, 1943, 0, 39, 2494,
+0, -1, 2934, 0, 0,
+3848, 9394, -1, 341, 2239,
+9394, 39, 0, -1, 929,
+2, 230, 0, 234, -1
+}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;david&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;a&quot;, &quot;a&quot;, &quot;david&quot;, &quot;alice&quot;, &quot;david&quot;, &quot;tom&quot;, &quot;alice&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;e&quot;, &quot;*&quot;, &quot;c&quot;, &quot;b&quot;}</pre></td></tr><tr><td><pre>{&quot;*&quot;, &quot;e&quot;, &quot;d&quot;, &quot;c&quot;}</pre></td></tr><tr><td><pre>{
+-1, 2, 100, 101,
+0, -1, 0, 0,
+0, 101, -1, 0,
+0, 100, 0, -1
+}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;e&quot;, &quot;b&quot;, &quot;d&quot;, &quot;e&quot;, &quot;c&quot;, &quot;d&quot;, &quot;b&quot;, &quot;c&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;*&quot;,&quot;x&quot;,&quot;*&quot;,&quot;griystxs&quot;,&quot;*&quot;,&quot;x&quot;,&quot;ikqise&quot;,&quot;ikqise&quot;,&quot;*&quot;,&quot;zuhhj&quot;,&quot;l&quot;,&quot;l&quot;,&quot;xhympzktz&quot;,&quot;lzpbc&quot;,&quot;qfqghcctv&quot;,&quot;lgjmp&quot;,&quot;*&quot;,&quot;griystxs&quot;,&quot;ikqise&quot;,&quot;*&quot;,&quot;ikqise&quot;,&quot;*&quot;,&quot;*&quot;,&quot;l&quot;,&quot;lgjmp&quot;}
+</pre></td></tr><tr><td><pre>{&quot;zuhhj&quot;,&quot;lzpbc&quot;,&quot;ikqise&quot;,&quot;*&quot;,&quot;lgjmp&quot;,&quot;ikqise&quot;,&quot;xrp&quot;,&quot;x&quot;,&quot;lzpbc&quot;,&quot;l&quot;,&quot;xrp&quot;,&quot;griystxs&quot;,&quot;l&quot;,&quot;*&quot;,&quot;zuhhj&quot;,&quot;*&quot;,&quot;*&quot;,&quot;*&quot;,&quot;g&quot;,&quot;xhympzktz&quot;,&quot;*&quot;,&quot;*&quot;,&quot;*&quot;,&quot;*&quot;,&quot;xrp&quot;}
+</pre></td></tr><tr><td><pre>{
+-1,0,0,0,7,0,0,0,0,0,6,0,4,0,0,0,0,0,4,0,0,0,3,0,0,
+0,-1,0,7,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,10,0,0,0,
+0,0,-1,0,0,0,0,0,0,7,6,8,0,0,0,0,0,0,0,0,10,9,0,0,0,
+0,0,0,-1,0,1,0,0,5,0,4,0,1,0,6,0,7,6,0,0,4,0,0,0,0,
+0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,5,0,0,0,
+0,0,1,0,0,-1,0,0,0,0,0,1,0,9,0,0,0,0,0,2,0,0,0,8,0,
+0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,5,0,5,0,0,0,6,0,
+0,4,0,0,0,0,0,-1,10,0,5,2,2,0,0,0,0,0,0,0,0,0,0,0,0,
+0,9,0,0,10,0,2,0,-1,0,0,0,7,10,9,0,0,8,0,0,0,7,0,0,0,
+0,0,4,10,6,0,0,0,0,-1,0,2,0,0,0,0,9,0,0,0,0,0,5,0,0,
+0,0,0,0,7,0,0,0,0,0,-1,8,0,0,2,0,0,7,0,0,0,0,0,0,2,
+0,1,0,9,0,0,0,1,8,10,5,-1,0,10,5,8,0,0,0,0,5,0,6,0,0,
+1,0,0,4,6,0,0,0,6,10,0,0,-1,0,0,0,0,0,0,10,0,10,0,0,0,
+0,0,0,6,0,0,0,0,0,0,8,0,8,-1,0,0,0,0,2,0,0,0,0,7,0,
+6,0,0,8,0,0,0,1,4,0,0,0,0,0,-1,0,5,0,3,0,0,10,0,0,0,
+0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,-1,5,10,0,0,0,0,0,0,0,
+0,0,0,0,9,5,0,0,0,0,1,2,0,0,0,0,-1,0,0,0,0,0,7,0,0,
+0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,6,0,-1,5,0,0,10,0,0,0,
+0,0,4,5,0,0,0,0,7,0,0,0,0,3,0,0,0,0,-1,0,0,0,0,0,0,
+5,0,0,0,0,0,0,3,0,8,2,10,0,1,0,0,5,0,0,-1,0,0,0,0,0,
+0,4,0,9,0,0,0,0,0,0,3,0,0,0,0,0,0,0,5,0,-1,0,0,9,0,
+0,0,0,0,0,0,0,0,0,2,0,3,0,0,0,0,0,2,0,0,0,-1,0,0,0,
+0,0,5,0,1,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,1,1,-1,0,0,
+0,0,4,9,0,0,0,0,0,0,0,0,0,3,2,0,0,0,0,0,0,4,0,-1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,1,0,-1
+}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{&quot;zuhhj&quot;,
+ &quot;zuhhj&quot;,
+ &quot;x&quot;,
+ &quot;lzpbc&quot;,
+ &quot;l&quot;,
+ &quot;ikqise&quot;,
+ &quot;griystxs&quot;,
+ &quot;griystxs&quot;,
+ &quot;l&quot;,
+ &quot;lgjmp&quot;,
+ &quot;x&quot;,
+ &quot;ikqise&quot;,
+ &quot;ikqise&quot;,
+ &quot;xrp&quot;,
+ &quot;ikqise&quot;,
+ &quot;x&quot;,
+ &quot;griystxs&quot;,
+ &quot;lzpbc&quot;,
+ &quot;zuhhj&quot;,
+ &quot;l&quot;,
+ &quot;l&quot;,
+ &quot;xrp&quot;,
+ &quot;l&quot;,
+ &quot;griystxs&quot;,
+ &quot;xhympzktz&quot;,
+ &quot;l&quot;,
+ &quot;lzpbc&quot;,
+ &quot;l&quot;,
+ &quot;qfqghcctv&quot;,
+ &quot;zuhhj&quot;,
+ &quot;lgjmp&quot;,
+ &quot;griystxs&quot;,
+ &quot;griystxs&quot;,
+ &quot;l&quot;,
+ &quot;griystxs&quot;,
+ &quot;ikqise&quot;,
+ &quot;ikqise&quot;,
+ &quot;g&quot;,
+ &quot;l&quot;,
+ &quot;xhympzktz&quot;,
+ &quot;ikqise&quot;,
+ &quot;l&quot;,
+ &quot;ikqise&quot;,
+ &quot;l&quot;,
+ &quot;l&quot;,
+ &quot;l&quot;,
+ &quot;l&quot;,
+ &quot;griystxs&quot;,
+ &quot;lgjmp&quot;,
+ &quot;xrp&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,30 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+An array A is called <i>positive partitionable</i> if we can divide A into one or more contiguous subarrays such that each element belongs to exactly one of the subarrays and the sum of each subarray is positive.
+</p>
+<p>
+For example, the array {3,-7,8} is positive partitionable. One valid way of splitting this array is to split it into {3} and {-7,8}. The array {0,1,0,1,2} is also positive partitionable. The array {-1,2,-3,4,-5} and the array {0} are not positively partitionable.
+</p>
+<p>
+A partition of an array can be described by listing the lengths of the partitions, in order. For example, {3} has length 1 and {-7,8} has length 2, hence the partition of {3,-7,8} into {3} and {-7,8} can be described by the sequence {1,2}. The sequences {2,3}, {2,2,1}, and {4,1} describe different three valid ways of partitioning the sequence {0,1,0,1,2}.
+</p>
+<p>
+You are given the int <b>n</b>, the vector &lt;int&gt; <b>Aprefix</b>, and the ints <b>seed</b> and <b>Arange</b>.
+Use the following pseudocode to generate an array A with <b>n</b> elements:
+</p>
+<pre>
+for i = 0 .. len(Aprefix)-1:
+    A[i] = Aprefix[i]
+
+state = seed
+for i = len(Aprefix) .. n-1:
+    state = (1103515245 * state + 12345)
+    A[i] = state modulo (2*Arange+1)
+    A[i] = A[i] - Arange
+    state = state modulo 2^31
+</pre>
+<p>
+If this array A isn't positive partitionable, return {-1}.
+Otherwise, find an array B that describes a valid partition of A.
+If there are multiple possibilities for B, pick the <i>lexicographically smallest one</i>.
+Return an array that contains the value length(B) and then the first min(len(B),200) elements of B, in order.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>LexicographicPartition</td></tr><tr><td>Method:</td><td>positiveSum</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, int, int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; positiveSum(int n, vector &lt;int&gt; Aprefix, int seed, int Arange)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Given two different sequences A[0..a-1] and B[0..b-1] such that neither is a prefix of the other, the lexicographically smaller sequence is the one that has a smaller value at the first index at which they differ. For example, {3, 7, 100} &lt; {3, 10, 12, 45} because 7 &lt; 10.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 200,000 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All elements of <b>Aprefix</b> will be between -10^6 and 10^6 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Aprefix</b> will contain between 0 and min(<b>n</b>,500) elements inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 1 and 10^9 inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Arange</b> will be between 0 and 10^6 inclusive. </td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{3,-7,8}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 1, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2">A = {3,-7,8}. The lexicographically smallest sequence that describes a valid partition is indeed the sequence B={1,2} mentioned in the statement. Thus, we return the array {length(B),1,2} = {2,1,2}.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{0,1,0,1,2}</pre></td></tr><tr><td><pre>42</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 2, 2, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2">The optimal B is {2,2,1}.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{-1,2,-3,4,-5}</pre></td></tr><tr><td><pre>777</pre></td></tr><tr><td><pre>4747</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>12</pre></td></tr><tr><td><pre>34</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>{4,-7,4,-7}</pre></td></tr><tr><td><pre>123456789</pre></td></tr><tr><td><pre>5447</pre></td></tr></table></td></tr><tr><td><pre>Returns: {6, 1, 5, 1, 1, 1, 1 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

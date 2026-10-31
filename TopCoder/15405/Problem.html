@@ -1,0 +1,39 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>This problem has a non-standard time limit: 4 seconds.</i></p>
+<p>Kaede and Kanade are good friends. Today they are going to play a game!</p>
+<p>At the beginning of the game, each of them has a sequence of N positive integers. You are given these sequences in the vector &lt;int&gt;s <b>kaede</b> and <b>kanade</b>.</p>
+<p>There is also a single pile of stones. At the beginning of the game the pile consists of <b>S</b> stones. It is guaranteed that <b>S</b> &lt;= sum(<b>kaede</b>) + sum(<b>kanade</b>).</p>
+<p>During the game, the players take alternating turns removing some stones from the pile. Kaede takes the first turn. The game is completely deterministic. 
+Each turn looks as follows:</p>
+<ol>
+<li>The player notes the value X of the first element of her sequence.</li>
+<li>The player erases the first element of her sequence.</li>
+<li>The player takes X stones from the pile (or all stones if there are fewer than X stones left).</li>
+<li>If the pile just became empty, the player loses the game.</li>
+</ol>
+<p>Both girls call themselves "pretty liars", so you should not be surprised that they are going to cheat: before the game, each girl will choose one of the N! possible permutations and use it to permute her sequence in secret.</p>
+<p>You, watching the whole process, come up a question: How many of all (N!)^2 possible scenarios will end with Kaede winning the game?</p>
+<p>Please compute and return the answer modulo 1,000,000,007.</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>PrettyLiar</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int S, vector &lt;int&gt; kaede, vector &lt;int&gt; kanade)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>4.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The constraint on <b>S</b> ensures that one of the girls has to lose the game.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>kaede</b> will contain exactly N elements.</td></tr><tr><td align="center" valign="top">-</td><td><b>kanade</b> will contain exactly N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>kaede</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>kanade</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will be between 1 and 20,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>S</b> will be less than or equal to the sum of elements in <b>kaede</b> and <b>kanade</b>.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>60</pre></td></tr><tr><td><pre>{10,40}
+</pre></td></tr><tr><td><pre>{20,30}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"><p>There are four possibilities:</p>
+<ul>
+<li><b>kaede</b>:{10,40} <b>kanade</b>:{20,30}</li>
+<li><b>kaede</b>:{10,40} <b>kanade</b>:{30,20}</li>
+<li><b>kaede</b>:{40,10} <b>kanade</b>:{20,30}</li>
+<li><b>kaede</b>:{40,10} <b>kanade</b>:{30,20}</li>
+</ul>
+<p>In the first case the game will play out as follows:</p>
+<ol>
+<li>Kaede removes 10 stones from the pile. After the turn, Kaede's sequence is {40} and there are 50 stones left in the pile.</li>
+<li>Kanade removes 20 stones from the pile. After the turn, Kanade's sequence is {30} and there are 30 stones left in the pile.</li>
+<li>Kaede is supposed to take 40 stones. As there are only 30 stones left, she takes those 30 stones and loses the game. Hence, Kanade wins.</li>
+</ol>
+<p>Kaede wins in two out of the four possibilities listed above: the third and the fourth one. Thus, the correct return value is 2.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>100 </pre></td></tr><tr><td><pre>{10,40}
+</pre></td></tr><tr><td><pre>{20,30}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"><p>Regardless of how the girls permute their sequences, Kanade will always lose the game in her second turn. (Note that in this example <b>S</b> is exactly equal to the sum of all girls' numbers.)</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10 </pre></td></tr><tr><td><pre>{10,40}
+</pre></td></tr><tr><td><pre>{20,30}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"><p>In every case, Kaede loses in her first turn because <b>S</b> is equal to the smallest element in her sequence.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>25 </pre></td></tr><tr><td><pre>{6,14}
+</pre></td></tr><tr><td><pre>{7,1}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>178</pre></td></tr><tr><td><pre>{25,6,14,100,71,49}
+</pre></td></tr><tr><td><pre>{17,7,1,100,62,43}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 240192</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1546 </pre></td></tr><tr><td><pre>{50,77,74,23,43,4,57,13,50,94,43,72,94,36,20,23,27,7,3,21,16,64,28,20,2,40,92,93,17,94,43,17,1,87,58,67,43,22,99,76,13,10,45,28,2,5,37,26,76,12}
+</pre></td></tr><tr><td><pre>{40,93,80,23,20,71,23,14,43,45,38,20,61,84,35,9,85,71,7,21,10,42,23,20,38,73,58,97,32,3,43,99,31,39,33,73,81,3,9,73,17,68,50,27,25,86,22,47,64,8}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 949234178</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">6)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{1,1,1,1}</pre></td></tr><tr><td><pre>{1,1,1,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 576</pre></td></tr><tr><td><table><tr><td colspan="2">Each of the (N!)^2 ways to permute the two sequences is counted separately, even if different permutations produce the same sequences of numbers.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

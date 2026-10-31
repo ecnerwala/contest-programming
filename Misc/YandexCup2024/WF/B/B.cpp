@@ -335,14 +335,14 @@ int main() {
 	for (auto& [l, w] : ops) { cin >> l >> w; l--; }
 
 	std::vector<num> opts; opts.reserve(K);
-	for (int i = 1; i < K; i++) {
-		if (std::gcd(i, K) == 1) opts.push_back(i);
+	for (int i = 0; i < K; i++) {
+		opts.push_back(i);
 	}
 
 	std::vector<bool> ans(Q, true);
 
 	std::mt19937_64 mt(48);
-	for (int z = 0; z < 60; z++) {
+	for (int z = 0; z < 120; z++) {
 		std::vector<num> vals(N);
 		for (int i = 0; i < N-1; i++) {
 			vals[i] = opts[std::uniform_int_distribution<int>(0, int(opts.size())-1)(mt)];

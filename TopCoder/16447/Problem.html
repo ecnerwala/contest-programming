@@ -1,0 +1,31 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Note that this problem has an unusual TIME AND MEMORY limits: 6 seconds and only 48 MB.</i></p>
+
+<br></br>
+
+<p>Let A be a vector of length <b>n</b> consisting of non-negative integers. We define f(A) to be a vector of length <b>n</b> of absolute differences of consecutive elements in cyclic order. That is:</p>
+
+<p>f(A) = { abs(A[1]-A[0]), abs(A[2] - A[1]), abs(A[3] - A[2]), ..., abs(A[<b>n</b>-1] - A[<b>n</b>-2]), abs(A[0] - A[<b>n</b>-1]) }.</p>
+
+<br></br>
+
+<p>Let g_A be the sequence defined by iteration of f on A, that is </p>
+
+<ul>
+<li>g_A(0) = A</li>
+<li>g_A(k) = f( g_A(k-1) ) for all positive integers k</li>
+</ul>
+
+<p>For example, if A = g_A(0) = [2, 1, 0], then g_A(1) = [1, 1, 2], g_A(2) = [0, 1, 1], g_A(3) = [1, 0, 1], g_A(4) = [1, 1, 0], g_A(5) = [0, 1, 1] and so on.</p>
+
+<br></br>
+
+<p>It can be shown that each sequence g_A is eventually periodic, that is, for every A there exist positive integers p and q such that g_A(m) = g_A(m+p) for all m &gt;= q. In the above example, we can pick p = 3 and q = 2.</p>
+
+<p>We denote by r(A) the lexicographically <b>largest</b> element of g_A(m) over all m &gt;= q. In other words, r(A) is the lexicographically largest among the elements that appear in g_A infinitely many times. The vector r(A) is called the representative of A. In the above example, r(A) = [1, 1, 0].</p>
+
+<br></br>
+
+<p>Consider the set of all representatives of vectors of non-negative integers of length <b>n</b>. Return the <b>k</b>-th lexicographically <b>smallest</b> of them (1-based index). If there are fewer than <b>k</b> distinct representatives for the given <b>n</b>, return an empty vector&lt;long long&gt; instead.</p>
+
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>DifferenceSequence</td></tr><tr><td>Method:</td><td>kthSmallestRepresentative</td></tr><tr><td>Parameters:</td><td>int, long long</td></tr><tr><td>Returns:</td><td>vector&lt;long long&gt;</td></tr><tr><td>Method signature:</td><td>vector&lt;long long&gt; kthSmallestRepresentative(int n, long long k)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>6.000</td></tr><tr><td>Memory limit (MB):</td><td>48</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 2 and 26, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 1 and 10^18, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 1, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>470000000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>11</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2, 2, 0, 2, 0, 2, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">The shortest period of any sequence g_A that has this particular representative has length 7.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

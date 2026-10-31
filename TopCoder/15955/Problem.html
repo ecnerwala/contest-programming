@@ -1,0 +1,57 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Oh, Ramanujan found the previous problem too easy. Along with partitions, he also likes probability.
+So lets mix them. 
+</p>
+<p>
+He wants to build 2*<b>N</b> buildings.
+Their heights are given in the vector &lt;int&gt; H.
+</p>
+<p>
+The buildings have to be partitioned into two rows: row A and row B.
+We will use A[i] to denote the height of the i-th building (0-based index) in row A, and B[i] for row B.
+The partition into A and B must satisfy the following constraints:
+</p>
+<ol>
+<li>Each row must contain <b>N</b> buildings.</li>
+<li>The rows must be aligned: for each i, the i-th building in row A will stand opposite to the i-th building in row B.</li>
+<li>The heights of buildings in row A must form a <i>non-decreasing sequence</i>: for each i, A[i] &lt;= A[i+1].</li>
+<li>The heights of buildings in row B must form a <i>non-increasing sequence</i>: for each i, B[i] &gt;= B[i+1].</li>
+</ol>
+<p>
+The <i>instability</i> of a pair of buildings that stand opposite each other is the absolute difference between their heights: |A[i] - B[i]|.
+</p>
+<p>
+The <i>instability</i> of the whole partition is the <b><i>average instability</i></b> of all <b>N</b> such pairs of buildings.
+</p>
+<p>
+But, oh. We don't know the partition Ramanujan will use. All we know is, the buildings will be partitioned into A and B uniformly at random. (Each of the <b>2N</b> choose <b>N</b> possibilities is equally likely, i.e., different buildings of the same height are considered to be different.) Once the partition into A and B is fixed, the sequence of building heights in each row is uniquely determined by constraints 3 and 4.
+</p>
+<p>
+You have to return the expected value of the instability of the chosen partition.
+</p>
+<p>
+It can be shown that the expected value can be expressed as a reduced fraction P / Q, where Q isn't a multiple of 786433.
+Return (P * inverse(Q)) modulo 786433.
+</p>
+<p>
+We provide <b>nums[]</b>, <b>N</b>, <b>M</b>, <b>B1</b>, and <b>B2</b>.
+Since the system does not support large input sizes, use the generator shown below to construct the array H of size 2*<b>N</b>.
+</p>
+<pre>
+H = integer array of size 2N
+for(int i = 0; i &lt; nums.size(); i++) {
+	H[i] = nums[i];
+}
+for(int i = nums.size(); i &lt; 2 * N; i++) {
+	H[i] = (H[i - 1] * B1 + H[i - 2] * B2) % M; // take care of overflows.
+}
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RandomPartition</td></tr><tr><td>Method:</td><td>expectedSum</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, int, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int expectedSum(vector &lt;int&gt; nums, int N, int M, int B1, int B2)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on any properties of the generator used to produce H.</td></tr><tr><td align="center" valign="top">-</td><td>By inverse(Q) we mean the inverse element to Q modulo 786433. That is, (Q * inverse(Q)) mod 786433 = 1.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 50,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will be between 2 and 100,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>B1</b> and <b>B2</b> will be between 0 and <b>M</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>nums</b> will have between 2 and min(2*<b>N</b>, 500) elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>nums</b> will be between 0 and <b>M</b>-1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,2}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>14</pre></td></tr><tr><td><pre>13</pre></td></tr><tr><td><pre>13</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+There are two possible partitions.
+A = {1} B = {2}
+A = {2} B = {1}
+Instability for both partitions is 1.
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{17,29,1,2,1,10,9,1729}</pre></td></tr><tr><td><pre>8</pre></td></tr><tr><td><pre>9271</pre></td></tr><tr><td><pre>9</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 593461</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+H = {17,29,1,2,1,10,9,1729}
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,7,2,9}</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>1729</pre></td></tr><tr><td><pre>17</pre></td></tr><tr><td><pre>29</pre></td></tr></table></td></tr><tr><td><pre>Returns: 315441</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+Heights of the 2*N buildings: H = {1,7,2,9,211,390,646,1544,28,298,691,1370,104,2,1321,38,917,1130,849,520}
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

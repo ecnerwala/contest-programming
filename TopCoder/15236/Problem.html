@@ -1,0 +1,20 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+We are looking at the first quadrant of an infinite square grid. Its rows and columns are numbered starting from zero. Each cell (r,c) contains the number (max(r,c) mod 3).
+</p>
+<p>
+Compute and return the sum of all cells (r,c) such that <b>r1</b> &lt;= r &lt;= <b>r2</b> and <b>c1</b> &lt;= c &lt;= <b>c2</b>.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ModularQuadrant</td></tr><tr><td>Method:</td><td>sum</td></tr><tr><td>Parameters:</td><td>int, int, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long sum(int r1, int r2, int c1, int c2)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>0 &lt;= <b>r1</b> &lt;= <b>r2</b> &lt;= 10^9.</td></tr><tr><td align="center" valign="top">-</td><td>0 &lt;= <b>c1</b> &lt;= <b>c2</b> &lt;= 10^9.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>0</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 13</pre></td></tr><tr><td><table><tr><td colspan="2">We want rows 0 through 2 and columns 1 through 4. The corresponding part of the grid looks as follows:
+<pre>
+2201
+1201
+1201
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2">Now we are computing the sum of a single row that looks as follows:
+<pre>
+22201201
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>8</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 37</pre></td></tr><tr><td><table><tr><td colspan="2"><pre>
+222222
+111111
+000000
+222222
+111112
+</pre></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,181 +1,80 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-const int INF = 1e9;
-
-const int MAXN = 1.1e6;
-int N;
-int R[MAXN*2];
-int nxt[MAXN * 2];
-int prv[MAXN * 2];
-
-const int MAXK = MAXN;
-int K;
-int lastColor[MAXK];
-
-struct minset {
-	int cnt;
-	int last;
-	minset& operator += (int v) {
-		if (v) {
-			cnt = 0;
-			last = -1;
-		}
-		return *this;
-	}
-};
-minset combine(const minset& l, const minset& r) {
-	return minset{ l.cnt + r.cnt, r.cnt ? r.last : l.last };
-}
-
-const int S = 1 << 21;
-struct data {
-	int lazy;
-	minset min;
-} seg[2 * S];
-
-void recompute(int i) {
-	if (seg[i].lazy) {
-		seg[i].min = {0, -1};
-	} else if (i >= S) {
-		seg[i].min = {1, i-S};
-	} else {
-		seg[i].min = combine(seg[2*i].min, seg[2*i+1].min);
-	}
-}
-
-void init() {
-	for (int i = 2*S-1; i > 0; i--) {
-		seg[i].lazy = 0;
-		recompute(i);
-	}
-}
-void update(int l, int r, int v) {
-	//cerr << "Update " << l << ' ' << r << ' ' << v << '\n';
-	bool lhas = false;
-	bool rhas = false;
-	for (l += S, r += S; l && r; l /= 2, r /= 2) {
-		if (lhas) {
-			//cerr << "recompute " << l-1 << '\n';
-			recompute(l-1);
-		}
-		if (rhas) {
-			//cerr << "recompute " << r << '\n';
-			recompute(r);
-		}
-		if (l & 1) {
-			if (l < r) {
-				//cerr << "lupdate " << l << '\n';
-				seg[l].lazy += v;
-				assert(seg[l].lazy >= 0);
-				recompute(l);
-				lhas = true;
-			}
-			l++;
-		}
-		if (r & 1) {
-			r--;
-			if (l <= r) {
-				//cerr << "rupdate " << r << '\n';
-				seg[r].lazy += v;
-				assert(seg[r].lazy >= 0);
-				recompute(r);
-				rhas = true;
-			}
-		}
-	}
-}
-minset query(int l, int r) {
-	//cerr << "Query " << l << ' ' << r << '\n';
-	assert(l <= r);
-	assert(l < r);
-	bool lhas = false; minset lres;
-	bool rhas = false; minset rres;
-
-	for (l += S, r += S; l && r; l /= 2, r /= 2) {
-		if (lhas) {
-			lres += seg[l-1].lazy;
-		}
-		if (l & 1) {
-			if (l < r) {
-				lres = lhas ? combine(lres, seg[l].min) : seg[l].min;
-				lhas = true;
-			}
-			l++;
-		}
-		if (rhas) {
-			rres += seg[r].lazy;
-		}
-		if (r & 1) {
-			r--;
-			if (l <= r) {
-				rres = rhas ? combine(seg[r].min, rres) : seg[r].min;
-				rhas = true;
-			}
-		}
-	}
-	assert(lhas || rhas);
-
-	if (lhas && rhas) return combine(lres, rres);
-	else if (lhas) return lres;
-	else if (rhas) return rres;
-	else assert(false);
-}
+#include <bits/stdc++.h>
 
 int main() {
-	(void) scanf("%d %d", &N, &K);
-	for (int i = 0; i < N; i++) {
-		(void) scanf("%d", &R[i]);
-		R[i] --;
-		R[i+N] = R[i];
-	}
+    std::ios_base::sync_with_stdio(false); std::cin.tie(nullptr);
 
-	memset(lastColor, -1, sizeof(lastColor));
-	for (int i = 0; i < 2 * N; i++) {
-		nxt[i] = 2 * N;
-	}
-	for (int i = 0; i < 2 * N; i++) {
-		prv[i] = lastColor[R[i]];
-		if (prv[i] >= 0) nxt[prv[i]] = i;
-		lastColor[R[i]] = i;
-	}
-//
+    int N, K; std::cin >> N >> K;
+    std::vector<int> R(N); for (int& r : R) { std::cin >> r; r--; }
 
-	for (int i = 0; i < 2 * N; i++) {
-		//cerr << i << ' ' << R[i] << ' ' << prv[i] << ' ' << nxt[i] << '\n';
-	}
-	// first setup the segtree
-	init();
-	for (int i = 0; i < N; i++) {
-		if (nxt[i] < N) update(i, nxt[i], 1);
-	}
-	int64_t totcnt = 0;
-	int bestmid = 0;
-	for (int i = 0; i < N; i++) {
-		assert(N >= 2);
-		minset ms = query(i, i + N / 2);
-		//cerr << i << ' ' << ms.v << ' ' << ms.cnt << ' ' << ms.last << '\n';
-		if (ms.cnt > 0) {
-			int last = ms.last - i + 1;
-			assert(last * 2 <= N);
-			totcnt += 2 * ms.cnt - (last * 2 == N);
-			bestmid = max(bestmid, last);
-		}
-		if (i + 1 < N) {
-			// remove and update this thing
-			if (nxt[i] < i + N) {
-				update(i, nxt[i], -1);
-			}
-			if (prv[i + N] > i) {
-				assert(nxt[prv[i+N]] == i+N);
-				update(prv[i + N], i + N, 1);
-			}
-		}
-	}
+    std::vector<int> firstOcc(K, N);
+    std::vector<int> lastOcc(K, N);
+    for (int i = N-1; i >= 0; i--) {
+        if (lastOcc[R[i]] == N) {
+            lastOcc[R[i]] = i;
+        }
+        firstOcc[R[i]] = i;
+    }
 
-	assert(totcnt % 2 == 0);
-	totcnt /= 2;
-	printf("%" PRId64 " %d\n", totcnt, (N - bestmid) - bestmid);
+    int64_t num_ways = 0;
+    int best_diff = N;
 
-	return 0;
+    struct interval {
+        int l, r, n;
+    };
+
+    std::vector<interval> intervals; intervals.reserve(N+1);
+    intervals.push_back({-1, -1, N});
+
+    for (int i = 0; i <= N; i++) {
+        if (i < N && firstOcc[R[i]] == i) {
+            // we're the first occurrence, there's no merging to be done
+            intervals.push_back({i, i, lastOcc[R[i]]});
+            continue;
+        }
+        int p = i == N ? -1 : firstOcc[R[i]]; // we'll pop until we hit p
+        int cur_furthest = i == N ? N : lastOcc[R[i]];
+
+        while (intervals.back().l > p) {
+            if (intervals.back().n >= i) {
+                cur_furthest = std::max(cur_furthest, intervals.back().n);
+                intervals.pop_back();
+                continue;
+            } else {
+                assert(intervals.back().n == intervals.back().r);
+                int hi = int(intervals.size())-1;
+                int lo = hi;
+                while (intervals[lo-1].n < i) {
+                    lo--;
+                    assert(intervals[lo].n == intervals[lo].r);
+                }
+
+                // we have lo-hi inclusive
+                int cnt = hi-lo+1;
+                if (i == N) cnt--; // prefix == suffix, which is no good
+                num_ways += int64_t(cnt) * int64_t(cnt+1) / 2;
+
+                for (int x = lo, y = lo; x <= hi && y <= hi; ) {
+                    int d = intervals[y].r - intervals[x].l + 1;
+                    assert(d >= 0);
+                    if (d <= (N-d)) {
+                        best_diff = std::min(best_diff, (N-d) - d);
+                        y++;
+                    } else {
+                        best_diff = std::min(best_diff, d - (N-d));
+                        x++;
+                    }
+                }
+
+                intervals.erase(intervals.begin()+lo, intervals.end());
+            }
+        }
+
+        assert(intervals.back().l <= p && p <= intervals.back().r);
+        intervals.back().r = i;
+        intervals.back().n = std::max(intervals.back().n, cur_furthest);
+    }
+
+    std::cout << num_ways << ' ' << best_diff << '\n';
+
+    return 0;
 }

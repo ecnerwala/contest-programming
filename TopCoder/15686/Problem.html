@@ -1,0 +1,33 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>You are given a String[] <b>map</b> depicting the layout of several islands.
+A &#39;.&#39; indicates water, while &#39;X&#39; indicates land. Two cells that are adjacent horizontally or
+vertically are considered part of the same island. Assume that all area outside the bounds of
+the given map is all water.</p>
+
+<p>Any place where a land cell is adjacent, horizontally or vertically, to water, is called a
+coastline. A single land cell may have as many as four units of coastline. The following
+examples have 4, 6, 8 and 8 units of coastline, respectively:</p>
+
+<pre>
+....    ....    ....    ....
+.X..    .X..    .X..    .XX.
+....    .X..    .XX.    .XX.
+....    ....    ....    ....
+</pre>
+
+<p>Find the total length of coastline of each island, and return the largest of these lengths.</p>
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Coastlines</td></tr><tr><td>Method:</td><td>longest</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int longest(vector &lt;string&gt; map)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>map will contain between 1 and 50 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of map will contain between 1 and 50 characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of map will contain the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of each element of map will be 'X' or '.'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...&quot;,
+ &quot;.X.&quot;,
+ &quot;...&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">Example from the problem statement. The single land cell is bounded on all four sides by water.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.XX&quot;,
+ &quot;.X.&quot;,
+ &quot;...&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8</pre></td></tr><tr><td><table><tr><td colspan="2">Similar to an example in the problem statement, the total coastline is 8.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">There's no coastline at all.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.XX...&quot;,
+ &quot;XX...X&quot;,
+ &quot;X...XX&quot;,
+ &quot;......&quot;,
+ &quot;.XXXX.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2">Here, there are multiple islands, with varying coastline lengths.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;XXX&quot;,
+ &quot;X.X&quot;,
+ &quot;XXX&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 16</pre></td></tr><tr><td><table><tr><td colspan="2">This island has a lake inside it, but that internal "coast" also counts.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;XXXXX&quot;,
+ &quot;X...X&quot;,
+ &quot;X.X.X&quot;,
+ &quot;X...X&quot;,
+ &quot;XXXXX&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 32</pre></td></tr><tr><td><table><tr><td colspan="2">An island in a lake inside an island, is a separate landmass.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

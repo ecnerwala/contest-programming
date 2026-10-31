@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class CentipedeSocks {
+
+public:
+
+	int fewestSocks(int C, int F, vector <int> sockCounts) {
+		int res = 0;
+		priority_queue<int> pq;
+		for (int i : sockCounts) pq.push(i);
+		assert(C >= 1);
+		while (C >= 2) {
+			int v = pq.top(); pq.pop();
+			if (v < F) return -1;
+			pq.push(v - F);
+			res += F;
+			C--;
+		}
+		assert(C == 1);
+		if (pq.top() < F) {
+			return -1;
+		}
+		while (!pq.empty()) {
+			int v = pq.top(); pq.pop();
+			res += min(v, F-1);
+		}
+		return res + 1;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::CentipedeSocks;
+
+// vim:ft=cpp

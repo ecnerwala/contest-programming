@@ -86,7 +86,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	constexpr bool TESTING = true;
+	constexpr bool TESTING = false;
 	std::mt19937 mt(48);
 
 	int T;
@@ -132,7 +132,7 @@ int main() {
 				for (int r = 1; int(cur_p.size()) > 1; r++) {
 					std::vector<std::pair<int, int>> nxt_cur_p; nxt_cur_p.reserve(cur_p.size());
 					for (int i = 0; i < int(cur_p.size()); i++) {
-						if (cur_p[i] < cur_p[(i+1)%int(cur_p.size())] && cur_p[i] < (i == 0 ? cur_p.back() : cur_p[i-1])) {
+						if (cur_p[i] < std::min(cur_p[(i+1)%int(cur_p.size())], (i == 0 ? cur_p.back() : cur_p[i-1]))) {
 							rounds[cur_p[i].second] = r;
 							// don't push
 						} else {

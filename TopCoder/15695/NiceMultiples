@@ -1,0 +1,75 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+class NiceMultiples {
+
+	bool isGood(ll v, int B) {
+		if (v == 0) {
+			return true;
+		}
+		if (v % B == 0) return false;
+		return isGood(v / B, B);
+	}
+
+	vector<ll> dfs(int M, ll U, int B) {
+		if (U == 0) {
+			return vector<ll>(M, 0);
+		} else {
+			vector<ll> ndp(M, 0);
+			// 1-digit
+			for (int d = 1; d < B; d++) {
+				if (d <= U) {
+					ndp[d % M] ++;
+				}
+			}
+			if (U >= B) {
+				// maxed out
+				bool hiGood = isGood(U / B, B);
+				while (U % B != B-1) {
+					if (hiGood && U % B != 0) {
+						ndp[U % M] ++;
+					}
+					U--;
+				}
+				vector<ll> dp = dfs(M, U/B, B);
+				for (int v = 0; v < M; v++) {
+					for (int d = 1; d < B; d++) {
+						ndp[(v * B + d) % M] += dp[v];
+					}
+				}
+			}
+			return ndp;
+		}
+	}
+public:
+
+	int count(ll M, ll U, int B) {
+		if (M <= int(1e6)) {
+			return dfs(int(M), U, B)[0] % (int(1e9)+7);
+		} else {
+			int ans = 0;
+			for (ll v = M; v <= U; v += M) {
+				if (isGood(v, B)) ans++;
+			}
+			return ans;
+		}
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::NiceMultiples;
+
+// vim:ft=cpp

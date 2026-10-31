@@ -136,6 +136,11 @@ int main() {
 	bool has_zero = std::find(A.begin(), A.end(), 0) != A.end();
 	num ans = 0;
 	for (; N > 0; N >>= 1) {
+		// take nothing else
+		if (!has_zero) {
+			if (N < MX) ans += dp[N];
+		}
+
 		// otherwise, take at least one thing, and then halve the length
 		std::vector<num> ndp(MX);
 		for (int i = 0; i < MX; i++) {
@@ -146,14 +151,9 @@ int main() {
 			}
 		}
 		dp = std::move(ndp);
-
-		// take nothing else
-		if (!has_zero) {
-			if (N < MX) ans += dp[N >> 1];
-		}
 	}
 	assert(N == 0);
-	if (has_zero) ans = dp[0];
+	ans += dp[0];
 	cout << ans << '\n';
 
 	return 0;

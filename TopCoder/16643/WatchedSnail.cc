@@ -1,0 +1,28 @@
+#ifndef ECNERWALA_MACHINE
+#define NDEBUG
+#endif
+
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+class WatchedSnail {
+
+public:
+
+	double maxDistance(int raceTime, int observerCount, int observationTime, int observationDistance) {
+		if (observationTime == raceTime) return observationDistance;
+		return observationDistance * min(observerCount, 2 * ((raceTime - 1) / observationTime));
+	}
+};
+
+void my_tests() {
+	// FILL IN TESTS
+}
+
+}  // namespace ecnerwala
+
+using ecnerwala::WatchedSnail;
+
+// vim:ft=cpp

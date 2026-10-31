@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+namespace ecnerwala {
+
+using ll = long long;
+
+class UnreliableRover {
+
+public:
+
+	ll getArea(string direction, vector <int> minSteps, vector <int> maxSteps) {
+		assert(direction.size() == minSteps.size() && direction.size() == maxSteps.size());
+		ll numQuestion = 0;
+
+		ll xrange = 1, yrange = 1; // size of the range
+		for (size_t i = 0; i < direction.size(); i++) {
+			char c = direction[i];
+			ll mi = minSteps[i];
+			ll ma = maxSteps[i];
+			assert(ma >= mi);
+			if (c == '?') {
+				assert(mi == 0);
+				numQuestion += ma;
+			} else {
+				if (c == 'N' || c == 'S') {
+					yrange += ma - mi;
+				} else if (c == 'E' || c == 'W') {
+					xrange += ma - mi;
+				} else assert(false);
+			}
+		}
+		xrange += numQuestion * 2;
+		yrange += numQuestion * 2;
+		ll res = xrange * yrange;
+		res -= numQuestion * (numQuestion + 1) * 2;
+		return res;
+	}
+};
+
+}  // namespace ecnerwala
+
+using ecnerwala::UnreliableRover;
+
+// vim:ft=cpp

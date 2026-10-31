@@ -1,0 +1,68 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A <i>tournament graph</i> is a graph where every pair of distinct node has a single directed edge between them.
+Consider a touranment graph with b nodes such that the nodes are labeled with the digits of the base b.
+For example, if b=3, then there would be three nodes, labeled 0, 1, and 2.
+You are given this tournament graph in the vector &lt;string&gt; <b>graph</b>.
+<b>graph</b> has exactly b strings each of length b. The j-th character in the i-th string is 'Y' if there exists a directed edge from node i to node j, and 'N' otherwise.
+It's guaranteed that the given graph is a valid tournament graph.
+</p>
+
+<p>
+You are given a int <b>k</b>.
+Consider a tournament graph in which there are b<sup><b>k</b></sup> nodes labeled with integers from 0 to b<sup><b>k</b></sup>-1 for a given <b>k</b>.
+To determine which way the directed edge between any two nodes x and y of this big grpah points, relate it back to the input graph described above.
+Consider the values of x and y in base b with exactly <b>k</b> digits, padding the left with leading zeros if necessary.
+Find the leftmost digit that differs between x and y.
+The direction of the edge between those two digits in the input graph determines the direction of the edge between x and y in the big graph.
+</p>
+
+<p>
+For example, if b=3 and k=4, then consider the nodes 1 and 6.
+1 in base 3 with 4 digits is 0001, and 6 in base 3 with 4 digits is 0020.
+The leftmost digit in which they differ is the thir digit from the left, so the edge between 1 and 6 in the big graph would have the same direction as the edge between 0 and 2 in the input graph.
+</p>
+
+<p>
+An <i>induced subgraph</i> of a graph is a subset of its nodes along with all the edges between those nodes.
+A non-empty graph is <i>strongly connected</i> if it contains directed paths from every node to every other node.
+In particular, a graph with a single node is considered strongly connected.
+Given the input graph and number <b>k</b>, how many non-empty strongly connected induced subgraphs are there in the big tournament graph?
+Since this number can get very large, return it modulo 998244353.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RecursiveTournament</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(vector &lt;string&gt; graph, int k)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>b will be between 3 and 23.</td></tr><tr><td align="center" valign="top">-</td><td><b>graph</b> will have exactly b elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>graph</b> will have exactly b characters, each of which is either 'Y' or 'N'.</td></tr><tr><td align="center" valign="top">-</td><td><b>graph</b> describes a valid tournament graph.</td></tr><tr><td align="center" valign="top">-</td><td><b>k</b> will be between 1 and 1000.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{
+&quot;NYN&quot;,
+&quot;NNY&quot;,
+&quot;YNN&quot;
+}</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 355</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{
+&quot;NYY&quot;,
+&quot;NNY&quot;,
+&quot;NNN&quot;
+}</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 9</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{
+&quot;NYN&quot;,
+&quot;NNY&quot;,
+&quot;YNN&quot;
+}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{
+&quot;NYYYNNYNNYYNNYYYYYNNYNN&quot;,
+&quot;NNYNYYNYYNNNYNYNYNNNNYY&quot;,
+&quot;NNNNYNNNNYNYYNYYNYYNYNN&quot;,
+&quot;NYYNYNNNYNNYYYNYYYNNYYN&quot;,
+&quot;YNNNNNYYNYNNYYNNYNYNYYY&quot;,
+&quot;YNYYYNNNYNYNYNYNNYNYNYN&quot;,
+&quot;NYYYNYNNNYYNNNNYNNNNYNN&quot;,
+&quot;YNYYNYYNYYYNYNYYYNYNNYY&quot;,
+&quot;YNYNYNYNNYYYNYNYNYYYNYN&quot;,
+&quot;NYNYNYNNNNYNYYYNNYYYNYN&quot;,
+&quot;NYYYYNNNNNNNNYNYYNNYNYN&quot;,
+&quot;YYNNYYYYNYYNNYYYYNYYYNY&quot;,
+&quot;YNNNNNYNYNYYNNNNYNYNYNY&quot;,
+&quot;NYYNNYYYNNNNYNYNNNNYNYN&quot;,
+&quot;NNNYYNYNYNYNYNNYNNNYNNY&quot;,
+&quot;NYNNYYNNNYNNYYNNYNYYNYN&quot;,
+&quot;NNYNNYYNYYNNNYYNNNYNNNN&quot;,
+&quot;NYNNYNYYNNYYYYYYYNYYYNN&quot;,
+&quot;YYNYNYYNNNYNNYYNNNNNYNY&quot;,
+&quot;YYYYYNYYNNNNYNNNYNYNYNN&quot;,
+&quot;NYNNNYNYYYYNNYYYYNNNNNY&quot;,
+&quot;YNYNNNYNNNNYYNYNYYYYYNY&quot;,
+&quot;YNYYNYYNYYYNNYNYYYNYNNN&quot;
+}</pre></td></tr><tr><td><pre>1000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 71573222</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

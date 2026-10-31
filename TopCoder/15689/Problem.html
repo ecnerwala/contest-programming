@@ -1,0 +1,28 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have N reels, numbered 0 through N-1.
+One of the reels is empty.
+Each of the others contains a film with some movie.
+The films are numbered 1 through N-1.
+</p>
+<p>
+The collection is messed up: the reel numbers don't necessarily match the film numbers, and some films are wound backwards on their reels.
+</p>
+<p>
+You would like to sort your collection.
+More precisely, you would like to have it in the state in which reel 0 is empty and each other reel x contains the film x, wound in the correct direction (so that the movie plays forwards, not backwards, when played from the reel).
+</p>
+<p>
+The only operation you can do is to take a reel with a film and to rewind the film from that reel onto the reel that is currently empty.
+Note that each such operation reverses the film.
+</p>
+<p>
+You are given a description of the collection in the vector &lt;int&gt; <b>reels</b> with N elements.
+For each i, reel i contains the film abs(<b>reels</b>[i]), and if <b>reels</b>[i] is negative, that film is currently reversed.
+As a special case, 0 denotes the empty reel.
+</p>
+<p>
+Find any sequence of at most 5*<b>N</b> operations that sorts the collection.
+Return the sequence as a vector &lt;int&gt; containing, for each operation in chronological order, the number of the reel from which you move a film.
+If there is no such sequence, return {-1} instead.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>FilmSort</td></tr><tr><td>Method:</td><td>sort</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; sort(vector &lt;int&gt; reels)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Any valid solution with at most 5*N operations will be accepted. You are not required to minimize the number of operations.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>reels</b> will contain exactly N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Absolute values of the elements of <b>reels</b> will form a permutation of 0, 1, ..., N-1.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, 2, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">This collection is already sorted correctly, no moves are needed.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-2, 1, 0, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 3, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>The shortest solution has just one operation: rewind the film from reel 0 onto reel 2. Note that this reverses the film.</p>
+<p>Our solution's output does two more operations after that - to illustrate that you do not have to return the shortest possible solution.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 0, 1, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 2, 1, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2">Note that this input <i>cannot</i> be solved in two operations. The sequence of operations {2, 0} produces the collection {0, -1, -2, 3} that is not correct yet: films 1 and 2 are wound incorrectly.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 1, -2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {-1 }</pre></td></tr><tr><td><table><tr><td colspan="2">We are sorry, but there is no way to fix this collection.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

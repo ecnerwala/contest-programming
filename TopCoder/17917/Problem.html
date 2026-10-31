@@ -1,0 +1,109 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have a scheme of a circuit you would like to build.
+The circuit has <b>N</b> inputs, one output, and it consists of logic gates: binary ANDs and ORs.
+</p>
+
+<br></br>
+
+<p>
+You are at an electronic store that sells the logic gates you need.
+However, the owner just informed you that he accidentally mixed up <b>K</b> defective gates among the supply he's selling.
+</p>
+<p>
+A defective gate does not perform its logical operation.
+Instead, it contains a <i>short circuit</i>: one of its input wires is directly connected to its output
+(and thus the value from that input is copied to the output of the defective gate).
+</p>
+<p>
+You cannot distinguish between good and defective gates, and if a gate is defective, you cannot tell which of its two inputs it copies to its output.
+</p>
+
+<br></br>
+
+<p>
+A circuit is a sequence of gates and a collection of wires.
+</p>
+<p>
+Each wire carries the value 0 or 1.
+The input wires have numbers from 0 to <b>N</b>-1.
+The values on these wires can be arbitrary.
+</p>
+<p>
+If there are G gates in the circuit, their output wires have numbers <b>N</b> to <b>N</b>+G-1 in the order in which these gates are listed.
+The values on these wires are the values computed by the gates that outputs them.
+</p>
+<p>
+The inputs of each gate must be wires that already exist (i.e., input wires + outputs of previous gates).
+Each wire can be the input to arbitrarily many gates.
+The same wire may even be used for both inputs to the gate.
+</p>
+<p>
+The output of the last gate in the circuit is the output of the circuit.
+</p>
+
+<br></br>
+
+<p>
+When encoding a circuit, for each gate we specify three integers { t, i1, i2 }, where t is its type (0 = AND, 1 = OR), and i1 and i2 are the numbers of the two wires it takes as inputs.
+</p>
+<p>
+For example, for <b>N</b>=3 the circuit {0, 0, 2, 1, 3, 1} consists of two gates: {0, 0, 2} is a gate that computes the AND of wires 0 and 2,
+and then {1, 3, 1} is a gate that computes the OR of wires 3 and 1.
+</p>
+
+<br></br>
+<p>--------</p>
+<br></br>
+
+<p>
+You are given the values <b>K</b> and <b>N</b>, and the vector &lt;int&gt; <b>circuit</b> that contains the scheme of your desired (small, non-empty) circuit.
+</p>
+
+<p>
+Redesign the given circuit.
+The new circuit you produce must guarantee to compute the same function, even if some of the purchased gates are defective.
+</p>
+
+<p>
+More precisely, for each of the 2^<b>N</b> possible inputs it must be true that the output given by the original circuit matches the output given by your circuit
+in all possible circumstances. (That is, regardless of which subset of at most <b>K</b> gates is defective and regardless of which input each of the defective 
+gates copies, the output of your new circuit must remain correct.)
+</p>
+
+<br></br>
+
+<p>
+Your new circuit must be small enough. Notably, if G is the number of gates in the input circuit then:
+</p>
+<ul>
+<li>If <b>K</b> &lt;= 6, the number of gates in your circuit must not exceed 33*G.</li>
+<li>If 7 &lt;= <b>K</b> &lt;= 15, the number of gates in your circuit must not exceed 93*G.</li>
+</ul>
+
+<p>
+Return a vector &lt;int&gt; with the description of your new circuit.
+Any valid non-empty circuit that matches the constraint on number of gates will be accepted.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RobustScheme</td></tr><tr><td>Method:</td><td>design</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; design(int K, int N, vector &lt;int&gt; circuit)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>K</b> will be between 0 and 15, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 8, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>circuit</b> will be a valid description of a circuit.</td></tr><tr><td align="center" valign="top">-</td><td><b>circuit</b> will contain between 1 and 12 gates, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>0</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{0, 0, 1, 0, 2, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 0, 1, 0, 2, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2">The given circuit looks as follows:
+<pre>
+            +--------+
+ i wire0 ---| gate 0 | wire3  +--------+
+ n          | AND    |--------| gate 1 |  wire4=output
+ p wire1 ---|        |        | AND    |--------
+ u          +--------+   +----|        |
+ t                       |    +--------+
+ s wire2 ----------------+
+
+</pre>
+As there are no defective parts in the store, we can simply purchase two AND gates and build the circuit according to its original plan.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{0, 0, 1, 0, 0, 2, 0, 1, 2, 1, 3, 4, 1, 5, 6, 0, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 0, 0 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The last gate in this circuit is an AND gate. Wire 0 is used for both of its inputs. Hence, this circuit returns the value of input wire 0.
+</p>
+<p>
+We can simply return a circuit consisting of a single OR gate such that wire 0 is used as both of its inputs. Even if the gate is defective, it will still always produce the correct output.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{0, 0, 1, 0, 0, 2, 0, 1, 2, 1, 3, 4, 1, 5, 6, 1, 0, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 3, 4, 1, 4, 5, 1, 5, 6, 1, 7,
+ 8, 1, 8, 9, 1, 10, 11 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The input circuit returns the OR of wires 0 and 1.
+</p>
+<p>
+The output circuit is a bunch of OR gates that happens to have the desired property.
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
