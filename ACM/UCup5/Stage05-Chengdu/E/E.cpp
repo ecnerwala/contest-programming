@@ -834,6 +834,8 @@ int main() {
 
 		wala::vec<int> ids(N);
 		std::ranges::iota(ids, 0);
+		std::sort(ids.begin(), ids.end(), [&](int a, int b) -> int {
+		});
 	}
 
 	return 0;
