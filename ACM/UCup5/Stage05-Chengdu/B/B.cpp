@@ -1203,7 +1203,7 @@ int main() {
 			while (en != st) {
 				// go to the next multiple of N
 				int64_t t = std::min(get_time(st.x, en.x), get_time(st.y, en.y));
-				std::min(tx, ty);
+				st += t * dir;
 			}
 		}
 	};
