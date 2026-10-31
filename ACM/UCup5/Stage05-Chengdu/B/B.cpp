@@ -1163,7 +1163,7 @@ int main() {
 		assert(N >= 2);
 		auto normalize_coord = [&](int64_t v) -> int64_t {
 			v %= 2 * (N-1);
-			if (v < 0) v += 2 * N;
+			if (v < 0) v += 2 * (N-1);
 			if (v > N) v = 2 * N - v;
 			return v;
 		};
