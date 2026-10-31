@@ -1267,9 +1267,11 @@ int main() {
 		for (int i = 0, j = 0; i < x_evts.size(); i = j) {
 			int64_t x = x_evts[i].first;
 			while (j < x_evts.size() && x_evts[j].first == x) pref += x_evts[j++].second;
+			assert(pref >= 0);
 			if (prv_has) {
 				ans += x - prv_x;
 			}
+			prv_has = pref > 0;
 		}
 		assert(pref == 0);
 	};
