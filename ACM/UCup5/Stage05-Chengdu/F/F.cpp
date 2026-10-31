@@ -3614,6 +3614,8 @@ int main() {
 		}(ct.root, 0);
 		assert(adds.capacity() == adds.size());
 		assert(subs.capacity() == subs.size());
+
+		using num = modnum<998244353>;
 		std::array<wala::vec<int64_t>, 2> ;
 		// Now, we convert adds to newton sums and likewise subs
 	}
