@@ -1183,7 +1183,8 @@ int main() {
 
 		using pt_t = wala::Point<int64_t>;
 		auto process_seg = [&](pt_t a, pt_t b) -> void {
-		}
+		};
+
 		std::array<pt_t, 4> square;
 		square[0] = {X0 + T, Y0};
 		square[1] = {X0, Y0 + T};
