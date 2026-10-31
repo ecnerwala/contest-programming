@@ -896,7 +896,8 @@ int main() {
 					for (int k = j+1; k < cnds.size(); k++) {
 						int s = signum(cross3(cnds[i].p, cnds[j].p, cnds[k].p));
 						if (s == 0) continue;
-						signum(cross3(cnds[i].p, cnds[j].p, C));
+						if (s != signum(cross3(cnds[i].p, cnds[j].p, C))) continue;
+						if (s != signum(cross3(cnds[i].p, cnds[j].p, C))) continue;
 					}
 				}
 			}
