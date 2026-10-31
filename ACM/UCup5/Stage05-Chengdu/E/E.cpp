@@ -903,6 +903,7 @@ int main() {
 					}
 				}
 			}
+			if (tot_hull == 4 && !off_diag_pt) {
 		};
 
 		for (int q = 0; q < Q; q++) {
