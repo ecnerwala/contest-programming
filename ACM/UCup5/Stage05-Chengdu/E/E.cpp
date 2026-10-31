@@ -851,12 +851,14 @@ int main() {
 
 		int tot_hull = int(lower.size()) + int(upper.size()) - 2;
 		wala::vec<poly_t> hull(tot_hull);
-		std::optional<poly_t> off_diag_pt;
-		if (tot_hull == 4) {
+		{
 			int idx = 0;
 			for (int i = 0; i+1 < int(lower.size()); i++) hull[idx++] = lower[i];
 			for (int i = int(upper.size()) - 1; i > 0; i--) hull[idx++] = upper[i];
-			assert(idx == 4);
+			assert(idx == tot_hull);
+		}
+		std::optional<poly_t> off_diag_pt;
+		if (tot_hull == 4) {
 			for (auto cnd : P) {
 				if (cross3(hull[0].p, hull[2].p, cnd.p) != 0 && cross3(hull[1].p, hull[3].p, cnd.p) != 0) {
 					off_diag_pt = cnd;
