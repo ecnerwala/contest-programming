@@ -3619,9 +3619,10 @@ int main() {
 		using E = wala::fft::engines::ntt<num>;
 		using series = wala::series::trunc<E>;
 		using exact = wala::series::exact<E>;
+		using poly = wala::series::poly<E>;
 		
 		for (int z = 0; z < 2; z++) {
-			wala::vec<poly>
+			wala::vec<exact> 
 		}
 
 		// Now, we convert adds to newton sums and likewise subs
