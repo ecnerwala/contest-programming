@@ -3622,9 +3622,13 @@ int main() {
 		using poly = wala::poly::vec<E>;
 		
 		for (int z = 0; z < 2; z++) {
-			wala::vec<exact> prods(subtree_sizes[z].size() * 2);
-			for (int i = 0; i < subtree_sizes[z].size(); i++) {
-				prods[subtree_sizes[z].size() + i] = exact{{num(1), -num(subtree_sizes[z][i])}};
+			int S = subtree_sizes[z].size();
+			wala::vec<exact> prods(S * 2);
+			for (int i = 0; i < S; i++) {
+				prods[S + i] = exact{{num(1), -num(subtree_sizes[z][i])}};
+			}
+			for (int i = S-1; i > 0; i--) {
+				prods[i] = prods[2*i] * prods[2*i+1];
 			}
 		}
 
