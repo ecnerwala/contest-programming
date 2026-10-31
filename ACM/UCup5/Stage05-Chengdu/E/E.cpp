@@ -889,6 +889,11 @@ int main() {
 			cnds.push_back(*upper_it);
 			if (upper_it->p.x == C.x) cnds.push_back(*std::next(upper_it));
 			if (off_diag_pt) cnds.push_back(*off_diag_pt);
+
+			for (int i = 0; i < cnds.size(); i++) {
+				for (int j = 0; j < cnds.size(); j++) {
+				}
+			}
 		};
 
 		for (int q = 0; q < Q; q++) {
