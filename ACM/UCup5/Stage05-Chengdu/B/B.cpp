@@ -1204,8 +1204,7 @@ int main() {
 			assert(en != st);
 			while (en != st) {
 				// go to the next multiple of N
-				int tx = get_time(st.x, en.x);
-				int ty = get_time(st.y, en.y);
+				int64_t t = std::min(get_time(st.x, en.x), get_time(st.y, en.y));
 				std::min(tx, ty);
 			}
 		}
