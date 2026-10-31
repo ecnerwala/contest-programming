@@ -831,7 +831,7 @@ int main() {
 		struct poly_t {
 			pt_t p;
 			int idx;
-		}
+		};
 		int N, Q; std::cin >> N >> Q;
 		wala::vec<std::pair<pt_t, int>> P(N);
 		for (auto& p : P) std::cin >> p.first;
