@@ -1170,6 +1170,7 @@ int main() {
 			assert(1 <= v && v <= N);
 			return v;
 		};
+		std::map<std::pair<int64_t, int64_t>> vals;
 		for (int dx : {-1, +1}) {
 			for (int dy : {-1, +1}) {
 				for (int64_t cx = 0, cy = T; cx <= T; cx++, cy--) {
