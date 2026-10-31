@@ -825,7 +825,10 @@ public:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	using pt_t = wala::Point<int, int64_t>;
+	int T; std::cin >> T;
+	while (T--) {
+		using pt_t = wala::Point<int, int64_t>;
+	}
 
 	return 0;
 }
