@@ -1218,6 +1218,7 @@ int main() {
 				int d = signum(e - s);
 				assert(d != 0);
 				if (d < 0) {
+					s = -s, e = -e; d = -d;
 				}
 			};
 			assert(en != st);
