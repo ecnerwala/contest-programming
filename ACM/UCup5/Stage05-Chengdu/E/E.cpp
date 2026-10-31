@@ -877,7 +877,9 @@ int main() {
 			});
 
 			assert(lower_it != lower.end());
+			assert(lower_it != lower.begin());
 			assert(upper_it != upper.end());
+			assert(upper_it != upper.begin());
 
 		};
 
