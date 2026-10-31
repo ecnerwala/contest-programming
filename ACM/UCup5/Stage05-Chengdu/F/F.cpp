@@ -3610,6 +3610,7 @@ int main() {
 			subs.push_back(tot);
 			tot += nxt_height - cur_height;
 			adds.push_back(tot);
+			return tot;
 		}(ct.root, 0);
 	}
 
