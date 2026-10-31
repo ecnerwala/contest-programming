@@ -1313,6 +1313,9 @@ int main() {
 		int B = std::uniform_int_distribution<int>(-N, N)(mt);
 		int C = std::uniform_int_distribution<int>(-N*N, N*N)(mt);
 		int T = std::uniform_int_distribution<int>(1, 3*N)(mt);
+		auto ans = slow(N, X0, Y0, A, B, C, T);
+		auto mine = solve(N, X0, Y0, A, B, C, T);
+		assert(ans == mine);
 	}
 
 	int CASES; std::cin >> CASES;
