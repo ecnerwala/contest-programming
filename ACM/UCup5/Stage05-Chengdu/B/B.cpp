@@ -1200,9 +1200,9 @@ int main() {
 			b = normalize_pt(b);
 			// Now, just intersect this line
 			pt_t dir = b - a;
+			int64_t l = std::abs(dir.x);
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
-			int64_t l = std::abs(dir.x, dir.y);
 			assert(b - a == (dir * T));
 			if (T >= 2 * N) {
 				en = st + dir * (2 * N);
