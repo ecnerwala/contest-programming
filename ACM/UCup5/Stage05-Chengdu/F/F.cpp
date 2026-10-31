@@ -4089,6 +4089,7 @@ int main() {
 		// Now, we convert adds to newton sums and likewise subs
 		wala::vec<exact> prods(2 * N);
 		for (int i = 0; i < N; i++) {
+			prods[N + i] = {};
 		}
 	}
 
