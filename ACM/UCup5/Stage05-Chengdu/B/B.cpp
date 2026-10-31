@@ -1204,6 +1204,8 @@ int main() {
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
 			assert(b - a == dir * l);
+			// Now, intersect these
+			int64_t va = a.x * A + a.y * B + C;
 		};
 
 		std::array<pt_t, 4> square;
