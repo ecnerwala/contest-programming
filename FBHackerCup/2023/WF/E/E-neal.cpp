@@ -113,27 +113,6 @@ struct persistent_basic_seg_tree {
         return int(tree.size()) - 1;
     }
 
-    void _query_tree(int position, int start, int end, int a, int b, segment &answer) const {
-        if (a <= start && end <= b) {
-            answer.join(seg(position));
-            return;
-        }
-
-        if (left(position) < 0 || right(position) < 0)
-            return;
-
-        int mid = (start + end) / 2;
-        if (a < mid) _query_tree(left(position), start, mid, a, b, answer);
-        if (b > mid) _query_tree(right(position), mid, end, a, b, answer);
-    }
-
-    segment query(int root, int a, int b) const {
-        assert(root > 0 && 0 <= a && a <= b && b <= tree_n);
-        segment answer;
-        _query_tree(root, 0, tree_n, a, b, answer);
-        return answer;
-    }
-
     // Directly assigning `tree[position].left = make_copy(left(position))` results in segmentation faults, because the
     // address for `tree[position]` can be computed before calling `make_copy`, which may reallocate `tree`.
     void set_left(int position, int result) { tree[position].ch[0] = result; }
@@ -168,88 +147,6 @@ struct persistent_basic_seg_tree {
         return _update_tree(root, 0, tree_n, index, [&](int position, int) -> void {
             seg(position) = new_seg;
         });
-    }
-
-    // Removes all updates starting from `root` or later from the tree.
-    void undo_updates(int root) {
-        assert(root >= 2 * tree_n && root <= int(tree.size()));
-        tree.resize(root);
-    }
-
-    vector<segment> to_array(int root) const {
-        assert(root > 0);
-        vector<int> level = {root};
-
-        while (left(level.front()) >= 0) {
-            vector<int> new_level;
-            new_level.reserve(2 * level.size());
-
-            for (int x : level) {
-                new_level.push_back(left(x));
-                new_level.push_back(right(x));
-            }
-
-            swap(level, new_level);
-        }
-
-        vector<segment> segs(level.size());
-
-        for (int i = 0; i < int(level.size()); i++)
-            segs[i] = seg(level[i]);
-
-        return segs;
-    }
-
-    // Finds the end of the last subarray starting at `first` satisfying `should_join` via binary search in O(log n).
-    template<typename T_bool>
-    int find_last_subarray(int root, T_bool &&should_join, int n, int first = 0) const {
-        assert(root > 0 && 0 <= first && first <= n);
-        segment current;
-
-        // Check the degenerate case.
-        if (!should_join(current, current))
-            return first - 1;
-
-        return y_combinator([&](auto search, int position, int start, int end) -> int {
-            if (end <= first) {
-                return end;
-            } else if (first <= start && end <= n && should_join(current, seg(position))) {
-                current.join(seg(position));
-                return end;
-            } else if (end - start == 1) {
-                return start;
-            }
-
-            int mid = (start + end) / 2;
-            int x = search(left(position), start, mid);
-            return x < mid ? x : search(right(position), mid, end);
-        })(root, 0, tree_n);
-    }
-
-    template<typename T_bool>
-    int find_last_subarray_two_roots(int root0, int root1, T_bool &&should_join, int n, int first = 0) const {
-        assert(root0 > 0 && root1 > 0 && 0 <= first && first <= n);
-        segment current0, current1;
-
-        // Check the degenerate case.
-        if (!should_join(current0, current0, current1, current1))
-            return first - 1;
-
-        return y_combinator([&](auto search, int position0, int position1, int start, int end) -> int {
-            if (end <= first) {
-                return end;
-            } else if (first <= start && end <= n && should_join(current0, seg(position0), current1, seg(position1))) {
-                current0.join(seg(position0));
-                current1.join(seg(position1));
-                return end;
-            } else if (end - start == 1) {
-                return start;
-            }
-
-            int mid = (start + end) / 2;
-            int x = search(left(position0), left(position1), start, mid);
-            return x < mid ? x : search(right(position0), right(position1), mid, end);
-        })(root0, root1, 0, tree_n);
     }
 };
 
