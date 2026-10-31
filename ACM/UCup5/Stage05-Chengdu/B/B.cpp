@@ -1173,7 +1173,7 @@ int main() {
 		assert(B != 0);
 		// Since B != 0, there's a unique Y for each X on the line, so we can just use X coordinates of intersections
 		using pt_t = wala::Point<int64_t>;
-		auto signum = [](auto x) -> int { return (x > 0) - (x < 0); }
+		auto signum = [](auto x) -> int { return (x > 0) - (x < 0); };
 		std::array<pt_t, 4> square;
 		square[0] = {X0 + T, Y0};
 		square[1] = {X0, Y0 + T};
