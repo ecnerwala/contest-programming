@@ -899,7 +899,7 @@ int main() {
 						if (s != signum(cross3(cnds[i].p, cnds[j].p, C))) continue;
 						if (s != signum(cross3(cnds[i].p, C, cnds[k].p))) continue;
 						if (s != signum(cross3(C, cnds[j].p, cnds[k].p))) continue;
-						return wala::vec<int>{{cnds[i].idx, cnds[j].idx, cnds[k].idx}};
+						return wala::vec<int>{cnds[i].idx, cnds[j].idx, cnds[k].idx};
 					}
 				}
 			}
