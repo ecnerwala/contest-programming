@@ -1047,7 +1047,7 @@ int main() {
 		assert(1 <= Y0 && Y0 <= N);
 		X0--, Y0--, C += A + B;
 		N--;
-		assert(0 <= X0 && X0 <= N-1);
+		assert(0 <= X0 && X0 <= N);
 	};
 
 	int CASES; std::cin >> CASES;
