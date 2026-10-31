@@ -4384,6 +4384,7 @@ int main() {
 			num denom = inv(num(i+1));
 			prods[layout.get_point(i)] = {denom, denom - num(1)};
 		}
+		for (int i = 0; i < N; i++) {
 	}
 
 	return 0;
