@@ -1186,6 +1186,7 @@ int main() {
 			v %= 2 * N;
 			if (v < 0) v += 2 * N;
 			if (v > N) v = 2 * N - v;
+			return v;
 		};
 		auto normalize_pt = [&](pt_t a) -> pt_t {
 			a.x %= 2 * N;
