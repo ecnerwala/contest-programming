@@ -1215,6 +1215,8 @@ int main() {
 				int64_t steps = va / vdir;
 				if (steps < 0 || steps > l) return;
 				pt_t inter = a + dir * steps;
+				x_evts.push_back({inter.x, +1});
+				x_evts.push_back({inter.x+1, -1});
 			}
 		};
 
