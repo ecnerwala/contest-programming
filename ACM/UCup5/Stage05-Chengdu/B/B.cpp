@@ -1199,7 +1199,7 @@ int main() {
 			a = normalize_pt(a);
 			b = normalize_pt(b);
 			// Now, just intersect this line
-			pt_t dir = en - st;
+			pt_t dir = b - a;
 			dir.x = signum(dir.x);
 			dir.y = signum(dir.y);
 			assert(en - st == (dir * T));
