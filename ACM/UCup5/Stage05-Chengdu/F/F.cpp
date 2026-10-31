@@ -4035,8 +4035,8 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
-		std::string S; std::cin >> S;
-		auto sa = wala::SuffixArrayLCP::shift_and_construct(S);
+		std::string STR; std::cin >> STR;
+		auto sa = wala::SuffixArrayLCP::shift_and_construct(STR);
 		auto ct = wala::CartesianTree::build_min_tree(sa.lcp);
 		std::array<wala::bounded_vec<int64_t>, 2> subtree_sizes{
 			wala::bounded_vec<int64_t>(wala::with_capacity{2*N+1}),
