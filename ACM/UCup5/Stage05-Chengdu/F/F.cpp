@@ -3620,7 +3620,9 @@ int main() {
 		using series = wala::series::trunc<E>;
 		using poly = wala::poly::vec<E>;
 		
-		wala::vec<poly>
+		for (int z = 0; z < 2; z++) {
+			wala::vec<poly>
+		}
 
 		// Now, we convert adds to newton sums and likewise subs
 	}
