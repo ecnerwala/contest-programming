@@ -3614,6 +3614,7 @@ int main() {
 		}(ct.root, 0);
 		assert(adds.capacity() == adds.size());
 		assert(subs.capacity() == subs.size());
+		std::array<wala::vec<int64_t>> ;
 		// Now, we convert adds to newton sums and likewise subs
 	}
 
