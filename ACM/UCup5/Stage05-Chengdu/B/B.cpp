@@ -1051,6 +1051,7 @@ int main() {
 		assert(0 <= Y0 && Y0 <= N);
 		if (A <= 0 && B <= 0) {
 			A = -A, B = -B, C = -C;
+			assert(A >= 0 && B >= 0);
 		}
 	};
 
