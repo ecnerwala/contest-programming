@@ -3622,7 +3622,7 @@ int main() {
 		using poly = wala::poly::vec<E>;
 		
 		for (int z = 0; z < 2; z++) {
-			wala::vec<exact> prods;
+			wala::vec<exact> prods(subtree_sizes[z].size() * 2);
 		}
 
 		// Now, we convert adds to newton sums and likewise subs
