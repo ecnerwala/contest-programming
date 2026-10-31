@@ -1270,8 +1270,6 @@ int main() {
 			if (prv_has) {
 				ans += x - prv_x;
 			}
-			if (pref == 0) {
-			}
 		}
 		assert(pref == 0);
 	};
