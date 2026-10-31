@@ -850,6 +850,7 @@ int main() {
 		assert(int(upper.size()) >= 2);
 
 		int tot_hull = int(lower.size()) + int(upper.size()) - 2;
+		wala::vec<poly_t> hull(tot_hull);
 		std::optional<poly_t> off_diag_pt;
 		if (tot_hull == 4) {
 			std::array<poly_t, 4> hull;
