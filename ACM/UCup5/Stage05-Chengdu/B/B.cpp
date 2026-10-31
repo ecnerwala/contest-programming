@@ -1263,9 +1263,13 @@ int main() {
 		int64_t prv_x = 0;
 		bool prv_has = false;
 
+		int64_t ans = 0;
 		for (int i = 0, j = 0; i < x_evts.size(); i = j) {
 			int64_t x = x_evts[i].first;
 			while (j < x_evts.size() && x_evts[j].first == x) pref += x_evts[j++].second;
+			if (prv_has) {
+				ans += x - prv_x;
+			}
 			if (pref == 0) {
 			}
 		}
