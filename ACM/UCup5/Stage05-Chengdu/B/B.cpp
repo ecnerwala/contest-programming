@@ -1317,6 +1317,7 @@ int main() {
 		auto mine = solve(N, X0, Y0, A, B, C, T);
 		if (ans != mine) {
 			std::cerr << N << ' ' << X0 << ' ' << Y0 << ' ' << A << ' ' << B << ' ' << C << ' ' << T << '\n';
+			std::cerr << ans << '\n';
 			std::cerr << mine << '\n';
 		}
 		assert(ans == mine);
