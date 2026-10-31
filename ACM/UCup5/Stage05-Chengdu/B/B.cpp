@@ -1221,7 +1221,7 @@ int main() {
 				assert(e < s);
 				int64_t v = s % N;
 				if (v < 0) v += N;
-				v = std::min(v, s - e);
+				return std::min(v, s - e);
 			};
 			assert(en != st);
 			while (en != st) {
