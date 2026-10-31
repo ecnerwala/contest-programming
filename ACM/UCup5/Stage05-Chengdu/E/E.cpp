@@ -885,7 +885,6 @@ int main() {
 
 			wala::bounded_vec<poly_t> cnds(wala::with_capacity{11});
 			{
-				int cnt = 2;
 				auto lo = std::prev(lower_it);
 				auto hi = std::next(lower_it);
 				while (hi - lo < 5) {
