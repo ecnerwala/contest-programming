@@ -896,6 +896,18 @@ int main() {
 				}
 				cnds.append_range(std::ranges::subrange{lo, hi});
 			}
+			{
+				auto lo = std::prev(lower_it);
+				auto hi = std::next(lower_it);
+				while (hi - lo < 5) {
+					if (hi == lower.end()) {
+						if (lo == lower.begin()) {
+							break;
+						} else --lo;
+					} else ++hi;
+				}
+				cnds.append_range(std::ranges::subrange{lo, hi});
+			}
 			cnds.push_back(*std::prev(lower_it));
 			cnds.push_back(*lower_it);
 			if (lower_it->p.x == C.x) cnds.push_back(*std::next(lower_it));
