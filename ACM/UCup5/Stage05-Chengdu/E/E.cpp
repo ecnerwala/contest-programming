@@ -832,7 +832,8 @@ int main() {
 		wala::vec<pt_t> P(N);
 		for (auto& p : P) std::cin >> p;
 
-		wala::vec<int> pts(N);
+		wala::vec<int> ids(N);
+		std::ranges::iota(ids, 0);
 	}
 
 	return 0;
