@@ -1271,6 +1271,7 @@ int main() {
 			if (prv_has) {
 				ans += x - prv_x;
 			}
+			prv_x = x;
 			prv_has = pref > 0;
 		}
 		assert(pref == 0);
