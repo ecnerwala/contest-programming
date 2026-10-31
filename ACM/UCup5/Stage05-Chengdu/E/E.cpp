@@ -880,6 +880,9 @@ int main() {
 			assert(lower_it != lower.begin());
 			assert(upper_it != upper.end());
 			assert(upper_it != upper.begin());
+
+			if (lower_it->p.x == C.x) {
+			}
 		};
 
 		for (int q = 0; q < Q; q++) {
