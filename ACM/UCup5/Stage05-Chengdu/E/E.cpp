@@ -908,6 +908,7 @@ int main() {
 			if (tot_hull == 4 && !off_diag_pt) {
 				// Check the hull
 				for (int i = 0; i < 4; i++) {
+					if (cross3(hull[i].p, hull[(i+1)%4].p, C) <= 0) return std::nullopt;
 				}
 			}
 		};
