@@ -1163,6 +1163,7 @@ int main() {
 		if (T == 0) {
 			return (A * X0 + B * Y0 + C == 0) ? 1 : 0;
 		}
+		assert(T >= 1);
 		assert(1 <= X0 && X0 <= N);
 		assert(1 <= Y0 && Y0 <= N);
 		X0--, Y0--, C += A + B;
