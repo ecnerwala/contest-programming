@@ -1053,6 +1053,7 @@ int main() {
 			std::swap(A, B);
 			std::swap(X0, Y0);
 		}
+		assert(B != 0);
 	};
 
 	int CASES; std::cin >> CASES;
