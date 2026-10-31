@@ -881,13 +881,13 @@ int main() {
 			assert(upper_it != upper.end());
 			assert(upper_it != upper.begin());
 
-			wala::bounded_vec<poly_t> cnds(wala::with_capacity{6});
+			wala::bounded_vec<poly_t> cnds(wala::with_capacity{7});
 			cnds.push_back(*std::prev(lower_it));
 			cnds.push_back(*lower_it);
 			if (lower_it->p.x == C.x) cnds.push_back(*std::next(lower_it));
-			cnds.push_back(*std::prev(lower_it));
-			cnds.push_back(*lower_it);
-			if (lower_it->p.x == C.x) cnds.push_back(*std::next(lower_it));
+			cnds.push_back(*std::prev(upper_it));
+			cnds.push_back(*upper_it);
+			if (upper_it->p.x == C.x) cnds.push_back(*std::next(upper_it));
 		};
 
 		for (int q = 0; q < Q; q++) {
