@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-#if 1 // region https://github.com/ecnerwala/cp-book (`scripts/bundle.py src/containers/vec.hpp src/geometry/point.hpp`)
+#if 1 // region https://github.com/ecnerwala/cp-book (`scripts/bundle.py containers/vec.hpp geometry/point.hpp`)
 #include <algorithm>
 #include <concepts>
 #include <cstdlib>
