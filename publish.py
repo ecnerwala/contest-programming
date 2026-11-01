@@ -11,7 +11,8 @@ published.
 Without --push, rewrites history into $GIT_DIR/publish.git with
 git-filter-repo, fetches <remote> master there, and prints the diffstat;
 nothing is pushed. With --push, force-pushes the reviewed result to <remote>
-master (with a lease on the fetched commit).
+master (with a lease on the fetched commit), via a temporary ref so that only
+blobs the remote lacks are sent.
 
 Usage:
   publish.py [--remote REMOTE]          # remote name or URL; default: public
@@ -162,9 +163,16 @@ def main() -> None:
     if not args.push:
         build(args.remote, target)
         return
-    lease = git('-C', str(target), 'rev-parse', PUBLIC_REF).strip()
-    subprocess.run(['git', '-C', str(target), 'push', f'--force-with-lease=master:{lease}',
-                    remote_url(args.remote), 'HEAD:master'], check=True)
+    url = remote_url(args.remote)
+    tgt = ['-C', str(target)]
+    lease = git(*tgt, 'rev-parse', PUBLIC_REF).strip()
+    # The rewrite shares no commits with the old master, so pushing HEAD alone would
+    # resend every blob the remote already has (pack-objects only skips the trees of
+    # edge commits). A throwaway merge makes the old master an edge.
+    tmp = git(*tgt, 'commit-tree', 'HEAD^{tree}', '-p', 'HEAD', '-p', lease, '-m', 'publish.py').strip()
+    subprocess.run(['git', *tgt, 'push', '-q', url, f'+{tmp}:refs/heads/publish-tmp'], check=True)
+    subprocess.run(['git', *tgt, 'push', f'--force-with-lease=master:{lease}', url, 'HEAD:master'], check=True)
+    subprocess.run(['git', *tgt, 'push', '-q', url, ':refs/heads/publish-tmp'], check=True)
 
 
 if __name__ == '__main__':
