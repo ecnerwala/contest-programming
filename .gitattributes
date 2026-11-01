@@ -5,3 +5,6 @@ IOI2020/day1/plants.zip filter=lfs diff=lfs merge=lfs -text
 IOI2020/day1/tickets.zip filter=lfs diff=lfs merge=lfs -text
 IOI2021/day1/parks-CMS.zip filter=lfs diff=lfs merge=lfs -text
 IOI2023/day2.zip filter=lfs diff=lfs merge=lfs -text
+*_gd.html linguist-generated
+testlib.h linguist-vendored
+Makefile -linguist-detectable
