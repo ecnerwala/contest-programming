@@ -31,7 +31,6 @@ int main() {
 					indeg[j]--;
 					assert(indeg[j] >= 0);
 					if (indeg[j] == 0) {
-						cnt[j]++;
 						q.push_back(j);
 					}
 				}
