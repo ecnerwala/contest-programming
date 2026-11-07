@@ -2895,6 +2895,7 @@ int main() {
 	while (T--) {
 		int N, K; std::cin >> N >> K;
 		using num = wala::modnum<998244353>;
+		using E = wala::fft::engines::ntt<num>;
 	}
 
 	return 0;
