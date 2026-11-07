@@ -2920,7 +2920,7 @@ int main() {
 			den = ps_inv(den);
 			den *= den;
 			trunc r = c * c - c;
-			if (K >= 1) r[1] -= 1;
+			r[1] -= num(1);
 		}() << '\n';
 	}
 
