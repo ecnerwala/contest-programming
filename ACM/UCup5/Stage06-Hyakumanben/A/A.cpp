@@ -2894,6 +2894,8 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, K; std::cin >> N >> K;
+		if (K == 1) {
+		}
 		using num = wala::modnum<998244353>;
 		using E = wala::fft::engines::ntt<num>;
 		using trunc = wala::series::trunc<E>;
