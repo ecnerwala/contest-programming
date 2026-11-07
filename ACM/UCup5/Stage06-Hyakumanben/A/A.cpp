@@ -2917,9 +2917,7 @@ int main() {
 			for (int i = 1; i <= K; i++) {
 				c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
 			}
-			trunc den(N+1);
-			den[0] = 1;
-			den -= c;
+			trunc den = one - c;
 			den = ps_inv(den);
 			trunc r = c * c - c;
 			r[1] += num(1);
