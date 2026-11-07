@@ -64,7 +64,7 @@ int main() {
 					}
 				}
 				std::swap(q0, q1);
-				q0.clear();
+				q1.clear();
 			}
 			for (int i = 0; i < N; i++) if (dist[i] == -1) return -1;
 			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
