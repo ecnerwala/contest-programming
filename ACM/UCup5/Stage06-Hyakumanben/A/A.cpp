@@ -2963,7 +2963,7 @@ int main() {
 
 
 	auto solve = [&](int N, int K) -> num {
-		assert(1 <= K && K <= N);
+		assert(1 <= K && K < N);
 		if (K == 1) {
 			return 1;
 		}
