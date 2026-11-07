@@ -3004,7 +3004,7 @@ int main() {
 				}
 			}
 			s.insert(cnt);
-		} while (std::next_permutation(perm.begin(), perm.end());
+		} while (std::next_permutation(perm.begin(), perm.end()));
 		return int(s.size());
 	};
 
