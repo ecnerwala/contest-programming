@@ -38,6 +38,7 @@ int main() {
 				}
 			}
 			// Now, everything with nonzero indeg is a source
+			std::vector<int> dist(N);
 		}() << '\n';
 	}
 
