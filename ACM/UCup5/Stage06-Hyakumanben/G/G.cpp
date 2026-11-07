@@ -39,23 +39,13 @@ int main() {
 			}
 			// Now, everything with nonzero indeg is a source
 			std::vector<int> dist(N, -1);
-			std::vector<int> q1; q1.reserve(N);
+			std::vector<int> q0; q0.reserve(N);
 			for (int i = 0; i < N; i++) if (indeg[i]) {
 				dist[i] = 0;
 				q0.push_back(i);
 			}
-			for (int d = 0; !q0.empty(); d++) {
-				for (int z = 0; z < int(q0.size()); z++) {
-					int i = q0[z];
-					assert(dist[i] != -1 && dist[i] <= d);
-					if (dist[i] < d) continue;
-					for (int j : outedges[i]) {
-						if (dist[j] < i) {
-						}
-					}
-				}
-				std::swap(q0, q1);
-				q0.clear();
+			for (int z = 0; z < int(q0.size()); z++) {
+				int i = q[z];
 			}
 			for (int i = 0; i < N; i++) if (dist[i] == -1) return -1;
 			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
