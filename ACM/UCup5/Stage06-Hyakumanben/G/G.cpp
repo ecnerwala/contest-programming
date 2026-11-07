@@ -45,6 +45,8 @@ int main() {
 				dist[i] = 0;
 				q0.push_back(i);
 			}
+			for (int d = 0; !q0.empty(); d++) {
+			}
 			for (int i = 0; i < N; i++) if (dist[i] == -1) return -1;
 			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
 		}() << '\n';
