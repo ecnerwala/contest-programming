@@ -2911,6 +2911,7 @@ int main() {
 			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
 			if (i > 1) den[i] = c[i];
 		}
+		den = ps_inv(den);
 		trunc r = c * c - c;
 	}
 
