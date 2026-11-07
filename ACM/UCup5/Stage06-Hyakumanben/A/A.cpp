@@ -2905,7 +2905,7 @@ int main() {
 		ifact[2*N] = inv(fact[2*N]);
 		for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-		trunc ps(N+1);
+		trunc c(N+1);
 		for (int i = 0; i < N; i++) {
 		}
 	}
