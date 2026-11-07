@@ -2985,10 +2985,7 @@ int main() {
 		}
 		trunc den = ps_log(one - c);
 		trunc num = ps_log(one - c - x);
-		trunc r = c * c - c;
-		r[1] += num(1);
-		r *= den * den;
-		r = ps_log(one - r);
+		2 * den[N] - num[N]
 		return -r[N] * num(N);
 	};
 	auto slow = [&](int N, int K) -> num {
