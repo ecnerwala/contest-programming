@@ -3005,7 +3005,7 @@ int main() {
 			}
 			s.insert(cnt);
 		} while (std::next_permutation(perm.begin(), perm.end());
-		return s;
+		return int(s.size());
 	};
 
 	int T; std::cin >> T;
