@@ -8,11 +8,12 @@ int main() {
 	while (T--) {
 		int N, M; std::cin >> N >> M;
 		std::vector<std::vector<int>> outedges(N);
+		std::vector<std::vector<int>> inedges(N);
 		std::vector<int> indeg(N, 0);
 		for (int e = 0; e < M; e++) {
 			int u, v; std::cin >> u >> v; u--, v--;
-			edges[u].push_back(v);
-			edges[v].push_back(u);
+			outedges[u].push_back(v);
+			inedges[v].push_back(u);
 			indeg[v]++;
 		}
 		std::cout << [&]() -> int {
