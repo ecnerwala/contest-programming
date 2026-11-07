@@ -2983,7 +2983,7 @@ int main() {
 		for (int i = 1; i <= K-1; i++) {
 			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
 		}
-		return (2 * ps_log(one - c)[N] - ps_log(one - c - x)[N]) * num(N);
+		return (2 * deriv_shift_log(one - c)[N] - deriv_shift_log(one - c - x)[N]);
 	};
 	auto slow = [&](int N, int K) -> num {
 		std::vector<int> perm(N);
