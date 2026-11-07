@@ -50,6 +50,11 @@ int main() {
 					int i = q0[z];
 					assert(dist[i] != -1 && dist[i] <= d);
 					if (dist[i] != d) continue;
+					for (int j : outedges[i]) {
+						if (dist[j] == -1 || d < dist[j]) {
+							dist[j] = d;
+						}
+					}
 					for (int j : inedges[i]) {
 						if (dist[j] == -1) {
 							dist[j] = dist[i]+1;
