@@ -10,7 +10,7 @@ int main() {
 		std::vector<std::vector<int>> outedges(N);
 		std::vector<int> indeg(N, 0);
 		for (int e = 0; e < M; e++) {
-			int u, v; std:::cin >> u >> v; u--, v--;
+			int u, v; std::cin >> u >> v; u--, v--;
 			outedges[u].push_back(v);
 			indeg[v]++;
 		}
