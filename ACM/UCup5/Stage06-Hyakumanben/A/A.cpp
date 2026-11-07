@@ -2957,37 +2957,37 @@ S::engine_t::value_type kth_term_of_linear_recurrence(
 
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
-		using num = wala::modnum<998244353>;
-		using E = wala::fft::engines::ntt<num>;
-		using trunc = wala::series::trunc<E>;
+	using num = wala::modnum<998244353>;
+	using E = wala::fft::engines::ntt<num>;
+	using trunc = wala::series::trunc<E>;
 
 
-		auto solve = [&]() -> num {
-			if (K == 1) {
-				return 1;
-			}
+	auto solve = [&]() -> num {
+		if (K == 1) {
+			return 1;
+		}
 
-			trunc fact(2*N+1);
-			fact[0] = 1;
-			for (int i = 1; i <= 2*N; i++) fact[i] = fact[i-1] * num(i);
-			trunc ifact(2*N+1);
-			ifact[2*N] = inv(fact[2*N]);
-			for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+		trunc fact(2*N+1);
+		fact[0] = 1;
+		for (int i = 1; i <= 2*N; i++) fact[i] = fact[i-1] * num(i);
+		trunc ifact(2*N+1);
+		ifact[2*N] = inv(fact[2*N]);
+		for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-			trunc one(N+1);
-			one[0] = 1;
+		trunc one(N+1);
+		one[0] = 1;
 
-			trunc c(N+1);
-			for (int i = 1; i <= K; i++) {
-				c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
-			}
-			trunc den = ps_inv(one - c);
-			trunc r = c * c - c;
-			r[1] += num(1);
-			r *= den * den;
-			r = ps_log(one - r);
-			return -r[N] * num(N);
-		}() << '\n';
+		trunc c(N+1);
+		for (int i = 1; i <= K; i++) {
+			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
+		}
+		trunc den = ps_inv(one - c);
+		trunc r = c * c - c;
+		r[1] += num(1);
+		r *= den * den;
+		r = ps_log(one - r);
+		return -r[N] * num(N);
+	};
 
 	int T; std::cin >> T;
 	while (T--) {
