@@ -2977,6 +2977,7 @@ int main() {
 
 		trunc one(N+1);
 		one[0] = 1;
+		trunc x = one; x.shift_trunc(1);
 
 		trunc c(N+1);
 		for (int i = 1; i <= K-1; i++) {
