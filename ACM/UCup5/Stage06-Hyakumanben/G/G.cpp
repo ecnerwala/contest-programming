@@ -21,6 +21,7 @@ int main() {
 			if (!indeg[i]) q.push_back(i);
 		}
 		for (int z = 0; z < int(q.size()); z++) {
+			int v = q[z];
 		}
 	}
 
