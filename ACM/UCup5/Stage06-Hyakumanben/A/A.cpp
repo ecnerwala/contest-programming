@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-#if 1 // region https://github.com/ecnerwala/cp-book (`scripts/bundle.py fft/engines/ntt.hpp fft/poly.hpp`)
+#if 1 // region https://github.com/ecnerwala/cp-book (`scripts/bundle.py fft/engines/ntt.hpp fft/series.hpp`)
 #include <algorithm>
 #include <cassert>
 #include <span>
