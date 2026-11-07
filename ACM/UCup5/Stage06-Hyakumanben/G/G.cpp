@@ -37,6 +37,8 @@ int main() {
 						q.push_back(j);
 					}
 				}
+				if (indeg[i] == 0) {
+				}
 			}
 			return int(q.size());
 		}() << '\n';
