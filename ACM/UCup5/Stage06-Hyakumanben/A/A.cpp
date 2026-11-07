@@ -2979,7 +2979,7 @@ int main() {
 		one[0] = 1;
 
 		trunc c(N+1);
-		for (int i = 1; i <= K; i++) {
+		for (int i = 1; i <= K-1; i++) {
 			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
 		}
 		trunc den = ps_inv(one - c);
