@@ -2993,11 +2993,13 @@ int main() {
 		std::vector<int> perm(N);
 		std::iota(perm.begin(), perm.end(), 0);
 		do {
+			std::vector<int> cnt(N);
 			for (int i = 0; i < N; i++) {
 				std::pair<int, int> cur(perm[i], i);
 				for (int j = 0; j < K; j++) {
 					std::pair<int, int> cnd(perm[(i+j)%N], (i+j)%N);
 					cur = std::min(cur, cnd);
+					cnt[cur.second++];
 				}
 			}
 		} while (std::next_permutation(perm.begin(), perm.end());
