@@ -6,7 +6,7 @@ int main() {
 
 	int T; std::cin >> T;
 	while (T--) {
-		int N, M; std::cin >> N >> m;
+		int N, M; std::cin >> N >> M;
 	}
 
 	return 0;
