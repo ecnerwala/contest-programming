@@ -24,6 +24,7 @@ int main() {
 					q.push_back(i);
 				}
 			}
+			int ans = 0;
 			for (int z = 0; z < int(q.size()); z++) {
 				int i = q[z];
 				assert(indeg[i] == 0);
