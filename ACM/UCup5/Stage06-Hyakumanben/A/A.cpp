@@ -2907,6 +2907,7 @@ int main() {
 
 		trunc c(N+1);
 		for (int i = 1; i <= K; i++) {
+			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
 		}
 	}
 
