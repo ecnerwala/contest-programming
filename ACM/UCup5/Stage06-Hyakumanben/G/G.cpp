@@ -20,7 +20,6 @@ int main() {
 			std::vector<int> q; q.reserve(N+1);
 			for (int i = 0; i < N; i++) {
 				if (!indeg[i]) {
-					cnt[i]++;
 					q.push_back(i);
 				}
 			}
