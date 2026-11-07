@@ -3010,7 +3010,9 @@ int main() {
 
 	for (int N = 2; N <= 8; N++) {
 		for (int K = 1; K <= N-1; K++) {
-			int a = slow(N, K);
+			num a = slow(N, K);
+			num b = solve(N, K);
+			std::cerr << N << ' ' << K << ' ' << a << ' ' << b << '\n';
 		}
 	}
 
