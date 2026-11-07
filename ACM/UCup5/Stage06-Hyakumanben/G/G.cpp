@@ -47,6 +47,9 @@ int main() {
 			}
 			for (int d = 0; !q0.empty(); d++) {
 				for (int z = 0; z < int(q0.size()); z++) {
+					int i = q0[z];
+					assert(dist[i] != -1 && dist[i] <= d);
+					if (dist[i] < d) continue;
 				}
 				std::swap(q0, q1);
 				q0.clear();
