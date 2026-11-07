@@ -49,6 +49,7 @@ int main() {
 				for (int j : inedges[i]) {
 					if (dist[j] == -1) {
 						dist[j] = dist[i]+1;
+						q0.push_back(j);
 					}
 				}
 			}
