@@ -2898,7 +2898,9 @@ int main() {
 		using E = wala::fft::engines::ntt<num>;
 		using trunc = wala::series::trunc<E>;
 
+		std::cout << [&]() -> num {
 		if (K == 1) {
+			return 1;
 		}
 
 		trunc fact(2*N+1);
@@ -2919,6 +2921,7 @@ int main() {
 		den *= den;
 		trunc r = c * c - c;
 		if (K >= 1) r[1] -= 1;
+		}() << '\n';
 	}
 
 	return 0;
