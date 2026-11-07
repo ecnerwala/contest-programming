@@ -2913,6 +2913,7 @@ int main() {
 		den[0] = 1;
 		den -= c;
 		den = ps_inv(den);
+		den *= den;
 		trunc r = c * c - c;
 	}
 
