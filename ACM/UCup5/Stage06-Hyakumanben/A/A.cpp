@@ -2985,8 +2985,7 @@ int main() {
 		}
 		trunc den = ps_log(one - c);
 		trunc num = ps_log(one - c - x);
-		2 * den[N] - num[N]
-		return -r[N] * num(N);
+		return (2 * den[N] - num[N]) * num(N);
 	};
 	auto slow = [&](int N, int K) -> num {
 		std::vector<int> perm(N);
