@@ -51,6 +51,8 @@ int main() {
 					assert(dist[i] != -1 && dist[i] <= d);
 					if (dist[i] < d) continue;
 					for (int j : outedges[i]) {
+						if (dist[j] < i) {
+						}
 					}
 				}
 				std::swap(q0, q1);
