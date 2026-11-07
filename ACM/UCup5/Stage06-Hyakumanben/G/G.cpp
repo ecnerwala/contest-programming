@@ -28,6 +28,7 @@ int main() {
 				int i = q[z];
 				assert(indeg[i] == 0);
 				for (int j : edges[i]) {
+					assert(j != i);
 					indeg[i]++;
 					indeg[j]--;
 				}
