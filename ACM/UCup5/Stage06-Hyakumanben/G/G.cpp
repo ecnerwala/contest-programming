@@ -15,17 +15,19 @@ int main() {
 			edges[v].push_back(u);
 			indeg[v]++;
 		}
-		std::vector<int> q; q.reserve(N+1);
-		std::vector<int> cnt(N, 0);
-		for (int i = 0; i < N; i++) {
-			if (!indeg[i]) {
-				cnt[i]++;
-				q.push_back(i);
+		std::cout << [&]() -> int {
+			std::vector<int> q; q.reserve(N+1);
+			std::vector<int> cnt(N, 0);
+			for (int i = 0; i < N; i++) {
+				if (!indeg[i]) {
+					cnt[i]++;
+					q.push_back(i);
+				}
 			}
-		}
-		for (int z = 0; z < int(q.size()); z++) {
-			int v = q[z];
-		}
+			for (int z = 0; z < int(q.size()); z++) {
+				int v = q[z];
+			}
+		}() << '\n';
 	}
 
 	return 0;
