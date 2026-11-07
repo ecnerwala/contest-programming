@@ -2992,10 +2992,8 @@ int main() {
 	auto slow = [&](int N, int K) -> num {
 		std::vector<int> perm(N);
 		std::iota(perm.begin(), perm.end(), 0);
-		for (int i = 0; i < N; i++) {
-		}
-		for (int i = 0; i < N; i++) {
-		}
+		do {
+		} while (std::next_permutation(perm.begin(), perm.end());
 	};
 
 	int T; std::cin >> T;
