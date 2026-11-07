@@ -17,21 +17,23 @@ int main() {
 			indeg[v]++;
 		}
 		std::cout << [&]() -> int {
-			std::vector<int> q; q.reserve(N+1);
-			for (int i = 0; i < N; i++) {
-				if (!indeg[i]) {
-					q.push_back(i);
+			{
+				std::vector<int> q; q.reserve(N+1);
+				for (int i = 0; i < N; i++) {
+					if (!indeg[i]) {
+						q.push_back(i);
+					}
 				}
-			}
-			for (int z = 0; z < int(q.size()); z++) {
-				int i = q[z];
-				assert(indeg[i] == 0);
-				for (int j : outedges[i]) {
-					assert(j != i);
-					indeg[j]--;
-					assert(indeg[j] >= 0);
-					if (indeg[j] == 0) {
-						q.push_back(j);
+				for (int z = 0; z < int(q.size()); z++) {
+					int i = q[z];
+					assert(indeg[i] == 0);
+					for (int j : outedges[i]) {
+						assert(j != i);
+						indeg[j]--;
+						assert(indeg[j] >= 0);
+						if (indeg[j] == 0) {
+							q.push_back(j);
+						}
 					}
 				}
 			}
