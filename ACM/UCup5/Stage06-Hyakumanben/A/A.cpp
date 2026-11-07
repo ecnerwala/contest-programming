@@ -2989,6 +2989,7 @@ int main() {
 			r[1] += num(1);
 			r *= den * den;
 			r = one - ps_log(one - r);
+			return r[N];
 		}() << '\n';
 	}
 
