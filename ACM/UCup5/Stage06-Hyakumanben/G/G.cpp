@@ -11,7 +11,7 @@ int main() {
 		std::vector<int> indeg(N, 0);
 		for (int e = 0; e < M; e++) {
 			int u, v; std::cin >> u >> v; u--, v--;
-			outedges[u].push_back(v);
+			edges[u].push_back(v);
 			indeg[v]++;
 		}
 		std::vector<int> q; q.reserve(N);
