@@ -50,6 +50,8 @@ int main() {
 					int i = q0[z];
 					assert(dist[i] != -1 && dist[i] <= d);
 					if (dist[i] < d) continue;
+					for (int j : outedges[i]) {
+					}
 				}
 				std::swap(q0, q1);
 				q0.clear();
