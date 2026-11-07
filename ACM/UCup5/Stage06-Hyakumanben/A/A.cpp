@@ -3008,6 +3008,12 @@ int main() {
 		return int(s.size());
 	};
 
+	for (int N = 2; N <= 8; N++) {
+		for (int K = 1; K <= N-1; K++) {
+			slow(N, k);
+		}
+	}
+
 	int T; std::cin >> T;
 	while (T--) {
 		int N, K; std::cin >> N >> K;
