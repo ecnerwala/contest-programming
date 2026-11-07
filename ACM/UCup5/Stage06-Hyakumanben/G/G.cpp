@@ -16,7 +16,7 @@ int main() {
 			inedges[v].push_back(u);
 			indeg[v]++;
 		}
-		std::cout << [&]() -> int {
+		std::cout << [&]() -> int64_t {
 			{
 				std::vector<int> q; q.reserve(N+1);
 				for (int i = 0; i < N; i++) {
@@ -39,6 +39,7 @@ int main() {
 			}
 			// Now, everything with nonzero indeg is a source
 			std::vector<int> dist(N);
+			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
 		}() << '\n';
 	}
 
