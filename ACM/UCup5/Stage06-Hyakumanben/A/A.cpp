@@ -2909,7 +2909,7 @@ int main() {
 		for (int i = 1; i <= K; i++) {
 			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
 		}
-		trunc den = c;
+		trunc den = -c;
 		trunc r = c * c - c;
 	}
 
