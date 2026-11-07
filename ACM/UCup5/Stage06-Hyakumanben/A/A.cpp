@@ -2962,7 +2962,8 @@ int main() {
 	using trunc = wala::series::trunc<E>;
 
 
-	auto solve = [&]() -> num {
+	auto solve = [&](int N, int K) -> num {
+		assert(1 <= K && K <= N);
 		if (K == 1) {
 			return 1;
 		}
