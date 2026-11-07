@@ -46,6 +46,11 @@ int main() {
 			}
 			for (int z = 0; z < int(q0.size()); z++) {
 				int i = q0[z];
+				for (int j : inedges[i]) {
+					if (dist[j] == -1) {
+						dist[j] = dist[i]+1;
+					}
+				}
 			}
 			for (int i = 0; i < N; i++) if (dist[i] == -1) return -1;
 			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
