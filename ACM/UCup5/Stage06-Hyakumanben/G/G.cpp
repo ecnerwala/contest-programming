@@ -41,7 +41,10 @@ int main() {
 			std::vector<int> dist(N, -1);
 			std::vector<int> q0; q0.reserve(N);
 			std::vector<int> q1; q1.reserve(N);
-			for (int i = 0; i < N; i++) if (indeg[i]) dist[i] = 0;
+			for (int i = 0; i < N; i++) if (indeg[i]) {
+				dist[i] = 0;
+				q0.push_back(i);
+			}
 			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
 		}() << '\n';
 	}
