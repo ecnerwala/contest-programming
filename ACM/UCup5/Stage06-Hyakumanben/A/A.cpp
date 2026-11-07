@@ -2989,10 +2989,13 @@ int main() {
 		r = ps_log(one - r);
 		return -r[N] * num(N);
 	};
+	auto slow = [&](int N, int K) -> num {
+	};
 
 	int T; std::cin >> T;
 	while (T--) {
 		int N, K; std::cin >> N >> K;
+		std::cout << solve(N, K) << '\n';
 	}
 
 	return 0;
