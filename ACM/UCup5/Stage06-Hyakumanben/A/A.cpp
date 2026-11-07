@@ -2990,6 +2990,7 @@ int main() {
 		return -r[N] * num(N);
 	};
 	auto slow = [&](int N, int K) -> num {
+		for (int i = 1; i < N; i++) {
 	};
 
 	int T; std::cin >> T;
