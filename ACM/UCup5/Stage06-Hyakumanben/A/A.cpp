@@ -3000,7 +3000,7 @@ int main() {
 				for (int j = 0; j < K; j++) {
 					std::pair<int, int> cnd(perm[(i+j)%N], (i+j)%N);
 					cur = std::min(cur, cnd);
-					cnt[cur.second++];
+					cnt[cur.second]++;
 				}
 			}
 			s.insert(cnt);
