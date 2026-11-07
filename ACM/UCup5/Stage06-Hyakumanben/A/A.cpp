@@ -2898,6 +2898,9 @@ int main() {
 		using E = wala::fft::engines::ntt<num>;
 		using trunc = wala::series::trunc<E>;
 
+		if (K == 1) {
+		}
+
 		trunc fact(2*N+1);
 		fact[0] = 1;
 		for (int i = 1; i <= 2*N; i++) fact[i] = fact[i-1] * num(i);
