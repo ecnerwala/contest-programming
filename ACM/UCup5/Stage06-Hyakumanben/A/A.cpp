@@ -2921,7 +2921,7 @@ int main() {
 			trunc r = c * c - c;
 			r[1] += num(1);
 			r *= den * den;
-			ps_log(1 - r);
+			ps_log(one - r);
 		}() << '\n';
 	}
 
