@@ -38,6 +38,7 @@ int main() {
 					}
 				}
 				if (indeg[i] == 0) {
+					return -1;
 				}
 			}
 			return int(q.size());
