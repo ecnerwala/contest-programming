@@ -2990,7 +2990,8 @@ int main() {
 		return -r[N] * num(N);
 	};
 	auto slow = [&](int N, int K) -> num {
-		for (int i = 1; i < N; i++) {
+		std::vector<int> perm(N);
+		for (int i = 0; i < N; i++) {
 		}
 	};
 
