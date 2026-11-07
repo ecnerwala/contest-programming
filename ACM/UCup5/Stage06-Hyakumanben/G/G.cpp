@@ -15,7 +15,7 @@ int main() {
 			indeg[v]++;
 		}
 		std::vector<int> q; q.reserve(N);
-		std::vector<int> used(N);
+		std::vector<int> cnt(N);
 		for (int i = 0; i < N; i++) {
 			if (!indeg[i]) q.push_back(i);
 		}
