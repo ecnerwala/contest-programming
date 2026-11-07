@@ -2915,7 +2915,7 @@ int main() {
 		den = ps_inv(den);
 		den *= den;
 		trunc r = c * c - c;
-		r[0] += 1;
+		r[1] -= 1;
 	}
 
 	return 0;
