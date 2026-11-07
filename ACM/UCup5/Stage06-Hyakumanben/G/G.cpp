@@ -35,7 +35,6 @@ int main() {
 					}
 				}
 			}
-			for (auto v : cnt) { std::cerr << v << ' '; } std::cerr << '\n';
 			return int(q.size());
 		}() << '\n';
 	}
