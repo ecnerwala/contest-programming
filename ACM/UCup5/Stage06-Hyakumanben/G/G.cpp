@@ -28,7 +28,6 @@ int main() {
 				assert(indeg[i] == 0);
 				for (int j : outedges[i]) {
 					assert(j != i);
-					indeg[i]++;
 					indeg[j]--;
 					if (indeg[j] == 0) {
 						cnt[j]++;
