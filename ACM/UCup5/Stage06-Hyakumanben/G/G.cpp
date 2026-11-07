@@ -29,6 +29,7 @@ int main() {
 				assert(indeg[i] == 0);
 				for (int j : edges[i]) {
 					indeg[i]++;
+					indeg[j]--;
 				}
 			}
 		}() << '\n';
