@@ -14,6 +14,10 @@ int main() {
 			outedges[u].push_back(v);
 			indeg[v]++;
 		}
+		std::vector<int> q; q.reserve(N);
+		for (int i = 0; i < N; i++) {
+			if (!indeg[i]) q.push_back(i);
+		}
 	}
 
 	return 0;
