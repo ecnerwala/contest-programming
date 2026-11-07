@@ -2996,6 +2996,7 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				std::pair<int, int> cur(perm[i], i);
 				for (int j = 0; j < K; j++) {
+				std::pair<int, int> cur(perm[i], i);
 				}
 			}
 		} while (std::next_permutation(perm.begin(), perm.end());
