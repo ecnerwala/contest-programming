@@ -2983,7 +2983,7 @@ int main() {
 		for (int i = 1; i <= K-1; i++) {
 			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
 		}
-		trunc den = ps_inv(one - c);
+		trunc den = ps_log(one - c);
 		trunc r = c * c - c;
 		r[1] += num(1);
 		r *= den * den;
