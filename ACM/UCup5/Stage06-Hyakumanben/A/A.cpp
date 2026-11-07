@@ -2896,7 +2896,7 @@ int main() {
 		int N, K; std::cin >> N >> K;
 		using num = wala::modnum<998244353>;
 		using E = wala::fft::engines::ntt<num>;
-		using trunc = wala::fft::trunc<E>;
+		using trunc = wala::series::trunc<E>;
 	}
 
 	return 0;
