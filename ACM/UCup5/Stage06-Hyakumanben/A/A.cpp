@@ -2911,6 +2911,7 @@ int main() {
 			for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 			trunc one(N+1);
+			one[0] = 1;
 
 			trunc c(N+1);
 			for (int i = 1; i <= K; i++) {
