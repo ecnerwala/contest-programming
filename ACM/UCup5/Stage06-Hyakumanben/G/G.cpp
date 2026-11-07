@@ -34,9 +34,6 @@ int main() {
 						q.push_back(j);
 					}
 				}
-				if (indeg[i] == 0) {
-					return -1;
-				}
 			}
 			for (auto v : cnt) { std::cerr << v << ' '; } std::cerr << '\n';
 			return int(q.size());
