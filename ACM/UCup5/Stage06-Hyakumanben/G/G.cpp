@@ -53,15 +53,17 @@ int main() {
 					for (int j : outedges[i]) {
 						if (dist[j] == -1 || d < dist[j]) {
 							dist[j] = d;
+							q0.push_back(j);
 						}
 					}
 					for (int j : inedges[i]) {
 						if (dist[j] == -1) {
 							dist[j] = d+1;
-							q0.push_back(j);
+							q1.push_back(j);
 						}
 					}
 				}
+				std::swap(q0, q1);
 			}
 			for (int i = 0; i < N; i++) if (dist[i] == -1) return -1;
 			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
