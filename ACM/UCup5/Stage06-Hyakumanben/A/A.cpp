@@ -2899,28 +2899,28 @@ int main() {
 		using trunc = wala::series::trunc<E>;
 
 		std::cout << [&]() -> num {
-		if (K == 1) {
-			return 1;
-		}
+			if (K == 1) {
+				return 1;
+			}
 
-		trunc fact(2*N+1);
-		fact[0] = 1;
-		for (int i = 1; i <= 2*N; i++) fact[i] = fact[i-1] * num(i);
-		trunc ifact(2*N+1);
-		ifact[2*N] = inv(fact[2*N]);
-		for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+			trunc fact(2*N+1);
+			fact[0] = 1;
+			for (int i = 1; i <= 2*N; i++) fact[i] = fact[i-1] * num(i);
+			trunc ifact(2*N+1);
+			ifact[2*N] = inv(fact[2*N]);
+			for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
-		trunc c(N+1);
-		for (int i = 1; i <= K; i++) {
-			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
-		}
-		trunc den(N+1);
-		den[0] = 1;
-		den -= c;
-		den = ps_inv(den);
-		den *= den;
-		trunc r = c * c - c;
-		if (K >= 1) r[1] -= 1;
+			trunc c(N+1);
+			for (int i = 1; i <= K; i++) {
+				c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
+			}
+			trunc den(N+1);
+			den[0] = 1;
+			den -= c;
+			den = ps_inv(den);
+			den *= den;
+			trunc r = c * c - c;
+			if (K >= 1) r[1] -= 1;
 		}() << '\n';
 	}
 
