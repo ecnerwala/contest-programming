@@ -38,7 +38,7 @@ int main() {
 				}
 			}
 			// Now, everything with nonzero indeg is a source
-			std::vector<int> dist(N);
+			std::vector<int> dist(N, -1);
 			return std::accumulate(dist.begin(), dist.end(), int64_t(0));
 		}() << '\n';
 	}
