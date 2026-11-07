@@ -1001,6 +1001,7 @@ struct circular_layout {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
+	int N; std::cin >> N;
 	wala::vec<int> P(2*N);
 
 	return 0;
