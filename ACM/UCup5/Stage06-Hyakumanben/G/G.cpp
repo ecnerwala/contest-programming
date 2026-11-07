@@ -45,12 +45,16 @@ int main() {
 				dist[i] = 0;
 				q0.push_back(i);
 			}
-			for (int z = 0; z < int(q0.size()); z++) {
-				int i = q0[z];
-				for (int j : inedges[i]) {
-					if (dist[j] == -1) {
-						dist[j] = dist[i]+1;
-						q0.push_back(j);
+			for (int d = 0; !q0.empty(); d++) {
+				for (int z = 0; z < int(q0.size()); z++) {
+					int i = q0[z];
+					assert(dist[i] != -1 && dist[i] <= d);
+					if (dist[i] != d) continue;
+					for (int j : inedges[i]) {
+						if (dist[j] == -1) {
+							dist[j] = dist[i]+1;
+							q0.push_back(j);
+						}
 					}
 				}
 			}
