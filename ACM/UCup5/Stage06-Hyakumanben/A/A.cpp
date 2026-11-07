@@ -2992,6 +2992,7 @@ int main() {
 	auto slow = [&](int N, int K) -> num {
 		std::vector<int> perm(N);
 		for (int i = 0; i < N; i++) {
+		for (int i = 0; i < N; i++) {
 		}
 	};
 
