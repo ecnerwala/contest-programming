@@ -18,7 +18,10 @@ int main() {
 		std::vector<int> q; q.reserve(N+1);
 		std::vector<int> cnt(N, 0);
 		for (int i = 0; i < N; i++) {
-			if (!indeg[i]) q.push_back(i);
+			if (!indeg[i]) {
+				cnt[i]++;
+				q.push_back(i);
+			}
 		}
 		for (int z = 0; z < int(q.size()); z++) {
 			int v = q[z];
