@@ -2957,15 +2957,12 @@ S::engine_t::value_type kth_term_of_linear_recurrence(
 
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
-
-	int T; std::cin >> T;
-	while (T--) {
-		int N, K; std::cin >> N >> K;
 		using num = wala::modnum<998244353>;
 		using E = wala::fft::engines::ntt<num>;
 		using trunc = wala::series::trunc<E>;
 
-		std::cout << [&]() -> num {
+
+		auto solve = [&]() -> num {
 			if (K == 1) {
 				return 1;
 			}
@@ -2991,6 +2988,10 @@ int main() {
 			r = ps_log(one - r);
 			return -r[N] * num(N);
 		}() << '\n';
+
+	int T; std::cin >> T;
+	while (T--) {
+		int N, K; std::cin >> N >> K;
 	}
 
 	return 0;
