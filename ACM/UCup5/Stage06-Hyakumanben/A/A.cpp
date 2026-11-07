@@ -3008,12 +3008,14 @@ int main() {
 		return int(s.size());
 	};
 
+	if (false) {
 	for (int N = 2; N <= 8; N++) {
 		for (int K = 1; K <= N-1; K++) {
 			num a = slow(N, K);
 			num b = solve(N, K);
-			//std::cerr << N << ' ' << K << ' ' << a << ' ' << b << '\n';
+			std::cerr << N << ' ' << K << ' ' << a << ' ' << b << '\n';
 		}
+	}
 	}
 
 	int T; std::cin >> T;
