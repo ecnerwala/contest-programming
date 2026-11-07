@@ -2893,6 +2893,8 @@ int main() {
 
 	int T; std::cin >> T;
 	while (T--) {
+		int N, K; std::cin >> N >> K;
+		using num = wala::modnum<998244353>;
 	}
 
 	return 0;
