@@ -2906,12 +2906,12 @@ int main() {
 		for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
 		trunc c(N+1);
-		trunc den(N+1);
-		den[0] = 1;
 		for (int i = 1; i <= K; i++) {
 			c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
-			den[i] = -c[i];
 		}
+		trunc den(N+1);
+		den[0] = 1;
+		den -= c;
 		den = ps_inv(den);
 		trunc r = c * c - c;
 	}
