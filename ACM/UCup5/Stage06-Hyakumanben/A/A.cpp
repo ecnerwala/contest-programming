@@ -2898,8 +2898,13 @@ int main() {
 		using E = wala::fft::engines::ntt<num>;
 		using trunc = wala::series::trunc<E>;
 
-		trunc fact(N+1);
-		for (int i = 1; i <= N; i++) fact[i] = fact[i-1] * num(i);
+		trunc fact(2*N+1);
+		fact[0] = 1;
+		for (int i = 1; i <= 2*N; i++) fact[i] = fact[i-1] * num(i);
+		trunc ifact(2*N+1);
+		ifact[2*N] = inv(fact[2*N]);
+		for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
+
 		trunc ps(N+1);
 		for (int i = 0; i < N; i++) {
 		}
