@@ -35,7 +35,6 @@ int main() {
 					}
 				}
 			}
-			return int(q.size());
 		}() << '\n';
 	}
 
