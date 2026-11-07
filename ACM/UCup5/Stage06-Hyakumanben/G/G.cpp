@@ -31,6 +31,11 @@ int main() {
 					assert(j != i);
 					indeg[i]++;
 					indeg[j]--;
+					if (indeg[j] == 0) {
+						if (cnt[j]) return -1;
+						cnt[j]++;
+						q.push_back(j);
+					}
 				}
 			}
 		}() << '\n';
