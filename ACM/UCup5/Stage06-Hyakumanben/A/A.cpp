@@ -2898,6 +2898,7 @@ int main() {
 		using E = wala::fft::engines::ntt<num>;
 		using trunc = wala::series::trunc<E>;
 
+		trunc ps(N+1);
 	}
 
 	return 0;
