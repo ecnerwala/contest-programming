@@ -2910,6 +2910,8 @@ int main() {
 			ifact[2*N] = inv(fact[2*N]);
 			for (int i = 2*N; i >= 1; i--) ifact[i-1] = ifact[i] * num(i);
 
+			trunc one(N+1);
+
 			trunc c(N+1);
 			for (int i = 1; i <= K; i++) {
 				c[i] = fact[2*(i-1)] * ifact[i-1] * ifact[i];
