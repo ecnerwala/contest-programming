@@ -18,7 +18,6 @@ int main() {
 		}
 		std::cout << [&]() -> int {
 			std::vector<int> q; q.reserve(N+1);
-			std::vector<int> cnt(N, 0);
 			for (int i = 0; i < N; i++) {
 				if (!indeg[i]) {
 					cnt[i]++;
