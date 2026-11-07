@@ -1003,6 +1003,10 @@ int main() {
 
 	int N; std::cin >> N;
 	wala::vec<int> P(2*N);
+	for (int i = 0; i < N; i++) {
+		std::cin >> P[i];
+		P[2*N-1-i] = P[i];
+	}
 
 	return 0;
 }
