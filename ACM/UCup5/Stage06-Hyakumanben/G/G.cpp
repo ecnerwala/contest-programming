@@ -29,6 +29,7 @@ int main() {
 				for (int j : outedges[i]) {
 					assert(j != i);
 					indeg[j]--;
+					assert(indeg[j] >= 0);
 					if (indeg[j] == 0) {
 						cnt[j]++;
 						q.push_back(j);
