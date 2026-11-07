@@ -7,6 +7,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, M; std::cin >> N >> M;
+		std::vector<std::vector<int>> outedges(N);
 	}
 
 	return 0;
