@@ -3010,7 +3010,7 @@ int main() {
 
 	for (int N = 2; N <= 8; N++) {
 		for (int K = 1; K <= N-1; K++) {
-			slow(N, K);
+			int a = slow(N, K);
 		}
 	}
 
