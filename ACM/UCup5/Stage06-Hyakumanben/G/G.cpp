@@ -35,6 +35,7 @@ int main() {
 					}
 				}
 			}
+			// Now, everything with nonzero indeg is a source
 		}() << '\n';
 	}
 
