@@ -885,11 +885,7 @@ int main() {
 			auto setmax = [&](auto& a, auto b) { if (b > a) a = b; };
 			auto setmin = [&](auto& a, auto b) { if (b < a) a = b; };
 			// all initially >= 0
-			wala::vec<int> min_balance(N+1, 0);
-
-			if (min_balance[N] > 0) {
-				return std::nullopt;
-			}
+			wala::vec<int> min_balance(N, 0);
 			for (int l = N-1; l >= 0; l--) {
 				int v = min_balance[l];
 				int pref = -N;
