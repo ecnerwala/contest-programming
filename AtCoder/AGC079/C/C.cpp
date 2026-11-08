@@ -81,6 +81,7 @@ int main() {
 				}
 			}
 
+			std::vector<bool> ans_pos(N, false);
 			vector<bool> ans_B(N, false);
 			cout << "TAK" << '\n';
 			for (int i = 0; i < N; i++) {
