@@ -105,7 +105,7 @@ int main() {
 			vector<bool> ans_B(N, false);
 			for (int i = 0; i < N; i++) {
 				bool ans;
-				assert(rel[i].first != -N-1);
+				assert(rel[i].first != ~N);
 				if (rel[i].first == -1) {
 					ans = ans_B[rel[i].first] ^ rel[i].second;
 				} else {
