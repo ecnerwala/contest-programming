@@ -113,6 +113,7 @@ int main() {
 				}
 				ans_B[A[i]] = ans;
 			}
+			std::vector<bool> is_set(N);
 			for (int i = N-1; i >= 0; i--) {
 			}
 			return 0;
