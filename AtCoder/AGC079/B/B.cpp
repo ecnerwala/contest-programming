@@ -874,6 +874,8 @@ int main() {
 		wala::tensor<int, 2> C({N+1, N+1}, -1);
 		for (int z = 0; z < M; z++) {
 			int l, r, c; std::cin >> l >> r >> c; l--;
+			assert(r - l >= 2);
+			C[{l, r}] = c;
 		}
 	}
 
