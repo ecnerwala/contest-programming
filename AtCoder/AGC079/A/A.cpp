@@ -709,6 +709,7 @@ int main() {
 
 	int N; std::cin >> N;
 	wala::vec<int> P(N-1);
+	for (auto& p : P) { std::cin >> p; p--; }
 
 	return 0;
 }
