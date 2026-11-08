@@ -101,9 +101,9 @@ int main() {
 				}
 			}
 
-			vector<std::pair<bool, int>> ans_B(N);
+			vector<std::pair<int, bool>> ans_B(N);
 			for (int i = 0; i < N; i++) {
-				bool ans;
+				std::pair<int, bool> ans;
 				assert(rel[i].first != -2);
 				if (rel[i].first != -1) {
 					ans = ans_B[rel[i].first] ^ rel[i].second;
