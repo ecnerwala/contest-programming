@@ -902,6 +902,7 @@ int main() {
 			}
 			for (int l = N-1; l >= 0; l--) {
 				int v = min_balance[l];
+				int pref = 0;
 				for (int r = l+1; r <= N; r++) {
 					setmax(v, + C[{l, r}]);
 				}
