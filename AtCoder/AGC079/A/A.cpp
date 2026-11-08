@@ -1057,7 +1057,7 @@ int main() {
 		num den = 1;
 		for (int i = 0; i < N; i++) {
 			int cur_sz = 1;
-			while (!stk.empty() && stk.back().r > P[i]) {
+			while (!stk.empty() && stk.back().r >= P[i]) {
 				cur_sz += stk.back().sz;
 				stk.pop_back();
 			}
