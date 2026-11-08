@@ -883,7 +883,6 @@ int main() {
 
 		auto sol = [&]() -> std::optional<std::vector<int>> {
 			auto setmax = [&](auto& a, auto b) { if (b > a) a = b; };
-			auto setmin = [&](auto& a, auto b) { if (b < a) a = b; };
 			for (int l = N-1; l >= 0; l--) {
 				int v = min_balance[l];
 				int pref = -N;
