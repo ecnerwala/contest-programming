@@ -153,7 +153,7 @@ int main() {
 		}
 		assert(nxt == -1);
 		return ans;
-	}() << '\n';
+	};
 
 	int T; std::cin >> T;
 	while (T--) {
