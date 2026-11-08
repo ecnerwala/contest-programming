@@ -113,6 +113,8 @@ int main() {
 				}
 				ans_B[A[i]] = ans;
 			}
+			for (int i = N-1; i >= 0; i--) {
+			}
 			return 0;
 		}() << '\n';
 	}
