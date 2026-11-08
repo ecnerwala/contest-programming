@@ -67,6 +67,7 @@ int main() {
 						assert(l.head != A[i]);
 						l.tail = pred[l.tail];
 						rel[i] = {l.tail, false};
+						assert(!l.edge_neq);
 						lst.push_back(l);
 						continue;
 					}
