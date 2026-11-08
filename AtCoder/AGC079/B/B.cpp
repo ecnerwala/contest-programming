@@ -892,7 +892,7 @@ int main() {
 			for (int l = 0; l < N; l++) {
 				int v = N;
 				for (int r = N-1; r > l; r--) {
-					dist[{l, r}] = C[{l, r}];
+					dist[{l, r}] = v;
 				}
 				setmin(dist[{l, l+1}], 1);
 			}
