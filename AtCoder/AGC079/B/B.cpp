@@ -865,7 +865,7 @@ public:
 #line 866 __BASE_FILE__
 #endif // endregion
 
-// We have a balanced paren sequence
+// We have a balanced paren sequence: open paren at kill, close paren at value
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
