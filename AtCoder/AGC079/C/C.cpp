@@ -112,6 +112,7 @@ int main() {
 				}
 				ans_B[A[i]] = ans;
 			}
+			return 0;
 		}() << '\n';
 	}
 
