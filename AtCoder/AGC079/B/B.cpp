@@ -707,5 +707,10 @@ template <typename T> struct growable_vec : private bounded_vec<T> {
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
+	int T; std::cin >> T;
+	while (T--) {
+		int N; std::cin >> N;
+	}
+
 	return 0;
 }
