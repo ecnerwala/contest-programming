@@ -897,6 +897,7 @@ int main() {
 		}
 
 		if (min_balance[N] > 0) {
+			std::cout << -1 << '\n';
 		}
 
 	}
