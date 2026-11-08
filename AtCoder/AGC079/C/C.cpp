@@ -135,13 +135,16 @@ int main() {
 				} else {
 					q[--head] = i;
 				}
-				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
+				while (head <= tail) {
+					assert(nxt >= 0);
 					if (A[nxt] == q[head]) {
 						head++;
-					} else {
+					} else if (A[nxt] == q[tail]){
 						tail--;
+						nxt--;
+					} else {
+						break;
 					}
-					nxt--;
 				}
 			}
 			return ans;
