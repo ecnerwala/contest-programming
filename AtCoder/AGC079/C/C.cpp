@@ -123,7 +123,7 @@ int main() {
 				if (!is_set[ans_B[i].first]) {
 					base_dir[ans_B[i].first] = cur_dir ^ ans_B[i].second;
 				}
-				while (head < tail && ) {
+				while (head < tail && (A[nxt] == q[head] || A[nxt] == q[tail-1])) {
 				}
 			}
 			return 0;
