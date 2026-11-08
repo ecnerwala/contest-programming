@@ -28,7 +28,7 @@ int main() {
 			// list.back().edge_neq = whether lst.back() is forced different from lst.end()[-2]
 			vector<lst_t> lst; lst.reserve(N);
 
-			vector<pair<int, bool>> rel(N, {~N, false});
+			vector<pair<int, bool>> rel(N, {-2, false});
 
 			for (int i = N-1; i >= 0; i--) {
 				while (A[i] < num_rem) {
@@ -47,7 +47,7 @@ int main() {
 							assert(!lst.empty());
 							rel[i] = {lst.back().head, true};
 						} else {
-							rel[i] = {~i, false};
+							rel[i] = {-1, false};
 						}
 					} else {
 						lst.back().head = succ[lst.back().head];
@@ -105,11 +105,10 @@ int main() {
 			vector<bool> ans_B(N, false);
 			for (int i = 0; i < N; i++) {
 				bool ans;
-				assert(rel[i].first != ~N);
-				if (rel[i].first >= 0) {
+				assert(rel[i].first != -N-1);
+				if (rel[i].first == -1) {
 					ans = ans_B[rel[i].first] ^ rel[i].second;
 				} else {
-					assert(rel[i].first == ~i);
 					ans = false;
 				}
 				ans_B[A[i]] = ans;
