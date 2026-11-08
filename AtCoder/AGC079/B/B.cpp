@@ -896,6 +896,9 @@ int main() {
 			setmax(min_balance[l+2], min_balance[l+1] - 1);
 		}
 
+		if (min_balance[N] >= 0) {
+		}
+
 	}
 
 	return 0;
