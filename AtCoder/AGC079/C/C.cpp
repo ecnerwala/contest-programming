@@ -83,7 +83,6 @@ int main() {
 
 			std::vector<bool> ans_pos(N, false);
 			vector<bool> ans_B(N, false);
-			cout << "TAK" << '\n';
 			for (int i = 0; i < N; i++) {
 				bool ans;
 				if (rel[i].first != -1) {
@@ -92,7 +91,7 @@ int main() {
 					ans = false;
 				}
 				ans_B[A[i]] = ans;
-				cout << ans+1 << " \n"[i+1==N];
+				ans_pos[i] = ans;
 			}
 		}();
 	}
