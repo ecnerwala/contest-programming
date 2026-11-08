@@ -157,7 +157,9 @@ int main() {
 	};
 	for (int N = 1; N <= 10; N++) {
 		std::vector<int> A(N);
+		std::iota(A.begin(), A.end(), 0);
 		do {
+			solve(A);
 		} while (std::next_permutation(A.begin(), A.end()));
 	}
 
