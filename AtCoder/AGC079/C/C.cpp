@@ -67,6 +67,7 @@ int main() {
 						if (l.tail == A[i]) {
 							// TODO: We're actually okay by popping the bottom entry
 							assert(l.head != A[i]);
+							l.tail = pred[l.tail];
 						}
 						return -1;
 					}
