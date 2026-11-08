@@ -62,6 +62,9 @@ int main() {
 						lst.pop_back();
 					}
 					if (lst.empty()) {
+						if (l.tail == A[i]) {
+							// We're actually okay?
+						}
 						return -1;
 					}
 					assert(lst.back().head == A[i]);
