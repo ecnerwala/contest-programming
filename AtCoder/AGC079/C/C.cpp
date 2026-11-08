@@ -155,6 +155,11 @@ int main() {
 		assert(nxt == -1);
 		return ans;
 	};
+	for (int N = 1; N <= 10; N++) {
+		std::vector<int> A(N);
+		do {
+		} while (std::next_permutation(A.begin(), A.end()));
+	}
 
 	int T; std::cin >> T;
 	while (T--) {
