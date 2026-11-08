@@ -890,6 +890,7 @@ int main() {
 			// all initially >= 0
 			wala::tensor<int, 2> dist({N, N}, N+1);
 			for (int l = 0; l < N; l++) {
+				int v = N;
 				for (int r = N-1; r > l; r--) {
 					dist[{l, r}] = C[{l, r}];
 				}
