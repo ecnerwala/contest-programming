@@ -909,6 +909,10 @@ int main() {
 				}
 			}
 		}();
+		if (sol) {
+			std::cout << "Yes" << '\n';
+			for (int i = 0; i < N; i++) std::cout << (*sol)[i]+1 << " \n"[i+1==N];
+		}
 	}
 
 	return 0;
