@@ -713,7 +713,7 @@ int main() {
 	// 0 <= P[i] <= i
 	// Must come after everyone in (P[i], i)
 	struct stk_t;
-	std::vector<int> stk;
+	wala::bounded_vec<stk_t> stk;
 
 	return 0;
 }
