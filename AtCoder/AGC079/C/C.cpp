@@ -7,7 +7,7 @@
 // Difference: when one stack is empty, you're allowed to tuck under the other stack
 // This is symmetric: reverse time + invert perm
 //
-// Queue means that if the front element is poppable, you might as well, and otherwise if the back is poppable, you must reverse 
+// Queue means that if the front element is poppable, you might as well, and otherwise if the back is poppable, you must reverse => might as well pop.
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
