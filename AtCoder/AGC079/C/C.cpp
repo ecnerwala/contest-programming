@@ -157,7 +157,7 @@ int main() {
 		assert(nxt == -1);
 		return ans;
 	};
-	for (int N = 1; N <= 1; N++) {
+	for (int N = 1; N <= 0; N++) {
 		std::cerr << N << '\n';
 		std::vector<int> A(N);
 		std::iota(A.begin(), A.end(), 0);
