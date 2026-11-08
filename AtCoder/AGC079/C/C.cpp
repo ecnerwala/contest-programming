@@ -63,7 +63,7 @@ int main() {
 					}
 					if (lst.empty()) {
 						if (l.tail == A[i]) {
-							// We're actually okay?
+							// TODO: We're actually okay?
 						}
 						return -1;
 					}
