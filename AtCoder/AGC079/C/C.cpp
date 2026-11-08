@@ -118,6 +118,8 @@ int main() {
 			std::vector<int> q(2*N);
 			int head = N, tail = N;
 			for (int i = N-1; i >= 0; i--) {
+				if (is_set[ans_B[i].first]) {
+				}
 			}
 			return 0;
 		}() << '\n';
