@@ -54,8 +54,7 @@ int main() {
 						lst.pop_back();
 					}
 					if (lst.empty()) {
-						cout << "NIE" << '\n';
-						exit(0);
+						return std::nullopt;
 					}
 					assert(lst.back().head == A[i]);
 
