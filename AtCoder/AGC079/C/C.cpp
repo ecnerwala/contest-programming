@@ -46,6 +46,8 @@ int main() {
 						if (edge_neq) {
 							assert(!lst.empty());
 							rel[i] = {lst.back().head, true};
+						} else {
+							rel[i] = {-1, false};
 						}
 					} else {
 						lst.back().head = succ[lst.back().head];
