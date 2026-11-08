@@ -106,9 +106,10 @@ int main() {
 			for (int i = 0; i < N; i++) {
 				bool ans;
 				assert(rel[i].first != ~N);
-				if (rel[i].first == -1) {
+				if (rel[i].first >= 0) {
 					ans = ans_B[rel[i].first] ^ rel[i].second;
 				} else {
+					assert(rel[i].first == ~i);
 					ans = false;
 				}
 				ans_B[A[i]] = ans;
