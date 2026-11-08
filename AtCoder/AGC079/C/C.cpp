@@ -58,6 +58,7 @@ int main() {
 							return -1;
 						}
 						succ[l.tail] = lst.back().head;
+						pred[lst.back().head] = l.tail;
 						l.tail = lst.back().tail;
 						l.edge_neq = lst.back().edge_neq;
 						lst.pop_back();
