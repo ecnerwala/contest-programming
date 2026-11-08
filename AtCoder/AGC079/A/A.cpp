@@ -1045,28 +1045,31 @@ int main() {
 
 	using num = wala::modnum<998244353>;
 
-	int N; std::cin >> N; N--;
-	wala::vec<int> P(N);
-	for (auto& p : P) { std::cin >> p; p--; }
-	// 0 <= P[i] <= i
-	// Must come after everyone in (P[i], i)
-	struct stk_t{ int r, sz; };
-	wala::bounded_vec<stk_t> stk(wala::with_capacity{N});
-	num den = 1;
-	for (int i = 0; i < N; i++) {
-		int cur_sz = 1;
-		while (!stk.empty() && stk.back().r > P[i]) {
-			cur_sz += stk.back().sz;
-			stk.pop_back();
+	int T; std::cin >> T;
+	while (T--) {
+		int N; std::cin >> N; N--;
+		wala::vec<int> P(N);
+		for (auto& p : P) { std::cin >> p; p--; }
+		// 0 <= P[i] <= i
+		// Must come after everyone in (P[i], i)
+		struct stk_t{ int r, sz; };
+		wala::bounded_vec<stk_t> stk(wala::with_capacity{N});
+		num den = 1;
+		for (int i = 0; i < N; i++) {
+			int cur_sz = 1;
+			while (!stk.empty() && stk.back().r > P[i]) {
+				cur_sz += stk.back().sz;
+				stk.pop_back();
+			}
+			den *= num(cur_sz);
+			stk.push_back({i, cur_sz});
 		}
-		den *= num(cur_sz);
-		stk.push_back({i, cur_sz});
+		num numer = 1;
+		for (int i = 1; i <= N; i++) {
+			numer *= num(i);
+		}
+		std::cout << numer / den << '\n';
 	}
-	num numer = 1;
-	for (int i = 1; i <= N; i++) {
-		numer *= num(i);
-	}
-	std::cout << numer / den << '\n';
 
 	return 0;
 }
