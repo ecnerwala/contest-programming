@@ -24,7 +24,7 @@ int main() {
 				int head, tail;
 				bool edge_neq;
 			};
-			// edge_neq = whether lst is different from its child
+			// edge_neq = whether lst[i] is different from lst[i-1]
 			vector<lst_t> lst; lst.reserve(N);
 
 			vector<pair<int, bool>> rel(N, {-1, false});
