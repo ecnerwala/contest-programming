@@ -1053,7 +1053,10 @@ int main() {
 	struct stk_t{ int r, sz; };
 	wala::bounded_vec<stk_t> stk(wala::with_capacity{N});
 	for (int i = 0; i < N; i++) {
+		int cur_sz = 1;
 		while (!stk.empty() && stk.back().r > P[i]) {
+			cur_sz += stk.back().sz;
+			stk.pop_back();
 		}
 	}
 
