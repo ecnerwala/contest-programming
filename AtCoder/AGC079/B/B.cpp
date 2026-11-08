@@ -900,6 +900,8 @@ int main() {
 			if (min_balance[N] > 0) {
 				return std::nullopt;
 			}
+			for (int l = N-1; l >= 0; l--) {
+			}
 		}();
 	}
 
