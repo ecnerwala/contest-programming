@@ -871,7 +871,10 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N, M; std::cin >> N >> M;
-		wala::tensor<int, 2> C({N+1, N+1});
+		wala::tensor<int, 2> C({N+1, N+1}, -1);
+		for (int z = 0; z < M; z++) {
+			int l, r, c; std::cin >> l >> r >> c; l--;
+		}
 	}
 
 	return 0;
