@@ -890,10 +890,11 @@ int main() {
 			// all initially >= 0
 			wala::tensor<int, 2> dist({N, N}, N+1);
 			for (int l = 0; l < N; l++) {
-				dist[{l, l+1}] = 1;
 				for (int r = l+1; r < N; r++) {
-					dist[{l, r}] = c;
+					if (C[{l, r}])
+					dist[{l, r}] = C[{l, r}];
 				}
+				setmin(dist[{l, l+1}], 1);
 			}
 			wala::vec<int> min_balance(N, 0);
 			for (int l = N-1; l >= 0; l--) {
