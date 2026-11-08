@@ -10,7 +10,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		vector<int> A(N); for (auto& a : A) { cin >> a, a--; }
-		auto ans = [&]() -> std::optional<std::vector<bool>> {
+		auto ans = [&]() -> int {
 			int num_rem = N;
 			vector<int> succ(N, -1);
 			struct lst_t {
