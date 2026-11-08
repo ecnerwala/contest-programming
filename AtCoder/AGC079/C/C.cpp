@@ -2,6 +2,7 @@
 #include <cassert>
 
 // Old solution to POI/17/kol
+// https://szkopul.edu.pl/problemset/problem/TJVrS_hRC8W5Q6ZBW6mETAIm/site/?key=statement
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
