@@ -121,7 +121,7 @@ int main() {
 			int nxt = N-1;
 			int ans = 0;
 			for (int i = N-1; i >= 0; i--) {
-				std::cerr << i << ' ' << ans_B[i].first << ' ' << ans_B[i].second << '\n';
+				//std::cerr << i << ' ' << ans_B[i].first << ' ' << ans_B[i].second << '\n';
 				if (!is_set[ans_B[i].first]) {
 					base_dir[ans_B[i].first] = cur_dir ^ ans_B[i].second;
 					is_set[ans_B[i].first] = true;
