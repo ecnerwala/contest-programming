@@ -142,6 +142,13 @@ int main() {
 							cur_dir ^= 1;
 							ans++;
 						}
+						if (!cur_dir) {
+							assert(q[head] == A[nxt]);
+							head++;
+						} else {
+							assert(q[tail] == A[nxt]);
+							tail--;
+						}
 						nxt--;
 					} else {
 						break;
