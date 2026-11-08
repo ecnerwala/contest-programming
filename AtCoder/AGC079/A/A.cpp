@@ -711,7 +711,6 @@ int main() {
 	wala::vec<int> P(N);
 	for (auto& p : P) { std::cin >> p; p--; }
 	// 0 <= P[i] <= i
-
 	// Must come after everyone in (P[i], i)
 
 	return 0;
