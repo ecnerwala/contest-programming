@@ -120,8 +120,7 @@ int main() {
 			int head = N, tail = N;
 			for (int i = N-1; i >= 0; i--) {
 				if (!is_set[ans_B[i].first]) {
-					base_dir[ans_B[i].first] = cur_dir;
-					
+					base_dir[ans_B[i].first] = cur_dir ^ ans_B[i].second;
 				}
 			}
 			return 0;
