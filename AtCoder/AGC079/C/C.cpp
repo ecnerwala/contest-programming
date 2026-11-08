@@ -5,7 +5,8 @@
 // https://szkopul.edu.pl/problemset/problem/TJVrS_hRC8W5Q6ZBW6mETAIm/site/?key=statement
 //
 // Difference: when one stack is empty, you're allowed to tuck under the other stack
-// This is symmetric: reverse time + invert perm
+//
+// Problems are symmetric: reverse time + invert perm
 //
 // Queue means that if the front element is poppable, you might as well, and otherwise if the back is poppable, you must reverse => might as well pop; you never get anything by waiting to pop.
 int main() {
