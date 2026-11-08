@@ -160,7 +160,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		vector<int> A(N); for (auto& a : A) { cin >> a, a--; }
-		std::cout << solve(N) << '\n';
+		std::cout << solve(A) << '\n';
 	}
 
 	return 0;
