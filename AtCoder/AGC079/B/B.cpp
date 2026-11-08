@@ -881,7 +881,8 @@ int main() {
 			C[{l, r}] = c;
 		}
 
-		auto setmax = [&](auto& a, auto b) { if (b > a) a = b; }
+		auto setmax = [&](auto& a, auto b) { if (b > a) a = b; };
+		auto setmin = [&](auto& a, auto b) { if (b > a) a = b; };
 		// all initially >= 0
 		wala::vec<int> min_balance(N+1, 0);
 		for (int l = 0; l < N; l++) {
