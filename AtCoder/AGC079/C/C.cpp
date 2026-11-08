@@ -46,7 +46,7 @@ int main() {
 					lst_t l = lst.back(); lst.pop_back();
 					while (!lst.empty() && lst.back().head != A[i]) {
 						if (l.edge_neq) {
-							return std::nullopt;
+							return -1;
 						}
 						succ[l.tail] = lst.back().head;
 						l.tail = lst.back().tail;
@@ -54,7 +54,7 @@ int main() {
 						lst.pop_back();
 					}
 					if (lst.empty()) {
-						return std::nullopt;
+						return -1;
 					}
 					assert(lst.back().head == A[i]);
 
