@@ -68,6 +68,7 @@ int main() {
 							// TODO: We're actually okay by popping the bottom entry
 							assert(l.head != A[i]);
 							l.tail = pred[l.tail];
+							rel[i] = {, };
 						}
 						return -1;
 					}
