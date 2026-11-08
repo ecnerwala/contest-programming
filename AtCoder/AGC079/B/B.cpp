@@ -893,7 +893,6 @@ int main() {
 					setmax(lo, min_balance[l+1] - (C[{l, r}] - 1));
 				}
 				setmax(min_balance[r], lo);
-				std::max(min)
 			}
 		}
 	}
