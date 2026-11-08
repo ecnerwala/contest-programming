@@ -160,6 +160,7 @@ int main() {
 		std::vector<int> A(N);
 		std::iota(A.begin(), A.end(), 0);
 		do {
+			for (auto& a : A) { std::cerr << a << ' ';} std::cerr << '\n';
 			solve(A);
 		} while (std::next_permutation(A.begin(), A.end()));
 	}
