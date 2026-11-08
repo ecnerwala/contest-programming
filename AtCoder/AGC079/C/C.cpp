@@ -122,6 +122,7 @@ int main() {
 			for (int i = N-1; i >= 0; i--) {
 				if (!is_set[ans_B[i].first]) {
 					base_dir[ans_B[i].first] = cur_dir ^ ans_B[i].second;
+					is_set[ans_B[i].first] = true;
 				}
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 				}
