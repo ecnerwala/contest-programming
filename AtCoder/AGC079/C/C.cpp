@@ -93,7 +93,6 @@ int main() {
 						}
 					} else {
 						lst.back().head = succ[lst.back().head];
-						pred[lst.back().head] = -1;
 						rel[i] = {lst.back().head, false};
 						lst.push_back(l);
 					}
