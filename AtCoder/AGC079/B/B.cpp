@@ -903,7 +903,7 @@ int main() {
 			for (int l = N-1; l >= 0; l--) {
 				int v = min_balance[l];
 				for (int r = l+1; r <= N; r++) {
-					setmax(v, );
+					setmax(v, + C[{l, r}]);
 				}
 			}
 		}();
