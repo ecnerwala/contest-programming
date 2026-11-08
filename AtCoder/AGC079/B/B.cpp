@@ -875,6 +875,7 @@ int main() {
 		for (int z = 0; z < M; z++) {
 			int l, r, c; std::cin >> l >> r >> c; l--;
 			assert(r - l >= 2);
+			assert(C[{l, r}] == -1);
 			C[{l, r}] = c;
 		}
 	}
