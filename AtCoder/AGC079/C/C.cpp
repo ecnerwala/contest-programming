@@ -119,6 +119,7 @@ int main() {
 			std::vector<int> q(2*N);
 			int head = N, tail = N-1;
 			int nxt = N-1;
+			int ans = 0;
 			for (int i = N-1; i >= 0; i--) {
 				if (!is_set[ans_B[i].first]) {
 					base_dir[ans_B[i].first] = cur_dir ^ ans_B[i].second;
@@ -126,6 +127,7 @@ int main() {
 				}
 				if (cur_dir != (base_dir[ans_B[i].first] ^ ans_B[i].second)) {
 					cur_dir ^= 1;
+					ans++;
 				}
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 				}
