@@ -1052,6 +1052,10 @@ int main() {
 	// Must come after everyone in (P[i], i)
 	struct stk_t{ int r, sz; };
 	wala::bounded_vec<stk_t> stk(wala::with_capacity{N});
+	for (int i = 0; i < N; i++) {
+		while (!stk.empty() && stk.back().r > P[i]) {
+		}
+	}
 
 	return 0;
 }
