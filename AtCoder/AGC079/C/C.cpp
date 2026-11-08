@@ -47,7 +47,7 @@ int main() {
 							assert(!lst.empty());
 							rel[i] = {lst.back().head, true};
 						} else {
-							rel[i] = {-1, false};
+							rel[i] = {-1-i, false};
 						}
 					} else {
 						lst.back().head = succ[lst.back().head];
