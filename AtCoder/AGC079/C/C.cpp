@@ -115,6 +115,7 @@ int main() {
 			}
 			std::vector<bool> is_set(N, false);
 			bool cur_dir = false;
+			std::vector<int> q(2*N);
 			for (int i = N-1; i >= 0; i--) {
 			}
 			return 0;
