@@ -898,7 +898,7 @@ int main() {
 			}
 
 			if (min_balance[N] > 0) {
-				return std::nullotp;
+				return std::nullopt;
 			}
 		}();
 	}
