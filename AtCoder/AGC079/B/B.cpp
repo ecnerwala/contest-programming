@@ -884,7 +884,7 @@ int main() {
 			C[{i, i+1}] = 1;
 		}
 
-		wala::vector<int> min_balance(N+1);
+		wala::vec<int> min_balance(N+1);
 	}
 
 	return 0;
