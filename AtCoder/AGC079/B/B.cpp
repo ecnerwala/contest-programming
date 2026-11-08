@@ -884,9 +884,12 @@ int main() {
 		// all initially >= 0
 		wala::vec<int> min_balance(N+1, 0);
 		for (int l = 0; l < N; l++) {
+			int lo = 0;
 			for (int r = N; r >= l+2; r--) {
 				// l+1..r
-				if (C[{l, r}])
+				if (C[{l, r}] != -1) {
+					C[{l, r}] - 1;
+				}
 			}
 		}
 	}
