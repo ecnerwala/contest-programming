@@ -896,7 +896,14 @@ int main() {
 					if (C[{l, r}]) setmin(v, C[{l, r}]);
 					dist[{l, r}] = v;
 				}
-				setmin
+				setmin(dist[{l, l+1}], 1);
+			}
+			for (int k = 0; k < N; k++) {
+				for (int i = 0; i < k; i++) {
+					for (int j = k+1; j < N; j++) {
+						setmin(dist[{i, j}], dist[{i, k}] + dist[{k, j}]);
+					}
+				}
 			}
 			wala::vec<int> min_balance(N, 0);
 			for (int l = N-1; l >= 0; l--) {
