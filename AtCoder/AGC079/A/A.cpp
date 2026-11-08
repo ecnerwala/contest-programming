@@ -1058,6 +1058,7 @@ int main() {
 			cur_sz += stk.back().sz;
 			stk.pop_back();
 		}
+		stk.push_back({i, cur_sz});
 	}
 
 	return 0;
