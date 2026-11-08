@@ -135,7 +135,7 @@ int main() {
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 				}
 			}
-			return 0;
+			return ans;
 		}() << '\n';
 	}
 
