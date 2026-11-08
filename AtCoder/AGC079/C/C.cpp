@@ -19,6 +19,7 @@ int main() {
 		vector<int> A(N); for (auto& a : A) { cin >> a, a--; }
 		std::cout << [&]() -> int {
 			int num_rem = N;
+			vector<int> pred(N, -1);
 			vector<int> succ(N, -1);
 			struct lst_t {
 				int head, tail;
