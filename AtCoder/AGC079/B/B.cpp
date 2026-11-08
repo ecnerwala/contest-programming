@@ -894,7 +894,7 @@ int main() {
 				}
 				setmax(min_balance[r], lo);
 			}
-			setmax(min_balance[l+2], min_balance[l] - 1);
+			setmax(min_balance[l+2], min_balance[l+1] - 1);
 		}
 	}
 
