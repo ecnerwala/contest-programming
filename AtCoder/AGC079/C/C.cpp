@@ -109,8 +109,7 @@ int main() {
 					ans = ans_B[rel[i].first];
 					ans.second ^= rel[i].second;
 				} else {
-					ans = {i, false};
-					ans = false;
+					ans = {A[i], false};
 				}
 				ans_B[A[i]] = ans;
 			}
