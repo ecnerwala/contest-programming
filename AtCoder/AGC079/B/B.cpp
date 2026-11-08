@@ -878,6 +878,9 @@ int main() {
 			assert(C[{l, r}] == -1);
 			C[{l, r}] = c;
 		}
+		for (int i = 0; i < N; i++) {
+			C[{i, i+1}] = 1;
+		}
 	}
 
 	return 0;
