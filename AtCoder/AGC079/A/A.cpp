@@ -712,7 +712,7 @@ int main() {
 	for (auto& p : P) { std::cin >> p; p--; }
 	// 0 <= P[i] <= i
 	// Must come after everyone in (P[i], i)
-	struct stk_t;
+	struct stk_t{int r, sz; };
 	wala::bounded_vec<stk_t> stk;
 
 	return 0;
