@@ -880,6 +880,7 @@ int main() {
 			assert(C[{l, r}] == -1);
 			assert(c >= 1);
 			C[{l, r}] = c-1;
+			// C[{l, r}] means balance[l] - C[{l, r}] = min{l <= i <= r} balance[i]
 		}
 
 		auto sol = [&]() -> std::optional<std::vector<int>> {
