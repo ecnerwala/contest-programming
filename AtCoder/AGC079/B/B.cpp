@@ -901,6 +901,8 @@ int main() {
 				return std::nullopt;
 			}
 			for (int l = N-1; l >= 0; l--) {
+				for (int r = l+1; r <= N; r++) {
+				}
 			}
 		}();
 	}
