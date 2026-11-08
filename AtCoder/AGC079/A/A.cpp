@@ -1051,7 +1051,7 @@ int main() {
 	// 0 <= P[i] <= i
 	// Must come after everyone in (P[i], i)
 	struct stk_t{ int r, sz; };
-	wala::bounded_vec<stk_t> stk;
+	wala::bounded_vec<stk_t> stk(wala::with_capacity{N});
 
 	return 0;
 }
