@@ -131,9 +131,9 @@ int main() {
 				}
 				if (!cur_dir) {
 					// push to the tail
-					q[++tail] = A[i];
+					q[++tail] = i;
 				} else {
-					q[--head] = A[i];
+					q[--head] = i;
 				}
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 				}
