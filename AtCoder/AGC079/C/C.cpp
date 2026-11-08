@@ -138,6 +138,8 @@ int main() {
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 					if (A[nxt] == q[head]) {
 						head++;
+					} else {
+						tail--;
 					}
 					nxt--;
 				}
