@@ -101,7 +101,7 @@ int main() {
 				}
 			}
 
-			vector<std::pair<bool, int>> ans_B(N, false);
+			vector<std::pair<bool, int>> ans_B(N);
 			for (int i = 0; i < N; i++) {
 				bool ans;
 				assert(rel[i].first != -2);
