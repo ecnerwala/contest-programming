@@ -80,6 +80,7 @@ int main() {
 						if (should_merge) {
 							assert(!lst.empty());
 							succ[l.tail] = lst.back().head;
+							pred[lst.back().head] = l.tail;
 							l.tail = lst.back().tail;
 							l.edge_neq = lst.back().edge_neq;
 							lst.back() = l;
