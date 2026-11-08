@@ -128,7 +128,7 @@ int main() {
 				}
 				if (cur_dir != (base_dir[ans_B[i].first] ^ ans_B[i].second)) {
 					cur_dir ^= 1;
-					ans++;
+					if (head = tail) ans++;
 				}
 				if (!cur_dir) {
 					// push to the tail
