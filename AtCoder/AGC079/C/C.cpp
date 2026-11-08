@@ -13,6 +13,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 	auto solve = [&](std::vector<int> A) -> int {
+		int N = int(A.size());
 		int num_rem = N;
 		vector<int> pred(N, -1);
 		vector<int> succ(N, -1);
