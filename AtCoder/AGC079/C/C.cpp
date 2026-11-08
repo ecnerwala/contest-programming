@@ -129,6 +129,8 @@ int main() {
 					cur_dir ^= 1;
 					ans++;
 				}
+				if (cur_dir) {
+				}
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 				}
 			}
