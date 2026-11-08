@@ -883,6 +883,8 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			C[{i, i+1}] = 1;
 		}
+
+		std::vector<int> min_balance(N);
 	}
 
 	return 0;
