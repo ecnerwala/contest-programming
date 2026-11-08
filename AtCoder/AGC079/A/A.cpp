@@ -1044,6 +1044,7 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	using num = modnum<998244353>;
+
 	int N; std::cin >> N; N--;
 	wala::vec<int> P(N);
 	for (auto& p : P) { std::cin >> p; p--; }
