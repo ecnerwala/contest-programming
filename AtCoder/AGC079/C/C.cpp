@@ -106,7 +106,8 @@ int main() {
 				std::pair<int, bool> ans;
 				assert(rel[i].first != -2);
 				if (rel[i].first != -1) {
-					ans = ans_B[rel[i].first] ^ rel[i].second;
+					ans = ans_B[rel[i].first];
+					ans.second ^= rel[i].second;
 				} else {
 					ans = false;
 				}
