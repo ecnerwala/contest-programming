@@ -130,6 +130,7 @@ int main() {
 					ans++;
 				}
 				if (cur_dir) {
+					// push to the tail
 				}
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 				}
