@@ -11,90 +11,90 @@ int main() {
 		int N; cin >> N;
 		vector<int> A(N); for (auto& a : A) { cin >> a, a--; }
 		[&]() -> void {
-		int num_rem = N;
-		vector<int> succ(N, -1);
-		struct lst_t {
-			int head, tail;
-			bool edge_neq;
-		};
-		vector<lst_t> lst; lst.reserve(N);
+			int num_rem = N;
+			vector<int> succ(N, -1);
+			struct lst_t {
+				int head, tail;
+				bool edge_neq;
+			};
+			vector<lst_t> lst; lst.reserve(N);
 
-		vector<pair<int, bool>> rel(N, {-1, false});
+			vector<pair<int, bool>> rel(N, {-1, false});
 
-		for (int i = N-1; i >= 0; i--) {
-			while (A[i] < num_rem) {
-				num_rem--;
+			for (int i = N-1; i >= 0; i--) {
+				while (A[i] < num_rem) {
+					num_rem--;
 
-				// insert num_rem
-				lst.push_back(lst_t{num_rem, num_rem, false});
-			}
+					// insert num_rem
+					lst.push_back(lst_t{num_rem, num_rem, false});
+				}
 
-			assert(!lst.empty());
-			if (lst.back().head == A[i]) {
-				if (lst.back().tail == lst.back().head) {
-					bool edge_neq = lst.back().edge_neq;
-					lst.pop_back();
-					if (edge_neq) {
-						assert(!lst.empty());
-						rel[i] = {lst.back().head, true};
+				assert(!lst.empty());
+				if (lst.back().head == A[i]) {
+					if (lst.back().tail == lst.back().head) {
+						bool edge_neq = lst.back().edge_neq;
+						lst.pop_back();
+						if (edge_neq) {
+							assert(!lst.empty());
+							rel[i] = {lst.back().head, true};
+						}
+					} else {
+						lst.back().head = succ[lst.back().head];
+						rel[i] = {lst.back().head, false};
 					}
 				} else {
-					lst.back().head = succ[lst.back().head];
-					rel[i] = {lst.back().head, false};
-				}
-			} else {
-				lst_t l = lst.back(); lst.pop_back();
-				while (!lst.empty() && lst.back().head != A[i]) {
-					if (l.edge_neq) {
-						cout << "NIE" << '\n';
-						exit(0);
-					}
-					succ[l.tail] = lst.back().head;
-					l.tail = lst.back().tail;
-					l.edge_neq = lst.back().edge_neq;
-					lst.pop_back();
-				}
-				if (lst.empty()) {
-					cout << "NIE" << '\n';
-					exit(0);
-				}
-				assert(lst.back().head == A[i]);
-
-				l.edge_neq = true;
-				if (lst.back().head == lst.back().tail) {
-					rel[i] = {l.head, true};
-					bool should_merge = lst.back().edge_neq;
-					lst.pop_back();
-					if (should_merge) {
-						assert(!lst.empty());
+					lst_t l = lst.back(); lst.pop_back();
+					while (!lst.empty() && lst.back().head != A[i]) {
+						if (l.edge_neq) {
+							cout << "NIE" << '\n';
+							exit(0);
+						}
 						succ[l.tail] = lst.back().head;
 						l.tail = lst.back().tail;
 						l.edge_neq = lst.back().edge_neq;
-						lst.back() = l;
+						lst.pop_back();
+					}
+					if (lst.empty()) {
+						cout << "NIE" << '\n';
+						exit(0);
+					}
+					assert(lst.back().head == A[i]);
+
+					l.edge_neq = true;
+					if (lst.back().head == lst.back().tail) {
+						rel[i] = {l.head, true};
+						bool should_merge = lst.back().edge_neq;
+						lst.pop_back();
+						if (should_merge) {
+							assert(!lst.empty());
+							succ[l.tail] = lst.back().head;
+							l.tail = lst.back().tail;
+							l.edge_neq = lst.back().edge_neq;
+							lst.back() = l;
+						} else {
+							l.edge_neq = false;
+							lst.push_back(l);
+						}
 					} else {
-						l.edge_neq = false;
+						lst.back().head = succ[lst.back().head];
+						rel[i] = {lst.back().head, false};
 						lst.push_back(l);
 					}
-				} else {
-					lst.back().head = succ[lst.back().head];
-					rel[i] = {lst.back().head, false};
-					lst.push_back(l);
 				}
 			}
-		}
 
-		vector<bool> ans_B(N, false);
-		cout << "TAK" << '\n';
-		for (int i = 0; i < N; i++) {
-			bool ans;
-			if (rel[i].first != -1) {
-				ans = ans_B[rel[i].first] ^ rel[i].second;
-			} else {
-				ans = false;
+			vector<bool> ans_B(N, false);
+			cout << "TAK" << '\n';
+			for (int i = 0; i < N; i++) {
+				bool ans;
+				if (rel[i].first != -1) {
+					ans = ans_B[rel[i].first] ^ rel[i].second;
+				} else {
+					ans = false;
+				}
+				ans_B[A[i]] = ans;
+				cout << ans+1 << " \n"[i+1==N];
 			}
-			ans_B[A[i]] = ans;
-			cout << ans+1 << " \n"[i+1==N];
-		}
 		}();
 	}
 
