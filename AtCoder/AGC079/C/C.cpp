@@ -101,7 +101,6 @@ int main() {
 				}
 			}
 
-			std::vector<bool> ans_pos(N, false);
 			vector<bool> ans_B(N, false);
 			for (int i = 0; i < N; i++) {
 				bool ans;
@@ -112,7 +111,6 @@ int main() {
 					ans = false;
 				}
 				ans_B[A[i]] = ans;
-				ans_pos[i] = ans;
 			}
 		}() << '\n';
 	}
