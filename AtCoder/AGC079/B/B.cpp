@@ -886,10 +886,11 @@ int main() {
 		// all initially >= 0
 		wala::vec<int> min_balance(N+1, 0);
 		for (int l = 0; l < N; l++) {
-			int lo = -N;
+			int lo = 0;
 			for (int r = N; r >= l+2; r--) {
 				// l+1..r
 				if (C[{l, r}] != -1) {
+					setmax(lo, )
 					lo = std::max(lo, C[{l, r}] - 1);
 				}
 				std::max(min)
