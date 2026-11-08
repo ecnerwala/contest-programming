@@ -878,7 +878,7 @@ int main() {
 			int l, r, c; std::cin >> l >> r >> c; l--, r--;
 			assert(r - l + 1 >= 2);
 			assert(C[{l, r}] == -1);
-			C[{l, r}] = c;
+			C[{l, r}] = c-1;
 		}
 
 		auto sol = [&]() -> std::optional<std::vector<int>> {
