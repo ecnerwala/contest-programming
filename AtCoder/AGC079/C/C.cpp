@@ -141,6 +141,8 @@ int main() {
 						head++;
 						nxt--;
 					} else if (A[nxt] == q[tail]){
+						cur_dir ^= 1;
+						ans++;
 						tail--;
 						nxt--;
 					} else {
