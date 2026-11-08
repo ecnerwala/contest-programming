@@ -136,6 +136,9 @@ int main() {
 					q[--head] = i;
 				}
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
+					if (A[nxt] == q[head]) {
+					}
+					nxt--;
 				}
 			}
 			return ans;
