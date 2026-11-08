@@ -139,6 +139,7 @@ int main() {
 					assert(nxt >= 0);
 					if (A[nxt] == q[head]) {
 						head++;
+						nxt--;
 					} else if (A[nxt] == q[tail]){
 						tail--;
 						nxt--;
