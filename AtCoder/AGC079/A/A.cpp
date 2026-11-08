@@ -1062,6 +1062,11 @@ int main() {
 		den *= num(cur_sz);
 		stk.push_back({i, cur_sz});
 	}
+	num numer = 1;
+	for (int i = 1; i <= N; i++) {
+		numer *= num(i);
+	}
+	std::cout << numer / den << '\n';
 
 	return 0;
 }
