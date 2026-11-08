@@ -866,7 +866,7 @@ public:
 #endif // endregion
 
 // We have a balanced paren sequence: open paren at kill, close paren at value
-// we're given the min balance between 2 coords
+// we're given the min balance between 2 close indices
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
