@@ -880,10 +880,6 @@ int main() {
 			assert(C[{l, r}] == -1);
 			C[{l, r}] = c;
 		}
-		for (int i = 0; i < N; i++) {
-			C[{i, i+1}] = 1;
-		}
-
 		wala::vec<int> min_balance(N+1);
 		for (int l = 0; l < N; l++) {
 			for (int r = l+2; r <= N; r++) {
