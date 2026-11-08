@@ -138,7 +138,7 @@ int main() {
 				while (head <= tail) {
 					assert(nxt >= 0);
 					if (A[nxt] == q[head] || A[nxt] == q[tail]) {
-						if (q[cur_dir ? head : tail] == A[nxt]) {
+						if (q[cur_dir ? tail : head] == A[nxt]) {
 						}
 						nxt--;
 					} else {
