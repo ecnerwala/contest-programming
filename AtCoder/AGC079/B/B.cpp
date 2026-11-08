@@ -878,6 +878,7 @@ int main() {
 			int l, r, c; std::cin >> l >> r >> c; l--, r--;
 			assert(r - l + 1 >= 2);
 			assert(C[{l, r}] == -1);
+			assert(c >= 1);
 			C[{l, r}] = c-1;
 		}
 
