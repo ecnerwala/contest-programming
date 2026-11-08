@@ -6,7 +6,7 @@ int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
-	int T;
+	int T; std::cin >> T;
 	while (T--) {
 		int N; cin >> N;
 		vector<int> A(N); for (auto& a : A) { cin >> a, a--; }
