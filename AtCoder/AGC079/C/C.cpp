@@ -124,7 +124,8 @@ int main() {
 					base_dir[ans_B[i].first] = cur_dir ^ ans_B[i].second;
 					is_set[ans_B[i].first] = true;
 				}
-				base_dir[ans_B[i].first] ^ ans_B[i].second;
+				if (cur_dir != base_dir[ans_B[i].first] ^ ans_B[i].second) {
+				}
 				while (head <= tail && (A[nxt] == q[head] || A[nxt] == q[tail])) {
 				}
 			}
