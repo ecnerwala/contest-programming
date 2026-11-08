@@ -882,7 +882,6 @@ int main() {
 		}
 		for (int i = 0; i < N; i++) {
 			C[{i, i+1}] = 1;
-		}
 	}
 
 	return 0;
