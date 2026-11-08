@@ -28,7 +28,7 @@ int main() {
 			// list.back().edge_neq = whether lst.back() is forced different from lst.end()[-2]
 			vector<lst_t> lst; lst.reserve(N);
 
-			vector<pair<int, bool>> rel(N, {-1, false});
+			vector<pair<int, bool>> rel(N, {-2, false});
 
 			for (int i = N-1; i >= 0; i--) {
 				while (A[i] < num_rem) {
