@@ -893,6 +893,7 @@ int main() {
 				int v = N;
 				for (int r = N-1; r > l; r--) {
 					if (C[{l, r}]) setmin(v, C[{l, r}]);
+					setmin(v, r-l);
 					dist[{l, r}] = std::min(v, r-l);
 				}
 				setmin(dist[{l, l+1}], 1);
