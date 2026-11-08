@@ -896,7 +896,6 @@ int main() {
 					setmin(v, r-l);
 					dist[{l, r}] = v;
 				}
-				setmin(dist[{l, l+1}], 1);
 			}
 			wala::vec<int> min_balance(N, 0);
 			for (int l = N-1; l >= 0; l--) {
