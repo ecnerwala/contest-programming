@@ -156,6 +156,7 @@ int main() {
 					}
 				}
 			}
+			assert(nxt == -1);
 			return ans;
 		}() << '\n';
 	}
