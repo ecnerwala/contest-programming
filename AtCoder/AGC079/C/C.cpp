@@ -3,6 +3,8 @@
 
 // Old solution to POI/17/kol
 // https://szkopul.edu.pl/problemset/problem/TJVrS_hRC8W5Q6ZBW6mETAIm/site/?key=statement
+//
+// Difference: when one stack is empty, you're allowed to tuck under the other stack
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
