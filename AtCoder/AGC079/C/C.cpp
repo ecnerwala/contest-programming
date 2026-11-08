@@ -10,7 +10,7 @@ int main() {
 	while (T--) {
 		int N; cin >> N;
 		vector<int> A(N); for (auto& a : A) { cin >> a, a--; }
-		auto ans = [&]() -> int {
+		std::cout << [&]() -> int {
 			int num_rem = N;
 			vector<int> succ(N, -1);
 			struct lst_t {
@@ -93,7 +93,7 @@ int main() {
 				ans_B[A[i]] = ans;
 				ans_pos[i] = ans;
 			}
-		}();
+		}() << '\n';
 	}
 
 	return 0;
