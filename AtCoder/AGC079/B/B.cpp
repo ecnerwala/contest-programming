@@ -901,6 +901,7 @@ int main() {
 				return std::nullopt;
 			}
 			for (int l = N-1; l >= 0; l--) {
+				int v = min_balance[l];
 				for (int r = l+1; r <= N; r++) {
 				}
 			}
