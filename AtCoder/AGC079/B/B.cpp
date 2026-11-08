@@ -888,7 +888,7 @@ int main() {
 			auto setmax = [&](auto& a, auto b) { if (b > a) a = b; };
 			auto setmin = [&](auto& a, auto b) { if (b < a) a = b; };
 			// all initially >= 0
-			wala::tensor<int, 2> dist({N, N});
+			wala::tensor<int, 2> dist({N, N}, N+1);
 			for (int l = 0; l < N; l++) {
 				dist[{l, l+1}] = 1;
 				for (int r = l+1; r < N; r++) {
