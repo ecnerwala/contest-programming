@@ -881,7 +881,7 @@ int main() {
 			C[{l, r}] = c;
 		}
 
-		[&]() -> void {
+		[&]() -> std::optional<int> {
 			auto setmax = [&](auto& a, auto b) { if (b > a) a = b; };
 			auto setmin = [&](auto& a, auto b) { if (b < a) a = b; };
 			// all initially >= 0
