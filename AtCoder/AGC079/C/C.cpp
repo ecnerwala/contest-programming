@@ -65,6 +65,7 @@ int main() {
 					if (lst.empty()) {
 						if (l.tail == A[i]) {
 							// TODO: We're actually okay by popping the bottom entry
+							assert(l.head != A[i]);
 						}
 						return -1;
 					}
