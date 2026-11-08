@@ -156,6 +156,7 @@ int main() {
 		return ans;
 	};
 	for (int N = 1; N <= 10; N++) {
+		std::cerr << N << '\n';
 		std::vector<int> A(N);
 		std::iota(A.begin(), A.end(), 0);
 		do {
