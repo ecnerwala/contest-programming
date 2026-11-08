@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-// Old solution to kol.cpp
+// Old solution to POI/17/kol.cpp
 int main() {
 	using namespace std;
 	ios_base::sync_with_stdio(false), cin.tie(nullptr);
