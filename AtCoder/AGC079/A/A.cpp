@@ -712,6 +712,7 @@ int main() {
 	for (auto& p : P) { std::cin >> p; p--; }
 	// 0 <= P[i] <= i
 	// Must come after everyone in (P[i], i)
+	std::vector<int> stk;
 
 	return 0;
 }
