@@ -924,14 +924,14 @@ int main() {
 					if (increase_l) {
 						// must increase l
 						balance[l]++;
-						changed = true;
 						for (int i = l; i < N; i++) {
 							setmax(balance[i], balance[l] - dist[{l, i}]);
 						}
-						if (balance[N-1] > 0) return std::nullopt;
+						changed = true;
 						break;
 					}
 				}
+				if (balance[N-1] > 0) return std::nullopt;
 				if (!changed) break;
 			}
 		}();
