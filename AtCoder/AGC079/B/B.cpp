@@ -938,6 +938,7 @@ int main() {
 			// Our balance is all good now, so we should just reconstruct
 			wala::bounded_vec<int> stk(wala::with_capacity{N});
 			for (int i = N-1; i >= 0; i--) {
+				stk.push_back(i);
 			}
 			wala::vec<int> ans(N, -1);
 			return std::move(ans);
