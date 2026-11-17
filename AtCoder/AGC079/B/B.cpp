@@ -916,14 +916,19 @@ int main() {
 						if (C[{l, r}] != -1) {
 							assert(balance[l] - v <= C[{l, r}]);
 							if (balance[l] - v < C[{l, r}]) {
-								// must increase l
-								balance[l]++;
-								for (int i = l; i < N; i++) {
-									setmax(balance[i], balance[l] - dist[{l, i}]);
-								}
-								if (balance[N-1] > 0) return std::nullopt;
+								increase_l = true;
+								break;
 							}
 						}
+					}
+					if (increase_l) {
+						// must increase l
+						balance[l]++;
+						changed = true;
+						for (int i = l; i < N; i++) {
+							setmax(balance[i], balance[l] - dist[{l, i}]);
+						}
+						if (balance[N-1] > 0) return std::nullopt;
 					}
 				}
 			}
