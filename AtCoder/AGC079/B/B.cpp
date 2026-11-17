@@ -913,6 +913,8 @@ int main() {
 						setmin(v, balance[r]);
 						if (C[{l, r}] != -1) {
 							assert(balance[l] - v <= C[{l, r}]);
+							if (balance[l] - v < C[{l, r}]) {
+							}
 						}
 					}
 				}
