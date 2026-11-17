@@ -936,7 +936,7 @@ int main() {
 				continue;
 			}
 			// Our balance is all good now, so we should just reconstruct
-			wala::vec<int> ans(N);
+			std::vector<int> ans(N);
 			return std::move(ans);
 		}();
 		if (sol) {
