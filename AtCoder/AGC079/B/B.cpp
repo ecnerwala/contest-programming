@@ -884,7 +884,7 @@ int main() {
 			// also balance[l] - 1 <= balance[l+1]
 		}
 
-		auto sol = [&]() -> std::optional<std::vector<int>> {
+		auto sol = [&]() -> std::optional<wala::vec<int>> {
 			auto setmax = [&](auto& a, auto b) { if (b > a) a = b; };
 			auto setmin = [&](auto& a, auto b) { if (b < a) a = b; };
 			// all initially >= 0
@@ -938,7 +938,7 @@ int main() {
 			// Our balance is all good now, so we should just reconstruct
 			for (int i = N-1; i >= 0; i--) {
 			}
-			std::vector<int> ans(N, -1);
+			wala::vec<int> ans(N, -1);
 			return std::move(ans);
 		}();
 		if (sol) {
