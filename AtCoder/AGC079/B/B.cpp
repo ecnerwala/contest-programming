@@ -949,6 +949,11 @@ int main() {
 				if (prv != -1) par[prv] = i;
 				stk.push_back(i);
 			}
+			{
+				int prv = -1;
+				while (stk.size() > 0) {
+				}
+			}
 			wala::vec<int> ans(N, -1);
 			return std::move(ans);
 		}();
