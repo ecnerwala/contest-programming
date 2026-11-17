@@ -931,8 +931,8 @@ int main() {
 						break;
 					}
 				}
-				if (balance[N-1] > 0) return std::nullopt;
 				if (!changed) break;
+				if (balance[N-1] > 0) return std::nullopt;
 			}
 		}();
 		if (sol) {
