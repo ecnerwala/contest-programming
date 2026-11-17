@@ -946,7 +946,6 @@ int main() {
 					ans[stk.back()] = nxt_ans;
 					stk.pop_back();
 				}
-				if (prv != -1) par[prv] = i;
 				stk.push_back(i);
 			}
 			{
