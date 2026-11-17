@@ -908,12 +908,6 @@ int main() {
 					}
 				}
 			}
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					std::cerr << dist[{i, j}] << ' ';
-				}
-				std::cerr << '\n';
-			}
 			wala::vec<int> balance(N, 0);
 			while (true) {
 				bool changed = false;
