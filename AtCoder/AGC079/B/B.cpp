@@ -925,7 +925,6 @@ int main() {
 						}
 					}
 					if (increase_l) {
-						std::cerr << "increase " << l << '\n';
 						// must increase l
 						balance[l]++;
 						for (int i = l; i < N; i++) {
