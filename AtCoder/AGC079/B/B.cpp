@@ -914,6 +914,7 @@ int main() {
 						if (C[{l, r}] != -1) {
 							assert(balance[l] - v <= C[{l, r}]);
 							if (balance[l] - v < C[{l, r}]) {
+								// must increase l
 							}
 						}
 					}
