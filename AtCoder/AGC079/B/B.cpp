@@ -943,6 +943,7 @@ int main() {
 				int prv = -1;
 				while (stk.size() > balance[i]) {
 					if (prv != -1) par[prv] = stk.back();
+					prv = stk.back();
 					stk.pop_back();
 				}
 				stk.push_back(i);
