@@ -905,10 +905,12 @@ int main() {
 					}
 				}
 			}
+			wala::vec<int> balance(N, 0);
 			while (true) {
 				for (int l = N-1; l >= 0; l--) {
-					int min_v = 0;
+					int v = balance[l];
 					for (int r = l; r < N; r++) {
+						setmin(v, balance[r]);
 						if (C[{l, r}] != -1) {
 						}
 					}
@@ -916,9 +918,7 @@ int main() {
 			}
 			for (int l = N-1; l >= 0; l--) {
 			}
-			wala::vec<int> min_balance(N, 0);
 			for (int l = N-1; l >= 0; l--) {
-				int v = min_balance[l];
 				int pref = -N;
 				for (int r = l+1; r <= N; r++) {
 					setmax(pref, min_balance[r]);
