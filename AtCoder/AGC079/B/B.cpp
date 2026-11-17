@@ -925,15 +925,6 @@ int main() {
 					}
 				}
 			}
-			for (int l = N-1; l >= 0; l--) {
-			}
-			for (int l = N-1; l >= 0; l--) {
-				int pref = -N;
-				for (int r = l+1; r <= N; r++) {
-					setmax(pref, min_balance[r]);
-					setmax(v, + C[{l, r}]);
-				}
-			}
 		}();
 		if (sol) {
 			std::cout << "Yes" << '\n';
