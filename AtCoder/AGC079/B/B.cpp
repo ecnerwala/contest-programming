@@ -940,6 +940,7 @@ int main() {
 			wala::vec<int> par(N, -1);
 			for (int i = N-1; i >= 0; i--) {
 				assert(stk.size() >= balance[i]);
+				int prv = -1;
 				while (stk.size() > balance[i]) {
 					stk.pop_back();
 				}
