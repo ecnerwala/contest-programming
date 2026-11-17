@@ -907,6 +907,7 @@ int main() {
 			}
 			wala::vec<int> balance(N, 0);
 			while (true) {
+				bool changed = false;
 				for (int l = N-1; l >= 0; l--) {
 					int v = balance[l];
 					for (int r = l; r < N; r++) {
