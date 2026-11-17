@@ -917,7 +917,7 @@ int main() {
 								// must increase l
 								balance[l]++;
 								for (int i = l; i < N; i++) {
-
+									setmax(balance[i], balance[l] - dist[{l, i}]);
 								}
 							}
 						}
