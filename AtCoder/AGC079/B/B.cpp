@@ -912,6 +912,7 @@ int main() {
 					for (int r = l; r < N; r++) {
 						setmin(v, balance[r]);
 						if (C[{l, r}] != -1) {
+							assert(balance[l] - v <= C[{l, r}]);
 						}
 					}
 				}
