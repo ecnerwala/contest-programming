@@ -941,7 +941,6 @@ int main() {
 			int nxt_ans = 0;
 			for (int i = N-1; i >= 0; i--) {
 				assert(stk.size() >= balance[i]);
-				int prv = -1;
 				while (stk.size() > balance[i]) {
 					ans[stk.back()] = nxt_ans++;
 					stk.pop_back();
