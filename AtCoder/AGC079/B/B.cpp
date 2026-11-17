@@ -942,6 +942,7 @@ int main() {
 				assert(stk.size() >= balance[i]);
 				int prv = -1;
 				while (stk.size() > balance[i]) {
+					if (prv != -1) par[prv] = stk.back();
 					stk.pop_back();
 				}
 				stk.push_back(i);
