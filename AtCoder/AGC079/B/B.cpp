@@ -905,6 +905,8 @@ int main() {
 					}
 				}
 			}
+			while (true) {
+			}
 			for (int l = N-1; l >= 0; l--) {
 			}
 			wala::vec<int> min_balance(N, 0);
