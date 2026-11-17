@@ -943,15 +943,14 @@ int main() {
 				assert(stk.size() >= balance[i]);
 				int prv = -1;
 				while (stk.size() > balance[i]) {
-					ans[stk.back()] = nxt_ans;
+					ans[stk.back()] = nxt_ans++;
 					stk.pop_back();
 				}
 				stk.push_back(i);
 			}
-			{
-				int prv = -1;
-				while (stk.size() > 0) {
-				}
+			while (!stk.empty()) {
+				ans[stk.back()] = nxt_ans++;
+				stk.pop_back();
 			}
 			return std::move(ans);
 		}();
