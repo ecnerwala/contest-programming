@@ -877,7 +877,7 @@ int main() {
 		for (int z = 0; z < M; z++) {
 			int l, r, c; std::cin >> l >> r >> c; l--, r--;
 			assert(r - l + 1 >= 2);
-			assert(C[{l, r}] == -1);
+			assert((C[{l, r}] == -1));
 			assert(c >= 1);
 			C[{l, r}] = c-1;
 			// C[{l, r}] means balance[l] - C[{l, r}] = min{l <= i <= r} balance[i]
