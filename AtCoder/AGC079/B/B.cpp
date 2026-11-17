@@ -907,6 +907,8 @@ int main() {
 			}
 			while (true) {
 				for (int l = N-1; l >= 0; l--) {
+					for (int r = l+1; r <= N; r++) {
+					}
 				}
 			}
 			for (int l = N-1; l >= 0; l--) {
