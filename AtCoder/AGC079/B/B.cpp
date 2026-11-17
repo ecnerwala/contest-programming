@@ -946,6 +946,7 @@ int main() {
 					prv = stk.back();
 					stk.pop_back();
 				}
+				par[prv] = i;
 				stk.push_back(i);
 			}
 			wala::vec<int> ans(N, -1);
