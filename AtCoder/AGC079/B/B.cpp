@@ -894,7 +894,7 @@ int main() {
 				dist[{l, l}] = 0;
 				int v = N;
 				for (int r = N-1; r > l; r--) {
-					if (C[{l, r}]) setmin(v, C[{l, r}]);
+					if (C[{l, r}] != -1) setmin(v, C[{l, r}]);
 					dist[{l, r}] = v;
 				}
 				if (l+1 < N) {
