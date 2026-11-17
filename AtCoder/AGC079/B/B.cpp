@@ -936,6 +936,7 @@ int main() {
 				continue;
 			}
 			// Our balance is all good now, so we should just reconstruct
+			wala::vec<int> ans(N);
 		}();
 		if (sol) {
 			std::cout << "Yes" << '\n';
