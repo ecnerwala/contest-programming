@@ -907,6 +907,7 @@ int main() {
 			}
 			while (true) {
 				for (int l = N-1; l >= 0; l--) {
+					int min_v = 0;
 					for (int r = l; r < N; r++) {
 						if (C[{l, r}] != -1) {
 						}
