@@ -935,6 +935,7 @@ int main() {
 				if (balance[N-1] > 0) return std::nullopt;
 				continue;
 			}
+			// Our balance is all good now, so we should just reconstruct
 		}();
 		if (sol) {
 			std::cout << "Yes" << '\n';
