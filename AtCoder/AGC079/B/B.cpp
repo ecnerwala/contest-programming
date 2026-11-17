@@ -909,6 +909,7 @@ int main() {
 			while (true) {
 				bool changed = false;
 				for (int l = N-1; l >= 0; l--) {
+					bool increase_l = false;
 					int v = balance[l];
 					for (int r = l; r < N; r++) {
 						setmin(v, balance[r]);
