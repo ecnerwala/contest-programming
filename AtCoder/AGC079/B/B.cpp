@@ -936,7 +936,7 @@ int main() {
 				continue;
 			}
 			// Our balance is all good now, so we should just reconstruct
-			std::vector<int> ans(N);
+			std::vector<int> ans(N, -1);
 			return std::move(ans);
 		}();
 		if (sol) {
