@@ -951,7 +951,7 @@ int main() {
 				ans[stk.back()] = nxt_ans++;
 				stk.pop_back();
 			}
-			return std::move(ans);
+			return ans;
 		}();
 		if (sol) {
 			std::cout << "Yes" << '\n';
