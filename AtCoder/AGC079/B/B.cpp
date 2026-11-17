@@ -919,6 +919,7 @@ int main() {
 								for (int i = l; i < N; i++) {
 									setmax(balance[i], balance[l] - dist[{l, i}]);
 								}
+								if (balance[N-1] > 0) return std::nullopt;
 							}
 						}
 					}
