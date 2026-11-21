@@ -9,7 +9,7 @@ int main() {
 		int N; std::cin >> N;
 		std::vector<int> A(N); for (auto& a : A) std::cin >> a;
 		std::vector<int64_t> pref(N+1);
-		for (int i = 0; i < N; i++) std::cin >> pref[i];
+		for (int i = 0; i < N; i++) pref[i+1] = pref[i] + A[i];
 		int lo = 0, hi = N-1;
 	}
 
