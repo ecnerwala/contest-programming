@@ -2525,6 +2525,7 @@ int main() {
 		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
 		}
+		std::cout << mi << '\n';
 	}
 
 	return 0;
