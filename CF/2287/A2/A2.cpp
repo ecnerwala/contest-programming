@@ -28,6 +28,7 @@ int main() {
 				}
 			} else assert(false);
 		}
+		return loc;
 	};
 	int T; std::cin >> T;
 	while (T--) {
