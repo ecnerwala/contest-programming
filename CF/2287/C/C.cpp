@@ -8,3 +8,5 @@ int main() {
 }
 
 // b_2 == 2, otherwise b_1 choices are paired
+// b_3 = any odd >= 3
+// b_4 = 
