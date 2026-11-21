@@ -709,8 +709,8 @@ int main() {
 
 	const int M = int(5e4);
 	const int N = int(5e4);
-	wala::vec<bool> v(M+1, true);
-	wala::vec<bool> mu(M+1, true);
+	std::vector<bool> v(M+1, true);
+	std::vector<bool> mu(M+1, true);
 	for (int i = 2; i * i <= M; i++) {
 		for (int j = 1; j * i * i <= M; j++) mu[j*i*i] = false;
 	}
