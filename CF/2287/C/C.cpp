@@ -721,7 +721,7 @@ int main() {
 				if (!mu[g]) continue;
 
 				bool p = 0;
-				for (int b = 1; b * g <= M; b++) {
+				for (int b = (i-1)/g+1; b * g <= M; b++) {
 					nv[b*g] ^= p;
 					p ^= v[b*g];
 				}
