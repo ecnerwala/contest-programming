@@ -34,6 +34,7 @@ int main() {
 	auto solve = [&](int N) -> std::string {
 		std::string S; S.reserve(8 * N);
 		for (int z = 0; z < 2 * N; z++) {
+			S += "+---";
 		}
 	};
 	auto test = [&](int N, std::string S) -> void {
