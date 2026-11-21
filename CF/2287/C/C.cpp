@@ -726,10 +726,10 @@ int main() {
 					p ^= v[b];
 				}
 			}
+			v = std::move(nv);
 		}
 		std::cerr << i << ' ';
-		for (int b = 1; b <= M; b++) { std::cerr << nv[b]; } std::cerr << '\n';
-		v = std::move(nv);
+		for (int b = 1; b <= M; b++) { std::cerr << v[b]; } std::cerr << '\n';
 	}
 
 	return 0;
