@@ -19,6 +19,8 @@ int main() {
 			int64_t chi = pref[hi] - pref[0];
 			int64_t clo = pref[N] - pref[lo+1];
 			ans = std::min(ans, std::max({cost_1, chi, clo}));
+			if (chi > clo) cost_1 += A[--hi];
+			else cost_1 += A[++lo];
 		}
 	}
 
