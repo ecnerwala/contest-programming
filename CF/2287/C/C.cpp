@@ -717,6 +717,7 @@ int main() {
 			for (int a = 1; a < b; a++) {
 			}
 		}
+		for (int b = 1; b <= M; b++) { std::cerr << nv[b]; } std::cerr << '\n';
 	}
 
 	return 0;
