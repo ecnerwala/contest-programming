@@ -722,8 +722,8 @@ int main() {
 
 				bool p = 0;
 				for (int b = 1; b * g <= M; b++) {
-					nv[b] ^= p;
-					p ^= v[b];
+					nv[b*g] ^= p;
+					p ^= v[b*g];
 				}
 			}
 			v = std::move(nv);
