@@ -16,6 +16,7 @@ int main() {
 		int lo = 0, hi = N-1;
 		int64_t cost_1 = A[lo] + A[hi];
 		while (hi - lo > 1) {
+			ans = std::min(ans, std::max(cost_1, ));
 		}
 	}
 
