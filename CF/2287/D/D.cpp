@@ -2515,6 +2515,7 @@ private:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
+	std::mt19937 mt(48);
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
@@ -2533,6 +2534,7 @@ int main() {
 		while (ma - mi > 1) {
 			int md = (mi + ma) / 2;
 			ps coeffs(N);
+			for (int i = 0; i < md; i++) coeffs[N-1-P[i]] = mt();
 			auto res = wala::series::middle_product(vals_cached, coeffs);
 		}
 		std::cout << mi << '\n';
