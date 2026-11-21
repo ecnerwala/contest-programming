@@ -8,7 +8,7 @@ int main() {
 		int ans = X + Y;
 		int loc = 0;
 		for (int i = 0; i < int(S.size()); i++) {
-		for (char c : S) {
+			char c = S[i];
 			if (c == '+') {
 				if (Y > 0) {
 					Y++;
