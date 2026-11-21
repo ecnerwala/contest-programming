@@ -2538,6 +2538,11 @@ int main() {
 			for (int i = 0; i < md; i++) coeffs[N-1-P[i]] = num(mt());
 			auto res = wala::series::middle_product(vals_cached, coeffs);
 			std::sort(res.begin(), res.end(), [&](auto a, auto b) -> bool { return uint64_t(a) < uint64_t(b); });
+			if (std::unique(res.begin(), res.end()) != res.end()) {
+				mi = md;
+			} else {
+				ma = md;
+			}
 		}
 		std::cout << mi << '\n';
 	}
