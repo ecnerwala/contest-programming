@@ -711,7 +711,7 @@ int main() {
 	const int N = int(5e4);
 	wala::vec<bool> v(M+1, true);
 	wala::vec<bool> mu(M+1, true);
-	for (int i = 1; i * i <= M; i++) {
+	for (int i = 1; i <= M; i++) {
 	}
 	for (int i = 1; i <= N; i++) {
 		if (i > 1) {
