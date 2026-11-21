@@ -23,7 +23,7 @@ int main() {
 					X++;
 					ans = std::max(ans, X + Y);
 				} else if (Y == 1) {
-					ans = std::max(ans, X + Y);
+					if (X > 0) X--;
 				}
 			} else assert(false);
 		}
