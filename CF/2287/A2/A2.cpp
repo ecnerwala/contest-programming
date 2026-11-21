@@ -38,7 +38,8 @@ int main() {
 		}
 		return S;
 	};
-	auto test = [&](int N, std::string S) -> void {
+	auto test = [&](int N) -> void {
+		std::string S = solve(N);
 	};
 
 	int T; std::cin >> T;
