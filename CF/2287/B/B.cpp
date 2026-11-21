@@ -8,6 +8,7 @@ int main() {
 	while (T--) {
 		int N; std::cin >> N;
 		std::vector<int> A(N);
+		int lo = 0, hi = N-1;
 	}
 
 	return 0;
