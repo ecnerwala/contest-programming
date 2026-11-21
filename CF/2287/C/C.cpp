@@ -720,6 +720,7 @@ int main() {
 		}
 		std::cerr << i << ' ';
 		for (int b = 1; b <= M; b++) { std::cerr << nv[b]; } std::cerr << '\n';
+		v = std::move(nv);
 	}
 
 	return 0;
