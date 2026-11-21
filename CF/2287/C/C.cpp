@@ -716,6 +716,14 @@ int main() {
 	}
 	for (int i = 1; i <= N; i++) {
 		if (i > 1) {
+			wala::vec<bool> nv(M+1);
+			for (int g = 1; g <= M; g++) {
+				if (!mu[g]) continue;
+
+				for (int b = 1; b * g <= M; b++) {
+					nv[b]
+				}
+			}
 			for (int b = 1; b <= M; b++) {
 				if (i == 1) { nv[b] = true; continue; }
 				for (int a = 1; a < b; a++) {
