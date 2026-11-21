@@ -42,7 +42,7 @@ int main() {
 		std::string S = solve(N);
 		for (int X = 0; X <= N; X++) {
 			int res = eval(X, N - X, S);
-			assert(Y == (K + 2) / 3);
+			assert(N - K == (K + 2) / 3);
 			std::cerr << X << ' ' << N-X << ' ' << res << '\n';
 		}
 		std::cerr << '\n';
