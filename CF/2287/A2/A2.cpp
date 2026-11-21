@@ -40,6 +40,10 @@ int main() {
 	};
 	auto test = [&](int N) -> void {
 		std::string S = solve(N);
+		for (int X = 0; X <= N; X++) {
+			int res = eval(X, N - X, S);
+			std::cerr << res << '\n';
+		}
 	};
 
 	int T; std::cin >> T;
