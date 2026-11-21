@@ -54,6 +54,7 @@ int main() {
 	while (T--) {
 		int N; std::cin >> N;
 		std::cout << solve(N) << '\n' << std::flush;
+		int K; std::cin >> K;
 	}
 
 	return 0;
