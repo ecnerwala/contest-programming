@@ -726,7 +726,6 @@ int main() {
 					p ^= v[b];
 				}
 			}
-			v = std::move(nv);
 		}
 		std::cerr << i << ' ';
 		for (int b = 1; b <= M; b++) { std::cerr << nv[b]; } std::cerr << '\n';
