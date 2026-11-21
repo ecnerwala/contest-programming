@@ -18,7 +18,9 @@ int main() {
 					X--, Y++;
 				}
 			} else if (c == '-') {
-			}
+				if (Y > 1) {
+				}
+			} else assert(false);
 		}
 	}
 
