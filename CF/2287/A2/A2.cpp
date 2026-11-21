@@ -42,9 +42,13 @@ int main() {
 		std::string S = solve(N);
 		for (int X = 0; X <= N; X++) {
 			int res = eval(X, N - X, S);
-			std::cerr << res << '\n';
+			std::cerr << X << ' ' << N-X << ' ' << res << '\n';
 		}
+		std::cerr << '\n';
 	};
+	for (int N = 1; N <= 10; N++) {
+		test(1);
+	}
 
 	int T; std::cin >> T;
 	while (T--) {
