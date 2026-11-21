@@ -2518,7 +2518,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
-		wala::vec<int> W(N);
+		wala::vec<int> P(N);
 	}
 
 	return 0;
