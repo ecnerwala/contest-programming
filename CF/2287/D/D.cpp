@@ -2525,7 +2525,7 @@ int main() {
 		using num = wala::mod_goldilocks;
 		using eng = wala::fft::engines::ntt<num>;
 		using ps = wala::series::exact<eng>;
-		ps vals(N);
+		ps vals(2*N-1);
 		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
 		}
