@@ -31,6 +31,9 @@ int main() {
 		return loc;
 	};
 
+	auto test = [&](int N, std::string S) -> void {
+	}
+
 	int T; std::cin >> T;
 	while (T--) {
 	}
