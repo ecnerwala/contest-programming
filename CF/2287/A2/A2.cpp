@@ -8,6 +8,8 @@ int main() {
 		std::string S; std::cin >> S;
 		int ans = X + Y;
 		int loc = 0;
+		for (int i = 0; i < N; i++) {
+		}
 		for (char c : S) {
 			if (c == '+') {
 				if (Y > 0) {
