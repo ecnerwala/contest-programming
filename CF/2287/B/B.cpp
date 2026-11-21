@@ -11,7 +11,8 @@ int main() {
 		std::vector<int64_t> pref(N+1);
 		for (int i = 0; i < N; i++) pref[i+1] = pref[i] + A[i];
 
-		int ans = pref[N];
+		int64_t ans = pref[N];
+
 		int lo = 0, hi = N-1;
 		while (hi - lo > 1) {
 		}
