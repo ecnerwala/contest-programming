@@ -8,6 +8,8 @@ int main() {
 	while (T--) {
 		int X, Y, M; std::cin >> X >> Y >> M;
 		std::string S; std::cin >> S;
+		for (char c : S) {
+		}
 	}
 
 	return 0;
