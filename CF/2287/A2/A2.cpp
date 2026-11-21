@@ -33,7 +33,7 @@ int main() {
 
 	auto solve = [&](int N) -> std::string {
 		std::string S; S.reserve(8 * N);
-		for (int z = 0; z < 2 * N; z++) {
+		for (int z = 0; z < N; z++) {
 			S += "+--";
 		}
 		return S;
