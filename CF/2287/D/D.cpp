@@ -2531,6 +2531,7 @@ int main() {
 
 		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
+			int md = (mi + ma) / 2;
 			ps coeffs(N);
 			auto res = wala::series::middle_product(vals_cached, coeffs);
 		}
