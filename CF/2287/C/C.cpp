@@ -710,7 +710,7 @@ int main() {
 	int M = 100;
 	int N = 100;
 	wala::vec<bool> v(N, true);
-	for (int i = 0; i < N; i++) {
+	for (int i = 1; i < N; i++) {
 	}
 
 	return 0;
