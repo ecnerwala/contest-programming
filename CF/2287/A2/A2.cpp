@@ -47,7 +47,7 @@ int main() {
 		std::cerr << '\n';
 	};
 	for (int N = 1; N <= 10; N++) {
-		test(1);
+		test(N);
 	}
 
 	int T; std::cin >> T;
