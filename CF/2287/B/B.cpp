@@ -7,6 +7,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
+		std::vector<int> A(N);
 	}
 
 	return 0;
