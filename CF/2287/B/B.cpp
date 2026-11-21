@@ -6,3 +6,5 @@ int main() {
 
 	return 0;
 }
+
+// If train 1 doesn't stop at station X, then train 2 must take X <-> everything
