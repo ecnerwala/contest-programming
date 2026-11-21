@@ -2521,6 +2521,10 @@ int main() {
 		std::string S; S.reserve(N); std::cin >> S;
 		wala::vec<int> P(N);
 		for (auto& p : P) { std::cin >> p; p--; }
+
+		int mi = 0, ma = N;
+		while (ma - mi > 1) {
+		}
 	}
 
 	return 0;
