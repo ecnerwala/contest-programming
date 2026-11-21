@@ -12,6 +12,7 @@ int main() {
 			if (c == '+') {
 				if (Y > 0) {
 					Y++;
+					if (X + Y > ans) ans = X + Y, loc = i+1;
 					ans = std::max(ans, X + Y);
 				} else if (X > 0) {
 					X--, Y++;
