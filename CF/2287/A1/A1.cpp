@@ -25,7 +25,7 @@ int main() {
 				} else if (Y == 1) {
 					if (X > 0) X--;
 					else { X++, Y--; }
-				} else if (Y == 0) {
+				} else {
 					if (X > 0) X--;
 				}
 			} else assert(false);
