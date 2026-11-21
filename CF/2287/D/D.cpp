@@ -2527,6 +2527,8 @@ int main() {
 		using ps = wala::series::exact<eng>;
 		ps vals(2*N-1);
 		for (int i = 0; i < 2*N-1; i++) vals[i] = num(S[i%N]);
+		wala::series::cached_exact<eng> = vals;
+
 		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
 		}
