@@ -32,7 +32,9 @@ int main() {
 	};
 
 	auto solve = [&](int N) -> std::string {
-		std::string S(8 * N);
+		std::string S; S.reserve(8 * N);
+		for (int z = 0; z < 2 * N; z++) {
+		}
 	};
 	auto test = [&](int N, std::string S) -> void {
 	};
