@@ -31,7 +31,8 @@ int main() {
 		return loc;
 	};
 
-	auto solve = [&](int N) -> std::string S {
+	auto solve = [&](int N) -> std::string {
+		std::string S(8 * N);
 	};
 	auto test = [&](int N, std::string S) -> void {
 	};
