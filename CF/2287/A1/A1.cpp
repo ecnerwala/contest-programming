@@ -30,6 +30,7 @@ int main() {
 				}
 			} else assert(false);
 		}
+		std::cout << ans << '\n';
 	}
 
 	return 0;
