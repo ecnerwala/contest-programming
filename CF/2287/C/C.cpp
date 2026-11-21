@@ -722,7 +722,7 @@ int main() {
 
 				bool p = 0;
 				for (int b = 1; b * g <= M; b++) {
-					nv[b*g] ^= p;
+					nv[b*g].flip(p);
 					p ^= v[b*g];
 				}
 			}
