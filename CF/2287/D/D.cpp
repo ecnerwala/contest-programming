@@ -2522,6 +2522,7 @@ int main() {
 		wala::vec<int> P(N);
 		for (auto& p : P) { std::cin >> p; p--; }
 
+		using num = wala::mod_goldilocks;
 		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
 		}
