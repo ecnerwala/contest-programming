@@ -2522,7 +2522,7 @@ int main() {
 		wala::vec<int> P(N);
 		for (auto& p : P) { std::cin >> p; p--; }
 
-		int mi = 0, ma = N;
+		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
 		}
 	}
