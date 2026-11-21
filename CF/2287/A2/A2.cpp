@@ -11,4 +11,4 @@ int main() {
 	return 0;
 }
 
-// We should do sequences of +---
+// We should do sequences of +---, and then
