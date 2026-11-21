@@ -5,7 +5,7 @@
 # +--------------------+
 
 PROBLEM_NAME := C
-DEBUG := true
+DEBUG := false
 ALLOW_FAILS := false
 LANG := cpp
 RUN_TARGET := __run_default
