@@ -709,11 +709,10 @@ int main() {
 
 	const int M = int(5e4);
 	const int N = int(5e4);
-	wala::vec<bool> v(M+1);
+	wala::vec<bool> v(M+1, true);
 	for (int i = 1; i <= N; i++) {
-		if (i == 1) {
+		if (i > 1) {
 		}
-		wala::vec<bool> nv(M+1);
 		for (int b = 1; b <= M; b++) {
 			if (i == 1) { nv[b] = true; continue; }
 			for (int a = 1; a < b; a++) {
