@@ -2523,6 +2523,7 @@ int main() {
 		for (auto& p : P) { std::cin >> p; p--; }
 
 		using num = wala::mod_goldilocks;
+		using E = wala::fft::engines::ntt<num>;
 		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
 		}
