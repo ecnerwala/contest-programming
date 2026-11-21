@@ -5,11 +5,9 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	auto eval = [&](int X, int Y, std::string S) -> int {
-		std::string S; std::cin >> S;
 		int ans = X + Y;
 		int loc = 0;
-		for (int i = 0; i < N; i++) {
-		}
+		for (int i = 0; i < int(S.size()); i++) {
 		for (char c : S) {
 			if (c == '+') {
 				if (Y > 0) {
