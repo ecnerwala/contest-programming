@@ -2532,7 +2532,7 @@ int main() {
 		int mi = 0, ma = N+1;
 		while (ma - mi > 1) {
 			ps coeffs(N);
-			wala::series::middle_product(vals_cached, coeffs);
+			auto res = wala::series::middle_product(vals_cached, coeffs);
 		}
 		std::cout << mi << '\n';
 	}
