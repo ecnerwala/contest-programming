@@ -720,8 +720,9 @@ int main() {
 			for (int g = 1; g <= M; g++) {
 				if (!mu[g]) continue;
 
+				num p = 1;
 				for (int b = 1; b * g <= M; b++) {
-					nv[b]
+					nv[b] ^= p;
 				}
 			}
 			for (int b = 1; b <= M; b++) {
