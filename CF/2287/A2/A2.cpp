@@ -31,7 +31,7 @@ int main() {
 		return loc;
 	};
 
-	auto solve = [&](int N, std::string S) -> void {
+	auto solve = [&](int N) -> std::string S {
 	};
 	auto test = [&](int N, std::string S) -> void {
 	};
