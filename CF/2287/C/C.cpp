@@ -708,7 +708,7 @@ int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
 	const int M = int(5e4);
-	int N = 100;
+	const int N = int(5e4);
 	wala::vec<bool> v(M+1);
 	for (int i = 1; i <= N; i++) {
 		wala::vec<bool> nv(M+1);
