@@ -727,7 +727,7 @@ int main() {
 					p ^= v[b*g];
 				}
 			}
-			v = std::move(nv);
+			std::swap(v, nv);
 		}
 		if (i <= 100) {
 		std::cerr << i << ' ';
