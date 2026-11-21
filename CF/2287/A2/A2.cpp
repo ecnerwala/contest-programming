@@ -30,6 +30,7 @@ int main() {
 		}
 		return loc;
 	};
+
 	int T; std::cin >> T;
 	while (T--) {
 	}
