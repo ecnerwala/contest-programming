@@ -709,20 +709,20 @@ int main() {
 
 	const int M = int(5e4);
 	const int N = int(5e4);
-	std::vector<bool> v(M+1, true);
-	std::vector<bool> mu(M+1, true);
+	wala::vec<bool> v(M+1, true);
+	wala::vec<bool> mu(M+1, true);
 	for (int i = 2; i * i <= M; i++) {
 		for (int j = 1; j * i * i <= M; j++) mu[j*i*i] = false;
 	}
 	for (int i = 1; i <= N; i++) {
 		if (i > 1) {
-			std::vector<bool> nv(M+1);
+			wala::vec<bool> nv(M+1);
 			for (int g = 1; g <= M; g++) {
 				if (!mu[g]) continue;
 
 				bool p = 0;
 				for (int b = 1; b * g <= M; b++) {
-					nv[b*g].flip(p);
+					nv[b*g] ^= p;
 					p ^= v[b*g];
 				}
 			}
