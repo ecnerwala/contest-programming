@@ -21,7 +21,6 @@ int main() {
 				if (Y > 1) {
 					Y--;
 					X++;
-					ans = std::max(ans, X + Y);
 				} else if (Y == 1) {
 					if (X > 0) X--;
 					else { X++, Y--; }
