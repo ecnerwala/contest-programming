@@ -8,6 +8,9 @@ int main() {
 	while (T--) {
 		int N; std::cin >> N;
 		std::vector<int> A(N);
+		for (auto& a : A) std::cin >> a;
+		std::vector<int64_t> pref(N+1);
+		for (int i = 0; i <)
 		int lo = 0, hi = N-1;
 	}
 
