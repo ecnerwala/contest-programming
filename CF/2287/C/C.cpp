@@ -6,3 +6,5 @@ int main() {
 
 	return 0;
 }
+
+// b_2 == 2, otherwise b_1 choices are paired
