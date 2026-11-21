@@ -717,6 +717,7 @@ int main() {
 	wala::vec<bool> nv(M+1);
 	for (int i = 1; i <= N; i++) {
 		if (i > 1) {
+			std::fill(nv.begin(), nv.end(), false);
 			for (int g = 1; g <= M; g++) {
 				if (!mu[g]) continue;
 
