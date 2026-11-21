@@ -2518,7 +2518,7 @@ int main() {
 	int T; std::cin >> T;
 	while (T--) {
 		int N; std::cin >> N;
-		std::string S; std::cin >> S;
+		std::string S; S.reserve(N); std::cin >> S;
 		wala::vec<int> P(N);
 	}
 
