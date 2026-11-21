@@ -395,7 +395,6 @@ shrink_to_fit();
 return std::move(static_cast<base&>(*this)).into_vec();
 }
 bounded_vec<T>into_bounded()&&{return std::move(static_cast<base&>(*this));}
-bounded_stack<T>into_stack()&&{return std::move(static_cast<base&>(*this)).into_stack();}
 void set_capacity(size_type n){
 debug_assert(n>=size(),"reserving less capacity {} than size {}",n,size());
 base::operator=(base(with_capacity{n},std::from_range,*this|std::views::as_rvalue));
