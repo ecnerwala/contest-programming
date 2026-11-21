@@ -2515,7 +2515,7 @@ private:
 int main() {
 	std::ios_base::sync_with_stdio(false), std::cin.tie(nullptr);
 
-	std::mt19937 mt(48);
+	std::mt19937_64 mt(48);
 
 	int T; std::cin >> T;
 	while (T--) {
