@@ -2520,6 +2520,7 @@ int main() {
 		int N; std::cin >> N;
 		std::string S; S.reserve(N); std::cin >> S;
 		wala::vec<int> P(N);
+		for (auto& p : P) std::cin >> p;
 	}
 
 	return 0;
