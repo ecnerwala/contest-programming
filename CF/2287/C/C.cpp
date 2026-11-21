@@ -718,6 +718,7 @@ int main() {
 				if (std::gcd(a, b) == 1) nv[b] ^= v[a];
 			}
 		}
+		std::cerr << i << ' ';
 		for (int b = 1; b <= M; b++) { std::cerr << nv[b]; } std::cerr << '\n';
 	}
 
