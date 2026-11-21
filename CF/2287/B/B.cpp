@@ -14,6 +14,7 @@ int main() {
 		int64_t ans = pref[N];
 
 		int lo = 0, hi = N-1;
+		int64_t cost_1 = A[lo] + A[hi];
 		while (hi - lo > 1) {
 		}
 	}
