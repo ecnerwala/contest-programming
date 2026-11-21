@@ -8,6 +8,7 @@ int main() {
 	while (T--) {
 		int X, Y, M; std::cin >> X >> Y >> M;
 		std::string S; std::cin >> S;
+		int ans = X + Y;
 		for (char c : S) {
 			if (c == '+') {
 			} else if (c == '-') {
