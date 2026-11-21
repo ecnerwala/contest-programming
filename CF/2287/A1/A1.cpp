@@ -9,6 +9,9 @@ int main() {
 		int X, Y, M; std::cin >> X >> Y >> M;
 		std::string S; std::cin >> S;
 		for (char c : S) {
+			if (c == '+') {
+			} else if (c == '-') {
+			}
 		}
 	}
 
