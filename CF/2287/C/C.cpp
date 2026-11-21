@@ -732,6 +732,7 @@ int main() {
 		std::cerr << i << ' ';
 		for (int b = 1; b <= 100; b++) { std::cerr << v[b]; } std::cerr << '\n';
 		}
+		if (i % 1000 == 0) std::cerr << i << '\n';
 	}
 
 	return 0;
