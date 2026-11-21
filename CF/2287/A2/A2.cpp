@@ -56,7 +56,7 @@ int main() {
 		std::cout << solve(N) << '\n' << std::flush;
 		int K; std::cin >> K;
 		int Y = (K + 2) / 3;
-		std::cout << N + Y << '\n';
+		std::cout << N + Y << '\n' << std::flush;
 	}
 
 	return 0;
