@@ -11,6 +11,8 @@ int main() {
 		int ans = X + Y;
 		for (char c : S) {
 			if (c == '+') {
+				if (Y > 0) {
+				}
 			} else if (c == '-') {
 			}
 		}
