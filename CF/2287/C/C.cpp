@@ -719,7 +719,6 @@ int main() {
 			wala::vec<bool> nv(M+1);
 			for (int g = 1; g <= M; g++) {
 				if (!mu[g]) continue;
-				std::cerr << g << '\n';
 
 				bool p = 0;
 				for (int b = 1; b * g <= M; b++) {
