@@ -36,6 +36,7 @@ int main() {
 		for (int z = 0; z < 2 * N; z++) {
 			S += "+---";
 		}
+		return S;
 	};
 	auto test = [&](int N, std::string S) -> void {
 	};
