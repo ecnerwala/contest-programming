@@ -12,6 +12,7 @@ int main() {
 		for (char c : S) {
 			if (c == '+') {
 				if (Y > 0) {
+					Y++;
 				} else if (X > 0) {
 					X--, Y++;
 				}
