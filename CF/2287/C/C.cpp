@@ -729,7 +729,7 @@ int main() {
 			v = std::move(nv);
 		}
 		std::cerr << i << ' ';
-		for (int b = 1; b <= 100; b++) { std::cerr << v[b]; } std::cerr << '\n';
+		if (i <= 100) for (int b = 1; b <= 100; b++) { std::cerr << v[b]; } std::cerr << '\n';
 	}
 
 	return 0;
