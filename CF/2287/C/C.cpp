@@ -709,7 +709,7 @@ int main() {
 
 	int M = 100;
 	int N = 100;
-	wala::vec<bool> v(N);
+	wala::vec<bool> v(N, true);
 	for (int i = 0; i < N; i++) {
 	}
 
