@@ -7,6 +7,7 @@ int main() {
 	auto eval = [&](int X, int Y, std::string S) -> int {
 		std::string S; std::cin >> S;
 		int ans = X + Y;
+		int loc = 0;
 		for (char c : S) {
 			if (c == '+') {
 				if (Y > 0) {
