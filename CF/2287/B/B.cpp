@@ -22,6 +22,7 @@ int main() {
 			if (chi > clo) cost_1 += A[--hi];
 			else cost_1 += A[++lo];
 		}
+		std::cout << ans << '\n';
 	}
 
 	return 0;
